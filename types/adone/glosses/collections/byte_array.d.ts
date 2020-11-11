@@ -680,7 +680,7 @@ declare namespace adone.collection {
          * Resizes this ByteArray to be backed by a buffer of at least the given capacity.
          * Will do nothing if already that large or larger.
          *
-         * @param capacity	Capacity required
+         * @param capacity    Capacity required
          */
         resize(capacity: number): this;
 

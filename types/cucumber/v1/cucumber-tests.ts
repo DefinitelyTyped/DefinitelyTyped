@@ -13,12 +13,12 @@ function StepSample(this: cucumber.StepDefinitions & cucumber.Hooks) {
     });
 
     hook.Before({ timeout: 1000 }, (scenario: HookScenario, callback: Callback) => {
-		callback();
-	});
+        callback();
+    });
 
     hook.After({ timeout: 1000 }, (scenario: HookScenario, callback: Callback) => {
-		callback();
-	});
+        callback();
+    });
 
     hook.Around((scenario: HookScenario, runScenario: (error: string | null, callback?: () => void) => void) => {
         if (scenario.isFailed()) {

@@ -31,7 +31,17 @@ const VariantBox = () => <Box tx="specialBoxes" />;
 
 export default () => (
     <Box width={1} css={{ height: '100vh' }} py={[1, 2, 3]} ml="1em" display="block">
-        <Flex width={1} alignItems="center" justifyContent="center">
+        <Flex
+            width={1}
+            flexGrow={1}
+            flexShrink={0}
+            alignItems="center"
+            alignContent="start"
+            alignSelf="stretch"
+            justifyItems="center"
+            justifyContent="start"
+            justifySelf="stretch"
+            >
             <Heading fontSize={5} fontWeight="bold">
                 Hi, I'm a heading.
             </Heading>

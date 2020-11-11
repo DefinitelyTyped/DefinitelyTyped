@@ -155,7 +155,7 @@ declare namespace BootstrapDialog {
     interface DialogContext {
         /** Open the dialog. Usage: dialogInstance.open() */
         open(): void;
-        /**  	Close the dialog. Usage: dialogInstance.close() */
+        /**      Close the dialog. Usage: dialogInstance.close() */
         close(): void;
         /**
          * Calling dialog.open() will automatically get this method called first, but if you want to do something on your dialog

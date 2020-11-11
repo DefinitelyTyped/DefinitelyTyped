@@ -250,7 +250,7 @@ declare module "mongoose" {
       isValid(): boolean;
       static createFromTime(time: number): ObjectId;
       static createFromHexString(hexString: string): ObjectId;
-	  static isValid(id?: string|number):boolean;
+      static isValid(id?: string|number):boolean;
     }
   }
 

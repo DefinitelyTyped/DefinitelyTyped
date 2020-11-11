@@ -1,10 +1,10 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.5
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.6
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 //                 Joao Peixoto <https://github.com/Hartimer>
 //                 Michael J. Currie <https://github.com/Basaingeal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.6
 
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
@@ -463,7 +463,7 @@ interface PublicKeyCredentialCreationOptions {
     timeout?: number;
     excludeCredentials?: PublicKeyCredentialDescriptor[];
     authenticatorSelection?: AuthenticatorSelectionCriteria;
-    attestation?: "none" | "indirect" | "direct";
+    attestation?: AttestationConveyancePreference;
     extensions?: AuthenticationExtensionsClientInputs;
 }
 

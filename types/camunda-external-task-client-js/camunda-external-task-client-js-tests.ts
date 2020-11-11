@@ -2,7 +2,7 @@ import { Client, HandlerArgs, Task, TaskService, TopicSubscription, Variables } 
 
 new Client({ baseUrl: '' }); // $ExpectType Client
 new Variables(); // $ExpectType Variables
-new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValue[]
+new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValueMap
 
 const client: Client = new Client({ baseUrl: '' }); // $ExpectType Client
 client.on('subscribe', (topic: string, topicSubscription: TopicSubscription) => {});
@@ -42,6 +42,9 @@ client.subscribe('', {}, (args: HandlerArgs) => {
     task.topicName;
     task.workerId;
 
-    taskService.handleFailure(task, {});
-    taskService.complete(task);
+    taskService.unlock(task); // $ExpectType Promise<void>
+    taskService.extendLock(task, 0); // $ExpectType Promise<void>
+    taskService.handleBpmnError(task, ''); // $ExpectType Promise<void>
+    taskService.handleFailure(task, {}); // $ExpectType Promise<void>
+    taskService.complete(task); // $ExpectType Promise<void>
 });

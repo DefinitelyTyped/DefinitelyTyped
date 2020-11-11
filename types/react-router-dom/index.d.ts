@@ -7,7 +7,7 @@
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { match } from 'react-router';
 import * as React from 'react';
@@ -59,9 +59,9 @@ export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttribut
     innerRef?: React.Ref<HTMLAnchorElement>;
 }
 export function Link<S = H.LocationState>(
-    // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
-    props: React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
+    ...params: Parameters<Link<S>>
 ): ReturnType<Link<S>>;
+
 export interface Link<S = H.LocationState>
     extends React.ForwardRefExoticComponent<
         React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
@@ -72,7 +72,7 @@ export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params>, location: H.Location<S>): boolean;
+    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
     location?: H.Location<S>;
 }
 export function NavLink<S = H.LocationState>(

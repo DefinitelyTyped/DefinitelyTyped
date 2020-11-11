@@ -5,25 +5,33 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
+/// <reference types="node" />
+
+import http = require('http');
+
+type Handler<Request extends http.IncomingMessage, Response extends http.ServerResponse> = (req: Request, res: Response, callback: (err?: Error) => void) => void;
 
 declare namespace morgan {
-    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string | undefined | null;
+    type FormatFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
+        tokens: TokenIndexer<Request, Response>,
+        req: Request,
+        res: Response,
+    ) => string | undefined | null;
 
-    type TokenCallbackFn = (
-        req: express.Request,
-        res: express.Response,
+    type TokenCallbackFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
+        req: Request,
+        res: Response,
         arg?: string | number | boolean,
     ) => string | undefined;
 
-    interface TokenIndexer {
-        [tokenName: string]: TokenCallbackFn;
+    interface TokenIndexer<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> {
+        [tokenName: string]: TokenCallbackFn<Request, Response>;
     }
 
     /**
      * Public interface of morgan logger.
      */
-    interface Morgan {
+    interface Morgan<Request extends http.IncomingMessage, Response extends http.ServerResponse> {
         /***
          * Create a new morgan logger middleware function using the given format
          * and options. The format argument may be a string of a predefined name
@@ -32,21 +40,21 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: string, options?: Options): express.RequestHandler;
+        (format: string, options?: Options<Request, Response>): Handler<Request, Response>;
         /***
          * Standard Apache combined log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
          * @param format
          * @param options
          */
-        (format: 'combined', options?: Options): express.RequestHandler;
+        (format: 'combined', options?: Options<Request, Response>): Handler<Request, Response>;
         /***
          * Standard Apache common log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length]
          * @param format
          * @param options
          */
-        (format: 'common', options?: Options): express.RequestHandler;
+        (format: 'common', options?: Options<Request, Response>): Handler<Request, Response>;
         /**
          * Concise output colored by response status for development use. The
          * :status token will be colored red for server error codes, yellow for
@@ -54,7 +62,7 @@ declare namespace morgan {
          * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
          */
-        (format: 'dev', options?: Options): express.RequestHandler;
+        (format: 'dev', options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * Shorter than default, also including response time.
@@ -62,7 +70,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'short', options?: Options): express.RequestHandler;
+        (format: 'short', options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * The minimal output.
@@ -70,7 +78,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'tiny', options?: Options): express.RequestHandler;
+        (format: 'tiny', options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * Create a new morgan logger middleware function using the given format
@@ -79,50 +87,58 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: FormatFn, options?: Options): express.RequestHandler;
+        (format: FormatFn<Request, Response>, options?: Options<Request, Response>): Handler<Request, Response>;
 
         /**
          * Define a custom token which can be used in custom morgan logging
          * formats.
          */
-        token(name: string, callback: TokenCallbackFn): Morgan;
+        token(name: string, callback: TokenCallbackFn<Request, Response>): Morgan<Request, Response>;
         /**
          * Define a named custom format by specifying a format string in token
          * notation.
          */
-        format(name: string, fmt: string): Morgan;
+        format(name: string, fmt: string): Morgan<Request, Response>;
 
         /**
          * Define a named custom format by specifying a format function.
          */
-        format(name: string, fmt: FormatFn): Morgan;
+        format(name: string, fmt: FormatFn<Request, Response>): Morgan<Request, Response>;
 
         /**
          * Compile a format string in token notation into a format function.
          */
-        compile(format: string): FormatFn;
+        compile(format: string): FormatFn<Request, Response>;
     }
 
     /**
      * Define a custom token which can be used in custom morgan logging formats.
      */
-    function token(name: string, callback: TokenCallbackFn): Morgan;
+    function token<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        name: string,
+        callback: TokenCallbackFn<Request, Response>,
+    ): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format string in token
      * notation.
      */
-    function format(name: string, fmt: string): Morgan;
+    // tslint:disable-next-line:no-unnecessary-generics
+    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(name: string, fmt: string): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format function.
      */
-    function format(name: string, fmt: FormatFn): Morgan;
+    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        name: string,
+        fmt: FormatFn<Request, Response>,
+    ): Morgan<Request, Response>;
 
     /**
      * Compile a format string in token notation into a format function.
      */
-    function compile(format: string): FormatFn;
+    // tslint:disable-next-line:no-unnecessary-generics
+    function compile<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
         /**
@@ -134,7 +150,7 @@ declare namespace morgan {
     /***
      * Morgan accepts these properties in the options object.
      */
-    interface Options {
+    interface Options<Request extends http.IncomingMessage, Response extends http.ServerResponse> {
         /***
          * Buffer duration before writing logs to the stream, defaults to false.
          * When set to true, defaults to 1000 ms.
@@ -153,7 +169,7 @@ declare namespace morgan {
          * Function to determine if logging is skipped, defaults to false. This
          * function will be called as skip(req, res).
          */
-        skip?(req: express.Request, res: express.Response): boolean;
+        skip?(req: Request, res: Response): boolean;
 
         /***
          * Output stream for writing log lines, defaults to process.stdout.
@@ -170,7 +186,10 @@ declare namespace morgan {
  * @param format
  * @param options
  */
-declare function morgan(format: string, options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: string,
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Standard Apache combined log output.
@@ -178,7 +197,10 @@ declare function morgan(format: string, options?: morgan.Options): express.Reque
  * @param format
  * @param options
  */
-declare function morgan(format: 'combined', options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'combined',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Standard Apache common log output.
@@ -186,7 +208,10 @@ declare function morgan(format: 'combined', options?: morgan.Options): express.R
  * @param format
  * @param options
  */
-declare function morgan(format: 'common', options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'common',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Concise output colored by response status for development use. The :status
@@ -196,7 +221,10 @@ declare function morgan(format: 'common', options?: morgan.Options): express.Req
  * @param format
  * @param options
  */
-declare function morgan(format: 'dev', options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'dev',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Shorter than default, also including response time.
@@ -204,7 +232,10 @@ declare function morgan(format: 'dev', options?: morgan.Options): express.Reques
  * @param format
  * @param options
  */
-declare function morgan(format: 'short', options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'short',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * The minimal output.
@@ -212,7 +243,10 @@ declare function morgan(format: 'short', options?: morgan.Options): express.Requ
  * @param format
  * @param options
  */
-declare function morgan(format: 'tiny', options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: 'tiny',
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 /***
  * Create a new morgan logger middleware function using the given format and
@@ -221,6 +255,9 @@ declare function morgan(format: 'tiny', options?: morgan.Options): express.Reque
  * @param format
  * @param options
  */
-declare function morgan(format: morgan.FormatFn, options?: morgan.Options): express.RequestHandler;
+declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    format: morgan.FormatFn<Request, Response>,
+    options?: morgan.Options<Request, Response>,
+): Handler<Request, Response>;
 
 export = morgan;

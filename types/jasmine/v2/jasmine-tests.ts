@@ -610,6 +610,18 @@ describe("A spy", () => {
 
         expect(foo.setBar.calls.any()).toBe(false);
     });
+
+    it("can save arguments by value.", () => {
+        const arr = [1];
+        foo.setBar.calls.saveArgumentsByValue();
+
+        foo.setBar(arr);
+        arr.push(2);
+        foo.setBar(arr);
+
+        expect(foo.setBar.calls.argsFor(0)[0]).toEqual([1]);
+        expect(foo.setBar.calls.argsFor(1)[0]).toEqual([1, 2]);
+    });
 });
 
 describe("A spy, when created manually", () => {
@@ -1097,7 +1109,6 @@ var myReporter: jasmine.CustomReporter = {
 
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
-        //tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
@@ -1109,7 +1120,6 @@ var myReporter: jasmine.CustomReporter = {
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
-        //tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);

@@ -77,41 +77,41 @@ function testHelpers() {
 
 function testLocators() {
 
-	element(by.dataHook("foo"));
-	element(by.dataHook("foo", $('.parentfoo')));
-	element(by.dataHook("foo", undefined          , ".foo"));
-	element(by.dataHook("foo", $('.parentfoo'), ".foo")); // TODO - This might not make much sense, but can technically be used in working code. Opinions welcome
+    element(by.dataHook("foo"));
+    element(by.dataHook("foo", $('.parentfoo')));
+    element(by.dataHook("foo", undefined          , ".foo"));
+    element(by.dataHook("foo", $('.parentfoo'), ".foo")); // TODO - This might not make much sense, but can technically be used in working code. Opinions welcome
 
-	element.all(by.dataHook("foo"));
-	element.all(by.dataHook("foo", $('parentfoo')));
-	element.all(by.dataHook("foo", undefined          , ".foo"));
-	element.all(by.dataHook("foo", $('parentfoo'), ".foo")); // TODO - This might not make much sense, but can technically be used in working code. Opinions welcome
+    element.all(by.dataHook("foo"));
+    element.all(by.dataHook("foo", $('parentfoo')));
+    element.all(by.dataHook("foo", undefined          , ".foo"));
+    element.all(by.dataHook("foo", $('parentfoo'), ".foo")); // TODO - This might not make much sense, but can technically be used in working code. Opinions welcome
 
 }
 
 function testMatchers() {
 
   var expectResult : boolean;
-	expectResult = expect($('.foo')).toBePresent();
-	expectResult = expect($('.foo')).toBeDisplayed();
-	expectResult = expect($$('.foo').count()).toHaveCountOf(1);
-	expectResult = expect($('.foo')).toHaveText("bla");
-	expectResult = expect($('.foo')).toMatchRegex(/bla/);
-	expectResult = expect($('.foo').getText()).toMatchMoney(123, "£");
-	expectResult = expect($('.foo').getText()).toMatchMoneyWithFraction(123.45, "£");
-	expectResult = expect($('input')).toHaveValue(12);
-	expectResult = expect($('input')).toHaveValue("bla");
-	expectResult = expect($('.foo')).toHaveClass("foo");
-	expectResult = expect($('.foo')).toHaveUrl('https://foo.com');
-	expectResult = expect($('.foo')).toBeDisabled();
-	expectResult = expect($('.foo')).toBeChecked();
-	expectResult = expect($('.foo')).toBeValid();
-	expectResult = expect($('.foo')).toBeInvalid();
-	expectResult = expect($('.foo')).toBeInvalidRequired();
-	expectResult = expect($('.foo')).toMatchTranslated("foo");
-	expectResult = expect($('.foo')).toMatchTranslated("foo", {foo: "bar"});
-	expectResult = expect($('.foo')).toMatchTranslated(["foo"]);
-	expectResult = expect($('.foo')).toMatchTranslated(["foo", "bla"], {foo: "bar"});
+    expectResult = expect($('.foo')).toBePresent();
+    expectResult = expect($('.foo')).toBeDisplayed();
+    expectResult = expect($$('.foo').count()).toHaveCountOf(1);
+    expectResult = expect($('.foo')).toHaveText("bla");
+    expectResult = expect($('.foo')).toMatchRegex(/bla/);
+    expectResult = expect($('.foo').getText()).toMatchMoney(123, "£");
+    expectResult = expect($('.foo').getText()).toMatchMoneyWithFraction(123.45, "£");
+    expectResult = expect($('input')).toHaveValue(12);
+    expectResult = expect($('input')).toHaveValue("bla");
+    expectResult = expect($('.foo')).toHaveClass("foo");
+    expectResult = expect($('.foo')).toHaveUrl('https://foo.com');
+    expectResult = expect($('.foo')).toBeDisabled();
+    expectResult = expect($('.foo')).toBeChecked();
+    expectResult = expect($('.foo')).toBeValid();
+    expectResult = expect($('.foo')).toBeInvalid();
+    expectResult = expect($('.foo')).toBeInvalidRequired();
+    expectResult = expect($('.foo')).toMatchTranslated("foo");
+    expectResult = expect($('.foo')).toMatchTranslated("foo", {foo: "bar"});
+    expectResult = expect($('.foo')).toMatchTranslated(["foo"]);
+    expectResult = expect($('.foo')).toMatchTranslated(["foo", "bla"], {foo: "bar"});
 
 }
 

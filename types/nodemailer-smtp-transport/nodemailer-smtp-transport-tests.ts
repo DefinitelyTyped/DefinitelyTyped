@@ -3,8 +3,8 @@ import smtpTransport = require('nodemailer-smtp-transport');
 import nodemailer = require('nodemailer');
 
 var opts: smtpTransport.SmtpOptions = {
-	host: "localhost",
-	port: 25,
+    host: "localhost",
+    port: 25,
     auth: {
         type: 'OAuth2',
         user: 'user@example.com',
@@ -32,6 +32,6 @@ var mailOptions: nodemailer.SendMailOptions = {
     html: '<b>Hello world ✔</b>' // html body
 };
 transport.send(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });
 

@@ -6,7 +6,6 @@
 
 /// <reference types="node" />
 
-// tslint:disable-next-line npm-naming
 export = vCard;
 
 declare class vCard {
@@ -115,7 +114,7 @@ declare namespace vCard {
 }
 
 type CardVersion =
-	"2.1" | "3.0" | "4.0";
+    "2.1" | "3.0" | "4.0";
 
 type jCardProperty = [
     string,

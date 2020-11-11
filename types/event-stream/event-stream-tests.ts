@@ -5,7 +5,7 @@ gulp.task("es:concat", () => {
     var streams = gulp.src(["*"])
         .pipe(gulp.dest("build"));
 
-	return es.concat.apply(null, streams);
+    return es.concat.apply(null, streams);
 });
 
 gulp.task("es:readArray ", () => {

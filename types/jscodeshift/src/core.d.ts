@@ -76,6 +76,7 @@ declare namespace core {
     }
 
     type JSCodeshift = Core & recast.NamedTypes & recast.Builders;
+    type Collection =  Collection.Collection<any>;
 
     interface API {
         j: JSCodeshift;

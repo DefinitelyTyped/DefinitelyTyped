@@ -1,9 +1,9 @@
 /***************************************************************************
  *                                                                         *
  *   This file was automatically generated with idlc.js                    *
- *	 build info: 								   						   *
- *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 12 2018 07:22:40                                     *
+ *     build info:                                                               *
+ *       - fibjs    : 0.25.0                                                   *
+ *       - date    : Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,178 +196,178 @@
 
 /** module Or Internal Object */
 /**
-	* @brief 文件路径处理模块
-	* @detail 引用方法：,```JavaScript,var path = require('path').win32;,```
-	*/
+    * @brief 文件路径处理模块
+    * @detail 引用方法：,```JavaScript,var path = require('path').win32;,```
+    */
 declare module "path_win32" {
-	
+    
 
-	module path_win32 {
-		
-		
-		/**
-		 * 
-		 * @brief 查询当前操作系统的路径分割字符，posix 返回 '/', windows 返回  '\\'
-		 * 
-		 * 
-		 * 
-		 */
-		export const sep: string;
-		
-		/**
-		 * 
-		 * @brief 查询当前操作系统的多路径组合字符，posix 返回 ':', windows 返回  ';'
-		 * 
-		 * 
-		 * 
-		 */
-		export const delimiter: string;
-		
-		/**
-		 * 
-		 * @brief posix 实现，参见 path_posix
-		 * 
-		 * 
-		 * 
-		 */
-		export const posix: Object;
-		
-		/**
-		 * 
-		 * @brief windows 实现，参见 path_win32
-		 * 
-		 * 
-		 * 
-		 */
-		export const win32: Object;
-		
-		
-		
-		
-		/**
-		 * 
-		 * @brief 标准化路径，处理路径中父目录等信息
-		 * 
-		 * @param path 给定的未处理的路径
-		 * @return 返回经过处理的路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function normalize(path: string): string;
-	
-		/**
-		 * 
-		 * @brief 查询路径中的文件名称，若指定扩展名，则自动取消匹配的扩展名
-		 * 
-		 * @param path 给定查询的路径
-		 * @param ext 指定扩展名，若文件名中有符合条件的扩展名，将自动取消
-		 * @return 返回文件名称
-		 * 
-		 * 
-		 * 
-		 */
-		export function basename(path: string, ext?: string/** = ""*/): string;
-	
-		/**
-		 * 
-		 * @brief 查询路径中的文件扩展名
-		 * 
-		 * @param path 给定查询的路径
-		 * @return 返回得到的扩展名
-		 * 
-		 * 
-		 * 
-		 */
-		export function extname(path: string): string;
-	
-		/**
-		 * 
-		 * @brief 查询路径中的目录路径
-		 * 
-		 * @param path 给定查询的路径
-		 * @return 返回得到的目录的路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function dirname(path: string): string;
-	
-		/**
-		 * 
-		 * @brief 转换给定路径为全路径
-		 * 
-		 * @param path 给定转换的路径
-		 * @return 返回转换的全路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function fullpath(path: string): string;
-	
-		/**
-		 * 
-		 * @brief 识别给定的路径是否是绝对路径
-		 * 
-		 * @param path 给定需要识别的路径
-		 * @return 是绝对路径则返回 true
-		 * 
-		 * 
-		 * 
-		 */
-		export function isAbsolute(path: string): boolean;
-	
-		/**
-		 * 
-		 * @brief 合并一系列路径成为一个单一路径
-		 * 
-		 * @param ps 一个或多个相关的路径
-		 * @return 返回得到的新路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function join(...ps: any[]): string;
-	
-		/**
-		 * 
-		 * @brief 合并一系列路径成为一个绝对路径
-		 * 
-		 * @param ps 一个或多个相关的路径
-		 * @return 返回得到的新路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function resolve(...ps: any[]): string;
-	
-		/**
-		 * 
-		 * @brief 求 _from 到 to 的相对路径
-		 * 
-		 * @param _from 源路径
-		 * @param to 目标路径
-		 * @return 返回得到的相对路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function relative(_from: string, to: string): string;
-	
-		/**
-		 * 
-		 * @brief 转换成 namespace-prefixed 路径。只在 windows 有效，其他系统直接返回。
-		 * see: https://msdn.microsoft.com/library/windows/desktop/aa365247(v=vs.85).aspx#namespaces
-		 * @param path 给定的路径。
-		 * @return 返回得到的新路径
-		 * 
-		 * 
-		 * 
-		 */
-		export function toNamespacedPath(path?: any/** = v8::Undefined(isolate)*/): any;
-	
-	} /** end of `module path_win32` */
-	export = path_win32
+    module path_win32 {
+        
+        
+        /**
+         * 
+         * @brief 查询当前操作系统的路径分割字符，posix 返回 '/', windows 返回  '\\'
+         * 
+         * 
+         * 
+         */
+        export const sep: string;
+        
+        /**
+         * 
+         * @brief 查询当前操作系统的多路径组合字符，posix 返回 ':', windows 返回  ';'
+         * 
+         * 
+         * 
+         */
+        export const delimiter: string;
+        
+        /**
+         * 
+         * @brief posix 实现，参见 path_posix
+         * 
+         * 
+         * 
+         */
+        export const posix: Object;
+        
+        /**
+         * 
+         * @brief windows 实现，参见 path_win32
+         * 
+         * 
+         * 
+         */
+        export const win32: Object;
+        
+        
+        
+        
+        /**
+         * 
+         * @brief 标准化路径，处理路径中父目录等信息
+         * 
+         * @param path 给定的未处理的路径
+         * @return 返回经过处理的路径
+         * 
+         * 
+         * 
+         */
+        export function normalize(path: string): string;
+    
+        /**
+         * 
+         * @brief 查询路径中的文件名称，若指定扩展名，则自动取消匹配的扩展名
+         * 
+         * @param path 给定查询的路径
+         * @param ext 指定扩展名，若文件名中有符合条件的扩展名，将自动取消
+         * @return 返回文件名称
+         * 
+         * 
+         * 
+         */
+        export function basename(path: string, ext?: string/** = ""*/): string;
+    
+        /**
+         * 
+         * @brief 查询路径中的文件扩展名
+         * 
+         * @param path 给定查询的路径
+         * @return 返回得到的扩展名
+         * 
+         * 
+         * 
+         */
+        export function extname(path: string): string;
+    
+        /**
+         * 
+         * @brief 查询路径中的目录路径
+         * 
+         * @param path 给定查询的路径
+         * @return 返回得到的目录的路径
+         * 
+         * 
+         * 
+         */
+        export function dirname(path: string): string;
+    
+        /**
+         * 
+         * @brief 转换给定路径为全路径
+         * 
+         * @param path 给定转换的路径
+         * @return 返回转换的全路径
+         * 
+         * 
+         * 
+         */
+        export function fullpath(path: string): string;
+    
+        /**
+         * 
+         * @brief 识别给定的路径是否是绝对路径
+         * 
+         * @param path 给定需要识别的路径
+         * @return 是绝对路径则返回 true
+         * 
+         * 
+         * 
+         */
+        export function isAbsolute(path: string): boolean;
+    
+        /**
+         * 
+         * @brief 合并一系列路径成为一个单一路径
+         * 
+         * @param ps 一个或多个相关的路径
+         * @return 返回得到的新路径
+         * 
+         * 
+         * 
+         */
+        export function join(...ps: any[]): string;
+    
+        /**
+         * 
+         * @brief 合并一系列路径成为一个绝对路径
+         * 
+         * @param ps 一个或多个相关的路径
+         * @return 返回得到的新路径
+         * 
+         * 
+         * 
+         */
+        export function resolve(...ps: any[]): string;
+    
+        /**
+         * 
+         * @brief 求 _from 到 to 的相对路径
+         * 
+         * @param _from 源路径
+         * @param to 目标路径
+         * @return 返回得到的相对路径
+         * 
+         * 
+         * 
+         */
+        export function relative(_from: string, to: string): string;
+    
+        /**
+         * 
+         * @brief 转换成 namespace-prefixed 路径。只在 windows 有效，其他系统直接返回。
+         * see: https://msdn.microsoft.com/library/windows/desktop/aa365247(v=vs.85).aspx#namespaces
+         * @param path 给定的路径。
+         * @return 返回得到的新路径
+         * 
+         * 
+         * 
+         */
+        export function toNamespacedPath(path?: any/** = v8::Undefined(isolate)*/): any;
+    
+    } /** end of `module path_win32` */
+    export = path_win32
 }
 
 /** endof `module Or Internal Object` */

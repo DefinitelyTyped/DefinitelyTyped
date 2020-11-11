@@ -53,7 +53,7 @@ export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase> {
 
 export type SelectComponentsProps = { [key in string]: any };
 
-export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }> extends SelectComponentsProps {
+export interface NamedProps<OptionType extends OptionTypeBase = { label: string; value: string }> {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -166,7 +166,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
-  onChange?: (value: ValueType<OptionType>, action: ActionMeta) => void;
+  onChange?: (value: ValueType<OptionType>, action: ActionMeta<OptionType>) => void;
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler;
   /* Handle change events on the input */
@@ -208,6 +208,10 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   defaultMenuIsOpen?: boolean;
   defaultValue?: ValueType<OptionType>;
 }
+
+export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }>
+    extends NamedProps<OptionType>,
+        SelectComponentsProps {}
 
 export const defaultProps: Props<any>;
 

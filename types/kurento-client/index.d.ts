@@ -1,23 +1,53 @@
-// Type definitions for kurento-client 6.12
+// Type definitions for kurento-client 6.14
 // Project: https://github.com/Kurento/kurento-client-js, https://www.kurento.org
-// Definitions by: James Hill <https://github.com/jhdevuk>
+// Definitions by: James Hill <https://github.com/jhukdev>
+//                Michel Albers <https://github.com/michelalbers>
+//                Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-
-declare namespace KurentoClient {
+declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
+        getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
     }
 
-    class ClientInstance {
+    interface RecorderEndpointOptions {
+        uri: string;
+        stopOnEndOfStream?: boolean;
+    }
+
+    interface Options {
+        failAfter?: number;
+        enableTransactions?: boolean;
+        useImplicitTransactions?: boolean;
+        strict?: boolean;
+        request_timeout?: number;
+        response_timeout?: number;
+        duplicates_timeout?: number;
+        access_token?: string;
+        socket?: any;
+    }
+
+    interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
-        on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
+        create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
+        on(event: 'OnIceCandidate', callback: (event: IceCandidateEvent) => void): void;
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
-        getMediaobjectById(objectId: string): Promise<any>;
+        getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        getServerManager: (callback?: Callback<MediaServer>) => Promise<MediaServer>;
         close(): void;
+    }
+
+    interface MediaServer {
+        getCpuCount: (callback?: Callback<number[]>) => Promise<number[]>;
+        getKmd: (moduleName: string, callback?: Callback<string>) => Promise<string>;
+        getUsedCpu: (interval: number, callback?: Callback<number>) => Promise<number>;
+        getUsedMemory: (callback?: Callback<number>) => Promise<number>;
+        getChildren: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
+        getName: (callback?: Callback<string>) => Promise<string>;
     }
 
     interface MediaObject {
@@ -27,6 +57,7 @@ declare namespace KurentoClient {
         addTag: (key: string, value: string, callback?: Callback<void>) => Promise<void>;
         getTag: (key: string, callback?: Callback<string>) => Promise<string>;
         getTags: (callback?: Callback<Tag[]>) => Promise<Tag[]>;
+        getSendTagsInEvents: (callback?: Callback<boolean>) => Promise<boolean>;
         removeTag: (key: string, callback?: Callback<void>) => Promise<void>;
         getChildren: (callback?: Callback<MediaObject[]>) => Promise<MediaObject[]>;
         getCreationTime: (callback?: Callback<number>) => Promise<number>;
@@ -34,6 +65,7 @@ declare namespace KurentoClient {
         getParent: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
         getName: (callback?: Callback<string>) => Promise<string>;
         setName: (name: string, callback?: Callback<void>) => Promise<void>;
+        release: (callback?: Callback<void>) => Promise<void>;
     }
 
     interface MediaElement {
@@ -49,10 +81,28 @@ declare namespace KurentoClient {
         setLatencyStats: (callback?: Callback<string>) => Promise<string>;
     }
 
+    interface RecorderEndpoint extends ClientInstance, MediaObject, MediaElement {
+        stopOnEndOfStream: boolean;
+        uri: string;
+        record: (callback?: Callback<void>) => Promise<void>;
+        stopAndWait: (callback?: Callback<void>) => Promise<void>;
+        getMaxOutputBitrate: (callback?: Callback<number>) => Promise<number>;
+        getMinOutputBitrate: (callback?: Callback<number>) => Promise<number>;
+        setMaxOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
+        setMinOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
+    }
+
     interface WebRtcEndpoint extends ClientInstance, MediaObject, MediaElement {
         addIceCandidate: (candidate: RTCIceCandidate, callback?: Callback<void>) => Promise<void>;
         closeDataChannel: (channelId: number, callback?: Callback<void>) => Promise<void>;
-        createDataChannel: (label?: string, ordered?: boolean, maxPacketLifeTime?: number, maxRetransmits?: number, protocol?: string, callback?: Callback<void>) => Promise<void>;
+        createDataChannel: (
+            label?: string,
+            ordered?: boolean,
+            maxPacketLifeTime?: number,
+            maxRetransmits?: number,
+            protocol?: string,
+            callback?: Callback<void>,
+        ) => Promise<void>;
         gatherCandidates: (callback?: Callback<void>) => Promise<void>;
         getConnectionState: (callback?: Callback<any>) => Promise<any>;
         getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
@@ -112,21 +162,18 @@ declare namespace KurentoClient {
         sdpMLineIndex: number;
     }
 
-    type Callback<T> = (error: Error, result: T) => void;
-
-    interface Options {
-        failAfter?: number;
-        enableTransactions?: boolean;
-        useImplicitTransactions?: boolean;
-        strict?: boolean;
-        request_timeout?: number;
-        response_timeout?: number;
-        duplicates_timeout?: number;
-        access_token?: string;
-        socket?: any;
+    interface IceCandidateEvent {
+        candidate: IceCandidate;
+        souce: string;
+        tags: object;
+        timestamp: string;
+        timestampMillis: string;
+        type: 'OnIceCandidate';
     }
+
+    type Callback<T> = (error: Error, result: T) => void;
 }
 
-declare const kurento: KurentoClient.Constructor;
+declare const kurento: kurento.Constructor;
 
 export = kurento;

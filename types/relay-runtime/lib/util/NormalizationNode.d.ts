@@ -1,7 +1,5 @@
 export type NormalizationArgument = NormalizationLiteral | NormalizationVariable;
 
-export type NormalizationArgumentDefinition = NormalizationLocalArgument | NormalizationRootArgument;
-
 export interface NormalizationDefer {
     readonly if: string | null;
     readonly kind: 'Defer';
@@ -45,7 +43,7 @@ export interface NormalizationMatchField {
 export interface NormalizationOperation {
     readonly kind: string; // 'Operation';
     readonly name: string;
-    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgument>;
+    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgumentDefinition>;
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
@@ -57,13 +55,21 @@ export interface NormalizationScalarField {
     readonly storageKey: string | null | undefined;
 }
 
+export interface NormalizationTypeDiscriminator {
+    readonly kind: string; // 'TypeDiscriminator';
+    readonly abstractKey: string;
+}
+
 export type NormalizationSelection =
     | NormalizationCondition
     | NormalizationClientExtension
+    | NormalizationDefer
     | NormalizationField
     | NormalizationHandle
     | NormalizationInlineFragment
-    | NormalizationMatchField;
+    | NormalizationModuleImport
+    | NormalizationStream
+    | NormalizationTypeDiscriminator;
 
 export interface NormalizationSplitOperation {
     readonly kind: string; // 'SplitOperation';
@@ -106,7 +112,6 @@ export interface NormalizationConnection {
 export interface NormalizationLocalArgumentDefinition {
     kind: string;
     name: string;
-    type: string;
     defaultValue: any;
 }
 
@@ -115,19 +120,6 @@ export interface NormalizationModuleImport {
     documentName: string;
     fragmentPropName: string;
     fragmentName: string;
-}
-
-export interface NormalizationLocalArgument {
-    readonly kind: string; // 'LocalArgument';
-    readonly name: string;
-    readonly type: string;
-    readonly defaultValue: unknown;
-}
-
-export interface NormalizationRootArgument {
-    readonly kind: string; // 'RootArgument';
-    readonly name: string;
-    readonly type: string | null | undefined;
 }
 
 export interface NormalizationCondition {
@@ -167,6 +159,7 @@ export interface NormalizationInlineFragment {
 
 export type NormalizationSelectableNode =
     | NormalizationDefer
+    | NormalizationLinkedField
     | NormalizationOperation
     | NormalizationSplitOperation
     | NormalizationStream;

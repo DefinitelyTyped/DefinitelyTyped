@@ -1,4 +1,4 @@
-import loadImage, { MetaData } from 'blueimp-load-image';
+import loadImage = require('blueimp-load-image');
 
 // Test image taken from package tests: https://github.com/blueimp/JavaScript-Load-Image/blob/master/test/test.js
 
@@ -22,7 +22,7 @@ const b64DataJPEG =
   '2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/v4ooooA/9k=';
 const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
-loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
+loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, data?: loadImage.MetaData): void => {
   const canvas = image as HTMLCanvasElement;
   console.log(data);
   canvas.toBlob((blob: Blob | null): void => {

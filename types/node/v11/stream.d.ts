@@ -19,6 +19,7 @@ declare module "stream" {
 
         class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readonly readableFlowing: boolean | null;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             constructor(opts?: ReadableOptions);
@@ -274,7 +275,10 @@ declare module "stream" {
             stream5: T,
             callback?: (err: NodeJS.ErrnoException | null) => void,
         ): T;
-        function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException | null) => void): NodeJS.WritableStream;
+        function pipeline(
+            streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+            callback?: (err: NodeJS.ErrnoException | null) => void,
+        ): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,
             stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
@@ -291,7 +295,7 @@ declare module "stream" {
                 stream4: NodeJS.ReadWriteStream,
                 stream5: NodeJS.WritableStream,
             ): Promise<void>;
-            function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,

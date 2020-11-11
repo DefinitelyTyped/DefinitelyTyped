@@ -1,4 +1,4 @@
-import { ComponentType, FC } from '@wordpress/element';
+import { ComponentType, FC } from 'react';
 
 declare function ifCondition<P = {}>(predicate: (props: P) => boolean): (component: ComponentType<P>) => FC<P>;
 

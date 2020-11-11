@@ -6,8 +6,8 @@ export interface EmitterType {
 }
 
 export interface Options {
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     videoId?: string;
     playerVars?: {
         autoplay?: 0 | 1,

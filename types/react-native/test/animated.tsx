@@ -1,11 +1,64 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp, SectionListData } from 'react-native';
+
+interface CompProps {
+    width: number;
+}
+
+class Comp extends React.Component<CompProps> {
+    f1: () => boolean = () => true;
+
+    render() {
+        const { width } = this.props;
+        return <View style={{ width }} />;
+    }
+}
+
+const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
+    function f1(): boolean {
+        return true;
+    }
+
+    return <View ref={ref} style={{ width }} />;
+});
+
+type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
+
+type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
+    key, // $ExpectType string | number | null | undefined
+    ...props
+}) => <Animated.Text {...props} />;
 
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);
     const v2 = new Animated.Value(0);
+
+    // Ref
+    const AnimatedViewRef = React.useRef<View>(null);
+
+    AnimatedViewRef.current &&
+        AnimatedViewRef.current.measure(() => {
+            return;
+        });
+
+    const AnimatedComp = Animated.createAnimatedComponent(Comp);
+
+    const AnimatedCompRef = React.useRef<Comp>(null);
+
+    AnimatedCompRef.current && AnimatedCompRef.current.f1();
+
+    const AnimatedForwardComp = Animated.createAnimatedComponent(ForwardComp);
+
+    const AnimatedForwardCompRef = React.useRef<React.ElementRef<typeof ForwardComp>>(null);
+    const ForwardCompRef = React.useRef<View>(null);
+
+    AnimatedForwardCompRef.current &&
+        AnimatedForwardCompRef.current.measure(() => {
+            return;
+        });
 
     v1.setValue(0.1);
 
@@ -44,6 +97,7 @@ function TestAnimatedAPI() {
 
     spring1.start();
     spring1.stop();
+    spring1.reset();
 
     Animated.parallel(
         [
@@ -88,9 +142,14 @@ function TestAnimatedAPI() {
 
     Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
+    const AnimatedView = Animated.createAnimatedComponent(View);
+    const ref = React.useRef<View>(null);
+    const legacyRef = React.useRef<Animated.LegacyRef<View>>(null);
+
     return (
-        <View>
+        <View ref={ref}>
             <Animated.View
+                ref={ref}
                 style={[
                     position.getLayout(),
                     {
@@ -98,8 +157,53 @@ function TestAnimatedAPI() {
                     },
                 ]}
             />
-
+            <AnimatedView ref={ref} style={{ top: 3 }}>
+                i has children
+            </AnimatedView>
+            <Animated.View ref={legacyRef} />
+            <AnimatedView ref={legacyRef} />
+            <AnimatedComp ref={AnimatedCompRef} width={v1} />
+            <ForwardComp ref={ForwardCompRef} width={1} />
+            <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+            <Animated.View
+                testID="expect-type-animated-view"
+                style={{ opacity: v1 }}
+                onLayout={event => {
+                    const x = event.nativeEvent.layout.x; // $ExpectType number
+                    const y = event.nativeEvent.layout.y; // $ExpectType number
+                    const width = event.nativeEvent.layout.width; // $ExpectType number
+                    const height = event.nativeEvent.layout.height; // $ExpectType number
+                }}
+            />
+            ;
+            <Animated.FlatList
+                testID="expect-type-animated-flatlist"
+                style={{ opacity: v1 }}
+                data={[1] as ReadonlyArray<number>}
+                renderItem={info => {
+                    info; // $ExpectType ListRenderItemInfo<number>
+                    return <View testID={info.item.toFixed(1)} />;
+                }}
+            />
+            ;
+            <Animated.SectionList
+                testID="expect-type-animated-sectionlist"
+                style={{ opacity: v1 }}
+                sections={[{ title: 'test', data: [1] }] as SectionListData<number, { title: string }>[]}
+                renderItem={info => {
+                    /*
+                     * Original <SectionList> expects:
+                     * SectionListRenderItemInfo<any>    on TS@3.5,
+                     * SectionListRenderItemInfo<number> on TS@4.0.
+                     * Skip until original is adjusted and type can be asserted
+                     */
+                    info; // Should expect SectionListRenderItemInfo<number>
+                    info.section.title; // $ExpectType string
+                    return <View testID={info.item.toFixed(1)} />;
+                }}
+            />
+            ;
         </View>
     );
 }

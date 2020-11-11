@@ -1,67 +1,52 @@
-
 import minimist = require('minimist');
-import Opts = minimist.Opts;
+import { Opts, ParsedArgs } from 'minimist';
 
 interface CustomArgs {
-	foo: boolean;
+    foo: boolean;
 }
 
-interface CustomArgs2 extends minimist.ParsedArgs {
-	foo: boolean;
+interface CustomArgs2 extends ParsedArgs {
+    foo: boolean;
 }
 
-var num: string;
-var str: string;
-var strArr: string[];
-var args: string[];
-var obj: minimist.ParsedArgs;
-var iobj: minimist.ParsedArgs & CustomArgs;
-var eobj: CustomArgs2;
-var opts: Opts;
-var arg: any;
-
-opts.string = str;
-opts.string = strArr;
+const opts: Opts = {};
+opts.string = 'str';
+opts.string = ['strArr'];
 opts.boolean = true;
-opts.boolean = str;
-opts.boolean = strArr;
+opts.boolean = 'str';
+opts.boolean = ['strArr'];
 opts.alias = {
-	foo: strArr
+    foo: ['strArr'],
 };
 opts.alias = {
-	foo: str
+    foo: 'str',
 };
 opts.default = {
-	foo: str
+    foo: 'str',
 };
 opts.default = {
-	foo: num
+    foo: 0,
 };
 opts.unknown = (arg: string) => {
-	if(/xyz/.test(arg)){
-		return true;
-	}
+    if (/xyz/.test(arg)) {
+        return true;
+    }
 
-	return false;
+    return false;
 };
 opts.stopEarly = true;
 opts['--'] = true;
 
-obj = minimist();
-obj = minimist(strArr);
-obj = minimist(strArr, opts);
-iobj = minimist<CustomArgs>();
-iobj = minimist<CustomArgs>(strArr);
-iobj = minimist<CustomArgs>(strArr, opts);
-eobj = minimist<CustomArgs2>();
-eobj = minimist<CustomArgs2>(strArr);
-eobj = minimist<CustomArgs2>(strArr, opts);
-var remainingArgCount = obj._.length;
+minimist(); // $ExpectType ParsedArgs
+minimist(['--a.b', '22']); // $ExpectType ParsedArgs
+minimist(['--a.b', '22'], { default: { 'a.b': 11 }, alias: { 'a.b': 'aa.bb' } }); // $ExpectType ParsedArgs
+minimist<CustomArgs>(); // $ExpectType CustomArgs & ParsedArgs
+minimist<CustomArgs>(['--a.b', '22']); // $ExpectType CustomArgs & ParsedArgs
+minimist<CustomArgs>(['--a.b', '22'], { default: { 'a.b': 11 }, alias: { 'a.b': 'aa.bb' } }); // $ExpectType CustomArgs & ParsedArgs
+minimist<CustomArgs2>(); // $ExpectType CustomArgs2 & ParsedArgs
+minimist<CustomArgs2>(['--a.b', '22']); // $ExpectType CustomArgs2 & ParsedArgs
+minimist<CustomArgs2>(['--a.b', '22'], { default: { 'a.b': 11 }, alias: { 'a.b': 'aa.bb' } }); // $ExpectType CustomArgs2 & ParsedArgs
 
-arg = obj['foo'];
-
-arg = iobj.foo;
-remainingArgCount = iobj._.length;
-
-arg = eobj.foo;
-remainingArgCount = eobj._.length;
+const obj = minimist<CustomArgs>(['--a.b', '22'], opts);
+obj._.length; // $ExpectType number
+obj['foo']; // $ExpectType boolean

@@ -1,7 +1,7 @@
 // tslint:disable:no-unnecessary-generics
 import { BlockInstance } from '@wordpress/blocks';
 import { Autocomplete, ToolbarButton } from '@wordpress/components';
-import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode } from 'react';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 
 declare namespace RichText {

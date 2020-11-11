@@ -1,5 +1,5 @@
-// Type definitions for UglifyJS 3.9
-// Project: https://github.com/mishoo/UglifyJS2
+// Type definitions for UglifyJS 3.11
+// Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 John Reilly <https://github.com/johnnyreilly>
@@ -155,6 +155,11 @@ export interface CompressOptions {
      */
     loops?: boolean;
     /**
+     * combine and reuse variables.
+     * @default true
+     */
+    merge_vars?: boolean;
+    /**
      * negate `Immediately-Called Function Expressions` where the return value is discarded,
      * to avoid the parens that the code generator would insert.
      * @default true
@@ -296,6 +301,12 @@ export interface CompressOptions {
      * @default true
      */
     unused?: boolean;
+    /**
+     * convert block-scoped declaractions into `var`
+     * whenever safe to do so
+     * @default true
+     */
+    varify?: boolean;
 }
 
 export enum InlineFunctions {
@@ -426,9 +437,14 @@ export interface MinifyOutput {
 export interface SourceMapOptions {
     includeSources?: boolean;
     filename?: string;
+    /**
+     * Include symbol names in the source map
+     * @default true
+     */
+    names?: boolean;
     url?: string | 'inline';
     root?: string;
-    content?: RawSourceMap;
+    content?: RawSourceMap | 'inline';
 }
 
 export function minify(files: string | string[] | { [file: string]: string }, options?: MinifyOptions): MinifyOutput;

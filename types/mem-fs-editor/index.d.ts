@@ -1,47 +1,101 @@
-// Type definitions for mem-fs-editor 5.1
+// Type definitions for mem-fs-editor 7.0
 // Project: https://github.com/SBoudrias/mem-fs-editor#readme
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
 
-import * as Buffer from 'buffer';
-import { Transform } from 'stream';
-import { Store } from 'mem-fs';
 import { Options as TemplateOptions, Data as TemplateData } from 'ejs';
 import { IOptions as GlobOptions } from 'glob';
+import { JSONSchema7Type } from "json-schema";
+import { Store } from 'mem-fs';
+import { Transform } from 'stream';
+import * as File from 'vinyl';
 
-type ReplacerFunc = (key: string, value: any) => any;
+export function create(store: Store): Editor;
 
-type Space = string|number;
+//#region Editor
+export interface Editor {
+    read(filepath: string, options?: ReadStringOptions): string;
+    read(filepath: string, options: ReadRawOptions): ReadRawContents;
 
-type Contents = string|Buffer;
+    readJSON(filepath: string): JSONSchema7Type | undefined;
+    readJSON(filepath: string, defaults: JSONSchema7Type): JSONSchema7Type;
 
-type Callback = (err: any) => any;
+    write(filepath: string, contents: WriteContents): string;
 
-export type ProcessingFunc = (contents: Buffer, path: string) => Contents;
+    writeJSON(filepath: string, contents: any, replacer?: WriteJsonReplacer, space?: WriteJsonSpace): string;
 
-export interface CopyOptions {
-    process?: ProcessingFunc;
+    append(filepath: string, contents: WriteContents, options?: AppendOptions): string;
+
+    extendJSON(filepath: string, contents: any, replacer?: WriteJsonReplacer, space?: WriteJsonSpace): void;
+
+    delete(filepath: FilePaths, options?: WithGlobOptions): void;
+
+    copy(from: FilePaths, to: string, options?: CopyOptions, context?: TemplateData, templateOptions?: TemplateOptions): void;
+
+    copyTpl(from: FilePaths, to: string, context?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
+
+    move(from: FilePaths, to: string, options?: WithGlobOptions): void;
+
+    exists(filepath: string): boolean;
+
+    commit(callback: CommitCallback): void;
+    commit(filters: ReadonlyArray<Transform>, callback: CommitCallback): void;
+}
+
+export interface WithGlobOptions {
     globOptions?: GlobOptions;
 }
 
-export interface Editor {
-    read(filepath: string, options?: { raw?: boolean, defaults: string }): string;
-    readJSON(filepath: string, defaults?: any): any;
-    exists(filepath: string): boolean;
-    write(filepath: string, contents: Contents): string;
-    writeJSON(filepath: string, contents: any, replacer?: ReplacerFunc, space?: Space): string;
-    append(to: string, contents: Contents, options?: { trimEnd?: boolean, separator?: string }): string;
-    delete(paths: string|string[], options?: { globOptions?: GlobOptions }): void;
-    copy(from: string|string[], to: string, options?: CopyOptions, context?: TemplateData, templateOptions?: TemplateOptions): void;
-    copyTpl(from: string|string[], to: string, context?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
-    move(from: string|string[], to: string, options?: { globOptions: GlobOptions }): void;
-    commit(callback: Callback): void;
-    commit(filters: ReadonlyArray<Transform>, callback: Callback): void;
+type FilePaths = string | string[];
+
+//#region Editor#read
+export interface ReadStringOptions {
+    raw?: false;
+    defaults?: string;
 }
 
-export function create(store: Store): Editor;
+export interface ReadRawOptions {
+    raw: true;
+    defaults?: ReadRawContents;
+}
+
+type ReadRawContents = Exclude<File["contents"], null>;
+//#endregion
+
+//#region Editor#write
+type WriteContents = string | Buffer;
+//#endregion
+
+//#region Editor#writeJSON
+type WriteJsonReplacer = ((key: string, value: any) => any) | Array<string | number>;
+
+type WriteJsonSpace = number | string;
+//#endregion
+
+//#region Editor#append
+export interface AppendOptions {
+    trimEnd?: boolean;
+    separator?: string;
+}
+//#endregion
+
+//#region Editor#copy
+export interface CopyOptions extends WithGlobOptions {
+    ignoreNoMatch?: boolean;
+    process?: ProcessingFunction;
+    processDestinationPath?: (path: string) => string;
+}
+
+export type ProcessingFunction = (contents: Buffer, path: string) => WriteContents;
+//#endregion
+
+//#region Editor#commit
+type CommitCallback = (err: any) => void;
+//#endregion
+//#endregion
 
 export {};

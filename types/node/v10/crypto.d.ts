@@ -228,6 +228,7 @@ declare module "crypto" {
     function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
+    function getFips(): 1 | 0;
     function getHashes(): string[];
     class ECDH {
         static convertKey(

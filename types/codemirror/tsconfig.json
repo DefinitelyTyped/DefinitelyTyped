@@ -22,6 +22,7 @@
         "test/index.ts",
         "test/addon/comment/comment.ts",
         "test/addon/display/autorefresh.ts",
+        "test/addon/display/fullscreen.ts",
         "test/addon/display/panel.ts",
         "test/addon/display/placeholder.ts",
         "test/addon/edit/closebrackets.ts",
@@ -35,6 +36,7 @@
         "test/addon/search/match-highlighter.ts",
         "test/addon/search/searchcursor.ts",
         "test/addon/selection/active-line.ts",
-        "test/addon/tern/tern.ts"
+        "test/addon/tern/tern.ts",
+        "codemirror-tests.ts"
     ]
 }

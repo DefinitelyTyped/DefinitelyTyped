@@ -90,7 +90,7 @@ declare namespace archiver {
         symlink(filepath: string, target: string): this;
 
         on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
-        on(event: 'data', listener: (data: EntryData) => void): this;
+        on(event: 'data', listener: (data: Buffer) => void): this;
         on(event: 'progress', listener: (progress: ProgressData) => void): this;
         on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
         on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;

@@ -2,7 +2,7 @@
 
 //handle hash changes
 function handleChanges(newHash: any, oldHash: any) {
-	console.log(newHash);
+    console.log(newHash);
 }
 
 hasher.changed.add(handleChanges); //add hash change listener

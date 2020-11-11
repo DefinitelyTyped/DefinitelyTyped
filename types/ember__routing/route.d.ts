@@ -156,7 +156,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * A hook you can use to reset controller values either when the model
      * changes or the route is exiting.
      */
-    resetController(controller: Controller, isExiting: boolean, transition: any): void;
+    resetController(controller: Controller, isExiting: boolean, transition: Transition): void;
 
     /**
      * Sends an action to the router, which will delegate it to the currently active
@@ -188,7 +188,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: {}): void;
+    setupController(controller: Controller, model: {}, transition: Transition): void;
 
     /**
      * Transition the application into another route. The route may
@@ -493,4 +493,34 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * redirecting, or decorating the transition from the currently active routes.
      */
     willTransition(transition: Transition): void;
+
+    /**
+     * Allows you to produce custom metadata for the route.
+     * The return value of this method will be attached to
+     * its corresponding RouteInfoWithAttributes object.
+     * Example
+     * ```app/routes/posts/index.js
+     * import Route from '@ember/routing/route';
+     * export default class PostsIndexRoute extends Route {
+     *   buildRouteInfoMetadata() {
+     *     return { title: 'Posts Page' }
+     *   }
+     * }
+     * ```
+     * ```app/routes/application.js
+     * import Route from '@ember/routing/route';
+     * import { inject as service } from '@ember/service';
+     * export default class ApplicationRoute extends Route {
+     *   @service router
+     *   constructor() {
+     *     super(...arguments);
+     *     this.router.on('routeDidChange', transition => {
+     *       document.title = transition.to.metadata.title;
+     *       // would update document's title to "Posts Page"
+     *     });
+     *   }
+     * }
+     * ```
+     */
+    buildRouteInfoMetadata(): unknown;
 }

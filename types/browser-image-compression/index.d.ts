@@ -22,6 +22,16 @@ interface Options {
 
 declare function imageCompression(image: File | Blob, options: Options): Promise<File | Blob>;
 
+declare namespace imageCompression {
+    function getDataUrlFromFile(file: File | Blob): Promise<string>;
+    function getFilefromDataUrl(dataUrl: string, filename: string, lastModified?: number): Promise<File | Blob>;
+    function loadImage(src: string): Promise<HTMLImageElement>;
+    function drawImageInCanvas(img: HTMLImageElement): HTMLCanvasElement;
+    function drawFileInCanvas(file: File | Blob): Promise<[ImageBitmap | HTMLImageElement, HTMLCanvasElement]>;
+    function canvasToFile(canvas: HTMLCanvasElement, fileType: string, fileName: string, fileLastModified: number, quality?: number): Promise<File | Blob>;
+    function getExifOrientation(file: File | Blob): Promise<number>;
+}
+
 export as namespace imageCompression;
 
 export = imageCompression;

@@ -32,3 +32,5 @@ export type SubtypeOp = ShareDB.SubtypeOp;
 
 export type Path = ShareDB.Path;
 export type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
+
+export const types: ShareDB.Types;

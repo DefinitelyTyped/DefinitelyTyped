@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v1.1.1
+// Type definitions for bookshelfjs v1.2.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -17,7 +17,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
     knex: knex;
     Model: typeof Bookshelf.Model;
     Collection: typeof Bookshelf.Collection;
-
+    model(name: string, model?: typeof Bookshelf.Model | Object, staticProperties?: any): typeof Bookshelf.Model;
     plugin(name: string | string[] | Function, options?: any): Bookshelf;
     transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
@@ -339,6 +339,8 @@ declare namespace Bookshelf {
         patch?: boolean;
         /** @default true */
         require?: boolean;
+        /** @default true */
+        autoRefresh?: boolean;
     }
 
     interface DestroyOptions extends SyncOptions {

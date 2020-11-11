@@ -1,4 +1,4 @@
-/* tslint:disable:no-mergeable-namespace no-namespace */
+/* tslint:disable:no-namespace */
 "use strict";
 
 import standardVersion from "standard-version";

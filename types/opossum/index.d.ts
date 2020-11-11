@@ -209,7 +209,7 @@ declare namespace CircuitBreaker {
          * If this function returns truthy, the circuit's `failPure` statistics will not be incremented.
          * This is useful, for example, when you don't want HTTP 404 to trip the circuit, but still want to handle it as a failure case.
          */
-        errorFilter?: () => boolean;
+        errorFilter?: (err: any) => boolean;
 
         /**
          * Whether the return value of the first successful execution of the circuit's function will be cached.

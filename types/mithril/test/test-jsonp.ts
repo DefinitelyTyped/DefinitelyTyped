@@ -1,18 +1,18 @@
 import { jsonp } from 'mithril/request';
 
 interface Result {
-	id: number;
+    id: number;
 }
 
 jsonp<Result>('/item').then(data => {
-	console.log(data.id);
+    console.log(data.id);
 });
 
 class User {
-	id: number;
-	constructor(result: Result) {
-		this.id = result.id;
-	}
+    id: number;
+    constructor(result: Result) {
+        this.id = result.id;
+    }
 }
 
 jsonp<User>({

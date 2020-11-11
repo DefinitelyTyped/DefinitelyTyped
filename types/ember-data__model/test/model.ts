@@ -17,7 +17,7 @@ class Person extends Model.extend({
     title: attr({ defaultValue: 'The default' }),
     title2: attr({ defaultValue: () => 'The default' }),
 
-    fullName: computed('firstName', 'lastName', function() {
+    fullName: computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 }) {}
@@ -38,7 +38,7 @@ const User = Model.extend({
 });
 
 class Human extends Model {
-    @attr() age: number;
+    @attr age: number;
     @belongsTo('human') mother: Human;
     // We should remove the direct use of `DS.PromiseManyArray` by creating and
     // exporting a type which represents `HasMany<Person>`.

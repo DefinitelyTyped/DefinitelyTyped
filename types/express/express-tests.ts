@@ -15,7 +15,13 @@ namespace express_tests {
     express.static.mime.define({
         'application/fx': ['fx']
     });
-    app.use('/static', express.static(__dirname + '/public'));
+    app.use('/static', express.static(__dirname + '/public', {
+        setHeaders: res => {
+            // $ExpectType Response<any>
+            res;
+            res.set("foo", "bar");
+        }
+    }));
 
     // simple logger
     app.use((req, res, next) => {
@@ -147,26 +153,27 @@ namespace express_tests {
         req.params.length; // $ExpectType number
     });
 
-    // Params can be a custom type that conforms to constraint
-    router.get<{ foo: string }>('/:foo', req => {
+    // Params can be a custom type
+    // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+    router.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
         req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectError
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
     });
 
-    // Params can be a custom type that conforms to constraint and can be specified via an explicit param type (express-serve-static-core)
-    router.get('/:foo', (req: Request<{ foo: string }>) => {
+    // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
+    router.get('/:foo/:bar', (req: Request<{ foo: string, bar: number }>) => {
         req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectError
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
     });
 
-    // Params can be a custom type that conforms to constraint and can be specified via an explicit param type (express)
-    router.get('/:foo', (req: express.Request<{ foo: string }>) => {
+    // Params can be a custom type and can be specified via an explicit param type (express)
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string, bar: number }>) => {
         req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectError
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
     });
-
-    // Params cannot be a custom type that does not conform to constraint
-    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
     // Query can be a custom type
     router.get('/:foo', (req: express.Request<{}, any, any , {q: string}>) => {
@@ -176,7 +183,7 @@ namespace express_tests {
 
     // Query will be defaulted to any
     router.get('/:foo', (req: express.Request<{}>) => {
-        req.query; // $ExpectType Query
+        req.query; // $ExpectType ParsedQs
     });
 
     // Response will default to any type

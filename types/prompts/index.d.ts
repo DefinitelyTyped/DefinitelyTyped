@@ -5,10 +5,15 @@
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 //                 theweirdone <https://github.com/theweirdone>
 //                 whoaa512 <https://github.com/whoaa512>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
+/// <reference types="node" />
+
 export = prompts;
+
+import { Readable, Writable } from 'stream';
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
@@ -55,10 +60,12 @@ declare namespace prompts {
         function toggle(args: PromptObject): void;
     }
 
+    // Based upon: https://github.com/terkelg/prompts/blob/d7d2c37a0009e3235b2e88a7d5cdbb114ac271b2/lib/elements/select.js#L29
     interface Choice {
         title: string;
         value: any;
-        disable?: boolean;
+        disabled?: boolean;
+        selected?: boolean;
         description?: string;
     }
 
@@ -80,8 +87,9 @@ declare namespace prompts {
         max?: number;
         float?: boolean;
         round?: number;
+        instructions?: string | boolean;
         increment?: number;
-        seperator?: string;
+        separator?: string;
         active?: string;
         inactive?: string;
         choices?: Choice[];
@@ -89,6 +97,8 @@ declare namespace prompts {
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;
+        stdout?: Writable;
+        stdin?: Readable;
     }
 
     type Answers<T extends string> = { [id in T]: any };

@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode } from 'react';
 
 declare namespace Modal {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -41,7 +41,7 @@ declare namespace Modal {
         /**
          * Icon component to render before the title.
          */
-        icon?: ComponentType;
+        icon?: ReactNode;
         /**
          * If this property is set to false, the modal will not display a close
          * icon and cannot be dismissed.

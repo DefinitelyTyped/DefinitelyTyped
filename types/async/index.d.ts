@@ -137,10 +137,10 @@ export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
 export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
 export const mapSeries: typeof map;
 export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
 
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,
@@ -149,9 +149,9 @@ export function mapValuesLimit<T, R, E = Error>(
     callback: AsyncResultObjectCallback<R, E>
     ): void;
 export function mapValuesLimit<T, R, E = Error>(
-	obj: Dictionary<T>,
-	limit: number,
-	iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
+    obj: Dictionary<T>,
+    limit: number,
+    iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void
 ): Promise<R>;
 
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
@@ -231,29 +231,28 @@ export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
+export interface RetryOptions {
+    times?: number;
+    interval?: number | ((retryCount: number) => number);
+    errorFilter?: (error: Error) => boolean;
+}
 export function retry<T, E = Error>(
-    opts?:
-        | number
-        | {
-              times?: number;
-              interval?: number | ((retryCount: number) => number);
-              errorFilter?: (error: Error) => boolean;
-          },
+    opts?: number | RetryOptions,
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
 ): Promise<void>;
 export function retry<T, E = Error>(
-    opts?:
-        | number
-        | {
-              times?: number;
-              interval?: number | ((retryCount: number) => number);
-              errorFilter?: (error: Error) => boolean;
-          },
+    opts?: number | RetryOptions,
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
     callback?: AsyncResultCallback<any, E>,
 ): void;
 
-export function retryable<T, E = Error>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
+export function retryable<T, E = Error>(task: AsyncFunction<T, E>): AsyncFunction<T, E>;
+export function retryable<T, E = Error>(
+    opts:
+        | number
+        | RetryOptions & {arity?: number},
+     task: AsyncFunction<T, E>
+): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;

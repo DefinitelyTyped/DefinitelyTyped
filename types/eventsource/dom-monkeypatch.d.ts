@@ -1,5 +1,4 @@
 interface EventListener {
-  // tslint:disable-next-line: callable-types
   (evt: Event): void;
 }
 
@@ -65,18 +64,18 @@ interface EventInit {
   composed?: boolean;
 }
 
-interface MessageEventInit extends EventInit {
-  data?: any;
+interface MessageEventInit<T = any> extends EventInit {
+  data?: T;
   lastEventId?: string;
   origin?: string;
 }
 
 /** The MessageEvent interface represents a message received by a target object. */
-interface MessageEvent extends Event {
+interface MessageEvent<T = any> extends Event {
   /**
    * Returns the data of the message.
    */
-  readonly data: any;
+  readonly data: T;
   /**
    * Returns the last event ID string, for server-sent events.
    */
@@ -89,5 +88,5 @@ interface MessageEvent extends Event {
 }
 declare var MessageEvent: {
   prototype: MessageEvent;
-  new (type: string, eventInitDict?: MessageEventInit): MessageEvent;
+  new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };

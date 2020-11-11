@@ -19,7 +19,7 @@ function test_application() {
     }, (error) => {
         console.log("Error creating application:", error);
     });
-	// createFromManifest
+    // createFromManifest
     fin.desktop.Application.createFromManifest("http://stuf.com/app.json", (app) => {
         console.log(app.uuid);
     }, err => console.log(err));
@@ -94,8 +94,8 @@ function test_application() {
     application.registerUser("a", "b", () => console.log("done"), err => console.log(err));
     // removeEventListener
     application.removeEventListener("closed", (event: any) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("The unregistration was successful");
     }, err => {
         console.log("failure:", err);
@@ -576,8 +576,8 @@ function test_system() {
     });
     // removeEventListener
     fin.desktop.System.removeEventListener("monitor-info-changed", (event) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("successful");
     }, (err: any) => {
         console.log("failure: " + err);
@@ -864,8 +864,8 @@ function test_window() {
     finWindow.reload();
     // removeEventListener
     finWindow.removeEventListener("bounds-changed", event => {
-		console.log(event);
-	});
+        console.log(event);
+    });
     // resizeBy
     finWindow.resizeBy(10, 10, "top-right");
     // resizeTo

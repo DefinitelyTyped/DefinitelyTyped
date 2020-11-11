@@ -20,11 +20,13 @@
 //                 Ville Kentta <https://github.com/vkentta>
 //                 Fabien Caylus <https://github.com/fcaylus>
 //                 Samuel Weckstrom <https://github.com/samuelweckstrom>
+//                 George Cheng <https://github.com/Gerhut>
+//                 Haldun Anil <https://github.com/haldunanil>
+//                 Tobias Knapp <https://github.com/t-knapp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -45,11 +47,11 @@ export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType =
     'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' |
-    'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+    'ordinal' | 'quantile' | 'quantize' | 'utc' | 'sequential' | 'threshold';
 export type PositionType =
     'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
-    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center' | 'centerTop' | 'centerBottom';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
@@ -192,7 +194,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     legendType?: LegendType;
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement | ContentRenderer<any>;
-    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps>;
+    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps & { payload: any }>;
     label?: boolean | object | ContentRenderer<any> | React.ReactElement;
     hide?: boolean;
     layout?: LayoutType;
@@ -298,8 +300,15 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
 
 export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
-export type CoordinatesGenerator = (arg: {
+export type HorizontalCoordinatesGenerator = (arg: {
     yAxis: CartesianGridProps['yAxis'];
+    width: CartesianGridProps['chartWidth'];
+    height: CartesianGridProps['chartHeight'];
+    offset: CartesianGridProps['offset'];
+}) => ReadonlyArray<number>;
+
+export type VerticalCoordinatesGenerator = (arg: {
+    xAxis: CartesianGridProps['xAxis'];
     width: CartesianGridProps['chartWidth'];
     height: CartesianGridProps['chartHeight'];
     offset: CartesianGridProps['offset'];
@@ -313,17 +322,16 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     vertical?: object | React.ReactElement | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: ReadonlyArray<number>;
     verticalPoints?: ReadonlyArray<number>;
-    horizontalCoordinatesGenerator?: CoordinatesGenerator;
-    verticalCoordinatesGenerator?: CoordinatesGenerator;
-    xAxis?: object;
-    yAxis?: object;
-    offset?: object;
+    horizontalCoordinatesGenerator?: HorizontalCoordinatesGenerator;
+    verticalCoordinatesGenerator?: VerticalCoordinatesGenerator;
+    xAxis?: XAxisProps;
+    yAxis?: YAxisProps;
+    offset?: ChartOffset;
     chartWidth?: number;
     chartHeight?: number;
     horizontalFill?: ReadonlyArray<string>;
     verticalFill?: ReadonlyArray<string>;
 }
-
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
@@ -334,6 +342,16 @@ export interface CellProps extends Partial<PresentationAttributes> {
 }
 
 export class Cell extends React.Component<CellProps> { }
+
+export interface ChartOffset {
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    width?: number;
+    height?: number;
+    brushBottom?: number;
+}
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type ComposedChartProps = CategoricalChartWrapper & EventAttributes;
@@ -439,7 +457,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     hide?: boolean;
     activeDot?: object | React.ReactElement | ContentRenderer<any> | boolean;
-    dot?: object | React.ReactElement | ContentRenderer<DotProps> | boolean;
+    dot?: object | React.ReactElement | ContentRenderer<DotProps & { payload: any }> | boolean;
     top?: number;
     left?: number;
     width?: number;
@@ -534,6 +552,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     stroke?: string;
     orientation?: 'inner' | 'outer';
     tickFormatter?: TickFormatterFunction;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -574,6 +593,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     domain?: Readonly<[PolarRadiusAxisDomain, PolarRadiusAxisDomain]>;
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
@@ -692,6 +712,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement;
+    label?: string | number | ContentRenderer<any> | React.ReactElement;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
@@ -1054,6 +1075,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    allowDuplicatedCategory?: boolean;
     stroke?: string;
 }
 

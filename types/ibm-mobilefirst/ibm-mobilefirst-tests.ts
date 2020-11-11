@@ -34,8 +34,8 @@ WL.UserAuth.deleteCertificate("entity").then(function() {
 var xhr = new XMLHttpRequest();
 WLAuthorizationManager.addCachedAuthorizationHeader(xhr).always(
     function(response: WLAuthorizationManager.RequestObject) {
-	    // success or failure flow
-	}
+        // success or failure flow
+    }
 );
 WLAuthorizationManager.getAppIdentity().then(function(data) {
     // success flow with application identity
@@ -58,25 +58,25 @@ var arr: any[];
 arr = WL.JSONStore.QueryPart().between('gpa', [3.0, 4.0]);
     //arr = [{$between: [{ gpa : [3.0, 4.0] }]}]
 arr = WL.JSONStore.QueryPart().equal('age', 35);
-	//arr = [{$equal: [{ age : 35 }]}]
+    //arr = [{$equal: [{ age : 35 }]}]
 arr = WL.JSONStore.QueryPart().greaterOrEqualThan('age', 40);
-	//arr = [{$greaterOrEqualThan: [{ age : 40 }]}]
+    //arr = [{$greaterOrEqualThan: [{ age : 40 }]}]
 arr = WL.JSONStore.QueryPart().greaterThan('age', 40);
-	//arr = [{$greaterThan: [{ age : 40 }]}]
+    //arr = [{$greaterThan: [{ age : 40 }]}]
 arr = WL.JSONStore.QueryPart().inside('gpa', [3.0, 4.0]);
-	//arr = [{$inside: [{ gpa : [3.0, 4.0] }]}]
+    //arr = [{$inside: [{ gpa : [3.0, 4.0] }]}]
 arr = WL.JSONStore.QueryPart().leftLike('name', 'ca');
-	//arr = [{$leftLike: [{ name : 'ca' }]}]
+    //arr = [{$leftLike: [{ name : 'ca' }]}]
 arr = WL.JSONStore.QueryPart().lessOrEqualThan('age', 40);
-	//arr = [{$lessOrEqualThan: [{ age : 40 }]}]
+    //arr = [{$lessOrEqualThan: [{ age : 40 }]}]
 arr = WL.JSONStore.QueryPart().lessThan('age', 40);
-	//arr = [{$lessThan: [{ age : 40 }]}]
+    //arr = [{$lessThan: [{ age : 40 }]}]
 arr = WL.JSONStore.QueryPart().like('name', 'ca');
-	//arr = [{$like: [{ name : 'ca' }]}]
+    //arr = [{$like: [{ name : 'ca' }]}]
 arr = WL.JSONStore.QueryPart().notBetween('gpa', [3.0, 4.0]);
-	//arr = [{$notBetween: [{ gpa : [3.0, 4.0] }]}]
+    //arr = [{$notBetween: [{ gpa : [3.0, 4.0] }]}]
 arr = WL.JSONStore.QueryPart().notEqual('name', 'ca');
-	//arr = [{$notEqual: [{ name : 'ca' }]}]
+    //arr = [{$notEqual: [{ name : 'ca' }]}]
 
 // Test WL.Logger
 WL.Logger.config();
@@ -118,7 +118,7 @@ WL.SecurityUtils.base64Encode('input string').then(function(result: string) {
 
 // Test WL.SimpleDialog
 WL.SimpleDialog.show(
-	'My Title', 'My Text', [{
+    'My Title', 'My Text', [{
         text: 'First Button',
         handler: function() {
             WL.Logger.debug("First button pressed");
@@ -128,7 +128,7 @@ WL.SimpleDialog.show(
 // Test WL.TabBar
 // iOS
 var creditTab = WL.TabBar.addItem("CREDIT", function() {
-	alert("the CREDIT tab was selected!");
+    alert("the CREDIT tab was selected!");
 }, "Visa", {
     image:"images/credit.png",
     badge: "2"

@@ -14,8 +14,7 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#dataZoom-inside
          * @see https://echarts.apache.org/en/option.html#dataZoom-slider
          */
-        type DataZoom = DataZoom.Inside
-            | DataZoom.Slider;
+        type DataZoom = DataZoom.Inside | DataZoom.Slider;
 
         namespace DataZoom {
             /**
@@ -33,7 +32,7 @@ declare namespace echarts {
             interface Inside {
                 type?: string;
                 id?: string;
-                disable?: boolean;
+                disabled?: boolean;
                 xAxisIndex?: number | number[];
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];
@@ -70,7 +69,7 @@ declare namespace echarts {
                 fillerColor?: string;
                 borderColor?: string;
                 handleIcon?: string;
-                handleSize?: number;
+                handleSize?: number | string;
                 handleStyle?: object;
                 labelPrecision?: number;
                 labelFormatter?: string | Function;

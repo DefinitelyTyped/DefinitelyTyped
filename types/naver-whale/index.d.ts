@@ -107,7 +107,7 @@ declare namespace whale {
         export import inspectedWindow = chrome.devtools.inspectedWindow;
 
         /**
-         * 	개발자도구 > 네트워크 패널에서 수신하는 정보들을 수신할 수 있습니다.
+         *     개발자도구 > 네트워크 패널에서 수신하는 정보들을 수신할 수 있습니다.
          * @since Chrome 18.
          */
         export import network = chrome.devtools.network;

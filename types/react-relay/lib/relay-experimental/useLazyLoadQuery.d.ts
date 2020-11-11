@@ -1,13 +1,12 @@
-import { FetchPolicy, RenderPolicy } from './QueryResource';
-import { CacheConfig, GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import { CacheConfig, FetchPolicy, GraphQLTaggedNode, OperationType, RenderPolicy, VariablesOf } from 'relay-runtime';
 
 export function useLazyLoadQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
-    variables: TQuery['variables'],
+    variables: VariablesOf<TQuery>,
     options?: {
         fetchKey?: string | number;
         fetchPolicy?: FetchPolicy;
         networkCacheConfig?: CacheConfig;
-        renderPolicy_UNSTABLE?: RenderPolicy;
+        UNSTABLE_renderPolicy?: RenderPolicy;
     },
 ): TQuery['response'];

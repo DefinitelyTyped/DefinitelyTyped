@@ -3,7 +3,7 @@ import { Identity } from '../../identity';
 import { Application } from '../application/application';
 import Transport from '../../transport/transport';
 import { WindowEvents } from '../events/window';
-import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
+import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes/shapes';
 import { WindowOption } from './windowOption';
 import { EntityType } from '../frame/frame';
 import { ExternalWindow } from '../external-window/external-window';
@@ -84,7 +84,7 @@ export interface PrinterInfo {
     isDefault: boolean;
 }
 interface Margins {
-    marginType?: ('default' | 'none' | 'printableArea' | 'custom');
+    marginType?: 'default' | 'none' | 'printableArea' | 'custom';
     top?: number;
     bottom?: number;
     left?: number;
@@ -106,7 +106,7 @@ export interface PrintOptions {
     collate?: boolean;
     copies?: number;
     pageRanges?: Record<string, number>;
-    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge');
+    duplexMode?: 'simplex' | 'shortEdge' | 'longEdge';
     dpi?: Dpi;
 }
 interface WindowMovementOptions {
@@ -129,12 +129,12 @@ export interface FindInPageOptions {
  * @property { number } [bottom] The bottom margin of the printed web page, in pixels.
  * @property { number } [left] The left margin of the printed web page, in pixels.
  * @property { number } [right] The right margin of the printed web page, in pixels.
-*/
+ */
 /**
  * @typedef { object } Dpi
  * @property { number } [horizontal] The horizontal dpi
  * @property { number } [vertical] The vertical dpi
-*/
+ */
 /**
  * @typedef { object } PrintOptions
  * @property { boolean } [silent=false] Don't ask user for print settings.
@@ -152,13 +152,13 @@ export interface FindInPageOptions {
  * @property { Dpi } [dpi] Set dpi for the printed web page
  */
 /**
-* PrinterInfo interface
-* @typedef { object } PrinterInfo
-* @property { string } name Printer Name
-* @property { string } description Printer Description
-* @property { number } status Printer Status
-* @property { boolean } isDefault Indicates that system's default printer
-*/
+ * PrinterInfo interface
+ * @typedef { object } PrinterInfo
+ * @property { string } name Printer Name
+ * @property { string } description Printer Description
+ * @property { number } status Printer Status
+ * @property { boolean } isDefault Indicates that system's default printer
+ */
 /**
  * @typedef {object} Window~options
  * @summary Window creation options.
@@ -270,7 +270,7 @@ export interface FindInPageOptions {
  * @property {any} [customContext=""] - _Updatable._
  * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
  * is called.  If a window in a Platform is trying to update or retrieve its own context, it can use the
- * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
+ * {@link Platform#setWindowContext Platform.setWindowContext} and {@link Platform#getWindowContext Platform.getWindowContext} calls.
  * When omitted, the default value of this property is the empty string (`""`).
  * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
  *
@@ -305,6 +305,14 @@ export interface FindInPageOptions {
  * A flag to show the frame.
  *
  * @hidden-property {boolean} [hideOnClose=false] - A flag to allow a window to be hidden when the close button is clicked.
+ *
+ * @property {object[]} [hotkeys=[]] - _Updatable._
+ * Defines the list of hotkeys that will be emitted as a `hotkey` event on the window. For usage example see [example]{@tutorial hotkeys}.
+ * Within Platform, OpenFin also implements a set of pre-defined actions called
+ * [keyboard commands]{@link https://developers.openfin.co/docs/platform-api#section-5-3-using-keyboard-commands}
+ * that can be assigned to a specific hotkey in the platform manifest.
+ * @property {string} hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
+ * @property {boolean} [hotkeys.preventDefault=false] Whether or not to prevent default key handling before emitting the event
  *
  * @property {string} [icon] - _Updatable. Inheritable._
  * A URL for the icon to be shown in the window title bar and the taskbar.
@@ -353,11 +361,16 @@ export interface FindInPageOptions {
  *
  * @property {boolean} [saveWindowState=true]
  * A flag to cache the location of the window.
+ * ** note ** - This option is ignored in Platforms as it would cause inconsistent {@link Platform#applySnapshot applySnapshot} behavior.
  *
  * @property {boolean} [shadow=false]
  * A flag to display a shadow on frameless windows.
  * `shadow` and `cornerRounding` are mutually exclusive.
  * On Windows 7, Aero theme is required.
+ *
+ * @property {boolean} [showBackgroundImages=false] - _Updatable._
+ * Platforms Only.  If true, will show background images in the layout when the Views are hidden.
+ * This occurs when the window is resizing or a tab is being dragged within the layout.
  *
  * @property {boolean} [showTaskbarIcon=true] - _Updatable._ _Windows_.
  * A flag to show the window's icon in the taskbar.
@@ -394,6 +407,12 @@ export interface FindInPageOptions {
  * When set to `false`, the window will appear immediately without waiting for content to be loaded.
  */
 /**
+ * @typedef {object} CapturePageOptions
+ * @property { Area } [area] The area of the window to be captured.
+ * @property { string } [format='png'] The format of the captured image.  Can be 'png', 'jpg', or 'bmp'.
+ * @property { number } [quality=100] Number representing quality of JPEG image only. Between 0 - 100.
+ */
+/**
  * @typedef { object } Area
  * @property { number } height Area's height
  * @property { number } width Area's width
@@ -419,7 +438,7 @@ export interface FindInPageOptions {
  * @property {Opacity} opacity - The Opacity transition
  * @property {Position} position - The Position transition
  * @property {Size} size - The Size transition
-*/
+ */
 /**
  * @typedef {object} TransitionOptions
  * @property {boolean} interrupt - This option interrupts the current animation. When false it pushes
@@ -445,7 +464,7 @@ this animation onto the end of the animation queue.
  * @property {number} duration - The total time in milliseconds this transition should take.
  * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
  * @property {number} opacity - This value is clamped from 0.0 to 1.0.
-*/
+ */
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
@@ -548,13 +567,41 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.EventEmitter
      */
     /**
-    * Returns the zoom level of the window.
-    * @function getZoomLevel
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial Window.getZoomLevel
-    */
+     * Gets a base64 encoded image of the window or a part of it.
+     * @function capturePage
+     * @param { CapturePageOptions } [options] options for capturePage call.
+     * @return {Promise.<string>}
+     * @memberof Window
+     * @instance
+     * @tutorial Window.capturePage
+     */
+    /**
+     * Executes Javascript on the window, restricted to windows you own or windows owned by
+     * applications you have created.
+     * @param { string } code JavaScript code to be executed on the window.
+     * @function executeJavaScript
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.executeJavaScript
+     */
+    /**
+     * Gives focus to the window.
+     * @return {Promise.<void>}
+     * @function focus
+     * @emits focused
+     * @memberOf Window
+     * @instance
+     * @tutorial Window.focus
+     */
+    /**
+     * Returns the zoom level of the window.
+     * @function getZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.getZoomLevel
+     */
     /**
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
@@ -621,30 +668,30 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.stopNavigation
      */
     /**
-    * Reloads the window current page
-    * @function reload
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.reload
-    */
+     * Reloads the window current page
+     * @function reload
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.reload
+     */
     /**
-    * Prints the window's web page
-    * @param { PrintOptions } [options] Printer Options
-    * @function print
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.print
-    */
+     * Prints the window's web page
+     * @param { PrintOptions } [options] Printer Options
+     * @function print
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.print
+     */
     /**
-    * Returns an array with all system printers
-    * @function getPrinters
-    * @memberOf Window
-    * @instance
-    * @return { Promise.Array.<PrinterInfo> }
-    * @tutorial Window.getPrinters
-    */
+     * Returns an array with all system printers
+     * @function getPrinters
+     * @memberOf Window
+     * @instance
+     * @return { Promise.Array.<PrinterInfo> }
+     * @tutorial Window.getPrinters
+     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -658,15 +705,8 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
-    */
-    getBounds(): Promise<Bounds>;
-    /**
-     * Gives focus to the window.
-     * @return {Promise.<void>}
-     * @emits _Window#focused
-     * @tutorial Window.focus
      */
-    focus(): Promise<void>;
+    getBounds(): Promise<Bounds>;
     /**
      * Centers the window on its current screen.
      * @return {Promise.<void>}
@@ -705,8 +745,9 @@ export declare class _Window extends WebContents<WindowEvents> {
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<void>}
      * @tutorial Window.close
-    */
+     */
     close(force?: boolean): Promise<void>;
+    focusedWebViewWasChanged(): Promise<void>;
     /**
      * Returns the native OS level Id.
      * In Windows, it will return the Windows [handle](https://docs.microsoft.com/en-us/windows/desktop/WinProg/windows-data-types#HWND).
@@ -715,11 +756,11 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getNativeId(): Promise<string>;
     /**
-    * Retrieves window's attached views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Window.getCurrentViews
-    */
+     * Retrieves window's attached views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Window.getCurrentViews
+     */
     getCurrentViews(): Promise<Array<View>>;
     disableFrame(): Promise<void>;
     /**
@@ -735,16 +776,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.enableUserMovement
      */
     enableUserMovement(): Promise<void>;
-    /**
-     * Executes Javascript on the window, restricted to windows you own or windows owned by
-     * applications you have created.
-     * @param { string } code JavaScript code to be executed on the window.
-     * @function executeJavaScript
-     * @memberOf Window
-     * @instance
-     * @return {Promise.<void>}
-     * @tutorial Window.executeJavaScript
-     */
     /**
      * Flashes the window’s frame and taskbar icon until stopFlashing is called or until a focus event is fired.
      * @return {Promise.<void>}
@@ -790,11 +821,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getParentWindow(): Promise<_Window>;
     /**
-     * Gets a base64 encoded PNG snapshot of the window or just part a of it.
+     * ***DEPRECATED - please use Window.capturePage.***
+     * Gets a base64 encoded PNG image of the window or just part a of it.
      * @param { Area } [area] The area of the window to be captured.
      * Omitting it will capture the whole visible window.
      * @return {Promise.<string>}
-     * @tutorial Window.getSnapshot
+     * @tutorial Window.capturePage
      */
     getSnapshot(area?: Area): Promise<string>;
     /**
@@ -942,7 +974,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.showDeveloperTools
      */
-    showDeveloperTools(): Promise<void>;
     /**
      * Updates the window using the passed options.
      * Values that are objects are deep-merged, overwriting only the values that are provided.

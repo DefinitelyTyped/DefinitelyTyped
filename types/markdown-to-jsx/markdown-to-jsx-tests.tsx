@@ -127,10 +127,7 @@ render(
         options={{
             createElement: <P extends {}>(
                 type: React.SFC<P> | React.ComponentClass<P> | string,
-                // This typing is copied from React
-                // tslint:disable-next-line:no-null-undefined-union
                 props?: (React.Attributes & P) | null,
-                // tslint:disable-next-line:no-null-undefined-union
                 ...children: React.ReactNode[]
             ) => <div className="parent">{React.createElement(type, props, children)}</div>,
         }}
@@ -145,3 +142,18 @@ render(
 # Header 1
 ## Header 2
 `}</Markdown>;
+
+<Markdown
+    options={{
+        namedCodesToUnicode: {
+            le: '\u2264',
+            ge: '\u2265',
+        },
+    }}
+>
+    This text is &le; than this text.
+</Markdown>;
+
+<Markdown options={{ disableParsingRawHTML: true }}>
+    {"This text has <span>html</span> in it but it won't be rendered"}
+</Markdown>;

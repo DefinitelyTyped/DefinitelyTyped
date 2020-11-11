@@ -4,8 +4,15 @@ $('document').on('ready', () => {
     $('#input-id')
         .fileinput({
             uploadUrl: 'http://localhost/file-upload.php',
+            uploadUrlThumb: 'http://localhost/file-thumb-upload.php',
             uploadExtraData: {
                 uploadToken: 'SOME-TOKEN', // for access control / security
+            },
+            fileActionSettings: {
+                showZoom: false,
+                showDrag: () => {
+                    return true;
+                }
             },
             maxFileCount: 5,
             allowedFileTypes: ['image'], // allow only images
@@ -76,4 +83,12 @@ $('document').on('ready', () => {
     $('#input1').fileinput('getFrames');
     $('#input2').fileinput('getFrames', '.file-preview-initial');
     $('#input3').fileinput('getFrames', ':not(.file-preview-success)');
+    $('#input1').fileinput({
+        uploadUrl: () => {
+            return 'http://localhost/file-upload.php';
+        },
+        uploadUrlThumb: () => {
+            return 'http://localhost/file-thumb-upload.php';
+        },
+    });
 });

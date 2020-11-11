@@ -5,9 +5,9 @@
 
 export type CompleteCallback = (
     err: string | undefined,
-    result: undefined | object,
+    result: any,
     statusCode?: number,
-    headers?: object,
+    headers?: object
 ) => void;
 
 export type ProgressCallback = (bytesUploaded: number, bytesTotal: number) => void;
@@ -17,7 +17,7 @@ export type UriCallback = (uri: string) => void;
 export interface RequestOptions {
     method: string;
     path: string;
-    query?: string;
+    query?: object;
     headers?: object;
 }
 

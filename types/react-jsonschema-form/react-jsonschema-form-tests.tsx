@@ -21,6 +21,8 @@ import {
     isFixedItems,
     stubExistingAdditionalProperties,
     retrieveSchema,
+    hasWidget,
+    getWidget,
 } from 'react-jsonschema-form/lib/utils';
 import validateFormData from 'react-jsonschema-form/lib/validate';
 
@@ -272,7 +274,27 @@ const TestForm = (props: React.ComponentProps<'form'>) => <form {...props} />;
 export const customTagNameUsingComponent = (schema: JSONSchema6) => {
     return <Form schema={schema} tagName={TestForm} />;
 };
-  
+
+export const hasWidgetDefaultExample = (schema: JSONSchema6) => {
+    return hasWidget(schema, BooleanCustomWidget);
+};
+
+export const hasWidgetStringExample = (schema: JSONSchema6) => {
+    return hasWidget(schema, 'select');
+};
+
+export const getWidgetDefaultExample = (schema: JSONSchema6) => {
+    return getWidget(schema, BooleanCustomWidget);
+};
+
+export const getWidgetRegisteredWidgetsExample = (schema: JSONSchema6) => {
+    return getWidget(schema, 'checkbox', { checkbox: BooleanCustomWidget });
+};
+
+export const getWidgetStringExample = (schema: JSONSchema6) => {
+    return getWidget(schema, 'select');
+};
+
 const idSchema: IdSchema<{ test: {} }> = {
     $id: 'test',
     test: {

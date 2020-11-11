@@ -62,7 +62,7 @@ declare namespace WebpackDevMiddleware {
          */
         mimeTypes?: MimeTypeMap | OverrideMimeTypeMap | null;
         /** The public path that the middleware is bound to */
-        publicPath: string;
+        publicPath?: string;
         /** Allows users to provide a custom reporter to handle logging within the module */
         reporter?: Reporter | null;
         /** Instructs the module to enable or disable the server-side rendering mode */

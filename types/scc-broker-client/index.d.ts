@@ -3,10 +3,21 @@
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import SCBroker = require("sc-broker/scbroker");
-import { Secret } from "jsonwebtoken";
+import AGSimpleBroker = require('ag-simple-broker');
+import ConsumableStream = require('consumable-stream');
+import { Secret } from 'jsonwebtoken';
 
-import ClusterBrokerClient = require("./cluster-broker-client");
+import ClusterBrokerClient = require('./cluster-broker-client');
+
+export interface Broker {
+    listener(eventName: 'subscribe'): ConsumableStream<AGSimpleBroker.SubscribeData>;
+    listener(eventName: 'unsubscribe'): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
+    listener(eventName: 'publish'): ConsumableStream<AGSimpleBroker.PublishData>;
+
+    invokePublish(channelName: string, data: any, suppressEvent: boolean): Promise<void>;
+
+    subscriptions(): string[];
+}
 
 export interface MappingEngine {
     setSites(sites: string[]): void;
@@ -17,7 +28,7 @@ export interface MappingEngine {
 export interface SCCBrokerClientOptions {
     stateServerReconnectRandomness?: number;
     authKey?: Secret;
-    mappingEngine?: "skeletonRendezvous" | "simple" | MappingEngine;
+    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine;
 
     clientPoolSize?: number;
 
@@ -37,4 +48,4 @@ export interface SCCBrokerClientOptions {
     pubSubBatchDuration?: number;
 }
 
-export function attach(broker: SCBroker, options: SCCBrokerClientOptions): ClusterBrokerClient;
+export function attach(broker: Broker, options: SCCBrokerClientOptions): ClusterBrokerClient;

@@ -7,10 +7,22 @@
             "asOfVersion": "1.1.3"
         },
         {
-            "libraryName": "Ably Realtime and Rest client library",
+            "libraryName": "a11y-dialog",
+            "typingsPackageName": "a11y-dialog",
+            "sourceRepoURL": "https://github.com/edenspiekermann/a11y-dialog",
+            "asOfVersion": "5.3.2"
+        },
+        {
+            "libraryName": "ably",
             "typingsPackageName": "ably",
             "sourceRepoURL": "https://www.ably.io/",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@hapi/accept",
+            "typingsPackageName": "accept",
+            "sourceRepoURL": "https://github.com/hapijs/accept",
+            "asOfVersion": "5.0.1"
         },
         {
             "libraryName": "acme-client",
@@ -139,13 +151,13 @@
             "asOfVersion": "2.1.2"
         },
         {
-            "libraryName": "Application Insights",
+            "libraryName": "applicationinsights",
             "typingsPackageName": "applicationinsights",
             "sourceRepoURL": "https://github.com/Microsoft/ApplicationInsights-node.js",
             "asOfVersion": "0.20.0"
         },
         {
-            "libraryName": "Argon2",
+            "libraryName": "argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
@@ -191,6 +203,12 @@
             "typingsPackageName": "asyncblock",
             "sourceRepoURL": "https://github.com/scriby/asyncblock",
             "asOfVersion": "2.2.11"
+        },
+        {
+            "libraryName": "asynciterator",
+            "typingsPackageName": "asynciterator",
+            "sourceRepoURL": "https://github.com/RubenVerborgh/AsyncIterator/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "aurelia-knockout",
@@ -259,7 +277,7 @@
             "asOfVersion": "7.1.0"
         },
         {
-            "libraryName": "BabylonJS",
+            "libraryName": "babylonjs",
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
             "asOfVersion": "2.4.1"
@@ -313,7 +331,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "BigInteger.js",
+            "libraryName": "big-integer",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
             "asOfVersion": "0.0.31"
@@ -379,7 +397,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Bowser",
+            "libraryName": "bowser",
             "typingsPackageName": "bowser",
             "sourceRepoURL": "https://github.com/ded/bowser",
             "asOfVersion": "1.1.1"
@@ -397,14 +415,20 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "@braintree/sanitize-url",
+            "typingsPackageName": "braintree__sanitize-url",
+            "sourceRepoURL": "https://github.com/braintree/sanitize-url",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "sourceRepoURL": "https://github.com/broccolijs/broccoli-plugin",
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Bugsnag Browser",
-            "typingsPackageName": "bugsnag-js",
+            "libraryName": "bugsnag-js",
+            "typingsPackageName": "bugsnag",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
             "asOfVersion": "3.1.0"
         },
@@ -415,13 +439,19 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "bulma-calendar",
+            "typingsPackageName": "bulma-calendar",
+            "sourceRepoURL": "https://github.com/wikiki/bulma-calendar",
+            "asOfVersion": "6.0.2"
+        },
+        {
             "libraryName": "bunyan-bugsnag",
             "typingsPackageName": "bunyan-bugsnag",
             "sourceRepoURL": "https://github.com/marnusw/bunyan-bugsnag",
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "CacheFactory",
+            "libraryName": "cachefactory",
             "typingsPackageName": "cachefactory",
             "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
             "asOfVersion": "3.0.0"
@@ -441,7 +471,7 @@
         {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/camel-case#readme",
             "asOfVersion": "1.2.1"
         },
         {
@@ -461,6 +491,18 @@
             "typingsPackageName": "camljs",
             "sourceRepoURL": "https://github.com/andrei-markeev/camljs",
             "asOfVersion": "2.8.1"
+        },
+        {
+            "libraryName": "card-validator",
+            "typingsPackageName": "card-validator",
+            "sourceRepoURL": "https://github.com/braintree/card-validator",
+            "asOfVersion": "7.0.1"
+        },
+        {
+            "libraryName": "cash-dom",
+            "typingsPackageName": "cash",
+            "sourceRepoURL": "https://github.com/fabiospampinato/cash",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "cassandra-driver",
@@ -571,7 +613,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "colors.js (colors)",
+            "libraryName": "colors",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
             "asOfVersion": "1.2.1"
@@ -581,6 +623,12 @@
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
             "asOfVersion": "2.12.2"
+        },
+        {
+            "libraryName": "comment-json",
+            "typingsPackageName": "comment-json",
+            "sourceRepoURL": "https://github.com/kaelzhang/node-comment-json",
+            "asOfVersion": "2.4.1"
         },
         {
             "libraryName": "commons-validator-js",
@@ -633,7 +681,7 @@
         {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/constant-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -679,7 +727,7 @@
             "asOfVersion": "1.2.4"
         },
         {
-            "libraryName": "Apache Cordova Device Orientation plugin",
+            "libraryName": "cordova-plugin-device-orientation",
             "typingsPackageName": "cordova-plugin-device-orientation",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-orientation",
             "asOfVersion": "1.0.6"
@@ -691,7 +739,7 @@
             "asOfVersion": "1.3.2"
         },
         {
-            "libraryName": "Apache Cordova File System plugin",
+            "libraryName": "cordova-plugin-file",
             "typingsPackageName": "cordova-plugin-file",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-file",
             "asOfVersion": "4.3.2"
@@ -739,13 +787,13 @@
             "asOfVersion": "4.0.2"
         },
         {
-            "libraryName": "Apache Cordova StatusBar plugin",
+            "libraryName": "cordova-plugin-statusbar",
             "typingsPackageName": "cordova-plugin-statusbar",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-statusbar",
             "asOfVersion": "2.2.2"
         },
         {
-            "libraryName": "Apache Cordova Vibration plugin",
+            "libraryName": "cordova-plugin-vibration",
             "typingsPackageName": "cordova-plugin-vibration",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-vibration",
             "asOfVersion": "2.1.4"
@@ -763,7 +811,7 @@
             "asOfVersion": "3.7.0"
         },
         {
-            "libraryName": "core-decorators.js",
+            "libraryName": "core-decorators",
             "typingsPackageName": "core-decorators",
             "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
             "asOfVersion": "0.20.0"
@@ -797,6 +845,12 @@
             "typingsPackageName": "create-html-element",
             "sourceRepoURL": "https://github.com/sindresorhus/create-html-element",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "credit-card-type",
+            "typingsPackageName": "credit-card-type",
+            "sourceRepoURL": "https://github.com/braintree/credit-card-type",
+            "asOfVersion": "9.0.0"
         },
         {
             "libraryName": "cropperjs",
@@ -903,7 +957,7 @@
         {
             "libraryName": "deepmerge",
             "typingsPackageName": "deepmerge",
-            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "sourceRepoURL": "https://github.com/TehShrike/deepmerge",
             "asOfVersion": "2.2.0"
         },
         {
@@ -955,7 +1009,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "DevExtreme",
+            "libraryName": "devextreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
             "asOfVersion": "16.2.1"
@@ -967,7 +1021,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Dexie.js",
+            "libraryName": "dexie",
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
@@ -977,6 +1031,12 @@
             "typingsPackageName": "dialogflow",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-dialogflow",
             "asOfVersion": "4.0.3"
+        },
+        {
+            "libraryName": "diff2html",
+            "typingsPackageName": "diff2html",
+            "sourceRepoURL": "https://github.com/rtfpessoa/diff2html/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "docker-file-parser",
@@ -1017,7 +1077,7 @@
         {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/dot-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -1051,7 +1111,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "EasyStar.js",
+            "libraryName": "easystarjs",
             "typingsPackageName": "easystarjs",
             "sourceRepoURL": "http://easystarjs.com/",
             "asOfVersion": "0.3.1"
@@ -1063,7 +1123,7 @@
             "asOfVersion": "3.4.0"
         },
         {
-            "libraryName": "Egg",
+            "libraryName": "egg",
             "typingsPackageName": "egg",
             "sourceRepoURL": "https://github.com/eggjs/egg",
             "asOfVersion": "1.5.0"
@@ -1103,6 +1163,12 @@
             "typingsPackageName": "electron-is-dev",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-is-dev",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "electron-packager",
+            "typingsPackageName": "electron-packager",
+            "sourceRepoURL": "https://github.com/electron/electron-packager",
+            "asOfVersion": "15.0.0"
         },
         {
             "libraryName": "electron-store",
@@ -1225,7 +1291,7 @@
             "asOfVersion": "4.1.0"
         },
         {
-            "libraryName": "EventEmitter3",
+            "libraryName": "eventemitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
@@ -1333,13 +1399,13 @@
             "asOfVersion": "1.2.0"
         },
         {
-            "libraryName": "JSON-Patch",
+            "libraryName": "fast-json-patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
             "asOfVersion": "1.1.5"
         },
         {
-            "libraryName": "FastSimplexNoise",
+            "libraryName": "fast-simplex-noise",
             "typingsPackageName": "fast-simplex-noise",
             "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
             "asOfVersion": "3.0.0"
@@ -1351,7 +1417,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "Fastify-JWT",
+            "libraryName": "fastify-jwt",
             "typingsPackageName": "fastify-jwt",
             "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
             "asOfVersion": "0.8.1"
@@ -1367,6 +1433,12 @@
             "typingsPackageName": "fastify-static",
             "sourceRepoURL": "https://github.com/fastify/fastify-static",
             "asOfVersion": "2.2.1"
+        },
+        {
+            "libraryName": "favicons-webpack-plugin",
+            "typingsPackageName": "favicons-webpack-plugin",
+            "sourceRepoURL": "https://github.com/jantimon/favicons-webpack-plugin",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "@types/facebook-js-sdk",
@@ -1447,13 +1519,13 @@
             "asOfVersion": "3.1.0"
         },
         {
-            "libraryName": "FineUploader",
+            "libraryName": "fine-uploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
         },
         {
-            "libraryName": "Firebase API",
+            "libraryName": "firebase",
             "typingsPackageName": "firebase",
             "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
             "asOfVersion": "3.2.1"
@@ -1507,10 +1579,16 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Foundation Sites",
+            "libraryName": "foundation-sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
             "asOfVersion": "6.4.3"
+        },
+        {
+            "libraryName": "framebus",
+            "typingsPackageName": "framebus",
+            "sourceRepoURL": "https://github.com/braintree/framebus",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "fromnow",
@@ -1531,7 +1609,7 @@
             "asOfVersion": "2.1.2"
         },
         {
-            "libraryName": "FullCalendar",
+            "libraryName": "fullcalendar",
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
             "asOfVersion": "3.8.0"
@@ -1553,6 +1631,12 @@
             "typingsPackageName": "ganache-core",
             "sourceRepoURL": "https://github.com/trufflesuite/ganache-core#readme",
             "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "generate-password",
+            "typingsPackageName": "generate-password",
+            "sourceRepoURL": "https://github.com/brendanashworth/generate-password.git",
+            "asOfVersion": "1.5.1"
         },
         {
             "libraryName": "geolib",
@@ -1627,6 +1711,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "gl-matrix",
+            "typingsPackageName": "gl-matrix",
+            "sourceRepoURL": "https://github.com/toji/gl-matrix.git",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "global-dirs",
             "typingsPackageName": "global-dirs",
             "sourceRepoURL": "https://github.com/sindresorhus/global-dirs",
@@ -1645,10 +1735,22 @@
             "asOfVersion": "0.26.0"
         },
         {
-            "libraryName": "Google Cloud Storage",
+            "libraryName": "@google-cloud/storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "@google-cloud/text-to-speech",
+            "typingsPackageName": "google-cloud__text-to-speech",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-text-to-speech",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "google-maps-react",
+            "typingsPackageName": "google-maps-react",
+            "sourceRepoURL": "https://github.com/fullstackreact/google-maps-react",
+            "asOfVersion": "2.0.5"
         },
         {
             "libraryName": "graphene-pk11",
@@ -1819,6 +1921,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "helmet",
+            "typingsPackageName": "helmet",
+            "sourceRepoURL": "https://github.com/helmetjs/helmet",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "hex-rgb",
             "typingsPackageName": "hex-rgb",
             "sourceRepoURL": "https://github.com/sindresorhus/hex-rgb",
@@ -1835,6 +1943,18 @@
             "typingsPackageName": "highcharts",
             "sourceRepoURL": "http://www.highcharts.com/",
             "asOfVersion": "7.0.0"
+        },
+        {
+            "libraryName": "highlight.js",
+            "typingsPackageName": "highlight.js",
+            "sourceRepoURL": "https://github.com/highlightjs/highlight.js",
+            "asOfVersion": "10.1.0"
+        },
+        {
+            "libraryName": "hirestime",
+            "typingsPackageName": "hirestime",
+            "sourceRepoURL": "https://github.com/seriousManual/hirestime",
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "homeworks",
@@ -1933,13 +2053,19 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "imagemin-pngquant",
+            "typingsPackageName": "imagemin-pngquant",
+            "sourceRepoURL": "https://github.com/imagemin/imagemin-pngquant.git",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
             "asOfVersion": "2.6.3"
         },
         {
-            "libraryName": "Facebook's Immutable",
+            "libraryName": "immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
@@ -1949,6 +2075,12 @@
             "typingsPackageName": "in-range",
             "sourceRepoURL": "https://github.com/sindresorhus/in-range",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "incremental-dom",
+            "typingsPackageName": "incremental-dom",
+            "sourceRepoURL": "https://github.com/google/incremental-dom",
+            "asOfVersion": "0.6.0"
         },
         {
             "libraryName": "indent-string",
@@ -2041,10 +2173,16 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "Ionic",
+            "libraryName": "ionic",
             "typingsPackageName": "ionic",
             "sourceRepoURL": "http://ionicframework.com",
             "asOfVersion": "3.19.0"
+        },
+        {
+            "libraryName": "ip-address",
+            "typingsPackageName": "ip-address",
+            "sourceRepoURL": "https://github.com/beaugunderson/ip-address",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "ip-regex",
@@ -2127,7 +2265,7 @@
         {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-lower-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2235,7 +2373,7 @@
         {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-upper-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2329,13 +2467,13 @@
             "asOfVersion": "0.2.28"
         },
         {
-            "libraryName": "joData",
+            "libraryName": "jodata",
             "typingsPackageName": "jodata",
             "sourceRepoURL": "https://github.com/mccow002/joData",
             "asOfVersion": "1.0.13"
         },
         {
-            "libraryName": "JointJS",
+            "libraryName": "jointjs",
             "typingsPackageName": "jointjs",
             "sourceRepoURL": "http://www.jointjs.com/",
             "asOfVersion": "2.0.0"
@@ -2371,7 +2509,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "JSData Http Adapter",
+            "libraryName": "js-data-http",
             "typingsPackageName": "js-data-http",
             "sourceRepoURL": "https://github.com/js-data/js-data-http",
             "asOfVersion": "3.0.0"
@@ -2383,7 +2521,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "JSNLog",
+            "libraryName": "jsnlog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
             "asOfVersion": "2.17.2"
@@ -2425,10 +2563,22 @@
             "asOfVersion": "10.0.0"
         },
         {
+            "libraryName": "jszip",
+            "typingsPackageName": "jszip",
+            "sourceRepoURL": "https://github.com/Stuk/jszip",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "jwt-decode",
+            "typingsPackageName": "jwt-decode",
+            "sourceRepoURL": "https://github.com/auth0/jwt-decode",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "kafka-node",
@@ -2593,19 +2743,19 @@
             "asOfVersion": "3.1.0"
         },
         {
-            "libraryName": "Linq.JS",
+            "libraryName": "linq",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
             "asOfVersion": "2.2.33"
         },
         {
-            "libraryName": "Linq4JS",
+            "libraryName": "linq4js",
             "typingsPackageName": "linq4js",
             "sourceRepoURL": "https://github.com/morrisjdev/Linq4JS",
             "asOfVersion": "2.1.8"
         },
         {
-            "libraryName": "LinqSharp",
+            "libraryName": "linqsharp",
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
             "asOfVersion": "1.0.0"
@@ -2703,13 +2853,13 @@
         {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "lower-case-first",
             "typingsPackageName": "lower-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case-first#readme",
             "asOfVersion": "1.0.1"
         },
         {
@@ -2749,6 +2899,12 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdownlint",
+            "typingsPackageName": "markdownlint",
+            "sourceRepoURL": "https://github.com/DavidAnson/markdownlint",
+            "asOfVersion": "0.18.0"
+        },
+        {
             "libraryName": "matcher",
             "typingsPackageName": "matcher",
             "sourceRepoURL": "https://github.com/sindresorhus/matcher",
@@ -2759,6 +2915,174 @@
             "typingsPackageName": "material-components-web",
             "sourceRepoURL": "https://material.io/components",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/animation",
+            "typingsPackageName": "material__animation",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/auto-init",
+            "typingsPackageName": "material__auto-init",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-auto-init",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/checkbox",
+            "typingsPackageName": "material__checkbox",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-checkbox",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/chips",
+            "typingsPackageName": "material__chips",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-chips",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/dialog",
+            "typingsPackageName": "material__dialog",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-dialog",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/dom",
+            "typingsPackageName": "material__dom",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-dom",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/drawer",
+            "typingsPackageName": "material__drawer",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-drawer",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/floating-label",
+            "typingsPackageName": "material__floating-label",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-floating-label",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/form-field",
+            "typingsPackageName": "material__form-field",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-form-field",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/grid-list",
+            "typingsPackageName": "material__grid-list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/icon-button",
+            "typingsPackageName": "material__icon-toggle",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-icon-button",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/line-ripple",
+            "typingsPackageName": "material__line-ripple",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-line-ripple",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/linear-progress",
+            "typingsPackageName": "material__linear-progress",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-linear-progress",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/list",
+            "typingsPackageName": "material__list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-list",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/menu",
+            "typingsPackageName": "material__menu",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-menu",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/notched-outline",
+            "typingsPackageName": "material__notched-outline",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-notched-outline",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/radio",
+            "typingsPackageName": "material__radio",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-radio",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/ripple",
+            "typingsPackageName": "material__ripple",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple",
+            "asOfVersion": "7.0.0"
+        },
+        {
+            "libraryName": "@material/select",
+            "typingsPackageName": "material__select",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-select",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "material-components-web",
+            "typingsPackageName": "material__selection-control",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/slider",
+            "typingsPackageName": "material__slider",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-slider",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/snackbar",
+            "typingsPackageName": "material__snackbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-snackbar",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/tab",
+            "typingsPackageName": "material__tab",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-tab",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/tabs",
+            "typingsPackageName": "material__tabs",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/textfield",
+            "typingsPackageName": "material__textfield",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-textfield",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/toolbar",
+            "typingsPackageName": "material__toolbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@material/top-app-bar",
+            "typingsPackageName": "material__top-app-bar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "matrix-appservice-bridge",
+            "typingsPackageName": "matrix-appservice-bridge",
+            "sourceRepoURL": "https://github.com/matrix-org/matrix-appservice-bridge",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "maxmind",
@@ -2791,7 +3115,7 @@
             "asOfVersion": "6.0.0"
         },
         {
-            "libraryName": "metisMenu",
+            "libraryName": "metismenu",
             "typingsPackageName": "metismenu",
             "sourceRepoURL": "https://github.com/onokumus/metisMenu",
             "asOfVersion": "2.7.1"
@@ -2827,7 +3151,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Mobx Cookie",
+            "libraryName": "mobx-cookie",
             "typingsPackageName": "mobx-cookie",
             "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
             "asOfVersion": "1.1.1"
@@ -2851,7 +3175,7 @@
             "asOfVersion": "2.13.0"
         },
         {
-            "libraryName": "Moment",
+            "libraryName": "moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
@@ -2863,13 +3187,19 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "moment-timezone",
+            "typingsPackageName": "moment-timezone",
+            "sourceRepoURL": "https://github.com/moment/moment-timezone",
+            "asOfVersion": "0.5.30"
+        },
+        {
             "libraryName": "mongodb-memory-server",
             "typingsPackageName": "mongodb-memory-server",
             "sourceRepoURL": "https://github.com/nodkz/mongodb-memory-server",
             "asOfVersion": "2.3.0"
         },
         {
-            "libraryName": "Monk",
+            "libraryName": "monk",
             "typingsPackageName": "monk",
             "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
             "asOfVersion": "6.0.0"
@@ -2893,7 +3223,7 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "MQTT",
+            "libraryName": "mqtt",
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
             "asOfVersion": "2.5.0"
@@ -2909,6 +3239,12 @@
             "typingsPackageName": "multimatch",
             "sourceRepoURL": "https://github.com/sindresorhus/multimatch",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "naja",
+            "typingsPackageName": "naja",
+            "sourceRepoURL": "https://github.com/jiripudil/Naja",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "nano",
@@ -2969,6 +3305,12 @@
             "typingsPackageName": "negative-zero",
             "sourceRepoURL": "https://github.com/sindresorhus/negative-zero",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "net-keepalive",
+            "typingsPackageName": "net-keepalive",
+            "sourceRepoURL": "https://github.com/hertzg/node-net-keepalive",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "new-github-issue-url",
@@ -3037,6 +3379,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "node-vault",
+            "typingsPackageName": "node-vault",
+            "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
+            "asOfVersion": "0.9.13"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
@@ -3055,7 +3403,7 @@
             "asOfVersion": "4.2.0"
         },
         {
-            "libraryName": "Normalizr",
+            "libraryName": "normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
@@ -3097,13 +3445,13 @@
             "asOfVersion": "4.0.0"
         },
         {
-            "libraryName": "Nuka Carousel",
+            "libraryName": "nuka-carousel",
             "typingsPackageName": "nuka-carousel",
             "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
             "asOfVersion": "4.4.6"
         },
         {
-            "libraryName": "Numbro",
+            "libraryName": "numbro",
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
             "asOfVersion": "1.9.3"
@@ -3117,7 +3465,7 @@
         {
             "libraryName": "odata",
             "typingsPackageName": "odata",
-            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "sourceRepoURL": "https://github.com/janhommes/o.js#readme",
             "asOfVersion": "1.0.3"
         },
         {
@@ -3145,7 +3493,7 @@
             "asOfVersion": "4.1.0"
         },
         {
-            "libraryName": "Onsen UI",
+            "libraryName": "onsenui",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
@@ -3465,7 +3813,7 @@
         {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/param-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/param-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3481,6 +3829,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "parse-duration",
+            "typingsPackageName": "parse-duration",
+            "sourceRepoURL": "https://github.com/jkroso/parse-duration",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "parse-ms",
             "typingsPackageName": "parse-ms",
             "sourceRepoURL": "https://github.com/sindresorhus/parse-ms",
@@ -3489,7 +3843,7 @@
         {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/pascal-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3501,7 +3855,7 @@
         {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/path-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/path-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3631,7 +3985,7 @@
             "asOfVersion": "0.9.4"
         },
         {
-            "libraryName": "poly2tri.js",
+            "libraryName": "poly2tri",
             "typingsPackageName": "poly2tri",
             "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
             "asOfVersion": "1.4.0"
@@ -3649,16 +4003,16 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "postcss-nested",
+            "typingsPackageName": "postcss-nested",
+            "sourceRepoURL": "https://github.com/postcss/postcss-nested",
+            "asOfVersion": "4.2.1"
+        },
+        {
             "libraryName": "postmark",
             "typingsPackageName": "postmark",
             "sourceRepoURL": "http://wildbit.github.io/postmark.js",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "Prando",
-            "typingsPackageName": "prando",
-            "sourceRepoURL": "https://github.com/zeh/prando",
-            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "pretty-bytes",
@@ -3691,13 +4045,13 @@
             "asOfVersion": "0.9.1"
         },
         {
-            "libraryName": "ProtoBuf.js",
+            "libraryName": "protobufjs",
             "typingsPackageName": "protobufjs",
             "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
             "asOfVersion": "6.0.0"
         },
         {
-            "libraryName": "Protractor",
+            "libraryName": "protractor",
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
@@ -3799,7 +4153,13 @@
             "asOfVersion": "1.3.0"
         },
         {
-            "libraryName": "Raven JS",
+            "libraryName": "raspi-board",
+            "typingsPackageName": "raspi-board",
+            "sourceRepoURL": "https://github.com/nebrius/raspi-board",
+            "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "raven-js",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
             "asOfVersion": "3.10.0"
@@ -3811,10 +4171,22 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "raygun",
+            "typingsPackageName": "raygun",
+            "sourceRepoURL": "https://github.com/MindscapeHQ/raygun4node",
+            "asOfVersion": "0.11.0"
+        },
+        {
             "libraryName": "rc-progress",
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
             "asOfVersion": "2.4.0"
+        },
+        {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "https://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "re2",
@@ -3901,6 +4273,18 @@
             "asOfVersion": "5.1.0"
         },
         {
+            "libraryName": "react-easy-crop",
+            "typingsPackageName": "react-easy-crop",
+            "sourceRepoURL": "https://github.com/ricardo-ch/react-easy-crop",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-filepond",
+            "typingsPackageName": "react-filepond",
+            "sourceRepoURL": "https://github.com/pqina/react-filepond",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -3931,7 +4315,7 @@
             "asOfVersion": "8.1.0"
         },
         {
-            "libraryName": "React Icons",
+            "libraryName": "react-icons",
             "typingsPackageName": "react-icons",
             "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
             "asOfVersion": "3.0.0"
@@ -3963,7 +4347,7 @@
         {
             "libraryName": "react-jss",
             "typingsPackageName": "react-jss",
-            "sourceRepoURL": "https://github.com/cssinjs/react-jss#readme",
+            "sourceRepoURL": "https://cssinjs.org/react-jss/",
             "asOfVersion": "10.0.0"
         },
         {
@@ -3977,6 +4361,12 @@
             "typingsPackageName": "react-native-collapsible",
             "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",
             "asOfVersion": "0.11.0"
+        },
+        {
+            "libraryName": "@react-native-community/cli",
+            "typingsPackageName": "react-native-community__cli",
+            "sourceRepoURL": "https://github.com/react-native-community/cli",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "react-native-elements",
@@ -4081,6 +4471,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-overlays",
+            "typingsPackageName": "react-overlays",
+            "sourceRepoURL": "https://github.com/react-bootstrap/react-overlays",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-owl-carousel",
             "typingsPackageName": "react-owl-carousel",
             "sourceRepoURL": "https://github.com/seal789ie/react-owl-carousel",
@@ -4141,10 +4537,28 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "react-tooltip",
+            "typingsPackageName": "react-tooltip",
+            "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
+            "asOfVersion": "4.2.4"
+        },
+        {
+            "libraryName": "react-visibility-sensor",
+            "typingsPackageName": "react-visibility-sensor",
+            "sourceRepoURL": "https://github.com/joshwnj/react-visibility-sensor",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-webcam",
             "typingsPackageName": "react-webcam",
             "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "reactstrap",
+            "typingsPackageName": "reactstrap",
+            "sourceRepoURL": "https://github.com/reactstrap/reactstrap",
+            "asOfVersion": "8.7.0"
         },
         {
             "libraryName": "read-chunk",
@@ -4195,7 +4609,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Redux",
+            "libraryName": "redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
@@ -4249,7 +4663,7 @@
             "asOfVersion": "0.10.5"
         },
         {
-            "libraryName": "Redux Thunk",
+            "libraryName": "redux-thunk",
             "typingsPackageName": "redux-thunk",
             "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
             "asOfVersion": "2.1.0"
@@ -4329,7 +4743,7 @@
         {
             "libraryName": "rfc4648",
             "typingsPackageName": "rfc4648",
-            "sourceRepoURL": "https://github.com/swansontec/rfc4648",
+            "sourceRepoURL": "https://github.com/swansontec/rfc4648.js#readme",
             "asOfVersion": "1.3.0"
         },
         {
@@ -4465,7 +4879,7 @@
             "asOfVersion": "0.1.3"
         },
         {
-            "libraryName": "node-scanf",
+            "libraryName": "scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
@@ -4515,7 +4929,7 @@
         {
             "libraryName": "sentence-case",
             "typingsPackageName": "sentence-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/sentence-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
@@ -4537,22 +4951,16 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Shopify Prime",
-            "typingsPackageName": "shopify-prime",
-            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "should.js",
+            "libraryName": "should",
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
             "asOfVersion": "13.0.0"
         },
         {
-            "libraryName": "SimpleSignal",
-            "typingsPackageName": "simplesignal",
-            "sourceRepoURL": "https://github.com/zeh/simplesignal",
-            "asOfVersion": "1.0.0"
+            "libraryName": "@simonwep/selection-js",
+            "typingsPackageName": "simonwep__selection-js",
+            "sourceRepoURL": "https://github.com/Simonwep/selection.git",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "@sindresorhus/class-names",
@@ -4621,7 +5029,7 @@
             "asOfVersion": "8.2.5"
         },
         {
-            "libraryName": "Smoothie Charts",
+            "libraryName": "smoothie",
             "typingsPackageName": "smoothie",
             "sourceRepoURL": "https://github.com/joewalnes/smoothie",
             "asOfVersion": "1.29.1"
@@ -4629,8 +5037,14 @@
         {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/snake-case#readme",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "snappy",
+            "typingsPackageName": "snappy",
+            "sourceRepoURL": "https://github.com/kesla/node-snappy",
+            "asOfVersion": "6.3.2"
         },
         {
             "libraryName": "snoowrap",
@@ -4657,6 +5071,12 @@
             "asOfVersion": "0.4.2"
         },
         {
+            "libraryName": "sololearn",
+            "typingsPackageName": "sololearn",
+            "sourceRepoURL": "https://github.com/sololearnjs/sololearn",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "source-map",
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
@@ -4669,16 +5089,22 @@
             "asOfVersion": "5.0.0"
         },
         {
-            "libraryName": "Spectacle",
+            "libraryName": "spectacle",
             "typingsPackageName": "spectacle",
             "sourceRepoURL": "http://github.com/FormidableLabs/spectacle/",
             "asOfVersion": "5.2.3"
         },
         {
-            "libraryName": "Spin.js",
+            "libraryName": "spin.js",
             "typingsPackageName": "spin.js",
             "sourceRepoURL": "http://fgnass.github.com/spin.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "split.js",
+            "typingsPackageName": "split.js",
+            "sourceRepoURL": "https://github.com/nathancahill/split/tree/master/packages/splitjs",
+            "asOfVersion": "1.6.0"
         },
         {
             "libraryName": "spotify-web-api-js",
@@ -4699,7 +5125,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "ServiceStack Utils",
+            "libraryName": "ss-utils",
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
@@ -4897,6 +5323,12 @@
             "asOfVersion": "3.1.1"
         },
         {
+            "libraryName": "stylelint-webpack-plugin",
+            "typingsPackageName": "stylelint-webpack-plugin",
+            "sourceRepoURL": "https://github.com/webpack-contrib/stylelint-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "subsume",
             "typingsPackageName": "subsume",
             "sourceRepoURL": "https://github.com/sindresorhus/subsume",
@@ -4909,7 +5341,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Sugar",
+            "libraryName": "sugar",
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
@@ -4941,17 +5373,17 @@
         {
             "libraryName": "swagger-parser",
             "typingsPackageName": "swagger-parser",
-            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "sourceRepoURL": "https://apitools.dev/swagger-parser/",
             "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/swap-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "SweetAlert",
+            "libraryName": "sweetalert",
             "typingsPackageName": "sweetalert",
             "sourceRepoURL": "https://github.com/t4t5/sweetalert/",
             "asOfVersion": "2.0.4"
@@ -4963,7 +5395,7 @@
             "asOfVersion": "3.54.0"
         },
         {
-            "libraryName": "Tabris.js",
+            "libraryName": "tabris",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
             "asOfVersion": "1.8.0"
@@ -4977,7 +5409,7 @@
         {
             "libraryName": "tcomb",
             "typingsPackageName": "tcomb",
-            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "sourceRepoURL": "https://github.com/gcanti/tcomb",
             "asOfVersion": "2.6.0"
         },
         {
@@ -5029,6 +5461,24 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "@testing-library/dom",
+            "typingsPackageName": "testing-library__dom",
+            "sourceRepoURL": "https://github.com/testing-library/dom-testing-library",
+            "asOfVersion": "7.5.0"
+        },
+        {
+            "libraryName": "@testing-library/react",
+            "typingsPackageName": "testing-library__react",
+            "sourceRepoURL": "https://github.com/testing-library/react-testing-library",
+            "asOfVersion": "10.2.0"
+        },
+        {
+            "libraryName": "@testing-library/user-event",
+            "typingsPackageName": "testing-library__user-event",
+            "sourceRepoURL": "https://github.com/testing-library/user-event",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "text-clipper",
             "typingsPackageName": "text-clipper",
             "sourceRepoURL": "https://github.com/arendjr/text-clipper",
@@ -5073,7 +5523,7 @@
         {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/title-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/title-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5107,7 +5557,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "TsMonad",
+            "libraryName": "tsmonad",
             "typingsPackageName": "tsmonad",
             "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
             "asOfVersion": "0.5.0"
@@ -5119,19 +5569,31 @@
             "asOfVersion": "1.5.7"
         },
         {
+            "libraryName": "tus-js-client",
+            "typingsPackageName": "tus-js-client",
+            "sourceRepoURL": "https://github.com/tus/tus-js-client",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "@tweenjs/tween.js",
+            "typingsPackageName": "tween.js",
+            "sourceRepoURL": "https://github.com/tweenjs/tween.js",
+            "asOfVersion": "18.6.1"
+        },
+        {
             "libraryName": "typed.js",
             "typingsPackageName": "typed.js",
             "sourceRepoURL": "https://github.com/mattboldt/typed.js",
             "asOfVersion": "2.0.9"
         },
         {
-            "libraryName": "TypeScript",
+            "libraryName": "typescript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "TypeScript",
+            "libraryName": "typescript-services",
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
@@ -5185,7 +5647,7 @@
             "asOfVersion": "4.0.0"
         },
         {
-            "libraryName": "Universal Router",
+            "libraryName": "universal-router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
             "asOfVersion": "8.0.0"
@@ -5205,13 +5667,13 @@
         {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "upper-case-first",
             "typingsPackageName": "upper-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case-first#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5233,7 +5695,13 @@
             "asOfVersion": "2.3.1"
         },
         {
-            "libraryName": "UUID.js",
+            "libraryName": "username",
+            "typingsPackageName": "username",
+            "sourceRepoURL": "https://github.com/sindresorhus/username",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "uuidjs",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
             "asOfVersion": "3.6.0"
@@ -5245,7 +5713,7 @@
             "asOfVersion": "5.0.0"
         },
         {
-            "libraryName": "Validate.js",
+            "libraryName": "validate.js",
             "typingsPackageName": "validate.js",
             "sourceRepoURL": "https://github.com/ansman/validate.js",
             "asOfVersion": "0.11.0"
@@ -5383,9 +5851,9 @@
             "asOfVersion": "3.2.0"
         },
         {
-            "libraryName": "WebdriverIO",
+            "libraryName": "webdriverio",
             "typingsPackageName": "webdriverio",
-            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "sourceRepoURL": "https://webdriver.io/",
             "asOfVersion": "5.0.0"
         },
         {
@@ -5395,7 +5863,7 @@
             "asOfVersion": "2.11.0"
         },
         {
-            "libraryName": "Webix UI",
+            "libraryName": "webix",
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
@@ -5431,6 +5899,12 @@
             "asOfVersion": "2.4.4"
         },
         {
+            "libraryName": "wix-style-react",
+            "typingsPackageName": "wix-style-react",
+            "sourceRepoURL": "https://github.com/wix/wix-style-react",
+            "asOfVersion": "7.47.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
@@ -5459,6 +5933,84 @@
             "typingsPackageName": "word-wrap",
             "sourceRepoURL": "https://github.com/jonschlinkert/word-wrap",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "@wordpress/a11y",
+            "typingsPackageName": "wordpress__a11y",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/autop",
+            "typingsPackageName": "wordpress__autop",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/blob",
+            "typingsPackageName": "wordpress__blob",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
+            "typingsPackageName": "wordpress__dependency-extraction-webpack-plugin",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/dom-ready",
+            "typingsPackageName": "wordpress__dom-ready",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/element",
+            "typingsPackageName": "wordpress__element",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
+        },
+        {
+            "libraryName": "@wordpress/escape-html",
+            "typingsPackageName": "wordpress__escape-html",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "@wordpress/html-entities",
+            "typingsPackageName": "wordpress__html-entities",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/i18n",
+            "typingsPackageName": "wordpress__i18n",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "3.11.0"
+        },
+        {
+            "libraryName": "@wordpress/is-shallow-equal",
+            "typingsPackageName": "wordpress__is-shallow-equal",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "@wordpress/priority-queue",
+            "typingsPackageName": "wordpress__priority-queue",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.6.0"
+        },
+        {
+            "libraryName": "@wordpress/token-list",
+            "typingsPackageName": "wordpress__token-list",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.10.0"
+        },
+        {
+            "libraryName": "@wordpress/url",
+            "typingsPackageName": "wordpress__url",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
         },
         {
             "libraryName": "wouter",
@@ -5509,6 +6061,12 @@
             "asOfVersion": "0.0.36"
         },
         {
+            "libraryName": "xml-formatter",
+            "typingsPackageName": "xml-formatter",
+            "sourceRepoURL": "https://github.com/chrisbottin/xml-formatter",
+            "asOfVersion": "2.1.1"
+        },
+        {
             "libraryName": "xml-js",
             "typingsPackageName": "xml-js",
             "sourceRepoURL": "https://github.com/nashwaan/xml-js",
@@ -5521,22 +6079,28 @@
             "asOfVersion": "11.0.1"
         },
         {
-            "libraryName": "xterm.js",
+            "libraryName": "xterm",
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "xumm-sdk",
+            "typingsPackageName": "xumm-api",
+            "sourceRepoURL": "https://github.com/XRPL-Labs/XUMM-SDK",
+            "asOfVersion": "0.1.4"
+        },
+        {
+            "libraryName": "yaml",
+            "typingsPackageName": "yaml",
+            "sourceRepoURL": "https://github.com/eemeli/yaml",
+            "asOfVersion": "1.9.0"
         },
         {
             "libraryName": "year-days",
             "typingsPackageName": "year-days",
             "sourceRepoURL": "https://github.com/sindresorhus/year-days",
             "asOfVersion": "3.0.0"
-        },
-        {
-            "libraryName": "yFiles for HTML",
-            "typingsPackageName": "yfiles",
-            "sourceRepoURL": "none",
-            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "yn",
@@ -5575,7 +6139,7 @@
             "asOfVersion": "0.12.0"
         },
         {
-            "libraryName": "Zone.js",
+            "libraryName": "zone.js",
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
             "asOfVersion": "0.5.12"

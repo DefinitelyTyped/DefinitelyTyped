@@ -6,13 +6,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from "styled-components";
+import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from 'styled-components';
 
 declare function theme(name: string, values: theme.ThemeMap): theme.ThemeSet;
 
 declare namespace theme {
     type ThemeValueResult =
-        string
+        | string
         | FlattenInterpolation<ThemeProps<any>>
         | FlattenInterpolation<ThemedStyledProps<any, any>>;
     type ThemeValueFn = (props: object) => ThemeValueResult;
@@ -22,18 +22,18 @@ declare namespace theme {
         [key: string]: ThemeValue;
     }
 
-    interface VariantMap {
-        [key: string]: ThemeMap;
-    }
+    type VariantMap<TVariant extends string> = {
+        [key in TVariant]: ThemeMap;
+    };
 
     type ThemeSet = (props: object) => string;
-    type VariantSet = (props: object) => string;
+    type VariantSet<TProp extends string, TVariant extends string> = (props: { [key in TProp]?: TVariant }) => string;
 
-    function variants(
+    function variants<TProp extends string, TVariant extends string>(
         name: string,
-        prop: string,
-        values: VariantMap
-    ): VariantSet;
+        prop: TProp,
+        values: VariantMap<TVariant>,
+    ): VariantSet<TProp, TVariant>;
 }
 
 export = theme;

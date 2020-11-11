@@ -1,5 +1,5 @@
 import { FontSizePicker as FSP } from '@wordpress/components';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 import { EditorFontSize } from '../';
 

@@ -2,7 +2,6 @@
 
 import cron = require('node-cron');
 
-// tslint:disable-next-line no-console
 const log = console.log;
 
 cron.schedule('* * * * *', () => {
@@ -13,7 +12,6 @@ cron.schedule('1-5 * * * *', () => {
     log('running every minute to 1 from 5');
 });
 
-// tslint:disable-next-line rule
 const task = cron.schedule('* * * * *', () => {
     log('immediately started');
     // because of manual call start method
