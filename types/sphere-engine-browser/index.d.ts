@@ -1,4 +1,4 @@
-// Type definitions for the non-npm package sphere-engine-browser 5.5
+// Type definitions for the non-npm package sphere-engine-browser 2.0
 // Project: https://github.com/fatcerberus/miniSphere
 // Definitions by: Fat Cerberus <https://github.com/fatcerberus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
