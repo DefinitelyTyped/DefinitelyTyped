@@ -174,6 +174,9 @@ fs.ensureLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
 	// stub
 });
+fs.ensureSymlink(path, path, "junction").then(() => {
+	// stub
+});
 fs.ensureSymlink(path, path, errorCallback);
 fs.ensureSymlinkSync(path, path);
 fs.emptyDir(path).then(() => {
@@ -238,4 +241,4 @@ fs.copyFile("src", "dest", errorCallback);
 
 fs.createSymlink("src", "dest", "dir").then();
 fs.createSymlink("src", "dest", "file").then();
-fs.createSymlink("src", "dest", "dir", errorCallback);
+fs.createSymlink("src", "dest", "junction", errorCallback);

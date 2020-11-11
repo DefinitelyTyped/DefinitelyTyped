@@ -218,9 +218,9 @@ export function rmdir(path: string | Buffer): Promise<void>;
 export function stat(path: string | Buffer, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: string | Buffer): Promise<Stats>;
 
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: SymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: FsSymlinkType): Promise<void>;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: SymlinkType): Promise<void>;
 
 export function truncate(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: string | Buffer, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -271,8 +271,7 @@ export interface PathEntryStream {
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = "dir" | "file";
-export type FsSymlinkType = "dir" | "file" | "junction";
+export type SymlinkType = "dir" | "file" | "junction";
 
 export interface CopyOptions {
     dereference?: boolean;
