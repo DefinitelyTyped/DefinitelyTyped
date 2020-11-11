@@ -1,4 +1,9 @@
-import { PaymentMethodRequestablePayload, PaymentOptionSelectedPayload } from "braintree-web-drop-in";
+import {
+    Dropin,
+    PaymentMethodRequestablePayload,
+    PaymentOptionSelectedPayload,
+    cardPaymentMethodPayload,
+} from 'braintree-web-drop-in';
 
 braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
     if (error) {
@@ -18,50 +23,61 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
         paymentOptionPriority: ["card", "paypal", "paypalCredit", "venmo", "applePay"],
         card: {
             cardholderName: {
-                required: false
+                required: false,
             },
             overrides: {
                 fields: {},
-                styles: {}
+                styles: {},
             },
             clearFieldsAfterTokenization: false,
             vault: {
                 allowVaultCardOverride: false,
-                vaultCard: false
-            }
+                vaultCard: false,
+            },
         },
         paypal: {
             flow: "checkout",
             amount: 1,
             currency: "USD",
-            buttonStyle: "red",
-            commit: false
+            buttonStyle: {},
+            commit: false,
         },
         paypalCredit: undefined,
         venmo: {
-            allowNewBrowserTab: false
+            allowNewBrowserTab: false,
         },
         applePay: {
-            buttonStyle: "red",
+            buttonStyle: "white-outline",
             displayName: "name",
             applePaySessionVersion: 1,
-            paymentRequest: {}
+            paymentRequest: {
+                countryCode: "US",
+                currencyCode: "USD",
+                supportedNetworks: ["visa", "masterCard"],
+                merchantCapabilities: ["supports3DS"],
+                total: { label: "Your Label", amount: "10.00" },
+            },
         },
         googlePay: {
             merchantId: "",
             googlePayVersion: "",
-            transactionInfo: {},
-            button: {}
+            transactionInfo: {
+                currencyCode: "USD",
+                totalPriceStatus: "FINAL",
+                totalPrice: "100.00",
+            },
+            button: {
+                onClick: (event) => {}
+            },
         },
         dataCollector: {
             kount: false,
-            paypal: false
         },
         threeDSecure: {
-            amount: "1"
+            amount: "1",
         },
         vaultManager: false,
-        preselectVaultedPaymentMethod: false
+        preselectVaultedPaymentMethod: false,
     });
 
     myDropin.clearSelectedPaymentMethod();
@@ -79,7 +95,7 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
     }
 
     myDropin.on("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
-    myDropin.on('paymentMethodRequestable', onPaymentMethodRequestable);
+    myDropin.on("paymentMethodRequestable", onPaymentMethodRequestable);
     myDropin.on("paymentOptionSelected", onPaymentOptionSelected);
 
     myDropin.off("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
@@ -93,11 +109,16 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
     });
 
     const myPayload = await myDropin.requestPaymentMethod();
+    const type: 'AndroidPayCard' | 'ApplePayCard' | 'CreditCard' | 'PayPalAccount' | 'VenmoAccount' = myPayload.type;
+    switch (myPayload.type) {
+        case 'AndroidPayCard':
+        case 'ApplePayCard':
+        case 'CreditCard':
+            const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
+    }
     const details: object = myPayload.details;
-    const deviceData: string | null = myPayload.deviceData;
+    const deviceData: string | undefined = myPayload.deviceData;
     const nonce: string = myPayload.nonce;
-    const type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard" = myPayload.type;
-    const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
 
     myDropin.teardown(error => {
         if (error) {
