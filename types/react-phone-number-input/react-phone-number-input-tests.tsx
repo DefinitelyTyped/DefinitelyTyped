@@ -51,9 +51,10 @@ const test2 = (
 );
 
 const CountrySelect = ({
-   value,
-   onChange,
-   ...rest
+    value,
+    onChange,
+    labels,
+    ...rest
 }: CountrySelectComponentProps) => (
     <select
         {...rest}
@@ -66,11 +67,19 @@ const CountrySelect = ({
     >
         {getCountries().map((country: string) => (
             <option key={country} value={country}>
-                {country} +{getCountryCallingCode(country)}
+                {labels ? labels[country] : country} +{getCountryCallingCode(country)}
             </option>
         ))}
     </select>
 );
+
+CountrySelect.defaultProps = {
+    labels: {
+        AU: "Australie",
+        CA: "Canada",
+        US: "États-Unis d'Amérique",
+    }
+};
 
 const test3 = (
     <PhoneInput
@@ -80,7 +89,7 @@ const test3 = (
         }}
         countrySelectComponent={CountrySelect}
         addInternationalOption
-        countryOptionsOrder={['US', 'CA', 'AU', '|', '...']}
+        countries={['AU', 'CA', 'US']}
         disabled
         inputComponent={InputComponent}
         numberInputProps={{ type: 'tel' }}
