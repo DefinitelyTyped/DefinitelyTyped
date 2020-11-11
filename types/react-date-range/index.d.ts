@@ -67,7 +67,7 @@ export interface CommonCalendarProps {
     /** default: none */
     onInit?: (range: Range) => void;
     /** default: none */
-    onChange?: (range: Range) => void;
+    onChange?: ({ selection }: { selection: Range }) => void;
     /** default: none */
     minDate?: DateInputType;
     /** default: none */
