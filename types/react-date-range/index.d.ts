@@ -216,5 +216,5 @@ export interface ClassNames {
     monthName: string;
     infiniteMonths: string;
     monthsVertical: string;
-    monthsHorizontal: string; 
+    monthsHorizontal: string;
 }
