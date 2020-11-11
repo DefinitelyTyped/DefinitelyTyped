@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3 standard bundle 6.0
+// Type definitions for D3JS d3 standard bundle 6.1
 // Project: https://github.com/d3/d3, https://d3js.org
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 6.0.0
+// Last module patch version validated against: 6.1.1
 
 export as namespace d3;
 

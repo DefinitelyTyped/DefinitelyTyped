@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const SystemsDevopsRelease: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default SystemsDevopsRelease;
+export { SystemsDevopsRelease as default } from "../../";

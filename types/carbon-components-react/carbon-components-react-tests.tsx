@@ -615,6 +615,7 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
 
 // NumberInput
 const numberInput = <NumberInput id="my-id" value={12} />;
+const emptyNumberInput = <NumberInput id="empty-id" value="" />;
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;

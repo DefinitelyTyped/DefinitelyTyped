@@ -625,6 +625,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "comment-json",
+            "typingsPackageName": "comment-json",
+            "sourceRepoURL": "https://github.com/kaelzhang/node-comment-json",
+            "asOfVersion": "2.4.1"
+        },
+        {
             "libraryName": "commons-validator-js",
             "typingsPackageName": "commons-validator-js",
             "sourceRepoURL": "https://github.com/wix/commons-validator-js",
@@ -1025,6 +1031,12 @@
             "typingsPackageName": "dialogflow",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-dialogflow",
             "asOfVersion": "4.0.3"
+        },
+        {
+            "libraryName": "diff2html",
+            "typingsPackageName": "diff2html",
+            "sourceRepoURL": "https://github.com/rtfpessoa/diff2html/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "docker-file-parser",
@@ -1621,12 +1633,6 @@
             "asOfVersion": "2.7.0"
         },
         {
-            "libraryName": "gapi.client.sheets",
-            "typingsPackageName": "gapi.client.sheets",
-            "sourceRepoURL": "https://github.com/Maxim-Mazurok/google-api-typings-generator",
-            "asOfVersion": "4.0.20201027"
-        },
-        {
             "libraryName": "generate-password",
             "typingsPackageName": "generate-password",
             "sourceRepoURL": "https://github.com/brendanashworth/generate-password.git",
@@ -1939,6 +1945,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "highlight.js",
+            "typingsPackageName": "highlight.js",
+            "sourceRepoURL": "https://github.com/highlightjs/highlight.js",
+            "asOfVersion": "10.1.0"
+        },
+        {
             "libraryName": "hirestime",
             "typingsPackageName": "hirestime",
             "sourceRepoURL": "https://github.com/seriousManual/hirestime",
@@ -2063,6 +2075,12 @@
             "typingsPackageName": "in-range",
             "sourceRepoURL": "https://github.com/sindresorhus/in-range",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "incremental-dom",
+            "typingsPackageName": "incremental-dom",
+            "sourceRepoURL": "https://github.com/google/incremental-dom",
+            "asOfVersion": "0.6.0"
         },
         {
             "libraryName": "indent-string",

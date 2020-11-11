@@ -572,6 +572,36 @@ num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1));
 num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1), 1);
 num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1), 1, 2);
 
+// bisectCenter() ---------------------------------------------------------------
+
+num = d3Array.bisectCenter(numbersArray, 4);
+num = d3Array.bisectCenter(numbersArray, 4, 1);
+num = d3Array.bisectCenter(numbersArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(stringyNumbersArray, '21');
+num = d3Array.bisectCenter(stringyNumbersArray, '21', 1);
+num = d3Array.bisectCenter(stringyNumbersArray, '21', 1, 4);
+
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1));
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1), 1);
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1), 1, 2);
+
+num = d3Array.bisectCenter(typedArray, 4);
+num = d3Array.bisectCenter(typedArray, 4, 1);
+num = d3Array.bisectCenter(typedArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(readonlyNumbersArray, 4);
+num = d3Array.bisectCenter(readonlyNumbersArray, 4, 1);
+num = d3Array.bisectCenter(readonlyNumbersArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21');
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21', 1);
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21', 1, 4);
+
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1));
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1), 1);
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1), 1, 2);
+
 // bisect() --------------------------------------------------------------------
 
 num = d3Array.bisect(numbersArray, 4);
@@ -842,6 +872,16 @@ const resultInt32: Int32Array = d3Array.shuffle(new Int32Array(numbersArray));
 const resultUint32: Uint32Array = d3Array.shuffle(new Uint32Array(numbersArray));
 const resultFloat32: Float32Array = d3Array.shuffle(new Float32Array(numbersArray));
 const resultFloat64: Float64Array = d3Array.shuffle(new Float64Array(numbersArray));
+
+// shuffler() -------------------------------------------------------------------
+
+let random: typeof d3Array.shuffle = d3Array.shuffler(Math.random);
+random = d3Array.shuffler(() => 2);
+random = d3Array.shuffler(() => Number('123'));
+random = d3Array.shuffler(() => Math.random());
+// the following will actually work in code but is similar to isNan() typechecking
+// $ExpectError
+random = d3Array.shuffler(() => '2');
 
 // ticks() ---------------------------------------------------------------------
 

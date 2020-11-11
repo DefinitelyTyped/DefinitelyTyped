@@ -23,6 +23,8 @@ export type IndicatorProps<OptionType extends OptionTypeBase> = CommonProps<Opti
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
+  /** Whether the component is disabled */
+  isDisabled: boolean
 };
 
 export type baseCSS = (props: IndicatorProps<any>) => React.CSSProperties;
