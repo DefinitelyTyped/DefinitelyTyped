@@ -9,16 +9,21 @@
 ## Table of Contents
 
 * [Current status](#current-status)
+* [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
 * [How can I contribute?](#how-can-i-contribute)
   - [Testing](#testing)
-  - [Make a pull request](#make-a-pull-request)
+  - [Make a pull request](#make-a-pull-request)<details>
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
     - [Linter](#linter)
     - [Verifying](#verifying)
+    </details>
+  - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
+* [License](#license)
+
 
 ## Current status
 
@@ -33,11 +38,9 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 
 If anything here seems wrong, or any of the above are failing, please let us know in [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript).
 
-## What are declaration files?
+## What are declaration files and how do I get them?
 
 See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
-
-## How do I get them?
 
 ### npm
 
@@ -224,7 +227,7 @@ Definitely Typed members routinely monitor for new PRs, though keep in mind that
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-## Definition Owners
+### Definition Owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
@@ -333,7 +336,7 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-## Verifying
+#### Verifying
 
 Test your changes by running `npm test package-name` where `package-name` is the name of your package.
 
