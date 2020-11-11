@@ -16,5 +16,4 @@ declare class ElasticsearchApm extends TransportStream {
     log(info: any, next: () => void): any;
 }
 
-// 1
 export default ElasticsearchApm;
