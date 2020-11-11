@@ -18,7 +18,7 @@
 /// <reference types="serve-static" />
 
 import * as bodyParser from "body-parser";
-import serveStatic = require("serve-static");
+import * as serveStatic from "serve-static";
 import * as core from "express-serve-static-core";
 import * as qs from "qs";
 
@@ -56,7 +56,7 @@ declare namespace e {
     /**
      * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
-    var static: typeof serveStatic;
+    var static: serveStatic.RequestHandlerConstructor<Response>;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
