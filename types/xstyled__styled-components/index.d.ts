@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+import * as React from 'react';
 import _styled, {
     StyledComponent,
     ThemedStyledFunction,
@@ -12,6 +13,20 @@ import _styled, {
 } from 'styled-components';
 import { SystemProps } from '@xstyled/system';
 export * from 'styled-components';
+
+export interface ColorModeProviderProps {
+    children: React.ReactNode;
+    target: HTMLElement;
+    targetSelector: string;
+}
+
+export class ColorModeProvider extends React.Component<ColorModeProviderProps> {}
+
+export function useColorMode(): [string, (colorMode: string) => void];
+
+export function getColorModeInitScriptElement(): React.ReactElement;
+
+export function getColorModeInitScriptTag(options: { target: string }): string;
 
 /**
  * @xstyled/system provide default breakpoints

@@ -6,7 +6,11 @@ import styled, {
     useBreakpoints,
     useDown,
     useUp,
-    useViewportWidth
+    useViewportWidth,
+    useColorMode,
+    ColorModeProvider,
+    getColorModeInitScriptElement,
+    getColorModeInitScriptTag
 } from '@xstyled/styled-components';
 
 interface WithFoo {
@@ -61,6 +65,13 @@ const Main = () => {
     // $ExpectError
     isDown = '';
 
+    const [colorMode, setColorMode] = useColorMode();
+
+    setColorMode(colorMode);
+
+    // $ExpectError
+    setColorMode(123);
+
     return (
         <Box
             as="main"
@@ -84,3 +95,17 @@ const Main = () => {
         </Box>
     );
 };
+
+const ColorMode = () => {
+    return (
+        <ColorModeProvider target={document.body} targetSelector="#small-react-app">
+            test
+            {getColorModeInitScriptElement()}
+        </ColorModeProvider>
+    );
+};
+
+let colorModeScriptTag = getColorModeInitScriptTag({ target: 'document.getElementById("small-react-app")' });
+
+// $ExpectError
+colorModeScriptTag = 111;
