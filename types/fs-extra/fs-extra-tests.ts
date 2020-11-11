@@ -171,7 +171,7 @@ fs.ensureLink(path, path).then(() => {
 });
 fs.ensureLink(path, path, errorCallback);
 fs.createLink(path, path).then(() => {
-	// stub
+    // stub
 });
 fs.createLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
