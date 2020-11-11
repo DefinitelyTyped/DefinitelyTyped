@@ -20,7 +20,7 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     label?: React.ReactNode,
     light?: boolean,
     size?: Extract<CarbonInputSize, "sm" | "xl">,
-    value: number,
+    value: number | '',
     warn?: boolean,
     warnText?: React.ReactNode,
 }
