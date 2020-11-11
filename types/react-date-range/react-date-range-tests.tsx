@@ -27,6 +27,9 @@ class ReactDatePicker extends React.Component<any, any> {
                         Calendar: { width: 200 },
                         PredefinedRanges: { marginLeft: 10, marginTop: 10 }
                     }}
+                    classNames={{
+                        dateDisplay: 'dateDisplayCustom'
+                    }}
                 />
             </div>
         );
@@ -61,6 +64,9 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     theme={{
                         Calendar: { width: 200 },
                         PredefinedRanges: { marginLeft: 10, marginTop: 10 }
+                    }}
+                    classNames={{
+                        dateDisplay: 'dateDisplayCustom'
                     }}
                 />
             </div>
