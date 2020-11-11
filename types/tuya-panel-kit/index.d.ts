@@ -364,7 +364,7 @@ declare module '@tuya-rn/tuya-native-components' {
         confirmAccessibilityLabel?: string;
     }
 
-    // tslint:disable-next-lineno-unnecessary-class
+    // tslint:disable-next-line no-unnecessary-class
     class Dialog {
         static alert: (option: DialogAlertProps, option2?: DialogElse) => void;
         static checkbox: (option: DialogCheckboxProps, option2?: DialogElse) => void;
