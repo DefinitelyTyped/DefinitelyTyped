@@ -10,7 +10,7 @@ import _styled, {
     DefaultTheme,
     FlattenSimpleInterpolation,
 } from 'styled-components';
-import { SystemProps } from '@xstyled/system'
+import { SystemProps } from '@xstyled/system';
 export * from 'styled-components';
 
 /**
@@ -45,8 +45,7 @@ export interface DefaultBreakpoints {
     xl: any;
 }
 
-
-type BreakpointName = keyof DefaultBreakpoints
+type BreakpointName = keyof DefaultBreakpoints;
 
 type BreakpointObject<ArgType> = {
     [Key in BreakpointName]?: ArgType;

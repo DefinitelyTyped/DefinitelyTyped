@@ -33,33 +33,33 @@ const sum = (a: number) => a * a;
 sum('b');
 
 const Main = () => {
-    const breakpoints = useBreakpoints()
+    const breakpoints = useBreakpoints();
 
-    const breakpoint = useBreakpoint()
-
-    // $ExpectError
-    breakpoint = 'abc'
-
-    let width = useViewportWidth()
+    const breakpoint = useBreakpoint();
 
     // $ExpectError
-    width = false
+    breakpoint = 'abc';
 
-    let isUp = useUp('md')
-
-    // $ExpectError
-    isUp = useUp(1)
+    let width = useViewportWidth();
 
     // $ExpectError
-    isUp = ''
+    width = false;
 
-    let isDown = useDown('md')
-
-    // $ExpectError
-    isDown = useDown(1)
+    let isUp = useUp('md');
 
     // $ExpectError
-    isDown = ''
+    isUp = useUp(1);
+
+    // $ExpectError
+    isUp = '';
+
+    let isDown = useDown('md');
+
+    // $ExpectError
+    isDown = useDown(1);
+
+    // $ExpectError
+    isDown = '';
 
     return (
         <Box
