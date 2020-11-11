@@ -34,7 +34,7 @@ import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackgr
 
 export { GlobalTheme } from './theme';
 
-declare module '@tuya-rn/tuya-native-components' {
+declare module 'tuya-panel-kit' {
     type AnyFunction = (...args: any[]) => void;
     interface ButtonProps extends TouchableOpacityProps {
         stretch?: boolean;
