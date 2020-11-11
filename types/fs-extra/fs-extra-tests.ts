@@ -171,12 +171,15 @@ fs.ensureLink(path, path).then(() => {
 });
 fs.ensureLink(path, path, errorCallback);
 fs.createLink(path, path).then(() => {
-	// stub
+    // stub
 });
 fs.createLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
 fs.createLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
+    // stub
+});
+fs.ensureSymlink(path, path, "junction").then(() => {
     // stub
 });
 fs.ensureSymlink(path, path, errorCallback);
@@ -251,7 +254,7 @@ fs.copyFile("src", "dest", errorCallback);
 
 fs.createSymlink("src", "dest", "dir").then();
 fs.createSymlink("src", "dest", "file").then();
-fs.createSymlink("src", "dest", "dir", errorCallback);
+fs.createSymlink("src", "dest", "junction", errorCallback);
 
 const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path); // $ExpectType Dir
