@@ -180,7 +180,7 @@ fs.ensureSymlink(path, path, "file").then(() => {
     // stub
 });
 fs.ensureSymlink(path, path, "junction").then(() => {
-	// stub
+    // stub
 });
 fs.ensureSymlink(path, path, errorCallback);
 fs.ensureSymlinkSync(path, path);
