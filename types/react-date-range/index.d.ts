@@ -1,4 +1,4 @@
-// Type definitions for react-date-range 1.0
+// Type definitions for react-date-range 1.1.3
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 //                 John Demetriou <https://github.com/DevsAnon>
