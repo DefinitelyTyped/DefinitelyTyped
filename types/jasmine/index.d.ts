@@ -246,6 +246,7 @@ declare namespace jasmine {
     }
 
     function clock(): Clock;
+    function DiffBuilder(): DiffBuilder;
 
     var matchersUtil: MatchersUtil;
 
@@ -403,8 +404,15 @@ declare namespace jasmine {
         message?: string;
     }
 
+    interface DiffBuilder {
+      setRoots(actual: any, expected: any): void;
+      recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
+      withPath(pathComponent: string, block: () => void): void;
+      getMessage(): string;
+    }
+
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 

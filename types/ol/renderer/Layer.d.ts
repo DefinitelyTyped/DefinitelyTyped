@@ -17,11 +17,18 @@ import TileRange from '../TileRange';
 export default class LayerRenderer<LayerType extends Layer = Layer> extends Observable {
     constructor(layer: LayerType);
     protected layer_: LayerType;
+    /**
+     * Create a function that adds loaded tiles to the tile lookup.
+     */
     protected createLoadedTileFinder(
         source: TileSource,
         projection: Projection,
         tiles: { [key: number]: { [key: string]: Tile } },
     ): (p0: number, p1: TileRange) => boolean;
+    /**
+     * Load the image if not already loaded, and register the image change
+     * listener if needed.
+     */
     protected loadImage(image: ImageBase): boolean;
     protected renderIfReadyAndVisible(): void;
     forEachFeatureAtCoordinate<T>(
@@ -32,11 +39,23 @@ export default class LayerRenderer<LayerType extends Layer = Layer> extends Obse
         declutteredFeatures: FeatureLike[],
     ): T;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
+    /**
+     * Asynchronous layer level hit detection.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
     getLayer(): LayerType;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
     loadedTileCallback(tiles: { [key: number]: { [key: string]: Tile } }, zoom: number, tile: Tile): boolean;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

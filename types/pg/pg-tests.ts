@@ -229,3 +229,13 @@ c = new Client({
     connectionString: 'connectionString',
     connectionTimeoutMillis: 1000, // connection timeout optionally specified
 });
+
+const dynamicPasswordSync = new Client({
+    password: () => 'sync-secret',
+});
+dynamicPasswordSync.connect();
+
+const dynamicPasswordAsync = new Client({
+    password: async () => 'sync-secret',
+});
+dynamicPasswordAsync.connect();

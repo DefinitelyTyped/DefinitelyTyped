@@ -31,7 +31,7 @@ declare module 'assert' {
             report(): CallTrackerReportInformation[];
             verify(): void;
         }
-        export interface CallTrackerReportInformation {
+        interface CallTrackerReportInformation {
             message: string;
             /** The actual number of times the function was called. */
             actual: number;

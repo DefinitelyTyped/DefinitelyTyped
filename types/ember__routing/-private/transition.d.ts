@@ -1,4 +1,5 @@
 import RouteInfo from './route-info';
+import RouteInfoWithAttributes from './route-info-with-attributes';
 
 export default interface Transition<T = any> extends Partial<Promise<T>> {
     /**
@@ -12,7 +13,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * It's important to note that a `RouteInfo` is a linked list and this property is simply the head node of the list.
      * In the case of an initial render, `from` will be set to `null`.
      */
-    readonly from: RouteInfo | null;
+    readonly from: RouteInfoWithAttributes | null;
     /**
      * The Transition's internal promise.
      * Calling `.then` on this property is that same as calling `.then` on the Transition object itself,
@@ -25,7 +26,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * This property is a `RouteInfo` object that represents where the router is transitioning to.
      * It's important to note that a `RouteInfo` is a linked list and this property is simply the leafmost route.
      */
-    readonly to: RouteInfo;
+    readonly to: RouteInfo | RouteInfoWithAttributes;
     /**
      * Aborts the Transition. Note you can also implicitly abort a transition
      * by initiating another transition while a previous one is underway.
@@ -39,7 +40,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param label optional string for labeling the promise. Useful for tooling.
      */
     catch<TResult = never>(
-        onRejected?: ((reason: any) => TResult | PromiseLike<TResult>),
+        onRejected?: (reason: any) => TResult | PromiseLike<TResult>,
         label?: string,
     ): Promise<TResult>;
     /**
@@ -49,7 +50,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param onFinally
      * @param label optional string for labeling the promise. Useful for tooling.
      */
-    finally(onFinally?: (() => void), label?: string): Promise<T>;
+    finally(onFinally?: () => void, label?: string): Promise<T>;
     /**
      * Transitions are aborted and their promises rejected when redirects occur;
      * this method returns a promise that will follow any redirects that occur and
@@ -88,8 +89,8 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param  label label optional string for labeling the promise. Useful for tooling.
      */
     then<TResult1 = T, TResult2 = never>(
-        onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>),
-        onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>),
+        onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>,
+        onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>,
         label?: string,
     ): Promise<TResult1 | TResult2>;
     /**

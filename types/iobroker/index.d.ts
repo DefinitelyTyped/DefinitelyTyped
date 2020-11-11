@@ -11,7 +11,6 @@
 /// <reference types="node" />
 import * as fs from 'fs';
 
-// tslint:disable:no-namespace
 declare global {
     namespace ioBroker {
         enum StateQuality {

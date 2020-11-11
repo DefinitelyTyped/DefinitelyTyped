@@ -77,7 +77,7 @@ export interface ButtonProps<T extends HTMLElement>
  * Each `Button` must be wrapped in a Wrapper, and each Wrapper can wrap only
  * one `Button`.
  */
-export class Button extends React.Component<ButtonProps<HTMLElement>> {}
+export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 
 export interface MenuProps<T extends HTMLElement>
     extends React.HTMLProps<T> {

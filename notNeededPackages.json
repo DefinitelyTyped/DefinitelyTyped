@@ -428,7 +428,7 @@
         },
         {
             "libraryName": "bugsnag-js",
-            "typingsPackageName": "bugsnag-js",
+            "typingsPackageName": "bugsnag",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
             "asOfVersion": "3.1.0"
         },
@@ -471,7 +471,7 @@
         {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/camel-case#readme",
             "asOfVersion": "1.2.1"
         },
         {
@@ -625,6 +625,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "comment-json",
+            "typingsPackageName": "comment-json",
+            "sourceRepoURL": "https://github.com/kaelzhang/node-comment-json",
+            "asOfVersion": "2.4.1"
+        },
+        {
             "libraryName": "commons-validator-js",
             "typingsPackageName": "commons-validator-js",
             "sourceRepoURL": "https://github.com/wix/commons-validator-js",
@@ -675,7 +681,7 @@
         {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/constant-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -951,7 +957,7 @@
         {
             "libraryName": "deepmerge",
             "typingsPackageName": "deepmerge",
-            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "sourceRepoURL": "https://github.com/TehShrike/deepmerge",
             "asOfVersion": "2.2.0"
         },
         {
@@ -1027,6 +1033,12 @@
             "asOfVersion": "4.0.3"
         },
         {
+            "libraryName": "diff2html",
+            "typingsPackageName": "diff2html",
+            "sourceRepoURL": "https://github.com/rtfpessoa/diff2html/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "docker-file-parser",
             "typingsPackageName": "docker-file-parser",
             "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
@@ -1065,7 +1077,7 @@
         {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/dot-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -1933,6 +1945,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "highlight.js",
+            "typingsPackageName": "highlight.js",
+            "sourceRepoURL": "https://github.com/highlightjs/highlight.js",
+            "asOfVersion": "10.1.0"
+        },
+        {
             "libraryName": "hirestime",
             "typingsPackageName": "hirestime",
             "sourceRepoURL": "https://github.com/seriousManual/hirestime",
@@ -2057,6 +2075,12 @@
             "typingsPackageName": "in-range",
             "sourceRepoURL": "https://github.com/sindresorhus/in-range",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "incremental-dom",
+            "typingsPackageName": "incremental-dom",
+            "sourceRepoURL": "https://github.com/google/incremental-dom",
+            "asOfVersion": "0.6.0"
         },
         {
             "libraryName": "indent-string",
@@ -2241,7 +2265,7 @@
         {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-lower-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2349,7 +2373,7 @@
         {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-upper-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2549,6 +2573,12 @@
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "jwt-decode",
+            "typingsPackageName": "jwt-decode",
+            "sourceRepoURL": "https://github.com/auth0/jwt-decode",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "kafka-node",
@@ -2823,13 +2853,13 @@
         {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "lower-case-first",
             "typingsPackageName": "lower-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case-first#readme",
             "asOfVersion": "1.0.1"
         },
         {
@@ -2943,7 +2973,7 @@
         {
             "libraryName": "@material/grid-list",
             "typingsPackageName": "material__grid-list",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-grid-list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3027,7 +3057,7 @@
         {
             "libraryName": "@material/tabs",
             "typingsPackageName": "material__tabs",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-tabs",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3039,7 +3069,7 @@
         {
             "libraryName": "@material/toolbar",
             "typingsPackageName": "material__toolbar",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3435,7 +3465,7 @@
         {
             "libraryName": "odata",
             "typingsPackageName": "odata",
-            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "sourceRepoURL": "https://github.com/janhommes/o.js#readme",
             "asOfVersion": "1.0.3"
         },
         {
@@ -3783,7 +3813,7 @@
         {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/param-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/param-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3813,7 +3843,7 @@
         {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/pascal-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3825,7 +3855,7 @@
         {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/path-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/path-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3983,12 +4013,6 @@
             "typingsPackageName": "postmark",
             "sourceRepoURL": "http://wildbit.github.io/postmark.js",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "prando",
-            "typingsPackageName": "prando",
-            "sourceRepoURL": "https://github.com/zeh/prando",
-            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "pretty-bytes",
@@ -4323,7 +4347,7 @@
         {
             "libraryName": "react-jss",
             "typingsPackageName": "react-jss",
-            "sourceRepoURL": "https://github.com/cssinjs/react-jss#readme",
+            "sourceRepoURL": "https://cssinjs.org/react-jss/",
             "asOfVersion": "10.0.0"
         },
         {
@@ -4337,6 +4361,12 @@
             "typingsPackageName": "react-native-collapsible",
             "sourceRepoURL": "https://github.com/oblador/react-native-collapsible",
             "asOfVersion": "0.11.0"
+        },
+        {
+            "libraryName": "@react-native-community/cli",
+            "typingsPackageName": "react-native-community__cli",
+            "sourceRepoURL": "https://github.com/react-native-community/cli",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "react-native-elements",
@@ -4525,6 +4555,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "reactstrap",
+            "typingsPackageName": "reactstrap",
+            "sourceRepoURL": "https://github.com/reactstrap/reactstrap",
+            "asOfVersion": "8.7.0"
+        },
+        {
             "libraryName": "read-chunk",
             "typingsPackageName": "read-chunk",
             "sourceRepoURL": "https://github.com/sindresorhus/read-chunk",
@@ -4707,7 +4743,7 @@
         {
             "libraryName": "rfc4648",
             "typingsPackageName": "rfc4648",
-            "sourceRepoURL": "https://github.com/swansontec/rfc4648",
+            "sourceRepoURL": "https://github.com/swansontec/rfc4648.js#readme",
             "asOfVersion": "1.3.0"
         },
         {
@@ -4893,7 +4929,7 @@
         {
             "libraryName": "sentence-case",
             "typingsPackageName": "sentence-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/sentence-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
@@ -4915,12 +4951,6 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "shopify-prime",
-            "typingsPackageName": "shopify-prime",
-            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
-            "asOfVersion": "2.0.0"
-        },
-        {
             "libraryName": "should",
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
@@ -4931,12 +4961,6 @@
             "typingsPackageName": "simonwep__selection-js",
             "sourceRepoURL": "https://github.com/Simonwep/selection.git",
             "asOfVersion": "1.7.0"
-        },
-        {
-            "libraryName": "simplesignal",
-            "typingsPackageName": "simplesignal",
-            "sourceRepoURL": "https://github.com/zeh/simplesignal",
-            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "@sindresorhus/class-names",
@@ -5013,13 +5037,13 @@
         {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/snake-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
             "libraryName": "snappy",
             "typingsPackageName": "snappy",
-            "sourceRepoURL": "https://github.com/jantimon/node-snappy",
+            "sourceRepoURL": "https://github.com/kesla/node-snappy",
             "asOfVersion": "6.3.2"
         },
         {
@@ -5349,13 +5373,13 @@
         {
             "libraryName": "swagger-parser",
             "typingsPackageName": "swagger-parser",
-            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "sourceRepoURL": "https://apitools.dev/swagger-parser/",
             "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/swap-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5385,7 +5409,7 @@
         {
             "libraryName": "tcomb",
             "typingsPackageName": "tcomb",
-            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "sourceRepoURL": "https://github.com/gcanti/tcomb",
             "asOfVersion": "2.6.0"
         },
         {
@@ -5499,7 +5523,7 @@
         {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/title-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/title-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5549,6 +5573,12 @@
             "typingsPackageName": "tus-js-client",
             "sourceRepoURL": "https://github.com/tus/tus-js-client",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "@tweenjs/tween.js",
+            "typingsPackageName": "tween.js",
+            "sourceRepoURL": "https://github.com/tweenjs/tween.js",
+            "asOfVersion": "18.6.1"
         },
         {
             "libraryName": "typed.js",
@@ -5637,13 +5667,13 @@
         {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "upper-case-first",
             "typingsPackageName": "upper-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case-first#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5823,7 +5853,7 @@
         {
             "libraryName": "webdriverio",
             "typingsPackageName": "webdriverio",
-            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "sourceRepoURL": "https://webdriver.io/",
             "asOfVersion": "5.0.0"
         },
         {
@@ -6071,12 +6101,6 @@
             "typingsPackageName": "year-days",
             "sourceRepoURL": "https://github.com/sindresorhus/year-days",
             "asOfVersion": "3.0.0"
-        },
-        {
-            "libraryName": "yfiles",
-            "typingsPackageName": "yfiles",
-            "sourceRepoURL": "none",
-            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "yn",

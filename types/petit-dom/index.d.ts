@@ -164,7 +164,6 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends PetitDom.VNode { }
 
-        // tslint:disable-next-line:no-empty-interface
         interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> { }
 
         // tslint:disable-next-line:no-empty-interface

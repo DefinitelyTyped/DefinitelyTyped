@@ -25,7 +25,13 @@ export interface Options {
 }
 export default class WebGLPointsLayer extends Layer {
     constructor(options: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     createRenderer(): WebGLPointsLayerRenderer;
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

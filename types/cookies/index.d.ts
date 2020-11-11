@@ -135,7 +135,6 @@ interface CookiesFunction {
     /**
      * "options" array of key strings is deprecated, provide using options {"keys": keygrip}
      */
-    // tslint:disable-next-line:unified-signatures
     (request: IncomingMessage, response: ServerResponse, options: string[]): Cookies;
     /**
      * "options" instance of Keygrip is deprecated, provide using options {"keys": keygrip}
@@ -147,7 +146,6 @@ interface CookiesFunction {
     /**
      * "options" array of key strings is deprecated, provide using options {"keys": keygrip}
      */
-    // tslint:disable-next-line:unified-signatures
     new (request: IncomingMessage, response: ServerResponse, options: string[]): Cookies;
     /**
      * "options" instance of Keygrip is deprecated, provide using options {"keys": keygrip}

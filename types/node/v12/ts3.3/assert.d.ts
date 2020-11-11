@@ -19,6 +19,24 @@ declare module 'assert' {
             });
         }
 
+        class CallTracker {
+            calls(exact?: number): () => void;
+            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            report(): CallTrackerReportInformation[];
+            verify(): void;
+        }
+        interface CallTrackerReportInformation {
+            message: string;
+            /** The actual number of times the function was called. */
+            actual: number;
+            /** The number of times the function was expected to be called. */
+            expected: number;
+            /** The name of the function that is wrapped. */
+            operator: string;
+            /** A stack trace of the function. */
+            stack: object;
+        }
+
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
         function fail(

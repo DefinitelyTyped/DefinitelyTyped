@@ -1,24 +1,18 @@
 import * as React from "react";
 import {
-    ReactAttr,
     ReactAnchorAttr,
     RenderIconProps,
     RequiresChildrenProps,
     SideNavSharedProps,
-    SideNavSizingProps, FCReturn, FCProps,
+    SideNavSizingProps,
+    FCReturn,
+    FCProps,
 } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
-interface InheritedProps extends
-    RenderIconProps,
-    RequiresChildrenProps<string>,
-    SideNavSharedProps,
-    SideNavSizingProps
-{
-    className?: ReactAttr["className"],
+export interface SideNavLinkPropsBase extends RenderIconProps, RequiresChildrenProps<string>, SideNavSharedProps, SideNavSizingProps {
+    className?: string,
 }
-
-export interface SideNavLinkPropsBase extends InheritedProps { }
 
 export type SideNavLinkProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavLinkPropsBase;
 

@@ -98,6 +98,11 @@ declare namespace serveStatic {
     interface RequestHandler<R extends http.OutgoingMessage> {
         (request: http.IncomingMessage, response: R, next: () => void): any;
     }
+
+    interface RequestHandlerConstructor<R extends http.OutgoingMessage> {
+        (root: string, options?: ServeStaticOptions<R>): RequestHandler<R>;
+        mime: typeof m;
+    }
 }
 
 export = serveStatic;

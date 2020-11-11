@@ -1,15 +1,15 @@
-// Type definitions for react-date-range 0.95
+// Type definitions for react-date-range 1.1
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 //                 John Demetriou <https://github.com/DevsAnon>
+//                 Minseok Choi <https://github.com/Curzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import * as moment from "moment";
 
-export type AnyDate = string | moment.Moment;
-export type DateFunc = (now: moment.Moment) => AnyDate;
+export type AnyDate = string | Date;
+export type DateFunc = (now: Date) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
 export type LanguageType =
     | "cn"
@@ -24,7 +24,7 @@ export type LanguageType =
 export type SizeType = number;
 
 export interface DateContainerType {
-    date: moment.Moment;
+    date: Date;
 }
 
 export interface CalendarTheme {
@@ -54,15 +54,14 @@ export interface CalendarTheme {
 
 export interface Range {
     /** default: today */
-    startDate?: moment.Moment;
+    startDate?: Date;
     /** default: today */
-    endDate?: moment.Moment;
+    endDate?: Date;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
     format?: string;
-    /** default: moment.localeData().firstDayOfWeek() */
     firstDayOfWeek?: number;
     theme?: CalendarTheme;
     /** default: none */
@@ -82,6 +81,8 @@ export interface CommonCalendarProps {
      * 'tr' - Turkish) default: none
      */
     lang?: LanguageType;
+    /** Custom class names for elements */
+    classNames?: Partial<ClassNames>;
 }
 
 export interface CalendarProps extends CommonCalendarProps {
@@ -157,9 +158,63 @@ export type DateRangeIndex =
     | "Last 30 Days";
 
 export interface DateRangeObject {
-    startDate: (now: moment.Moment) => moment.Moment;
-    endDate: (now: moment.Moment) => moment.Moment;
+    startDate: (now: Date) => Date;
+    endDate: (now: Date) => Date;
 }
 export const defaultRanges: {
     [measure: string]: DateRangeObject;
 };
+
+export interface ClassNames {
+    dateRangeWrapper: string;
+    calendarWrapper: string;
+    dateDisplay: string;
+    dateDisplayItem: string;
+    dateDisplayItemActive: string;
+    monthAndYearWrapper: string;
+    monthAndYearPickers: string;
+    nextPrevButton: string;
+    month: string;
+    weekDays: string;
+    weekDay: string;
+    days: string;
+    day: string;
+    dayNumber: string;
+    dayPassive: string;
+    dayToday: string;
+    dayStartOfWeek: string;
+    dayEndOfWeek: string;
+    daySelected: string;
+    dayDisabled: string;
+    dayStartOfMonth: string;
+    dayEndOfMonth: string;
+    dayWeekend: string;
+    dayStartPreview: string;
+    dayInPreview: string;
+    dayEndPreview: string;
+    dayHovered: string;
+    dayActive: string;
+    inRange: string;
+    endEdge: string;
+    startEdge: string;
+    prevButton: string;
+    nextButton: string;
+    selected: string;
+    months: string;
+    monthPicker: string;
+    yearPicker: string;
+    dateDisplayWrapper: string;
+    definedRangesWrapper: string;
+    staticRanges: string;
+    staticRange: string;
+    inputRanges: string;
+    inputRange: string;
+    inputRangeInput: string;
+    dateRangePickerWrapper: string;
+    staticRangeLabel: string;
+    staticRangeSelected: string;
+    monthName: string;
+    infiniteMonths: string;
+    monthsVertical: string;
+    monthsHorizontal: string;
+}
