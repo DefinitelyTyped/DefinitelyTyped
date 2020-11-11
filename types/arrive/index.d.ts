@@ -52,7 +52,7 @@ declare global {
         unbindLeave: UnbindLeaveSignature;
     }
 
-    interface HTMLElement {
+    interface Element {
         arrive: ArriveSignature;
         unbindArrive: UnbindArriveSignature;
         leave: LeaveSignature;
