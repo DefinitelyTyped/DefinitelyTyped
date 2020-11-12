@@ -32,13 +32,13 @@ interface IVerifyOptions {
     message: string;
 }
 
-type VerifyFunctionWithRequest = {
+interface VerifyFunctionWithRequest {
     (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-};
+}
 
-type VerifyFunction = {
+interface VerifyFunction {
     (token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-};
+}
 
 declare class Strategy extends PassportStrategy {
     constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
