@@ -64,7 +64,7 @@ export interface ButtonProps<T extends HTMLElement>
     disabled?: boolean;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
 }
@@ -82,7 +82,7 @@ export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 export interface MenuProps<T extends HTMLElement>
     extends React.HTMLProps<T> {
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
     children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
@@ -108,7 +108,7 @@ export interface MenuItemProps<T extends HTMLElement>
     text?: string;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"];
 }
