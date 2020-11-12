@@ -59,6 +59,8 @@ export interface Range {
     endDate?: Date;
 }
 
+export type OnChangeProps = Range | { selection: Range } | Date;
+
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
     format?: string;
@@ -67,7 +69,7 @@ export interface CommonCalendarProps {
     /** default: none */
     onInit?: (range: Range) => void;
     /** default: none */
-    onChange?: (range: Range) => void;
+    onChange?: (range: OnChangeProps) => void;
     /** default: none */
     minDate?: DateInputType;
     /** default: none */

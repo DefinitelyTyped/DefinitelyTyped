@@ -3,7 +3,7 @@ import {
     defaultRanges,
     DateRange,
     DateRangePicker,
-    Range
+    OnChangeProps
 } from "react-date-range";
 
 class ReactDatePicker extends React.Component<any, any> {
@@ -11,7 +11,7 @@ class ReactDatePicker extends React.Component<any, any> {
         super(props);
     }
 
-    handleChange(range: Range) {
+    handleChange(range: OnChangeProps) {
         console.log(range);
     }
 
@@ -41,7 +41,7 @@ class ReactDateRangePicker extends React.Component<any, any> {
         super(props);
     }
 
-    handleChange(range: Range) {
+    handleChange(range: OnChangeProps) {
         console.log(range);
     }
 
