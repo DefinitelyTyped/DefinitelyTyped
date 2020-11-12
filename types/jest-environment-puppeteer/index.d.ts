@@ -60,7 +60,6 @@ declare class PuppeteerEnvironment extends NodeEnvironment {
 }
 
 declare global {
-    const browser: Browser;
     const context: BrowserContext;
     const page: Page;
     const jestPuppeteer: JestPuppeteer;
