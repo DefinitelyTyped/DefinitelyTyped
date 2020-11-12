@@ -291,3 +291,31 @@ declare namespace jasmine {
         toHaveValue(value?: string | string[] | number | null): boolean;
     }
 }
+    
+declare global {
+    namespace jasmine {
+        interface Matchers<T> {
+            toHaveAttribute(attr?: string, value?: string): void;
+            toHaveTextContent(): void;
+            toHaveClassName(...attrs: (string | {
+                exact: boolean;
+            })[]): void;
+            toBeChecked(): void;
+            toBeEmptyDOMElement(): void;
+            toHaveFocus(): void;
+            toBeDisabled(): void;
+            toBeEnabled(): void;
+            toHaveDescription(text?: string | RegExp): void;
+            toHaveValue(): void;
+            toHaveFormValues(): void;
+            toContainElement(el?: Element): void;
+            toBeRequired(): void;
+            toBeInvalid(): void;
+            toBeValid(): void;
+            toHaveDisplayValue(text?: string | RegExp | (string | RegExp)[] | boolean): void;
+            toBePartiallyChecked(): void;
+            toBeInTheDocument(): void;
+            toBeVisible(): void;
+        }
+    }
+}
