@@ -3,14 +3,9 @@
 // Definitions by: Zhang Nan <https://github.com/anyone-developer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const c: beautify;
-export = c;
-
-interface beautify {
-    (content: string, options: options): string;
-}
+export default function beautify(content: string, options: Options): string;
 
 // format could be 'css', 'json', 'js', 'html', 'xml'
-interface options {
-    format: Required<string>;
+export interface Options {
+    format: 'css' | 'json' | 'js' | 'html' | 'xml';
 }
