@@ -302,7 +302,7 @@ nw.Window.open( 'https://github.com/nwjs/nw.js', {}, function ( new_win ) {
     // do something with the newly created window
 });
 
-nw.Window.getAll(function ( windows ) {
+nw.Window.getAll(function ( windows: object[] ) {
   console.log( `There are ${windows.length} windows open` );
 });
 

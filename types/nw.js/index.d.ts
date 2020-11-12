@@ -1821,6 +1821,13 @@ namespace nw {
         get( window_object?: Object ): NWJS_Helpers.win;
 
         /**
+         * Get all windows.
+         *
+         * @param callback {Function} A callback function whose parameter is an array of nw.Window objects
+         */
+        getAll(callback: (windows: NWJS_Helpers.win[]) => void): void;
+
+        /**
          * Open a new window and load url in it.
          *
          * @param url {string} URL to be loaded in the opened window
