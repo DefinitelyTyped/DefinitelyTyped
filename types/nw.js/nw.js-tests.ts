@@ -1,7 +1,6 @@
 /*
  * nw.App Tests
  */
-import { NWJS_Helpers } from './index';
 
 var argv = nw.App.argv;
 var fullArgv = nw.App.fullArgv;
