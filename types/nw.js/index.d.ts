@@ -1806,7 +1806,7 @@ declare global {
             /**
              * Get all windows.
              *
-             * @param callback {Function} A callback function whose parameter is an array of nw.Window objects
+             * @param callback {(windows: NWJS_Helpers.win[]) => void} A callback function whose parameter is an array of nw.Window objects
              */
             getAll(callback: (windows: NWJS_Helpers.win[]) => void): void;
 

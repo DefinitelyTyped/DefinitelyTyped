@@ -1,6 +1,8 @@
 /*
  * nw.App Tests
  */
+import { NWJS_Helpers } from './index';
+
 var argv = nw.App.argv;
 var fullArgv = nw.App.fullArgv;
 var filteredArgv = nw.App.filteredArgv;
@@ -298,7 +300,7 @@ nw.Window.open('https://github.com/nwjs/nw.js', {}, function (new_win) {
     // do something with the newly created window
 });
 
-nw.Window.getAll(function (windows: object[]) {
+nw.Window.getAll(function (windows: NWJS_Helpers.win[]) {
     console.log(`There are ${windows.length} windows open`);
 });
 
