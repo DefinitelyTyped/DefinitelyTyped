@@ -282,6 +282,7 @@ type LinkedIn = (options: ProviderLinkedInOptions) => GenericReturnConfig;
 interface ProviderLinkedInOptions {
     clientId: string;
     clientSecret: string;
+    scope?: string;
 }
 
 /**
