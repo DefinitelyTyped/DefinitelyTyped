@@ -8,9 +8,10 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "esModuleInterop": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts"]
+    "files": ["index.d.ts", "react-native-wol-tests.ts"]
 }
