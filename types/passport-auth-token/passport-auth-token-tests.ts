@@ -5,29 +5,27 @@
 import Koa = require('koa');
 import KoaRouter = require('koa-router');
 import passport = require('koa-passport');
-import passportAuthToken = require('passport-auth-token');
+import AuthTokenStrategy = require('passport-auth-token');
 
 //#region Test Models
-interface IAccessToken {
+interface AccessToken {
     id: string;
 }
 
-interface IUser {
+interface User {
     id: string;
 }
-
-const AuthTokenStrategy = passportAuthToken.Strategy;
 
 const testingAuthTokenStrategy = new AuthTokenStrategy(() => {});
 testingAuthTokenStrategy.success = () => {};
 testingAuthTokenStrategy.fail = () => {};
 
-class AccessToken implements IAccessToken {
-    public id: string;
-    public userId: string;
+class AccessTokenImpl implements AccessToken {
+    id: string;
+    userId: string;
 
-    static findOne(token: IAccessToken, callback: (err: Error, token: AccessToken) => void): void {
-        callback(null, new AccessToken());
+    static findOne(token: AccessToken, callback: (err: Error, token: AccessTokenImpl) => void): void {
+        callback(null, new AccessTokenImpl());
     }
 
     verifyToken(token: string): boolean {
@@ -35,22 +33,22 @@ class AccessToken implements IAccessToken {
     }
 }
 
-class User implements IUser {
-    public id: string;
-    static findOne(user: IUser, callback: (err: Error, user: User) => void): void {
-        callback(null, new User());
+class UserImpl implements User {
+    id: string;
+    static findOne(user: User, callback: (err: Error, user: UserImpl) => void): void {
+        callback(null, new UserImpl());
     }
 }
 //#endregion
 
 // Sample from https://github.com/mbell8903/passport-auth-token#configure-strategy
 passport.use(
-    new AuthTokenStrategy(function (token: any, done: any) {
-        AccessToken.findOne(
+    new AuthTokenStrategy((token: any, done: any) => {
+        AccessTokenImpl.findOne(
             {
                 id: token,
             },
-            function (error, accessToken) {
+            (error, accessToken) => {
                 if (error) {
                     return done(error);
                 }
@@ -60,11 +58,11 @@ passport.use(
                         return done(null, false);
                     }
 
-                    User.findOne(
+                    UserImpl.findOne(
                         {
                             id: accessToken.userId,
                         },
-                        function (error, user) {
+                        (error, user) => {
                             if (error) {
                                 return done(error);
                             }
@@ -85,12 +83,12 @@ passport.use(
 );
 
 passport.use(
-    new AuthTokenStrategy({ passReqToCallback: true }, function (req, token: any, done: any) {
-        AccessToken.findOne(
+    new AuthTokenStrategy({ passReqToCallback: true }, (req, token: any, done: any) => {
+        AccessTokenImpl.findOne(
             {
                 id: token,
             },
-            function (error, accessToken) {
+            (error, accessToken) => {
                 if (error) {
                     return done(error);
                 }
@@ -100,11 +98,11 @@ passport.use(
                         return done(null, false);
                     }
 
-                    User.findOne(
+                    UserImpl.findOne(
                         {
                             id: accessToken.userId,
                         },
-                        function (error, user) {
+                        (error, user) => {
                             if (error) {
                                 return done(error);
                             }
@@ -124,13 +122,10 @@ passport.use(
     }),
 );
 
-var app = new Koa();
-var route = new KoaRouter<Koa.DefaultState, Koa.Context>();
+const app = new Koa();
+const route = new KoaRouter<Koa.DefaultState, Koa.Context>();
 // Sample from https://github.com/mbell8903/passport-auth-token#authenticate-requests
 app.use(route.routes());
-route.post('/login', passport.authenticate('authtoken', { session: false, optional: false }), async function (
-    ctx,
-    next,
-) {
+route.post('/login', passport.authenticate('authtoken', { session: false, optional: false }), async (ctx, next) => {
     await next();
 });
