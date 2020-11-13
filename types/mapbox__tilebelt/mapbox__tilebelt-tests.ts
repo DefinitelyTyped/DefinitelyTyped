@@ -1,4 +1,4 @@
-import * as tilebelt from 'tilebelt'
+import * as tilebelt from '@mapbox/tilebelt'
 
 const lon = 30.5
 const lat = 50.5

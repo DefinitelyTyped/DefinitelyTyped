@@ -185,6 +185,4 @@ declare namespace tilebelt {
     }
 }
 
-declare module "tilebelt" {
-  export = tilebelt
-}
+export = tilebelt

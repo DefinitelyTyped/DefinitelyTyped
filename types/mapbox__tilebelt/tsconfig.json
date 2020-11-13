@@ -12,12 +12,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@mapbox/*": [
+                "mapbox__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "tilebelt-tests.ts"
+        "mapbox__tilebelt-tests.ts"
     ]
 }
