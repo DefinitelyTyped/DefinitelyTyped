@@ -15,4 +15,4 @@ const macro = createMacro(
     { configName: 'test' },
 );
 
-macro() === 'Hello world!';q
+macro() === 'Hello world!';
