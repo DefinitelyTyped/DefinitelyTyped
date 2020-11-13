@@ -441,7 +441,7 @@ export interface Config {
 
     // Managing Settings
     /** Retrieves the setting for the given key. */
-    get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
+    get<T extends keyof ConfigValues>(keyPath?: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
         ConfigValues[T];
 
@@ -459,7 +459,7 @@ export interface Config {
      *  Get all of the values for the given key-path, along with their associated
      *  scope selector.
      */
-    getAll<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
+    getAll<T extends keyof ConfigValues>(keyPath?: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: ScopeDescriptor }):
         Array<{ scopeDescriptor: ScopeDescriptor, value: ConfigValues[T] }>;
 
