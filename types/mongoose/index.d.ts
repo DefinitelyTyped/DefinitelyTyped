@@ -804,6 +804,8 @@ declare module "mongoose" {
    *   expose its interface to enable type-checking.
    */
   class QueryCursor<T extends Document> extends stream.Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
+
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
