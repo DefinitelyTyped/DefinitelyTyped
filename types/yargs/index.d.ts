@@ -773,6 +773,7 @@ declare namespace yargs {
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
     type InferredOptionType<O extends Options | PositionalOptions> =
+        O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :

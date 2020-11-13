@@ -1077,6 +1077,20 @@ function Argv$inferMultipleOptionTypes() {
         .demandOption(["a", "b", "c"])
         .argv;
 
+    // $ExpectType { [x: string]: unknown; a: number; b: string[]; _: string[]; $0: string; }
+    yargs
+        .options({
+            a: {
+                type: 'number',
+                default: 4
+            },
+            b: {
+                coerce: (arg: string) => arg.split(','),
+                default: 'one,two,three'
+            }
+        })
+        .argv;
+
     // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: string[]; $0: string; }
     yargs
         .choices({ a: [1, 2, 3], b: ["black", "white"], c: colors })
