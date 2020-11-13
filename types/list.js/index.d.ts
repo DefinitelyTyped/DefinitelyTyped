@@ -44,7 +44,7 @@ declare namespace List {
     }
 
     interface ListOptions {
-        valueNames?: string[];
+        valueNames?: (string|{data: string[]}|{name:string, attr: string})[];
         item?: string;
         listClass?: string;
         searchClass?: string;
