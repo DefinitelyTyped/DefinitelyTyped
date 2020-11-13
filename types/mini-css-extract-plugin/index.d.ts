@@ -6,7 +6,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import { Configuration, Compiler } from 'webpack';
 
 /**
