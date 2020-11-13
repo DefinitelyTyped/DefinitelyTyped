@@ -1065,6 +1065,43 @@ declare namespace Autodesk {
           }
         }
 
+        class SceneBuilder extends Extension {
+          addNewModel(options: {
+            conserveMemory?: boolean,
+            createWireFrame?: boolean
+          }): Promise<ModelBuilder>;
+        }
+
+        class ModelBuilder {
+          fragList: any;
+          geomList: any;
+          instanceTree: any;
+          model: Autodesk.Viewing.Model;
+
+          constructor(model: Autodesk.Viewing.Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
+          addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
+          addMaterial(name: string, material: THREE.Material): boolean;
+          addMesh(mesh: THREE.Mesh): boolean;
+          changeFragmentsDbId(fragments: number|number[]|THREE.Mesh|THREE.Mesh[], dbId: number): boolean;
+          changeFragmentGeometry(fragment: number|THREE.Mesh, geometry: number|THREE.BufferGeometry, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeFragmentMaterial(fragment: number|THREE.Mesh, material: string|THREE.Material): boolean;
+          changeFragmentTransform(fragment: number|THREE.Mesh, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeGeometry(existingGeom: number|THREE.BufferGeometry, geometry: THREE.BufferGeometry, numFragments?: number): boolean;
+          changeMaterial(existingMaterial: string, material: THREE.Material): boolean;
+          findGeometryFragments(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): number[];
+          findMaterial(name: string): THREE.Material;
+          findMaterialFragments(materials: string|string[]|THREE.Material|THREE.Material[]): number[];
+          isConservingMemory(): boolean;
+          packNormals(geometry: THREE.BufferGeometry): THREE.BufferGeometry;
+          removeFragment(fragments: number|number[]|THREE.Mesh|THREE.Mesh[]): boolean;
+          removeGeometry(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): boolean;
+          removeMaterial(materials: string|string[]|THREE.Material|THREE.Material[]): boolean;
+          removeMesh(meshes: THREE.Mesh|THREE.Mesh[]): boolean;
+          sceneUpdated(objectsMoved: boolean, skipRepaint: boolean): void;
+          updateMesh(meshes: THREE.Mesh|THREE.Mesh[], skipGeom: boolean, skipTransform: boolean): boolean;
+        }
+
         namespace Private {
             const env: string;
 
