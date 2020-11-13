@@ -413,8 +413,9 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
 export type TestFunction<T = unknown, C = object> = (
     this: TestContext<C>,
     value: T,
+    context: TestContext<C>
 ) => boolean | ValidationError | Promise<boolean | ValidationError>;
-export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: any) => value is T;
+export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: unknown, context: TestContext<C>) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
@@ -442,6 +443,7 @@ export interface TestContext<C = object> {
     options: ValidateOptions<C>;
     parent: any;
     schema: Schema<any, C>;
+    originalValue: any;
     resolve: (value: any) => any;
     createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
