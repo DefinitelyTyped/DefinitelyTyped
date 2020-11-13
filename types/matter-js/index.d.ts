@@ -570,6 +570,118 @@ declare namespace Matter {
         yScale: number;
     }
 
+    export interface Collision {
+        /**
+        * A `Matter.Vector` instance that contains current collision penetration data.
+        * 
+        * @type Matter.Vector
+        */
+        penetration : Vector;
+
+        /**
+        * A `Matter.Vector` instance that contains current collision tangent data.
+        * 
+        * @type Matter.Vector
+        */
+        tangent : Vector;
+
+        /**
+        * A `Matter.Vector` instance that contains current collision normal data.
+        * 
+        * @type Matter.Vector
+        */
+        normal : Vector;
+
+        /**
+        * An Vertices<Array> instance that contains vertices support of the current collision.
+        * 
+        * @type Matter.Vertices[]
+        */
+        supports : Vertices[];
+
+        /**
+        * BodyA of the collision.
+        * 
+        * @type Matter.Body
+        */
+        bodyA : Body;
+
+        /**
+        * BodyB of the collision.
+        * 
+        * @type Matter.Body
+        */
+        bodyB : Body;
+
+        /**
+        * axisBody of the collision.
+        * 
+        * @type Matter.Body
+        */
+        axisBody : Body;
+
+        /**
+        * ParentA instance body
+        * 
+        * @type Matter.Body
+        */
+        parentA : Body;
+
+        /**
+        * ParentB instance body
+        * 
+        * @type Matter.Body
+        */
+        parentB : Body;
+
+        /**
+        * axis number
+        * 
+        * @type number
+        */
+        axisNumber : number;
+
+        /**
+        * depth
+        * 
+        * @type number
+        */
+        depth : number;
+
+        /**
+        * Return true if bodyA and bodyB collided.
+        * 
+        * @type boolean
+        */
+        collided : boolean;
+
+        /**
+        * re-used.
+        * 
+        * @type boolean
+        */
+        reused : boolean;
+    }
+
+    /**
+    * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
+    *
+    * @class SAT
+    */
+    // TODO: true circles and curves
+
+    export class SAT {
+        /**
+        * Detect collision between two bodies using the Separating Axis Theorem.
+        * @method collides
+        * @param {body} bodyA
+        * @param {body} bodyB
+        * @param {collision} previousCollision
+        * @return {collision} collision
+        */
+        static collides(bodyA : Body, bodyB : Body, previousCollision? : Collision) : Collision;
+    }
+
     /**
     * The `Matter.Body` module contains methods for creating and manipulating body models.
     * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
@@ -1133,7 +1245,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {bounds} A new bounds object
          */
-        static create (vertices: Vertices): Bounds;
+        static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
@@ -2333,13 +2445,13 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
-         /**
-         * Finds a list of collisions between body and bodies.
-         * @method collides
-         * @param {body} body
-         * @param {body[]} bodies
-         * @return {object[]} Collisions
-         */
+        /**
+        * Finds a list of collisions between body and bodies.
+        * @method collides
+        * @param {body} body
+        * @param {body[]} bodies
+        * @return {object[]} Collisions
+        */
         static collides(body: Body, bodies: Array<Body>): Array<any>;
 
         /**
@@ -2792,7 +2904,7 @@ declare namespace Matter {
          * @param {vector} vectorC
          * @return {number} The cross product of the three vectors
          */
-        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector):number;
+        static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
         /**
          * Adds the two vectors.
@@ -3079,7 +3191,7 @@ declare namespace Matter {
     }
 
     interface Gravity extends Vector {
-      scale: number;
+        scale: number;
     }
 
     /**
@@ -3737,9 +3849,9 @@ declare namespace Matter {
 
     }
 
-    type Dependency = {name: string, range: string}
-                    | {name: string, version: string}
-                    | string;
+    type Dependency = { name: string, range: string }
+        | { name: string, version: string }
+        | string;
 
     export class Plugin {
         name: string;
@@ -3793,7 +3905,7 @@ declare namespace Matter {
          * @param module {} The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
+        static isFor(plugin: Plugin, module: { name?: string, [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3812,7 +3924,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            module: { uses?: (Plugin | string)[];[_: string]: any },
             plugins: (Plugin | string)[]
         ): void;
 
@@ -3824,8 +3936,8 @@ declare namespace Matter {
          */
         static dependencies(
             module: Dependency,
-            tracked?: {[_: string]: string[]}
-        ): {[_: string]: string[]} | string | undefined
+            tracked?: { [_: string]: string[] }
+        ): { [_: string]: string[] } | string | undefined
 
         /**
          * Parses a dependency string into its components.
@@ -3836,7 +3948,7 @@ declare namespace Matter {
          * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
          * @return {object} The dependency parsed into its components.
          */
-        static dependencyParse(dependency: Dependency) : {name: string, range: string};
+        static dependencyParse(dependency: Dependency): { name: string, range: string };
 
         /**
          * Parses a version string into its components.
@@ -3852,7 +3964,7 @@ declare namespace Matter {
          * @param range {string} The version string.
          * @return {object} The version range parsed into its components.
          */
-        static versionParse(range: string) : {
+        static versionParse(range: string): {
             isRange: boolean,
             version: string,
             range: string,
