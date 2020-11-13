@@ -1076,9 +1076,9 @@ declare namespace Autodesk {
           fragList: any;
           geomList: any;
           instanceTree: any;
-          model: Autodesk.Viewing.Model;
+          model: Model;
 
-          constructor(model: Autodesk.Viewing.Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          constructor(model: Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
           addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
           addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
           addMaterial(name: string, material: THREE.Material): boolean;
