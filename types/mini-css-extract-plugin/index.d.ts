@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-import { Configuration, ChunkData, Plugin, Compiler } from 'webpack';
+import { Configuration, Compiler } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin
