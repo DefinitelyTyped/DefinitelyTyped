@@ -1,4 +1,4 @@
-// Type definitions for passport-auth-token 1.0.1
+// Type definitions for passport-auth-token 1.0
 // Project: https://github.com/mbell8903/passport-auth-token.git
 // Definitions by: Ian Woongsoo Lee <https://github.com/yummyummyummy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 import express = require('express');
 import { Strategy as PassportStrategy } from 'passport-strategy';
 
-interface IStrategyOptions {
+interface StrategyOptions {
     tokenFields?: string[];
     headerFields?: string[];
     session?: boolean;
@@ -18,7 +18,7 @@ interface IStrategyOptions {
     caseInsensitive?: boolean;
 }
 
-interface IStrategyOptionsWithRequest {
+interface StrategyOptionsWithRequest {
     tokenFields?: string[];
     headerFields?: string[];
     session?: boolean;
@@ -28,21 +28,21 @@ interface IStrategyOptionsWithRequest {
     caseInsensitive?: boolean;
 }
 
-interface IVerifyOptions {
+interface VerifyOptions {
     message: string;
 }
 
 interface VerifyFunctionWithRequest {
-    (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+    (req: express.Request, token: string, done: (error: any, user?: any, options?: VerifyOptions) => void): void;
 }
 
 interface VerifyFunction {
-    (token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+    (token: string, done: (error: any, user?: any, options?: VerifyOptions) => void): void;
 }
 
 declare class Strategy extends PassportStrategy {
-    constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
-    constructor(options: IStrategyOptions, verify: VerifyFunction);
+    constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+    constructor(options: StrategyOptions, verify: VerifyFunction);
     constructor(verify: VerifyFunction);
 
     name: string;
