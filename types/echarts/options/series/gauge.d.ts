@@ -523,6 +523,16 @@ declare namespace echarts {
                 show?: boolean;
 
                 /**
+                 * The distance between the label and tick line.
+                 *
+                 *
+                 * @default
+                 * "true"
+                 * @see https://echarts.apache.org/en/option.html#series-gauge.axisLabel.distance
+                 */
+                distance?: number;
+
+                /**
                  * The content formatter of scale label, which supports both
                  * string template and callback function. Example:
                  *
