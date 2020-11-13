@@ -3,11 +3,12 @@
         "module": "commonjs",
         "target": "es6",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,

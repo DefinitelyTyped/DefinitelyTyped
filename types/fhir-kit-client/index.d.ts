@@ -1,14 +1,19 @@
-// Type definitions for fhir-kit-client 1.1
+// Type definitions for fhir-kit-client 1.5
 // Project: https://github.com/Vermonster/fhir-kit-client
 // Definitions by: Matthew Morrissette <https://github.com/yinzara>
+//                 Vermonster <https://github.com/Vermonster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="fhir" />
+
+/* tslint:disable:max-line-length */
+
 import { Options, Headers } from "request";
 import { OpPatch } from "json-patch";
 
-type KnownResourceType = 'Account' |
+type KnownResourceType =
+    'Account' |
     'ActivityDefinition' |
     'AdverseEvent' |
     'AllergyIntolerance' |
@@ -17,12 +22,15 @@ type KnownResourceType = 'Account' |
     'AuditEvent' |
     'Basic' |
     'Binary' |
-    'BodySite' |
+    'BiologicallyDerivedProduct' |
+    'BodyStructure' |
     'Bundle' |
     'CapabilityStatement' |
     'CarePlan' |
     'CareTeam' |
+    'CatalogEntry' |
     'ChargeItem' |
+    'ChargeItemDefinition' |
     'Claim' |
     'ClaimResponse' |
     'ClinicalImpression' |
@@ -36,24 +44,27 @@ type KnownResourceType = 'Account' |
     'Consent' |
     'Contract' |
     'Coverage' |
-    'DataElement' |
+    'CoverageEligibilityRequest' |
+    'CoverageEligibilityResponse' |
     'DetectedIssue' |
     'Device' |
-    'DeviceComponent' |
+    'DeviceDefinition' |
     'DeviceMetric' |
     'DeviceRequest' |
     'DeviceUseStatement' |
     'DiagnosticReport' |
     'DocumentManifest' |
     'DocumentReference' |
-    'EligibilityRequest' |
-    'EligibilityResponse' |
+    'EffectEvidenceSynthesis' |
     'Encounter' |
     'Endpoint' |
     'EnrollmentRequest' |
     'EnrollmentResponse' |
     'EpisodeOfCare' |
-    'ExpansionProfile' |
+    'EventDefinition' |
+    'Evidence' |
+    'EvidenceVariable' |
+    'ExampleScenario' |
     'ExplanationOfBenefit' |
     'FamilyMemberHistory' |
     'Flag' |
@@ -62,11 +73,13 @@ type KnownResourceType = 'Account' |
     'Group' |
     'GuidanceResponse' |
     'HealthcareService' |
-    'ImagingManifest' |
     'ImagingStudy' |
     'Immunization' |
+    'ImmunizationEvaluation' |
     'ImmunizationRecommendation' |
     'ImplementationGuide' |
+    'InsurancePlan' |
+    'Invoice' |
     'Library' |
     'Linkage' |
     'List' |
@@ -77,16 +90,30 @@ type KnownResourceType = 'Account' |
     'Medication' |
     'MedicationAdministration' |
     'MedicationDispense' |
+    'MedicationKnowledge' |
     'MedicationRequest' |
     'MedicationStatement' |
+    'MedicinalProduct' |
+    'MedicinalProductAuthorization' |
+    'MedicinalProductContraindication' |
+    'MedicinalProductIndication' |
+    'MedicinalProductIngredient' |
+    'MedicinalProductInteraction' |
+    'MedicinalProductManufactured' |
+    'MedicinalProductPackaged' |
+    'MedicinalProductPharmaceutical' |
+    'MedicinalProductUndesirableEffect' |
     'MessageDefinition' |
     'MessageHeader' |
+    'MolecularSequence' |
     'NamingSystem' |
     'NutritionOrder' |
     'Observation' |
+    'ObservationDefinition' |
     'OperationDefinition' |
     'OperationOutcome' |
     'Organization' |
+    'OrganizationAffiliation' |
     'Parameters' |
     'Patient' |
     'PaymentNotice' |
@@ -96,34 +123,38 @@ type KnownResourceType = 'Account' |
     'Practitioner' |
     'PractitionerRole' |
     'Procedure' |
-    'ProcedureRequest' |
-    'ProcessRequest' |
-    'ProcessResponse' |
     'Provenance' |
     'Questionnaire' |
     'QuestionnaireResponse' |
-    'ReferralRequest' |
     'RelatedPerson' |
     'RequestGroup' |
+    'ResearchDefinition' |
+    'ResearchElementDefinition' |
     'ResearchStudy' |
     'ResearchSubject' |
     'RiskAssessment' |
+    'RiskEvidenceSynthesis' |
     'Schedule' |
     'SearchParameter' |
-    'Sequence' |
-    'ServiceDefinition' |
+    'ServiceRequest' |
     'Slot' |
     'Specimen' |
+    'SpecimenDefinition' |
     'StructureDefinition' |
     'StructureMap' |
     'Subscription' |
     'Substance' |
+    'SubstancePolymer' |
+    'SubstanceReferenceInformation' |
+    'SubstanceSpecification' |
     'SupplyDelivery' |
     'SupplyRequest' |
     'Task' |
+    'TerminologyCapabilities' |
     'TestReport' |
     'TestScript' |
     'ValueSet' |
+    'VerificationResult' |
     'VisionPrescription';
 
 type ResourceType = string;
@@ -131,10 +162,10 @@ type ResourceType = string;
 type CustomResourceType = Exclude<ResourceType, KnownResourceType>;
 
 interface SmartAuthMetadata {
-    authorizeUrl?: string;
-    tokenUrl?: string;
-    registerUrl?: string;
-    manageUrl?: string;
+    authorizeUrl?: URL;
+    tokenUrl?: URL;
+    registerUrl?: URL;
+    manageUrl?: URL;
 }
 
 interface CustomResource extends fhir.ResourceBase {
@@ -312,12 +343,15 @@ declare class Client {
     read(params: { resourceType: "AuditEvent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
     read(params: { resourceType: "Basic", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
     read(params: { resourceType: "Binary", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
-    read(params: { resourceType: "BodySite", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    read(params: { resourceType: "BiologicallyDerivedProduct",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BiologicallyDerivedProduct>;
+    read(params: { resourceType: "BodyStructure", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodyStructure>;
     read(params: { resourceType: "Bundle", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
     read(params: { resourceType: "CapabilityStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
     read(params: { resourceType: "CarePlan", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
     read(params: { resourceType: "CareTeam", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    read(params: { resourceType: "CatalogEntry",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CatalogEntry>;
     read(params: { resourceType: "ChargeItem", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    read(params: { resourceType: "ChargeItemDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItemDefinition>;
     read(params: { resourceType: "Claim", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
     read(params: { resourceType: "ClaimResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
     read(params: { resourceType: "ClinicalImpression", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
@@ -331,10 +365,11 @@ declare class Client {
     read(params: { resourceType: "Consent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
     read(params: { resourceType: "Contract", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
     read(params: { resourceType: "Coverage", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
-    read(params: { resourceType: "DataElement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    read(params: { resourceType: "CoverageEligibilityRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityRequest>;
+    read(params: { resourceType: "CoverageEligibilityResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityResponse>;
     read(params: { resourceType: "DetectedIssue", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
     read(params: { resourceType: "Device", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
-    read(params: { resourceType: "DeviceComponent", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    read(params: { resourceType: "DeviceDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceDefinition>;
     read(params: { resourceType: "DeviceMetric", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
     read(params: { resourceType: "DeviceRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
     read(params: { resourceType: "DeviceUseStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
@@ -342,14 +377,16 @@ declare class Client {
     read(params: { resourceType: "DocumentManifest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
     read(params: { resourceType: "DocumentReference", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
     read(params: { resourceType: "DomainResource", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
-    read(params: { resourceType: "EligibilityRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
-    read(params: { resourceType: "EligibilityResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    read(params: { resourceType: "EffectEvidenceSynthesis",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EffectEvidenceSynthesis>;
     read(params: { resourceType: "Encounter", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
     read(params: { resourceType: "Endpoint", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
     read(params: { resourceType: "EnrollmentRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
     read(params: { resourceType: "EnrollmentResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
     read(params: { resourceType: "EpisodeOfCare", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
-    read(params: { resourceType: "ExpansionProfile", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
+    read(params: { resourceType: "EventDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EventDefinition>;
+    read(params: { resourceType: "Evidence",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Evidence>;
+    read(params: { resourceType: "EvidenceVariable",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EvidenceVariable>;
+    read(params: { resourceType: "ExampleScenario",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExampleScenario>;
     read(params: { resourceType: "ExplanationOfBenefit", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
     read(params: { resourceType: "FamilyMemberHistory", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
     read(params: { resourceType: "Flag", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
@@ -358,11 +395,13 @@ declare class Client {
     read(params: { resourceType: "Group", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
     read(params: { resourceType: "GuidanceResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
     read(params: { resourceType: "HealthcareService", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
-    read(params: { resourceType: "ImagingManifest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
     read(params: { resourceType: "ImagingStudy", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
     read(params: { resourceType: "Immunization", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
+    read(params: { resourceType: "ImmunizationEvaluation",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationEvaluation>;
     read(params: { resourceType: "ImmunizationRecommendation", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
     read(params: { resourceType: "ImplementationGuide", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    read(params: { resourceType: "InsurancePlan",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.InsurancePlan>;
+    read(params: { resourceType: "Invoice",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Invoice>;
     read(params: { resourceType: "Library", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
     read(params: { resourceType: "Linkage", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
     read(params: { resourceType: "List", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
@@ -373,16 +412,30 @@ declare class Client {
     read(params: { resourceType: "Medication", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
     read(params: { resourceType: "MedicationAdministration", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
     read(params: { resourceType: "MedicationDispense", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    read(params: { resourceType: "MedicationKnowledge",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationKnowledge>;
     read(params: { resourceType: "MedicationRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
     read(params: { resourceType: "MedicationStatement", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    read(params: { resourceType: "MedicinalProduct",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProduct>;
+    read(params: { resourceType: "MedicinalProductAuthorization",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductAuthorization>;
+    read(params: { resourceType: "MedicinalProductContraindication",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductContraindication>;
+    read(params: { resourceType: "MedicinalProductIndication",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIndication>;
+    read(params: { resourceType: "MedicinalProductIngredient",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIngredient>;
+    read(params: { resourceType: "MedicinalProductInteraction",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductInteraction>;
+    read(params: { resourceType: "MedicinalProductManufactured",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductManufactured>;
+    read(params: { resourceType: "MedicinalProductPackaged",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPackaged>;
+    read(params: { resourceType: "MedicinalProductPharmaceutical",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPharmaceutical>;
+    read(params: { resourceType: "MedicinalProductUndesirableEffect",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductUndesirableEffect>;
     read(params: { resourceType: "MessageDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
     read(params: { resourceType: "MessageHeader", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    read(params: { resourceType: "MolecularSequence", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MolecularSequence>;
     read(params: { resourceType: "NamingSystem", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
     read(params: { resourceType: "NutritionOrder", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
     read(params: { resourceType: "Observation", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
+    read(params: { resourceType: "ObservationDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ObservationDefinition>;
     read(params: { resourceType: "OperationDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
     read(params: { resourceType: "OperationOutcome", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
     read(params: { resourceType: "Organization", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    read(params: { resourceType: "OrganizationAffiliation",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OrganizationAffiliation>;
     read(params: { resourceType: "Parameters", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
     read(params: { resourceType: "Patient", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
     read(params: { resourceType: "PaymentNotice", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
@@ -392,34 +445,38 @@ declare class Client {
     read(params: { resourceType: "Practitioner", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
     read(params: { resourceType: "PractitionerRole", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
     read(params: { resourceType: "Procedure", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
-    read(params: { resourceType: "ProcedureRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
-    read(params: { resourceType: "ProcessRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
-    read(params: { resourceType: "ProcessResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
     read(params: { resourceType: "Provenance", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
     read(params: { resourceType: "Questionnaire", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
     read(params: { resourceType: "QuestionnaireResponse", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
-    read(params: { resourceType: "ReferralRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
     read(params: { resourceType: "RelatedPerson", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
     read(params: { resourceType: "RequestGroup", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    read(params: { resourceType: "ResearchDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchDefinition>;
+    read(params: { resourceType: "ResearchElementDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchElementDefinition>;
     read(params: { resourceType: "ResearchStudy", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
     read(params: { resourceType: "ResearchSubject", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
     read(params: { resourceType: "RiskAssessment", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    read(params: { resourceType: "RiskEvidenceSynthesis",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskEvidenceSynthesis>;
     read(params: { resourceType: "Schedule", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
     read(params: { resourceType: "SearchParameter", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
-    read(params: { resourceType: "Sequence", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
-    read(params: { resourceType: "ServiceDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    read(params: { resourceType: "ServiceRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceRequest>;
     read(params: { resourceType: "Slot", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
     read(params: { resourceType: "Specimen", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
+    read(params: { resourceType: "SpecimenDefinition",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SpecimenDefinition>;
     read(params: { resourceType: "StructureDefinition", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
     read(params: { resourceType: "StructureMap", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
     read(params: { resourceType: "Subscription", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
     read(params: { resourceType: "Substance", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    read(params: { resourceType: "SubstancePolymer",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstancePolymer>;
+    read(params: { resourceType: "SubstanceReferenceInformation",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceReferenceInformation>;
+    read(params: { resourceType: "SubstanceSpecification",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceSpecification>;
     read(params: { resourceType: "SupplyDelivery", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
     read(params: { resourceType: "SupplyRequest", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
     read(params: { resourceType: "Task", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    read(params: { resourceType: "TerminologyCapabilities",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TerminologyCapabilities>;
     read(params: { resourceType: "TestReport", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
     read(params: { resourceType: "TestScript", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
     read(params: { resourceType: "ValueSet", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    read(params: { resourceType: "VerificationResult",  id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VerificationResult>;
     read(params: { resourceType: "VisionPrescription", id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
     read(params: { resourceType: CustomResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | CustomResource>;
 
@@ -465,12 +522,15 @@ declare class Client {
     vread(params: { resourceType: "AuditEvent", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
     vread(params: { resourceType: "Basic", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
     vread(params: { resourceType: "Binary", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
-    vread(params: { resourceType: "BodySite", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    vread(params: { resourceType: "BiologicallyDerivedProduct",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BiologicallyDerivedProduct>;
+    vread(params: { resourceType: "BodyStructure", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodyStructure>;
     vread(params: { resourceType: "Bundle", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
     vread(params: { resourceType: "CapabilityStatement", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
     vread(params: { resourceType: "CarePlan", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
     vread(params: { resourceType: "CareTeam", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    vread(params: { resourceType: "CatalogEntry",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CatalogEntry>;
     vread(params: { resourceType: "ChargeItem", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    vread(params: { resourceType: "ChargeItemDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItemDefinition>;
     vread(params: { resourceType: "Claim", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
     vread(params: { resourceType: "ClaimResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
     vread(params: { resourceType: "ClinicalImpression", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
@@ -484,10 +544,11 @@ declare class Client {
     vread(params: { resourceType: "Consent", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
     vread(params: { resourceType: "Contract", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
     vread(params: { resourceType: "Coverage", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
-    vread(params: { resourceType: "DataElement", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    vread(params: { resourceType: "CoverageEligibilityRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityRequest>;
+    vread(params: { resourceType: "CoverageEligibilityResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityResponse>;
     vread(params: { resourceType: "DetectedIssue", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
     vread(params: { resourceType: "Device", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
-    vread(params: { resourceType: "DeviceComponent", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    vread(params: { resourceType: "DeviceDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceDefinition>;
     vread(params: { resourceType: "DeviceMetric", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
     vread(params: { resourceType: "DeviceRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
     vread(params: { resourceType: "DeviceUseStatement", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
@@ -495,14 +556,16 @@ declare class Client {
     vread(params: { resourceType: "DocumentManifest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
     vread(params: { resourceType: "DocumentReference", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
     vread(params: { resourceType: "DomainResource", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
-    vread(params: { resourceType: "EligibilityRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
-    vread(params: { resourceType: "EligibilityResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    vread(params: { resourceType: "EffectEvidenceSynthesis",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EffectEvidenceSynthesis>;
     vread(params: { resourceType: "Encounter", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
     vread(params: { resourceType: "Endpoint", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
     vread(params: { resourceType: "EnrollmentRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
     vread(params: { resourceType: "EnrollmentResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
     vread(params: { resourceType: "EpisodeOfCare", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
-    vread(params: { resourceType: "ExpansionProfile", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
+    vread(params: { resourceType: "EventDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EventDefinition>;
+    vread(params: { resourceType: "Evidence",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Evidence>;
+    vread(params: { resourceType: "EvidenceVariable",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EvidenceVariable>;
+    vread(params: { resourceType: "ExampleScenario",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExampleScenario>;
     vread(params: { resourceType: "ExplanationOfBenefit", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
     vread(params: { resourceType: "FamilyMemberHistory", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
     vread(params: { resourceType: "Flag", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
@@ -511,11 +574,13 @@ declare class Client {
     vread(params: { resourceType: "Group", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
     vread(params: { resourceType: "GuidanceResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
     vread(params: { resourceType: "HealthcareService", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
-    vread(params: { resourceType: "ImagingManifest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
     vread(params: { resourceType: "ImagingStudy", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
     vread(params: { resourceType: "Immunization", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
+    vread(params: { resourceType: "ImmunizationEvaluation",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationEvaluation>;
     vread(params: { resourceType: "ImmunizationRecommendation", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
     vread(params: { resourceType: "ImplementationGuide", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    vread(params: { resourceType: "InsurancePlan",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.InsurancePlan>;
+    vread(params: { resourceType: "Invoice",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Invoice>;
     vread(params: { resourceType: "Library", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
     vread(params: { resourceType: "Linkage", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
     vread(params: { resourceType: "List", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
@@ -526,16 +591,30 @@ declare class Client {
     vread(params: { resourceType: "Medication", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
     vread(params: { resourceType: "MedicationAdministration", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
     vread(params: { resourceType: "MedicationDispense", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    vread(params: { resourceType: "MedicationKnowledge",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationKnowledge>;
     vread(params: { resourceType: "MedicationRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
     vread(params: { resourceType: "MedicationStatement", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    vread(params: { resourceType: "MedicinalProduct",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProduct>;
+    vread(params: { resourceType: "MedicinalProductAuthorization",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductAuthorization>;
+    vread(params: { resourceType: "MedicinalProductContraindication",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductContraindication>;
+    vread(params: { resourceType: "MedicinalProductIndication",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIndication>;
+    vread(params: { resourceType: "MedicinalProductIngredient",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIngredient>;
+    vread(params: { resourceType: "MedicinalProductInteraction",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductInteraction>;
+    vread(params: { resourceType: "MedicinalProductManufactured",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductManufactured>;
+    vread(params: { resourceType: "MedicinalProductPackaged",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPackaged>;
+    vread(params: { resourceType: "MedicinalProductPharmaceutical",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPharmaceutical>;
+    vread(params: { resourceType: "MedicinalProductUndesirableEffect",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductUndesirableEffect>;
     vread(params: { resourceType: "MessageDefinition", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
     vread(params: { resourceType: "MessageHeader", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    vread(params: { resourceType: "MolecularSequence", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MolecularSequence>;
     vread(params: { resourceType: "NamingSystem", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
     vread(params: { resourceType: "NutritionOrder", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
     vread(params: { resourceType: "Observation", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
+    vread(params: { resourceType: "ObservationDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ObservationDefinition>;
     vread(params: { resourceType: "OperationDefinition", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
     vread(params: { resourceType: "OperationOutcome", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
     vread(params: { resourceType: "Organization", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    vread(params: { resourceType: "OrganizationAffiliation",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OrganizationAffiliation>;
     vread(params: { resourceType: "Parameters", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
     vread(params: { resourceType: "Patient", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
     vread(params: { resourceType: "PaymentNotice", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
@@ -545,34 +624,38 @@ declare class Client {
     vread(params: { resourceType: "Practitioner", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
     vread(params: { resourceType: "PractitionerRole", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
     vread(params: { resourceType: "Procedure", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
-    vread(params: { resourceType: "ProcedureRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
-    vread(params: { resourceType: "ProcessRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
-    vread(params: { resourceType: "ProcessResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
     vread(params: { resourceType: "Provenance", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
     vread(params: { resourceType: "Questionnaire", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
     vread(params: { resourceType: "QuestionnaireResponse", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
-    vread(params: { resourceType: "ReferralRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
     vread(params: { resourceType: "RelatedPerson", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
     vread(params: { resourceType: "RequestGroup", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    vread(params: { resourceType: "ResearchDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchDefinition>;
+    vread(params: { resourceType: "ResearchElementDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchElementDefinition>;
     vread(params: { resourceType: "ResearchStudy", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
     vread(params: { resourceType: "ResearchSubject", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
     vread(params: { resourceType: "RiskAssessment", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    vread(params: { resourceType: "RiskEvidenceSynthesis",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskEvidenceSynthesis>;
     vread(params: { resourceType: "Schedule", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
     vread(params: { resourceType: "SearchParameter", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
-    vread(params: { resourceType: "Sequence", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
-    vread(params: { resourceType: "ServiceDefinition", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    vread(params: { resourceType: "ServiceRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceRequest>;
     vread(params: { resourceType: "Slot", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
     vread(params: { resourceType: "Specimen", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
+    vread(params: { resourceType: "SpecimenDefinition",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SpecimenDefinition>;
     vread(params: { resourceType: "StructureDefinition", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
     vread(params: { resourceType: "StructureMap", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
     vread(params: { resourceType: "Subscription", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
     vread(params: { resourceType: "Substance", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    vread(params: { resourceType: "SubstancePolymer",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstancePolymer>;
+    vread(params: { resourceType: "SubstanceReferenceInformation",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceReferenceInformation>;
+    vread(params: { resourceType: "SubstanceSpecification",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceSpecification>;
     vread(params: { resourceType: "SupplyDelivery", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
     vread(params: { resourceType: "SupplyRequest", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
     vread(params: { resourceType: "Task", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    vread(params: { resourceType: "TerminologyCapabilities",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TerminologyCapabilities>;
     vread(params: { resourceType: "TestReport", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
     vread(params: { resourceType: "TestScript", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
     vread(params: { resourceType: "ValueSet", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    vread(params: { resourceType: "VerificationResult",  id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VerificationResult>;
     vread(params: { resourceType: "VisionPrescription", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
     vread(params: { resourceType: CustomResourceType, id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | CustomResource>;
 
@@ -621,12 +704,15 @@ declare class Client {
     create(params: { resourceType: "AuditEvent", body: fhir.AuditEvent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
     create(params: { resourceType: "Basic", body: fhir.Basic, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
     create(params: { resourceType: "Binary", body: fhir.Binary, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
-    create(params: { resourceType: "BodySite", body: fhir.BodySite, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    create(params: { resourceType: "BiologicallyDerivedProduct", body: fhir.BiologicallyDerivedProduct, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BiologicallyDerivedProduct>;
+    create(params: { resourceType: "BodyStructure", body: fhir.BodyStructure, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodyStructure>;
     create(params: { resourceType: "Bundle", body: fhir.Bundle, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
     create(params: { resourceType: "CapabilityStatement", body: fhir.CapabilityStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
     create(params: { resourceType: "CarePlan", body: fhir.CarePlan, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
     create(params: { resourceType: "CareTeam", body: fhir.CareTeam, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    create(params: { resourceType: "CatalogEntry", body: fhir.CatalogEntry, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CatalogEntry>;
     create(params: { resourceType: "ChargeItem", body: fhir.ChargeItem, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    create(params: { resourceType: "ChargeItemDefinition", body: fhir.ChargeItemDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItemDefinition>;
     create(params: { resourceType: "Claim", body: fhir.Claim, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
     create(params: { resourceType: "ClaimResponse", body: fhir.ClaimResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
     create(params: { resourceType: "ClinicalImpression", body: fhir.ClinicalImpression, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
@@ -640,10 +726,11 @@ declare class Client {
     create(params: { resourceType: "Consent", body: fhir.Consent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
     create(params: { resourceType: "Contract", body: fhir.Contract, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
     create(params: { resourceType: "Coverage", body: fhir.Coverage, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
-    create(params: { resourceType: "DataElement", body: fhir.DataElement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    create(params: { resourceType: "CoverageEligibilityRequest", body: fhir.CoverageEligibilityRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityRequest>;
+    create(params: { resourceType: "CoverageEligibilityResponse", body: fhir.CoverageEligibilityResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityResponse>;
     create(params: { resourceType: "DetectedIssue", body: fhir.DetectedIssue, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
     create(params: { resourceType: "Device", body: fhir.Device, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
-    create(params: { resourceType: "DeviceComponent", body: fhir.DeviceComponent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    create(params: { resourceType: "DeviceDefinition", body: fhir.DeviceDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceDefinition>;
     create(params: { resourceType: "DeviceMetric", body: fhir.DeviceMetric, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
     create(params: { resourceType: "DeviceRequest", body: fhir.DeviceRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
     create(params: { resourceType: "DeviceUseStatement", body: fhir.DeviceUseStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
@@ -651,14 +738,16 @@ declare class Client {
     create(params: { resourceType: "DocumentManifest", body: fhir.DocumentManifest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
     create(params: { resourceType: "DocumentReference", body: fhir.DocumentReference, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
     create(params: { resourceType: "DomainResource", body: fhir.DomainResource, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
-    create(params: { resourceType: "EligibilityRequest", body: fhir.EligibilityRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
-    create(params: { resourceType: "EligibilityResponse", body: fhir.EligibilityResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    create(params: { resourceType: "EffectEvidenceSynthesis", body: fhir.EffectEvidenceSynthesis, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EffectEvidenceSynthesis>;
     create(params: { resourceType: "Encounter", body: fhir.Encounter, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
     create(params: { resourceType: "Endpoint", body: fhir.Endpoint, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
     create(params: { resourceType: "EnrollmentRequest", body: fhir.EnrollmentRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
     create(params: { resourceType: "EnrollmentResponse", body: fhir.EnrollmentResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
     create(params: { resourceType: "EpisodeOfCare", body: fhir.EpisodeOfCare, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
-    create(params: { resourceType: "ExpansionProfile", body: fhir.ExpansionProfile, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
+    create(params: { resourceType: "EventDefinition", body: fhir.EventDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EventDefinition>;
+    create(params: { resourceType: "Evidence", body: fhir.Evidence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Evidence>;
+    create(params: { resourceType: "EvidenceVariable", body: fhir.EvidenceVariable, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EvidenceVariable>;
+    create(params: { resourceType: "ExampleScenario", body: fhir.ExampleScenario, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExampleScenario>;
     create(params: { resourceType: "ExplanationOfBenefit", body: fhir.ExplanationOfBenefit, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
     create(params: { resourceType: "FamilyMemberHistory", body: fhir.FamilyMemberHistory, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
     create(params: { resourceType: "Flag", body: fhir.Flag, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
@@ -667,12 +756,13 @@ declare class Client {
     create(params: { resourceType: "Group", body: fhir.Group, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
     create(params: { resourceType: "GuidanceResponse", body: fhir.GuidanceResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
     create(params: { resourceType: "HealthcareService", body: fhir.HealthcareService, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
-    create(params: { resourceType: "ImagingManifest", body: fhir.ImagingManifest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
     create(params: { resourceType: "ImagingStudy", body: fhir.ImagingStudy, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
     create(params: { resourceType: "Immunization", body: fhir.Immunization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
-    create(params: { resourceType: "ImmunizationRecommendation", body: fhir.ImmunizationRecommendation, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
+    create(params: { resourceType: "ImmunizationEvaluation", body: fhir.ImmunizationEvaluation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationEvaluation>;
+    create(params: { resourceType: "ImmunizationRecommendation", body: fhir.ImmunizationRecommendation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
     create(params: { resourceType: "ImplementationGuide", body: fhir.ImplementationGuide, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    create(params: { resourceType: "InsurancePlan", body: fhir.InsurancePlan, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.InsurancePlan>;
+    create(params: { resourceType: "Invoice", body: fhir.Invoice, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Invoice>;
     create(params: { resourceType: "Library", body: fhir.Library, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
     create(params: { resourceType: "Linkage", body: fhir.Linkage, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
     create(params: { resourceType: "List", body: fhir.List, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
@@ -681,19 +771,32 @@ declare class Client {
     create(params: { resourceType: "MeasureReport", body: fhir.MeasureReport, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MeasureReport>;
     create(params: { resourceType: "Media", body: fhir.Media, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Media>;
     create(params: { resourceType: "Medication", body: fhir.Medication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
-    create(params: { resourceType: "MedicationAdministration", body: fhir.MedicationAdministration, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
+    create(params: { resourceType: "MedicationAdministration", body: fhir.MedicationAdministration, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
     create(params: { resourceType: "MedicationDispense", body: fhir.MedicationDispense, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    create(params: { resourceType: "MedicationKnowledge", body: fhir.MedicationKnowledge, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationKnowledge>;
     create(params: { resourceType: "MedicationRequest", body: fhir.MedicationRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
     create(params: { resourceType: "MedicationStatement", body: fhir.MedicationStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    create(params: { resourceType: "MedicinalProduct", body: fhir.MedicinalProduct, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProduct>;
+    create(params: { resourceType: "MedicinalProductAuthorization", body: fhir.MedicinalProductAuthorization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductAuthorization>;
+    create(params: { resourceType: "MedicinalProductContraindication", body: fhir.MedicinalProductContraindication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductContraindication>;
+    create(params: { resourceType: "MedicinalProductIndication", body: fhir.MedicinalProductIndication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIndication>;
+    create(params: { resourceType: "MedicinalProductIngredient", body: fhir.MedicinalProductIngredient, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIngredient>;
+    create(params: { resourceType: "MedicinalProductInteraction", body: fhir.MedicinalProductInteraction, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductInteraction>;
+    create(params: { resourceType: "MedicinalProductManufactured", body: fhir.MedicinalProductManufactured, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductManufactured>;
+    create(params: { resourceType: "MedicinalProductPackaged", body: fhir.MedicinalProductPackaged, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPackaged>;
+    create(params: { resourceType: "MedicinalProductPharmaceutical", body: fhir.MedicinalProductPharmaceutical, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPharmaceutical>;
+    create(params: { resourceType: "MedicinalProductUndesirableEffect", body: fhir.MedicinalProductUndesirableEffect, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductUndesirableEffect>;
     create(params: { resourceType: "MessageDefinition", body: fhir.MessageDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
     create(params: { resourceType: "MessageHeader", body: fhir.MessageHeader, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    create(params: { resourceType: "MolecularSequence", body: fhir.MolecularSequence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MolecularSequence>;
     create(params: { resourceType: "NamingSystem", body: fhir.NamingSystem, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
     create(params: { resourceType: "NutritionOrder", body: fhir.NutritionOrder, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
     create(params: { resourceType: "Observation", body: fhir.Observation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
+    create(params: { resourceType: "ObservationDefinition", body: fhir.ObservationDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ObservationDefinition>;
     create(params: { resourceType: "OperationDefinition", body: fhir.OperationDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
     create(params: { resourceType: "OperationOutcome", body: fhir.OperationOutcome, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
     create(params: { resourceType: "Organization", body: fhir.Organization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    create(params: { resourceType: "OrganizationAffiliation", body: fhir.OrganizationAffiliation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OrganizationAffiliation>;
     create(params: { resourceType: "Parameters", body: fhir.Parameters, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
     create(params: { resourceType: "Patient", body: fhir.Patient, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
     create(params: { resourceType: "PaymentNotice", body: fhir.PaymentNotice, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
@@ -703,34 +806,38 @@ declare class Client {
     create(params: { resourceType: "Practitioner", body: fhir.Practitioner, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
     create(params: { resourceType: "PractitionerRole", body: fhir.PractitionerRole, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
     create(params: { resourceType: "Procedure", body: fhir.Procedure, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
-    create(params: { resourceType: "ProcedureRequest", body: fhir.ProcedureRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
-    create(params: { resourceType: "ProcessRequest", body: fhir.ProcessRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
-    create(params: { resourceType: "ProcessResponse", body: fhir.ProcessResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
     create(params: { resourceType: "Provenance", body: fhir.Provenance, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
     create(params: { resourceType: "Questionnaire", body: fhir.Questionnaire, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
     create(params: { resourceType: "QuestionnaireResponse", body: fhir.QuestionnaireResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
-    create(params: { resourceType: "ReferralRequest", body: fhir.ReferralRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
     create(params: { resourceType: "RelatedPerson", body: fhir.RelatedPerson, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
     create(params: { resourceType: "RequestGroup", body: fhir.RequestGroup, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    create(params: { resourceType: "ResearchDefinition", body: fhir.ResearchDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchDefinition>;
+    create(params: { resourceType: "ResearchElementDefinition", body: fhir.ResearchElementDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchElementDefinition>;
     create(params: { resourceType: "ResearchStudy", body: fhir.ResearchStudy, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
     create(params: { resourceType: "ResearchSubject", body: fhir.ResearchSubject, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
     create(params: { resourceType: "RiskAssessment", body: fhir.RiskAssessment, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    create(params: { resourceType: "RiskEvidenceSynthesis", body: fhir.RiskEvidenceSynthesis, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskEvidenceSynthesis>;
     create(params: { resourceType: "Schedule", body: fhir.Schedule, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
     create(params: { resourceType: "SearchParameter", body: fhir.SearchParameter, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
-    create(params: { resourceType: "Sequence", body: fhir.Sequence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
-    create(params: { resourceType: "ServiceDefinition", body: fhir.ServiceDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    create(params: { resourceType: "ServiceRequest", body: fhir.ServiceRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceRequest>;
     create(params: { resourceType: "Slot", body: fhir.Slot, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
     create(params: { resourceType: "Specimen", body: fhir.Specimen, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
+    create(params: { resourceType: "SpecimenDefinition", body: fhir.SpecimenDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SpecimenDefinition>;
     create(params: { resourceType: "StructureDefinition", body: fhir.StructureDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
     create(params: { resourceType: "StructureMap", body: fhir.StructureMap, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
     create(params: { resourceType: "Subscription", body: fhir.Subscription, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
     create(params: { resourceType: "Substance", body: fhir.Substance, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    create(params: { resourceType: "SubstancePolymer", body: fhir.SubstancePolymer, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstancePolymer>;
+    create(params: { resourceType: "SubstanceReferenceInformation", body: fhir.SubstanceReferenceInformation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceReferenceInformation>;
+    create(params: { resourceType: "SubstanceSpecification", body: fhir.SubstanceSpecification, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceSpecification>;
     create(params: { resourceType: "SupplyDelivery", body: fhir.SupplyDelivery, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
     create(params: { resourceType: "SupplyRequest", body: fhir.SupplyRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
     create(params: { resourceType: "Task", body: fhir.Task, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    create(params: { resourceType: "TerminologyCapabilities", body: fhir.TerminologyCapabilities, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TerminologyCapabilities>;
     create(params: { resourceType: "TestReport", body: fhir.TestReport, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
     create(params: { resourceType: "TestScript", body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
     create(params: { resourceType: "ValueSet", body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    create(params: { resourceType: "VerificationResult", body: fhir.VerificationResult, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VerificationResult>;
     create(params: { resourceType: "VisionPrescription", body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
     create<T extends CustomResource>(params: { resourceType: CustomResourceType, body: T, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | T>;
 
@@ -805,37 +912,37 @@ declare class Client {
     update(params: { resourceType: "AdverseEvent", id: string, body: fhir.AdverseEvent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AdverseEvent>;
     update(params: { resourceType: "AllergyIntolerance", id: string, body: fhir.AllergyIntolerance, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AllergyIntolerance>;
     update(params: { resourceType: "Appointment", id: string, body: fhir.Appointment, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Appointment>;
-    update(params: { resourceType: "AppointmentResponse", id: string, body: fhir.AppointmentResponse, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.AppointmentResponse>;
+    update(params: { resourceType: "AppointmentResponse", id: string, body: fhir.AppointmentResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AppointmentResponse>;
     update(params: { resourceType: "AuditEvent", id: string, body: fhir.AuditEvent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
     update(params: { resourceType: "Basic", id: string, body: fhir.Basic, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
     update(params: { resourceType: "Binary", id: string, body: fhir.Binary, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
-    update(params: { resourceType: "BodySite", id: string, body: fhir.BodySite, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    update(params: { resourceType: "BiologicallyDerivedProduct", id: string, body: fhir.BiologicallyDerivedProduct, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BiologicallyDerivedProduct>;
+    update(params: { resourceType: "BodyStructure", id: string, body: fhir.BodyStructure, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodyStructure>;
     update(params: { resourceType: "Bundle", id: string, body: fhir.Bundle, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
-    update(params: { resourceType: "CapabilityStatement", id: string, body: fhir.CapabilityStatement, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
+    update(params: { resourceType: "CapabilityStatement", id: string, body: fhir.CapabilityStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
     update(params: { resourceType: "CarePlan", id: string, body: fhir.CarePlan, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
     update(params: { resourceType: "CareTeam", id: string, body: fhir.CareTeam, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    update(params: { resourceType: "CatalogEntry", id: string, body: fhir.CatalogEntry, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CatalogEntry>;
     update(params: { resourceType: "ChargeItem", id: string, body: fhir.ChargeItem, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    update(params: { resourceType: "ChargeItemDefinition", id: string, body: fhir.ChargeItemDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItemDefinition>;
     update(params: { resourceType: "Claim", id: string, body: fhir.Claim, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
     update(params: { resourceType: "ClaimResponse", id: string, body: fhir.ClaimResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
     update(params: { resourceType: "ClinicalImpression", id: string, body: fhir.ClinicalImpression, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
     update(params: { resourceType: "CodeSystem", id: string, body: fhir.CodeSystem, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CodeSystem>;
     update(params: { resourceType: "Communication", id: string, body: fhir.Communication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Communication>;
-    update(params: { resourceType: "CommunicationRequest", id: string, body: fhir.CommunicationRequest, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.CommunicationRequest>;
-    update(params: { resourceType: "CompartmentDefinition", id: string, body: fhir.CompartmentDefinition, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.CompartmentDefinition>;
+    update(params: { resourceType: "CommunicationRequest", id: string, body: fhir.CommunicationRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CommunicationRequest>;
+    update(params: { resourceType: "CompartmentDefinition", id: string, body: fhir.CompartmentDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CompartmentDefinition>;
     update(params: { resourceType: "Composition", id: string, body: fhir.Composition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Composition>;
     update(params: { resourceType: "ConceptMap", id: string, body: fhir.ConceptMap, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ConceptMap>;
     update(params: { resourceType: "Condition", id: string, body: fhir.Condition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Condition>;
     update(params: { resourceType: "Consent", id: string, body: fhir.Consent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
     update(params: { resourceType: "Contract", id: string, body: fhir.Contract, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
     update(params: { resourceType: "Coverage", id: string, body: fhir.Coverage, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
-    update(params: { resourceType: "DataElement", id: string, body: fhir.DataElement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    update(params: { resourceType: "CoverageEligibilityRequest", id: string, body: fhir.CoverageEligibilityRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityRequest>;
+    update(params: { resourceType: "CoverageEligibilityResponse", id: string, body: fhir.CoverageEligibilityResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityResponse>;
     update(params: { resourceType: "DetectedIssue", id: string, body: fhir.DetectedIssue, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
     update(params: { resourceType: "Device", id: string, body: fhir.Device, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
-    update(params: { resourceType: "DeviceComponent", id: string, body: fhir.DeviceComponent, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    update(params: { resourceType: "DeviceDefinition", id: string, body: fhir.DeviceDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceDefinition>;
     update(params: { resourceType: "DeviceMetric", id: string, body: fhir.DeviceMetric, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
     update(params: { resourceType: "DeviceRequest", id: string, body: fhir.DeviceRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
     update(params: { resourceType: "DeviceUseStatement", id: string, body: fhir.DeviceUseStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
@@ -843,32 +950,31 @@ declare class Client {
     update(params: { resourceType: "DocumentManifest", id: string, body: fhir.DocumentManifest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
     update(params: { resourceType: "DocumentReference", id: string, body: fhir.DocumentReference, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
     update(params: { resourceType: "DomainResource", id: string, body: fhir.DomainResource, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
-    update(params: { resourceType: "EligibilityRequest", id: string, body: fhir.EligibilityRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
-    update(params: { resourceType: "EligibilityResponse", id: string, body: fhir.EligibilityResponse, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    update(params: { resourceType: "EffectEvidenceSynthesis", id: string, body: fhir.EffectEvidenceSynthesis, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EffectEvidenceSynthesis>;
     update(params: { resourceType: "Encounter", id: string, body: fhir.Encounter, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
     update(params: { resourceType: "Endpoint", id: string, body: fhir.Endpoint, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
     update(params: { resourceType: "EnrollmentRequest", id: string, body: fhir.EnrollmentRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
     update(params: { resourceType: "EnrollmentResponse", id: string, body: fhir.EnrollmentResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
     update(params: { resourceType: "EpisodeOfCare", id: string, body: fhir.EpisodeOfCare, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
-    update(params: { resourceType: "ExpansionProfile", id: string, body: fhir.ExpansionProfile, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
-    update(params: { resourceType: "ExplanationOfBenefit", id: string, body: fhir.ExplanationOfBenefit, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
-    update(params: { resourceType: "FamilyMemberHistory", id: string, body: fhir.FamilyMemberHistory, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
+    update(params: { resourceType: "EventDefinition", id: string, body: fhir.EventDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EventDefinition>;
+    update(params: { resourceType: "Evidence", id: string, body: fhir.Evidence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Evidence>;
+    update(params: { resourceType: "EvidenceVariable", id: string, body: fhir.EvidenceVariable, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EvidenceVariable>;
+    update(params: { resourceType: "ExampleScenario", id: string, body: fhir.ExampleScenario, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExampleScenario>;
+    update(params: { resourceType: "ExplanationOfBenefit", id: string, body: fhir.ExplanationOfBenefit, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
+    update(params: { resourceType: "FamilyMemberHistory", id: string, body: fhir.FamilyMemberHistory, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
     update(params: { resourceType: "Flag", id: string, body: fhir.Flag, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
     update(params: { resourceType: "Goal", id: string, body: fhir.Goal, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Goal>;
     update(params: { resourceType: "GraphDefinition", id: string, body: fhir.GraphDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GraphDefinition>;
     update(params: { resourceType: "Group", id: string, body: fhir.Group, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
     update(params: { resourceType: "GuidanceResponse", id: string, body: fhir.GuidanceResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
     update(params: { resourceType: "HealthcareService", id: string, body: fhir.HealthcareService, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
-    update(params: { resourceType: "ImagingManifest", id: string, body: fhir.ImagingManifest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
     update(params: { resourceType: "ImagingStudy", id: string, body: fhir.ImagingStudy, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
     update(params: { resourceType: "Immunization", id: string, body: fhir.Immunization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
-    update(params: { resourceType: "ImmunizationRecommendation", id: string, body: fhir.ImmunizationRecommendation, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
-    update(params: { resourceType: "ImplementationGuide", id: string, body: fhir.ImplementationGuide, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    update(params: { resourceType: "ImmunizationEvaluation", id: string, body: fhir.ImmunizationEvaluation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationEvaluation>;
+    update(params: { resourceType: "ImmunizationRecommendation", id: string, body: fhir.ImmunizationRecommendation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
+    update(params: { resourceType: "ImplementationGuide", id: string, body: fhir.ImplementationGuide, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    update(params: { resourceType: "InsurancePlan", id: string, body: fhir.InsurancePlan, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.InsurancePlan>;
+    update(params: { resourceType: "Invoice", id: string, body: fhir.Invoice, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Invoice>;
     update(params: { resourceType: "Library", id: string, body: fhir.Library, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
     update(params: { resourceType: "Linkage", id: string, body: fhir.Linkage, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
     update(params: { resourceType: "List", id: string, body: fhir.List, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
@@ -877,64 +983,73 @@ declare class Client {
     update(params: { resourceType: "MeasureReport", id: string, body: fhir.MeasureReport, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MeasureReport>;
     update(params: { resourceType: "Media", id: string, body: fhir.Media, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Media>;
     update(params: { resourceType: "Medication", id: string, body: fhir.Medication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
-    update(params: { resourceType: "MedicationAdministration", id: string, body: fhir.MedicationAdministration, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
-    update(params: { resourceType: "MedicationDispense", id: string, body: fhir.MedicationDispense, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
-    update(params: { resourceType: "MedicationRequest", id: string, body: fhir.MedicationRequest, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
-    update(params: { resourceType: "MedicationStatement", id: string, body: fhir.MedicationStatement, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
-    update(params: { resourceType: "MessageDefinition", id: string, body: fhir.MessageDefinition, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
+    update(params: { resourceType: "MedicationAdministration", id: string, body: fhir.MedicationAdministration, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
+    update(params: { resourceType: "MedicationDispense", id: string, body: fhir.MedicationDispense, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    update(params: { resourceType: "MedicationKnowledge", id: string, body: fhir.MedicationKnowledge, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationKnowledge>;
+    update(params: { resourceType: "MedicationRequest", id: string, body: fhir.MedicationRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
+    update(params: { resourceType: "MedicationStatement", id: string, body: fhir.MedicationStatement, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    update(params: { resourceType: "MedicinalProduct", id: string, body: fhir.MedicinalProduct, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProduct>;
+    update(params: { resourceType: "MedicinalProductAuthorization", id: string, body: fhir.MedicinalProductAuthorization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductAuthorization>;
+    update(params: { resourceType: "MedicinalProductContraindication", id: string, body: fhir.MedicinalProductContraindication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductContraindication>;
+    update(params: { resourceType: "MedicinalProductIndication", id: string, body: fhir.MedicinalProductIndication, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIndication>;
+    update(params: { resourceType: "MedicinalProductIngredient", id: string, body: fhir.MedicinalProductIngredient, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIngredient>;
+    update(params: { resourceType: "MedicinalProductInteraction", id: string, body: fhir.MedicinalProductInteraction, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductInteraction>;
+    update(params: { resourceType: "MedicinalProductManufactured", id: string, body: fhir.MedicinalProductManufactured, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductManufactured>;
+    update(params: { resourceType: "MedicinalProductPackaged", id: string, body: fhir.MedicinalProductPackaged, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPackaged>;
+    update(params: { resourceType: "MedicinalProductPharmaceutical", id: string, body: fhir.MedicinalProductPharmaceutical, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPharmaceutical>;
+    update(params: { resourceType: "MedicinalProductUndesirableEffect", id: string, body: fhir.MedicinalProductUndesirableEffect, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductUndesirableEffect>;
+    update(params: { resourceType: "MessageDefinition", id: string, body: fhir.MessageDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
     update(params: { resourceType: "MessageHeader", id: string, body: fhir.MessageHeader, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    update(params: { resourceType: "MolecularSequence", id: string, body: fhir.MolecularSequence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MolecularSequence>;
     update(params: { resourceType: "NamingSystem", id: string, body: fhir.NamingSystem, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
     update(params: { resourceType: "NutritionOrder", id: string, body: fhir.NutritionOrder, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
     update(params: { resourceType: "Observation", id: string, body: fhir.Observation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
-    update(params: { resourceType: "OperationDefinition", id: string, body: fhir.OperationDefinition, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
+    update(params: { resourceType: "ObservationDefinition", id: string, body: fhir.ObservationDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ObservationDefinition>;
+    update(params: { resourceType: "OperationDefinition", id: string, body: fhir.OperationDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
     update(params: { resourceType: "OperationOutcome", id: string, body: fhir.OperationOutcome, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
     update(params: { resourceType: "Organization", id: string, body: fhir.Organization, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    update(params: { resourceType: "OrganizationAffiliation", id: string, body: fhir.OrganizationAffiliation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OrganizationAffiliation>;
     update(params: { resourceType: "Parameters", id: string, body: fhir.Parameters, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
     update(params: { resourceType: "Patient", id: string, body: fhir.Patient, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
     update(params: { resourceType: "PaymentNotice", id: string, body: fhir.PaymentNotice, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
-    update(params: { resourceType: "PaymentReconciliation", id: string, body: fhir.PaymentReconciliation, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.PaymentReconciliation>;
+    update(params: { resourceType: "PaymentReconciliation", id: string, body: fhir.PaymentReconciliation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentReconciliation>;
     update(params: { resourceType: "Person", id: string, body: fhir.Person, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Person>;
     update(params: { resourceType: "PlanDefinition", id: string, body: fhir.PlanDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PlanDefinition>;
     update(params: { resourceType: "Practitioner", id: string, body: fhir.Practitioner, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
     update(params: { resourceType: "PractitionerRole", id: string, body: fhir.PractitionerRole, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
     update(params: { resourceType: "Procedure", id: string, body: fhir.Procedure, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
-    update(params: { resourceType: "ProcedureRequest", id: string, body: fhir.ProcedureRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
-    update(params: { resourceType: "ProcessRequest", id: string, body: fhir.ProcessRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
-    update(params: { resourceType: "ProcessResponse", id: string, body: fhir.ProcessResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
     update(params: { resourceType: "Provenance", id: string, body: fhir.Provenance, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
     update(params: { resourceType: "Questionnaire", id: string, body: fhir.Questionnaire, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
-    update(params: { resourceType: "QuestionnaireResponse", id: string, body: fhir.QuestionnaireResponse, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
-    update(params: { resourceType: "ReferralRequest", id: string, body: fhir.ReferralRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
+    update(params: { resourceType: "QuestionnaireResponse", id: string, body: fhir.QuestionnaireResponse, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
     update(params: { resourceType: "RelatedPerson", id: string, body: fhir.RelatedPerson, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
     update(params: { resourceType: "RequestGroup", id: string, body: fhir.RequestGroup, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    update(params: { resourceType: "ResearchDefinition", id: string, body: fhir.ResearchDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchDefinition>;
+    update(params: { resourceType: "ResearchElementDefinition", id: string, body: fhir.ResearchElementDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchElementDefinition>;
     update(params: { resourceType: "ResearchStudy", id: string, body: fhir.ResearchStudy, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
     update(params: { resourceType: "ResearchSubject", id: string, body: fhir.ResearchSubject, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
     update(params: { resourceType: "RiskAssessment", id: string, body: fhir.RiskAssessment, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    update(params: { resourceType: "RiskEvidenceSynthesis", id: string, body: fhir.RiskEvidenceSynthesis, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskEvidenceSynthesis>;
     update(params: { resourceType: "Schedule", id: string, body: fhir.Schedule, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
     update(params: { resourceType: "SearchParameter", id: string, body: fhir.SearchParameter, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
-    update(params: { resourceType: "Sequence", id: string, body: fhir.Sequence, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
-    update(params: { resourceType: "ServiceDefinition", id: string, body: fhir.ServiceDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    update(params: { resourceType: "ServiceRequest", id: string, body: fhir.ServiceRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceRequest>;
     update(params: { resourceType: "Slot", id: string, body: fhir.Slot, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
     update(params: { resourceType: "Specimen", id: string, body: fhir.Specimen, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
-    update(params: { resourceType: "StructureDefinition", id: string, body: fhir.StructureDefinition, headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
+    update(params: { resourceType: "SpecimenDefinition", id: string, body: fhir.SpecimenDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SpecimenDefinition>;
+    update(params: { resourceType: "StructureDefinition", id: string, body: fhir.StructureDefinition, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
     update(params: { resourceType: "StructureMap", id: string, body: fhir.StructureMap, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
     update(params: { resourceType: "Subscription", id: string, body: fhir.Subscription, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
     update(params: { resourceType: "Substance", id: string, body: fhir.Substance, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    update(params: { resourceType: "SubstancePolymer", id: string, body: fhir.SubstancePolymer, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstancePolymer>;
+    update(params: { resourceType: "SubstanceReferenceInformation", id: string, body: fhir.SubstanceReferenceInformation, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceReferenceInformation>;
+    update(params: { resourceType: "SubstanceSpecification", id: string, body: fhir.SubstanceSpecification, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceSpecification>;
     update(params: { resourceType: "SupplyDelivery", id: string, body: fhir.SupplyDelivery, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
     update(params: { resourceType: "SupplyRequest", id: string, body: fhir.SupplyRequest, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
     update(params: { resourceType: "Task", id: string, body: fhir.Task, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    update(params: { resourceType: "TerminologyCapabilities", id: string, body: fhir.TerminologyCapabilities, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TerminologyCapabilities>;
     update(params: { resourceType: "TestReport", id: string, body: fhir.TestReport, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
     update(params: { resourceType: "TestScript", id: string, body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
     update(params: { resourceType: "ValueSet", id: string, body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    update(params: { resourceType: "VerificationResult", id: string, body: fhir.VerificationResult, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VerificationResult>;
     update(params: { resourceType: "VisionPrescription", id: string, body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
     update<T extends CustomResource>(params: { resourceType: CustomResourceType, id: string, body: T, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | T>;
 
@@ -988,12 +1103,15 @@ declare class Client {
     patch(params: { resourceType: "AuditEvent", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.AuditEvent>;
     patch(params: { resourceType: "Basic", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Basic>;
     patch(params: { resourceType: "Binary", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Binary>;
-    patch(params: { resourceType: "BodySite", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodySite>;
+    patch(params: { resourceType: "BiologicallyDerivedProduct", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BiologicallyDerivedProduct>;
+    patch(params: { resourceType: "BodyStructure", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.BodyStructure>;
     patch(params: { resourceType: "Bundle", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Bundle>;
     patch(params: { resourceType: "CapabilityStatement", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CapabilityStatement>;
     patch(params: { resourceType: "CarePlan", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CarePlan>;
     patch(params: { resourceType: "CareTeam", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CareTeam>;
+    patch(params: { resourceType: "CatalogEntry", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CatalogEntry>;
     patch(params: { resourceType: "ChargeItem", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItem>;
+    patch(params: { resourceType: "ChargeItemDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ChargeItemDefinition>;
     patch(params: { resourceType: "Claim", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Claim>;
     patch(params: { resourceType: "ClaimResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClaimResponse>;
     patch(params: { resourceType: "ClinicalImpression", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ClinicalImpression>;
@@ -1007,10 +1125,11 @@ declare class Client {
     patch(params: { resourceType: "Consent", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Consent>;
     patch(params: { resourceType: "Contract", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Contract>;
     patch(params: { resourceType: "Coverage", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Coverage>;
-    patch(params: { resourceType: "DataElement", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DataElement>;
+    patch(params: { resourceType: "CoverageEligibilityRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityRequest>;
+    patch(params: { resourceType: "CoverageEligibilityResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.CoverageEligibilityResponse>;
     patch(params: { resourceType: "DetectedIssue", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DetectedIssue>;
     patch(params: { resourceType: "Device", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Device>;
-    patch(params: { resourceType: "DeviceComponent", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceComponent>;
+    patch(params: { resourceType: "DeviceDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceDefinition>;
     patch(params: { resourceType: "DeviceMetric", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceMetric>;
     patch(params: { resourceType: "DeviceRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceRequest>;
     patch(params: { resourceType: "DeviceUseStatement", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DeviceUseStatement>;
@@ -1018,14 +1137,16 @@ declare class Client {
     patch(params: { resourceType: "DocumentManifest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentManifest>;
     patch(params: { resourceType: "DocumentReference", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DocumentReference>;
     patch(params: { resourceType: "DomainResource", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.DomainResource>;
-    patch(params: { resourceType: "EligibilityRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityRequest>;
-    patch(params: { resourceType: "EligibilityResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EligibilityResponse>;
+    patch(params: { resourceType: "EffectEvidenceSynthesis", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EffectEvidenceSynthesis>;
     patch(params: { resourceType: "Encounter", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Encounter>;
     patch(params: { resourceType: "Endpoint", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Endpoint>;
     patch(params: { resourceType: "EnrollmentRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentRequest>;
     patch(params: { resourceType: "EnrollmentResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EnrollmentResponse>;
     patch(params: { resourceType: "EpisodeOfCare", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EpisodeOfCare>;
-    patch(params: { resourceType: "ExpansionProfile", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExpansionProfile>;
+    patch(params: { resourceType: "EventDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EventDefinition>;
+    patch(params: { resourceType: "Evidence", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Evidence>;
+    patch(params: { resourceType: "EvidenceVariable", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.EvidenceVariable>;
+    patch(params: { resourceType: "ExampleScenario", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExampleScenario>;
     patch(params: { resourceType: "ExplanationOfBenefit", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ExplanationOfBenefit>;
     patch(params: { resourceType: "FamilyMemberHistory", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.FamilyMemberHistory>;
     patch(params: { resourceType: "Flag", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Flag>;
@@ -1034,12 +1155,13 @@ declare class Client {
     patch(params: { resourceType: "Group", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Group>;
     patch(params: { resourceType: "GuidanceResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.GuidanceResponse>;
     patch(params: { resourceType: "HealthcareService", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.HealthcareService>;
-    patch(params: { resourceType: "ImagingManifest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingManifest>;
     patch(params: { resourceType: "ImagingStudy", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImagingStudy>;
     patch(params: { resourceType: "Immunization", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Immunization>;
-    patch(params: { resourceType: "ImmunizationRecommendation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }):
-        Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
+    patch(params: { resourceType: "ImmunizationEvaluation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationEvaluation>;
+    patch(params: { resourceType: "ImmunizationRecommendation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImmunizationRecommendation>;
     patch(params: { resourceType: "ImplementationGuide", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ImplementationGuide>;
+    patch(params: { resourceType: "InsurancePlan", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.InsurancePlan>;
+    patch(params: { resourceType: "Invoice", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Invoice>;
     patch(params: { resourceType: "Library", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Library>;
     patch(params: { resourceType: "Linkage", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Linkage>;
     patch(params: { resourceType: "List", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.List>;
@@ -1050,16 +1172,30 @@ declare class Client {
     patch(params: { resourceType: "Medication", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Medication>;
     patch(params: { resourceType: "MedicationAdministration", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationAdministration>;
     patch(params: { resourceType: "MedicationDispense", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationDispense>;
+    patch(params: { resourceType: "MedicationKnowledge", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationKnowledge>;
     patch(params: { resourceType: "MedicationRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationRequest>;
     patch(params: { resourceType: "MedicationStatement", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicationStatement>;
+    patch(params: { resourceType: "MedicinalProduct", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProduct>;
+    patch(params: { resourceType: "MedicinalProductAuthorization", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductAuthorization>;
+    patch(params: { resourceType: "MedicinalProductContraindication", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductContraindication>;
+    patch(params: { resourceType: "MedicinalProductIndication", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIndication>;
+    patch(params: { resourceType: "MedicinalProductIngredient", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductIngredient>;
+    patch(params: { resourceType: "MedicinalProductInteraction", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductInteraction>;
+    patch(params: { resourceType: "MedicinalProductManufactured", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductManufactured>;
+    patch(params: { resourceType: "MedicinalProductPackaged", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPackaged>;
+    patch(params: { resourceType: "MedicinalProductPharmaceutical", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductPharmaceutical>;
+    patch(params: { resourceType: "MedicinalProductUndesirableEffect", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MedicinalProductUndesirableEffect>;
     patch(params: { resourceType: "MessageDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageDefinition>;
     patch(params: { resourceType: "MessageHeader", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MessageHeader>;
+    patch(params: { resourceType: "MolecularSequence", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.MolecularSequence>;
     patch(params: { resourceType: "NamingSystem", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NamingSystem>;
     patch(params: { resourceType: "NutritionOrder", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.NutritionOrder>;
     patch(params: { resourceType: "Observation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Observation>;
+    patch(params: { resourceType: "ObservationDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ObservationDefinition>;
     patch(params: { resourceType: "OperationDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationDefinition>;
     patch(params: { resourceType: "OperationOutcome", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OperationOutcome>;
     patch(params: { resourceType: "Organization", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Organization>;
+    patch(params: { resourceType: "OrganizationAffiliation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.OrganizationAffiliation>;
     patch(params: { resourceType: "Parameters", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Parameters>;
     patch(params: { resourceType: "Patient", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Patient>;
     patch(params: { resourceType: "PaymentNotice", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PaymentNotice>;
@@ -1069,34 +1205,38 @@ declare class Client {
     patch(params: { resourceType: "Practitioner", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Practitioner>;
     patch(params: { resourceType: "PractitionerRole", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.PractitionerRole>;
     patch(params: { resourceType: "Procedure", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Procedure>;
-    patch(params: { resourceType: "ProcedureRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcedureRequest>;
-    patch(params: { resourceType: "ProcessRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessRequest>;
-    patch(params: { resourceType: "ProcessResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ProcessResponse>;
     patch(params: { resourceType: "Provenance", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Provenance>;
     patch(params: { resourceType: "Questionnaire", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Questionnaire>;
     patch(params: { resourceType: "QuestionnaireResponse", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.QuestionnaireResponse>;
-    patch(params: { resourceType: "ReferralRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ReferralRequest>;
     patch(params: { resourceType: "RelatedPerson", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RelatedPerson>;
     patch(params: { resourceType: "RequestGroup", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RequestGroup>;
+    patch(params: { resourceType: "ResearchDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchDefinition>;
+    patch(params: { resourceType: "ResearchElementDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchElementDefinition>;
     patch(params: { resourceType: "ResearchStudy", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchStudy>;
     patch(params: { resourceType: "ResearchSubject", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ResearchSubject>;
     patch(params: { resourceType: "RiskAssessment", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskAssessment>;
+    patch(params: { resourceType: "RiskEvidenceSynthesis", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.RiskEvidenceSynthesis>;
     patch(params: { resourceType: "Schedule", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Schedule>;
     patch(params: { resourceType: "SearchParameter", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SearchParameter>;
-    patch(params: { resourceType: "Sequence", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Sequence>;
-    patch(params: { resourceType: "ServiceDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceDefinition>;
+    patch(params: { resourceType: "ServiceRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ServiceRequest>;
     patch(params: { resourceType: "Slot", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Slot>;
     patch(params: { resourceType: "Specimen", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Specimen>;
+    patch(params: { resourceType: "SpecimenDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SpecimenDefinition>;
     patch(params: { resourceType: "StructureDefinition", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureDefinition>;
     patch(params: { resourceType: "StructureMap", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.StructureMap>;
     patch(params: { resourceType: "Subscription", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Subscription>;
     patch(params: { resourceType: "Substance", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Substance>;
+    patch(params: { resourceType: "SubstancePolymer", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstancePolymer>;
+    patch(params: { resourceType: "SubstanceReferenceInformation", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceReferenceInformation>;
+    patch(params: { resourceType: "SubstanceSpecification", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SubstanceSpecification>;
     patch(params: { resourceType: "SupplyDelivery", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyDelivery>;
     patch(params: { resourceType: "SupplyRequest", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.SupplyRequest>;
     patch(params: { resourceType: "Task", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.Task>;
+    patch(params: { resourceType: "TerminologyCapabilities", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TerminologyCapabilities>;
     patch(params: { resourceType: "TestReport", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestReport>;
     patch(params: { resourceType: "TestScript", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.TestScript>;
     patch(params: { resourceType: "ValueSet", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.ValueSet>;
+    patch(params: { resourceType: "VerificationResult", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VerificationResult>;
     patch(params: { resourceType: "VisionPrescription", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | fhir.VisionPrescription>;
     patch(params: { resourceType: CustomResourceType, id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome | CustomResource>;
 

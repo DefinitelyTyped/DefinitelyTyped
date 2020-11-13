@@ -173,7 +173,7 @@ client.capabilityStatement()
 client.smartAuthMetadata()
     .then((s => {
         if (s && s.authorizeUrl) {
-            s.authorizeUrl.substring(1);
+            s.authorizeUrl.href.substring(1);
         }
     }));
 
