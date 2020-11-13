@@ -10,7 +10,8 @@ export interface Country {
     dialCode: string;
     /** A format string for phone numbers. **This could be an empty string.** */
     format: string;
-    hasAreaCodes: boolean;
+    hasAreaCodes?: true;
+    priority: number;
 }
 
 /** An array with data on every country */
