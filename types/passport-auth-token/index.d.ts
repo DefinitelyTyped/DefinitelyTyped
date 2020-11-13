@@ -8,7 +8,7 @@
 import express = require('express');
 import { Strategy as PassportStrategy } from 'passport-strategy';
 
-interface StrategyOptions {
+export interface StrategyOptions {
     tokenFields?: string[];
     headerFields?: string[];
     session?: boolean;
@@ -18,7 +18,7 @@ interface StrategyOptions {
     caseInsensitive?: boolean;
 }
 
-interface StrategyOptionsWithRequest {
+export interface StrategyOptionsWithRequest {
     tokenFields?: string[];
     headerFields?: string[];
     session?: boolean;
@@ -28,19 +28,19 @@ interface StrategyOptionsWithRequest {
     caseInsensitive?: boolean;
 }
 
-interface VerifyOptions {
+export interface VerifyOptions {
     message: string;
 }
 
-interface VerifyFunctionWithRequest {
+export interface VerifyFunctionWithRequest {
     (req: express.Request, token: string, done: (error: any, user?: any, options?: VerifyOptions) => void): void;
 }
 
-interface VerifyFunction {
+export interface VerifyFunction {
     (token: string, done: (error: any, user?: any, options?: VerifyOptions) => void): void;
 }
 
-declare class Strategy extends PassportStrategy {
+export class Strategy extends PassportStrategy {
     constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: StrategyOptions, verify: VerifyFunction);
     constructor(verify: VerifyFunction);
