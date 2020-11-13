@@ -43,7 +43,7 @@ declare var xit: jest.It;
 declare var test: jest.It;
 declare var xtest: jest.It;
 
-declare const expect: jest.Expect;
+declare var expect: jest.Expect;
 
 type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
     1: [T[0]],
