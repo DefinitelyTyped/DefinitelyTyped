@@ -1195,7 +1195,7 @@ declare namespace Autodesk {
 
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
-                model: any;
+                model: Model;
                 overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
