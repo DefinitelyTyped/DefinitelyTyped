@@ -1,10 +1,12 @@
 // Type definitions for gulp-sourcemaps
-// Project: https://github.com/floridoo/gulp-sourcemaps
+// Project: https://github.com/gulp-sourcemaps/gulp-sourcemaps
 // Definitions by: Asana <https://asana.com>
+//                 Concision <https://github.com/concision>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
+import File = require("vinyl");
 
 interface InitOptions {
     loadMaps?: boolean;
@@ -13,6 +15,14 @@ interface InitOptions {
 
 interface WriteMapper {
     (file: string): string;
+}
+
+interface SourceUrlMapper {
+    (file: File): string;
+}
+
+interface MapFilenameMapper {
+    (mapFilePath: string): string;
 }
 
 interface CloneOptions {
@@ -25,6 +35,10 @@ interface WriteOptions {
     includeContent?: boolean;
     sourceRoot?: string | WriteMapper;
     sourceMappingURLPrefix?: string | WriteMapper;
+    sourceMappingURL?: SourceUrlMapper;
+    destPath?: string;
+    mapFile?: MapFilenameMapper;
+    charset?: BufferEncoding;
     clone?: boolean | CloneOptions;
 }
 
