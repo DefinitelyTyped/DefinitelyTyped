@@ -415,7 +415,7 @@ export type TestFunction<T = unknown, C = object> = (
     value: T,
     context: TestContext<C>
 ) => boolean | ValidationError | Promise<boolean | ValidationError>;
-export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: unknown, context: TestContext<C>) => value is T;
+export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: any, context: TestContext<C>) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 

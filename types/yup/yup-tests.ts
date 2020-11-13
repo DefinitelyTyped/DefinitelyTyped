@@ -182,7 +182,7 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',,
+    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
