@@ -348,6 +348,7 @@ function testConfig() {
     atom.config.onDidChange("test", (event) => { event.oldValue; });
 
     // Managing Settings
+    atom.config.get();
     atom.config.get("test");
     atom.config.get("test", { scope: scopeDescriptor });
     atom.config.get("test", { excludeSources: ["test.source"] });
@@ -369,6 +370,7 @@ function testConfig() {
     for (const { scopeDescriptor, value } of allConfigValues) {
         scopes = scopeDescriptor.getScopesArray();
     }
+    atom.config.getAll();
     atom.config.getAll("test", { scope: scopeDescriptor });
     atom.config.getAll("test", { excludeSources: ["test"] });
     atom.config.getAll("test", { sources: ["test"] });
