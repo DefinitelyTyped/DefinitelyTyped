@@ -26,7 +26,7 @@ type FrameToJPGSettings = Partial<{
     keep_pixel_aspect_ratio: boolean;
     keep_aspect_ration: boolean;
     padding_color: string;
-    file_name?: string;
+    file_name: string;
 }>;
 
 type StandardVideoMetadata = Partial<{
@@ -135,8 +135,7 @@ interface Video {
 
     setAudioFrequency(frequency: number): Video;
     setAudioChannels(channel: number): Video;
-
-    setAudioBitrate(bitrate: number): Video;
+    setAudioBitRate(bitrate: number): Video;
 
     setAudioQuality(quality: number): Video;
 
