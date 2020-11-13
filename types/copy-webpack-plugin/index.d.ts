@@ -4,7 +4,7 @@
 //                 avin-kavish  <https://github.com/avin-kavish>
 //                 Piotr Błażejewicz  <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'webpack';
+import { Plugin } from '../webpack';
 
 interface ObjectPattern {
     /**
