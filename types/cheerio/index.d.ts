@@ -39,6 +39,7 @@ declare namespace cheerio {
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
+    type ReplaceWithReturnValue = Cheerio | Element | string | null | undefined | ReplaceWithReturnValue[]
 
     interface Cheerio {
         // Document References
@@ -215,7 +216,7 @@ declare namespace cheerio {
         replaceWith(content: Element): Cheerio;
         replaceWith(content: Element[]): Cheerio;
         replaceWith(content: Cheerio): Cheerio;
-        replaceWith(content: () => Cheerio): Cheerio;
+        replaceWith(content: (index: number, el: Element) => ReplaceWithReturnValue): Cheerio;
 
         empty(): Cheerio;
 
