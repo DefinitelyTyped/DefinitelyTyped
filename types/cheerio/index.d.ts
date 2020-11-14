@@ -10,6 +10,7 @@
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Hiroki Osame <https://github.com/privatenumber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -39,7 +40,7 @@ declare namespace cheerio {
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
-    type ReplaceWithReturnValue = Cheerio | Element | string | null | undefined | ReplaceWithReturnValue[]
+    type ReplaceWithReturnValue = Cheerio | Element | string | null | undefined | ReplaceWithReturnValue[];
 
     interface Cheerio {
         // Document References
