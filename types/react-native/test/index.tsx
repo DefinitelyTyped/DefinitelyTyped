@@ -60,6 +60,7 @@ import {
     MaskedViewIOS,
     Modal,
     NativeEventEmitter,
+    NativeModule, // Not actually exported, not sure why
     NativeModules,
     NativeScrollEvent,
     NativeSyntheticEvent,
@@ -877,8 +878,24 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
-const nativeEventEmitter = new NativeEventEmitter();
-nativeEventEmitter.removeAllListeners('event');
+// NativeEventEmitter - Android
+const androidEventEmitter = new NativeEventEmitter();
+let sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+let sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub1);
+
+// NativeEventEmitter - IOS
+const nativeModule: NativeModule = {
+    addListener(eventType:string) {},
+    removeListeners(count: number) {}
+};
+const iosEventEmitter = new NativeEventEmitter(nativeModule);
+let sub3 = androidEventEmitter.addListener('event', (event: object) => event);
+let sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub3);
+
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
