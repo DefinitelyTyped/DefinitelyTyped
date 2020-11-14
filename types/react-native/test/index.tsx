@@ -888,14 +888,13 @@ androidEventEmitter.removeSubscription(sub1);
 // NativeEventEmitter - IOS
 const nativeModule: NativeModule = {
     addListener(eventType: string) {},
-    removeListeners(count: number) {}
+    removeListeners(count: number) {},
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
 const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub3);
-
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
