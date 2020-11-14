@@ -1,2 +1,2 @@
-dist/entry.d.ts
-dist/entry.nostyle.d.ts
+dist/entry/index.d.ts
+dist/entry.nostyle/index.d.ts
