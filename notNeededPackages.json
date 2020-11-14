@@ -625,6 +625,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "comment-json",
+            "typingsPackageName": "comment-json",
+            "sourceRepoURL": "https://github.com/kaelzhang/node-comment-json",
+            "asOfVersion": "2.4.1"
+        },
+        {
             "libraryName": "commons-validator-js",
             "typingsPackageName": "commons-validator-js",
             "sourceRepoURL": "https://github.com/wix/commons-validator-js",
@@ -1025,6 +1031,12 @@
             "typingsPackageName": "dialogflow",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-dialogflow",
             "asOfVersion": "4.0.3"
+        },
+        {
+            "libraryName": "diff2html",
+            "typingsPackageName": "diff2html",
+            "sourceRepoURL": "https://github.com/rtfpessoa/diff2html/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "docker-file-parser",
@@ -1931,6 +1943,12 @@
             "typingsPackageName": "highcharts",
             "sourceRepoURL": "http://www.highcharts.com/",
             "asOfVersion": "7.0.0"
+        },
+        {
+            "libraryName": "highlight.js",
+            "typingsPackageName": "highlight.js",
+            "sourceRepoURL": "https://github.com/highlightjs/highlight.js",
+            "asOfVersion": "10.1.0"
         },
         {
             "libraryName": "hirestime",

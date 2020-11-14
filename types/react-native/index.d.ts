@@ -6886,6 +6886,11 @@ export class ScrollView extends ScrollViewBase {
     scrollToEnd(options?: { animated: boolean }): void;
 
     /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators(): void;
+
+    /**
      * Returns a reference to the underlying scroll responder, which supports
      * operations like `scrollTo`. All ScrollView-like components should
      * implement this method so that they can be composed while providing access

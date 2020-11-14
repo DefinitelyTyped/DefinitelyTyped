@@ -430,6 +430,7 @@ Providers.Yandex({
 Providers.LinkedIn({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'r_emailaddress r_liteprofile',
 });
 
 // $ExpectType GenericReturnConfig

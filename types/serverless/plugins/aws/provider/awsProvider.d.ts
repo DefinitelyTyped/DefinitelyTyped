@@ -97,6 +97,7 @@ declare namespace Aws {
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
+        metrics?: boolean;
     }
 
     interface CognitoAuthorizer {
