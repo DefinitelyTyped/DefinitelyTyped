@@ -280,6 +280,7 @@ $el.remove('.class').html();
 
 // .replaceWith( content )
 $el.replaceWith($('<li class="plum">Plum</li>')).html();
+$el.replaceWith(() => '<li class="plum">Plum</li>').html();
 
 // .empty()
 $el.empty().html();
