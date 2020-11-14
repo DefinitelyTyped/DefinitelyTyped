@@ -23,7 +23,7 @@ declare namespace babelPluginMacros {
         references: { default: Babel.NodePath[] } & References;
         state: Babel.PluginPass;
         babel: typeof Babel;
-        config?: {[key: string]: any};
+        config?: { [key: string]: any };
     }
 
     type MacroHandler = (params: MacroParams) => void;

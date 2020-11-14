@@ -1,7 +1,7 @@
 import { createMacro, MacroError, References, Options, MacroParams, MacroHandler } from 'babel-plugin-macros';
 
 const macro = createMacro(
-    ({ references, state, babel,config }) => {
+    ({ references, state, babel, config }) => {
         Object.keys(references).forEach(() => {});
         references.default.forEach(() => {});
         state.abc = 123;
