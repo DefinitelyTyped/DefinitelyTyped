@@ -9645,7 +9645,7 @@ declare class NativeEventEmitter extends EventEmitter {
      * @param nativeModule the NativeModule implementation.  This is required on IOS and will throw
      *      an invariant error if undefined.
      */
-    constructor(nativeModule?: NativeModule | undefined)
+    constructor(nativeModule?: NativeModule)
 
     /**
      * Add the specified listener, this call passes through to the NativeModule

@@ -880,19 +880,19 @@ deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
 // NativeEventEmitter - Android
 const androidEventEmitter = new NativeEventEmitter();
-let sub1 = androidEventEmitter.addListener('event', (event: object) => event);
-let sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
 
 // NativeEventEmitter - IOS
 const nativeModule: NativeModule = {
-    addListener(eventType:string) {},
+    addListener(eventType: string) {},
     removeListeners(count: number) {}
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
-let sub3 = androidEventEmitter.addListener('event', (event: object) => event);
-let sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
+const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub3);
 
