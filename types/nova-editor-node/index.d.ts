@@ -770,12 +770,12 @@ declare class TextEditor {
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
     insert(string: string, format?: InsertTextFormat): Promise<void>;
-    save(): void;
+    save(): Promise<void>;
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
     onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
     onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
-    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void | Promise<void>): Disposable;
     onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
     onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
     onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;
