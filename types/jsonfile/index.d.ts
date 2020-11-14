@@ -1,9 +1,9 @@
-// Type definitions for jsonfile 5.0
+// Type definitions for jsonfile 6.0
 // Project: https://github.com/jprichardson/node-jsonfile#readme
 // Definitions by: Daniel Bowring <https://github.com/dbowring>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 /// <reference types="node"/>
 
@@ -53,19 +53,26 @@ export type JFWriteOptions =
 export type ReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
 export type WriteCallback = (err: NodeJS.ErrnoException) => void;
 
+/**
+ * @see {@link https://github.com/jprichardson/node-jsonfile#readfilefilename-options-callback}
+ */
 export function readFile(file: Path, options: JFReadOptions, callback: ReadCallback): void;
 export function readFile(file: Path, callback: ReadCallback): void;
 export function readFile(file: Path, options?: JFReadOptions): Promise<any>;
 
+/**
+ * @see {@link https://github.com/jprichardson/node-jsonfile#readfilesyncfilename-options}
+ */
 export function readFileSync(file: Path, options?: JFReadOptions): any;
 
-export function writeFile(
-    file: Path,
-    obj: any,
-    options: JFWriteOptions,
-    callback: WriteCallback
-): void;
+/**
+ * @see {@link https://github.com/jprichardson/node-jsonfile#writefilefilename-obj-options-callback}
+ */
+export function writeFile(file: Path, obj: any, options: JFWriteOptions, callback: WriteCallback): void;
 export function writeFile(file: Path, obj: any, callback: WriteCallback): void;
 export function writeFile(file: Path, obj: any, options?: JFWriteOptions): Promise<void>;
 
+/**
+ * @see {@link https://github.com/jprichardson/node-jsonfile#writefilesyncfilename-obj-options}
+ */
 export function writeFileSync(file: Path, obj: any, options?: JFWriteOptions): void;

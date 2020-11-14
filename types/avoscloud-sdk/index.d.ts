@@ -57,7 +57,6 @@ declare module "avoscloud-sdk" {
      * </pre></p>
      *
      * @see AV.Promise.prototype.then
-     * @class
      */
 
     interface IPromise<T> {
@@ -103,7 +102,6 @@ declare module "avoscloud-sdk" {
      * If the argument is any other JSON object, that object will be interpretted
      *   as a serialized ACL created with toJSON().
      * @see AV.Object#setACL
-     * @class
      *
      * <p>An ACL, or Access Control List can be added to any
      * <code>AV.Object</code> to restrict access to only a subset of users
@@ -147,12 +145,11 @@ declare module "avoscloud-sdk" {
     /**
      * A AV.File is a local representation of a file that is saved to the AV
      * cloud.
-     * @class
-     * @param name {String} The file's name. This will be prefixed by a unique
+     * @param name The file's name. This will be prefixed by a unique
      *     value once the file has finished saving. The file name must begin with
      *     an alphanumeric character, and consist of alphanumeric characters,
      *     periods, spaces, underscores, or dashes.
-     * @param data {Array} The data for the file, as either:
+     * @param data The data for the file, as either:
      *     1. an Array of byte value Numbers, or
      *     2. an Object like { base64: "..." } with a base64-encoded String.
      *     3. a File object selected with a file upload control. (3) only works
@@ -169,7 +166,7 @@ declare module "avoscloud-sdk" {
      *     // The file either could not be read, or could not be saved to AV.
      *   });
      * }</pre>
-     * @param type {String} Optional Content-Type header to use for the file. If
+     * @param type Optional Content-Type header to use for the file. If
      *     this is omitted, the content type will be inferred from the name's
      *     extension.
      */
@@ -191,7 +188,6 @@ declare module "avoscloud-sdk" {
      *   new GeoPoint({latitude: 30, longitude: 30})
      *   new GeoPoint()  // defaults to (0, 0)
      *   </pre>
-     * @class
      *
      * <p>Represents a latitude / longitude point that may be associated
      * with a key in a AVObject or used as a reference point for geo queries.
@@ -257,12 +253,11 @@ declare module "avoscloud-sdk" {
      *     var object = new MyClass();
      * </pre></p>
      *
-     * @param {Object} attributes The initial set of data to store in the object.
-     * @param {Object} options A set of Backbone-like options for creating the
+     * @param attributes The initial set of data to store in the object.
+     * @param options A set of Backbone-like options for creating the
      *     object.  The only option currently supported is "collection".
      * @see AV.Object.extend
      *
-     * @class
      *
      * <p>The fundamental unit of AV data, which implements the Backbone Model
      * interface.</p>
@@ -360,9 +355,9 @@ declare module "avoscloud-sdk" {
      * will not call this method directly, but will instead make a subclass using
      * <code>AV.Collection.extend</code>.
      *
-     * @param {Array} models An array of instances of <code>AV.Object</code>.
+     * @param models An array of instances of <code>AV.Object</code>.
      *
-     * @param {Object} options An optional object with Backbone-style options.
+     * @param options An optional object with Backbone-style options.
      * Valid options are:<ul>
      *   <li>model: The AV.Object subclass that this collection contains.
      *   <li>query: An instance of AV.Query to use when fetching items.
@@ -371,7 +366,6 @@ declare module "avoscloud-sdk" {
      *
      * @see AV.Collection.extend
      *
-     * @class
      *
      * <p>Provides a standard collection class for our sets of models, ordered
      * or unordered.  For more information, see the
@@ -430,7 +424,6 @@ declare module "avoscloud-sdk" {
     }
 
     /**
-     * @class
      *
      * <p>AV.Events is a fork of Backbone's Events module, provided for your
      * convenience.</p>
@@ -471,7 +464,6 @@ declare module "avoscloud-sdk" {
      * Creates a new AV AV.Query for the given AV.Object subclass.
      * @param objectClass -
      *   An instance of a subclass of AV.Object, or a AV className string.
-     * @class
      *
      * <p>AV.Query defines a query that is used to fetch AV.Objects. The
      * most common use case is finding all objects that match a query through the
@@ -594,7 +586,6 @@ declare module "avoscloud-sdk" {
      *
      * <p>Roles must have a name (which cannot be changed after creation of the
      * role), and must specify an ACL.</p>
-     * @class
      * A AV.Role is a local representation of a role persisted to the AV
      * cloud.
      */
@@ -609,7 +600,6 @@ declare module "avoscloud-sdk" {
     }
 
     /**
-     * @class
      *
      * <p>A AV.User object is a local representation of a user persisted to the
      * AV cloud. This class is a subclass of a AV.Object, and retains the
@@ -719,7 +709,6 @@ declare module "avoscloud-sdk" {
     }
 
     /**
-     * @class
      * A AV.Op is an atomic operation that can be applied to a field in a
      * AV.Object. For example, calling <code>object.set("foo", "bar")</code>
      * is an example of a AV.Op.Set. Calling <code>object.unset("foo")</code>
@@ -762,8 +751,6 @@ declare module "avoscloud-sdk" {
 
     /**
      * Contains functions to deal with Push in AV
-     * @name AV.Push
-     * @namespace
      */
     namespace Push {
         function send<T>(data: PushData, options?: SendOptions): Promise<T>;
@@ -789,9 +776,9 @@ declare module "avoscloud-sdk" {
 
     /**
      * Call this method first to set up your authentication tokens for AV.
-     * @param {String} applicationId Your Application ID.
-     * @param {String} applicationKey Your Application Key.
-     * @param {String} masterKey (optional) Your Application Master Key. (Node.js only!)
+     * @param applicationId Your Application ID.
+     * @param applicationKey Your Application Key.
+     * @param masterKey (optional) Your Application Master Key. (Node.js only!)
      */
     function initialize(applicationId: string, applicationKey: string, masterKey?: string): void;
 

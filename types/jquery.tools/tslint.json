@@ -1,8 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
-        "no-void-expression": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "no-void-expression": false
     }
 }

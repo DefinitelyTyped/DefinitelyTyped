@@ -1,10 +1,12 @@
-// Type definitions for twilio-video 2.0
+// Type definitions for twilio-video 2.7
 // Project: https://twilio.com/video, https://twilio.com
 // Definitions by: MindDoc <https://github.com/minddocdev>
 //                 Darío Blanco <https://github.com/darioblanco>
 //                 katashin <https://github.com/ktsn>
 //                 Benjamin Santalucia <https://github.com/ben8p>
 //                 Erick Delfin <https://github.com/nifled>
+//                 Adam Montgomery <https://github.com/howitzer-industries>
+//                 Kamil Socha <https://github.com/ksocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -66,6 +68,7 @@ export class LocalAudioTrack extends AudioTrack {
 
     disable(): LocalAudioTrack;
     enable(enabled?: boolean): LocalAudioTrack;
+    restart(constraints?: MediaTrackConstraints): Promise<void>;
     stop(): LocalAudioTrack;
 }
 export class LocalAudioTrackPublication extends LocalTrackPublication {
@@ -101,14 +104,11 @@ export class LocalParticipant extends Participant {
     dataTracks: Map<Track.SID, LocalDataTrackPublication>;
     tracks: Map<Track.SID, LocalTrackPublication>;
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
+    signalingRegion: string;
 
     publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
-    publishTrack(
-        mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
-    ): Promise<LocalTrackPublication>;
-    publishTracks(
-        tracks: Array<LocalTrack | MediaStreamTrack>,
-    ): Promise<LocalTrackPublication[]>;
+    publishTrack(mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions): Promise<LocalTrackPublication>;
+    publishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
     unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
     unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];
@@ -133,6 +133,7 @@ export class LocalVideoTrack extends VideoTrack {
 
     disable(): LocalVideoTrack;
     enable(enabled?: boolean): LocalVideoTrack;
+    restart(constraints?: MediaTrackConstraints): Promise<void>;
     stop(): LocalVideoTrack;
 }
 export class LocalVideoTrackPublication extends LocalTrackPublication {
@@ -171,7 +172,7 @@ export class MediaServerRemoteDescFailedError extends TwilioError {
     code: 53403;
     message: 'Server is unable to apply a remote media description';
 }
-export class NetworkQualityAudioStats extends NetworkQualityMediaStats { }
+export class NetworkQualityAudioStats extends NetworkQualityMediaStats {}
 export class NetworkQualityBandwidthStats {
     actual: number | null;
     available: number | null;
@@ -202,7 +203,7 @@ export class NetworkQualityStats {
     audio: NetworkQualityAudioStats | null; // nullable depending on verbosity config
     video: NetworkQualityVideoStats | null;
 }
-export class NetworkQualityVideoStats extends NetworkQualityMediaStats { }
+export class NetworkQualityVideoStats extends NetworkQualityMediaStats {}
 export namespace Participant {
     type Identity = string;
     type SID = string;
@@ -285,6 +286,8 @@ export class RemoteTrackStats extends TrackStats {
 }
 export class RemoteVideoTrack extends VideoTrack {
     sid: Track.SID;
+    isSwitchedOff: boolean;
+    priority: Track.Priority | null;
 }
 export class RemoteVideoTrackPublication extends RemoteTrackPublication {
     kind: 'video';
@@ -301,6 +304,7 @@ export class Room extends EventEmitter {
     dominantSpeaker: RemoteParticipant | null;
     isRecording: boolean;
     localParticipant: LocalParticipant;
+    mediaRegion: string;
     name: string;
     participants: Map<Participant.SID, RemoteParticipant>;
     sid: Room.SID;
@@ -487,6 +491,7 @@ export class VideoTrack extends Track {
  * Global (https://media.twiliocdn.com/sdk/js/video/releases/2.0.0-beta1/docs/global.html)
  */
 export const version: string;
+export const isSupported: boolean;
 
 /** Members */
 export type AudioCodec = 'isac' | 'opus' | 'PCMA' | 'PCMU';
@@ -498,7 +503,6 @@ export function connect(token: string, options?: ConnectOptions): Promise<Room>;
 export function createLocalAudioTrack(options?: CreateLocalTrackOptions): Promise<LocalAudioTrack>;
 export function createLocalTracks(options?: CreateLocalTracksOptions): Promise<LocalTrack[]>;
 export function createLocalVideoTrack(options?: CreateLocalTrackOptions): Promise<LocalVideoTrack>;
-export function isSupported(): boolean;
 export function rewriteLocalTrackIds(room: Room, trackStats: LocalTrackStats[]): LocalTrackStats[];
 
 /** Type Definitions */
@@ -522,7 +526,7 @@ export interface ConnectOptions {
     networkQuality?: boolean | NetworkQualityConfiguration;
     region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
-    preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
+    preferredVideoCodecs?: Array<VideoCodec | VideoCodecSettings | VP8CodecSettings>;
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
@@ -536,6 +540,7 @@ export interface VideoBandwidthProfileOptions {
     maxTracks?: number;
     mode?: BandwidthProfileMode;
     renderDimensions?: VideoRenderDimensions;
+    trackSwitchOffMode?: TrackSwitchOffMode;
 }
 export interface VideoRenderDimensions {
     high?: VideoTrack.Dimensions;
@@ -543,6 +548,7 @@ export interface VideoRenderDimensions {
     standard?: VideoTrack.Dimensions;
 }
 
+export type TrackSwitchOffMode = 'detected' | 'predicted' | 'disabled';
 export type BandwidthProfileMode = 'grid' | 'collaboration' | 'presentation';
 export interface CreateLocalTrackOptions extends MediaTrackConstraints {
     // In API reference logLevel is not optional, but in the Twilio examples it is
@@ -594,7 +600,7 @@ export interface VideoCodecSettings {
     codec: VideoCodec;
 }
 export type VideoTrackPublication = LocalVideoTrackPublication | RemoteVideoTrackPublication;
-export interface VP8CodecSettings {
-    name: VideoCodec;
+export interface VP8CodecSettings extends VideoCodecSettings {
+    codec: 'VP8';
     simulcast?: boolean;
 }

@@ -6,6 +6,18 @@ const app = new Koa();
 const config: webpack.Configuration = {};
 const compiler = webpack(config);
 
+app.use(ctx => {
+    // $ExpectType MemoryFileSystem | undefined
+    ctx.state.fs;
+    ctx.body = ctx.state.fs!.createReadStream('file.js');
+});
+
+app.use(ctx => {
+    // $ExpectType Stats
+    ctx.state.stats;
+    ctx.body = ctx.state.stats.toJson();
+});
+
 // Using the middleware
 koaWebpack({
     compiler,
@@ -38,24 +50,23 @@ koaWebpack({
         port: 0,
         reload: true,
         server: undefined,
-        stats: { context: process.cwd() }
-    }
-})
-    .then((middleware) => {
-        app.use(middleware);
+        stats: { context: process.cwd() },
+    },
+}).then(middleware => {
+    app.use(middleware);
 
-        // Accessing the underlying middleware
-        middleware.devMiddleware.close();
-        middleware.devMiddleware.invalidate();
-        middleware.devMiddleware.waitUntilValid();
-        middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
-        middleware.devMiddleware.fileSystem;
-        middleware.hotClient.close();
-        middleware.hotClient.options;
-        middleware.hotClient.server;
+    // Accessing the underlying middleware
+    middleware.devMiddleware.close();
+    middleware.devMiddleware.invalidate();
+    middleware.devMiddleware.waitUntilValid();
+    middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
+    middleware.devMiddleware.fileSystem;
+    middleware.hotClient.close();
+    middleware.hotClient.options;
+    middleware.hotClient.server;
 
-        // close the middleware
-        middleware.close(() => {
-            console.log('closed');
-        });
+    // close the middleware
+    middleware.close(() => {
+        console.log('closed');
     });
+});

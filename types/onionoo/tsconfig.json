@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@keyv/redis": [
-                "keyv__redis"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "noEmit": true,

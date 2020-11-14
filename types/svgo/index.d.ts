@@ -5,6 +5,7 @@
 //                 Aankhen <https://github.com/Aankhen>
 //                 Jan Karres <https://github.com/jankarres>
 //                 Gavin Gregory <https://github.com/gavingregory>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -13,7 +14,7 @@ interface PluginCleanupAttrs {
 }
 
 interface PluginInlineStyles {
-    cleanupAttrs: boolean | object;
+    inlineStyles: boolean | object;
 }
 
 interface PluginRemoveDoctype {
@@ -88,6 +89,11 @@ interface PluginConvertColors {
     convertColors: boolean | object;
 }
 
+interface PluginConvertEllipseToCircle {
+    /** convert ellipse with equal radius measures to circle */
+    convertEllipseToCircle: boolean | object;
+}
+
 interface PluginConvertPathData {
     convertPathData: boolean | object;
 }
@@ -113,7 +119,8 @@ interface PluginRemoveUnusedNS {
 }
 
 interface PluginPrefixIds {
-    removeUnusedNS: boolean | object;
+    /** prefix IDs and classes with the SVG filename or an arbitrary string     */
+    prefixIds: boolean | object;
 }
 
 interface PluginCleanupIDs {
@@ -154,6 +161,11 @@ interface PluginConvertShapeToPath {
 
 interface PluginSortAttrs {
     sortAttrs: boolean | object;
+}
+
+interface PluginSortDefsChildren {
+    /** sort children of <defs> in order to improve compression */
+    sortDefsChildren: boolean | object;
 }
 
 interface PluginRemoveDimensions {
@@ -237,6 +249,7 @@ declare namespace SVGO {
         | PluginMinifyStyles
         | PluginConvertStyleToAttrs
         | PluginConvertColors
+        | PluginConvertEllipseToCircle
         | PluginConvertPathData
         | PluginConvertTransform
         | PluginRemoveUnknownsAndDefaults
@@ -254,6 +267,7 @@ declare namespace SVGO {
         | PluginMergePaths
         | PluginConvertShapeToPath
         | PluginSortAttrs
+        | PluginSortDefsChildren
         | PluginRemoveDimensions
         | PluginRemoveAttrs
         | PluginRemoveAttributesBySelector

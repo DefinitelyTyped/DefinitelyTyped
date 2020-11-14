@@ -4,6 +4,7 @@
 //                 Qkramer <https://github.com/Qkramer>
 //                 Deskoh <https://github.com/deskoh>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
+//                 Rafa Horo <https://github.com/rafahoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -57,7 +58,7 @@ interface CustomValidationContext {
     addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
-interface SchemaDefinition {
+export interface SchemaDefinition {
     type: any;
     label?: string | (() => string);
     optional?: boolean | (() => boolean);
@@ -107,15 +108,17 @@ interface SimpleSchemaValidationError {
   [key: string]: number | string;
 }
 
+export type SimpleSchemaDefinition = {
+    [key: string]: SchemaDefinition
+      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+      | ArrayConstructor
+      | string | RegExp
+      | SimpleSchema
+  } | any[];
+
 interface SimpleSchemaStatic {
   new(
-    schema: {
-      [key: string]: SchemaDefinition
-        | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
-        | ArrayConstructor
-        | string | RegExp
-        | SimpleSchema
-    } | any[],
+    schema: SimpleSchemaDefinition,
     options?: SimpleSchemaOptions
   ): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
@@ -137,8 +140,8 @@ interface SimpleSchemaStatic {
   newContext(): ValidationContext;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
-  validator(options?: ValidationOption): () => boolean;
-  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
+  validator(options?: ValidationOption): (obj: any) => boolean;
+  extend(otherSchema: SimpleSchemaStatic | SimpleSchemaDefinition): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;

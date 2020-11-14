@@ -64,7 +64,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-adoption.html#migration-step-blocking-mode
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createblockingroot
      */
-    function createBlockingRoot(
+    function unstable_createBlockingRoot(
         container: Element | Document | DocumentFragment | Comment,
         options?: RootOptions,
     ): Root;
@@ -74,22 +74,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
      */
-    function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
-
-    function unstable_discreteUpdates<R>(callback: () => R): R;
-
-    function unstable_discreteUpdates<R, A1>(callback: (a1: A1) => R, a1: A1): R;
-
-    function unstable_discreteUpdates<R, A1, A2>(callback: (a1: A1, a2: A2) => R, a1: A1, a2: A2): R;
-
-    function unstable_discreteUpdates<R, A1, A2, A3>(
-        callback: (a1: A1, a2: A2, a3: A3) => R,
-        a1: A1,
-        a2: A2,
-        a3: A3,
-    ): R;
-
-    function unstable_flushDiscreteUpdates(): void;
+    function unstable_createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
 
     function unstable_flushControlled(callback: () => void): void;
 

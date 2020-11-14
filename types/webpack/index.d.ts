@@ -7,8 +7,6 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
-//                 Spencer Elliott <https://github.com/elliottsj>
-//                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
@@ -20,11 +18,16 @@
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
+//                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
+import { Hash as CryptoHash } from 'crypto';
 import {
   Tapable,
   HookMap,
@@ -41,7 +44,7 @@ import {
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
-import { ConcatSource } from 'webpack-sources';
+import { Source, ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -100,11 +103,13 @@ declare namespace webpack {
          * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
          * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
          *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-preload" Compile for Electron for renderer process, providing a target using NodeTemplatePlugin with asyncChunkLoading set to true,
+         *   FunctionModulePlugin for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
          * - "electron-main" Compile for Electron for main process.
          * - "atom" Alias for electron-main.
          * - "electron" Alias for electron-main.
          */
-        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-preload' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -147,12 +152,12 @@ declare namespace webpack {
     }
 
     type ConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
@@ -221,6 +226,7 @@ declare namespace webpack {
          * - "window" - Assign to window
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
+         * - "system" - Generate a SystemJS module
          */
         libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -255,7 +261,7 @@ declare namespace webpack {
         futureEmitAssets?: boolean;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
@@ -385,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -402,7 +415,21 @@ declare namespace webpack {
         [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
-    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
+    interface ExternalsFunctionCallback {
+        /**
+         * Invoke with no arguments to not externalize
+         */
+        (): void;
+        /**
+         * Callback with an Error
+         */
+        (error: {}): void; /* tslint:disable-line:unified-signatures */
+        /**
+         * Externalize the dependency
+         */
+        (error: null, result: string | string[] | ExternalsObjectElement, type?: string): void;
+    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
         console?: boolean | 'mock';
@@ -584,7 +611,6 @@ declare namespace webpack {
     type Rule = RuleSetRule;
 
     namespace Options {
-        // tslint:disable-next-line:max-line-length
         type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
             | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
             | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
@@ -759,8 +785,71 @@ declare namespace webpack {
         }
     }
 
+    type LibraryExport = string | string[];
+
+    interface AssetInfo {
+        /**
+         * true, if the asset can be long term cached forever (contains a hash)
+         */
+        immutable?: boolean;
+
+        /**
+         * the value(s) of the full hash used for this asset
+         */
+        fullhash?: LibraryExport;
+
+        /**
+         * the value(s) of the chunk hash used for this asset
+         */
+        chunkhash?: LibraryExport;
+
+        /**
+         * the value(s) of the module hash used for this asset
+         */
+        modulehash?: LibraryExport;
+
+        /**
+         * the value(s) of the content hash used for this asset
+         */
+        contenthash?: LibraryExport;
+
+        /**
+         * size in bytes, only set after asset has been emitted
+         */
+        size?: number;
+
+        /**
+         * true, when asset is only used for development and doesn't count towards user-facing assets
+         */
+        development?: boolean;
+
+        /**
+         * true, when asset ships data for updating an existing application (HMR)
+         */
+        hotModuleReplacement?: boolean;
+
+        /**
+         * object of pointers to other assets, keyed by type of relation (only points from parent to child)
+         */
+        related?: Record<string, LibraryExport>;
+    }
+
     namespace compilation {
         class Asset {
+            /**
+             * the filename of the asset
+             */
+            name: string;
+
+            /**
+             * source of the asset
+             */
+            source: Source;
+
+            /**
+             * info about the asset
+             */
+            info: AssetInfo;
         }
 
         class DependenciesBlock {
@@ -918,11 +1007,44 @@ declare namespace webpack {
             toString(): string;
         }
 
+        type GroupOptions = string | { name?: string; };
+
         class ChunkGroup {
+            chunks: Chunk[];
+            childrenIterable: SortableSet<ChunkGroup>;
+            parentsIterable: SortableSet<ChunkGroup>;
+            insertChunk(chunk: Chunk, before: Chunk): boolean;
+            getNumberOfChildren(): number;
+            setModuleIndex(module: Module, index: number): void;
+            getModuleIndex(module: Module): number | undefined;
+            setModuleIndex2(module: Module, index: number): void;
+            getModuleIndex2(module: Module): number | undefined;
+            addChild(chunk: ChunkGroup): boolean;
+            removeChild(chunk: ChunkGroup): boolean;
+            setParents(newParents: Iterable<ChunkGroup>): void;
         }
 
         class ChunkHash {
+            update(data: string | Buffer, inputEncoding?: string): ChunkHash;
         }
+
+        interface SourcePosition {
+            line: number;
+            column?: number;
+        }
+
+        interface RealDependencyLocation {
+            start: SourcePosition;
+            end?: SourcePosition;
+            index?: number;
+        }
+
+        interface SynteticDependencyLocation {
+            name: string;
+            index?: number;
+        }
+
+        type DependencyLocation = SynteticDependencyLocation | RealDependencyLocation;
 
         class Dependency {
             constructor();
@@ -1115,9 +1237,13 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            require: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
+            afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hash: SyncHook<CryptoHash>;
+            hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
           requireFn: string;
@@ -1196,10 +1322,29 @@ declare namespace webpack {
             missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
+            addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
+            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+
+            getPath(filename: string, data: {
+                hash?: any,
+                chunk?: any,
+                filename?: string,
+                basename?: string,
+                query?: any,
+                contentHashType?: string,
+                contentHash?: string,
+            }): string;
+
+            getAsset(name: string): Readonly<Asset>;
+            updateAsset(
+                file: string,
+                newSourceOrFunction: Source | ((arg0: Source) => Source),
+                assetInfoUpdateOrFunction?: AssetInfo | ((arg0: AssetInfo) => AssetInfo)
+            ): void;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1237,6 +1382,14 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
+            /** Returns true if there were warnings while compiling. */
+            hasWarnings(): boolean;
+            /** Returns compilation information as a JSON object. */
+            toJson(options?: Stats.ToJsonOptions): Stats.ToJsonOutput;
+            /** Returns a formatted string of the compilation information (similar to CLI output). */
+            toString(options?: Stats.ToStringOptions): string;
         }
 
         interface MultiCompilerHooks {
@@ -1249,13 +1402,14 @@ declare namespace webpack {
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
-        run(handler: ICompiler.Handler): void;
-        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
+        run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
     }
 
     namespace ICompiler {
+        import MultiStats = compilation.MultiStats;
         type Handler = (err: Error, stats: Stats) => void;
-
+        type MultiHandler = (err: Error, stats: MultiStats) => void;
         interface WatchOptions {
             /**
              * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
@@ -1350,7 +1504,7 @@ declare namespace webpack {
     }
 
     namespace MultiCompiler {
-        type Handler = ICompiler.Handler;
+        type Handler = ICompiler.MultiHandler;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -1363,24 +1517,42 @@ declare namespace webpack {
         apply(compiler: Compiler): void;
     }
 
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
+    interface WebpackPluginInstance extends Plugin {}
+
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
 
-    abstract class Stats {
+    class Stats {
         compilation: compilation.Compilation;
         hash?: string;
         startTime?: number;
         endTime?: number;
+
+        static filterWarnings(
+          warnings: string[],
+          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+        ): string[];
         /**
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
          */
         static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
+
+        constructor(compilation: compilation.Compilation);
+
+        formatFilePath(filePath: string): string;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
         hasWarnings(): boolean;
+        /** Remove a prefixed "!" that can be specified to reverse sort order */
+        normalizeFieldKey(field: string): string;
+        /** if a field is prefixed by a "!" reverse sort order */
+        sortOrderRegular(field: string): boolean;
         /** Returns compilation information as a JSON object. */
         toJson(options?: Stats.ToJsonOptions, forToString?: boolean): Stats.ToJsonOutput;
         /** Returns a formatted string of the compilation information (similar to CLI output). */
@@ -1412,6 +1584,8 @@ declare namespace webpack {
             cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
+            /** Add information about the `namedChunkGroups` */
+            chunkGroups?: boolean;
             /** Add built modules information to chunk information */
             chunkModules?: boolean;
             /** Add the origins of chunks and chunk merging info */
@@ -1668,7 +1842,7 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: string[]
+            fileDependencies?: true | string[]
         ): DefinePlugin.RuntimeValue;
     }
 
@@ -1782,6 +1956,10 @@ declare namespace webpack {
         constructor();
     }
 
+    class ExternalsPlugin extends Plugin {
+        constructor(type: string, externals: ExternalsElement);
+    }
+
     class HashedModuleIdsPlugin extends Plugin {
         constructor(options?: {
             hashFunction?: string,
@@ -1827,7 +2005,45 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
+    }
+
+    namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
+        interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: true
+             */
+            activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: false
+             */
+            entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
+            handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
+            modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
+            modulesCount?: number;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
@@ -1983,7 +2199,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
+            pitch?(this: LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -1994,7 +2210,11 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
+        type loaderCallback = (
+            err: Error | undefined | null,
+            content?: string | Buffer,
+            sourceMap?: string | RawSourceMap
+        ) => void;
 
         interface LoaderContext {
             /**

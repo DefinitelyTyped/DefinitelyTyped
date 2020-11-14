@@ -1,5 +1,9 @@
 import * as React from "react";
 
-declare const FormGroup: React.FunctionComponent<{ [x: string]: any }>;
+export type FormGroupProps = {
+    disableStyles?: boolean;
+} & { [x: string]: any };
+
+declare const FormGroup: React.FunctionComponent<FormGroupProps> & {displayName: "FormGroup"};
 
 export default FormGroup;

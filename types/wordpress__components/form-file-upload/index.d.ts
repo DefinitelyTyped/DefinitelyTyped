@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ComponentType } from '@wordpress/element';
+import { ChangeEventHandler, ComponentType } from 'react';
 
 import IconButton from '../icon-button';
 

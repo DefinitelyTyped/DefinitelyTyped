@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode, ReactElement, FocusEvent } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode, ReactElement, FocusEvent } from 'react';
 import { Slot } from '@wordpress/components';
 
 declare namespace Popover {
@@ -107,7 +107,7 @@ declare const Popover: ComponentType<Popover.Props> & {
      *
      * @example
      *
-     * import { render } from '@wordpress/element';
+     * import { render } from 'react';
      * import { Popover } from '@wordpress/components';
      * import Content from './Content';
      *

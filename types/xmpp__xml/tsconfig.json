@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@xmpp/xml": [
-                "xmpp__xml"
+            "@xmpp/*": [
+                "xmpp__*"
             ]
         },
         "types": [],

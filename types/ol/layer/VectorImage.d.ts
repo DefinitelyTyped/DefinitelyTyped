@@ -21,23 +21,26 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     renderOrder?: OrderFunction;
     renderBuffer?: number;
     source?: VectorSource<Geometry>;
     map?: PluggableMap;
     declutter?: boolean;
     style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
     imageRatio?: number;
 }
 export default class VectorImageLayer extends BaseVectorLayer {
     constructor(opt_options?: Options);
-    protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Create a renderer for this layer.
+     */
+    createRenderer(): LayerRenderer<Layer<Source>>;
     getImageRatio(): number;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

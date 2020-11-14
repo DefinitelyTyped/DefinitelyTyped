@@ -72,6 +72,8 @@ declare namespace internal {
     }
 
     export class SortedSet<T> extends AbstractSet {
+        length: number;
+
         constructor(
             values?: T[],
             equals?:  (a: T, b: T) => boolean,

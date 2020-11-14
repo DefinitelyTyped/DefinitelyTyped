@@ -4,6 +4,8 @@
 //                 Adrien Etienne <https://github.com/AdrienEtienne>
 //                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
+//                 Dragoș Străinu <https://github.com/strdr4605>
+//                 Cédric Lisima <https://github.com/opii972>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -32,6 +34,26 @@ export function isPossiblePhoneNumber(value: string): boolean;
  */
 export function isValidPhoneNumber(value?: string): boolean;
 
+export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+
+/**
+ * Returns a list of supported countries.
+ * @see https://github.com/catamphetamine/libphonenumber-js#getcountries-string
+ */
+export function getCountries(): string[];
+
+/**
+ * @see https://github.com/catamphetamine/libphonenumber-js#phonenumber
+ */
+export interface PhoneNumber {
+    number: string;
+    countryCallingCode: string;
+    nationalNumber: string;
+    country?: string;
+    ext?: string;
+    carrierCode?: string;
+}
+
 /**
  * This is simply an alias for getCountryCallingCode() from libphonenumber-js
  * @example getCountryCallingCode('US') === '1'
@@ -53,11 +75,15 @@ export interface CountrySelectComponentProps {
      * The list of all selectable countries (including "International")
      */
     options?: Array<{ value?: string; label: string; icon: React.Component }>;
-    tabIndex?: number | string;
+    tabIndex?: number;
     /**
      * The currently selected country code
      */
     value?: string;
+    /**
+     * Language translations
+     */
+    labels?: { [key: string]: string };
 }
 
 export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
@@ -79,6 +105,14 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * @example ["RU", "UA", "KZ"]
      */
     countries?: string[];
+
+    /**
+     * If country is specified then the phone number can only be input in "national"
+     * (not "international") format, and will be parsed as a phone number belonging
+     * to the country. Example: country="US"
+     */
+    country?: string;
+
     /**
      * Can be used to place some countries on top of the list of country <select/> options.
      *  - "|" — inserts a separator.
@@ -94,7 +128,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Country <select/> component props. Along with the usual DOM properties such as aria-label
      * and tabIndex, some custom properties are supported, such as arrowComponent and unicodeFlags.
      */
-    countrySelectProps?: number;
+    countrySelectProps?: object;
     /**
      * A two-letter country code for formatting `value`
      * when a user inputs a national phone number (example: `(213) 373-4253`).
@@ -137,6 +171,19 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
     inputComponent?: React.ForwardRefExoticComponent<
         React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<any>
     >;
+
+    /**
+     * If country is specified and international property is true then the phone number can only be input
+     * in "international" format for that country, but without "country calling code" part.
+     * For example, if country is "US" and international property is not passed then the phone number can
+     * only be input in the "national" format for US ((213) 373-4253). But if country is "US" and
+     * international property is true then the phone number will be input in the "international" format
+     * for US (213 373 4253) without "country calling code" part (+1). This could be used for implementing
+     * phone number input components that show "country calling code" part before the input field and then
+     * the user can fill in the rest of their phone number in the input field.
+     */
+    international?: boolean;
+
     /**
      * If `country` property is passed along with `international={true}` property
      * then the phone number will be input in "international" format for that `country`

@@ -82,3 +82,23 @@ QRCode.toFile('path/to/filename.png', 'Some text', {
     if (err) throw err;
     console.log('done');
 });
+
+QRCode.toBuffer('http://www.google.com', (err, buffer) => {
+    if (err) throw err;
+    console.log(buffer);
+});
+
+QRCode.toBuffer('Some text', {
+    color: {
+        dark: '#00F',  // Blue dots
+        light: '#0000' // Transparent background
+    }
+}, (err, buffer) => {
+    if (err) throw err;
+    console.log(buffer);
+});
+
+async () => {
+  const buffer = await QRCode.toBuffer('http://www.google.com');
+  console.log(buffer);
+};

@@ -11,7 +11,7 @@ tape(opts, cb);
 tape(name, opts, cb);
 
 tape(name, function*(test: tape.Test): IterableIterator<void> {
-	t = test;
+    t = test;
 });
 
 tape.skip(cb);
@@ -25,11 +25,11 @@ tape.only(opts, cb);
 tape.only(name, opts, cb);
 
 tape(name, function*(test: tape.Test): IterableIterator<void> {
-	test.test(name, function*(st: tape.Test): IterableIterator<void> {
-		t = st;
-	});
+    test.test(name, function*(st: tape.Test): IterableIterator<void> {
+        t = st;
+    });
 
-	test.test(name, opts, function*(st: tape.Test): IterableIterator<void> {
-		t = st;
-	});
+    test.test(name, opts, function*(st: tape.Test): IterableIterator<void> {
+        t = st;
+    });
 });

@@ -5,5 +5,5 @@ import XMLFeature from './XMLFeature';
 
 export default class OSMXML extends XMLFeature {
     constructor();
-    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
+    protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
 }

@@ -138,7 +138,7 @@ declare namespace AMap {
          */
         getOffset(): Pixel;
         /**
-         * 	设置偏移量
+         *     设置偏移量
          * @param offset 偏移量
          */
         setOffset(offset: Pixel): void;
@@ -157,11 +157,11 @@ declare namespace AMap {
          */
         setClickable(cilckable: boolean): void;
         /**
-         * 	获取点标记是否支持鼠标单击事件
+         *     获取点标记是否支持鼠标单击事件
          */
         getClickable(): boolean;
         /**
-         * 	获取点标记的位置
+         *     获取点标记的位置
          */
         getPosition(): LngLat | undefined;
         /**
@@ -170,7 +170,7 @@ declare namespace AMap {
          */
         setPosition(position: LocationValue): void;
         /**
-         * 	设置点标记的旋转角度
+         *     设置点标记的旋转角度
          * @param angle 旋转角度
          */
         setAngle(angle: number): void;
@@ -180,11 +180,11 @@ declare namespace AMap {
          */
         setLabel(label?: Marker.Label): void;
         /**
-         * 	获取点标记文本标签内容
+         *     获取点标记文本标签内容
          */
         getLabel(): Marker.Label | undefined;
         /**
-         * 	获取点标记的旋转角度
+         *     获取点标记的旋转角度
          */
         getAngle(): number;
         /**
@@ -220,7 +220,7 @@ declare namespace AMap {
          */
         setCursor(cursor: string): void;
         /**
-         * 	设置点标记显示内容，可以是HTML要素字符串或者HTML DOM对象
+         *     设置点标记显示内容，可以是HTML要素字符串或者HTML DOM对象
          * @param content 显示内容
          */
         setContent(content: string | HTMLElement): void;
@@ -257,7 +257,7 @@ declare namespace AMap {
          */
         stopMove(): void;
         /**
-         * 	暂定点标记的动画效果
+         *     暂定点标记的动画效果
          */
         pauseMove(): boolean;
         /**

@@ -27,9 +27,11 @@ import * as url from 'url';
         ws.send('something', (error?: Error) => {});
         ws.send('something', {}, (error?: Error) => {});
     });
-
-    wss.on('upgrade', (res) => {
-        console.log(`response: ${Object.keys(res)}`);
+    wss.once('connection', (ws, req) => {
+        ws.send('something');
+    });
+    wss.off('connection', (ws, req) => {
+        ws.send('something');
     });
 }
 
@@ -115,6 +117,7 @@ import * as url from 'url';
 
 {
     const ws = new WebSocket('ws://www.host.com/path', {
+        timeout: 5000,
         maxPayload: 10 * 1024 * 1024
     });
     ws.on('open', () => ws.send('something assume to be really long'));
@@ -145,4 +148,27 @@ import * as url from 'url';
 
     duplex.pipe(process.stdout);
     process.stdin.pipe(duplex);
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    const duplex = WebSocket.createWebSocketStream(ws);
+
+    duplex.pipe(process.stdout);
+    process.stdin.pipe(duplex);
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    ws.addEventListener('other', () => {});
+    ws.addEventListener('other', () => {}, { once: true });
+    ws.addEventListener('other', () => {}, { once: true });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    ws.addEventListener('message', (event: WebSocket.MessageEvent) => {
+        console.log(event.data, event.target, event.type);
+    }, { once: true });
 }

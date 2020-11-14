@@ -87,6 +87,8 @@ testUtils.defineTest(
     "directory",
     "transformName",
     { opt: true },
+    undefined,
+    { parser: 'tsx' }
 );
 
 // Can define a test

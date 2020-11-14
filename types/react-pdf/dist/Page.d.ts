@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFPageProxy } from 'pdfjs-dist';
+import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -33,8 +33,15 @@ export interface TextItem {
     dir: string;
     transform: number[];
     width: number;
-    height:	number;
+    height: number;
     fontName: string;
+}
+
+export interface PDFPageProxy extends _PDFPageProxy {
+    width: number;
+    height: number;
+    originalWidth: number;
+    originalHeight: number;
 }
 
 export interface Props {
@@ -187,4 +194,4 @@ export interface Props {
     width?: number;
 }
 
-export default class Page extends React.Component<Props> { }
+export default class Page extends React.Component<Props> {}

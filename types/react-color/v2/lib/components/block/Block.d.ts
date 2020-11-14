@@ -1,17 +1,14 @@
 import { Component, CSSProperties } from "react";
 import { CustomPickerProps, ColorState } from "../../..";
+import { Classes } from "reactcss";
 
-export interface BlockPickerDefaultStyles {
-    card?: CSSProperties;
-    head?: CSSProperties;
-    body?: CSSProperties;
-    label?: CSSProperties;
-    triangle?: CSSProperties;
-    input?: CSSProperties;
-}
-
-export interface BlockPickerStyles {
-    default?: BlockPickerDefaultStyles;
+export interface BlockPickerStylesProps {
+    card: CSSProperties;
+    head: CSSProperties;
+    body: CSSProperties;
+    label: CSSProperties;
+    triangle: CSSProperties;
+    input: CSSProperties;
 }
 
 export interface BlockPickerProps extends CustomPickerProps {
@@ -19,8 +16,8 @@ export interface BlockPickerProps extends CustomPickerProps {
     colors?: string[];
     width?: string;
     triangle?: "hide" | "top";
-    styles?: BlockPickerStyles;
+    styles?: Partial<Classes<BlockPickerStylesProps>>;
     className?: string;
 }
 
-export default class BlockPicker extends Component<BlockPickerProps> {}
+export default class BlockPicker extends Component<BlockPickerProps> { }

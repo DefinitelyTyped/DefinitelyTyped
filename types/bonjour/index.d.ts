@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+import { RemoteInfo } from 'dgram';
+
 declare function bonjour(opts?: bonjour.BonjourOptions): bonjour.Bonjour;
 export = bonjour;
 declare namespace bonjour {
@@ -23,20 +25,20 @@ declare namespace bonjour {
      * with that service.
      */
     interface Browser extends NodeJS.EventEmitter {
-        services: Service[];
+        services: RemoteService[];
         start(): void;
         update(): void;
         stop(): void;
-        on(event: 'up' | 'down', listener: (service: Service) => void): this;
-        once(event: 'up' | 'down', listener: (service: Service) => void): this;
-        removeListener(event: 'up' | 'down', listener: (service: Service) => void): this;
-        removeAllListeners(event: 'up' | 'down'): this;
+        on(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
+        once(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
+        removeListener(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
+        removeAllListeners(event?: 'up' | 'down'): this;
     }
     interface BrowserOptions {
         type?: string;
         subtypes?: string[];
         protocol?: string;
-        txt?: Object;
+        txt?: { [key: string]: string };
     }
 
     interface ServiceOptions {
@@ -46,24 +48,33 @@ declare namespace bonjour {
         type: string;
         subtypes?: string[];
         protocol?: 'udp'|'tcp';
-        txt?: Object;
+        txt?: { [key: string]: string };
+        probe?: boolean;
     }
 
-    interface Service extends NodeJS.EventEmitter {
+    interface BaseService {
         name: string;
-        type: string;
-        subtypes: string[];
-        protocol: string;
+        fqdn: string;
         host: string;
         port: number;
-        fqdn: string;
-        txt: Object;
+        type: string;
+        protocol: string;
+        subtypes: string[];
+        txt: { [key: string]: string };
+    }
+    interface RemoteService extends BaseService {
+        referer: RemoteInfo;
+        rawTxt: Buffer;
+        addresses: string[];
+    }
+    interface Service extends BaseService, NodeJS.EventEmitter {
         published: boolean;
 
-        stop(cb: () => any): void;
+        stop(cb: () => void): void;
         start(): void;
     }
     interface BonjourOptions {
+        type?: 'udp4' | 'udp6';
         multicast?: boolean;
         interface?: string;
         port?: number;
@@ -76,8 +87,8 @@ declare namespace bonjour {
         (opts?: BonjourOptions): Bonjour;
         publish(options: ServiceOptions): Service;
         unpublishAll(cb?: () => void): void;
-        find(options: BrowserOptions, onUp?: (service: Service) => void): Browser;
-        findOne(options: BrowserOptions, cb?: (service: Service) => void): Browser;
+        find(options: BrowserOptions, onUp?: (service: RemoteService) => void): Browser;
+        findOne(options: BrowserOptions, cb?: (service: RemoteService) => void): Browser;
         destroy(): void;
     }
 }

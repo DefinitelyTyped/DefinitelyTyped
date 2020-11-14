@@ -1,28 +1,34 @@
-// Type definitions for commonjs-assert 1.4
+// Type definitions for commonjs-assert 1.5
 // Project: https://github.com/browserify/commonjs-assert, https://github.com/defunctzombie/commonjs-assert
 // Definitions by: Nico Gallinal <https://github.com/nicoabie>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function assert(value: any, message?: string): void;
+declare function assert(value: any, message?: string): asserts value;
 
 declare namespace assert {
-    function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+    function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
 
-    function ok(value: any, message?: string): void;
+    function ok(value: any, message?: string): asserts value;
 
+    /** @deprecated Use `strictEqual` instead */
     function equal(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `notStrictEqual` instead */
     function notEqual(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `deepStrictEqual` instead */
     function deepEqual(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `notDeepStrictEqual` instead */
     function notDeepEqual(actual: any, expected: any, message?: string): void;
 
-    function deepStrictEqual(actual: any, expected: any, message?: string): void;
+    function deepStrictEqual<T>(actual: any, expected: T, message?: string): asserts actual is T;
 
-    function strictEqual(actual: any, expected: any, message?: string): void;
+    function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+
+    function strictEqual<T>(actual: any, expected: T, message?: string): asserts actual is T;
 
     function notStrictEqual(actual: any, expected: any, message?: string): void;
 
@@ -36,7 +42,7 @@ declare namespace assert {
         message?: string,
     ): void;
 
-    function ifError(value: any): void;
+    function ifError(value: any): asserts value is null | undefined;
 
     class AssertionError implements Error {
         name: string;
@@ -54,6 +60,8 @@ declare namespace assert {
             stackStartFunction?: () => void;
         });
     }
+
+    const strict: typeof assert;
 }
 
 export = assert;

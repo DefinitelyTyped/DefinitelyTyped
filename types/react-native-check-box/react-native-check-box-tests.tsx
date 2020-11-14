@@ -15,6 +15,7 @@ export default class MyCheckBox extends React.Component {
                 leftTextStyle={{ color: 'red', fontSize: 10 }}
                 leftText={'Check me!'}
                 checkedImage={<Image source={{ uri: 'path/to/image.webp' }} />}
+                unCheckedImage={<Image source={{ uri: 'path/to/image.webp' }} />}
                 rightTextView={<View />}
             />
         );

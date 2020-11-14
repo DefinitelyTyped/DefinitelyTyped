@@ -15,15 +15,19 @@ let asyncResult: Promise<string>;
 let ejsAsyncFunction: ejs.AsyncTemplateFunction;
 
 const SimpleCallback = (err: any, html: string) => {
-	if (err) {
-		return null!;
-	}
-	return html;
+    if (err) {
+        return null!;
+    }
+    return html;
 };
+
+ejs.VERSION; // $ExpectType string
+ejs.name; // $ExpectType "ejs"
 
 result = ejs.render(template);
 result = ejs.render(template, data);
 result = ejs.render(template, data, options);
+ejs.render('<% echo(\'foo\'); %>', {}, { outputFunctionName: 'echo' });
 
 result = ejs.renderFile(fileName, SimpleCallback);
 result = ejs.renderFile(fileName, data, SimpleCallback);
@@ -69,5 +73,11 @@ ejs.clearCache();
 ejs.cache = LRU(100);
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#custom-delimiters */
+ejs.delimiter; // $ExpectType string | undefined
 ejs.delimiter = '%';
-delete ejs.delimiter;
+
+// https://github.com/mde/ejs#options
+const renderOptions: ejs.Options = {
+    beautify: true,
+    filename: fileName,
+};

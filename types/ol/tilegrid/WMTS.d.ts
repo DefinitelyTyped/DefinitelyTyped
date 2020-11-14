@@ -12,13 +12,19 @@ export interface Options {
     sizes?: Size[];
     tileSize?: number | Size;
     tileSizes?: Size[];
-    widths?: number[];
 }
 export default class WMTSTileGrid extends TileGrid {
     constructor(options: Options);
     getMatrixId(z: number): string;
+    /**
+     * Get the list of matrix identifiers.
+     */
     getMatrixIds(): string[];
 }
+/**
+ * Create a tile grid from a WMTS capabilities matrix set and an
+ * optional TileMatrixSetLimits.
+ */
 export function createFromCapabilitiesMatrixSet(
     matrixSet: any,
     opt_extent?: Extent,

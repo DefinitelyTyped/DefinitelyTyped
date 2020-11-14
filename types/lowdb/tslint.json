@@ -1,10 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
-        "max-line-length": false,
-        "no-misused-new": false,
-        "no-unnecessary-generics": false,
-        "unified-signatures": false
+        "no-misused-new": false
     }
 }

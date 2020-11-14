@@ -6,8 +6,6 @@ type UploadedFile = fileUpload.UploadedFile;
 
 const app: express.Express = express();
 
-app.use(fileUpload({ debug: true }));
-
 function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
     return typeof file === 'object' && (file as UploadedFile).name !== undefined;
 }
@@ -34,13 +32,32 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
 };
 
 app.post('/upload', uploadHandler);
+app.use(fileUpload());
+app.use(fileUpload({}));
+app.use(fileUpload({ debug: true }));
 app.use(fileUpload({ safeFileNames: /\\/g }));
 app.use(fileUpload({ safeFileNames: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: 2 }));
 app.use(fileUpload({ abortOnLimit: true }));
-app.use(fileUpload({ responseOnLimit: true }));
+app.use(fileUpload({ responseOnLimit: 'Size Limit reached' }));
 app.use(fileUpload({ limitHandler: true }));
+app.use(
+    fileUpload({
+        abortOnLimit: false,
+        createParentPath: false,
+        debug: false,
+        limitHandler: false,
+        parseNested: false,
+        preserveExtension: false,
+        responseOnLimit: 'proper messsage',
+        safeFileNames: false,
+        tempFileDir: '/temp',
+        uploadTimeout: 30 * 1_000,
+        uriDecodeFileNames: false,
+        useTempFiles: false,
+    }),
+);
 app.use(
     fileUpload({
         limitHandler: (req, res, next) => {
@@ -54,4 +71,5 @@ app.use(
     }),
 );
 app.use(fileUpload({ useTempFiles: true, tempFileDir: 'temp2/' }));
-app.use(fileUpload({ parseNested: true }));
+app.use(fileUpload({ limitHandler: true }));
+app.use(fileUpload({ uploadTimeout: 6_000 }));

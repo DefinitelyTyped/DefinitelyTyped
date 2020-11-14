@@ -33,15 +33,23 @@ export interface ClientConfig {
     use?: Middleware | Middleware[];
 }
 
+export interface ValueMap {
+    [key: string]: Value;
+}
+
+export interface TypedValueMap {
+    [key: string]: TypedValue;
+}
+
 export class Variables {
     get(variableName: string): Value;
     getTyped(variableName: string): TypedValue;
-    getAll(): Value[];
-    getAllTyped(): TypedValue[];
+    getAll(): ValueMap;
+    getAllTyped(): TypedValueMap;
     set(variableName: string, value: Value): Variables;
     setTyped(variableName: string, typedValue: TypedValue): Variables;
-    setAll(values: { [key: string]: Value }): Variables;
-    setAllTyped(typedValues: { [key: string]: TypedValue }): Variables;
+    setAll(values: ValueMap): Variables;
+    setAllTyped(typedValues: TypedValueMap): Variables;
 }
 
 export type Handler = (args: HandlerArgs) => void;
@@ -82,11 +90,11 @@ export interface TypedValue {
 }
 
 export interface TaskService {
-    complete(task: Task, processVariables?: Variables, localVariables?: Variables): void;
-    handleFailure(task: Task, options?: HandleFailureOptions): void;
-    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): void;
-    extendLock(task: Task, newDuration: number): void;
-    unlock(task: Task): void;
+    complete(task: Task, processVariables?: Variables, localVariables?: Variables): Promise<void>;
+    handleFailure(task: Task, options?: HandleFailureOptions): Promise<void>;
+    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): Promise<void>;
+    extendLock(task: Task, newDuration: number): Promise<void>;
+    unlock(task: Task): Promise<void>;
 }
 
 export interface HandleFailureOptions {

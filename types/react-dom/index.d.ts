@@ -1,5 +1,5 @@
 // Type definitions for React (react-dom) 16.9
-// Project: http://facebook.github.io/react/
+// Project: https://reactjs.org
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
@@ -22,7 +22,7 @@ import {
 } from 'react';
 
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
-export function unmountComponentAtNode(container: Element): boolean;
+export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
@@ -56,43 +56,43 @@ export interface Renderer {
 
     <T extends Element>(
         element: DOMElement<DOMAttributes<T>, T>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): T;
 
     (
         element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Element;
 
     (
         element: SFCElement<any> | Array<SFCElement<any>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): void;
 
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<any, ComponentState>;
 
     <P>(
         element: ReactElement<P>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<P, ComponentState> | Element | void;
 
     (
         element: ReactElement[],
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
 }

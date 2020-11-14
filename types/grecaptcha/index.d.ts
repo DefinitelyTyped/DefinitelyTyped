@@ -5,6 +5,7 @@
 //                 Ruslan Arkhipau <https://github.com/DethAriel>
 //                 Rafael Tavares <https://github.com/rafaeltavares>
 //                 Florian Rohrer <https://github.com/RohrerF>
+//                 Veniamin Krol <https://github.com/vkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
@@ -41,9 +42,9 @@ declare namespace ReCaptchaV2 {
      * @param siteKey the key of your site
      * @param action the action
      *
-     * @return a promise containing the token
+     * @return a promise-like object containing the token
      */
-    execute(siteKey: string, action: Action): Promise<string>;
+    execute(siteKey: string, action: Action): PromiseLike<string>;
     /**
      * will run the given function as soon as the reCAPTCHA library has loaded
      * @param callback the function to coll

@@ -4,6 +4,8 @@
 //                 Nano Vazquez <https://github.com/nanovazquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Argv } from 'yargs';
+
 declare function yargsInteractive(): yargsInteractive.Interactive;
 
 declare namespace yargsInteractive {
@@ -17,7 +19,7 @@ declare namespace yargsInteractive {
     interface Option {
         [key: string]: OptionData | { default: boolean };
     }
-    interface Interactive {
+    interface Interactive extends Argv {
         usage(usage: string): Interactive;
         interactive(options: Option): Interactive;
         then(callback: (result: any) => any): Interactive;

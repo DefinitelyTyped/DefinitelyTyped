@@ -1,18 +1,15 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
-        "no-redundant-jsdoc-2": false,
+        "array-type": false,
+        "ban-types": false,
         "jsdoc-format": false,
+        "max-line-length": false,
+        "no-const-enum": false,
+        "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
-        "whitespace": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "array-type": false,
-        "unified-signatures": false,
-        "void-return": false,
-        "ban-types": false,
-        "callable-types": false,
-        "no-const-enum": false
+        "void-return": false
     }
 }

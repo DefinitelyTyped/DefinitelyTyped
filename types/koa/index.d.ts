@@ -19,16 +19,18 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
-import * as Cookies from "cookies";
-import { EventEmitter } from "events";
-import { IncomingMessage, ServerResponse, Server } from "http";
+import * as accepts from 'accepts';
+import * as Cookies from 'cookies';
+import { EventEmitter } from 'events';
+import { IncomingMessage, ServerResponse, Server } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require("http-assert");
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
-import { Socket, ListenOptions } from "net";
-import * as url from "url";
+import httpAssert = require('http-assert');
+import * as HttpErrors from 'http-errors';
+import * as Keygrip from 'keygrip';
+import * as compose from 'koa-compose';
+import { Socket, ListenOptions } from 'net';
+import * as url from 'url';
+import * as contentDisposition from 'content-disposition';
 
 declare interface ContextDelegatedRequest {
     /**
@@ -347,9 +349,10 @@ declare interface ContextDelegatedResponse {
     redirect(url: string, alt?: string): void;
 
     /**
-     * Set Content-Disposition header to "attachment" with optional `filename`.
+     * Set Content-Disposition to "attachment" to signal the client to prompt for download.
+     * Optionally specify the filename of the download and some options.
      */
-    attachment(filename: string): void;
+    attachment(filename?: string, options?: contentDisposition.Options): void;
 
     /**
      * Return the response mime type void of
@@ -400,7 +403,7 @@ declare interface ContextDelegatedResponse {
      *    this.set('Accept', 'application/json');
      *    this.set({ Accept: 'text/plain', 'X-API-Key': 'tobi' });
      */
-    set(field: { [key: string]: string }): void;
+    set(field: { [key: string]: string | string[] }): void;
     set(field: string, val: string | string[]): void;
 
     /**
@@ -457,35 +460,14 @@ declare class Application<
      *
      *    http.createServer(app.callback()).listen(...)
      */
-    listen(
-        port?: number,
-        hostname?: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        hostname?: string,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
+    listen(port: number, hostname?: string, listeningListener?: () => void): Server;
+    listen(port: number, backlog?: number, listeningListener?: () => void): Server;
     listen(port: number, listeningListener?: () => void): Server;
-    listen(
-        path: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(path: string, backlog?: number, listeningListener?: () => void): Server;
     listen(path: string, listeningListener?: () => void): Server;
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    listen(
-        handle: any,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
     listen(handle: any, listeningListener?: () => void): Server;
 
     /**
@@ -551,10 +533,9 @@ declare namespace Application {
         [key: string]: any;
     }
 
-    type Middleware<
-        StateT = DefaultState,
-        CustomT = DefaultContext
-    > = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
+    type Middleware<StateT = DefaultState, CustomT = DefaultContext> = compose.Middleware<
+        ParameterizedContext<StateT, CustomT>
+    >;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -646,9 +627,7 @@ declare namespace Application {
         toJSON(): any;
     }
 
-    interface BaseContext
-        extends ContextDelegatedRequest,
-            ContextDelegatedResponse {
+    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
         /**
          * util.inspect() implementation, which
          * just returns the JSON output.
@@ -732,16 +711,20 @@ declare namespace Application {
         respond?: boolean;
     }
 
-    type ParameterizedContext<
-        StateT = DefaultState,
-        CustomT = DefaultContext
-    > = ExtendableContext & {
+    type ParameterizedContext<StateT = DefaultState, CustomT = DefaultContext> = ExtendableContext & {
         state: StateT;
     } & CustomT;
 
     interface Context extends ParameterizedContext {}
 
     type Next = () => Promise<any>;
+
+    /**
+     * A re-export of `HttpError` from the `http-assert` package.
+     *
+     * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
+     */
+    const HttpError: typeof HttpErrors.HttpError;
 }
 
 export = Application;

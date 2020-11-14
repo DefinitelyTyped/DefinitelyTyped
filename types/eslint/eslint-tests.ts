@@ -1,5 +1,5 @@
-import { Comment } from 'estree';
-import { AST, SourceCode, Rule, Linter, CLIEngine, RuleTester, Scope } from 'eslint';
+import { Comment, WhileStatement } from 'estree';
+import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
 
@@ -277,6 +277,7 @@ rule = { create(context) { return {}; }, meta: {
         category: 'Possible Errors',
         recommended: true,
         url: 'https://eslint.org/docs/rules/no-console',
+        suggestion: true
     }
 }};
 rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
@@ -349,14 +350,49 @@ rule = {
             }
         });
 
+        context.report({
+            message: 'foo',
+            node: AST,
+            suggest: [
+                {
+                    desc: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+                {
+                    messageId: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+            ],
+        });
+
         return {
             onCodePathStart(codePath, node) {},
             onCodePathEnd(codePath, node) {},
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
-            IfStatement(node) {},
+            IfStatement(node) {
+                node.parent;
+            },
+            WhileStatement(node: WhileStatement) {},
+            Program(node) {
+                // $ExpectError
+                node.parent;
+            },
             'Program:exit'() {},
+            'MemberExpression[object.name="req"]': (node: Rule.Node) => {
+                node.parent;
+            },
         };
     },
 };
@@ -430,6 +466,9 @@ for (const msg of lintingResult) {
 
     msg.fatal = true;
 
+    msg.message = 'foo';
+    msg.messageId = 'foo';
+
     msg.line = 0;
     msg.endLine = 0;
     msg.column = 0;
@@ -440,6 +479,15 @@ for (const msg of lintingResult) {
     if (msg.fix) {
         msg.fix.text = 'foo';
         msg.fix.range = [0, 0];
+    }
+
+    if (msg.suggestions) {
+        for (const suggestion of msg.suggestions) {
+            suggestion.desc = 'foo';
+            suggestion.messageId = 'foo';
+            suggestion.fix.text = 'foo';
+            suggestion.fix.range = [0, 0];
+        }
     }
 }
 
@@ -476,6 +524,96 @@ linter.defineParser('custom-parser', {
             parserServices: {},
             scopeManager,
         };
+    },
+});
+
+//#endregion
+
+//#region ESLint
+
+let eslint: ESLint;
+
+eslint = new ESLint({ allowInlineConfig: false });
+eslint = new ESLint({ baseConfig: {} });
+eslint = new ESLint({ overrideConfig: {} });
+eslint = new ESLint({ overrideConfigFile: 'foo' });
+eslint = new ESLint({ cache: true });
+eslint = new ESLint({ cacheLocation: 'foo' });
+eslint = new ESLint({ cwd: 'foo' });
+eslint = new ESLint({ errorOnUnmatchedPattern: true });
+eslint = new ESLint({ extensions: ['js'] });
+eslint = new ESLint({ fix: true });
+eslint = new ESLint({ fix: message => false });
+eslint = new ESLint({ fixTypes: ['problem'] });
+eslint = new ESLint({ globInputPaths: true });
+eslint = new ESLint({ ignore: true });
+eslint = new ESLint({ ignorePath: 'foo' });
+eslint = new ESLint({ useEslintrc: false });
+eslint = new ESLint({ plugins: { foo: {} } });
+eslint = new ESLint({ reportUnusedDisableDirectives: 'error' });
+eslint = new ESLint({ resolvePluginsRelativeTo: 'test' });
+eslint = new ESLint({ rulePaths: ['foo'] });
+
+let resultsPromise = eslint.lintFiles(['myfile.js', 'lib/']);
+
+resultsPromise = eslint.lintText(SOURCE, { filePath: 'foo' });
+
+eslint.calculateConfigForFile('./config.json');
+
+eslint.isPathIgnored('./dist/index.js');
+
+let formatterPromise: Promise<ESLint.Formatter>;
+
+formatterPromise = eslint.loadFormatter('codeframe');
+formatterPromise = eslint.loadFormatter();
+
+let data: ESLint.LintResultData;
+const meta: Rule.RuleMetaData = {
+    type: 'suggestion',
+    docs: {
+        description: 'disallow unnecessary semicolons',
+        category: 'Possible Errors',
+        recommended: true,
+        url: 'https://eslint.org/docs/rules/no-extra-semi'
+    },
+    fixable: 'code',
+    schema: [],
+    messages: {
+        unexpected: 'Unnecessary semicolon.'
+    }
+};
+
+data = { rulesMeta: { 'no-extra-semi': meta } };
+
+const version: string = ESLint.version;
+
+resultsPromise.then(results => {
+    formatterPromise.then(formatter => formatter.format(results));
+    formatterPromise.then(formatter => formatter.format(results, data));
+
+    ESLint.getErrorResults(results);
+
+    ESLint.outputFixes(results);
+
+    results[0].errorCount = 0;
+    results[0].warningCount = 0;
+    results[0].fixableErrorCount = 0;
+    results[0].fixableWarningCount = 0;
+
+    for (const file of results) {
+        file.filePath = 'foo.js';
+
+        file.errorCount = 0;
+        file.warningCount = 0;
+        file.fixableErrorCount = 0;
+        file.fixableWarningCount = 0;
+
+        file.source = 'foo';
+        file.output = 'foo';
+
+        for (const message of file.messages) {
+            message.ruleId = 'foo';
+        }
     }
 });
 
@@ -502,8 +640,8 @@ cli = new CLIEngine({ ignorePattern: 'foo' });
 cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
-cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
+cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });
@@ -521,33 +659,38 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-let formatter: CLIEngine.Formatter;
+let cliFormatter: CLIEngine.Formatter;
 
-formatter = cli.getFormatter('codeframe');
-formatter = cli.getFormatter();
+cliFormatter = cli.getFormatter('codeframe');
+cliFormatter = cli.getFormatter();
 
-let data: CLIEngine.LintResultData;
-const meta: Rule.RuleMetaData = {
-    type: "suggestion",
+let cliData: CLIEngine.LintResultData;
+const cliMeta: Rule.RuleMetaData = {
+    type: 'suggestion',
     docs: {
-        description: "disallow unnecessary semicolons",
-        category: "Possible Errors",
+        description: 'disallow unnecessary semicolons',
+        category: 'Possible Errors',
         recommended: true,
-        url: "https://eslint.org/docs/rules/no-extra-semi"
+        url: 'https://eslint.org/docs/rules/no-extra-semi'
     },
-    fixable: "code",
+    fixable: 'code',
     schema: [],
     messages: {
-        unexpected: "Unnecessary semicolon."
+        unexpected: 'Unnecessary semicolon.'
     }
 };
 
-data = {rulesMeta: {"no-extra-semi": meta}};
+cliData = { rulesMeta: { 'no-extra-semi': cliMeta } };
 
-formatter(cliReport.results);
-formatter(cliReport.results, data);
+cliFormatter(cliReport.results);
+cliFormatter(cliReport.results, cliData);
+
+const cliVersion: string = CLIEngine.version;
 
 CLIEngine.getErrorResults(cliReport.results);
+
+cliFormatter = CLIEngine.getFormatter();
+cliFormatter = CLIEngine.getFormatter('codeframe');
 
 CLIEngine.outputFixes(cliReport);
 
@@ -591,11 +734,25 @@ ruleTester.run('my-rule', rule, {
 
     invalid: [
         { code: 'foo', errors: 1 },
+        { code: 'foo', errors: 1, output: 'foo' },
         { code: 'foo', errors: ['foo'] },
         { code: 'foo', errors: [{ message: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+        { code: 'foo', errors: [{
+            message: 'foo',
+            suggestions: [
+                {
+                    desc: 'foo',
+                    output: 'foo',
+                },
+                {
+                    messageId: 'foo',
+                    output: 'foo',
+                },
+            ],
+        }] },
     ]
 });
 

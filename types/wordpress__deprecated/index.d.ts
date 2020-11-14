@@ -43,10 +43,10 @@ export const logged: Record<string, boolean | undefined>;
  * import deprecated from '@wordpress/deprecated';
  *
  * deprecated( 'Eating meat', {
- * 	version: 'the future',
- * 	alternative: 'vegetables',
- * 	plugin: 'the earth',
- * 	hint: 'You may find it beneficial to transition gradually.',
+ *     version: 'the future',
+ *     alternative: 'vegetables',
+ *     plugin: 'the earth',
+ *     hint: 'You may find it beneficial to transition gradually.',
  * } );
  *
  * // Logs: 'Eating meat is deprecated and will be removed from the earth in the future. Please use vegetables instead. Note: You may find it beneficial to transition gradually.'

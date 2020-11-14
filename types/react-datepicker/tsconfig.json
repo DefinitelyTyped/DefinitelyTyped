@@ -6,7 +6,7 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",

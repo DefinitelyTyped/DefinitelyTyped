@@ -4,6 +4,7 @@
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
 //                 Lucas Motta <https://github.com/lucasmotta>
+//                 Tom Xu <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -457,6 +458,8 @@ export interface ConnectConfig {
     compress?: boolean | 'force';
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: (information: string) => any;
+    /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
+    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any;
 }
 
 export interface TcpConnectionDetails {
@@ -1060,22 +1063,22 @@ export interface Session extends events.EventEmitter {
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: "shell", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject) => void): this;
+    on(event: "shell", listener: (accept: () => ServerChannel, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
-    on(event: "exec", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: ExecInfo) => void): this;
+    on(event: "exec", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: ExecInfo) => void): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject) => void): this;
+    on(event: "sftp", listener: (accept: () => SFTPStream, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
-    on(event: "subsystem", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: SubsystemInfo) => void): this;
+    on(event: "subsystem", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: SubsystemInfo) => void): this;
 
     /**
      * Emitted when the session has closed.
@@ -1453,6 +1456,14 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
     stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+
+    /**
+     * (Client-only)
+     * `path` exists.
+     *
+     * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+     */
+    exists(path: string, callback: (err: any) => void): boolean;
 
     /**
      * (Client-only)

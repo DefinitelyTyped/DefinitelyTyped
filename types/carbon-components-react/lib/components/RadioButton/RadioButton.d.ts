@@ -1,20 +1,22 @@
 import * as React from "react";
-import { ReactInputAttr } from "../../../typings/shared";
-
-type ExcludedAttributes = "onChange" | "ref" | "type";
-interface InheritedProps extends Omit<ReactInputAttr, ExcludedAttributes> { }
+import { ReactInputAttr, ForwardRefReturn } from "../../../typings/shared";
 
 export type RadioButtonValue = string | number;
 
-export interface RadioButtonProps extends InheritedProps {
+type ExcludedAttributes = "onChange" | "ref" | "type" | "value";
+
+export interface RadioButtonProps extends Omit<ReactInputAttr, ExcludedAttributes>  {
     defaultChecked?: boolean,
     hideLabel?: boolean,
-    labelPosition?: string,
+    /**
+     * top/bottom are deprecated
+     */
+    labelPosition?: "bottom" | "left" | "right" | "top",
     labelText?: React.ReactNode, // required but has default value
     onChange?(value: RadioButtonProps["value"], name: RadioButtonProps["name"], event: React.ChangeEvent<HTMLInputElement>): void, // required but has default value
     value?: RadioButtonValue, // required but has default value
 }
 
-declare const RadioButton: React.RefForwardingComponent<HTMLInputElement, RadioButtonProps>;
+declare const RadioButton: ForwardRefReturn<HTMLInputElement, RadioButtonProps>;
 
 export default RadioButton;

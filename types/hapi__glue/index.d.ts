@@ -2,10 +2,11 @@
 // Project: https://github.com/hapijs/glue
 // Definitions by: Gareth Parker <https://github.com/garfty>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Avery Fay <https://github.com/btmorex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Server, ServerOptions } from "@hapi/hapi";
+import { Plugin, Server, ServerOptions } from "@hapi/hapi";
 
 export interface Options {
   relativeTo: string;
@@ -13,11 +14,8 @@ export interface Options {
   preRegister?: (Server: Server, next: (err: any) => void) => void;
 }
 
-export interface Plugin {
-  plugin: string | {
-      register: string;
-      options?: any;
-  };
+export interface PluginObject {
+  plugin: string | Plugin<any>;
   options?: any;
   routes?: any;
 }
@@ -25,7 +23,7 @@ export interface Plugin {
 export interface Manifest {
   server: ServerOptions;
   register?: {
-    plugins: string[] | Plugin[] | Array<(string|Plugin)>
+    plugins: string[] | PluginObject[] | Array<(string|PluginObject)>
   };
 }
 

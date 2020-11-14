@@ -1,6 +1,10 @@
 import * as React from "react";
+import { ReactDivAttr } from "../../../typings/shared";
 
-export interface DropdownSkeletonProps {
+export interface DropdownSkeletonProps extends ReactDivAttr {
+    /**
+     * @deprecated
+     */
     inline?: boolean,
 }
 

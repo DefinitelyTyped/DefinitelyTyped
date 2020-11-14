@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
+import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
 
 /**
@@ -18,10 +18,29 @@ export { Action, combineReducers };
 //
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
 export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => T>;
-export type Subscriber = (callback: () => void) => void;
+
+/**
+ * Subscribe to any changes to the store
+ *
+ * @param callback Will be invoked whenever there are any updates to the store.
+ * @returns        A callback that can be invoked to unsubscribe.
+ *
+ * @example
+ *
+ * const unsubscribe = subscribe( () => {
+ *     // You could use this opportunity to test whether the derived result of a
+ *     // selector has subsequently changed as the result of a state update.
+ * } );
+ *
+ * // Later, if necessary...
+ * unsubscribe();
+ *
+ */
+export type Subscriber = (callback: () => void) => () => void;
 
 export function dispatch(key: string): DispatcherMap;
 export function select(key: string): SelectorMap;
+
 export const subscribe: Subscriber;
 
 //
@@ -77,7 +96,7 @@ export interface Store<S, A extends Action = Action> {
 }
 
 export function registerGenericStore(key: string, config: GenericStoreConfig): void;
-export function registerStore<T = {}>(key: string, config: StoreConfig<T>): void;
+export function registerStore<T = {}>(key: string, config: StoreConfig<T>): Store<T>;
 
 //
 // Registry

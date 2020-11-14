@@ -1,7 +1,8 @@
-// Type definitions for the RDFJS specification 2.0
+// Type definitions for the RDFJS specification 4.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,19 +15,20 @@ import { EventEmitter } from "events";
 /* https://rdf.js.org/data-model-spec/ */
 
 /**
- * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
+ * Contains an Iri, RDF blank Node, RDF literal, variable name, default graph, or a quad
  * @see NamedNode
  * @see BlankNode
  * @see Literal
  * @see Variable
  * @see DefaultGraph
+ * @see Quad
  */
-export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
+export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph | BaseQuad;
 
 /**
  * Contains an IRI.
  */
-export interface NamedNode {
+export interface NamedNode<Iri extends string = string> {
     /**
      * Contains the constant "NamedNode".
      */
@@ -34,7 +36,7 @@ export interface NamedNode {
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
-    value: string;
+    value: Iri;
 
     /**
      * @param other The term to compare with.
@@ -144,7 +146,7 @@ export interface DefaultGraph {
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Subject = NamedNode | BlankNode | Variable;
+export type Quad_Subject = NamedNode | BlankNode | Quad | Variable;
 
 /**
  * The predicate, which is a NamedNode or Variable.
@@ -160,7 +162,7 @@ export type Quad_Predicate = NamedNode | Variable;
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
+export type Quad_Object = NamedNode | Literal | BlankNode | Quad | Variable;
 
 /**
  * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
@@ -175,6 +177,15 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
  * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
  */
 export interface BaseQuad {
+  /**
+   * Contains the constant "Quad".
+   */
+  termType: "Quad";
+  /**
+   * Contains an empty string as constant value.
+   */
+  value: "";
+
   /**
    * The subject.
    * @see Quad_Subject
@@ -200,7 +211,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad): boolean;
+  equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -232,27 +243,19 @@ export interface Quad extends BaseQuad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: BaseQuad): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
- * An RDF triple, containing the subject, predicate, object terms.
- *
- * Triple is an alias of Quad.
+ * A factory for instantiating RDF terms and quads.
  */
-// tslint:disable-next-line no-empty-interface
-export interface Triple extends Quad {}
-
-/**
- * A factory for instantiating RDF terms, triples and quads.
- */
-export interface DataFactory<Q extends BaseQuad = Quad> {
+export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * @param value The IRI for the named node.
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    namedNode(value: string): NamedNode;
+    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
     /**
      * @param value The optional blank node identifier.
@@ -289,17 +292,6 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
     defaultGraph(): DefaultGraph;
 
     /**
-     * @param subject   The triple subject term.
-     * @param predicate The triple predicate term.
-     * @param object    The triple object term.
-     * @return A new instance of Quad with `Quad.graph` set to DefaultGraph.
-     * @see Quad
-     * @see Triple
-     * @see DefaultGraph
-     */
-    triple(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
-
-    /**
      * @param subject   The quad subject term.
      * @param predicate The quad predicate term.
      * @param object    The quad object term.
@@ -307,7 +299,7 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+    quad(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object'], graph?: InQuad['graph']): OutQuad;
 }
 
 /* Stream Interfaces */
@@ -333,7 +325,7 @@ export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Q;
+    read(): Q | null;
 }
 
 /**
@@ -465,7 +457,7 @@ export interface DatasetCore<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetCore<OutQuad, InQuad>;
 
     [Symbol.iterator](): Iterator<OutQuad>;
 }
@@ -510,7 +502,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<InQuad>): this;
+    difference(other: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
@@ -536,7 +528,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): this;
+    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): Dataset<OutQuad, InQuad>;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
@@ -560,7 +552,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: QuadMapIteratee<OutQuad>['map']): this;
+    map(iteratee: QuadMapIteratee<OutQuad>['map']): Dataset<OutQuad, InQuad>;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -613,7 +605,9 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<InQuad>): this;
+    union(quads: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
+
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): Dataset<OutQuad, InQuad>;
 }
 
 export interface DatasetFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends Dataset<OutQuad, InQuad> = Dataset<OutQuad, InQuad>>

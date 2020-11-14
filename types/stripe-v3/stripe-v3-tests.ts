@@ -11,6 +11,9 @@ const style = {
         fontWeight: 'bold',
         '::placeholder': {
             color: '#aab7c4'
+        },
+        '::selection': {
+            backgroundColor: '#aaccdd'
         }
     },
     invalid: {
@@ -129,6 +132,24 @@ describe("Stripe elements", () => {
         card.destroy();
     });
 
+    it("should create an iban source with a mandate", () => {
+        const options: stripe.SourceOptions = {
+            type: 'sepa_debit',
+            sepa_debit: {
+                iban: 'some iban',
+            },
+            owner: {
+                name: 'some holder',
+            },
+            mandate: {
+                notification_method: 'email',
+            },
+            currency: 'eur',
+        };
+
+        stripe.createSource(options);
+    });
+
     it("should create an iban element", () => {
         const ibanElement = elements.create('iban', {
             supportedCountries: ['SEPA'],
@@ -141,13 +162,10 @@ describe("Stripe elements", () => {
             account_number: '110000000',
             account_holder_name: 'Jane Austen',
             account_holder_type: 'individual',
-        })
-            .then((result: stripe.TokenResponse) => {
-                console.log(result.token);
-            },
-                (error: stripe.Error) => {
-                    console.error(error);
-                });
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
 
         stripe.createToken('bank_account', {
             country: 'US',
@@ -156,13 +174,23 @@ describe("Stripe elements", () => {
             account_number: '110000000',
             account_holder_name: 'Jane Austen',
             account_holder_type: 'individual',
-        })
-            .then((result: stripe.TokenResponse) => {
-                console.log(result.token);
-            },
-                (error: stripe.Error) => {
-                    console.error(error);
-                });
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
+    });
+
+    it("should create a token from IBAN with routing_number not set", () => {
+        stripe.createToken('bank_account', {
+            country: 'FR',
+            currency: 'eur',
+            account_number: 'FR1420041010050500013M02606',
+            account_holder_name: 'Jean Martin',
+            account_holder_type: 'individual',
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
     });
 
     it("should create an idealBank element", () => {
@@ -472,6 +500,18 @@ describe("Stripe elements", () => {
                     },
                 }
             }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should retrieve setup intent", () => {
+        stripe.retrieveSetupIntent(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
         ).then(result => {
             if (result.error) {
                 console.error(result.error.message);

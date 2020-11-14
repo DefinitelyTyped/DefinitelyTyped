@@ -1,16 +1,22 @@
 // Type definitions for source-map-support 0.5
 // Project: https://github.com/evanw/node-source-map-support
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Jason Cheatham <https://github.com/jason0x43>, Alcedo Nathaniel De Guzman Jr <https://github.com/natealcedo>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Jason Cheatham <https://github.com/jason0x43>
+//                 Alcedo Nathaniel De Guzman Jr <https://github.com/natealcedo>
+//                 Griffin Yourick <https://github.com/tough-griff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+import { RawSourceMap } from 'source-map';
 
 /**
  * Output of retrieveSourceMap().
+ * From source-map-support:
+ *   The map field may be either a string or the parsed JSON object (i.e.,
+ *   it must be a valid argument to the SourceMapConsumer constructor).
  */
 export interface UrlAndMap {
     url: string;
-    map: string | Buffer;
+    map: string | RawSourceMap;
 }
 
 /**

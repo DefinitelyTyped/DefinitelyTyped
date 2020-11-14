@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "connect-mongo": "^3.1.1"
-    }
-}

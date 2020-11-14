@@ -16,11 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/primus-client": [
-                "feathersjs__primus-client"
-            ],
-            "@feathersjs/feathers": [
-                "feathersjs__feathers"
+            "@feathersjs/*": [
+                "feathersjs__*"
             ]
         }
     },

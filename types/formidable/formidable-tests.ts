@@ -54,20 +54,20 @@ var req: http.IncomingMessage;
 
 form.parse(req);
 form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) => {
-	var key: string;
-	for (key in fields) {
-		console.log(key, '=', fields[key]);
-	}
+    var key: string;
+    for (key in fields) {
+        console.log(key, '=', fields[key]);
+    }
 
-	for (key in files) {
-		console.log('file', key, 'is', files[key].type);
-	}
+    for (key in files) {
+        console.log('file', key, 'is', files[key].type);
+    }
 });
 
 form.onPart = function (part: formidable.Part) {
-	if (!part.filename) {
-		form.handlePart(part);
-	}
+    if (!part.filename) {
+        form.handlePart(part);
+    }
 };
 
 var file: formidable.File;

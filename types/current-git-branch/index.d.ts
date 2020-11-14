@@ -7,7 +7,7 @@
 
 declare namespace CurrentGitBranch {
     type CurrentGitBranchOptions = CurrentGitBranchOptionsObject | string[] | string;
-    type CurrentGitBranchResult = string | boolean;
+    type CurrentGitBranchResult = string | false;
 
     interface CurrentGitBranchOptionsObject {
         altPath?: string;

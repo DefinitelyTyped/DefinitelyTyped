@@ -11,7 +11,7 @@ export type DateType = Date | string | number;
 export enum EVENT_TYPE {
     START = 1,
     HOVER,
-    END
+    END,
 }
 
 export interface RangedSelection {
@@ -24,7 +24,7 @@ export type RangedSelectFunction = (rangedDate: RangedSelection) => void;
 export type DateSelectFunction = (date: Date) => void;
 
 export interface ReactInfiniteCalendarProps {
-    selected?: DateType | false | { start: DateType; end: DateType };
+    selected?: DateType | false | { start: DateType; end: DateType } | DateType[];
     width?: number | 'auto' | '100%';
     height?: number | 'auto';
     min?: DateType;
@@ -47,6 +47,10 @@ export interface ReactInfiniteCalendarProps {
         todayHelperRowOffset?: number;
     };
     locale?: {
+        locale?: {
+            distanceInWords: (token: any, count: any, options: any) => any;
+            format: () => any;
+        };
         blank?: string;
         headerFormat?: string;
         todayLabel?: {

@@ -39,14 +39,8 @@ for (let i = 0, l = halfedges.length; i < l; i++) {
     const pjx = points[tj * 2];
     const pjy = points[tj * 2 + 1];
 }
-for (let n = hull.next; n !== hull; n = n.next) {
-    const i: number = n.i;
-    const x: number = n.x;
-    const y: number = n.y;
-    const t: number = n.t;
-    const next: d3.Delaunay.Node = n.next;
-    const prev: d3.Delaunay.Node = n.prev;
-    const removed: boolean = n.removed;
+for (let i = 0, l = hull.length; i < l; i++) {
+    const a = hull[i];
 }
 for (let i = 0, l = triangles.length; i < l; i++) {
     const t0 = triangles[i * 3 + 0];
@@ -83,6 +77,8 @@ for (const p of defaultDelaunayFromArray.trianglePolygon(0)) {
     const y = p[1];
 }
 
+const updatedDelaunay: d3.Delaunay<[number, number]> = defaultDelaunayFromArray.update();
+
 // Test Voronoi class
 
 const v = defaultDelaunayFromArray.voronoi();
@@ -103,10 +99,12 @@ const ymin: number = v.ymin;
 const xmax: number = v.xmax;
 const ymax: number = v.ymax;
 const contains: boolean = v.contains(0, 0.5, 0.5);
+const neighbors: Iterable<number> = v.neighbors(2);
 const vrender: string = v.render();
 const vrenderBounds: string = v.renderBounds();
 const renderCell: string = v.renderCell(0);
 for (const poly of v.cellPolygons()) {
+    const index: number = poly.index;
     for (const p of poly) {
         const x = p[0];
         const y = p[1];
@@ -116,3 +114,5 @@ for (const p of v.cellPolygon(0)) {
     const x = p[0];
     const y = p[1];
 }
+
+const updatedVoronoi: d3.Voronoi<[number, number]> = v.update();

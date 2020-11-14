@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "jsdoc-format": false,
+        "no-trailing-whitespace": false,
+        "semicolon": false,
+        "whitespace": false
+    }
+}

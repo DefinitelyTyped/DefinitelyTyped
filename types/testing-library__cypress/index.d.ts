@@ -8,12 +8,13 @@
 //                 Airat Aminev <https://github.com/airato>
 //                 Simon Jespersen <https://github.com/simjes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 import {
     configure,
     Matcher,
     MatcherOptions as DTLMatcherOptions,
+    ByRoleOptions as DTLByRoleOptions,
     SelectorMatcherOptions as DTLSelectorMatcherOptions,
 } from '@testing-library/dom';
 
@@ -23,6 +24,7 @@ export interface CTLMatcherOptions {
 }
 
 export type MatcherOptions = DTLMatcherOptions | CTLMatcherOptions;
+export type ByRoleOptions = DTLByRoleOptions | CTLMatcherOptions;
 export type SelectorMatcherOptions = DTLSelectorMatcherOptions | CTLMatcherOptions;
 
 declare global {
@@ -403,7 +405,7 @@ declare global {
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            queryByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+            queryByRole(id: Matcher, options?: ByRoleOptions): Chainable<JQuery>;
 
             /**
              * dom-testing-library helpers for Cypress
@@ -416,7 +418,7 @@ declare global {
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            queryAllByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+            queryAllByRole(id: Matcher, options?: ByRoleOptions): Chainable<JQuery>;
 
             /**
              * dom-testing-library helpers for Cypress
@@ -429,7 +431,7 @@ declare global {
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            findByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+            findByRole(id: Matcher, options?: ByRoleOptions): Chainable<JQuery>;
 
             /**
              * dom-testing-library helpers for Cypress
@@ -442,7 +444,7 @@ declare global {
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            findAllByRole(id: Matcher, options?: MatcherOptions): Chainable<JQuery>;
+            findAllByRole(id: Matcher, options?: ByRoleOptions): Chainable<JQuery>;
         }
     }
 }

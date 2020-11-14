@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.0
+// Type definitions for Screeps 3.2
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -322,6 +322,11 @@ declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
+declare const CPU_UNLOCK: CPU_UNLOCK;
+declare const PIXEL: PIXEL;
+declare const ACCESS_KEY: ACCESS_KEY;
+
+declare const PIXEL_CPU_COST: 5000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -736,12 +741,15 @@ declare const BOOSTS: {
     };
 };
 
+declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
+
 declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
+        level?: number;
         amount: number;
         cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
     }
 >;
 
@@ -1017,7 +1025,7 @@ declare const POWER_INFO: {
         level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
-        duration: 800;
+        duration: 1000;
         ops: 100;
     };
 };
@@ -1518,7 +1526,7 @@ interface Game {
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**
@@ -1651,6 +1659,15 @@ interface CPU {
      * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
      */
     shardLimits: CPUShardLimits;
+    /**
+     * Whether full CPU is currently unlocked for your account.
+     */
+    unlocked: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until full CPU is unlocked for your account.
+     * This property is not defined when full CPU is not unlocked for your account or it's unlocked with a subscription.
+     */
+    unlockedTime: number | undefined;
 
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
@@ -1684,6 +1701,17 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+    /**
+     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     */
+    generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
+
+    /**
+     * Unlock full CPU for your account for additional 24 hours.
+     * This method will consume 1 CPU unlock bound to your account (See `Game.resources`).
+     * If full CPU is not currently unlocked for your account, it may take some time (up to 5 minutes) before unlock is applied to your account.
+     */
+    unlock(): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL;
 }
 
 interface HeapStatistics {
@@ -1700,24 +1728,27 @@ interface HeapStatistics {
 }
 
 /**
- * An array describing the creep’s body. Each element contains the following properties:
+ * Describes one part of a creep’s body.
  */
-interface BodyPartDefinition {
-    /**
-     * One of the `RESOURCE_*` constants.
-     *
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-     */
-    boost?: MineralBoostConstant;
-    /**
-     * One of the body part types constants.
-     */
-    type: BodyPartConstant;
-    /**
-     * The remaining amount of hit points of this body part.
-     */
-    hits: number;
-}
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
+    ? {
+          /**
+           * One of the `RESOURCE_*` constants.
+           *
+           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+           */
+          boost?: keyof typeof BOOSTS[T];
+          /**
+           * One of the body part types constants.
+           */
+          type: T;
+          /**
+           * The remaining amount of hit points of this body part.
+           */
+          hits: number;
+      }
+    : never;
+
 interface Owner {
     /**
      * The name of the owner user.
@@ -1870,7 +1901,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): boolean | CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -2034,6 +2065,8 @@ type Terrain = "plain" | "swamp" | "wall";
 type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
+
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
 
 // Return Codes
 
@@ -2397,7 +2430,8 @@ type CommodityConstant =
     | RESOURCE_EMANATION
     | RESOURCE_ESSENCE;
 
-type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
+type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
+type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
@@ -2497,6 +2531,9 @@ type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 
@@ -2689,7 +2726,8 @@ type PowerConstant =
     | PWR_DISRUPT_TERMINAL
     | PWR_OPERATE_POWER
     | PWR_FORTIFY
-    | PWR_OPERATE_CONTROLLER;
+    | PWR_OPERATE_CONTROLLER
+    | PWR_OPERATE_FACTORY;
 
 type PWR_GENERATE_OPS = 1;
 type PWR_OPERATE_SPAWN = 2;
@@ -2721,6 +2759,18 @@ type EFFECT_COLLAPSE_TIMER = 1002;
 interface RouteOptions {
     routeCallback: (roomName: string, fromRoomName: string) => any;
 }
+
+interface RoomStatusPermanent {
+    status: "normal" | "closed";
+    timestamp: null;
+}
+
+interface RoomStatusTemporary {
+    status: "novice" | "respawn";
+    timestamp: number;
+}
+
+type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
 
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
@@ -2774,11 +2824,13 @@ interface GameMap {
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
@@ -2795,11 +2847,199 @@ interface GameMap {
      * Check if the room is available to move into.
      * @param roomName The room name.
      * @returns A boolean value.
+     * @deprecated Use `Game.map.getRoomStatus` instead
      */
     isRoomAvailable(roomName: string): boolean;
+
+    /**
+     * Get the room status to determine if it's available, or in a reserved area.
+     * @param roomName The room name.
+     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     */
+    getRoomStatus(roomName: string): RoomStatus;
+
+    /**
+     * Map visuals provide a way to show various visual debug info on the game map.
+     * You can use the `Game.map.visual` object to draw simple shapes that are visible only to you.
+     *
+     * Map visuals are not stored in the database, their only purpose is to display something in your browser.
+     * All drawings will persist for one tick and will disappear if not updated.
+     * All `Game.map.visual` calls have no added CPU cost (their cost is natural and mostly related to simple JSON.serialize calls).
+     * However, there is a usage limit: you cannot post more than 1000 KB of serialized data.
+     *
+     * All draw coordinates are measured in global game coordinates (`RoomPosition`).
+     */
+    visual: MapVisual;
 }
 
 // No static is available
+
+interface MapVisual {
+    /**
+     * Draw a line.
+     * @param pos1 The start position object.
+     * @param pos2 The finish position object.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    line(pos1: RoomPosition, pos2: RoomPosition, style?: MapLineStyle): MapVisual;
+
+    /**
+     * Draw a circle.
+     * @param pos The position object of the center.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    circle(pos: RoomPosition, style?: MapCircleStyle): MapVisual;
+
+    /**
+     * Draw a rectangle.
+     * @param topLeftPos The position object of the top-left corner.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    rect(topLeftPos: RoomPosition, width: number, height: number, style?: MapPolyStyle): MapVisual;
+
+    /**
+     * Draw a polyline.
+     * @param points An array of points. Every item should be a `RoomPosition` object.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    poly(points: RoomPosition[], style?: MapPolyStyle): MapVisual;
+
+    /**
+     * Draw a text label. You can use any valid Unicode characters, including emoji.
+     * @param text The text message.
+     * @param pos The position object of the label baseline.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining
+     */
+    text(text: string, pos: RoomPosition, style?: MapTextStyle): MapVisual;
+
+    /**
+     * Remove all visuals from the map.
+     * @returns The MapVisual object, for chaining
+     */
+    clear(): MapVisual;
+
+    /**
+     * Get the stored size of all visuals added on the map in the current tick. It must not exceed 1024,000 (1000 KB).
+     * @returns The size of the visuals in bytes.
+     */
+    getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added on the map in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * @param data The string returned from `Game.map.visual.export`.
+     * @returns The MapVisual object itself, so that you can chain calls.
+     */
+    import(data: string): MapVisual;
+}
+
+interface MapLineStyle {
+    /**
+     * Line width, default is 0.1.
+     */
+    width?: number;
+    /**
+     * Line color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    color?: string;
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+    /**
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     */
+    lineStyle?: "dashed" | "dotted" | "solid";
+}
+
+interface MapPolyStyle {
+    /**
+     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    fill?: string;
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+    /**
+     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     */
+    stroke?: string | undefined;
+    /**
+     * Stroke line width, default is 0.5.
+     */
+    strokeWidth?: number;
+    /**
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     */
+    lineStyle?: "dashed" | "dotted" | "solid";
+}
+
+interface MapCircleStyle extends MapPolyStyle {
+    /**
+     * Circle radius, default is 10.
+     */
+    radius?: number;
+}
+
+interface MapTextStyle {
+    /**
+     * Font color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    color?: string;
+    /**
+     * The font family, default is sans-serif
+     */
+    fontFamily?: string;
+    /**
+     * The font size in game coordinates, default is 10
+     */
+    fontSize?: number;
+    /**
+     * The font style ('normal', 'italic' or 'oblique')
+     */
+    fontStyle?: string;
+    /**
+     * The font variant ('normal' or 'small-caps')
+     */
+    fontVariant?: string;
+    /**
+     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     */
+    stroke?: string;
+    /**
+     * Stroke width, default is 0.15.
+     */
+    strokeWidth?: number;
+    /**
+     * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
+     */
+    backgroundColor?: string;
+    /**
+     * Background rectangle padding, default is 2.
+     */
+    backgroundPadding?: number;
+    /**
+     * Text align, either center, left, or right. Default is center.
+     */
+    align?: "center" | "left" | "right";
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+}
 /**
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
  * terminals, and your buy/sell orders. The object is accessible via the singleton Game.market property.
@@ -3366,7 +3606,7 @@ interface PowerCreep extends RoomObject {
      */
     usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure.
+     * Withdraw resources from a structure, tombstone, or ruin.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -3377,7 +3617,7 @@ interface PowerCreep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
@@ -3641,11 +3881,11 @@ interface RoomPosition {
      */
     findClosestByPath<K extends FindConstant>(
         type: K,
-        opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
     ): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -3655,7 +3895,7 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: any | string; algorithm?: string },
+        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -3917,6 +4157,19 @@ declare class RoomVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added in the room in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * @param data The string returned from `RoomVisual.export`.
+     * @returns The RoomVisual object itself, so that you can chain calls.
+     */
+    import(data: string): RoomVisual;
 }
 
 interface LineStyle {
@@ -4041,7 +4294,7 @@ interface Room {
     /**
      * The name of the room.
      */
-    name: string;
+    readonly name: string;
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
@@ -4490,9 +4743,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * The spawn should not be busy with the spawning process.
      *
-     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size).
+     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(600/body_size).
      *
-     * Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
+     * Energy required for each execution is determined using this formula: ceil(creep_cost/2.5/body_size).
      * @param target The target creep object.
      */
     renewCreep(target: Creep): ScreepsReturnCode;
@@ -4578,20 +4831,34 @@ interface SpawnOptions {
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
-    getCapacity<R extends ResourceConstant | undefined>(
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
         ? null
-        : (undefined extends R
-              ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-              : (R extends POSSIBLE_RESOURCES ? number : null));
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
-    getUsedCapacity<R extends ResourceConstant | undefined>(
+        : R extends undefined
+        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+        : (R extends POSSIBLE_RESOURCES ? number : null);
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
+    getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : 0);
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
+        resource?: R,
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
@@ -4599,12 +4866,24 @@ type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends 
     { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
     getCapacity(resource?: ResourceConstant): number | null;
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
     getUsedCapacity(resource?: ResourceConstant): number | null;
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity(resource?: ResourceConstant): number | null;
 }
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
@@ -4668,7 +4947,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     /**
      * An object with the structure’s owner info (if present) containing the following properties: username
      */
-    owner: Owner;
+    owner: T extends STRUCTURE_CONTROLLER ? Owner | undefined : Owner;
     /**
      * The link to the Room object. Is always present because owned structures give visibility.
      */
@@ -5005,10 +5284,10 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     store: Store<RESOURCE_ENERGY, false>;
 
     /**
-     * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely attack any creep or structure in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: AnyCreep): ScreepsReturnCode;
+    attack(target: AnyCreep | Structure): ScreepsReturnCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
@@ -5110,6 +5389,12 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * @param creep The target creep.
      */
     unboostCreep(creep: Creep): ScreepsReturnCode;
+    /**
+     * Breaks mineral compounds back into reagents. The same output labs can be used by many source labs.
+     * @param lab1 The first result lab.
+     * @param lab2 The second result lab.
+     */
+    reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
@@ -5273,7 +5558,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
@@ -5338,6 +5623,54 @@ type AnyStoreStructure =
  * A discriminated union on Structure.type of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * Conditional type for all concrete implementations of Structure.
+ * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
+ */
+type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
+    ? StructureExtension
+    : T extends STRUCTURE_RAMPART
+    ? StructureRampart
+    : T extends STRUCTURE_ROAD
+    ? StructureRoad
+    : T extends STRUCTURE_SPAWN
+    ? StructureSpawn
+    : T extends STRUCTURE_LINK
+    ? StructureLink
+    : T extends STRUCTURE_WALL
+    ? StructureWall
+    : T extends STRUCTURE_STORAGE
+    ? StructureStorage
+    : T extends STRUCTURE_TOWER
+    ? StructureTower
+    : T extends STRUCTURE_OBSERVER
+    ? StructureObserver
+    : T extends STRUCTURE_POWER_SPAWN
+    ? StructurePowerSpawn
+    : T extends STRUCTURE_EXTRACTOR
+    ? StructureExtractor
+    : T extends STRUCTURE_LAB
+    ? StructureLab
+    : T extends STRUCTURE_TERMINAL
+    ? StructureTerminal
+    : T extends STRUCTURE_CONTAINER
+    ? StructureContainer
+    : T extends STRUCTURE_NUKER
+    ? StructureNuker
+    : T extends STRUCTURE_FACTORY
+    ? StructureFactory
+    : T extends STRUCTURE_KEEPER_LAIR
+    ? StructureKeeperLair
+    : T extends STRUCTURE_CONTROLLER
+    ? StructureController
+    : T extends STRUCTURE_POWER_BANK
+    ? StructurePowerBank
+    : T extends STRUCTURE_PORTAL
+    ? StructurePortal
+    : T extends STRUCTURE_INVADER_CORE
+    ? StructureInvaderCore
+    : never;
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>

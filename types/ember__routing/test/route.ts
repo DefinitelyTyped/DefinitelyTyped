@@ -16,7 +16,7 @@ Route.extend({
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
-        if (posts.length === 1) {
+        if (posts.firstObject) {
             this.transitionTo('post.show', posts.firstObject);
         }
     },
@@ -81,9 +81,10 @@ Route.extend({
 });
 
 Route.extend({
-    resetController(controller: Controller, isExiting: boolean, transition: boolean) {
+    resetController(controller: Controller, isExiting: boolean, transition: Transition) {
         if (isExiting) {
             //   controller.set('page', 1);
+            transition.abort();
         }
     },
 });
@@ -97,10 +98,58 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+    // $ExpectError
+    redirect(model: {}, a: Transition, anOddArg: any) {
         if (!model) {
             this.transitionTo('there');
         }
+    }
+}
+
+class TransitionToExamples extends Route {
+    // NOTE: this one won't check that `queryParams` has the right shape,
+    // because the overload for the version where `models` are passed
+    // necessarily includes all objects.
+    transitionToModelAndQP() {
+        // $ExpectType Transition<any>
+        this.transitionTo('somewhere', { queryParams: { neat: true } });
+    }
+
+    transitionToJustQP() {
+        // $ExpectType Transition<any>
+        this.transitionTo({ queryParams: { neat: 'true' } });
+    }
+
+    transitionToNonsense() {
+        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+    }
+
+    transitionToBadQP() {
+        this.transitionTo({ queryParams: 12 }); // $ExpectError
+    }
+
+    transitionToId() {
+        // $ExpectType Transition<any>
+        this.transitionTo('blog-post', 1);
+    }
+
+    transitionToIdWithQP() {
+        // $ExpectType Transition<any>
+        this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
+    }
+
+    transitionToIds() {
+        // $ExpectType Transition<any>
+        this.transitionTo('blog-comment', 1, '13');
+    }
+
+    transitionToIdsWithQP() {
+        // $ExpectType Transition<any>
+        this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
+    }
+
+    buildRouteInfoMetadata() {
+        return { foo: 'bar' };
     }
 }
 
@@ -112,9 +161,10 @@ declare module '@ember/controller' {
 }
 
 Route.extend({
-    setupController(controller: Controller, model: {}) {
+    setupController(controller: Controller, model: {}, transition: Transition) {
         this._super(controller, model);
         this.controllerFor('application').set('model', model);
+        transition.abort();
     },
 });
 
@@ -131,9 +181,9 @@ class RouteUsingClass extends Route.extend({
         this.intermediateTransitionTo('some-route');
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', { });
+        this.intermediateTransitionTo('some.other.route', {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+        this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }

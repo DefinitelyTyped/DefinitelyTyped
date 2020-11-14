@@ -180,11 +180,11 @@ lwip.open('lena.jpg', function(err, image) {
 lwip.open(new Buffer(1000), { width: 10, height: 10 }, function(err, image) {
     if (err) return console.log("err open", err);
     image.batch()
-    	.blur(9)
-    	.writeFile('image_from_pixelbuffer.png', function(err){
-    		if (err) return console.log("err write", err);
+        .blur(9)
+        .writeFile('image_from_pixelbuffer.png', function(err){
+            if (err) return console.log("err write", err);
         console.log('done');
-    	});
+        });
 });
 
 lwip.open('lena.jpg', function(err, image) {

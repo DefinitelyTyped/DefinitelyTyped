@@ -7,6 +7,7 @@ import {
     Listener,
     Message,
     ReconnectAdvice,
+    Status,
     SubscribeListener,
     SubscribeMessage,
     SuccessfulHandshakeMessage,
@@ -18,6 +19,22 @@ import AckExtension from 'cometd/AckExtension';
 import BinaryExtension from 'cometd/BinaryExtension';
 
 const cometd = new CometD();
+
+function assertNever(value: never): never {
+    throw new Error(`Unexpected value: ${value}`);
+}
+function validateStatus(status: Status) {
+    switch (status) {
+        case 'connected': return true;
+        case 'connecting': return true;
+        case 'disconnected': return true;
+        case 'disconnecting': return true;
+        case 'handshaking': return true;
+        default: return assertNever(status);
+    }
+}
+
+validateStatus(cometd.getStatus());
 
 // Configuring
 // ===========
@@ -48,6 +65,7 @@ const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
 });
 
 cometd.unregisterTransport("websocket");
+const transportTypes = cometd.getTransportTypes();
 
 // Handshaking
 // ===========
@@ -87,6 +105,7 @@ const additionalInfoHandshake = {
 cometd.handshake(additionalInfoHandshake, handshakeReply => {
     if (handshakeReply.successful) {
         // Successfully connected to the server.
+        validateStatus(cometd.getStatus());
     }
 });
 
@@ -218,6 +237,8 @@ cometd.onListenerException = function(exception, subscriptionHandle, isListener,
 let _connected = false;
 
 cometd.addListener("/meta/connect", message => {
+    validateStatus(cometd.getStatus());
+
     if (cometd.isDisconnected()) {
         return;
     }
@@ -232,6 +253,8 @@ cometd.addListener("/meta/connect", message => {
 });
 
 cometd.addListener("/meta/disconnect", message => {
+    validateStatus(cometd.getStatus());
+
     if (message.successful) {
         _connected = false;
     }
@@ -268,6 +291,8 @@ cometd.publishBinary("/binary", view, true, { prolog: "java" });
 // =============
 
 cometd.disconnect(disconnectReply => {
+    validateStatus(cometd.getStatus());
+
     if (disconnectReply.successful) {
         // Server truly received the disconnect request
     }

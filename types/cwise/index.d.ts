@@ -10,16 +10,16 @@ import * as ndarray from "ndarray";
 declare function cwise(a: string | cwise.UserArgs): cwise.Return;
 
 declare namespace cwise {
-	type Arg = ndarray | ((row: number, col: number) => number) | number[] | any;
-	type Return = (a: ndarray, ...b: Arg[]) => void;
-	interface UserArgs {
-		args: ArgType[];
-		pre?(a: number, ...args: any[]): void;
-		body(a: number, ...args: any[]): void;
-		post?(a: number, ...args: any[]): void;
-		funcName?: string;
-		blockSize?: number;
-		printCode?: boolean;
-	}
+    type Arg = ndarray | ((row: number, col: number) => number) | number[] | any;
+    type Return = (a: ndarray, ...b: Arg[]) => void;
+    interface UserArgs {
+        args: ArgType[];
+        pre?(a: number, ...args: any[]): void;
+        body(a: number, ...args: any[]): void;
+        post?(a: number, ...args: any[]): void;
+        funcName?: string;
+        blockSize?: number;
+        printCode?: boolean;
+    }
 }
 export = cwise;

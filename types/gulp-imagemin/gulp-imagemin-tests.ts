@@ -3,7 +3,7 @@ import gulpImagemin = require('gulp-imagemin');
 
 const plugins = [
     gulpImagemin.gifsicle({ interlaced: true }),
-    gulpImagemin.jpegtran({ progressive: true }),
+    gulpImagemin.mozjpeg({ progressive: true }),
     gulpImagemin.optipng({ optimizationLevel: 5 }),
     gulpImagemin.svgo({ floatPrecision: 2 })
 ];

@@ -1,17 +1,19 @@
-import * as React from "react";
-import { ReactDivAttr, ThemeProps } from "../../../typings/shared";
+import { ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
 import { CopyProps } from "../Copy";
 
 interface InheritedDivProps extends Omit<ReactDivAttr, "children"> { }
-interface InheritedInlineProps extends Omit<CopyProps, "children"> { }
+interface InheritedInlineProps extends Omit<CopyProps, "children" | "type"> { }
 
-interface SharedProps extends ThemeProps {
+interface SharedProps {
     children?: string,
     copyLabel?: string,
     copyButtonDescription?: string,
     feedback?: CopyProps["feedback"],
+    hideCopyButton?: boolean,
+    light?: boolean,
     showLessText?: string,
     showMoreText?: string,
+    wrapText?: boolean,
 }
 
 export interface CodeSnippetDivProps extends SharedProps, InheritedDivProps {
@@ -22,7 +24,10 @@ export interface CodeSnippetInlineProps extends SharedProps, InheritedInlineProp
     type: "inline",
 }
 
-export type AllCodeSnippetProps = CodeSnippetDivProps | CodeSnippetInlineProps;
-declare class CodeSnippet extends React.Component<AllCodeSnippetProps> { }
+export type CodeSnippetType = CodeSnippetDivProps["type"] | CodeSnippetInlineProps["type"];
+
+declare function CodeSnippet(props: FCProps<CodeSnippetInlineProps>): FCReturn;
+// tslint:disable:unified-signatures
+declare function CodeSnippet(props: FCProps<CodeSnippetDivProps>): FCReturn;
 
 export default CodeSnippet;

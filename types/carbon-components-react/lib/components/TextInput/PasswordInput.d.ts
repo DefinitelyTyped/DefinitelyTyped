@@ -1,11 +1,14 @@
-import * as React from "react";
-import { EmbeddedTooltipProps } from "../../../typings/shared";
-import { TextInputInheritedProps } from "./props";
+import { ForwardRefReturn, TooltipAlignment, TooltipPosition } from "../../../typings/shared";
+import { TextInputSharedProps } from "./props";
 
-interface InheritedProps extends TextInputInheritedProps, EmbeddedTooltipProps { }
+export interface PasswordInputProps extends TextInputSharedProps {
+    hidePasswordLabel?: string,
+    showPasswordLabel?: string,
+    size?: string,
+    tooltipAlignment?: TooltipAlignment;
+    tooltipPosition?: TooltipPosition;
+}
 
-export interface PasswordInputProps extends InheritedProps { }
-
-declare const PasswordInput: React.RefForwardingComponent<HTMLInputElement, PasswordInputProps>;
+declare const PasswordInput: ForwardRefReturn<HTMLInputElement, PasswordInputProps>;
 
 export default PasswordInput;

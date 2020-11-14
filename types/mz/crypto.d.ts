@@ -5,19 +5,19 @@ import { BinaryLike } from "crypto";
 export * from "crypto";
 
 export function pbkdf2(
-	password: BinaryLike,
-	salt: BinaryLike,
-	iterations: number,
-	keylen: number,
-	digest: string,
-	callback: (err: Error | null, derivedKey: Buffer) => any
+    password: BinaryLike,
+    salt: BinaryLike,
+    iterations: number,
+    keylen: number,
+    digest: string,
+    callback: (err: Error | null, derivedKey: Buffer) => any
 ): void;
 export function pbkdf2(
-	password: BinaryLike,
-	salt: BinaryLike,
-	iterations: number,
-	keylen: number,
-	digest: string
+    password: BinaryLike,
+    salt: BinaryLike,
+    iterations: number,
+    keylen: number,
+    digest: string
 ): Promise<Buffer>;
 
 export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;

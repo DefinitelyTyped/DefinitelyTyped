@@ -109,16 +109,47 @@ configuration = {
 configuration = {
     externals: [
         // Disable TSLint for allowing non-arrow functions
-        /* tslint:disable-next-line */
+        /* tslint:disable-next-line:only-arrow-functions */
         function(context, request, callback) {
-          if (/^yourregex$/.test(request)) {
-            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-            /* tslint:disable-next-line */
-            return callback(null, 'commonjs ' + request);
-          }
-          callback({}, {});
-        }
-      ]
+            if (/^yourregex$/.test(request)) {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line:no-void-expression */
+                return callback(null, 'commonjs ' + request);
+            }
+            if (request === 'foo') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line:no-void-expression */
+                return callback(null, ['path', 'to', 'external']);
+            }
+            if (request === 'bar') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line:no-void-expression */
+                return callback(null, {}, 'commonjs');
+            }
+            if (request === 'baz') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line:no-void-expression */
+                return callback(null, {});
+            }
+
+            // Callback can be invoked with an error
+            callback('An error');
+            callback(new Error('Boom!'));
+
+            // A null error should include external parameters
+            // $ExpectError
+            callback(null);
+
+            // An error should include no other parameters
+            // $ExpectError
+            callback('An error', 'externalName');
+
+            // Continue without externalizing the import
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line:no-void-expression */
+            return callback();
+        },
+    ],
 };
 
 configuration = {
@@ -136,14 +167,14 @@ configuration = {
             subtract: ['./math', 'subtract']
             },
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:only-arrow-functions */
             function(context, request, callback) {
               if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
               }
-              callback({}, {});
+              callback(null, {});
             },
             // Regex
             /^(jquery|\$)$/i
@@ -304,6 +335,9 @@ configuration = {
         const { mainTemplate } = compilation;
         mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.require.tap('SomePlugin', resource => {
+            return `console.log('A module is required'); ${resource}`;
+        });
         mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
@@ -314,6 +348,22 @@ configuration = {
         });
         mainTemplate.hooks.localVars.tap('SomePlugin', resource => {
           return resource.trimLeft();
+        });
+        mainTemplate.hooks.afterStartup.tap('SomePlugin', (resource, chunk) => {
+            if (chunk.name) {
+                return `/* In named chunk: ${chunk.name} */ ${resource};`;
+            } else {
+                return resource;
+            }
+        });
+        mainTemplate.hooks.hash.tap('SomePlugin', hash => {
+            hash.update('SomePlugin');
+            hash.update('1');
+        });
+        mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
+            if (chunk.name) {
+                hash.update(chunk.name);
+            }
         });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
@@ -386,6 +436,14 @@ plugin = new webpack.DllReferencePlugin({
     scope: 'dll prefix',
     sourceType: 'var'
 });
+plugin = new webpack.ExternalsPlugin('this', 'react');
+plugin = new webpack.ExternalsPlugin('this', {jquery: 'jQuery'});
+plugin = new webpack.ExternalsPlugin('this', (context, request, callback) => {
+    if (request === 'jquery') {
+        callback(null, 'jQuery');
+    }
+    callback();
+});
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
@@ -421,8 +479,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
@@ -472,6 +533,12 @@ plugin = new webpack.DefinePlugin({
         ["value.txt"]
     )
 });
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        true
+    )
+});
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
     $: "jquery"
@@ -508,6 +575,8 @@ plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
 plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.ProgressPlugin({ profile: true });
+plugin = new webpack.ProgressPlugin({ activeModules: true, entries: false });
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
@@ -580,6 +649,7 @@ webpack({
         cached: true,
         children: true,
         chunks: true,
+        chunkGroups: true,
         chunkModules: true,
         chunkOrigins: true,
         chunksSort: "field",
@@ -722,7 +792,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
+(loader as webpack.loader.Loader).pitch = function(this: webpack.loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any) { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
 
@@ -868,29 +938,29 @@ class IgnorePlugin extends webpack.Plugin {
 class DllEntryDependency extends webpack.compilation.Dependency {}
 class DllModuleFactory extends Tapable {}
 class DllEntryPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
-		compiler.hooks.compilation.tap(
-			"DllEntryPlugin",
-			(compilation, { normalModuleFactory }) => {
-				const dllModuleFactory = new DllModuleFactory();
-				compilation.dependencyFactories.set(
-					DllEntryDependency,
-					dllModuleFactory
-				);
-				compilation.dependencyFactories.set(
-					SingleEntryDependency,
-					normalModuleFactory
-				);
-			}
-		);
-		compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
-			compilation.addEntry("", new DllEntryDependency(), "", callback);
-		});
-	}
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DllEntryPlugin",
+            (compilation, { normalModuleFactory }) => {
+                const dllModuleFactory = new DllModuleFactory();
+                compilation.dependencyFactories.set(
+                    DllEntryDependency,
+                    dllModuleFactory
+                );
+                compilation.dependencyFactories.set(
+                    SingleEntryDependency,
+                    normalModuleFactory
+                );
+            }
+        );
+        compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
+            compilation.addEntry("", new DllEntryDependency(), "", callback);
+        });
+    }
 }
 
 class BannerPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
+    apply(compiler: webpack.Compiler) {
         compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
             compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
                 for (const chunk of chunks) {
@@ -898,7 +968,11 @@ class BannerPlugin extends webpack.Plugin {
                         continue;
                     }
                     for (const file of chunk.files) {
-                        compilation.getPath("", {});
+                        const pathA = compilation.getPath("", {});
+                        const pathB = compilation.getPath("", {
+                            contentHash: "abc",
+                            contentHashType: "javascript",
+                        });
                     }
                 }
             });
@@ -920,6 +994,45 @@ class DefinePlugin extends webpack.Plugin {
                     });
             }
         );
+    }
+}
+
+class ChunkGroupTestPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap("ChunkGroupTestPlugin", compilation  => {
+            const namedChunkGroupA = compilation.addChunkInGroup('vendors-a');
+            const namedChunkGroupB = compilation.addChunkInGroup({ name: 'vendors-b' });
+            const unnamedChunkGroup = compilation.addChunkInGroup({});
+            if (namedChunkGroupA.getNumberOfChildren() > 0) {
+                for (const chunk of namedChunkGroupA.chunks) {}
+            }
+            Array.from(namedChunkGroupA.childrenIterable).forEach(childGroup => {
+                namedChunkGroupA.removeChild(childGroup);
+                namedChunkGroupA.addChild(childGroup);
+            });
+            Array.from(namedChunkGroupA.parentsIterable).forEach(parentGroup => {});
+            namedChunkGroupA.setParents([namedChunkGroupB]);
+            namedChunkGroupA.setParents(new Set([unnamedChunkGroup]));
+            compilation.hooks.optimizeModules.tap("ChunkGroupTestPlugin", modules => {
+                for (const module of modules) {
+                    const group = compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    if (module.index) {
+                        group.setModuleIndex(module, module.index);
+                    }
+                    if (module.index2) {
+                        group.setModuleIndex2(module, module.index2);
+                    }
+                    console.log(group.getModuleIndex(module), group.getModuleIndex2(module));
+                    break;
+                }
+            });
+            compilation.hooks.optimizeChunks.tap("ChunkGroupTestPlugin", chunks => {
+                const firstChunk = chunks[0];
+                for (const groupChunk of namedChunkGroupA.chunks) {
+                    namedChunkGroupA.insertChunk(firstChunk, groupChunk);
+                }
+            });
+        });
     }
 }
 
@@ -946,6 +1059,7 @@ configuration = {
                 exclude: path => path.startsWith('/foo'),
                 resourceQuery: ['foo', 'bar'],
                 resolve: {
+                    roots: [process.cwd()],
                     mainFields: ['foo'],
                     aliasFields: [['bar']],
                 },
@@ -988,14 +1102,19 @@ compiler.hooks.done.tap('foo', stats => {
 
 const multiCompiler = webpack([{}, {}]);
 
-multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
-    const stats = multiStats[0];
+multiCompiler.hooks.done.tap('foo', (multiStats) => {
+    const [firstStat] = multiStats.stats;
 
-    if (stats.startTime === undefined || stats.endTime === undefined) {
+    if (multiStats.hasWarnings() || multiStats.hasErrors()) {
+        throw new Error(multiStats.toString('errors-warnings'));
+    }
+    multiStats.toJson(); // $ExpectType ToJsonOutput
+
+    if (firstStat.startTime === undefined || firstStat.endTime === undefined) {
         throw new Error('Well, this is odd');
     }
 
-    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+    console.log(`Compiled in ${firstStat.endTime - firstStat.startTime}ms`, multiStats.hash);
 });
 
 webpack.Template.getFunctionContent(() => undefined).trimLeft();
@@ -1109,3 +1228,24 @@ class LoggingPlugin extends webpack.Plugin {
         });
     }
 }
+
+// Stats Microsoft/DefinitelyTyped#43952
+const { Stats } = webpack;
+
+compiler.hooks.compilation.tap('SomePlugin', compilation => {
+    const stats = new Stats(compilation); // $ExpectType Stats
+    Stats.filterWarnings([], [(warning: string) => true]); // $ExpectType string[]
+    stats.formatFilePath('app/src/'); // $ExpectType string
+    stats.normalizeFieldKey('field'); // $ExpectType string
+    stats.sortOrderRegular('!field'); // $ExpectType boolean
+});
+
+const config1: webpack.ConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return {};
+};
+
+const config2: webpack.MultiConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return [];
+};

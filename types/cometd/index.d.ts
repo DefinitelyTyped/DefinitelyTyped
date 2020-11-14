@@ -84,6 +84,7 @@ export interface Configuration {
 
 export type ConnectionType = 'long-polling' | 'callback-polling' | 'iframe' | 'flash';
 export type ReconnectAdvice = 'retry' | 'handshake' | 'none';
+export type Status = 'disconnected' | 'disconnecting' | 'handshaking' | 'connected' | 'connecting';
 
 export interface BaseMessage {
     successful: boolean;
@@ -182,6 +183,13 @@ export class CometD {
      * Unregisters all transports.
      */
     unregisterTransports(): void;
+
+    /**
+     * Gets all registered transport types.
+     *
+     * @return an array of all registered transport types
+     */
+    getTransportTypes(): string[];
 
     /**
      * Configures and establishes the Bayeux communication with the Bayeux server via a handshake
@@ -412,12 +420,12 @@ export class CometD {
      *
      * @return the status of the Bayeux communication
      */
-    getStatus(): string;
+    getStatus(): Status;
 
     /**
-     * Returns whether this instance has been disconnected.
+     * Returns true if this instance is disconnected or disconnecting.
      *
-     * @return whether this instance has been disconnected.
+     * @return whether this instance disconnected or disconnecting.
      */
     isDisconnected(): boolean;
 

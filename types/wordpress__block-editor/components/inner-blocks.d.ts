@@ -1,5 +1,5 @@
 import { TemplateArray } from '@wordpress/blocks';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 import { EditorTemplateLock } from '../';
 

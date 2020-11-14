@@ -24,3 +24,5 @@ const zipkinB3TextMapCodec = new jaegerClient.ZipkinB3TextMapCodec({
 });
 tracer.registerInjector(opentracing.FORMAT_HTTP_HEADERS, zipkinB3TextMapCodec);
 tracer.registerExtractor(opentracing.FORMAT_HTTP_HEADERS, zipkinB3TextMapCodec);
+tracer.close(() => {});
+tracer.close();

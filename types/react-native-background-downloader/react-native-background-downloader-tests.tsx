@@ -42,6 +42,13 @@ const taskFuncTest = (task: DownloadTask) => {
         console.log('Task is in state PAUSED');
         break;
       }
+      case DownloadTaskState.FAILED: {
+        console.log('Task is in state FAILED');
+        break;
+      }
+      case DownloadTaskState.STOPPED: {
+        console.log('Task is in state STOPPED');
+      }
     }
 
     // Pause the task

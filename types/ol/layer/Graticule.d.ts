@@ -22,6 +22,8 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     maxLines?: number;
     strokeStyle?: Stroke;
     targetSize?: number;
@@ -37,12 +39,26 @@ export interface Options {
 }
 export default class Graticule extends VectorLayer {
     constructor(opt_options?: Options);
+    /**
+     * Get the list of meridians.  Meridians are lines of equal longitude.
+     */
     getMeridians(): LineString[];
+    /**
+     * Get the list of parallels.  Parallels are lines of equal latitude.
+     */
     getParallels(): LineString[];
+    /**
+     * Update geometries in the source based on current view
+     */
     loaderFunction(extent: Extent, resolution: number, projection: Projection): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    /**
+     * Strategy function for loading features based on the view's extent and
+     * resolution.
+     */
+    strategyFunction(extent: Extent, resolution: number): Extent[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;
