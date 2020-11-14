@@ -3907,6 +3907,12 @@
             "asOfVersion": "5.4.3"
         },
         {
+            "libraryName": "pg-types",
+            "typingsPackageName": "pg-types",
+            "sourceRepoURL": "https://github.com/brianc/node-pg-types",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "phin",
             "typingsPackageName": "phin",
             "sourceRepoURL": "https://github.com/ethanent/phin",
