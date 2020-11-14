@@ -17808,7 +17808,7 @@ declare namespace Excel {
         priority: number;
         /**
          *
-         * Represents the task's start date, it is used for the "Schedule" history record type.
+         * Represents the task's start date. It is used for the "Schedule" history record type.
                     It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -17947,7 +17947,7 @@ declare namespace Excel {
          */
         assign = "Assign",
         /**
-         * Represents a user being unassigned to a task.
+         * Represents a user being unassigned from a task.
          *
          */
         unassign = "Unassign",
@@ -18122,7 +18122,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param taskChanges A set of changes to perform to the task as a single action.
+         * @param taskChanges A set of changes to apply to the task as a single action.
          */
         applyChanges(taskChanges: Excel.TaskChanges): void;
         /**
@@ -18147,7 +18147,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param percentComplete New percentage completion of the task. This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 will also complete the associated comment, and changing to other value will reactivate the associated comment.
+         * @param percentComplete New percentage completion of the task. This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 will also complete the associated comment, and changing to another value will reactivate the associated comment.
          */
         setPercentComplete(percentComplete: number): void;
         /**
@@ -18215,7 +18215,7 @@ declare namespace Excel {
     interface TaskChanges {
         /**
          *
-         * Sets a new the due date for the task, in UTC time zone. Can be set to `null` to remove the due date. Should be set together with `startDate` to avoid conflicts.
+         * Sets a new due date for the task, in UTC time zone. Can be set to `null` to remove the due date. Should be set together with `startDate` to avoid conflicts.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18223,7 +18223,7 @@ declare namespace Excel {
         dueDate?: Date;
         /**
          *
-         * Sets emails addresses of the users to assign to the task. The specified emails will be added to the existing assignees of the task unless `removeAllPreviousAssignees` property is set to `true`.
+         * Sets email addresses of the users to assign to the task. The specified emails will be added to the existing assignees of the task unless `removeAllPreviousAssignees` property is set to `true`.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18231,7 +18231,7 @@ declare namespace Excel {
         emailsToAssign?: string[];
         /**
          *
-         * Sets emails addresses of the users to unassign from the task.
+         * Sets email addresses of the users to unassign from the task.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18255,7 +18255,7 @@ declare namespace Excel {
         priority?: number;
         /**
          *
-         * Sets if the change should remove all previous assignees from the task. When this property is set to true `emailsToUnassign` property will have no effect and emails specified in `emailsToAssign` property will become the only assignees.
+         * Sets if the change should remove all previous assignees from the task. When this property is set to true, `emailsToUnassign` property will have no effect and emails specified in `emailsToAssign` property will become the only assignees.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18263,7 +18263,7 @@ declare namespace Excel {
         removeAllPreviousAssignees?: boolean;
         /**
          *
-         * Sets a new the start date for the task, in UTC time zone. Can be set to `null` to remove the start date. Should be set together with `dueDate` to avoid conflicts.
+         * Sets a new start date for the task, in UTC time zone. Can be set to `null` to remove the start date. Should be set together with `dueDate` to avoid conflicts.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18324,7 +18324,7 @@ declare namespace Excel {
          * @beta
          *
          * @param key The id of the task.
-         * @returns The task with the given id. If there is no task with the given id, a null object is returned.
+         * @returns The task with the given id. If there is no task with the given id, an object with its `isNullObject` property set to `true`. For further information, see {@link https://docs.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
          */
         getItemOrNullObject(key: string): Excel.Task;
         /**
@@ -23224,8 +23224,7 @@ declare namespace Excel {
          */
         getEntireRow(): Excel.Range;
         /**
-         * Renders the range as a base64-encoded png image.
-                    **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
+         * Renders the range as a base64-encoded png image. **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -38645,7 +38644,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param email The email address of the user to assign the task.
+         * @param email The email address of the user to assign the task to.
          */
         assignTask(email: string): Excel.Task;
         /**
@@ -42859,7 +42858,7 @@ declare namespace Excel {
          */
         linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded",
         /**
-         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when formula is changed.
+         * WorksheetFormulaChanged represents the type of event registered on a worksheet, and occurs when a formula is changed.
          *
          */
         worksheetFormulaChanged = "WorksheetFormulaChanged"
