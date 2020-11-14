@@ -14,13 +14,11 @@ If adding a new definition:
 - [ ] If this is for an NPM package, match the name. If not, do not conflict with the name of an NPM package.
 - [ ] Create it with `dts-gen --dt`, not by basing it on an existing project.
 - [ ] Represents shape of module/library [correctly](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html)
-- [ ] `tslint.json` should be present and it shouldn't have any additional or disabling of rules. Just content as `{ "extends": "dtslint/dt.json" }`. If for reason the some rule need to be disabled, disable it for that line using `// tslint:disable-next-line [ruleName]`  and not for whole package so that the need for disabling can be reviewed.
 - [ ] `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>
 - [ ] If this PR brings the type definitions up to date with a new version of the JS library, update the version number in the header.
-- [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dtslint/dt.json" }`. If for reason the any rule need to be disabled, disable it for that line using `// tslint:disable-next-line [ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 If removing a declaration:
 - [ ] If a package was never on Definitely Typed, you don't need to do anything. (If you wrote a package and provided types, you don't need to register it with us.)

@@ -20,7 +20,7 @@ _Вы также можете прочитать этот README на [англ�
     - [Удаление пакета](#удаление-пакета)
     - [Проверка](#проверка)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
+    - [tslint.json](#tslintjson)
     - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
@@ -187,7 +187,7 @@ Definitely Typed работает только благодаря вкладу �
 | index.d.ts    | Содержит типизацию для пакета.                                                                       |
 | [\<my package>-tests.ts](#my-package-teststs)  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | tsconfig.json | Позволяет вам запускать `tsc` внутри пакета.                                                         |
-| tslint.json   | Включает linting.                                                                                    |
+| [tslint.json](#tslintjson)   | Включает linting.                                                                                    |
 
 Создайте их, запустив `npx dts-gen --dt --name <my package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my package> --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -287,29 +287,9 @@ f('one');
 
 Для получения дополнительной информации см. [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Linter
+#### tslint.json
 
-Все новые пакеты должны быть проанализированы lint. Для этого добавьте `tslint.json` в этот пакет, содержащий
-
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
-
-Это должно быть единственным содержимым в файле `tslint.json` готового проекта. Если `tslint.json` отключает правила, это потому, что это еще не исправлено. Например:
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `// tslint:disable-next-line rule-name`.)
+Shouldn't have any additional or disabling of rules. Just content as `{ "extends": "dtslint/dt.json" }`. If for reason the some rule need to be disabled, [disable it for that line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 #### package.json
 

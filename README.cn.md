@@ -22,7 +22,7 @@
     - [删除一个包](#删除一个包)
     - [验证](#验证)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
+    - [tslint.json](#tslintjson)
     - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
@@ -178,7 +178,7 @@ Version | Released | End of Support
 | index.d.ts | 这里包含了包的类型声明。 |
 | [\<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | tsconfig.json | 这里允许你在包里运行 `tsc`. |
-| tslint.json | 启用 linting. |
+| [tslint.json](#tslintjson) | 启用 linting. |
 
 如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
@@ -293,27 +293,9 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-#### Linter
+#### tslint.json
 
-所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
-
-这应该是一个已完成项目里 `tslint.json` 文件的唯一内容。如果这个文件关闭了某些规则，是因为它还未完全修复。例如：
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `// tslint:disable-next-line rule-name` 更好。)
+Shouldn't have any additional or disabling of rules. Just content as `{ "extends": "dtslint/dt.json" }`. If for reason the some rule need to be disabled, [disable it for that line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 #### package.json
 

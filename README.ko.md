@@ -20,7 +20,7 @@
     - [패키지 삭제하기](#패키지-삭제하기)
     - [검증하기](#검증하기)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [린터](#린터)
+    - [tslint.json](#tslintjson)
     - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
@@ -190,7 +190,7 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
 | [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
-| tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
+| [tslint.json](#tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my package> --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my package> --template module` 명령으로 만들 수 있습니다.
@@ -293,22 +293,9 @@ f("one");
 
 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
 
-#### 린터
+#### tslint.json
 
-자료형(Typing) 패키지를 린트(Lint)하려면, 패키지 디렉토리에 `{ "extends": "dtslint/dt.json" }` 를 포함하고 있는 `tslint.json` 파일을 추가해주시면 됩니다. 모든 새 패키지는 해당 파일을 가지고 있어야 합니다.
-고쳐야 하지만 아직 고쳐지지 않은 린트(Lint) 결과가 있을 때에만 `tslint.json` 에서 린트 규칙(Lint rule)을 사용하지 않도록 설정할 수 있습니다. 예를 들어,
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
-        "ban-types": false
-    }
-}
-```
-
-(린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `// tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
+Shouldn't have any additional or disabling of rules. Just content as `{ "extends": "dtslint/dt.json" }`. If for reason the some rule need to be disabled, [disable it for that line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 #### package.json
 

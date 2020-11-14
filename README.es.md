@@ -17,7 +17,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Remover un paquete](#remover-un-paquete)
     - [Running Tests](#running-tests)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Lint](#lint)
+    - [tslint.json](#tslintjson)
     - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
@@ -168,7 +168,7 @@ Tu paquete debería tener esta estructura:
 | index.d.ts | Este contiene los typings del paquete. |
 | [\<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
-| tslint.json | Permite linting. |
+| [tslint.json](#tslintjson) | Permite linting. |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -268,22 +268,9 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Lint
+#### tslint.json
 
-Para realizar el lint a un paquete, solo añade `tslint.json` al paquete que contiene `{ "extends": "dtslint/dt.json" }`. Todos los paquetes nuevos deberán pasar por el proceso de linted.
-Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha acomodado. Por ejemplo:
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `// tslint:disable-next-line rule-name`.)
+Shouldn't have any additional or disabling of rules. Just content as `{ "extends": "dtslint/dt.json" }`. If for reason the some rule need to be disabled, [disable it for that line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 #### package.json
 
