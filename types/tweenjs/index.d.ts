@@ -168,7 +168,7 @@ declare namespace createjs {
         toString():string;
     }
 
-    export class Tween<T extends Object = any> extends AbstractTween {
+    export class Tween<T = any> extends AbstractTween {
         constructor(target: T, props?: TweenProps);
 
         static IGNORE:any;
