@@ -499,6 +499,7 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
         renderWeekHeaderElement={day => <span>{day}</span>}
         showKeyboardShortcuts={false}
         startDate={moment()}
+        minDate={moment()}
         startDateOffset={day => day.subtract(3, 'days')}
         transitionDuration={5}
         verticalBorderSpacing={5}
@@ -526,6 +527,7 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
     <DayPickerSingleDateController
         calendarInfoPosition="top"
         date={moment()}
+        minDate={moment()}
         dayAriaLabelFormat="dd"
         dayPickerNavigationInlineStyles={{ width: '10' }}
         daySize={50}
