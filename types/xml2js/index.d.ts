@@ -9,6 +9,7 @@
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.5
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
