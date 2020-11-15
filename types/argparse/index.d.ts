@@ -18,7 +18,7 @@ export class ArgumentParser extends ArgumentGroup {
     format_usage(): string;
     format_help(): string;
     parse_known_args(args?: string[], ns?: Namespace | object): any[];
-    convert_arg_line_to_arg(argLine: string): string[];
+    convert_arg_line_to_args(argLine: string): string[];
     exit(status: number, message: string): void;
     error(err: string | Error): void;
 }

@@ -50,6 +50,9 @@ args = simpleExample.parse_args('--foo 5 --bar 6'.split(' '));
 console.dir(args);
 console.log('-----------');
 
+console.dir(simpleExample.convert_arg_line_to_args("foo  bar   asd"));
+console.log('-----------');
+
 const choicesExample = new ArgumentParser({
     add_help: true,
     description: 'Argparse examples: choice'
