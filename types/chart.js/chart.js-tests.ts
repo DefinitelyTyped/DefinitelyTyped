@@ -364,6 +364,8 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+Chart.defaults.global.defaultColor = ctx.createLinearGradient(0, 0, 0, 100);
+
 
 // Update Chart defaults using scaleService
 Chart.scaleService.updateScaleDefaults('time', {
