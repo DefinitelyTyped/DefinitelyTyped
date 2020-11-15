@@ -6,5 +6,5 @@ loadCSS("example.css", document.body, "print");
 const foo = loadCSS("example.css", document.body, "print", { integrity: "sha123-abc" });
 
 onloadCSS(foo, () => {
-	console.log("Loaded!");
+    console.log("Loaded!");
 });
