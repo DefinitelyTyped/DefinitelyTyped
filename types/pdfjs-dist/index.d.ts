@@ -291,7 +291,7 @@ interface PDFDocumentProxy {
     getOutline(): PDFPromise<PDFTreeNode[]>;
 
     /**
-     *  A promise that is resolved with an array that is a permission of the PDF.
+     *  A promise that is resolved with an array that contains the permission flags for the PDF document.
      **/
     getPermissions(): PDFPromise<number[]>;
 
