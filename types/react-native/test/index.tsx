@@ -161,6 +161,7 @@ interface LocalStyles {
     container: ViewStyle;
     welcome: TextStyle;
     instructions: TextStyle;
+    styleFunction: (...args: any[]) => TextStyle;
 }
 
 const styles = StyleSheet.create<LocalStyles>({
@@ -180,6 +181,9 @@ const styles = StyleSheet.create<LocalStyles>({
         color: '#333333',
         marginBottom: 5,
     },
+    styleFunction: (textColor) => ({
+        color: textColor,
+    })
 });
 
 //alternative declaration of styles (inline typings)
@@ -348,6 +352,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         const { color, ...props } = this.props;
         return (
             <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
+                <Text style={styles.styleFunction(color)}>Test For Style Function Type (support dynamic styling)</Text>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
