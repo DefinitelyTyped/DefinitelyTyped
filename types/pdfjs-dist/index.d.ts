@@ -289,6 +289,11 @@ interface PDFDocumentProxy {
      *  A promise that is resolved with an array that is a tree outline (if it has one) of the PDF.  @see PDFTreeNode
      **/
     getOutline(): PDFPromise<PDFTreeNode[]>;
+    
+    /**
+     *  A promise that is resolved with an array that is a permission of the PDF.
+     **/
+    getPermissions(): PDFPromise<number[]>;
 
     /**
      * A promise that is resolved with the info and metadata of the PDF.
