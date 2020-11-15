@@ -313,6 +313,7 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
+    enableAutoPipelining: true
 });
 
 const pub = new Redis();
