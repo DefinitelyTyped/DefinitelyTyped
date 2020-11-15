@@ -3,6 +3,12 @@
 // Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function loadCSS(href: string, before?: HTMLElement, media?: string, attributes?: Record<string, string>): HTMLLinkElement;
+declare namespace FgLoadcss {
+    function loadCSS(href: string, before?: HTMLElement, media?: string, attributes?: Record<string, string>): HTMLLinkElement;
+}
 
-export function onloadCSS(stylesheet: HTMLLinkElement, callback: () => void): void;
+declare module "fg-loadcss" {
+    export = FgLoadcss;
+}
+
+declare var onloadCSS: (stylesheet: HTMLLinkElement, callback: () => void) => void;
