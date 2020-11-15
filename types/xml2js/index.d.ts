@@ -12,7 +12,7 @@
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
-export * as processors from './lib/processors';
+import * as processors from './lib/processors';
 
 export function parseString(str: convertableToString, callback: (err: Error, result: any) => void): void;
 export function parseString(
@@ -130,3 +130,5 @@ export interface OptionsV2 extends Options {
 export interface convertableToString {
     toString(): string;
 }
+
+export { processors };
