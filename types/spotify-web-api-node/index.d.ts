@@ -286,16 +286,15 @@ declare class SpotifyWebApi {
 
     /**
      * Create a playlist.
-     * @param userId The playlist's owner's user ID.
-     * @param playlistName The name of the playlist.
-     * @param options The possible options, currently only public.
+     * @param name The name of the playlist.
+     * @param options The possible options, being description, collaborative and public.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example createPlaylist('thelinmichael', 'My cool playlist!', { public : false }).then(...)
+     * @example createPlaylist('My playlist', {''description': 'My description', 'collaborative' : false, 'public': true}).then(...)
      * @returns A promise that if successful, resolves to an object containing information about the
      *          created playlist. If rejected, it contains an error object. Not returned if a callback is given.
      */
-    createPlaylist(userId: string, playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
-    createPlaylist(userId: string, playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
+    createPlaylist(name: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
+    createPlaylist(name: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
 
     /**
      * Follow a playlist.
