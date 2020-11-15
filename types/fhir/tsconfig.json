@@ -12,10 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-          "history": [ "fhir/v3" ]
-        },
-        "types": [],
+        "tyes": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
