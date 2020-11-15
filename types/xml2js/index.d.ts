@@ -76,6 +76,7 @@ export interface ParserOptions {
     attrValueProcessors?: Array<(value: string, name: string) => any>;
     tagNameProcessors?: Array<(name: string) => any>;
     valueProcessors?: Array<(value: string, name: string) => any>;
+    chunkSize?: number;
 }
 
 export interface BuilderOptions {
@@ -90,7 +91,7 @@ export interface BuilderOptions {
     cdata?: boolean;
 }
 
-export type Options = Omit<ParserOptions, "preserveChildrenOrder">;
+export type Options = Omit<ParserOptions, "preserveChildrenOrder" | "chunkSize">;
 export type OptionsV2 = ParserOptions & BuilderOptions;
 
 export interface convertableToString {
