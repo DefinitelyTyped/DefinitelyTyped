@@ -5488,7 +5488,11 @@ interface SubscribableMixin {
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
-    type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
+    type AllStyles = ViewStyle | TextStyle | ImageStyle;
+    type StyleFunction = (...args: any[]) => AllStyles;
+    type NamedStyles<T> = {
+        [P in keyof T]: AllStyles | StyleFunction
+    };
 
     /**
      * Creates a StyleSheet style reference from the given object.
