@@ -21,6 +21,7 @@ _Вы также можете прочитать этот README на [англ�
     - [Linter](#linter)
     - [Проверка](#проверка)
     </details>
+  - [Definition Owners](#definition-owners)
 * [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
 * [Лицензия](#лицензия)
 
@@ -270,6 +271,27 @@ f('one');
 Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
 
 Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
+
+### Definition Owners
+
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+
+* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+
+To Add yourself as a Definition Owner:
+
+* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 ## Часто задаваемые вопросы
 

@@ -17,6 +17,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Remover un paquete](#remover-un-paquete)
     - [Lint](#lint)
     </details>
+  - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
 * [Licencia](#licencia)
 
@@ -243,6 +244,26 @@ Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-
 Realiza una prueba ejecutando `npm run lint package-name` donde `package-name` es el nombre de tu paquete.
 Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
 
+### Definition Owners
+
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+
+* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+
+To Add yourself as a Definition Owner:
+
+* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 ## FAQ
 
