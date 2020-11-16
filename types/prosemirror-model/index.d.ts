@@ -1035,12 +1035,12 @@ export class NodeType<S extends Schema = any> {
    * Tells you whether this node type has any required attributes.
    */
   hasRequiredAttrs(): boolean;
-  
+
   /**
    * Returns if the input NodeType is compatible to merge
    */
   compatibleContent(other: NodeType): boolean;
-  
+
   /**
    * Returns the Computed Attrs
    */
