@@ -1035,6 +1035,17 @@ export class NodeType<S extends Schema = any> {
    * Tells you whether this node type has any required attributes.
    */
   hasRequiredAttrs(): boolean;
+  
+  /**
+   * Returns if the input NodeType is compatible to merge
+   */
+  compatibleContent(other: NodeType): boolean;
+  
+  /**
+   * Returns the Computed Attrs
+   */
+  computeAttrs(attrs: { [key: string]: any }): { [key: string]: any };
+
   /**
    * Create a `Node` of this type. The given attributes are
    * checked and defaulted (you can pass `null` to use the type's
