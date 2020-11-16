@@ -3,12 +3,19 @@
 // Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace FgLoadcss {
-    function loadCSS(href: string, before?: HTMLElement, media?: string, attributes?: Record<string, string>): HTMLLinkElement;
-}
+export as namespace loadCSS;
 
-declare module "fg-loadcss" {
-    export = FgLoadcss;
-}
+declare function loadCSS(
+    href: string,
+    before?: HTMLElement,
+    media?: string,
+    attributes?: Record<string, string>,
+): HTMLLinkElement;
 
-declare var onloadCSS: (stylesheet: HTMLLinkElement, callback: () => void) => void;
+export = loadCSS;
+
+declare global {
+    interface Window {
+        onloadCSS: (stylesheet: HTMLLinkElement, callback: () => void) => void;
+    }
+}
