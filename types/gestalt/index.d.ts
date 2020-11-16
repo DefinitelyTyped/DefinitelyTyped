@@ -1,4 +1,4 @@
-// Type definitions for gestalt 14.26
+// Type definitions for gestalt 14.28.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -1195,6 +1195,21 @@ export interface TypeaheadProps {
 }
 
 /**
+ * Upsell Props Interface
+ * https://gestalt.netlify.app/Upsell
+ */
+export interface UpsellProps {
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    message: string;
+    primaryLink?: LinkData;
+    secondaryLink?: LinkData;
+    title?: string;
+}
+
+/**
  * Video Props Interface
  * https://gestalt.netlify.app/Video
  */
@@ -1320,4 +1335,5 @@ export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
 export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
+export class Upsell extends React.Component<UpsellProps, any> {}
 export class Video extends React.Component<VideoProps, any> {}
