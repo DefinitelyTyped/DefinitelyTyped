@@ -13,6 +13,7 @@ export interface JSONStream extends through.ThroughStream {
      * pattern
      * @param data The value that was found
      */
+    // tslint:disable-next-line unified-signatures
     on(event: 'data', listener: (data: any) => void): this;
 
     /**
@@ -20,6 +21,7 @@ export interface JSONStream extends through.ThroughStream {
      * @param data Everything that was parsed from the incoming
      * stream that was not matched by the given pattern
      */
+    // tslint:disable-next-line unified-signatures
     on(event: 'header', listener: (data: any) => void): this;
 
     /**
@@ -27,16 +29,25 @@ export interface JSONStream extends through.ThroughStream {
      * @param data Everything that is parsed from the incoming
      * stream that was not matched by the given pattern
      */
+    // tslint:disable-next-line unified-signatures
     on(event: 'footer', listener: (data: any) => void): this;
 
     // copied from class Readable to be compatible
+    // tslint:disable-next-line unified-signatures
     on(event: 'close', listener: () => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'data', listener: (chunk: any) => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'end', listener: () => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'error', listener: (err: Error) => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'pause', listener: () => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'readable', listener: () => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: 'resume', listener: () => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -78,6 +89,7 @@ export function stringify(): JSONStream;
 export function stringify(open: string, sep: string, close: string): JSONStream;
 
 /** If you call JSONStream.stringify(false) the elements will only be seperated by a newline. */
+// tslint:disable-next-line unified-signatures
 export function stringify(useSeperator: false): JSONStream;
 
 /**
@@ -91,4 +103,5 @@ export function stringifyObject(): JSONStream;
 export function stringifyObject(open: string, sep: string, close: string): JSONStream;
 
 /** If you call JSONStream.stringifyObject(false) the elements will only be seperated by a newline. */
+// tslint:disable-next-line unified-signatures
 export function stringifyObject(useSeperator: false): JSONStream;
