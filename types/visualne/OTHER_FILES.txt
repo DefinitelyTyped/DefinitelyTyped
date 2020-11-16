@@ -1,0 +1,6 @@
+core/validator.d.ts
+
+engine/state.d.ts
+view/drag.d.ts
+view/utils.d.ts
+view/zoom.d.ts
