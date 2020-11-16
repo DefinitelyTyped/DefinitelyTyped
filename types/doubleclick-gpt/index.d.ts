@@ -78,7 +78,7 @@ declare namespace googletag {
         allowOverlayExpansion?: boolean;
         allowPushExpansion?: boolean;
         sandbox?: boolean;
-        useUniqueDomain?: boolean;
+        useUniqueDomain?: boolean | null;
     }
 
     interface Googletag {
