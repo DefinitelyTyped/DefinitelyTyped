@@ -1,4 +1,4 @@
-// Type definitions for flatbush 3.1
+// Type definitions for flatbush 3.3
 // Project: https://github.com/mourner/flatbush
 // Definitions by: Matt Fedderly <https://github.com/mfedderly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,7 +26,7 @@ declare class FlatbushClass {
     /**
      * Adds a given rectangle to the index.
      */
-    add(minX: number, minY: number, maxX: number, maxY: number): void;
+    add(minX: number, minY: number, maxX: number, maxY: number): number;
 
     /**
      * Performs indexing of the added rectangles. Their number must match the one provided when creating a Flatbush object.
