@@ -10,7 +10,7 @@ export interface Profile {
 }
 
 export interface Session {
-    userId: string;
+    userId: string | number | object;
     expires: Date;
     sessionToken: string;
     accessToken: string;
@@ -76,7 +76,7 @@ export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest
     ): Promise<void>;
 }
 
-interface Adapter<TUser = any, TProfile = any, TSession = any, TVerificationRequest = any> {
+interface Adapter<TUser = any, TProfile extends Profile = any, TSession extends Session = any, TVerificationRequest extends VerificationRequest = any> {
     getAdapter(appOptions: AppOptions): Promise<AdapterInstance<TUser, TProfile, TSession, TVerificationRequest>>;
 }
 
@@ -185,7 +185,7 @@ declare class TypeORMUserModel {
     constructor(name?: string, email?: string, image?: string, emailVerified?: Date);
 }
 
-declare class TypeORMSessionModel {
+declare class TypeORMSessionModel implements Session {
     userId: number;
     expires: Date;
     sessionToken: string;
@@ -194,12 +194,12 @@ declare class TypeORMSessionModel {
     constructor(userId: number, expires: Date, sessionToken?: string, accessToken?: string);
 }
 
-declare class TypeORMVerificationRequestModel {
-    identifier?: string;
-    token?: string;
-    expires?: Date;
+declare class TypeORMVerificationRequestModel implements VerificationRequest {
+    identifier: string;
+    token: string;
+    expires: Date;
 
-    constructor(identifier?: string, token?: string, expires?: Date);
+    constructor(identifier: string, token: string, expires: Date);
 }
 
 export default Adapters;
