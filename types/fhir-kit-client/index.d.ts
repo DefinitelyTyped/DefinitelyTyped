@@ -1,7 +1,7 @@
 // Type definitions for fhir-kit-client 1.5
 // Project: https://github.com/Vermonster/fhir-kit-client
 // Definitions by: Matthew Morrissette <https://github.com/yinzara>
-//                 Vermonster <https://github.com/Vermonster>
+//                 Brian Kaney <https://github.com/bkaney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

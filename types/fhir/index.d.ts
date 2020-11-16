@@ -1,7 +1,7 @@
 // Type definitions for FHIR 4.0
 // Project: http://hl7.org/fhir/index.html
 // Definitions by: Artifact Health <https://www.artifacthealth.com>
-//                 Vermonster <https://github.com/Vermonster>
+//                 Brian Kaney <https://github.com/bkaney>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module fhir {
     /**
