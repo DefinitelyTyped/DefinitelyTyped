@@ -59,18 +59,15 @@ export default class RelayModernEnvironment implements Environment {
     isServer(): boolean;
     execute(data: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
     executeMutation({
-        cacheConfig,
         operation,
         optimisticResponse,
         optimisticUpdater,
         updater,
         uploadables,
     }: {
-        cacheConfig: CacheConfig | null;
         operation: OperationDescriptor;
         optimisticUpdater?: SelectorStoreUpdater | null;
         optimisticResponse?: { [key: string]: any } | null;
