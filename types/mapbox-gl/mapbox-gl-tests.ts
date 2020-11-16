@@ -1640,6 +1640,22 @@ expectType<mapboxgl.AnyPaint>(
     ),
 );
 
+/*
+ * Make sure layer gets proper Paint, corresponding to layer's type
+ */
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'background-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'fill-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'line-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'fill-opacity': 1 } });
+
 /**
  * Test map.addImage()
  */
