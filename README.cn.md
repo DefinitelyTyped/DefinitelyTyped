@@ -208,7 +208,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 当一个包 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型时，应该从 Definitely Typed 中删除类型避免被混淆。
 
-你可以运行以下命令来删除它 `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+你可以运行以下命令来删除它 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 - `typingsPackageName`: 这是你要删除的目录名字.
 - `asOfVersion`: 将使用此版本将存根发布到 `@types/foo`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `foo` 版本。
 - `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 "typingsPackageName" 相同，这种情况下你可以忽略它。

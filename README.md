@@ -276,10 +276,9 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed — typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+You can remove it by running `npm run not-needed — typingsPackageName asOfVersion [libraryName]`.
 * `typingsPackageName`: This is the name of the directory to delete.
 * `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `sourceRepoURL`: This should point to the repository that contains the typings.
 * `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
