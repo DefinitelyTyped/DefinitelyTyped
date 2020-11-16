@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
+import Adapters, { Adapter, EmailSessionProvider, Profile, Session, VerificationRequest } from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
@@ -48,6 +48,70 @@ const simpleConfig = {
                 'user public_repo repo repo_deployment repo:status read:repo_hook read:org read:public_key read:gpg_key',
         }),
     ],
+};
+
+const exampleUser: NextAuthTypes.User = {
+    name: '',
+    image: '',
+    email: '',
+};
+
+const exampleSession: Session = {
+    userId: '',
+    accessToken: '',
+    sessionToken: '',
+    expires: new Date(),
+};
+
+const exampleVerificatoinRequest: VerificationRequest = {
+    identifier: '',
+    token: '',
+    expires: new Date(),
+};
+
+const adapter: Adapter<NextAuthTypes.User, Profile, Session, VerificationRequest> = {
+    getAdapter(appOptions: NextAuthTypes.AppOptions) {
+        return Promise.resolve({
+            createUser: (profile: Profile) => Promise.resolve(exampleUser),
+            getUser: (id: string) => Promise.resolve(exampleUser),
+            getUserByEmail: (email: string) => Promise.resolve(exampleUser),
+            getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve(exampleUser),
+            updateUser: (user: NextAuthTypes.User) => Promise.resolve(exampleUser),
+            linkAccount: (
+                userId: string,
+                providerId: string,
+                providerType: string,
+                providerAccountId: string,
+                refreshToken: string,
+                accessToken: string,
+                accessTokenExpires: number,
+            ) => Promise.resolve(),
+            createSession: (user: NextAuthTypes.User) => Promise.resolve(exampleSession),
+            getSession: (sessionToken: string) => Promise.resolve(exampleSession),
+            updateSession: (session: Session, force?: boolean) => Promise.resolve(exampleSession),
+            deleteSession: (sessionToken: string) => Promise.resolve(),
+            createVerificationRequest: (
+                email: string,
+                url: string,
+                token: string,
+                secret: string,
+                provider: EmailSessionProvider,
+                options: NextAuthTypes.AppOptions,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            getVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            deleteVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(),
+        });
+    },
 };
 
 const allConfig = {
@@ -106,30 +170,7 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: {
-        getAdapter: (appOptions: NextAuthTypes.AppOptions) => {
-            return Promise.resolve({
-                createUser: (profile: any) => Promise.resolve({}),
-                getUser: (id: string) => Promise.resolve({}),
-                getUserByEmail: (email: string) => Promise.resolve({}),
-                getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve({}),
-                updateUser: (profile: any) => Promise.resolve({}),
-                linkAccount: (
-                    userId: string,
-                    providerId: string,
-                    providerType: string,
-                    providerAccountId: string,
-                    refreshToken: string,
-                    accessToken: string,
-                    accessTokenExpires: number,
-                ) => Promise.resolve(),
-                createSession: (user: any) => Promise.resolve({}),
-                getSession: (sessionToken: string) => Promise.resolve({}),
-                updateSession: (session: any) => Promise.resolve(),
-                deleteSession: (sessionToken: string) => Promise.resolve(),
-            });
-        },
-    },
+    adapter,
     useSecureCookies: true,
     cookies: {
         sessionToken: {
