@@ -1,4 +1,4 @@
-import JSONStream from 'JSONStream';
+import * as JSONStream from 'JSONStream';
 
 let jsonStream: JSONStream.JSONStream;
 
