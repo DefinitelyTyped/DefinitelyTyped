@@ -1,7 +1,7 @@
-import { Emitter } from "../..";
-import { EventsTypes } from "../../events";
-import { IO } from "../../io";
-import { Node } from "../../node";
+import { Emitter } from "../index";
+import { EventsTypes } from "../events";
+import { IO } from "../io";
+import { Node } from "../node";
 export declare class SocketView extends Emitter<EventsTypes> {
     el: HTMLElement;
     type: string;

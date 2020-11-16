@@ -1,5 +1,5 @@
 import { Emitter } from "../core/emitter";
-import { EventsTypes } from "../../events";
+import { EventsTypes } from "../events";
 
 export interface Transform {
     k: number;

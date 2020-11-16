@@ -1,10 +1,10 @@
 import { Component } from "../engine";
-import { Control } from "../../control";
+import { Control } from "../control";
 import { ControlView } from "./control";
-import { Emitter } from "../..";
-import { EventsTypes } from "../../events";
-import { IO } from "../../io";
-import { Node } from "../../node";
+import { Emitter } from "../index";
+import { EventsTypes } from "../events";
+import { IO } from "../io";
+import { Node } from "../node";
 import { SocketView } from "./socket";
 export declare class NodeView extends Emitter<EventsTypes> {
     node: Node;

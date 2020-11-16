@@ -2,7 +2,7 @@ import { Connection } from "./connection";
 import { Control } from "./control";
 import { Input } from "./input";
 import { Output } from "./output";
-import { NodeData } from "./lib/core/data";
+import { NodeData } from "./core/data";
 export declare class Node {
     name: string;
     id: number;

@@ -1,14 +1,14 @@
 import { Component } from "./component";
 import { Connection } from "./connection";
 import { Control } from "./control";
-import { Data } from "./lib/core/data";
-import { EditorView } from "./lib/view";
+import { Data } from "./core/data";
+import { EditorView } from "./view";
 import { Input } from "./input";
 import { Node } from "./node";
 import { Output } from "./output";
 import { Socket, BindSocket, BindControl } from "./socket";
-import { EventsTypes as DefaultEventsTypes, Events } from "./lib/core/events";
-import { Mouse, Transform, ZoomSource } from "./lib/view/area";
+import { EventsTypes as DefaultEventsTypes, Events } from "./core/events";
+import { Mouse, Transform, ZoomSource } from "./view/area";
 export declare class EditorEvents extends Events {
     constructor();
 }

@@ -1,10 +1,10 @@
 import { Area } from "./area";
 import { Component } from "../engine";
-import { Connection } from "../../connection";
+import { Connection } from "../connection";
 import { ConnectionView } from "./connection";
-import { Emitter } from "../..";
-import { EventsTypes } from "../../events";
-import { Node } from "../../node";
+import { Emitter } from "../index";
+import { EventsTypes } from "../events";
+import { Node } from "../node";
 import { NodeView } from "./node";
 export declare class EditorView extends Emitter<EventsTypes> {
     container: HTMLElement;

@@ -17,19 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["lib"],
     "files": [
-        "component.d.ts",
-        "connection.d.ts",
-        "control.d.ts",
-        "editor.d.ts",
-        "events.d.ts",
-        "input.d.ts",
-        "io.d.ts",
-        "node.d.ts",
-        "output.d.ts",
-        "selected.d.ts",
-        "socket.d.ts",
         "index.d.ts",
         "visualne-tests.ts"
     ]

@@ -1,8 +1,8 @@
 import { Component } from "./component";
 import { Connection } from "./connection";
-import { Context } from "./lib/core/context";
-import { Data } from "./lib/core/data";
-import { EditorView } from "./lib/view";
+import { Context } from "./core/context";
+import { Data } from "./core/data";
+import { EditorView } from "./view";
 import { Input } from "./input";
 import { Node } from "./node";
 import { Output } from "./output";

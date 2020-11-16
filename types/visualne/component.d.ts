@@ -1,4 +1,4 @@
-import { Component as ComponentWorker } from "./lib/engine/component";
+import { Component as ComponentWorker } from "./engine/component";
 import { Node } from "./node";
 import { NodeEditor } from "./editor";
 export declare abstract class Component extends ComponentWorker {
