@@ -1,5 +1,5 @@
 import { ConcreteRequest } from '../util/RelayConcreteNode';
-import { CacheConfig, Variables } from '../util/RelayRuntimeTypes';
+import { CacheConfig, DataID, Variables } from '../util/RelayRuntimeTypes';
 import { OperationDescriptor, RequestDescriptor } from './RelayStoreTypes';
 /**
  * Creates an instance of the `OperationDescriptor` type defined in
@@ -10,11 +10,12 @@ import { OperationDescriptor, RequestDescriptor } from './RelayStoreTypes';
 export function createOperationDescriptor(
     request: ConcreteRequest,
     variables: Variables,
-    cacheConfig: CacheConfig | null | undefined,
+    cacheConfig?: CacheConfig | null | undefined,
+    dataID?: DataID,
 ): OperationDescriptor;
 
 export function createRequestDescriptor(
     request: ConcreteRequest,
     variables: Variables,
-    cacheConfig: CacheConfig | null | undefined,
+    cacheConfig?: CacheConfig | null | undefined,
 ): RequestDescriptor;
