@@ -1,6 +1,8 @@
 import PiCamera = require('pi-camera');
 
-declare function log(msg: string | number | boolean): string;
+declare function log(msg: PiCamera.ConfigValue): string;
+
+const defaultCamera = new PiCamera();
 
 const camera = new PiCamera({
     mode: 'photo',
@@ -47,7 +49,5 @@ camera3.snapDataUrl().then((result) => {
 const widthValue = camera.get('width');
 log(widthValue);
 
-camera.set('fps', 25);
-
-const fpsValue = camera.get('width');
-log(fpsValue);
+// $ExpectError
+camera.get('fsp');
