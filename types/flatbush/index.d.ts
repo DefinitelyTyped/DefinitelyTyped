@@ -24,7 +24,7 @@ declare class FlatbushClass {
     constructor(numItems: number, nodeSize?: number, arrayType?: TypedArrayConstructor);
 
     /**
-     * Adds a given rectangle to the index.
+     * Adds a given rectangle to the index. Returns a zero-based, incremental number that represents the newly added rectangle.
      */
     add(minX: number, minY: number, maxX: number, maxY: number): number;
 
