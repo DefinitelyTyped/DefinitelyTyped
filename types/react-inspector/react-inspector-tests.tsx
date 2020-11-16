@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Inspector, { DomInspector, ObjectInspector, TableInspector } from 'react-inspector';
+import Inspector, { DOMInspector, ObjectInspector, TableInspector } from 'react-inspector';
 
 class TestInspector extends React.Component {
     render() {
@@ -17,12 +17,7 @@ class TestInspector extends React.Component {
                 <Inspector
                     table
                     data={{ foo: 'bar' }}
-                    name="test"
                     columns={['foo']}
-                    expandLevel={1}
-                    expandPaths={'foo'}
-                    showNonenumerable={true}
-                    sortObjectKeys
                     theme={'chromeLight'}
                 />
             </>
@@ -49,13 +44,11 @@ class TestObjectInspector extends React.Component {
 class TestDomInspector extends React.Component {
     render() {
         return (
-            <DomInspector
+            <DOMInspector
                 data={{ foo: 'bar' }}
                 name="test"
                 expandLevel={1}
                 expandPaths={'foo'}
-                showNonenumerable={true}
-                sortObjectKeys
                 theme={'chromeLight'}
             />
         );
@@ -67,12 +60,7 @@ class TestTableInspector extends React.Component {
         return (
             <TableInspector
                 data={{ foo: 'bar' }}
-                name="test"
                 columns={['foo']}
-                expandLevel={1}
-                expandPaths={'foo'}
-                showNonenumerable={true}
-                sortObjectKeys
                 theme={'chromeLight'}
             />
         );

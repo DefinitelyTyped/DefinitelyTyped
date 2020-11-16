@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 43.0
+// Type definitions for non-npm package OpenFin API 51.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -6,10 +6,56 @@
 //                 Li Cui <https://github.com/licui3936>
 //                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
-// based on v12.69.43.15
+// based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
+
+declare const fdc3: typeof import('./_v2/fdc3/main');
+
+/**
+ * When running within the OpenFin Runtime, and the `fdc3Api` flag in your manifest is set, your web applications will
+ * have access to the "fdc3" namespace without the need to include additional source files. You can treat the "fdc3"
+ * namespace as you would the "window", "navigator" or "document" objects.
+ */
+
+declare namespace fdc3 {
+    type AppChannel = import('./_v2/fdc3/main').AppChannel;
+    type AppDirIntent = import('./_v2/fdc3/main').AppDirIntent;
+    type AppId = import('./_v2/fdc3/main').AppId;
+    type AppImage = import('./_v2/fdc3/main').AppImage;
+    type AppIntent = import('./_v2/fdc3/main').AppIntent;
+    type AppName = import('./_v2/fdc3/main').AppName;
+    type Application = import('./_v2/fdc3/main').Application;
+    type ApplicationError = import('./_v2/fdc3/main').ApplicationError;
+    type Channel = import('./_v2/fdc3/contextChannels').Channel;
+    type ChannelBase = import('./_v2/fdc3/contextChannels').ChannelBase;
+    type ChannelChangedEvent = import('./_v2/fdc3/contextChannels').ChannelChangedEvent;
+    type ChannelContextListener = import('./_v2/fdc3/contextChannels').ChannelContextListener;
+    type ChannelError = import('./_v2/fdc3/main').ChannelError;
+    type ChannelId = import('./_v2/fdc3/contextChannels').ChannelId;
+    type ChannelWindowAddedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowAddedEvent;
+    type ChannelWindowRemovedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowRemovedEvent;
+    type ConnectionError = import('./_v2/fdc3/main').ConnectionError;
+    type ContactContext = import('./_v2/fdc3/main').ContactContext;
+    type Context = import('./_v2/fdc3/main').Context;
+    type ContextListener = import('./_v2/fdc3/main').ContextListener;
+    type DefaultChannel = import('./_v2/fdc3/main').DefaultChannel;
+    type DisplayMetadata = import('./_v2/fdc3/main').DisplayMetadata;
+    type FDC3Error = import('./_v2/fdc3/main').FDC3Error;
+    type Icon = import('./_v2/fdc3/main').Icon;
+    type InstrumentContext = import('./_v2/fdc3/main').InstrumentContext;
+    type IntentListener = import('./_v2/fdc3/main').IntentListener;
+    type IntentMetadata = import('./_v2/fdc3/main').IntentMetadata;
+    type IntentResolution = import('./_v2/fdc3/main').IntentResolution;
+    type Intents = import('./_v2/fdc3/main').Intents;
+    type Listener = import('./_v2/fdc3/main').Listener;
+    type NameValuePair = import('./_v2/fdc3/main').NameValuePair;
+    type OrganizationContext = import('./_v2/fdc3/main').OrganizationContext;
+    type ResolveError = import('./_v2/fdc3/main').ResolveError;
+    type SendContextError = import('./_v2/fdc3/main').SendContextError;
+    type SystemChannel = import('./_v2/fdc3/contextChannels').SystemChannel;
+}
 
 /**
  * JavaScript API
@@ -33,68 +79,94 @@ declare namespace fin {
     var Frame: import('./_v2/api/frame/frame').default;
     var GlobalHotkey: import('./_v2/api/global-hotkey/index').default;
     var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default;
+    var Platform: import('./_v2/api/platform/platform').default;
+    var Layout: import('./_v2/api/platform/layout').default;
     var Notification: import('./_v2/api/notification/notification').default;
     var System: import('./_v2/api/system/system').default;
+    var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
-
+    var me: import('./_v2/api/fin').default['me'];
     // v2 shapes
     type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
     type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
     type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
     type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
-    type AnchorType = import('./_v2/shapes').AnchorType
-    type Bounds = import('./_v2/shapes').Bounds;
+    type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
+    type AnchorType = import('./_v2/shapes/shapes').AnchorType
+    type Bounds = import('./_v2/shapes/shapes').Bounds;
+    type Channel = import('./_v2/api/interappbus/channel/index').Channel;
+    type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
     type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
-    type ContextMenuSettings = import('./_v2/shapes').ContextMenuSettings;
+    type ContextMenuSettings = import('./_v2/shapes/shapes').ContextMenuSettings;
     type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
     type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type Entity = import('./_v2/api/system/entity').Entity;
     type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
     type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ExternalConnection = import('./_v2/api/system/external-process').ExternalConnection;
     type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
     type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
     type FrameInfo = import('./_v2/api/window/window').FrameInfo;
+    type GetLogRequestType = import('./_v2/api/system/log').GetLogRequestType;
     type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
     type Identity = import('./_v2/identity').Identity;
+    type InstalledApps = import('./_v2/api/system/installedApps').InstalledApps;
     type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type LogInfo = import('./_v2/api/system/log').LogInfo;
     type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
-    type Opacity = import('./_v2/shapes').Opacity;
+    type Opacity = import('./_v2/shapes/shapes').Opacity;
     type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
-    type Position = import('./_v2/shapes').Position;
+    type Position = import('./_v2/shapes/shapes').Position;
+    type Platform = import('./_v2/api/platform/platform').Platform;
+    type ProxyConfig = import('./_v2/api/system/proxy').ProxyConfig;
+    type InitPlatformOptions = import('./_v2/shapes/Platform').InitPlatformOptions;
+    type Layout = import('./_v2/api/platform/layout').Layout;
+    type LogLevel = import('./_v2/api/system/log').LogLevel;
+    type PlatformOptions = import('./_v2/shapes/Platform').PlatformOptions;
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
-    type RGB = import('./_v2/shapes').RGB;
+    type RvmLaunchOptions = import('./_v2/api/application/application').RvmLaunchOptions;
+    type RGB = import('./_v2/shapes/shapes').RGB;
     type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
     type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type ServiceConfiguration = import('./_v2/api/system/external-process').ServiceConfiguration;
+    type ServiceIdentifier = import('./_v2/api/system/system').ServiceIdentifier;
     type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
+    type Snapshot = import('./_v2/shapes/Platform').Snapshot;
     type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
-    type Size = import('./_v2/shapes').Size;
+    type Size = import('./_v2/shapes/shapes').Size;
+    type TerminateExternalRequestType = import('./_v2/api/system/external-process').TerminateExternalRequestType;
     type TrayInfo = import('./_v2/api/application/application').TrayInfo;
-    type Transition = import('./_v2/shapes').Transition;
-    type TransitionOptions = import('./_v2/shapes').TransitionOptions;
-    type TransitionBase = import('./_v2/shapes').TransitionBase;
+    type Transition = import('./_v2/shapes/shapes').Transition;
+    type TransitionOptions = import('./_v2/shapes/shapes').TransitionOptions;
+    type TransitionBase = import('./_v2/shapes/shapes').TransitionBase;
+    type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
+    type View = import('./_v2/api/view/view').View;
+    type ViewOptions = import('./_v2/api/view/view').ViewOptions;
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
     type WindowInfo = import('./_v2/api/window/window').WindowInfo;
+    type _Window = import('./_v2/api/window/window')._Window;
+    type InitLayoutOptions = import('./_v2/api/platform/layout').InitLayoutOptions;
+    type PresetLayoutOptions = import('./_v2/api/platform/layout').PresetLayoutOptions;
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {
         main(f: () => any): void;
         Application: OpenFinApplicationStatic;
-        ExternalApp: OpenFinExternalApplicationStatic;
+        ExternalApplication: OpenFinExternalApplicationStatic;
         GlobalHotkey: OpenFinGlobalHotkey;
         InterApplicationBus: OpenFinInterApplicationBus;
         Notification: OpenFinNotificationStatic;
         System: OpenFinSystem;
         Window: OpenFinWindowStatic;
-        ExternalWin: OpenFinExternalWindowStatic;
         Frame: OpenFinFrameStatic;
     }
 
@@ -460,7 +532,7 @@ declare namespace fin {
     /**
      * Notification
      * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor.
-     * A notification is typically used to alert the user of some important event which requires his or her attention.
+     * A notification is typically used to alert the user of some important event which requires their attention.
      * Notifications are a child or your application that are controlled by the runtime.
      */
     interface OpenFinNotification {
@@ -626,6 +698,11 @@ declare namespace fin {
          * Retrieves system information.
          */
         getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         *
+         * Returns an array of version numbers of the runtimes installed. Requires RVM 5.2+
+         */
+        getInstalledRuntimes(): Promise<string[]>;
         /**
          * Retrieves the contents of the log with the specified filename.
          */
@@ -816,13 +893,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -966,13 +1043,13 @@ declare namespace fin {
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -1022,289 +1099,6 @@ declare namespace fin {
         updateOptions(options: WindowOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
-    interface OpenFinExternalWindowStatic {
-        /**
-         * Returns an External Window object that wraps an existing window.
-         */
-        wrap(appUuid: string, windowName: string): Promise<OpenFinExternalWindow>;
-
-        /**
-         * Synchronously returns an External Window object that wraps an existing window.
-         */
-        wrapSync(appUuid: string, windowName: string): OpenFinExternalWindow;
-    }
-
-    /**
-     * Class: ExternalWindow
-     * An ExternalWindow is an OpenFin object representing a window that belongs to a non-openfin application.<br>
-     * While External Windows don't have the complete functionality of an OpenFin Window object,
-     * they can be used to tap into any application that is currently running in the OS.<br>
-     * External Windows are useful for grouping, moving and resizing non-openfin applications
-     * as well as listening to events that are dispatched by these applications.<br>
-     * They are also compatible with OpenFin's Layouts service to facilitate
-     * a complete positional control over all running applications.<br>
-     */
-    interface OpenFinExternalWindow {
-        /**
-         * The external window's id
-         */
-        uuid: string;
-        /**
-         * The external window's name
-         */
-        name: string;
-        /**
-         * Brings the external window to the front of the window stack.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-
-        /**
-         * Registers an event listener on the specified event.
-         */
-        addEventListener(
-            type: OpenFinExternalWindowEventType,
-            listener: (event: ExternalWindowBaseEvent) => void,
-            callback?: () => void, errorCallback?: (reason: string) => void): void;
-
-        bringToFront(): Promise<void>;
-
-        /**
-         * Closes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-        */
-        close(): Promise<void>;
-
-        /**
-         * Prevents a user from changing an external window's size/position
-         * when using the window's frame.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        disableUserMovement(): Promise<void>;
-
-        /**
-         * Re-enables user changes to an external window's size/position
-         * when using the window's frame.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        enableUserMovement(): Promise<void>;
-
-        /**
-         * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        flash(): Promise<void>;
-
-        /**
-         * Gives focus to the external window.
-         * @return {Promise.<void>}
-         * @emits ExternalWindow#focused
-         * @experimental
-         */
-        focus(): Promise<void>;
-
-        /**
-         * Gets the current bounds (top, left, etc.) of the external window.
-         * @return {Promise.<Bounds>}
-         * @experimental
-        */
-        getBounds(): Promise<Bounds>;
-
-        /**
-         * Retrieves an array containing wrapped external windows that are grouped
-         * with this external window. If a window is not in a group an empty array
-         * is returned.
-         * @return {Promise.<Array<ExternalWindow|_Window>>}
-         * @experimental
-         */
-        getGroup(): Promise<Array<OpenFinExternalWindow | OpenFinWindow>>;
-
-        /**
-         * Gets an information object for the window.
-         * @return {Promise.<any>}
-         * @experimental
-         */
-        getInfo(): Promise<any>;
-
-        /**
-         * Gets an external window's options.
-         * @return {Promise.<any>}
-         * @experimental
-         */
-        getOptions(): Promise<any>;
-
-        /**
-         * Gets the current state ("minimized", "maximized", or "restored") of
-         * the external window.
-         * @return {Promise.<string>}
-         * @experimental
-         */
-        getState(): Promise<string>;
-
-        /**
-         * Hides the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        hide(): Promise<void>;
-
-        /**
-         * Determines if the external window is currently showing.
-         * @return {Promise.<boolean>}
-         * @experimental
-         */
-        isShowing(): Promise<boolean>;
-
-        /**
-         * Joins the same window group as the specified window.
-         * @param { _Window | ExternalWindow } target The window whose group is to be joined
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        joinGroup(target: OpenFinExternalWindow | OpenFinWindow): Promise<void>;
-
-        /**
-         * Leaves the current window group so that the window can be moved
-         * independently of those in the group.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        leaveGroup(): Promise<void>;
-
-        /**
-         * Maximizes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        maximize(): Promise<void>;
-
-        /**
-         * Merges the instance's window group with the same window group as the specified window
-         * @param { _Window | ExternalWindow } target The window whose group is to be merged with
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        mergeGroups(target: OpenFinExternalWindow | OpenFinWindow): Promise<void>;
-
-        /**
-         * Minimizes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        minimize(): Promise<void>;
-
-        /**
-         * Moves the external window by a specified amount.
-         * @param { number } deltaLeft The change in the left position of the window
-         * @param { number } deltaTop The change in the top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        moveBy(deltaLeft: number, deltaTop: number): Promise<void>;
-
-        /**
-         * Moves the external window to a specified location.
-         * @param { number } left The left position of the window
-         * @param { number } top The top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        moveTo(left: number, top: number): Promise<void>;
-
-        /**
-         * Resizes the external window by a specified amount.
-         * @param { number } deltaWidth The change in the width of the window
-         * @param { number } deltaHeight The change in the height of the window
-         * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
-         * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
-         * If undefined, the default is "top-left".
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
-
-        /**
-         * Removes a previously registered event listener from the specified event.
-         */
-        removeEventListener(
-            type: OpenFinExternalWindowEventType,
-            listener: (event: ExternalWindowBaseEvent) => void,
-            callback?: () => void,
-            errorCallback?: (reason: string) => void): void;
-
-        /**
-         * Resizes the external window to the specified dimensions.
-         * @param { number } width The change in the width of the window
-         * @param { number } height The change in the height of the window
-         * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
-         * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
-         * If undefined, the default is "top-left".
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
-
-        /**
-         * Restores the external window to its normal state (i.e. unminimized, unmaximized).
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        restore(): Promise<void>;
-
-        /**
-         * Will bring the external window to the front of the entire stack and
-         * give it focus.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        setAsForeground(): Promise<void>;
-
-        /**
-         * Sets the external window's size and position.
-         * @property { Bounds } bounds
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        setBounds(bounds: Bounds): Promise<void>;
-
-        /**
-         * Shows the external window if it is hidden.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        show(): Promise<void>;
-
-        /**
-         * Shows the external window, if it is hidden, at the specified location.
-         * If the toggle parameter is set to true, the external window will
-         * alternate between showing and hiding.
-         * @param { number } left The left position of the window
-         * @param { number } top The top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        showAt(left: number, top: number): Promise<void>;
-
-        /**
-         * Stops the taskbar icon from flashing.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        stopFlashing(): Promise<void>;
-
-        /**
-         * Updates the external window using the passed options
-         * @param {*} options Changes an external window's options
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        updateOptions(options: any): Promise<void>;
-    }
-
     interface OpenFinFrameStatic {
         wrap(uuid: string, name: string): OpenFinFrame;
 
@@ -1323,7 +1117,6 @@ declare namespace fin {
 
         removeEventListener(type: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
-
     interface ApplicationBaseEvent {
         topic: string;
         type: OpenFinApplicationEventType;
@@ -1443,24 +1236,6 @@ declare namespace fin {
         uuid: string;
     }
 
-    interface ExternalWindowBaseEvent {
-        /**
-         * the name of the window
-         */
-        name: string;
-        /**
-         * always window
-         */
-        topic: "external-window";
-        /**
-         * window event type
-         */
-        type: OpenFinExternalWindowEventType;
-        /**
-         * the UUID of the application the window belongs to
-         */
-        uuid: string;
-    }
     interface WindowAuthRequestedEvent extends WindowBaseEvent {
         authInfo: {
             host: string;
@@ -1674,23 +1449,4 @@ declare namespace fin {
         | "restored"
         | "show-requested"
         | "shown";
-
-    type OpenFinExternalWindowEventType = 'begin-user-bounds-changing' |
-        'blurred' |
-        'bounds-changed' |
-        'bounds-changing' |
-        'closed' |
-        'closing' |
-        'disabled-movement-bounds-changed' |
-        'disabled-movement-bounds-changing' |
-        'end-user-bounds-changing' |
-        'focused' |
-        'group-changed' |
-        'hidden' |
-        'maximized' |
-        'minimized' |
-        'restored' |
-        'shown' |
-        'user-movement-disabled' |
-        'user-movement-enabled';
 }

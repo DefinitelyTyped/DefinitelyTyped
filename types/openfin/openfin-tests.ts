@@ -1,3 +1,7 @@
+function test_fin_me() {
+    const {uuid, name, isWindow, isView, isFrame} = fin.me;
+}
+
 function test_application() {
     let application: fin.OpenFinApplication;
     // constructor
@@ -19,7 +23,7 @@ function test_application() {
     }, (error) => {
         console.log("Error creating application:", error);
     });
-	// createFromManifest
+    // createFromManifest
     fin.desktop.Application.createFromManifest("http://stuf.com/app.json", (app) => {
         console.log(app.uuid);
     }, err => console.log(err));
@@ -94,8 +98,8 @@ function test_application() {
     application.registerUser("a", "b", () => console.log("done"), err => console.log(err));
     // removeEventListener
     application.removeEventListener("closed", (event: any) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("The unregistration was successful");
     }, err => {
         console.log("failure:", err);
@@ -169,7 +173,7 @@ function test_application() {
 function test_external_application() {
     let externalApp: fin.OpenFinExternalApplication;
     // wrap
-    externalApp = fin.desktop.ExternalApp.wrap('my-uuid');
+    externalApp = fin.desktop.ExternalApplication.wrap('my-uuid');
     // addEventListener
     externalApp.addEventListener('connected', () => {
         console.log('external app connected');
@@ -421,6 +425,8 @@ function test_system() {
     }, error => {
         console.log('There was an error:', error);
     });
+    // getInstalledRuntimes
+    fin.desktop.System.getInstalledRuntimes().then(runtimes => console.log(runtimes)).catch(err => console.log(err));
     // getLog
     fin.desktop.System.getLog('debug-2015-01-08-22-27-53.log', log => {
         console.log(log);
@@ -475,7 +481,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -489,7 +495,7 @@ function test_system() {
         // will default to the one mentioned by appAssets.target
         // If the the path below refers to a specific path it will override this default
         alias: "myApp",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -501,7 +507,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         alias: "myApp",
         arguments: "e f g",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -518,7 +524,7 @@ function test_system() {
             subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
             thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
         },
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -535,7 +541,7 @@ function test_system() {
     // monitorExternalProcess
     fin.desktop.System.monitorExternalProcess({
         pid: 2508,
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -561,7 +567,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -576,8 +582,8 @@ function test_system() {
     });
     // removeEventListener
     fin.desktop.System.removeEventListener("monitor-info-changed", (event) => {
-		console.log(event);
-	}, () => {
+        console.log(event);
+    }, () => {
         console.log("successful");
     }, (err: any) => {
         console.log("failure: " + err);
@@ -601,7 +607,7 @@ function test_system() {
         // notepad is in the system's PATH
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -864,8 +870,8 @@ function test_window() {
     finWindow.reload();
     // removeEventListener
     finWindow.removeEventListener("bounds-changed", event => {
-		console.log(event);
-	});
+        console.log(event);
+    });
     // resizeBy
     finWindow.resizeBy(10, 10, "top-right");
     // resizeTo
@@ -893,17 +899,17 @@ function test_window() {
     });
 }
 
-function test_external_window() {
-    // wrapSync
-    const externalWin = fin.ExternalWindow.wrapSync({uuid: 'uuid', name: 'name'});
+async function test_external_window() {
+    // wrap
+    const externalWin = await fin.ExternalWindow.wrap({uuid: 'uuid', name: 'name'});
 
     // getCurrent
     fin.System.getFocusedExternalWindow();
 
     // getAllExternalWindows
-    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
+    fin.System.getAllExternalWindows().then((exWins: any[]) => exWins.forEach(exWin => console.log(exWin.uuid)));
     // addEventListener
-    externalWin.addListener('some-event', event => console.log(event.message));
+    externalWin.addListener('some-event', (event: { message: any; }) => console.log(event.message));
 
     // removeEventListener
     externalWin.removeListener('some-event', () => {});
@@ -916,11 +922,11 @@ function test_frame() {
     // wrap
     const frame = fin.desktop.Frame.wrap('uuid', 'name');
     // getCurrent
-    const currentFrame = fin.desktop.Frame.getCurrent();
+    const currentFrame = fin.Frame.getCurrentSync();
     // addEventlistener
     frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
     // removeEventListener
-    frame.removeEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
+    frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
     // getInfo
     frame.getInfo(info => {
         console.log(info.uuid, info.name, info.entityType, info.parent.uuid, info.parent.name);
@@ -929,4 +935,126 @@ function test_frame() {
     frame.getParentWindow(parent => {
         console.log(parent.uuid, parent.name, parent.entityType, parent.parent.uuid, parent.parent.name);
     }, err => console.error(err));
+}
+
+async function testPlatform() {
+    // ** Class Methods ** //
+    // wrap
+    const platform = await fin.Platform.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentPlatform = await fin.Platform.getCurrent();
+    // getCurrentSync
+    const anotherCurrentPlatform = fin.Platform.getCurrentSync();
+    // start
+    fin.Platform.start({uuid: 'uuid', name: 'name'});
+    // start from manifest
+    fin.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // getSnapshot & applySnapshot
+    const snapshop = await platform.getSnapshot();
+    platform.applySnapshot(snapshop);
+    // create, reparent & close Views
+    const {identity: newViewIdentity} = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
+    platform.closeView(newViewIdentity);
+    // createWindow
+    platform.createWindow({uuid: 'uuid', name: 'name'});
+    // get and set context
+    const context = await platform.getWindowContext();
+    platform.setWindowContext(context);
+    // launchLegacyManifest
+    platform.launchLegacyManifest('some_manifest_url.html');
+    // quit
+    platform.quit();
+}
+
+async function testView() {
+    // ** Class Methods ** //
+    // wrap
+    const view = await fin.View.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentView = await fin.View.getCurrent();
+    // getCurrentSync
+    const anotherCurrentView = fin.View.getCurrentSync();
+    // create
+    fin.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
+    // start from manifest
+    fin.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // attach
+    view.attach({uuid: 'uuid', name: 'target window name'});
+    // show and hide
+    view.show().then(() => view.hide());
+    // setBounds
+    view.setBounds({height: 320, width: 320, top: 20, left: 20});
+    // getInfo
+    const info = await view.getInfo();
+    // get and update options
+    view.getOptions().then(() => view.updateOptions({autoResize: {width: true}}));
+    // getCurrentWindow
+    const currentWin = await view.getCurrentWindow();
+    // setCustomWindowHandler
+    view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
+    // destroy
+    view.destroy();
+}
+
+async function testLayout() {
+    // ** Class Methods ** //
+
+    const layout = fin.Platform.Layout.getCurrentSync();
+    const sameLayout = await fin.Platform.Layout.getCurrent();
+
+    const config = await layout.getConfig();
+    const initOptions = {layout: config};
+    fin.Platform.Layout.init(initOptions);
+
+    const wrappedLayout = await fin.Platform.Layout.wrap(layout.identity);
+    const anotherWrappedLayout = fin.Platform.Layout.wrapSync(layout.identity);
+
+    // ** Instance Methods ** //
+    layout.replace(config);
+    layout.applyPreset({presetType: "columns"});
+    layout.getConfig().then(config => config.settings && config.settings.hasHeaders);
+    layout.identity.uuid;
+}
+
+async function testFDC3() {
+    const contextListener: fdc3.ContextListener = fdc3.addContextListener((context: fdc3.Context) => {});
+    contextListener.unsubscribe();
+
+    fdc3.addEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    const intentListener: fdc3.IntentListener = fdc3.addIntentListener('test-intent', (context: fdc3.Context) => {});
+    intentListener.unsubscribe();
+
+    await fdc3.broadcast({type: 'test-context'});
+
+    const appIntent: fdc3.AppIntent = await fdc3.findIntent('test-intent');
+
+    const appIntents: fdc3.AppIntent[] = await fdc3.findIntentsByContext({type: 'test-context'});
+
+    const channelById: fdc3.Channel = await fdc3.getChannelById('test-channel-id');
+    await channelById.join();
+
+    const currentChannel: fdc3.Channel = await fdc3.getCurrentChannel();
+    await currentChannel.join();
+
+    const appChannel: fdc3.Channel = await fdc3.getOrCreateAppChannel('test-app-channel-name');
+    await appChannel.join();
+
+    const systemChannels: fdc3.Channel[] = await fdc3.getSystemChannels();
+
+    await fdc3.open('test-app');
+    await fdc3.open('test-app', {type: 'test-context'});
+
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'});
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'}, 'test-target');
+
+    fdc3.removeEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    await fdc3.defaultChannel.join();
+    await fdc3.defaultChannel.broadcast({type: 'test-context'});
 }

@@ -15,11 +15,11 @@
 //
 
 // Module dependencies.
-import { Azure } from 'azure-sb';
+import { Azure as Az } from 'azure-sb';
 
 export namespace Azure.ServiceBus.Results {
     export interface RuleResult {
-        serialize(rule: Azure.ServiceBus.CreateRuleOptions): string;
+        serialize(rule: Az.ServiceBus.CreateRuleOptions): string;
 
         parse(xml: object): object | object[];
     }

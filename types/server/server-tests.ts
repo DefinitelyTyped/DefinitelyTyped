@@ -56,3 +56,29 @@ server([
     ctx => status(200),
     ctx => type("application/json")
 ]);
+
+// Test all the options work
+server(
+    {
+        port: 3000,
+        secret: 'my-secret',
+        public: 'public',
+        views: 'views',
+        engine: 'pug',
+        env: 'development',
+        favicon: 'public/logo.png',
+        parser: { body: { limit: '1mb' } },
+        security: {
+            dnsPrefetchControl: { allow: true },
+        },
+        session: {
+            resave: false,
+            saveUninitialized: true,
+            cookie: {},
+            secret: 'INHERITED',
+            store: undefined,
+        },
+        log: 'alert',
+    },
+    [get('/', ctx => 'Hello, World!')],
+);

@@ -445,10 +445,11 @@ function Argv$coerceWithKeys() {
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
     const ya = yargs
-        .fail((msg, err) => {
+        .fail((msg, err, { help }) => {
             if (err) throw err; // preserve stack
             console.error('You broke it!');
             console.error(msg);
+            console.error(help());
             process.exit(1);
         })
         .argv;

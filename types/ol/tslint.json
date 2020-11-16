@@ -3,11 +3,13 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
-        "max-line-length": false,
-        "no-unnecessary-class": false,
+        "interface-over-type-literal": false,
         "no-unnecessary-generics": false,
-        "prefer-template": false,
+        "prefer-declare-function": false,
+        "space-before-function-paren": false,
         "strict-comparisons": false,
-        "unified-signatures": false
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false,
+        "use-default-type-parameter": false
     }
 }

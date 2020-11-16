@@ -79,6 +79,17 @@ interface SortableListProps<T, K> {
     scrollEnabled?: boolean;
 
     /**
+     * Determines when the keyboard should stay visible after a tap.
+     *  - 'never' (the default), tapping outside of the focused text input when the keyboard is up dismisses
+     *    the keyboard. When this happens, children won't receive the tap.
+     *  - 'always', the keyboard will not dismiss automatically, and the scroll view will not catch taps, but
+     *    children of the scroll view can catch taps.
+     *  - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children,
+     *    (or captured by an ancestor).
+     */
+    keyboardShouldPersistTaps?: 'never' | 'always' | 'handled';
+
+    /**
      * whether you intend to use the toggleRowActive method to activate a row or use the out of box solution.
      */
     manuallyActivateRows?: boolean;

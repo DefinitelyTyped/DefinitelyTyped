@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data-controls/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
 import { APIFetchOptions } from '@wordpress/api-fetch';
 import { Action } from '@wordpress/data';
@@ -42,11 +42,11 @@ export function apiFetch(options: APIFetchOptions): void;
  * import * as resolvers from './resolvers';
  *
  * registerStore ( 'my-custom-store', {
- * 	reducer,
- * 	controls,
- * 	actions,
- * 	selectors,
- * 	resolvers,
+ *     reducer,
+ *     controls,
+ *     actions,
+ *     selectors,
+ *     resolvers,
  * } );
  * ```
  *

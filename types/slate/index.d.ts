@@ -12,17 +12,21 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
+//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                 Kamil Kamiński <https://github.com/0ctothorp>
+//                 Jay Chen <https://github.com/Jay0328>
+//                 Brian Ingles <https://github.com/bmingles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
-export class Data extends Immutable.Record({}) {
-    [key: string]: any;
+export interface Data extends Immutable.Map<any, any> {}
 
-    static create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
-    static fromJSON(object: { [key: string]: any }): Data;
-    static fromJS(object: { [key: string]: any }): Data;
+export namespace Data {
+    function create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
+    function fromJSON(object: { [key: string]: any }): Data;
+    function fromJS(object: { [key: string]: any }): Data;
 }
 
 export interface RulesByNodeType {
@@ -303,7 +307,7 @@ export interface TextProperties {
     object?: "text";
     key?: string;
     text?: string;
-    marks?: Immutable.List<Mark> | Mark[];
+    marks?: Immutable.Set<Mark> | Mark[];
 }
 
 export interface TextJSON {
@@ -325,6 +329,7 @@ export class Text extends Immutable.Record({}) {
     key: string;
 
     readonly text: string;
+    readonly marks: Immutable.Set<Mark> | null;
 
     static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
@@ -455,7 +460,6 @@ export type NodeProperties =
     | InlineProperties
     | TextProperties;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseNode extends Immutable.Record({}) {
     data: Data;
     type: string;
@@ -489,7 +493,7 @@ declare class BaseNode extends Immutable.Record({}) {
     createSelection(properties: SelectionProperties | SelectionJSON | Selection | Range): Selection;
     descendants(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     filterDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Immutable.List<Node>;
-    findDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
+    findDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     forEachDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): void;
     getActiveMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
@@ -911,7 +915,6 @@ export type RangeTypeProperties =
 export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON | AnnotationJSON;
 export type RangeType = Range | Selection | Decoration | Annotation;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseRange extends Immutable.Record({}) {
     readonly isCollapsed: boolean;
     readonly isExpanded: boolean;
@@ -1453,28 +1456,28 @@ export interface Query {
     args: any[];
 }
 
-export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
-export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+export type CommandFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => T;
+export type QueryFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => any;
 
-export interface Plugin {
-    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
-    onChange?: (editor: Editor, next: () => void) => void;
-    onCommand?: (command: Command, editor: Editor, next: () => void) => void;
-    onConstruct?: (editor: Editor, next: () => void) => void;
-    onQuery?: (query: Query, editor: Editor, next: () => void) => void;
-    validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
+export interface Plugin<T extends Controller = Controller> {
+    normalizeNode?: (node: Node, editor: T, next: () => void) => ((editor: T) => void) | void;
+    onChange?: (editor: T, next: () => void) => void;
+    onCommand?: (command: Command, editor: T, next: () => void) => void;
+    onConstruct?: (editor: T, next: () => void) => void;
+    onQuery?: (query: Query, editor: T, next: () => void) => void;
+    validateNode?: (node: Node, editor: T, next: () => void) => SlateError | void;
 
-    commands?: {[name: string]: CommandFunc};
-    queries?: {[name: string]: QueryFunc};
+    commands?: {[name: string]: CommandFunc<T>};
+    queries?: {[name: string]: QueryFunc<T>};
     schema?: SchemaProperties;
 }
 
-export interface Plugins extends Array<Plugin | Plugins> {}
+export interface Plugins<T extends Controller = Controller> extends Array<Plugin<T> | Plugins<T>> {}
 
-export interface EditorProperties {
+export interface EditorProperties<T extends Controller = Controller> {
     object?: "editor";
     onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
-    plugins?: Plugins;
+    plugins?: Plugins<T>;
     readOnly?: boolean;
     value?: Value;
 }
@@ -1491,11 +1494,11 @@ export class Editor implements Controller {
     middleware: object;
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
     operations: Immutable.List<Operation>;
-    plugins: Plugin[];
+    plugins: Array<Plugin<Editor>>;
     readOnly: boolean;
     value: Value;
 
-    constructor(attributes: EditorProperties, options?: EditorOptions);
+    constructor(attributes: EditorProperties<Editor>, options?: EditorOptions);
 
     /**
      * Synchronously flush the current changes to editor, calling onChange.
@@ -1522,7 +1525,7 @@ export class Editor implements Controller {
     insertBlock(block: string | Block | BlockProperties | BlockJSON): Editor;
     insertFragment(fragment: Document): Editor;
     insertInline(inline: string | Inline | InlineProperties | InlineJSON): Editor;
-    insertText(text: string): Editor;
+    insertText(text: string, marks?: Immutable.Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
     setBlocks(properties: string | Block | BlockProperties | BlockJSON): Editor;
     setInlines(properties: string | Inline | InlineProperties): Editor;
     splitBlock(depth?: number): Editor;
@@ -1793,7 +1796,7 @@ export class Editor implements Controller {
         properties: string | MarkProperties | MarkJSON | Mark,
         newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
     ): Editor;
-    setNodeByKey(key: string, properties: string | BlockProperties | InlineProperties): Editor;
+    setNodeByKey(key: string, properties: string | Partial<BlockProperties> | Partial<InlineProperties>): Editor;
     setNodeByPath(path: Immutable.List<number>, newProperties: string | NodeProperties): Editor;
     setTextByKey(key: string, text: string, marks: Immutable.Set<Mark>): Editor;
     setTextByPath(path: Immutable.List<number>, text: string, marks: Immutable.Set<Mark>): Editor;
@@ -1817,13 +1820,15 @@ export class Editor implements Controller {
     wrapNodeByPath(path: Immutable.List<number>, parent: Block | Document | Inline | Text): Editor;
     normalize(): Editor;
     withoutNormalizing(fn: () => void): Editor;
-    withoutSaving(fn: () => void): void;
-    withoutMerging(fn: () => void): void;
+    withoutSaving(fn: () => void): Editor;
+    withoutMerging(fn: () => void): Editor;
     redo(): Editor;
     undo(): Editor;
     save(operation: Operation): void;
     snapshotSelection(): Editor;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Editor;
+    hasCommand(type: string): boolean;
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
@@ -3032,6 +3037,14 @@ export interface Controller {
      */
     snapshotSelection(): Controller;
     command(type: string | ((...args: any[]) => any), ...args: any[]): Controller;
+    /**
+     * Check if a command by type has been registered.
+     */
+    hasCommand(type: string): boolean;
+    /**
+     * Check if a query by type has been registered.
+     */
+    hasQuery(type: string): boolean;
     query(query: string | ((...args: any[]) => any), ...args: any[]): any;
     /**
      * Add a new command by type to the controller. This will make the command available as a top-level method on the controller

@@ -19,8 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "autosuggest-highlight-tests.ts",
-        "match/index.d.ts",
-        "parse/index.d.ts"
+        "autosuggest-highlight-tests.ts"
     ]
 }

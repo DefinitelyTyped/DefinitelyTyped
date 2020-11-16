@@ -1,6 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -108,13 +106,13 @@ declare enum EnumDWT_CameraControlProperty {
     CCP_ZOOM = 3,
     /** Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds, 
      *  and for values zero or above, the exposure time is 2^n seconds. For example:
-     *  Value	Seconds
-     *  -3	1/8
-     *  -2	1/4
-     *  -1	1/2
-     *  0	1
-     *  1	2
-     *  2	4
+     *  Value    Seconds
+     *  -3    1/8
+     *  -2    1/4
+     *  -1    1/2
+     *  0    1
+     *  1    2
+     *  2    4
      */
     CCP_EXPOSURE = 4,
     /** Specifies the camera's iris setting, in units of fstop* 10. */
@@ -229,7 +227,7 @@ interface Webcam {
     /**
      *  Capture image from the specified webcam. 
      * @method Dynamsoft.WebTwain#CaptureImage 
-     * @param {function} OnCaptureSuccess he function to call when the capture succeeds. Please refer to the function prototype OnCaptureSuccess.
+     * @param {function} OnCaptureSuccess The function to call when the capture succeeds. Please refer to the function prototype OnCaptureSuccess.
      * @param {function} OnCaptureError The function to call when the capture fails. Please refer to the function prototype OnCaptureError.
      * @return {void}
      */

@@ -7,7 +7,6 @@
 
 /// <reference types="node" />
 
-import { Readable } from 'stream';
 import { Buffer } from 'buffer';
 
 export interface Options {
@@ -37,10 +36,10 @@ export interface DosDateTime {
 
 export class ZipFile {
     addFile(realPath: string, metadataPath: string, options?: Partial<Options>): void;
-    outputStream: Readable;
-    addReadStream(input: Readable, metadataPath: string, options?: Partial<ReadStreamOptions>): void;
+    outputStream: NodeJS.ReadableStream;
+    addReadStream(input: NodeJS.ReadableStream, metadataPath: string, options?: Partial<ReadStreamOptions>): void;
     addBuffer(buffer: Buffer, metadataPath: string, options?: Partial<Options>): void;
-    end(optoins?: EndOptions, finalSizeCallback?: () => void): void;
+    end(options?: EndOptions, finalSizeCallback?: () => void): void;
 
     addEmptyDirectory(metadataPath: string, options?: Partial<DirectoryOptions>): void;
     dateToDosDateTime(jsDate: Date): DosDateTime;

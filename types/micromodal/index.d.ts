@@ -19,6 +19,9 @@ export interface MicroModalConfig {
     /** Custom data attribute to close modal. Default is data-micromodal-close. */
     closeTrigger?: string;
 
+    /** Custom class to be applied when modal is open. Default class is is-open. */
+    openClass?: string;
+
     /** This disables scrolling on the page while the modal is open. The default value is false. */
     disableScroll?: boolean;
 
@@ -26,8 +29,14 @@ export interface MicroModalConfig {
     disableFocus?: boolean;
 
     /**
-     * Set this to true if using css animations to hide the modal. This allows it to wait for the animation to
-     * finish before removing it from the DOM. Default is false
+     * Set this to true if using css animations to open the modal.
+     * This allows it to wait for the animation to finish before focusing on an element inside the modal. Default is false
+     */
+    awaitOpenAnimation?: boolean;
+
+    /**
+     * Set this to true if using css animations to hide the modal.
+     * This allows it to wait for the animation to finish before removing it from the DOM. Default is false
      */
     awaitCloseAnimation?: boolean;
 
@@ -55,7 +64,7 @@ declare namespace MicroModal {
     /**
      * Closes the active modal
      */
-    function close(): void;
+    function close(targetModal?: string): void;
 }
 
 export default MicroModal;

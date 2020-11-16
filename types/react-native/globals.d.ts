@@ -91,6 +91,7 @@ declare interface RequestInit {
     mode?: RequestMode_;
     referrer?: string;
     window?: any;
+    signal?: AbortSignal;
 }
 
 declare interface Request extends Object, Body {
@@ -135,9 +136,9 @@ declare var Response: {
 };
 
 type HeadersInit_ = Headers | string[][] | { [key: string]: string };
-type RequestCredentials_ = "omit" | "same-origin" | "include";
-type RequestMode_ = "navigate" | "same-origin" | "no-cors" | "cors";
-type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type RequestCredentials_ = 'omit' | 'same-origin' | 'include';
+type RequestMode_ = 'navigate' | 'same-origin' | 'no-cors' | 'cors';
+type ResponseType_ = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect';
 
 //
 // XMLHttpRequest
@@ -182,12 +183,12 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly UNSENT: number;
     addEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -222,12 +223,12 @@ interface XMLHttpRequestEventTarget {
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -235,12 +236,12 @@ interface XMLHttpRequestEventTarget {
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -250,4 +251,126 @@ declare var XMLHttpRequestUpload: {
     new (): XMLHttpRequestUpload;
 };
 
-declare type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+
+/**
+ * Based on definition from lib.dom but using class syntax.
+ * The properties are mutable to support users that use a `URL` polyfill, but the implementation
+ * built into React Native (as of 0.63) does not implement all the properties.
+ */
+declare class URL {
+    static createObjectURL(blob: Blob): string;
+    static revokeObjectURL(url: string): void;
+
+    constructor(url: string, base?: string);
+
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    readonly searchParams: URLSearchParams;
+    hash: string;
+
+    toJSON(): string;
+}
+
+/**
+ * Based on definitions of lib.dom and lib.dom.iterable
+ */
+declare class URLSearchParams {
+    constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
+
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    getAll(name: string): string[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+    [Symbol.iterator](): IterableIterator<[string, string]>;
+
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
+}
+
+interface WebSocketMessageEvent extends Event {
+    data?: any;
+}
+interface WebSocketErrorEvent extends Event {
+    message: string;
+}
+interface WebSocketCloseEvent extends Event {
+    code?: number;
+    reason?: string;
+    message?: string;
+}
+
+interface WebSocket extends EventTarget {
+    readonly readyState: number;
+    send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
+    close(code?: number, reason?: string): void;
+    onopen: (() => void) | null;
+    onmessage: ((event: WebSocketMessageEvent) => void) | null;
+    onerror: ((event: WebSocketErrorEvent) => void) | null;
+    onclose: ((event: WebSocketCloseEvent) => void) | null;
+}
+
+declare var WebSocket: {
+    prototype: WebSocket;
+    new (
+        uri: string,
+        protocols?: string | string[] | null,
+        options?: {
+            headers: { [headerName: string]: string };
+            [optionName: string]: any;
+        } | null,
+    ): WebSocket;
+    readonly CLOSED: number;
+    readonly CLOSING: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+};
+
+//
+// Abort Controller
+//
+
+interface AbortEvent extends Event {
+    type: 'abort';
+}
+
+declare class AbortSignal {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
+    constructor();
+    /**
+     * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
+     */
+    readonly aborted: boolean;
+
+    onabort: (event: AbortEvent) => void;
+}
+
+declare class AbortController {
+    /**
+     * Initialize this controller.
+     */
+    constructor();
+    /**
+     * Returns the `AbortSignal` object associated with this object.
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Abort and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}

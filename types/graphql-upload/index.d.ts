@@ -10,6 +10,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { GraphQLScalarType } from "graphql";
 import { RequestHandler } from "express";
 import { Middleware } from "koa";
+import { ReadStream } from "fs-capacitor";
 
 export interface UploadOptions {
   maxFieldSize?: number;
@@ -38,3 +39,10 @@ export function graphqlUploadKoa <StateT = any, CustomT = {}>(
 ): Middleware<StateT, CustomT>;
 
 export const GraphQLUpload: GraphQLScalarType;
+
+export interface FileUpload {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream(): ReadStream;
+}

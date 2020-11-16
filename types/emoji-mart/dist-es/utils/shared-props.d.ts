@@ -10,7 +10,7 @@ export interface EmojiProps {
     onOver?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onLeave?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onClick?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
-    fallback?(emoji: EmojiData, props: EmojiProps): React.Component;
+    fallback?(emoji: EmojiData, props: EmojiProps): React.Component | JSX.Element;
     /** defaults to returning a png from unpkg.com-hosted emoji-datasource-${set} */
     backgroundImageFn?: BackgroundImageFn;
     native?: boolean;
@@ -32,7 +32,18 @@ export interface EmojiProps {
     /** data is omitted here as it should be used for NimbleEmoji only - not emoji */
 }
 
-export type CategoryName = 'search' | 'recent' | 'people' | 'nature' | 'foods' | 'activity' | 'places' | 'objects' | 'symbols' | 'flags' | 'custom';
+export type CategoryName =
+    | 'search'
+    | 'recent'
+    | 'people'
+    | 'nature'
+    | 'foods'
+    | 'activity'
+    | 'places'
+    | 'objects'
+    | 'symbols'
+    | 'flags'
+    | 'custom';
 
 // tslint:disable-next-line interface-name
 export interface I18n {
@@ -45,7 +56,7 @@ export interface I18n {
 export type PartialI18n = Partial<Pick<I18n, 'search' | 'notfound'> & { categories: Partial<I18n['categories']> }>;
 
 export interface CustomIcons {
-    categories: Record<CategoryName, () => React.Component>;
+    categories: Record<CategoryName, () => React.ReactNode>;
 }
 
 export interface PickerProps {
@@ -58,6 +69,7 @@ export interface PickerProps {
     i18n?: PartialI18n;
     style?: React.CSSProperties;
     title?: string;
+    theme?: 'auto' | 'light' | 'dark';
     emoji?: string;
     color?: string;
     set?: EmojiSet;
@@ -80,4 +92,6 @@ export interface PickerProps {
     notFound?(): React.Component;
     notFoundEmoji?: string;
     icons?: CustomIcons;
+    enableFrequentEmojiSort?: boolean;
+    useButton?: boolean;
 }

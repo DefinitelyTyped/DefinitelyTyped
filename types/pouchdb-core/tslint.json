@@ -1,13 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
-        "no-declare-current-package": false,
-        "no-unnecessary-generics": false,
-        // TODO: tslint doesn't like the listener: Function signatures but they are from the
-        // original node declarations so I didn't want to touch them
         "ban-types": false,
-        // TODO: Fixing this lint error will require a large refactor
-        "no-single-declare-module": false
+        "no-declare-current-package": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false
     }
 }

@@ -10,13 +10,20 @@ export default class IconImage extends Target {
         size: Size,
         crossOrigin: string,
         imageState: ImageState,
-        color: Color
+        color: Color,
     );
-    getHitDetectionImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
+    getHitDetectionImage(): HTMLImageElement | HTMLCanvasElement;
     getImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
     getImageState(): ImageState;
+    getPixelRatio(pixelRatio: number): number;
+    /**
+     * Get the size of the icon (in pixels).
+     */
     getSize(): Size;
-    getSrc(): string;
+    getSrc(): string | undefined;
+    /**
+     * Load not yet loaded URI.
+     */
     load(): void;
 }
 export function get(
@@ -25,5 +32,5 @@ export function get(
     size: Size,
     crossOrigin: string,
     imageState: ImageState,
-    color: Color
+    color: Color,
 ): IconImage;

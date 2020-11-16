@@ -77,7 +77,7 @@ export interface Encode {
 
     options: EncodeOptions;
 }
-declare var encode: Encode;
+export var encode: Encode;
 
 export interface DecodeOptions {
     /**

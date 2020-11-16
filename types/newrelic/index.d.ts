@@ -1,8 +1,13 @@
-// Type definitions for newrelic 5.11
+// Type definitions for newrelic 6.13
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Kenneth Aasan <https://github.com/kennethaasan>
+//                 Jon Flaishans <https://github.com/funkswing>
+//                 Dylan Smith <https://github.com/dylansmith>
+//                 BlueJeans by Verizon <https://github.com/bluejeans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -66,14 +71,14 @@ export function setControllerName(name: string, action: string): void;
  *
  * Most recently set value wins.
  */
-export function addCustomAttribute(key: string, value: string|number): void;
+export function addCustomAttribute(key: string, value: string | number | boolean): void;
 
 /**
  * Adds all custom attributes in an object to the current transaction.
  *
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
-export function addCustomAttributes(atts: { [key: string]: string|number }): void;
+export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Tell the tracer whether to ignore the current transaction.
@@ -93,7 +98,7 @@ export function setIgnoreTransaction(ignored: boolean): void;
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string }): void;
+export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
 
 /**
  * If the URL for a transaction matches the provided pattern, name the
@@ -163,7 +168,12 @@ export function getBrowserTimingHeader(): string;
  * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
  */
 export function startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
-export function startSegment<T, C extends (...args: any[]) => any>(name: string, record: boolean, handler: (cb?: C) => T, callback?: C): T;
+export function startSegment<T, C extends (...args: any[]) => any>(
+    name: string,
+    record: boolean,
+    handler: (cb?: C) => T,
+    callback?: C,
+): T;
 
 /**
  * Instrument a particular callback to improve visibility into a transaction.
@@ -302,6 +312,12 @@ export const instrument: Instrument;
 export const instrumentDatastore: Instrument;
 
 /**
+ * The instrumentLoadedModule method allows you to add stock instrumentation to specific modules
+ * in situations where it's impossible to have require('newrelic'); as the first line of your app's main module.
+ */
+export function instrumentLoadedModule(moduleName: string, moduleInstance: any): boolean;
+
+/**
  * Sets an instrumentation callback for a web framework module.
  *
  * This method is just like `instrument`, except it provides a web-framework-specialized  shim.
@@ -322,18 +338,34 @@ export const instrumentMessages: Instrument;
  * before shutting down. Defaults to `false`.
  */
 export function shutdown(cb?: (error?: Error) => void): void;
-export function shutdown(options?: { collectPendingData?: boolean, timeout?: number }, cb?: (error?: Error) => void): void;
+export function shutdown(
+    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
+    cb?: (error?: Error) => void,
+): void;
 
 /**
- * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
- *
- * The handler is a callback function whose value is returned from setLambdaHandler
- * Returns the value returned by handler
+ * Returns key/value pairs which can be used to link traces or entities.
+ * It will only contain items with meaningful values. For instance, if distributed tracing is disabled,
+ * trace.id will not be included.
  */
-export function setLambdaHandler<T>(handler: (...args: any[]) => T): T;
+export function getLinkingMetadata(omitSupportability?: boolean): LinkingMetadata;
+
+/**
+ * Returns and object containing the current trace ID and span ID.
+ * This API requires distributed tracing to be enabled or an empty object will be returned.
+ */
+export function getTraceMetadata(): TraceMetadata;
+
+/**
+ * Wraps an AWS Lambda function with NewRelic instrumentation and returns the wrapped function.
+ *
+ * The handler should be an AWS Lambda handler function.
+ * Returns a function with identical signature to the provided handler function.
+ */
+export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
 
 export interface Instrument {
-    (opts: { moduleName: string, onRequire: () => void, onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -345,6 +377,20 @@ export interface Metric {
     sumOfSquares: number;
 }
 
+export interface DistributedTracePayload {
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    text(): string;
+
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    httpSafe(): string;
+}
+
+export type DistributedTraceHeaders = Record<string, number | string | string[] | undefined>;
+
 export interface TransactionHandle {
     /**
      * End the transaction.
@@ -355,4 +401,87 @@ export interface TransactionHandle {
      * Mark the transaction to be ignored.
      */
     ignore(): void;
+
+    /**
+     * Modifies the headers map that is passed in by adding W3C Trace Context headers
+     * and New Relic Distributed Trace headers.
+     */
+    insertDistributedTraceHeaders(headers: DistributedTraceHeaders): void;
+
+    /**
+     * Used to instrument the called service for inclusion in a distributed trace.
+     *
+     * Links the spans in a trace by accepting a payload generated by `insertDistributedTraceHeaders`
+     * or generated by some other W3C Trace Context compliant tracer. This method accepts the headers
+     * of an incoming request, looks for W3C Trace Context headers, and if not found, falls back to
+     * New Relic distributed trace headers.
+     *
+     * Check the docs for valid transport types. If an invalid type is provided, it will fall back to "Unknown".
+     */
+    acceptDistributedTraceHeaders(transportType: string, headers: DistributedTraceHeaders): void;
+
+    /**
+     * Creates a distributed trace payload.
+     * @deprecated - use insertDistributedTraceHeaders instead
+     */
+    createDistributedTracePayload(): DistributedTracePayload;
+
+    /**
+     * Parses incoming distributed trace header payload.
+     * @deprecated - use acceptDistributedTraceHeaders instead
+     */
+    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
+
+    /**
+     * Return whether this Transaction is being sampled
+     */
+    isSampled(): boolean;
+}
+
+export interface LinkingMetadata {
+    /**
+     * The current trace ID
+     */
+    'trace.id'?: string;
+
+    /**
+     * The current span ID
+     */
+    'span.id'?: string;
+
+    /**
+     * The application name specified in the connect request as
+     * app_name. If multiple application names are specified this will only be
+     * the first name
+     */
+    'entity.name': string;
+
+    /**
+     * The string "SERVICE"
+     */
+    'entity.type': string;
+
+    /**
+     * The entity ID returned in the connect reply as entity_guid
+     */
+    'entity.guid'?: string;
+
+    /**
+     * The hostname as specified in the connect request as
+     * utilization.full_hostname. If utilization.full_hostname is null or empty,
+     * this will be the hostname specified in the connect request as host.
+     */
+    hostname: string;
+}
+
+export interface TraceMetadata {
+    /**
+     * The current trace ID
+     */
+    traceId?: string;
+
+    /**
+     * The current span ID
+     */
+    spanId?: string;
 }

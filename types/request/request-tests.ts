@@ -27,11 +27,11 @@ let res: request.Response;
 let form: FormData;
 
 const bodyArr: request.RequestPart[] = [{
-	body: value
+    body: value
 }, {
-	body: value
+    body: value
 }, {
-	body: value
+    body: value
 }];
 
 // Defaults tests
@@ -83,37 +83,37 @@ strOrUndef = oauth.verifier;
 strOrTrueOrUndef = oauth.body_hash;
 
 let options: request.Options = {
-	url: str,
-	uri: str,
-	callback: (error: any, response: any, body: any) => {},
-	jar: value,
-	form: obj,
-	oauth: value,
-	aws,
-	qs: obj,
-	json: value,
-	jsonReviver: (key: string, value: any) => {},
-	jsonReplacer: (key: string, value: any) => {},
-	multipart: value,
-	agent: new http.Agent(),
-	agentOptions: value,
-	agentClass: value,
-	forever: value,
-	host: str,
-	port: num,
-	method: str,
-	headers: value,
-	body: value,
-	followRedirect: bool,
-	followAllRedirects: bool,
-	maxRedirects: num,
-	encoding: str,
-	pool: value,
-	timeout: num,
-	proxy: value,
-	tunnel: bool,
-	strictSSL: bool,
-	rejectUnauthorized: false
+    url: str,
+    uri: str,
+    callback: (error: any, response: any, body: any) => {},
+    jar: value,
+    form: obj,
+    oauth: value,
+    aws,
+    qs: obj,
+    json: value,
+    jsonReviver: (key: string, value: any) => {},
+    jsonReplacer: (key: string, value: any) => {},
+    multipart: value,
+    agent: new http.Agent(),
+    agentOptions: value,
+    agentClass: value,
+    forever: value,
+    host: str,
+    port: num,
+    method: str,
+    headers: value,
+    body: value,
+    followRedirect: bool,
+    followAllRedirects: bool,
+    maxRedirects: num,
+    encoding: str,
+    pool: value,
+    timeout: num,
+    proxy: value,
+    tunnel: bool,
+    strictSSL: bool,
+    rejectUnauthorized: false
 };
 
 // Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
@@ -647,6 +647,44 @@ request(
     console.log(body);
     }
 }
+);
+
+request(
+  {
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart: {
+      data: [
+        {
+          'content-type': 'application/json; charset=utf-8',
+          body: JSON.stringify({
+            _attachments: {
+              'dot.png': {
+                follows: true,
+                length: 269,
+                content_type: 'image/png',
+              },
+            },
+          }),
+        },
+        {
+          'content-type': 'image/png',
+          body: Buffer.from(
+            'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAA3NCSVQICAjb4U/gAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIEFQUDEAAAiZ40pPzUstykxWKCjKT8vMSeVSAANjEy4TSxNL' +
+              'o0QDAwMLAwgwNDAwNgSSRkC2OVQo0QAFmJibpQGhuVmymSmIzwUAT7oVaBst2IwAAAAWSURBVAiZY/z//z8DAwMTAwMDAwMDACQGAwGaMKL7AAAAAElFTkSuQmCC',
+          ),
+        },
+      ],
+    },
+  },
+  (error, response, body) => {
+    if (response.statusCode === 201) {
+      console.log('image saved as http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+      console.log('error: ' + response.statusCode);
+      console.log(body);
+    }
+  },
 );
 
 request(

@@ -20,6 +20,8 @@ var barArr: Bar[];
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 var fooSequence: LazyJS.Sequence<Foo>;
+var fooTupleSequence: LazyJS.Sequence<readonly [Foo, Foo, Foo, Foo, Foo]>;
+var fooArrSequence: LazyJS.Sequence<Foo[]>;
 var barSequence: LazyJS.Sequence<Bar>;
 var fooArraySeq: LazyJS.ArrayLikeSequence<Foo>;
 var barArraySeq: LazyJS.ArrayLikeSequence<Bar>;
@@ -29,11 +31,13 @@ var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
 var strSequence: LazyJS.Sequence<string>;
 var anySequence: LazyJS.Sequence<any>;
+var unknownSequence: LazyJS.Sequence<unknown>;
 var stringSeq: LazyJS.StringLikeSequence;
 
 var obj: Object;
 var bool: boolean;
 var num: number;
+var const5: 5;
 var str: string;
 var x: any = null;
 var arr: any[];
@@ -97,7 +101,9 @@ fooArraySeq = Strict([foo, foo]).pop();
 // Sequence
 
 fooAsyncSeq = fooSequence.async(num);
-fooSequence = fooSequence.chunk(num);
+fooArrSequence = fooSequence.chunk(num);
+fooTupleSequence = fooSequence.chunk(const5);
+unknownSequence = fooSequence.chunk(0);
 fooSequence = fooSequence.compact();
 fooSequence = fooSequence.concat(arr);
 fooSequence = fooSequence.consecutive(num);
@@ -152,8 +158,8 @@ fooSequence = fooSequence.sortBy(str, bool);
 fooSequence = fooSequence.sortBy(fnNumberCallback);
 fooSequence = fooSequence.sortBy(fnNumberCallback, bool);
 num = fooSequence.sortedIndex(foo);
-foo = fooSequence.sum();
-foo = fooSequence.sum(fnNumberCallback);
+num = fooSequence.sum();
+num = fooSequence.sum(fnNumberCallback);
 fooSequence = fooSequence.takeWhile(fnTestCallback);
 fooSequence = fooSequence.union(fooArr);
 fooSequence = fooSequence.uniq();
@@ -225,3 +231,8 @@ stringSeq = stringSeq.substring(num);
 stringSeq = stringSeq.substring(num, num);
 stringSeq = stringSeq.toLowerCase();
 stringSeq = stringSeq.toUpperCase();
+
+// flatten
+var fooSeqSeqSequence: LazyJS.Sequence<LazyJS.Sequence<LazyJS.Sequence<Foo>>>;
+fooSequence = fooSeqSeqSequence.flatten();
+fooSequence = fooSeqSeqSequence.flatten(true).flatten(true);

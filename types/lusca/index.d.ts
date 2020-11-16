@@ -1,8 +1,9 @@
 // Type definitions for lusca 1.6
 // Project: https://github.com/krakenjs/lusca#readme
-// Definitions by: Corbin Crutchley <https://github.com/crutchcorn>, Naoto Yokoyama <https://github.com/builtinnya>
+// Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
+//                 Naoto Yokoyama <https://github.com/builtinnya>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import express = require('express');
 
@@ -40,9 +41,24 @@ declare namespace lusca {
     type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlacklistOrWhitelist;
 
     interface csrfOptionsBase {
+        /**
+         * The name of the CSRF token in the model.
+         * @default '_csrf'
+         */
         key?: string;
+        /**
+         * @default '_csrfSecret'
+         */
         secret?: string;
+        /**
+         *  An object with create/validate methods for custom tokens
+         */
         impl?: () => any;
+        /**
+         * The name of the response header containing the CSRF token
+         * @default 'x-csrf-token'
+         */
+        header?: string;
     }
 
     interface csrfOptionsAngular {

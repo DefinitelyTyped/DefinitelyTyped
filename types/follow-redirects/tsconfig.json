@@ -18,8 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "http.d.ts",
-        "https.d.ts",
         "follow-redirects-tests.ts"
     ]
 }

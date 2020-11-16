@@ -56,12 +56,12 @@ declare namespace Microsoft.WindowsAzure {
     }
 
     interface InvokeApiOptions
-	{
-		method?: string;
-		body?: any;
-		headers?: Object;
-		parameters?: Object;
-	}
+    {
+        method?: string;
+        body?: any;
+        headers?: Object;
+        parameters?: Object;
+    }
 
     // User object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554220.aspx
     interface User {

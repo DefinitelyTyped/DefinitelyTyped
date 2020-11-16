@@ -1,0 +1,5 @@
+slick.autotooltips.d.ts
+slick.checkboxselectcolumn.d.ts
+slick.columnpicker.d.ts
+slick.headerbuttons.d.ts
+slick.rowselectionmodel.d.ts

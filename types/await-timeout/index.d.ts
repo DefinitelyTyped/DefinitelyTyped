@@ -2,9 +2,9 @@
 // Project: https://github.com/vitalets/await-timeout
 // Definitions by: Sean Zhu <https://github.com/szhu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
-export default Timeout;
+export = Timeout;
 
 declare class Timeout {
     static set(delay: number): Promise<undefined>;

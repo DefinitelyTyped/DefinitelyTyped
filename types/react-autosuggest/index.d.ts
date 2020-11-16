@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 9.3
+// Type definitions for react-autosuggest 10.0
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
@@ -7,13 +7,14 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 ulrichb <https://github.com/ulrichb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 
-declare class Autosuggest<T = any> extends React.Component<
-    Autosuggest.AutosuggestProps<T>,
+declare class Autosuggest<T = any, T2 = any> extends React.Component<
+    Autosuggest.AutosuggestProps<T, T2>,
     Autosuggest.AutosuggestState<T>
 > {
     /**
@@ -34,14 +35,25 @@ declare namespace Autosuggest {
     /** @internal */
     type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
+    type FetchRequestedReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestion-selected';
+
+    type ShouldRenderReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'input-blurred'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestions-updated'
+        | 'render';
+
     interface SuggestionsFetchRequestedParams {
         value: string;
-        reason:
-            | 'input-changed'
-            | 'input-focused'
-            | 'escape-pressed'
-            | 'suggestions-revealed'
-            | 'suggestion-selected';
+        reason: FetchRequestedReasons;
     }
 
     interface RenderSuggestionParams {
@@ -65,9 +77,9 @@ declare namespace Autosuggest {
     interface InputProps<TSuggestion>
         extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
         onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
-        onBlur?(event: React.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
+        onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
-        [key: string]: any;
+        ref?: React.Ref<HTMLInputElement>;
     }
 
     interface SuggestionSelectedEventData<TSuggestion> {
@@ -111,7 +123,7 @@ declare namespace Autosuggest {
     }
 
     // types for functions - allowing reuse externally - e.g. as props and bound in the constructor
-    type GetSectionSuggestions<TSuggestion> = (section: any) => TSuggestion[];
+    type GetSectionSuggestions<TSuggestion, TSection> = (section: TSection) => TSuggestion[];
     type GetSuggestionValue<TSuggestion> = (suggestion: TSuggestion) => string;
     type OnSuggestionHighlighted = (params: SuggestionHighlightedParams) => void;
     type SuggestionsFetchRequested = (request: SuggestionsFetchRequestedParams) => void;
@@ -127,9 +139,9 @@ declare namespace Autosuggest {
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
     ) => React.ReactNode;
-    type ShouldRenderSuggestions = (value: string) => boolean;
+    type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
 
-    interface AutosuggestProps<TSuggestion> {
+    interface AutosuggestPropsBase<TSuggestion> {
         /**
          * Set it to true if you'd like to render suggestions even when the input is not focused.
          */
@@ -139,15 +151,11 @@ declare namespace Autosuggest {
          */
         focusInputOnSuggestionClick?: boolean;
         /**
-         * Implement it to teach Autosuggest where to find the suggestions for every section.
-         */
-        getSectionSuggestions?: GetSectionSuggestions<TSuggestion>;
-        /**
          * Implement it to teach Autosuggest what should be the input value when suggestion is clicked.
          */
         getSuggestionValue: GetSuggestionValue<TSuggestion>;
         /**
-         * 	Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
+         *     Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
          */
         highlightFirstSuggestion?: boolean;
         /**
@@ -158,10 +166,6 @@ declare namespace Autosuggest {
          * Pass through arbitrary props to the input. It must contain at least value and onChange.
          */
         inputProps: InputProps<TSuggestion>;
-        /**
-         * Set it to true if you'd like to display suggestions in multiple sections (with optional titles).
-         */
-        multiSection?: boolean;
         /**
          * Will be called every time the highlighted suggestion changes.
          */
@@ -187,10 +191,6 @@ declare namespace Autosuggest {
          */
         renderSuggestionsContainer?: RenderSuggestionsContainer;
         /**
-         * Use your imagination to define how section titles are rendered.
-         */
-        renderSectionTitle?: RenderSectionTitle;
-        /**
          * Use your imagination to define how suggestions are rendered.
          */
         renderSuggestion: RenderSuggestion<TSuggestion>;
@@ -200,14 +200,42 @@ declare namespace Autosuggest {
          */
         shouldRenderSuggestions?: ShouldRenderSuggestions;
         /**
-         * These are the suggestions that will be displayed. Items can take an arbitrary shape.
-         */
-        suggestions: ReadonlyArray<TSuggestion>;
-        /**
          * Use your imagination to style the Autosuggest.
          */
         theme?: Theme;
     }
+
+    interface AutosuggestPropsSingleSection<TSuggestion> extends AutosuggestPropsBase<TSuggestion> {
+        /**
+         * Set it to true if you'd like to display suggestions in multiple sections (with optional titles).
+         */
+        multiSection?: false;
+        /**
+         * These are the suggestions that will be displayed. Items can take an arbitrary shape.
+         */
+        suggestions: ReadonlyArray<TSuggestion>;
+    }
+
+    interface AutosuggestPropsMultiSection<TSuggestion, TSection> extends AutosuggestPropsBase<TSuggestion> {
+        /**
+         * Set it to true if you'd like to display suggestions in multiple sections (with optional titles).
+         */
+        multiSection: true;
+        /**
+         * These are the suggestions that will be displayed. Items can take an arbitrary shape.
+         */
+        suggestions: ReadonlyArray<TSection>;
+        /**
+         * Implement it to teach Autosuggest where to find the suggestions for every section.
+         */
+        getSectionSuggestions?: GetSectionSuggestions<TSuggestion, TSection>;
+        /**
+         * Use your imagination to define how section titles are rendered.
+         */
+        renderSectionTitle?: RenderSectionTitle;
+    }
+
+    type AutosuggestProps<TSuggestion, TSection> = AutosuggestPropsSingleSection<TSuggestion> | AutosuggestPropsMultiSection<TSuggestion, TSection>;
 
     interface AutosuggestState<TSuggestion> {
         isFocused: boolean;

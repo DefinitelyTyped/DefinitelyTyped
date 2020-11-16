@@ -6,7 +6,7 @@ declare namespace echarts {
          * one on the left and another on the right. offset can be used
          * to avoid overlap when you need to put more than two y axis.
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis
+         * @see https://echarts.apache.org/en/option.html#yAxis
          */
         interface YAxis extends BasicComponents.CartesianAxis {
             /**
@@ -29,9 +29,18 @@ declare namespace echarts {
              * + 'log' Log axis, suitable for log data.
              *
              * @default 'value'
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.type
+             * @see https://echarts.apache.org/en/option.html#yAxis.type
              */
             type?: BasicComponents.CartesianAxis.Type;
+
+            /**
+             * Offset of this axis relative to default position.
+             * Useful when multiple axis of this type has same position value.
+             *
+             * @default 0
+             * @see https://echarts.apache.org/en/option.html#yAxis.offset
+             */
+            offset?: number;
         }
     }
 }

@@ -1,12 +1,19 @@
 import express = require('express');
 import multer = require('multer');
+import { Multer } from 'multer';
+import assert = require('assert');
 
 const upload = multer({
     dest: 'uploads/',
     fileFilter: (req, file, cb) => {
+        cb(null, false);
         cb(null, true);
-    }
+        cb(new Error(`I don't have a clue!`));
+    },
 });
+
+upload; // $ExpectType Multer
+assert.strictEqual(upload.constructor.name, 'Multer');
 
 const app = express();
 
@@ -20,6 +27,12 @@ const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'galler
 app.post('/cool-profile', cpUpload, (req: express.Request, res: express.Response, next: express.NextFunction) => {
 });
 
+app.post('/text-only', upload.none(), (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err instanceof multer.MulterError) {
+        next(new Error(err.code));
+    }
+});
+
 const diskStorage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, '/tmp/my-uploads');
@@ -29,7 +42,7 @@ const diskStorage = multer.diskStorage({
     }
 });
 
-const diskUpload = multer({ storage: diskStorage });
+const diskUpload: Multer = multer({ storage: diskStorage });
 
 const memoryStorage = multer.memoryStorage();
-const memoryUpload = multer({ storage: memoryStorage });
+const memoryUpload: Multer = multer({ storage: memoryStorage });

@@ -1,3 +1,4 @@
+import { EJSONable } from 'meteor/ejson';
 declare module "meteor/session" {
     module Session {
         function equals(key: string, value: string | number | boolean | any): boolean;

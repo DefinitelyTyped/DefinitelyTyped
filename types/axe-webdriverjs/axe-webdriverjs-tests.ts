@@ -1,10 +1,18 @@
-import { Result, RunOptions, Spec } from "axe-core";
-import { AxeBuilder, AxeAnalysis } from "axe-webdriverjs";
-import { WebDriver } from "selenium-webdriver";
+/// <reference types="node" />
+import { Result, RunOptions, Spec } from 'axe-core';
+import { AxeAnalysis, AxeBuilder, BuilderOptions } from 'axe-webdriverjs';
+import fs = require('fs');
+import { Builder, WebDriver } from 'selenium-webdriver';
 
-const inTest = async (webDriver: WebDriver) => {
-    const builderCalled: AxeBuilder = AxeBuilder(webDriver);
-    const builderNewed: AxeBuilder = new AxeBuilder(webDriver);
+const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: BuilderOptions) => {
+    const [builderCalled, builderNewed, ...builders] = [
+        AxeBuilder(webDriver),
+        new AxeBuilder(webDriver),
+        AxeBuilder(webDriver, source),
+        new AxeBuilder(webDriver, source),
+        AxeBuilder(webDriver, source, builderOptions),
+        new AxeBuilder(webDriver, source, builderOptions),
+    ];
 
     const runOptions: RunOptions = {};
     const spec: Spec = {};
@@ -33,3 +41,10 @@ const inTest = async (webDriver: WebDriver) => {
     const url: string = analysis.url;
     const violations: Result[] = analysis.violations;
 };
+
+const driver = new Builder().forBrowser('firefox').build();
+const axeSource = fs.readFileSync('./axe-1.0.js', 'utf8');
+const axeBuilderOptions: BuilderOptions = {
+    logIframeErrors: false,
+};
+inTest(driver, axeSource, axeBuilderOptions);

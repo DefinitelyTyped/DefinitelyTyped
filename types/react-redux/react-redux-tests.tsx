@@ -13,6 +13,7 @@ import {
 import {
     Connect,
     connect,
+    ConnectedProps,
     Provider,
     DispatchProp,
     MapStateToProps,
@@ -25,6 +26,9 @@ import {
     useDispatch,
     useSelector,
     useStore,
+    createDispatchHook,
+    createSelectorHook,
+    createStoreHook,
     TypedUseSelectorHook,
 } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -429,15 +433,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
     };
 }
 
-connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Counter);
-
-@connect(mapStateToProps)
-class CounterContainer extends React.Component<any, any> {
-}
-
 // Ensure connect's first two arguments can be replaced by wrapper functions
 interface CounterStateProps {
     value: number;
@@ -620,10 +615,10 @@ const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
 // ie: DispatchProp has been removed through decoration
-const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
+const ADecoratedTestComponent: React.NamedExoticComponent<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;  // $ExpectError
 
 // stateless functions
 interface HelloMessageProps {
@@ -763,7 +758,7 @@ function TestMergedPropsInference() {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.NamedExoticComponent<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -771,7 +766,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.NamedExoticComponent<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -779,7 +774,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.NamedExoticComponent<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -1362,7 +1357,9 @@ function testUseSelector() {
         return l === r;
     });
 
-    useSelector(selector, shallowEqual);
+    const correctlyInferred: State = useSelector(selector, shallowEqual);
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
@@ -1399,4 +1396,143 @@ function testUseStore() {
     const typedState = typedStore.getState();
     typedState.counter;
     typedState.things.stuff; // $ExpectError
+}
+
+// These should match the types of the hooks.
+function testCreateHookFunctions() {
+    interface RootState {
+        property: string;
+    }
+    interface RootAction {
+        type: 'TEST_ACTION';
+    }
+
+    const Context = React.createContext<ReactReduxContextValue<RootState, RootAction>>(null as any);
+
+    // No context tests
+    // $ExpectType () => Dispatch<AnyAction>
+    createDispatchHook();
+    // $ExpectType <Selected extends unknown>(selector: (state: any) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook();
+    // $ExpectType () => Store<any, AnyAction>
+    createStoreHook();
+
+    // With context tests
+    // $ExpectType () => Dispatch<RootAction>
+    createDispatchHook(Context);
+    // $ExpectType <Selected extends unknown>(selector: (state: RootState) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook(Context);
+    // $ExpectType () => Store<RootState, RootAction>
+    createStoreHook(Context);
+}
+
+function testConnectedProps() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null;
+
+    const connector = connect();
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithState() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, dispatch }) => {
+        injected.slice();
+        return null;
+    };
+
+    const connector = connect((state: any) => ({ injected: '' }));
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithStateAndActions() {
+    interface OwnProps {
+        own: string;
+    }
+    const actionCreator = () => ({ type: 'action' });
+
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, actionCreator }) => {
+        actionCreator();
+        return null;
+    };
+
+    const ComponentWithDispatch: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null; // $ExpectError
+
+    const connector = connect(
+        (state: any) => ({ injected: '' }),
+        { actionCreator }
+    );
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectReturnType() {
+    const TestComponent: React.FC = () => null;
+
+    const Test = connect()(TestComponent);
+
+    const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
+    myHoc1(Test); // $ExpectError
+
+    const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
+    myHoc2(Test);
+}
+
+function testRef() {
+    const FunctionalComponent: React.FC = () => null;
+    const ForwardedFunctionalComponent = React.forwardRef<string>(() => null);
+    class ClassComponent extends React.Component {}
+
+    const ConnectedFunctionalComponent = connect()(FunctionalComponent);
+    const ConnectedForwardedFunctionalComponent = connect()(ForwardedFunctionalComponent);
+    const ConnectedClassComponent = connect()(ClassComponent);
+
+    // Should not be able to pass any type of ref to a FunctionalComponent
+    // ref is not a valid property
+    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>; // $ExpectError
+
+    // Should be able to pass modern refs to a ForwardRefExoticComponent
+    const modernRef: React.Ref<string> | undefined = undefined;
+    <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
+    // Should not be able to use legacy string refs
+    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // ref type should agree with type of the fowarded ref
+    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+
+    // Should be able to use all refs including legacy string
+    const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
+    <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
+    // ref type should be the typeof the wrapped component
+    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
+    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
+}
+
+function testConnectDefaultState() {
+    connect((state) => {
+        // $ExpectType DefaultRootState
+        const s = state;
+        return state;
+    });
+
+    const connectWithDefaultState: Connect<{value: number}> = connect;
+    connectWithDefaultState((state) => {
+        // $ExpectType { value: number; }
+        const s = state;
+        return state;
+    });
 }

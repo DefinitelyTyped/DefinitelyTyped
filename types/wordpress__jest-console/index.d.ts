@@ -1,13 +1,13 @@
 // Type definitions for @wordpress/jest-console 3.0
-// Project: https://github.com/wordpress/gutenberg/tree/master/packages/jest-console/readme.md
+// Project: https://github.com/WordPress/gutenberg/blob/master/packages/jest-console/README.md
 // Definitions by: Damien Sorel <https://github.com/mistic100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 
 declare namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T> {
         /**
          * Ensure that `console.error` function was called.
          */

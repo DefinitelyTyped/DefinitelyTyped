@@ -1,4 +1,4 @@
-// Type definitions for getenv 0.7
+// Type definitions for getenv 1.0
 // Project: https://github.com/ctavan/node-getenv
 // Definitions by: Ivan Pankratov <https://github.com/impankratov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

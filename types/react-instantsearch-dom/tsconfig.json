@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "server.d.ts",
         "react-instantsearch-dom-tests.tsx"
     ]
 }

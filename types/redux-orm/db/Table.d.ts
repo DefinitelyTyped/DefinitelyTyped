@@ -1,5 +1,5 @@
 import Model, { AnyModel, FieldSpecKeys, IdType, Ref } from '../Model';
-import { ForeignKey, OneToOne, TableOpts } from '../index';
+import { ForeignKey, OneToOne } from '../index';
 import { Field } from '../fields';
 
 /**

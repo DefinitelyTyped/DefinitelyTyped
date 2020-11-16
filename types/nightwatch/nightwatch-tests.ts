@@ -20,6 +20,8 @@ const testGeneral: NightwatchTests = {
     // expect element <body> to have attribute 'class' which contains text 'vasq'
     browser.expect.element('body').to.have.attribute('class').which.contains('vasq');
 
+    browser.expect.element('#hplogo').to.have.attribute('alt').which.startsWith('G').and.endsWith('oogle');
+
     // expect element <#lst-ib> to be an input tag
     browser.expect.element('#lst-ib').to.be.an('input');
 
@@ -186,7 +188,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
   const self = this;
 
   this.execute(
-    // tslint:disable-next-line
+    // tslint:disable-next-line:only-arrow-functions
     function(key) {
       return window.localStorage.getItem(key);
     },

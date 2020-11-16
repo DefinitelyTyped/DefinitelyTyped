@@ -37,7 +37,10 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
       opacity: 1,
-      width: 'mapData(weight, 40, 80, 20, 60)'
+      width: 'mapData(weight, 40, 80, 20, 60)',
+      'transition-property': "opacity",
+      'transition-duration': 500,
+      'transition-delay': 500
     }
   },
   {
@@ -49,6 +52,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
     css: {
       'target-arrow-shape': 'triangle',
       'curve-style': 'taxi',
+      'source-endpoint': 'outside-to-node',
+      'target-endpoint': 'outside-to-node'
     }
   },
   {
@@ -497,6 +502,7 @@ eles.unselectify();
 eles.addClass('test');
 eles.toggleClass('test', oneOf(true, false, undefined));
 eles.removeClass('test');
+eles.classes(['lesstext']);
 eles.classes(oneOf('test', undefined));
 eles.flashClass('test flash', oneOf(1000, undefined));
 assert(ele.hasClass('test'));
@@ -633,4 +639,31 @@ cy.elements(':grabbable').dfs({ roots: '#1' });
 
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms
+// Cut
+cy.elements().kargerStein();
+aliases(eles.hopcroftTarjanBiconnected, eles.hopcroftTarjanBiconnectedComponents);
+aliases(eles.hopcroftTarjanBiconnected, eles.htb);
+aliases(eles.hopcroftTarjanBiconnected, eles.htbc);
+aliases(eles.tarjanStronglyConnected, eles.tarjanStronglyConnectedComponents);
+aliases(eles.tarjanStronglyConnected, eles.tsc);
+aliases(eles.tarjanStronglyConnected, eles.tscc);
+cy.elements().htbc();
+cy.elements().tsc();
 // TODO: compound nodes (there aren't any in current test case)
+
+// Check eles.boundingBox return type: https://js.cytoscape.org/#eles.boundingBox
+const box1 = eles.boundingBox({});
+box1.x1;
+box1.x2;
+box1.y1;
+box1.y2;
+box1.w;
+box1.h;
+// Check eles.renderedBoundingBox return type: https://js.cytoscape.org/#eles.renderedBoundingBox
+const box2 = eles.renderedBoundingBox({});
+box2.x1;
+box2.x2;
+box2.y1;
+box2.y2;
+box2.w;
+box2.h;

@@ -20,6 +20,11 @@ import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
 import { ClearCacheOption } from './clearCacheOption';
 import { CrashReporterOption } from './crashReporterOption';
 import { SystemEvents } from '../events/system';
+import { InstalledApps } from './installedApps';
+import { CertifiedAppInfo } from './certifiedAppInfo';
+export interface ServiceIdentifier {
+    name: string;
+}
 /**
  * AppAssetInfo interface
  * @typedef { object } AppAssetInfo
@@ -73,12 +78,12 @@ import { SystemEvents } from '../events/system';
  * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
-* CrashReporterOption interface
-* @typedef { object } CrashReporterOption
-* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
-*  the OpenFin reporting service on runtime shutdown
-* @property { boolean } isRunning check if it's running
-*/
+ * CrashReporterOption interface
+ * @typedef { object } CrashReporterOption
+ * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
+ *  the OpenFin reporting service on runtime shutdown
+ * @property { boolean } isRunning check if it's running
+ */
 /**
  * DipRect interface
  * @typedef { object } DipRect
@@ -142,7 +147,7 @@ import { SystemEvents } from '../events/system';
  * @typedef { object } FrameInfo
  * @property { string } name The name of the frame
  * @property { string } uuid The uuid of the frame
- * @property { entityType } entityType The entity type, could be 'window', 'iframe', 'external connection' or 'unknown'
+ * @property { EntityType } entityType The entity type, could be 'window', 'iframe', 'external connection' or 'unknown'
  * @property { Identity } parent The parent identity
  */
 /**
@@ -171,15 +176,21 @@ import { SystemEvents } from '../events/system';
 /**
  * Identity interface
  * @typedef { object } Identity
- * @property { string } name The name of the application
- * @property { string } uuid The uuid of the application
+ * @property { string } name Optional - the name of the component
+ * @property { string } uuid Universally unique identifier of the application
  */
 /**
  * LogInfo interface
  * @typedef { object } LogInfo
  * @property { string } name The filename of the log
  * @property { number } size The size of the log in bytes
- * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)""
+ * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
+ */
+/**
+ * ManifestInfo interface
+ * @typedef { object } ManifestInfo
+ * @property { string } uuid The uuid of the application
+ * @property { string } manifestUrl The runtime manifest URL
  */
 /**
  * MonitorDetails interface
@@ -231,7 +242,7 @@ import { SystemEvents } from '../events/system';
 /**
  * ProcessInfo interface
  * @typedef { object } ProcessInfo
- * @property { numder } cpuUsage The percentage of total CPU usage
+ * @property { number } cpuUsage The percentage of total CPU usage
  * @property { string } name The application name
  * @property { number } nonPagedPoolUsage The current nonpaged pool usage in bytes
  * @property { number } pageFaultCount The number of page faults
@@ -243,13 +254,13 @@ import { SystemEvents } from '../events/system';
  * @property { number } peakWorkingSetSize The peak working set size in bytes
  * @property { number } processId The native process identifier
  * @property { string } uuid The application UUID
- * @property { nubmer } workingSetSize The current working set size (both shared and private data) in bytes
+ * @property { number } workingSetSize The current working set size (both shared and private data) in bytes
  */
 /**
  * ProxyConfig interface
  * @typedef { object } ProxyConfig
  * @property { string } proxyAddress The configured proxy address
- * @property { numder } proxyPort The configured proxy port
+ * @property { number } proxyPort The configured proxy port
  * @property { string } type The proxy Type
  */
 /**
@@ -270,9 +281,9 @@ import { SystemEvents } from '../events/system';
  * Rect interface
  * @typedef { object } Rect
  * @property { number } bottom The bottom-most coordinate
- * @property { nubmer } left The left-most coordinate
+ * @property { number } left The left-most coordinate
  * @property { number } right The right-most coordinate
- * @property { nubmer } top The top-most coordinate
+ * @property { number } top The top-most coordinate
  */
 /**
  * RegistryInfo interface
@@ -294,10 +305,11 @@ import { SystemEvents } from '../events/system';
  * @typedef { object } RuntimeInfo
  * @property { string } architecture The runtime build architecture
  * @property { string } manifestUrl The runtime manifest URL
- * @property { nubmer } port The runtime websocket port
+ * @property { number } port The runtime websocket port
  * @property { string } securityRealm The runtime security realm
  * @property { string } version The runtime version
  * @property { object } args the command line argument used to start the Runtime
+ * @property { string } chromeVersion The chrome version
  */
 /**
  * RVMInfo interface
@@ -308,6 +320,23 @@ import { SystemEvents } from '../events/system';
  * @property { string } 'start-time' The start time of RVM
  * @property { string } version The version of RVM
  * @property { string } 'working-dir' The working directory
+ */
+/**
+ * RvmLaunchOptions interface
+ * @typedef { object } RvmLaunchOptions
+ * @property { boolean } [noUi] true if no UI when launching
+ * @property { object } [userAppConfigArgs] The user app configuration args
+ */
+/**
+ * ServiceIdentifier interface
+ * @typedef { object } ServiceIdentifier
+ * @property { string } name The name of the service
+ */
+/**
+ * ServiceConfiguration interface
+ * @typedef { object } ServiceConfiguration
+ * @property { object } config The service configuration
+ * @property { string } name The name of the service
  */
 /**
  * ShortCutConfig interface
@@ -372,13 +401,14 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the application
  */
 /**
-* Service identifier
-* @typedef { object } ServiceIdentifier
-* @property { string } name The name of the service
-*/
-interface ServiceIdentifier {
-    name: string;
-}
+ * CertifiedAppInfo interface
+ * @typedef { object } CertifiedAppInfo
+ * @property { boolean } isRunning true if the app is running
+ * @property { boolean } [isOptedIntoCertfiedApp] true if the app has opted into certification
+ * @property { boolean } [isCertified] true if the app is certified
+ * @property { boolean } [isSSLCertified] true if the app manifest's SSL certificate is valid
+ * @property { boolean } [isPresentInAppDirectory] true if the app is present in the OpenFin app directory
+ */
 /**
  * An object representing the core of OpenFin Runtime. Allows the developer
  * to perform system-level actions, such as accessing logs, viewing processes,
@@ -541,6 +571,14 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getDeviceUserId(): Promise<string>;
     /**
+     * Returns a hex encoded hash of the machine id and the currently logged in user name.
+     * This is the recommended way to uniquely identify a user / machine combination.
+     * @return {Promise.<string>}
+     * @tutorial System.getUniqueUserId
+     * @static
+     */
+    getUniqueUserId(): Promise<string>;
+    /**
      * Retrieves a frame info object for the uuid and name passed in
      * @param { string } uuid - The UUID of the target.
      * @param { string } name - The name of the target.
@@ -566,6 +604,19 @@ export default class System extends EmitterBase<SystemEvents> {
      * @experimental
      */
     getFocusedExternalWindow(): Promise<Identity>;
+    /**
+     * Returns information about the given app's certification status
+     * @return {Promise.<CertifiedAppInfo>}
+     * @tutorial System.isAppCertified
+     */
+    isAppCertified(manifestUrl: string): Promise<CertifiedAppInfo>;
+    /**
+     * Returns an array of all the installed runtime versions in an object.
+     * @return {Promise.<string[]>}
+     * @tutorial System.getInstalledRuntimes
+     */
+    getInstalledRuntimes(): Promise<string[]>;
+    getInstalledApps(): Promise<InstalledApps>;
     /**
      * Retrieves the contents of the log with the specified filename.
      * @param { GetLogRequestType } options A object that id defined by the GetLogRequestType interface
@@ -637,14 +688,18 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getHostSpecs(): Promise<HostSpecs>;
     /**
-     * Runs an executable or batch file.
+     * Runs an executable or batch file. A path to the file must be included in options.
+     * <br> A uuid may be optionally provided. If not provided, OpenFin will create a uuid for the new process.
+     * <br> Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { ExternalProcessRequestType } options A object that is defined in the ExternalProcessRequestType interface
      * @return {Promise.<Identity>}
      * @tutorial System.launchExternalProcess
      */
     launchExternalProcess(options: ExternalProcessRequestType): Promise<Identity>;
     /**
-     * Monitors a running process.
+     * Monitors a running process. A pid for the process must be included in options.
+     * <br> A uuid may be optionally provided. If not provided, OpenFin will create a uuid for the new process.
      * @param { ExternalProcessInfo } options See tutorial for more details
      * @return {Promise.<Identity>}
      * @tutorial System.monitorExternalProcess
@@ -682,7 +737,9 @@ export default class System extends EmitterBase<SystemEvents> {
     showDeveloperTools(identity: Identity): Promise<void>;
     /**
      * Attempt to close an external process. The process will be terminated if it
-     * has not closed after the elapsed timeout in milliseconds.
+     * has not closed after the elapsed timeout in milliseconds.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { TerminateExternalRequestType } options A object defined in the TerminateExternalRequestType interface
      * @return {Promise.<void>}
      * @tutorial System.terminateExternalProcess
@@ -696,26 +753,28 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     updateProxySettings(options: ProxyConfig): Promise<void>;
     /**
-     * Downloads the given application asset
+     * Downloads the given application asset<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { AppAssetInfo } appAsset App asset object
      * @return {Promise.<void>}
      * @tutorial System.downloadAsset
      */
     downloadAsset(appAsset: AppAssetInfo, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Downloads a version of the runtime.
-    * @param { RuntimeDownloadOptions } options - Download options.
-    * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
-    * @return {Promise.<void>}
-    * @tutorial System.downloadRuntime
-    */
+     * Downloads a version of the runtime.
+     * @param { RuntimeDownloadOptions } options - Download options.
+     * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
+     * @return {Promise.<void>}
+     * @tutorial System.downloadRuntime
+     */
     downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Download preload scripts from given URLs
-    * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
-    * @return {Promise.Array<DownloadPreloadInfo>}
-    * @tutorial System.downloadPreloadScripts
-    */
+     * Download preload scripts from given URLs
+     * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
+     * @return {Promise.Array<DownloadPreloadInfo>}
+     * @tutorial System.downloadPreloadScripts
+     */
     downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
     /**
      * Retrieves an array of data (name, ids, bounds) for all application windows.
@@ -725,7 +784,9 @@ export default class System extends EmitterBase<SystemEvents> {
     getAllExternalApplications(): Promise<Array<Identity>>;
     /**
      * Retrieves an array of objects representing information about currently
-     * running user-friendly native windows on the system.
+     * running user-friendly native windows on the system.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @return {Promise.Array.<Identity>}
      * @experimental
      */
@@ -767,7 +828,9 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     executeOnRemote(requestingIdentity: Identity, data: any): Promise<any>;
     /**
-     * Reads the specifed value from the registry.
+     * Reads the specifed value from the registry.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { string } rootKey - The registry root key.
      * @param { string } subkey - The registry key.
      * @param { string } value - The registry value name.
@@ -792,5 +855,11 @@ export default class System extends EmitterBase<SystemEvents> {
      * @tutorial System.getServiceConfiguration
      */
     getServiceConfiguration(serviceIdentifier: ServiceIdentifier): Promise<ServiceConfiguration>;
+    /**
+     * Signals the RVM to perform a health check and returns the results as json.
+     * @return {Promise.<string[]>}
+     * @tutorial System.runRvmHealthCheck
+     */
+    runRvmHealthCheck(): Promise<string[]>;
 }
 export {};

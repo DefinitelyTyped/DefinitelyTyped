@@ -1,6 +1,7 @@
-import { WindowOption, CustomRequestHeaders } from '../window/windowOption';
-import { DownloadPreloadOption } from '../system/download-preload';
-export interface ApplicationOption {
+import { WindowOption } from '../window/windowOption';
+import { ShortcutOverride } from '../../shapes/shapes';
+import { ViewCreationOptions } from '../view/view';
+export interface ApplicationOption extends LegacyWinOptionsInAppOptions {
     disableIabSecureLogging?: boolean;
     loadErrorMessage?: string;
     mainWindowOptions?: WindowOption;
@@ -11,40 +12,10 @@ export interface ApplicationOption {
     url?: string;
     uuid: string;
     webSecurity?: boolean;
-    accelerator?: object;
-    alwaysOnTop?: boolean;
-    api?: object;
-    aspectRatio?: number;
-    autoShow?: boolean;
-    backgroundColor?: string;
-    contentNavigation?: object;
-    contextMenu?: boolean;
-    cornerRounding?: object;
-    customData?: any;
-    customRequestHeaders?: Array<CustomRequestHeaders>;
-    defaultCentered?: boolean;
-    defaultHeight?: number;
-    defaultLeft?: number;
-    defaultTop?: number;
-    defaultWidth?: number;
-    frame?: boolean;
-    hideOnClose?: boolean;
-    icon?: string;
-    maxHeight?: number;
-    maximizable?: boolean;
-    maxWidth?: number;
-    minHeight?: number;
-    minimizable?: boolean;
-    minWidth?: number;
-    opacity?: number;
-    preloadScripts?: Array<DownloadPreloadOption>;
-    resizable?: boolean;
-    resizeRegion?: object;
-    saveWindowState?: boolean;
-    shadow?: boolean;
-    showTaskbarIcon?: boolean;
-    smallWindow?: boolean;
-    state?: string;
-    taskbarIconGroup?: string;
-    waitForPageLoad?: boolean;
+    fdc3Api?: boolean;
+    commands?: ShortcutOverride[];
+    isPlatformController?: boolean;
+    defaultWindowOptions?: WindowOption;
+    defaultViewOptions?: ViewCreationOptions;
 }
+export declare type LegacyWinOptionsInAppOptions = Pick<WindowOption, 'accelerator' | 'alwaysOnTop' | 'api' | 'aspectRatio' | 'autoShow' | 'backgroundColor' | 'contentNavigation' | 'contextMenu' | 'cornerRounding' | 'customData' | 'customRequestHeaders' | 'defaultCentered' | 'defaultHeight' | 'defaultLeft' | 'defaultTop' | 'defaultWidth' | 'frame' | 'hideOnClose' | 'icon' | 'maxHeight' | 'maximizable' | 'maxWidth' | 'minHeight' | 'minimizable' | 'minWidth' | 'opacity' | 'preloadScripts' | 'resizable' | 'resizeRegion' | 'saveWindowState' | 'shadow' | 'showTaskbarIcon' | 'smallWindow' | 'state' | 'taskbarIconGroup' | 'waitForPageLoad'>;

@@ -1,3 +1,5 @@
+/// <reference types="../strophe/muc" />
+
 function log(msg: string): void {
     console.log(msg);
 }
@@ -10,7 +12,7 @@ function rawOutput(data: string): void {
     log('SENT: ' + data);
 }
 
-function onOwnMessage(msg: HTMLElement): boolean {
+function onOwnMessage(msg: Element): boolean {
 
     console.log(msg);
     var elems = msg.getElementsByTagName('own-message');

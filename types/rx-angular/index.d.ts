@@ -13,9 +13,7 @@ declare namespace Rx {
         safeApply($scope: ng.IScope, callback: (data: T) => void): Rx.Observable<T>;
     }
 
-    export interface ScopeScheduler extends IScheduler {
-        constructor(scope: ng.IScope) : ScopeScheduler;
-    }
+    export interface ScopeScheduler extends IScheduler {}
 
     export interface ScopeSchedulerStatic extends SchedulerStatic {
         new ($scope: angular.IScope): ScopeScheduler;

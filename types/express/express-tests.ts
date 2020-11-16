@@ -1,7 +1,13 @@
 import express = require('express');
+import * as http from 'http';
+import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
+
+    // Disable and use the same built-in query parser
+    app.disable('query parser');
+    app.use(express.query({}));
 
     app.engine('jade', require('jade').__express);
     app.engine('html', require('ejs').renderFile);
@@ -9,7 +15,13 @@ namespace express_tests {
     express.static.mime.define({
         'application/fx': ['fx']
     });
-    app.use('/static', express.static(__dirname + '/public'));
+    app.use('/static', express.static(__dirname + '/public', {
+        setHeaders: res => {
+            // $ExpectType Response<any>
+            res;
+            res.set("foo", "bar");
+        }
+    }));
 
     // simple logger
     app.use((req, res, next) => {
@@ -117,6 +129,75 @@ namespace express_tests {
         res.render('regular');
     });
 
+    // Params defaults to dictionary
+    router.get('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params[0]; // $ExpectType string
+    });
+
+    // Params can used as an array
+    router.get<ParamsArray>('/*', req => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can used as an array and can be specified via an explicit param type (express-serve-static-core)
+    router.get('/*', (req: Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can used as an array and can be specified via an explicit param type (express)
+    router.get('/*', (req: express.Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can be a custom type
+    // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+    router.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
+    router.get('/:foo/:bar', (req: Request<{ foo: string, bar: number }>) => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Params can be a custom type and can be specified via an explicit param type (express)
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string, bar: number }>) => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Query can be a custom type
+    router.get('/:foo', (req: express.Request<{}, any, any , {q: string}>) => {
+        req.query.q; // $ExpectType string
+        req.query.a; // $ExpectError
+    });
+
+    // Query will be defaulted to any
+    router.get('/:foo', (req: express.Request<{}>) => {
+        req.query; // $ExpectType ParsedQs
+    });
+
+    // Response will default to any type
+    router.get("/", (req: Request, res: express.Response) => {
+        res.json({});
+    });
+
+    // Response will be of Type provided
+    router.get("/", (req: Request, res: express.Response<string>) => {
+        res.json();
+        res.json(1); // $ExpectError
+        res.send(1); // $ExpectError
+    });
+
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
@@ -150,6 +231,12 @@ namespace express_tests {
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
+
+    // Make sure we can use every generic
+    const someOtherHandler: express.RequestHandler<{}, any, any , { foo: string }> = (req, res, next) => next();
+
+    // Make sure we can use every generic
+    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any , { foo: string }> = (req, res) => {};
 }
 
 /***************************
@@ -157,8 +244,6 @@ namespace express_tests {
  * Test with other modules *
  *                         *
  ***************************/
-import * as http from 'http';
-import { RequestRanges } from 'express-serve-static-core';
 
 namespace node_tests {
     {

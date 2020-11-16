@@ -6,6 +6,12 @@ function test_chroma() {
     chroma('#ff3399');
     chroma('F39');
     chroma.hex("#fff");
+    chroma.valid(0);
+    chroma.valid('');
+    chroma.valid({});
+    chroma.valid(null);
+    chroma.valid(undefined);
+    chroma.valid('000', 'hex');
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -32,6 +38,7 @@ function test_chroma() {
     chroma.blend('4CBBFC', 'EEEE22', 'multiply');
     chroma.blend('4CBBFC', 'EEEE22', 'darken');
     chroma.blend('4CBBFC', 'EEEE22', 'lighten');
+    chroma.average(['4CBBFC', 'yellow'], 'lch', [1, 1, 2, 1]);
     chroma.random();
     chroma.contrast('pink', 'hotpink');
     chroma.contrast('pink', 'purple');
@@ -49,7 +56,7 @@ function test_chroma() {
 
 function test_color() {
     chroma('red').alpha(0.5);
-    chroma('rgba(255,0,0,0.35)').alpha();
+    chroma('rgba(255,0,0,0.35)').alpha() === 0.35;
     chroma('hotpink').darken();
     chroma('hotpink').darken(2);
     chroma('hotpink').brighten();
@@ -58,6 +65,9 @@ function test_color() {
     chroma('hotpink').desaturate();
     chroma('hotpink').desaturate(2);
     chroma('hotpink').desaturate(3);
+    chroma('hotpink').mix('blue');
+    chroma('hotpink').mix('blue', 0.25);
+    chroma('hotpink').mix('blue', 0.75);
     // change hue to 0 deg (=red)
     chroma('skyblue').set('hsl.h', 0);
     // set chromacity to 30
@@ -125,6 +135,8 @@ function test_scale() {
     f(0.25);
     f(0.5);
     f(0.75);
+    f(null);
+    f(undefined);
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'red', 'black']);
     // default domain is [0,1]
@@ -137,7 +149,7 @@ function test_scale() {
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'navy']);
     chroma.scale(['yellow', 'navy']).mode('lab');
-    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('lrgb');
     chroma.scale(['yellow', 'navy']).mode('hsl');
     chroma.scale(['yellow', 'navy']).mode('lch');
     chroma.scale('YlGnBu');

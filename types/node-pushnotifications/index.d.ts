@@ -109,9 +109,7 @@ declare namespace PushNotifications {
         title: string;
         /** REQUIRED */
         body: string;
-        custom?: {
-            sender?: string;
-        };
+        custom?: { [key: string]: string | number } | string;
         /**
          * gcm, apn. Supported values are 'high' or 'normal' (gcm). Will be translated to 10 and 5 for apn. Defaults
          * to 'high'

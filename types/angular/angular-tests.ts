@@ -235,7 +235,7 @@ mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
-    MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
+    MyCtrl2: () => {},
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
 mod.constant('name', 23);
@@ -253,6 +253,34 @@ angular.module('qprovider-test', [])
         const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
+
+let $compileProvider: ng.ICompileProvider;
+let urlListRegex: RegExp;
+
+urlListRegex = $compileProvider.aHrefSanitizationWhitelist();
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.aHrefSanitizationTrustedUrlList();
+$compileProvider.aHrefSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+urlListRegex = $compileProvider.imgSrcSanitizationWhitelist();
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
+$compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+let $httpProvider: ng.IHttpProvider;
+$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
+$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+
+let $sceDelegateProvider: ng.ISCEDelegateProvider;
+let urlList: any[];
+urlList = $sceDelegateProvider.resourceUrlBlacklist();
+$sceDelegateProvider.resourceUrlBlacklist(['https://example.com']);
+urlList = $sceDelegateProvider.bannedResourceUrlList();
+$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+urlList = $sceDelegateProvider.resourceUrlWhitelist();
+$sceDelegateProvider.resourceUrlWhitelist(['https://example.com']);
+urlList = $sceDelegateProvider.trustedResourceUrlList();
+$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;
@@ -785,6 +813,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -1009,7 +1040,7 @@ angular.module('docsTimeDirective', [])
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
-                let timeoutId: any;
+                let timeoutId: angular.IPromise<any>;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -1478,6 +1509,10 @@ function testIHttpParamSerializerJQLikeProvider() {
     });
 }
 
+function testJqLiteRestoreBehavior() {
+    angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement(); // $ExpectType void
+}
+
 function anyOf2<T1, T2>(v1: T1, v2: T2) {
     return Math.random() < 0.5 ? v1 : v2;
 }
@@ -1535,3 +1570,10 @@ angular.module('WithGenerics', [])
             scope['name'] = 'Jeff';
         };
     });
+
+angular.errorHandlingConfig(); // $ExpectType IErrorHandlingConfig
+// $ExpectType void
+angular.errorHandlingConfig({
+    objectMaxDepth: 5,
+    urlErrorParamsEnabled: true,
+});

@@ -44,8 +44,8 @@ function test_overview() {
     /*Now assume you also wanted to set a second attribute: The "class" attribute to "foo". The native setAttribute() method is not chainable, it returns undefined.
     However, all native element methods are also available on the almighty _ property, and there they are also chainable:*/
     element._.style({
-	"width": 0,
-	"padding": 0
+    "width": 0,
+    "padding": 0
     })._.setAttribute("hidden", "").setAttribute("class", "foo");
 
     //This works, but it’s a bit unwieldy. Thankfully, Bliss offers an $.attributes() method for setting multiple attributes at once:

@@ -1,3 +1,6 @@
+// Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
+declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
+
 declare module Mongo {
 
     type BsonType = 1 | "double" |
@@ -107,7 +110,7 @@ declare module Mongo {
         $rename?: PartialMapTo<T, string> & Dictionary<string>,
         $set?: Partial<T> & Dictionary<any>,
         $setOnInsert?: Partial<T> & Dictionary<any>,
-        $unset?: PartialMapTo<T, boolean | 1 | 0> & Dictionary<any>,
+        $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>,
         $addToSet?: ArraysOrEach<T> & Dictionary<any>,
         $push?: PushModifier<T> & Dictionary<any>,
         $pull?: ElementsOf<T> & Dictionary<any>,
@@ -115,57 +118,61 @@ declare module Mongo {
         $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
     }
 
+    type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
     interface SortSpecifier { }
     interface FieldSpecifier {
         [id: string]: Number;
     }
 
+    type Transform<T> = ((doc: T) => any) | null | undefined;
+
+    type Options<T> = {
+        sort?: SortSpecifier;
+        skip?: number;
+        limit?: number;
+        fields?: FieldSpecifier;
+        reactive?: boolean;
+        transform?: Transform<T>;
+    }
+
+    type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any ? ReturnType<Transform> : Transform extends null ? T : U;
+
     var Collection: CollectionStatic;
     interface CollectionStatic {
-        new <T>(name: string, options?: {
+        new <T, U = T>(name: string | null, options?: {
             connection?: Object | null;
             idGeneration?: string;
-            transform?: Function | null;
-        }): Collection<T>;
+            transform?: (doc: T) => U;
+        }): Collection<T, U>;
     }
-    interface Collection<T> {
-        allow(options: {
-            insert?: (userId: string, doc: T) => boolean;
-            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: T) => boolean;
+    interface Collection<T, U = T> {
+        allow<Fn extends Transform<T> = undefined>(options: {
+            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
-            transform?: Function | null;
+            transform?: Fn;
         }): boolean;
-        deny(options: {
-            insert?: (userId: string, doc: T) => boolean;
-            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: T) => boolean;
+        deny<Fn extends Transform<T> = undefined>(options: {
+            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
-            transform?: Function | null;
+            transform?: Fn;
         }): boolean;
-        find(selector?: Selector<T> | ObjectID | string, options?: {
-            sort?: SortSpecifier;
-            skip?: number;
-            limit?: number;
-            fields?: FieldSpecifier;
-            reactive?: boolean;
-            transform?: Function | null;
-        }): Cursor<T>;
-        findOne(selector?: Selector<T> | ObjectID | string, options?: {
-            sort?: SortSpecifier;
-            skip?: number;
-            fields?: FieldSpecifier;
-            reactive?: boolean;
-            transform?: Function | null;
-        }): T | undefined;
-        insert(doc: T, callback?: Function): string;
+        find(selector?: Selector<T> | ObjectID | string): Cursor<T, U>;
+        find<O extends Options<T>>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O['transform'], T, U>>;
+        findOne(selector?: Selector<T> | ObjectID | string): U | undefined;
+        findOne<O extends Omit<Options<T>, 'limit'>>(selector?: Selector<T> | ObjectID | string, options?: O): DispatchTransform<O['transform'], T, U> | undefined;
+        insert(doc: OptionalId<T>, callback?: Function): string;
         rawCollection(): any;
         rawDatabase(): any;
         remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
         update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;
             upsert?: boolean;
+            arrayFilters? : { [identifier: string]: any }[];
         }, callback?: Function): number;
         upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;
@@ -184,31 +191,31 @@ declare module Mongo {
 
     var Cursor: CursorStatic;
     interface CursorStatic {
-        new <T>(): Cursor<T>;
+        new <T, U = T>(): Cursor<T, U>;
     }
-    interface ObserveCallbacks {
-        added?(document: Object): void;
-        addedAt?(document: Object, atIndex: number, before: Object): void;
-        changed?(newDocument: Object, oldDocument: Object): void;
-        changedAt?(newDocument: Object, oldDocument: Object, indexAt: number): void;
-        removed?(oldDocument: Object): void;
-        removedAt?(oldDocument: Object, atIndex: number): void;
-        movedTo?(document: Object, fromIndex: number, toIndex: number, before: Object): void;
+    interface ObserveCallbacks<T> {
+        added?(document: T): void;
+        addedAt?(document: T, atIndex: number, before: T | null): void;
+        changed?(newDocument: T, oldDocument: T): void;
+        changedAt?(newDocument: T, oldDocument: T, indexAt: number): void;
+        removed?(oldDocument: T): void;
+        removedAt?(oldDocument: T, atIndex: number): void;
+        movedTo?(document: T, fromIndex: number, toIndex: number, before: T | null): void;
     }
-    interface ObserveChangesCallbacks {
-        added?(id: string, fields: Object): void;
-        addedBefore?(id: string, fields: Object, before: Object): void;
-        changed?(id: string, fields: Object): void;
-        movedBefore?(id: string, before: Object): void;
+    interface ObserveChangesCallbacks<T> {
+        added?(id: string, fields: Partial<T>): void;
+        addedBefore?(id: string, fields: Partial<T>, before: T | null): void;
+        changed?(id: string, fields: Partial<T>): void;
+        movedBefore?(id: string, before: T | null): void;
         removed?(id: string): void;
     }
-    interface Cursor<T> {
+    interface Cursor<T, U = T> {
         count(applySkipLimit?: boolean): number;
-        fetch(): Array<T>;
-        forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
-        map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
-        observe(callbacks: ObserveCallbacks): Meteor.LiveQueryHandle;
-        observeChanges(callbacks: ObserveChangesCallbacks): Meteor.LiveQueryHandle;
+        fetch(): Array<U>;
+        forEach(callback: (doc: U, index: number, cursor: Cursor<T, U>) => void, thisArg?: any): void;
+        map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
+        observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
+        observeChanges(callbacks: ObserveChangesCallbacks<T>): Meteor.LiveQueryHandle;
     }
 
     var ObjectID: ObjectIDStatic;

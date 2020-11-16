@@ -8,6 +8,7 @@
 //                 Nick Maddren <https://github.com/nicholasmaddren>
 //                 Roman Nevolin <https://github.com/nulladdict>
 //                 Mojtaba Izadmehr <https://github.com/m-izadmehr>
+//                 Andrey Yankovsky <https://github.com/yankovsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -136,6 +137,10 @@ export interface SliderProps extends CommonApiProps {
      */
     onAfterChange?(value: number): void;
     /**
+     * Handle blur event on the control
+     */
+    onBlur?: React.FocusEventHandler;
+    /**
      * Set initial value of slider.
      *  @default 0
      */
@@ -144,6 +149,11 @@ export interface SliderProps extends CommonApiProps {
      * Set current value of slider.
      */
     value?: number;
+    /**
+     * Track starts from this value. If `undefined`, `min` is used.
+     * @default undefined
+     */
+    startPoint?: number;
     /**
      * Set the tabIndex of the slider handle.
      * @default 0

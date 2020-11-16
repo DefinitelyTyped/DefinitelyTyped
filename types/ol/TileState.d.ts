@@ -4,7 +4,6 @@ declare enum TileState {
     LOADED = 2,
     ERROR = 3,
     EMPTY = 4,
-    ABORT = 5,
 }
 
 export default TileState;

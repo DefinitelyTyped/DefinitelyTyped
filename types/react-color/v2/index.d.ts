@@ -10,8 +10,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
-
 export interface HEXColor {
     hex: string;
     source?: string;

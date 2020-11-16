@@ -2,6 +2,7 @@
 // Project: https://github.com/webcomponents/webcomponentsjs, http://webcomponents.org
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 export interface CustomElementInit {
     prototype: HTMLElement;

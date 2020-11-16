@@ -1,0 +1,27 @@
+import { httpRequest } from 'http-request';
+import { createResponse } from 'create-response';
+
+// Check the arguments of httpRequest
+httpRequest("url");
+httpRequest("url", {});
+httpRequest("url", { headers: { "Accept-Encoding": "zz" } });
+httpRequest("url", { method: "POST", body: "post payload" });
+httpRequest("url", { timeout: 9 });
+
+httpRequest("url").then(response => {
+    // Verify the non-body fields
+    const r = response.status;
+    const ok = response.ok;
+
+    response.text().then(words => words.toUpperCase());
+    response.json().then(obj => JSON.stringify(obj));
+
+    response.getHeader("Date");
+
+    // Verify body
+    response.body;
+
+    // Can we pass it directly to createResponse?
+    createResponse(response.body);
+    createResponse(123, {}, response.body);
+});

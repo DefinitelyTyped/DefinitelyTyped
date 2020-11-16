@@ -1,5 +1,8 @@
 import Comparison from './Comparison';
 
+/**
+ * [constructor description]
+ */
 export default class IsLike extends Comparison {
     constructor(
         propertyName: string,
@@ -7,6 +10,6 @@ export default class IsLike extends Comparison {
         opt_wildCard?: string,
         opt_singleChar?: string,
         opt_escapeChar?: string,
-        opt_matchCase?: boolean
+        opt_matchCase?: boolean,
     );
 }

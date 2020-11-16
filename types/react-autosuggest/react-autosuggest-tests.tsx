@@ -68,6 +68,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         suggestions: this.getSuggestions('')
     };
     // endregion region Rendering methods
+    inputRef = React.createRef<HTMLInputElement>();
     render(): JSX.Element {
         const {value, suggestions} = this.state;
 
@@ -87,10 +88,13 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionsSelected}
             alwaysRenderSuggestions={true}
+            shouldRenderSuggestions={(value, reason) => reason !== 'input-focused'}
             inputProps={{
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+                onBlur: (e) => { console.log(e.relatedTarget); },
+                ref: this.inputRef
             }}
             theme={theme}/>;
     }
@@ -132,7 +136,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // endregion
 }
 
-const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> };
+const LanguageAutosuggestSingle = Autosuggest as { new (): Autosuggest<Language> };
+const LanguageAutosuggestMulti = Autosuggest as { new (): Autosuggest<Language, LanguageGroup> };
 
 export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // region Fields
@@ -197,7 +202,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
             sectionTitle: { color: 'blue' }
         };
 
-        return <LanguageAutosuggest
+        return <LanguageAutosuggestSingle
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
             .onSuggestionsFetchRequested
@@ -347,7 +352,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     render(): JSX.Element {
         const {value, suggestions} = this.state;
 
-        return <LanguageAutosuggest
+        return <LanguageAutosuggestMulti
             multiSection={true}
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
@@ -557,3 +562,44 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
 
 ReactDOM.render(
    <ReactAutosuggestCustomTest/>, document.getElementById('app'));
+
+const test: Autosuggest.InputProps<{ foo: string }> = {
+    onChange: () => {},
+    value: 'foo',
+    anything: false // $ExpectError
+};
+
+function testSingleSection() {
+    const suggestions: string[] = [];
+    <Autosuggest
+        suggestions={suggestions}
+
+        // Required
+        getSuggestionValue={suggestion => suggestion}
+        inputProps={{
+            onChange: () => {},
+            value: ''
+        }}
+        onSuggestionsFetchRequested={() => {}}
+        renderSuggestion={suggestion => suggestion}
+    />;
+}
+
+function testMultiSections() {
+    interface Section { title: string; suggestions: string[]; }
+    const sections: Section[] = [];
+    <Autosuggest
+        multiSection
+        suggestions={sections}
+        getSectionSuggestions={section => section.suggestions}
+
+        // Required
+        getSuggestionValue={(suggestion: string) => suggestion}
+        inputProps={{
+            onChange: () => {},
+            value: ''
+        }}
+        onSuggestionsFetchRequested={() => {}}
+        renderSuggestion={suggestion => suggestion}
+    />;
+}

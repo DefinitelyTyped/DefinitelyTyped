@@ -3,5 +3,5 @@ export function matchingChunk(
     flatCoordinates: number[],
     offset: number,
     end: number,
-    stride: number
+    stride: number,
 ): number[];

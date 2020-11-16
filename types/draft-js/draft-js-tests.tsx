@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as Immutable from "immutable";
 
 import {
   ContentBlock,
@@ -124,6 +125,16 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
     };
 
+    toggleCodeBlockLanguage: (language: string) => void = (language: string) => {
+      const { editorState } = this.state;
+      const contentState = editorState.getCurrentContent();
+      const selection = editorState.getSelection();
+
+      const blockData = Immutable.Map<string, string>([['language', language]]);
+      const contentWithData = Modifier.setBlockData(contentState, selection, blockData);
+      this.onChange(EditorState.push(editorState, contentWithData, 'change-block-data'));
+    }
+
     splitHeaderToNewBlock(): EditorState {
         const { editorState } = this.state;
         const selection = editorState.getSelection();
@@ -168,10 +179,12 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
             <div className="RichEditor-root">
                 <BlockStyleControls editorState={this.state.editorState} onToggle={this.toggleBlockType} />
                 <InlineStyleControls editorState={this.state.editorState} onToggle={this.toggleInlineStyle} />
+                <CodeBlockTypeControl editorState={this.state.editorState} onToggle={this.toggleCodeBlockLanguage} />
                 <div className={className}>
                     <Editor
                         blockStyleFn={getBlockStyle}
                         customStyleMap={styleMap}
+                        editorKey="test-key"
                         editorState={this.state.editorState}
                         keyBindingFn={this.keyBindingFn}
                         handleKeyCommand={this.handleKeyCommand}
@@ -310,12 +323,50 @@ const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockT
   );
 };
 
+const SUPPORTED_LANGUAGES = [
+  { label: 'JavaScript', value: 'javascript' },
+  { label: 'Java', value: 'java' },
+  { label: 'Python', value: 'python' },
+  { label: 'C++', value: 'c++' },
+]
+
+const CodeBlockTypeControl = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
+  const {editorState} = props;
+  const selection = editorState.getSelection();
+  const block = editorState
+    .getCurrentContent()
+    .getBlockForKey(selection.getStartKey())
+
+  if (block.getType() === 'code-block') {
+    return (
+      <div className="RichEditor-controls">
+        {SUPPORTED_LANGUAGES.map((language) =>
+          <StyleButton
+            key={language.label}
+            active={block.getData().get('language') === language}
+            label={language.label}
+            onToggle={props.onToggle}
+            style={language.value}
+          />
+        ) }
+      </div>
+    );
+  } else {
+    return null
+  }
+};
+
 ReactDOM.render(
   <RichEditorExample />,
   document.getElementById('target')
 );
 
 const editorState = EditorState.createEmpty();
+
+const selection = editorState.getSelection();
+const newSelection = selection.merge({ focusKey: '8ajs', focusOffset: 0, isBackward: true });
+EditorState.forceSelection(editorState, newSelection);
+
 const contentState = editorState.getCurrentContent();
 const entityMap = contentState.getEntityMap();
 const rawContentState: RawDraftContentState = convertToRaw(contentState);
@@ -334,4 +385,8 @@ rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
     const inlineStyle: DraftInlineStyleType = inlineStyleRange.style;
     console.log(inlineStyle, offset, length);
   });
+
+  if (block.type === 'code-block' && block.data.language) {
+    console.log(block.data.language)
+  }
 });

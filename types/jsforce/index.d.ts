@@ -8,13 +8,16 @@
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Andrés Catalán <https://github.com/catalandres>
 //                 Ken Human <https://github.com/kenhuman>
+//                 Doug Ayers <https://github.com/douglascayers>
+//                 Arlo Godfrey <https://github.com/Arlodotexe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
+/// <reference types="node" />
 export * from './api/analytics';
+export * from './api/apex';
 export * from './api/chatter';
 export * from './api/metadata';
-export * from './api/apex';
 export * from './batch';
 export * from './bulk';
 export * from './cache';
@@ -23,6 +26,7 @@ export * from './connection';
 export * from './date-enum';
 export * from './describe-result';
 export * from './job';
+export * from './limits-info';
 export * from './oauth2';
 export * from './promise';
 export * from './query';
@@ -32,4 +36,4 @@ export * from './salesforce-id';
 export * from './salesforce-object';
 export * from './streaming';
 export * from './topic';
-export * from './limits-info';
+export * from './date';

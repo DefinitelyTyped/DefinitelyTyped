@@ -9,7 +9,7 @@ class TestComponent extends React.Component<{ a: number }> {
         return (
             <div >
                 Test with Radium
-			</div>
+            </div>
         );
     }
 }

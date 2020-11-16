@@ -1,21 +1,30 @@
-// Type definitions for Emscripten
-// Project: http://kripken.github.io/emscripten-site/index.html
+// Type definitions for Emscripten 1.39.16
+// Project: https://emscripten.org
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
+//                 Bumsik Kim <https://github.com/kbumsik>
+//                 Louis DeScioli <https://github.com/lourd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
-    interface Module { }
+    interface Module {}
 }
 
 declare namespace Emscripten {
-    interface FileSystemType {
-    }
-    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+    interface FileSystemType {}
+    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
 
-    type WebAssemblyImports =  Array<{
+    type JSType = 'number' | 'string' | 'array' | 'boolean';
+    type TypeCompatibleWithC = number | string | any[] | boolean;
+
+    type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
+    type CFloatType = 'float' | 'double';
+    type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
+    type CType = CIntType | CFloatType | CPointerType;
+
+    type WebAssemblyImports = Array<{
         name: string;
         kind: string;
     }>;
@@ -25,17 +34,22 @@ declare namespace Emscripten {
         name: string;
         kind: string;
     }>;
+
+    interface CCallOpts {
+        async?: boolean;
+    }
 }
 
-declare interface EmscriptenModule {
-
+interface EmscriptenModule {
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
     environment: Emscripten.EnvironmentType;
-    preInit: { ():  void }[];
-    preRun: { ():  void }[];
-    postRun: { ():  void }[];
+    preInit: Array<{ (): void }>;
+    preRun: Array<{ (): void }>;
+    postRun: Array<{ (): void }>;
+    onAbort: { (what: any): void };
+    onRuntimeInitialized: { (): void };
     preinitializedWebGLContext: WebGLRenderingContext;
     noInitialRun: boolean;
     noExitRuntime: boolean;
@@ -47,34 +61,10 @@ declare interface EmscriptenModule {
     getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     instantiateWasm(
         imports: Emscripten.WebAssemblyImports,
-        successCallback: (module: WebAssembly.Module) => void
+        successCallback: (module: WebAssembly.Module) => void,
     ): Emscripten.WebAssemblyExports;
-    locateFile(url: string): string;
+    locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
-
-    Runtime: any;
-
-    ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
-    cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
-
-    setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
-    getValue(ptr: number, type: string, noSafe?: boolean): number;
-
-    ALLOC_NORMAL: number;
-    ALLOC_STACK: number;
-    ALLOC_STATIC: number;
-    ALLOC_DYNAMIC: number;
-    ALLOC_NONE: number;
-
-    allocate(slab: any, types: string, allocator: number, ptr: number): number;
-    allocate(slab: any, types: string[], allocator: number, ptr: number): number;
-
-    Pointer_stringify(ptr: number, length?: number): string;
-    UTF8ToString(ptr: number, length?: number): string;
-    UTF16ToString(ptr: number): string;
-    stringToUTF16(str: string, outPtr: number): void;
-    UTF32ToString(ptr: number): string;
-    stringToUTF32(str: string, outPtr: number): void;
 
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
@@ -85,7 +75,7 @@ declare interface EmscriptenModule {
     HEAP8: Int8Array;
     HEAP16: Int16Array;
     HEAP32: Int32Array;
-    HEAPU8:  Uint8Array;
+    HEAPU8: Uint8Array;
     HEAPU16: Uint16Array;
     HEAPU32: Uint32Array;
     HEAPF32: Float32Array;
@@ -101,17 +91,6 @@ declare interface EmscriptenModule {
     addOnExit(cb: () => any): void;
     addOnPostRun(cb: () => any): void;
 
-    // Tools
-    intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
-    intArrayToString(array: number[]): string;
-    writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-    writeArrayToMemory(array: number[], buffer: number): void;
-    writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-
-    addRunDependency(id: any): void;
-    removeRunDependency(id: any): void;
-
-
     preloadedImages: any;
     preloadedAudios: any;
 
@@ -119,10 +98,22 @@ declare interface EmscriptenModule {
     _free(ptr: number): void;
 }
 
-// By default Emscripten emits a single global Module.  Users setting -s
-// MODULARIZE=1 -s EXPORT_NAME=MyMod should declare their own types, e.g.
-// declare var MyMod: EmscriptenModule;
-declare var Module: EmscriptenModule;
+/**
+ * A factory function is generated when setting the `MODULARIZE` build option
+ * to `1` in your Emscripten build. It return a Promise that resolves to an
+ * initialized, ready-to-call `EmscriptenModule` instance.
+ *
+ * By default, the factory function will be named `Module`. It's recommended to
+ * use the `EXPORT_ES6` option, in which the factory function will be the
+ * default export. If used without `EXPORT_ES6`, the factory function will be a
+ * global variable. You can rename the variable using the `EXPORT_NAME` build
+ * option. It's left to you to declare any global variables as needed in your
+ * application's types.
+ * @param moduleOverrides Default properties for the initialized module.
+ */
+type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (
+    moduleOverrides?: Partial<T>,
+) => Promise<T>;
 
 declare namespace FS {
     interface Lookup {
@@ -134,10 +125,10 @@ declare namespace FS {
     interface FSNode {}
     interface ErrnoError {}
 
-    var ignorePermissions: boolean;
-    var trackingDelegate: any;
-    var tracking: any;
-    var genericErrors: any;
+    let ignorePermissions: boolean;
+    let trackingDelegate: any;
+    let tracking: any;
+    let genericErrors: any;
 
     //
     // paths
@@ -168,7 +159,7 @@ declare namespace FS {
     // core
     //
     function syncfs(populate: boolean, callback: (e: any) => any): void;
-    function syncfs( callback: (e: any) => any, populate?: boolean): void;
+    function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
 
@@ -195,32 +186,141 @@ declare namespace FS {
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): any;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
-    function write(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number, canOwn?: boolean): number;
+    function write(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position?: number,
+        canOwn?: boolean,
+    ): number;
     function allocate(stream: FSStream, offset: number, length: number): void;
-    function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
+    function mmap(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position: number,
+        prot: number,
+        flags: number,
+    ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts?: {encoding: string; flags: string}): any;
-    function writeFile(path: string, data: ArrayBufferView, opts?: {encoding: string; flags: string}): void;
-    function writeFile(path: string, data: string, opts?: {encoding: string; flags: string}): void;
+    function readFile(path: string, opts: { encoding: 'binary'; flags?: string }): Uint8Array;
+    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string }): string;
+    function readFile(path: string, opts?: { flags?: string }): Uint8Array;
+    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
 
     //
     // module-level FS code
     //
     function cwd(): string;
     function chdir(path: string): void;
-    function init(input: () => number, output: (c: number) => any, error: (c: number) => any): void;
+    function init(
+        input: null | (() => number | null),
+        output: null | ((c: number) => any),
+        error: null | ((c: number) => any),
+    ): void;
 
-    function createLazyFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-    function createLazyFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-
-    function createPreloadedFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
-    function createPreloadedFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
+    function createLazyFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+    ): FSNode;
+    function createPreloadedFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+        onload?: () => void,
+        onerror?: () => void,
+        dontCreateFile?: boolean,
+        canOwn?: boolean,
+    ): void;
+    function createDataFile(
+        parent: string | FSNode,
+        name: string,
+        data: ArrayBufferView,
+        canRead: boolean,
+        canWrite: boolean,
+        canOwn: boolean,
+    ): FSNode;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
-interface Math {
-    imul(a: number, b: number): number;
-}
+// Below runtime function/variable declarations are exportable by
+// -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
+// EmscriptenModule interface to add runtime functions.
+//
+// For example, by using -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']"
+// You can access ccall() via Module["ccall"]. In this case, you should
+// extend EmscriptenModule to pass the compiler check like the following:
+//
+// interface YourOwnEmscriptenModule extends EmscriptenModule {
+//     ccall: typeof ccall;
+// }
+//
+// See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
+
+declare function ccall(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    args: Emscripten.TypeCompatibleWithC[],
+    opts?: Emscripten.CCallOpts,
+): any;
+declare function cwrap(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    opts?: Emscripten.CCallOpts,
+): (...args: any[]) => any;
+
+declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
+declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
+
+declare function allocate(
+    slab: number[] | ArrayBufferView | number,
+    types: Emscripten.CType | Emscripten.CType[],
+    allocator: number,
+    ptr?: number,
+): number;
+
+declare function stackAlloc(size: number): number;
+declare function stackSave(): number;
+declare function stackRestore(ptr: number): void;
+
+declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
+declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF8(str: string): number;
+declare function allocateUTF8(str: string): number;
+declare function allocateUTF8OnStack(str: string): number;
+declare function UTF16ToString(ptr: number): string;
+declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF16(str: string): number;
+declare function UTF32ToString(ptr: number): string;
+declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF32(str: string): number;
+
+declare function intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
+declare function intArrayToString(array: number[]): string;
+declare function writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+declare function writeArrayToMemory(array: number[], buffer: number): void;
+declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+
+declare function addRunDependency(id: any): void;
+declare function removeRunDependency(id: any): void;
+
+declare function addFunction(func: (...args: any[]) => any, signature?: string): number;
+declare function removeFunction(funcPtr: number): void;
+
+declare var ALLOC_NORMAL: number;
+declare var ALLOC_STACK: number;
+declare var ALLOC_STATIC: number;
+declare var ALLOC_DYNAMIC: number;
+declare var ALLOC_NONE: number;

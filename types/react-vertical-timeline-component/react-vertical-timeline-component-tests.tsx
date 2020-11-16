@@ -9,6 +9,8 @@ export default class ReactVerticalTimelineComponentTests extends React.Component
                     iconOnClick={() => console.info('icon has been clicked')}
                     className="vertical-timeline-element--work"
                     date="2012 - present"
+                    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
                 >
                     <h3 className="vertical-timeline-element-title">Creative Director</h3>
                     <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>

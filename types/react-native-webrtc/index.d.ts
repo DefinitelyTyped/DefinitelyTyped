@@ -1,4 +1,4 @@
-// Type definitions for react-native-webrtc 1.69
+// Type definitions for react-native-webrtc 1.75
 // Project: https://github.com/react-native-webrtc/react-native-webrtc
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,6 +33,14 @@ export type RTCIceConnectionState =
     | "completed"
     | "failed"
     | "disconnected"
+    | "closed";
+
+export type RTCPeerConnectionState =
+    | "new"
+    | "connecting"
+    | "connected"
+    | "disconnected"
+    | "failed"
     | "closed";
 
 export class MediaStreamTrack {
@@ -123,12 +131,13 @@ export interface EventOnAddStream {
 export class RTCPeerConnection {
     localDescription: RTCSessionDescriptionType;
     remoteDescription: RTCSessionDescriptionType;
+    connectionState: RTCPeerConnectionState;
 
     signalingState: RTCSignalingState;
     private privateiceGatheringState: RTCIceGatheringState;
     private privateiceConnectionState: RTCIceConnectionState;
 
-    onconnectionstatechange: () => void | undefined;
+    onconnectionstatechange: (event: Event) => void | undefined;
     onicecandidate: (event: EventOnCandidate) => void | undefined;
     onicecandidateerror: (error: Error) => void | undefined;
     oniceconnectionstatechange: (
@@ -154,9 +163,9 @@ export class RTCPeerConnection {
 
     removeStream(stream: MediaStream): void;
 
-    createOffer(): Promise<RTCSessionDescriptionType>;
+    createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionType>;
 
-    createAnswer(): Promise<RTCSessionDescriptionType>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionType>;
 
     setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
@@ -238,8 +247,10 @@ export class mediaDevices {
 
     static enumerateDevices(): Promise<any>;
 
-    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
+    static getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream | boolean>;
 }
+
+export function registerGlobals(): void;
 
 export interface RTCViewProps {
     streamURL: string;
@@ -250,3 +261,14 @@ export interface RTCViewProps {
 }
 
 export class RTCView extends Component<RTCViewProps, any> {}
+
+export interface RTCOfferOptions {
+    iceRestart?: boolean;
+    offerToReceiveAudio?: boolean;
+    offerToReceiveVideo?: boolean;
+    voiceActivityDetection?: boolean;
+}
+
+export interface RTCAnswerOptions {
+    voiceActivityDetection?: boolean;
+}

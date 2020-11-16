@@ -1,37 +1,37 @@
 import {
-  createSqlTag,
-  IdentifierNormalizerType,
-  CheckIntegrityConstraintViolationError,
-  createBenchmarkingInterceptor,
-  createBigintTypeParser,
-  createFieldNameTransformationInterceptor,
-  createInterceptorPreset,
-  createPool,
-  createQueryNormalizationInterceptor,
-  createTimestampTypeParser,
-  createTimestampWithTimeZoneTypeParser,
-  DatabaseConnectionType,
-  DatabasePoolConnectionType,
-  DatabasePoolType,
-  DatabaseTransactionConnectionType,
-  createTypeParserPreset,
-  DataIntegrityError,
-  ForeignKeyIntegrityConstraintViolationError,
-  IntegrityConstraintViolationError,
-  InterceptorType,
-  NotFoundError,
-  NotNullIntegrityConstraintViolationError,
-  SlonikError,
-  sql,
-  TypeParserType,
-  UniqueIntegrityConstraintViolationError,
-  SqlTaggedTemplateType
+    createSqlTag,
+    IdentifierNormalizerType,
+    CheckIntegrityConstraintViolationError,
+    createBenchmarkingInterceptor,
+    createBigintTypeParser,
+    createFieldNameTransformationInterceptor,
+    createInterceptorPreset,
+    createPool,
+    createQueryNormalizationInterceptor,
+    createTimestampTypeParser,
+    createTimestampWithTimeZoneTypeParser,
+    createTypeParserPreset,
+    DataIntegrityError,
+    ForeignKeyIntegrityConstraintViolationError,
+    IntegrityConstraintViolationError,
+    NotFoundError,
+    NotNullIntegrityConstraintViolationError,
+    SlonikError,
+    sql,
+    TypeParserType,
+    UniqueIntegrityConstraintViolationError,
+    SqlTaggedTemplateType,
+    QueryContextType,
+    InterceptorType,
+    StatementCancelledError,
+    InvalidConfigurationError,
+    StatementTimeoutError,
 } from 'slonik';
-import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
+import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
 // make sure symbols are unique
 // $ExpectError
-const badSymbolAssignment: typeof ArrayTokenSymbol = TupleListTokenSymbol;
+const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
 const VALUE = 'foo';
 
@@ -41,7 +41,7 @@ const VALUE = 'foo';
 const pool = createPool('postgres://localhost');
 
 // $ExpectType Promise<{ connectResult: string; }>
-pool.connect(async (connection) => {
+pool.connect(async connection => {
     const result = await connection.query(sql`SELECT 1`);
     // $ExpectType QueryResultType<QueryResultRowType<string>>
     result;
@@ -57,6 +57,7 @@ pool.connect(async (connection) => {
     // Query methods
     await connection.any(sql`SELECT foo`);
     await connection.anyFirst(sql`SELECT foo`);
+    await connection.exists(sql`SELECT foo`);
     await connection.many(sql`SELECT foo`);
     await connection.manyFirst(sql`SELECT foo`);
     await connection.maybeOne(sql`SELECT foo`);
@@ -69,110 +70,131 @@ pool.connect(async (connection) => {
     await connection.query(`SELECT foo`);
 
     // $ExpectType { transactionResult: string; }
-    await connection.transaction(async (transactionConnection) => {
-      await transactionConnection.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
-      await transactionConnection.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
-      return { transactionResult: 'foo' };
+    await connection.transaction(async transactionConnection => {
+        await transactionConnection.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
+        await transactionConnection.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
+        return { transactionResult: 'foo' };
     });
 
     // $ExpectType QueryResultType<QueryResultRowType<string>>
-    await connection.transaction(async (t1) => {
-      await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
+    await connection.transaction(async t1 => {
+        await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
-      return t1.transaction((t2) => {
-        return t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
-      });
+        return t1.transaction(t2 => {
+            return t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
+        });
     });
 
     // $ExpectType void
-    await connection.transaction(async (t1) => {
-      await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
+    await connection.transaction(async t1 => {
+        await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
-      try {
-        await t1.transaction(async (t2) => {
-          await t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
+        try {
+            await t1.transaction(async t2 => {
+                await t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
 
-          return Promise.reject(new Error('foo'));
-        });
-      } catch (error) { /* empty */ }
+                return Promise.reject(new Error('foo'));
+            });
+        } catch (error) {
+            /* empty */
+        }
     });
     return { connectResult: 'foo' };
-  });
+});
 pool.query(sql`SELECT * FROM table WHERE name = '${VALUE}'`);
 
 const typedQuery = async () => {
-  interface Foo { foo: string; }
-  interface FooBar extends Foo { bar: number; }
-  const getFooQuery = (limit: number) =>
-    sql<Foo>`select foo from foobartable limit ${limit}`;
+    interface Foo {
+        foo: string;
+    }
+    interface FooBar extends Foo {
+        bar: number;
+    }
+    const getFooQuery = (limit: number) => sql<Foo>`select foo from foobartable limit ${limit}`;
 
-  const getFooBarQuery = (limit: number) =>
-    sql<FooBar>`select foo, bar from foobartable limit ${limit}`;
+    const getFooBarQuery = (limit: number) => sql<FooBar>`select foo, bar from foobartable limit ${limit}`;
 
-  // $ExpectType QueryResultType<FooBar>
-  await pool.query(getFooBarQuery(10));
+    // $ExpectType QueryResultType<FooBar>
+    await pool.query(getFooBarQuery(10));
 
-  // $ExpectType string
-  await pool.oneFirst(getFooQuery(10));
+    // $ExpectType boolean
+    await pool.exists(getFooQuery(10));
 
-  // $ExpectType FooBar
-  await pool.one(getFooBarQuery(10));
+    // $ExpectType string
+    await pool.oneFirst(getFooQuery(10));
 
-  // $ExpectType string | null
-  await pool.maybeOneFirst(getFooQuery(10));
+    // $ExpectType FooBar
+    await pool.one(getFooBarQuery(10));
 
-  // $ExpectType FooBar | null
-  await pool.maybeOne(getFooBarQuery(10));
+    // $ExpectType string | null
+    await pool.maybeOneFirst(getFooQuery(10));
 
-  // $ExpectType FooBar[]
-  await pool.any(getFooBarQuery(10));
+    // $ExpectType FooBar | null
+    await pool.maybeOne(getFooBarQuery(10));
+
+    // $ExpectType FooBar[]
+    await pool.any(getFooBarQuery(10));
 };
 
 createPool('postgres://localhost', {
-  interceptors: [
-    {
-      afterPoolConnection: async (ctx, connection) => {
-        await connection.query(sql`LOAD 'auto_explain'`);
-        await connection.query(sql`SET auto_explain.log_analyze=true`);
-        await connection.query(sql`SET auto_explain.log_format=json`);
-        await connection.query(sql`SET auto_explain.log_min_duration=0`);
-        await connection.query(sql`SET auto_explain.log_timing=true`);
-        await connection.query(sql`SET client_min_messages=log`);
-      },
-      transformRow: (ctx, query, row, fields) => {
-        ctx.queryId; // $ExpectType string
-        query.sql; // $ExpectType string
-        fields[0].dataTypeID; // $ExpectType number
-        row.foo; // $ExpectType QueryResultRowColumnType
-        return row;
-      }
-    }
-  ]
+    interceptors: [
+        {
+            afterPoolConnection: async (ctx, connection) => {
+                await connection.query(sql`LOAD 'auto_explain'`);
+                await connection.query(sql`SET auto_explain.log_analyze=true`);
+                await connection.query(sql`SET auto_explain.log_format=json`);
+                await connection.query(sql`SET auto_explain.log_min_duration=0`);
+                await connection.query(sql`SET auto_explain.log_timing=true`);
+                await connection.query(sql`SET client_min_messages=log`);
+
+                return null;
+            },
+            transformRow: (ctx, query, row, fields) => {
+                ctx.queryId; // $ExpectType string
+                query.sql; // $ExpectType string
+                fields[0].dataTypeId; // $ExpectType number
+                row.foo; // $ExpectType QueryResultRowColumnType
+                return row;
+            },
+        },
+    ],
 });
 
 //
 // INTERCEPTOR
 // ----------------------------------------------------------------------
 createPool('postgres://', {
-  interceptors: []
+    interceptors: [],
 });
 
 createPool('postgres://', {
-  interceptors: [
-    ...createInterceptorPreset()
-  ]
+    interceptors: [...createInterceptorPreset()],
 });
 
-const interceptors = [
+const interceptors: InterceptorType[] = [
     createBenchmarkingInterceptor(),
     createQueryNormalizationInterceptor(),
     createFieldNameTransformationInterceptor({
-        format: 'CAMEL_CASE'
-    })
+        format: 'CAMEL_CASE',
+    }),
+    {
+        afterQueryExecution: queryContext => {
+            // $ExpectType QueryContextType
+            queryContext;
+
+            // $ExpectType any
+            queryContext.sandbox.foo;
+
+            // $ExpectError
+            const foo = queryContext.sandbox + 1;
+
+            return null;
+        },
+    },
 ];
 
 const connection = createPool('postgres://', {
-    interceptors
+    interceptors,
 });
 
 connection.any(sql`
@@ -191,17 +213,15 @@ const typeParser: TypeParserType<number> = {
         // $ExpectType string
         value;
         return parseInt(value, 10);
-    }
+    },
 };
 
 createPool('postgres://', {
-  typeParsers: [typeParser]
+    typeParsers: [typeParser],
 });
 
 createPool('postgres://', {
-  typeParsers: [
-    ...createTypeParserPreset()
-  ]
+    typeParsers: [...createTypeParserPreset()],
 });
 
 createBigintTypeParser();
@@ -214,309 +234,194 @@ createTimestampWithTimeZoneTypeParser();
 (async () => {
     await connection.query(sql`
         INSERT INTO (foo, bar, baz)
-        VALUES ${sql.tupleList([
-            [1, 2, 3],
-            [4, 5, 6]
-            ])}
-    `);
-})();
-
-(async () => {
-    await connection.query(sql`
-        INSERT INTO (foo, bar, baz)
         SELECT *
         FROM ${sql.unnest(
             [
                 [1, 2, 3],
-                [4, 5, 6]
+                [4, 5, 6],
             ],
-            [
-                'int4',
-                'int4',
-                'int4'
-            ]
-            )}
+            ['int4', 'int4', 'int4'],
+        )}
     `);
 })();
 
 (async () => {
     const uniquePairs = [
         ['a', 1],
-        ['b', 2]
-      ];
+        ['b', 2],
+    ];
 
-      let placeholderIndex = 1;
+    let placeholderIndex = 1;
 
-      const whereConditionSql = uniquePairs
+    const whereConditionSql = uniquePairs
         .map(needleColumns => {
-          return needleColumns
-            .map((column) => {
-              return `${column} = $${placeholderIndex++}`;
-            })
-            .join(' AND ');
+            return needleColumns
+                .map(column => {
+                    return `${column} = $${placeholderIndex++}`;
+                })
+                .join(' AND ');
         })
         .join(' OR ');
 
-      const values = [];
+    const values = [];
 
-      for (const pairValues of uniquePairs) {
+    for (const pairValues of uniquePairs) {
         values.push(...pairValues);
-      }
-
-      const query = sql`
-        SELECT
-          id
-        FROM foo
-        WHERE
-          ${sql.raw(whereConditionSql, values)}
-      `;
-
-      await connection.any(query);
+    }
 })();
 
 //
 // SQL
 // ----------------------------------------------------------------------
 (async () => {
-  // ExpectType SqlSqlTokenType
-  const query0 = sql`SELECT ${'foo'} FROM bar`;
-  // ExpectType SqlSqlTokenType
-  const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
+    // ExpectType SqlSqlTokenType
+    const query0 = sql`SELECT ${'foo'} FROM bar`;
+    // ExpectType SqlSqlTokenType
+    const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
 
-  await connection.query(sql`
-      SELECT (${sql.valueList([1, 2, 3])})
+    await connection.query(sql`
+    SELECT ${sql.identifier(['foo', 'a'])}
+    FROM (
+      VALUES
+      (
+        ${sql.join([sql.join(['a1', 'b1', 'c1'], sql`, `), sql.join(['a2', 'b2', 'c2'], sql`, `)], sql`), (`)}
+      )
+    ) foo(a, b, c)
+    WHERE foo.b IN (${sql.join(['c1', 'a2'], sql`, `)})
   `);
 
-  await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tuple([1, 2, 3])}
+    await connection.query(sql`
+      SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
   `);
 
-  await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-          [1, 2, 3],
-          [4, 5, 6]
-      ])}
+    await connection.query(sql`
+      SELECT (${sql.json('test')})
   `);
 
-  await connection.query(sql`
+    await connection.query(sql`
+      SELECT (${sql.json(null)})
+  `);
+
+    await connection.query(sql`
+      SELECT (${sql.json(123)})
+  `);
+
+    await connection.query(sql`
+      SELECT (${sql.json({
+          nested: {
+              object: { is: { this: 'test', other: 12, and: new Date('123') } },
+          },
+      })})
+  `);
+
+    // $ExpectError
+    sql`SELECT ${sql.json(undefined)}`;
+
+    await connection.query(sql`
       SELECT bar, baz
       FROM ${sql.unnest(
           [
               [1, 'foo'],
-              [2, 'bar']
+              [2, 'bar'],
           ],
-          [
-              'int4',
-              'text'
-          ]
+          ['int4', 'text'],
       )} AS foo(bar, baz)
   `);
 
-  sql`
+    sql`
       SELECT 1
       FROM ${sql.identifier(['bar', 'baz'])}
-  `;
-
-  sql`
-      SELECT 1
-      FROM ${sql.raw('"bar"')}
-  `;
-
-  sql`
-      SELECT ${sql.raw('$1', [1])}
   `;
 })();
 
 //
 // createSQLTag
 // ----------------------------------------------------------------------
-(() => {
-  let sql: SqlTaggedTemplateType;
+() => {
+    let sql: SqlTaggedTemplateType;
 
-  sql = createSqlTag();
+    sql = createSqlTag();
 
-  sql`
+    sql`
       SELECT 1;
   `;
 
-  let normalizeIdentifier: IdentifierNormalizerType;
+    let normalizeIdentifier: IdentifierNormalizerType;
 
-  normalizeIdentifier = (input: string) =>
-      input
-          .split('')
-          .reverse()
-          .join('');
+    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
 
-  sql = createSqlTag({
-      normalizeIdentifier,
-  });
+    sql = createSqlTag({
+        normalizeIdentifier,
+    });
 
-  sql = createSqlTag({});
-});
+    sql = createSqlTag({});
+};
 
 //
 // ERRORS
 // ----------------------------------------------------------------------
-new  SlonikError();
-new  NotFoundError();
-new  DataIntegrityError();
-new  IntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
-new  NotNullIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
-new  ForeignKeyIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
-new  UniqueIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
-new  CheckIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
+new SlonikError();
+new NotFoundError();
+new DataIntegrityError();
+new InvalidConfigurationError();
+new StatementCancelledError(new Error('Foo'));
+new StatementTimeoutError(new Error('Foo'));
+new IntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
+new NotNullIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
+new ForeignKeyIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
+new UniqueIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
+new CheckIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
 
 const samplesFromDocs = async () => {
-  // some samples generated by parsing the readme from slonik's github page
-  // start samples from readme
-  const sample1 = async () => {
-    connection.query(sql`
-      SELECT ${sql.identifier(['foo', 'a'])}
-      FROM (
-        VALUES ${sql.tupleList([['a1', 'b1', 'c1'], ['a2', 'b2', 'c2']])}
-      ) foo(a, b, c)
-      WHERE foo.b IN (${sql.valueList(['c1', 'a2'])})
-    `);
-  };
-
-  const sample2 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-        [1, 2, 3],
-        [4, 5, 6]
-      ])}
-    `);
-  };
-
-  const sample3 = async () => {
-    await connection.query(sql`
+    // some samples generated by parsing the readme from slonik's github page
+    // start samples from readme
+    const sample1 = async () => {
+        await connection.query(sql`
       INSERT INTO (foo, bar, baz)
       SELECT *
       FROM ${sql.unnest(
-        [
-          [1, 2, 3],
-          [4, 5, 6]
-        ],
-        [
-          'int4',
-          'int4',
-          'int4'
-        ]
+          [
+              [1, 2, 3],
+              [4, 5, 6],
+          ],
+          ['int4', 'int4', 'int4'],
       )}
     `);
-  };
+    };
 
-  const sample4 = async () => {
-    await connection.query(sql`
-      SELECT (${sql.valueList([1, 2, 3])})
-    `);
-  };
-
-  const sample5 = async () => {
-    await connection.query(sql`
+    const sample2 = async () => {
+        await connection.query(sql`
       SELECT (${sql.array([1, 2, 3], 'int4')})
     `);
-  };
 
-  const sample6 = async () => {
-    sql`SELECT id FROM foo WHERE id IN (${sql.valueList([1, 2, 3])})`;
-    sql`SELECT id FROM foo WHERE id NOT IN (${sql.valueList([1, 2, 3])})`;
-  };
-
-  const sample7 = async () => {
-    sql`SELECT id FROM foo WHERE id = ANY(${sql.array([1, 2, 3], 'int4')})`;
-    sql`SELECT id FROM foo WHERE id != ALL(${sql.array([1, 2, 3], 'int4')})`;
-  };
-
-  const sample8 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tuple([1, 2, 3])}
+        await connection.query(sql`
+      SELECT (${sql.array([1, 2, 3], sql`int[]`)})
     `);
-  };
+    };
 
-  const sample9 = async () => {
-    await connection.query(sql`
-      INSERT INTO (foo, bar, baz)
-      VALUES ${sql.tupleList([
-        [1, 2, 3],
-        [4, 5, 6]
-      ])}
-    `);
-  };
+    const sample3 = async () => {
+        sql`SELECT id FROM foo WHERE id = ANY(${sql.array([1, 2, 3], 'int4')})`;
+        sql`SELECT id FROM foo WHERE id != ALL(${sql.array([1, 2, 3], 'int4')})`;
+    };
 
-  const sample10 = async () => {
-    await connection.query(sql`
+    const sample4 = async () => {
+        await connection.query(sql`
       SELECT bar, baz
       FROM ${sql.unnest(
-        [
-          [1, 'foo'],
-          [2, 'bar']
-        ],
-        [
-          'int4',
-          'text'
-        ]
+          [
+              [1, 'foo'],
+              [2, 'bar'],
+          ],
+          ['int4', 'text'],
       )} AS foo(bar, baz)
     `);
-  };
+    };
 
-  const sample11 = async () => {
-    sql`
+    const sample5 = async () => {
+        sql`
       SELECT 1
       FROM ${sql.identifier(['bar', 'baz'])}
     `;
-  };
-
-  const sample12 = async () => {
-    sql`
-      SELECT 1
-      FROM ${sql.identifierList([
-        ['bar', 'baz'],
-        ['qux', 'quux']
-      ])}
-    `;
-  };
-
-  const sample13 = async () => {
-    sql`
-      SELECT 1
-      FROM ${sql.identifierList([
-        {
-          alias: 'qux',
-          identifier: ['bar', 'baz']
-        },
-        {
-          alias: 'corge',
-          identifier: ['quux', 'quuz']
-        }
-      ])}
-    `;
-  };
-
-  const sample14 = async () => {
-    sql`
-      SELECT ${sql.booleanExpression([3, 4], 'AND')}
-    `;
-  };
-
-  const sample15 = async () => {
-    sql`
-      SELECT ${sql.comparisonPredicate(3, '=', 4)}
-    `;
-  };
-
-  const sample16 = async () => {
-    await connection.query(sql`
-      UPDATE foo
-      SET ${sql.assignmentList({
-        bar: 'baz',
-        qux: 'quux'
-      })}
-    `);
-  };
-  // end samples from readme
+    };
+    // end samples from readme
 };

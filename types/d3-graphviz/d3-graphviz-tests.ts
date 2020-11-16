@@ -14,3 +14,6 @@ const options: d3Graphviz.GraphvizOptions = d3Graphviz.graphviz('').options();
 
 // Can set the options
 graphviz = graphviz.options(options);
+
+// Can use selectWithoutDataPropagation
+const selected = select('this').selectWithoutDataPropagation('that');

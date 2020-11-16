@@ -1,9 +1,9 @@
 /***************************************************************************
  *                                                                         *
  *   This file was automatically generated with idlc.js                    *
- *	 build info: 								   						   *
- *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 12 2018 07:22:40                                     *
+ *     build info:                                                               *
+ *       - fibjs    : 0.25.0                                                   *
+ *       - date    : Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,136 +196,136 @@
 
 /** module Or Internal Object */
 /**
-	* @brief xml 处理模块
-	* @detail 
-	*/
+    * @brief xml 处理模块
+    * @detail 
+    */
 declare module "xml" {
-	
+    
 
-	module xml {
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlElement 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const ELEMENT_NODE = 1;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlAttr 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const ATTRIBUTE_NODE = 2;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlText 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const TEXT_NODE = 3;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlCDATASection 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const CDATA_SECTION_NODE = 4;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlProcessingInstruction 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const PROCESSING_INSTRUCTION_NODE = 7;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlComment 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const COMMENT_NODE = 8;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlDocument 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const DOCUMENT_NODE = 9;
-		
-		/**
-		 * 
-		 * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlDocumentType 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export const DOCUMENT_TYPE_NODE = 10;
-		
-		
-		
-		/**
-		 * 
-		 * @brief xml 文档对象，参见 XmlDocument 对象
-		 * 
-		 * 
-		 */
-		export class Document extends Class_XmlDocument {}
-		
-		
-		
-		
-		/**
-		 * 
-		 * @brief 解析 xml/html 文本，并创建 XmlDocument 对象，不支持多语种
-		 * @param source 指定需要解析的 xml/html 文本
-		 * @param type 指定文本类型，缺省为 text/xml，也可指定为 text/html
-		 * @return 返回创建的 XmlDocument 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export function parse(source: string, type?: string/** = "text/xml"*/): Class_XmlDocument;
-	
-		/**
-		 * 
-		 * @brief 解析 xml/html，并创建 XmlDocument 对象，解析时会根据指定的语种转换
-		 * @param source 指定需要解析的 xml/html 二进制数据
-		 * @param type 指定文本类型，缺省为 text/xml，也可指定为 text/html
-		 * @return 返回创建的 XmlDocument 对象
-		 * 
-		 * 
-		 * 
-		 */
-		export function parse(source: Class_Buffer, type?: string/** = "text/xml"*/): Class_XmlDocument;
-	
-		/**
-		 * 
-		 * @brief 序列化 XmlNode 为字符串
-		 * @param node 指定需要序列化的 XmlNode
-		 * @return 返回序列化的字符串
-		 * 
-		 * 
-		 * 
-		 */
-		export function serialize(node: Class_XmlNode): string;
-	
-	} /** end of `module xml` */
-	export = xml
+    module xml {
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlElement 对象
+         * 
+         * 
+         * 
+         */
+        export const ELEMENT_NODE = 1;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlAttr 对象
+         * 
+         * 
+         * 
+         */
+        export const ATTRIBUTE_NODE = 2;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlText 对象
+         * 
+         * 
+         * 
+         */
+        export const TEXT_NODE = 3;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlCDATASection 对象
+         * 
+         * 
+         * 
+         */
+        export const CDATA_SECTION_NODE = 4;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlProcessingInstruction 对象
+         * 
+         * 
+         * 
+         */
+        export const PROCESSING_INSTRUCTION_NODE = 7;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlComment 对象
+         * 
+         * 
+         * 
+         */
+        export const COMMENT_NODE = 8;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlDocument 对象
+         * 
+         * 
+         * 
+         */
+        export const DOCUMENT_NODE = 9;
+        
+        /**
+         * 
+         * @brief XmlNode 的 nodeType 属性常量，表示节点为 XmlDocumentType 对象
+         * 
+         * 
+         * 
+         */
+        export const DOCUMENT_TYPE_NODE = 10;
+        
+        
+        
+        /**
+         * 
+         * @brief xml 文档对象，参见 XmlDocument 对象
+         * 
+         * 
+         */
+        export class Document extends Class_XmlDocument {}
+        
+        
+        
+        
+        /**
+         * 
+         * @brief 解析 xml/html 文本，并创建 XmlDocument 对象，不支持多语种
+         * @param source 指定需要解析的 xml/html 文本
+         * @param type 指定文本类型，缺省为 text/xml，也可指定为 text/html
+         * @return 返回创建的 XmlDocument 对象
+         * 
+         * 
+         * 
+         */
+        export function parse(source: string, type?: string/** = "text/xml"*/): Class_XmlDocument;
+    
+        /**
+         * 
+         * @brief 解析 xml/html，并创建 XmlDocument 对象，解析时会根据指定的语种转换
+         * @param source 指定需要解析的 xml/html 二进制数据
+         * @param type 指定文本类型，缺省为 text/xml，也可指定为 text/html
+         * @return 返回创建的 XmlDocument 对象
+         * 
+         * 
+         * 
+         */
+        export function parse(source: Class_Buffer, type?: string/** = "text/xml"*/): Class_XmlDocument;
+    
+        /**
+         * 
+         * @brief 序列化 XmlNode 为字符串
+         * @param node 指定需要序列化的 XmlNode
+         * @return 返回序列化的字符串
+         * 
+         * 
+         * 
+         */
+        export function serialize(node: Class_XmlNode): string;
+    
+    } /** end of `module xml` */
+    export = xml
 }
 
 /** endof `module Or Internal Object` */

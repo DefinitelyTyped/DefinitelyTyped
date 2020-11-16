@@ -1,4 +1,4 @@
-// Type definitions for inquirer 6.5
+// Type definitions for inquirer 7.3
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
@@ -15,11 +15,10 @@
 // TypeScript Version: 3.3
 import { Interface as ReadlineInterface } from "readline";
 import { Observable } from "rxjs";
-import { ThroughStream } from "through";
 import Choice = require("./lib/objects/choice");
 import Choices = require("./lib/objects/choices");
 import Separator = require("./lib/objects/separator");
-import Prompt = require("./lib/prompts/base");
+import "./lib/prompts/base";
 import "./lib/prompts/checkbox";
 import "./lib/prompts/confirm";
 import "./lib/prompts/editor";
@@ -29,13 +28,13 @@ import "./lib/prompts/list";
 import "./lib/prompts/number";
 import "./lib/prompts/password";
 import "./lib/prompts/rawlist";
+import "./lib/utils/events";
+import "./lib/utils/paginator";
+import "./lib/utils/readline";
+import "./lib/utils/screen-manager";
+import "./lib/utils/utils";
 import BottomBar = require("./lib/ui/bottom-bar");
 import PromptUI = require("./lib/ui/prompt");
-import "./lib/utils/events";
-import Paginator = require("./lib/utils/paginator");
-import "./lib/utils/readline";
-import ScreenManager = require("./lib/utils/screen-manager");
-import "./lib/utils/utils";
 
 /**
  * Represents a union which preserves autocompletion.
@@ -137,7 +136,7 @@ declare namespace inquirer {
         /**
          * Prompts the questions to the user.
          */
-        <T>(questions: QuestionCollection<T>): Promise<T> & { ui: PromptUI };
+        <T>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: PromptUI };
 
         /**
          * Registers a new prompt-type.
@@ -280,8 +279,11 @@ declare namespace inquirer {
          *
          * @param input
          * The answer provided by the user.
+         *
+         * @param answers
+         * The answers provided by the user.
          */
-        filter?(input: any): any;
+        filter?(input: any, answers: T): any;
 
         /**
          * A value indicating whether the question should be prompted.
@@ -562,7 +564,12 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+        /**
+         * A value indicating whether choices in a list should be looped.
+         */
+        loop?: boolean;
+    }
 
     /**
      * Provides options for a question for the `ListPrompt`.
@@ -591,7 +598,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+    interface RawListQuestion<T extends Answers = Answers> extends RawListQuestionOptions<T> {
         /**
          * @inheritdoc
          */
@@ -742,6 +749,11 @@ declare namespace inquirer {
      * The type of the answers.
      */
     type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
+
+    /**
+     * Indicates the type of a question
+     */
+    type QuestionTypeName = DistinctQuestion["type"];
 
     /**
      * Represents a collection of questions.

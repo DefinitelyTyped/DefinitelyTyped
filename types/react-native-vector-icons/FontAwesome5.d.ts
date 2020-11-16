@@ -38,6 +38,16 @@ export default class FontAwesome5Icon extends Component<
         color?: string,
         fa5Style?: ValueOf<typeof FA5Style>
     ): Promise<ImageSource>;
+    static getImageSourceSync(
+        name: string,
+        size?: number,
+        color?: string,
+        fa5Style?: ValueOf<typeof FA5Style>
+    ): ImageSource;
     static loadFont(file?: string): Promise<void>;
     static hasIcon(name: string): boolean;
+    static ToolbarAndroid: typeof Icon.ToolbarAndroid;
+    static TabBarItem: typeof Icon.TabBarItem;
+    static TabBarItemIOS: typeof Icon.TabBarItemIOS;
+    static Button: typeof Icon.Button;
 }

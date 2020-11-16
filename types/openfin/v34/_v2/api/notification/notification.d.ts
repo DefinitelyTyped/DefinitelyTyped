@@ -17,7 +17,7 @@ export interface NotificationCallback {
  * @classdesc A Notification object represents a window on OpenFin Runtime which
  * is shown briefly to the user on the bottom-right corner of the primary monitor.
  * A notification is typically used to alert the user of some important event which
- * requires his or her attention. Notifications are a child or your application that
+ * requires their attention. Notifications are a child or your application that
  * are controlled by the runtime.
  * @class
  * @alias Notification

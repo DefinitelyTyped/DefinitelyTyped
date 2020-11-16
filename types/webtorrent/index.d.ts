@@ -1,6 +1,9 @@
-// Type definitions for WebTorrent 0.98
+// Type definitions for WebTorrent 0.109
 // Project: https://github.com/feross/webtorrent, https://webtorrent.io
-// Definitions by: Bazyli Brzóska <https://github.com/niieani>, Tomasz Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Bazyli Brzóska <https://github.com/niieani>
+//                 Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 Gabriel Juchault <https://github.com/gjuchault>
+//                 Adam Crowder <https://github.com/cheeseandcereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -25,6 +28,7 @@ declare namespace WebTorrent {
         tracker?: boolean | {};
         dht?: boolean | {};
         webSeeds?: boolean;
+        utp?: boolean;
     }
 
     interface TorrentOptions {
@@ -33,20 +37,24 @@ declare namespace WebTorrent {
         maxWebConns?: number;
         path?: string;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
-        name?: string;
+        private?: boolean;
+    }
+
+    interface TorrentDestroyOptions {
+        destroyStore?: boolean;
     }
 
     interface Instance extends NodeJS.EventEmitter {
         on(event: 'torrent', callback: (torrent: Torrent) => void): this;
         on(event: 'error', callback: (err: Error | string) => void): this;
 
-        add(torrent: string | Buffer | ParseTorrent, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
-        add(torrent: string | Buffer | ParseTorrent, cb?: (torrent: Torrent) => any): Torrent;
+        add(torrent: string | Buffer | File | ParseTorrent, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
+        add(torrent: string | Buffer | File | ParseTorrent, cb?: (torrent: Torrent) => any): Torrent;
 
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
 
-        remove(torrentId: Torrent | string | Buffer, callback?: (err: Error | string) => void): void;
+        remove(torrentId: Torrent | string | Buffer, opts?: TorrentDestroyOptions, callback?: (err: Error | string) => void): void;
 
         destroy(callback?: (err: Error | string) => void): void;
 
@@ -74,6 +82,10 @@ declare namespace WebTorrent {
 
         readonly files: TorrentFile[];
 
+        readonly announce: string[];
+
+        readonly pieces: Array<TorrentPiece | null>;
+
         readonly timeRemaining: number;
 
         readonly received: number;
@@ -90,15 +102,33 @@ declare namespace WebTorrent {
 
         readonly ratio: number;
 
+        readonly length: number;
+
+        readonly pieceLength: number;
+
+        readonly lastPieceLength: number;
+
         readonly numPeers: number;
 
         readonly path: string;
 
         readonly ready: boolean;
 
+        readonly paused: boolean;
+
+        readonly done: boolean;
+
         readonly name: string;
 
-        destroy(cb?: (err: Error | string) => void): void;
+        readonly created: Date;
+
+        readonly createdBy: string;
+
+        readonly comment: string;
+
+        readonly maxWebConns: number;
+
+        destroy(opts?: TorrentDestroyOptions, cb?: (err: Error | string) => void): void;
 
         addPeer(peer: string | SimplePeer): boolean;
 
@@ -136,6 +166,8 @@ declare namespace WebTorrent {
 
         readonly downloaded: number;
 
+        readonly progress: number;
+
         select(): void;
 
         deselect(): void;
@@ -159,6 +191,12 @@ declare namespace WebTorrent {
         getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;
 
         getBlobURL(callback: (err: string | Error | undefined, blobURL?: string) => void): void;
+    }
+
+    interface TorrentPiece {
+        readonly length: number;
+
+        readonly missing: number;
     }
 }
 

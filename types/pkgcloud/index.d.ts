@@ -2,8 +2,9 @@
 // Project: https://github.com/pkgcloud/pkgcloud#readme
 // Definitions by: Daniel Friesen <https://github.com/dantman>
 //                 Adam Smith <https://github.com/ScriptSmith>
+//                 Cornelis Heuperman <https://github.com/heuperman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -68,6 +69,24 @@ export interface OpenstackProviderOptions {
     tenantId?: string;
     version?: string;
     keystoneAuthVersion?: string;
+    domainId?: string;
+    domainName?: string;
+}
+
+export type RackspaceRegions =
+    | 'DFW' // Dallas/Fort Worth, United States
+    | 'ORD' // Chicago, United States
+    | 'IAD' // Northern Virginia, United States
+    | 'LON' // London, United Kingdom
+    | 'HKG' // Hong Kong, China
+    | 'SYD'; // Sydney, Australia
+
+export interface RackspaceProviderOptions {
+    provider: 'rackspace';
+    username: string;
+    apiKey: string;
+    region: RackspaceRegions;
+    useInternal?: boolean;
 }
 
 export type ProviderOptions = BaseProviderOptions & Partial<
@@ -75,6 +94,7 @@ export type ProviderOptions = BaseProviderOptions & Partial<
     | AzureProviderOptions
     | GoogleProviderOptions
     | OpenstackProviderOptions
+    | RackspaceProviderOptions
 >;
 
 /**

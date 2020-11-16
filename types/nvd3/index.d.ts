@@ -1,6 +1,6 @@
 // Type definitions for nvd3 1.8.1
 // Project: https://github.com/novus/nvd3
-// Definitions by: Peter Mitchell <https://github.com/PjMitchell>
+// Definitions by: Peter Mitchell <https://github.com/PjMitchell>, Nathan Robbert <https://github.com/bigrocketgames>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from "d3";
@@ -13,12 +13,12 @@ declare var nv: nv.Nvd3Static;
 declare namespace nv {
 
 //#region Core Interfaces
-	interface Margin {
-		left?: number,
-		right?: number,
-		top?: number,
-		bottom?: number
-	}
+    interface Margin {
+        left?: number,
+        right?: number,
+        top?: number,
+        bottom?: number
+    }
 
     interface Size {
         height: number;
@@ -170,7 +170,7 @@ declare namespace nv {
     }
 
 
-	interface Nvd3Axis extends d3.svg.Axis {
+    interface Nvd3Axis extends d3.svg.Axis {
         axisLabel(): string;
         axisLabel(value: string): this;
         axisLabelDistance(): number;
@@ -223,7 +223,7 @@ declare namespace nv {
         width(): number;
         /*The width the graph or component created inside the SVG should be made.*/
         width(value: number): this;
-	}
+    }
 
     interface BoxPlot extends Nvd3Element {
         /*Colors to use for the different data. If an array is given, it is converted to a function automatically.*/
@@ -1158,6 +1158,10 @@ id(value: number|string): this;
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(value: Margin): this;
+        /* Toggle whether to highlight the minimum and maximum values with points*/
+        showMinMaxPoints(): boolean;
+        /* Toggle whether to highlight the minimum and maximum values with points*/
+        showMinMaxPoints(value: boolean): this;
         /* The width the graph or component created inside the SVG should be made*/
         width(): number;
         /*The width the graph or component created inside the SVG should be made.*/
@@ -1452,7 +1456,7 @@ id(value: number|string): this;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
 
-	}
+    }
 
     interface BulletChart extends Chart{
         bullet: Bullet;
@@ -1502,7 +1506,7 @@ id(value: number|string): this;
         width(): number;
         /*The width the graph or component created inside the SVG should be made.*/
         width(value: number): this;
-	}
+    }
 
     interface CandlestickBarChart extends Chart {
         bars: CandlestickBar;
@@ -1698,7 +1702,7 @@ id(value: number|string): this;
         valueFormat(): string;
         /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(value: string): this;
-		/*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
+        /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(format: (d: any) => string): this;
         /* The width the graph or component created inside the SVG should be made*/
         width(): number;
@@ -2651,7 +2655,7 @@ id(value: number|string): this;
         valueFormat(): string;
         /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(value: string): this;
-		/*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
+        /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(format: (d: any) => string): this;
         /*.*/
         valuePadding(): number;
@@ -3424,7 +3428,7 @@ id(value: number|string): this;
         discreteBar(): DiscreteBar;
         discreteBarChart(): DiscreteBarChart;
         distribution(): Distribution;
-		historicalBar(): HistoricalBar;
+        historicalBar(): HistoricalBar;
         historicalBarChart(bar_model?: HistoricalBar): HistoricalBarChart;
         ohlcBar(): OhlcBar;
         ohlcBarChart(): OhlcBarChart;
@@ -3449,8 +3453,8 @@ id(value: number|string): this;
         stackedAreaChart(): StackedAreaChart;
         sunburst(): Sunburst;
         sunburstChart(): SunburstChart;
-		tooltip(): Tooltip;
-	}
+        tooltip(): Tooltip;
+    }
 
     interface Nvd3Static{
         /*set to false in production*/
@@ -3470,5 +3474,5 @@ id(value: number|string): this;
 
         log(topic: string, value?: string): string //returns last argument
         log(arg: any[]): any //returns last argument
-	}
+    }
 }

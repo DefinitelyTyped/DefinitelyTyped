@@ -1,8 +1,8 @@
-import { Validator, Requireable, PureComponent } from 'react';
+import { Validator, Requireable, PureComponent, Component } from 'react';
 import { List } from './List';
 import { Table } from './Table';
 import { CellMeasurerCache, MeasuredCellParent } from './CellMeasurer';
-import { Index, Map, Alignment } from '../../index';
+import { Index, Map, Alignment, OverscanIndexRange } from '../../index';
 
 export type RenderedSection = {
     columnOverscanStartIndex: number;
@@ -20,7 +20,7 @@ export type GridCellProps = {
     isScrolling: boolean;
     isVisible: boolean;
     key: string;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     rowIndex: number;
     style: React.CSSProperties;
 };
@@ -70,10 +70,9 @@ export type OverscanIndicesGetterParams = {
     startIndex: number;
     stopIndex: number;
 };
-export type OverscanIndices = {
-    overscanStartIndex: number;
-    overscanStopIndex: number;
-};
+
+export type OverscanIndices = OverscanIndexRange;
+
 export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndices;
 
 export type ScrollOffset = {
@@ -133,6 +132,7 @@ export type GridCellRangeProps = {
     columnStartIndex: number;
     columnStopIndex: number;
     isScrolling: boolean;
+    isScrollingOptOut: boolean;
     rowSizeAndPositionManager: CellSizeAndPositionManager;
     rowStartIndex: number;
     rowStopIndex: number;
@@ -140,7 +140,7 @@ export type GridCellRangeProps = {
     scrollTop: number;
     deferredMeasurementCache: CellMeasurerCache;
     horizontalOffsetAdjustment: number;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     styleCache: Map<React.CSSProperties>;
     verticalOffsetAdjustment: number;
     visibleColumnIndices: VisibleCellRange;

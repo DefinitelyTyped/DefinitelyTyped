@@ -2,12 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "fibers-tests.ts"
+        "test/fibers.ts",
+        "test/futures.ts"
     ]
 }

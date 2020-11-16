@@ -1,7 +1,6 @@
 /// <reference types="node" />
 
 import { Encodable } from 'rsocket-types';
-import { byteLength } from './RSocketBufferUtils';
 
 /**
  * Commonly used subset of the allowed Node Buffer Encoder types.

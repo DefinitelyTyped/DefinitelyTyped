@@ -12,19 +12,19 @@ import * as mithril from 'mithril';
 import * as stream from 'mithril/stream';
 
 declare namespace MithrilGlobal {
-	export type Lifecycle<A, S> = mithril.Lifecycle<A, S>;
-	export type Hyperscript = mithril.Hyperscript;
-	export type RouteResolver<A = {}, S = {}> = mithril.RouteResolver<A, S>;
-	export type RouteDefs = mithril.RouteDefs;
-	export type RouteOptions = mithril.RouteOptions;
-	export type Route = mithril.Route;
-	export type RequestOptions<T> = mithril.RequestOptions<T>;
-	export type JsonpOptions = mithril.JsonpOptions;
-	export type Child = mithril.Child;
-	export type ChildArray = mithril.ChildArray;
-	export type Children = mithril.Children;
-	export type ChildArrayOrPrimitive = mithril.ChildArrayOrPrimitive;
-	export type Vnode<A = {}, S extends mithril.Lifecycle<A, S> = {}> = mithril.Vnode<A, S>;
+    export type Lifecycle<A, S> = mithril.Lifecycle<A, S>;
+    export type Hyperscript = mithril.Hyperscript;
+    export type RouteResolver<A = {}, S = {}> = mithril.RouteResolver<A, S>;
+    export type RouteDefs = mithril.RouteDefs;
+    export type RouteOptions = mithril.RouteOptions;
+    export type Route = mithril.Route;
+    export type RequestOptions<T> = mithril.RequestOptions<T>;
+    export type JsonpOptions = mithril.JsonpOptions;
+    export type Child = mithril.Child;
+    export type ChildArray = mithril.ChildArray;
+    export type Children = mithril.Children;
+    export type ChildArrayOrPrimitive = mithril.ChildArrayOrPrimitive;
+    export type Vnode<A = {}, S extends mithril.Lifecycle<A, S> = {}> = mithril.Vnode<A, S>;
     export type VnodeDOM<A = {}, S extends mithril.Lifecycle<A, S> = {}> = mithril.VnodeDOM<A, S>;
     export type CVnode<A = {}> = mithril.CVnode<A>;
     export type CVnodeDOM<A = {}> = mithril.CVnodeDOM<A>;
@@ -33,8 +33,8 @@ declare namespace MithrilGlobal {
     export type ClassComponent<A = {}> = mithril.ClassComponent<A>;
     export type FactoryComponent<A = {}> = mithril.FactoryComponent<A>;
     export type ComponentTypes<A = {}, S extends mithril.Lifecycle<A, S> = {}> = mithril.ComponentTypes<A, S>;
-	export type Attributes = mithril.Attributes;
-	export type Static = mithril.Static & { stream: typeof stream };
+    export type Attributes = mithril.Attributes;
+    export type Static = mithril.Static & { stream: typeof stream };
     export type Stream<T> = stream<T>;
 }
 

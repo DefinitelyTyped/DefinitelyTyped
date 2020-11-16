@@ -1,0 +1,2 @@
+ffmpeg-webm/index.d.ts
+ffmpeg-worker-mp4/index.d.ts

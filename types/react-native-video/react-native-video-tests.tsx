@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Video from 'react-native-video';
+import Video, { FilterType } from 'react-native-video';
 
 <Video
-    source={{ uri: '//:example.com/test.mp4' }}
+    source={{ uri: '//:example.com/test.mp4', headers: { accept: "*/*" }}}
     onProgress={data => console.log(data.currentTime, data.playableDuration, data.seekableDuration)}
     onError={error => console.log(error.error[''], error.error.errorString)}
     onLoad={data => {
@@ -11,4 +11,12 @@ import Video from 'react-native-video';
     }}
     onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}
     posterResizeMode={"cover"}
+    onPictureInPictureStatusChanged={data => {
+        console.log(data.isActive);
+    }}
+    filterEnable={true}
+    filter={FilterType.MONO}
+    selectedAudioTrack={{ type: 'index', value: 6 }}
+    selectedVideoTrack={{ type: 'auto' }}
+    preventsDisplaySleepDuringVideoPlayback={true}
 />;

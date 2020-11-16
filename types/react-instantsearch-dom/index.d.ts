@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch 5.2
+// Type definitions for react-instantsearch 6.3
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -17,7 +17,12 @@ export { HIGHLIGHT_TAGS } from 'react-instantsearch-core';
 export { translatable } from 'react-instantsearch-core';
 
 // Widget
+export { Index } from 'react-instantsearch-core';
+export { InstantSearch } from 'react-instantsearch-core';
+export { InstantSearchProps } from 'react-instantsearch-core';
 export { Configure } from 'react-instantsearch-core';
+export { ExperimentalConfigureRelatedItems } from 'react-instantsearch-core';
+export { QueryRuleContext } from 'react-instantsearch-core';
 
 // Connectors
 export { connectAutoComplete } from 'react-instantsearch-core';
@@ -42,6 +47,9 @@ export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
 export { connectToggleRefinement } from 'react-instantsearch-core';
+export { EXPERIMENTAL_connectConfigureRelatedItems } from 'react-instantsearch-core';
+export { connectHitInsights } from 'react-instantsearch-core';
+export { connectQueryRules } from 'react-instantsearch-core';
 
 // DOM
 interface CommonWidgetProps {
@@ -51,34 +59,11 @@ interface CommonWidgetProps {
    *
    * https://community.algolia.com/react-instantsearch/guide/i18n.html
    */
-  translations?: { [key: string]: string | ((...args: any[]) => any) };
-}
-
-export interface InstantSearchProps {
-  apiKey?: string;
-  appId?: string;
-  indexName: string;
-  searchClient?: any;
-
-  createURL?: (...args: any[]) => any;
-  searchState?: any;
-  refresh?: boolean;
-  onSearchStateChange?: (...args: any[]) => any;
-  onSearchParameters?: (...args: any[]) => any;
-  resultsState?: any;
-  stalledSearchDelay?: number;
-  root?: {
-    Root: string | ((...args: any[]) => any);
-    props?: object;
+  translations?: {
+    [key: string]: string | ((...args: any[]) => any);
   };
 }
-/**
- * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
- *
- * https://community.algolia.com/react-instantsearch/widgets/%3CInstantSearch%3E.html
- */
-export class InstantSearch extends React.Component<InstantSearchProps> {}
-export class Index extends React.Component<any> {}
+
 export class Breadcrumb extends React.Component<any> {}
 export class ClearRefinements extends React.Component<any> {}
 export class CurrentRefinements extends React.Component<any> {}
@@ -135,5 +120,43 @@ export class SortBy extends React.Component<any> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
-export class Stats extends React.Component<{translations?: { [key: string]: (n: number, ms: number) => string }}> {}
+export class Stats extends React.Component<{
+  translations?: {
+    [key: string]: (n: number, ms: number) => string;
+  };
+}> {}
 export class ToggleRefinement extends React.Component<any> {}
+
+export class VoiceSearch extends React.Component<any> {}
+
+export class QueryRuleCustomData extends React.Component<any> {}
+
+// helper functions
+export function getInsightsAnonymousUserToken(): string | undefined;
+export function createClassNames(baseName: string): (...elements: string[]) => string | string[];
+
+export interface VoiceSearchHelperParams {
+  searchAsYouSpeak: boolean;
+  language?: string;
+  onQueryChange: (query: string) => void;
+  onStateChange: () => void;
+}
+
+export type Status = 'initial' | 'askingPermission' | 'waiting' | 'recognizing' | 'finished' | 'error';
+
+export interface VoiceListeningState {
+  status: Status;
+  transcript: string;
+  isSpeechFinal: boolean;
+  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
+}
+
+export interface VoiceSearchHelper {
+  getState: () => VoiceListeningState;
+  isBrowserSupported: () => boolean;
+  isListening: () => boolean;
+  toggleListening: () => void;
+  dispose: () => void;
+}
+
+export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;

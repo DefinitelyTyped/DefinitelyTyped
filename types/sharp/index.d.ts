@@ -1,15 +1,16 @@
-// Type definitions for sharp 0.22
+// Type definitions for sharp 0.26
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
+//                 Floris de Bijl <https://github.com/Fdebijl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import { Duplex } from "stream";
+import { Duplex } from 'stream';
 
 //#region Constructor functions
 
@@ -201,21 +202,6 @@ declare namespace sharp {
         //#region Composite functions
 
         /**
-         * Overlay (composite) an image over the processed (resized, extracted etc.) image.
-         *
-         * The overlay image must be the same size or smaller than the processed image.
-         * If both top and left options are provided, they take precedence over gravity.
-         *
-         * If the overlay image contains an alpha channel then composition with premultiplication will occur.
-         * @param image Buffer containing image data or String containing the path to an image file.
-         * @param options overlay options
-         * @throws {Error} Invalid parameters
-         * @returns A sharp instance that can be used to chain operations
-         * @deprecated
-         */
-        overlayWith(image?: string | Buffer, options?: OverlayOptions): Sharp;
-
-        /**
          * Composite image(s) over the processed (resized, extracted etc.) image.
          *
          * The images to composite must be the same size or smaller than the processed image.
@@ -224,7 +210,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        composite(images: Array<{ input: string | Buffer } & OverlayOptions>): Sharp;
+        composite(images: OverlayOptions[]): Sharp;
 
         //#endregion
 
@@ -261,25 +247,6 @@ declare namespace sharp {
          * @returns A promise that resolves with a stats object
          */
         stats(): Promise<Stats>;
-
-        /**
-         * Do not process input images where the number of pixels (width _ height) exceeds this limit.
-         * Assumes image dimensions contained in the input metadata can be trusted.
-         * The default limit is 268402689 (0x3FFF _ 0x3FFF) pixels.
-         * @param limit An integral Number of pixels, zero or false to remove limit, true to use default limit.
-         * @throws {Error} Invalid limit
-         * @returns A sharp instance that can be used to chain operations
-         */
-        limitInputPixels(limit: number | boolean): Sharp;
-
-        /**
-         * An advanced setting that switches the libvips access method to VIPS_ACCESS_SEQUENTIAL.
-         * This will reduce memory usage and can improve performance on some systems.
-         * The default behaviour before function call is false, meaning the libvips access method is not sequential.
-         * @param sequentialRead true to enable and false to disable (defaults to true)
-         * @returns A sharp instance that can be used to chain operations
-         */
-        sequentialRead(sequentialRead?: boolean): Sharp;
 
         //#endregion
 
@@ -345,11 +312,12 @@ declare namespace sharp {
          * Blur the image.
          * When used without parameters, performs a fast, mild blur of the output image.
          * When a sigma is provided, performs a slower, more accurate Gaussian blur.
+         * When a boolean sigma is provided, ether blur mild or disable blur
          * @param sigma a value between 0.3 and 1000 representing the sigma of the Gaussian mask, where sigma = 1 + radius / 2.
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        blur(sigma?: number): Sharp;
+        blur(sigma?: number | boolean): Sharp;
 
         /**
          * Merge alpha transparency channel, if any, with background.
@@ -439,7 +407,7 @@ declare namespace sharp {
          * @param options describes the modulation
          * @returns A sharp instance that can be used to chain operations
          */
-        modulate(options?: { brightness?: number, saturation?: number, hue?: number }): Sharp;
+        modulate(options?: { brightness?: number; saturation?: number; hue?: number }): Sharp;
 
         //#endregion
 
@@ -488,7 +456,7 @@ declare namespace sharp {
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
          */
-        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer, info: OutputInfo }>;
+        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer; info: OutputInfo }>;
 
         /**
          * Include all metadata (EXIF, XMP, IPTC) from the input image in the output image.
@@ -546,7 +514,10 @@ declare namespace sharp {
          * @throws {Error} Unsupported format or options
          * @returns A sharp instance that can be used to chain operations
          */
-        toFormat(format: string | AvailableFormatInfo, options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | TiffOptions): Sharp;
+        toFormat(
+            format: string | AvailableFormatInfo,
+            options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | GifOptions | TiffOptions,
+        ): Sharp;
 
         /**
          * Use tile-based deep zoom (image pyramid) output.
@@ -600,6 +571,15 @@ declare namespace sharp {
         resize(width?: number | null, height?: number | null, options?: ResizeOptions): Sharp;
 
         /**
+         * Shorthand for resize(null, null, options);
+         *
+         * @param options resize options
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        resize(options: ResizeOptions): Sharp;
+
+        /**
          * Extends/pads the edges of the image with the provided background colour.
          * This operation will always occur after resizing and extraction, if any.
          * @param extend single pixel count to add to all edges or an Object with per-edge counts
@@ -640,12 +620,24 @@ declare namespace sharp {
          * (optional, default true)
          */
         failOnError?: boolean;
+        /**
+         * Do not process input images where the number of pixels (width x height) exceeds this limit.
+         * Assumes image dimensions contained in the input metadata can be trusted.
+         * An integral Number of pixels, zero or false to remove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). (optional, default 268402689)
+         */
+        limitInputPixels?: number | boolean;
+        /** Set this to true to use sequential rather than random access where possible. This can reduce memory usage and might improve performance on some systems. (optional, default false) */
+        sequentialRead?: boolean;
         /** Number representing the DPI for vector images. (optional, default 72) */
         density?: number;
         /** Number of pages to extract for multi-page input (GIF, TIFF, PDF), use -1 for all pages */
         pages?: number;
         /** Page number to start extracting from for multi-page input (GIF, TIFF, PDF), zero based. (optional, default 0) */
         page?: number;
+        /** Level to extract from a multi-level input (OpenSlide), zero based. (optional, default 0) */
+        level?: number;
+        /** Set to `true` to read all frames/pages of an animated image (equivalent of setting `pages` to `-1`). (optional, default false) */
+        animated?: boolean;
         /** Describes raw pixel input image data. See raw() for pixel ordering. */
         raw?: Raw;
         /** Describes a new image to be created. */
@@ -711,6 +703,16 @@ declare namespace sharp {
         chromaSubsampling: string;
         /** Boolean indicating whether the image is interlaced using a progressive scan */
         isProgressive?: boolean;
+        /** Number of pages/frames contained within the image, with support for TIFF, HEIF, PDF, animated GIF and animated WebP */
+        pages?: number;
+        /** Number of pixels high each page in a multi-page image will be. */
+        pageHeight?: number;
+        /** Number of times to loop an animated image, zero refers to a continuous loop. */
+        loop?: number;
+        /** Delay in ms between each page in an animated image, provided as an array of integers. */
+        delay?: number[];
+        /**  Number of the primary page in a HEIF image */
+        pagePrimary?: number;
         /** Boolean indicating the presence of an embedded ICC profile */
         hasProfile?: boolean;
         /** Boolean indicating the presence of an alpha transparency channel */
@@ -723,6 +725,8 @@ declare namespace sharp {
         iptc?: Buffer;
         /** Buffer containing raw XMP data, if present */
         xmp?: Buffer;
+        /** Buffer containing raw TIFFTAG_PHOTOSHOP data, if present */
+        tifftagPhotoshop?: Buffer;
     }
 
     interface Stats {
@@ -732,6 +736,10 @@ declare namespace sharp {
         isOpaque: boolean;
         /** Histogram-based estimation of greyscale entropy, discarding alpha channel if any (experimental) */
         entropy: number;
+        /** Estimation of greyscale sharpness based on the standard deviation of a Laplacian convolution, discarding alpha channel if any (experimental) */
+        sharpness: number;
+        /** Object containing most dominant sRGB colour based on a 4096-bin 3D histogram (experimental) */
+        dominant: { r: number; g: number; b: number };
     }
 
     interface ChannelStats {
@@ -787,26 +795,45 @@ declare namespace sharp {
         quantizationTable?: number;
     }
 
-    interface WebpOptions extends OutputOptions {
+    interface WebpOptions extends OutputOptions, AnimationOptions {
         /** Quality of alpha layer, number from 0-100 (optional, default 100) */
         alphaQuality?: number;
         /** Use lossless compression mode (optional, default false) */
         lossless?: boolean;
         /** Use near_lossless compression mode (optional, default false) */
         nearLossless?: boolean;
+        /** Use high quality chroma subsampling (optional, default false) */
+        smartSubsample?: boolean;
+        /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
+        reductionEffort?: number;
     }
+
+    /**
+     * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
+     * The prebuilt binaries do not include this - see
+     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
+     */
+    interface GifOptions extends OutputOptions, AnimationOptions {}
 
     interface TiffOptions extends OutputOptions {
         /** Compression options: lzw, deflate, jpeg, ccittfax4 (optional, default 'jpeg') */
         compression?: string;
         /** Compression predictor options: none, horizontal, float (optional, default 'horizontal') */
         predictor?: string;
+        /** Write an image pyramid (optional, default false) */
+        pyramid?: boolean;
+        /** Write a tiled tiff (optional, default false) */
+        tile?: boolean;
+        /** Horizontal tile size (optional, default 256) */
+        tileWidth?: boolean;
+        /** Vertical tile size (optional, default 256) */
+        tileHeight?: boolean;
         /** Horizontal resolution in pixels/mm (optional, default 1.0) */
         xres?: number;
         /** Vertical resolution in pixels/mm (optional, default 1.0) */
         yres?: number;
-        /** Squash 8-bit images down to 1 bit (optional, default false) */
-        squash?: boolean;
+        /** Reduce bitdepth to 1, 2 or 4 bit (optional, default 8) */
+        bitdepth?: 1 | 2 | 4 | 8;
     }
 
     interface PngOptions {
@@ -912,6 +939,8 @@ declare namespace sharp {
     }
 
     interface OverlayOptions {
+        /** Buffer containing image data, String containing the path to an image file, or Create object  */
+        input?: string | Buffer | { create: Create };
         /** how to blend this image with the image below. (optional, default `'over'`) */
         blend?: Blend;
         /** gravity at which to place the overlay. (optional, default 'centre') */
@@ -922,14 +951,12 @@ declare namespace sharp {
         left?: number;
         /** set to true to repeat the overlay image across the entire image with the given  gravity. (optional, default false) */
         tile?: boolean;
-        /** set to true to apply only the alpha channel of the overlay image to the input image, giving the appearance of one image being cut out of another. (optional, default false) */
-        cutout?: boolean;
         /** number representing the DPI for vector overlay image. (optional, default 72) */
         density?: number;
         /** describes overlay when using raw pixel data. */
         raw?: Raw;
-        /** describes a blank overlay to be created. */
-        create?: Create;
+        /** Set to true to avoid premultipling the image below. Equivalent to the --premultiplied vips option. */
+        premultiplied?: boolean;
     }
 
     interface TileOptions {
@@ -939,12 +966,25 @@ declare namespace sharp {
         overlap?: number;
         /** Tile angle of rotation, must be a multiple of 90. (optional, default 0) */
         angle?: number;
+        /** background colour, parsed by the color module, defaults to white without transparency. (optional, default {r:255,g:255,b:255,alpha:1}) */
+        background?: string | RGBA;
         /** How deep to make the pyramid, possible values are "onepixel", "onetile" or "one" (default based on layout) */
         depth?: string;
+        /** Threshold to skip tile generation, a value 0 - 255 for 8-bit images or 0 - 65535 for 16-bit images */
+        skipBlanks?: number;
         /** Tile container, with value fs (filesystem) or zip (compressed file). (optional, default 'fs') */
         container?: string;
-        /** Filesystem layout, possible values are dz, zoomify or google. (optional, default 'dz') */
-        layout?: string;
+        /** Filesystem layout, possible values are dz, iiif, zoomify or google. (optional, default 'dz') */
+        layout?: TileLayout;
+    }
+
+    interface AnimationOptions {
+        /** Page height for animated output, a value greater than 0. (optional) */
+        pageHeight?: number;
+        /** Number of animation iterations, a value between 0 and 65535. Use 0 for infinite animation. (optional, default 0) */
+        loop?: number;
+        /** List of delays between animation frames (in milliseconds), each value between 0 and 65535. (optional) */
+        delay?: number[];
     }
 
     interface OutputInfo {
@@ -963,42 +1003,70 @@ declare namespace sharp {
 
     interface AvailableFormatInfo {
         id: string;
-        input: { file: boolean; buffer: boolean; stream: boolean; };
-        output: { file: boolean; buffer: boolean; stream: boolean; };
+        input: { file: boolean; buffer: boolean; stream: boolean };
+        output: { file: boolean; buffer: boolean; stream: boolean };
     }
 
     interface FitEnum {
-        contain: "contain";
-        cover: "cover";
-        fill: "fill";
-        inside: "inside";
-        outside: "outside";
+        contain: 'contain';
+        cover: 'cover';
+        fill: 'fill';
+        inside: 'inside';
+        outside: 'outside';
     }
 
     interface KernelEnum {
-        nearest: "nearest";
-        cubic: "cubic";
-        mitchell: "mitchell";
-        lanczos2: "lanczos2";
-        lanczos3: "lanczos3";
+        nearest: 'nearest';
+        cubic: 'cubic';
+        mitchell: 'mitchell';
+        lanczos2: 'lanczos2';
+        lanczos3: 'lanczos3';
     }
 
     interface BoolEnum {
-        and: "and";
-        or: "or";
-        eor: "eor";
+        and: 'and';
+        or: 'or';
+        eor: 'eor';
     }
 
     interface ColourspaceEnum {
         multiband: string;
-        "b-w": string;
+        'b-w': string;
         bw: string;
         cmyk: string;
         srgb: string;
     }
 
-    type Blend = 'clear' | 'source' | 'over' | 'in' | 'out' | 'atop' | 'dest' | 'dest-over' | 'dest-in' | 'dest-out' | 'dest-atop'  | 'xor' | 'add' | 'saturate' | 'multiply' | 'screen' | 'overlay'
-                 | 'darken' | 'lighten' | 'colour-dodge' | 'colour-dodge' | 'colour-burn' | 'colour-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';
+    type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
+
+    type Blend =
+        | 'clear'
+        | 'source'
+        | 'over'
+        | 'in'
+        | 'out'
+        | 'atop'
+        | 'dest'
+        | 'dest-over'
+        | 'dest-in'
+        | 'dest-out'
+        | 'dest-atop'
+        | 'xor'
+        | 'add'
+        | 'saturate'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'colour-dodge'
+        | 'colour-dodge'
+        | 'colour-burn'
+        | 'colour-burn'
+        | 'hard-light'
+        | 'soft-light'
+        | 'difference'
+        | 'exclusion';
 
     type Gravity = number | string;
 
@@ -1039,16 +1107,12 @@ declare namespace sharp {
     }
 
     interface CacheResult {
-        memory: { current: number; high: number; max: number; };
-        files: { current: number; max: number; };
-        items: { current: number; max: number; };
+        memory: { current: number; high: number; max: number };
+        files: { current: number; max: number };
+        items: { current: number; max: number };
     }
 
-    type Matrix3x3 = [
-        [number, number, number],
-        [number, number, number],
-        [number, number, number]
-    ];
+    type Matrix3x3 = [[number, number, number], [number, number, number], [number, number, number]];
 }
 
 export = sharp;

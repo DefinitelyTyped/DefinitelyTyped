@@ -2,10 +2,10 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/notices/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
 import { dispatch, select } from '@wordpress/data';
-import { MouseEventHandler } from '@wordpress/element';
+import { MouseEventHandler } from 'react';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/notices'): typeof import('./store/actions');
@@ -58,4 +58,9 @@ export interface Options {
      * @defaultValue `true`
      */
     speak: boolean;
+    /**
+     * The type of notice.
+     * @defaultValue `'default'`
+     */
+    type: 'default' | 'snackbar';
 }

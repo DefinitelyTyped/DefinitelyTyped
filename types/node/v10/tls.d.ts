@@ -44,6 +44,7 @@ declare module "tls" {
         valid_from: string;
         valid_to: string;
         fingerprint: string;
+        fingerprint256: string;
         ext_key_usage: string[];
         serialNumber: string;
         raw: Buffer;
@@ -62,6 +63,21 @@ declare module "tls" {
          * SSL/TLS protocol version.
          */
         version: string;
+    }
+
+    interface EphemeralKeyInfo {
+        /**
+         * The supported types are 'DH' and 'ECDH'.
+         */
+        type: string;
+        /**
+         * The name property is available only when type is 'ECDH'.
+         */
+        name?: string;
+        /**
+         * The size of parameter of an ephemeral key exchange.
+         */
+        size: number;
     }
 
     class TLSSocket extends net.Socket {
@@ -98,7 +114,7 @@ declare module "tls" {
              * An array of strings or a Buffer naming possible NPN protocols.
              * (Protocols should be ordered by their priority.)
              */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
+            NPNProtocols?: ReadonlyArray<string> | ReadonlyArray<Buffer> | ReadonlyArray<Uint8Array> | Buffer | Uint8Array,
             /**
              * An array of strings or a Buffer naming possible ALPN protocols.
              * (Protocols should be ordered by their priority.) When the server
@@ -106,7 +122,7 @@ declare module "tls" {
              * precedence over NPN and the server does not send an NPN extension
              * to the client.
              */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
+            ALPNProtocols?: ReadonlyArray<string> | ReadonlyArray<Buffer> | ReadonlyArray<Uint8Array> | Buffer | Uint8Array,
             /**
              * SNICallback(servername, cb) <Function> A function that will be
              * called if the client supports SNI TLS extension. Two arguments
@@ -157,6 +173,32 @@ declare module "tls" {
          */
         getCipher(): CipherNameAndProtocol;
         /**
+         * Returns an object representing the type, name, and size of parameter
+         * of an ephemeral key exchange in Perfect Forward Secrecy on a client
+         * connection. It returns an empty object when the key exchange is not
+         * ephemeral. As this is only supported on a client socket; null is
+         * returned if called on a server socket. The supported types are 'DH'
+         * and 'ECDH'. The name property is available only when type is 'ECDH'.
+         *
+         * For example: { type: 'ECDH', name: 'prime256v1', size: 256 }.
+         */
+        getEphemeralKeyInfo(): EphemeralKeyInfo | object | null;
+        /**
+         * Returns the latest Finished message that has
+         * been sent to the socket as part of a SSL/TLS handshake, or undefined
+         * if no Finished message has been sent yet.
+         *
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_finished routine in OpenSSL and may be
+         * used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getFinished(): Buffer | undefined;
+        /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.
          * If detailed argument is true the full chain with issuer property will be returned,
@@ -168,6 +210,21 @@ declare module "tls" {
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
+        /**
+         * Returns the latest Finished message that is expected or has actually
+         * been received from the socket as part of a SSL/TLS handshake, or
+         * undefined if there is no Finished message so far.
+         *
+         * As the Finished messages are message digests of the complete
+         * handshake (with a total of 192 bits for TLS 1.0 and more for SSL
+         * 3.0), they can be used for external authentication procedures when
+         * the authentication provided by SSL/TLS is not desired or is not
+         * enough.
+         *
+         * Corresponds to the SSL_get_peer_finished routine in OpenSSL and may
+         * be used to implement the tls-unique channel binding from RFC 5929.
+         */
+        getPeerFinished(): Buffer | undefined;
         /**
          * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
          * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
@@ -187,6 +244,10 @@ declare module "tls" {
          * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): any;
+        /**
+         * Returns true if the session was reused, false otherwise.
+         */
+        isSessionReused(): boolean;
         /**
          * Initiate TLS renegotiation process.
          *
@@ -209,6 +270,13 @@ declare module "tls" {
          * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
+
+        /**
+         * Disables TLS renegotiation for this TLSSocket instance. Once called,
+         * attempts to renegotiate will trigger an 'error' event on the
+         * TLSSocket.
+         */
+        disableRenegotiation(): void;
 
         /**
          * events.EventEmitter
@@ -268,11 +336,26 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        /**
+         * The server.addContext() method adds a secure context that will be
+         * used if the client request's SNI name matches the supplied hostname
+         * (or wildcard).
+         */
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
+        /**
+         * Returns the session ticket keys.
+         */
+        getTicketKeys(): Buffer;
+        /**
+         * The server.setSecureContext() method replaces the secure context of
+         * an existing server. Existing connections to the server are not
+         * interrupted.
+         */
+        setTicketKeys(keys: Buffer): void;
 
         /**
          * events.EventEmitter
@@ -364,8 +447,13 @@ declare module "tls" {
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
-    const DEFAULT_ECDH_CURVE: string;
+    /**
+     * The default curve name to use for ECDH key agreement in a tls server.
+     * The default value is 'auto'. See tls.createSecureContext() for further
+     * information.
+     */
+    let DEFAULT_ECDH_CURVE: string;
 }

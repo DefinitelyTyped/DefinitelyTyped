@@ -7,13 +7,16 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@styled-system/*": ["styled-system__*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

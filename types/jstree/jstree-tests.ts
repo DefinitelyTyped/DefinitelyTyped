@@ -1,16 +1,16 @@
 // gets version of lib
-var version: string = $.jstree.version;
+let version: string = $.jstree.version;
 
 // create new instance
-var instance1: JSTree = $('div').jstree();
+let instance1: JSTree = $('div').jstree();
 
 $('div').jstree('open_node', '#branch');
 
 // get existing reference
-var existingReference: JSTree = $.jstree.reference('sds');
+let existingReference: JSTree = $.jstree.reference('sds');
 
 // advanced tree creation
-var advancedTree = $("#briefcasetree").jstree({
+let advancedTree = $("#briefcasetree").jstree({
         plugins: ['contextmenu', 'dnd', 'state', 'types', 'unique'],
         core: {
             check_callback: true,
@@ -65,29 +65,29 @@ var advancedTree = $("#briefcasetree").jstree({
         }
 });
 
-var a = $('a').jstree();
+let a = $('a').jstree();
 
 // test search node
 a.search('test', false, true);
 
-//test redraw node
+// test redraw node
 a.redraw_node($('#node1'), false, false, false);
 
-//test clear buffer
+// test clear buffer
 a.clear_buffer();
 
-//tree with new unique plugin parameters
-var treeWithUnique = $('#treeWithUnique').jstree({
+// tree with new unique plugin parameters
+let treeWithUnique = $('#treeWithUnique').jstree({
      unique: {
          case_sensitive: true,
          duplicate: (name: string, counter: number): string => {
-             return name + ' ( ' + counter.toString() + ' )';
+             return `${name} ( ${counter.toString()} )`;
          }
      }
 });
 
 // tree with new core properties
-var treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
+let treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
     core: {
         worker: true,
         force_text: true,
@@ -95,15 +95,14 @@ var treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
 });
 
 // tree with new checkbox properties
-var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
+let treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
     checkbox: {
         cascade: '',
         tie_selection: true
     }
 });
 
-
-var tree = $('a').jstree();
+let tree = $('a').jstree();
 tree.move_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
 tree.copy_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
 
@@ -111,22 +110,21 @@ tree.copy_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, tr
 tree.get_path('nodeId');
 tree.get_path('nodeId', '/');
 tree.get_path('nodeId', '/', true);
+tree.settings.core.data = [];
 
-
-
-var coreThemes: JSTreeStaticDefaultsCoreThemes = {
-    ellipsis:true
+let coreThemes: JSTreeStaticDefaultsCoreThemes = {
+    ellipsis: true
 };
 
 // tree with new theme elipsis
-var treeWithNewCoreProperties = $('#treeWithNewEllipsisProperties').jstree({
+let treeWithNewEllipsisProperties = $('#treeWithNewEllipsisProperties').jstree({
     core: {
         themes: coreThemes
     }
 });
 
-var vakata: VakataStatic = $.vakata;
+let vakata: VakataStatic = $.vakata;
 
-var testArray: Array<any> = [];
+let testArray: any[] = [];
 vakata.attributes(tree.get_node(null), true);
-var storage = vakata.storage;
+let storage = vakata.storage;

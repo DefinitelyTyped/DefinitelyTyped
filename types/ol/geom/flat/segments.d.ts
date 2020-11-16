@@ -1,10 +1,14 @@
 import { Coordinate } from '../../coordinate';
 
-export function forEach<T, S>(
+/**
+ * This function calls callback for each segment of the flat coordinates
+ * array. If the callback returns a truthy value the function returns that
+ * value immediately. Otherwise the function returns false.
+ */
+export function forEach<T>(
     flatCoordinates: number[],
     offset: number,
     end: number,
     stride: number,
-    callback: (this: S, p0: Coordinate, p1: Coordinate) => T,
-    opt_this?: S
+    callback: (p0: Coordinate, p1: Coordinate) => T,
 ): T | boolean;

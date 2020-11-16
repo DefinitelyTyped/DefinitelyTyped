@@ -1,10 +1,14 @@
-// Type definitions for auth0 2.9.4
+// Type definitions for auth0 2.20.0
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
+//                 Meng Bernie Sung <https://github.com/MengRS>
+//                 Léo Haddad Carneiro <https://github.com/Scoup>
+//                 Isabela Morais <https://github.com/isabela-morais>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -116,6 +120,20 @@ export interface Rule {
   order?: number;
 }
 
+export interface RulesConfig {
+  /**
+   * Key for a rules config variable.
+   */
+  key: string;
+}
+
+export interface RulesConfigData {
+  /**
+   * Value for a rules config variable.
+   */
+  value: string
+}
+
 export interface Role {
     id?: string;
     name?: string;
@@ -164,6 +182,15 @@ export interface PermissionsData {
 export interface PermissionData {
     resource_server_identifier: string;
     permission_name: string;
+}
+
+export interface GetRolePermissionsData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
+    include_totals: boolean;
 }
 
 export interface GetRoleUsersData extends ObjectWithId {
@@ -235,7 +262,7 @@ export interface Client {
     // The algorithm used to sign the JsonWebToken
     alg?: 'HS256' | 'RS256';
   };
-  /** 
+  /**
    * A set of grant types that the client is authorized to use
    */
   grant_types?: Grant[];
@@ -258,7 +285,7 @@ export interface Client {
    */
   cross_origin_auth?: boolean;
   /**
-   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
    */
   cross_origin_loc?: string;
   /**
@@ -275,6 +302,7 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+  initiate_login_uri?: string;
 }
 
 export interface ResourceServer {
@@ -352,6 +380,33 @@ export type ClientGrant = Partial<CreateClientGrant> & {
    */
   id?: string;
 };
+
+export interface GetClientGrantsOptions {
+  /** @default 10 */
+  per_page?: number;
+  /** @default 0 */
+  page?: number;
+  /**
+   * The audience.
+   */
+  audience?: string;
+  /**
+   * The id of the client (application).
+   */
+  client_id?: string;
+}
+
+export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
+  /**
+   * true if a query summary must be included in the result, false otherwise
+   * @default false
+   */
+  include_totals?: boolean;
+}
+
+export interface ClientGrantPage extends Page {
+  client_grants: ClientGrant[]
+}
 
 export interface CreateClientGrant {
   /**
@@ -443,6 +498,7 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
@@ -547,12 +603,27 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
   audience: string;
+  scope?: string;
 }
 
 export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+  scope?: string;
+}
+
+export interface AuthorizationCodeGrantOptions {
+  code: string;
+  redirect_uri: string;
+}
+
+export interface TokenResponse {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    scope?: string;
+    id_token?: string;
 }
 
 export interface ObjectWithId {
@@ -660,13 +731,54 @@ export interface VerificationEmailJob {
     created_at?: string;
 }
 
-export interface ImportUsersOptions {
-    users: string;
+export type CustomDomainVerificationMethod = 'txt';
+
+export type CustomDomainStatus = 'disabled' | 'pending' | 'pending_verification' | 'ready';
+
+export type CustomDomainType = 'auth0_managed_certs' | 'self_managed_certs';
+
+export interface CreateDomainData {
+    domain: string;
+    type: CustomDomainType;
+    verification_method?: CustomDomainVerificationMethod;
+    tls_policy?: string;
+    custom_client_ip_header?: string;
+}
+
+export interface Domain {
+    custom_domain_id: string;
+    domain: string;
+    primary: boolean;
+    status: CustomDomainStatus;
+    type: CustomDomainType;
+    origin_domain_name?: string;
+    verification: {
+        methods: any[];
+    };
+    custom_client_ip_header?: string;
+    tls_policy?: string;
+}
+
+export interface DomainVerification extends Domain {
+    cname_api_key?: string;
+}
+
+export interface BaseImportUsersOptions {
     connection_id: string;
     upsert?: boolean;
     external_id?: string;
     send_completion_email?: boolean;
 }
+
+export interface ImportUsersFromFileOptions extends BaseImportUsersOptions {
+    users: string;
+}
+
+export interface ImportUsersFromJsonOptions extends BaseImportUsersOptions {
+    users_json: string;
+}
+
+export type ImportUsersOptions = ImportUsersFromFileOptions | ImportUsersFromJsonOptions;
 
 export interface ExportUsersOptions {
     connection_id?: string;
@@ -727,6 +839,11 @@ export interface UsersOptions extends BaseClientOptions {
   headers?: any;
 }
 
+export interface CustomDomainsManagerOptions extends BaseClientOptions {
+  headers?: any;
+  retry?: RetryOptions;
+}
+
 export interface SignInOptions extends VerifyOptions {
   connection?: string;
 }
@@ -774,6 +891,20 @@ export interface GetClientsOptions {
     app_type?: ClientAppType[];
 }
 
+export interface ObjectWithIdentifier {
+    identifier: string;
+}
+
+export interface BlockedForEntry {
+    identifier: string;
+    ip?: string;
+}
+
+export interface UserBlocks {
+    blocked_for: BlockedForEntry[];
+}
+
+
 export class AuthenticationClient {
 
   // Members
@@ -813,11 +944,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<TokenResponse>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-  passwordGrant(options: PasswordGrantOptions): Promise<any>;
-  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
+  passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
 }
 
@@ -865,6 +996,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptions): Promise<ClientGrant[]>;
+  getClientGrants(params: GetClientGrantsOptions, cb: (err: Error, data: ClientGrant[]) => void): void;
+  getClientGrants(params: GetClientGrantsOptionsPaged): Promise<ClientGrantPage>;
+  getClientGrants(params: GetClientGrantsOptionsPaged, cb: (err: Error, data: ClientGrantPage) => void): void;
 
   createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
   createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
@@ -908,6 +1043,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
   getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsData): Promise<Permission[]>;
+  getPermissionsInRole(params: GetRolePermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged): Promise<PermissionPage>;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
 
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
@@ -915,12 +1054,12 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
-  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
-  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
-  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
-  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
   getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
   getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
 
     // Rules
   getRules(): Promise<Rule[]>;
@@ -938,6 +1077,16 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   deleteRule(params: ObjectWithId): Promise<void>;
   deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
+  // Rules Configurations
+  getRulesConfigs(): Promise<RulesConfig[]>;
+  getRulesConfigs(cb: (err: Error, rulesConfigs: RulesConfig[]) => void): void;
+
+  setRulesConfig(params: RulesConfig, data: RulesConfigData): Promise<RulesConfig & RulesConfigData>;
+  setRulesConfig(params: RulesConfig, data: RulesConfigData,
+    cb: (err: Error, rulesConfig: RulesConfig & RulesConfigData) => void):void;
+
+  deleteRulesConfig(params: RulesConfig): Promise<void>;
+  deleteRulesConfig(params: RulesConfig, cb: (err: Error) => void): void;
 
   // Users
   getUsers(params: GetUsersDataPaged): Promise<UserPage<A, U>>;
@@ -1009,12 +1158,33 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   assignPermissionsToUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
   assignPermissionsToUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
+  // User Blocks
+  getUserBlocks(params: ObjectWithId): Promise<UserBlocks>;
+  getUserBlocks(params: ObjectWithId, cb: (err: Error, response: UserBlocks) => void): void;
+  getUserBlocksByIdentifier(params: ObjectWithIdentifier): Promise<UserBlocks>;
+  getUserBlocksByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: UserBlocks) => void): void;
+  unblockUser(params: ObjectWithId): Promise<string>;
+  unblockUser(params: ObjectWithId, cb: (err: Error, response: string) => void): void;
+  unblockUserByIdentifier(params: ObjectWithIdentifier): Promise<string>;
+  unblockUserByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: string) => void): void;
+
   // Tokens
   getBlacklistedTokens(): Promise<any>;
   getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
 
   blacklistToken(token: Token): Promise<any>;
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
+
+
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Providers
@@ -1048,17 +1218,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
 
   // Jobs
-    getJob(params: ObjectWithId): Promise<Job>;
-    getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
+  getJob(params: ObjectWithId): Promise<Job>;
+  getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
-    importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
-    importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+  importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
+  importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
-    exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
-    exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
+  exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
+  exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+  sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
+  sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -1090,6 +1260,23 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
   updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+
+  // Custom Domains
+  createCustomDomain(data: CreateDomainData): Promise<Domain>;
+  createCustomDomain(data: CreateDomainData, cb: (err: Error, domain: Domain) => void): void;
+
+  getCustomDomains(): Promise<Domain[]>;
+  getCustomDomains(cb: (err: Error, data: Domain[]) => void): void;
+
+  getCustomDomain(params: ObjectWithId): Promise<Domain>;
+  getCustomDomain(params: ObjectWithId, cb: (err: Error, data: Domain) => void): void;
+
+
+  verifyCustomDomain(params: ObjectWithId): Promise<DomainVerification>;
+  verifyCustomDomain(params: ObjectWithId, cb: (err: Error, data: DomainVerification) => void): void;
+
+  deleteCustomDomain(params: ObjectWithId): Promise<void>;
+  deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
 }
 
 
@@ -1122,6 +1309,9 @@ export class OAuthAuthenticator {
 
   socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
   socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 }
 
 export class PasswordlessAuthenticator {

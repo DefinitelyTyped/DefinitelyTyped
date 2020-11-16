@@ -1,9 +1,14 @@
 import { ColorLike } from '../colorlike';
-import AtlasManager from './AtlasManager';
+import BaseEvent from '../events/Event';
+import ImageState from '../ImageState';
+import { Size } from '../size';
 import Fill from './Fill';
 import ImageStyle from './Image';
 import Stroke from './Stroke';
 
+/**
+ * Specify radius for regular polygons, or radius1 and radius2 for stars.
+ */
 export interface Options {
     fill?: Fill;
     points: number;
@@ -11,33 +16,79 @@ export interface Options {
     radius1?: number;
     radius2?: number;
     angle?: number;
+    displacement?: number[];
     stroke?: Stroke;
     rotation?: number;
     rotateWithView?: boolean;
-    atlasManager?: AtlasManager;
 }
 export interface RenderOptions {
     strokeStyle?: ColorLike;
     strokeWidth: number;
     size: number;
-    lineCap: string;
+    lineCap: CanvasLineCap;
     lineDash: number[];
     lineDashOffset: number;
-    lineJoin: string;
+    lineJoin: CanvasLineJoin;
     miterLimit: number;
 }
 export default class RegularShape extends ImageStyle {
     constructor(options: Options);
-    protected atlasManager_: AtlasManager;
     protected radius_: number;
-    protected render_(atlasManager: AtlasManager | undefined): void;
+    protected createRenderOptions(): RenderOptions;
+    protected render(): void;
+    /**
+     * Clones the style.
+     */
     clone(): RegularShape;
-    clone(): ImageStyle;
+    /**
+     * Get the anchor point in pixels. The anchor determines the center point for the
+     * symbolizer.
+     */
+    getAnchor(): number[];
+    /**
+     * Get the angle used in generating the shape.
+     */
     getAngle(): number;
-    getChecksum(): string;
+    /**
+     * Get the fill style for the shape.
+     */
     getFill(): Fill;
+    getHitDetectionImage(): HTMLCanvasElement;
+    getHitDetectionImageSize(): Size;
+    /**
+     * Get the image icon.
+     */
+    getImage(pixelRatio: number): HTMLCanvasElement;
+    getImageSize(): Size;
+    getImageState(): ImageState;
+    /**
+     * Get the origin of the symbolizer.
+     */
+    getOrigin(): number[];
+    /**
+     * Get the number of points for generating the shape.
+     */
     getPoints(): number;
+    /**
+     * Get the (primary) radius for the shape.
+     */
     getRadius(): number;
-    getRadius2(): number;
+    /**
+     * Get the secondary radius for the shape.
+     */
+    getRadius2(): number | undefined;
+    /**
+     * Get the size of the symbolizer (in pixels).
+     */
+    getSize(): Size;
+    /**
+     * Get the stroke style for the shape.
+     */
     getStroke(): Stroke;
+    listenImageChange(listener: (p0: BaseEvent) => void): void;
+    /**
+     * Load not yet loaded URI.
+     */
+    load(): void;
+    unlistenImageChange(listener: (p0: BaseEvent) => void): void;
 }

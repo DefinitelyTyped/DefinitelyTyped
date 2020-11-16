@@ -7,17 +7,17 @@ export type TimePickerProps = TimeBaseProps & {
     id?: string;
     inputProps?: { [x: string]: any };
     localizedText?: {
-        /* Ante meridiem for 12 hour clock. */
         meridiemAM: string;
-        /* Post meridiem for 12 hour clock. */
         meridiemPM: string;
     };
-    /* Additional props to be spread to the `Time` component. */
+    popoverProps?: { [x: string]: any };
     timeProps?: { [x: string]: any };
-    /* Initial time value for the input. */
     value?: string;
+    onChange?: (...args: any[]) => any;
 } & { [x: string]: any };
 
-declare class TimePicker extends React.Component<TimePickerProps> {}
+declare class TimePicker extends React.Component<TimePickerProps> {
+    static displayName: "TimePicker";
+}
 
 export default TimePicker;

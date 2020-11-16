@@ -635,6 +635,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     char: string;
     /** @deprecated */
     charCode: number;
+    code: string;
     key: string;
     /** @deprecated */
     keyCode: number;
@@ -2775,20 +2776,20 @@ interface JQuery {
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
-     * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
-    */
-    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
     on(events: string, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+     * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
+    */
+    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -3518,24 +3519,11 @@ interface JQuery {
     /**
      * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
      *
-     * @param selector A string containing a selector expression to match elements against.
+     * @param selector_element A string containing a selector expression, an element or a jQuery object to match elements against.
      * @see {@link https://api.jquery.com/find/#find-selector}
-     */
-    find(selector: string): JQuery;
-    /**
-     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
-     *
-     * @param element An element to match elements against.
      * @see {@link https://api.jquery.com/find/#find-element}
      */
-    find(element: Element): JQuery;
-    /**
-     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
-     *
-     * @param obj A jQuery object to match elements against.
-     * @see {@link https://api.jquery.com/find/#find-element}
-     */
-    find(obj: JQuery): JQuery;
+    find(selector_element: string | Element | JQuery): JQuery;
 
     /**
      * Reduce the set of matched elements to the first in the set.

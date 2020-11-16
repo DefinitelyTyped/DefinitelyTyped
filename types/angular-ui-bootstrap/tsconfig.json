@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",
-        "angular-ui-bootstrap-tests.ts"
+        "test/angular-ui-bootstrap-tests.ts",
+        "test/angular-ui-bootstrap-module-tests.ts"
     ]
 }

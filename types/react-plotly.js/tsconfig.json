@@ -14,7 +14,9 @@
             "../"
         ],
         "paths": {
-            "d3": [ "d3/v3" ]
+            "d3": [
+                "d3/v3"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -23,7 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "factory.d.ts",
         "react-plotly.js-tests.tsx"
     ]
 }

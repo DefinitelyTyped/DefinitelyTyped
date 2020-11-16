@@ -3,11 +3,12 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "esnext"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [

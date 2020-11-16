@@ -180,18 +180,18 @@ declare module 'firebird' {
      *
      * | Firebird  | Node      |
      * | :-------  | :-------- |
-     * | DATE	   |	Date   |
-     * | TIME	   |	Date   |
-     * | TIMESTAMP | 	Date   |
-     * | CHAR      | 	String |
-     * | VARCHAR   | 	String |
-     * | SMALLINT  | 	Integer|
-     * | INTEGER   | 	Integer|
-     * | NUMERIC   | 	Number |
-     * | DECIMAL   | 	Number |
-     * | FLOAT     | 	Number |
-     * | DOUBLE    | 	Number |
-     * | BLOB      | 	FBblob |
+     * | DATE       |    Date   |
+     * | TIME       |    Date   |
+     * | TIMESTAMP |     Date   |
+     * | CHAR      |     String |
+     * | VARCHAR   |     String |
+     * | SMALLINT  |     Integer|
+     * | INTEGER   |     Integer|
+     * | NUMERIC   |     Number |
+     * | DECIMAL   |     Number |
+     * | FLOAT     |     Number |
+     * | DOUBLE    |     Number |
+     * | BLOB      |     FBblob |
      */
     type DataType = Date | string /*| Integer*/ | number | FBBlob;
 

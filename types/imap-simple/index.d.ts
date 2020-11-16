@@ -2,11 +2,12 @@
 // Project: https://github.com/chadxz/imap-simple
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 //                 Ilari Aarnio <https://github.com/iaarnio>
-// Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import Imap = require("imap");
+import { EventEmitter } from 'events';
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -36,7 +37,7 @@ export interface Message {
     seqno: number;
 }
 
-export class ImapSimple extends NodeJS.EventEmitter {
+export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
 
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
@@ -79,12 +80,20 @@ export class ImapSimple extends NodeJS.EventEmitter {
     moveMessage(source: string | string[], boxName: string): Promise<void>;
 
     /** Adds the provided flag(s) to the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids. flag is either a string or array of strings indicating the flags to add. */
-    addFlags(source: string | string[], flag: string | string[], callback: (err: Error) => void): void;
-    addFlags(source: string | string[], flag: string | string[]): Promise<void>;
+    addFlags(source: number | number[], flag: string | string[], callback: (err: Error) => void): void;
+    addFlags(source: number | number[], flag: string | string[]): Promise<void>;
 
     /** Removes the provided flag(s) from the specified message(s). uid is the uid of the message you want to remove the flag from or an array of uids. flag is either a string or array of strings indicating the flags to remove. */
-    delFlags(uid: string | string[], flag: string | string[], callback: (err: Error) => void): void;
-    delFlags(uid: string | string[], flag: string | string[]): Promise<void>;
+    delFlags(uid: number | number[], flag: string | string[], callback: (err: Error) => void): void;
+    delFlags(uid: number | number[], flag: string | string[]): Promise<void>;
+
+    /** Deletes the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids. */
+    deleteMessage(uid: number | number[], callBack: (err: Error) => void): void;
+    deleteMessage(uid: number | number[]): Promise<void>;
+
+    /** Close a mailbox, calling the provided callback with signature (err), or resolves the returned promise. If autoExpunge is true, any messages marked as Deleted in the currently open mailbox will be removed. */
+    closeBox(autoExpunge: boolean, callBack: (err: Error) => void): void;
+    closeBox(autoExpunge: boolean): Promise<void>;
 }
 
 export namespace errors {

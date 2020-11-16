@@ -10,6 +10,7 @@
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Kyle Scully <https://github.com/zieka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -113,7 +114,6 @@ declare namespace React {
     }
 
     // ReactHTML for ReactHTMLElement
-    // tslint:disable-next-line:no-empty-interface
     interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
@@ -162,7 +162,6 @@ declare namespace React {
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
 
-    // tslint:disable-next-line:no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
@@ -295,7 +294,6 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props?: P, context?: any);
@@ -451,7 +449,6 @@ declare namespace React {
         relatedTarget: EventTarget;
     }
 
-    // tslint:disable-next-line:no-empty-interface
     interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
@@ -2327,7 +2324,7 @@ declare namespace React {
         whiteSpaceTreatment?: CSSWideKeyword | any;
 
         /**
-         * In paged media, this property defines the mimimum number of lines
+         * In paged media, this property defines the minimum number of lines
          * that must be left at the top of the second page.
          * See CSS 3 orphans, widows properties https://drafts.csswg.org/css-break-3/#widows-orphans
          */
@@ -2602,8 +2599,6 @@ declare namespace React {
         title?: string;
 
         // Unknown
-        inputMode?: string;
-        is?: string;
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
@@ -2632,6 +2627,18 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: boolean;
+
+        // Living Standard
+        /**
+         * Hints at the type of data that might be entered by the user while editing the element or its contents
+         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         */
+        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+         * Specify that a standard HTML element should behave like a defined custom built-in element
+         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         */
+        is?: string;
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2753,7 +2760,6 @@ declare namespace React {
         target?: string;
     }
 
-    // tslint:disable-next-line:no-empty-interface
     interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3634,7 +3640,6 @@ declare global {
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
-        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
         interface IntrinsicElements {

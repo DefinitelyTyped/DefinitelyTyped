@@ -1,25 +1,25 @@
-// Type definitions for Benchmark v1.0.0
-// Project: http://benchmarkjs.com
+// Type definitions for Benchmark v2.1.4
+// Project: https://benchmarkjs.com
 // Definitions by: Asana <https://asana.com>
+//                 Charlie Fish <https://github.com/fishcharlie>
+//                 Blair Zajac <https://github.com/blair>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare class Benchmark {
-    static deepClone<T>(value: T): T;
-    static each(obj: Object | any[], callback: Function, thisArg?: any): void;
-    static extend(destination: Object, ...sources: Object[]): Object;
     static filter<T>(arr: T[], callback: (value: T) => any, thisArg?: any): T[];
     static filter<T>(arr: T[], filter: string, thisArg?: any): T[];
-    static forEach<T>(arr: T[], callback: (value: T) => any, thisArg?: any): void;
     static formatNumber(num: number): string;
-    static forOwn(obj: Object, callback: Function, thisArg?: any): void;
-    static hasKey(obj: Object, key: string): boolean;
-    static indexOf<T>(arr: T[], value: T, fromIndex?: number): number;
-    static interpolate(template: string, values: Object): string;
-    static invoke(benches: Benchmark[], name: string | Object, ...args: any[]): any[];
     static join(obj: Object, separator1?: string, separator2?: string): string;
+    static invoke(benches: Benchmark[], name: string | Object, ...args: any[]): any[];
+    static runInContext(context: Object): Function;
+
+    static each(obj: Object | any[], callback: Function, thisArg?: any): void;
+    static forEach<T>(arr: T[], callback: (value: T) => any, thisArg?: any): void;
+    static forOwn(obj: Object, callback: Function, thisArg?: any): void;
+    static has(obj: Object, path: any[] | string): boolean;
+    static indexOf<T>(arr: T[], value: T, fromIndex?: number): number;
     static map<T, K>(arr: T[], callback: (value: T) => K, thisArg?: any): K[];
-    static pluck<T, K>(arr: T[], key: string): K[];
     static reduce<T, K>(arr: T[], callback: (accumulator: K, value: T) => K, thisArg?: any): K;
 
     static options: Benchmark.Options;
@@ -32,13 +32,15 @@ declare class Benchmark {
     constructor(name: string, options?: Benchmark.Options);
     constructor(options: Benchmark.Options);
 
-    aborted: boolean;
-    compiled: Function | string;
+    id: number;
+    name: string;
     count: number;
     cycles: number;
+    hz: number;
+    compiled: Function | string;
     error: Error;
     fn: Function | string;
-    hz: number;
+    aborted: boolean;
     running: boolean;
     setup: Function | string;
     teardown: Function | string;
@@ -86,37 +88,28 @@ declare namespace Benchmark {
     export interface Platform {
         description: string;
         layout: string;
-        manufacturer: string;
+        product: string;
         name: string;
+        manufacturer: string;
         os: string;
         prerelease: string;
-        product: string;
         version: string;
         toString(): string;
     }
 
     export interface Support {
-        air: boolean;
-        argumentsClass: boolean;
         browser: boolean;
-        charByIndex: boolean;
-        charByOwnIndex: boolean;
-        decompilation: boolean;
-        descriptors: boolean;
-        getAllKeys: boolean;
-        iteratesOwnFirst: boolean;
-        java: boolean;
-        nodeClass: boolean;
         timeout: boolean;
+        decompilation: boolean;
     }
 
     export interface Stats {
-        deviation: number;
-        mean: number;
         moe: number;
         rme: number;
-        sample: any[];
         sem: number;
+        deviation: number;
+        mean: number;
+        sample: any[];
         variance: number;
     }
 
@@ -134,6 +127,29 @@ declare namespace Benchmark {
         cycles: number;
         elapsed: number;
         timeStamp: number;
+
+        resolve(): void;
+    }
+
+    export interface Target {
+        options: Options;
+        async?: boolean;
+        defer?: boolean;
+        delay?: number;
+        initCount?: number;
+        maxTime?: number;
+        minSamples?: number;
+        minTime?: number;
+        name?: string;
+        fn?: Function;
+        id: number;
+        stats?: Stats;
+        times?: Times;
+        running: boolean;
+        count?: number;
+        compiled?: Function;
+        cycles?: number;
+        hz?: number;
     }
 
     export class Event {
@@ -143,7 +159,7 @@ declare namespace Benchmark {
         cancelled: boolean;
         currentTarget: Object;
         result: any;
-        target: Object;
+        target: Target;
         timeStamp: number;
         type: string;
     }
@@ -153,9 +169,10 @@ declare namespace Benchmark {
 
         constructor(name?: string, options?: Options);
 
-        aborted: boolean;
         length: number;
+        aborted: boolean;
         running: boolean;
+
         abort(): Suite;
         add(name: string, fn: Function | string, options?: Options): Suite;
         add(fn: Function | string, options?: Options): Suite;
@@ -164,27 +181,30 @@ declare namespace Benchmark {
         clone(options: Options): Suite;
         emit(type: string | Object): any;
         filter(callback: Function | string): Suite;
-        forEach(callback: Function): Suite;
-        indexOf(value: any): number;
-        invoke(name: string, ...args: any[]): any[];
         join(separator?: string): string;
         listeners(type: string): Function[];
-        map(callback: Function): any[];
         off(type?: string, callback?: Function): Suite;
         off(types: string[]): Suite;
         on(type?: string, callback?: Function): Suite;
         on(types: string[]): Suite;
-        pluck(property: string): any[];
-        pop(): Function;
         push(benchmark: Benchmark): number;
-        reduce<T>(callback: Function, accumulator: T): T;
         reset(): Suite;
-        reverse(): any[];
         run(options?: Options): Suite;
+        reverse(): any[];
+        sort(compareFn: (a: any, b: any) => number): any[];
+        splice(start: number, deleteCount?: number): any[];
+        unshift(benchmark: Benchmark): number;
+
+        each(callback: Function): Suite;
+        forEach(callback: Function): Suite;
+        indexOf(value: any): number;
+        map(callback: Function | string): any[];
+        reduce<T>(callback: Function, accumulator: T): T;
+
+        pop(): Function;
         shift(): Benchmark;
         slice(start: number, end: number): any[];
         slice(start: number, deleteCount: number, ...values: any[]): any[];
-        unshift(benchmark: Benchmark): number;
     }
 }
 

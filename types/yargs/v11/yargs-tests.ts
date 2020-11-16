@@ -283,6 +283,30 @@ function Argv$command() {
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
+}
+
+function Argv$positional() {
+    yargs
+        .command('test [paths...]', 'run tests', yargs => {
+            yargs.positional('paths', {
+                type: 'string',
+                array: true,
+            });
+        })
+        .help().argv;
 }
 
 function Argv$completion_sync() {
@@ -463,10 +487,11 @@ function Argv$coerceWithKeys() {
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
     const ya = yargs
-        .fail((msg, err) => {
+        .fail((msg, err, { help }) => {
             if (err) throw err; // preserve stack
             console.error('You broke it!');
             console.error(msg);
+            console.error(help());
             process.exit(1);
         })
         .argv;

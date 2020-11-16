@@ -19,7 +19,7 @@ export class Login extends React.Component {
         return (
             <View>
                 <LoginButton
-                    publishPermissions={["publish_actions"]}
+                    permissions={["publish_actions"]}
                     onLoginFinished={
                         (error, result) => {
                             if (error) {
@@ -89,6 +89,21 @@ export const shareLinkWithShareDialog = (): void => {
 
 const obj = { param: 'value' };
 AppEventsLogger.logPurchase(15, 'USD', obj);
+
+// Build user data
+const userData: FBSDK.UserData = {
+    email: 'johndoe@gmail.com',
+    firstName: 'John',
+    lastName: 'Doe',
+    phone: '078787878787',
+    dateOfBirth: '04/02/2020',
+    gender: 'm',
+    city: 'Nottingham',
+    state: 'Nottinghamshire',
+    zip: 'NG2 7DU',
+    country: 'United Kingdom',
+};
+AppEventsLogger.setUserData(userData);
 
 const responseInfoCallback: FBSDK.GraphRequestCallback = (error, result) => {
     if (error) {

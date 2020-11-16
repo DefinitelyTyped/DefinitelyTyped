@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 export const Circle: ComponentType<JSX.IntrinsicElements['circle']>;
 export const G: ComponentType<JSX.IntrinsicElements['g']>;

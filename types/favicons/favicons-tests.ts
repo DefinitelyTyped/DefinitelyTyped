@@ -6,7 +6,10 @@ let config: Partial<favicons.Configuration> = {
 
 config = {
     icons: {
-        android: true
+        android: true,
+        favicons: {
+            ovelayShadow: false
+        }
     }
 };
 

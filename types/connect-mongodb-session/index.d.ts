@@ -1,8 +1,8 @@
 // Type definitions for connect-mongodb-session
-// Project: https://github.com/kcbanner/connect-mongodb-session
+// Project: https://github.com/mongodb-js/connect-mongodb-session#readme
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="express-session" />
 

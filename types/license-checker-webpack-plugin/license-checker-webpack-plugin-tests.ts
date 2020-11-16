@@ -18,7 +18,8 @@ new LicenseCheckerWebpackPlugin({
 // $ExpectType LicenseCheckerWebpackPlugin
 new LicenseCheckerWebpackPlugin({
     filter: /.*/,
-    outputWriter: (dependencies) => {
+    outputWriter: ({ dependencies }) => {
+        dependencies; // $ExpectType Dependency[]
         return dependencies.map(d => `${d.name} ${d.licenseName}`).join('\n');
     },
 });

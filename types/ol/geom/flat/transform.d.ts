@@ -7,8 +7,11 @@ export function rotate(
     stride: number,
     angle: number,
     anchor: number[],
-    opt_dest?: number[]
+    opt_dest?: number[],
 ): number[];
+/**
+ * Scale the coordinates.
+ */
 export function scale(
     flatCoordinates: number[],
     offset: number,
@@ -17,7 +20,7 @@ export function scale(
     sx: number,
     sy: number,
     anchor: number[],
-    opt_dest?: number[]
+    opt_dest?: number[],
 ): number[];
 export function transform2D(
     flatCoordinates: number[],
@@ -25,7 +28,7 @@ export function transform2D(
     end: number,
     stride: number,
     transform: Transform,
-    opt_dest?: number[]
+    opt_dest?: number[],
 ): number[];
 export function translate(
     flatCoordinates: number[],
@@ -34,5 +37,5 @@ export function translate(
     stride: number,
     deltaX: number,
     deltaY: number,
-    opt_dest?: number[]
+    opt_dest?: number[],
 ): number[];

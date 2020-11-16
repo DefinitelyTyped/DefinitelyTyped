@@ -3,10 +3,12 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
+//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
 //                 Mihai Cherej <https://github.com/cronco>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Latest patch version of module validated against: 3.5.17
+// Latest patch version of module validated against: 3.5.18
 
 export = d3;
 export as namespace d3;
@@ -2577,8 +2579,8 @@ declare namespace d3 {
             tickPadding(): number;
             tickPadding(padding: number): Axis;
 
-            tickFormat(): (t: any) => string;
-            tickFormat(format: (t: any) => string): Axis;
+            tickFormat(): (t: any , index : number) => string;
+            tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
         }
 

@@ -16,24 +16,58 @@ export interface WriteOptions {
     rightHanded?: boolean;
     decimals?: number;
 }
-export default class FeatureFormat {
+export default abstract class FeatureFormat {
     constructor();
     protected dataProjection: Projection;
     protected defaultFeatureProjection: Projection;
-    protected adaptOptions(options: WriteOptions | ReadOptions | undefined): WriteOptions | ReadOptions;
-    protected getReadOptions(source: Document | Node | object | string, opt_options?: ReadOptions): ReadOptions;
-    getLastExtent(): Extent;
-    getType(): FormatType;
-    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): FeatureLike;
-    readFeatures(source: Document | Node | ArrayBuffer | object | string, opt_options?: ReadOptions): FeatureLike[];
-    readGeometry(source: Document | Node | object | string, opt_options?: ReadOptions): Geometry;
-    readProjection(source: Document | Node | object | string): Projection;
-    writeFeature(feature: Feature, opt_options?: WriteOptions): string;
-    writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
-    writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
+    /**
+     * Sets the dataProjection on the options, if no dataProjection
+     * is set.
+     */
+    protected adaptOptions(options: WriteOptions | ReadOptions | undefined): WriteOptions | ReadOptions | undefined;
+    /**
+     * Adds the data projection to the read options.
+     */
+    protected getReadOptions(
+        source: Document | Element | object | string,
+        opt_options?: ReadOptions,
+    ): ReadOptions | undefined;
+    abstract getType(): FormatType;
+    /**
+     * Read a single feature from a source.
+     */
+    abstract readFeature(source: Document | Element | object | string, opt_options?: ReadOptions): FeatureLike;
+    /**
+     * Read all features from a source.
+     */
+    abstract readFeatures(
+        source: Document | Element | ArrayBuffer | object | string,
+        opt_options?: ReadOptions,
+    ): FeatureLike[];
+    /**
+     * Read a single geometry from a source.
+     */
+    abstract readGeometry(source: Document | Element | object | string, opt_options?: ReadOptions): Geometry;
+    /**
+     * Read the projection from a source.
+     */
+    abstract readProjection(source: Document | Element | object | string): Projection;
+    /**
+     * Encode a feature in this format.
+     */
+    abstract writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
+    /**
+     * Encode an array of features in this format.
+     */
+    abstract writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
+    /**
+     * Write a single geometry in this format.
+     */
+    abstract writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
 }
-export function transformWithOptions(
-    geometry: Geometry | Extent,
+export function transformExtentWithOptions(extent: Extent, opt_options?: ReadOptions): Extent;
+export function transformGeometryWithOptions(
+    geometry: Geometry,
     write: boolean,
-    opt_options?: WriteOptions | ReadOptions
-): Geometry | Extent;
+    opt_options?: WriteOptions | ReadOptions,
+): Geometry;

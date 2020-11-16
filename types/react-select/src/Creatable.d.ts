@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, ValueType, ActionMeta } from './types';
+import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType> {
+export interface CreatableProps<OptionType extends OptionTypeBase> {
   /* Allow options to be created while the `isLoading` prop is true. Useful to
      prevent the "create new ..." option being displayed while async results are
      still being loaded. */
@@ -14,7 +14,11 @@ export interface CreatableProps<OptionType> {
   formatCreateLabel?: (inputValue: string) => React.ReactNode;
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
-  isValidNewOption?: (inputValue: string, value: ValueType<OptionType>, options: OptionsType<OptionType>) => boolean;
+  isValidNewOption?: (
+    inputValue: string,
+    value: ValueType<OptionType>,
+    options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
+   ) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
   getNewOptionData?: (inputValue: string, optionLabel: React.ReactNode) => OptionType;
@@ -26,20 +30,20 @@ export interface CreatableProps<OptionType> {
   createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType> = SelectProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase> = SelectProps<OptionType> & CreatableProps<OptionType>;
 
 export const defaultProps: Props<any>;
 
-export interface State<OptionType> {
+export interface State<OptionType extends OptionTypeBase> {
   newOption: OptionType | undefined;
   options: OptionsType<OptionType>;
 }
 
-export class Creatable<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+export class Creatable<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
   static defaultProps: Props<any>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
   focus(): void;
   blur(): void;
 }

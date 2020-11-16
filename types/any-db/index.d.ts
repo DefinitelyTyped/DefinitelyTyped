@@ -137,7 +137,7 @@ export interface Query extends stream.Readable {
 /**
  * Events:
  * The 'query' event is emitted immediately before a query is executed. One argument is passed to event handlers:
- * - query:	a Query object
+ * - query:    a Query object
  */
 export interface Queryable extends events.EventEmitter {
     /**
@@ -204,9 +204,9 @@ export interface ConnectionStatic {
  * 'acquire' - emitted whenever pool.acquire is called
  * 'release' - emitted whenever pool.release is called
  * 'query', query - emitted immediately after .query is called on a
- * 		connection via pool.query. The argument is a Query object.
+ *         connection via pool.query. The argument is a Query object.
  * 'close' - emitted when the connection pool has closed all of it
- * 		connections after a call to close().
+ *         connections after a call to close().
  */
 export interface ConnectionPool extends Queryable {
     /**
@@ -282,17 +282,17 @@ export interface PoolConfig {
 
 /**
  * Create a database connection.
- * @param url	String of the form adapter://user:password@host/database
+ * @param url    String of the form adapter://user:password@host/database
  * @param callback
- * @returns	Connection object.
+ * @returns    Connection object.
  */
 export declare function createConnection(url: string, callback?: (error: Error, connection: Connection) => void): Connection;
 
 /**
  * Create a database connection.
- * @param opts	Object with adapter name and any properties that the given adapter requires
+ * @param opts    Object with adapter name and any properties that the given adapter requires
  * @param callback
- * @returns	Connection object.
+ * @returns    Connection object.
  */
 export declare function createConnection(opts: ConnectOpts, callback?: (error: Error, connection: Connection) => void): Connection;
 

@@ -1,8 +1,9 @@
-// Type definitions for vorpal 1.11
+// Type definitions for vorpal 1.12
 // Project: https://github.com/dthree/vorpal
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
+//                 Gheorghe Avram <https://github.com/sweethuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.5
 
 declare class Vorpal {
     parse(argv: ReadonlyArray<string>): this;
@@ -32,6 +33,10 @@ declare namespace Vorpal {
         options: {
             [key: string]: any;
         };
+    }
+
+    interface PromptObject {
+        [key: string]: any;
     }
 
     type Action = (args: Args) => Promise<void>;
@@ -74,7 +79,7 @@ declare namespace Vorpal {
 
     class CommandInstance {
         log(value: string, ...values: string[]): void;
-        prompt(prompt: object | ReadonlyArray<object>): Promise<object>;
+        prompt(prompt: object | ReadonlyArray<object>): Promise<PromptObject>;
         delimiter(value: string): void;
     }
 }

@@ -2,14 +2,15 @@
 // Project: https://github.com/oskosk/express-socket.io-session
 // Definitions by: AylaJK <https://github.com/AylaJK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import socketio = require('socket.io');
 import express = require('express');
+import session = require('express-session');
 
 declare module "socket.io" {
     interface Handshake {
-        session?: Express.Session;
+        session?: session.Session & Partial<session.SessionData>;
         sessionID?: string;
     }
 }

@@ -1,16 +1,18 @@
 import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
-import { CommonProps, PropsWithStyles } from '../types';
+import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
 
 interface State {
   /** Whether the select is disabled. */
   isDisabled: boolean;
   /** Whether the select is focused. */
   isFocused: boolean;
+  /** Whether the select is expanded. */
+  menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType> = CommonProps<OptionType> &
+export type ControlProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
   PropsWithStyles &
   State & {
     /** Children to render. */

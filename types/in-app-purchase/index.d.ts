@@ -1,6 +1,9 @@
-// Type definitions for in-app-purchase 1.10
+// Type definitions for in-app-purchase 1.11
 // Project: https://github.com/voltrue2/in-app-purchase#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>, Dennis Kugelmann <https://github.com/IchordeDionysos>
+// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
+//                 Dennis Kugelmann <https://github.com/IchordeDionysos>
+//                 Alexander Tartmin <https://github.com/Baskerville42>
+//                 Hiroshi Kikuchi <https://github.com/kikuchy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9,6 +12,7 @@ export const APPLE = 'apple';
 export const GOOGLE = 'google';
 export const WINDOWS = 'windows';
 export const AMAZON = 'amazon';
+export const FACEBOOK = 'facebook';
 export const ROKU = 'roku';
 
 export function config(params: Config): void;
@@ -45,26 +49,44 @@ export interface Config {
 
   /* Configurations for Apple */
 
+  // if you want to exclude old transaction, set this to true. Default is false
+  appleExcludeOldTransactions?: boolean;
   // this comes from iTunes Connect (You need this to valiate subscriptions)
   applePassword?: string;
+
+  // Configurations for Google Service Account validation: You can validate with just packageName, productId, and purchaseToken
+  googleServiceAccount?: {
+    // client email from Google API service account JSON key file
+    clientEmail: string,
+    // private key string from Google API service account JSON key file
+    privateKey: string
+  };
 
   /* Configurations for Google Play */
   // this is the path to the directory containing iap-sanbox/iap-live files
   googlePublicKeyPath?: string;
+  // this is the google iap-sandbox public key string
+  googlePublicKeyStrSandBox?: string;
+  // this is the google iap-live public key string
+  googlePublicKeyStrLive?: string;
   // optional, for Google Play subscriptions
   googleAccToken?: string;
   // optional, for Google Play subscritions
   googleRefToken?: string;
   // optional, for Google Play subscriptions
-  clientId?: string;
+  googleClientID?: string;
   // optional, for Google Play subscriptions
-  clientSecret?: string;
+  googleClientSecret?: string;
   // optional, for Google Play subscriptions
-  refreshToken?: string;
+  googleRefreshToken?: string;
 
   /* Configurations for Roku */
   // this comes from Roku Developer Dashboard
   rokuApiKey?: string;
+
+  /* Configurations for Facebook (Payments Lite) */
+  facebookAppId?: string;
+  facebookAppSecret?: string;
 
   /* Configurations all platforms */
   // For Apple and Googl Play to force Sandbox validation only
@@ -73,19 +95,20 @@ export interface Config {
   verbose?: boolean;
 }
 
-export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDOWS | typeof AMAZON | typeof ROKU;
+export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDOWS | typeof AMAZON | typeof FACEBOOK | typeof ROKU;
 
 export type UnityReceipt = object | string;
 export type AppleReceipt = string;
 export type GoogleReceipt = {
-  date: string;
+  data: string;
   signature: string;
 } | string;
 export type WindowsReceipt = string;
 export type AmazonReceipt = object | string;
 export type RokuReceipt = string;
+export type FacebookReceipt = string;
 
-export type Receipt = UnityReceipt | AppleReceipt | GoogleReceipt | WindowsReceipt | AmazonReceipt | RokuReceipt;
+export type Receipt = UnityReceipt | AppleReceipt | GoogleReceipt | WindowsReceipt | AmazonReceipt | FacebookReceipt | RokuReceipt;
 
 export interface ValidationResponse {
   service: Service;
@@ -106,7 +129,7 @@ export interface PurchasedItem {
   cancellationDate?: number; // only Apple/Google
   // iTunes, windows and amazon subscription only
   // Google subscriptions only with google play store api info
-  expirationDate?: number;
+  expirationDate?: number | string;
   quantity: number;
   // this was created based on the source code of in-app-purchase
   // eventually there are more fields

@@ -1,6 +1,6 @@
 // Added test in addition to docs, for request.query
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 interface GetThingQuery {
     name: string;

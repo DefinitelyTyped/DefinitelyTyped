@@ -1,7 +1,10 @@
-// Type definitions for react-native-auth0 1.3
+// Type definitions for react-native-auth0 2.5
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Leo Farias <https://github.com/leoafarias>
+//                 Will Dady <https://github.com/willdady>
+//                 Bogdan Vitoc <https://github.com/bogidon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -9,7 +12,7 @@
  * Auth
  */
 
-export interface AuthorizationUrlParams {
+export interface AuthorizeUrlParams {
     responseType: string;
     redirectUri: string;
     state: string;
@@ -27,6 +30,15 @@ export interface CreateUserResponse {
     Id: string;
     emailVerified: boolean;
     email: string;
+}
+
+export interface ExchangeResponse {
+    accessToken: string;
+    expiresIn: number;
+    idToken: string;
+    refreshToken: string;
+    scope?: string;
+    tokenType: string;
 }
 
 export interface ExchangeParams {
@@ -54,8 +66,16 @@ export interface PasswordRealmResponse {
     expiresIn: number;
     idToken: string;
     scope: string;
-    tokenType: "Bearer";
+    tokenType: 'Bearer';
     refreshToken?: string;
+}
+
+export interface RefreshTokenResponse {
+    accessToken: string;
+    expiresIn: number;
+    idToken: string;
+    scope?: string;
+    tokenType: string;
 }
 
 export interface RefreshTokenParams {
@@ -76,9 +96,39 @@ export interface ResetPasswordParams {
     connection: string;
 }
 
+export interface AuthParams {
+    [key: string]: string;
+}
+
+export interface PasswordlessWithEmailParams {
+    email: string;
+    send?: 'link' | 'code';
+    authParams?: AuthParams;
+}
+
+export interface PasswordlessWithSMSParams {
+    phoneNumber: string;
+}
+
+export interface LoginWithEmailParams {
+    email: string;
+    code: string;
+    audience?: string;
+    scope?: string;
+}
+
+export interface LoginWithSMSParams {
+    phoneNumber: string;
+    code: string;
+    audience?: string;
+    scope?: string;
+}
+
 export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
+    familyName: string;
+    givenName: string;
     name: string;
     nickname: string;
     picture: string;
@@ -87,17 +137,21 @@ export type UserInfo<CustomClaims = {}> = {
 } & CustomClaims;
 
 export class Auth {
-    authorizationUrl(params: AuthorizationUrlParams): string;
+    authorizeUrl(params: AuthorizeUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
-    exchange(params: ExchangeParams): Promise<string>;
+    exchange(params: ExchangeParams): Promise<ExchangeResponse>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-    refreshToken(params: RefreshTokenParams): Promise<any>;
+    refreshToken(params: RefreshTokenParams): Promise<RefreshTokenResponse>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
     /* tslint:disable-next-line no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
+    passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
+    passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
+    loginWithEmail(params: LoginWithEmailParams): Promise<any>;
+    loginWithSMS(params: LoginWithSMSParams): Promise<any>;
 }
 
 /**
@@ -150,17 +204,30 @@ export interface AuthorizeParams {
     prompt?: string;
 }
 
+export interface AuthorizeOptions {
+    ephemeralSession?: boolean;
+}
+
 export interface ClearSessionParams {
     federated: boolean;
 }
 
+export interface Credentials {
+    accessToken: string;
+    idToken: string;
+    refreshToken?: string;
+    expiresIn: number;
+    scope: string;
+    tokenType: string;
+}
+
 export class WebAuth {
-    authorize(parameters: AuthorizeParams): Promise<any>;
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<Credentials>;
     clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 
 export interface UsersOptions {
-    baseUrl: Options["domain"];
+    baseUrl: Options['domain'];
     token: string;
 }
 

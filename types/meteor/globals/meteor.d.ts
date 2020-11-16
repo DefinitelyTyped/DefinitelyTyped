@@ -1,3 +1,4 @@
+declare type global_Error = Error;
 declare module Meteor {
     /** Global props **/
     var isClient: boolean;
@@ -22,7 +23,7 @@ declare module Meteor {
         verified: boolean;
     }
     interface User {
-        _id?: string;
+        _id: string;
         username?: string;
         emails?: UserEmail[];
         createdAt?: Date;
@@ -52,7 +53,7 @@ declare module Meteor {
     }
     interface TypedError extends global_Error {
         message: string;
-        errorType: string;          
+        errorType: string;
     }
     /** Error **/
 
@@ -70,14 +71,14 @@ declare module Meteor {
     function call(name: string, ...args: any[]): any;
 
     function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
-        name: string, 
-        args: ReadonlyArray<EJSONable | EJSONableProperty>, 
+        name: string,
+        args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean;
             onResultReceived?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void;
             returnStubValue?: boolean;
             throwStubExceptions?: boolean;
-        }, 
+        },
         asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void): any;
     /** Method **/
 
@@ -111,7 +112,15 @@ declare module Meteor {
 
     function wrapAsync(func: Function, context?: Object): any;
 
-    function bindEnvironment(func: Function): any;
+    function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
+
+    class EnvironmentVariable<T> {
+        readonly slot: number;
+        constructor();
+        get(): T;
+        getOrNullIfOutsideFiber(): T | null;
+        withValue<U>(value: T, fn: () => U): U;
+    }
     /** utils **/
 
     /** Pub/Sub **/
@@ -165,6 +174,8 @@ declare module Meteor {
     function loginWithPassword(user: Object | string, password: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function loginWithToken(token: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+
+    function loggingOut(): boolean;
 
     function logout(callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
@@ -220,7 +231,7 @@ declare module Meteor {
     function onConnection(callback: Function): void;
     /** Connection **/
 
-    function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
+    function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: {is_auto: boolean}): void;
 
     function _debug(...args: any[]): void;
 }
@@ -234,7 +245,7 @@ declare interface Subscription {
     ready(): void;
     removed(collection: string, id: string): void;
     stop(): void;
-    userId: string;
+    userId: string | null;
 }
 
 declare module Meteor {

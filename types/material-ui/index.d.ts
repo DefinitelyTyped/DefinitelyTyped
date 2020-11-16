@@ -14,7 +14,7 @@
 //                 Sam Walsh <https://github.com/samwalshnz>
 //                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.5
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -986,6 +986,7 @@ declare namespace __MaterialUI {
             inputStyle?: React.CSSProperties;
             onBlur?: React.FocusEventHandler<{}>;
             onKeyDown?: React.KeyboardEventHandler<{}>;
+            openToYearSelection?: boolean;
             rows?: number;
             rowsMax?: number;
             name?: string;
@@ -1191,7 +1192,7 @@ declare namespace __MaterialUI {
         }
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
-        export function makeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
+        export function makeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<Omit<P, 'onChange'> & SelectableProps>;
     }
 
     namespace Menus {

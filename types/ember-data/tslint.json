@@ -1,20 +1,16 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false,
-        // Heavy use of Function type in this older package.
         "ban-types": false,
         "jsdoc-format": false,
-        "no-misused-new": false,
-        // not sure what this means
-        "no-single-declare-module": false,
+        "no-empty-interface": false,
+        "no-return-await": false,
+        "no-self-import": false,
+        "no-unnecessary-generics": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
-        "no-empty-interface": false,
         "prefer-const": false,
-        "no-unnecessary-generics": false,
-        "no-declare-current-package": false,
-        "no-self-import": false,
-        "no-return-await": false // used in tests
+        "space-before-function-paren": false,
+        "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
     }
 }

@@ -6449,7 +6449,7 @@ declare namespace WinJS.Utilities {
         /**
          * Removes the specified class from all the elements in the collection.
          * @param name The name of the class to be removed.
-         * @returns his QueryCollection object.
+         * @returns This QueryCollection object.
         **/
         removeClass(name: string): QueryCollection<T>;
 
@@ -6498,25 +6498,25 @@ declare namespace WinJS.Utilities {
 
     }
 
-	/**
-	 * Constructor support for QueryCollection interface
-	**/
-	export var QueryCollection: {
+    /**
+     * Constructor support for QueryCollection interface
+    **/
+    export var QueryCollection: {
         new <T>(items: T[]): QueryCollection<T>;
         prototype: QueryCollection<any>;
     }
 
-	//#endregion Objects
+    //#endregion Objects
 
-	//#region Functions
+    //#region Functions
 
-	/**
-	 * Adds the specified class to the specified element.
-	 * @param e The element to which to add the class.
-	 * @param name The name of the class to add.
-	 * @returns The element.
-	**/
-	function addClass<T extends HTMLElement>(e: T, name: string): T;
+    /**
+     * Adds the specified class to the specified element.
+     * @param e The element to which to add the class.
+     * @param name The name of the class to add.
+     * @returns The element.
+    **/
+    function addClass<T extends HTMLElement>(e: T, name: string): T;
 
     /**
      * Gets a collection of elements that are the direct children of the specified element.

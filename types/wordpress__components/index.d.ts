@@ -1,24 +1,35 @@
-// Type definitions for @wordpress/components 7.4
+// Type definitions for @wordpress/components 9.8
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
+//                 Philip Jackson <https://github.com/p-jackson>
+//                 Sara Marcondes <https://github.com/saramarcondes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
 export * from './primitives';
 
 //
 // Components
 //
+export { default as AnglePickerControl } from './angle-picker-control';
 export { default as Animate } from './animate';
 export { default as Autocomplete } from './autocomplete';
 export { default as BaseControl } from './base-control';
 export { default as Button } from './button';
 export { default as ButtonGroup } from './button-group';
+export { default as Card } from './card';
+export { default as CardBody } from './card/body';
+export { default as CardDivider } from './card/divider';
+export { default as CardFooter } from './card/footer';
+export { default as CardHeader } from './card/header';
+export { default as CardMedia } from './card/media';
 export { default as CheckboxControl } from './checkbox-control';
 export { default as ClipboardButton } from './clipboard-button';
 export { default as ColorIndicator } from './color-indicator';
 export { default as ColorPalette } from './color-palette';
 export { default as ColorPicker } from './color-picker';
+export { default as CustomSelectControl } from './custom-select-control';
 export { default as Dashicon } from './dashicon';
 export { DateTimePicker, DatePicker, TimePicker } from './date-time';
 export { default as Disabled } from './disabled';
@@ -28,6 +39,9 @@ export { default as DropZoneProvider } from './drop-zone/provider';
 export { default as Dropdown } from './dropdown';
 export { default as DropdownMenu } from './dropdown-menu';
 export { default as ExternalLink } from './external-link';
+export { default as Flex } from './flex';
+export { default as FlexBlock } from './flex/block';
+export { default as FlexItem } from './flex/item';
 export { default as FocalPointPicker } from './focal-point-picker';
 export { default as FocusableIframe } from './focusable-iframe';
 export { default as FontSizePicker } from './font-size-picker';

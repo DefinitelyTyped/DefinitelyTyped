@@ -118,6 +118,8 @@ declare namespace Less {
         modifyVars?: {
           [key: string] : string,
         };
+        /** Read files synchronously in Node.js */
+        syncImport?: boolean;
     }
 
     interface RenderError {
@@ -154,8 +156,8 @@ interface LessStatic {
 
     refreshStyles(): void;
 
-    render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
-    render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
+    render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput | undefined) => void): void;
+    render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput | undefined) => void): void;
 
     render(input: string): Promise<Less.RenderOutput>;
     render(input: string, options: Less.Options): Promise<Less.RenderOutput>;

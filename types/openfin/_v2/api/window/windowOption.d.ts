@@ -1,18 +1,20 @@
 import { DownloadPreloadOption } from '../system/download-preload';
-import { RGB, ContextMenuSettings } from '../../shapes';
+import { RGB, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
 export interface WindowOption {
-    accelerator?: object;
+    accelerator?: Accelerator;
     alphaMask?: RGB;
     alwaysOnTop?: boolean;
-    api?: object;
+    api?: Api;
     applicationIcon?: string;
     aspectRatio?: number;
     autoShow?: boolean;
     backgroundColor?: string;
-    contentNavigation?: object;
+    contentNavigation?: ContentNavigation;
+    contentRedirect?: ContentRedirect;
     contextMenu?: boolean;
     contextMenuSettings?: ContextMenuSettings;
-    cornerRounding?: object;
+    cornerRounding?: CornerRounding;
+    customContext?: any;
     customData?: any;
     customRequestHeaders?: Array<CustomRequestHeaders>;
     defaultCentered?: boolean;
@@ -22,7 +24,9 @@ export interface WindowOption {
     defaultWidth?: number;
     frame?: boolean;
     hideOnClose?: boolean;
+    hotkeys?: Hotkey[];
     icon?: string;
+    layout?: GoldenLayout.Config;
     maxHeight?: number;
     maximizable?: boolean;
     maxWidth?: number;
@@ -33,10 +37,11 @@ export interface WindowOption {
     opacity?: number;
     preloadScripts?: Array<DownloadPreloadOption>;
     resizable?: boolean;
-    resizeRegion?: object;
+    resizeRegion?: ResizeRegion;
     saveWindowState?: boolean;
     shadow?: boolean;
     showTaskbarIcon?: boolean;
+    showBackgroundImages?: boolean;
     smallWindow?: boolean;
     state?: string;
     taskbarIconGroup?: string;
@@ -46,7 +51,7 @@ export interface WindowOption {
 }
 export interface CustomRequestHeaders {
     urlPatterns: Array<string>;
-    headers: Array<object>;
+    headers: Array<any>;
 }
 export declare type WindowOptionDiff = {
     [key in keyof WindowOption]: {
@@ -54,3 +59,37 @@ export declare type WindowOptionDiff = {
         newVal: WindowOption[key];
     };
 };
+export interface ResizeRegion {
+    size?: number;
+    bottomRightCorner?: number;
+    sides?: {
+        top?: boolean;
+        bottom?: boolean;
+        left?: boolean;
+        right?: boolean;
+    };
+}
+export interface Accelerator {
+    devtools?: boolean;
+    reload?: boolean;
+    reloadIgnoringCache?: boolean;
+    zoom?: boolean;
+}
+export interface Api {
+    iframe?: {
+        crossOriginInjection?: boolean;
+        sameOriginInjection?: boolean;
+    };
+}
+export interface ContentNavigation {
+    whitelist?: string[];
+    blacklist?: string[];
+}
+export interface ContentRedirect {
+    whitelist?: string[];
+    blacklist?: string[];
+}
+export interface CornerRounding {
+    height?: number;
+    width?: number;
+}

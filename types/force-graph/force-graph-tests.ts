@@ -3,6 +3,10 @@ import ForceGraph from 'force-graph';
 const graph = ForceGraph();
 graph(new HTMLElement());
 
+const node1: ForceGraph.GraphNode = {id: '1', name: 'node1', val: 123};
+const node2: ForceGraph.GraphNode = {id: '2', name: 'node2', val: 321};
+const link: ForceGraph.GraphLinkObject = {source: node1, target: node2, type: 'test', id: '3'};
+
 graph
     .graphData({nodes: [], links: []})
     .nodeId('testNode')
@@ -28,13 +32,14 @@ graph
     .linkVisibility((link) => true)
     .linkColor('color')
     .linkColor((link) => link.type)
+    .emitParticle(link)
+    .d3ReheatSimulation()
     .linkAutoColorBy('type')
     .linkAutoColorBy((link) => link.type)
     .linkWidth(1)
     .linkWidth((link) => 1)
-    .linkCurvature(ForceGraph.LinkCurvatureType.Straight)
     .linkCurvature('curvature')
-    .linkCurvature((link) => ForceGraph.LinkCurvatureType.Straight)
+    .linkCurvature((link) => 0.5)
     .linkCanvasObject((link, ctx, scale) => {})
     .linkDirectionalArrowLength(0)
     .linkDirectionalArrowLength('length')

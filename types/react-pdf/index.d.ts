@@ -1,4 +1,4 @@
-// Type definitions for react-pdf 4.0
+// Type definitions for react-pdf 5.0
 // Project: https://github.com/wojtekmaj/react-pdf/
 // Definitions by: CodeDaraW <https://github.com/CodeDaraW>
 //                 Nathan Hardy <https://github.com/nhardy>
@@ -8,9 +8,6 @@
 import Document from './dist/Document';
 import Page from './dist/Page';
 import Outline from './dist/Outline';
+import pdfjs from './dist/pdfjs-dist';
 
-export {
-    Document,
-    Page,
-    Outline
-};
+export { pdfjs, Document, Page, Outline };

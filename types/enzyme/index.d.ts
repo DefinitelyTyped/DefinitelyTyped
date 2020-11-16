@@ -13,6 +13,7 @@
 //                 Braiden Cutforth <https://github.com/braidencutforth>
 //                 Erick Zhao <https://github.com/erickzhao>
 //                 Jack Tomaszewski <https://github.com/jtomaszewski>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -66,7 +67,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement | ReactElement[] | string): boolean;
+    contains(node: ReactElement | ReactElement[] | string | number): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
@@ -111,7 +112,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
             }[keyof P]
         >
     >(
-        invokePropName: K
+        invokePropName: K,
     ): P[K];
 
     /**
@@ -380,7 +381,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Renders the component to static markup and returns a Cheerio wrapper around the result.
      */
-    render(): Cheerio;
+    render(): cheerio.Cheerio;
 
     /**
      * Returns the type of the current node of this wrapper. If it's a composite component, this will be the
@@ -395,7 +396,6 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
 
 export type Parameters<T> = T extends (...args: infer A) => any ? A : never;
 
-// tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ShallowWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
@@ -408,6 +408,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
+    find<C2 extends Component>(
+        componentClass: ComponentClass<C2['props']>,
+    ): ShallowWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -444,7 +447,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
      */
     dive<C2 extends Component, P2 = C2['props'], S2 = C2['state']>(
-        options?: ShallowRendererProps
+        options?: ShallowRendererProps,
     ): ShallowWrapper<P2, S2, C2>;
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
     dive<P2, S2, C2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
@@ -488,7 +491,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper of the node rendered by the provided render prop.
      */
     renderProp<PropName extends keyof P>(
-        prop: PropName
+        prop: PropName,
     ): (...params: Parameters<P[PropName]>) => ShallowWrapper<any, never>;
 
     /**
@@ -499,7 +502,6 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     getWrappingComponent: () => ShallowWrapper;
 }
 
-// tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ReactWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
@@ -541,6 +543,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
+    find<C2 extends Component>(componentClass: ComponentClass<C2['props']>): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
@@ -704,7 +707,7 @@ export interface MountRendererProps {
  */
 export function shallow<C extends Component, P = C['props'], S = C['state']>(
     node: ReactElement<P>,
-    options?: ShallowRendererProps
+    options?: ShallowRendererProps,
 ): ShallowWrapper<P, S, C>;
 export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
@@ -714,7 +717,7 @@ export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererPr
  */
 export function mount<C extends Component, P = C['props'], S = C['state']>(
     node: ReactElement<P>,
-    options?: MountRendererProps
+    options?: MountRendererProps,
 ): ReactWrapper<P, S, C>;
 export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
@@ -722,7 +725,7 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
  */
-export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+export function render<P, S>(node: ReactElement<P>, options?: any): cheerio.Cheerio;
 
 // See https://github.com/airbnb/enzyme/blob/v3.10.0/packages/enzyme/src/EnzymeAdapter.js
 export class EnzymeAdapter {

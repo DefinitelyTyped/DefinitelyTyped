@@ -7,7 +7,6 @@ declare module "url" {
         host?: string;
         hostname?: string;
         href?: string;
-        path?: string;
         pathname?: string;
         protocol?: string;
         search?: string;
@@ -24,6 +23,7 @@ declare module "url" {
     interface Url extends UrlObjectCommon {
         port?: string;
         query?: string | null | ParsedUrlQuery;
+        path?: string;
     }
 
     interface UrlWithParsedQuery extends Url {
@@ -86,7 +86,7 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> | undefined } | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;

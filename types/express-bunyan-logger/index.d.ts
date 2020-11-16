@@ -3,7 +3,7 @@
 // Definitions by: Shrey Jain <https://github.com/shreyjain1994>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import Bunyan = require('bunyan');
 import express = require('express');

@@ -1,6 +1,5 @@
 import { ComponentClass, StatelessComponent } from 'react';
 import { I18n } from '@lingui/core';
-import { withI18nProps } from './withI18n';
 
 export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
 
@@ -12,6 +11,7 @@ export interface withI18nOptions {
 
 export interface withI18nProps {
     i18n: I18n;
+    i18nHash: string | null | undefined;
 }
 
 export default function withI18n(options?: withI18nOptions):

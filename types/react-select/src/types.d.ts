@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
-export type OptionsType<OptionType> = ReadonlyArray<OptionType>;
+export interface OptionTypeBase {
+  [key: string]: any;
+}
 
-export interface GroupType<OptionType> {
+export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
+
+export interface GroupType<OptionType extends OptionTypeBase> {
   options: OptionsType<OptionType>;
   [key: string]: any;
 }
 
-export type GroupedOptionsType<UnionOptionType> = ReadonlyArray<GroupType<UnionOptionType>>;
+export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
 
-export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
+export type ValueType<OptionType extends OptionTypeBase> = OptionType | OptionsType<OptionType> | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -29,15 +33,16 @@ export interface PropsWithStyles {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
+  theme: Theme;
 }
 
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType> {
+export interface CommonProps<OptionType extends OptionTypeBase> {
   clearValue: () => void;
   className?: string;
-  cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void;
+  cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
   /*
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
@@ -62,8 +67,11 @@ export type ActionTypes =
   | 'clear'
   | 'create-option';
 
-export interface ActionMeta {
+export interface ActionMeta<OptionType extends OptionTypeBase> {
   action: ActionTypes;
+  name?: string;
+  option?: OptionType;
+  removedValue?: OptionType;
 }
 
 export type InputActionTypes =

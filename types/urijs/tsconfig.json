@@ -18,8 +18,9 @@
     },
     "files": [
         "index.d.ts",
-        "dom-monkeypatch.d.ts",
         "test/urijs-dom.test.ts",
-        "test/urijs-nodejs.test.ts"
+        "test/urijs-nodejs.test.ts",
+        "test/urijs-global-module.test.ts",
+        "test/urijs-global-script.test.ts"
     ]
 }

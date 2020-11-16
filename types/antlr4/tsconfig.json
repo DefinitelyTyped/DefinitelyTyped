@@ -18,22 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "error/ErrorListener.d.ts",
-        "error/Errors.d.ts",
-        "error/ErrorStrategy.d.ts",
-        "error/index.d.ts",
-        "tree/Tree.d.ts",
         "antlr4-tests.ts",
-        "BufferedTokenStream.d.ts",
-        "CommonTokenStream.d.ts",
-        "index.d.ts",
-        "InputStream.d.ts",
-        "IntervalSet.d.ts",
-        "Lexer.d.ts",
-        "Parser.d.ts",
-        "ParserRuleContext.d.ts",
-        "Recognizer.d.ts",
-        "RuleContext.d.ts",
-        "Token.d.ts"
+        "index.d.ts"
     ]
 }

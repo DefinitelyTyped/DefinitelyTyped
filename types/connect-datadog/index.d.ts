@@ -4,10 +4,10 @@
 //                 Michael Mifsud <https://github.com/xzyfer>
 //                 Lewis Vail <https://github.com/lewisvail3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
-import dogstatsd = require('node-dogstatsd');
+import hotShots = require('hot-shots');
 
 export = Factory;
 
@@ -22,6 +22,6 @@ declare namespace Factory {
         method?: boolean;
         protocol?: boolean;
         response_code?: boolean;
-        dogstatsd?: dogstatsd.StatsDClient;
+        dogstatsd?: hotShots.StatsD;
     }
 }

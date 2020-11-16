@@ -37,3 +37,26 @@ bwipjs.toBuffer({
         // png.readUInt32BE(20) : PNG image height
     }
 });
+
+// Browser canvas implementation
+const canvas = document.createElement('canvas') as HTMLCanvasElement;
+bwipjs(canvas, {
+    bcid: 'qrcode',
+    text: 'example',
+}, (err?: string | Error, cvs?: HTMLCanvasElement): void => {
+    if (err) {
+        err; // $ExpectType string | Error
+    } else if (cvs) {
+        cvs; // $ExpectType HTMLCanvasElement
+    }
+});
+
+// Browser canvas implementation using .toCanvas()
+// See: https://github.com/metafloor/bwip-js#browser-usage
+const canvasElement = document.createElement('canvas') as HTMLCanvasElement;
+canvasElement.setAttribute("id", "canvas2");
+const toCanvas = bwipjs.toCanvas('canvas2', {
+    bcid: 'code128',
+    text: 'testing'
+});
+toCanvas; // $ExpectType HTMLCanvasElement

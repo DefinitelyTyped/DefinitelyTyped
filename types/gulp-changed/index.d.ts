@@ -1,6 +1,6 @@
 // Type definitions for gulp-changed
 // Project: https://github.com/sindresorhus/gulp-changed
-// Definitions by: Thomas Corbière <https://github.com/tomc974>
+// Definitions by: Thomas Corbière <https://github.com/tomc974>, Jordy van Dortmont <https://github.com/jordyvandortmont>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -40,6 +40,11 @@ interface IOptions {
      * @default changed.compareLastModifiedTime
      */
     hasChanged?: IComparator;
+    
+    /**
+     * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
+     */
+    transformPath?: (destPath: string) => string;
 }
 
 interface IGulpChanged {

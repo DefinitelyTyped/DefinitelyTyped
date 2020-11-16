@@ -6,7 +6,8 @@ export function interpolatePoint(
     end: number,
     stride: number,
     fraction: number,
-    opt_dest?: number[]
+    opt_dest?: number[],
+    opt_dimension?: number,
 ): number[];
 export function lineStringCoordinateAtM(
     flatCoordinates: number[],
@@ -14,7 +15,7 @@ export function lineStringCoordinateAtM(
     end: number,
     stride: number,
     m: number,
-    extrapolate: boolean
+    extrapolate: boolean,
 ): Coordinate;
 export function lineStringsCoordinateAtM(
     flatCoordinates: number[],
@@ -23,5 +24,5 @@ export function lineStringsCoordinateAtM(
     stride: number,
     m: number,
     extrapolate: boolean,
-    interpolate: boolean
+    interpolate: boolean,
 ): Coordinate;

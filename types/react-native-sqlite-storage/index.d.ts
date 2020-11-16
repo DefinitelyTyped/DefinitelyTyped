@@ -1,4 +1,4 @@
-// Type definitions for react-native-sqlite-storage 3.3
+// Type definitions for react-native-sqlite-storage 5.0
 // Project: https://github.com/andpor/react-native-sqlite-storage
 // Definitions by: Sergei Dryganets <https://github.com/dryganets>
 //                 Deividi Cavarzan <https://github.com/cavarzan>
@@ -12,7 +12,7 @@ export function openDatabase(params: DatabaseParams): Promise<SQLiteDatabase>;
 export function openDatabase(params: DatabaseParams, success?: () => void, error?: (e: SQLError) => void): SQLiteDatabase;
 export function deleteDatabase(params: DatabaseParams): Promise<void>;
 export function deleteDatabase(params: DatabaseParams, success?: () => void, error?: (err: SQLError) => void): void;
-export type Location = 'default' | 'Library' | 'Documents';
+export type Location = 'default' | 'Library' | 'Documents' | "Shared";
 export interface DatabaseOptionalParams {
     createFromLocation?: number | string;
     // Database encryption pass phrase
@@ -39,6 +39,7 @@ export interface ResultSet {
 
 export interface ResultSetRowList {
     length: number;
+    raw(): any[];
     item(index: number): any;
 }
 

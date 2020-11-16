@@ -52,7 +52,7 @@ declare namespace restangular {
     addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
     setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
     addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): IProvider;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): IProvider;
     addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): IProvider;
     setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): IProvider;
     setRestangularFields(fields: {[fieldName: string]: string}): IProvider;

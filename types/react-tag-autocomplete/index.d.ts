@@ -1,11 +1,12 @@
-// Type definitions for react-tag-autocomplete 5.6
+// Type definitions for react-tag-autocomplete 5.12
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
 //                 Rahul Sagore <https://github.com/Rahul-Sagore>
+//                 Max Cilauro <https://github.com/MaxCilauro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component } from 'react';
 
 export default class ReactTags extends Component<ReactTagsProps> {}
 
@@ -36,6 +37,10 @@ export interface ClassNames {
 
 export interface ReactTagsProps {
     /**
+     * Creates a tag from the current input value when focus on the input is lost. Default: false.
+     */
+    addOnBlur?: boolean;
+    /**
      * Disables ability to delete the selected tags when backspace is pressed while focussed on the text input. Default: true.
      */
     allowBackspace?: boolean;
@@ -52,6 +57,10 @@ export interface ReactTagsProps {
      */
     autoresize?: boolean;
     classNames?: ClassNames;
+    /**
+     * Clear the text input when a tag is deleted. Default: true.
+     */
+    clearInputOnDelete?: boolean;
     /**
      * Array of characters matching keyboard event key values. This is useful when needing to support a specific character irrespective of the keyboard layout.
      * Note, that this list is separate from the one specified by the delimiters option, so you'll need to set the value there to [],
@@ -99,6 +108,10 @@ export interface ReactTagsProps {
      */
     minQueryLength?: number;
     /**
+     * Message shown if there are no matching suggestions. Default: null.
+     */
+    noSuggestionsText?: string;
+    /**
      * The placeholder string shown for the input. Default: 'Add new tag'.
      */
     placeholder?: string;
@@ -106,6 +119,11 @@ export interface ReactTagsProps {
      * An array of suggestions that are used as basis for showing suggestions. Each suggestion must have an id and a name property and an optional disabled property. Default: []
      */
     suggestions?: Tag[];
+    /**
+     * A callback function to filter suggestion items with. The callback receives two arguments; a suggestion and the current query and must return a boolean value.
+     * If no function is supplied the default filter is applied. Default: null.
+     */
+    suggestionsFilter?: (suggestion: Tag, query: string) => boolean;
     /**
      * Provide a custom tag component to render. Default: null.
      */

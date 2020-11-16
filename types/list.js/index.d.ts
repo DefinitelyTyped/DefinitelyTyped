@@ -12,8 +12,9 @@ declare class List {
     matchingItems: object[];
     searched: boolean;
     filtered: boolean;
+    alphabet: string;
 
-    constructor(element: string|HTMLElement, options?: List.ListOptions, values?: object[]);
+    constructor(element: string | HTMLElement, options?: List.ListOptions, values?: object[]);
 
     add(values: object[], callback?: (item: List.ListItem) => void): void;
     remove(valueName: string, value: any): number;
@@ -21,13 +22,13 @@ declare class List {
     sort(valueName: string, options: List.SortOptions): void;
     search(searchString: string, columns?: string[]): void;
     clear(): void;
-    filter(filterFunction: (item: List.ListItem) => boolean): void;
+    filter(filterFunction?: (item: List.ListItem) => boolean): void;
     size(): number;
     show(i: number, page: number): void;
     update(): void;
     reIndex(): void;
     fuzzySearch(searchString: string, columns?: string[]): void;
-    on(event: string, callback: () => void): void;
+    on(event: List.Event, callback: (list: List) => void): List;
 }
 
 declare namespace List {
@@ -52,14 +53,32 @@ declare namespace List {
         page?: number;
         i?: number;
         pagination?: boolean;
+        fuzzySearch?: FuzzySearchOptions;
+    }
+
+    interface FuzzySearchOptions {
+        searchClass?: string;
+        location?: number;
+        distance?: number;
+        threshold?: number;
+        multiSearch?: boolean;
     }
 
     interface SortOptions {
         order?: string;
         alphabet?: string;
         insensitive?: boolean;
-        sortFunction?: ((a: object, b: object) => number|undefined);
+        sortFunction?: (a: object, b: object) => number | undefined;
     }
+
+    type Event =
+        | 'updated'
+        | 'filterStart'
+        | 'filterComplete'
+        | 'searchStart'
+        | 'searchComplete'
+        | 'sortStart'
+        | 'sortComplete';
 }
 
 export = List;

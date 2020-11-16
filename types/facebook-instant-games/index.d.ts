@@ -815,7 +815,7 @@ declare namespace FBInstant {
         title: string;
 
         /**
-         * he product's game-specified identifier
+         * The product's game-specified identifier
          */
         productID: string;
 

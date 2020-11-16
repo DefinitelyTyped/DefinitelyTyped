@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const LifetimeHooks = Ember.Object.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();
@@ -11,7 +11,7 @@ const LifetimeHooks = Ember.Object.extend({
     willDestroy() {
         delete this.resource;
         this._super();
-    }
+    },
 });
 
 class MyObject30 extends Ember.Object {
@@ -28,9 +28,13 @@ class MyObject31 extends Ember.Object {
 
 class Foo extends Ember.Object.extend({
     a: Ember.computed({
-        get() { return ''; },
-        set(key: string, newVal: string) { return ''; }
-    })
+        get() {
+            return '';
+        },
+        set(key: string, newVal: string) {
+            return '';
+        },
+    }),
 }) {
     b = 5;
     baz() {
@@ -45,31 +49,31 @@ class Foo extends Ember.Object.extend({
         // this.setProperties({ b: '11' }); // $ExpectError
         this.setProperties({
             a: 'def',
-            b: 11
+            b: 11,
         });
     }
 }
 
 export class Foo2 extends Ember.Object {
-  name!: string;
+    name!: string;
 
-  changeName(name: string) {
-    const a: string = this.set('name', name);
-    const b: number = this.set('name', name); // $ExpectError
-    const x: string = Ember.set(this, 'name', name);
-    const y: number = Ember.set(this, 'name', name); // $ExpectError
-    this.setProperties({
-        name
-    });
-    Ember.setProperties(this, {
-        name
-    });
-  }
+    changeName(name: string) {
+        const a: string = this.set('name', name);
+        const b: number = this.set('name', name); // $ExpectError
+        const x: string = Ember.set(this, 'name', name);
+        const y: number = Ember.set(this, 'name', name); // $ExpectError
+        this.setProperties({
+            name,
+        });
+        Ember.setProperties(this, {
+            name,
+        });
+    }
 
-  bar() {
-      Ember.notifyPropertyChange(this, 'name');
-      Ember.notifyPropertyChange(this); // $ExpectError
-      Ember.notifyPropertyChange('name'); // $ExpectError
-      Ember.notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
-  }
+    bar() {
+        Ember.notifyPropertyChange(this, 'name');
+        Ember.notifyPropertyChange(this); // $ExpectError
+        Ember.notifyPropertyChange('name'); // $ExpectError
+        Ember.notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
+    }
 }

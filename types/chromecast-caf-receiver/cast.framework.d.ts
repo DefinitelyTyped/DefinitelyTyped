@@ -12,7 +12,14 @@ export import messages = messages;
 
 export type HTMLMediaElement = any;
 export as namespace framework;
-export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARNING' | 'ERROR' | 'NONE';
+export enum LoggerLevel {
+    DEBUG = 0,
+    VERBOSE = 500,
+    INFO = 800,
+    WARNING = 900,
+    ERROR = 1000,
+    NONE = 1500
+}
 
 export enum ContentProtection {
     NONE = 'none',
@@ -22,6 +29,11 @@ export enum ContentProtection {
     AES_128 = 'aes_128',
     AES_128_CKP = 'aes_128_ckp',
 }
+
+/**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
 
 /**
  * Manages text tracks.
@@ -139,7 +151,7 @@ export class QueueBase {
     fetchItems(
         itemId: number,
         nextCount: number,
-        prevCount: number
+        prevCount: number,
     ): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
     /**
@@ -189,9 +201,284 @@ export class PlayerManager {
     constructor(params?: any);
 
     /**
-     * Adds an event listener for player event.
+     * Adds an event listener for events proxied from the @see{@link events.MediaElementEvent}.
+     * See {@link https://dev.w3.org/html5/spec-preview/media-elements.html#mediaevents} for more information.
      */
-    addEventListener: (eventType: events.EventType | events.EventType[], eventListener: EventHandler) => void;
+    addEventListener(
+        eventType:
+            | events.EventType.ABORT
+            | events.EventType.ABORT[]
+            | events.EventType.CAN_PLAY
+            | events.EventType.CAN_PLAY[]
+            | events.EventType.CAN_PLAY_THROUGH
+            | events.EventType.CAN_PLAY_THROUGH[]
+            | events.EventType.DURATION_CHANGE
+            | events.EventType.DURATION_CHANGE[]
+            | events.EventType.EMPTIED
+            | events.EventType.EMPTIED[]
+            | events.EventType.ENDED
+            | events.EventType.ENDED[]
+            | events.EventType.LOADED_DATA
+            | events.EventType.LOADED_DATA[]
+            | events.EventType.LOADED_METADATA
+            | events.EventType.LOADED_METADATA[]
+            | events.EventType.LOAD_START
+            | events.EventType.LOAD_START[]
+            | events.EventType.PLAY
+            | events.EventType.PLAY[]
+            | events.EventType.PLAYING
+            | events.EventType.PLAYING[]
+            | events.EventType.PROGRESS
+            | events.EventType.PROGRESS[]
+            | events.EventType.RATE_CHANGE
+            | events.EventType.RATE_CHANGE[]
+            | events.EventType.SEEKED
+            | events.EventType.SEEKED[]
+            | events.EventType.SEEKING
+            | events.EventType.SEEKING[]
+            | events.EventType.STALLED
+            | events.EventType.STALLED[]
+            | events.EventType.TIME_UPDATE
+            | events.EventType.TIME_UPDATE[]
+            | events.EventType.SUSPEND
+            | events.EventType.SUSPEND[]
+            | events.EventType.WAITING
+            | events.EventType.WAITING[],
+        eventListener: MediaElementEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the pause player event. Fired when playback is paused. This event is forwarded from the MediaElement.
+     */
+    addEventListener(
+        eventType: events.EventType.PAUSE | events.EventType.PAUSE[],
+        eventListener: PauseEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the bitrate changed player event.
+     * Fired when the bitrate of the playing media changes
+     * (such as when an active track is changed,
+     * or when a different bitrate is chosen in response to network conditions).
+     */
+    addEventListener(
+        eventType: events.EventType.BITRATE_CHANGED | events.EventType.BITRATE_CHANGED[],
+        eventListener: BitrateChangedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for events related to breaks.
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.BREAK_STARTED
+            | events.EventType.BREAK_STARTED[]
+            | events.EventType.BREAK_ENDED
+            | events.EventType.BREAK_ENDED[]
+            | events.EventType.BREAK_CLIP_LOADING
+            | events.EventType.BREAK_CLIP_LOADING[]
+            | events.EventType.BREAK_CLIP_STARTED
+            | events.EventType.BREAK_CLIP_STARTED[]
+            | events.EventType.BREAK_CLIP_ENDED
+            | events.EventType.BREAK_CLIP_ENDED[],
+        eventListener: BreaksEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the buffering player event. Fired when playback has either stopped due to buffering, or started again after buffering has finished.
+     */
+    addEventListener(
+        eventType: events.EventType.BUFFERING | events.EventType.BUFFERING[],
+        eventListener: BufferingEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the cache loaded player event. Fired when content pre-cached by fastplay has finished loading.
+     */
+    addEventListener(
+        eventType: events.EventType.CACHE_LOADED | events.EventType.CACHE_LOADED[],
+        eventListener: CacheLoadedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the cache hit and cache inserted player events.
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.CACHE_HIT
+            | events.EventType.CACHE_HIT[]
+            | events.EventType.CACHE_INSERTED
+            | events.EventType.CACHE_INSERTED[],
+        eventListener: CacheItemEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the clip ended player event. Fired when any clip ends.
+     * This includes break clips and main content clips between break clips.
+     * If you want to see when a break clip ends, you should use @see{@link events.EventType.BREAK_CLIP_ENDED}.
+     * If you want to see when the media is completely done playing, you should use @see{@link events.EventType.MEDIA_FINISHED}.
+     */
+    addEventListener(
+        eventType: events.EventType.CLIP_ENDED | events.EventType.CLIP_ENDED[],
+        eventListener: ClipEndedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the EMSG player event. Fired when an emsg is found in a segment. This will only be fired for DASH content
+     */
+    addEventListener(eventType: events.EventType.EMSG | events.EventType.EMSG[], eventListener: EmsgEventHandler): void;
+
+    /**
+     * Adds an event listener for the pause player event. Fired when an error occurs.
+     */
+    addEventListener(
+        eventType: events.EventType.ERROR | events.EventType.ERROR[],
+        eventListener: ErrorEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the ID3 player event. Fired when an ID3 tag is encountered. This will only be fired for HLS content.
+     */
+    addEventListener(eventType: events.EventType.ID3 | events.EventType.ID3[], eventListener: Id3EventHandler): void;
+
+    /**
+     * Adds an event listener for the media status player event. Fired before an outgoing message is sent containing current media status.
+     */
+    addEventListener(
+        eventType: events.EventType.MEDIA_STATUS | events.EventType.MEDIA_STATUS[],
+        eventListener: MediaStatusEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the custom state player event. Fired when an outgoing custom state message is sent.
+     */
+    addEventListener(
+        eventType: events.EventType.CUSTOM_STATE | events.EventType.CUSTOM_STATE[],
+        eventListener: CustomStateEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the media information changed player event. Fired if the media information is changed during playback.
+     * For example when playing a live radio and the track metadata changed.
+     */
+    addEventListener(
+        eventType: events.EventType.MEDIA_INFORMATION_CHANGED | events.EventType.MEDIA_INFORMATION_CHANGED[],
+        eventListener: MediaInformationChangedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the media finished player event. Fired when the media has completely finished playing.
+     * This includes the following cases: there is nothing left in the stream to play, user has requested a stop, or an error has occurred.
+     * When queueing is used, this event will trigger once for each queue item that finishes.
+     */
+    addEventListener(
+        eventType: events.EventType.MEDIA_FINISHED | events.EventType.MEDIA_FINISHED[],
+        eventListener: MediaFinishedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for loading player events.
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.PLAYER_PRELOADING
+            | events.EventType.PLAYER_PRELOADING[]
+            | events.EventType.PLAYER_PRELOADING_CANCELLED
+            | events.EventType.PLAYER_PRELOADING_CANCELLED[]
+            | events.EventType.PLAYER_LOAD_COMPLETE
+            | events.EventType.PLAYER_LOAD_COMPLETE[]
+            | events.EventType.PLAYER_LOADING
+            | events.EventType.PLAYER_LOADING[],
+        eventListener: LoadEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the media finished player event. Fired when the media has completely finished playing.
+     * This includes the following cases: there is nothing left in the stream to play, user has requested a stop, or an error has occurred.
+     * When queueing is used, this event will trigger once for each queue item that finishes.
+     */
+    addEventListener(
+        eventType: events.EventType.SEGMENT_DOWNLOADED | events.EventType.SEGMENT_DOWNLOADED[],
+        eventListener: SegmentDownloadedEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for request events made to the receiver.
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.REQUEST_SEEK
+            | events.EventType.REQUEST_SEEK[]
+            | events.EventType.REQUEST_LOAD
+            | events.EventType.REQUEST_LOAD[]
+            | events.EventType.REQUEST_STOP
+            | events.EventType.REQUEST_STOP[]
+            | events.EventType.REQUEST_PAUSE
+            | events.EventType.REQUEST_PAUSE[]
+            | events.EventType.REQUEST_PRECACHE
+            | events.EventType.REQUEST_PRECACHE[]
+            | events.EventType.REQUEST_PLAY
+            | events.EventType.REQUEST_PLAY[]
+            | events.EventType.REQUEST_SKIP_AD
+            | events.EventType.REQUEST_SKIP_AD[]
+            | events.EventType.REQUEST_PLAY_AGAIN
+            | events.EventType.REQUEST_PLAY_AGAIN[]
+            | events.EventType.REQUEST_PLAYBACK_RATE_CHANGE
+            | events.EventType.REQUEST_PLAYBACK_RATE_CHANGE[]
+            | events.EventType.REQUEST_VOLUME_CHANGE
+            | events.EventType.REQUEST_VOLUME_CHANGE[]
+            | events.EventType.REQUEST_EDIT_TRACKS_INFO
+            | events.EventType.REQUEST_EDIT_TRACKS_INFO[]
+            | events.EventType.REQUEST_EDIT_AUDIO_TRACKS
+            | events.EventType.REQUEST_EDIT_AUDIO_TRACKS[]
+            | events.EventType.REQUEST_SET_CREDENTIALS
+            | events.EventType.REQUEST_SET_CREDENTIALS[]
+            | events.EventType.REQUEST_LOAD_BY_ENTITY
+            | events.EventType.REQUEST_LOAD_BY_ENTITY[]
+            | events.EventType.REQUEST_USER_ACTION
+            | events.EventType.REQUEST_USER_ACTION[]
+            | events.EventType.REQUEST_DISPLAY_STATUS
+            | events.EventType.REQUEST_DISPLAY_STATUS[]
+            | events.EventType.REQUEST_CUSTOM_COMMAND
+            | events.EventType.REQUEST_CUSTOM_COMMAND[]
+            | events.EventType.REQUEST_FOCUS_STATE
+            | events.EventType.REQUEST_FOCUS_STATE[]
+            | events.EventType.REQUEST_QUEUE_LOAD
+            | events.EventType.REQUEST_QUEUE_LOAD[]
+            | events.EventType.REQUEST_QUEUE_INSERT
+            | events.EventType.REQUEST_QUEUE_INSERT[]
+            | events.EventType.REQUEST_QUEUE_UPDATE
+            | events.EventType.REQUEST_QUEUE_UPDATE[]
+            | events.EventType.REQUEST_QUEUE_REMOVE
+            | events.EventType.REQUEST_QUEUE_REMOVE[]
+            | events.EventType.REQUEST_QUEUE_REORDER
+            | events.EventType.REQUEST_QUEUE_REORDER[]
+            | events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE
+            | events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE[]
+            | events.EventType.REQUEST_QUEUE_GET_ITEMS
+            | events.EventType.REQUEST_QUEUE_GET_ITEMS[]
+            | events.EventType.REQUEST_QUEUE_GET_ITEM_IDS
+            | events.EventType.REQUEST_QUEUE_GET_ITEM_IDS[],
+        eventListener: RequestEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the live player events.
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.LIVE_IS_MOVING_WINDOW_CHANGED
+            | events.EventType.LIVE_IS_MOVING_WINDOW_CHANGED[]
+            | events.EventType.LIVE_ENDED
+            | events.EventType.LIVE_ENDED[],
+        eventListener: LiveStatusEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for player events that get the base @see{@link events.Event} in the callback.
+     * Includes ALL and CLIP_STARTED
+     */
+    addEventListener(eventType: events.EventType | events.EventType[], eventListener: EventHandler): void;
 
     /**
      * Sends a media status message to all senders (broadcast). Applications use this to send a custom state change.
@@ -316,7 +603,7 @@ export class PlayerManager {
         requestId: number,
         type: messages.ErrorType,
         reason?: messages.ErrorReason,
-        customData?: any
+        customData?: any,
     ): void;
 
     /**
@@ -332,7 +619,7 @@ export class PlayerManager {
         requestId: number,
         includeMedia?: boolean,
         customData?: any,
-        includeQueueItems?: boolean
+        includeQueueItems?: boolean,
     ): void;
 
     /**
@@ -359,7 +646,7 @@ export class PlayerManager {
      *  or null to prevent the media from playing. The return value can be a promise to allow waiting for data from the server.
      */
     setMediaPlaybackInfoHandler(
-        handler: (loadRequestData: messages.LoadRequestData, playbackConfig: PlaybackConfig) => void
+        handler: (loadRequestData: messages.LoadRequestData, playbackConfig: PlaybackConfig) => void,
     ): void;
 
     /**
@@ -369,15 +656,260 @@ export class PlayerManager {
     setMediaUrlResolver(resolver: (loadRequestData: messages.LoadRequestData) => void): void;
 
     /**
-     * Provide an interceptor of incoming and outgoing messages.
-     * The interceptor can update the request data; and return updated data; a promise of
-     * updated data if need to get more data from the server; or null if the request should not be handled.
-     * Note that if load message interceptor is provided; and no interceptor is provided for preload -
-     * the load interceptor will be called for preload messages.
+     * Provide an interceptor of incoming and outgoing messages. The interceptor
+     * can update the request data, and return updated data, a promise of
+     * updated data if need to get more data from the server, or null if the
+     * request should not be handled. Note that if load message interceptor is
+     * provided, and no interceptor is provided for preload - the load
+     * interceptor will be called for preload messages.
      */
     setMessageInterceptor(
+        type: messages.MessageType.CLOUD_STATUS,
+        interceptor:
+            | ((messageData: messages.CloudMediaStatus) => messages.CloudMediaStatus)
+            | ((messageData: messages.CloudMediaStatus) => Promise<messages.CloudMediaStatus>)
+            | ((messageData: messages.CloudMediaStatus) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.CUSTOM_COMMAND,
+        interceptor:
+            | ((messageData: messages.CustomCommandRequestData) => messages.CustomCommandRequestData)
+            | ((messageData: messages.CustomCommandRequestData) => Promise<messages.CustomCommandRequestData>)
+            | ((messageData: messages.CustomCommandRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.DISPLAY_STATUS,
+        interceptor:
+            | ((messageData: messages.DisplayStatusRequestData) => messages.DisplayStatusRequestData)
+            | ((messageData: messages.DisplayStatusRequestData) => Promise<messages.DisplayStatusRequestData>)
+            | ((messageData: messages.DisplayStatusRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.EDIT_AUDIO_TRACKS,
+        interceptor:
+            | ((messageData: messages.EditAudioTracksRequestData) => messages.EditAudioTracksRequestData)
+            | ((messageData: messages.EditAudioTracksRequestData) => Promise<messages.EditAudioTracksRequestData>)
+            | ((messageData: messages.EditAudioTracksRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.EDIT_TRACKS_INFO,
+        interceptor:
+            | ((messageData: messages.EditTracksInfoRequestData) => messages.EditTracksInfoRequestData)
+            | ((messageData: messages.EditTracksInfoRequestData) => Promise<messages.EditTracksInfoRequestData>)
+            | ((messageData: messages.EditTracksInfoRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.FOCUS_STATE,
+        interceptor:
+            | ((messageData: messages.FocusStateRequestData) => messages.FocusStateRequestData)
+            | ((messageData: messages.FocusStateRequestData) => Promise<messages.FocusStateRequestData>)
+            | ((messageData: messages.FocusStateRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.GET_STATUS,
+        interceptor:
+            | ((messageData: messages.GetStatusRequestData) => messages.GetStatusRequestData)
+            | ((messageData: messages.GetStatusRequestData) => Promise<messages.GetStatusRequestData>)
+            | ((messageData: messages.GetStatusRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.LOAD,
+        interceptor:
+            | ((messageData: messages.LoadRequestData) => messages.LoadRequestData)
+            | ((messageData: messages.LoadRequestData) => Promise<messages.LoadRequestData>)
+            | ((messageData: messages.LoadRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.LOAD_BY_ENTITY,
+        interceptor:
+            | ((messageData: messages.LoadByEntityRequestData) => messages.LoadByEntityRequestData)
+            | ((messageData: messages.LoadByEntityRequestData) => Promise<messages.LoadByEntityRequestData>)
+            | ((messageData: messages.LoadByEntityRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.MEDIA_STATUS,
+        interceptor:
+            | ((messageData: messages.MediaStatus) => messages.MediaStatus)
+            | ((messageData: messages.MediaStatus) => Promise<messages.MediaStatus>)
+            | ((messageData: messages.MediaStatus) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.PRECACHE,
+        interceptor:
+            | ((messageData: messages.PrecacheRequestData) => messages.PrecacheRequestData)
+            | ((messageData: messages.PrecacheRequestData) => Promise<messages.PrecacheRequestData>)
+            | ((messageData: messages.PrecacheRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.PRELOAD,
+        interceptor:
+            | ((messageData: messages.PreloadRequestData) => messages.PreloadRequestData)
+            | ((messageData: messages.PreloadRequestData) => Promise<messages.PreloadRequestData>)
+            | ((messageData: messages.PreloadRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_CHANGE,
+        interceptor:
+            | ((messageData: messages.QueueChange) => messages.QueueChange)
+            | ((messageData: messages.QueueChange) => Promise<messages.QueueChange>)
+            | ((messageData: messages.QueueChange) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_GET_ITEMS,
+        interceptor:
+            | ((messageData: messages.GetItemsInfoRequestData) => messages.GetItemsInfoRequestData)
+            | ((messageData: messages.GetItemsInfoRequestData) => Promise<messages.GetItemsInfoRequestData>)
+            | ((messageData: messages.GetItemsInfoRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_GET_ITEM_RANGE,
+        interceptor:
+            | ((messageData: messages.FetchItemsRequestData) => messages.FetchItemsRequestData)
+            | ((messageData: messages.FetchItemsRequestData) => Promise<messages.FetchItemsRequestData>)
+            | ((messageData: messages.FetchItemsRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_INSERT,
+        interceptor:
+            | ((messageData: messages.QueueInsertRequestData) => messages.QueueInsertRequestData)
+            | ((messageData: messages.QueueInsertRequestData) => Promise<messages.QueueInsertRequestData>)
+            | ((messageData: messages.QueueInsertRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_ITEMS,
+        interceptor:
+            | ((messageData: messages.ItemsInfo) => messages.ItemsInfo)
+            | ((messageData: messages.ItemsInfo) => Promise<messages.ItemsInfo>)
+            | ((messageData: messages.ItemsInfo) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_ITEM_IDS,
+        interceptor:
+            | ((messageData: messages.QueueIds) => messages.QueueIds)
+            | ((messageData: messages.QueueIds) => Promise<messages.QueueIds>)
+            | ((messageData: messages.QueueIds) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_LOAD,
+        interceptor:
+            | ((messageData: messages.QueueLoadRequestData) => messages.QueueLoadRequestData)
+            | ((messageData: messages.QueueLoadRequestData) => Promise<messages.QueueLoadRequestData>)
+            | ((messageData: messages.QueueLoadRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_REMOVE,
+        interceptor:
+            | ((messageData: messages.QueueRemoveRequestData) => messages.QueueRemoveRequestData)
+            | ((messageData: messages.QueueRemoveRequestData) => Promise<messages.QueueRemoveRequestData>)
+            | ((messageData: messages.QueueRemoveRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_REORDER,
+        interceptor:
+            | ((messageData: messages.QueueReorderRequestData) => messages.QueueReorderRequestData)
+            | ((messageData: messages.QueueReorderRequestData) => Promise<messages.QueueReorderRequestData>)
+            | ((messageData: messages.QueueReorderRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.QUEUE_UPDATE,
+        interceptor:
+            | ((messageData: messages.QueueUpdateRequestData) => messages.QueueUpdateRequestData)
+            | ((messageData: messages.QueueUpdateRequestData) => Promise<messages.QueueUpdateRequestData>)
+            | ((messageData: messages.QueueUpdateRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.RESUME_SESSION,
+        interceptor:
+            | ((messageData: messages.ResumeSessionRequestData) => messages.ResumeSessionRequestData)
+            | ((messageData: messages.ResumeSessionRequestData) => Promise<messages.ResumeSessionRequestData>)
+            | ((messageData: messages.ResumeSessionRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SEEK,
+        interceptor:
+            | ((messageData: messages.SeekRequestData) => messages.SeekRequestData)
+            | ((messageData: messages.SeekRequestData) => Promise<messages.SeekRequestData>)
+            | ((messageData: messages.SeekRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SESSION_STATE,
+        interceptor:
+            | ((messageData: messages.StoreSessionResponseData) => messages.StoreSessionResponseData)
+            | ((messageData: messages.StoreSessionResponseData) => Promise<messages.StoreSessionResponseData>)
+            | ((messageData: messages.StoreSessionResponseData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_CREDENTIALS,
+        interceptor:
+            | ((messageData: messages.SetCredentialsRequestData) => messages.SetCredentialsRequestData)
+            | ((messageData: messages.SetCredentialsRequestData) => Promise<messages.SetCredentialsRequestData>)
+            | ((messageData: messages.SetCredentialsRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_PLAYBACK_RATE,
+        interceptor:
+            | ((messageData: messages.SetPlaybackRateRequestData) => messages.SetPlaybackRateRequestData)
+            | ((messageData: messages.SetPlaybackRateRequestData) => Promise<messages.SetPlaybackRateRequestData>)
+            | ((messageData: messages.SetPlaybackRateRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.SET_VOLUME,
+        interceptor:
+            | ((messageData: messages.VolumeRequestData) => messages.VolumeRequestData)
+            | ((messageData: messages.VolumeRequestData) => Promise<messages.VolumeRequestData>)
+            | ((messageData: messages.VolumeRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.STORE_SESSION,
+        interceptor:
+            | ((messageData: messages.StoreSessionRequestData) => messages.StoreSessionRequestData)
+            | ((messageData: messages.StoreSessionRequestData) => Promise<messages.StoreSessionRequestData>)
+            | ((messageData: messages.StoreSessionRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
+        type: messages.MessageType.USER_ACTION,
+        interceptor:
+            | ((messageData: messages.UserActionRequestData) => messages.UserActionRequestData)
+            | ((messageData: messages.UserActionRequestData) => Promise<messages.UserActionRequestData>)
+            | ((messageData: messages.UserActionRequestData) => null)
+            | null,
+    ): void;
+    setMessageInterceptor(
         type: messages.MessageType,
-        interceptor: (requestData: messages.RequestData) => Promise<any>
+        interceptor:
+            | ((messageData: messages.RequestData) => messages.RequestData)
+            | ((messageData: messages.RequestData) => Promise<messages.RequestData>)
+            | ((messageData: messages.RequestData) => null)
+            | null,
     ): void;
 
     /**
@@ -396,6 +928,51 @@ export class PlayerManager {
      * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
      */
     setPreferredTextLanguage(preferredTextLanguage: string): void;
+
+    /**
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
+     */
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Remove commands from receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    removeSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Add commands to receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    addSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Gets the current receiver supported media commands.
+     * Should only be called after calling receiver start, otherwise it returns 0.
+     * This reflects the current media status. E.g. during ads playback, SEEK might not be supported.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getCurrentSupportedMediaCommands(): number;
+
+    /**
+     * Gets receiver supported media commands. Should only be called after calling receiver start, otherwise it returns 0.
+     * This is the static supported media commands set by receiver application.
+     * It won't be updated based on current media status.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getSupportedMediaCommands(): number;
 
     /**
      * Stops currently playing media.
@@ -601,12 +1178,12 @@ export class CastReceiverContext {
     /**
      * Sets message listener on custom message channel.
      */
-    addCustomMessageListener(namespace: string, listener: EventHandler): void;
+    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Add listener to cast system events.
      */
-    addEventListener(type: system.EventType | system.EventType[], handler: EventHandler): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
@@ -669,17 +1246,17 @@ export class CastReceiverContext {
     /**
      * Remove a message listener on custom message channel.
      */
-    removeCustomMessageListener(namespace: string, listener: EventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Remove listener to cast system events.
      */
-    removeEventListener(type: system.EventType, handler: EventHandler): void;
+    removeEventListener(type: system.EventType, handler: SystemEventHandler): void;
 
     /**
-     * Sends a message to a specific sender.
+     * Sends a message to a specific sender or broadcasts it to all connected senders (to broadcast pass undefined as a senderId).
      */
-    sendCustomMessage(namespace: string, senderId: string, message: any): void;
+    sendCustomMessage(namespace: string, senderId: string | undefined, message: any): void;
 
     /**
      * This function should be called in response to the feedbackstarted event if the application

@@ -86,8 +86,22 @@ interface NonDeepMutableExtendedUser {
         firstName: 'Angry',
         lastName: 'Monkey'
     });
+    const users: Immutable.Immutable<string[]> = Immutable.from(['Angry']);
+
     const replacedUser01 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' });
     const replacedUser02 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' }, { deep: true });
+
+    // $ExpectError
+    user1.firstName = 'Untouchable';
+    // asMutable on object
+    const mutableObject = Immutable.asMutable(user1);
+    mutableObject.firstName = 'Sedated';
+
+    // $ExpectError
+    users.push('Super');
+    // asMutable on array
+    const mutableArray = Immutable.asMutable(users);
+    mutableArray.push('Super');
 }
 
 //
@@ -124,12 +138,20 @@ interface NonDeepMutableExtendedUser {
     // map. Call the mutable array's 'map' with the same function to ensure compatability. Make sure the output array is immutable.
     interface FirstName { firstNameOnly: string; }
     array.asMutable().map((value: User) => ({ firstNameOnly: value.firstName }));
+    array
+      .asMutable()
+      .map((value: User, index) => ({ firstNameOnly: value.firstName, index }));
+    array.asMutable().map((value: User, index, allUsers: User[]) => ({
+      firstNameOnly: value.firstName,
+      index,
+      allUsers,
+    }));
     const map: Immutable.Immutable<FirstName[]> = array.map((value: User) => ({ firstNameOnly: value.firstName }));
     map.asMutable();
 
     // filter. Call the mutable array's 'filter' with the same function to ensure compatability. Make sure the output array is immutable.
     array.asMutable().filter((value: User) => value.firstName === 'test');
-    const filter: Immutable.Immutable<User[]> = array.filter((value: User) => value.firstName === 'test');
+    const filter: Immutable.Immutable<User[]> = array.filter((value: User, index: number) => value.firstName === 'test');
     filter.asMutable();
 
     // slice. Call the mutable array's 'slice' with the same args to ensure compatability. Make sure the output array is immutable.
@@ -261,12 +283,16 @@ interface NonDeepMutableExtendedUser {
     const updatedUser41: Immutable.Immutable<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser42: Immutable.Immutable<User> = immutableUser.update<string>(data.propertyId, x => x.toLowerCase() + ' Whirlwind');
+    // updater function is always called with Immutable object
+    const updatedUser43: Immutable.Immutable<User> = immutableUserEx.update('address', address => address.set('line1', 'Small house'));
 
     // updateIn: property path is strongly checked for up to 5 arguments (helps with refactoring and intellisense)
     // but will fall back to any[] if there are dynamic arguments on the way
     const updatedUser51: Immutable.Immutable<User> = immutableUserEx.updateIn([ 'address', 'line1' ], x => x.toLowerCase() + ' 43');
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser52: Immutable.Immutable<User> = immutableUserEx.updateIn<string>([ data.propertyId, 'line1' ], x => x.toLowerCase() + ' 43');
+    // updater function is always called with Immutable object
+    const updatedUser53: Immutable.Immutable<User> = immutableUserEx.updateIn([ 'address' ], address => address.set('line1', 'Small house'));
 
     // without
     const simpleUser1: Immutable.Immutable<User> = immutableUserEx.without('address');

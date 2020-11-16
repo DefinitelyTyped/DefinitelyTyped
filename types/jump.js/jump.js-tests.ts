@@ -7,6 +7,9 @@ jump('.target', {
   duration: 1000,
 });
 jump('.target', {
+  duration: distance => Math.abs(distance)
+});
+jump('.target', {
   duration: 200,
   offset: 10
 });

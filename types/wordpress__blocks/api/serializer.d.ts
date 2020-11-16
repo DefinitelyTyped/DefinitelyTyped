@@ -1,4 +1,4 @@
-import { ReactChild } from '@wordpress/element';
+import { ReactChild } from 'react';
 
 import { Block, BlockInstance } from '../';
 

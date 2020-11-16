@@ -2,6 +2,7 @@
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { CustomElementConstructor } from "webcomponents.js";
 
@@ -193,11 +194,9 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
-      attributeChangedCallback?(name: string):void;
+      attributeChangedCallback?(attributeName: string, oldValue: string|null, newValue: string|null, namespace: string|null): void;
 
       extend?(prototype: Object, api: Object):Object;
 

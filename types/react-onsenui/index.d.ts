@@ -4,6 +4,8 @@
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
 //                 Mikael Lirbank <https://github.com/lirbank>
+//                 Yuji Tabata <https://github.com/uztbt>
+//                 LBLZR_ <https://github.com/LaBlazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -95,7 +97,8 @@ export class Icon extends Component<{
     size?: number | Modifiers_number,
     rotate?: 90 | 180 | 270,
     fixedWidth?: boolean,
-    spin?: boolean
+    spin?: boolean,
+    title?: string
 }, any> {}
 
 /*** page ***/
@@ -108,7 +111,8 @@ export class Page extends Component<{
     renderFixed?(): void,
     onInit?(): void,
     onShow?(): void,
-    onHide?(): void
+    onHide?(): void,
+    onInfiniteScroll?(doneCallback: () => void): void
 }, any> {}
 
 /*** Grid ***/
@@ -145,6 +149,38 @@ export class Navigator extends Component<{
     pushPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
     popPage(options?: PageTransitionOptions): Promise<HTMLElement>;
 }
+
+// Still incomplete, see https://onsen.io/v2/api/react/RouterNavigator.html
+export class RouterNavigator extends Component<{
+  routeConfig: any,
+  renderPage(route: any, navigator?: Navigator): JSX.Element,
+  swipeable?: boolean | 'force',
+  swipePop?: () => void;
+  swipeTargetWidth?: number;
+  animation?: string,
+  onPostPush(): void,
+  onPostPop(): void,
+}, any> {
+}
+
+// https://github.com/OnsenUI/OnsenUI/blob/master/bindings/react/src/RouterUtil.js
+export type Route = any;
+export type RouterProcess = object; // incomplete
+
+export interface RouteConfig {
+  routeStack: Route[];
+  processStack: RouterProcess[];
+}
+
+export const RouterUtil: {
+  init: (routes: Route[]) => RouteConfig;
+  replace: (config: {routeConfig: RouteConfig, route: Route, options?: any, key?: any}) => RouteConfig;
+  reset: (config: {routeConfig: RouteConfig, route: Route, options?: any, key?: any}) => RouteConfig;
+  push: (config: {routeConfig: RouteConfig, route: Route, options?: any, key?: any}) => RouteConfig;
+  pop: (config: {routeConfig: RouteConfig, options?: any, key?: any}) => RouteConfig;
+  postPush: (routeConfig: RouteConfig) => RouteConfig;
+  postPop: (routeConfig: RouteConfig) => RouteConfig;
+};
 
 /*** Carousel ***/
 export class Carousel extends Component<{
@@ -184,6 +220,12 @@ export class AlertDialog extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
+}, any> {}
+
+export class AlertDialogButton extends Component<{
+    onClick?(): void,
+    modifier?: string,
+    disabled?: boolean,
 }, any> {}
 
 export class Dialog extends Component<{
@@ -299,6 +341,7 @@ export class Button extends Component<{
     disabled?: boolean,
     ripple?: boolean,
     name?: string,
+    icon?: string;
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
@@ -317,6 +360,7 @@ export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'>
     inputId?: string,
     float?: boolean,
     name?: string,
+    autoFocus?: boolean;
 }, any> {}
 
 export class Radio extends Component<{
@@ -375,6 +419,7 @@ export class Switch extends Component<{
     disabled?: boolean,
     inputId?: string,
     name?: string,
+    autoFocus?: boolean;
 }, any> {}
 
 /**
@@ -397,7 +442,7 @@ export interface TabbarRenderTab {
 
 export class Tabbar extends Component<{
     index: number,
-    renderTabs(): TabbarRenderTab[],
+    renderTabs(index: number, tabbar: Tabbar): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
     swipeable?: boolean,
     ignoreEdgeWidth?: number,
@@ -421,10 +466,10 @@ export class LazyList extends Component<{
     calculateItemHeight(rowIndex: number): any,
 }, any> { }
 
-export class List extends Component<{
+export class List<T> extends Component<{
     modifier?: string,
-    dataSource?: any[],
-    renderRow?(row: any, index?: number): JSX.Element | undefined,
+    dataSource?: T[],
+    renderRow?(row: T, index?: number): JSX.Element | undefined,
     renderFooter?(): JSX.Element | undefined,
     renderHeader?(): JSX.Element | undefined,
 }, any> {}
@@ -438,6 +483,8 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    expandable?: boolean,
+    expanded?: boolean,
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 

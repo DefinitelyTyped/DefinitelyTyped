@@ -16,20 +16,13 @@
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
         "paths": {
-            "@iarna/toml": [
-                "iarna__toml"
-            ],
-            "@iarna/toml/*": [
-                "iarna__toml/*"
+            "@iarna/*": [
+                "iarna__*"
             ]
         }
     },
     "files": [
         "index.d.ts",
-        "parse-async.d.ts",
-        "parse-stream.d.ts",
-        "parse-string.d.ts",
-        "stringify.d.ts",
         "iarna__toml-tests.ts"
     ]
 }

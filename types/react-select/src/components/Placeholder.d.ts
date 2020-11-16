@@ -1,14 +1,15 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, CSSProperties, ReactNode } from 'react';
 
-import { colors, spacing } from '../theme';
-import { CommonProps } from '../types';
+import { CommonProps, OptionTypeBase } from '../types';
 
-export type PlaceholderProps<OptionType> = CommonProps<OptionType> & {
-  /** The children to be rendered. */
-  children: ReactNode,
-  /** props passed to the wrapping element for the group. */
-  innerProps: { [key: string]: any },
-};
+export interface PlaceholderProps<OptionType extends OptionTypeBase> extends CommonProps<OptionType> {
+    className?: string;
+    /** The children to be rendered. */
+    children: ReactNode;
+    isDisabled: boolean;
+    isFocused: boolean;
+    innerProps: { style: CSSProperties };
+}
 
 export function placeholderCSS(): React.CSSProperties;
 

@@ -28,7 +28,7 @@ amplify.publish("dataexample2", "bar", "baz");
 
 // Subscribe and publish with context and data
 
-amplify.subscribe("datacontextexample", $("p:first"), data => {
+amplify.subscribe("datacontextexample", $("p:first"), function(data) {
     this.text(data.exampleText); // first p element would have "foo bar baz" as text
 });
 
@@ -243,6 +243,7 @@ amplify.request({
     }
 });
 // Handling Status
+
 // Status in Success and Error Callbacks
 
 // amplify.request comes with built in support for status.The status parameter appears in the default success or error callbacks when using an ajax definition.

@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6", "dom"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/utils.d.ts",
         "react-mentions-tests.tsx"
     ]
 }

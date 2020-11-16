@@ -4,7 +4,11 @@ export function drawTextOnPath(
     end: number,
     stride: number,
     text: string,
-    measure: (p0: string) => number,
     startM: number,
-    maxAngle: number
+    maxAngle: number,
+    scale: number,
+    measureAndCacheTextWidth: (p0: string, p1: string, p2: { [key: string]: number }) => number,
+    font: string,
+    cache: { [key: string]: number },
+    rotation: number,
 ): any[][];

@@ -18,5 +18,5 @@ export function createOrUpdate(
     maxX: number,
     minY: number,
     maxY: number,
-    tileRange?: TileRange
+    tileRange?: TileRange,
 ): TileRange;

@@ -6,10 +6,6 @@ export interface ShallowRenderer {
      */
     getRenderOutput<E extends ReactElement>(): E;
     /**
-     * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
-     */
-    getRenderOutput(): ReactElement;
-    /**
      * Similar to `ReactDOM.render` but it doesn't require DOM and only renders a single level deep.
      */
     render(element: ReactElement, context?: any): void;

@@ -4,6 +4,7 @@
 //                 Gabriel Prates <https://github.com/gabsprates>
 //                 Laurent Senta <https://github.com/lsenta>
 //                 David Spiess <https://github.com/davidspiess>
+//                 John Grisham <https://github.com/JohnGrisham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -36,6 +37,7 @@ export interface AvatarEditorProps {
     position?: Position;
     rotate?: number;
     crossOrigin?: string;
+    disableBoundaryChecks?: boolean;
     disableDrop?: boolean;
     onDropFile?(event: DragEvent): void;
     onLoadFailure?(event: Event): void;

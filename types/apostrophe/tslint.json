@@ -1,6 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": [true, "array"]
+        "array-type": false
     }
 }

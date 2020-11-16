@@ -16,7 +16,15 @@ export default class ReprojTile extends Tile {
         gutter: number,
         getTileFunction: FunctionType,
         opt_errorThreshold?: number,
-        opt_renderEdges?: boolean
+        opt_renderEdges?: boolean,
+        opt_contextOptions?: any,
     );
+    /**
+     * Get the HTML Canvas element for this tile.
+     */
     getImage(): HTMLCanvasElement;
+    /**
+     * Load not yet loaded URI.
+     */
+    load(): void;
 }

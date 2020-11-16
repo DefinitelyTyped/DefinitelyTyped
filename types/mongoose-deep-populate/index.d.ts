@@ -2,7 +2,7 @@
 // Project: https://github.com/buunguyen/mongoose-deep-populate
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.2
 
 import { Mongoose, Schema } from 'mongoose';
 

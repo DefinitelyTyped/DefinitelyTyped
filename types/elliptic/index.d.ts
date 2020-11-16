@@ -10,7 +10,8 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | number[];
+export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
 
 export const version: number;
 
@@ -43,8 +44,10 @@ export namespace curve {
 
             constructor(curve: base, type: string);
 
-            encode(enc: "hex" | "array", compact: boolean): string | Buffer;
-            encodeCompressed(enc: "hex" | "array"): BN;
+            encode(enc: "hex", compact: boolean): string;
+            encode(enc: "array" | undefined, compact: boolean): number[];
+            encodeCompressed(enc: "hex"): string;
+            encodeCompressed(enc?: "array"): number[];
             validate(): boolean;
             precompute(power: number): BasePoint;
             dblp(k: number): BasePoint;
@@ -181,11 +184,11 @@ export class ec {
 
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(
-        priv: Uint8Array | Buffer | string | ec.KeyPair,
+        priv: Uint8Array | Buffer | string | number[] | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     keyFromPublic(
-        pub: Uint8Array | Buffer | string | { x: string; y: string } | ec.KeyPair,
+        pub: Uint8Array | Buffer | string | number[] | { x: string; y: string } | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
@@ -202,19 +205,19 @@ export class ec {
     ): ec.Signature;
     verify(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         key: Buffer | ec.KeyPair,
         enc?: string
     ): boolean;
     recoverPubKey(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         j: number,
         enc?: string
     ): any;
     getKeyRecoveryParam(
         e: Error | undefined,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         Q: BN,
         enc?: string
     ): number;
@@ -259,12 +262,12 @@ export namespace ec {
         getPublic(): curve.base.BasePoint;
         getPrivate(enc: "hex"): string;
         getPrivate(): BN;
-        derive(pub: any): any; // ?
+        derive(pub: curve.base.BasePoint): BN;
         sign(msg: BNInput, enc: string, options?: SignOptions): Signature;
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(
             msg: BNInput,
-            signature: Signature | SignatureOptions | string
+            signature: SignatureInput
         ): boolean;
         inspect(): string;
     }
@@ -274,7 +277,7 @@ export namespace ec {
         s: BN;
         recoveryParam: number | null;
 
-        constructor(options: SignatureOptions | Signature, enc?: string);
+        constructor(options: SignatureInput, enc?: string);
 
         toDER(enc?: string | null): any; // ?
     }

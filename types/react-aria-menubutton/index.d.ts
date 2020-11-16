@@ -9,41 +9,39 @@
 import * as React from "react";
 
 export interface WrapperState {
-	isOpen: boolean;
+    isOpen: boolean;
 }
 
 export interface WrapperProps<T extends HTMLElement>
-	extends React.HTMLProps<T> {
-	/**
-	 * A callback to run when the user makes a selection
-	 * (i.e. clicks or presses Enter or Space on a `MenuItem`).
-	 * It will be passed the value of the selected `MenuItem` and
-	 * the React `SyntheticEvent`.
-	 */
-	onSelection?(value: any, event: React.SyntheticEvent<T>): any;
+    extends React.HTMLProps<T> {
+    /**
+     * A callback to run when the user makes a selection
+     * (i.e. clicks or presses Enter or Space on a `MenuItem`).
+     * It will be passed the value of the selected `MenuItem` and
+     * the React `SyntheticEvent`.
+     */
+    onSelection?(value: any, event: React.SyntheticEvent<T>): any;
 
-	/**
-	 * A callback to run when the menu is opened or closed.
-	 */
-	onMenuToggle?(obj: WrapperState): any;
+    /**
+     * A callback to run when the menu is opened or closed.
+     */
+    onMenuToggle?(obj: WrapperState): any;
 
-	/**
-	 * By default, it does automatically close.
-	 * If false, the menu will not automatically close when a
-	 * selection is made. Default: `true`.
-	 */
-	closeOnSelection?: boolean;
+    /**
+     * By default, it does automatically close.
+     * If false, the menu will not automatically close when a
+     * selection is made. Default: `true`.
+     */
+    closeOnSelection?: boolean;
 
-	/**
-	 * By default, it does automatically close.
-	 * If false, the menu will not automatically close when it
-	 * blurs. Default: `true`.
-	 */
-	closeOnBlur?: boolean;
+    /**
+     * By default, it does automatically close.
+     * If false, the menu will not automatically close when it
+     * blurs. Default: `true`.
+     */
+    closeOnBlur?: boolean;
 
-	isOpen?: boolean;
-
-	tag?: T["tagName"];
+    tag?: T["tagName"];
 }
 
 /**
@@ -58,17 +56,17 @@ export interface WrapperProps<T extends HTMLElement>
 export class Wrapper extends React.Component<WrapperProps<HTMLElement>> {}
 
 export interface ButtonProps<T extends HTMLElement>
-	extends React.HTMLProps<T> {
-	/**
-	 * If true, the element is disabled
-	 * (aria-disabled='true', not in tab order, clicking has no effect).
-	 */
-	disabled?: boolean;
+    extends React.HTMLProps<T> {
+    /**
+     * If true, the element is disabled
+     * (aria-disabled='true', not in tab order, clicking has no effect).
+     */
+    disabled?: boolean;
 
-	/**
-	 * The HTML tag for this element. Default: 'span'.
-	 */
-	tag?: T["tagName"];
+    /**
+     * The HTML tag for this element. Default: 'div'.
+     */
+    tag?: T["tagName"];
 }
 
 /**
@@ -79,14 +77,15 @@ export interface ButtonProps<T extends HTMLElement>
  * Each `Button` must be wrapped in a Wrapper, and each Wrapper can wrap only
  * one `Button`.
  */
-export class Button extends React.Component<ButtonProps<HTMLElement>> {}
+export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 
 export interface MenuProps<T extends HTMLElement>
-	extends React.HTMLProps<T> {
-	/**
-	 * The HTML tag for this element. Default: 'span'.
-	 */
-	tag?: T["tagName"];
+    extends React.HTMLProps<T> {
+    /**
+     * The HTML tag for this element. Default: 'div'.
+     */
+    tag?: T["tagName"];
+    children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
 }
 
 /**
@@ -95,23 +94,23 @@ export interface MenuProps<T extends HTMLElement>
 export class Menu extends React.Component<MenuProps<HTMLElement>> {}
 
 export interface MenuItemProps<T extends HTMLElement>
-	extends React.HTMLProps<T> {
-	/**
-	 * If value has a value, it will be passed to the onSelection handler
-	 * when the `MenuItem` is selected
-	 */
-	value?: any;
+    extends React.HTMLProps<T> {
+    /**
+     * If value has a value, it will be passed to the onSelection handler
+     * when the `MenuItem` is selected
+     */
+    value?: any;
 
-	/**
-	 * If `text` has a value, its first letter will be the letter a user can
-	 * type to navigate to that item.
-	 */
-	text?: string;
+    /**
+     * If `text` has a value, its first letter will be the letter a user can
+     * type to navigate to that item.
+     */
+    text?: string;
 
-	/**
-	 * The HTML tag for this element. Default: 'span'.
-	 */
-	tag?: T["tagName"];
+    /**
+     * The HTML tag for this element. Default: 'div'.
+     */
+    tag?: T["tagName"];
 }
 
 /**
@@ -136,14 +135,14 @@ export class MenuItem extends React.Component<MenuItemProps<HTMLElement>> {}
  * That id should be your first argument to `openMenu()`.
  */
 export function openMenu(
-	wrapperId: string,
-	openOptions?: {
-		/**
-		 * If `true`, the menu's first item will receive focus when the
-		 * menu opens. Default: `false`.
-		 */
-		focusMenu: boolean;
-	}
+    wrapperId: string,
+    openOptions?: {
+        /**
+         * If `true`, the menu's first item will receive focus when the
+         * menu opens. Default: `false`.
+         */
+        focusMenu: boolean;
+    }
 ): void;
 
 /**
@@ -152,12 +151,12 @@ export function openMenu(
  * That id should be your first argument to `closeMenu()`.
  */
 export function closeMenu(
-	wrapperId: string,
-	closeOptions?: {
-		/**
-		 * If `true`, the widget's button will receive focus when the
-		 * menu closes. Default: `false`.
-		 */
-		focusButton: boolean;
-	}
+    wrapperId: string,
+    closeOptions?: {
+        /**
+         * If `true`, the widget's button will receive focus when the
+         * menu closes. Default: `false`.
+         */
+        focusButton: boolean;
+    }
 ): void;

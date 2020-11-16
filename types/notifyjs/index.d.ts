@@ -2,10 +2,11 @@
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 //                 NateScarlet <https://github.com/NateScarlet>
+//                 eikendev <https://github.com/eikendev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Notify {
-    constructor(title: string, options?: INotifyOption);
+    constructor(title: string, options?: Notify.NotifyOption);
 
     /**
      * Check is permission is needed for the user to receive notifications.
@@ -53,60 +54,67 @@ declare class Notify {
     handleEvent(e: Event): void;
 }
 
-/**
- * Interface for the Notify's optional parameter.
- */
-interface INotifyOption {
+declare namespace Notify {
+    /**
+     * Interface for the Notify's optional parameter.
+     */
+    interface NotifyOption {
+        /**
+         * notification message body
+         */
+        body?: string;
 
-    /**
-     * notification message body
-     */
-    body?: string;
+        /**
+         * path for icon to display in notification
+         */
+        icon?: string;
 
-    /**
-     * path for icon to display in notification
-     */
-    icon?: string;
+        /**
+         * unique identifier to stop duplicate notifications
+         */
+        tag?: string;
 
-    /**
-     * unique identifier to stop duplicate notifications
-     */
-    tag?: string;
+        /**
+         * number of seconds to close the notification automatically
+         */
+        timeout?: number;
 
-    /**
-    * number of seconds to close the notification automatically
-    */
-    timeout?: number;
+        /**
+         * whether this notification should be silent or not
+         */
+        silent?: boolean;
 
-    /**
-     * callback when notification is shown
-     */
-    notifyShow?(e: Event): any;
-    /**
-     * callback when notification is closed
-     */
-    notifyClose?: Function;
-    /**
-     * callback when notification is clicked
-     */
-    notifyClick?: Function;
-    /**
-     * callback when notification throws an error
-     */
-    notifyError?: Function;
-    /**
-     *  callback when user has granted permission
-     */
-    permissionGranted?: Function;
-    /**
-     * callback when user has denied permission
-     */
-    permissionDenied?: Function;
+        /**
+         * callback when notification is shown
+         */
+        notifyShow?(e: Event): any;
+        /**
+         * callback when notification is closed
+         */
+        notifyClose?: Function;
+        /**
+         * callback when notification is clicked
+         */
+        notifyClick?: Function;
+        /**
+         * callback when notification throws an error
+         */
+        notifyError?: Function;
+        /**
+         *  callback when user has granted permission
+         */
+        permissionGranted?: Function;
+        /**
+         * callback when user has denied permission
+         */
+        permissionDenied?: Function;
 
-    /**
-     * whether we expect for user interaction or not
-     * in case value is true the timeout for closing the notification won't be set
-     */
-    requireInteraction?: boolean;
+        /**
+         * whether we expect for user interaction or not
+         * in case value is true the timeout for closing the notification won't be set
+         */
+        requireInteraction?: boolean;
+    }
 }
-export = Notify
+
+export = Notify;

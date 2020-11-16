@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
@@ -26,15 +26,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "lib/actions.d.ts",
-        "lib/createBrowserHistory.d.ts",
-        "lib/createHashHistory.d.ts",
-        "lib/createLocation.d.ts",
-        "lib/createMemoryHistory.d.ts",
-        "lib/LocationUtils.d.ts",
-        "lib/useBasename.d.ts",
-        "lib/useBeforeUnload.d.ts",
-        "lib/useQueries.d.ts"
+        "index.d.ts"
     ]
 }

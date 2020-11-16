@@ -1,13 +1,13 @@
-// Type definitions for Auth0.js 9.10
+// Type definitions for Auth0.js 9.14
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
+/// <reference lib="dom" />
 export as namespace auth0;
 
 export class Authentication {
@@ -19,9 +19,11 @@ export class Authentication {
     /**
      * Builds and returns the `/authorize` url in order to initialize a new authN/authZ transaction
      *
-     * @param options: https://auth0.com/docs/api/authentication#!#get--authorize_db
+     * @param options: https://auth0.github.io/auth0.js/global.html#buildAuthorizeUrl
+     * @see {@link https://auth0.com/docs/api/authentication#authorize-client}
+     * @see {@link https://auth0.com/docs/api/authentication#social}
      */
-    buildAuthorizeUrl(options: any): string;
+    buildAuthorizeUrl(options: AuthorizeUrlOptions): string;
 
     /**
      * Builds and returns the Logout url in order to initialize a new authN/authZ transaction
@@ -57,13 +59,13 @@ export class Authentication {
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(callback?: Auth0Callback<any>): void;
+    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<any>): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -112,11 +114,10 @@ export class DBConnection {
     constructor(request: any, option: any);
 
     /**
-     * Signup a new user
-     *
-     * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * Creates a new user in a Auth0 Database connection
+     * @param options https://auth0.com/docs/api/authentication#signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>): void;
 
     /**
      * Initializes the change password flow
@@ -139,12 +140,17 @@ export class Management {
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
-     * Updates the user metdata. It will patch the user metdata with the attributes sent.
+     * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
-
+    /**
+     * Updates the user attributes.
+     * It will patch the root attributes that the server allows it.
+     * {@link https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id}
+     */
+    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
@@ -241,10 +247,17 @@ export class WebAuth {
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
-     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     * @deprecated Use {@link crossOriginVerification} instead.
      */
     crossOriginAuthenticationCallback(): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     */
+    crossOriginVerification(): void;
 
     /**
      * Redirects to the auth0 logout endpoint
@@ -254,7 +267,7 @@ export class WebAuth {
      * - If the client_id parameter is included, the returnTo URL must be listed in the Allowed Logout URLs set at the client level (see Setting Allowed Logout URLs at the App Level).
      * - If the client_id parameter is NOT included, the returnTo URL must be listed in the Allowed Logout URLs set at the account level (see Setting Allowed Logout URLs at the Account Level).
      *
-     * @see   {@link https://auth0.com/docs/api/authentication#logout}
+     * @see {@link https://auth0.com/docs/api/authentication#logout}
      */
     logout(options: LogoutOptions): void;
 
@@ -283,9 +296,21 @@ export class WebAuth {
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
-     * @param callback: any(err, token_payload)
+     * @param cb
+     * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
-    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
+    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
+
+    /**
+     * Renders the captcha challenge in the provided element.
+     * This function can only be used in the context of a Classic Universal Login Page.
+     * @param element The element where the captcha needs to be rendered
+     * @param [options] The configuration options for the captcha
+     * @param [callback] An optional completion callback
+     *
+     * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
+     */
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -332,9 +357,8 @@ export class Popup {
 
     /**
      * Returns a new instance of the popup handler
-     *
      */
-    buildPopupHandler(): any;
+    private buildPopupHandler(): any;
 
     /**
      * Initializes the popup window and returns the instance to be used later in order to avoid being blocked by the browser.
@@ -410,7 +434,7 @@ export class Popup {
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
             owp?: boolean,
         },
-        callback: Auth0Callback<any>,
+        callback: Auth0Callback<Auth0Result>,
     ): void;
 
     /**
@@ -518,12 +542,70 @@ export interface AuthOptions {
     redirectUri?: string;
     scope?: string;
     audience?: string;
+    /**
+     * maximum elapsed time in seconds since the last time the user
+     * was actively authenticated by the authorization server.
+     */
+    maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
+    };
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    state?: string;
+    tenant?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
+}
+
+export interface CatpchaConfiguration {
+    /**
+     *  An object containaing templates for each captcha provider
+     */
+    templates?: CaptchaTemplates;
+
+    /**
+     * The ISO code of the language for recaptcha
+     * @default 'en'
+     */
+    lang?: string;
+}
+
+/**
+ * An object containing templates for a captcha provider
+ */
+export interface CaptchaTemplates {
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    auth0?: (challenge: Auth0Challenge) => string;
+
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    recaptcha_v2?: (challenge: Auth0Challenge) => string;
+
+    error: (error: Error) => string;
+}
+
+export interface Auth0Challenge {
+    type: 'code';
+    image: string;
+    required: boolean;
+    provider: 'auth0' | 'recaptcha_v2';
+    [other: string]: unknown;
 }
 
 export interface PasswordlessAuthOptions {
@@ -584,6 +666,30 @@ export interface Auth0Error {
     statusText?: string;
 }
 
+/**
+ * result of the Auth request.
+ * If there is no token available, this value will be null.
+ */
+export interface Auth0Result {
+    /**
+     * token that allows access to the specified resource server (identified by the audience parameter
+     * or by default Auth0's /userinfo endpoint)
+     */
+    accessToken?: string;
+    /** number of seconds until the access token expires */
+    expiresIn?: number;
+    /** token that identifies the user */
+    idToken?: string;
+    /**
+     * token that can be used to get new access tokens from Auth0.
+     * Note that not all Auth0 Applications can request them
+     * or the resource server might not allow them.
+     */
+    refreshToken?: string;
+    /** values that you receive back on the authentication response */
+    appState?: any;
+}
+
 export type Auth0ParseHashError = Auth0Error & {
     state?: string;
 };
@@ -618,23 +724,40 @@ export interface ChangePasswordOptions {
     email: string;
 }
 
+export interface BaseAuthOptions {
+    clientID?: string;
+    responseType?: string;
+    redirectUri?: string;
+    scope?: string;
+    audience?: string;
+    state?: string;
+    nonce?: string;
+    _csrf?: string;
+    __instate?: string;
+}
+
+export interface PasswordlessStartAuthParams extends BaseAuthOptions {
+    responseMode?: string;
+}
+
 export interface PasswordlessStartOptions {
     connection: string;
     send: string;
     phoneNumber?: string;
     email?: string;
-    authParams?: any;
+    authParams?: PasswordlessStartAuthParams;
 }
 
-export interface PasswordlessVerifyOptions {
+export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
     email?: string;
     send?: string;
+    responseMode?: string;
 }
 
-export interface PasswordlessLoginOptions {
+export interface PasswordlessLoginOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
@@ -673,6 +796,47 @@ export interface Office365UserProfile extends Auth0UserProfile {
 
 export interface AdfsUserProfile extends Auth0UserProfile {
     issuer?: string;
+}
+
+export interface AuthorizeUrlOptions {
+    /**
+     * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     */
+    clientID?: string;
+    /**
+     * url that the Auth0 will redirect after Auth with the Authorization Response
+     */
+    redirectUri: string;
+    /**
+     * type of the response used by OAuth 2.0 flow. It can be any space separated
+     * list of the values `code`, `token`, `id_token`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     */
+    responseType: string;
+    /**
+     * how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     */
+    responseMode?: 'query' | 'fragment' | 'form_post';
+    /**
+     * value used to mitigate XSRF attacks.
+     * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     */
+    state?: string;
+    /**
+     * value used to mitigate replay attacks when using Implicit Grant.
+     * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     */
+    nonce?: string;
+    /**
+     * scopes to be requested during Auth. e.g. `openid email`
+     */
+    scope?: string;
+    /**
+     * identifier of the resource server who will consume the access token issued after Auth
+     */
+    audience?: string;
 }
 
 export interface Auth0Identity {
@@ -735,13 +899,25 @@ export interface DelegationOptions {
 }
 
 export interface DbSignUpOptions {
+    /** user email address */
     email: string;
+    /** user password */
     password: string;
+    /** name of the connection where the user will be created */
     connection: string;
     /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
-    user_metadata?: any;
+    /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
+    userMetadata?: any;
+}
+
+/** result of the signup request */
+export interface DbSignUpResults {
+    /** user's email */
+    email: string;
+    /** if the user's email was verified */
+    emailVerified: boolean;
 }
 
 export interface ParseHashOptions {
@@ -769,7 +945,7 @@ export interface RenewAuthOptions {
     /**
      * type of the response used by OAuth 2.0 flow. It can be any space separated
      * list of the values `code`, `token`, `id_token`.
-     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html}
      */
     responseType?: string;
     /**
@@ -814,7 +990,7 @@ export interface RenewAuthOptions {
      */
     timeout?: number;
     /**
-     * use postMessage to comunicate between the silent callback and the SPA.
+     * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false
@@ -833,18 +1009,42 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
-	language?: string;
+    language?: string;
     login_hint?: string;
-	prompt?: string;
+    prompt?: string;
     mode?: "login" | "signUp";
+    screen_hint?: "signup";
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
+    connection_scope?: string | string[];
+}
+
+export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
+
+export interface SsoSessionFoundResult {
+    lastUsedClientID: string;
+    lastUsedConnection: {
+        name: string;
+        strategy?: string;
+    };
+    lastUsedUserID: string;
+    lastUsedUsername: string;
+    sessionClients: string[];
+    sso: true;
+}
+
+export interface SsoSessionNotFoundResult {
+    sso: false;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
-	/**
-	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
-	 */
-	usePostMessage?: boolean;
+    /**
+     * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+     */
+    usePostMessage?: boolean;
 }
+
+export const version: {
+    raw: string;
+};

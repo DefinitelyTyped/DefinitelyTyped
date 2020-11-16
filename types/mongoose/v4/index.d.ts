@@ -4,8 +4,9 @@
 //                 horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 murbanowicz <https://github.com/murbanowicz>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -215,7 +216,7 @@ declare module "mongoose" {
    * QueryStream can only be accessed using query#stream(), we only
    *   expose its interface here.
    */
-  interface QueryStream extends stream.Stream {
+  class QueryStream extends stream.Stream {
     /**
      * Provides a Node.js 0.8 style ReadStream interface for Queries.
      * @event data emits a single Mongoose document
@@ -230,7 +231,7 @@ declare module "mongoose" {
        */
       transform?: Function;
       [other: string]: any;
-    }): QueryStream;
+    });
 
     /**
      * Destroys the stream, closing the underlying cursor, which emits the close event.
@@ -550,7 +551,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  interface QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends Document> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -564,7 +565,7 @@ declare module "mongoose" {
      * @event data Emitted when the stream is flowing and the next doc is ready
      * @event end Emitted when the stream is exhausted
      */
-    constructor(query: Query<T>, options: any): QueryCursor<T>;
+    constructor(query: Query<T>, options: any);
 
     /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
     close(callback?: (error: any, result: any) => void): Promise<any>;
@@ -1181,7 +1182,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -1278,7 +1279,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj The item to look for
        */
       indexOf(obj: any): number;
 
@@ -2387,6 +2388,21 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | any, errorMsg?: string,
       type?: string): this;
+
+    /** Name of SchemaType instance. e.g. 'Number' */
+    instance: string;
+    /** Path name */
+    path: string;
+    /** Array containing validators */
+    validators: any[];
+    /** Array containing getters */
+    getters: any[];
+    /** Array containing setters */
+    setters: any[];
+    /** Array containing options for instantiated SchemaType */
+    options: SchemaOptions;
+    /** Default value */
+    defaultValue: any;
   }
 
   /*
@@ -2851,6 +2867,10 @@ declare module "mongoose" {
     strict?: boolean;
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
+    /**
+    * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+    */
+    arrayFilters?: { [key: string]: any }[];
     /** other options */
     [other: string]: any;
   }

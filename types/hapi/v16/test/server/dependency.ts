@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverdependencydependencies-after
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 const after: Hapi.AfterDependencyLoadCallback = function (server, next) {
 

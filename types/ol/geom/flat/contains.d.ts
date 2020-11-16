@@ -5,7 +5,7 @@ export function linearRingContainsExtent(
     offset: number,
     end: number,
     stride: number,
-    extent: Extent
+    extent: Extent,
 ): boolean;
 export function linearRingContainsXY(
     flatCoordinates: number[],
@@ -13,7 +13,7 @@ export function linearRingContainsXY(
     end: number,
     stride: number,
     x: number,
-    y: number
+    y: number,
 ): boolean;
 export function linearRingsContainsXY(
     flatCoordinates: number[],
@@ -21,7 +21,7 @@ export function linearRingsContainsXY(
     ends: number[],
     stride: number,
     x: number,
-    y: number
+    y: number,
 ): boolean;
 export function linearRingssContainsXY(
     flatCoordinates: number[],
@@ -29,5 +29,5 @@ export function linearRingssContainsXY(
     endss: number[][],
     stride: number,
     x: number,
-    y: number
+    y: number,
 ): boolean;

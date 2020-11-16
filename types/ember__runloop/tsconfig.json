@@ -15,10 +15,9 @@
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"],
-            "@ember/runloop": ["ember__runloop"],
-            "@ember/runloop/*": ["ember__runloop/*"]
+            "@ember/*": [
+                "ember__*"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -26,9 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "types.d.ts",
-        "-private/types.d.ts",
-        "-private/backburner.d.ts",
         "ember__runloop-tests.ts"
     ]
 }

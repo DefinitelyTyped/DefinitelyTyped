@@ -1,6 +1,24 @@
-import OptimizeCssAssets = require('optimize-css-assets-webpack-plugin');
+import webpack = require('webpack');
+import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const ocap: OptimizeCssAssets = new OptimizeCssAssets({
-	assetNameRegExp: /\.min\.css$/,
-	canPrint: true
-});
+let configuration: webpack.Configuration;
+
+configuration = {
+  plugins: [new OptimizeCssAssetsPlugin()],
+};
+
+configuration = {
+  plugins: [
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.min\.css$/,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: {
+        map: false,
+      },
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      canPrint: true,
+    }),
+  ],
+};

@@ -1,4 +1,4 @@
-// Type definitions for scheduler 0.12
+// Type definitions for scheduler 0.16
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -19,10 +19,11 @@ export const unstable_UserBlockingPriority = 2;
 export const unstable_NormalPriority = 3;
 export const unstable_IdlePriority = 5;
 export const unstable_LowPriority = 4;
-export function unstable_runWithPriority<T>(priorityLevel: number, eventHandler: () => T): T | undefined;
-export function unstable_scheduleCallback(callback: FrameCallbackType, deprecated_options?: { timeout: number}): CallbackNode;
+export function unstable_runWithPriority<T>(priorityLevel: number, eventHandler: () => T): T;
+export function unstable_scheduleCallback(priorityLevel: number, callback: FrameCallbackType, options?: { delay?: number, timeout?: number}): CallbackNode;
+export function unstable_next<T>(eventHandler: () => T): T;
 export function unstable_cancelCallback(callbackNode: CallbackNode): void;
-export function unstable_wrapCallback(callback: FrameCallbackType): () => FrameCallbackType | undefined;
+export function unstable_wrapCallback(callback: FrameCallbackType): () => FrameCallbackType;
 export function unstable_getCurrentPriorityLevel(): number;
 export function unstable_shouldYield(): boolean;
 export function unstable_continueExecution(): void;

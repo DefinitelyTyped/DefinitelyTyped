@@ -107,6 +107,25 @@ client.batch({
     }
 });
 
+client.read({
+    resourceType: "Patient",
+    id: "1234"
+}).then(p => {
+    if (p.language === 'en') {
+        console.log('patient english');
+    }
+});
+
+client.vread({
+    resourceType: "Patient",
+    id: "1234",
+    version: "1"
+}).then(p => {
+    if (p.language === 'en') {
+        console.log('patient english');
+    }
+});
+
 client.transaction({
     body: {
         type: "transaction"

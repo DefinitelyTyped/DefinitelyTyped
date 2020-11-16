@@ -2,6 +2,8 @@
 /// <reference types="lodash" />
 /// <reference types="benchmark" />
 /// <reference types="async" />
+/// <reference path="./async.d.ts" />
+/// <reference path="./benchmark.d.ts" />
 
 declare namespace adone {
     const _null: symbol;

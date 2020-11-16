@@ -263,7 +263,6 @@ declare namespace Remarkable {
         /**
          * The list of tokens currently being processed.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
         tokens: T[],
 
         /**

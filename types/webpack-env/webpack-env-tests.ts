@@ -1,4 +1,4 @@
-
+/// <reference types="node"/>
 
 interface SomeModule {
     someMethod(): void;
@@ -84,5 +84,14 @@ if (module.hot) {
     module.hot.removeStatusHandler(statusHandler);
 }
 
+require.ensure([], (require) => {
+    require("some/module");
+});
 
+require.ensure([], (require) => {
+    require("some/module");
+}, (e) => {}, 'chunkWithErrorHandling')
 
+require.ensure([], (require) => {
+    require("some/module");
+}, 'chunkWithoutErrorHandling');

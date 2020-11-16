@@ -1,8 +1,7 @@
-// Type definitions for Chroma.js 1.4
+// Type definitions for Chroma.js 2.1
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
@@ -21,7 +20,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl" | "lrgb";
 
     interface ChromaStatic {
         /**
@@ -61,6 +60,8 @@ declare namespace chroma {
          * @return the color object.
          */
         hex(color: string): Color;
+
+        valid(color: any, mode?: string): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
@@ -102,7 +103,7 @@ declare namespace chroma {
          * Similar to {@link mix}, but accepts more than two colors. Simple averaging of R,G,B components and the alpha
          * channel.
          */
-        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces): Color;
+        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces, weights?: number[]): Color;
 
         /**
          * Blends two colors using RGB channel-wise blend functions.
@@ -215,9 +216,12 @@ declare namespace chroma {
         /**
          * Get and set the color opacity.
          */
-        alpha(a?: number): Color;
+        alpha(a: number): Color;
+        alpha(): number;
 
         darken(f?: number): Color;
+
+        mix(targetColor: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
 
         brighten(f?: number): Color;
 
@@ -244,7 +248,7 @@ declare namespace chroma {
 
         /**
          * Returns a single channel value.
-         * @see set
+         * Also @see set
          */
         get(modechan: string): number;
 
@@ -409,7 +413,7 @@ declare namespace chroma {
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
-        (value: number): OutType;
+        (value: number | null | undefined): OutType;
 
         domain(d?: number[], n?: number, mode?: string): this;
 

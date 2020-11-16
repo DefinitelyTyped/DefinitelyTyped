@@ -4,5 +4,5 @@ export function flipXY(
     end: number,
     stride: number,
     opt_dest?: number[],
-    opt_destOffset?: number
+    opt_destOffset?: number,
 ): number[];

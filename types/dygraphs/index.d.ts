@@ -6,7 +6,7 @@
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = (number|Date)[][];
+    type DataArray = (number|Date|null)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -252,7 +252,7 @@ declare namespace dygraphs {
          * be calculated automatically (e.g. [null, 30] to automatically calculate just the lower
          * bound)
          */
-        valueRange?: number[];
+        valueRange?: [number | null, number | null] | null;
 
         /**
          * Whether to display gridlines in the chart. This may be set on a per-axis basis to define
@@ -888,7 +888,7 @@ declare namespace dygraphs {
          */
         xval?: number;
 
-        /**	Text that will appear on the annotation's flag. */
+        /**    Text that will appear on the annotation's flag. */
         shortText?: string;
 
         /** A longer description of the annotation which will appear when the user hovers over it. */
@@ -900,18 +900,18 @@ declare namespace dygraphs {
          */
         icon?: string;
 
-        /**	Width (in pixels) of the annotation flag or icon. */
+        /**    Width (in pixels) of the annotation flag or icon. */
         width?: number;
         /** Height (in pixels) of the annotation flag or icon. */
         height?: number;
 
-        /**	CSS class to use for styling the annotation. */
+        /**    CSS class to use for styling the annotation. */
         cssClass?: string;
 
-        /**	Height of the tick mark (in pixels) connecting the point to its flag or icon. */
+        /**    Height of the tick mark (in pixels) connecting the point to its flag or icon. */
         tickHeight?: number;
 
-        /**	If true, attach annotations to the x-axis, rather than to actual points. */
+        /**    If true, attach annotations to the x-axis, rather than to actual points. */
         attachAtBottom?: boolean;
 
         div?: HTMLDivElement;
@@ -1283,6 +1283,16 @@ declare class Dygraph {
      * x-axis, so the data series start with index 1.
      */
     indexFromSetName(name: string): number;
+
+    /**
+     * Find the row number corresponding to the given x-value.
+     * Returns null if there is no such x-value in the data.
+     * If there are multiple rows with the same x-value, this will return the
+     * first one.
+     * @param xVal The x-value to look for (e.g. millis since epoch).
+     * @return The row number, which you can pass to getValue(), or null.
+     */
+    getRowForX(xVal: number): number | null;
 
     /**
      * Trigger a callback when the dygraph has drawn itself and is ready to be

@@ -1,14 +1,22 @@
-// Type definitions for KaTeX 0.10
+// Type definitions for KaTeX 0.11
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 //                 Kevin Nguyen <https://github.com/knguyen0125>
 //                 bLue <https://github.com/dreamerblue>
+//                 Sebastian Weigand <https://github.com/s-weigand>
+//                 sapphi-red <https://github.com/sapphi-red>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference path="contrib/index.d.ts" />
 
 export as namespace katex;
+
+export interface TrustContext {
+    command: string
+    url: string
+    protocol: string
+}
 
 /** Documentation: https://katex.org/docs/options.html */
 export interface KatexOptions {
@@ -20,6 +28,30 @@ export interface KatexOptions {
      * @default false
      */
     displayMode?: boolean;
+    /**
+     * Determines the markup language of the output. The valid choices are:
+     * - `html`: Outputs KaTeX in HTML only.
+     * - `mathml`: Outputs KaTeX in MathML only.
+     * - `htmlAndMathml`: Outputs HTML for visual rendering
+     *   and includes MathML for accessibility.
+     *
+     * @default 'htmlAndMathml'
+     */
+    output?: 'html' | 'mathml' | 'htmlAndMathml';
+    /**
+     * If `true`, display math has \tags rendered on the left
+     * instead of the right, like \usepackage[leqno]{amsmath} in LaTeX.
+     *
+     * @default false
+     */
+    leqno?: boolean;
+    /**
+     * If `true`, display math renders flush left with a 2em left margin,
+     * like \documentclass[fleqn] in LaTeX with the amsmath package.
+     *
+     * @default false
+     */
+    fleqn?: boolean;
     /**
      * If `true`, KaTeX will throw a `ParseError` when
      * it encounters an unsupported command or invalid LaTex
@@ -40,6 +72,13 @@ export interface KatexOptions {
      * See `src/macros.js` for its usage
      */
     macros?: any;
+    /**
+     * Specifies a minimum thickness, in ems, for fraction lines,
+     * \sqrt top lines, {array} vertical lines, \hline, \hdashline,
+     * \underline, \overline, and the borders of \fbox, \boxed, and
+     * \fcolorbox.
+     */
+    minRuleThickness?: number;
     /**
      * If `true`, `\color` will work like LaTeX's `\textcolor`
      * and takes 2 arguments
@@ -71,14 +110,6 @@ export interface KatexOptions {
      */
     maxExpand?: number;
     /**
-     * Allowed protocols in `\href`
-     *
-     * Use `_relative` to allow relative urls
-     *
-     * Use `*` to allow all protocols
-     */
-    allowedProtocols?: string[];
-    /**
      * If `false` or `"ignore"`, allow features that make
      * writing in LaTex convenient but not supported by LaTex
      *
@@ -89,6 +120,20 @@ export interface KatexOptions {
      * @default "warn"
      */
     strict?: boolean | string | Function;
+    /**
+     * If `false` (do not trust input), prevent any commands that could enable adverse behavior, rendering them instead in errorColor.
+     *
+     * If `true` (trust input), allow all such commands.
+     *
+     * @default false
+     */
+    trust?: boolean | ((context: TrustContext) => boolean);
+    /**
+     * Place KaTeX code in the global group.
+     *
+     * @default false
+     */
+    globalGroup?: boolean;
 }
 
 export class ParseError implements Error {

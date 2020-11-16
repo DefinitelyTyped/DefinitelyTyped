@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
-/// <reference types="fb" />
+/// <reference types="facebook-js-sdk" />
 
 import * as angular from 'angular';
 
@@ -21,20 +21,27 @@ declare module 'angular' {
             setPermissions(permissions: string | Array<string>): IFacebookProvider;
             getPermissions(): string;
 
-            setCustomInit(customInit: FBInitParams): IFacebookProvider;
-            getCustomInit(): FBInitParams;
+            setCustomInit(customInit: Partial<facebook.InitParams>): IFacebookProvider;
+            getCustomInit(): facebook.InitParams;
         }
 
         type FBUIParams =
-            | ShareDialogParams
-            | PageTabDialogParams
-            | RequestsDialogParams
-            | SendDialogParams
-            | PayDialogParams
-            | FeedDialogParams;
+            | facebook.ShareDialogParams
+            | facebook.ShareOpenGraphDialogParams
+            | facebook.AddPageTabDialogParams
+            | facebook.GameRequestDialogParams
+            | facebook.SendDialogParams
+            | facebook.PayDialogParams
+            | facebook.PaymentsLiteDialogParams
+            | facebook.LiveDialogParams
+            | facebook.CreateOfferDialogParams
+            | facebook.LeadgenDialogParams
+            | facebook.InstantExperiencesAdsDialogParams
+            | facebook.InstantExperiencesPreviewDialogParams
+            | facebook.CollectionAdsDialogParams;
 
         interface IFacebookService {
-            config<T extends string | number | FBInitParams>(property: string): T;
+            config<T extends string | number | facebook.InitParams>(property: string): T;
             init(): void;
 
             setCache<T>(attr: string, val: T): void;

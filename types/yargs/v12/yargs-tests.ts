@@ -147,6 +147,24 @@ function Argv$parsing() {
         .boolean('update')
         .boolean('extern')
         .argv;
+
+    yargs.parse([], (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
+
+    yargs.parse([], {}, (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
 }
 
 function Argv$options() {
@@ -306,6 +324,35 @@ function Argv$command() {
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
+}
+
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
 }
 
 function Argv$commandModule() {
@@ -564,10 +611,11 @@ function Argv$coerceWithKeys() {
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
     const ya = yargs
-        .fail((msg, err) => {
+        .fail((msg, err, { help }) => {
             if (err) throw err; // preserve stack
             console.error('You broke it!');
             console.error(msg);
+            console.error(help());
             process.exit(1);
         })
         .argv;
@@ -974,10 +1022,10 @@ function Argv$inferArrayOptionTypes() {
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToArray<string | undefined>
     yargs.string("a").array("a").argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToString<(string | number)[] | undefined>
     yargs.array("a").string("a").argv.a;
 
     // $ExpectType string[]

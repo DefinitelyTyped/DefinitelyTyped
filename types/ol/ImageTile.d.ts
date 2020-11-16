@@ -9,7 +9,15 @@ export default class ImageTile extends Tile {
         src: string,
         crossOrigin: string,
         tileLoadFunction: LoadFunction,
-        opt_options?: Options
+        opt_options?: Options,
     );
+    /**
+     * Get the HTML image element for this tile (may be a Canvas, Image, or Video).
+     */
     getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
+    getKey(): string;
+    /**
+     * Load not yet loaded URI.
+     */
+    load(): void;
 }

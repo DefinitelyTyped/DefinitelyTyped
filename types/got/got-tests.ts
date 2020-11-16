@@ -388,6 +388,15 @@ got('example.com', {
 });
 got('example.com', {
     hooks: {
+        beforeError: [
+            error => {
+                return error;
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         afterResponse: [
             (response, retryWithMergedOptions) => {
                 if (response.statusCode === 401) { // Unauthorized
@@ -428,6 +437,12 @@ got('example.com', {
             beforeRetry: [
                 async () => {
                     await doSomethingAsync();
+                }
+            ],
+            beforeError: [
+                async (error) => {
+                    await doSomethingAsync();
+                    return error;
                 }
             ],
             afterResponse: [

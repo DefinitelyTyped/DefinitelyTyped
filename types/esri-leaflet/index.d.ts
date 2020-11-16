@@ -64,7 +64,7 @@ declare module 'leaflet' {
          */
         interface BasemapLayerOptions extends L.TileLayerOptions {
             /**
-             * 	Will use this token to authenticate all calls to the service.
+             *     Will use this token to authenticate all calls to the service.
              *
              */
             token?: string;
@@ -148,7 +148,7 @@ declare module 'leaflet' {
              */
             position?: string;
             /**
-             * 	Closest zoom level the layer will be displayed on the map.
+             *     Closest zoom level the layer will be displayed on the map.
              */
             maxZoom?: number;
             /**
@@ -166,11 +166,11 @@ declare module 'leaflet' {
              */
             bringToBack(): this;
             /**
-             * 	Redraws this layer above all other overlay layers.
+             *     Redraws this layer above all other overlay layers.
              */
             bringToFront(): this;
             /**
-             * 	Returns the current opacity of the layer.
+             *     Returns the current opacity of the layer.
              */
             getOpacity(): number;
             /**
@@ -182,7 +182,7 @@ declare module 'leaflet' {
              */
             getTimeRange(): Date[];
             /**
-             * Redraws the layer with he passed time range.
+             * Redraws the layer with the passed time range.
              */
             setTimeRange(from: Date, to: Date): this;
             /**
@@ -222,8 +222,8 @@ declare module 'leaflet' {
              */
             layers?: any[];
             /**
-             * 	SQL filters to define what features will be included in the image rendered by the service. An object is
-             * 	used with keys that map each query to its respective layer.
+             *     SQL filters to define what features will be included in the image rendered by the service. An object is
+             *     used with keys that map each query to its respective layer.
              *
              * { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" }
              */
@@ -343,7 +343,7 @@ declare module 'leaflet' {
              */
             style?: (feature: any, layer: L.Layer) => void;
             /**
-             * 	Provides an opportunity to introspect individual GeoJSON features in the layer.
+             *     Provides an opportunity to introspect individual GeoJSON features in the layer.
              */
             onEachFeature?: (feature: any, layer: L.Layer) => void;
             /**
@@ -364,13 +364,13 @@ declare module 'leaflet' {
              */
             cacheLayers?: boolean;
             /**
-             * 	An array of fieldnames to pull from the service. Includes all fields by default. You should always
-             * 	specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
+             *     An array of fieldnames to pull from the service. Includes all fields by default. You should always
+             *     specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
              */
             fields?: string[];
             /**
-             * 	When paired with to defines the time range of features to display. Requires the Feature Layer to be time
-             * 	enabled.
+             *     When paired with to defines the time range of features to display. Requires the Feature Layer to be time
+             *     enabled.
              */
             from?: Date;
             /**
@@ -389,8 +389,8 @@ declare module 'leaflet' {
              */
             timeFilterMode?: 'server' | 'client';
             /**
-             * 	How much to simplify polygons and polylines. A higher value gives better performance, a lower value
-             * 	gives a more accurate representation.
+             *     How much to simplify polygons and polylines. A higher value gives better performance, a lower value
+             *     gives a more accurate representation.
              */
             simplifyFactor?: number;
             /**
@@ -456,7 +456,7 @@ declare module 'leaflet' {
              */
             setFeatureStyle(id: string | number, style: L.PathOptions | StyleCallback): this;
             /**
-             * 	Given the ID of a feature, reset that feature to the original style.
+             *     Given the ID of a feature, reset that feature to the original style.
              */
             resetStyle(): this;
             /**
@@ -485,7 +485,7 @@ declare module 'leaflet' {
              */
             setWhere(where: string, callback?: FeatureCallbackHandler, context?: any): this;
             /**
-             * 	Returns the current time range as an array like [from, to]
+             *     Returns the current time range as an array like [from, to]
              */
             getTimeRange(): Date[];
             /**
@@ -1044,19 +1044,19 @@ declare module 'leaflet' {
              */
             contains(contains: boolean): this;
             /**
-             * 	An array or comma-separated list of field names to search. If not specified, all fields are searched.
+             *     An array or comma-separated list of field names to search. If not specified, all fields are searched.
              */
             fields(fields: string | string[]): this;
             /**
-             * 	The well known ID (ex. 4326) for the results.
+             *     The well known ID (ex. 4326) for the results.
              */
             spatialReference(sr: number): this;
             /**
-             * 	Add a layer definition to the find task.
+             *     Add a layer definition to the find task.
              */
             layerDef(id: number, where: string): this;
             /**
-             * 	Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
+             *     Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
              */
             layers(layers: string | string[]): this;
             /**

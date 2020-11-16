@@ -3,8 +3,8 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -23,6 +23,8 @@
 // when all parameters are optional and more than one
 
 declare namespace yargs {
+    type BuilderCallback = ((args: Argv) => Argv) | ((args: Argv) => void);
+
     interface Argv {
         (): Arguments;
         (args: string[], cwd?: string): Arguments;
@@ -44,10 +46,19 @@ declare namespace yargs {
         coerce(key: string | string[], func: (arg: any) => any): Argv;
         coerce(opts: { [key: string]: (arg: any) => any; }): Argv;
 
-        command(command: string | string[], description: string, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
+        /**
+         * Define the commands exposed by your application.
+         * @param command Should be a string representing the command or an array of strings representing the command and its aliases.
+         * @param description Use to provide a description for each command your application accepts (the values stored in `argv._`).
+         * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
+         * @param [builder] Object to give hints about the options that your command accepts.
+         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         * @param [handler] Function, which will be executed with the parsed `argv` object.
+         */
+        command(command: string | string[], description: string, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, module: CommandModule): Argv;
-        command(command: string | string[], showInHelp: false, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
+        command(command: string | string[], showInHelp: false, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
@@ -108,7 +119,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
 
@@ -140,8 +151,9 @@ declare namespace yargs {
         options(key: string, options: Options): Argv;
         options(options: { [key: string]: Options }): Argv;
 
-        parse(): Arguments;
-        parse(arg: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg?: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         pkgConf(key: string | string[], cwd?: string): Argv;
 
@@ -272,6 +284,7 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | string[];
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | string[] | { [key: string]: string | string[] };

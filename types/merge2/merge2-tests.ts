@@ -65,3 +65,6 @@ streamA.add(stream6);
 stream.on('readable', () => {
     console.log('Stream has data!!');
 });
+
+// should have PassThrough methods
+stream.destroy();

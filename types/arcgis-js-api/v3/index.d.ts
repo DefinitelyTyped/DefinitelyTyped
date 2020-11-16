@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.29
+// Type definitions for ArcGIS API for JavaScript 3.34
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -230,7 +230,7 @@ declare module "esri" {
     /** Define the tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
-    tileServer?: string[];
+    tileServers?: string[];
     /** The type of layer. */
     type?: string;
     /** URL to the ArcGIS Server REST resource that represents a map or image service. */
@@ -633,6 +633,8 @@ declare module "esri" {
     pageBackButton?: string;
     /** Selected variables array. */
     selection?: string[];
+    /** The maximum number of variables to select. */
+    selectionLimit?: number;
     /** Whether to display the "Shopping Cart" of selected variables. */
     shoppingCart?: boolean;
     /** Title to show in the top left hand corner. */
@@ -2428,10 +2430,6 @@ declare module "esri" {
     customParameters?: any;
     /** A WMTSLayerInfo object that when ResourceInfo options are not specified the map will display the first layer in the WMTS capabilities that matches the properties specified by WMTSLayerInfo. */
     layerInfo?: WMTSLayerInfo;
-    /** When true, tile resampling is enabled. */
-    resampling?: boolean;
-    /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number;
     /** An optional resource info object. */
     resourceInfo?: any;
     /** Specify the service type. */
@@ -2603,7 +2601,7 @@ declare module "esri/IdentityManagerBase" {
     /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
     useSignInPage: boolean;
     /**
-     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * Returns a credential if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
      * @param resUrl The resource URL.
      * @param appId The registered OAuth application id.
      */
@@ -2859,6 +2857,10 @@ declare module "esri/ServerInfo" {
     adminTokenServiceUrl: string;
     /** Version of the ArcGIS Server REST API deployed on this server. */
     currentVersion: number;
+    /** Indicates whether the server is a Portal instance. */
+    hasPortal: boolean;
+    /** Indicates whether the server is an ArcGIS Server instance. */
+    hasServer: boolean;
     /** The server URL. */
     server: string;
     /** Validity of short-lived token in minutes. */
@@ -3032,6 +3034,8 @@ declare module "esri/arcgis/OAuthInfo" {
     popupWindowFeatures: string;
     /** The ArcGIS for Portal URL. */
     portalUrl: string;
+    /** Set this property to true when popup is false in order to have the window's location hash value restored after signing in. */
+    preserveUrlHash: boolean;
     /**
      * Creates a new OAuthInfo given the specified parameters.
      * @param params Various options to configure the OAuthInfo object.
@@ -3489,7 +3493,7 @@ declare module "esri/basemaps" {
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer. */
     topo: any;
   };
   export = basemaps;
@@ -3679,7 +3683,7 @@ declare module "esri/dijit/BasemapLayer" {
     /** The tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo: TileInfo;
     /** Additional tile server domains for the layer. */
-    tileServer: string[];
+    tileServers: string[];
     /** The type of layer. */
     type: string;
     /**
@@ -7634,6 +7638,19 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerViewModes" {
     static PANELS_IN_STACK: any;
   }
   export = PlayerViewModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
+  /** Enumerator of available zoom behavior options for the ReportPlayer. */
+  class PlayerZoomBehaviors {
+    /** The Report Player zooms in to fit a full page in the viewable area. */
+    static FIT_PAGE: any;
+    /** The Report Player zooms to fit the full page's width in the viewable area. */
+    static FIT_PAGE_WIDTH: any;
+    /** The zoom will be set to 100% (not zoomed). */
+    static RESET: any;
+  }
+  export = PlayerZoomBehaviors;
 }
 
 declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
@@ -14180,6 +14197,8 @@ declare module "esri/symbols/SimpleMarkerSymbol" {
     static STYLE_PATH: any;
     /** The marker is a square. */
     static STYLE_SQUARE: any;
+    /** The marker is a triangle. */
+    static STYLE_TRIANGLE: any;
     /** The marker is a diagonal cross. */
     static STYLE_X: any;
     /** Outline of the marker. */
@@ -17522,6 +17541,8 @@ declare module "esri/tasks/query" {
     static SPATIAL_REL_TOUCHES: any;
     /** The feature from feature class 1 is completely enclosed by the feature from feature class 2. */
     static SPATIAL_REL_WITHIN: any;
+    /** Indicates if the service should cache the query results. */
+    cacheHint: boolean;
     /** Buffer distance for input geometries. */
     distance: number;
     /** The geometry to apply to the spatial filter. */
@@ -18022,8 +18043,11 @@ declare module "esri/urlUtils" {
      * @param rule The rule argument should have the following properties.
      */
     addProxyRule(rule: any): number;
-    /** Returns the proxy rule that matches the given url. */
-    getProxyRule(): any;
+    /**
+     * Returns the proxy rule that matches the given url.
+     * @param url The URL of the resources accessed via proxy.
+     */
+    getProxyRule(url: string): any;
     /**
      * Converts the URL arguments to an object representation.
      * @param url The input URL.
@@ -18196,18 +18220,5 @@ declare module "esri/workers/WorkerClient" {
     terminate(): void;
   }
   export = WorkerClient;
-}
-
-declare module "sri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
-  /** Enumerator of available zoom behavior options for the ReportPlayer. */
-  class PlayerZoomBehaviors {
-    /** The Report Player zooms in to fit a full page in the viewable area. */
-    static FIT_PAGE: any;
-    /** The Report Player zooms to fit the full page's width in the viewable area. */
-    static FIT_PAGE_WIDTH: any;
-    /** The zoom will be set to 100% (not zoomed). */
-    static RESET: any;
-  }
-  export = PlayerZoomBehaviors;
 }
 

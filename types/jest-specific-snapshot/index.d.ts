@@ -2,13 +2,13 @@
 // Project: https://github.com/igor-dv/jest-specific-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T> {
             toMatchSpecificSnapshot(snapshotFilename: string): R;
         }
     }

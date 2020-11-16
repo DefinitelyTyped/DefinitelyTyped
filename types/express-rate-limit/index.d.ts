@@ -1,20 +1,46 @@
-// Type definitions for express-rate-limit 3.3
+// Type definitions for express-rate-limit 5.1
 // Project: https://github.com/nfriedly/express-rate-limit
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 makepost <https://github.com/makepost>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-import express = require("express");
+import express = require('express');
 
-declare namespace RateLimit {
-    type StoreIncrementCallback = (err?: {}, hits?: number) => void;
+declare global {
+    namespace Express {
+        interface Request {
+            /**
+             * property is added to all requests with the limit, current,
+             * and remaining number of requests and, if the store provides it, a resetTime Date object.
+             * These may be used in your application code to take additional actions or inform the user of their status
+             */
+            rateLimit: rateLimit.RateLimitInfo;
+        }
+    }
+}
+
+declare namespace rateLimit {
+    interface RateLimit extends express.RequestHandler {
+        resetKey(key: string): void;
+        resetIp(key: string): void;
+    }
+
+    interface RateLimitInfo {
+        readonly limit: number;
+        readonly current: number;
+        readonly remaining: number;
+        readonly resetTime?: Date;
+    }
+
+    type StoreIncrementCallback = (err?: {}, hits?: number, resetTime?: Date) => void;
 
     interface Store {
         incr(key: string, cb: StoreIncrementCallback): void;
         decrement(key: string): void;
         resetKey(key: string): void;
+        resetAll(): void;
     }
 
     interface Message {
@@ -42,14 +68,24 @@ declare namespace RateLimit {
         headers?: boolean;
 
         /**
+         * Enable headers conforming to the [ratelimit standardization proposal](https://tools.ietf.org/id/draft-polli-ratelimit-headers-01.html):
+         * `RateLimit-Limit`, `RateLimit-Remaining`, and, if the store supports it, `RateLimit-Reset`. May be used in conjunction with, or instead of the `headers` option.
+         * Behavior and name will likely change in future releases.
+         * @default false
+         */
+        draft_polli_ratelimit_headers?: boolean;
+
+        /**
          * Function used to generate keys. Defaults to using `req.ip`.
          * Default: `(req, res) => req.ip`
          */
         keyGenerator?(req: express.Request, res: express.Response): string;
 
         /**
-         * Max number of connections during `windowMs` before sending a 429 response. May be a `number` or
-         * a function that returns a `number` or a `Promise<number>`. Defaults to `5`. Set to `0` to disable.
+         * Max number of connections during `windowMs` before sending a 429 response. May be a number, or
+         * a function that returns a number or a promise. If `max` is a function, it will be called with `req` and `res` params.
+         * Set to `0` to disable.
+         * @default 5
          */
         max?: number | MaxValueFn;
 
@@ -95,14 +131,15 @@ declare namespace RateLimit {
         store?: Store;
 
         /**
-         * How long in milliseconds to keep records of requests in memory. Defaults to `60000` (1 minute).
+         * Timeframe for which requests are checked/remembered. Also used in the Retry-After header when the limit is reached.
+         * Note: with non-default stores, you may need to configure this value twice, once here and once on the store.
+         * In some cases the units also differ (e.g. seconds vs miliseconds)
+         * @default 60000
          */
         windowMs?: number;
     }
-    interface Instance extends express.RequestHandler {
-        resetKey(key: string): void;
-    }
 }
 
-declare var RateLimit: new (options: RateLimit.Options) => RateLimit.Instance;
-export = RateLimit;
+declare function rateLimit(options?: rateLimit.Options): rateLimit.RateLimit;
+
+export = rateLimit;

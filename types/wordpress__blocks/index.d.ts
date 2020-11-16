@@ -1,12 +1,13 @@
 // Type definitions for @wordpress/blocks 6.4
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.6
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';
@@ -20,6 +21,7 @@ export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
     readonly className: string;
+    readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
 }
@@ -28,7 +30,7 @@ export interface BlockIconNormalized {
     background?: string;
     foreground?: string;
     shadowColor?: string;
-    src: Dashicon.Icon | ComponentType;
+    src: Dashicon.Icon | ReactElement | ComponentType;
 }
 
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;
@@ -272,6 +274,12 @@ export namespace AttributeSource {
               default?: string;
           });
 
+    interface Children {
+        source: 'children';
+        type: 'array';
+        selector?: string;
+    }
+
     interface HTML {
         source: 'html';
         type: 'string';
@@ -327,6 +335,7 @@ export namespace AttributeSource {
 
 export type BlockAttribute<T> =
     | AttributeSource.Attribute
+    | AttributeSource.Children
     | AttributeSource.HTML
     | AttributeSource.Meta
     | AttributeSource.Query<T>

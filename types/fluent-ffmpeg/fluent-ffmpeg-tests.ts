@@ -3,6 +3,10 @@ import { createWriteStream } from 'fs';
 
 const stream = createWriteStream('outputfile.divx');
 
+// Set the CWD
+ffmpeg('file.avi', { cwd: '/path/to' })
+    .output('ouptutfile.mp4');
+
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
     .output(stream);
@@ -97,3 +101,12 @@ ffmpeg.getAvailableFilters((err, filters) => {
   console.log("Available filters:");
   console.dir(filters);
 });
+
+ffmpeg.ffprobe('/path/to/file.mp4', (err, data) => {
+    console.log(data.format.filename);
+    console.log(data.streams[0].bit_rate);
+});
+
+ffmpeg('/path/to.mp4')
+    .loop()
+    .videoBitrate(300, true);

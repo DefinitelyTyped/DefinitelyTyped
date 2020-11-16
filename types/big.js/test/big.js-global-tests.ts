@@ -184,6 +184,13 @@ function toStringTests() {
     x.toString(); // '1e+21'
 }
 
+function toNumberTests() {
+    const x = new Big('123.45');
+    x.toNumber(); // 123.45
+    const y = new Big('1.0000000000000000001');
+    y.toNumber(); // 1
+}
+
 function valueOfTests() {
     const x = new Big('177.7e+457');
     x.valueOf(); // '1.777e+459'

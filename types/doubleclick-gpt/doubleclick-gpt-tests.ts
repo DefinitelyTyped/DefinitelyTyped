@@ -267,6 +267,7 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     console.log(event.isEmpty);
     console.log(event.lineItemId);
     console.log(event.creativeId);
+    console.log(event.campaignId);
 });
 
 // 2. Slot render ended listener, slot specific logic.
@@ -478,3 +479,8 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
+
+// Set Privact Settings
+googletag.pubads().setPrivacySettings({
+    restrictDataProcessing: true,
+});

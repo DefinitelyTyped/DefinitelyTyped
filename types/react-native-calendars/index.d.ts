@@ -51,17 +51,21 @@ export interface CalendarTheme {
     textSectionTitleColor?: string;
     todayTextColor?: string;
     indicatorColor?: string;
+    textDayStyle?: TextStyle;
+    dotStyle?: ViewStyle;
+    arrowStyle?: ViewStyle;
 
     // Theme ID's to style for
-    "stylesheet.calendar.header"?: CalendarThemeIdStyle;
-    "stylesheet.calendar.main"?: CalendarThemeIdStyle;
-    "stylesheet.calendar-list.main"?: CalendarThemeIdStyle;
-    "stylesheet.agenda.main"?: CalendarThemeIdStyle;
-    "stylesheet.agenda.list"?: CalendarThemeIdStyle;
-    "stylesheet.day.basic"?: CalendarThemeIdStyle;
-    "stylesheet.day.single"?: CalendarThemeIdStyle;
-    "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
-    "stylesheet.day.period"?: CalendarThemeIdStyle;
+    'stylesheet.calendar.header'?: CalendarThemeIdStyle;
+    'stylesheet.calendar.main'?: CalendarThemeIdStyle;
+    'stylesheet.calendar-list.main'?: CalendarThemeIdStyle;
+    'stylesheet.agenda.main'?: CalendarThemeIdStyle;
+    'stylesheet.agenda.list'?: CalendarThemeIdStyle;
+    'stylesheet.day.basic'?: CalendarThemeIdStyle;
+    'stylesheet.day.single'?: CalendarThemeIdStyle;
+    'stylesheet.day.multiDot'?: CalendarThemeIdStyle;
+    'stylesheet.day.period'?: CalendarThemeIdStyle;
+    'stylesheet.dot'?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
@@ -117,10 +121,7 @@ export interface PeriodMarking {
     disabled?: boolean;
 }
 
-export type Marking =
-    CustomMarking | DotMarking |
-    MultiDotMarking | MultiPeriodMarking |
-    PeriodMarking;
+export type Marking = CustomMarking | DotMarking | MultiDotMarking | MultiPeriodMarking | PeriodMarking;
 
 export interface CustomMarkingProps {
     markingType: 'custom';
@@ -150,7 +151,7 @@ export interface MultiDotMarkingProps {
 export interface MultiPeriodMarkingProps {
     markingType: 'multi-period';
     markedDates: {
-        [date: string]: MultiPeriodMarking
+        [date: string]: MultiPeriodMarking;
     };
 }
 
@@ -162,12 +163,12 @@ export interface PeriodMarkingProps {
 }
 
 export type CalendarMarkingProps =
-    MultiDotMarkingProps |
-    DotMarkingProps |
-    PeriodMarkingProps |
-    MultiPeriodMarkingProps |
-    CustomMarkingProps |
-    {};
+    | MultiDotMarkingProps
+    | DotMarkingProps
+    | PeriodMarkingProps
+    | MultiPeriodMarkingProps
+    | CustomMarkingProps
+    | {};
 
 export interface DayComponentProps {
     date: DateObject;
@@ -195,6 +196,16 @@ export interface CalendarBaseProps {
     disabledByDefault?: boolean;
 
     /**
+     *  Disable left arrow. Default = false
+     */
+    disableArrowLeft?: boolean;
+
+    /**
+     *  Disable right arrow. Default = false
+     */
+    disableArrowRight?: boolean;
+
+    /**
      *  If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
      *  day from another month that is visible in calendar page. Default = false
      */
@@ -209,6 +220,11 @@ export interface CalendarBaseProps {
      *  If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
      */
     firstDay?: number;
+
+    /**
+     *  Style passed to the header
+     */
+    headerStyle?: StyleProp<ViewStyle>;
 
     /**
      *  Hide month navigation arrows. Default = false
@@ -289,9 +305,26 @@ export interface CalendarBaseProps {
      *  Specify theme properties to override specific styles for calendar parts. Default = {}
      */
     theme?: CalendarTheme;
+
+    /**
+     *  Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web)
+     */
+    webAriaLevel?: number;
+    /*
+     *  Replace default month and year title with custom one. the function receive a date as parameter.
+     */
+    renderHeader?: (date: Date) => React.ReactNode;
 }
 
-export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> { }
+export type CalendarProps = CalendarMarkingProps &
+    CalendarBaseProps & {
+        /**
+         * Enable the option to swipe between months. Default = false
+         */
+        enableSwipeMonths?: boolean;
+    };
+
+export class Calendar extends React.Component<CalendarProps> {}
 
 export interface CalendarListBaseProps extends CalendarBaseProps {
     /**
@@ -345,7 +378,7 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
     selected?: string;
 }
 
-export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> { }
+export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> {}
 
 export interface AgendaThemeStyle extends CalendarTheme {
     agendaDayNumColor?: string;
@@ -488,4 +521,4 @@ export interface AgendaProps<TItem> {
      */
     theme?: AgendaThemeStyle;
 }
-export class Agenda<TItem> extends React.Component<AgendaProps<TItem> & CalendarMarkingProps> { }
+export class Agenda<TItem> extends React.Component<AgendaProps<TItem> & CalendarMarkingProps> {}

@@ -6,7 +6,7 @@
 /// <reference types="socket.io-client" />
 import SocketIO = require("socket.io");
 
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from "events";
 import Socket = SocketIO.Socket;
 import ClientSocket = SocketIOClient.Socket;
 

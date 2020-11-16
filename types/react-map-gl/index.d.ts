@@ -1,15 +1,24 @@
-// Type definitions for react-map-gl 5.0
-// Project: https://github.com/uber/react-map-gl#readme
+// Type definitions for react-map-gl 5.2
+// Project: https://github.com/visgl/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
+//                 Otto Urpelainen <https://github.com/oturpe>
+//                 Arman Safikhani <https://github.com/Arman92>
+//                 William Chiu <https://github.com/chiuhow>
+//                 David Baumgold <https://github.com/singingwolfboy>
+//                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
+
+/// <reference lib='dom' />
 
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
 import WebMercatorViewport from 'viewport-mercator-project';
+
+export { WebMercatorViewport } from 'viewport-mercator-project';
 
 export interface ViewState {
     latitude: number;
@@ -40,6 +49,7 @@ export interface MapboxProps extends Partial<ViewState> {
     container?: object;
     gl?: object;
     mapboxApiAccessToken?: string;
+    mapboxApiUrl?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     reuseMaps?: boolean;
@@ -76,22 +86,35 @@ export interface QueryRenderedFeaturesParams {
 
 export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
+        parameters?: QueryRenderedFeaturesParams,
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export interface ExtraState {
-    isDragging: boolean;
-    isHovering: boolean;
+    inTransition?: boolean;
+    isDragging?: boolean;
+    isHovering?: boolean;
+    isPanning?: boolean;
+    isRotating?: boolean;
+    isZooming?: boolean;
 }
 
 export interface PositionInput {
     pos: [number, number];
 }
 
-export type ViewportChangeHandler = (viewState: ViewState) => void;
+export type ViewportChangeHandler = (viewState: ViewportProps) => void;
+
+export type ContextViewportChangeHandler = (
+    viewState: ViewportProps,
+    interactionState: ExtraState,
+    oldViewState: ViewportProps,
+) => void;
 
 export interface MapControllerOptions {
-    onViewportChange?: ViewportChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onStateChange?: (state: MapState) => void;
     eventManager?: any;
     isInteractive: boolean;
@@ -117,7 +140,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -181,9 +204,13 @@ export class MapController implements BaseMapController {
     updateViewport(newMapState: MapState, extraProps: any, extraState: ExtraState): void;
 }
 
-export interface PointerEvent {
+export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
+    offsetCenter: {
+        x: number;
+        y: number;
+    };
     lngLat: [number, number];
     target: any;
     srcEvent: any;
@@ -197,32 +224,54 @@ export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
     IGNORE = 3,
-    UPDATE = 4
+    UPDATE = 4,
 }
 
 export class TransitionInterpolator {}
 
-export class LinearInterpolator extends TransitionInterpolator {
-    constructor(transitionProps?: string[]);
+export interface LinearInterpolatorProps {
+    transitionProps?: string[];
+    around?: number[];
 }
 
-export class FlyToInterpolator extends TransitionInterpolator {}
+export class LinearInterpolator extends TransitionInterpolator {
+    constructor(transitionProps?: LinearInterpolatorProps | string[]);
+}
+
+export interface FlyToInterpolatorProps {
+    curve?: number;
+    speed?: number;
+    screenSpeed?: number;
+    maxDuration?: number;
+}
+
+export class FlyToInterpolator extends TransitionInterpolator {
+    constructor(props?: FlyToInterpolatorProps);
+}
 
 export interface ViewStateChangeInfo {
-    viewState: ViewState;
+    viewState: ViewportProps;
+}
+
+export interface ContextViewStateChangeInfo {
+    viewState: ViewportProps;
+    interactionState: ExtraState;
+    newViewState: ViewportProps;
 }
 
 export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
+
+export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -260,7 +309,10 @@ export interface InteractiveMapProps extends StaticMapProps {
 
 export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
+        parameters?: QueryRenderedFeaturesParams,
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export default InteractiveMap;
@@ -272,8 +324,8 @@ export interface MapContextProps {
     viewport?: WebMercatorViewport;
     map?: MapboxGL.Map;
     mapContainer: HTMLElement | null;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     isDragging: boolean;
     eventManager?: EventManager;
 }
@@ -302,7 +354,7 @@ export interface PopupProps extends BaseControlProps {
     tipSize?: number;
     closeButton?: boolean;
     closeOnClick?: boolean;
-    anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+    anchor?: MapboxGL.Anchor;
     dynamicPosition?: boolean;
     sortByDepth?: boolean;
     onClose?: () => void;
@@ -316,6 +368,9 @@ export interface NavigationControlProps extends BaseControlProps {
     onViewportChange?: ViewportChangeHandler;
     showCompass?: boolean;
     showZoom?: boolean;
+    zoomInLabel?: string;
+    zoomOutLabel?: string;
+    compassLabel?: string;
 }
 
 export class NavigationControl extends BaseControl<NavigationControlProps, HTMLDivElement> {}
@@ -327,17 +382,35 @@ export interface FullscreenControlProps extends BaseControlProps {
 
 export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
 
+// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+interface PositionOptions {
+    enableHighAccuracy?: boolean;
+    timeout: number;
+    maximumAge: number;
+}
+
 export interface GeolocateControlProps extends BaseControlProps {
     className?: string;
+    label?: string;
     positionOptions?: MapboxGL.PositionOptions;
     fitBoundsOptions?: MapboxGL.FitBoundsOptions;
     trackUserLocation?: boolean;
     showUserLocation?: boolean;
     onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
+    onGeolocate?: (options: PositionOptions) => void;
+    style?: React.CSSProperties;
+    auto?: boolean;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
+
+export interface ScaleControlProps extends BaseControlProps {
+    maxWidth?: number;
+    unit?: 'imperial' | 'metric' | 'nautical';
+}
+
+export class ScaleControl extends BaseControl<ScaleControlProps, HTMLDivElement> {}
 
 export interface DragEvent {
     lngLat: [number, number];
@@ -395,3 +468,54 @@ export interface SVGOverlayProps extends BaseControlProps {
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}
+
+export interface SourceProps {
+    id?: string;
+    type: string;
+    url?: string;
+    tiles?: string[];
+    tileSize?: number;
+    bounds?: number[];
+    scheme?: 'xyz' | 'tms';
+    minzoom?: number;
+    maxzoom?: number;
+    attribution?: string;
+    encoding?: 'terrarium' | 'mapbox';
+    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+    buffer?: number;
+    tolerance?: number;
+    cluster?: boolean;
+    clusterRadius?: number;
+    clusterProperties?: object;
+    clusterMaxZoom?: number;
+    lineMetrics?: boolean;
+    generateId?: boolean;
+    coordinates?: number[][];
+    urls?: string[];
+    children?: React.ReactNode;
+}
+
+export class Source extends React.PureComponent<SourceProps> {}
+
+export interface LayerProps {
+    id?: string;
+    type: string;
+    source?: string;
+    beforeId?: string;
+    layout?: MapboxGL.AnyLayout;
+    paint:
+        | MapboxGL.BackgroundPaint
+        | MapboxGL.FillPaint
+        | MapboxGL.FillExtrusionPaint
+        | MapboxGL.LinePaint
+        | MapboxGL.SymbolPaint
+        | MapboxGL.RasterPaint
+        | MapboxGL.CirclePaint
+        | MapboxGL.HeatmapPaint
+        | MapboxGL.HillshadePaint;
+    filter?: any[];
+    minzoom?: number;
+    maxzoom?: number;
+}
+
+export class Layer extends React.PureComponent<LayerProps> {}

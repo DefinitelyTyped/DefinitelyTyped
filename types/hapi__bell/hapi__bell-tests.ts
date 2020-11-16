@@ -73,16 +73,6 @@ async function run() {
         clientSecret: ''
     },
     {
-        provider: 'office365',
-        clientId: '',
-        clientSecret: '',
-        password: 'cookie_encryption_password_secure',
-        providerParams: {
-            response_type: 'code'
-        },
-        scope: ['openid', 'offline_access', 'profile']
-    },
-    {
         provider: 'okta',
         config: { uri: 'https://your-organization.okta.com' },
         password: 'cookie_encryption_password_secure',
@@ -137,6 +127,7 @@ async function run() {
             protocol: 'oauth2',
             scope: ['a', 's', 'd', 'f'],
             scopeSeparator: '~~~',
+            pkce: 'S256',
             async profile(credentials, params, get) {
                 console.log(credentials.provider);
                 console.log(credentials.query);

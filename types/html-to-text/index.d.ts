@@ -1,40 +1,20 @@
-// Type definitions for html-to-text v1.4.0
+// Type definitions for html-to-text 5.1
 // Project: https://github.com/werk85/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
-// Definitions: https://github.com/DefinitelyTyped/html-to-text
+//                 Carson Full <https://github.com/CarsonF>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface HtmlToTextStatic {
-    /**
-     * Convert html content of file to text
-     *
-     * @param file String with the path of the html file to convert
-     * @param options Hash of options
-     * @param callback Function with signature function(err, result) called when the conversion is completed
-     *
-     */
-    fromFile(file: string, options: HtmlToTextOptions, callback: Function): void;
-    
-    /**
-     * Convert html content of file to text with the default options.
-     *
-     * @param file String with the path of the html file to convert
-     * @param callback Function with signature function(err, result) called when the conversion is completed
-     *
-     */
-    fromFile(file: string, callback: Function): void;
-    
-    /**
-     * Convert html string to text
-     *
-     * @param file String with the path of the html file to convert
-     * @param options Hash of options
-     *
-     * @return String with the converted text.
-     */
-    fromString(str: string, options?: HtmlToTextOptions): string;
-}
+/**
+ * Convert html string to text
+ *
+ * @param str String of html content
+ * @param options Hash of options
+ *
+ * @return String with the converted text.
+ */
+export function fromString(str: string, options?: HtmlToTextOptions): string;
 
-interface HtmlToTextOptions {
+export interface HtmlToTextOptions {
     /**
      * Defines after how many chars a line break should follow in p elements.
      * Set to null or false to disable word-wrapping. Default: 80
@@ -46,9 +26,9 @@ interface HtmlToTextOptions {
      *  document. This is necessary because the majority of HTML E-Mails uses a
      *  table based layout. Prefix your table selectors with an . for the class
      *  and with a # for the id attribute. All other tables are ignored.
-     *   You can assign true to this attribute to select all tables. Default: []     
+     *  You can assign true to this attribute to select all tables. Default: []
      */
-    tables?: Array<string> | boolean;
+    tables?: string[] | boolean;
 
     /**
      *  By default links are translated the following
@@ -75,33 +55,104 @@ interface HtmlToTextOptions {
      *  Ignore all document images if true.
      */
     ignoreImage?: boolean;
-    
+
     /**
      *  Dont print brackets around the link if true
      */
     noLinkBrackets?: boolean;
-    
+
     /**
      *  By default, any newlines \n in a block of text will be removed.
      *  If true, these newlines will not be removed.
      */
     preserveNewlines?: boolean;
-    
+
     /**
-     *  By default, headings (<h1>, <h2>, etc) are uppercased.
+     *  By default, headings (<h1>, <h2>, etc) are upper-cased.
      *  Set to false to leave headings as they are.
      */
     uppercaseHeadings?: boolean;
-    
+
     /**
      *  By default, paragraphs are converted with two newlines (\n\n).
      *  Set to true to convert to a single newline.
      */
     singleNewLineParagraphs?: boolean;
+
+    /**
+     * defines the tags whose text content will be captured from the html.
+     * All content will be captured below the baseElement tags and added to the
+     * resulting text output. This option allows the user to specify an array
+     * of elements as base elements using a single tag with css class and id
+     * parameters e.g. `[p.class1.class2#id1#id2, p.class1.class2#id1#id2]`.
+     * Default: `"body"`
+     */
+    baseElement?: string | string[];
+
+    /**
+     * convert the entire document if we don't find the tag we're looking for
+     * if true
+     */
+    returnDomByDefault?: boolean;
+
+    /**
+     * defines the text decoding options given to `he.decode`
+     * For more information see the [he](https://github.com/mathiasbynens/he) module
+     */
+    decodeOptions?: {
+        isAttributeValue: boolean;
+        strict: boolean;
+    };
+
+    /**
+     * describes how to wrap long words
+     */
+    longWordSplit?: {
+        /**
+         * an array containing the characters that may be wrapped on.
+         * These are used in order.
+         */
+        wrapCharacters: string[];
+        /**
+         * defines whether to break long words on the limit if true.
+         */
+        forceWrapOnLimit: boolean;
+    };
+
+    /**
+     * Customize the formatting of individual element types.
+     */
+    format?: Formatters;
+
+    /**
+     * defines the string that is used as item prefix for unordered lists `<ol>`.
+     * Default: ' * '
+     */
+    unorderedListItemPrefix?: string;
 }
 
-declare module "html-to-text" {
-    export = htmlToText;
+export interface Formatters {
+    text?: LeafFormatter;
+    image?: LeafFormatter;
+    lineBreak?: Formatter;
+    paragraph?: Formatter;
+    anchor?: Formatter;
+    blockquote?: Formatter;
+    heading?: Formatter;
+    table?: Formatter;
+    orderedList?: Formatter;
+    unorderedList?: Formatter;
+    listItem?: Formatter;
+    horizontalLine?: Formatter;
 }
 
-declare var htmlToText: HtmlToTextStatic;
+export type LeafFormatter<T = any> = (
+    el: T,
+    options: HtmlToTextOptions
+) => string;
+
+export type Formatter<T = any> = (
+    el: T,
+    walk: (dom: any[], options: HtmlToTextOptions) => string,
+    options: HtmlToTextOptions
+) => string;

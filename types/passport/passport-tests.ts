@@ -2,6 +2,21 @@ import * as passport from 'passport';
 import express = require('express');
 import 'express-session';
 
+declare global {
+    namespace Express {
+        interface User {
+            username: string;
+            id?: string;
+        }
+    }
+}
+
+declare module 'express-session' {
+    interface SessionData {
+        error: any;
+    }
+}
+
 class TestStrategy extends passport.Strategy {
     name = 'test';
 
@@ -87,7 +102,7 @@ app.post('/login', (req, res, next) => {
         if (err) { return next(err); }
         if (!user) {
             if (req.session) {
-                req.session['error'] = info.message;
+                req.session.error = info.message;
             }
             return res.redirect('/login');
         }
@@ -145,14 +160,6 @@ passportInstance.use(new TestStrategy());
 
 const authenticator = new passport.Authenticator();
 authenticator.use(new TestStrategy());
-
-declare global {
-    namespace Express {
-        interface User {
-            username: string;
-        }
-    }
-}
 
 app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
     if (req.user) {

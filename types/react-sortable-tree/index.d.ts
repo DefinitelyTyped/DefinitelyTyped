@@ -10,21 +10,26 @@
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
-import {
-    ConnectDragSource,
-    ConnectDragPreview,
-    ConnectDropTarget,
-    DragSourceMonitor
-} from 'react-dnd';
+import { ConnectDragSource, ConnectDragPreview, ConnectDropTarget } from 'react-dnd';
 
 export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
+
+export interface GetTreeItemChildren {
+    done: (children: TreeItem[]) => void;
+    node: TreeItem;
+    path: NumberOrStringArray;
+    lowerSiblingCounts: number[];
+    treeIndex: number;
+}
+
+export type GetTreeItemChildrenFn = (data: GetTreeItemChildren) => void;
 
 export interface TreeItem {
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     expanded?: boolean;
-    children?: TreeItem[];
+    children?: TreeItem[] | GetTreeItemChildrenFn;
     [x: string]: any;
 }
 
@@ -44,10 +49,10 @@ export interface FullTree {
     treeData: TreeItem[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex { }
+export interface NodeData extends TreeNode, TreePath, TreeIndex {}
 
 export interface FlatDataItem extends TreeNode, TreePath {
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     parentNode: TreeItem;
 }
 
@@ -57,7 +62,7 @@ export interface SearchData extends NodeData {
 
 export interface ExtendedNodeData extends NodeData {
     parentNode: TreeItem;
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
 }
@@ -116,7 +121,7 @@ export interface NodeRendererProps {
     swapLength?: number;
     listIndex: number;
     treeId: string;
-    rowDirection?: "ltr" | "rtl";
+    rowDirection?: 'ltr' | 'rtl';
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -174,7 +179,7 @@ interface ThemeTreeProps {
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
-    rowHeight?: ((info: Index) => number) | number;
+    rowHeight?: ((info: NodeData & Index) => number) | number;
     nodeContentRenderer?: NodeRenderer;
     placeholderRenderer?: PlaceholderRenderer;
 }

@@ -42,6 +42,10 @@ declare global {
      * Used to trigger active listeners.
      */
     function trigger(type: keyof ServiceWorkerGlobalScopeEventMap): Promise<void>;
+    function trigger(name: 'fetch', request: string | Request): Promise<void>;
+    function trigger(name: 'notificationclick' | 'notificationclose', args: Notification): Promise<void>;
+    function trigger(name: 'push', args: Partial<PushEvent>): Promise<void>;
+    function trigger(name: 'message', args: Partial<MessageEvent>): Promise<void>;
 
     /**
      * Used to generate a snapshot of the service worker internals.

@@ -97,7 +97,7 @@ class ModernComponent extends React.Component<Props, State>
         someOtherValue: React.PropTypes.string
     };
 
-    context: Context;
+    context: Context = {};
 
     getChildContext() {
         return {

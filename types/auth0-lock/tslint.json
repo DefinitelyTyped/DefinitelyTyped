@@ -1,13 +1,11 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "only-arrow-functions": false,
-    "no-declare-current-package": false,
-    "no-misused-new": false,
-    "no-single-declare-module": false,
-    "prefer-method-signature": false,
-    "object-literal-shorthand": false,
-    "typedef-whitespace": false,
-    "no-var": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-declare-current-package": false,
+        "no-misused-new": false,
+        "no-single-declare-module": false,
+        "object-literal-shorthand": false,
+        "only-arrow-functions": false,
+        "typedef-whitespace": false
+    }
 }

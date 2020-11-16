@@ -11,27 +11,26 @@ declare namespace echarts {
          * proportion.
          * If you just to present the numerical differences of various categories,
          * the
-         * [bar graph](https://ecomfe.github.io/echarts-doc/public/en/option.htmlbar)
+         * [bar graph](https://echarts.apache.org/en/option.htmlbar)
          * chart is more suggested.
          * Because compared to tiny length difference, people is less sensitive
          * to the minor radian difference.
          * Otherwise, it can also be shown as Nightingale chart by using the
-         * [roseType](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.roseType)
+         * [roseType](https://echarts.apache.org/en/option.html#series-pie.roseType)
          * to distinguish different data through radius.
          *
          * **The below example shows a customized Nightingale chart:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie)
+         * [see doc](https://echarts.apache.org/en/option.html#series-pie)
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie
+         * @see https://echarts.apache.org/en/option.html#series-pie
          */
         interface SeriesPie {
-
             /**
              * @default
              * "pie"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.type
+             * @see https://echarts.apache.org/en/option.html#series-pie.type
              */
             type?: string;
 
@@ -41,31 +40,31 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.id
+             * @see https://echarts.apache.org/en/option.html#series-pie.id
              */
             id?: string;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.name
+             * @see https://echarts.apache.org/en/option.html#series-pie.name
              */
             name?: string;
 
             /**
              * Whether to enable highlighting chart when
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * is being hovered.
              *
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.legendHoverLink
+             * @see https://echarts.apache.org/en/option.html#series-pie.legendHoverLink
              */
             legendHoverLink?: boolean;
 
@@ -75,7 +74,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.hoverAnimation
+             * @see https://echarts.apache.org/en/option.html#series-pie.hoverAnimation
              */
             hoverAnimation?: boolean;
 
@@ -85,7 +84,7 @@ declare namespace echarts {
              *
              * @default
              * 10
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.hoverOffset
+             * @see https://echarts.apache.org/en/option.html#series-pie.hoverOffset
              */
             hoverOffset?: number;
 
@@ -98,7 +97,7 @@ declare namespace echarts {
              * selection and multiple selection.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.selectedMode
+             * @see https://echarts.apache.org/en/option.html#series-pie.selectedMode
              */
             selectedMode?: boolean | string;
 
@@ -108,7 +107,7 @@ declare namespace echarts {
              *
              * @default
              * 10
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.selectedOffset
+             * @see https://echarts.apache.org/en/option.html#series-pie.selectedOffset
              */
             selectedOffset?: number;
 
@@ -118,7 +117,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.clockwise
+             * @see https://echarts.apache.org/en/option.html#series-pie.clockwise
              */
             clockwise?: boolean;
 
@@ -128,7 +127,7 @@ declare namespace echarts {
              *
              * @default
              * 90
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.startAngle
+             * @see https://echarts.apache.org/en/option.html#series-pie.startAngle
              */
             startAngle?: number;
 
@@ -138,9 +137,16 @@ declare namespace echarts {
              * which will affect user interaction.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.minAngle
+             * @see https://echarts.apache.org/en/option.html#series-pie.minAngle
              */
             minAngle?: number;
+
+            /**
+             * If a sector is less than this angle (0 ~ 360), label and labelLine will not be displayed.
+             *
+             * @see https://echarts.apache.org/en/option.html#series-pie.minShowLabelAngle
+             */
+            minShowLabelAngle?: number;
 
             /**
              * Whether to show as Nightingale chart, which distinguishs data
@@ -152,7 +158,7 @@ declare namespace echarts {
              * the data size is shown only through radiuses.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.roseType
+             * @see https://echarts.apache.org/en/option.html#series-pie.roseType
              */
             roseType?: boolean | string;
 
@@ -164,7 +170,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.avoidLabelOverlap
+             * @see https://echarts.apache.org/en/option.html#series-pie.avoidLabelOverlap
              */
             avoidLabelOverlap?: boolean;
 
@@ -174,7 +180,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.stillShowZeroSum
+             * @see https://echarts.apache.org/en/option.html#series-pie.stillShowZeroSum
              */
             stillShowZeroSum?: boolean;
 
@@ -185,7 +191,7 @@ declare namespace echarts {
              *
              * @default
              * "pointer"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.cursor
+             * @see https://echarts.apache.org/en/option.html#series-pie.cursor
              */
             cursor?: string;
 
@@ -198,7 +204,7 @@ declare namespace echarts {
              * as `itemStyle` does.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label
+             * @see https://echarts.apache.org/en/option.html#series-pie.label
              */
             label?: {
                 /**
@@ -208,7 +214,7 @@ declare namespace echarts {
                 [unknownProperty: string]: any;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.show
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.show
                  */
                 show?: boolean;
 
@@ -221,7 +227,7 @@ declare namespace echarts {
                  *
                  * Outside of sectors of pie chart, which relates to corresponding
                  * sector through
-                 * [visual guide line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine)
+                 * [visual guide line](https://echarts.apache.org/en/option.html#series-pie.labelLine)
                  * .
                  *
                  * + `'inside'`
@@ -233,12 +239,12 @@ declare namespace echarts {
                  * + `'center'`
                  *
                  * In the center of pie chart. See
-                 * [pie-doughnut example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=pie-doughnut)
+                 * [pie-doughnut example](https://echarts.apache.org/examples/en/editor.html?c=pie-doughnut)
                  *
                  *
                  * @default
                  * "outside"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.position
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.position
                  */
                 position?: string;
 
@@ -279,10 +285,10 @@ declare namespace echarts {
                  * where `params` is the single dataset needed by formatter,
                  * which is formed as:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.formatter
                  */
                 formatter?: Function | string;
 
@@ -292,7 +298,7 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.color
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.color
                  */
                 color?: string;
 
@@ -308,7 +314,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.fontStyle
                  */
                 fontStyle?: string;
 
@@ -326,9 +332,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -338,7 +344,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.fontFamily
                  */
                 fontFamily?: string;
 
@@ -348,7 +354,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.fontSize
                  */
                 fontSize?: number;
 
@@ -364,10 +370,10 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.align
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.align
                  */
                 align?: string;
 
@@ -383,10 +389,10 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.verticalAlign
                  */
                 verticalAlign?: string;
 
@@ -396,10 +402,10 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.lineHeight
                  */
                 lineHeight?: number;
 
@@ -410,7 +416,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -418,7 +424,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.backgroundColor
                  */
                 backgroundColor?: object | string;
 
@@ -428,7 +434,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.borderColor
                  */
                 borderColor?: string;
 
@@ -436,7 +442,7 @@ declare namespace echarts {
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.borderWidth
                  */
                 borderWidth?: number;
 
@@ -444,7 +450,7 @@ declare namespace echarts {
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.borderRadius
                  */
                 borderRadius?: number;
 
@@ -460,7 +466,7 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.padding
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.padding
                  */
                 padding?: any[] | number;
 
@@ -470,7 +476,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowColor
                  */
                 shadowColor?: string;
 
@@ -478,7 +484,7 @@ declare namespace echarts {
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -486,7 +492,7 @@ declare namespace echarts {
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -494,7 +500,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -518,7 +524,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.width
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.width
                  */
                 width?: number | string;
 
@@ -534,7 +540,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.height
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.height
                  */
                 height?: number | string;
 
@@ -544,7 +550,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textBorderColor
                  */
                 textBorderColor?: string;
 
@@ -552,7 +558,7 @@ declare namespace echarts {
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textBorderWidth
                  */
                 textBorderWidth?: number;
 
@@ -562,7 +568,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowColor
                  */
                 textShadowColor?: string;
 
@@ -570,7 +576,7 @@ declare namespace echarts {
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowBlur
                  */
                 textShadowBlur?: number;
 
@@ -578,7 +584,7 @@ declare namespace echarts {
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowOffsetX
                  */
                 textShadowOffsetX?: number;
 
@@ -586,7 +592,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowOffsetY
                  */
                 textShadowOffsetY?: number;
 
@@ -594,29 +600,27 @@ declare namespace echarts {
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich
+                 * @see https://echarts.apache.org/en/option.html#series-pie.label.rich
                  */
                 rich?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
                         color?: string;
 
@@ -632,7 +636,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
                         fontStyle?: string;
 
@@ -650,9 +654,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -662,7 +666,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
                         fontFamily?: string;
 
@@ -672,7 +676,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
                         fontSize?: number;
 
@@ -688,10 +692,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string;
 
@@ -707,10 +711,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -720,10 +724,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
                         lineHeight?: number;
 
@@ -734,7 +738,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -742,7 +746,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -752,7 +756,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
                         borderColor?: string;
 
@@ -760,7 +764,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number;
 
@@ -768,7 +772,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
                         borderRadius?: number;
 
@@ -785,7 +789,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number;
 
@@ -795,7 +799,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
                         shadowColor?: string;
 
@@ -803,7 +807,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -811,7 +815,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -819,7 +823,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -846,7 +850,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string;
 
@@ -863,7 +867,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string;
 
@@ -873,7 +877,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -881,7 +885,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -891,7 +895,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -899,7 +903,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -907,7 +911,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -915,7 +919,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
                     };
@@ -924,13 +928,13 @@ declare namespace echarts {
 
             /**
              * The style of visual guide line. Will show when
-             * [label position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.label.position)
+             * [label position](https://echarts.apache.org/en/option.html#series-pie.label.position)
              * is set as `'outside'`.
              *
              * The style of visual guide line.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine
+             * @see https://echarts.apache.org/en/option.html#series-pie.labelLine
              */
             labelLine?: {
                 /**
@@ -943,7 +947,7 @@ declare namespace echarts {
                  * Whether to show the visual guide ine.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.show
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.show
                  */
                 show?: boolean;
 
@@ -951,7 +955,7 @@ declare namespace echarts {
                  * The length of the first segment of visual guide line.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.length
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.length
                  */
                 length?: number;
 
@@ -959,7 +963,7 @@ declare namespace echarts {
                  * The length of the second segment of visual guide line.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.length2
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.length2
                  */
                 length2?: number;
 
@@ -969,15 +973,14 @@ declare namespace echarts {
                  * values from 0 to 1 which indicating the smoothness.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.smooth
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.smooth
                  */
                 smooth?: boolean | number;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -989,12 +992,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.labelLine.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.labelLine.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.color
                      */
                     color?: string;
 
@@ -1002,7 +1005,7 @@ declare namespace echarts {
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.width
                      */
                     width?: number;
 
@@ -1018,7 +1021,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.type
                      */
                     type?: string;
 
@@ -1029,10 +1032,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.labelLine.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.labelLine.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1040,7 +1043,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1048,7 +1051,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1056,7 +1059,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1066,7 +1069,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -1075,23 +1078,21 @@ declare namespace echarts {
                  * The style of visual guide line in emphasis status.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * Whether to show the visual guide line in emphasis status.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.show
                      */
                     show?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -1104,12 +1105,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.labelLine.emphasis.lineStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.labelLine.emphasis.lineStyle)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.color
                          */
                         color?: string;
 
@@ -1117,7 +1118,7 @@ declare namespace echarts {
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.width
                          */
                         width?: number;
 
@@ -1133,7 +1134,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.type
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.type
                          */
                         type?: string;
 
@@ -1144,10 +1145,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.labelLine.emphasis.lineStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.labelLine.emphasis.lineStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -1155,7 +1156,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -1163,7 +1164,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -1171,7 +1172,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -1181,7 +1182,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine.emphasis.lineStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.opacity
                          */
                         opacity?: number;
                     };
@@ -1193,7 +1194,7 @@ declare namespace echarts {
              * like being hovered by mouse, or highlighted via legend connect.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle
              */
             itemStyle?: {
                 /**
@@ -1204,7 +1205,7 @@ declare namespace echarts {
 
                 /**
                  * color. Color is taken from
-                 * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                 * [option.color Palette](https://echarts.apache.org/en/option.html#color)
                  * by default.
                  *
                  * > Color can be represented in RGB, for example `'rgb(128,
@@ -1215,7 +1216,7 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.itemStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.itemStyle)
                  *
                  * Supports callback functions, in the form of:
                  *
@@ -1228,7 +1229,7 @@ declare namespace echarts {
                  * `value`, and etc. of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.color
                  */
                 color?: string | Function;
 
@@ -1238,7 +1239,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderColor
                  */
                 borderColor?: string;
 
@@ -1246,7 +1247,7 @@ declare namespace echarts {
                  * border width. No border when it is set to be 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderWidth
                  */
                 borderWidth?: number;
 
@@ -1257,7 +1258,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.borderType
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderType
                  */
                 borderType?: string;
 
@@ -1268,10 +1269,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -1279,7 +1280,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1287,7 +1288,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1295,7 +1296,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1305,23 +1306,21 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.itemStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.opacity
                  */
                 opacity?: number;
             };
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis
              */
             emphasis?: {
-
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label
+                 * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label
                  */
                 label?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.show
                      */
                     show?: boolean;
 
@@ -1363,10 +1362,10 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.formatter
                      */
                     formatter?: Function | string;
 
@@ -1376,7 +1375,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.color
                      */
                     color?: string;
 
@@ -1392,7 +1391,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -1410,9 +1409,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1422,7 +1421,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -1432,7 +1431,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontSize
                      */
                     fontSize?: number;
 
@@ -1448,10 +1447,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.align
                      */
                     align?: string;
 
@@ -1467,10 +1466,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -1480,10 +1479,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -1494,7 +1493,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -1502,7 +1501,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -1512,7 +1511,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderColor
                      */
                     borderColor?: string;
 
@@ -1520,7 +1519,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -1528,7 +1527,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -1544,7 +1543,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.padding
                      */
                     padding?: any[] | number;
 
@@ -1554,7 +1553,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1562,7 +1561,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1570,7 +1569,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1578,7 +1577,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1603,7 +1602,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.width
                      */
                     width?: number | string;
 
@@ -1619,7 +1618,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.height
                      */
                     height?: number | string;
 
@@ -1629,7 +1628,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -1637,7 +1636,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -1647,7 +1646,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -1655,7 +1654,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -1663,7 +1662,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -1671,7 +1670,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -1679,29 +1678,27 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -1717,7 +1714,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -1735,9 +1732,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1747,7 +1744,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -1757,7 +1754,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -1773,10 +1770,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -1792,10 +1789,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -1805,10 +1802,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -1820,7 +1817,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -1828,7 +1825,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -1838,7 +1835,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -1846,7 +1843,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -1854,7 +1851,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -1872,7 +1869,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -1882,7 +1879,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -1890,7 +1887,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -1898,7 +1895,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -1906,7 +1903,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -1933,7 +1930,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -1950,7 +1947,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -1960,7 +1957,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -1968,7 +1965,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -1978,7 +1975,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -1986,7 +1983,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -1994,7 +1991,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -2002,7 +1999,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -2010,10 +2007,9 @@ declare namespace echarts {
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2025,10 +2021,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.color
                      */
                     color?: string;
 
@@ -2038,7 +2034,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -2046,7 +2042,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -2057,7 +2053,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -2068,10 +2064,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.emphasis.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -2079,7 +2075,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -2087,7 +2083,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -2095,7 +2091,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -2105,7 +2101,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.emphasis.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -2126,7 +2122,7 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-pie.zlevel
              */
             zlevel?: number;
 
@@ -2142,7 +2138,7 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.z
+             * @see https://echarts.apache.org/en/option.html#series-pie.z
              */
             z?: number;
 
@@ -2156,12 +2152,12 @@ declare namespace echarts {
              *
              * **Example:**
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              *
              * @default
              * ['50%', '50%']
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.center
+             * @see https://echarts.apache.org/en/option.html#series-pie.center
              */
             center?: any[];
 
@@ -2182,13 +2178,13 @@ declare namespace echarts {
              *
              * @default
              * [0, '75%']
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.radius
+             * @see https://echarts.apache.org/en/option.html#series-pie.radius
              */
             radius?: any[] | number | string;
 
             /**
              * When
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * is used, `seriesLayoutBy` specifies whether the column or the
              * row of `dataset` is mapped to the series, namely, the series
              * is "layout" on columns or rows. Optional values:
@@ -2199,26 +2195,26 @@ declare namespace echarts {
              * In this case, each row represents a dimension.
              *
              * Check this
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=dataset-series-layout-by)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=dataset-series-layout-by)
              * .
              *
              *
              * @default
              * "column"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.seriesLayoutBy
+             * @see https://echarts.apache.org/en/option.html#series-pie.seriesLayoutBy
              */
             seriesLayoutBy?: string;
 
             /**
              * If
-             * [series.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.data)
+             * [series.data](https://echarts.apache.org/en/option.html#series.data)
              * is not specified, and
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * exists, the series will use `dataset`.
              * `datasetIndex` specifies which dataset will be used.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.datasetIndex
+             * @see https://echarts.apache.org/en/option.html#series-pie.datasetIndex
              */
             datasetIndex?: number;
 
@@ -2231,7 +2227,7 @@ declare namespace echarts {
              * ```
              *
              * Or, if need extra dimensions for components like
-             * [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+             * [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * to map to graphic attributes like color, it can also be in the
              * form of array. For example:
              *
@@ -2242,35 +2238,30 @@ declare namespace echarts {
              *
              * In this case, we can assgin the second value in each arrary item
              * to
-             * [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+             * [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * component.
              *
              * More likely, we need to assign name to each data item, in which
              * case each item should be an object:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              * Each data item can be further custerized:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data
+             * @see https://echarts.apache.org/en/option.html#series-pie.data
              */
-            data?: (
-                number[]
-                | number[][]
-                | SeriesPie.DataObject[]
-            );
+            data?: number[] | number[][] | SeriesPie.DataObject[];
 
             /**
              * Mark point in a chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint
+             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2290,7 +2281,7 @@ declare namespace echarts {
                  *
                  * A `dataURI` example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  * Icons can be set to arbitrary vector path via `'path://'`
                  * in ECharts.
@@ -2305,12 +2296,12 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  *
                  * @default
                  * "pin"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbol
                  */
                 symbol?: string;
 
@@ -2330,14 +2321,14 @@ declare namespace echarts {
                  * ```
                  *
                  * The first parameter `value` is the value in
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.data)
+                 * [data](https://echarts.apache.org/en/option.html#series-.data)
                  * , and the second parameter `params` is the rest parameters
                  * of data item.
                  *
                  *
                  * @default
                  * 50
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolSize
                  */
                 symbolSize?: any[] | Function | number;
 
@@ -2348,7 +2339,7 @@ declare namespace echarts {
                  * tangent angle.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.symbolRotate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolRotate
                  */
                 symbolRotate?: number;
 
@@ -2356,7 +2347,7 @@ declare namespace echarts {
                  * Whether to keep aspect for symbols in the form of `path://`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.symbolKeepAspect
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolKeepAspect
                  */
                 symbolKeepAspect?: boolean;
 
@@ -2379,7 +2370,7 @@ declare namespace echarts {
                  *
                  * @default
                  * [0, 0]
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.symbolOffset
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolOffset
                  */
                 symbolOffset?: any[];
 
@@ -2389,7 +2380,7 @@ declare namespace echarts {
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.silent
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.silent
                  */
                 silent?: boolean;
 
@@ -2397,15 +2388,14 @@ declare namespace echarts {
                  * Label of mark point.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.show
                      */
                     show?: boolean;
 
@@ -2420,7 +2410,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      * + 'top'
                      *
@@ -2438,13 +2428,13 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.position
                      */
                     position?: any[] | string;
 
@@ -2453,13 +2443,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.distance
                      */
                     distance?: number;
 
@@ -2468,11 +2458,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rotate
                      */
                     rotate?: number;
 
@@ -2482,7 +2472,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.offset
                      */
                     offset?: any[];
 
@@ -2523,10 +2513,10 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.formatter
                      */
                     formatter?: Function | string;
 
@@ -2539,7 +2529,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.color
                      */
                     color?: string;
 
@@ -2555,7 +2545,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -2573,9 +2563,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2585,7 +2575,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -2595,7 +2585,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontSize
                      */
                     fontSize?: number;
 
@@ -2611,10 +2601,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.align
                      */
                     align?: string;
 
@@ -2630,10 +2620,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -2643,10 +2633,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -2657,7 +2647,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -2668,7 +2658,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -2681,7 +2671,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderColor
                      */
                     borderColor?: string;
 
@@ -2689,7 +2679,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -2697,7 +2687,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -2713,7 +2703,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.padding
                      */
                     padding?: any[] | number;
 
@@ -2723,7 +2713,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -2731,7 +2721,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -2739,7 +2729,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -2747,7 +2737,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -2772,7 +2762,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.width
                      */
                     width?: number | string;
 
@@ -2788,7 +2778,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.height
                      */
                     height?: number | string;
 
@@ -2801,7 +2791,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -2809,7 +2799,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -2819,7 +2809,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -2827,7 +2817,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -2835,7 +2825,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -2843,7 +2833,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -2851,22 +2841,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2876,7 +2864,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -2892,7 +2880,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -2910,9 +2898,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2922,7 +2910,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -2932,7 +2920,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -2948,10 +2936,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -2967,10 +2955,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -2980,10 +2968,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -2995,7 +2983,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -3006,7 +2994,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -3019,7 +3007,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -3027,7 +3015,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -3035,7 +3023,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -3053,7 +3041,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -3063,7 +3051,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -3071,7 +3059,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -3079,7 +3067,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -3087,7 +3075,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -3114,7 +3102,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -3131,7 +3119,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -3144,7 +3132,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -3152,7 +3140,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -3162,7 +3150,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -3170,7 +3158,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -3178,7 +3166,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -3186,22 +3174,21 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -3216,7 +3203,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -3234,11 +3221,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.position
                          */
                         position?: any[] | string;
 
@@ -3247,13 +3234,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.distance
                          */
                         distance?: number;
 
@@ -3262,11 +3249,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rotate
                          */
                         rotate?: number;
 
@@ -3276,7 +3263,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.offset
                          */
                         offset?: any[];
 
@@ -3319,10 +3306,10 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.formatter
                          */
                         formatter?: Function | string;
 
@@ -3335,7 +3322,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.color
                          */
                         color?: string;
 
@@ -3351,7 +3338,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontStyle
                          */
                         fontStyle?: string;
 
@@ -3369,9 +3356,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3381,7 +3368,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontFamily
                          */
                         fontFamily?: string;
 
@@ -3391,7 +3378,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontSize
                          */
                         fontSize?: number;
 
@@ -3407,10 +3394,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.align
                          */
                         align?: string;
 
@@ -3426,10 +3413,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -3439,10 +3426,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.lineHeight
                          */
                         lineHeight?: number;
 
@@ -3453,7 +3440,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -3464,7 +3451,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -3477,7 +3464,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -3485,7 +3472,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -3493,7 +3480,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderRadius
                          */
                         borderRadius?: number;
 
@@ -3510,7 +3497,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.padding
                          */
                         padding?: any[] | number;
 
@@ -3520,7 +3507,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -3528,7 +3515,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3536,7 +3523,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3544,7 +3531,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3571,7 +3558,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.width
                          */
                         width?: number | string;
 
@@ -3588,7 +3575,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.height
                          */
                         height?: number | string;
 
@@ -3601,7 +3588,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -3609,7 +3596,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -3619,7 +3606,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -3627,7 +3614,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -3635,7 +3622,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -3643,7 +3630,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -3651,22 +3638,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3676,7 +3661,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -3692,7 +3677,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -3710,9 +3695,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -3722,7 +3707,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -3732,7 +3717,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -3750,10 +3735,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -3771,10 +3756,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -3785,10 +3770,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -3800,7 +3785,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -3812,7 +3797,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -3825,7 +3810,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -3833,7 +3818,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -3841,7 +3826,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -3860,7 +3845,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -3870,7 +3855,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -3878,7 +3863,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -3886,7 +3871,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -3894,7 +3879,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -3925,7 +3910,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -3943,7 +3928,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -3956,7 +3941,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -3964,7 +3949,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -3974,7 +3959,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -3982,7 +3967,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -3990,7 +3975,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -3998,7 +3983,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -4010,10 +3995,9 @@ declare namespace echarts {
                  * Mark point style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4025,10 +4009,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.color
                      */
                     color?: string;
 
@@ -4038,7 +4022,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -4046,7 +4030,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -4057,7 +4041,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -4068,10 +4052,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -4079,7 +4063,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -4087,7 +4071,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -4095,7 +4079,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -4105,15 +4089,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.opacity
                      */
                     opacity?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4126,10 +4109,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.color
                          */
                         color?: string;
 
@@ -4140,7 +4123,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -4148,7 +4131,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4159,7 +4142,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderType
                          */
                         borderType?: string;
 
@@ -4170,10 +4153,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4181,7 +4164,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4189,7 +4172,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4197,7 +4180,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4207,7 +4190,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -4218,9 +4201,9 @@ declare namespace echarts {
                  * Here are some ways to assign mark point position.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-pie.markPoint.data.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-pie.markPoint.data.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * When multiple attributes exist, priority is as the above
@@ -4228,20 +4211,19 @@ declare namespace echarts {
                  *
                  * **For example:**
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
                      *
                      * @default
                      * ''
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.name
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.name
                      */
                     name?: string;
 
@@ -4249,7 +4231,7 @@ declare namespace echarts {
                      * X position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.x
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.x
                      */
                     x?: number;
 
@@ -4257,7 +4239,7 @@ declare namespace echarts {
                      * Y position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.y
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.y
                      */
                     y?: number;
 
@@ -4265,7 +4247,7 @@ declare namespace echarts {
                      * Label value, which can be ignored.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.value
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.value
                      */
                     value?: number;
 
@@ -4288,7 +4270,7 @@ declare namespace echarts {
                      *
                      * A `dataURI` example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data)
                      *
                      * Icons can be set to arbitrary vector path via `'path://'`
                      * in ECharts.
@@ -4303,10 +4285,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.symbol
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbol
                      */
                     symbol?: string;
 
@@ -4318,7 +4300,7 @@ declare namespace echarts {
                      * height is`10`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.symbolSize
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolSize
                      */
                     symbolSize?: any[] | number;
 
@@ -4329,7 +4311,7 @@ declare namespace echarts {
                      * use tangent angle.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.symbolRotate
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolRotate
                      */
                     symbolRotate?: number;
 
@@ -4337,7 +4319,7 @@ declare namespace echarts {
                      * Whether to keep aspect for symbols in the form of `path://`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.symbolKeepAspect
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolKeepAspect
                      */
                     symbolKeepAspect?: boolean;
 
@@ -4360,7 +4342,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.symbolOffset
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolOffset
                      */
                     symbolOffset?: any[];
 
@@ -4368,10 +4350,9 @@ declare namespace echarts {
                      * Mark point style.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4384,10 +4365,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.color
                          */
                         color?: string;
 
@@ -4398,7 +4379,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderColor
                          */
                         borderColor?: string;
 
@@ -4406,7 +4387,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4417,7 +4398,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderType
                          */
                         borderType?: string;
 
@@ -4428,10 +4409,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4439,7 +4420,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4447,7 +4428,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4455,7 +4436,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4465,15 +4446,14 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.opacity
                          */
                         opacity?: number;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4486,10 +4466,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.itemStyle.emphasis)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.color
                              */
                             color?: string;
 
@@ -4500,7 +4480,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderColor
                              */
                             borderColor?: string;
 
@@ -4509,7 +4489,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderWidth
                              */
                             borderWidth?: number;
 
@@ -4520,7 +4500,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderType
                              */
                             borderType?: string;
 
@@ -4531,10 +4511,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.itemStyle.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -4542,7 +4522,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowColor
                              */
                             shadowColor?: string;
 
@@ -4551,7 +4531,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -4560,7 +4540,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -4570,22 +4550,21 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.opacity
                              */
                             opacity?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.show
                          */
                         show?: boolean;
 
@@ -4600,7 +4579,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          * + 'top'
                          *
@@ -4618,11 +4597,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.position
                          */
                         position?: any[] | string;
 
@@ -4631,13 +4610,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.distance
                          */
                         distance?: number;
 
@@ -4646,11 +4625,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rotate
                          */
                         rotate?: number;
 
@@ -4660,7 +4639,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.offset
                          */
                         offset?: any[];
 
@@ -4673,7 +4652,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.color
                          */
                         color?: string;
 
@@ -4689,7 +4668,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -4707,9 +4686,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4719,7 +4698,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -4729,7 +4708,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontSize
                          */
                         fontSize?: number;
 
@@ -4745,10 +4724,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.align
                          */
                         align?: string;
 
@@ -4764,10 +4743,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -4777,10 +4756,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.lineHeight
                          */
                         lineHeight?: number;
 
@@ -4791,7 +4770,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -4802,7 +4781,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -4815,7 +4794,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderColor
                          */
                         borderColor?: string;
 
@@ -4823,7 +4802,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4831,7 +4810,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderRadius
                          */
                         borderRadius?: number;
 
@@ -4848,7 +4827,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.padding
                          */
                         padding?: any[] | number;
 
@@ -4858,7 +4837,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4866,7 +4845,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4874,7 +4853,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4882,7 +4861,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4909,7 +4888,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.width
                          */
                         width?: number | string;
 
@@ -4926,7 +4905,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.height
                          */
                         height?: number | string;
 
@@ -4939,7 +4918,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -4947,7 +4926,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -4957,7 +4936,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -4965,7 +4944,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -4973,7 +4952,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -4981,7 +4960,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -4989,22 +4968,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5014,7 +4991,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -5030,7 +5007,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -5048,9 +5025,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5060,7 +5037,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -5070,7 +5047,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -5088,10 +5065,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -5109,10 +5086,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -5123,10 +5100,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -5138,7 +5115,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -5150,7 +5127,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -5163,7 +5140,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -5171,7 +5148,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -5179,7 +5156,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -5198,7 +5175,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -5208,7 +5185,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -5216,7 +5193,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -5224,7 +5201,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -5232,7 +5209,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -5263,7 +5240,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -5281,7 +5258,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -5294,7 +5271,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -5302,7 +5279,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -5312,7 +5289,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -5320,7 +5297,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -5328,7 +5305,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -5336,22 +5313,21 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
                         };
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.show
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.show
                              */
                             show?: boolean;
 
@@ -5366,7 +5342,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              * + 'top'
                              *
@@ -5384,11 +5360,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.position
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.position
                              */
                             position?: any[] | string;
 
@@ -5397,13 +5373,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.distance
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.distance
                              */
                             distance?: number;
 
@@ -5412,11 +5388,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rotate
                              */
                             rotate?: number;
 
@@ -5426,7 +5402,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.offset
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.offset
                              */
                             offset?: any[];
 
@@ -5439,7 +5415,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.color
                              */
                             color?: string;
 
@@ -5455,7 +5431,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontStyle
                              */
                             fontStyle?: string;
 
@@ -5473,9 +5449,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5485,7 +5461,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontFamily
                              */
                             fontFamily?: string;
 
@@ -5495,7 +5471,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontSize
                              */
                             fontSize?: number;
 
@@ -5511,10 +5487,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.align
                              */
                             align?: string;
 
@@ -5530,10 +5506,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -5543,10 +5519,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.lineHeight
                              */
                             lineHeight?: number;
 
@@ -5558,7 +5534,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -5569,7 +5545,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -5582,7 +5558,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderColor
                              */
                             borderColor?: string;
 
@@ -5590,7 +5566,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderWidth
                              */
                             borderWidth?: number;
 
@@ -5598,7 +5574,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderRadius
                              */
                             borderRadius?: number;
 
@@ -5616,7 +5592,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.padding
                              */
                             padding?: any[] | number;
 
@@ -5626,7 +5602,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowColor
                              */
                             shadowColor?: string;
 
@@ -5634,7 +5610,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -5642,7 +5618,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -5650,7 +5626,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -5677,7 +5653,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.width
                              */
                             width?: number | string;
 
@@ -5694,7 +5670,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.height
                              */
                             height?: number | string;
 
@@ -5707,7 +5683,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -5715,7 +5691,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -5725,7 +5701,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -5733,7 +5709,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -5741,7 +5717,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -5749,7 +5725,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -5757,22 +5733,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5782,7 +5756,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -5798,7 +5772,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -5816,9 +5790,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -5829,7 +5803,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -5839,7 +5813,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -5857,10 +5831,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -5878,10 +5852,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -5892,10 +5866,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -5907,7 +5881,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -5919,7 +5893,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -5932,7 +5906,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -5940,7 +5914,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -5948,7 +5922,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -5967,7 +5941,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -5977,7 +5951,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -5985,7 +5959,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -5993,7 +5967,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -6001,7 +5975,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -6032,7 +6006,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -6050,7 +6024,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -6063,7 +6037,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -6071,7 +6045,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -6081,7 +6055,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -6089,7 +6063,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -6097,7 +6071,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -6105,7 +6079,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
@@ -6120,7 +6094,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animation
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animation
                  */
                 animation?: boolean;
 
@@ -6132,7 +6106,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -6140,25 +6114,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationEasing
                  */
                 animationEasing?: string;
 
@@ -6169,14 +6143,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -6184,12 +6158,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -6199,7 +6173,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -6209,16 +6183,16 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  * prefix
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markPoint.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -6227,17 +6201,16 @@ declare namespace echarts {
              * Use a line in the chart to illustrate.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine
+             * @see https://echarts.apache.org/en/option.html#series-pie.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.silent
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.silent
                  */
                 silent?: boolean;
 
@@ -6245,11 +6218,11 @@ declare namespace echarts {
                  * Symbol type at the two ends of the mark line.
                  * It can be an array for two ends, or assigned seperately.
                  * See
-                 * [data.symbol](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbol)
+                 * [data.symbol](https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbol)
                  * for more format information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.symbol
                  */
                 symbol?: any[] | string;
 
@@ -6261,7 +6234,7 @@ declare namespace echarts {
                  * as normal `symbolSize`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.symbolSize
                  */
                 symbolSize?: any[] | number;
 
@@ -6272,7 +6245,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.precision
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.precision
                  */
                 precision?: number;
 
@@ -6280,17 +6253,16 @@ declare namespace echarts {
                  * Mark line text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.show
                      */
                     show?: boolean;
 
@@ -6304,7 +6276,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "end"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.position
                      */
                     position?: string;
 
@@ -6346,25 +6318,24 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.formatter
                      */
                     formatter?: Function | string;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -6378,7 +6349,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "end"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.position
                          */
                         position?: string;
 
@@ -6422,10 +6393,10 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.formatter
                          */
                         formatter?: Function | string;
                     };
@@ -6435,10 +6406,9 @@ declare namespace echarts {
                  * Mark line style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6450,12 +6420,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.color
                      */
                     color?: string;
 
@@ -6463,7 +6433,7 @@ declare namespace echarts {
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.width
                      */
                     width?: number;
 
@@ -6479,7 +6449,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.type
                      */
                     type?: string;
 
@@ -6490,10 +6460,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -6501,7 +6471,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -6509,7 +6479,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -6517,7 +6487,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -6527,7 +6497,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.opacity
                      */
                     opacity?: number;
 
@@ -6536,15 +6506,14 @@ declare namespace echarts {
                      * The larger the value, the greater the curvature.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.curveness
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.curveness
                      */
                     curveness?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6557,12 +6526,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.lineStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.lineStyle.emphasis)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.color
                          */
                         color?: string;
 
@@ -6570,7 +6539,7 @@ declare namespace echarts {
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.width
                          */
                         width?: number;
 
@@ -6586,7 +6555,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.type
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.type
                          */
                         type?: string;
 
@@ -6597,10 +6566,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.lineStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.lineStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -6608,7 +6577,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -6616,7 +6585,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -6624,7 +6593,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -6634,7 +6603,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.lineStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -6649,34 +6618,40 @@ declare namespace echarts {
                  * and ending point.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * When multiple attributes exist, priority is as the above
                  * order.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0
                      */
                     0?: {
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.name
+                         */
+                        name?: string;
 
                         /**
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.x
                          */
                         x?: number;
 
@@ -6684,7 +6659,7 @@ declare namespace echarts {
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.y
                          */
                         y?: number;
 
@@ -6692,7 +6667,7 @@ declare namespace echarts {
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.value
                          */
                         value?: number;
 
@@ -6716,7 +6691,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -6732,10 +6707,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbol
                          */
                         symbol?: string;
 
@@ -6747,7 +6722,7 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolSize
                          */
                         symbolSize?: any[] | number;
 
@@ -6758,7 +6733,7 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolRotate
                          */
                         symbolRotate?: number;
 
@@ -6767,7 +6742,7 @@ declare namespace echarts {
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolKeepAspect
                          */
                         symbolKeepAspect?: boolean;
 
@@ -6791,7 +6766,7 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolOffset
                          */
                         symbolOffset?: any[];
 
@@ -6800,10 +6775,9 @@ declare namespace echarts {
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -6816,12 +6790,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.color
                              */
                             color?: string;
 
@@ -6829,7 +6803,7 @@ declare namespace echarts {
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.width
                              */
                             width?: number;
 
@@ -6845,7 +6819,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.type
                              */
                             type?: string;
 
@@ -6856,10 +6830,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -6867,7 +6841,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -6876,7 +6850,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -6885,7 +6859,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -6895,7 +6869,7 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.opacity
                              */
                             opacity?: number;
 
@@ -6905,15 +6879,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.curveness
                              */
                             curveness?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6926,12 +6899,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -6939,7 +6912,7 @@ declare namespace echarts {
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.width
                                  */
                                 width?: number;
 
@@ -6955,7 +6928,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.type
                                  */
                                 type?: string;
 
@@ -6967,10 +6940,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -6979,7 +6952,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -6988,7 +6961,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -6997,7 +6970,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -7007,7 +6980,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number;
 
@@ -7017,7 +6990,7 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.curveness
                                  */
                                 curveness?: number;
                             };
@@ -7028,17 +7001,16 @@ declare namespace echarts {
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.show
                              */
                             show?: boolean;
 
@@ -7052,7 +7024,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.position
                              */
                             position?: string;
 
@@ -7096,25 +7068,24 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.formatter
                              */
                             formatter?: Function | string;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -7128,7 +7099,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.position
                                  */
                                 position?: string;
 
@@ -7172,10 +7143,10 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.formatter
                                  */
                                 formatter?: Function | string;
                             };
@@ -7186,15 +7157,22 @@ declare namespace echarts {
                      * Data of the ending point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1
                      */
                     1?: {
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.name
+                         */
+                        name?: string;
 
                         /**
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.x
                          */
                         x?: number;
 
@@ -7202,7 +7180,7 @@ declare namespace echarts {
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.y
                          */
                         y?: number;
 
@@ -7210,7 +7188,7 @@ declare namespace echarts {
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.value
                          */
                         value?: number;
 
@@ -7234,7 +7212,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -7250,10 +7228,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbol
                          */
                         symbol?: string;
 
@@ -7265,7 +7243,7 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolSize
                          */
                         symbolSize?: any[] | number;
 
@@ -7276,7 +7254,7 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolRotate
                          */
                         symbolRotate?: number;
 
@@ -7285,7 +7263,7 @@ declare namespace echarts {
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolKeepAspect
                          */
                         symbolKeepAspect?: boolean;
 
@@ -7309,7 +7287,7 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolOffset
                          */
                         symbolOffset?: any[];
 
@@ -7318,10 +7296,9 @@ declare namespace echarts {
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7334,12 +7311,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.color
                              */
                             color?: string;
 
@@ -7347,7 +7324,7 @@ declare namespace echarts {
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.width
                              */
                             width?: number;
 
@@ -7363,7 +7340,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.type
                              */
                             type?: string;
 
@@ -7374,10 +7351,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -7385,7 +7362,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -7394,7 +7371,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -7403,7 +7380,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -7413,7 +7390,7 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.opacity
                              */
                             opacity?: number;
 
@@ -7423,15 +7400,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.curveness
                              */
                             curveness?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7444,12 +7420,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -7457,7 +7433,7 @@ declare namespace echarts {
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.width
                                  */
                                 width?: number;
 
@@ -7473,7 +7449,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.type
                                  */
                                 type?: string;
 
@@ -7485,10 +7461,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -7497,7 +7473,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -7506,7 +7482,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -7515,7 +7491,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -7525,7 +7501,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number;
 
@@ -7535,7 +7511,7 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.curveness
                                  */
                                 curveness?: number;
                             };
@@ -7546,17 +7522,16 @@ declare namespace echarts {
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.show
                              */
                             show?: boolean;
 
@@ -7570,7 +7545,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.position
                              */
                             position?: string;
 
@@ -7614,25 +7589,24 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.formatter
                              */
                             formatter?: Function | string;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -7646,7 +7620,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.position
                                  */
                                 position?: string;
 
@@ -7690,10 +7664,10 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.formatter
                                  */
                                 formatter?: Function | string;
                             };
@@ -7707,7 +7681,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animation
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animation
                  */
                 animation?: boolean;
 
@@ -7719,7 +7693,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -7727,25 +7701,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationEasing
                  */
                 animationEasing?: string;
 
@@ -7756,14 +7730,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -7771,12 +7745,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -7786,7 +7760,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -7796,14 +7770,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -7813,17 +7787,16 @@ declare namespace echarts {
              * For example, mark a time interval.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea
+             * @see https://echarts.apache.org/en/option.html#series-pie.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.silent
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.silent
                  */
                 silent?: boolean;
 
@@ -7831,15 +7804,14 @@ declare namespace echarts {
                  * Label in mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.show
                      */
                     show?: boolean;
 
@@ -7854,7 +7826,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      * + 'top'
                      *
@@ -7872,11 +7844,11 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.position
                      */
                     position?: any[] | string;
 
@@ -7885,13 +7857,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.distance
                      */
                     distance?: number;
 
@@ -7900,11 +7872,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rotate
                      */
                     rotate?: number;
 
@@ -7914,7 +7886,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.offset
                      */
                     offset?: any[];
 
@@ -7927,7 +7899,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.color
                      */
                     color?: string;
 
@@ -7943,7 +7915,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -7961,9 +7933,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -7973,7 +7945,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -7983,7 +7955,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontSize
                      */
                     fontSize?: number;
 
@@ -7999,10 +7971,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.align
                      */
                     align?: string;
 
@@ -8018,10 +7990,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -8031,10 +8003,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -8045,7 +8017,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -8056,7 +8028,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -8069,7 +8041,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderColor
                      */
                     borderColor?: string;
 
@@ -8077,7 +8049,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -8085,7 +8057,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -8101,7 +8073,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.padding
                      */
                     padding?: any[] | number;
 
@@ -8111,7 +8083,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -8119,7 +8091,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -8127,7 +8099,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -8135,7 +8107,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -8160,7 +8132,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.width
                      */
                     width?: number | string;
 
@@ -8176,7 +8148,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.height
                      */
                     height?: number | string;
 
@@ -8189,7 +8161,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -8197,7 +8169,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -8207,7 +8179,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -8215,7 +8187,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -8223,7 +8195,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -8231,7 +8203,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -8239,22 +8211,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8264,7 +8234,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -8280,7 +8250,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -8298,9 +8268,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8310,7 +8280,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -8320,7 +8290,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -8336,10 +8306,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -8355,10 +8325,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -8368,10 +8338,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -8383,7 +8353,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -8394,7 +8364,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -8407,7 +8377,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -8415,7 +8385,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -8423,7 +8393,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -8441,7 +8411,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -8451,7 +8421,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -8459,7 +8429,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -8467,7 +8437,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -8475,7 +8445,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -8502,7 +8472,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -8519,7 +8489,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -8532,7 +8502,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -8540,7 +8510,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -8550,7 +8520,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -8558,7 +8528,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -8566,7 +8536,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -8574,22 +8544,21 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -8604,7 +8573,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -8622,11 +8591,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.position
                          */
                         position?: any[] | string;
 
@@ -8635,13 +8604,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.distance
                          */
                         distance?: number;
 
@@ -8650,11 +8619,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rotate
                          */
                         rotate?: number;
 
@@ -8664,7 +8633,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.offset
                          */
                         offset?: any[];
 
@@ -8677,7 +8646,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.color
                          */
                         color?: string;
 
@@ -8693,7 +8662,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontStyle
                          */
                         fontStyle?: string;
 
@@ -8711,9 +8680,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -8723,7 +8692,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontFamily
                          */
                         fontFamily?: string;
 
@@ -8733,7 +8702,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontSize
                          */
                         fontSize?: number;
 
@@ -8749,10 +8718,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.align
                          */
                         align?: string;
 
@@ -8768,10 +8737,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -8781,10 +8750,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.lineHeight
                          */
                         lineHeight?: number;
 
@@ -8795,7 +8764,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -8806,7 +8775,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -8819,7 +8788,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -8827,7 +8796,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -8835,7 +8804,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderRadius
                          */
                         borderRadius?: number;
 
@@ -8852,7 +8821,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.padding
                          */
                         padding?: any[] | number;
 
@@ -8862,7 +8831,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -8870,7 +8839,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -8878,7 +8847,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -8886,7 +8855,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -8913,7 +8882,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.width
                          */
                         width?: number | string;
 
@@ -8930,7 +8899,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.height
                          */
                         height?: number | string;
 
@@ -8943,7 +8912,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -8951,7 +8920,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -8961,7 +8930,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -8969,7 +8938,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -8977,7 +8946,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -8985,7 +8954,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -8993,22 +8962,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9018,7 +8985,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -9034,7 +9001,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -9052,9 +9019,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9064,7 +9031,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -9074,7 +9041,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -9092,10 +9059,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -9113,10 +9080,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -9127,10 +9094,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -9142,7 +9109,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -9154,7 +9121,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -9167,7 +9134,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -9175,7 +9142,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -9183,7 +9150,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -9202,7 +9169,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -9212,7 +9179,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -9220,7 +9187,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -9228,7 +9195,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -9236,7 +9203,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -9267,7 +9234,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -9285,7 +9252,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -9298,7 +9265,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -9306,7 +9273,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -9316,7 +9283,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -9324,7 +9291,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -9332,7 +9299,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -9340,7 +9307,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -9352,10 +9319,9 @@ declare namespace echarts {
                  * Style of the mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9367,10 +9333,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.color
                      */
                     color?: string;
 
@@ -9380,7 +9346,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -9388,7 +9354,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -9399,7 +9365,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -9410,10 +9376,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -9421,7 +9387,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -9429,7 +9395,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -9437,7 +9403,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -9447,15 +9413,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.opacity
                      */
                     opacity?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9468,10 +9433,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.color
                          */
                         color?: string;
 
@@ -9482,7 +9447,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -9490,7 +9455,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -9501,7 +9466,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderType
                          */
                         borderType?: string;
 
@@ -9512,10 +9477,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -9523,7 +9488,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -9531,7 +9496,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -9539,7 +9504,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -9549,7 +9514,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -9563,9 +9528,9 @@ declare namespace echarts {
                  *
                  * 1.
                  * Specify the coordinate in screen coordinate system using
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.y)
                  * , where the unit is pixel (e.g.,
                  * the value is `5`), or percent (e.g.,
                  * the value is `'35%'`).
@@ -9573,27 +9538,33 @@ declare namespace echarts {
                  * The priority follows as above if more than one above definition
                  * used.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0
                      */
                     0?: {
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.name
+                         */
+                        name?: string;
 
                         /**
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.x
                          */
                         x?: number;
 
@@ -9602,7 +9573,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.y
                          */
                         y?: number;
 
@@ -9610,7 +9581,7 @@ declare namespace echarts {
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.value
                          */
                         value?: number;
 
@@ -9620,10 +9591,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -9636,10 +9606,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.color
                              */
                             color?: string;
 
@@ -9650,7 +9620,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderColor
                              */
                             borderColor?: string;
 
@@ -9659,7 +9629,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderWidth
                              */
                             borderWidth?: number;
 
@@ -9670,7 +9640,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderType
                              */
                             borderType?: string;
 
@@ -9681,10 +9651,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -9692,7 +9662,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -9701,7 +9671,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -9710,7 +9680,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -9720,15 +9690,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.opacity
                              */
                             opacity?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -9741,10 +9710,10 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -9755,7 +9724,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -9764,7 +9733,7 @@ declare namespace echarts {
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -9775,7 +9744,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderType
                                  */
                                 borderType?: string;
 
@@ -9787,10 +9756,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -9799,7 +9768,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -9808,7 +9777,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -9817,7 +9786,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -9827,7 +9796,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.opacity
                                  */
                                 opacity?: number;
                             };
@@ -9839,15 +9808,14 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.show
                              */
                             show?: boolean;
 
@@ -9862,7 +9830,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              * + 'top'
                              *
@@ -9880,11 +9848,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.position
                              */
                             position?: any[] | string;
 
@@ -9893,13 +9861,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.distance
                              */
                             distance?: number;
 
@@ -9908,11 +9876,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rotate
                              */
                             rotate?: number;
 
@@ -9922,7 +9890,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.offset
                              */
                             offset?: any[];
 
@@ -9935,7 +9903,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.color
                              */
                             color?: string;
 
@@ -9951,7 +9919,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontStyle
                              */
                             fontStyle?: string;
 
@@ -9969,9 +9937,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -9981,7 +9949,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontFamily
                              */
                             fontFamily?: string;
 
@@ -9991,7 +9959,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontSize
                              */
                             fontSize?: number;
 
@@ -10007,10 +9975,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.align
                              */
                             align?: string;
 
@@ -10026,10 +9994,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -10039,10 +10007,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.lineHeight
                              */
                             lineHeight?: number;
 
@@ -10054,7 +10022,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -10065,7 +10033,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -10078,7 +10046,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderColor
                              */
                             borderColor?: string;
 
@@ -10086,7 +10054,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderWidth
                              */
                             borderWidth?: number;
 
@@ -10094,7 +10062,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderRadius
                              */
                             borderRadius?: number;
 
@@ -10112,7 +10080,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.padding
                              */
                             padding?: any[] | number;
 
@@ -10122,7 +10090,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowColor
                              */
                             shadowColor?: string;
 
@@ -10130,7 +10098,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -10138,7 +10106,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -10146,7 +10114,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -10173,7 +10141,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.width
                              */
                             width?: number | string;
 
@@ -10190,7 +10158,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.height
                              */
                             height?: number | string;
 
@@ -10203,7 +10171,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -10211,7 +10179,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -10221,7 +10189,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -10229,7 +10197,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -10237,7 +10205,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -10245,7 +10213,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -10253,22 +10221,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10278,7 +10244,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -10294,7 +10260,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -10312,9 +10278,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10325,7 +10291,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -10335,7 +10301,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -10353,10 +10319,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -10374,10 +10340,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -10388,10 +10354,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -10403,7 +10369,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -10415,7 +10381,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -10428,7 +10394,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -10436,7 +10402,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -10444,7 +10410,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -10463,7 +10429,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -10473,7 +10439,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -10481,7 +10447,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -10489,7 +10455,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -10497,7 +10463,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -10528,7 +10494,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -10546,7 +10512,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -10559,7 +10525,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -10567,7 +10533,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -10577,7 +10543,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -10585,7 +10551,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -10593,7 +10559,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -10601,22 +10567,21 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
                             };
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -10632,7 +10597,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -10650,11 +10615,11 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.position
                                  */
                                 position?: any[] | string;
 
@@ -10664,13 +10629,13 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.distance
                                  */
                                 distance?: number;
 
@@ -10679,11 +10644,11 @@ declare namespace echarts {
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rotate
                                  */
                                 rotate?: number;
 
@@ -10693,7 +10658,7 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.offset
                                  */
                                 offset?: any[];
 
@@ -10706,7 +10671,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.color
                                  */
                                 color?: string;
 
@@ -10722,7 +10687,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -10740,9 +10705,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -10752,7 +10717,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -10762,7 +10727,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontSize
                                  */
                                 fontSize?: number;
 
@@ -10780,10 +10745,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.align
                                  */
                                 align?: string;
 
@@ -10801,10 +10766,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -10815,10 +10780,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -10830,7 +10795,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -10842,7 +10807,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -10855,7 +10820,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -10863,7 +10828,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -10871,7 +10836,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -10890,7 +10855,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.padding
                                  */
                                 padding?: any[] | number;
 
@@ -10900,7 +10865,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -10908,7 +10873,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -10916,7 +10881,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -10924,7 +10889,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -10955,7 +10920,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.width
                                  */
                                 width?: number | string;
 
@@ -10973,7 +10938,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.height
                                  */
                                 height?: number | string;
 
@@ -10986,7 +10951,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -10994,7 +10959,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -11004,7 +10969,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -11012,7 +10977,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -11020,7 +10985,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -11028,7 +10993,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
 
@@ -11036,22 +11001,20 @@ declare namespace echarts {
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11062,7 +11025,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
                                         color?: string;
 
@@ -11078,7 +11041,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
                                         fontStyle?: string;
 
@@ -11096,9 +11059,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -11109,7 +11072,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
                                         fontFamily?: string;
 
@@ -11119,7 +11082,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
                                         fontSize?: number;
 
@@ -11137,10 +11100,10 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string;
 
@@ -11158,10 +11121,10 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string;
 
@@ -11172,10 +11135,10 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
                                         lineHeight?: number;
 
@@ -11187,7 +11150,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -11200,7 +11163,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
                                         backgroundColor?: object | string;
 
@@ -11214,7 +11177,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
                                         borderColor?: string;
 
@@ -11222,7 +11185,7 @@ declare namespace echarts {
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number;
 
@@ -11230,7 +11193,7 @@ declare namespace echarts {
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
                                         borderRadius?: number;
 
@@ -11251,7 +11214,7 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number;
 
@@ -11261,7 +11224,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
                                         shadowColor?: string;
 
@@ -11269,7 +11232,7 @@ declare namespace echarts {
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number;
 
@@ -11277,7 +11240,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number;
 
@@ -11285,7 +11248,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
                                         shadowOffsetY?: number;
 
@@ -11317,7 +11280,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string;
 
@@ -11336,7 +11299,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string;
 
@@ -11350,7 +11313,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
                                         textBorderColor?: string;
 
@@ -11358,7 +11321,7 @@ declare namespace echarts {
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number;
 
@@ -11368,7 +11331,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
                                         textShadowColor?: string;
 
@@ -11376,7 +11339,7 @@ declare namespace echarts {
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number;
 
@@ -11384,7 +11347,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number;
 
@@ -11392,7 +11355,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
                                         textShadowOffsetY?: number;
                                     };
@@ -11405,16 +11368,23 @@ declare namespace echarts {
                      * Specify the right-bottom point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1
                      */
                     1?: {
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.name
+                         */
+                        name?: string;
 
                         /**
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.x
                          */
                         x?: number;
 
@@ -11423,7 +11393,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.y
                          */
                         y?: number;
 
@@ -11431,7 +11401,7 @@ declare namespace echarts {
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.value
                          */
                         value?: number;
 
@@ -11441,10 +11411,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11457,10 +11426,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.color
                              */
                             color?: string;
 
@@ -11471,7 +11440,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderColor
                              */
                             borderColor?: string;
 
@@ -11480,7 +11449,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderWidth
                              */
                             borderWidth?: number;
 
@@ -11491,7 +11460,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderType
                              */
                             borderType?: string;
 
@@ -11502,10 +11471,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -11513,7 +11482,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -11522,7 +11491,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -11531,7 +11500,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -11541,15 +11510,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.opacity
                              */
                             opacity?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11562,10 +11530,10 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -11576,7 +11544,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -11585,7 +11553,7 @@ declare namespace echarts {
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -11596,7 +11564,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderType
                                  */
                                 borderType?: string;
 
@@ -11608,10 +11576,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -11620,7 +11588,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -11629,7 +11597,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -11638,7 +11606,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -11648,7 +11616,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.opacity
                                  */
                                 opacity?: number;
                             };
@@ -11660,15 +11628,14 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.show
                              */
                             show?: boolean;
 
@@ -11683,7 +11650,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              * + 'top'
                              *
@@ -11701,11 +11668,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.position
                              */
                             position?: any[] | string;
 
@@ -11714,13 +11681,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.distance
                              */
                             distance?: number;
 
@@ -11729,11 +11696,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rotate
                              */
                             rotate?: number;
 
@@ -11743,7 +11710,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.offset
                              */
                             offset?: any[];
 
@@ -11756,7 +11723,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.color
                              */
                             color?: string;
 
@@ -11772,7 +11739,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontStyle
                              */
                             fontStyle?: string;
 
@@ -11790,9 +11757,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11802,7 +11769,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontFamily
                              */
                             fontFamily?: string;
 
@@ -11812,7 +11779,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontSize
                              */
                             fontSize?: number;
 
@@ -11828,10 +11795,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.align
                              */
                             align?: string;
 
@@ -11847,10 +11814,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -11860,10 +11827,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.lineHeight
                              */
                             lineHeight?: number;
 
@@ -11875,7 +11842,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -11886,7 +11853,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -11899,7 +11866,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderColor
                              */
                             borderColor?: string;
 
@@ -11907,7 +11874,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderWidth
                              */
                             borderWidth?: number;
 
@@ -11915,7 +11882,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderRadius
                              */
                             borderRadius?: number;
 
@@ -11933,7 +11900,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.padding
                              */
                             padding?: any[] | number;
 
@@ -11943,7 +11910,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowColor
                              */
                             shadowColor?: string;
 
@@ -11951,7 +11918,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -11959,7 +11926,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -11967,7 +11934,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -11994,7 +11961,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.width
                              */
                             width?: number | string;
 
@@ -12011,7 +11978,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.height
                              */
                             height?: number | string;
 
@@ -12024,7 +11991,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -12032,7 +11999,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -12042,7 +12009,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -12050,7 +12017,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -12058,7 +12025,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -12066,7 +12033,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -12074,22 +12041,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12099,7 +12064,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -12115,7 +12080,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -12133,9 +12098,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -12146,7 +12111,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -12156,7 +12121,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -12174,10 +12139,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -12195,10 +12160,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -12209,10 +12174,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -12224,7 +12189,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -12236,7 +12201,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -12249,7 +12214,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -12257,7 +12222,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -12265,7 +12230,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -12284,7 +12249,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -12294,7 +12259,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -12302,7 +12267,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -12310,7 +12275,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -12318,7 +12283,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -12349,7 +12314,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -12367,7 +12332,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -12380,7 +12345,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -12388,7 +12353,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -12398,7 +12363,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -12406,7 +12371,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -12414,7 +12379,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -12422,22 +12387,21 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
                             };
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -12453,7 +12417,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -12471,11 +12435,11 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.position
                                  */
                                 position?: any[] | string;
 
@@ -12485,13 +12449,13 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.distance
                                  */
                                 distance?: number;
 
@@ -12500,11 +12464,11 @@ declare namespace echarts {
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rotate
                                  */
                                 rotate?: number;
 
@@ -12514,7 +12478,7 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.offset
                                  */
                                 offset?: any[];
 
@@ -12527,7 +12491,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.color
                                  */
                                 color?: string;
 
@@ -12543,7 +12507,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -12561,9 +12525,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -12573,7 +12537,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -12583,7 +12547,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontSize
                                  */
                                 fontSize?: number;
 
@@ -12601,10 +12565,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.align
                                  */
                                 align?: string;
 
@@ -12622,10 +12586,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -12636,10 +12600,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -12651,7 +12615,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -12663,7 +12627,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -12676,7 +12640,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -12684,7 +12648,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -12692,7 +12656,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -12711,7 +12675,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.padding
                                  */
                                 padding?: any[] | number;
 
@@ -12721,7 +12685,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -12729,7 +12693,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -12737,7 +12701,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -12745,7 +12709,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -12776,7 +12740,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.width
                                  */
                                 width?: number | string;
 
@@ -12794,7 +12758,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.height
                                  */
                                 height?: number | string;
 
@@ -12807,7 +12771,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -12815,7 +12779,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -12825,7 +12789,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -12833,7 +12797,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -12841,7 +12805,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -12849,7 +12813,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
 
@@ -12857,22 +12821,20 @@ declare namespace echarts {
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12883,7 +12845,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
                                         color?: string;
 
@@ -12899,7 +12861,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
                                         fontStyle?: string;
 
@@ -12917,9 +12879,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -12930,7 +12892,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
                                         fontFamily?: string;
 
@@ -12940,7 +12902,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
                                         fontSize?: number;
 
@@ -12958,10 +12920,10 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string;
 
@@ -12979,10 +12941,10 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string;
 
@@ -12993,10 +12955,10 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
                                         lineHeight?: number;
 
@@ -13008,7 +12970,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -13021,7 +12983,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
                                         backgroundColor?: object | string;
 
@@ -13035,7 +12997,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
                                         borderColor?: string;
 
@@ -13043,7 +13005,7 @@ declare namespace echarts {
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number;
 
@@ -13051,7 +13013,7 @@ declare namespace echarts {
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
                                         borderRadius?: number;
 
@@ -13072,7 +13034,7 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number;
 
@@ -13082,7 +13044,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
                                         shadowColor?: string;
 
@@ -13090,7 +13052,7 @@ declare namespace echarts {
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number;
 
@@ -13098,7 +13060,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number;
 
@@ -13106,7 +13068,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
                                         shadowOffsetY?: number;
 
@@ -13138,7 +13100,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string;
 
@@ -13157,7 +13119,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string;
 
@@ -13171,7 +13133,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
                                         textBorderColor?: string;
 
@@ -13179,7 +13141,7 @@ declare namespace echarts {
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number;
 
@@ -13189,7 +13151,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
                                         textShadowColor?: string;
 
@@ -13197,7 +13159,7 @@ declare namespace echarts {
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number;
 
@@ -13205,7 +13167,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number;
 
@@ -13213,7 +13175,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
                                         textShadowOffsetY?: number;
                                     };
@@ -13229,7 +13191,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animation
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animation
                  */
                 animation?: boolean;
 
@@ -13241,7 +13203,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -13249,25 +13211,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationEasing
                  */
                 animationEasing?: string;
 
@@ -13278,14 +13240,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -13293,12 +13255,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -13308,7 +13270,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -13318,14 +13280,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -13336,7 +13298,7 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.silent
+             * @see https://echarts.apache.org/en/option.html#series-pie.silent
              */
             silent?: boolean;
 
@@ -13351,7 +13313,7 @@ declare namespace echarts {
              *
              * @default
              * "expansion"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationType
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationType
              */
             animationType?: string;
 
@@ -13361,7 +13323,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animation
+             * @see https://echarts.apache.org/en/option.html#series-pie.animation
              */
             animation?: boolean;
 
@@ -13373,7 +13335,7 @@ declare namespace echarts {
              *
              * @default
              * 2000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationThreshold
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationThreshold
              */
             animationThreshold?: number;
 
@@ -13381,25 +13343,25 @@ declare namespace echarts {
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              *
              * @default
              * 1000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationDuration
              */
             animationDuration?: Function | number;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationEasing
              */
             animationEasing?: string;
 
@@ -13409,14 +13371,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationDelay
              */
             animationDelay?: Function | number;
 
@@ -13424,12 +13386,12 @@ declare namespace echarts {
              * Time for animation to complete, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              *
              * @default
              * 300
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationDurationUpdate
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationDurationUpdate
              */
             animationDurationUpdate?: Function | number;
 
@@ -13439,7 +13401,7 @@ declare namespace echarts {
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationEasingUpdate
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationEasingUpdate
              */
             animationEasingUpdate?: string;
 
@@ -13449,14 +13411,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie)
+             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.animationDelayUpdate
+             * @see https://echarts.apache.org/en/option.html#series-pie.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
 
@@ -13464,467 +13426,18 @@ declare namespace echarts {
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-pie.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip;
         }
 
         namespace SeriesPie {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.name
                  */
                 name?: string;
 
@@ -13932,7 +13445,7 @@ declare namespace echarts {
                  * Data value.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.value
                  */
                 value?: number;
 
@@ -13940,7 +13453,7 @@ declare namespace echarts {
                  * Whether the data item is selected.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.selected
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.selected
                  */
                 selected?: boolean;
 
@@ -13948,12 +13461,11 @@ declare namespace echarts {
                  * The label configuration of a single sector.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.label
                  */
                 label?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.show
                      */
                     show?: boolean;
 
@@ -13966,7 +13478,7 @@ declare namespace echarts {
                      *
                      * Outside of sectors of pie chart, which relates to corresponding
                      * sector through
-                     * [visual guide line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.labelLine)
+                     * [visual guide line](https://echarts.apache.org/en/option.html#series-pie.labelLine)
                      * .
                      *
                      * + `'inside'`
@@ -13978,12 +13490,12 @@ declare namespace echarts {
                      * + `'center'`
                      *
                      * In the center of pie chart. See
-                     * [pie-doughnut example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=pie-doughnut)
+                     * [pie-doughnut example](https://echarts.apache.org/examples/en/editor.html?c=pie-doughnut)
                      *
                      *
                      * @default
                      * "outside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.position
                      */
                     position?: string;
 
@@ -13993,7 +13505,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.color
                      */
                     color?: string;
 
@@ -14009,7 +13521,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -14027,9 +13539,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -14039,7 +13551,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -14049,7 +13561,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontSize
                      */
                     fontSize?: number;
 
@@ -14065,10 +13577,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.align
                      */
                     align?: string;
 
@@ -14084,10 +13596,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -14097,10 +13609,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -14111,7 +13623,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -14119,7 +13631,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -14129,7 +13641,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderColor
                      */
                     borderColor?: string;
 
@@ -14137,7 +13649,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -14145,7 +13657,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -14161,7 +13673,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.padding
                      */
                     padding?: any[] | number;
 
@@ -14171,7 +13683,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -14179,7 +13691,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -14187,7 +13699,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -14195,7 +13707,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -14220,7 +13732,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.width
                      */
                     width?: number | string;
 
@@ -14236,7 +13748,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.height
                      */
                     height?: number | string;
 
@@ -14246,7 +13758,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -14254,7 +13766,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -14264,7 +13776,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -14272,7 +13784,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -14280,7 +13792,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -14288,7 +13800,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -14296,29 +13808,27 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -14334,7 +13844,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -14352,9 +13862,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14364,7 +13874,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -14374,7 +13884,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -14390,10 +13900,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -14409,10 +13919,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -14422,10 +13932,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -14437,7 +13947,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -14445,7 +13955,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -14455,7 +13965,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -14463,7 +13973,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -14471,7 +13981,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -14489,7 +13999,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -14499,7 +14009,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -14507,7 +14017,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -14515,7 +14025,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -14523,7 +14033,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -14550,7 +14060,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -14567,7 +14077,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -14577,7 +14087,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -14585,7 +14095,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -14595,7 +14105,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -14603,7 +14113,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -14611,7 +14121,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -14619,7 +14129,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -14630,15 +14140,14 @@ declare namespace echarts {
                  * The style of visual guide line.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine
                  */
                 labelLine?: {
-
                     /**
                      * Whether to show the visual guide ine.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.show
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.show
                      */
                     show?: boolean;
 
@@ -14646,7 +14155,7 @@ declare namespace echarts {
                      * The length of the first segment of visual guide line.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.length
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.length
                      */
                     length?: number;
 
@@ -14654,7 +14163,7 @@ declare namespace echarts {
                      * The length of the second segment of visual guide line.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.length2
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.length2
                      */
                     length2?: number;
 
@@ -14664,15 +14173,14 @@ declare namespace echarts {
                      * the values from 0 to 1 which indicating the smoothness.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.smooth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.smooth
                      */
                     smooth?: boolean | number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -14685,12 +14193,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.labelLine.lineStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.labelLine.lineStyle)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.color
                          */
                         color?: string;
 
@@ -14698,7 +14206,7 @@ declare namespace echarts {
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.width
                          */
                         width?: number;
 
@@ -14714,7 +14222,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.type
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.type
                          */
                         type?: string;
 
@@ -14725,10 +14233,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.labelLine.lineStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.labelLine.lineStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -14736,7 +14244,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -14744,7 +14252,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -14752,7 +14260,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -14762,7 +14270,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.lineStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.opacity
                          */
                         opacity?: number;
                     };
@@ -14771,24 +14279,22 @@ declare namespace echarts {
                      * The style of visual guide line in emphasis status.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show the visual guide line in emphasis
                          * status.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.show
                          */
                         show?: boolean;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -14801,12 +14307,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.labelLine.emphasis.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.labelLine.emphasis.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.color
                              */
                             color?: string;
 
@@ -14814,7 +14320,7 @@ declare namespace echarts {
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.width
                              */
                             width?: number;
 
@@ -14830,7 +14336,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.type
                              */
                             type?: string;
 
@@ -14841,10 +14347,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.labelLine.emphasis.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.labelLine.emphasis.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -14852,7 +14358,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -14861,7 +14367,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -14870,7 +14376,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -14880,7 +14386,7 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.opacity
                              */
                             opacity?: number;
                         };
@@ -14892,10 +14398,9 @@ declare namespace echarts {
                  * like being hovered by mouse, or highlighted via legend connect.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -14907,10 +14412,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.color
                      */
                     color?: string;
 
@@ -14920,7 +14425,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -14928,7 +14433,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -14939,7 +14444,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -14950,10 +14455,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -14961,7 +14466,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -14969,7 +14474,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -14977,7 +14482,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -14987,23 +14492,21 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis
                  */
                 emphasis?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label
                      */
                     label?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.show
                          */
                         show?: boolean;
 
@@ -15013,7 +14516,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.color
                          */
                         color?: string;
 
@@ -15029,7 +14532,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -15047,9 +14550,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -15059,7 +14562,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -15069,7 +14572,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontSize
                          */
                         fontSize?: number;
 
@@ -15085,10 +14588,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.align
                          */
                         align?: string;
 
@@ -15104,10 +14607,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -15117,10 +14620,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.lineHeight
                          */
                         lineHeight?: number;
 
@@ -15131,7 +14634,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -15139,7 +14642,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -15149,7 +14652,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderColor
                          */
                         borderColor?: string;
 
@@ -15157,7 +14660,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderWidth
                          */
                         borderWidth?: number;
 
@@ -15165,7 +14668,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderRadius
                          */
                         borderRadius?: number;
 
@@ -15182,7 +14685,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.padding
                          */
                         padding?: any[] | number;
 
@@ -15192,7 +14695,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowColor
                          */
                         shadowColor?: string;
 
@@ -15200,7 +14703,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -15208,7 +14711,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -15216,7 +14719,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -15243,7 +14746,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.width
                          */
                         width?: number | string;
 
@@ -15260,7 +14763,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.height
                          */
                         height?: number | string;
 
@@ -15270,7 +14773,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -15278,7 +14781,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -15288,7 +14791,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -15296,7 +14799,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -15304,7 +14807,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -15312,7 +14815,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -15320,29 +14823,27 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -15358,7 +14859,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -15376,9 +14877,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -15388,7 +14889,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -15398,7 +14899,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -15416,10 +14917,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -15437,10 +14938,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -15451,10 +14952,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -15466,7 +14967,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -15475,7 +14976,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -15485,7 +14986,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -15493,7 +14994,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -15501,7 +15002,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -15520,7 +15021,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -15530,7 +15031,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -15538,7 +15039,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -15546,7 +15047,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -15554,7 +15055,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -15585,7 +15086,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -15603,7 +15104,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -15613,7 +15114,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -15621,7 +15122,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -15631,7 +15132,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -15639,7 +15140,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -15647,7 +15148,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -15655,7 +15156,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -15663,10 +15164,9 @@ declare namespace echarts {
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -15679,10 +15179,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.color
                          */
                         color?: string;
 
@@ -15693,7 +15193,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderColor
                          */
                         borderColor?: string;
 
@@ -15701,7 +15201,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderWidth
                          */
                         borderWidth?: number;
 
@@ -15712,7 +15212,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderType
                          */
                         borderType?: string;
 
@@ -15723,10 +15223,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.emphasis.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-pie.pie.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -15734,7 +15234,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -15742,7 +15242,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -15750,7 +15250,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -15760,7 +15260,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.emphasis.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number;
                     };
@@ -15770,454 +15270,9 @@ declare namespace echarts {
                  * tooltip settings in this series data.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip
+                 * @see https://echarts.apache.org/en/option.html#series-pie.data.tooltip
                  */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.pie.data.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
+                tooltip?: BaseTooltip;
             }
         }
     }

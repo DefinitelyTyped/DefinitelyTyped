@@ -428,7 +428,7 @@ interface ChaiJQueryStatic {
      *
      * @param value The value to search for.
      * @param array An array through which to search.
-     * @param fromIndex he index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
@@ -471,7 +471,7 @@ interface ChaiJQueryStatic {
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
      *
-     * @param node he DOM node that will be checked to see if it's in an XML document.
+     * @param node The DOM node that will be checked to see if it's in an XML document.
      */
     isXMLDoc(node: Node): boolean;
 

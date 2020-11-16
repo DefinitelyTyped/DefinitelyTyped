@@ -1,4 +1,4 @@
-// Type definitions for html-pdf v2.1.0
+// Type definitions for html-pdf v2.2.0
 // Project: https://github.com/marcbachmann/node-html-pdf
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,6 +27,8 @@ declare module 'html-pdf' {
       bottom?: string;
       left?: string;
     };
+
+    paginationOffset?: number;
 
     header?: {
       height?: string;
@@ -58,11 +60,29 @@ declare module 'html-pdf' {
     script?: string;
     timeout?: number;
 
+    // Time we should wait after window load
+    renderDelay?: 'manual' | number;
+
     // HTTP Headers that are used for requests
     httpHeaders?: {
       [header: string]: string;
     };
 
+    // To run Node application as Windows service
+    childProcessOptions?: {
+      detached?: boolean;
+    };
+
+    // HTTP Cookies that are used for requests
+    httpCookies?: Array<{
+      name: string;
+      value: string;
+      domain?: string;
+      path: string;
+      httponly?: boolean;
+      secure?: boolean;
+      expires?: number;
+    }>;
   }
 
   export interface FileInfo {

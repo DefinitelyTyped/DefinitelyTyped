@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    DebugEngine,
     styled,
     StandardEngine,
     withStyle,
@@ -8,6 +9,7 @@ import {
     withWrapper,
     Provider,
     useStyletron,
+    DevProvider,
 } from 'styletron-react';
 
 // styled()
@@ -47,12 +49,9 @@ const StyledComplexButton = styled(ComplexButton, { color: 'blue' });
 
 <StyledComplexButton isDisabled />;
 
-const DynamicStyledComplexButton = styled(
-    ComplexButton,
-    (props: DynamicStyledProps) => {
-        return { color: props.$fraction < 0.5 ? 'red' : 'green' };
-    }
-);
+const DynamicStyledComplexButton = styled(ComplexButton, (props: DynamicStyledProps) => {
+    return { color: props.$fraction < 0.5 ? 'red' : 'green' };
+});
 
 <DynamicStyledComplexButton $fraction={Math.random()} isDisabled />;
 
@@ -79,12 +78,9 @@ interface WithStyledDynamicProps {
     $crushed: boolean;
 }
 
-const WithStyledDynamic = withStyle(
-    BasicStyled,
-    (props: WithStyledDynamicProps) => ({
-        letterSpacing: props.$crushed ? '-5px' : '0',
-    })
-);
+const WithStyledDynamic = withStyle(BasicStyled, (props: WithStyledDynamicProps) => ({
+    letterSpacing: props.$crushed ? '-5px' : '0',
+}));
 
 <WithStyledDynamic $crushed />;
 
@@ -101,12 +97,9 @@ interface WithStyledDeepDynamicProps {
     $crushed: boolean;
 }
 
-const WithStyledDeepDynamic = withStyleDeep(
-    BasicStyled,
-    (props: WithStyledDeepDynamicProps) => ({
-        letterSpacing: props.$crushed ? '-5px' : '0',
-    })
-);
+const WithStyledDeepDynamic = withStyleDeep(BasicStyled, (props: WithStyledDeepDynamicProps) => ({
+    letterSpacing: props.$crushed ? '-5px' : '0',
+}));
 
 <WithStyledDeepDynamic $crushed />;
 
@@ -117,18 +110,10 @@ interface WithTransformTestProps {
     $inline: boolean;
 }
 
-const WithTransformTest = withTransform(
-    BasicStyled,
-    (style, props: WithTransformTestProps) => {
-        const display =
-            style.display === 'none'
-                ? 'none'
-                : props.$inline
-                ? 'inline-flex'
-                : 'flex';
-        return { ...styled, display };
-    }
-);
+const WithTransformTest = withTransform(BasicStyled, (style, props: WithTransformTestProps) => {
+    const display = style.display === 'none' ? 'none' : props.$inline ? 'inline-flex' : 'flex';
+    return { ...styled, display };
+});
 
 <WithTransformTest $inline />;
 
@@ -168,6 +153,19 @@ const App = () => (
 );
 
 <App />;
+
+// <DevProvider />
+// --------------------------
+
+const debug = new DebugEngine();
+
+const DevApp = () => (
+    <DevProvider value={engine} debug={debug}>
+        <PrettyButton />
+    </DevProvider>
+);
+
+<DevApp />;
 
 // useStyletron()
 // --------------------------

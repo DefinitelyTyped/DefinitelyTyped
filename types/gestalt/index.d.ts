@@ -1,122 +1,180 @@
-// Type definitions for gestalt 0.75
+// Type definitions for gestalt 14.26
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
+//                 Muhammed Hafiz <https://github.com/zifahm>
+//                 Kyle Hensel <https://github.com/k-yle>
+//                 Francisco Jimenez <https://github.com/jimenezff>
+//                 Charlie Gu <https://github.com/czgu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-/*
-Avatar Props Interface
-https://pinterest.github.io/gestalt/#/Avatar
-*/
+/**
+ * Helpers
+ */
 
+export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | Event, U = {}> = (
+    arg: U & {
+        readonly event: T;
+    },
+) => void;
+export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
+
+/**
+ * ActivationCard Props Interface
+ * https://gestalt.netlify.app/ActivationCard
+ */
+export interface ActivationCardProps {
+    message: string;
+    status: 'notStarted' | 'pending' | 'needsAttention' | 'complete';
+    statusMessage: string;
+    title: string;
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    link?: {
+        accessibilityLabel?: string;
+        href: string;
+        label: string;
+        onClick?: AbstractEventHandler<
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+        >;
+    };
+}
+
+/**
+ * Avatar Props Interface
+ * https://gestalt.netlify.app/Avatar
+ */
 export interface AvatarProps {
     name: string;
+    accessibilityLabel?: string;
     outline?: boolean;
-    size?: "sm" | "md" | "lg";
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
     src?: string;
     verified?: boolean;
 }
 
 export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-export type SignedUpTo12 = | -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
+export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
 
-/*
-Box Props Interface
-https://pinterest.github.io/gestalt/#/Box
-*/
+/**
+ * AvatarPair Props Interface
+ * https://gestalt.netlify.app/AvatarPair
+ */
+export interface AvatarPairProps {
+    collaborators: ReadonlyArray<{
+        name: string;
+        src?: string;
+    }>;
+    size?: 'md' | 'lg' | 'fit';
+}
 
+/**
+ * Badge Props Interface
+ * https://gestalt.netlify.app/Badge
+ */
+export interface BadgeProps {
+    text: string;
+    position?: 'middle' | 'top';
+}
+
+/**
+ * Box Props Interface
+ * https://gestalt.netlify.app/Box
+ */
 export interface BoxProps {
-    alignContent?:
-        | "start"
-        | "end"
-        | "center"
-        | "between"
-        | "around"
-        | "stretch";
-    alignItems?: "start" | "end" | "center" | "baseline" | "stretch";
-    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch";
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none';
     bottom?: boolean;
     children?: React.ReactNode;
     color?:
-        | "blue"
-        | "darkGray"
-        | "darkWash"
-        | "eggplant"
-        | "gray"
-        | "green"
-        | "lightGray"
-        | "lightWash"
-        | "maroon"
-        | "midnight"
-        | "navy"
-        | "olive"
-        | "orange"
-        | "orchid"
-        | "pine"
-        | "purple"
-        | "red"
-        | "transparent"
-        | "watermelon"
-        | "white";
+        | 'blue'
+        | 'darkGray'
+        | 'darkWash'
+        | 'eggplant'
+        | 'gray'
+        | 'green'
+        | 'lightGray'
+        | 'lightWash'
+        | 'maroon'
+        | 'midnight'
+        | 'navy'
+        | 'olive'
+        | 'orange'
+        | 'orchid'
+        | 'pine'
+        | 'purple'
+        | 'red'
+        | 'transparent'
+        | 'transparentDarkGray'
+        | 'watermelon'
+        | 'white';
     column?: UnsignedUpTo12;
     smColumn?: UnsignedUpTo12;
     mdColumn?: UnsignedUpTo12;
     lgColumn?: UnsignedUpTo12;
     dangerouslySetInlineStyle?: {
         __style: {
-            [key: string]: any;
+            [key: string]: string | number | undefined;
         };
     };
-    direction?: "row" | "column";
-    smDirection?: "row" | "column";
-    mdDirection?: "row" | "column";
-    lgDirection?: "row" | "column";
-    display?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
-    smDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
-    mdDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
-    lgDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
+    direction?: 'row' | 'column';
+    smDirection?: 'row' | 'column';
+    mdDirection?: 'row' | 'column';
+    lgDirection?: 'row' | 'column';
+    display?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
+    smDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
+    mdDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
+    lgDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
     fit?: boolean;
-    flex?: "grow" | "shrink" | "none";
+    flex?: 'grow' | 'shrink' | 'none';
     height?: number | string;
-    justifyContent?: "start" | "end" | "center" | "between" | "around";
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
     left?: boolean;
-    margin?: SignedUpTo12;
-    smMargin?: SignedUpTo12;
-    mdMargin?: SignedUpTo12;
-    lgMargin?: SignedUpTo12;
-    marginBottom?: SignedUpTo12;
-    smMarginBottom?: SignedUpTo12;
-    mdMarginBottom?: SignedUpTo12;
-    lgMarginBottom?: SignedUpTo12;
-    marginEnd?: SignedUpTo12;
-    smMarginEnd?: SignedUpTo12;
-    mdMarginEnd?: SignedUpTo12;
-    lgMarginEnd?: SignedUpTo12;
-    marginLeft?: SignedUpTo12;
-    smMarginLeft?: SignedUpTo12;
-    mdMarginLeft?: SignedUpTo12;
-    lgMarginLeft?: SignedUpTo12;
-    marginRight?: SignedUpTo12;
-    smMarginRight?: SignedUpTo12;
-    mdMarginRight?: SignedUpTo12;
-    lgMarginRight?: SignedUpTo12;
-    marginStart?: SignedUpTo12;
-    smMarginStart?: SignedUpTo12;
-    mdMarginStart?: SignedUpTo12;
-    lgMarginStart?: SignedUpTo12;
-    marginTop?: SignedUpTo12;
-    smMarginTop?: SignedUpTo12;
-    mdMarginTop?: SignedUpTo12;
-    lgMarginTop?: SignedUpTo12;
+    margin?: SignedUpTo12 | 'auto';
+    smMargin?: SignedUpTo12 | 'auto';
+    mdMargin?: SignedUpTo12 | 'auto';
+    lgMargin?: SignedUpTo12 | 'auto';
+    marginBottom?: SignedUpTo12 | 'auto';
+    smMarginBottom?: SignedUpTo12 | 'auto';
+    mdMarginBottom?: SignedUpTo12 | 'auto';
+    lgMarginBottom?: SignedUpTo12 | 'auto';
+    marginEnd?: SignedUpTo12 | 'auto';
+    smMarginEnd?: SignedUpTo12 | 'auto';
+    mdMarginEnd?: SignedUpTo12 | 'auto';
+    lgMarginEnd?: SignedUpTo12 | 'auto';
+    marginLeft?: SignedUpTo12 | 'auto';
+    smMarginLeft?: SignedUpTo12 | 'auto';
+    mdMarginLeft?: SignedUpTo12 | 'auto';
+    lgMarginLeft?: SignedUpTo12 | 'auto';
+    marginRight?: SignedUpTo12 | 'auto';
+    smMarginRight?: SignedUpTo12 | 'auto';
+    mdMarginRight?: SignedUpTo12 | 'auto';
+    lgMarginRight?: SignedUpTo12 | 'auto';
+    marginStart?: SignedUpTo12 | 'auto';
+    smMarginStart?: SignedUpTo12 | 'auto';
+    mdMarginStart?: SignedUpTo12 | 'auto';
+    lgMarginStart?: SignedUpTo12 | 'auto';
+    marginTop?: SignedUpTo12 | 'auto';
+    smMarginTop?: SignedUpTo12 | 'auto';
+    mdMarginTop?: SignedUpTo12 | 'auto';
+    lgMarginTop?: SignedUpTo12 | 'auto';
     maxHeight?: number | string;
     maxWidth?: number | string;
     minHeight?: number | string;
     minWidth?: number | string;
-    overflow?: "visible" | "hidden" | "scroll" | "scrollX" | "scrollY" | "auto";
+    opacity?: 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto';
     padding?: UnsignedUpTo12;
     smPadding?: UnsignedUpTo12;
     mdPadding?: UnsignedUpTo12;
@@ -129,83 +187,136 @@ export interface BoxProps {
     smPaddingY?: UnsignedUpTo12;
     mdPaddingY?: UnsignedUpTo12;
     lgPaddingY?: UnsignedUpTo12;
-    position?: "static" | "absolute" | "relative" | "fixed";
+    position?: 'static' | 'absolute' | 'relative' | 'fixed';
     right?: boolean;
-    shape?:
-        | "square"
-        | "rounded"
-        | "pill"
-        | "circle"
-        | "roundedTop"
-        | "roundedBottom"
-        | "roundedLeft"
-        | "roundedRight";
+    role?: string;
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     top?: boolean;
+    userSelect?: 'auto' | 'none';
     width?: number | string;
     wrap?: boolean;
+    zIndex?: Indexable;
 }
 
-/*
-Button Props Interface
-https://pinterest.github.io/gestalt/#/Button
-*/
-
+/**
+ * Button Props Interface
+ * https://gestalt.netlify.app/Button
+ */
 export interface ButtonProps {
     text: string;
+    accessibilityControls?: string;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
     accessibilityLabel?: string;
-    color?: "blue" | "gray" | "red" | "transparent" | "white";
+    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'transparentWhiteText' | 'white';
     disabled?: boolean;
+    href?: string;
+    iconEnd?: Icons;
     inline?: boolean;
     name?: string;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
-    size?: "sm" | "md" | "lg";
-    type?: "submit" | "button";
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
+    selected?: boolean;
+    size?: 'sm' | 'md' | 'lg';
+    tabIndex?: -1 | 0;
+    target?: null | 'self' | 'blank';
+    type?: 'submit' | 'button';
 }
 
-/*
-Card Props Interface
-https://pinterest.github.io/gestalt/#/Card
-*/
+/**
+ * ButtonGroup Props Interface
+ * https://gestalt.netlify.app/ButtonGroup
+ */
+export interface ButtonGroupProps {
+    children?: React.ReactNode;
+}
 
+export interface LinkData {
+    accessibilityLabel?: string;
+    href: string;
+    label: string;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+}
+
+/**
+ * Callout Props Interface
+ * https://gestalt.netlify.app/Callout
+ */
+export interface CalloutProps {
+    iconAccessibilityLabel: string;
+    message: string;
+    type: 'error' | 'info' | 'warning';
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    primaryLink?: LinkData;
+    secondaryLink?: LinkData;
+    title?: string;
+}
+
+/**
+ * Card Props Interface
+ * https://gestalt.netlify.app/Card
+ */
 export interface CardProps {
     active?: boolean;
     children?: React.ReactNode;
     image?: React.ReactNode;
-    onMouseEnter?: (
-        args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }
-    ) => void;
-    onMouseLeave?: (
-        args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }
-    ) => void;
+    onMouseEnter?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
+    onMouseLeave?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
 }
 
-/*
-Checkbox Props Interface
-https://pinterest.github.io/gestalt/#/Checkbox
-*/
-
+/**
+ * Checkbox Props Interface
+ * https://gestalt.netlify.app/Checkbox
+ */
 export interface CheckboxProps {
     id: string;
-    onChange: (
-        args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
-            checked: boolean;
-        }
-    ) => void;
+    onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    errorMessage?: string;
+    hasError?: boolean;
+    image?: React.ReactNode;
     indeterminate?: boolean;
+    label?: string;
     name?: string;
-    size?: "sm" | "md";
+
+    onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
+    size?: 'sm' | 'md';
+    subtext?: string;
 }
 
-/*
-Column Props Interface
-https://pinterest.github.io/gestalt/#/Column
-*/
+/**
+ * Collage Props Interface
+ * https://gestalt.netlify.app/Column
+ */
+export interface CollageProps {
+    columns: number;
+    height: number;
+    renderImage: (args: { width: number; height: number; index: number }) => React.ReactNode;
+    width: number;
+    cover?: boolean;
+    gutter?: number;
+    layoutKey?: number;
+}
 
+/**
+ * Column Props Interface
+ * https://gestalt.netlify.app/Column
+ */
 export interface ColumnProps {
     span: UnsignedUpTo12;
     smSpan?: UnsignedUpTo12;
@@ -214,271 +325,305 @@ export interface ColumnProps {
     children?: React.ReactNode;
 }
 
-/*
-Container Props Interface
-https://pinterest.github.io/gestalt/#/Container
-*/
-
+/**
+ * Container Props Interface
+ * https://gestalt.netlify.app/Container
+ */
 export interface ContainerProps {
     children?: React.ReactNode;
 }
 
-/*
-Flyout Props Interface
-https://pinterest.github.io/gestalt/#/Flyout
-*/
-
+/**
+ * Flyout Props Interface
+ * https://gestalt.netlify.app/Flyout
+ */
 export interface FlyoutProps {
-    anchor: React.RefObject<any>;
+    anchor: HTMLElement; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode;
-    color?: "blue" | "orange" | "white";
-    idealDirection?: "up" | "right" | "down" | "left";
+    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
+    idealDirection?: 'up' | 'right' | 'down' | 'left';
     positionRelativeToAnchor?: boolean;
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | number;
+    shouldFocus?: boolean;
+    showCaret?: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
 }
 
-/*
-GroupAvatar Props Interface
-https://pinterest.github.io/gestalt/#/GroupAvatar
-*/
-
+/**
+ * GroupAvatar Props Interface
+ * https://gestalt.netlify.app/GroupAvatar
+ */
 export interface GroupAvatarProps {
     collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
-    size?: "sm" | "md" | "lg";
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
 }
 
-/*
-Heading Props Interface
-https://pinterest.github.io/gestalt/#/Heading
-*/
-
+/**
+ * Heading Props Interface
+ * https://gestalt.netlify.app/Heading
+ */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+    align?: 'left' | 'right' | 'center' | 'justify';
     children?: React.ReactNode;
     color?:
-        | "blue"
-        | "darkGray"
-        | "eggplant"
-        | "gray"
-        | "green"
-        | "lightGray"
-        | "maroon"
-        | "midnight"
-        | "navy"
-        | "olive"
-        | "orange"
-        | "orchid"
-        | "pine"
-        | "purple"
-        | "red"
-        | "watermelon"
-        | "white";
+        | 'blue'
+        | 'darkGray'
+        | 'eggplant'
+        | 'gray'
+        | 'green'
+        | 'lightGray'
+        | 'maroon'
+        | 'midnight'
+        | 'navy'
+        | 'olive'
+        | 'orange'
+        | 'orchid'
+        | 'pine'
+        | 'purple'
+        | 'red'
+        | 'watermelon'
+        | 'white';
     id?: string;
-    overflow?: "normal" | "breakWord";
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
-    smSize?: "xs" | "sm" | "md" | "lg" | "xl";
-    mdSize?: "xs" | "sm" | "md" | "lg" | "xl";
-    lgSize?: "xs" | "sm" | "md" | "lg" | "xl";
+    overflow?: 'normal' | 'breakWord';
+    size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
 }
 
-/*
-Icon Props Interface
-https://pinterest.github.io/gestalt/#/Icon
-*/
-
 export type Icons =
-    | "ad"
-    | "ad-group"
-    | "add"
-    | "add-circle"
-    | "add-pin"
-    | "alert"
-    | "align-bottom-center"
-    | "align-bottom-left"
-    | "align-bottom-right"
-    | "align-bottom"
-    | "align-middle"
-    | "align-top-center"
-    | "align-top-left"
-    | "align-top-right"
-    | "align-top"
-    | "angled-pin"
-    | "apps"
-    | "arrow-back"
-    | "arrow-circle-down"
-    | "arrow-circle-forward"
-    | "arrow-circle-up"
-    | "arrow-down"
-    | "arrow-end"
-    | "arrow-forward"
-    | "arrow-start"
-    | "arrow-up"
-    | "arrow-up-right"
-    | "bell"
-    | "calendar"
-    | "camera"
-    | "camera-roll"
-    | "cancel"
-    | "canonical-pin"
-    | "color-picker"
-    | "check"
-    | "check-circle"
-    | "circle-outline"
-    | "clear"
-    | "clock"
-    | "cog"
-    | "compass"
-    | "compose"
-    | "crop"
-    | "dash"
-    | "download"
-    | "duplicate"
-    | "edit"
-    | "ellipsis"
-    | "ellipsis-circle-outline"
-    | "envelope"
-    | "eye"
-    | "facebook"
-    | "face-happy"
-    | "face-sad"
-    | "face-smiley"
-    | "fill-opaque"
-    | "fill-transparent"
-    | "filter"
-    | "flag"
-    | "flashlight"
-    | "flipHorizontal"
-    | "flipVertical"
-    | "gif"
-    | "globe"
-    | "globe-checked"
-    | "gmail"
-    | "google-plus"
-    | "graph-bar"
-    | "handle"
-    | "hand-pointing"
-    | "heart"
-    | "heart-broken"
-    | "impressum"
-    | "key"
-    | "knoop"
-    | "lightbulb"
-    | "lightning-bolt-circle"
-    | "link"
-    | "location"
-    | "lock"
-    | "logo-large"
-    | "logo-small"
-    | "logout"
-    | "margins-large"
-    | "margins-medium"
-    | "margins-small"
-    | "maximize"
-    | "megaphone"
-    | "menu"
-    | "minimize"
-    | "move"
-    | "mute"
-    | "overlay-text"
-    | "pause"
-    | "people"
-    | "person"
-    | "person-add"
-    | "pin"
-    | "pin-hide"
-    | "pinterest"
-    | "play"
-    | "refresh"
-    | "question-mark"
-    | "remove"
-    | "reorder-images"
-    | "report"
-    | "rotate"
-    | "search"
-    | "security"
-    | "shopping-bag"
-    | "smiley"
-    | "smiley-outline"
-    | "send"
-    | "share"
-    | "sound"
-    | "sort-ascending"
-    | "sort-descending"
-    | "speech"
-    | "speech-ellipsis"
-    | "star"
-    | "switch-account"
-    | "tag"
-    | "terms"
-    | "text-align-left"
-    | "text-align-center"
-    | "text-align-right"
-    | "text-all-caps"
-    | "text-extra-small"
-    | "text-large"
-    | "text-line-height"
-    | "text-medium"
-    | "text-sentence-case"
-    | "text-size"
-    | "text-small"
-    | "text-spacing"
-    | "trash-can"
-    | "twitter"
-    | "video-camera"
-    | "view-type-default"
-    | "view-type-dense"
-    | "view-type-list";
+    | 'ad'
+    | 'ad-group'
+    | 'add'
+    | 'add-circle'
+    | 'add-layout'
+    | 'add-pin'
+    | 'ads-stats'
+    | 'ads-overview'
+    | 'alert'
+    | 'align-bottom-center'
+    | 'align-bottom-left'
+    | 'align-bottom-right'
+    | 'align-bottom'
+    | 'align-middle'
+    | 'align-top-center'
+    | 'align-top-left'
+    | 'align-top-right'
+    | 'align-top'
+    | 'android-share'
+    | 'angled-pin'
+    | 'apps'
+    | 'arrow-back'
+    | 'arrow-circle-down'
+    | 'arrow-circle-forward'
+    | 'arrow-circle-up'
+    | 'arrow-down'
+    | 'arrow-end'
+    | 'arrow-forward'
+    | 'arrow-start'
+    | 'arrow-up'
+    | 'arrow-up-right'
+    | 'bell'
+    | 'calendar'
+    | 'camera'
+    | 'camera-roll'
+    | 'cancel'
+    | 'canonical-pin'
+    | 'color-picker'
+    | 'check'
+    | 'check-circle'
+    | 'circle-outline'
+    | 'clear'
+    | 'clock'
+    | 'code'
+    | 'cog'
+    | 'compass'
+    | 'compose'
+    | 'crop'
+    | 'dash'
+    | 'conversion-tag'
+    | 'credit-card'
+    | 'directional-arrow-left'
+    | 'directional-arrow-right'
+    | 'download'
+    | 'drag-drop'
+    | 'duplicate'
+    | 'edit'
+    | 'ellipsis'
+    | 'ellipsis-circle-outline'
+    | 'envelope'
+    | 'eye'
+    | 'facebook'
+    | 'face-happy'
+    | 'face-sad'
+    | 'face-smiley'
+    | 'file-unknown'
+    | 'fill-opaque'
+    | 'fill-transparent'
+    | 'filter'
+    | 'flag'
+    | 'flash'
+    | 'flashlight'
+    | 'flipHorizontal'
+    | 'flipVertical'
+    | 'folder'
+    | 'gif'
+    | 'globe'
+    | 'globe-checked'
+    | 'gmail'
+    | 'google-plus'
+    | 'graph-bar'
+    | 'handle'
+    | 'hand-pointing'
+    | 'heart'
+    | 'heart-outline'
+    | 'heart-broken'
+    | 'impressum'
+    | 'info-circle'
+    | 'key'
+    | 'knoop'
+    | 'lightbulb'
+    | 'lightning-bolt-circle'
+    | 'link'
+    | 'location'
+    | 'lock'
+    | 'logo-large'
+    | 'logo-small'
+    | 'logout'
+    | 'margins-large'
+    | 'margins-medium'
+    | 'margins-small'
+    | 'maximize'
+    | 'megaphone'
+    | 'menu'
+    | 'minimize'
+    | 'move'
+    | 'mute'
+    | 'overlay-text'
+    | 'pause'
+    | 'people'
+    | 'person'
+    | 'person-add'
+    | 'phone'
+    | 'pin'
+    | 'pin-hide'
+    | 'pinterest'
+    | 'play'
+    | 'protect'
+    | 'refresh'
+    | 'question-mark'
+    | 'remove'
+    | 'reorder-images'
+    | 'replace'
+    | 'report'
+    | 'rotate'
+    | 'scale'
+    | 'search'
+    | 'security'
+    | 'shopping-bag'
+    | 'smiley'
+    | 'smiley-outline'
+    | 'send'
+    | 'share'
+    | 'sound'
+    | 'sort-ascending'
+    | 'sort-descending'
+    | 'sparkle'
+    | 'speech'
+    | 'speech-ellipsis'
+    | 'star'
+    | 'star-half'
+    | 'story-pin'
+    | 'switch-account'
+    | 'tag'
+    | 'terms'
+    | 'text-align-left'
+    | 'text-align-center'
+    | 'text-align-right'
+    | 'text-all-caps'
+    | 'text-extra-small'
+    | 'text-large'
+    | 'text-line-height'
+    | 'text-medium'
+    | 'text-sentence-case'
+    | 'text-size'
+    | 'text-small'
+    | 'text-spacing'
+    | 'trash-can'
+    | 'twitter'
+    | 'video-camera'
+    | 'view-type-default'
+    | 'view-type-dense'
+    | 'view-type-list'
+    | 'workflow-status-all'
+    | 'workflow-status-halted'
+    | 'workflow-status-in-progress'
+    | 'workflow-status-ok'
+    | 'workflow-status-problem'
+    | 'workflow-status-unstarted'
+    | 'workflow-status-warning';
 
+/**
+ * Icon Props Interface
+ * https://gestalt.netlify.app/Icon
+ */
 export interface IconProps {
     accessibilityLabel: string;
-    icon: Icons;
+
     color?:
-        | "blue"
-        | "darkGray"
-        | "eggplant"
-        | "gray"
-        | "green"
-        | "lightGray"
-        | "maroon"
-        | "midnight"
-        | "navy"
-        | "olive"
-        | "orange"
-        | "orchid"
-        | "pine"
-        | "purple"
-        | "red"
-        | "watermelon"
-        | "white";
+        | 'blue'
+        | 'darkGray'
+        | 'eggplant'
+        | 'gray'
+        | 'green'
+        | 'lightGray'
+        | 'maroon'
+        | 'midnight'
+        | 'navy'
+        | 'olive'
+        | 'orange'
+        | 'orchid'
+        | 'pine'
+        | 'purple'
+        | 'red'
+        | 'watermelon'
+        | 'white';
     dangerouslySetSvgPath?: { __path: string };
+    icon?: Icons;
     inline?: boolean;
     size?: number | string;
 }
 
-/*
-IconButton Props Interface
-https://pinterest.github.io/gestalt/#/IconButton
-*/
-
+/**
+ * IconButton Props Interface
+ * https://gestalt.netlify.app/IconButton
+ */
 export interface IconButtonProps {
-    accessibilityLabel: string;
-    icon: Icons;
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
+    accessibilityControls?: string;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
-    bgColor?: "transparent" | "lightGray" | "white";
-    iconColor?: "blue" | "darkGray" | "gray" | "red" | "white";
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    accessibilityLabel: string;
+
+    dangerouslySetSvgPath?: { __path: string };
+    disabled?: boolean;
+    href?: string;
+    icon?: Icons;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
+    onClick?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    padding?: 1 | 2 | 3 | 4 | 5;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
+    selected?: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    tabIndex?: -1 | 0;
+    target?: null | 'self' | 'blank';
 }
 
-/*
-Image Props Interface
-https://pinterest.github.io/gestalt/#/Image
-*/
-
+/**
+ * Image Props Interface
+ * https://gestalt.netlify.app/Image
+ */
 export interface ImageProps {
     alt: string;
     color: string;
@@ -486,28 +631,37 @@ export interface ImageProps {
     naturalWidth: number;
     src: string;
     children?: React.ReactNode;
-    fit?: "cover" | "contain" | "none";
+    fit?: 'cover' | 'contain' | 'none';
+    importance?: 'high' | 'low' | 'auto';
+    loading?: 'eager' | 'lazy' | 'auto';
     onError?: () => void;
     onLoad?: () => void;
-    size?: string;
+    sizes?: string;
     srcSet?: string;
 }
 
-/*
-Label Props Interface
-https://pinterest.github.io/gestalt/#/Label
-*/
-
+/**
+ * Label Props Interface
+ * https://gestalt.netlify.app/Label
+ */
 export interface LabelProps {
     htmlFor: string;
     children?: React.ReactNode;
 }
 
-/*
-Letterbox Props Interface
-https://pinterest.github.io/gestalt/#/Letterbox
-*/
+/**
+ * Layer Props Interface
+ * https://gestalt.netlify.app/Layer
+ */
+export interface LayerProps {
+    children: React.ReactNode;
+    zIndex?: Indexable;
+}
 
+/**
+ * Letterbox Props Interface
+ * https://gestalt.netlify.app/Letterbox
+ */
 export interface LetterboxProps {
     contentAspectRatio: number;
     height: number;
@@ -515,473 +669,607 @@ export interface LetterboxProps {
     children?: React.ReactNode;
 }
 
-/*
-Link Props Interface
-https://pinterest.github.io/gestalt/#/Link
-*/
-
+/**
+ * Link Props Interface
+ * https://gestalt.netlify.app/Link
+ */
 export interface LinkProps {
+    href: string;
+    accessibilityLabel?: string;
+    accessibilitySelected?: boolean;
     children?: React.ReactNode;
-    href?: string;
+    hoverStyle?: 'none' | 'underline';
+    id?: string;
     inline?: boolean;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
-    target?: "null" | "self" | "blank";
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
+    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
+    rel?: 'none' | 'nofollow';
+    role?: 'tab';
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    tapStyle?: 'none' | 'compress';
+    target?: null | 'self' | 'blank';
 }
 
-/*
-Mask Props Interface
-https://pinterest.github.io/gestalt/#/Mask
-*/
-
+/**
+ * Mask Props Interface
+ * https://gestalt.netlify.app/Mask
+ */
 export interface MaskProps {
     children?: React.ReactNode;
     height?: number | string;
-    shape?: "circle" | "rounded" | "square";
+    rounding?: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     wash?: boolean;
     width?: number | string;
+    willChangeTransform?: boolean;
 }
 
-/*
-Masonry Props Interface
-https://pinterest.github.io/gestalt/#/Masonry
-*/
-
-export interface MasonryProps {
-    comp: React.ComponentType;
-    items: ReadonlyArray<any>;
+/**
+ * Masonry Props Interface
+ * https://gestalt.netlify.app/Masonry
+ */
+export interface MasonryProps<T = any> {
+    comp: React.ComponentType<{ data: T; itemIdx?: number; isMeasuring?: boolean }>;
+    items: T[];
     columnWidth?: number;
     flexible?: boolean;
     gutterWidth?: number;
-    layout?: "MasonryDefaultLayout" | "MasonryUniformRowLayout";
+    layout?: 'MasonryDefaultLayout' | 'MasonryUniformRowLayout';
     loadItems?: () => void;
     measurementStore?: any;
     minCols?: number;
     scrollContainer?: () => HTMLElement;
+    virtualBoundsBottom?: number;
+    virtualBoundsTop?: number;
     virtualize?: boolean;
 }
 
-/*
-Modal Props Interface
-https://pinterest.github.io/gestalt/#/Modal
-*/
-
+/**
+ * Modal Props Interface
+ * https://gestalt.netlify.app/Modal
+ */
 export interface ModalProps {
-    accessibilityCloseLabel: string;
     accessibilityModalLabel: string;
-    heading: string;
     onDismiss: () => void;
     children?: React.ReactNode;
+    closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
-    role?: "alertdialog" | "dialog";
-    size?: "sm" | "md" | "lg";
+    heading?: string | React.ReactNode;
+    role?: 'alertdialog' | 'dialog';
+    size?: 'sm' | 'md' | 'lg' | number;
 }
 
-/*
-Props Props Interface
-https://pinterest.github.io/gestalt/#/Pog
-*/
+/**
+ * Module Props Interface
+ * https://gestalt.netlify.app/Module
+ */
 
+export interface ModuleExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    id: string;
+    items: ReadonlyArray<{
+        title: string;
+        icon?: Icons;
+        summary?: ReadonlyArray<string>;
+        type?: 'info' | 'error';
+        iconAccessibilityLabel?: string;
+        children?: React.ReactNode;
+    }>;
+}
+
+/**
+ * Pog Props Interface
+ * https://gestalt.netlify.app/Pog
+ */
 export interface PogProps {
-    icon: Icons;
+    accessibilityLabel?: string;
     active?: boolean;
-    bgColor?: "transparent" | "lightGray" | "white";
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
+    dangerouslySetSvgPath?: { __path: string };
     focused?: boolean;
     hovered?: boolean;
-    iconColor?: "blue" | "darkGray" | "gray" | "red" | "white";
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    icon?: Icons;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
+    padding?: 1 | 2 | 3 | 4 | 5;
+    selected?: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-/*
-Pulsar Props Interface
-https://pinterest.github.io/gestalt/#/Pulsar
-*/
+/**
+ * Provider Props Interface
+ * https://gestalt.netlify.app/ProviderProps
+ */
+export interface ProviderProps {
+    colorScheme?: 'light' | 'dark' | 'userPreference';
+    id?: string;
+}
 
+/**
+ * Pulsar Props Interface
+ * https://gestalt.netlify.app/Pulsar
+ */
 export interface PulsarProps {
     paused?: boolean;
     size?: number;
 }
 
-/*
-RadioButton Props Interface
-https://pinterest.github.io/gestalt/#/RadioButton
-*/
-
+/**
+ * RadioButton Props Interface
+ * https://gestalt.netlify.app/RadioButton
+ */
 export interface RadioButtonProps {
     id: string;
-    onChange: (
-        args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
-            checked: boolean;
-        }
-    ) => void;
+    onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    image?: React.ReactNode;
+    label?: string;
     name?: string;
-    size?: "sm" | "md";
+    size?: 'sm' | 'md';
+    subtext?: string;
     value?: string;
 }
 
-/*
-SearchField Props Interface
-https://pinterest.github.io/gestalt/#/SearchField
-*/
+/**
+ * Row Props Interface
+ * https://gestalt.netlify.app/Row
+ */
+export interface RowProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    width?: number | string;
+    wrap?: boolean;
+}
 
+/**
+ * SearchField Props Interface
+ * https://gestalt.netlify.app/SearchField
+ */
 export interface SearchFieldProps {
     accessibilityLabel: string;
     id: string;
-    onChange: (
-        args: {
-            value: string;
-            syntheticEvent: React.SyntheticEvent<HTMLInputElement>;
-        }
-    ) => void;
+    onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    autoComplete?: 'on' | 'off' | 'username' | 'name';
+    errorMessage?: string;
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onFocus?: (
-        args: {
-            value: string;
-            syntheticEvent: React.SyntheticEvent<HTMLInputElement>;
-        }
-    ) => void;
+    onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     placeholder?: string;
+    size?: 'md' | 'lg';
     value?: string;
 }
 
-/*
-SegmentedControl Props Interface
-https://pinterest.github.io/gestalt/#/SegmentedControl
-*/
-
+/**
+ * SegmentedControl Props Interface
+ * https://gestalt.netlify.app/SegmentedControl
+ */
 export interface SegmentedControlProps {
-    items: ReadonlyArray<React.ReactNode>;
-    onChange: (
-        args: {
-            event: React.SyntheticEvent<React.MouseEvent>;
-            activeIndex: number;
-        }
-    ) => void;
+    items: React.ReactNode[];
+    onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
     selectedItemIndex: number;
-    size?: "md" | "lg";
+    responsive?: boolean;
+    size?: 'md' | 'lg';
 }
 
-/*
-SelectList Props Interface
-https://pinterest.github.io/gestalt/#/SelectList
-*/
-
+/**
+ * SelectList Props Interface
+ * https://gestalt.netlify.app/SelectList
+ */
 export interface SelectListProps {
     id: string;
-    onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
-    ) => void;
+    onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
     options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean;
     errorMessage?: string;
-    idealErrorDirection?: "up" | "right" | "down" | "left";
+    helperText?: string;
+    label?: string;
     name?: string;
     placeholder?: string;
+    size?: 'md' | 'lg';
     value?: string;
 }
 
-/*
-Spinner Props Interface
-https://pinterest.github.io/gestalt/#/Spinner
-*/
+/**
+ * Sheet Props Interface
+ * https://gestalt.netlify.app/Sheet
+ */
+export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export interface SheetProps {
+    accessibilityDismissButtonLabel: string;
+    accessibilitySheetLabel: string;
+    onDismiss: () => void;
+    children?: SheetNodeOrRenderProp;
+    closeOnOutsideClick?: boolean;
+    footer?: SheetNodeOrRenderProp;
+    heading?: string;
+    size?: 'sm' | 'md' | 'lg';
+    subHeading?: SheetNodeOrRenderProp;
+}
 
+/**
+ * Spinner Props Interface
+ * https://gestalt.netlify.app/Spinner
+ */
 export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
+    delay?: boolean;
+    size?: 'sm' | 'md';
 }
 
-/*
-Sticky Props Interface
-https://pinterest.github.io/gestalt/#/Sticky
-*/
+/**
+ * Stack Props Interface
+ * https://gestalt.netlify.app/Stack
+ */
+export interface StackProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    width?: number | string;
+    wrap?: boolean;
+}
 
+/**
+ * Sticky Props Interface
+ * https://gestalt.netlify.app/Sticky
+ */
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
-    dangerouslySetZIndex?: { __zIndex: string };
+    height?: number;
     left?: number | string;
     right?: number | string;
     top?: number | string;
+    zIndex?: Indexable;
 }
 
-/*
-Switch Props Interface
-https://pinterest.github.io/gestalt/#/Switch
-*/
-
+/**
+ * Switch Props Interface
+ * https://gestalt.netlify.app/Switch
+ */
 export interface SwitchProps {
     id: string;
-    onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }
-    ) => void;
+    onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }) => void;
     disabled?: boolean;
     name?: string;
     switched?: boolean;
 }
 
-/*
-Tabs Props Interface
-https://pinterest.github.io/gestalt/#/Tabs
-*/
+/**
+ * Table Props Interface
+ * https://gestalt.netlify.app/Table
+ */
+export interface TableProps {
+    borderStyle?: 'sm' | 'none';
+    children?: React.ReactNode;
+    maxHeight?: 'number' | 'string';
+}
 
+export interface TableBodyProps {
+    children?: React.ReactNode;
+}
+
+export interface TableCellProps {
+    children?: React.ReactNode;
+    colSpan?: number;
+    rowSpan?: number;
+}
+
+export interface TableFooterProps {
+    children?: React.ReactNode;
+}
+
+export interface TableHeaderProps {
+    children?: React.ReactNode;
+    sticky?: boolean;
+}
+
+export interface TableHeaderCellProps extends TableCellProps {
+    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
+}
+
+export interface TableRowProps {
+    children?: React.ReactNode;
+}
+
+export interface TableRowExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    expandedContents: React.ReactNode;
+    id: string;
+    children?: React.ReactNode;
+    hoverStyle?: 'none' | 'gray';
+    onExpand?: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+}
+
+export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
+    onSortChange: AbstractEventHandler<
+        React.MouseEvent<HTMLTableCellElement> | React.KeyboardEvent<HTMLTableCellElement>
+    >;
+    sortOrder: 'asc' | 'desc';
+    status: 'active' | 'inactive';
+}
+
+/**
+ * Tabs Props Interface
+ * https://gestalt.netlify.app/Tabs
+ */
 export interface TabsProps {
     activeTabIndex: number;
-    onChange: (
-        args: {
-            event: React.SyntheticEvent<React.MouseEvent>;
-            activeTabIndex: number;
-        }
-    ) => void;
+    onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
     tabs: ReadonlyArray<{ text: any; href: string }>;
+    size?: 'md' | 'lg';
+    wrap?: boolean;
 }
 
-/*
-Text Props Interface
-https://pinterest.github.io/gestalt/#/Text
-*/
+/**
+ * TabArea Props Interface
+ * https://gestalt.netlify.app/TapArea
+ */
+export interface TapAreaProps {
+    accessibilityControls?: string;
+    accessibilityExpanded?: boolean;
+    accessibilityHaspopup?: boolean;
+    accessibilityLabel?: string;
+    children?: React.ReactNode;
+    disabled?: boolean;
+    fullHeight?: boolean;
+    fullWidth?: boolean;
+    href?: string;
+    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onTap?: AbstractEventHandler<
+        | React.MouseEvent<HTMLDivElement>
+        | React.KeyboardEvent<HTMLDivElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+    >;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
+    rounding?: 'pill' | 'circule' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    tabIndex?: -1 | 0;
+    tapStyle?: 'none' | 'compress';
+    target?: null | 'self' | 'blank';
+}
 
+/**
+ * Text Props Interface
+ * https://gestalt.netlify.app/Text
+ */
 export interface TextProps {
-    align?: "left" | "right" | "center" | "justify";
-    bold?: boolean;
+    align?: 'left' | 'right' | 'center' | 'justify';
     children?: React.ReactNode;
     color?:
-        | "blue"
-        | "darkGray"
-        | "eggplant"
-        | "gray"
-        | "green"
-        | "lightGray"
-        | "maroon"
-        | "midnight"
-        | "navy"
-        | "olive"
-        | "orange"
-        | "orchid"
-        | "pine"
-        | "purple"
-        | "red"
-        | "watermelon"
-        | "white";
+        | 'blue'
+        | 'darkGray'
+        | 'eggplant'
+        | 'gray'
+        | 'green'
+        | 'lightGray'
+        | 'maroon'
+        | 'midnight'
+        | 'navy'
+        | 'olive'
+        | 'orange'
+        | 'orchid'
+        | 'pine'
+        | 'purple'
+        | 'red'
+        | 'watermelon'
+        | 'white';
     inline?: boolean;
     italic?: boolean;
-    overflow?: "normal" | "breakWord";
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
-    smSize?: "xs" | "sm" | "md" | "lg" | "xl";
-    mdSize?: "xs" | "sm" | "md" | "lg" | "xl";
-    lgSize?: "xs" | "sm" | "md" | "lg" | "xl";
+    overflow?: 'normal' | 'breakWord';
+    size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
+    weight?: 'bold' | 'normal';
 }
 
-/*
-TextArea Interface Props
-https://pinterest.github.io/gestalt/#/TextArea
-*/
-
+/**
+ * TextArea Props Interface
+ * https://gestalt.netlify.app/TextArea
+ */
 export interface TextAreaProps {
     id: string;
-    onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
-    ) => void;
+    onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     disabled?: boolean;
     errorMessage?: string;
-    idealErrorDirection?: "up" | "right" | "down" | "left";
+    helperText?: string;
+    label?: string;
     name?: string;
-    onBlur?: (
-        args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
-            value: string;
-        }
-    ) => void;
-    onFocus?: (
-        args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
-            value: string;
-        }
-    ) => void;
+    onBlur?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
+    onFocus?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
+    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     placeholder?: string;
     rows?: number;
     value?: string;
 }
 
-/*
-TextField Interface Props
-https://pinterest.github.io/gestalt/#/TextField
-*/
-
+/**
+ * TextField Props Interface
+ * https://gestalt.netlify.app/TextField
+ */
 export interface TextFieldProps {
     id: string;
-    onChange: (
-        args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
-            value: string;
-        }
-    ) => void;
-    autoComplete?: "current-password" | "on" | "off" | "username";
+    onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password';
     disabled?: boolean;
     errorMessage?: string;
-    idealErrorDirection?: "up" | "right" | "down" | "left";
+    helperText?: string;
+    label?: string;
     name?: string;
-    onBlur?: (
-        args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
-            value: string;
-        }
-    ) => void;
-    onFocus?: (
-        args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
-            value: string;
-        }
-    ) => void;
+    onBlur?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
+    onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
+    onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
-    type?: "date" | "email" | "number" | "password" | "text" | "url";
+    size?: 'md' | 'lg';
+    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
 }
 
-/*
-Toast Interface Props
-https://pinterest.github.io/gestalt/#/Toast
-*/
-
+/**
+ * Toast Props Interface
+ * https://gestalt.netlify.app/Toast
+ */
 export interface ToastProps {
-    color?: "darkGray" | "orange";
-    icon?: "arrow-circle-forward";
-    text?: string | ReadonlyArray<string>;
-    thumbnail?: React.ReactElement;
+    button?: React.ReactNode;
+    color?: 'darkGray' | 'red';
+    text?: string | React.ReactElement;
+    thumbnail?: React.ReactNode;
+    thumbnailShape?: 'circle' | 'rectangle' | 'square';
 }
 
-/*
-Tooltip Interface Props
-https://pinterest.github.io/gestalt/#/Tooltip
-*/
-
+/**
+ * Tooltip Props Interface
+ * https://gestalt.netlify.app/Tooltip
+ */
 export interface TooltipProps {
-    anchor: any;
-    onDismiss: () => void;
-    children?: React.ReactNode;
-    idealDirection?: "up" | "right" | "down" | "left";
-    positionRelativeToAnchor?: boolean;
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    children: React.ReactNode;
+    text: string;
+    idealDirection?: 'up' | 'right' | 'down' | 'left';
+    inline?: boolean;
+    link?: React.ReactNode;
+    zIndex?: Indexable;
 }
 
-/*
-Touchable Interface Props
-https://pinterest.github.io/gestalt/#/Touchable
-*/
-
-export interface TouchableProps {
-    onTouch: (
-        args: {
-            event:
-                | React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>
-                | React.SyntheticEvent<React.KeyboardEvent<HTMLDivElement>>;
-        }
-    ) => void;
-    children?: React.ReactNode;
-    fullHeight?: boolean;
-    fullWidth?: boolean;
-    mouseCursor?:
-        | "copy"
-        | "grab"
-        | "grabbing"
-        | "move"
-        | "noDrop"
-        | "pointer"
-        | "zoomIn"
-        | "zoomOut";
-    onMouseEnter?: (
-        args: {
-            event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>;
-        }
-    ) => void;
-    onMouseLeave?: (
-        args: {
-            event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>;
-        }
-    ) => void;
-    shape?:
-        | "square"
-        | "rounded"
-        | "pill"
-        | "circle"
-        | "roundedTop"
-        | "roundedBottom"
-        | "roundedLeft"
-        | "roundedRight";
+/**
+ * Typeahead Props Interface
+ * https://gestalt.netlify.app/Typeahead
+ */
+export interface TypeaheadProps {
+    id: string;
+    noResultText: string;
+    options: ReadonlyArray<{
+        label: string;
+        value: string;
+    }>;
+    label?: string;
+    onBlur?: (args: {
+        event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
+        value: string;
+    }) => void;
+    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
+    onSelect?: (args: {
+        event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+        item:
+            | {
+                  label: string;
+                  value: string;
+              }
+            | null
+            | undefined;
+    }) => void;
+    placeholder?: string;
+    size?: 'md' | 'lg';
+    value?: string;
 }
 
-/*
-Video Props Interface
-https://pinterest.github.io/gestalt/#/Video
-*/
-
+/**
+ * Video Props Interface
+ * https://gestalt.netlify.app/Video
+ */
 export interface VideoProps {
-    aspectRatio: number;
-    captions: string;
-    src:
-        | string
-        | ReadonlyArray<{
-              type: "video/m3u8" | "video/mp4" | "video/ogg";
-              src: string;
-          }>;
     accessibilityMaximizeLabel?: string;
     accessibilityMinimizeLabel?: string;
     accessibilityMuteLabel?: string;
     accessibilityPauseLabel?: string;
     accessibilityPlayLabel?: string;
     accessibilityUnmuteLabel?: string;
-    controls?: boolean;
-    loop?: boolean;
-    onDurationChange?: (
-        args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
-            duration: number;
-        }
-    ) => void;
-    onEnded?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onFullscreenChange?: (
-        args: {
-            event: React.SyntheticEvent<HTMLDivElement>;
-            fullscreen: boolean;
-        }
-    ) => void;
-    onLoadedChange?: (
-        args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
-            loaded: number;
-        }
-    ) => void;
-    onPause?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onPlay?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onReady?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onSeek?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onTimeChange?: (
-        args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
-            time: number;
-        }
-    ) => void;
-    onVolumeChange?: (
-        args: {
-            event: React.SyntheticEvent<HTMLDivElement>;
-            volume: number;
-        }
-    ) => void;
+    aspectRatio: number;
+    captions: string;
     playbackRate?: number;
     playing?: boolean;
+    preload?: 'auto' | 'metadata' | 'none';
+    src: string | ReadonlyArray<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
+    volume?: number;
+    children?: Node;
+    controls?: boolean;
+    crossOrigin?: 'anonymous' | 'use-credentials';
+    loop?: boolean;
+    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
+    onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
+    onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
+    onLoadedChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { loaded: number }>;
+    onPlay?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
+    onPlayheadDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onPlayheadUp?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onPause?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
+    onReady?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }>;
+    onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }>;
+
     playsInline?: boolean;
     poster?: string;
-    preload?: "auto" | "metadata" | "none";
-    volume: number;
 }
 
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#zindex
+ */
+export interface Indexable {
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#FixedZIndex
+ */
+export class FixedZIndex implements Indexable {
+    z: number;
+    constructor(z: number);
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#CompositeZIndex
+ */
+export class CompositeZIndex implements Indexable {
+    deps: Array<FixedZIndex | CompositeZIndex>;
+    constructor(deps: Array<FixedZIndex | CompositeZIndex>);
+    index(): number;
+}
+
+export class ActivationCard extends React.Component<ActivationCardProps, any> {}
 export class Avatar extends React.Component<AvatarProps, any> {}
-export class Box extends React.Component<BoxProps, any> {}
-export class Button extends React.Component<ButtonProps, any> {}
+export class AvatarPair extends React.Component<AvatarPairProps, any> {}
+export class Badge extends React.Component<BadgeProps, any> {}
+export const Box: ReactForwardRef<HTMLDivElement, BoxProps>;
+export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>;
+export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
+export class Callout extends React.Component<CalloutProps, any> {}
 export class Card extends React.Component<CardProps, any> {}
-export class Checkbox extends React.Component<CheckboxProps, any> {}
+export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
+export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
@@ -989,28 +1277,47 @@ export class Flyout extends React.Component<FlyoutProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
 export class Icon extends React.Component<IconProps, any> {}
-export class IconButton extends React.Component<IconButtonProps, any> {}
+export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
 export class Image extends React.Component<ImageProps, any> {}
 export class Label extends React.Component<LabelProps, any> {}
+export class Layer extends React.Component<LayerProps, any> {}
 export class Letterbox extends React.Component<LetterboxProps, any> {}
-export class Link extends React.Component<LinkProps, any> {}
+export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
 export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
-export class Modal extends React.Component<ModalProps, any> {}
+export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
+export class Module extends React.Component<{}, any> {
+    static Expandable: React.FC<ModuleExpandableProps>;
+}
 export class Pog extends React.Component<PogProps, any> {}
+export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
-export class RadioButton extends React.Component<RadioButtonProps, any> {}
-export class SearchField extends React.Component<SearchFieldProps, any> {}
+export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
+export class Row extends React.Component<RowProps, any> {}
+export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
+export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export class Spinner extends React.Component<SpinnerProps, any> {}
+export class Stack extends React.Component<StackProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
 export class Switch extends React.Component<SwitchProps, any> {}
+export class Table extends React.Component<TableProps, any> {
+    static Body: React.FC<TableBodyProps>;
+    static Cell: React.FC<TableCellProps>;
+    static Footer: React.FC<TableFooterProps>;
+    static Header: React.FC<TableHeaderProps>;
+    static HeaderCell: React.FC<TableHeaderCellProps>;
+    static Row: React.FC<TableRowProps>;
+    static RowExpandable: React.FC<TableRowExpandableProps>;
+    static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
+}
 export class Tabs extends React.Component<TabsProps, any> {}
+export const TapArea: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, TapAreaProps>;
 export class Text extends React.Component<TextProps, any> {}
-export class TextArea extends React.Component<TextAreaProps, any> {}
-export class TextField extends React.Component<TextFieldProps, any> {}
+export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
+export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export class Touchable extends React.Component<TouchableProps, any> {}
+export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
 export class Video extends React.Component<VideoProps, any> {}

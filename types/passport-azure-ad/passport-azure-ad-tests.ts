@@ -4,7 +4,9 @@ import {
     OIDCStrategy,
     IBearerStrategyOptionWithRequest,
     IOIDCStrategyOptionWithRequest,
+    IOIDCStrategyOptionWithoutRequest,
     VerifyBearerFunctionWithReq,
+    VerifyOIDCFunction,
     VerifyOIDCFunctionWithReq,
     IProfile,
     VerifyCallback
@@ -25,6 +27,15 @@ const oidcStrategyOptions: IOIDCStrategyOptionWithRequest = {
     redirectUrl: "https://api.test.com"
 };
 
+const oidcStrategyOptionWithoutRequest: IOIDCStrategyOptionWithoutRequest = {
+    identityMetadata: "https://api.test.com",
+    clientID: "XXXXX",
+    passReqToCallback: false,
+    responseType: "id_token",
+    responseMode: "query",
+    redirectUrl: "https://api.test.com"
+};
+
 const verifyBearer: VerifyBearerFunctionWithReq = (req, token, done) => {
     if (!token.oid)
         done(null, token);
@@ -37,6 +48,14 @@ const verifyOidc: VerifyOIDCFunctionWithReq = (req: Request, profile: IProfile, 
     else done(new Error("Invalid token"));
 };
 
+const verifyOidcWithoutReq: VerifyOIDCFunction = (profile: IProfile, done: VerifyCallback) => {
+    if (!profile.oid)
+        done(null, profile);
+    else done(new Error("Invalid token"));
+};
+
 new BearerStrategy(bearerStrategyOptions, verifyBearer);
 
 new OIDCStrategy(oidcStrategyOptions, verifyOidc);
+
+new OIDCStrategy(oidcStrategyOptionWithoutRequest, verifyOidcWithoutReq);

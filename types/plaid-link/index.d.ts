@@ -1,6 +1,7 @@
 // Type definitions for non-npm package plaid-link-browser 2.0
-// Project: https://github.com/plaid/link (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/plaid/link
 // Definitions by: Aaron Holderman <https://github.com/afholderman>
+//                 Hannes Kindströmmer <https://github.com/brolaugh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 // TypeScript Version: 2.4
 
@@ -24,11 +25,16 @@ export namespace Plaid {
         onEvent?: OnEvent;
         onLoad?: OnLoad;
         language?: Language;
+        linkCustomizationName?: string;
         countryCodes?: Country[];
+        webhook?: string;
         userLegalName?: string;
         userEmailAddress?: string;
         token?: string;
         isWebView?: boolean;
+        oauthNonce?: string;
+        oauthRedirectUri?: string;
+        oauthStateId?: string;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
@@ -39,6 +45,7 @@ export namespace Plaid {
     interface LinkHandler {
         open: () => void;
         exit: (options?: ExitOptions) => void;
+        destroy: () => void;
         institutions: Institution[];
     }
 
@@ -48,6 +55,17 @@ export namespace Plaid {
     type Country = 'US' | 'CA' | 'GB';
 
     type VerificationStatus = 'pending_automatic_verification' | 'pending_manual_verification' | 'manually_verified';
+    type ViewName =
+        | 'CONNECTED'
+        | 'CREDENTIAL'
+        | 'ERROR'
+        | 'EXIT'
+        | 'LOADING'
+        | 'MFA'
+        | 'NUMBERS'
+        | 'RECAPTCHA'
+        | 'SELECT_ACCOUNT'
+        | 'SELECT_INSTITUTION';
     type EventName =
         | 'ERROR'
         | 'EXIT'
@@ -113,7 +131,7 @@ export namespace Plaid {
         mfa_type: string;
         request_id: string;
         timestamp: string;
-        view_name: string;
+        view_name: ViewName;
     }
     interface ExitOptions {
         force: boolean;

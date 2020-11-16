@@ -18,6 +18,7 @@ declare module "util" {
         let colors: {
             [color: string]: [number, number] | undefined
         };
+        const custom: unique symbol;
         let styles: {
             [style: string]: string | undefined
         };
@@ -55,7 +56,7 @@ declare module "util" {
     function isSymbol(object: any): object is symbol;
     /** @deprecated since v4.0.0 - use `value === undefined` instead. */
     function isUndefined(object: any): object is undefined;
-    function deprecate<T extends Function>(fn: T, message: string): T;
+    function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
     function isDeepStrictEqual(val1: any, val2: any): boolean;
 
     interface CustomPromisify<TCustom extends Function> extends Function {
@@ -109,10 +110,14 @@ declare module "util" {
     function promisify(fn: Function): Function;
 
     namespace types {
+        const custom: unique symbol;
         function isAnyArrayBuffer(object: any): boolean;
         function isArgumentsObject(object: any): object is IArguments;
         function isArrayBuffer(object: any): object is ArrayBuffer;
+        function isArrayBufferView(object: any): object is ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
+        function isBigInt64Array(value: any): value is BigInt64Array;
+        function isBigUint64Array(value: any): value is BigUint64Array;
         function isBooleanObject(object: any): object is Boolean;
         function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;

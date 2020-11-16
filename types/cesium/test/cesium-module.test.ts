@@ -9,6 +9,17 @@ const viewer = new Cesium.Viewer('#cesium', {
     geocoder: false,
 });
 
+// Mapbox tile provider
+const mapboxImagery = new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.streets',
+    accessToken: 'thisIsMyAccessToken'
+});
+// Mapbox style provider
+const mapboxStyle = new Cesium.MapboxStyleImageryProvider({
+    styleId: 'streets-v11',
+    accessToken: 'thisIsMyAccessToken'
+});
+
 const midnight = Cesium.JulianDate.fromDate(new Date(2018, 5, 14));
 const prop = new Cesium.SampledPositionProperty();
 
@@ -54,3 +65,63 @@ const quat: Cesium.Quaternion = Cesium.Quaternion.fromHeadingPitchRoll(hpr);
 const matrix: Cesium.Matrix3 = Cesium.Matrix3.fromHeadingPitchRoll(hpr);
 
 const webgl = Cesium.WebGLConstants.ALPHA;
+
+viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+const billboard = new Cesium.BillboardGraphics({
+    heightReference: new Cesium.ConstantProperty(Cesium.HeightReference.CLAMP_TO_GROUND),
+});
+
+const label = new Cesium.LabelGraphics({
+    heightReference: new Cesium.ConstantProperty(Cesium.HeightReference.CLAMP_TO_GROUND),
+});
+
+viewer.scene.globe.tileLoadProgressEvent.addEventListener((progress: number) => progress);
+viewer.scene.globe.terrainProviderChanged.addEventListener((provider: Cesium.TerrainProvider) => provider);
+
+// Cesium3DTileset
+const tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:8002/tilesets/Seattle/tileset.json',
+    skipLevelOfDetail: true,
+    baseScreenSpaceError: 1024,
+    skipScreenSpaceErrorFactor: 16,
+    skipLevels: 1,
+    immediatelyLoadDesiredLevelOfDetail: false,
+    loadSiblings: false,
+    cullWithChildrenBounds: true
+}));
+
+// Cesium3DTilesetGraphics
+const options = {
+    uri: '0',
+    show: false,
+    maximumScreenSpaceError: 2
+};
+
+const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);
+
+const polygonGraphics = new Cesium.PolygonGraphics({
+    hierarchy: Cesium.Cartesian3.fromDegreesArray([
+        -108.0,
+        42.0,
+        -100.0,
+        42.0,
+        -104.0,
+        40.0,
+    ]),
+});
+
+const polygonHierarchyProperty: Cesium.Property = polygonGraphics.hierarchy;
+
+const polylineGraphics = new Cesium.PolylineGraphics({
+    positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+        -75,
+        42,
+        250000,
+        -125,
+        42,
+        250000,
+    ]),
+});
+
+const polylinePositionsProperty: Cesium.Property = polylineGraphics.positions;

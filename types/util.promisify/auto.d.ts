@@ -1,3 +1,13 @@
-import shim = require("./shim");
+import polyfill = require('./index');
 
-export {};
+declare module 'util' {
+    namespace promisify {
+        /**
+         * @deprecated
+         * Not exposed by native `util.promisify` or supported by browserify's `util.promisify`.
+         *
+         * Use `util.promisify.custom` instead.
+         */
+        const customPromisifyArgs: typeof polyfill.customPromisifyArgs | undefined;
+    }
+}

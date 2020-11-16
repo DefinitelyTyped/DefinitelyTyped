@@ -4,13 +4,24 @@ import {
     MediaInformation,
     MediaCategory,
     QueueData,
+    Image,
 } from './cast.framework.messages';
 import { CastReceiverContext } from './cast.framework';
 
 export as namespace ui;
 export type ContentType = 'video' | 'audio' | 'image';
 
-export type State = 'launching' | 'idle' | 'loading' | 'buffering' | 'paused' | 'playing';
+/**
+ * UI state of receiver application.
+ */
+export enum State {
+    LAUNCHING = 'launching',
+    IDLE = 'idle',
+    LOADING = 'loading',
+    BUFFERING = 'buffering',
+    PAUSED = 'paused',
+    PLAYING = 'playing',
+}
 
 export enum PlayerDataEventType {
     ACTIVE_TRACK_IDS_CHANGED = 'activeTrackIdsChanged',
@@ -305,4 +316,378 @@ export class PlayerData {
      * Provide the time a break is skipable - relative to current playback time. Undefined if not skippable.
      */
     whenSkippable?: number;
+}
+
+/**
+ * Touch Controls. Provides interface for configuring controls on
+ * touch-enabled devices.
+ */
+export class Controls {
+    static getInstance(): Controls;
+
+    /**
+     * Displays button in the specified slot.
+     *
+     * Throws `non-null Error` if slot or button name is incorrect.
+     *
+     * @param slot
+     * @param button
+     */
+    assignButton(slot: ControlsSlot, button: ControlsButton): void;
+
+    /**
+     * Remove all buttons assigned by default from slots.
+     */
+    clearDefaultSlotAssignments(): void;
+
+    /**
+     * For audio applications only. Returns height in pixels of
+     * the area above the controls where application can render
+     * content without being overlapped by Cast SDK UI elements.
+     * CSS variable `--cast-controls-safe-area-height` can be
+     * used instead of this method.
+     *
+     * @returns height of safe area in px.
+     */
+    getSafeAreaHeight(): number;
+
+    /**
+     * Set Media Browse content for users to discover more
+     * contents from your receiver.
+     *
+     * @param browseContent
+     */
+    setBrowseContent(browseContent?: BrowseContent): void;
+}
+
+export class BrowseContent {
+    /**
+     * @param browseItems Array of non-null cast.framework.ui.BrowseItem
+     * List of browse items. Maximum items count is 30. Excess items will
+     * be truncated. Value must not be null
+     * @param title Title of the list
+     */
+    constructor(browseItems: BrowseItem[], title?: string);
+
+    /**
+     * List of browse items. Maximum items count is 30. Excess items will
+     * be truncated.
+     */
+    items: BrowseItem[];
+
+    /**
+     * Aspect ratio of all images in the media browse carousel. It's highly
+     * recommended to have browse item image provided in
+     * BrowseContentItem#image matching targetAspectRatio value. If image
+     * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
+     * it will be letterboxed.
+     */
+    targetAspectRation?: BrowseImageAspectRatio;
+
+    /**
+     * Title of the list.
+     */
+    title?: string;
+}
+
+export class BrowseItem {
+    /**
+     * @param entity Content entity information.
+     * @param title Main text of the browse item.
+     * @param subtitle Secondary text of the element. Both title and subtitle
+     * can be provided, but at least one of them is required.
+     * @param image Image displayed for browse item. Value must not be null.
+     */
+    constructor(entity: string, title?: string, subtitle?: string, image?: Image);
+
+    /**
+     * Content duration in seconds. If provided, duration indicator will be
+     * displayed over media browse item image. For example, if duration = 150,
+     * label will be 2:30. If duration is 0, no label will be displayed.
+     */
+    duration?: number;
+
+    /**
+     * Content entity information.
+     */
+    entity: string;
+
+    /**
+     * Image displayed for browse item. It's highly recommended to have image
+     * aspect ratio matching BrowseContent#targetAspectRatio value. If image
+     * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
+     * it will be letterboxed.
+     */
+    image?: Image;
+
+    /**
+     * Type of placeholder that will be used if image is not available for the
+     * browse item.
+     */
+    imageType?: BrowseImageType;
+
+    /**
+     * Additional badge to be displayed over the browse item image.
+     */
+    mediaBadge?: BrowseMediaBadge;
+
+    /**
+     * Secondary text of the element. Both title and subtitle can be provided,
+     * but at least one of them is required.
+     */
+    subtitle?: string;
+
+    /**
+     * Main text of the browse item.
+     */
+    title?: string;
+}
+
+/**
+ * Aspect ratio of all images in the media browse carousel.
+ */
+export enum BrowseImageAspectRatio {
+    /**
+     * Square images.
+     */
+    SQUARE_1_TO_1 = 'SQUARE_1_TO_1',
+
+    /**
+     * Portrait orientation images with 2:3 aspect ratio. UI
+     * for portrait orientation is not final and is a subject
+     * to change.
+     */
+    PORTRAIT_2_TO_3 = 'PORTRAIT_2_TO_3',
+
+    /**
+     * Landscape orientation images with 16:9 aspect ratio.
+     */
+    LANDSCAPE_16_TO_9 = 'LANDSCAPE_16_TO_9',
+}
+
+/**
+ * Type of placeholder that will be used if image is not
+ * available for the browse item.
+ */
+export enum BrowseImageType {
+    /**
+     * A playlist that consists of songs by a specific
+     * music artist or band, or radio seeded by an artist
+     * or band.
+     */
+    ARTIST = 'ARTIST',
+
+    /**
+     * An audio book.
+     */
+    AUDIO_BOOK = 'AUDIO_BOOK',
+
+    /**
+     * Episode of a TV show.
+     */
+    EPISODE = 'EPISODE',
+
+    /**
+     * A movie.
+     */
+    MOVIE = 'MOVIE',
+
+    /**
+     * A playlist that consists of songs from a specific
+     * music album or radio seeded by album.
+     */
+    MUSIC_ALBUM = 'MUSIC_ALBUM',
+
+    /**
+     * A music genre.
+     */
+    MUSIC_GENRE = 'MUSIC_GENRE',
+
+    /**
+     * A music mix seeded by genre.
+     */
+    MUSIC_MIX = 'MUSIC_MIX',
+
+    /**
+     * A song track or radio seeded by the track.
+     */
+    MUSIC_TRACK = 'MUSIC_TRACK',
+
+    /**
+     * News audio or video.
+     */
+    NEWS = 'NEWS',
+
+    /**
+     * An image.
+     */
+    PHOTO = 'PHOTO',
+
+    /**
+     * A playlist publicly available or radio seeded by playlist.
+     * Playlists always contain a finite and defined set of songs.
+     */
+    PLAYLIST = 'PLAYLIST',
+
+    /**
+     * A podcast series.
+     */
+    PODCAST = 'PODCAST',
+
+    /**
+     * A radio station. This could be a terrestrial or an internet
+     * radio station.
+     */
+    RADIO_STATION = 'RADIO_STATION',
+
+    /**
+     * A TV show.
+     */
+    TV_SHOW = 'TV_SHOW',
+
+    /**
+     * A single video.
+     */
+    VIDEO = 'VIDEO',
+}
+
+/**
+ * Badge that will be displayed on top of the browse item image.
+ */
+export enum BrowseMediaBadge {
+    /**
+     * LIVE indicator badge. Should be used if stream is a live
+     * content.
+     */
+    LIVE = 'LIVE',
+}
+
+/**
+ * Predefined buttons for the Media Controls overlay
+ */
+export enum ControlsButton {
+    /**
+     * Turn on/off closed captions.
+     */
+    CAPTIONS = 'captions',
+
+    /**
+     * Dislike butoon.
+     */
+    DISLIKE = 'dislike',
+
+    /**
+     * Like button.
+     */
+    LIKE = 'like',
+
+    /**
+     * Clear slot from any buttons.
+     */
+    NO_BUTTON = 'no-button',
+
+    /**
+     * Go to the next item in queue.
+     */
+    QUEUE_NEXT = 'queue-next',
+
+    /**
+     * Go to the previous item in queue.
+     */
+    QUEUE_PREV = 'queue-prev',
+
+    /**
+     * Toggle repeat mode.
+     */
+    REPEAT = 'repeat',
+
+    /**
+     * Seek 10 seconds backward.
+     */
+    SEEK_BACKWARD_10 = 'seek-backward-10',
+
+    /**
+     * Seek 15 seconds backward.
+     */
+    SEEK_BACKWARD_15 = 'seek-backward-15',
+
+    /**
+     * Seek 30 seconds backward.
+     */
+    SEEK_BACKWARD_30 = 'seek-backward-30',
+
+    /**
+     * Seek 10 seconds forward.
+     */
+    SEEK_FORWARD_10 = 'seek-forward-10',
+
+    /**
+     * Seek 15 seconds forward.
+     */
+    SEEK_FORWARD_15 = 'seek-forward-15',
+
+    /**
+     * Seek 30 seconds forward.
+     */
+    SEEK_FORWARD_30 = 'seek-forward-30',
+
+    /**
+     * Toggle shuffle mode.
+     */
+    SHUFFLE = 'shuffle',
+
+    /**
+     * Undocumented
+     */
+    SLEEP_TIMER = 'sleep-timer',
+}
+
+export enum ControlsSlot {
+    /**
+     * Side left slot. Deprecated, use SLOT_SECONDARY_1 instead.
+     *
+     * @deprecated
+     */
+    SLOT_1 = 'slot-1',
+
+    /**
+     * Center left slot. Deprecated, use SLOT_PRIMARY_1 instead.
+     *
+     * @deprecated
+     */
+    SLOT_2 = 'slot-2',
+
+    /**
+     * Center right slot. Deprecated, use SLOT_PRIMARY_2 instead.
+     *
+     * @deprecated
+     */
+    SLOT_3 = 'slot-3',
+
+    /**
+     * Side right slot. Deprecated, use SLOT_SECONDARY_2 instead.
+     *
+     * @deprecated
+     */
+    SLOT_4 = 'slot-4',
+
+    /**
+     * Center left slot. Placed to the left of the play/pause button.
+     */
+    SLOT_PRIMARY_1 = 'slot-primary-1',
+
+    /**
+     * Center right slot. Placed to the right of the play/pause button.
+     */
+    SLOT_PRIMARY_2 = 'slot-primary-2',
+
+    /**
+     * Side left slot. Aligned to the left edge of the screen.
+     */
+    SLOT_SECONDARY_1 = 'slot-secondary-1',
+
+    /**
+     * Side right slot. Aligned to the right edge of the screen.
+     */
+    SLOT_SECONDARY_2 = 'slot-secondary-2',
 }
