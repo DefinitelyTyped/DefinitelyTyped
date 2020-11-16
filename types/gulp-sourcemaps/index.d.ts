@@ -1,6 +1,6 @@
 // Type definitions for gulp-sourcemaps
 // Project: https://github.com/gulp-sourcemaps/gulp-sourcemaps
-// Definitions by: Asana <https://asana.com>
+// Definitions by: Phips Peter <https://github.com/pspeter3>
 //                 Concision <https://github.com/concision>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
