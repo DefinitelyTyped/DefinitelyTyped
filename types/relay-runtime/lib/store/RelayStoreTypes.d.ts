@@ -63,6 +63,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null | undefined;
 }
 
 /**
@@ -580,7 +581,6 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
@@ -832,17 +832,17 @@ export type MissingFieldHandler =
  */
 export type RequiredFieldLogger = (
     arg:
-      | Readonly<{
-          kind: "missing_field.log",
-          owner: string,
-          fieldPath: string,
-        }>
-      | Readonly<{
-          kind: "missing_field.throw",
-          owner: string,
-          fieldPath: string,
-        }>
-  ) => void;
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
 
 /**
  * The results of normalizing a query.
