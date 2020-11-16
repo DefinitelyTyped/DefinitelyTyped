@@ -1,4 +1,4 @@
-// Type definitions for visualne 0.1
+// Type definitions for visualne 1.0.1
 // Project: https://github.com/vamidi/storytime
 // Definitions by: Valencio Hoffman <https://github.com/vamidi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
