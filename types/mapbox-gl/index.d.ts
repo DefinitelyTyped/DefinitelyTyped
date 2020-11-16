@@ -1871,7 +1871,7 @@ declare namespace mapboxgl {
         | HeatmapPaint
         | HillshadePaint;
 
-    export interface LayerBase {
+    interface LayerBase {
         id: string;
 
         metadata?: any;
