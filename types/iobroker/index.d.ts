@@ -81,6 +81,8 @@ declare global {
             min?: number;
             /** maximum value */
             max?: number;
+            /** allowed interval for numeric values */
+            step?: number;
             /** unit of the value */
             unit?: string;
             /** description of this state */
