@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.12
+// Type definitions for jQueryUI 1.12.1
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -444,6 +444,7 @@ declare namespace JQueryUI {
     interface DraggableEventUIParams {
         helper: JQuery;
         position: { top: number; left: number; };
+        originalPosition: { top: number; left: number; };
         offset: { top: number; left: number; };
     }
 
