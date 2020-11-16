@@ -9,16 +9,22 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 ## Tabela de Conteúdos
 
 * [Status atual](#status-atual)
+* [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)
+* [Como eu consigo eles?](#como-eu-consigo-eles)
 * [Como eu posso contribuir?](#como-eu-posso-contribuir)
-    * [Testando](#testando)
-    * [Faça uma pull request](#faça-uma-pull-request)
-        * [Edite um pacote existente](#edite-um-pacote-existente)
-        * [Crie um novo pacote](#crie-um-novo-pacote)
-        * [Erros comuns](#erros-comuns)
-        * [Removendo um pacote](#removendo-um-pacote)
-        * [Linter](#linter)
-        * [Verificando](#verificando)
+  - [Testando](#testando)
+  - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
+    - [Edite um pacote existente](#edite-um-pacote-existente)
+    - [Editando testes em um pacote existente](#editando-testes-em-um-pacote-existente)
+    - [Crie um novo pacote](#crie-um-novo-pacote)
+    - [Erros comuns](#erros-comuns)
+    - [Removendo um pacote](#removendo-um-pacote)
+    - [Linter](#linter)
+    - [Verificando](#verificando)
+    </details>
+  - [Donos de definição](#donos-de-definição)
 * [FAQ](#faq)
+* [Licença](#licença)
 
 ## Status atual
 
@@ -222,7 +228,7 @@ Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém ten
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-## Donos de definição
+### Donos de definição
 
 O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
   - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
@@ -330,7 +336,7 @@ f("um");
 
 Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
 
-## Verificando
+#### Verificando
 
 Teste suas mudanças executando o comando `npm run lint nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 

@@ -4,6 +4,21 @@
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
+## Table of Contents
+
+* [¿Qué son los `declaration files`?](#¿qué-son-los-declaration-files)
+* [¿Cómo los obtengo?](#¿cómo-los-obtengo)
+* [¿Cómo puedo contribuir?](#¿cómo-puedo-contribuir)
+  - [Prueba](#prueba)
+  - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
+    - [Editar un paquete existente](#editar-un-paquete-existente)
+    - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
+    - [Errores comunes](#errores-comunes)
+    - [Remover un paquete](#remover-un-paquete)
+    - [Lint](#lint)
+    </details>
+* [FAQ](#faq)
+* [Licencia](#licencia)
 
 ## ¿Qué son los `declaration files`?
 
