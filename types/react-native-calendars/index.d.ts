@@ -51,6 +51,9 @@ export interface CalendarTheme {
     textSectionTitleColor?: string;
     todayTextColor?: string;
     indicatorColor?: string;
+    textDayStyle?: TextStyle;
+    dotStyle?: ViewStyle;
+    arrowStyle?: ViewStyle;
 
     // Theme ID's to style for
     'stylesheet.calendar.header'?: CalendarThemeIdStyle;

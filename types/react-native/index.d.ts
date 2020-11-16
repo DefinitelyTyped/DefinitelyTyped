@@ -828,7 +828,8 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
-        | MatrixTransform)[];
+        | MatrixTransform
+    )[];
     /**
      * @deprecated Use matrix in transform prop instead.
      */
@@ -4393,10 +4394,12 @@ export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> ex
     section: SectionListData<ItemT, SectionT>;
 }
 
-export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> =
-    (info: SectionListRenderItemInfo<ItemT, SectionT>) => React.ReactElement | null;
+export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> = (
+    info: SectionListRenderItemInfo<ItemT, SectionT>,
+) => React.ReactElement | null;
 
-export interface SectionListProps<ItemT, SectionT = DefaultSectionT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
+    extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4548,8 +4551,9 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<SectionListProps<ItemT,
-    SectionT>> {
+export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<
+    SectionListProps<ItemT, SectionT>
+> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4583,7 +4587,8 @@ export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.
 }
 
 /* This definition is deprecated because it extends the wrong base type */
-export interface SectionListStatic<ItemT, SectionT = DefaultSectionT> extends React.ComponentClass<SectionListProps<ItemT, SectionT>> {
+export interface SectionListStatic<ItemT, SectionT = DefaultSectionT>
+    extends React.ComponentClass<SectionListProps<ItemT, SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -8402,7 +8407,13 @@ export interface ToastAndroidStatic {
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
 
-    showWithGravityAndOffset(message: string, duration: number, gravity: number, xOffset: number, yOffset: number): void;
+    showWithGravityAndOffset(
+        message: string,
+        duration: number,
+        gravity: number,
+        xOffset: number,
+        yOffset: number,
+    ): void;
     // Toast duration constants
     SHORT: number;
     LONG: number;
@@ -9120,7 +9131,9 @@ export namespace Animated {
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
     export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<AnimatedProps<SectionListProps<ItemT, SectionT>>> {}
+    export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<
+        AnimatedProps<SectionListProps<ItemT, SectionT>>
+    > {}
 }
 
 // tslint:disable-next-line:interface-name
@@ -9617,14 +9630,56 @@ export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 export const DeviceEventEmitter: DeviceEventEmitterStatic;
 
 /**
+ * The React Native implementation of the IOS RCTEventEmitter which is required when creating
+ * a module that communicates with IOS
+ */
+type NativeModule = {
+    /**
+     * Add the provided eventType as an active listener
+     * @param eventType name of the event for which we are registering listener
+     */
+    addListener: (eventType: string) => void;
+
+    /**
+     * Remove a specified number of events.  There are no eventTypes in this case, as
+     * the native side doesn't remove the name, but only manages a counter of total
+     * listeners
+     * @param count number of listeners to remove (of any type)
+     */
+    removeListeners: (count: number) => void;
+};
+
+/**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export class NativeEventEmitter extends EventEmitter {
+declare class NativeEventEmitter extends EventEmitter {
+    /**
+     * @param nativeModule the NativeModule implementation.  This is required on IOS and will throw
+     *      an invariant error if undefined.
+     */
+    constructor(nativeModule?: NativeModule);
+
+    /**
+     * Add the specified listener, this call passes through to the NativeModule
+     * addListener
+     *
+     * @param eventType name of the event for which we are registering listener
+     * @param listener the listener function
+     * @param context context of the listener
+     */
+    addListener(eventType: string, listener: (event: any) => void, context?: Object): EmitterSubscription;
+
     /**
      * @param eventType  name of the event whose registered listeners to remove
      */
     removeAllListeners(eventType: string): void;
+
+    /**
+     * Removes a subscription created by the addListener, the EventSubscription#remove()
+     * function actually calls through to this.
+     */
+    removeSubscription(subscription: EmitterSubscription): void;
 }
 
 /**

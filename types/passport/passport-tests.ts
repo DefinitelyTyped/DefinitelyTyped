@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import express = require('express');
-import { InitializedSession } from 'express-session';
+import 'express-session';
 
 declare global {
     namespace Express {
@@ -102,7 +102,7 @@ app.post('/login', (req, res, next) => {
         if (err) { return next(err); }
         if (!user) {
             if (req.session) {
-                (req.session as InitializedSession).error = info.message;
+                req.session.error = info.message;
             }
             return res.redirect('/login');
         }

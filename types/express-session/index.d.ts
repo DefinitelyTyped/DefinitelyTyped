@@ -24,7 +24,7 @@ declare global {
              *
              * @see SessionData
              */
-            session: session.Session | session.InitializedSession;
+            session: session.Session & Partial<session.SessionData>;
 
             /**
              * This request's session ID.
@@ -40,8 +40,6 @@ export = session;
 declare function session(options?: session.SessionOptions): express.RequestHandler;
 
 declare namespace session {
-    type InitializedSession = Session & SessionData;
-
     interface SessionOptions {
         /**
          * This is the secret used to sign the session cookie. This can be either a string for a single secret, or an array of multiple secrets.

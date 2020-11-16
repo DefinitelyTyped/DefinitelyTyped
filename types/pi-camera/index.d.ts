@@ -1,4 +1,4 @@
-// Type definitions for pi-camera 1.3
+// Type definitions for pi-camera 1.5
 // Project: https://github.com/stetsmando/pi-camera
 // Definitions by: Ata Berk YILMAZ <https://github.com/ataberkylmz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,6 +21,10 @@ interface cameraConfig {
   opacity?: number;
   annotate?: string | number;
   exif?: string;
+  brightness?: number;
+  contrast?: number;
+  shutter?: number;
+  saturation?: number;
   raw?: boolean;
   verbose?: boolean;
   fullscreen?: boolean;
@@ -35,6 +39,7 @@ interface cameraConfig {
 declare class PiCamera {
   constructor(config: cameraConfig);
   snap(): Promise<string>;
+  snapDataUrl(): Promise<string>;
   record(): Promise<string>;
   get(prop: string): string | number | boolean;
   set(prop: string, value: string | number | boolean): string | number | boolean;
