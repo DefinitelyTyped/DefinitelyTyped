@@ -1,4 +1,4 @@
-// Type definitions for browser-or-node 1.3.0
+// Type definitions for browser-or-node 1.3
 // Project: https://github.com/flexdinesh/browser-or-node
 // Definitions by: Jussi Kinnula <https://github.com/jussikinnula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
