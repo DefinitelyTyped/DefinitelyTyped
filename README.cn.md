@@ -11,15 +11,20 @@
 ## 目录
 
 * [当前状态](#当前状态)
-* [我该如何贡献？](#我该如何贡献)
-    * [测试](#测试)
-    * [发起一个 pull request](#发起一个-pull-request)
-        * [编辑一个现有包](#编辑一个现有包)
-        * [创建一个新的包](#创建一个新的包)
-        * [常见错误](#常见错误)
-        * [删除一个包](#删除一个包)
-        * [Linter](#linter)
+* [什么是声明文件？](#什么是声明文件？)
+* [如何去获取它？](#如何去获取它？)
+* [我该如何贡献？](#我该如何贡献？)
+  - [测试](#测试)
+  - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
+    - [编辑一个现有包](#编辑一个现有包)
+    - [创建一个新的包](#创建一个新的包)
+    - [常见错误](#常见错误)
+    - [删除一个包](#删除一个包)
+    - [Linter](#linter)
+    - [验证](#验证)
+    </details>
 * [FAQ](#faq)
+* [许可证](#许可证)
 
 ## 当前状态
 
@@ -265,7 +270,7 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-## 验证
+#### 验证
 
 通过运行 `npm run lint package-name` 去测试你的改动，其中 `package-name` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
