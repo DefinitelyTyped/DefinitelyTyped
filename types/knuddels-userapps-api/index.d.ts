@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20200602151918
+// Type definitions for non-npm package Knuddels UserApps API 1.20201116142410
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,6 +123,13 @@ declare global {
 		 */
 		onUserLeft?(
 			user: User
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/App.html#method_onDebtsUpdate
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		onDebtsUpdate?(
+			debts: KnuddelAmount
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/App.html#method_onAppEventReceived
@@ -394,6 +401,13 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/AppInfo.html#method_getMaxPayoutKnuddelAmount
 		 */
 		getMaxPayoutKnuddelAmount(): KnuddelAmount;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/AppInfo.html#method_requestKnuddelDebts
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		requestKnuddelDebts(
+			callback: (debts: number, result: string) => void
+		): void;
 	}
 
 	/**
@@ -893,8 +907,14 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeEventListener
 		 */
 		static removeEventListener(
+			type: string
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeEventListener
+		 */
+		static removeEventListener(
 			type: string,
-			callback?: (event: {type: string, data: KnuddelsEvent}) => void
+			callback: (event: {type: string, data: KnuddelsEvent}) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_includeCSS
@@ -1902,12 +1922,12 @@ declare global {
 		requestKnuddelBuyBonusInfos(
 			user: User,
 			callback: (user: User, bonusEndTimestamp: number, bonuses: [{
-		productId: string,
-		origPriceCents: number,
-		newPriceCents?: number,
-		origKnuddelPayout: number,
-		newKnuddelPayout?: number
-	}], result: string) => void
+				productId: string,
+				origPriceCents: number,
+				newPriceCents?: number,
+				origKnuddelPayout: number,
+				newKnuddelPayout?: number
+			}], result: string) => void
 		): void;
 	}
 
@@ -2293,7 +2313,14 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
 		 */
 		replaceAll(
-			regexp: string|RegExp,
+			search: string,
+			replacement: string
+		): string;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
+		 */
+		replaceAll(
+			regexp: RegExp,
 			replacement: string
 		): string;
 		/**
@@ -2927,6 +2954,22 @@ declare global {
 			}
 		): void;
 		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getUserIdsByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getUserIdsByKey(
+			key: string,
+			callback: (userIds: Number[]) => void
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getNicksByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getNicksByKey(
+			key: string,
+			callback: (nicks: String[]) => void
+		): void;
+		/**
 		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getAllKeys
 		 * @since AppServer 82483
 		 */
@@ -2965,6 +3008,22 @@ declare global {
 				onEnd?: (totalCount: number, key: string) => void;
 				online?: boolean;
 			}
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getUserIdsByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getUserIdsByKey(
+			key: string,
+			callback: (userIds: Number[]) => void
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getNicksByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getNicksByKey(
+			key: string,
+			callback: (nicks: String[]) => void
 		): void;
 	}
 
@@ -3008,6 +3067,22 @@ declare global {
 				onEnd?: (totalCount: number, key: string) => void;
 				online?: boolean;
 			}
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getUserIdsByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getUserIdsByKey(
+			key: string,
+			callback: (userIds: Number[]) => void
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getNicksByKey
+		 * @since AppServer 20201113-145716, ChatServer 20201113-145716
+		 */
+		getNicksByKey(
+			key: string,
+			callback: (nicks: String[]) => void
 		): void;
 	}
 
