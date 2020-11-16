@@ -18053,7 +18053,7 @@ declare namespace Excel {
         readonly historyRecords: Excel.TaskHistoryRecordCollection;
         /**
          *
-         * Gets the users to which the task is assigned.
+         * Gets the users to whom the task is assigned.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
