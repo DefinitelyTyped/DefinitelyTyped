@@ -3,7 +3,7 @@
 // Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler, Response } from "express";
+import { RequestHandler, Response, Request } from "express";
 
 // Everything related to Forest constants
 
@@ -22,7 +22,7 @@ export class RecordGetter extends AbstractRecordTool {
 
 export class RecordsGetter extends AbstractRecordTool {
     getAll(params: Params): Promise<object[]>;
-    getIdsFromRequest(params: Params): Promise<string[]>;
+    getIdsFromRequest(request: Request): Promise<string[]>;
 }
 
 export class RecordsCounter extends AbstractRecordTool {
