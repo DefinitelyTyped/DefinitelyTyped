@@ -27,7 +27,6 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { PathProps } from 'react-native-svg';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import { StackNavigationOptions } from '@react-navigation/stack';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
@@ -127,12 +126,12 @@ declare module 'tuya-panel-kit' {
         dots?:
             | React.ElementType
             | ((params: {
-                    dotStyle: StyleProp<ViewStyle>;
-                    dotWrapperStyle: StyleProp<ViewStyle>;
-                    dotActiveStyle: StyleProp<ViewStyle>;
-                    currentIndex: number;
-                    count: number;
-                }) => React.ReactNode);
+                  dotStyle: StyleProp<ViewStyle>;
+                  dotWrapperStyle: StyleProp<ViewStyle>;
+                  dotActiveStyle: StyleProp<ViewStyle>;
+                  currentIndex: number;
+                  count: number;
+              }) => React.ReactNode);
         dotStyle?: StyleProp<ViewStyle>;
         dotActiveStyle?: StyleProp<ViewStyle>;
         pageStyle?: StyleProp<ViewStyle>;
@@ -219,14 +218,14 @@ declare module 'tuya-panel-kit' {
         locale?:
             | string
             | {
-                    year?: string;
-                    month?: string;
-                    day?: string;
-                    hour?: string;
-                    minute?: string;
-                    am?: string;
-                    pm?: string;
-            };
+                  year?: string;
+                  month?: string;
+                  day?: string;
+                  hour?: string;
+                  minute?: string;
+                  am?: string;
+                  pm?: string;
+              };
         mode?: 'datetime' | 'date' | 'time' | 'month' | 'year';
         loop?: boolean;
         use12Hours?: boolean;
@@ -425,8 +424,7 @@ declare module 'tuya-panel-kit' {
     }
 
     // IconFont
-
-    interface IconFontProps extends PathProps {
+    interface IconFontProps {
         viewBox?: string;
         useART?: true;
         ascent?: number;
@@ -452,6 +450,8 @@ declare module 'tuya-panel-kit' {
         strokeJoin?: 'round' | 'miter' | 'bevel';
         strokeCap?: 'round' | 'butt' | 'square';
         strokeDash?: number[];
+        d?: string;
+        opacity?: string | number;
     }
 
     class IconFont extends React.Component<IconFontProps> {}
@@ -890,8 +890,8 @@ declare module 'tuya-panel-kit' {
             | string
             | StopsProps[]
             | {
-                [key: string]: string;
-            };
+                  [key: string]: string;
+              };
         x1?: string;
         x2?: string;
         y1?: string;
@@ -956,8 +956,8 @@ declare module 'tuya-panel-kit' {
             | string
             | StopsProps[]
             | {
-                [key: string]: string;
-            };
+                  [key: string]: string;
+              };
         thumbFill?: string;
         thumbStrokeWidth?: number;
         thumbStroke?: string;
@@ -1127,8 +1127,8 @@ declare module 'tuya-panel-kit' {
             tintColor?:
                 | string
                 | {
-                    [key: string]: string;
-                };
+                      [key: string]: string;
+                  };
             onTintColor?: string;
             thumbTintColor?: string;
             onThumbTintColor?: string;
@@ -1143,13 +1143,13 @@ declare module 'tuya-panel-kit' {
         tintColor?:
             | string
             | {
-                [key: string]: string;
-            };
+                  [key: string]: string;
+              };
         onTintColor?:
             | string
             | {
-                [key: string]: string;
-            };
+                  [key: string]: string;
+              };
         thumbTintColor?: string;
         onThumbTintColor?: string;
         borderColor?: string;
