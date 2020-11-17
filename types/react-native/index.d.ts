@@ -471,9 +471,9 @@ export interface Insets {
     right?: number;
 }
 
-export type PressableStateCallbackType = Readonly<{
-    pressed: boolean;
-}>;
+export interface PressableStateCallbackType {
+    readonly pressed: boolean;
+}
 
 export interface PressableAndroidRippleConfig {
     color?: null | ColorValue;
