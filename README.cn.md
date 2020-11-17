@@ -21,6 +21,7 @@
     - [常见错误](#常见错误)
     - [删除一个包](#删除一个包)
     - [Linter](#linter)
+    - [<my package>-tests.ts](#my-package-teststs)
     - [验证](#验证)
     </details>
 * [FAQ](#faq)
@@ -142,8 +143,8 @@ Version | Released | End of Support
 
 #### 编辑一个现有包
 
-* `cd types/my-package-to-edit`
-* 作出修改之后，记得新增测试。
+* `cd types/<package to edit>`
+* 作出修改之后，[记得新增测试](#my-package-teststs)。
   如果你进行了重大修改，不要忘记 [更新主版本](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
@@ -155,7 +156,7 @@ Version | Released | End of Support
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* 如果这里有 `tslint.json` 文件，就运行 `npm run lint package-name`。否则，在包目录里运行 `tsc`.
+* [就运行 `npm test <package to test>`](#验证).
 
 当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
@@ -173,11 +174,11 @@ Version | Released | End of Support
 | 文件名 | 目的 |
 | --- | --- |
 | index.d.ts | 这里包含了包的类型声明。 |
-| foo-tests.ts | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
+| [<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | tsconfig.json | 这里允许你在包里运行 `tsc`. |
 | tslint.json | 启用 linting. |
 
-如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name my-package-name --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name my-package-name --template module`.
+如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
 
 你可以编辑 `tsconfig.json` 来增加新文件，增加 `"target": "es6"` (异步函数需要)，去增加 `"lib"`，或者增加 `"jsx"` 编译选项。
@@ -219,7 +220,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 - `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 "typingsPackageName" 相同，这种情况下你可以忽略它。
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
-你可以查看 `npm run test` 中的错误来获得此列表。
+你可以查看 `npm test` 中的错误来获得此列表。
 添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 `package.json` 文件，去修复这些错误。
 比如：
 
@@ -258,6 +259,43 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 (若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `//tslint:disable-next-line rule-name` 更好。)
 
+#### <my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#验证) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
 若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `$ExpectError`.
 
 ```js
@@ -272,7 +310,7 @@ f("one");
 
 #### 验证
 
-通过运行 `npm run lint package-name` 去测试你的改动，其中 `package-name` 是你的包名。
+通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
 
 

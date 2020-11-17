@@ -19,6 +19,7 @@
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [린터](#린터)
+    - [<my package>-tests.ts](#my-package-teststs)
     - [검증하기](#검증하기)
     </details>
 * [자주 하는 질문들](#자주-하는-질문들)
@@ -153,8 +154,8 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 #### 이미 존재하는 패키지를 수정하기
 
-* `cd types/my-package-to-edit` 명령을 실행합니다.
-* 자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
+* `cd types/<package to edit>` 명령을 실행합니다.
+* 자료형(Typing) 파일들을 수정합니다. [테스트를 추가하는 것도 잊지마세요](#my-package-teststs)!
   만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#패키지를-새-메이저-버전major-version에-맞게-갱신하고-싶어요)을 꼭 올려주세요.
 * 패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
   - 이름을 추가하시면 다른 사람들이 그 패키지에 대한 풀 리퀘스트(Pull request)나 이슈(Issue)를 만들 때 여러분에게 알람이 갑니다.
@@ -166,7 +167,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `tslint.json` 파일이 있는 경우에는, `npm run lint package-name` 명령을 실행시키고 결과를 확인해주세요. 그렇지 않은 경우에는, 해당 패키지가 있는 디렉토리 안에서 `tsc` 명령을 실행시키고 결과를 확인해주세요.
+* [`npm test <package to test>` 명령을 실행시키고 결과를 확인해주세요](#검증하기).
 
 이미 존재하는 패키지에 대한 풀 리퀘스트(Pull request)를 만들었을 경우에는, `dt-bot` 이 이전 저자들을 자동으로 호출하는지 확인해주세요.
 그렇지 않은 경우에는, 여러분이 직접 풀 리퀘스트(Pull request)와 관계있는 사람들을 호출할 수도 있습니다.
@@ -185,12 +186,12 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | 파일 이름 | 용도 |
 | --- | --- |
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
-| foo-tests.ts | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| [<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
 | tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
-이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name my-package-name --template module` 명령으로,
-그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name my-package-name --template module` 명령으로 만들 수 있습니다.
+이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my package> --template module` 명령으로,
+그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my package> --template module` 명령으로 만들 수 있습니다.
 `dts-gen` 의 모든 옵션(Option)을 보고싶으시면 [dts-gen](https://github.com/Microsoft/dts-gen) 저장소를 확인해주세요.
 
 자료형(Typing) 패키지에 새 파일을 추가하거나, `async` 키워드를 사용하기 위해 `"target"` 을 `"es6"` 로 설정하거나, `"lib"` 를 추가하거나, `jsx` 지원을 추가하기 위해서 `tsconfig.json` 파일을 변경해야 할 수도 있습니다.
@@ -253,6 +254,43 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 (린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `//tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
 
+#### <my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#검증하기) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
 어떤 표현식(Expression)이 특정한 형(Type)을 가진다고 단언(Assert)하고 싶을 때에는 `$ExpectType` 를 사용하시면 됩니다. 어떤 표현식(Expression)이 컴파일에 실패해야하는 경우에는 `$ExpectError` 를 하시면 됩니다.
 
 ```js
@@ -267,7 +305,7 @@ f("one");
 
 #### 검증하기
 
-`npm run lint package-name` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `package-name`은 테스트하고 싶은 패키지의 이름입니다.
+`npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
 
 작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
 

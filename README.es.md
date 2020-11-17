@@ -16,6 +16,8 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Errores comunes](#errores-comunes)
     - [Remover un paquete](#remover-un-paquete)
     - [Lint](#lint)
+    - [<my package>-tests.ts](#my-package-teststs)
+    - [Running Tests](#running-tests)
     </details>
 * [FAQ](#faq)
 * [Licencia](#licencia)
@@ -130,8 +132,8 @@ Primero, haz un [fork](https://guides.github.com/activities/forking/) en este re
 
 #### Editar un paquete existente
 
-* `cd types/my-package-to-edit`
-* Haz cambios. Recuerda editar las pruebas.
+* `cd types/<package to edit>`
+* Haz cambios. Recuerda [editar las pruebas](#my-package-teststs).
   Si realiza cambios importantes, no olvide [actualizar una versión principal](#quiero-actualizar-un-paquete-a-una-nueva-versión-principal).
 * También puede que quieras añadirle la sección "Definitions by" en el encabezado del paquete.
   - Esto hará que seas notificado (a través de tu nombre de usuario en GitHub) cada vez que alguien haga un pull request o issue sobre el paquete.
@@ -143,7 +145,7 @@ Primero, haz un [fork](https://guides.github.com/activities/forking/) en este re
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* Si hay un `tslint.json`, ejecuta `npm run lint package-name`. De lo contrario, ejecuta `tsc` en el directorio del paquete.
+* [Ejecuta `npm test <package to test>`](#running-tests).
 
 Cuando hagas un PR para editar un paquete existente, `dt-bot` deberá @-mencionar a los autores previos.
 Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
@@ -162,11 +164,11 @@ Tu paquete debería tener esta estructura:
 | Archivo | Propósito |
 | --- | --- |
 | index.d.ts | Este contiene los typings del paquete. |
-| foo-tests.ts | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
+| [<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
 | tslint.json | Permite linting. |
 
-Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name my-package-name --template module`.
+Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
 
 También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
@@ -228,6 +230,43 @@ Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha 
 
 (Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `//tslint:disable-next-line rule-name`.)
 
+#### <my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
 Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `$ExpectError`.
 
 ```js
@@ -240,7 +279,9 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Realiza una prueba ejecutando `npm run lint package-name` donde `package-name` es el nombre de tu paquete.
+#### Running Tests
+
+Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
 Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
 
 

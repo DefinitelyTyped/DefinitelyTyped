@@ -19,6 +19,7 @@ _Вы также можете прочитать этот README на [англ�
     - [Распространенные ошибки](#распространенные-ошибки)
     - [Удаление пакета](#удаление-пакета)
     - [Linter](#linter)
+    - [<my package>-tests.ts](#my-package-teststs)
     - [Проверка](#проверка)
     </details>
 * [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
@@ -148,8 +149,8 @@ Definitely Typed работает только благодаря вкладу �
 
 #### Изменение существующего пакета
 
--   `cd types/my-package-to-edit`
--   Внесите изменения. Не забудьте отредактировать тесты.
+-   `cd types/<package to edit>`
+-   Внесите изменения. [Не забудьте отредактировать тесты](#my-package-teststs).
     Если вы вносите критические изменения, не забудьте [обновить основную версию](#i-want-to-update-a-package-to-a-new-major-version).
 -   Вы также можете добавить себя в раздел "Definitions by" заголовка пакета.
 
@@ -164,7 +165,7 @@ Definitely Typed работает только благодаря вкладу �
     //                 John <https://github.com/john>
     ```
 
--   Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` в директории пакета.
+-   [Запустите `npm test <package to test>`](#проверка).
 
 Когда вы создаете PR для редактирования существующего пакета, `dt-bot` должен @-уведомить
 предыдущих авторов. Если этого не произойдет, вы можете сделать это самостоятельно в комментарии, связанном с PR.
@@ -182,11 +183,11 @@ Definitely Typed работает только благодаря вкладу �
 | Файл          | Назначение                                                                                           |
 | ------------- | ---------------------------------------------------------------------------------------------------- |
 | index.d.ts    | Содержит типизацию для пакета.                                                                       |
-| foo-tests.ts  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
+| [<my package>-tests.ts](#my-package-teststs)  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | tsconfig.json | Позволяет вам запускать `tsc` внутри пакета.                                                         |
 | tslint.json   | Включает linting.                                                                                    |
 
-Создайте их, запустив `npx dts-gen --dt --name my-package-name --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name my-package-name --template module` в противном случае.
+Создайте их, запустив `npx dts-gen --dt --name <my package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my package> --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Вы можете отредактировать `tsconfig.json` чтобы добавить новые файлы, добавить `"target": "es6"` (необходимо для асинхронных функций), добавить в `"lib"`, или добавить опцию компилятора `"jsx"`.
@@ -253,6 +254,43 @@ Definitely Typed работает только благодаря вкладу �
 
 (Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `//tslint:disable-next-line rule-name`.)
 
+#### <my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#проверка) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
 Чтобы проверить, что выражение имеет заданный тип, используйте `$ExpectType`. Чтобы проверить, что выражение вызывает ошибку компиляции, используйте `$ExpectError`.
 
 ```js
@@ -267,7 +305,7 @@ f('one');
 
 #### Проверка
 
-Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
+Протестируйте, запустив `npm test <package to test>` где `<package to test>` - это имя вашего пакета.
 
 Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
 
