@@ -49,6 +49,7 @@ import {
     Toast,
     Tooltip,
     Typeahead,
+    Upsell,
     Video,
     FixedZIndex,
     CompositeZIndex,
@@ -252,6 +253,7 @@ const MasonryComponent = ({}) => {
     options={[{ value: 'Hello', label: 'World' }]}
     placeholder="Select a Label"
 />;
+<Upsell message="Hello world" />;
 <Video
     aspectRatio={853 / 480}
     captions=""
