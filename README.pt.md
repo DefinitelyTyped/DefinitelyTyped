@@ -277,10 +277,9 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`
+Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
 - `typingsPackageName`: O nome do diretório a ser deletado.
 - `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `sourceRepoURL`: Essa URL deve apontar um repositório que contém os tipos.
 - `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao "typingsPackageName", e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
