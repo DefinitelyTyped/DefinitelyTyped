@@ -17765,7 +17765,7 @@ declare namespace Excel {
         attributionUser: Excel.User;
         /**
          *
-         * Represents the task's due date, it is used for "Schedule" history record type.
+         * Represents the task's due date. It is used for "Schedule" history record type.
                     It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -17791,7 +17791,7 @@ declare namespace Excel {
         /**
          *
          * Represents the task's completion percentage. It is used for the "Progress" history record type.
-                    This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+                    This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18077,7 +18077,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * Gets the completion percentage of the task. This is a value betwen 0 and 100, where 100 represents a completed task.
+         * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18147,7 +18147,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param percentComplete New percentage completion of the task. This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 will also complete the associated comment, and changing to another value will reactivate the associated comment.
+         * @param percentComplete New percentage completion of the task. This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 will also complete the associated comment, and changing to another value will reactivate the associated comment.
          */
         setPercentComplete(percentComplete: number): void;
         /**
@@ -18239,7 +18239,7 @@ declare namespace Excel {
         emailsToUnassign?: string[];
         /**
          *
-         * Sets a new completion percentage for the task. This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+         * Sets a new completion percentage for the task. This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -47593,7 +47593,7 @@ declare namespace Excel {
             attributionUser?: Excel.User;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -47619,7 +47619,7 @@ declare namespace Excel {
             /**
              *
              * Represents the task's completion percentage. It is used for the "Progress" history record type.
-                        This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -47636,7 +47636,7 @@ declare namespace Excel {
             priority?: number;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -52458,7 +52458,7 @@ declare namespace Excel {
             attributionUser?: Excel.User;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -52484,7 +52484,7 @@ declare namespace Excel {
             /**
              *
              * Represents the task's completion percentage. It is used for the "Progress" history record type.
-                        This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -52501,7 +52501,7 @@ declare namespace Excel {
             priority?: number;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -52565,7 +52565,7 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * Gets the completion percentage of the task. This is a value betwen 0 and 100, where 100 represents a completed task.
+             * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -59062,7 +59062,7 @@ declare namespace Excel {
             attributionUser?: boolean;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59088,7 +59088,7 @@ declare namespace Excel {
             /**
              *
              * Represents the task's completion percentage. It is used for the "Progress" history record type.
-                        This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -59105,7 +59105,7 @@ declare namespace Excel {
             priority?: boolean;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59175,7 +59175,7 @@ declare namespace Excel {
             attributionUser?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the task's due date, it is used for "Schedule" history record type.
+             * For EACH ITEM in the collection: Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59201,7 +59201,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the task's completion percentage. It is used for the "Progress" history record type.
-                        This is a value betwen 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -59218,7 +59218,7 @@ declare namespace Excel {
             priority?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the task's start date, it is used for the "Schedule" history record type.
+             * For EACH ITEM in the collection: Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59296,7 +59296,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * Gets the completion percentage of the task. This is a value betwen 0 and 100, where 100 represents a completed task.
+             * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -59373,7 +59373,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the completion percentage of the task. This is a value betwen 0 and 100, where 100 represents a completed task.
+             * For EACH ITEM in the collection: Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
