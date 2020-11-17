@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "no-empty-interface": false,
+    "no-unnecessary-class": false,
+    "npm-naming": false,
+    "strict-export-declare-modifiers": false
+  }
+}

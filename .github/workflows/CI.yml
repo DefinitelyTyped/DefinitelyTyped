@@ -12,10 +12,41 @@ jobs:
           node-version: "12"
 
       # Get local dependencies
-      - run: npm install
+      #- run: npm install
 
       # Run tests
-      - run: npm run test-all
+      - run: |
+          git clone https://github.com/microsoft/DefinitelyTyped-tools.git
+          patch --directory DefinitelyTyped-tools --strip 1 <<'patchfile'
+          --- a/packages/definitions-parser/src/lib/definition-parser.ts
+          +++ b/packages/definitions-parser/src/lib/definition-parser.ts
+          @@ -279,12 +279,9 @@ function getTypingDataForSingleTypesVersion(
+               types.set(untestedTypeFile, createSourceFile(untestedTypeFile, fs.readFile(untestedTypeFile)));
+             }
+           
+          -  const { dependencies: dependenciesWithDeclaredModules, globals, declaredModules } = getModuleInfo(packageName, types);
+          -  const declaredModulesSet = new Set(declaredModules);
+          -  // Don't count an import of "x" as a dependency if we saw `declare module "x"` somewhere.
+          -  const dependenciesSet = new Set(filter(dependenciesWithDeclaredModules, m => !declaredModulesSet.has(m)));
+          +  const { dependencies: dependenciesSet, globals, declaredModules } = getModuleInfo(packageName, types);
+             const testDependencies = Array.from(
+          -    filter(getTestDependencies(packageName, types, tests.keys(), dependenciesSet, fs), m => !declaredModulesSet.has(m))
+          +    getTestDependencies(packageName, types, tests.keys(), dependenciesSet, fs)
+             );
+           
+             const { dependencies, pathMappings } = calculateDependencies(
+          patchfile
+          #curl https://patch-diff.githubusercontent.com/raw/microsoft/DefinitelyTyped-tools/pull/98.patch | patch --directory DefinitelyTyped-tools --strip 1
+          git clone https://github.com/microsoft/dtslint.git
+          curl https://patch-diff.githubusercontent.com/raw/microsoft/dtslint/pull/308.patch | patch --directory dtslint --strip 1
+          yarn --cwd dtslint link
+          yarn --cwd dtslint link dtslint
+          yarn --cwd DefinitelyTyped-tools link dtslint
+          yarn --cwd DefinitelyTyped-tools
+          tsc --build DefinitelyTyped-tools/packages/dtslint-runner
+          yarn --cwd dtslint
+          yarn --cwd dtslint build
+          node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
 
       - name: "Run Danger"
         env:

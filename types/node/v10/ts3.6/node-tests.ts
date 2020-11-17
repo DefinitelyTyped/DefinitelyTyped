@@ -1,5 +1,5 @@
-import "../node-tests";
-import * as util from "util";
+import * as process from 'process';
+import * as util from 'util';
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///

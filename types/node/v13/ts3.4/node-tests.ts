@@ -1,12 +1,18 @@
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
+import '../test/assert';
+import '../test/events';
+import '../test/global';
+
+import { Buffer } from 'buffer';
+import * as console2 from 'console';
+import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
+import * as inspector from 'inspector';
+import * as process from 'process';
+import * as timers from 'timers';
+import * as trace_events from 'trace_events';
+import * as url from 'url';
+import * as util from 'util';
 
 //////////////////////////////////////////////////////
 /// Https tests : http://nodejs.org/api/https.html ///

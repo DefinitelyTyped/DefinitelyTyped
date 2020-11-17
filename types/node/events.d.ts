@@ -1,4 +1,8 @@
-declare module "events" {
+interface AsyncIterableIterator<T> {}
+
+declare module 'events' {
+    interface EventEmitter_ extends NodeJS.EventEmitter {}
+
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -14,47 +18,21 @@ declare module "events" {
         addEventListener(event: string, listener: (...args: any[]) => void, opts?: { once: boolean }): any;
     }
 
-    namespace EventEmitter {
+    namespace EventEmitter_ {
         function once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
         function once(emitter: DOMEventTarget, event: string): Promise<any[]>;
-        function on(emitter: EventEmitter, event: string): AsyncIterableIterator<any>;
+        function on(emitter: EventEmitter_, event: string): AsyncIterableIterator<any>;
         const captureRejectionSymbol: unique symbol;
 
-        /**
-         * This symbol shall be used to install a listener for only monitoring `'error'`
-         * events. Listeners installed using this symbol are called before the regular
-         * `'error'` listeners are called.
-         *
-         * Installing a listener using this symbol does not change the behavior once an
-         * `'error'` event is emitted, therefore the process will still crash if no
-         * regular `'error'` listener is installed.
-         */
-        const errorMonitor: unique symbol;
         /**
          * Sets or gets the default captureRejection value for all emitters.
          */
         let captureRejections: boolean;
 
-        interface EventEmitter extends NodeJS.EventEmitter {
-        }
-
-        class EventEmitter {
-            constructor(options?: EventEmitterOptions);
-            /** @deprecated since v4.0.0 */
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
-            static defaultMaxListeners: number;
-            /**
-             * This symbol shall be used to install a listener for only monitoring `'error'`
-             * events. Listeners installed using this symbol are called before the regular
-             * `'error'` listeners are called.
-             *
-             * Installing a listener using this symbol does not change the behavior once an
-             * `'error'` event is emitted, therefore the process will still crash if no
-             * regular `'error'` listener is installed.
-             */
-            static readonly errorMonitor: unique symbol;
-        }
+        export import EventEmitter = EventEmitter_;
     }
+
+    export = EventEmitter_;
 
     global {
         namespace NodeJS {
@@ -79,5 +57,20 @@ declare module "events" {
         }
     }
 
-    export = EventEmitter;
+    class EventEmitter_ {
+        constructor(options?: EventEmitterOptions);
+        /** @deprecated since v4.0.0 */
+        static listenerCount(emitter: EventEmitter_, event: string | symbol): number;
+        static defaultMaxListeners: number;
+        /**
+         * This symbol shall be used to install a listener for only monitoring `'error'`
+         * events. Listeners installed using this symbol are called before the regular
+         * `'error'` listeners are called.
+         *
+         * Installing a listener using this symbol does not change the behavior once an
+         * `'error'` event is emitted, therefore the process will still crash if no
+         * regular `'error'` listener is installed.
+         */
+        static readonly errorMonitor: unique symbol;
+    }
 }

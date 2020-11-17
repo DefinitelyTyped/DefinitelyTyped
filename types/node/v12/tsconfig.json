@@ -1,38 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "node-tests.ts",
-        "test/assert.ts",
-        "test/async_hooks.ts",
-        "test/buffer.ts",
-        "test/child_process.ts",
-        "test/cluster.ts",
-        "test/crypto.ts",
-        "test/dgram.ts",
-        "test/events.ts",
-        "test/fs.ts",
-        "test/global.ts",
-        "test/globals.ts",
-        "test/http.ts",
-        "test/http2.ts",
-        "test/net.ts",
-        "test/os.ts",
-        "test/path.ts",
-        "test/perf_hooks.ts",
-        "test/process.ts",
-        "test/querystring.ts",
-        "test/readline.ts",
-        "test/repl.ts",
-        "test/stream.ts",
-        "test/string_decoder.ts",
-        "test/tls.ts",
-        "test/tty.ts",
-        "test/util.ts",
-        "test/v8.ts",
-        "test/vm.ts",
-        "test/wasi.ts",
-        "test/worker_threads.ts",
-        "test/zlib.ts"
+        "node-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -50,8 +19,74 @@
             "../../"
         ],
         "paths": {
+            "buffer": [
+                "buffer/v12"
+            ],
+            "console": [
+                "console/v12"
+            ],
+            "constants": [
+                "constants/v12"
+            ],
+            "dgram": [
+                "dgram/v12"
+            ],
+            "dns": [
+                "dns/v12"
+            ],
+            "domain": [
+                "domain/v12"
+            ],
+            "fs": [
+                "fs/v12"
+            ],
+            "http": [
+                "http/v12"
+            ],
+            "https": [
+                "https/v12"
+            ],
+            "inspector": [
+                "inspector/v12"
+            ],
+            "module": [
+                "module/v12"
+            ],
+            "net": [
+                "net/v12"
+            ],
             "node": [
                 "node/v12"
+            ],
+            "node/*": [
+                "node/v12/*"
+            ],
+            "process": [
+                "process/v12"
+            ],
+            "querystring": [
+                "querystring/v12"
+            ],
+            "stream": [
+                "stream/v12"
+            ],
+            "timers": [
+                "timers/v12"
+            ],
+            "tls": [
+                "tls/v12"
+            ],
+            "trace_events": [
+                "trace_events/v12"
+            ],
+            "tty": [
+                "tty/v12"
+            ],
+            "url": [
+                "url/v12"
+            ],
+            "util": [
+                "util/v12"
             ]
         },
         "types": [],

@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "no-empty-interface": false,
+    "no-mergeable-namespace": false,
+    "strict-export-declare-modifiers": false,
+    "unified-signatures": false
+  }
+}

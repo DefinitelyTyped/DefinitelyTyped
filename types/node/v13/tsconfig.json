@@ -1,42 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "node-tests.ts",
-        "test/assert.ts",
-        "test/async_hooks.ts",
-        "test/buffer.ts",
-        "test/child_process.ts",
-        "test/cluster.ts",
-        "test/constants.ts",
-        "test/crypto.ts",
-        "test/dgram.ts",
-        "test/dns.ts",
-        "test/events.ts",
-        "test/fs.ts",
-        "test/global.ts",
-        "test/globals.ts",
-        "test/http.ts",
-        "test/http2.ts",
-        "test/module.ts",
-        "test/net.ts",
-        "test/os.ts",
-        "test/path.ts",
-        "test/perf_hooks.ts",
-        "test/process.ts",
-        "test/querystring.ts",
-        "test/readline.ts",
-        "test/repl.ts",
-        "test/stream.ts",
-        "test/string_decoder.ts",
-        "test/tls.ts",
-        "test/tty.ts",
-        "test/url.ts",
-        "test/util.ts",
-        "test/v8.ts",
-        "test/vm.ts",
-        "test/wasi.ts",
-        "test/worker_threads.ts",
-        "test/zlib.ts"
+        "node-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -54,8 +19,68 @@
             "../../"
         ],
         "paths": {
+            "buffer": [
+                "buffer/v13"
+            ],
+            "console": [
+                "console/v13"
+            ],
+            "dns": [
+                "dns/v13"
+            ],
+            "domain": [
+                "domain/v13"
+            ],
+            "fs": [
+                "fs/v13"
+            ],
+            "http": [
+                "http/v13"
+            ],
+            "https": [
+                "https/v13"
+            ],
+            "inspector": [
+                "inspector/v13"
+            ],
+            "module": [
+                "module/v13"
+            ],
+            "net": [
+                "net/v13"
+            ],
             "node": [
                 "node/v13"
+            ],
+            "node/*": [
+                "node/v13/*"
+            ],
+            "process": [
+                "process/v13"
+            ],
+            "querystring": [
+                "querystring/v13"
+            ],
+            "stream": [
+                "stream/v13"
+            ],
+            "timers": [
+                "timers/v13"
+            ],
+            "tls": [
+                "tls/v13"
+            ],
+            "trace_events": [
+                "trace_events/v13"
+            ],
+            "tty": [
+                "tty/v13"
+            ],
+            "url": [
+                "url/v13"
+            ],
+            "util": [
+                "util/v13"
             ]
         },
         "types": [],

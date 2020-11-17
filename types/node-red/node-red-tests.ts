@@ -23,7 +23,7 @@ async function REDTests() {
     // $ExpectType Util
     RED.util;
 
-    // $ExpectType EventEmitter
+    // $ExpectType EventEmitter_
     RED.events;
 
     // RED.runtime is covered in @node-red/runtime
