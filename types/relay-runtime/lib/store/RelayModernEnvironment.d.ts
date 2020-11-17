@@ -19,7 +19,7 @@ import {
 import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
 import { TaskScheduler } from './RelayModernQueryExecutor';
 import { RelayOperationTracker } from './RelayOperationTracker';
-import { Disposable, CacheConfig } from '../util/RelayRuntimeTypes';
+import { Disposable } from '../util/RelayRuntimeTypes';
 import { RelayObservable } from '../network/RelayObservable';
 
 export interface EnvironmentConfig {
