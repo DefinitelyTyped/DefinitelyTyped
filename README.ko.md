@@ -16,12 +16,12 @@
   - [풀 리퀘스트(Pull request) 만들기](#풀-리퀘스트pull-request-만들기)<details><summary></summary>
     - [이미 존재하는 패키지를 수정하기](#이미-존재하는-패키지를-수정하기)
     - [새 패키지를 만들기](#새-패키지를-만들기)
-    - [많이 저지르는 실수들](#많이-저지르는-실수들)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [검증하기](#검증하기)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [tslint.json](#tslintjson)
+    - [Linter: `tslint.json`](#linter-tslintjson)
     - [package.json](#packagejson)
+    - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
   - [Definition Owners](#definition-owners)
 * [자주 하는 질문들](#자주-하는-질문들)
@@ -190,7 +190,7 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
 | [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
-| [tslint.json](#tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
+| [tslint.json](#linter-tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my package> --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my package> --template module` 명령으로 만들 수 있습니다.
@@ -202,28 +202,6 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 다른 풀 리퀘스트(Pull request)가 많을 경우 확인이 느려질 수 있다는 걸 알아주세요.
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
-
-
-#### 많이 저지르는 실수들
-
-* 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
-* 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
-* `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
-* `interface Foo { new(): Foo; }`의 경우,
-    이런 선언은 이 형(Type)을 가진 객체(Object)에 `new` 를 사용할 수 있도록 만듭니다. 많은 경우 여러분은 `declare class Foo { constructor(); }` 를 사용하려는 것일 겁니다.
-* `const Class: { new(): IClass; }`의 경우,
-    `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }` 와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
-* `getMeAT<T>(): T`의 경우,
-    만일 자료형 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generic) 함수를 사용할 필요가 없습니다.
-    그 제너릭(Generic) 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언(Type assertion) 을 사용하는 게 더 좋습니다.
-    다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
-    다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
-    예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
-* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
-* `var foo: string | any`의 경우,
-    `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
-    대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
-
 
 #### 패키지 삭제하기
 
@@ -293,9 +271,11 @@ f("one");
 
 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
 
-#### tslint.json
+#### Linter: `tslint.json`
 
-Shouldn't have any additional rules. Just leave the content as `{ "extends": "dtslint/dt.json" }`. If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed.
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
 #### package.json
 
@@ -303,6 +283,26 @@ Shouldn't have any additional rules. Just leave the content as `{ "extends": "dt
 가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
 의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
 옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
+
+#### 많이 저지르는 실수들
+
+* 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
+* 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
+* `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
+* `interface Foo { new(): Foo; }`의 경우,
+  이런 선언은 이 형(Type)을 가진 객체(Object)에 `new` 를 사용할 수 있도록 만듭니다. 많은 경우 여러분은 `declare class Foo { constructor(); }` 를 사용하려는 것일 겁니다.
+* `const Class: { new(): IClass; }`의 경우,
+  `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }` 와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
+* `getMeAT<T>(): T`의 경우,
+  만일 자료형 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generic) 함수를 사용할 필요가 없습니다.
+  그 제너릭(Generic) 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언(Type assertion) 을 사용하는 게 더 좋습니다.
+  다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
+  다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
+  예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
+* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
+* `var foo: string | any`의 경우,
+  `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
+  대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
 
 ### Definition Owners
 
