@@ -1,4 +1,4 @@
-import * as Fixtures from 'node-mongodb-fixtures';
+import Fixtures = require('node-mongodb-fixtures');
 
 const uri = 'mongodb://localhost:27017/mydb';
 
