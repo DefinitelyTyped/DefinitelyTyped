@@ -1,6 +1,7 @@
 // Type definitions for forest-express-sequelize 6.3
 // Project: http://www.forestadmin.com
 // Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
+//                 Guillaume Gautreau <https://github.com/ghusse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RequestHandler, Response, Request } from "express";
