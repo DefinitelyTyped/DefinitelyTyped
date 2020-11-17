@@ -3,6 +3,7 @@
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.8
 
 import * as React from 'react';
 import {
@@ -27,12 +28,13 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { StackNavigationOptions } from '@react-navigation/stack';
+import { ParamListBase, RouteProp } from './@react-navigation/native';
+import { StackNavigationOptions } from './@react-navigation/stack';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
 
 export { GlobalTheme } from './theme';
 
+// tslint:disable-next-line  no-declare-current-package
 declare module 'tuya-panel-kit' {
     type AnyFunction = (...args: any[]) => void;
     interface ButtonProps extends TouchableOpacityProps {
