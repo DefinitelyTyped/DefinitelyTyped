@@ -12,8 +12,9 @@
 * [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
 * [How can I contribute?](#how-can-i-contribute)
   - [Testing](#testing)
-  - [Make a pull request](#make-a-pull-request)<details>
+  - [Make a pull request](#make-a-pull-request)<details><summary></summary>
     - [Edit an existing package](#edit-an-existing-package)
+    - [Editing tests on an existing package](#editing-tests-on-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
