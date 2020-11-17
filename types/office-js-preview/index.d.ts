@@ -17765,7 +17765,7 @@ declare namespace Excel {
         attributionUser: Excel.User;
         /**
          *
-         * Represents the task's due date, it is used for "Schedule" history record type.
+         * Represents the task's due date. It is used for "Schedule" history record type.
                     It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -47593,7 +47593,7 @@ declare namespace Excel {
             attributionUser?: Excel.User;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -47636,7 +47636,7 @@ declare namespace Excel {
             priority?: number;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -52458,7 +52458,7 @@ declare namespace Excel {
             attributionUser?: Excel.User;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -52501,7 +52501,7 @@ declare namespace Excel {
             priority?: number;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59062,7 +59062,7 @@ declare namespace Excel {
             attributionUser?: boolean;
             /**
              *
-             * Represents the task's due date, it is used for "Schedule" history record type.
+             * Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59105,7 +59105,7 @@ declare namespace Excel {
             priority?: boolean;
             /**
              *
-             * Represents the task's start date, it is used for the "Schedule" history record type.
+             * Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59175,7 +59175,7 @@ declare namespace Excel {
             attributionUser?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the task's due date, it is used for "Schedule" history record type.
+             * For EACH ITEM in the collection: Represents the task's due date. It is used for "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -59218,7 +59218,7 @@ declare namespace Excel {
             priority?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the task's start date, it is used for the "Schedule" history record type.
+             * For EACH ITEM in the collection: Represents the task's start date. It is used for the "Schedule" history record type.
                         It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
