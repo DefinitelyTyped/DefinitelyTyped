@@ -45,6 +45,19 @@ declare function wkhtmltopdf(html: string, options?: Options): NodeJS.ReadWriteS
  */
 declare function wkhtmltopdf(url: string, options?: Options): NodeJS.ReadWriteStream;
 
+declare namespace wkhtmltopdf {
+    /**
+     * Set the path to the wkhtmltopdf executable
+     * Default: wkhtmltopdf
+     */
+    let command: string
+    /**
+     * Set the path to the shell where wkhtmltopdf gets executed in
+     * Default: /bin/bash
+    */
+    let shell: string
+}
+
 interface Options {
     /******************
      * Global options *

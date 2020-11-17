@@ -1,7 +1,7 @@
 import wkhtmltopdf from "wkhtmltopdf";
 
 // URL
-wkhtmltopdf("http://google.com/", { pageSize: "Letter" }); // $ExpectType NodeJS.ReadWriteStream
+const x = wkhtmltopdf("http://google.com/", { pageSize: "Letter" }); // $ExpectType NodeJS.ReadWriteStream
 
 // HTML
 wkhtmltopdf("<h1>Test</h1><p>Hello world</p>"); // $ExpectType ReadWriteStream
@@ -32,3 +32,6 @@ wkhtmltopdf("http://apple.com/", { // $ExpectType void
   output: "out.pdf",
   ignore: [/QFont::setPixelSize/]
 });
+
+wkhtmltopdf.shell; // $ExpectType string
+wkhtmltopdf.command; // $ExpectType string
