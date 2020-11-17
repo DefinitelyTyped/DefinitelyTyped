@@ -228,26 +228,6 @@ Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém ten
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-### Donos de definição
-
-O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
-  - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
-  - Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
-  - Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
-
- Para se adicionar como um Dono de definição:
-  
-  - Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Ou se há muitas pessoas, pode ser em várias linhas:
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
-
-Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
-
 #### Erros comuns
 
 * Primeiro, siga as instruções do [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
@@ -341,6 +321,26 @@ Teste suas mudanças executando o comando `npm run lint nome-do-pacote` onde `no
 
 Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
+### Donos de definição
+
+O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
+
+* Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
+* Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
+* Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
+
+Para se adicionar como um Dono de definição:
+
+* Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Ou se há muitas pessoas, pode ser em várias linhas:
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
 
 ## FAQ
 
