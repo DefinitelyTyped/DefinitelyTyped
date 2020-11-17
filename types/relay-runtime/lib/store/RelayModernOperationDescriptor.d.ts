@@ -10,12 +10,12 @@ import { OperationDescriptor, RequestDescriptor } from './RelayStoreTypes';
 export function createOperationDescriptor(
     request: ConcreteRequest,
     variables: Variables,
-    cacheConfig?: CacheConfig | null | undefined,
+    cacheConfig?: CacheConfig | null,
     dataID?: DataID,
 ): OperationDescriptor;
 
 export function createRequestDescriptor(
     request: ConcreteRequest,
     variables: Variables,
-    cacheConfig?: CacheConfig | null | undefined,
+    cacheConfig?: CacheConfig | null,
 ): RequestDescriptor;

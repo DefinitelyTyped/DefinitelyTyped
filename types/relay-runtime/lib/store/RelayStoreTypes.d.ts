@@ -63,7 +63,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
-    readonly cacheConfig: CacheConfig | null | undefined;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
