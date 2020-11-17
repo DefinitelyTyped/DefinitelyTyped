@@ -1,4 +1,5 @@
 import type { getStateFromPath as getStateFromPathDefault, getPathFromState as getPathFromStateDefault, PathConfigMap, Route } from '../core';
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type Theme = {
     dark: boolean;
     colors: {
@@ -10,6 +11,7 @@ export declare type Theme = {
         notification: string;
     };
 };
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type LinkingOptions = {
     /**
      * Whether deep link handling should be enabled.
@@ -92,10 +94,12 @@ export declare type LinkingOptions = {
      */
     getPathFromState?: typeof getPathFromStateDefault;
 };
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type DocumentTitleOptions = {
     enabled?: boolean;
     formatter?: (options: Record<string, any> | undefined, route: Route<string> | undefined) => string;
 };
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type ServerContainerRef = {
     getCurrentOptions(): Record<string, any> | undefined;
 };

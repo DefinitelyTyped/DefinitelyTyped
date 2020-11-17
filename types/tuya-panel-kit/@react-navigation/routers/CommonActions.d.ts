@@ -1,7 +1,10 @@
 import type { NavigationState, PartialState, Route } from './types';
+// tslint:disable-next-line strict-export-declare-modifiers
 declare type ResetState = PartialState<NavigationState> | NavigationState | (Omit<NavigationState, 'routes'> & {
+    // tslint:disable-next-line array-type
     routes: Omit<Route<string>, 'key'>[];
 });
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type Action = {
     type: 'GO_BACK';
     source?: string;
@@ -34,7 +37,9 @@ export declare type Action = {
     source?: string;
     target?: string;
 };
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare function goBack(): Action;
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare function navigate(route: {
     key: string;
     params?: object;
@@ -43,7 +48,10 @@ export declare function navigate(route: {
     key?: string;
     params?: object;
 }): Action;
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare function navigate(name: string, params?: object): Action;
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare function reset(state: ResetState | undefined): Action;
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare function setParams(params: object): Action;
 export {};

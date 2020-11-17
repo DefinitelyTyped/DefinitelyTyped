@@ -1,8 +1,10 @@
 import type { NavigationState, Router, DefaultRouterOptions, Route, ParamListBase } from './types';
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type StackActionType = {
     type: 'REPLACE';
     payload: {
         name: string;
+        // tslint:disable-next-line interface-over-type-literal no-redundant-undefined
         key?: string | undefined;
         params?: object;
     };
@@ -12,6 +14,7 @@ export declare type StackActionType = {
     type: 'PUSH';
     payload: {
         name: string;
+        // tslint:disable-next-line no-redundant-undefined
         key?: string | undefined;
         params?: object;
     };
@@ -29,13 +32,16 @@ export declare type StackActionType = {
     source?: string;
     target?: string;
 };
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type StackRouterOptions = DefaultRouterOptions;
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type StackNavigationState<ParamList extends ParamListBase> = NavigationState<ParamList> & {
     /**
      * Type of the router, in this case, it's stack.
      */
     type: 'stack';
 };
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackActionHelpers<ParamList extends ParamListBase> = {
     /**
      * Replace the current route with a new one.
@@ -60,30 +66,43 @@ export declare type StackActionHelpers<ParamList extends ParamListBase> = {
      */
     popToTop(): void;
 };
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare const StackActions: {
+    // tslint:disable-next-line no-redundant-undefined
     replace(name: string, params?: object | undefined): StackActionType;
+    // tslint:disable-next-line no-redundant-undefined
     push(name: string, params?: object | undefined): StackActionType;
     pop(count?: number): StackActionType;
     popToTop(): StackActionType;
 };
 export default function StackRouter(options: StackRouterOptions): Router<StackNavigationState<Record<string, object | undefined>>, {
     type: "GO_BACK";
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "NAVIGATE";
     payload: {
         key: string;
+        // tslint:disable-next-line no-redundant-undefined
         name?: undefined;
+        // tslint:disable-next-line no-redundant-undefined
         params?: object | undefined;
+        // tslint:disable-next-line no-redundant-undefined
         merge?: boolean | undefined;
     } | {
         name: string;
+        // tslint:disable-next-line no-redundant-undefined
         key?: string | undefined;
+        // tslint:disable-next-line no-redundant-undefined
         params?: object | undefined;
+        // tslint:disable-next-line no-redundant-undefined
         merge?: boolean | undefined;
     };
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "RESET";
@@ -91,13 +110,17 @@ export default function StackRouter(options: StackRouterOptions): Router<StackNa
         key: string;
         index: number;
         routeNames: string[];
+        // tslint:disable-next-line no-redundant-undefined
         history?: unknown[] | undefined;
+        // tslint:disable-next-line array-type
         routes: (Readonly<{
             key: string;
             name: string;
         }> & Readonly<{
+            // tslint:disable-next-line no-redundant-undefined
             params?: object | undefined;
         }> & {
+            // tslint:disable-next-line no-redundant-undefined
             state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
         })[];
         type: string;
@@ -106,13 +129,17 @@ export default function StackRouter(options: StackRouterOptions): Router<StackNa
         key: string;
         index: number;
         routeNames: string[];
+        // tslint:disable-next-line no-redundant-undefined
         history?: unknown[] | undefined;
+        // tslint:disable-next-line array-type
         routes: (Readonly<{
             key: string;
             name: string;
         }> & Readonly<{
+            // tslint:disable-next-line no-redundant-undefined
             params?: object | undefined;
         }> & {
+            // tslint:disable-next-line no-redundant-undefined
             state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
         })[];
         type: string;
@@ -121,56 +148,78 @@ export default function StackRouter(options: StackRouterOptions): Router<StackNa
         key: string;
         index: number;
         routeNames: string[];
+        // tslint:disable-next-line no-redundant-undefined array-type
         history?: unknown[] | undefined;
+        // tslint:disable-next-line array-type
         routes: (Readonly<{
             key: string;
             name: string;
         }> & Readonly<{
+            // tslint:disable-next-line no-redundant-undefined
             params?: object | undefined;
         }> & {
+            // tslint:disable-next-line no-redundant-undefined
             state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
         })[];
         type: string;
         stale: false;
     }>, "stale" | "key" | "index" | "routeNames" | "history" | "type"> & {
+        // tslint:disable-next-line array-type use-default-type-parameter
         routes: Pick<Route<string, object | undefined>, "name" | "params">[];
     }) | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "SET_PARAMS";
     payload: {
+        // tslint:disable-next-line no-redundant-undefined
         params?: object | undefined;
     };
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "REPLACE";
     payload: {
         name: string;
+        // tslint:disable-next-line no-redundant-undefined
         key?: string | undefined;
+        // tslint:disable-next-line no-redundant-undefined
         params?: object | undefined;
     };
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "PUSH";
     payload: {
         name: string;
+        // tslint:disable-next-line no-redundant-undefined
         key?: string | undefined;
+        // tslint:disable-next-line no-redundant-undefined
         params?: object | undefined;
     };
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "POP";
     payload: {
         count: number;
     };
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 } | {
     type: "POP_TO_TOP";
+    // tslint:disable-next-line no-redundant-undefined
     source?: string | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     target?: string | undefined;
 }>;

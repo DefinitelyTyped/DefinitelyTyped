@@ -6,6 +6,7 @@ import * as TransitionPresets from './TransitionConfigs/TransitionPresets';
  * Navigators
  */
 export { default as createStackNavigator } from './navigators/createStackNavigator';
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare const Assets: any[];
 /**
  * Views
@@ -31,4 +32,5 @@ export { default as useGestureHandlerRef } from './utils/useGestureHandlerRef';
 /**
  * Types
  */
+// tslint:disable-next-line max-line-length
 export type { StackNavigationOptions, StackNavigationProp, StackScreenProps, StackHeaderProps, StackHeaderLeftButtonProps, StackHeaderTitleProps, StackCardInterpolatedStyle, StackCardInterpolationProps, StackCardStyleInterpolator, StackHeaderInterpolatedStyle, StackHeaderInterpolationProps, StackHeaderStyleInterpolator, } from './types';

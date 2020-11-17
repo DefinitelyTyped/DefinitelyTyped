@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, TextProps, GestureResponderEvent } from 'react-native';
 import type { NavigationAction } from '../core';
+// tslint:disable-next-line strict-export-declare-modifiers
 declare type Props = {
     to: string;
     action?: NavigationAction;

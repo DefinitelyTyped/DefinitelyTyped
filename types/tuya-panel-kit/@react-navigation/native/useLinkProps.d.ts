@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { GestureResponderEvent } from 'react-native';
 import { NavigationAction } from '../core';
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 declare type Props = {
     to: string;
     action?: NavigationAction;
@@ -14,6 +15,7 @@ declare type Props = {
 export default function useLinkProps({ to, action }: Props): {
     href: string;
     accessibilityRole: "link";
+    // tslint:disable-next-line no-redundant-undefined
     onPress: (e?: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent | undefined) => void;
 };
 export {};

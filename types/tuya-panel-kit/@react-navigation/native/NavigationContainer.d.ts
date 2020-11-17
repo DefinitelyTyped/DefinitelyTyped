@@ -5,7 +5,9 @@ import type { Theme, LinkingOptions, DocumentTitleOptions } from './types';
  * Container component which holds the navigation state designed for React Native apps.
  * This should be rendered at the root wrapping the whole app.
  *
- * @param props.initialState Initial state object for the navigation tree. When deep link handling is enabled, this will override deep links when specified. Make sure that you don't specify an `initialState` when there's a deep link (`Linking.getInitialURL()`).
+ * @param props.initialState Initial state object for the navigation tree.
+ * When deep link handling is enabled, this will override deep links when specified.
+ * Make sure that you don't specify an `initialState` when there's a deep link (`Linking.getInitialURL()`).
  * @param props.onReady Callback which is called after the navigation tree mounts.
  * @param props.onStateChange Callback which is called with the latest navigation state when it changes.
  * @param props.theme Theme object for the navigators.
@@ -16,10 +18,14 @@ import type { Theme, LinkingOptions, DocumentTitleOptions } from './types';
  * @param props.ref Ref object which refers to the navigation object containing helper methods.
  */
 declare const NavigationContainer: React.ForwardRefExoticComponent<NavigationContainerProps & {
+    // tslint:disable-next-line no-redundant-undefined
     theme?: Theme | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     linking?: LinkingOptions | undefined;
     fallback?: React.ReactNode;
+    // tslint:disable-next-line no-redundant-undefined
     documentTitle?: DocumentTitleOptions | undefined;
+    // tslint:disable-next-line no-redundant-undefined
     onReady?: (() => void) | undefined;
 } & React.RefAttributes<NavigationContainerRef>>;
 export default NavigationContainer;

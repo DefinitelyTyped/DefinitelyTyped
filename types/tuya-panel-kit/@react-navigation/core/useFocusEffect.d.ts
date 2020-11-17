@@ -1,3 +1,4 @@
+// tslint:disable-next-line strict-export-declare-modifiers
 declare type EffectCallback = () => undefined | void | (() => void);
 /**
  * Hook to run an effect in a focused screen, similar to `React.useEffect`.
