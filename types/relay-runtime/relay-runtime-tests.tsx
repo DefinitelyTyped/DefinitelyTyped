@@ -414,7 +414,6 @@ if (isPromise(p)) {
     p.then(() => console.log('Indeed a promise'));
 }
 
-
 const gqlQuery = graphql`
     query ExampleQuery($pageID: ID!) {
         page(id: $pageID) {
