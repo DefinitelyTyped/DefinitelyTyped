@@ -1,12 +1,12 @@
 import { ConnectionOptions, EntitySchema } from 'typeorm';
-import { AppOptions } from '.';
+import { AppOptions, User } from '.';
 import { SessionProvider } from './client';
 
 export interface Profile {
     id: string;
     name: string;
-    email: string;
-    image: string;
+    email: string | null;
+    image?: string | null;
 }
 
 export interface Session {
@@ -76,7 +76,7 @@ export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest
     ): Promise<void>;
 }
 
-interface Adapter<TUser = any, TProfile extends Profile = any, TSession extends Session = any, TVerificationRequest extends VerificationRequest = any> {
+interface Adapter<TUser extends User = any, TProfile extends Profile = any, TSession extends Session = any, TVerificationRequest extends VerificationRequest = any> {
     getAdapter(appOptions: AppOptions): Promise<AdapterInstance<TUser, TProfile, TSession, TVerificationRequest>>;
 }
 
@@ -176,7 +176,7 @@ declare class TypeORMAccountModel {
     );
 }
 
-declare class TypeORMUserModel {
+declare class TypeORMUserModel implements User {
     name?: string;
     email?: string;
     image?: string;
