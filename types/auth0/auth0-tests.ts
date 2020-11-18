@@ -633,3 +633,10 @@ management.verifyCustomDomain({ id: 'cd_0000000000000001' }, (err, domainVerific
 
 management.deleteCustomDomain({ id: 'cd_0000000000000001' }).then(() => console.log('deleted'));
 management.deleteCustomDomain({ id: 'cd_0000000000000001' }, err => console.log('deleted'));
+
+// User enrollment
+management.getGuardianEnrollments().then((enrollment) => console.log(enrollment))
+management.getGuardianEnrollments((err, enrollment) => console.log(enrollment))
+
+management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }).then(() => console.log('deleted'));
+management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => console.log('deleted'));
