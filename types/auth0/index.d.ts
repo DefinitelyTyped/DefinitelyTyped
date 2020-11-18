@@ -903,8 +903,16 @@ export interface BlockedForEntry {
 export interface UserBlocks {
     blocked_for: BlockedForEntry[];
 }
-
-
+export type EnrollmentStatus = 'pending' | 'confirmed';
+export type AuthMethod = 'authentication' | 'guardian' | 'sms';
+export interface Enrollment {
+  id: string;
+  status: EnrollmentStatus;
+  enrolled_at: string;
+  last_auth: string;
+  type: string;
+  auth_method: AuthMethod;
+}
 export class AuthenticationClient {
 
   // Members
