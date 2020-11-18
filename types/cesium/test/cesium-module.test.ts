@@ -1,6 +1,6 @@
 import * as Cesium from 'cesium';
 
-Cesium.buildModuleUrl.setBaseUrl('/assets/cesium/');
+Cesium.buildModuleUrl("./");
 
 const viewer = new Cesium.Viewer('#cesium', {
     sceneMode: Cesium.SceneMode.COLUMBUS_VIEW,
@@ -101,17 +101,17 @@ const options = {
 const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);
 
 const polygonGraphics = new Cesium.PolygonGraphics({
-    hierarchy: Cesium.Cartesian3.fromDegreesArray([
+    hierarchy: new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray([
         -108.0,
         42.0,
         -100.0,
         42.0,
         -104.0,
         40.0,
-    ]),
+    ])),
 });
 
-const polygonHierarchyProperty: Cesium.Property = polygonGraphics.hierarchy;
+const polygonHierarchyProperty: Cesium.Property | undefined = polygonGraphics.hierarchy;
 
 const polylineGraphics = new Cesium.PolylineGraphics({
     positions: Cesium.Cartesian3.fromDegreesArrayHeights([
@@ -124,4 +124,4 @@ const polylineGraphics = new Cesium.PolylineGraphics({
     ]),
 });
 
-const polylinePositionsProperty: Cesium.Property = polylineGraphics.positions;
+const polylinePositionsProperty: Cesium.Property | undefined = polylineGraphics.positions;
