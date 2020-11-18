@@ -1174,7 +1174,7 @@ export function featureGroup(layers?: Layer[]): FeatureGroup;
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends LayerOptions {
+export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
