@@ -5,6 +5,7 @@
 //                 Kamil Socha <https://github.com/ksocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.5
 
 /// <reference lib="dom"/>
 
