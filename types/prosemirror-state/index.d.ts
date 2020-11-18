@@ -428,7 +428,7 @@ export class EditorState<S extends Schema = any> {
   /**
    * The selection.
    */
-  selection: Selection<S>;
+  selection: TextSelection<S> | NodeSelection<S> | AllSelection<S>;
   /**
    * A set of marks to apply to the next input. Will be null when
    * no explicit marks have been set.
