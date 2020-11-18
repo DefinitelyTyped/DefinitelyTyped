@@ -1,8 +1,9 @@
 import createHyphenator, { HyphenationFunctionSync } from 'hyphen';
 import hyphenationPatternsDe1996 from 'hyphen/patterns/de-1996';
-import hyphenationPatternsHu from 'hyphen/patterns/hu';
 import hyphenationPatternsEnGb from 'hyphen/patterns/en-gb';
+import hyphenationPatternsHu from 'hyphen/patterns/hu';
 import { hyphenate as hyphenateEnGbAsync } from 'hyphen/en-gb';
+import { hyphenateHTMLSync as hyphenateHTMLSyncEn } from 'hyphen/en';
 
 // Test with HTML
 const hyphenateDe1996 = createHyphenator(hyphenationPatternsDe1996, {
@@ -25,6 +26,12 @@ hyphenateEnGbAsync('hyphenation', { hyphenChar: '#' }).then(result => {
         throw new Error('Test failed');
     }
 });
+
+// Test HTML sync from global English
+const hyphenateEn = hyphenateHTMLSyncEn('hyphenation', { hyphenChar: '#' });
+if (hyphenateEn !== 'hy#phen#a#tion') {
+    throw new Error('Test failed');
+}
 
 // Test with minWordLength (new option in version 1.6)
 const hyphenateEnUsSyncWithMinWordLength = createHyphenator(hyphenationPatternsEnGb, {
