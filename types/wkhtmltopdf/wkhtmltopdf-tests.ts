@@ -1,7 +1,7 @@
-import wkhtmltopdf from "wkhtmltopdf";
+import wkhtmltopdf = require("wkhtmltopdf");
 
 // URL
-const x = wkhtmltopdf("http://google.com/", { pageSize: "Letter" }); // $ExpectType NodeJS.ReadWriteStream
+wkhtmltopdf("http://google.com/", { pageSize: "Letter" }); // $ExpectType NodeJS.ReadWriteStream
 
 // HTML
 wkhtmltopdf("<h1>Test</h1><p>Hello world</p>"); // $ExpectType ReadWriteStream

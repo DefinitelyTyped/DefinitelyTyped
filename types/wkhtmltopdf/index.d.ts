@@ -34,14 +34,14 @@ declare function wkhtmltopdf(html: string, options: OptionsOutfile): void;
  * Call wkhtmltopdf and write PDF directly to specified file
  *
  * @param html HTML to convert to PDF
- * @param options Options without the output parameter
+ * @param [options] Options without the output parameter
  */
 declare function wkhtmltopdf(html: string, options?: Options): NodeJS.ReadWriteStream;
 /**
  * Call wkhtmltopdf and write PDF directly to specified file
  *
  * @param url URL to convert to PDF
- * @param options Options without the output parameter
+ * @param [options] Options without the output parameter
  */
 declare function wkhtmltopdf(url: string, options?: Options): NodeJS.ReadWriteStream;
 
@@ -50,12 +50,12 @@ declare namespace wkhtmltopdf {
      * Set the path to the wkhtmltopdf executable
      * Default: wkhtmltopdf
      */
-    let command: string
+    let command: string;
     /**
      * Set the path to the shell where wkhtmltopdf gets executed in
      * Default: /bin/bash
-    */
-    let shell: string
+     */
+    let shell: string;
 }
 
 interface Options {
