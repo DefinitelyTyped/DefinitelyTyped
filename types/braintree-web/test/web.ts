@@ -128,14 +128,14 @@ braintree.client.create(
                 },
                 fields: {
                     number: {
-                        selector: '#card-number',
+                        container: document.createElement('div'),
                     },
                     cvv: {
-                        selector: '#cvv',
+                        container: '#cvv',
                         type: 'password',
                     },
                     expirationMonth: {
-                        selector: '#expiration-month',
+                        container: '#expiration-month',
                         select: {
                             options: [
                                 '01 - Jan',
@@ -154,7 +154,7 @@ braintree.client.create(
                         },
                     },
                     expirationYear: {
-                        selector: '#expiration-year',
+                        container: '#expiration-year',
                         select: true,
                     },
                 },
