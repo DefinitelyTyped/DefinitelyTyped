@@ -14,12 +14,12 @@
   - [Testing](#testing)
   - [Make a pull request](#make-a-pull-request)<details><summary></summary>
     - [Edit an existing package](#edit-an-existing-package)
-    - [Editing tests on an existing package](#editing-tests-on-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
     - [Linter](#linter)
-    - [Verifying](#verifying)
+    - [<my package>-tests.ts](#my-package-teststs)
+    - [Running Tests](#running-tests)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -138,8 +138,6 @@ Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able to import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
-
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
 [create a new package](#create-a-new-package).
@@ -156,49 +154,13 @@ We use a bot to let a large number of pull requests to DefinitelyTyped be handle
 
 #### Edit an existing package
 
-* `cd types/my-package-to-edit`
-* Make changes. Remember to edit tests.
+* `cd types/<package to edit>`
+* Make changes. Remember to [edit tests](#my-package-teststs).
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-
-* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
+* [Run `npm test <package to test>`](#running-tests).
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
-
-#### Editing tests on an existing package
-
-There should be a `[modulename]-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/yourmodule`.
-
-Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`
-
-For example, this change to a function in a `.d.ts` file adding a new param to a function:
-
-`index.d.ts`:
-
-```diff
-- export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
-```
-
-`index-tests.ts`:
-
-```diff
-import {twoslash} from "./"
-
-// $ExpectType string
-const result = twoslash("//")
-
-+ // Handle options param
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
-+ // When the param is incorrect
-+ // $ExpectError
-+ const resultWithOptions = twoslash("//", {  })
-```
-
-You can validate your changes with `npm test package-name` from the root of this repo, which takes changed files into account.
 
 #### Create a new package
 
@@ -213,11 +175,11 @@ Your package should have this structure:
 | File          | Purpose |
 | ------------- | ------- |
 | index.d.ts    | This contains the typings for the package. |
-| foo-tests.ts  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
+| [<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json   | Enables linting. |
 
-Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
+Generate these by running `npx dts-gen --dt --name <my package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option. If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
@@ -303,7 +265,44 @@ This should be the only content in a finished project's `tslint.json` file. If a
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
-To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+#### <my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
+Use `$ExpectType` to assert that an expression is of a given type, and `$ExpectError` to assert that a compile error. Examples:
 
 ```js
 // $ExpectType void
@@ -315,9 +314,9 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Verifying
+#### Running Tests
 
-Test your changes by running `npm test package-name` where `package-name` is the name of your package.
+Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 

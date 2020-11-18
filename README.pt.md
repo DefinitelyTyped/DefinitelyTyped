@@ -15,11 +15,11 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
   - [Testando](#testando)
   - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
     - [Edite um pacote existente](#edite-um-pacote-existente)
-    - [Editando testes em um pacote existente](#editando-testes-em-um-pacote-existente)
     - [Crie um novo pacote](#crie-um-novo-pacote)
     - [Erros comuns](#erros-comuns)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Linter](#linter)
+    - [<my package>-tests.ts](#my-package-teststs)
     - [Verificando](#verificando)
     </details>
   - [Donos de definição](#donos-de-definição)
@@ -141,8 +141,6 @@ Crie o arquivo `types/foo/index.d.ts` contendo as declarações para o módulo "
 Você deve conseguir fazer imports de `"foo"` em seu código e ele será redirecionado para a nova definição de tipos.
 Então faça uma build *e* execute o código para ter certeza que sua definição de tipos realmente corresponde ao que acontece em tempo de execução.
 
-Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
-
 Logo após testar suas definições com um código real, faça uma [PR](#faça-uma-pull-request)
 e então siga as instruções para [editar um pacote existente](#edite-um-pacote-existente) ou
 [criar um novo pacote](#crie-um-novo-pacote).
@@ -158,47 +156,12 @@ Primeiro, [faça um fork](https://guides.github.com/activities/forking/) deste r
 #### Edite um pacote existente
 
 * `cd types/meu-pacote-para-editar`
-* Faça as mudanças. Lembre de editar os testes.
+* Faça as mudanças. Lembre de [editar os testes](#my-package-teststs).
   Se você está fazendo mudanças que podem "quebrar" o pacote, não se esqueça de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versão-major-com-mudanças-drásticas-como-eu-devo-atualizar-a-declaração-de-tipos).
-
-* Se há um `tslint.json`, execute `npm run lint nome-do-pacote`. Senão, execute `tsc` no diretório do pacote.
+* [Execute `npm test nome-do-pacote`](#verificando).
 
 Quando você fizer uma PR para editar um pacote existente, o `dt-bot` deve mencionar (usando "@") os antigos autores.
 Se ele não o fizer, você mesmo pode fazer isso no comentário associado a PR.
-
-#### Editando testes em um pacote existente
-
-Deve existir um arquivo `[nomedomódulo]-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
-
-Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-
-Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
-
-`index.d.ts`:
-
-```diff
-- export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
-```
-
-`index-tests.ts`:
-```diff
-import {twoslash} from "./"
-
-// $ExpectType string
-const result = twoslash("//")
-
-+ // Lida com o parâmetro options
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
-+ // Quando o parâmetro está incorreto
-+ // $ExpectError
-+ const resultWithOptions = twoslash("//", {  })
-```
-
-Você pode validar suas mudanças executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
 #### Crie um novo pacote
 
@@ -213,7 +176,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | Arquivo | Propósito |
 | --- | --- |
 | index.d.ts | Contém os tipos para o pacote. |
-| foo-tests.ts | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
+| [<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
 | tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
 | tslint.json | Habilita a análise do código pelo linter. |
 
@@ -263,7 +226,7 @@ Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfV
 - `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao "typingsPackageName", e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
-Você pode obter esta lista olhando os erros do `npm run test`.
+Você pode obter esta lista olhando os erros do `npm test`.
 Para corrigir os erros, adicione o arquivo `package.json` com `"dependencies": { "foo": "x.y.z" }`.
 Por exemplo:
 
@@ -303,6 +266,42 @@ Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finaliza
 
 (Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
 
+#### <my package>-tests.ts
+
+Deve existir um arquivo `<my package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
+
+Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+
+Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Lida com o parâmetro options
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // Quando o parâmetro está incorreto
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
+
+Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
+
 Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
 
 ```js
@@ -317,7 +316,7 @@ Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Micros
 
 #### Verificando
 
-Teste suas mudanças executando o comando `npm run lint nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
 Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
