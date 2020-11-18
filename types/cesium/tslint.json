@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // Since this is a generated file, the following tslint rules are needed
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "max-line-length": false,
