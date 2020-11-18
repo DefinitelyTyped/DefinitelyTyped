@@ -32,7 +32,7 @@ export interface ControllerMixin extends ActionHandler {
     transitionToRoute(name: string, ...args: any[]): void;
     transitionToRoute(...args: any[]): void;
     model: any;
-    queryParams: Array<string | Record<string, QueryParamConfig | undefined>>;
+    queryParams: Array<string | Record<string, QueryParamConfig | string | undefined>>;
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;
