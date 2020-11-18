@@ -132,9 +132,9 @@ Version | Released | End of Support
 创建包含模块 "foo" 声明的 `types/foo/index.d.ts`.
 你现在应该将 `"foo"` 导入到你的代码中，它会使用新的类型声明。
 然后构建并运行代码确保你的类型定义与实际上发生的情况一致。
-一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#make-a-pull-request)，
-然后按照下面的说明去 [编辑一个现有包](#edit-an-existing-package) 或
-[创建一个新包](#create-a-new-package)。
+一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#发起一个-pull-request)，
+然后按照下面的说明去 [编辑一个现有包](#编辑一个现有包) 或
+[创建一个新包](#创建一个新的包)。
 
 ### 发起一个 pull request
 
@@ -146,7 +146,7 @@ Version | Released | End of Support
 
 * `cd types/<package to edit>`
 * 作出修改之后，[记得新增测试](#my-package-teststs)。
-  如果你进行了重大修改，不要忘记 [更新主版本](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package)
+  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本，我应该如何更新它的类型声明包？)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
   - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -437,7 +437,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 }
 ```
 
-你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) 和 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) 查看示例。
+你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) 和 [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) 查看示例。
 
 #### 我想去添加默认情况下不存在于 TypeScript 的 DOM API.
 

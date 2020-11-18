@@ -449,7 +449,7 @@ e adicione os tipos e testes específicos para a nova versão do TypeScript. Voc
 }
 ```
 
-Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) para exemplos.
+Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) para exemplos.
 
 #### Eu quero adicionar uma API da DOM não presente no TypeScript por padrão.
 
