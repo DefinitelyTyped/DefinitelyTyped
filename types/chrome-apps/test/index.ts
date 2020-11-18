@@ -797,9 +797,17 @@ chrome.documentScan.scan({
 
 const deviceAttr = chrome.enterprise.deviceAttributes;
 
-if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
-    if (deviceAttr.getDeviceSerialNumber && deviceAttr.getDeviceAnnotatedLocation) {
-        console.log('API OK :)');
+if (deviceAttr.getDirectoryDeviceId) {
+    if (deviceAttr.getDeviceAssetId) {
+        if (deviceAttr.getDeviceSerialNumber) {
+            if (deviceAttr.getDeviceAnnotatedLocation) {
+                deviceAttr.getDirectoryDeviceId;
+                deviceAttr.getDeviceAssetId;
+                deviceAttr.getDeviceSerialNumber;
+                deviceAttr.getDeviceAnnotatedLocation
+                console.log('API OK :)');
+            }
+        }
     }
 }
 
@@ -1206,11 +1214,15 @@ chrome.platformKeys.selectClientCertificates(
         return matches.length;
     });
 
-if (chrome.platformKeys.subtleCrypto &&
-    chrome.platformKeys.subtleCrypto() &&
-    chrome.platformKeys.subtleCrypto().sign &&
-    chrome.platformKeys.subtleCrypto().exportKey) {
-    console.log('Subtle crypto working (Y)')
+if (chrome.platformKeys.subtleCrypto && chrome.platformKeys.subtleCrypto()) {
+    const subtleCrypto = chrome.platformKeys.subtleCrypto()
+    if (subtleCrypto.sign) {
+        if (subtleCrypto.exportKey) {
+            subtleCrypto.sign;
+            subtleCrypto.exportKey;
+            console.log('Subtle crypto working (Y)')
+        }
+    }
 }
 
 var keyParams = {

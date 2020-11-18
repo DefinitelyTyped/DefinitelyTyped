@@ -2437,7 +2437,7 @@ function testTextEditor() {
     subscription = editor.onDidChangeGrammar(grammar => grammar.name);
     subscription = editor.onDidChangeModified(modified => {});
     subscription = editor.onDidConflict(() => {});
-    subscription = editor.onWillInsertText(event => event.cancel && event.text);
+    subscription = editor.onWillInsertText(event => { event.cancel(); event.text });
     subscription = editor.onDidInsertText(event => event.text);
     subscription = editor.observeCursors(cursor => cursor.moveToBottom());
     subscription = editor.onDidAddCursor(cursor => cursor.getMarker());
