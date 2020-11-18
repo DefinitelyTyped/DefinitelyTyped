@@ -24,8 +24,8 @@ class AccessTokenImpl implements AccessToken {
     id: string;
     userId: string;
 
-    static findOne(token: AccessToken, callback: (err: Error, token: AccessTokenImpl) => void): void {
-        callback(null, new AccessTokenImpl());
+    static findOne(token: AccessToken, callback: (token: AccessTokenImpl, err?: Error) => void): void {
+        callback(new AccessTokenImpl(), undefined);
     }
 
     verifyToken(token: string): boolean {
@@ -35,8 +35,8 @@ class AccessTokenImpl implements AccessToken {
 
 class UserImpl implements User {
     id: string;
-    static findOne(user: User, callback: (err: Error, user: UserImpl) => void): void {
-        callback(null, new UserImpl());
+    static findOne(user: User, callback: (user: UserImpl, err?: Error) => void): void {
+        callback(new UserImpl(), undefined);
     }
 }
 //#endregion
@@ -48,7 +48,7 @@ passport.use(
             {
                 id: token,
             },
-            (error, accessToken) => {
+            (accessToken, error) => {
                 if (error) {
                     return done(error);
                 }
@@ -88,7 +88,7 @@ passport.use(
             {
                 id: token,
             },
-            (error, accessToken) => {
+            (accessToken, error) => {
                 if (error) {
                     return done(error);
                 }
