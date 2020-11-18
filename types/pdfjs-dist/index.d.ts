@@ -383,7 +383,7 @@ interface PDFRenderImageLayer {
 }
 
 interface PDFRenderParams {
-    canvasContext: CanvasRenderingContext2D;
+    canvasContext: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
     viewport?: PDFPageViewport;
     textLayer?: PDFRenderTextLayer;
     imageLayer?: PDFRenderImageLayer;
