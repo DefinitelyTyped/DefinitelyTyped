@@ -463,7 +463,7 @@ export class Mark<S extends Schema = any> {
  * **Do not** directly mutate the properties of a `Node` object. See
  * [the guide](/docs/guide/#doc) for more information.
  */
-declare class ProsemirrorNode<S extends Schema = any> {
+export class ProsemirrorNode<S extends Schema = any> {
   /**
    * The type of node that this is.
    */
