@@ -34,8 +34,8 @@ import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackgr
 
 export { GlobalTheme } from './theme';
 
-type AnyFunction = (...args: any[]) => void;
-interface ButtonProps extends TouchableOpacityProps {
+export type AnyFunction = (...args: any[]) => void;
+export interface ButtonProps extends TouchableOpacityProps {
     stretch?: boolean;
     disabled?: boolean;
     size?: 'large' | 'normal' | 'small' | 'noSet' | number;
@@ -75,10 +75,10 @@ interface ButtonProps extends TouchableOpacityProps {
         bgRadius?: number;
     };
 }
-class Button extends React.Component<ButtonProps> {}
+export class Button extends React.Component<ButtonProps> {}
 
 // BrickButton
-interface BrickButtonProps {
+export interface BrickButtonProps {
     style?: StyleProp<ViewStyle>;
     onPress?: (event: GestureResponderEvent) => void;
     onChange?: (eventName: string, ...args: any) => void;
@@ -113,10 +113,10 @@ interface BrickButtonProps {
         loadingBackground?: string;
     };
 }
-class BrickButton extends React.Component<BrickButtonProps> {}
+export class BrickButton extends React.Component<BrickButtonProps> {}
 
 // Carousel
-interface CarouselProps extends ViewPagerAndroidProps {
+export interface CarouselProps extends ViewPagerAndroidProps {
     accessibilityLabel?: string;
     bounces?: boolean;
     hasDots?: boolean;
@@ -144,10 +144,10 @@ interface CarouselProps extends ViewPagerAndroidProps {
     onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void;
     onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void;
 }
-class Carousel extends React.Component<CarouselProps> {}
+export class Carousel extends React.Component<CarouselProps> {}
 
 // Checkbox
-interface CheckboxProps {
+export interface CheckboxProps {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     size?: number;
@@ -162,10 +162,10 @@ interface CheckboxProps {
     onChange?: (checked: boolean) => void;
     children?: React.ReactNode;
 }
-class Checkbox extends React.Component<CheckboxProps> {}
+export class Checkbox extends React.Component<CheckboxProps> {}
 
 // CircleView
-interface CircleViewProps extends ViewProps {
+export interface CircleViewProps extends ViewProps {
     style?: StyleProp<ViewStyle>;
     color?: string;
     borderColor?: string;
@@ -173,10 +173,10 @@ interface CircleViewProps extends ViewProps {
     radius: number;
     children?: React.ReactNode;
 }
-class CircleView extends React.Component<CircleViewProps> {}
+export class CircleView extends React.Component<CircleViewProps> {}
 
 // Collapsible
-interface CollapsibleProps {
+export interface CollapsibleProps {
     align?: 'top' | 'center' | 'bottom';
     collapsed?: boolean;
     collapsedHeight?: number;
@@ -186,10 +186,10 @@ interface CollapsibleProps {
     onChange?: () => void;
     children?: React.ReactNode;
 }
-class Collapsible extends React.Component<CollapsibleProps> {}
+export class Collapsible extends React.Component<CollapsibleProps> {}
 
 // ControllerBar
-interface ControllerBarProps extends ViewProps {
+export interface ControllerBarProps extends ViewProps {
     type?: 'primary' | 'normal';
     size?: ('large' | 'normal' | 'small') | number;
     stretch?: boolean;
@@ -200,7 +200,7 @@ interface ControllerBarProps extends ViewProps {
     button: ButtonProps[];
     wrapperStyle?: StyleProp<ViewStyle>;
 }
-interface BarGroupProps {
+export interface BarGroupProps {
     type?: 'warp' | 'swiper' | 'divide';
     size?: 'large' | 'normal' | 'small' | number;
     swiperConfig?: CarouselProps;
@@ -208,12 +208,12 @@ interface BarGroupProps {
     style?: StyleProp<ViewStyle>;
     children: React.ReactNode;
 }
-class ControllerBar extends React.Component<ControllerBarProps> {
+export class ControllerBar extends React.Component<ControllerBarProps> {
     static Group: React.ElementType<BarGroupProps>;
 }
 
 // DatePicker
-interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
+export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
     accessibilityLabel?: string;
     locale?:
         | string
@@ -242,10 +242,10 @@ interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
     pickerFontColor?: string;
     dateSortKeys?: string[];
 }
-class DatePicker extends React.Component<DatePickerProps> {}
+export class DatePicker extends React.Component<DatePickerProps> {}
 
 // Dialog
-interface DialogProps {
+export interface DialogProps {
     style?: StyleProp<ViewStyle>;
     contentStyle?: StyleProp<ViewStyle>;
     titleNumberOfLines?: number;
@@ -262,13 +262,13 @@ interface DialogProps {
         | MotionPushDownProps;
 }
 
-interface DialogElse extends ModalProps {
+export interface DialogElse extends ModalProps {
     onShow?: () => void;
     onHide?: () => void;
     onDismiss?: () => void;
 }
 
-interface DialogAlertProps extends DialogProps {
+export interface DialogAlertProps extends DialogProps {
     footerWrapperStyle?: StyleProp<ViewStyle>;
     confirmText: string;
     confirmTextStyle?: StyleProp<TextStyle>;
@@ -276,7 +276,7 @@ interface DialogAlertProps extends DialogProps {
     onConfirm?: (data: any, args: { close: () => void }) => void;
 }
 
-interface DialogCheckboxProps extends DialogProps, Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
+export interface DialogCheckboxProps extends DialogProps, Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
     footerWrapperStyle?: StyleProp<ViewStyle>;
     confirmText: string;
     confirmTextStyle?: StyleProp<TextStyle>;
@@ -294,7 +294,7 @@ interface DialogCheckboxProps extends DialogProps, Omit<TYFlatListProps<{}>, 'da
     onCancel?: () => void;
     onConfirm?: (data: any, args: { close: () => void }) => void;
 }
-interface DialogCheckbox extends TYFlatListData {
+export interface DialogCheckbox extends TYFlatListData {
     value?: string | number;
     title?: string;
     iconSize?: number;
@@ -303,7 +303,7 @@ interface DialogCheckbox extends TYFlatListData {
     hideOnUnselect?: boolean;
 }
 
-interface DialogConfirmProps extends DialogProps {
+export interface DialogConfirmProps extends DialogProps {
     footerWrapperStyle?: StyleProp<ViewStyle>;
     confirmText: string;
     confirmTextStyle?: StyleProp<TextStyle>;
@@ -316,7 +316,7 @@ interface DialogConfirmProps extends DialogProps {
     onConfirm?: (data: any, args: { close: () => void }) => void;
 }
 
-interface DialogListProps
+export interface DialogListProps
     extends Omit<DialogProps, 'motionType' | 'motionConfig'>,
         Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
     maxItemNum?: number;
@@ -327,11 +327,11 @@ interface DialogListProps
     onCancel?: () => void;
 }
 
-interface DialogList extends TYFlatListData {
+export interface DialogList extends TYFlatListData {
     title: string;
 }
 
-interface DialogPromptProps extends Omit<TextInputProps, 'style'>, DialogProps {
+export interface DialogPromptProps extends Omit<TextInputProps, 'style'>, DialogProps {
     showHelp?: boolean;
     onHelpPress?: () => void;
     inputWrapperStyle?: StyleProp<ViewStyle>;
@@ -347,7 +347,7 @@ interface DialogPromptProps extends Omit<TextInputProps, 'style'>, DialogProps {
     onConfirm?: (data: any, args: { close: () => void }) => void;
 }
 
-interface DialogCustomProps extends DialogProps {
+export interface DialogCustomProps extends DialogProps {
     content?: any;
     header?: React.ElementType | (() => React.ReactNode);
     footer?: React.ElementType | (() => React.ReactNode);
@@ -364,7 +364,7 @@ interface DialogCustomProps extends DialogProps {
 }
 
 // tslint:disable-next-line no-unnecessary-class
-class Dialog {
+export class Dialog {
     static alert: (option: DialogAlertProps, option2?: DialogElse) => void;
     static checkbox: (option: DialogCheckboxProps, option2?: DialogElse) => void;
     static confirm: (option: DialogConfirmProps, option2?: DialogElse) => void;
@@ -375,7 +375,7 @@ class Dialog {
 }
 
 // Divider
-interface DividerProps {
+export interface DividerProps {
     style?: StyleProp<ViewStyle>;
     flexDirection?: 'row' | 'column';
     visible?: boolean;
@@ -383,10 +383,10 @@ interface DividerProps {
     width?: number;
     height?: number;
 }
-class Divider extends React.Component<DividerProps> {}
+export class Divider extends React.Component<DividerProps> {}
 
 // GlobalToast
-interface GlobalToastProps extends ToastProps, IconFontProps {
+export interface GlobalToastProps extends ToastProps, IconFontProps {
     text?: string;
     size?: number;
     textStyle?: StyleProp<TextStyle>;
@@ -394,28 +394,28 @@ interface GlobalToastProps extends ToastProps, IconFontProps {
     contentStyle?: StyleProp<ViewStyle>;
     showIcon?: boolean;
 }
-class GlobalToast {
+export class GlobalToast {
     show: (option: GlobalToastProps) => void;
     hide: () => void;
 }
 
 // LinearGradient
-type LinearGradientProps = {
+export type LinearGradientProps = {
     gradientId?: string;
     style?: StyleProp<ViewStyle>;
     children?: React.ReactNode;
 } & LinearGradientBackground;
-class LinearGradient extends React.Component<LinearGradientProps> {}
+export class LinearGradient extends React.Component<LinearGradientProps> {}
 
 // RadialGradient
-type RadialGradientProps = {
+export type RadialGradientProps = {
     style?: StyleProp<ViewStyle>;
     gradientId?: string;
 } & RadialGradientBackground;
-class RadialGradient extends React.Component<RadialGradientProps> {}
+export class RadialGradient extends React.Component<RadialGradientProps> {}
 
 // i18n
-class I18N {
+export class I18N {
     constructor(...args: any[]);
     getDpLang: (code: string, value?: string | boolean) => string;
     getLang: (key: string, defaultString?: string) => string;
@@ -424,7 +424,7 @@ class I18N {
 }
 
 // IconFont
-interface IconFontProps {
+export interface IconFontProps {
     viewBox?: string;
     useART?: true;
     ascent?: number;
@@ -454,16 +454,16 @@ interface IconFontProps {
     opacity?: string | number;
 }
 
-class IconFont extends React.Component<IconFontProps> {}
+export class IconFont extends React.Component<IconFontProps> {}
 
 // layout/TopBar
 
-interface TopBarContainerProps {
+export interface TopBarContainerProps {
     style?: StyleProp<ViewStyle>;
     contentStyle?: StyleProp<ViewStyle>;
     background?: BackgroundProps;
 }
-interface TopBarContentProps {
+export interface TopBarContentProps {
     style?: StyleProp<ViewStyle>;
     color?: string;
     title?: string;
@@ -474,7 +474,7 @@ interface TopBarContentProps {
     onPress?: (event: GestureResponderEvent) => void;
     children?: React.ReactNode;
 }
-interface TopBarActionProps extends TopBarProps, IconFontProps {
+export interface TopBarActionProps extends TopBarProps, IconFontProps {
     style?: StyleProp<ViewStyle>;
     contentStyle?: StyleProp<ViewStyle>;
     size?: number;
@@ -485,7 +485,7 @@ interface TopBarActionProps extends TopBarProps, IconFontProps {
     children?: React.ReactNode;
     onPress?: (event: GestureResponderEvent) => void;
 }
-interface TopBarProps extends TopBarContentProps {
+export interface TopBarProps extends TopBarContentProps {
     theme?: {
         background?: string;
         color?: string;
@@ -497,7 +497,7 @@ interface TopBarProps extends TopBarContentProps {
     onBack?: (...args: any[]) => void;
 }
 
-class TopBar extends React.Component<TopBarProps> {
+export class TopBar extends React.Component<TopBarProps> {
     static Container: React.ElementType<TopBarContainerProps>;
     static Content: React.ElementType<TopBarContentProps>;
     static Action: React.ElementType<TopBarActionProps>;
@@ -505,7 +505,7 @@ class TopBar extends React.Component<TopBarProps> {
 }
 
 // Modal
-interface ModalProps extends ModalNativeProps {
+export interface ModalProps extends ModalNativeProps {
     animationType?: 'fade' | 'none';
     alignContainer?: 'top' | 'center' | 'bottom';
     onMaskPress?: () => void;
@@ -519,14 +519,14 @@ interface ModalProps extends ModalNativeProps {
     onDismiss?: () => void;
 }
 
-interface ListDate extends TYFlatListData {
+export interface ListDate extends TYFlatListData {
     styles?: StyleProp<ViewStyle>;
     title?: string;
     Icon?: React.ElementType;
     value: any;
 }
 
-class Modal extends React.Component<ModalProps> {
+export class Modal extends React.Component<ModalProps> {
     static Countdown: React.ElementType<PopUpCountdownProps>;
     static DatePicker: React.ElementType<PopupDatePickerProps>;
     static List: React.ElementType<PopUpListProps>;
@@ -536,7 +536,7 @@ class Modal extends React.Component<ModalProps> {
 }
 
 // Motion
-interface MotionProps {
+export interface MotionProps {
     style?: StyleProp<ViewStyle>;
     show?: boolean;
     children?: React.ReactNode;
@@ -552,20 +552,20 @@ interface MotionProps {
     };
 }
 
-interface MotionFadeProps extends MotionProps {
+export interface MotionFadeProps extends MotionProps {
     fadeOpacity?: number;
 }
 
-interface MotionPullUpProps extends MotionProps {
+export interface MotionPullUpProps extends MotionProps {
     dropHeight?: number;
 }
 
-interface MotionPushDownProps extends MotionProps {
+export interface MotionPushDownProps extends MotionProps {
     dropHeight?: number;
     isAlign?: boolean;
 }
 
-interface MotionScaleFadeInProps extends MotionProps {
+export interface MotionScaleFadeInProps extends MotionProps {
     initScale?: number;
     finalScale?: number;
     isAlign?: boolean;
@@ -573,17 +573,17 @@ interface MotionScaleFadeInProps extends MotionProps {
     height?: number;
 }
 
-interface MotionScalePullDownProps extends MotionProps {
+export interface MotionScalePullDownProps extends MotionProps {
     initScale?: number;
     isAlign?: boolean;
 }
 
-interface MotionToastProps extends Omit<MotionProps, 'onHide'> {
+export interface MotionToastProps extends Omit<MotionProps, 'onHide'> {
     initScale?: number;
     onFinish?: () => void;
 }
 
-class Motion extends React.Component<MotionProps> {
+export class Motion extends React.Component<MotionProps> {
     static Fade: React.ElementType<MotionFadeProps>;
     static PullUp: React.ElementType<MotionPullUpProps>;
     static ScaleFadeIn: React.ElementType<MotionScaleFadeInProps>;
@@ -593,7 +593,7 @@ class Motion extends React.Component<MotionProps> {
 }
 
 // Notification
-interface NotificationProps extends TouchableOpacityProps {
+export interface NotificationProps extends TouchableOpacityProps {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     theme?: {
@@ -621,13 +621,13 @@ interface NotificationProps extends TouchableOpacityProps {
     backIconSize?: number;
     backIconCenter?: boolean;
 }
-class Notification {
+export class Notification {
     show: (option: NotificationProps) => void;
     hide: () => void;
 }
 
 // NotificationLegacy
-interface NotificationLegacyProps extends TouchableOpacityProps {
+export interface NotificationLegacyProps extends TouchableOpacityProps {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     theme?: {
@@ -649,10 +649,10 @@ interface NotificationLegacyProps extends TouchableOpacityProps {
     onClose?: () => void;
 }
 
-class NotificationLegacy extends React.Component<NotificationLegacyProps> {}
+export class NotificationLegacy extends React.Component<NotificationLegacyProps> {}
 
 // PickerView
-interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
+export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
     loop?: boolean;
     selectedValue?: string | number | boolean;
     onValueChange?: (value: string | number, index: number) => void;
@@ -674,12 +674,12 @@ interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'select
     };
 }
 
-class Picker extends React.Component<PickerViewProps> {
+export class Picker extends React.Component<PickerViewProps> {
     static Item: React.ElementType;
 }
 
 // Popup
-interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
+export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     wrapperStyle?: StyleProp<TextStyle>;
     title?: string | string[] | React.ReactNode;
     subTitle?: string;
@@ -735,7 +735,7 @@ interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     };
 }
 
-interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'renderItem' | 'data'> {
+export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'renderItem' | 'data'> {
     listWrapperStyle?: StyleProp<ViewStyle>;
     dataSource?: ListDate[];
     type?: 'radio' | 'switch';
@@ -756,12 +756,12 @@ interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'renderIt
     };
 }
 
-interface valueChangeProps {
+export interface valueChangeProps {
     hour: number;
     minute: number;
     value: number;
 }
-interface PopUpCountdownProps extends PopupProps {
+export interface PopUpCountdownProps extends PopupProps {
     countdownWrapperStyle?: StyleProp<ViewStyle>;
     onlyone?: boolean;
     min?: number;
@@ -780,11 +780,11 @@ interface PopUpCountdownProps extends PopupProps {
     minuteUnitStyle?: StyleProp<TextStyle>;
 }
 
-interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'> {
+export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'> {
     _onDataChange?: (date: Date) => void;
 }
 
-interface PopupNumberSelectorProps
+export interface PopupNumberSelectorProps
     extends Omit<PopupProps, 'onLayout' | 'animationType'>,
         Omit<SliderProps, 'theme'> {
     numberSelectorWrapperStyle?: StyleProp<ViewStyle>;
@@ -800,11 +800,11 @@ interface PopupNumberSelectorProps
     isValueChangeUniform?: boolean;
 }
 
-interface PickerDataProps {
+export interface PickerDataProps {
     label: string;
     value: string;
 }
-interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerViewProps, 'theme' | 'children'> {
+export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerViewProps, 'theme' | 'children'> {
     label?: string | string[];
     spacing?: number;
     labelOffset?: number;
@@ -820,21 +820,21 @@ interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerVie
     onConfirm?: (data: any, idx: number, args: { close: () => void }) => void;
 }
 
-interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, 'theme'> {}
+export interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, 'theme'> {}
 
-interface PopupCustomProps extends PopupProps {
+export interface PopupCustomProps extends PopupProps {
     content: React.ReactNode;
 }
 
-interface PopupTipsProps extends TipsProps, ModalProps {
+export interface PopupTipsProps extends TipsProps, ModalProps {
     modalChildStyle?: StyleProp<ViewStyle>;
 }
 
-interface PopupToastProps extends ModalProps {
+export interface PopupToastProps extends ModalProps {
     message?: string;
 }
 
-interface PopupDropdownProps {
+export interface PopupDropdownProps {
     data: Array<{
         key?: string;
         title?: string;
@@ -853,7 +853,7 @@ interface PopupDropdownProps {
     textStyle?: StyleProp<TextStyle>;
 }
 
-class Popup extends React.Component<PopupProps> {
+export class Popup extends React.Component<PopupProps> {
     static list: (option: PopUpListProps, option2?: DialogElse) => void;
     static countdown: (option: PopUpCountdownProps, option2?: DialogElse) => void;
     static numberSelector: (option: PopupNumberSelectorProps, option2?: DialogElse) => void;
@@ -868,12 +868,12 @@ class Popup extends React.Component<PopupProps> {
 }
 
 // Progress
-interface GestureProps extends ViewProps {
+export interface GestureProps extends ViewProps {
     pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto';
     disabled?: boolean;
     children?: React.ReactNode;
 }
-interface ProgressProps extends GestureProps {
+export interface ProgressProps extends GestureProps {
     gradientId?: string;
     style?: StyleProp<ViewStyle>;
     startDegree?: number;
@@ -899,7 +899,7 @@ interface ProgressProps extends GestureProps {
     renderCenterView?: React.ReactNode;
 }
 
-interface ProgressBasicProps extends ProgressProps {
+export interface ProgressBasicProps extends ProgressProps {
     pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto';
     thumbFill?: string;
     thumbStrokeWidth?: number;
@@ -914,7 +914,7 @@ interface ProgressBasicProps extends ProgressProps {
     onSlidingComplete?: (value: number) => void;
 }
 
-interface SpaceProps extends ProgressProps {
+export interface SpaceProps extends ProgressProps {
     scaleNumber?: number;
     value?: number;
     strokeWidth?: number;
@@ -922,7 +922,7 @@ interface SpaceProps extends ProgressProps {
     onSlidingComplete?: (value: number) => void;
 }
 
-interface DoubleProps extends ProgressProps {
+export interface DoubleProps extends ProgressProps {
     maxValue?: number;
     minValue?: number;
     onValueChange?: (argus: { minValue: number; maxValue: number }) => void;
@@ -937,7 +937,7 @@ interface DoubleProps extends ProgressProps {
     endColor?: string;
 }
 
-interface ComposeProps extends GestureProps {
+export interface ComposeProps extends GestureProps {
     style?: StyleProp<ViewStyle>;
     value1?: number;
     value2?: number;
@@ -978,14 +978,14 @@ interface ComposeProps extends GestureProps {
     thumbFill2?: string;
 }
 
-class Progress extends React.Component<ProgressBasicProps> {
+export class Progress extends React.Component<ProgressBasicProps> {
     static Space: React.ElementType<SpaceProps>;
     static Double: React.ElementType<DoubleProps>;
     static Compose: React.ElementType<ComposeProps>;
 }
 
 // RotationView
-interface RotationViewProps {
+export interface RotationViewProps {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     children?: React.ReactNode;
@@ -994,10 +994,10 @@ interface RotationViewProps {
     useNativeDriver?: boolean;
 }
 
-class RotationView extends React.Component<RotationViewProps> {}
+export class RotationView extends React.Component<RotationViewProps> {}
 
 // Slider
-interface SliderProps {
+export interface SliderProps {
     theme?: {
         width?: number;
         trackRadius?: number;
@@ -1055,13 +1055,13 @@ interface SliderProps {
     };
 }
 
-class Slider extends React.Component<SliderProps> {
+export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
     static Vertical: React.ElementType<SliderProps>;
 }
 
 // Stepper
-interface StepperProps extends Omit<TextInputProps, 'value'> {
+export interface StepperProps extends Omit<TextInputProps, 'value'> {
     style?: StyleProp<ViewStyle>;
     buttonStyle?: StyleProp<ViewStyle>;
     inputStyle?: StyleProp<ViewStyle>;
@@ -1081,10 +1081,10 @@ interface StepperProps extends Omit<TextInputProps, 'value'> {
     getTextInputRef?: (TextInputRef: {}) => void;
 }
 
-class Stepper extends React.Component<StepperProps> {}
+export class Stepper extends React.Component<StepperProps> {}
 
 // Swipeout
-interface SwipeoutAction {
+export interface SwipeoutAction {
     backgroundColor?: string;
     color?: string;
     disabled?: boolean;
@@ -1097,7 +1097,7 @@ interface SwipeoutAction {
     onPress?: (e: GestureResponderEvent) => void;
 }
 
-interface SwipeoutProps {
+export interface SwipeoutProps {
     accessibilityLabel?: string;
     backgroundColor?: string;
     autoClose?: boolean;
@@ -1115,10 +1115,10 @@ interface SwipeoutProps {
     rowID?: number;
 }
 
-class Swipeout extends React.Component<SwipeoutProps> {}
+export class Swipeout extends React.Component<SwipeoutProps> {}
 
 // SwitchButton
-interface SwitchButtonProps {
+export interface SwitchButtonProps {
     theme?: {
         width?: number;
         height?: number;
@@ -1161,10 +1161,10 @@ interface SwitchButtonProps {
     offTextStyle?: StyleProp<TextStyle>;
 }
 
-class SwitchButton extends React.Component<SwitchButtonProps> {}
+export class SwitchButton extends React.Component<SwitchButtonProps> {}
 
 // Tab
-interface TabProps {
+export interface TabProps {
     swipeable?: boolean;
     animated?: boolean;
     activeKey?: string | number;
@@ -1187,17 +1187,17 @@ interface TabProps {
     distanceToChangeTab?: number;
 }
 
-interface TabPaneProps extends TabProps {
+export interface TabPaneProps extends TabProps {
     tabWidth?: number;
     tab?: React.ReactNode;
 }
 
-class Tab extends React.Component<TabProps> {
+export class Tab extends React.Component<TabProps> {
     static TabPane: React.ElementType<TabPaneProps>;
 }
 
 // TabBar
-interface TabBarArr {
+export interface TabBarArr {
     [index: number]: {
         style?: StyleProp<ViewStyle>;
         activeStyle?: StyleProp<ViewStyle>;
@@ -1212,7 +1212,7 @@ interface TabBarArr {
     };
 }
 
-interface TabBarProps {
+export interface TabBarProps {
     type?: string;
     underlineStyle?: StyleProp<ViewStyle>;
     tabStyle?: StyleProp<ViewStyle>;
@@ -1231,17 +1231,17 @@ interface TabBarProps {
     gutter?: number;
     onChange?: (index: string) => void;
 }
-class TabBar extends React.Component<TabBarProps> {}
+export class TabBar extends React.Component<TabBarProps> {}
 
 // Tabs
-interface TabDataSource extends ViewProps {
+export interface TabDataSource extends ViewProps {
     value: string;
     label?: string;
     disabled?: boolean;
     renderTab?: (isActive: boolean, state: {}, props: {}) => React.ReactNode;
 }
 
-interface TabsProps {
+export interface TabsProps {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     wrapperStyle?: StyleProp<ViewStyle>;
@@ -1277,7 +1277,7 @@ interface TabsProps {
     };
 }
 
-interface TabContentProps {
+export interface TabContentProps {
     accessibilityLabel?: string;
     children: React.ReactNode;
     style?: StyleProp<ViewStyle>;
@@ -1298,19 +1298,19 @@ interface TabContentProps {
     };
 }
 
-interface TabPanelProps extends ViewProps {
+export interface TabPanelProps extends ViewProps {
     style?: StyleProp<ViewStyle>;
     background?: string;
 }
 
-class Tabs extends React.Component<TabsProps> {
+export class Tabs extends React.Component<TabsProps> {
     static TabContent: React.ElementType<TabContentProps>;
     static TabPanel: React.ElementType<TabPanelProps>;
     static TabScrollView: React.ElementType<ScrollViewProps>;
 }
 
 // TimerPicker
-interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
+export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
     accessibilityLabel?: string;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
@@ -1324,10 +1324,10 @@ interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
     symbol?: string;
 }
 
-class TimerPicker extends React.Component<TimerPickerProps> {}
+export class TimerPicker extends React.Component<TimerPickerProps> {}
 
 // Tips
-interface TipsProps {
+export interface TipsProps {
     contentStyle?: StyleProp<ViewStyle>;
     tipStyle?: StyleProp<ViewStyle>;
     bgColor?: string;
@@ -1345,10 +1345,10 @@ interface TipsProps {
     withModal?: boolean;
 }
 
-class Tips extends React.Component<TipsProps> {}
+export class Tips extends React.Component<TipsProps> {}
 
 // Toast
-interface ToastProps {
+export interface ToastProps {
     style?: StyleProp<ViewStyle>;
     contentStyle?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
@@ -1361,28 +1361,28 @@ interface ToastProps {
     children?: React.ReactNode;
 }
 
-interface ToastSuccessProps extends ToastProps {
+export interface ToastSuccessProps extends ToastProps {
     size?: number;
     d?: string | any[];
     iconfontStyle?: StyleProp<ViewStyle>;
     color?: string;
 }
 
-interface ToastWarningProps extends ToastProps {
+export interface ToastWarningProps extends ToastProps {
     size?: number;
     d?: string;
     iconfontStyle?: StyleProp<ViewStyle>;
     color?: string;
 }
 
-interface ToastErrorProps extends ToastProps {
+export interface ToastErrorProps extends ToastProps {
     size?: number;
     d?: string;
     iconfontStyle?: StyleProp<ViewStyle>;
     color?: string;
 }
 
-interface ToastLoadingProps extends ToastProps {
+export interface ToastLoadingProps extends ToastProps {
     size?: number;
     color?: string;
     loading?: boolean;
@@ -1391,7 +1391,7 @@ interface ToastLoadingProps extends ToastProps {
     loadingStyle?: StyleProp<ViewStyle>;
 }
 
-class Toast extends React.Component<ToastProps> {
+export class Toast extends React.Component<ToastProps> {
     static Success: React.ElementType<ToastSuccessProps>;
     static Warning: React.ElementType<ToastWarningProps>;
     static Error: React.ElementType<ToastErrorProps>;
@@ -1399,13 +1399,13 @@ class Toast extends React.Component<ToastProps> {
 }
 
 // TYFlatList
-interface TYSectionInputProps extends Omit<TYListItemProps, 'onBlur' | 'onFocus'>, Omit<TextInputProps, 'style'> {
+export interface TYSectionInputProps extends Omit<TYListItemProps, 'onBlur' | 'onFocus'>, Omit<TextInputProps, 'style'> {
     title: string;
     titleStyle?: StyleProp<TextStyle>;
     inputStyle?: StyleProp<ViewStyle>;
 }
 
-interface TYFlatListData {
+export interface TYFlatListData {
     [prop: string]: any;
     key?: string | number;
     Action?: any;
@@ -1415,7 +1415,7 @@ interface TYFlatListData {
     onChange?: () => void;
 }
 
-interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
+export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
     style?: StyleProp<ViewStyle>;
     data: ItemT[];
     separatorStyle?: StyleProp<ViewStyle>;
@@ -1426,9 +1426,9 @@ interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListPro
     renderItem?: ListRenderItem<ItemT> | null;
 }
 
-interface TYFlatListCheckbox<ItemT extends TYFlatListData> extends TYFlatListProps<ItemT>, CheckboxProps {}
+export interface TYFlatListCheckbox<ItemT extends TYFlatListData> extends TYFlatListProps<ItemT>, CheckboxProps {}
 
-class TYFlatList<ItemT extends TYFlatListData> extends React.Component<TYFlatListProps<ItemT>> {
+export class TYFlatList<ItemT extends TYFlatListData> extends React.Component<TYFlatListProps<ItemT>> {
     static CheckboxItem: React.ElementType<TYFlatListCheckbox<TYFlatListData>>;
     static Item: React.ElementType<TYListItemProps>;
     static InputItem: React.ElementType<TYSectionInputProps>;
@@ -1437,7 +1437,7 @@ class TYFlatList<ItemT extends TYFlatListData> extends React.Component<TYFlatLis
 }
 
 // TYListItem
-interface TYListItemProps extends TouchableOpacityProps {
+export interface TYListItemProps extends TouchableOpacityProps {
     styles?: {
         container?: StyleProp<ViewStyle>;
         content?: StyleProp<ViewStyle>;
@@ -1478,10 +1478,10 @@ interface TYListItemProps extends TouchableOpacityProps {
     onActionPress?: () => void;
 }
 
-class TYListItem extends React.Component<TYListItemProps> {}
+export class TYListItem extends React.Component<TYListItemProps> {}
 
 // TYSectionList
-interface SectionDataProps {
+export interface SectionDataProps {
     key?: string;
     title?: string;
     value?: string | number | boolean;
@@ -1513,7 +1513,7 @@ interface SectionDataProps {
     }>;
 }
 
-interface TYSectionListProps extends SectionListProps<SectionDataProps> {
+export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
     scrollEnabled?: boolean;
     style?: StyleProp<ViewStyle>;
     headerStyle?: StyleProp<ViewStyle>;
@@ -1524,7 +1524,7 @@ interface TYSectionListProps extends SectionListProps<SectionDataProps> {
     useART?: boolean;
 }
 
-interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
+export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
     theme: {
         iconColor?: string;
         descFontColor?: string;
@@ -1555,11 +1555,11 @@ interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
     useART?: boolean;
 }
 
-interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
+export interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
 
-interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
+export interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
 
-class TYSectionList extends React.Component<TYSectionListProps> {
+export class TYSectionList extends React.Component<TYSectionListProps> {
     static CheckboxItem: React.ElementType<TYSectionCheckboxProps>;
     static Item: React.ElementType<TYListItemProps>;
     static InputItem: React.ElementType<TYSectionInputProps>;
@@ -1568,7 +1568,7 @@ class TYSectionList extends React.Component<TYSectionListProps> {
 }
 
 // TYText
-interface TYTextProps extends TextProps {
+export interface TYTextProps extends TextProps {
     type?: 'heading' | 'title' | 'paragraph';
     size?: ('large' | 'normal' | 'small') | number;
     align?: 'left' | 'center' | 'right';
@@ -1577,10 +1577,10 @@ interface TYTextProps extends TextProps {
     text?: string;
 }
 
-class TYText extends React.Component<TYTextProps> {}
+export class TYText extends React.Component<TYTextProps> {}
 
 // UnitText
-interface UnitTextProps {
+export interface UnitTextProps {
     useART?: boolean;
     style?: StyleProp<ViewStyle>;
     size?: number;
@@ -1600,31 +1600,31 @@ interface UnitTextProps {
     svgMap?: {};
 }
 
-class UnitText extends React.Component<UnitTextProps, ViewProps> {}
+export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-class WebView extends React.Component {
+export class WebView extends React.Component {
     title?: string;
     source?: string;
 }
 
-interface ThemeProps {
+export interface ThemeProps {
     theme: {};
     children: React.ReactNode;
 }
 
-class Theme extends React.Component<ThemeProps> {}
+export class Theme extends React.Component<ThemeProps> {}
 
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
     children: React.ReactNode;
     theme: any;
 }
 
-interface ThemeConsumerProps {
+export interface ThemeConsumerProps {
     children?: React.ReactNode;
     theme?: GlobalTheme;
 }
 
-let Utils: {
+export let Utils: {
     CoreUtils: {
         get(object: object, pathString: string, defaultValue?: any): any;
         toFixed(str: string | number, count: number): string;
@@ -1763,18 +1763,18 @@ let Utils: {
     };
 };
 
-let defaultTheme: GlobalTheme;
+export let defaultTheme: GlobalTheme;
 
 // tslint:disable-next-line interface-name
-interface I18NLanMap {
+export interface I18NLanMap {
     en: Record<string, string>;
     zh: Record<string, string>;
     [lanKey: string]: Record<string, string>;
 }
 
-type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
+export type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
 
-interface DpSchema {
+export interface DpSchema {
     code: string;
     dptype: string;
     iconname: string;
@@ -1816,11 +1816,11 @@ interface DpSchema {
     unit?: string;
 }
 
-type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
+export type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
 
-type DpValue = boolean | number | string;
+export type DpValue = boolean | number | string;
 
-interface DevInfo<S = Record<string, DpType>> {
+export interface DevInfo<S = Record<string, DpType>> {
     ability: number;
     activeTime: number;
     /**
@@ -1919,9 +1919,9 @@ interface DevInfo<S = Record<string, DpType>> {
     virtual: boolean;
 }
 
-type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
+export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
 
-interface MobileInfo {
+export interface MobileInfo {
     appRnVersion: string;
     appVersion: string;
     celsius: number;
@@ -1941,12 +1941,12 @@ interface MobileInfo {
     ttid: string;
 }
 
-interface DeprecatedNavigatorRoute {
+export interface DeprecatedNavigatorRoute {
     id: string;
     [routeProp: string]: any;
 }
 
-interface DeprecatedNavigator {
+export interface DeprecatedNavigator {
     getCurrentRoutes(): DeprecatedNavigatorRoute[];
     immediatelyResetRouteStack(nextRouteStack: DeprecatedNavigatorRoute[]): void;
     jumpBack(): void;
@@ -1962,11 +1962,11 @@ interface DeprecatedNavigator {
     replacePrevious(route: DeprecatedNavigatorRoute): void;
 }
 
-interface LinearGradientBackgroundOffset {
+export interface LinearGradientBackgroundOffset {
     [offset: string]: string;
 }
 
-interface NavigationOptions {
+export interface NavigationOptions {
     /**
      * @desc 自定义面板背景
      * number: 渲染本地图片
@@ -2025,12 +2025,12 @@ interface NavigationOptions {
     renderStatusBar?: () => JSX.Element;
 }
 
-class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
+export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
     hookRoute(route: DeprecatedNavigatorRoute): NavigationOptions;
     renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): JSX.Element | undefined;
 }
 
-interface NavigationRoute {
+export interface NavigationRoute {
     id: string;
     Scene: React.ComponentType;
     screenOptions?:
@@ -2038,23 +2038,23 @@ interface NavigationRoute {
         | ((props: { route: RouteProp<ParamListBase, string>; navigation: any }) => StackNavigationOptions);
 }
 
-type ScreenOptions =
+export type ScreenOptions =
     | StackNavigationOptions
     | ((props: { route: RouteProp<ParamListBase, string>; navigation: any }) => StackNavigationOptions);
 
-interface NavigationParam {
+export interface NavigationParam {
     router: NavigationRoute[];
     screenOptions?: ScreenOptions;
 }
 
-interface NavigationComponentClass<P = {}, S = {}> {
+export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
 
 // tslint:disable-next-line no-unnecessary-generics
-function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
+export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
 
-type GotoDpAlarmData = Array<{
+export type GotoDpAlarmData = Array<{
     dpId: string;
     dpName: string;
     selected: number;
@@ -2062,7 +2062,7 @@ type GotoDpAlarmData = Array<{
     rangeValues: string[];
 }>;
 
-let TYSdk: {
+export let TYSdk: {
     DeviceEventEmitter: {
         addListener: (eventType: string, cb: AnyFunction) => void;
         emit: (eventType: string) => void;
