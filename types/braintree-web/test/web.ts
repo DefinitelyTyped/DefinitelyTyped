@@ -681,6 +681,10 @@ braintree.client.create(
                     });
             });
         });
+
+        clientInstance.teardown((err) => {
+            // implementation
+        });
     },
 );
 
