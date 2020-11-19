@@ -19,7 +19,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Erros comuns](#erros-comuns)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Linter](#linter)
-    - [<my package>-tests.ts](#my-package-teststs)
+    - [\<my package>-tests.ts](#my-package-teststs)
     - [Verificando](#verificando)
     </details>
   - [Donos de definição](#donos-de-definição)
@@ -176,7 +176,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | Arquivo | Propósito |
 | --- | --- |
 | index.d.ts | Contém os tipos para o pacote. |
-| [<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
+| [\<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
 | tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
 | tslint.json | Habilita a análise do código pelo linter. |
 
@@ -266,7 +266,7 @@ Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finaliza
 
 (Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
 
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 Deve existir um arquivo `<my package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
 Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.

@@ -16,7 +16,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Errores comunes](#errores-comunes)
     - [Remover un paquete](#remover-un-paquete)
     - [Lint](#lint)
-    - [<my package>-tests.ts](#my-package-teststs)
+    - [\<my package>-tests.ts](#my-package-teststs)
     - [Running Tests](#running-tests)
     </details>
   - [Definition Owners](#definition-owners)
@@ -165,7 +165,7 @@ Tu paquete debería tener esta estructura:
 | Archivo | Propósito |
 | --- | --- |
 | index.d.ts | Este contiene los typings del paquete. |
-| [<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
+| [\<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
 | tslint.json | Permite linting. |
 
@@ -231,7 +231,7 @@ Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha 
 
 (Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `//tslint:disable-next-line rule-name`.)
 
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.

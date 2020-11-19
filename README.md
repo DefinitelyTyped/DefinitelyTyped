@@ -18,7 +18,7 @@
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
     - [Linter](#linter)
-    - [<my package>-tests.ts](#my-package-teststs)
+    - [\<my package>-tests.ts](#my-package-teststs)
     - [Running Tests](#running-tests)
     </details>
   - [Definition Owners](#definition-owners)
@@ -175,7 +175,7 @@ Your package should have this structure:
 | File          | Purpose |
 | ------------- | ------- |
 | index.d.ts    | This contains the typings for the package. |
-| [<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
+| [\<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json   | Enables linting. |
 
@@ -265,7 +265,7 @@ This should be the only content in a finished project's `tslint.json` file. If a
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
