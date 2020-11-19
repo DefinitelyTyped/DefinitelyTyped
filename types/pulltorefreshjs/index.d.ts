@@ -9,7 +9,7 @@
 export function init(options?: Options): PullToRefreshInstance;
 
 export interface PullToRefreshInstance {
-	destroy(): void;
+    destroy(): void;
 }
 
 export function destroyAll(): void;
