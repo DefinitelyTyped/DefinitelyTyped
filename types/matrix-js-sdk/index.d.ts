@@ -1,12 +1,16 @@
-// Type definitions for matrix-js-sdk 5.0
+// Type definitions for matrix-js-sdk 5.1
 // Project: https://github.com/matrix-org/matrix-js-sdk
 // Definitions by: Huan LI (李卓桓) <https://github.com/huan>
+//                 André Vitor L. Matos <https://github.com/andrevmatos>
+//                 Thibaut Sardan <https://github.com/Tbaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events';
+
+// avoid requiring 'request' type
+export function request(r: any): void;
+export function getRequest(): any;
 
 export type MatrixCallback = (err: null | object, data: any) => void;
 
@@ -64,8 +68,8 @@ export class Room {
   getJoinedMembers(): RoomMember[];
   getLiveTimeline(): EventTimeline;
   getMember(userId: string): RoomMember;
-  getMembersWithMembership(membership: string): RoomMember[];
-  getMyMembership(myUserId: string): string;
+  getMembersWithMembership(membership: MembershipType): RoomMember[];
+  getMyMembership(): MembershipType | null;
   getOrCreateFilteredTimelineSet(filter: Filter): EventTimelineSet;
   getPendingEvents(): MatrixEvent[];
   getReceiptsForEvent(event: MatrixEvent): object[];
@@ -135,7 +139,8 @@ export type EventType = never
                       |'m.room.redaction'
                       |'m.room.tombstone'
                       |'m.room.topic'
-                      |'m.sticker';
+                      |'m.sticker'
+                      |'m.presence';
 
 export type MsgType = never
                     |'m.audio'
@@ -150,15 +155,133 @@ export type MsgType = never
 export type MembershipType = never
                           |'ban'
                           |'invite'
-                          |'joined'
                           |'join'
                           |'leave';
+
+export interface MatrixStore {
+  isNewlyCreated(): Promise<boolean>;
+  getSyncToken(): string | null;
+  setSyncToken(token: string): void;
+  storeGroup(group: Group): void;
+  getGroup(groupId: string): Group | null;
+  getGroups(): Group[];
+  storeRoom(room: Room): void;
+  getRoom(roomId: string): Room | null;
+  getRooms(): Room[];
+  removeRoom(roomId: string): void;
+  getRoomSummaries(): RoomSummary[];
+  storeUser(user: User): void;
+  getUser(userId: string): User | null;
+  getUsers(): User[];
+  scrollback(room: Room, limit: number): any[];
+  storeEvents(room: Room, events: MatrixEvent[], token: string, toStart?: boolean): boolean;
+  storeFilter(filter: Filter): void;
+  getFilter(userId: string, filterId: string): Filter | null;
+  getFilterIdByName(filterName: string): Filter | null;
+  setFilterIdByName(filterName: string, filterId: string): void;
+  storeAccountDataEvents(events: MatrixEvent[]): void;
+  getAccountData(eventType: string): MatrixEvent | undefined;
+  setSyncData(syncData: any): Promise<void>;
+  wantsSave(): boolean;
+  save(force?: boolean): void;
+  startup(): Promise<void>;
+  getSavedSync(): Promise<any>;
+  getSavedSyncToken(): Promise<string | null>;
+  deleteAllData(): Promise<void>;
+  getOutOfBandMembers(roomId: string): Promise<MatrixEvent[] | null>;
+  setOutOfBandMembers(roomId: string, membershipEvents: MatrixEvent[]): Promise<void>;
+  clearOutOfBandMembers(): Promise<void>;
+  getClientOptions(): Promise<any>;
+  storeClientOptions(options: any): Promise<void>;
+}
+
+export class MemoryStore implements MatrixStore {
+  localStorage?: any;
+  constructor(opts?: { localStorage?: any });
+  isNewlyCreated(): Promise<boolean>;
+  getSyncToken(): string | null;
+  setSyncToken(token: string): void;
+  storeGroup(group: Group): void;
+  getGroup(groupId: string): Group | null;
+  getGroups(): Group[];
+  storeRoom(room: Room): void;
+  getRoom(roomId: string): Room | null;
+  getRooms(): Room[];
+  removeRoom(roomId: string): void;
+  getRoomSummaries(): RoomSummary[];
+  storeUser(user: User): void;
+  getUser(userId: string): User | null;
+  getUsers(): User[];
+  scrollback(room: Room, limit: number): any[];
+  storeEvents(room: Room, events: MatrixEvent[], token: string, toStart?: boolean): boolean;
+  storeFilter(filter: Filter): void;
+  getFilter(userId: string, filterId: string): Filter | null;
+  getFilterIdByName(filterName: string): Filter | null;
+  setFilterIdByName(filterName: string, filterId: string): void;
+  storeAccountDataEvents(events: MatrixEvent[]): void;
+  getAccountData(eventType: string): MatrixEvent | undefined;
+  setSyncData(syncData: any): Promise<void>;
+  wantsSave(): boolean;
+  save(force?: boolean): void;
+  startup(): Promise<void>;
+  getSavedSync(): Promise<any>;
+  getSavedSyncToken(): Promise<string | null>;
+  deleteAllData(): Promise<void>;
+  getOutOfBandMembers(roomId: string): Promise<MatrixEvent[] | null>;
+  setOutOfBandMembers(roomId: string, membershipEvents: MatrixEvent[]): Promise<void>;
+  clearOutOfBandMembers(): Promise<void>;
+  getClientOptions(): Promise<any>;
+  storeClientOptions(options: any): Promise<void>;
+}
+
+export class IndexedDBStore extends MemoryStore {
+  constructor(opts: {
+    indexedDB: any,
+    dbName?: string,
+    workerScript?: string,
+    workerApi?: any,
+  });
+}
+
+export interface LoginPayload {
+  /* The fully-qualified Matrix ID for the account. */
+  user_id: string;
+
+  /* An access token for the account.
+   * This access token can then be used to authorize other requests. */
+  access_token: string;
+
+  /* ID of the logged-in device. Will be the same as the
+   * corresponding parameter in the request, if one was specified. */
+  device_id: string;
+
+  /* The server_name of the homeserver on which the account has been registered.
+   * @deprecated Clients should extract the server_name from
+   * ``user_id`` (by splitting at the first colon) if they require
+   * it. Note also that ``homeserver`` is not spelt this way.
+   */
+  home_server: string;
+
+  /**
+   * Optional client configuration provided by the server. If present,
+   * clients SHOULD use the provided object to reconfigure themselves,
+   * optionally validating the URLs within. This object takes the same
+   * form as the one returned from .well-known autodiscovery.
+   */
+  well_known?: any;
+}
+
 /**
  * Only part of the MatrixClient methods was put here
  * because they are too many.
  * @huan 14 June 2019
  */
 export class MatrixClient extends EventEmitter {
+  store: MatrixStore;
+  deviceId: string;
+  _http: any;
+  credentials: any;
+
   acceptGroupInvite(groupId: string, opts: object): Promise<void>;
   addPushRule(scope: string, kind: string, ruleId: string, body: object, callback?: () => void): Promise<void>;
   addRoomToGroup(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
@@ -166,7 +289,7 @@ export class MatrixClient extends EventEmitter {
   addThreePid(creds: object, bind: boolean, callback?: (err: null | object, data: any) => void): Promise<void>;
   addUserToGroupSummary(groupId: string, userId: string, roleId?: string): Promise<void>;
   backPaginateRoomEventsSearch(searchResults: object): Promise<object>;
-  ban(roomId: string, userId: string, reason: string, callback: (err: null | object, data: any) => void): Promise<void>;
+  ban(roomId: string, userId: string, reason: string, callback?: (err: null | object, data: any) => void): Promise<void>;
   beginKeyVerification(method: string, userId: string, deviceId: string): Promise<object>;
   cancelAndResendEventRoomKeyRequest(event: MatrixEvent): Promise<void>;
   cancelPendingEvent(event: MatrixEvent): Promise<void>;
@@ -174,16 +297,16 @@ export class MatrixClient extends EventEmitter {
   checkKeyBackup(): object;
   claimOneTimeKeys(devices: string[], key_algorithm: string): Promise<object>;
   clearStores(): Promise<void>;
-  createAlias(alias: string, roomId: string, callback: MatrixCallback): Promise<void>;
+  createAlias(alias: string, roomId: string, callback?: MatrixCallback): Promise<void>;
   createFilter(content: object): Promise<Filter>;
   createGroup(content: object): Promise<{ [groupId: string]: string }>;
   createKeyBackupVersion(info: object): Promise<object>;
-  createRoom(options: CreateRoomOptions, callback: MatrixCallback): Promise<{
+  createRoom(options: CreateRoomOptions, callback?: MatrixCallback): Promise<{
     room_id: string,
     room_alias?: string,
   }>;
   deactivateAccount(auth: object, erase: boolean): Promise<void>;
-  deleteAlias(alias: string, callback: MatrixCallback): Promise<void>;
+  deleteAlias(alias: string, callback?: MatrixCallback): Promise<void>;
   deleteDevice(device_id: string, auth: object): Promise<object>;
   deleteMultipleDevices(devices: string, auth: object): Promise<object>;
   deletePushRule(scope: string, kind: string, ruleId: string, callback?: MatrixCallback): Promise<void>;
@@ -197,7 +320,6 @@ export class MatrixClient extends EventEmitter {
   }>;
   downloadKeysForUsers(userIds: string[], opts?: object): Promise<object>;
   dropFromPresenceList(callback: MatrixCallback, userIds: string[]): Promise<void>;
-  emit(event: string, listener: (...args: any[]) => any): boolean;
   enableKeyBackup(info: object): void;
   exportRoomKeys(): Promise<void>;
   fetchRoomEvent(roomId: string, eventId: string, callback?: MatrixCallback): Promise<object>;
@@ -236,16 +358,19 @@ export class MatrixClient extends EventEmitter {
   getKeyBackupEnabled(): boolean;
   getKeyBackupVersion(): Promise<null | object>;
   getKeyChanges(oldToken: string, newToken: string): Promise<object>;
-  getMediaConfig(callback: MatrixCallback): Promise<object>;
+  getMediaConfig(callback?: MatrixCallback): Promise<object>;
   getNotifTimelineSet(): EventTimelineSet;
   getOpenIdToken(): Promise<object>;
   getOrCreateFilter(filterName: string, filter: Filter): Promise<string>;
-  getPresenceList(callback: MatrixCallback): Promise<object[]>;
-  getProfileInfo(userId: string, info: string, callback?: MatrixCallback): Promise<object>;
+  getPresenceList(callback?: MatrixCallback): Promise<object[]>;
+  getProfileInfo(userId: string, info?: string, callback?: MatrixCallback): Promise<{
+    displayname?: string;
+    avatar_url?: string;
+  }>;
   getPublicisedGroups(userIds: string[]): Promise<object>;
   getPushActionsForEvent(event: MatrixEvent): PushAction;
-  getPushers(callback: MatrixCallback): Promise<object>;
-  getPushRules(callback: MatrixCallback): Promise<object>;
+  getPushers(callback?: MatrixCallback): Promise<object>;
+  getPushRules(callback?: MatrixCallback): Promise<object>;
   getRoom(roomId: string): null | Room;
   getRoomDirectoryVisibility(roomId: string, callback?: MatrixCallback): Promise<object>;
   getRoomIdForAlias(alias: string, callback?: MatrixCallback): Promise<object>;
@@ -265,7 +390,7 @@ export class MatrixClient extends EventEmitter {
   getThirdpartyLocation(protocol: string, params: object): Promise<object>;
   getThirdpartyProtocols(): Promise<object>;
   getThirdpartyUser(protocol: string, params: object): Promise<object>;
-  getThreePids(callback: MatrixCallback): Promise<object>;
+  getThreePids(callback?: MatrixCallback): Promise<object>;
   getTurnServers(): object[];
   getUrlPreview(url: string, ts: number, callback?: MatrixCallback): Promise<object>;
   getUser(userId: string): null | User;
@@ -289,27 +414,27 @@ export class MatrixClient extends EventEmitter {
   isUserIgnored(userId: string): boolean;
   isUsernameAvailable(username: string): Promise<boolean>;
   joinGroup(groupId: string): Promise<void>;
-  joinRoom(roomIdOrAlias: string, opts: {
-    syncRoom: boolean // True to do a room initial sync on the resulting room. If false, the returned Room object will have no current state. Default: true.
-    inviteSignUrl: boolean  // If the caller has a keypair 3pid invite, the signing URL is passed in this parameter.
-    viaServers: string[] // <string> The server names to try and join through in addition to those that are automatically chosen.
-  }, callback: MatrixCallback): Promise<Room>;
+  joinRoom(roomIdOrAlias: string, opts?: {
+    syncRoom?: boolean // True to do a room initial sync on the resulting room. If false, the returned Room object will have no current state. Default: true.
+    inviteSignUrl?: boolean  // If the caller has a keypair 3pid invite, the signing URL is passed in this parameter.
+    viaServers?: string[] // <string> The server names to try and join through in addition to those that are automatically chosen.
+  }, callback?: MatrixCallback): Promise<Room>;
   kick(roomId: string, userId: string, reason?: string, callback?: MatrixCallback): Promise<void>;
   leave(roomId: string, callback?: MatrixCallback): Promise<void>;
   leaveGroup(groupId: string): Promise<void>;
   leaveRoomChain(roomId: string, includeFuture: boolean): Promise<object>;
-  login(loginType: string, data: object, callback?: MatrixCallback): Promise<void>;
-  loginFlows(callback?: MatrixCallback): Promise<void>;
-  loginWithPassword(user: string, password: string, callback?: MatrixCallback): Promise<void>;
-  loginWithSAML2(relayState: string, callback?: MatrixCallback): Promise<void>;
-  loginWithToken(token: string, callback?: MatrixCallback): Promise<void>;
+  login(loginType: string, data: object, callback?: MatrixCallback): Promise<LoginPayload>;
+  loginFlows(callback?: MatrixCallback): Promise<LoginPayload>;
+  loginWithPassword(user: string, password: string, callback?: MatrixCallback): Promise<LoginPayload>;
+  loginWithSAML2(relayState: string, callback?: MatrixCallback): Promise<LoginPayload>;
+  loginWithToken(token: string, callback?: MatrixCallback): Promise<LoginPayload>;
   logout(callback?: MatrixCallback): Promise<void>;
   lookupThreePid(medium: string, address: string, callback?: MatrixCallback): Promise<object>;
   makeTxnId(): string;
   members(
     roomId: string, includeMembership: string, excludeMembership: string, atEventId: string, callback?: MatrixCallback,
   ): Promise<object>;
-  mxcUrlToHttp(mxcUrl: string, width: number, height: number, resizeMethod: string, allowDirectLinks: boolean): null | string;
+  mxcUrlToHttp(mxcUrl: string, width: number | null, height: number | null, resizeMethod: string | null, allowDirectLinks: boolean | null): null | string;
   paginateEventTimeline(eventTimeline: EventTimeline, opts?: object): Promise<boolean>;
   peekInRoom(roomId: string): Promise<object>;
   prepareKeyBackupVersion(password: string): Promise<object>;
@@ -320,13 +445,13 @@ export class MatrixClient extends EventEmitter {
     filter: { //  Filter parameters
       generic_search_term: string // String to search for
     },
-  }, callback: (...args: any[]) => any): Promise<void>;
+  }, callback?: (...args: any[]) => any): Promise<void>;
   redactEvent(roomId: string, eventId: string, txnIdopt: string, callback?: MatrixCallback): Promise<void>;
   register(
-    username: string, password: string, sessionId: string,
-    auth: object, bindThreepids: object, guestAccessToken: string,
-    inhibitLogin: string, callback?: MatrixCallback,
-  ): Promise<void>;
+    username: string, password: string, sessionId?: string,
+    auth?: object, bindThreepids?: object, guestAccessToken?: string,
+    inhibitLogin?: string, callback?: MatrixCallback,
+  ): Promise<LoginPayload>;
   registerGuest(opts?: object, callback?: MatrixCallback): Promise<void>;
   registerRequest(data: object, kind?: string, callback?: MatrixCallback): Promise<object>;
   removeRoomFromGroup(groupId: string, roomId: string): Promise<void>;
@@ -383,8 +508,11 @@ export class MatrixClient extends EventEmitter {
   }): Promise<object>;
   searchUserDirectory(opts: {
     term: string  // the term with which to search.
-    limit: number  // the maximum number of results to return. The server will apply a limit if unspecified.
-  }): Promise<object[]>;
+    limit?: number  // the maximum number of results to return. The server will apply a limit if unspecified.
+  }): Promise<{
+    limited?: boolean;
+    results: Array<{ user_id: string; display_name?: string | null; avatar_url?: string | null }>;
+  }>;
   sendEmoteMessage(
     roomId: string, body: string, txnId: string, callback?: MatrixCallback,
   ): Promise<void>;
@@ -458,7 +586,7 @@ export class MatrixClient extends EventEmitter {
   setPresence(opts: {
     presence: string  // One of "online", "offline" or "unavailable"
     status_msg: string  // The status message to attach.
-  }, callback: (...args: any[]) => any): Promise<void>;
+  }, callback?: (...args: any[]) => any): Promise<void>;
   setProfileInfo(info: string, data: object, callback?: MatrixCallback): Promise<void>;
   setPusher(pusher: object, callback?: MatrixCallback): Promise<void>;
   setPushRuleActions(
@@ -493,7 +621,7 @@ export class MatrixClient extends EventEmitter {
     filter?: Filter  // <optional> The filter to apply to /sync calls. This will override the opts.initialSyncLimit, which would normally result in a timeline limit filter.
     disablePresence?: boolean  // <optional> True to perform syncing without automatically updating presence.
     lazyLoadMembers?: boolean  // <optional> True to not load all membership events during initial sync but fetch them when needed by calling `loadOutOfBandMembers` This will override the filter
-  }): void;
+  }): Promise<void>;
   stopClient(): void;
   stopPeeking(): void;
   submitMsisdnToken(sid: string, clientSecret: string, token: string): Promise<object>;
@@ -503,12 +631,12 @@ export class MatrixClient extends EventEmitter {
   unban(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>;
   updateGroupRoomVisibility(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
   upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
-  uploadContent(file: Buffer, opts: {
+  uploadContent(file: any, opts: {
     includeFilename: boolean  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
     type: string  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
     rawResponse: boolean  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
     onlyContentUri: boolean // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
-    callback: (...args: any[]) => any  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
+    callback?: (...args: any[]) => any  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
     progressHandler: (...args: any[]) => any // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
   }): Promise<string>;
   uploadKeys(): object;
@@ -529,11 +657,11 @@ export type RoomSummary = any;
 export type EventStatus = any;
 
 export interface CreateRoomOptions {
-  invite: string[];  //  <string> A list of user IDs to invite to this room.
-  name: string;         //  The name to give this room.
-  room_alias_name: string;         //  The alias localpart to assign to this room.
-  topic: string;         //  The topic to give this room.
-  visibility: string;         //  Either 'public' or 'private'.
+  invite?: string[];                 //  <string> A list of user IDs to invite to this room.
+  name?: string;                     //  The name to give this room.
+  room_alias_name?: string;          //  The alias localpart to assign to this room.
+  topic?: string;                    //  The topic to give this room.
+  visibility?: 'public' | 'private'; //  Either 'public' or 'private'.
 }
 
 export type FilterComponent = any;
@@ -542,7 +670,7 @@ export class Filter {
   static fromJson(userId: string, filterId: string, jsonObj: object): Filter;
 
   constructor(
-    userId: string,  // The user ID for this filter.
+    userId: string,   // The user ID for this filter.
     filterId?: string // <optional> The filter ID if known.
   )
 
@@ -556,14 +684,16 @@ export class Filter {
 }
 
 export class MatrixEvent {
-  event: object;       //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
-  sender: RoomMember;   //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
-  target: RoomMember;   //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
-  status: EventStatus;  //  The sending status of the event.
-  error: Error;        //  most recent error associated with sending the event, if any
-  forwardLooking: boolean;      //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
+  event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+  sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
+  target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
+  status: EventStatus;     //  The sending status of the event.
+  error: Error;            //  most recent error associated with sending the event, if any
+  forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
   constructor(event: object)
+  getType(): EventType;
+  getSender(): string;
 }
 
 export class RoomMember {
@@ -594,6 +724,8 @@ export class RoomMember {
 }
 
 export class RoomState {
+  roomId: string;
+  members: { [userId: string]: RoomMember };
   constructor(roomId?: string, oobMemberFlags?: object)
 
   clearOutOfBandMembers(): void;
@@ -619,20 +751,52 @@ export class RoomState {
   needsOutOfBandMembers(): boolean;
   setInvitedMemberCount(count: number): void;
   setJoinedMemberCount(count: number): void;
-  setOutOfBandMembers(stateEvents: MatrixEvent): void;
-  setStateEvents(stateEvents: MatrixEvent): void;
+  setOutOfBandMembers(stateEvents: MatrixEvent[]): void;
+  setStateEvents(stateEvents: MatrixEvent[]): void;
   setTypingEvent(event: MatrixEvent): void;
   setUnknownStateEvents(events: MatrixEvent): void;
 }
 
 export interface CreateClientOption {
-  accessToken?: string;
   baseUrl?: string;
+  idBaseUrl?: string;
   request?: any;
-  store?: any;
+  accessToken?: string;
+  userId?: string;
+  deviceToImport?: any;
+  identityServer?: { getAccessToken: () => Promise<string> };
+  store?: MatrixStore;
   scheduler?: MatrixScheduler;
   cryptoStore?: any;
-  userId?: string;
+  deviceId?: string;
+  queryParams?: any;
+  localTimeoutMs?: number;
+  useAuthorizationHeader?: boolean;
+  timelineSupport?: boolean;
+  unstableClientRelationAggregation?: boolean;
+  verificationMethods?: string[];
+  forceTURN?: boolean;
+  fallbackICEServerAllowed?: boolean;
+  cryptoCallbacks?: { [cb: string]: (...any: any[]) => void };
 }
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
+
+export interface ContentType {
+  body: string;
+  msgtype: MsgType;
+}
+
+export interface UnsignedType {
+  age: number;
+}
+
+export interface RawEvent {
+  content: ContentType;
+  origin_server_ts: number;
+  sender: string;
+  type: EventType;
+  unsigned: UnsignedType;
+  event_id: string;
+  room_id: string;
+}
