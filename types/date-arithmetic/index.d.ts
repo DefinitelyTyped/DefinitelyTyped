@@ -74,4 +74,4 @@ export function lt(date: Date, date2: Date): boolean;
 /** Compare two dates and return true if date is less or equal than date2 */
 export function lte(date: Date, date2: Date): boolean;
 
-export type StartOfWeeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type StartOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
