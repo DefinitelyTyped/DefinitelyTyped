@@ -320,7 +320,7 @@ export default class Select<
     getStyles: (key: string, props: {}) => {};
     getValue: () => OptionType[];
     hasValue: boolean;
-    IsMulti: boolean;
+    isMulti: boolean;
     isRtl: boolean;
     options: OptionsType<any>;
     selectOption: (newValue: OptionType) => void;
