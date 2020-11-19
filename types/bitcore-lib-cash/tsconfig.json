@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "bitcore-lib-tests.ts"
+        "bitcore-lib-cash-tests.ts"
     ]
 }
