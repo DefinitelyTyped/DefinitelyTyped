@@ -138,7 +138,7 @@ export interface NamedProps<
   /* Override the built-in logic to detect whether an option is selected */
   isOptionSelected?: (option: OptionType, options: OptionsType<OptionType>) => boolean;
   /* Support multiple selected options */
-  IsMulti?: IsMulti;
+  isMulti?: IsMulti;
   /* Is the select direction right-to-left */
   isRtl?: boolean;
   /* Whether to enable search functionality */
