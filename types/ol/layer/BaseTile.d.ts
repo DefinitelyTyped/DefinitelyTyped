@@ -15,6 +15,8 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     preload?: number;
     source?: TileSource;
     map?: PluggableMap;
@@ -22,13 +24,25 @@ export interface Options {
 }
 export default class BaseTileLayer extends Layer<TileSource> {
     constructor(opt_options?: Options);
+    /**
+     * Return the level as number to which we will preload tiles up to.
+     */
     getPreload(): number;
+    /**
+     * Whether we use interim tiles on error.
+     */
     getUseInterimTilesOnError(): boolean;
+    /**
+     * Set the level as number to which we will preload tiles up to.
+     */
     setPreload(preload: number): void;
+    /**
+     * Set whether we use interim tiles on error.
+     */
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

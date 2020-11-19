@@ -4,7 +4,7 @@
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
-    type Node = Element | Text | Comment | DocumentFragment;
+    type Node = Element | Text | Comment | Document | DocumentFragment;
 
     /**
      * A string is designated htmlString in jQuery documentation when it is used to represent one or more DOM elements, typically to be created and inserted in the document. When passed as an argument of the jQuery() function, the string is identified as HTML if it starts with <tag ... >) and is parsed as such until the final > character. Prior to jQuery 1.9, a string was considered to be HTML if it contained <tag ... > anywhere within the string.
@@ -718,7 +718,7 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types callable-types no-unnecessary-generics
+        // tslint:disable-next-line:ban-types no-unnecessary-generics
         <T extends Function>(flags?: string): Callbacks<T>;
     }
 
@@ -1160,29 +1160,6 @@ callbacks.fire( "world" );
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    // NOTE: This is a private copy of the global Promise interface. It is used by JQuery.PromiseBase to indicate compatibility with other Promise implementations.
-    //       The global Promise interface cannot be used directly as it may be modified, as in the case of @types/bluebird-global.
-    /**
-     * Represents the completion of an asynchronous operation
-     */
-    interface _Promise<T> {
-        readonly [Symbol.toStringTag]: "Promise";
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
-                                             onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): _Promise<TResult1 | TResult2>;
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): _Promise<T | TResult>;
-    }
-
     // Type parameter guide
     // --------------------
     // Each type parameter represents a parameter in one of the three possible callbacks.
@@ -1205,7 +1182,7 @@ callbacks.fire( "world" );
     interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
         VR, VJ, VN,
-        SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
+        SR, SJ, SN> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
@@ -4187,7 +4164,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -5673,6 +5649,7 @@ $( document ).on( "mousemove", function( event ) {
         char: string | undefined;
         /** @deprecated */
         charCode: number;
+        code: string;
         key: string;
         /** @deprecated */
         keyCode: number;

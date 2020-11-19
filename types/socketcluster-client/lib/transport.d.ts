@@ -1,7 +1,7 @@
 import AGServer = require('socketcluster-server/server');
 import WebSocket = require('ws');
 
-import { AGAuthEngine } from './auth';
+import AuthEngine = require('./auth');
 import { CallIdGenerator, ClientOptions, ProtocolVersions, States } from './clientsocket';
 
 declare class AGTransport {
@@ -11,7 +11,7 @@ declare class AGTransport {
 
     state: States;
 
-    auth: AGAuthEngine;
+    auth: AuthEngine.AGAuthEngine;
     codec: AGServer.CodecEngine;
 
     options: ClientOptions;
@@ -33,7 +33,7 @@ declare class AGTransport {
     socket: WebSocket;
 
     constructor(
-        authEngine: AGAuthEngine,
+        authEngine: AuthEngine.AGAuthEngine,
         codecEngine: AGServer.CodecEngine,
         options: ClientOptions,
         wsOptions?: WebSocket.ClientOptions,
@@ -88,7 +88,7 @@ declare namespace AGTransport {
         id: string;
         pingTimeout: number;
         isAuthenticated: boolean;
-        authToken: object | null;
+        authToken: AuthEngine.AuthToken | null;
     }
 
     interface OnOpenAbortValue {

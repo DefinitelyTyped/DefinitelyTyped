@@ -11,7 +11,8 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>,
 //                 Erik Schierboom <https://github.com/ErikSchierboom>,
 //                 Bogdan Paranytsia <https://github.com/bparan>,
-//                 CXuesong <https://github.com/CXuesong>
+//                 CXuesong <https://github.com/CXuesong>,
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -66,7 +67,7 @@ declare namespace Chai {
         getOwnEnumerableProperties(obj: object): Array<string | symbol>;
         getMessage(errorLike: Error | string): string;
         getMessage(obj: any, args: AssertionArgs): string;
-        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): string;
         isProxyEnabled(): boolean;
         objDisplay(obj: object): void;
         proxify(obj: object, nonChainableMethodName: string): object;
@@ -103,7 +104,8 @@ declare namespace Chai {
 
     export interface ExpectStatic {
         (val: any, message?: string): Assertion;
-        fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     export interface AssertStatic extends Assert {
@@ -167,7 +169,8 @@ declare namespace Chai {
 
     interface Should extends ShouldAssertion {
         not: ShouldAssertion;
-        fail(actual: any, expected: any, message?: string, operator?: Operator): void;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     interface ShouldThrow {
@@ -199,6 +202,7 @@ declare namespace Chai {
         empty: Assertion;
         arguments: Assertion;
         Arguments: Assertion;
+        finite: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -307,7 +311,7 @@ declare namespace Chai {
         property: Property;
     }
 
-    interface Deep {
+    interface Deep extends KeyFilter {
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -316,7 +320,6 @@ declare namespace Chai {
         contain: Include;
         contains: Include;
         property: Property;
-        members: Members;
         ordered: Ordered;
         nested: Nested;
         own: Own;
@@ -399,6 +402,14 @@ declare namespace Chai {
         /**
          * Throws a failure.
          *
+         * @param message    Message to display on error.
+         * @remarks Node.js assert module-compatible.
+         */
+        fail(message?: string): never;
+
+        /**
+         * Throws a failure.
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -406,7 +417,7 @@ declare namespace Chai {
          * @param operator   Comparison operator, if not strict equality.
          * @remarks Node.js assert module-compatible.
          */
-        fail<T>(actual?: T, expected?: T, message?: string, operator?: Operator): void;
+        fail<T>(actual: T, expected: T, message?: string, operator?: Operator): never;
 
         /**
          * Asserts that object is truthy.
@@ -750,6 +761,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNumber<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that value is a finite number.
+         * Unlike `.isNumber`, this will fail for `NaN` and `Infinity`.
+         *
+         * @type T   Type of value
+         * @param value    Actual value
+         * @param message   Message to display on error.
+         */
+        isFinite<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is a boolean.

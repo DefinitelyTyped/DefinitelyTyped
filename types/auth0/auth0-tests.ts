@@ -329,6 +329,28 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
 // Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
 
+// Get all client grants
+management.getClientGrants();
+
+// Get all client grants (with callback)
+management.getClientGrants((err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+// Get all client data with params
+management.getClientGrants({per_page: 1}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({per_page: 12}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({page: 12}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({page: 12}, (err: Error, data) => console.log(data));
+
+management.getClientGrants({audience: 'audience'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({audience: 'audience'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({client_id: 'client_id'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({client_id: 'client_id'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({include_totals: true}).then((data: auth0.ClientGrantPage) => console.log(data));
+management.getClientGrants({include_totals: true}, (err: Error, data: auth0.ClientGrantPage) => console.log(data));
+
 // Jobs
 management.getJob({
     id: 'job_id'
@@ -373,6 +395,12 @@ management.importUsers({
     users: "some file data",
     connection_id: 'con_id',
     upsert: true
+}, (err, data) => console.log(data));
+
+management.importUsers({
+    users_json: "some json data",
+    connection_id: 'con_id',
+    send_completion_email: false
 }, (err, data) => console.log(data));
 
 management.exportUsers({
@@ -446,6 +474,10 @@ management.updateRole({id: "role_id"}, {
 
 management.getPermissionsInRole({id: "role_id"}).then(permissions => console.log(permissions));
 management.getPermissionsInRole({id: "role_id"}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", per_page: 8}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", include_totals: true}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
 
 management.removePermissionsFromRole({id: "role_id"}, {
         permissions: [
@@ -569,3 +601,35 @@ management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
     }
     console.log(response);
 });
+
+// Rules configurations
+management.setRulesConfig({key: 'test'}, {value: 'test'}).then((config) => console.log(config));
+management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => console.log(config));
+
+management.deleteRulesConfig({key: 'test'}).then(() => {});
+management.deleteRulesConfig({key: 'test'}, (err) => {});
+
+management.getRulesConfigs().then((configs) => console.log(configs));
+management.getRulesConfigs((err, configs) => console.log(configs));
+
+// Custom Domains
+management.createCustomDomain({ domain: 'auth0.com', type: 'auth0_managed_certs' }).then(domain => console.log(domain));
+management.createCustomDomain({ domain: 'auth0.com', type: 'auth0_managed_certs' }, (err, domain) =>
+    console.log(domain),
+);
+
+management.getCustomDomains().then(domains => console.log(domains));
+management.getCustomDomains((err, domains) => console.log(domains));
+
+management.getCustomDomain({ id: 'cd_0000000000000001' }).then(domain => console.log(domain));
+management.getCustomDomain({ id: 'cd_0000000000000001' }, (err, domain) => console.log(domain));
+
+management
+    .verifyCustomDomain({ id: 'cd_0000000000000001' })
+    .then(domainVerification => console.log(domainVerification));
+management.verifyCustomDomain({ id: 'cd_0000000000000001' }, (err, domainVerification) =>
+    console.log(domainVerification),
+);
+
+management.deleteCustomDomain({ id: 'cd_0000000000000001' }).then(() => console.log('deleted'));
+management.deleteCustomDomain({ id: 'cd_0000000000000001' }, err => console.log('deleted'));

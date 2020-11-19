@@ -52,7 +52,7 @@ export class InputRule<S extends Schema = any> {
  */
 export function inputRules<S extends Schema = any>(config: {
   rules: Array<InputRule<S>>;
-}): Plugin<S>;
+}): Plugin<unknown, S>;
 /**
  * This is a command that will undo an input rule, if applying such a
  * rule was the last thing that the user did.

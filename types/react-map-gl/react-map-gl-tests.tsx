@@ -1,21 +1,24 @@
+import * as MapboxGL from 'mapbox-gl';
 import * as React from 'react';
+
 import {
-    InteractiveMap,
     CanvasOverlay,
-    SVGOverlay,
-    HTMLOverlay,
+    CanvasRedrawOptions,
     FullscreenControl,
     GeolocateControl,
-    ScaleControl,
-    CanvasRedrawOptions,
+    HTMLOverlay,
     HTMLRedrawOptions,
+    InteractiveMap,
+    Layer,
+    LinearInterpolator,
+    SVGOverlay,
     SVGRedrawOptions,
+    ScaleControl,
+    Source,
     StaticMap,
     ViewportProps,
-    Source,
-    Layer,
 } from 'react-map-gl';
-import * as MapboxGL from 'mapbox-gl';
+
 import { FeatureCollection } from 'geojson';
 
 interface State {
@@ -44,7 +47,8 @@ class MyMap extends React.Component<{}, State> {
             minPitch: 0,
         },
     };
-    private map: MapboxGL.Map;
+    private mapboxMap: MapboxGL.Map;
+    private map: InteractiveMap;
 
     render() {
         return (
@@ -52,12 +56,23 @@ class MyMap extends React.Component<{}, State> {
                 <InteractiveMap
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
+                    mapboxApiUrl="http://url.test"
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    onClick={e => {
+                        const features = this.map.queryRenderedFeatures(e.point);
+                        if (features.length > 0) {
+                            console.log(features[0].source);
+                        }
+                    }}
+                    onContextMenu={event => {
+                        event.preventDefault();
+                    }}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl
+                        auto={false}
                         className="test-class"
                         style={{ marginTop: '8px' }}
                         onGeolocate={options => {
@@ -114,6 +129,22 @@ class MyMap extends React.Component<{}, State> {
                             }}
                         ></Layer>
                     </Source>
+                    <Source
+                        id="raster-tiles-source"
+                        type="raster"
+                        scheme="tms"
+                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
+                        tileSize={256}
+                    >
+                        <Layer
+                            id="raster-layer"
+                            type="raster"
+                            source="raster-tiles-source"
+                            paint={{}}
+                            minzoom={0}
+                            maxzoom={22}
+                        ></Layer>
+                    </Source>
                 </InteractiveMap>
                 <StaticMap
                     {...this.state.viewport}
@@ -122,15 +153,35 @@ class MyMap extends React.Component<{}, State> {
                     width={400}
                     ref={this.setRefStatic}
                 />
+                <button
+                    onClick={() => {
+                        const nullPoint = [0, 0];
+                        const li = new LinearInterpolator({
+                            around: nullPoint,
+                        });
+                        this.setState(prevState => ({
+                            viewport: {
+                                ...prevState.viewport,
+                                latitude: nullPoint[1],
+                                longitude: nullPoint[0],
+                                transitionInterpolator: li,
+                                transitionDuration: 100,
+                            },
+                        }));
+                    }}
+                >
+                    Jump to Null Point
+                </button>
             </div>
         );
     }
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
-        this.map = el.getMap();
+        this.map = el;
+        this.mapboxMap = el.getMap();
     }
 
     private readonly setRefStatic = (el: StaticMap) => {
-        this.map = el.getMap();
+        this.mapboxMap = el.getMap();
     }
 }

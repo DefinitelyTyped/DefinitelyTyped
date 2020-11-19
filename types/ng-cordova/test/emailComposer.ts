@@ -2,42 +2,42 @@
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 
 namespace demo.email {
-	'use strict';
+    'use strict';
 
-	export class EmailComposerController {
+    export class EmailComposerController {
 
-		isAvailable:boolean;
-		status:string;
+        isAvailable:boolean;
+        status:string;
 
-		static $inject:Array<string> = ["$ionicPlatform", "$cordovaEmailComposer"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, $cordovaEmailComposer:ngCordova.IEmailComposerService) {
+        static $inject:Array<string> = ["$ionicPlatform", "$cordovaEmailComposer"];
+        constructor($ionicPlatform:ionic.platform.IonicPlatformService, $cordovaEmailComposer:ngCordova.IEmailComposerService) {
 
-			this.status = "";
+            this.status = "";
 
-			$ionicPlatform.ready(() => {
+            $ionicPlatform.ready(() => {
 
-				$cordovaEmailComposer.isAvailable().then((available) => {
-					this.isAvailable = available;
-				});
+                $cordovaEmailComposer.isAvailable().then((available) => {
+                    this.isAvailable = available;
+                });
 
-				let email = <ngCordova.IEmailComposerOptions>{
-		      to: 'max@mustermann.de',
-		      cc: 'erika@mustermann.de',
-		      bcc: ['john@doe.com', 'jane@doe.com'],
-		      subject: 'Cordova Icons',
-		      body: 'How are you? Nice greetings from Leipzig',
-		      isHtml: true
-		    };
+                let email = <ngCordova.IEmailComposerOptions>{
+              to: 'max@mustermann.de',
+              cc: 'erika@mustermann.de',
+              bcc: ['john@doe.com', 'jane@doe.com'],
+              subject: 'Cordova Icons',
+              body: 'How are you? Nice greetings from Leipzig',
+              isHtml: true
+            };
 
-		    $cordovaEmailComposer.open(email).then(null, () => {
-		      // user cancelled email
-					this.status = "User Cancelled Email";
-		    });
+            $cordovaEmailComposer.open(email).then(null, () => {
+              // user cancelled email
+                    this.status = "User Cancelled Email";
+            });
 
-			});
-		}
+            });
+        }
 
-	}
+    }
 
-	angular.module("demo.email").controller("EmailComposerController", EmailComposerController);
+    angular.module("demo.email").controller("EmailComposerController", EmailComposerController);
 }

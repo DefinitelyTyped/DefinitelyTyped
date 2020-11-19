@@ -16,7 +16,7 @@ declare class JSON2CSVAsyncParser<T> extends JSON2CSVBase<T> {
 
     public toOutput(output: Writable): JSON2CSVAsyncParser<T>;
 
-    public promise(): Promise<string>;
+    public promise(returnCSV?: boolean): Promise<undefined|string>;
 }
 
 export default JSON2CSVAsyncParser;

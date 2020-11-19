@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
+import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
 import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
@@ -21,15 +21,19 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // and search for options
 export interface RestApiOptions {
     headers?: { [x: string]: string }
+    allowRecursive?: boolean;
+    allOrNone?: boolean;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
-// the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
+// the oauth options can either be in the `oauth2` property OR spread across the main connection
 export interface PartialOAuth2Options {
     clientId?: string;
     clientSecret?: string;
     loginUrl?: string;
     redirectUri?: string;
+    tokenServiceUrl?: string;
+    authzServiceUrl?: string;
 }
 
 export interface RequestInfo {
@@ -48,6 +52,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     maxRequest?: number;
     oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
+    httpProxy?: string;
     redirectUri?: string;
     refreshToken?: string;
     refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
@@ -61,6 +66,71 @@ export interface UserInfo {
     id: string;
     organizationId: string;
     url: string;
+}
+
+// The identity URL is a RESTful API to query for additional information
+// about users, such as their username, email address, and org ID.
+// It also returns endpoints that the client can talk to,
+// such as photos for profiles and accessible API endpoints.
+// https://help.salesforce.com/articleView?id=remoteaccess_using_openid.htm
+// https://jsforce.github.io/jsforce/doc/Connection.html#identity
+export interface IdentityInfo {
+    id: string;
+    asserted_user: boolean;
+    user_id: string;
+    organization_id: string;
+    username: string;
+    nick_name: string;
+    display_name: string;
+    email: string;
+    email_verified: boolean;
+    first_name: string | null;
+    last_name: string;
+    timezone: string;
+    photos: {
+        picture: string;
+        thumbnail: string;
+    };
+    addr_street: string | null;
+    addr_city: string | null;
+    addr_state: string | null;
+    addr_country: string | null;
+    addr_zip: string | null;
+    mobile_phone: string | null;
+    mobile_phone_verified: boolean;
+    is_lightning_login_user: boolean;
+    status: {
+        created_date: Date | null;
+        body: string | null;
+    };
+    urls: {
+        enterprise: string;
+        metadata: string;
+        partner: string;
+        rest: string;
+        sobjects: string;
+        search: string;
+        query: string;
+        recent: string;
+        tooling_soap: string;
+        tooling_rest: string;
+        profile: string;
+        feeds: string;
+        groups: string;
+        users: string;
+        feed_items: string;
+        feed_elements: string;
+        custom_domain?: string;
+    };
+    active: boolean;
+    user_type: string;
+    language: string;
+    locale: string;
+    utcOffset: number;
+    last_modified_date: Date;
+    is_app_installed: boolean;
+    // And possible other attributes.
+    [key: string]: any;
 }
 
 export abstract class RestApi {
@@ -131,10 +201,11 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
         clear(): void;
     }
-    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe(type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    batchDescribe(options: BatchDescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult[]) => void): Promise<DescribeSObjectResult[]>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
         (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
@@ -165,6 +236,8 @@ export class Connection extends BaseConnection {
     instanceUrl: string;
     version: string;
     accessToken: string;
+    refreshToken?: string;
+    userInfo?: UserInfo;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
@@ -178,6 +251,7 @@ export class Connection extends BaseConnection {
     logoutBySoap(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
+    identity(callback?: (err: Error, res: IdentityInfo) => void): Promise<IdentityInfo>;
 }
 
 export class Tooling extends BaseConnection {

@@ -13,7 +13,9 @@ let options: marked.MarkedOptions = {
     },
     langPrefix: 'lang-',
     smartypants: false,
+    tokenizer: new marked.Tokenizer(),
     renderer: new marked.Renderer(),
+    walkTokens: (tokens: marked.TokensList, callback: (token: marked.Token) => void) => {}
 };
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
@@ -42,6 +44,9 @@ console.log(marked.parse('6) I am using __markdown__.', options));
 marked.parse('7) I am using __markdown__.', callback);
 marked.parse('8) I am using __markdown__.', options, callback);
 
+console.log(marked.parseInline('9) I am using __markdown__.'));
+console.log(marked.parseInline('10) I am using __markdown__.', options));
+
 const text = 'Something';
 const tokens: marked.TokensList = marked.lexer(text, options);
 console.log(marked.parser(tokens));
@@ -49,6 +54,8 @@ console.log(marked.parser(tokens));
 const lexer = new marked.Lexer(options);
 const tokens2 = lexer.lex(text);
 console.log(tokens2);
+const tokens3 = lexer.inline(tokens);
+console.log(tokens3);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
 console.log(lexer.token(text, true));
 const lexerOptions: marked.MarkedOptions = lexer.options;
@@ -81,3 +88,5 @@ console.log(inlineLexer.output('http://'));
 console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
+
+marked.use({ renderer });

@@ -89,7 +89,7 @@ h.init().then(async () => {
     h.source.unwatch();
 
     await h.load();
-    h.call('config', {_: ['arg1']}, (err, value) => {});
+    h.call('config', { _: ['arg1'] }, (err, value) => {});
 
     await h.exit();
 });
@@ -161,7 +161,7 @@ h.on('ready', () => {
     }
 
     {
-        h.locals.set('some-data', () =>  'some vlue');
+        h.locals.set('some-data', () => 'some vlue');
         h.locals.remove('some-data');
         h.locals.toObject();
         h.locals.invalidate();
@@ -207,12 +207,12 @@ h.on('ready', () => {
                 console.log(content);
             });
 
-            file.read({encoding: 'utf8', flag: 'r'}, (err, content) => {
+            file.read({ encoding: 'utf8', flag: 'r' }, (err, content) => {
                 console.log(err, content.toString());
                 console.log(content);
             });
 
-            file.readSync({encoding: 'utf8', flag: 'r'});
+            file.readSync({ encoding: 'utf8', flag: 'r' });
 
             file.stat((err, stat) => {
                 console.log(err);
@@ -255,16 +255,16 @@ h.on('ready', () => {
         };
 
         let _string = '';
-        h.render.render({text: 'example', engine: 'swig'}).then(result => {
+        h.render.render({ text: 'example', engine: 'swig' }).then(result => {
             _string = result;
         });
-        h.render.render({path: __filename}).then(result => {
+        h.render.render({ path: __filename }).then(result => {
             _string = result;
         });
-        h.render.render({text: ''}, {foo: 'foo'}).then(result => {
+        h.render.render({ text: '' }, { foo: 'foo' }).then(result => {
             _string = result;
         });
-        _string = h.render.renderSync({text: 'example'});
+        _string = h.render.renderSync({ text: 'example' });
 
         _string = h.render.getOutput('ejs');
     }
@@ -316,12 +316,10 @@ h.on('ready', () => {
         const options: Hexo.extend.Console.Options = {};
         options.usage = '[layout] <title>';
         options.arguments = [
-            {name: 'layout', desc: 'Post layout'},
-            {name: 'title', desc: 'Post title'},
+            { name: 'layout', desc: 'Post layout' },
+            { name: 'title', desc: 'Post title' },
         ];
-        options.options = [
-            {name: '-r, --replace', desc: 'Replace existing files'},
-        ];
+        options.options = [{ name: '-r, --replace', desc: 'Replace existing files' }];
         options.desc = 'desc';
 
         h.extend.console.register('name', 'description', options, args => {
@@ -419,6 +417,13 @@ h.on('ready', () => {
         h.extend.helper.register('name', (...args) => {
             return 'ret';
         });
+        const helper = h.extend.helper.get('name');
+        helper && helper();
+        const helpers = h.extend.helper.list();
+        for (const name in helpers) {
+            const helper = helpers[name];
+            helper();
+        }
     }
 
     {
@@ -429,18 +434,26 @@ h.on('ready', () => {
 
     {
         let f: Hexo.Box.File;
-        h.extend.processor.register('pattern', file => f = file);
-        h.extend.processor.register(/pattern/, file => f = file);
-        h.extend.processor.register((str) => true , file => f = file);
-        h.extend.processor.register(file => f = file);
+        h.extend.processor.register('pattern', file => (f = file));
+        h.extend.processor.register(/pattern/, file => (f = file));
+        h.extend.processor.register(
+            str => true,
+            file => (f = file),
+        );
+        h.extend.processor.register(file => (f = file));
     }
 
     {
-        h.extend.renderer.register('ts', 'js', (data, options) => {
-            console.log(data.path);
-            console.log(data.text);
-            return 'result';
-        }, true);
+        h.extend.renderer.register(
+            'ts',
+            'js',
+            (data: Hexo.extend.RendererData, options) => {
+                console.log(data.path);
+                console.log(data.text);
+                return 'result';
+            },
+            true,
+        );
 
         h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'), false);
         h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'));

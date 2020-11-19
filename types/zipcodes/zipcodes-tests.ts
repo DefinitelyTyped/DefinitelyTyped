@@ -1,21 +1,21 @@
 import * as ZipCodes from 'zipcodes';
 
 const zipA: ZipCodes.ZipCode = {
-  zip: '90210',
-  latitude: 34.088808,
-  longitude: -118.406125,
-  city: 'Beverly Hills',
-  state: 'CA',
-  country: 'US'
+    zip: '90210',
+    latitude: 34.088808,
+    longitude: -118.406125,
+    city: 'Beverly Hills',
+    state: 'CA',
+    country: 'US',
 };
 
 const zipB: ZipCodes.ZipCode = {
-  zip: '95015',
-  latitude: 37.323,
-  longitude: -122.0527,
-  city: 'Cupertino',
-  state: 'CA',
-  country: 'US'
+    zip: '95015',
+    latitude: 37.323,
+    longitude: -122.0527,
+    city: 'Cupertino',
+    state: 'CA',
+    country: 'US',
 };
 
 ZipCodes.lookup(zipA.zip); // $ExpectType ZipCode | undefined
@@ -34,3 +34,5 @@ ZipCodes.toMiles(3); // $ExpectType number
 ZipCodes.toKilometers(3); // $ExpectType number
 
 ZipCodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null
+
+ZipCodes.random(); // $ExpectType ZipCode

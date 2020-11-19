@@ -1,10 +1,6 @@
 import { Identity } from '../../../identity';
 import Transport, { Message } from '../../../transport/transport';
-export interface ProviderIdentity extends Identity {
-    channelId: string;
-    isExternal?: boolean;
-    channelName: string;
-}
+import { ProviderIdentity } from '../../../shapes/Identity';
 export declare type Action = (() => any) | ((payload: any) => any) | ((payload: any, id: ProviderIdentity) => any);
 export declare type Middleware = (() => any) | ((action: string) => any) | ((action: string, payload: any) => any) | ((action: string, payload: any, id: ProviderIdentity) => any);
 export interface ChannelMessagePayload extends Identity {
@@ -18,8 +14,7 @@ export declare class ProtectedItems {
     constructor(providerIdentity: ProviderIdentity, send: Transport['sendAction']);
 }
 export declare class ChannelBase {
-    protected removeChannel: (mapKey: string) => void;
-    protected channelMap: Map<string, ChannelBase>;
+    protected removeChannel: (mapKey: string, endpointId?: string) => void;
     protected subscriptions: any;
     defaultAction: (action?: string, payload?: any, senderIdentity?: ProviderIdentity) => any;
     private preAction;

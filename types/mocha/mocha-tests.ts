@@ -695,12 +695,6 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType never
     ctx.skip(); // throws
 
-    // $ExpectType boolean
-    ctx.enableTimeouts();
-
-    // $ExpectType Context
-    ctx.enableTimeouts(boolean);
-
     // $ExpectType number
     ctx.retries();
 
@@ -736,8 +730,7 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType any
     ctx["extended"];
 
-    ctx.enableTimeouts(boolean)
-        .retries(number)
+    ctx.retries(number)
         .runnable(runnable)
         .slow(number)
         .timeout(number)
@@ -783,11 +776,6 @@ function test_browser_mocha_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
-function test_browser_mocha_setup_require_stringArray_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ require: ['ts-node/register'] });
-}
-
 function test_browser_mocha_setup_reporter_function_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ reporter: class extends LocalMocha.reporters.Base { } });
@@ -796,11 +784,6 @@ function test_browser_mocha_setup_reporter_function_option() {
 function test_browser_mocha_setup_bail_option() {
     // $ExpectType BrowserMocha
     mocha.setup({ bail: false });
-}
-
-function test_browser_mocha_setup_ignore_leaks_option() {
-    // $ExpectType BrowserMocha
-    mocha.setup({ ignoreLeaks: false });
 }
 
 function test_browser_mocha_setup_grep_string_option() {
@@ -818,6 +801,11 @@ function test_browser_mocha_setup_grep_regex_literal_option() {
     mocha.setup({ grep: /(expect|should)/i });
 }
 
+function test_browser_mocha_setup_check_leaks() {
+    // $ExpectType BrowserMocha
+    mocha.setup({ checkLeaks: true });
+}
+
 function test_browser_mocha_setup_all_options() {
     // $ExpectType BrowserMocha
     mocha.setup({
@@ -827,14 +815,30 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
         grep: 'test',
-        require: ['ts-node/register'] // TODO: It doesn't appear this is actually supported. Should it be removed?
+        checkLeaks: true
     });
 }
 
 function testLoadFilesAsync() {
     mocha.loadFilesAsync();
+}
+
+function testParallelMode() {
+    mocha.parallelMode();
+}
+
+function testRootHooks() {
+    mocha.rootHooks({
+        beforeAll(done) {
+            done();
+        },
+        afterEach: [done => done()],
+    });
+}
+
+function testUnloadFiles() {
+    mocha.unloadFiles();
 }
 
 function test_constructor_slow_option() {
@@ -869,10 +873,6 @@ function test_constructor_bail_option() {
     const m: Mocha = new LocalMocha({ bail: false });
 }
 
-function test_constructor_ignore_leaks_option() {
-    const m: Mocha = new LocalMocha({ ignoreLeaks: false });
-}
-
 function test_constructor_grep_string_option() {
     const m: Mocha = new LocalMocha({ grep: "describe" });
 }
@@ -885,6 +885,29 @@ function test_constructor_grep_regex_literal_option() {
     const m: Mocha = new LocalMocha({ grep: /(expect|should)/i });
 }
 
+function test_constructor_parallel_option() {
+    const m: Mocha = new LocalMocha({ parallel: true });
+}
+
+function test_constructor_jobs_option() {
+    const m: Mocha = new LocalMocha({ jobs: 4 });
+}
+
+function test_constructor_root_hooks() {
+    const m: Mocha = new LocalMocha({
+        rootHooks: {
+            beforeEach(done) {
+                done();
+            },
+            afterEach(done) {
+                done();
+            },
+            afterAll: [done => done()],
+            beforeAll: [done => done()],
+        },
+    });
+}
+
 function test_constructor_all_options() {
     const m: Mocha = new LocalMocha({
         slow: 25,
@@ -893,8 +916,9 @@ function test_constructor_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        parallel: true,
+        jobs: 4
     });
 }
 
@@ -920,6 +944,18 @@ function test_run(localMocha: LocalMocha) {
 
 function test_growl() {
     mocha.growl();
+}
+
+function test_dispose(localMocha: LocalMocha) {
+    // Runner dispose
+    mocha.run().dispose();
+    localMocha.run().dispose();
+
+    // Suite dispose
+    localMocha.suite.dispose();
+
+    // Mocha instance dispose
+    localMocha.dispose();
 }
 
 function test_chaining() {
@@ -958,16 +994,12 @@ function test_require_fluentParams() {
         .grep('[a-z]*')
         .grep(/[a-z]*/)
         .invert()
-        .ignoreLeaks(true)
         .checkLeaks()
         .growl()
         .globals('foo')
         .globals(['bar', 'zap'])
-        .useColors(true)
-        .useInlineDiffs(true)
         .timeout(500)
         .slow(100)
-        .enableTimeouts(true)
         .asyncOnly()
         .noHighlighting()
         .run();
@@ -1283,54 +1315,6 @@ function test_suite_events(suite: LocalMocha.Suite) {
         file;
         const m: Mocha = mocha;
     });
-}
-
-function test_backcompat_Suite(suite: Mocha.Suite, iSuite: Mocha.ISuite, iSuiteContext: Mocha.ISuiteCallbackContext, iTest: Mocha.ITest, iContext: Mocha.IContext) {
-    iSuite = suite;
-    iSuiteContext = suite;
-    suite.addTest(iTest);
-    suite.addSuite(iSuite);
-    LocalMocha.Suite.create(iSuite, string);
-    new LocalMocha.Suite(string, iContext);
-}
-
-function test_backcompat_Runner(runner: Mocha.Runner, iRunner: Mocha.IRunner, iSuite: Mocha.ISuite) {
-    iRunner = runner;
-    runner.grepTotal(iSuite);
-}
-
-function test_backcompat_Runnable(runnable: Mocha.Runnable, iRunnable: Mocha.IRunnable) {
-    iRunnable = runnable;
-}
-
-function test_backcompat_Test(test: Mocha.Test, iTest: Mocha.ITest) {
-    iTest = test;
-}
-
-function test_backcompat_Hook(hook: Mocha.Hook, iHook: Mocha.IHook) {
-    iHook = hook;
-}
-
-function test_backcompat_Context(context: Mocha.Context, iContext: Mocha.IContext,
-    iHookContext: Mocha.IHookCallbackContext, iBeforeAfterContext: Mocha.IBeforeAndAfterContext,
-    iTestContext: Mocha.ITestCallbackContext, iRunnable: Mocha.IRunnable) {
-    iContext = context;
-    iHookContext = context;
-    iBeforeAfterContext = context;
-    iTestContext = context;
-    context.runnable(iRunnable);
-}
-
-function test_backcompat_Base(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Base(iRunner);
-}
-
-function test_backcompat_XUnit(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.XUnit(iRunner);
-}
-
-function test_backcompat_Progress(iRunner: Mocha.IRunner) {
-    new LocalMocha.reporters.Progress(iRunner);
 }
 
 import common = require("mocha/lib/interfaces/common");

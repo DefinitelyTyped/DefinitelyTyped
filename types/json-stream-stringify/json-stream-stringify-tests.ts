@@ -1,4 +1,4 @@
-import JsonStreamStringify from 'json-stream-stringify';
+import JsonStreamStringify = require('json-stream-stringify');
 import { Readable } from 'stream';
 
 function ReadableStream(...args: any[]) {
@@ -135,7 +135,6 @@ jsonStream = new JsonStreamStringify({
 jsonStream = new JsonStreamStringify({ a: 1 }, undefined, 2);
 jsonStream = new JsonStreamStringify([1], undefined, 2);
 jsonStream = new JsonStreamStringify([1], undefined, 'a');
-// tslint:disable-next-line no-object-literal-type-assertion
 jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
 {
     const cyclicData1: Record<string, any> = {};
@@ -144,7 +143,6 @@ jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
         a: cyclicData1,
     }];
     cyclicData1.b[3] = ReadableStream(cyclicData1.b[1]);
-    // tslint:disable-next-line no-object-literal-type-assertion
     jsonStream = new JsonStreamStringify(cyclicData1, undefined, undefined, true);
 }
 {
@@ -162,4 +160,5 @@ jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
     const a = { foo: 'bar' };
     const arr = [a, a];
     jsonStream = new JsonStreamStringify(arr);
+    jsonStream.stack.join('');
 }

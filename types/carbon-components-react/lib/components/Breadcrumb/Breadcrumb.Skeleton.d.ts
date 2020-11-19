@@ -1,7 +1,8 @@
 import * as React from "react";
+import { ReactDivAttr } from "../../../typings/shared";
 
-export interface BreadcrumbSkeletonProps { }
+export interface BreadcrumbSkeletonProps extends ReactDivAttr { }
 
-declare class BreadcrumbSkeleton extends React.Component<BreadcrumbSkeletonProps> { }
+declare const BreadcrumbSkeleton: React.FC<BreadcrumbSkeletonProps>;
 
 export default BreadcrumbSkeleton;

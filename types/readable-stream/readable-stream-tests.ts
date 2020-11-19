@@ -84,7 +84,8 @@ function test() {
             assertType<any>(chunk);
             assertType<string>(enc);
             assertType<(err?: Error | null) => void>(cb);
-        }
+        },
+        writableObjectMode: false
     });
     assertType<boolean>(streamD.allowHalfOpen);
     assertType<boolean>(streamD.readable);
@@ -92,6 +93,14 @@ function test() {
     assertType<boolean>(streamD.readableObjectMode);
     assertType<boolean>(streamD.writableObjectMode);
     streamD.pipe(streamW);
+    const typedEncoding: BufferEncoding = "binary";
+    streamD.setEncoding(typedEncoding);
+
+    const testBufferEncoding = new RS_Duplex({
+        write(chunk: any, enc: BufferEncoding, cb: (err?: Error | null) => void) {
+            assertType<BufferEncoding>(enc);
+        }
+    });
 
     rs.addListener("read", (...args: any[]) => console.log(args));
     rs.emit("read", 1, 2, 3);

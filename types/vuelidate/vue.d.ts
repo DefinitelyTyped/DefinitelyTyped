@@ -18,7 +18,7 @@ declare module 'vue/types/vue' {
     }
 
     interface Vue {
-        $v: ValidationProperties<this> & ValidationGroups & Validation
+        $v: ValidationProperties<Vue> & ValidationGroups & Validation
 
         delayTouch(v: Validation): void
     }

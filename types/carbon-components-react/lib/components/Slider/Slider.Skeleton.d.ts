@@ -1,11 +1,7 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    id?: ReactAttr["id"],
-}
-
-export interface SliderSkeletonProps extends InheritedProps {
+export interface SliderSkeletonProps extends ReactDivAttr {
     hideLabel?: boolean,
 }
 

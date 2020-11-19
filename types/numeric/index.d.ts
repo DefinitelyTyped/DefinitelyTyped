@@ -140,12 +140,12 @@ interface Numeric {
     // linear algebra with arrays
     // Get Array dimensions
     dim(arr: any): Vector;
-    // 	x and y are entrywise identical
+    //     x and y are entrywise identical
     same(x: any, y: any): boolean;
-    // 	Create an Array by duplicating values
+    //     Create an Array by duplicating values
     rep<T>(scale: Vector, value: T, key?: number): MultidimensionalArray<T>;
 
-    // 	Matrix-Matrix, Matrix-Vector, Vector-Matrix and Vector-Vector product
+    //     Matrix-Matrix, Matrix-Vector, Vector-Matrix and Vector-Vector product
     dot(
         x: Vector | Matrix | Scalar,
         y: Vector | Matrix | Scalar
@@ -205,7 +205,7 @@ interface Numeric {
     expeqV(x: Vector): Vector;
     expeq<T extends NonScalar>(x: T): T;
 
-    // 	Poinwise Math.floor(x)
+    //     Poinwise Math.floor(x)
     floor<T extends NonScalar>(x: T): T;
     floorV(x: Vector): Vector;
     flooreqV(x: Vector): Vector;
@@ -217,7 +217,7 @@ interface Numeric {
     logeqV(x: Vector): Vector;
     logeq<T extends NonScalar>(x: T): T;
 
-    // 	Pointwise Math.round(x)
+    //     Pointwise Math.round(x)
     round<T extends NonScalar>(x: T): T;
     roundV(x: Vector): Vector;
     roundeqV(x: Vector): Vector;
@@ -478,7 +478,7 @@ interface Numeric {
     andeqV(x: Vector, y: Vector): Vector;
     andeqS(x: Vector, y: Scalar): Vector;
 
-    // 	Pointwise logical or x||y
+    //     Pointwise logical or x||y
     or(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
     or(
         x: Scalar | Vector,
@@ -808,7 +808,7 @@ interface Numeric {
     rrshifteqV(x: Vector, y: Vector): Vector;
     rrshifteqS(x: Vector, y: Scalar): Vector;
 
-    // Pointwise	arc-tangent (two parameters)
+    // Pointwise    arc-tangent (two parameters)
     atan2(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
     atan2(
         x: Scalar | Vector,
@@ -888,11 +888,11 @@ interface Numeric {
     any(x: any): boolean;
     anyV(x: any[]): boolean;
 
-    // 	All the components of x are true
+    //     All the components of x are true
     all(x: any): boolean;
     allV(x: any[]): boolean;
 
-    // 	Sum all the entries of x
+    //     Sum all the entries of x
     sum(x: Scalar | Vector | MultidimensionalMatrix): number;
     sumV(x: Vector): number;
 
@@ -957,7 +957,7 @@ interface Numeric {
     blockMatrix(x: Scalar | Vector | MultidimensionalMatrix): Matrix;
     // x * y
     tensor(x: Scalar, y: Scalar): Scalar;
-    // 	TensorValue product ret[i][j] = x[i]*y[j]
+    //     TensorValue product ret[i][j] = x[i]*y[j]
     tensor(x: Vector, y: Vector): Matrix;
 
     // return instance of Tensor class. X — real value, y — imaginary part.

@@ -184,7 +184,7 @@ export interface FtpFileSystem {
  * FTP server
  *
  * Events:
- * @event close	net.Server close event
+ * @event close    net.Server close event
  * @event error net.Server error event
  * @event client:connected  (connection: FtpConnection)
  */

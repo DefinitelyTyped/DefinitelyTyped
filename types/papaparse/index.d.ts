@@ -1,4 +1,4 @@
-// Type definitions for PapaParse v5.0
+// Type definitions for PapaParse 5.2
 // Project: https://github.com/mholt/PapaParse
 // Definitions by: Pedro Flemming <https://github.com/torpedro>
 //                 Rain Shen <https://github.com/rainshen49>
@@ -6,11 +6,11 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
 //                 Behind The Math <https://github.com/BehindTheMath>
-//                 3af <https://github.com/3af>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -20,27 +20,27 @@ export as namespace Papa;
  * Parse a csv string, a csv file or a readable stream
  */
 export const parse: {
-    (input: string | File | NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
+    <T>(input: string | File | NodeJS.ReadableStream, config?: ParseConfig<T>): ParseResult<T>;
     (stream: NODE_STREAM_INPUT_TYPE, config?: ParseConfig): NodeJS.ReadWriteStream;
 };
 
 /**
  * Unparses javascript data objects and returns a csv string
  */
-export const unparse: (data: Array<Object> | Array<Array<any>> | UnparseObject, config?: UnparseConfig) => string;
+export function unparse(data: object[] | any[][] | UnparseObject, config?: UnparseConfig): string;
 
 /**
  * Read-Only Properties
  */
 // An array of characters that are not allowed as delimiters.
-export const BAD_DELIMETERS: Array<string>;
+export const BAD_DELIMITERS: string[];
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
-declare type RECORD_SEP_TYPE = '';
+export type RECORD_SEP_TYPE = '';
 export const RECORD_SEP = '';
 
 // Also sometimes used as a delimiting character. ASCII code 31.
-declare type UNIT_SEP_TYPE = '';
+export type UNIT_SEP_TYPE = '';
 export const UNIT_SEP = '';
 
 // Whether or not the browser supports HTML5 Web Workers. If false, worker: true will have no effect.
@@ -51,11 +51,11 @@ export const WORKERS_SUPPORTED: boolean;
 export let SCRIPT_PATH: string;
 
 // When passed to Papa Parse a Readable stream is returned.
-declare type NODE_STREAM_INPUT_TYPE = 1;
+export type NODE_STREAM_INPUT_TYPE = 1;
 export const NODE_STREAM_INPUT = 1;
 
 // The possible values for the ParseConfig property delimitersToGuess
-declare type GuessableDelimiters = ',' | '\t' | '|' | ';' | RECORD_SEP_TYPE | UNIT_SEP_TYPE;
+export type GuessableDelimiters = ',' | '\t' | '|' | ';' | RECORD_SEP_TYPE | UNIT_SEP_TYPE;
 
 /**
  * Configurable Properties
@@ -90,7 +90,7 @@ export class Parser {
     resume(): void;
 }
 
-export interface ParseConfig {
+export interface ParseConfig<T = any> {
     delimiter?: string; // default: ","
     newline?: string; // default: "\r\n"
     quoteChar?: string; // default: '"'
@@ -111,22 +111,30 @@ export interface ParseConfig {
     fastMode?: boolean; // default: undefined
     withCredentials?: boolean; // default: undefined
     delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    chunkSize?: number; // default: undefined
 
     // Callbacks
-    step?(results: ParseResult, parser: Parser): void; // default: undefined
-    complete?(results: ParseResult, file?: File): void; // default: undefined
+    step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
+    complete?(results: ParseResult<T>, file?: File): void; // default: undefined
     error?(error: ParseError, file?: File): void; // default: undefined
-    chunk?(results: ParseResult, parser: Parser): void; // default: undefined
+    chunk?(results: ParseResult<T>, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
-    transformHeader?(header: string): string; // default: undefined
+    transformHeader?(header: string, index?: number): string; // default: undefined
 }
 
 export interface UnparseConfig {
-    quotes?: boolean | boolean[]; // default: false
+    quotes?: boolean | boolean[] | ((value: any) => boolean); // default: false
     quoteChar?: string; // default: '"'
     escapeChar?: string; // default: '"'
+    escapeFormulae?: boolean; // default: false
     delimiter?: string; // default: ","
+    /**
+     * If defined and the download property is true,
+     * a POST request will be made instead of a GET request and the passed argument will be set as the body of the request.
+     * @default undefined
+     */
+    downloadRequestBody?: boolean;
     header?: boolean; // default: true
     newline?: string; // default: "\r\n"
     skipEmptyLines?: boolean | 'greedy'; // default: false
@@ -134,8 +142,8 @@ export interface UnparseConfig {
 }
 
 export interface UnparseObject {
-    fields: Array<any>;
-    data: string | Array<any>;
+    fields: any[];
+    data: string | any[];
 }
 
 export interface ParseError {
@@ -149,20 +157,19 @@ export interface ParseMeta {
     delimiter: string; // Delimiter used
     linebreak: string; // Line break sequence used
     aborted: boolean; // Whether process was aborted
-    fields: Array<string>; // Array of field names
+    fields?: string[]; // Array of field names
     truncated: boolean; // Whether preview consumed all input
     cursor: number;
 }
 
 /**
- * @interface ParseResult
- *
  * data: is an array of rows. If header is false, rows are arrays; otherwise they are objects of data keyed by the field name.
  * errors: is an array of errors
- * meta: contains extra information about the parse, such as delimiter used, the newline sequence, whether the process was aborted, etc. Properties in this object are not guaranteed to exist in all situations
+ * meta: contains extra information about the parse, such as delimiter used, the newline sequence, whether the process was aborted, etc.
+ * Properties in this object are not guaranteed to exist in all situations
  */
-export interface ParseResult {
-    data: Array<any>;
-    errors: Array<ParseError>;
+export interface ParseResult<T> {
+    data: T[];
+    errors: ParseError[];
     meta: ParseMeta;
 }

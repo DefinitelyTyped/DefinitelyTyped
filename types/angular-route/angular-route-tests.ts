@@ -6,6 +6,15 @@
  */
 
 declare var $routeProvider: ng.route.IRouteProvider;
+if (!$routeProvider.eagerInstantiationEnabled()) {
+    throw new Error("The default of $routeProvider.eagerInstantiationEnabled should be true.");
+}
+
+$routeProvider.eagerInstantiationEnabled(false);
+if ($routeProvider.eagerInstantiationEnabled()) {
+    throw new Error("$routeProvider.eagerInstantiationEnabled is expected to be false.");
+}
+
 $routeProvider
     .when('/projects/:projectId/dashboard', {
         controller: 'I am a string',

@@ -113,9 +113,9 @@ const mark = Mark.create("bold");
 const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }) }]);
 
 const doc = Document.fromJSON({
-	object: "document",
-	data: {},
-	nodes: []
+    object: "document",
+    data: {},
+    nodes: []
 });
 
 editor
@@ -140,13 +140,13 @@ editor
 .flip()
 .focus()
 .insertBlock({
-	type: "image",
-	key: "b",
-	data: {
-		src: "http://placekitten.com/200/300",
-		alt: "Kittens",
-		className: "img-responsive"
-	}
+    type: "image",
+    key: "b",
+    data: {
+        src: "http://placekitten.com/200/300",
+        alt: "Kittens",
+        className: "img-responsive"
+    }
 })
 .insertBlockAtRange(range, "text")
 .insertFragment(doc)

@@ -1,4 +1,4 @@
-// Type definitions for karma 4.4
+// Type definitions for karma 5.0
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -10,11 +10,13 @@
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
-import Promise = require('bluebird');
 import https = require('https');
 import { Appender } from 'log4js';
 import { EventEmitter } from 'events';
+import * as constants from './lib/constants';
+import { VERSION } from './lib/constants';
 
+export { constants, VERSION };
 /**
  * `start` method is deprecated since 0.13. It will be removed in 0.14.
  * Please use
@@ -27,36 +29,8 @@ import { EventEmitter } from 'events';
  * @deprecated
  */
 export const server: DeprecatedServer;
-
 export const runner: Runner;
 export const stopper: Stopper;
-
-export const VERSION: string;
-export const constants: Constants;
-
-export interface Constants {
-    VERSION: string;
-    DEFAULT_PORT: number;
-    DEFAULT_HOSTNAME: string;
-    DEFAULT_LISTEN_ADDR: string;
-    LOG_DISABLE: string;
-    LOG_ERROR: string;
-    LOG_WARN: string;
-    LOG_INFO: string;
-    LOG_DEBUG: string;
-    LOG_LOG: string;
-    LOG_PRIORITIES: string[];
-    COLOR_PATTERN: string;
-    NO_COLOR_PATTERN: string;
-    CONSOLE_APPENDER: {
-        type: string;
-        layout: {
-            type: string;
-            pattern: string;
-        };
-    };
-    EXIT_CODE: string;
-}
 
 export namespace launcher {
     class Launcher {
@@ -153,6 +127,13 @@ export interface ConfigFile {
  * - `ChromeHeadless` - launcher requires `karma-chrome-launcher` plugin
  * - `PhantomJS` - launcher requires `karma-phantomjs-launcher` plugin
  * - `Firefox` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxDeveloper` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxDeveloperHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxAurora` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxAuroraHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxNightly` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxNightlyHeadless` - launcher requires `karma-firefox-launcher` plugin
  * - `Opera` - launcher requires `karma-opera-launcher` plugin
  * - `IE` - launcher requires `karma-ie-launcher` plugin
  * - `Safari` - launcher requires karma-safari-launcher plugin
@@ -163,6 +144,13 @@ export type AutomatedBrowsers =
     | 'ChromeHeadless'
     | 'PhantomJS'
     | 'Firefox'
+    | 'FirefoxHeadless'
+    | 'FirefoxDeveloper'
+    | 'FirefoxDeveloperHeadless'
+    | 'FirefoxAurora'
+    | 'FirefoxAuroraHeadless'
+    | 'FirefoxNightly'
+    | 'FirefoxNightlyHeadless'
     | 'Opera'
     | 'IE'
     | 'Safari';
@@ -295,6 +283,13 @@ export interface ConfigOptions {
      *     <li>ChromeCanary (launcher comes installed with Karma)</li>
      *     <li>PhantomJS (launcher comes installed with Karma)</li>
      *     <li>Firefox (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxDeveloper (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxDeveloperHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxAurora (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxAuroraHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxNightly (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxNightlyHeadless (launcher requires karma-firefox-launcher plugin)</li>
      *     <li>Opera (launcher requires karma-opera-launcher plugin)</li>
      *     <li>Internet Explorer (launcher requires karma-ie-launcher plugin)</li>
      *     <li>Safari (launcher requires karma-safari-launcher plugin)</li>

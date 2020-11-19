@@ -71,7 +71,7 @@ export interface Pattern {
 }
 
 declare global {
-	interface JQuery {
-		geopattern(string: string, options?: PatternOptions): JQuery;
-	}
+    interface JQuery {
+        geopattern(string: string, options?: PatternOptions): JQuery;
+    }
 }

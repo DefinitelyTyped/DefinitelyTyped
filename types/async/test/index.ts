@@ -155,10 +155,11 @@ function whileFn(callback: any) {
 }
 
 function whileTest() { return count < 5; }
+function whilstTest(callback: (error: any, truth: boolean) => boolean) { return callback(null, count < 5); }
 function doWhileTest(count: number) { return count < 5; }
 
 let count = 0;
-async.whilst(whileTest, whileFn, err => { });
+async.whilst(whilstTest, whileFn, err => { });
 async.until(whileTest, whileFn, err => { });
 async.doWhilst(whileFn, doWhileTest, err => { });
 async.doUntil(whileFn, doWhileTest, err => { });
@@ -336,6 +337,22 @@ async.retry(
     { times: 3, interval: 200, errorFilter: err => true },
     (callback, results) => {},
     (err, result) => {},
+);
+
+async.retryable(
+    (callback) => {},
+);
+async.retryable(
+    3,
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: 200 },
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback) => {},
 );
 
 async.parallel([
@@ -607,23 +624,23 @@ async.some<number>(
 // timeout
 
 function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 1 ${foo}`);
-	callback(undefined, foo);
+    console.log(`async.timeout 1 ${foo}`);
+    callback(undefined, foo);
 }
 const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, (err: Error, data: any) => { console.log(`async.timeout 1 end ${data}`); });
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 2`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 2`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped2 = async.timeout(myFunction2, 1000);
 wrapped2((err: Error, data: any) => { console.log(`async.timeout 2 end ${data}`); });
 
 function myFunction3(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 3`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 3`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });

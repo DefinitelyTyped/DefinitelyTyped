@@ -5849,14 +5849,29 @@ function JQuery() {
         }
 
         function find() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').find(new HTMLElement());
 
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find(new HTMLSpanElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find(new Element());
+
             // $ExpectType JQuery<HTMLElement>
             $('p').find($('span'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find($<HTMLSpanElement>('.class-name'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find<HTMLSpanElement>($('.class-name'));
         }
 
         function addBack() {
@@ -5897,11 +5912,25 @@ function JQuery() {
         function first() {
             // $ExpectType JQuery<HTMLElement>
             $('p').first();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function last() {
             // $ExpectType JQuery<HTMLElement>
             $('p').last();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
+        }
+
+        function even() {
+            $('li').even().css('background-color', 'red');
+        }
+
+        function odd() {
+            $('li').odd().css('background-color', 'red');
         }
 
         function offsetParent() {
@@ -6074,11 +6103,17 @@ function JQuery() {
         }
 
         function parents() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').parents('span');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').parents();
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $(document).find('select').parents('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('.container');
         }
 
         function parentsUntil() {
@@ -6762,7 +6797,14 @@ function JQuery_jqXHR() {
         }
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7318,7 +7360,14 @@ function JQuery_Promise3() {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7463,7 +7512,14 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7584,7 +7640,14 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 }

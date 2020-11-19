@@ -21,6 +21,7 @@ Intercom('show');
 Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
+Intercom('startTour', 123);
 Intercom('onHide', () => { /* Do stuff */ });
 Intercom('onUnreadCountChange', (unreadCount: number) => { /* Do stuff */ });
 Intercom('onActivatorClick', () => { /* Do stuff */ });

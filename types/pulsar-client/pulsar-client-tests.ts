@@ -13,13 +13,13 @@ import Pulsar = require('pulsar-client');
 
     await producer.send({
         data: Buffer.from('Hello, Typescript'),
-        properties: ['a', 'b', 1, 2],
+        properties: { a: '1', b: '2' },
     });
 
     await producer.send({
         data: Buffer.from('Hello, Pulsar'),
         partitionKey: 'key1',
-        properties: ['c', 'd', 3, 4],
+        properties: { c: '3', d: '4' },
         eventTimestamp: Date.now(),
         replicationClusters: [
             'cluster1',
@@ -51,6 +51,8 @@ import Pulsar = require('pulsar-client');
 
     consumer.acknowledge(msg);
     consumer.acknowledgeId(msg.getMessageId());
+    consumer.negativeAcknowledge(msg);
+    consumer.negativeAcknowledgeId(msg.getMessageId());
     consumer.acknowledgeCumulative(msg);
     consumer.acknowledgeCumulativeId(msg.getMessageId());
 

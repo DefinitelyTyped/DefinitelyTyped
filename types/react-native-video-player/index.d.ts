@@ -9,7 +9,7 @@ import { VideoProperties } from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export interface VideoPlayerProps {
-    video?: { uri?: string } | number;
+    video?: { uri?: string, mainVer?: number, patchVer?: number } | number;
     thumbnail?: ImageSourcePropType;
     endThumbnail?: ImageSourcePropType;
     videoWidth?: number;

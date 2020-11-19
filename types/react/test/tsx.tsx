@@ -12,6 +12,7 @@ FunctionComponent.defaultProps = {
     foo: 42
 };
 <FunctionComponent />;
+<slot name="slot1"></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
@@ -21,6 +22,25 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 <FunctionComponent2>24</FunctionComponent2>;
+
+const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
+    return <div>{foo}</div>;
+};
+VoidFunctionComponent.displayName = "VoidFunctionComponent1";
+VoidFunctionComponent.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent />;
+
+// $ExpectError
+const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
+};
+VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
+VoidFunctionComponent2.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
 
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
@@ -91,6 +111,14 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
 
+// unstable APIs should not be part of the typings
+// $ExpectError
+const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
+// $ExpectError
+<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+    {(value: unknown) => null}
+</ContextWithRenderProps.Consumer>;
+
 // Fragments
 <div>
     <React.Fragment>
@@ -134,17 +162,17 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
 // This is invalid because 'S' may specify a different type for `baseProp`.
 // export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-// 	   foo() {
-// 	       this.setState({ baseProp: 'foobar' });
-// 	   }
+//        foo() {
+//            this.setState({ baseProp: 'foobar' });
+//        }
 // }
 
 interface NewProps { foo: string; }
@@ -265,6 +293,10 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+// unstable API should not be part of the typings
+// $ExpectError
+<React.Suspense fallback={null} unstable_avoidThisFallback />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
@@ -425,3 +457,38 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+function CustomSelect(props: {
+    children: Array<
+      React.ReactElement<
+        React.ComponentPropsWithoutRef<typeof CustomSelectOption>
+      >
+    >;
+  }): JSX.Element {
+    return (
+      <div>
+        <ul>{props.children}</ul>
+        <select>
+          {React.Children.map(props.children, child => (
+            // key should be mappable from children.
+            <option key={child.key} value={child.props.value}>
+              {child.props.children}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+}
+function CustomSelectOption(props: {
+    value: string;
+    children: React.ReactNode;
+}): JSX.Element {
+    return <li data-value={props.value}>{props.children}</li>;
+}
+function Example() {
+    return (
+        <CustomSelect>
+        <CustomSelectOption value="one">One</CustomSelectOption>
+        <CustomSelectOption value="two">Two</CustomSelectOption>
+        </CustomSelect>
+    );
+}

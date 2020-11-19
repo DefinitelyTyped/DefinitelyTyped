@@ -3,7 +3,7 @@ import * as md5Promise from "md5-file/promise";
 
 // $ExpectType void
 md5("test.txt", (err, hash) => {
-	return;
+    return;
 });
 
 // $ExpectType string

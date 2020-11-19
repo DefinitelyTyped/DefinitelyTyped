@@ -1,4 +1,8 @@
-import GoogleMapReact, { BootstrapURLKeys, MapOptions } from 'google-map-react';
+import GoogleMapReact, {
+    BootstrapURLKeys, MapOptions, NESWBounds,
+    Size,
+    fitBounds
+} from 'google-map-react';
 import * as React from 'react';
 
 const center = { lat: 0, lng: 0 };
@@ -29,3 +33,21 @@ const options: MapOptions = {
 };
 
 <GoogleMapReact center={center} heatmapLibrary={true} zoom={3} bootstrapURLKeys={client} options={options} />;
+
+const bounds: NESWBounds = {
+    ne: {
+      lat: 55,
+      lng: 10,
+    },
+    sw: {
+      lat: 45,
+      lng: 20,
+    }
+};
+
+const size: Size = {
+    width: 1280,
+    height: 640
+};
+
+fitBounds(bounds, size);

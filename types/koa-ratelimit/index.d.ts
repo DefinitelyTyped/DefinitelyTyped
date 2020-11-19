@@ -7,6 +7,7 @@
 
 import { Middleware, Context } from "koa";
 import { RedisClient } from "redis";
+import { Redis } from "ioredis";
 
 declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 
@@ -37,7 +38,7 @@ declare namespace KoaRatelimit {
         /**
          * The database powering the backing rate-limiter package.
          */
-        db: RedisClient | Map<any, any>;
+        db: Redis | RedisClient | Map<any, any>;
 
         /**
          * The length of a single limiting period. This value is expressed
@@ -79,6 +80,16 @@ declare namespace KoaRatelimit {
          * A relation of header to the header's display name.
          */
         headers?: HeaderNameOptions;
+
+        /**
+         * If function returns true, middleware exits before limiting
+         */
+        whitelist?: (context: Context) => boolean | Promise<boolean>;
+
+        /**
+         * If function returns true, 403 error is thrown
+         */
+        blacklist?: (context: Context) => boolean | Promise<boolean>;
     }
 }
 

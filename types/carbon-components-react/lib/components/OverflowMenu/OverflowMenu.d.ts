@@ -1,30 +1,36 @@
 import * as React from "react";
-import { Direction, EmbeddedIconProps, MenuOffsetData, ReactAttr, ReactDivAttr, RenderIconProps } from "../../../typings/shared";
+import {
+    Direction,
+    MenuOffsetData,
+    ReactAttr,
+    ReactButtonAttr, ForwardRefReturn, VerticalDirection
+} from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onBlur" | "onClick" | "onKeyDown" | "onKeyPress" | "role";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    EmbeddedIconProps,
-    RenderIconProps
-{
-    ariaLabel?: React.AriaAttributes["aria-label"],
-    onClick?(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void,
-}
+type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
+export declare const getMenuOffset: GetMenuOffsetFn;
 
-export type MenuOffsetValue = MenuOffsetData | ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
+export type MenuOffsetValue = MenuOffsetData | GetMenuOffsetFn;
 
-export interface OverflowMenuProps extends InheritedProps {
-    direction?: Extract<Direction, "bottom" | "top">,
-    iconClass?: ReactAttr["className"]
+type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onClick" | "onKeyDown" | "type";
+export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
+    ariaLabel?: string,
+    direction?: VerticalDirection,
+    iconClass?: ReactAttr["className"],
+    iconDescription?: string,
     flipped?: boolean,
+    light?: boolean,
     menuOffset?: MenuOffsetValue,
     menuOffsetFlip?: MenuOffsetValue,
     menuOptionsClass?: ReactAttr["className"],
+    onClick?(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void,
     onClose?(): void,
     onOpen?(): void,
     open?: boolean,
+    renderIcon?: any,
+    selectorPrimaryFocus?: string,
+    size?: "sm" | "xl",
 }
 
-declare const OverflowMenu: React.RefForwardingComponent<HTMLDivElement, OverflowMenuProps>;
+declare const OverflowMenu: ForwardRefReturn<HTMLButtonElement, OverflowMenuProps>;
 
 export default OverflowMenu;

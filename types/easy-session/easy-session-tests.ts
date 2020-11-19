@@ -1,6 +1,3 @@
-
-/// <reference types="express-session" />
-
 import express = require('express');
 import session = require('express-session');
 import cookieParser = require('cookie-parser');
@@ -49,7 +46,7 @@ app.get('/hasrole', function (req, res, next) {
 });
 
 app.post('/setrole', function (req, res, next) {
-    req.session.setRole(req.query.role);
+    req.session.setRole(req.query.role as string);
     res.send(200);
 });
 

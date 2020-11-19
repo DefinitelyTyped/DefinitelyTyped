@@ -36,7 +36,6 @@ namespace Module.Options {
 
     // $ExpectType Options
     options;
-    // tslint:disable-next-line max-line-length
     options.ignoreReverted; // $ExpectType boolean | undefined
     options.lernaPackage; // $ExpectType string | undefined
     options.preset; // $ExpectType string | undefined

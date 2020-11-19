@@ -1,7 +1,8 @@
-// Type definitions for react-native-fbsdk 1.0
+// Type definitions for react-native-fbsdk 1.1
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Thibault Malbranche <https://github.com/titozzz>
+//                 Stuart Forrest <https://github.com/stuartforrest-infinity>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -292,7 +293,6 @@ export interface ShareOpenGraphValueContainer {
     /**
      * Sets a number for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putNumber(key: string, number: number): void;
 
     /**
@@ -308,7 +308,6 @@ export interface ShareOpenGraphValueContainer {
     /**
      * Sets a string for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putString(key: string, string: string): void;
 
     /**
@@ -609,6 +608,23 @@ export interface Params {
     [key: string]: string | number;
 }
 
+/**
+ * Info about a user to increase chances of matching a Facebook user.
+ * See https://developers.facebook.com/docs/app-events/advanced-matching for
+ * more info about the expected format of each field.
+ */
+export interface UserData {
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    dateOfBirth?: string;
+    gender?: 'm' | 'f';
+    city?: string;
+    state?: string;
+    zip?: string;
+    country?: string;
+}
 export namespace AppEventsLogger {
     /**
      * Sets the current event flushing behavior specifying when events
@@ -647,6 +663,11 @@ export namespace AppEventsLogger {
      * The userID is persisted until it is cleared by passing nil.
      */
     function setUserID(userID: string | null): void;
+
+    /**
+     * Set additional data about the user to increase chances of matching a Facebook user.
+     */
+    function setUserData(userData: UserData): void;
 
     /**
      * For iOS only, sets and sends device token to register the current application for push notifications.

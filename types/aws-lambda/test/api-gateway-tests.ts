@@ -12,6 +12,9 @@ import {
     APIGatewayProxyEvent,
     APIGatewayProxyHandler,
     APIGatewayProxyResult,
+    APIGatewayProxyEventV2,
+    APIGatewayProxyHandlerV2,
+    APIGatewayProxyResultV2,
     APIGatewayProxyWithLambdaAuthorizerEventRequestContext,
     APIGatewayProxyWithLambdaAuthorizerHandler,
     APIGatewayRequestAuthorizerHandler,
@@ -26,6 +29,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
+    APIGatewayProxyStructuredResultV2,
 } from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -132,6 +136,38 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     return result;
 };
 
+const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    strOrUndefined = event.body;
+    str = event.headers['example'];
+    str = event.routeKey;
+    bool = event.isBase64Encoded;
+    str = event.rawPath;
+    str = event.rawQueryString;
+    strOrUndefined = event.cookies ? event.cookies[0] : undefined;
+    strOrUndefined = event.queryStringParameters ? event.queryStringParameters['example'] : undefined;
+    strOrUndefined = event.pathParameters ? event.pathParameters['example'] : undefined;
+    strOrUndefined = event.stageVariables ? event.stageVariables['example'] : undefined;
+
+    str = event.requestContext.http.protocol;
+    str = event.requestContext.http.sourceIp;
+    str = event.requestContext.http.method;
+    str = event.requestContext.http.userAgent;
+    str = event.requestContext.accountId;
+    str = event.requestContext.apiId;
+    str = event.requestContext.domainName;
+    str = event.requestContext.domainPrefix;
+    str = event.requestContext.stage;
+    str = event.requestContext.requestId;
+    str = event.requestContext.time;
+    num = event.requestContext.timeEpoch;
+
+    const result = createProxyResultV2();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
 const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
     // standard fields...
     strOrNull = event.body;
@@ -194,6 +230,78 @@ function createProxyResult(): APIGatewayProxyResult {
     return result;
 }
 
+function createProxyResultV2(): APIGatewayProxyResultV2 {
+    let result: APIGatewayProxyStructuredResultV2 = {
+        statusCode: num,
+        body: str,
+    };
+    result = {
+        statusCode: num,
+        headers: {
+            [str]: str,
+            [str]: bool,
+            [str]: num,
+        },
+        isBase64Encoded: true,
+        body: str,
+    };
+    return result;
+}
+
+const proxyHandlerV2ForStringResult: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    const result = createProxyStringResultV2();
+
+    callback(new Error());
+    callback(undefined, result);
+    return result;
+};
+
+function createProxyStringResultV2(): APIGatewayProxyResultV2 {
+    const result = 'example';
+    return result;
+}
+
+interface Response {
+    example: string;
+}
+
+const proxyHandlerV2ForObjectResult: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+    const result = createProxyStringResultV2();
+
+    callback(new Error());
+    callback(undefined, result);
+    return result;
+};
+
+function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
+    const result: Response = {
+        example: 'example squared'
+    };
+    return result;
+}
+
+// $ExpectError
+const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+    const result = {
+        wrongExample: 'wrong example'
+    };
+
+    callback(new Error());
+    callback(undefined, result); // $ExpectError
+    return result;
+};
+
+// $ExpectError
+const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    const result = {
+        wrongExample: 'wrong example',
+    };
+
+    callback(new Error());
+    callback(undefined, result); // $ExpectError
+    return result;
+};
+
 const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
     if (event.type === "TOKEN") {
         str = event.methodArn;
@@ -201,7 +309,6 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
         str = event.resource;
     }
 
@@ -221,7 +328,6 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
         str = event.resource;
     }
 
@@ -273,7 +379,7 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
     str = event.resource;
     str = event.path;
@@ -291,8 +397,10 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     if (event.stageVariables !== null)
         str = event.stageVariables[str];
     const requestContext: APIGatewayEventRequestContext = event.requestContext;
-    str = event.domainName;
-    str = event.apiId;
+    if (requestContext.domainName != null) {
+        str = requestContext.domainName;
+    }
+    str = requestContext.apiId;
 
     const result = createAuthorizerResult();
 
@@ -305,7 +413,7 @@ const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContext
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
 
     const result = createAuthorizerResultWithCustomContext();

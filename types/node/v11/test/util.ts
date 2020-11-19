@@ -168,7 +168,13 @@ import { readFile } from 'fs';
     b = util.types.isBigUint64Array(15);
     b = util.types.isModuleNamespaceObject(15);
 
-    // tslint:disable-next-line:no-construct ban-types
+    const f = (v: any) => {
+        if (util.types.isArrayBufferView(v)) {
+            const abv: ArrayBufferView  = v;
+        }
+    };
+
+    // tslint:disable-next-line:no-construct
     const maybeBoxed: number | Number = new Number(1);
     if (util.types.isBoxedPrimitive(maybeBoxed)) {
         const boxed: Number = maybeBoxed;

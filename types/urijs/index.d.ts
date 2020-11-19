@@ -7,6 +7,9 @@
 //                 TeamworkGuy2 <https://github.com/teamworkguy2>
 //                 Akuukis <https://github.com/Akuukis>
 //                 Marcell Toth <https://github.com/marcelltoth>
+//                 Vincenzo Chianese <https://github.com/XVincentX>
+//                 Andree Hagelstein <https://github.com/ahagelstein>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,7 +21,7 @@
 
 // Compatability with node.js
 // tslint:disable-next-line:no-empty-interface
-interface HTMLElement {}
+interface HTMLElement { }
 
 export = URI;
 export as namespace URI;
@@ -26,7 +29,7 @@ export as namespace URI;
 declare const URI: {
     (value?: string | URI.URIOptions | HTMLElement): URI;
 
-    new (value?: string | URI.URIOptions | HTMLElement): URI;
+    new(value?: string | URI.URIOptions | HTMLElement): URI;
 
     addQuery(data: object, prop: string, value: string): object;
     addQuery(data: object, qryObj: object): object;
@@ -42,15 +45,19 @@ declare const URI: {
     decode(str: string): string;
     decodeQuery(qry: string): string;
 
+    duplicateQueryParameters: boolean;
+
     encode(str: string): string;
     encodeQuery(qry: string): string;
     encodeReserved(str: string): string;
+
+    escapeQuerySpace: boolean;
 
     /**
      * @description Wrapper for `URITemplate#expand`. Only present after
      *              importing `urijs/src/URITemplate` explicitly.
      */
-    expand?: (template: string, vals: object) => URI;
+    expand?: (template: string, vals: object) => string;
 
     iso8859(): void;
 
@@ -73,7 +80,7 @@ declare const URI: {
             port?: string;
         },
     ): string;
-    parseQuery(url: string): object;
+    parseQuery(url: string): URI.QueryDataMap;
     parseUserinfo(
         url: string,
         parts: {
@@ -106,7 +113,13 @@ declare namespace URI {
     }
 
     interface Parts extends URIOptions {
+        duplicateQueryParameters: boolean;
+        escapeQuerySpace: boolean;
         preventInvalidHostname: boolean;
+    }
+
+    interface QueryDataMap {
+        [key: string]: string | null | Array<string | null>;
     }
 }
 
@@ -114,10 +127,8 @@ interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
     addQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addQuery(qry: string, value: any): URI;
     addSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -132,6 +143,8 @@ interface URI {
     duplicateQueryParameters(val: boolean): URI;
 
     equals(url?: string | URI): boolean;
+
+    escapeQuerySpace(val: boolean): URI;
 
     filename(file?: boolean): string;
     filename(file: string): URI;
@@ -194,17 +207,18 @@ interface URI {
     protocol(): string;
     protocol(protocol: string): URI;
 
+    preventInvalidHostname(val: boolean): URI;
+
     query(): string;
-    query(qry: string | object): URI;
-    query(qry: boolean): object;
+    // tslint:disable-next-line void-return
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    query(v: boolean): URI.QueryDataMap;
 
     readable(): string;
     relativeTo(path: string): URI;
     removeQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeQuery(name: string, value: string): URI;
     removeSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;
@@ -212,8 +226,9 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | object): URI;
-    search(qry: boolean): any;
+    // tslint:disable-next-line void-return
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    search(v: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;

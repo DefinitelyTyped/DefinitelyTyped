@@ -9,9 +9,9 @@ fc.determineEventType(document.getElementsByClassName('foo')).concat('bar');
 fc.findControl(document.querySelector('label'));
 fc.focus(document.querySelectorAll('section')[0]);
 document.body.addEventListener('click', function(e) {
-	fc.getTargetElementFromEventTarget(e.target);
-	fc.needsClick(e.target);
-	fc.needsFocus(e.target);
+    fc.getTargetElementFromEventTarget(e.target);
+    fc.needsClick(e.target);
+    fc.needsFocus(e.target);
 });
 
 // on CommonJS environment

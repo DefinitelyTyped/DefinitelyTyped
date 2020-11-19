@@ -7,6 +7,7 @@ module.exports = (config: karma.Config) => {
         reporters: ['progress', 'kjhtml', 'mocha'],
         browsers: ['Chrome'],
         jasmineHtmlReporter: {
+            suppressAll: true,
             suppressFailed: true,
         },
     });

@@ -1,17 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": false,
-        "callable-types": false,
-        "dt-header": false,
-        "no-declare-current-package": false,
-        "no-outside-dependencies": false,
-        "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "object-literal-key-quotes": false,
-        "object-literal-shorthand": false,
-        "prefer-method-signature": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
     }
 }

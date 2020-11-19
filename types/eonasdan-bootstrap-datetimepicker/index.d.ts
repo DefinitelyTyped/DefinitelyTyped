@@ -416,8 +416,8 @@ export interface OptionsBase {
      * For example:
      *                keybinds:
      *                {
-     *                		up: (widget) => console.log(widget),
-     *                		"control up": (widget) => console.log(widget)
+     *                        up: (widget) => console.log(widget),
+     *                        "control up": (widget) => console.log(widget)
      *                }
      * The widget parameter is false, if the datepicker is closed.
      * Default: {

@@ -30,7 +30,7 @@ declare namespace SimpleBar {
         scrollbarMaxSize?: number;
     }
 
-    interface ClassNamesOptions {
+    interface KnownClassNamesOptions {
         contentEl?: string;
         contentWrapper?: string;
         offset?: string;
@@ -46,6 +46,9 @@ declare namespace SimpleBar {
         vertical?: string;
         hover?: string;
         dragging?: string;
-        [className: string]: string;
     }
+
+    type ClassNamesOptions = KnownClassNamesOptions & {
+        [className: string]: string;
+    };
 }

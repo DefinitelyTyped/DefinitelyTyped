@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
+import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
@@ -14,7 +14,11 @@ export interface CreatableProps<OptionType extends OptionTypeBase> {
   formatCreateLabel?: (inputValue: string) => React.ReactNode;
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
-  isValidNewOption?: (inputValue: string, value: ValueType<OptionType>, options: OptionsType<OptionType>) => boolean;
+  isValidNewOption?: (
+    inputValue: string,
+    value: ValueType<OptionType>,
+    options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
+   ) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
   getNewOptionData?: (inputValue: string, optionLabel: React.ReactNode) => OptionType;
@@ -39,7 +43,7 @@ export class Creatable<OptionType extends OptionTypeBase> extends React.Componen
   static defaultProps: Props<any>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
   focus(): void;
   blur(): void;
 }

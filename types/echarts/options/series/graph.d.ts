@@ -24,7 +24,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-graph
          */
         interface SeriesGraph {
-
             /**
              * @default
              * "graph"
@@ -201,7 +200,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.circular
              */
             circular?: {
-
                 /**
                  * Whether to rotate the label automatically.
                  *
@@ -230,7 +228,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.force
              */
             force?: {
-
                 /**
                  * The initial layout before force-directed layout, which will
                  * influence on the result of force-directed layout.
@@ -311,6 +308,18 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.force.layoutAnimation
                  */
                 layoutAnimation?: boolean;
+
+                /**
+                 * It will slow down the nodes' movement. The value range is from 0 to 1.
+                 * But it is still an experimental option, see [#11024](https://github.com/apache/incubator-echarts/issues/11024).
+                 *
+                 * Since v4.5.0
+                 *
+                 * @default
+                 * 0.6
+                 * @see https://echarts.apache.org/en/option.html#series-graph.force.friction
+                 */
+                friction?: number;
             };
 
             /**
@@ -515,7 +524,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -634,7 +642,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -753,7 +760,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -928,7 +934,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-graph.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -1213,12 +1219,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1264,7 +1268,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1547,7 +1551,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel
              */
             edgeLabel?: {
-
                 /**
                  * If show label on edge.
                  *
@@ -1655,7 +1658,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -1931,12 +1934,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1979,7 +1980,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -2253,12 +2254,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2359,7 +2358,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -2457,7 +2455,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2586,7 +2583,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2872,12 +2869,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2923,7 +2918,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3208,7 +3203,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel
                  */
                 edgeLabel?: {
-
                     /**
                      * If show label on edge.
                      *
@@ -3317,7 +3311,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -3594,12 +3588,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3642,7 +3634,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3929,1899 +3921,20 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-graph.categories
              */
-            categories?: {
-
-                /**
-                 * Name of category, which is used to correspond with
-                 * [legend](https://echarts.apache.org/en/option.html#legend)
-                 * and the content of
-                 * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
-                 * .
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.name
-                 */
-                name?: string;
-
-                /**
-                 * Symbol of node of this category.
-                 *
-                 * Icon types provided by ECharts includes `'circle'`, `'rect'`,
-                 * `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`,
-                 * `'none'`
-                 *
-                 * It can be set to an image with `'image://url'` , in which
-                 * URL is the link to an image, or `dataURI` of an image.
-                 *
-                 * An image URL example:
-                 *
-                 * ```
-                 * 'image://http://xxx.xxx.xxx/a/b.png'
-                 *
-                 * ```
-                 *
-                 * A `dataURI` example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories)
-                 *
-                 * Icons can be set to arbitrary vector path via `'path://'`
-                 * in ECharts.
-                 * As compared with raster image, vector paths prevent from
-                 * jagging and blurring when scaled, and have a better control
-                 * over changing colors.
-                 * Size of vectoer icon will be adapted automatically.
-                 * Refer to
-                 * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
-                 * for more information about format of path.
-                 * You may export vector paths from tools like Adobe Illustrator.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories)
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbol
-                 */
-                symbol?: string;
-
-                /**
-                 * node of this category symbol size.
-                 * It can be set to single numbers like `10`, or use an array
-                 * to represent width and height.
-                 * For example, `[20, 10]` means symbol width is `20`, and height
-                 * is`10`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolSize
-                 */
-                symbolSize?: any[] | number;
-
-                /**
-                 * Rotate degree of node of this category symbol.
-                 * Note that when `symbol` is set to be `'arrow'` in `markLine`,
-                 * `symbolRotate` value will be ignored, and compulsively use
-                 * tangent angle.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolRotate
-                 */
-                symbolRotate?: number;
-
-                /**
-                 * Whether to keep aspect for symbols in the form of `path://`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolKeepAspect
-                 */
-                symbolKeepAspect?: boolean;
-
-                /**
-                 * Offset of node of this category symbol relative to original
-                 * position.
-                 * By default, symbol will be put in the center position of
-                 * data.
-                 * But if symbol is from user-defined vector path or image,
-                 * you may not expect symbol to be in center.
-                 * In this case, you may use this attribute to set offset to
-                 * default position.
-                 * It can be in absolute pixel value, or in relative percentage
-                 * value.
-                 *
-                 * For example, `[0, '50%']` means to move upside side position
-                 * of symbol height.
-                 * It can be used to make the arrow in the bottom to be at data
-                 * position when symbol is pin.
-                 *
-                 *
-                 * @default
-                 * [0, 0]
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolOffset
-                 */
-                symbolOffset?: any[];
-
-                /**
-                 * The style of node in this category.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle
-                 */
-                itemStyle?: {
-
-                    /**
-                     * color. Color is taken from
-                     * [option.color Palette](https://echarts.apache.org/en/option.html#color)
-                     * by default.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.itemStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * border color, whose format is similar to that of `color`.
-                     *
-                     *
-                     * @default
-                     * "#000"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * border width. No border when it is set to be 0.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
-                     * `'solid'` by default.
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderType
-                     */
-                    borderType?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.itemStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.opacity
-                     */
-                    opacity?: number;
-                };
-
-                /**
-                 * The label style of node in this category.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.label
-                 */
-                label?: {
-
-                    /**
-                     * Whether to show label.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.show
-                     */
-                    show?: boolean;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * "inside"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.distance
-                     */
-                    distance?: number;
-
-                    /**
-                     * Rotate label, from -90 degree to 90, positive value represents
-                     * rotate anti-clockwise.
-                     *
-                     * See:
-                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rotate
-                     */
-                    rotate?: number;
-
-                    /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.offset
-                     */
-                    offset?: any[];
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{d}`: the percent.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {d}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.align
-                     */
-                    align?: string;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.verticalAlign
-                     */
-                    verticalAlign?: string;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.backgroundColor
-                     */
-                    backgroundColor?: object | string;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderRadius
-                     */
-                    borderRadius?: number;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.padding
-                     */
-                    padding?: any[] | number;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich
-                     */
-                    rich?: {
-
-                        /**
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-
-                            /**
-                             * text color.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number;
-                        };
-                    };
-                };
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * color.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label
-                     */
-                    label?: {
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.position
-                         */
-                        position?: any[] | string;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.distance
-                         */
-                        distance?: number;
-
-                        /**
-                         * Rotate label, from -90 degree to 90, positive value
-                         * represents rotate anti-clockwise.
-                         *
-                         * See:
-                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
-                         * .
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rotate
-                         */
-                        rotate?: number;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.offset
-                         */
-                        offset?: any[];
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Horizontal alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'left'`
-                         * + `'center'`
-                         * + `'right'`
-                         *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-                };
-            };
+            categories?: SeriesGraph.CategoryObject[];
+
+            /**
+             * For the situation where there are multiple links between nodes, the curveness of each link is automatically calculated.
+             * When set to number, it indicates the length of the edge curvenness array between two nodes, and the calculation result is given by the internal algorithm.
+             * When set to Array, it means that the curveness array is directly specified, and the multilateral curveness is directly selected from the array.
+             * Notice： if lineStyle.curveness has been set, this property is invalid.
+             *
+             * [see doc](https://echarts.apache.org/en/option.html#series-graph.autoCurveness)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-graph.autoCurveness
+             */
+            autoCurveness?: number | number[];
 
             /**
              * Nodes list of graph.
@@ -5850,1707 +3963,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-graph.links
              */
-            links?: {
-
-                /**
-                 * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
-                 * on edge
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.source
-                 */
-                source?: string;
-
-                /**
-                 * [name of target node](https://echarts.apache.org/en/option.html#series-graph.data.name)
-                 * on edge
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.target
-                 */
-                target?: string;
-
-                /**
-                 * value of edge, can be mapped to edge length in force graph.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.value
-                 */
-                value?: number;
-
-                /**
-                 * Line style of edges.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle
-                 */
-                lineStyle?: {
-
-                    /**
-                     * Line color.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.lineStyle)
-                     *
-                     *
-                     * @default
-                     * "#000"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * line width.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.width
-                     */
-                    width?: number;
-
-                    /**
-                     * line type.
-                     *
-                     * Options are:
-                     *
-                     * + `'solid'`
-                     * + `'dashed'`
-                     * + `'dotted'`
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.type
-                     */
-                    type?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.lineStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.opacity
-                     */
-                    opacity?: number;
-
-                    /**
-                     * The curveness of edge, supporting values from 0 to 1.
-                     * The curveness will be larger as the value becomes lager.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.curveness
-                     */
-                    curveness?: number;
-                };
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.label
-                 */
-                label?: {
-
-                    /**
-                     * If show label on edge.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.show
-                     */
-                    show?: boolean;
-
-                    /**
-                     * Label position, options：
-                     *
-                     * + `'start'`
-                     * + `'middle'`
-                     * + `'end'`
-                     *
-                     *
-                     * @default
-                     * "middle"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.position
-                     */
-                    position?: string;
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {@score}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.align
-                     */
-                    align?: string;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.verticalAlign
-                     */
-                    verticalAlign?: string;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.backgroundColor
-                     */
-                    backgroundColor?: object | string;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderRadius
-                     */
-                    borderRadius?: number;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.padding
-                     */
-                    padding?: any[] | number;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich
-                     */
-                    rich?: {
-
-                        /**
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-
-                            /**
-                             * text color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number;
-                        };
-                    };
-                };
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label
-                     */
-                    label?: {
-
-                        /**
-                         * If show label on edge.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position, options：
-                         *
-                         * + `'start'`
-                         * + `'middle'`
-                         * + `'end'`
-                         *
-                         *
-                         * @default
-                         * "middle"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.position
-                         */
-                        position?: string;
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.formatter
-                         */
-                        formatter?: Function | string;
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Horizontal alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'left'`
-                         * + `'center'`
-                         * + `'right'`
-                         *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle
-                     */
-                    lineStyle?: {
-
-                        /**
-                         * Line color.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.lineStyle)
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * line width.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.width
-                         */
-                        width?: number;
-
-                        /**
-                         * line type.
-                         *
-                         * Options are:
-                         *
-                         * + `'solid'`
-                         * + `'dashed'`
-                         * + `'dotted'`
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.type
-                         */
-                        type?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.lineStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * Symbol of edge ends.
-                 * Can be an array with two item to specify two ends, or a string
-                 * specifies both ends.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.symbol
-                 */
-                symbol?: any[] | string;
-
-                /**
-                 * Symbol size of edge ends.
-                 * Can be an array with two item to specify two ends, or a string
-                 * specifies both ends.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.links.symbolSize
-                 */
-                symbolSize?: any[] | string;
-            };
+            links?: SeriesGraph.LinkObject[];
 
             /**
              * Alias of
@@ -7568,7 +3981,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -7698,7 +4110,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -7873,7 +4284,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -8159,12 +4570,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8210,7 +4619,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8494,7 +4903,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -8669,7 +5077,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -8959,12 +5367,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9010,7 +5416,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9311,7 +5717,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9411,7 +5816,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9546,7 +5950,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -9769,7 +6172,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -9871,7 +6273,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -9978,7 +6379,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -10107,7 +6507,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -10397,12 +6797,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -10448,7 +6846,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -10744,7 +7142,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10873,7 +7270,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11165,12 +7562,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11216,7 +7611,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -11628,7 +8023,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -11681,7 +8075,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -11755,7 +8148,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -11836,7 +8228,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -11942,7 +8333,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -12086,7 +8476,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -12094,7 +8483,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -12323,7 +8711,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -12433,7 +8820,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -12551,7 +8937,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -12627,7 +9012,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -12709,7 +9093,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -12938,7 +9321,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -13048,7 +9430,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -13166,7 +9547,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -13242,7 +9622,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -13433,7 +9812,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -13451,7 +9829,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -13580,7 +9957,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -13866,12 +10243,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -13917,7 +10292,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14201,7 +10576,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -14330,7 +10704,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -14620,12 +10994,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14671,7 +11043,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -14972,7 +11344,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -15072,7 +11443,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -15219,7 +11589,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -15227,7 +11596,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -15326,7 +11694,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -15431,7 +11798,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -15545,7 +11911,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -15674,7 +12039,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -15966,12 +12331,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -16017,7 +12380,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -16314,7 +12677,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -16445,7 +12807,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -16749,12 +13111,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -16801,7 +13161,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -17111,7 +13471,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -17210,7 +13569,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -17315,7 +13673,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -17429,7 +13786,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -17558,7 +13914,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -17850,12 +14206,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -17901,7 +14255,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -18198,7 +14552,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -18329,7 +14682,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -18633,12 +14986,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -18685,7 +15036,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -19336,270 +15687,371 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-graph.tooltip
              */
-            tooltip?: {
+            tooltip?: BaseTooltip;
+        }
+
+        namespace SeriesGraph {
+            interface CategoryObject {
+                /**
+                 * Name of category, which is used to correspond with
+                 * [legend](https://echarts.apache.org/en/option.html#legend)
+                 * and the content of
+                 * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.name
+                 */
+                name?: string;
 
                 /**
+                 * Symbol of node of this category.
                  *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
+                 * Icon types provided by ECharts includes `'circle'`, `'rect'`,
+                 * `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`,
+                 * `'none'`
                  *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
+                 * It can be set to an image with `'image://url'` , in which
+                 * URL is the link to an image, or `dataURI` of an image.
                  *
-                 * Options:
+                 * An image URL example:
                  *
-                 * + `Array`
+                 * ```
+                 * 'image://http://xxx.xxx.xxx/a/b.png'
                  *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
+                 * ```
                  *
-                 * Example:
+                 * A `dataURI` example:
                  *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories)
                  *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
+                 * Icons can be set to arbitrary vector path via `'path://'`
+                 * in ECharts.
+                 * As compared with raster image, vector paths prevent from
+                 * jagging and blurring when scaled, and have a better control
+                 * over changing colors.
+                 * Size of vectoer icon will be adapted automatically.
+                 * Refer to
+                 * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
+                 * for more information about format of path.
+                 * You may export vector paths from tools like Adobe Illustrator.
                  *
                  * For example:
                  *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
+                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories)
                  *
                  *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.position
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbol
                  */
-                position?: any[] | string;
+                symbol?: string;
 
                 /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
+                 * node of this category symbol size.
+                 * It can be set to single numbers like `10`, or use an array
+                 * to represent width and height.
+                 * For example, `[20, 10]` means symbol width is `20`, and height
+                 * is`10`.
                  *
                  *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolSize
                  */
-                formatter?: Function | string;
+                symbolSize?: any[] | number;
 
                 /**
+                 * Rotate degree of node of this category symbol.
+                 * Note that when `symbol` is set to be `'arrow'` in `markLine`,
+                 * `symbolRotate` value will be ignored, and compulsively use
+                 * tangent angle.
                  *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
                  *
-                 * The background color of tooltip's floating layer.
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolRotate
+                 */
+                symbolRotate?: number;
+
+                /**
+                 * Whether to keep aspect for symbols in the form of `path://`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolKeepAspect
+                 */
+                symbolKeepAspect?: boolean;
+
+                /**
+                 * Offset of node of this category symbol relative to original
+                 * position.
+                 * By default, symbol will be put in the center position of
+                 * data.
+                 * But if symbol is from user-defined vector path or image,
+                 * you may not expect symbol to be in center.
+                 * In this case, you may use this attribute to set offset to
+                 * default position.
+                 * It can be in absolute pixel value, or in relative percentage
+                 * value.
+                 *
+                 * For example, `[0, '50%']` means to move upside side position
+                 * of symbol height.
+                 * It can be used to make the arrow in the bottom to be at data
+                 * position when symbol is pin.
                  *
                  *
                  * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.backgroundColor
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.symbolOffset
                  */
-                backgroundColor?: string;
+                symbolOffset?: any[];
 
                 /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
+                 * The style of node in this category.
                  *
                  *
-                 * @default
-                 * '#333'
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle
                  */
-                borderColor?: string;
+                itemStyle?: {
+                    /**
+                     * color. Color is taken from
+                     * [option.color Palette](https://echarts.apache.org/en/option.html#color)
+                     * by default.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.itemStyle)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * border color, whose format is similar to that of `color`.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * border width. No border when it is set to be 0.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
+                     * `'solid'` by default.
+                     *
+                     *
+                     * @default
+                     * "solid"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.borderType
+                     */
+                    borderType?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.itemStyle)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle.opacity
+                     */
+                    opacity?: number;
+                };
 
                 /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
+                 * The label style of node in this category.
                  *
                  *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.label
                  */
-                borderWidth?: number;
+                label?: {
+                    /**
+                     * Whether to show label.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.show
+                     */
+                    show?: boolean;
 
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.padding
-                 */
-                padding?: number;
+                    /**
+                     * Label position.
+                     *
+                     * **Followings are the options:**
+                     *
+                     * + \[x, y\]
+                     *
+                     * Use relative percentage, or absolute pixel values to
+                     * represent position of label relative to top-left corner
+                     * of bounding box. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     * + 'top'
+                     *
+                     * + 'left'
+                     * + 'right'
+                     * + 'bottom'
+                     * + 'inside'
+                     * + 'insideLeft'
+                     * + 'insideRight'
+                     * + 'insideTop'
+                     * + 'insideBottom'
+                     * + 'insideTopLeft'
+                     * + 'insideBottomLeft'
+                     * + 'insideTopRight'
+                     * + 'insideBottomRight'
+                     *
+                     * See:
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * "inside"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.position
+                     */
+                    position?: any[] | string;
 
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle
-                 */
-                textStyle?: {
+                    /**
+                     * Distance to the host graphic element.
+                     * Works when position is string value (like `'top'`、`'insideRight'`).
+                     *
+                     * See:
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.distance
+                     */
+                    distance?: number;
+
+                    /**
+                     * Rotate label, from -90 degree to 90, positive value represents
+                     * rotate anti-clockwise.
+                     *
+                     * See:
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
+                     * .
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rotate
+                     */
+                    rotate?: number;
+
+                    /**
+                     * Whether to move text slightly.
+                     * For example: `[30, 40]` means move `30` horizontally
+                     * and move `40` vertically.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.offset
+                     */
+                    offset?: any[];
+
+                    /**
+                     * Data label formatter, which supports string template
+                     * and callback function.
+                     * In either form, `\n` is supported to represent a new
+                     * line.
+                     *
+                     * **String template**
+                     *
+                     * Model variation includes:
+                     *
+                     * + `{a}`: series name.
+                     * + `{b}`: the name of a data item.
+                     * + `{c}`: the value of a data item.
+                     * + `{d}`: the percent.
+                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                     * example,`{@product}`refers the value of`'product'\` dimension。
+                     * + `{@[n]}: the value of a dimension at the index of`n`,
+                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
+                     *
+                     * **example:**
+                     *
+                     * ```
+                     * formatter: '{b}: {d}'
+                     *
+                     * ```
+                     *
+                     * **Callback function**
+                     *
+                     * Callback function is in form of:
+                     *
+                     * ```
+                     * (params: Object|Array) => string
+                     *
+                     * ```
+                     *
+                     * where `params` is the single dataset needed by formatter,
+                     * which is formed as:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.formatter
+                     */
+                    formatter?: Function | string;
 
                     /**
                      * text color.
                      *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
                      *
                      * @default
-                     * "#fff"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.color
+                     * ""#fff""
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.color
                      */
                     color?: string;
 
@@ -19615,7 +16067,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -19633,9 +16085,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -19645,7 +16097,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -19654,10 +16106,48 @@ declare namespace echarts {
                      *
                      *
                      * @default
-                     * 14
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontSize
+                     * 12
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontSize
                      */
                     fontSize?: number;
+
+                    /**
+                     * Horizontal alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'left'`
+                     * + `'center'`
+                     * + `'right'`
+                     *
+                     * If `align` is not set in `rich`, `align` in parent level
+                     * will be used. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.align
+                     */
+                    align?: string;
+
+                    /**
+                     * Vertical alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'top'`
+                     * + `'middle'`
+                     * + `'bottom'`
+                     *
+                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                     * in parent level will be used. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.verticalAlign
+                     */
+                    verticalAlign?: string;
 
                     /**
                      * Line height of the text fregment.
@@ -19665,12 +16155,113 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip.textStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.lineHeight
                      */
                     lineHeight?: number;
+
+                    /**
+                     * Background color of the text fregment.
+                     *
+                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                     *
+                     * Or image can be used, for example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     * `width` or `height` can be specified when using background
+                     * image, or auto adapted by default.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.backgroundColor
+                     */
+                    backgroundColor?: object | string;
+
+                    /**
+                     * Border color of the text fregment.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * Border width of the text fregment.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border radius of the text fregment.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.borderRadius
+                     */
+                    borderRadius?: number;
+
+                    /**
+                     * Padding of the text fregment, for example:
+                     *
+                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                     * right, bottom, left]`.
+                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.padding
+                     */
+                    padding?: any[] | number;
+
+                    /**
+                     * Shadow color of the text block.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Show blur of the text block.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text block.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text block.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
 
                     /**
                      * Width of the text block.
@@ -19693,7 +16284,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.width
                      */
                     width?: number | string;
 
@@ -19709,17 +16300,20 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.height
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.height
                      */
                     height?: number | string;
 
                     /**
                      * Storke color of the text.
                      *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
                      *
                      * @default
                      * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -19727,7 +16321,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -19737,7 +16331,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -19745,7 +16339,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -19753,7 +16347,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -19761,35 +16355,1227 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
+
+                    /**
+                     * "Rich text styles" can be defined in this `rich` property.
+                     * For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label)
+                     *
+                     * For more details, see
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                     * please.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich
+                     */
+                    rich?: {
+                        /**
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E
+                         */
+                        [userStyle: string]: {
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             */
+                            color?: string;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             */
+                            fontStyle?: string;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             */
+                            fontWeight?: string | number;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             */
+                            fontFamily?: string;
+
+                            /**
+                             * font size
+                             *
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             */
+                            fontSize?: number;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             */
+                            align?: string;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             */
+                            verticalAlign?: string;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             */
+                            lineHeight?: number;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`,
+                             * `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             * `width` or `height` can be specified when using
+                             * background image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             */
+                            backgroundColor?: object | string;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             */
+                            borderColor?: string;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             */
+                            borderWidth?: number;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             */
+                            borderRadius?: number;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding
+                             * of `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4,
+                             * 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3,
+                             * 4, 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             */
+                            padding?: any[] | number;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             */
+                            shadowColor?: string;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             */
+                            shadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             */
+                            shadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             */
+                            shadowOffsetY?: number;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make
+                             * simple table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth`
+                             * (that is, the width without `padding`) of its
+                             * container box.
+                             * It is based on `contentWidth` because that each
+                             * text fregment is layout based on the `content
+                             * box`, where it makes no sense that calculating
+                             * width based on `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             */
+                            width?: number | string;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using
+                             * background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             */
+                            height?: number | string;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             */
+                            textBorderColor?: string;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             */
+                            textBorderWidth?: number;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             */
+                            textShadowColor?: string;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             */
+                            textShadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number;
+                        };
+                    };
                 };
 
                 /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.extraCssText
+                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis
                  */
-                extraCssText?: string;
-            };
-        }
+                emphasis?: {
+                    /**
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle
+                     */
+                    itemStyle?: {
+                        /**
+                         * color.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.color
+                         */
+                        color?: string;
 
-        namespace SeriesGraph {
+                        /**
+                         * border color, whose format is similar to that of
+                         * `color`.
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+
+                    /**
+                     * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label
+                     */
+                    label?: {
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values
+                         * to represent position of label relative to top-left
+                         * corner of bounding box. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.position
+                         */
+                        position?: any[] | string;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.distance
+                         */
+                        distance?: number;
+
+                        /**
+                         * Rotate label, from -90 degree to 90, positive value
+                         * represents rotate anti-clockwise.
+                         *
+                         * See:
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
+                         * .
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rotate
+                         */
+                        rotate?: number;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.offset
+                         */
+                        offset?: any[];
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontWeight
+                         */
+                        fontWeight?: string | number;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Horizontal alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'left'`
+                         * + `'center'`
+                         * + `'right'`
+                         *
+                         * If `align` is not set in `rich`, `align` in parent
+                         * level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich
+                         */
+                        rich?: {
+                            /**
+                             * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string | number;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+                };
+            }
+
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -19941,7 +17727,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -20047,7 +17832,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -20176,7 +17960,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -20462,12 +18246,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -20513,7 +18295,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -20798,12 +18580,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -20906,7 +18686,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -21035,7 +18814,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -21325,12 +19104,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -21376,7 +19153,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -21676,265 +19453,935 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip
                  */
-                tooltip?: {
+                tooltip?: BaseTooltip;
+            }
+
+            interface LinkObject {
+                /**
+                 * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
+                 * on edge
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.source
+                 */
+                source?: string;
+
+                /**
+                 * [name of target node](https://echarts.apache.org/en/option.html#series-graph.data.name)
+                 * on edge
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.target
+                 */
+                target?: string;
+
+                /**
+                 * value of edge, can be mapped to edge length in force graph.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.value
+                 */
+                value?: number;
+
+                /**
+                 * Line style of edges.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle
+                 */
+                lineStyle?: {
+                    /**
+                     * Line color.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.lineStyle)
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.color
+                     */
+                    color?: string;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
+                     * line width.
                      *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
                      *
-                     * Options:
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.width
+                     */
+                    width?: number;
+
+                    /**
+                     * line type.
                      *
-                     * + `Array`
+                     * Options are:
                      *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
+                     * + `'solid'`
+                     * + `'dashed'`
+                     * + `'dotted'`
                      *
-                     * Example:
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
+                     * @default
+                     * "solid"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.type
+                     */
+                    type?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
                      *
                      * For example:
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.lineStyle)
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.position
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowBlur
                      */
-                    position?: any[] | string;
+                    shadowBlur?: number;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
+                     * Shadow color. Support same format as `color`.
                      *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
                      *
-                     * **1\. String template**
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
                      *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
                      *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
                      *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
                      *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
                      *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
                      *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.opacity
+                     */
+                    opacity?: number;
+
+                    /**
+                     * The curveness of edge, supporting values from 0 to 1.
+                     * The curveness will be larger as the value becomes lager.
                      *
-                     * **Example:**
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle.curveness
+                     */
+                    curveness?: number;
+                };
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.label
+                 */
+                label?: {
+                    /**
+                     * If show label on edge.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.show
+                     */
+                    show?: boolean;
+
+                    /**
+                     * Label position, options：
+                     *
+                     * + `'start'`
+                     * + `'middle'`
+                     * + `'end'`
+                     *
+                     *
+                     * @default
+                     * "middle"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.position
+                     */
+                    position?: string;
+
+                    /**
+                     * Data label formatter, which supports string template
+                     * and callback function.
+                     * In either form, `\n` is supported to represent a new
+                     * line.
+                     *
+                     * **String template**
+                     *
+                     * Model variation includes:
+                     *
+                     * + `{a}`: series name.
+                     * + `{b}`: the name of a data item.
+                     * + `{c}`: the value of a data item.
+                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                     * example,`{@product}`refers the value of`'product'\` dimension。
+                     * + `{@[n]}: the value of a dimension at the index of`n`,
+                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
+                     *
+                     * **example:**
                      *
                      * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
+                     * formatter: '{b}: {@score}'
                      *
                      * ```
                      *
-                     * **2\. Callback function**
+                     * **Callback function**
                      *
-                     * The format of callback function:
+                     * Callback function is in form of:
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
+                     * ```
+                     * (params: Object|Array) => string
                      *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
+                     * ```
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
+                     * where `params` is the single dataset needed by formatter,
+                     * which is formed as:
                      *
-                     * When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.formatter
                      */
                     formatter?: Function | string;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
+                     * text color.
                      *
                      *
                      * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.backgroundColor
+                     * ""#fff""
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.color
                      */
-                    backgroundColor?: string;
+                    color?: string;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
+                     * font style
                      *
-                     * The border color of tooltip's floating layer.
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'italic'`
+                     * + `'oblique'`
                      *
                      *
                      * @default
-                     * '#333'
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.borderColor
+                     * "normal"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontStyle
+                     */
+                    fontStyle?: string;
+
+                    /**
+                     * font thick weight
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'bold'`
+                     * + `'bolder'`
+                     * + `'lighter'`
+                     * + 100 | 200 | 300 | 400...
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontWeight
+                     */
+                    fontWeight?: string | number;
+
+                    /**
+                     * font family
+                     *
+                     * Can also be 'serif' , 'monospace', ...
+                     *
+                     *
+                     * @default
+                     * "sans-serif"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontFamily
+                     */
+                    fontFamily?: string;
+
+                    /**
+                     * font size
+                     *
+                     *
+                     * @default
+                     * 12
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontSize
+                     */
+                    fontSize?: number;
+
+                    /**
+                     * Horizontal alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'left'`
+                     * + `'center'`
+                     * + `'right'`
+                     *
+                     * If `align` is not set in `rich`, `align` in parent level
+                     * will be used. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.align
+                     */
+                    align?: string;
+
+                    /**
+                     * Vertical alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'top'`
+                     * + `'middle'`
+                     * + `'bottom'`
+                     *
+                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                     * in parent level will be used. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.verticalAlign
+                     */
+                    verticalAlign?: string;
+
+                    /**
+                     * Line height of the text fregment.
+                     *
+                     * If `lineHeight` is not set in `rich`, `lineHeight` in
+                     * parent level will be used. For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.lineHeight
+                     */
+                    lineHeight?: number;
+
+                    /**
+                     * Background color of the text fregment.
+                     *
+                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                     *
+                     * Or image can be used, for example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
+                     *
+                     * `width` or `height` can be specified when using background
+                     * image, or auto adapted by default.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.backgroundColor
+                     */
+                    backgroundColor?: object | string;
+
+                    /**
+                     * Border color of the text fregment.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderColor
                      */
                     borderColor?: string;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
+                     * Border width of the text fregment.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderWidth
                      */
                     borderWidth?: number;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
+                     * Border radius of the text fregment.
                      *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
                      *
-                     * Examples:
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.borderRadius
+                     */
+                    borderRadius?: number;
+
+                    /**
+                     * Padding of the text fregment, for example:
                      *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
+                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                     * right, bottom, left]`.
+                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.padding
+                     */
+                    padding?: any[] | number;
+
+                    /**
+                     * Shadow color of the text block.
                      *
                      *
                      * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.padding
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowColor
                      */
-                    padding?: number;
+                    shadowColor?: string;
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
+                     * Show blur of the text block.
                      *
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowBlur
                      */
-                    textStyle?: {
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text block.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text block.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Width of the text block.
+                     * It is the width of the text by default.
+                     * In most cases, there is no need to specify it.
+                     * You may want to use it in some cases like make simple
+                     * table or using background image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * `width` can also be percent string, like `'100%'`, which
+                     * represents the percent of `contentWidth` (that is, the
+                     * width without `padding`) of its container box.
+                     * It is based on `contentWidth` because that each text
+                     * fregment is layout based on the `content box`, where
+                     * it makes no sense that calculating width based on `outerWith`
+                     * in prectice.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.width
+                     */
+                    width?: number | string;
+
+                    /**
+                     * Height of the text block.
+                     * It is the width of the text by default.
+                     * You may want to use it in some cases like using background
+                     * image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.height
+                     */
+                    height?: number | string;
+
+                    /**
+                     * Storke color of the text.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textBorderColor
+                     */
+                    textBorderColor?: string;
+
+                    /**
+                     * Storke line width of the text.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textBorderWidth
+                     */
+                    textBorderWidth?: number;
+
+                    /**
+                     * Shadow color of the text itself.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowColor
+                     */
+                    textShadowColor?: string;
+
+                    /**
+                     * Shadow blue of the text itself.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowBlur
+                     */
+                    textShadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text itself.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowOffsetX
+                     */
+                    textShadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text itself.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.textShadowOffsetY
+                     */
+                    textShadowOffsetY?: number;
+
+                    /**
+                     * "Rich text styles" can be defined in this `rich` property.
+                     * For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label)
+                     *
+                     * For more details, see
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                     * please.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich
+                     */
+                    rich?: {
+                        /**
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E
+                         */
+                        [userStyle: string]: {
+                            /**
+                             * text color.
+                             *
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             */
+                            color?: string;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             */
+                            fontStyle?: string;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             */
+                            fontWeight?: string | number;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             */
+                            fontFamily?: string;
+
+                            /**
+                             * font size
+                             *
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             */
+                            fontSize?: number;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             */
+                            align?: string;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             */
+                            verticalAlign?: string;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             */
+                            lineHeight?: number;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`,
+                             * `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             * `width` or `height` can be specified when using
+                             * background image, or auto adapted by default.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             */
+                            backgroundColor?: object | string;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             */
+                            borderColor?: string;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             */
+                            borderWidth?: number;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             */
+                            borderRadius?: number;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding
+                             * of `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4,
+                             * 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3,
+                             * 4, 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             */
+                            padding?: any[] | number;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             */
+                            shadowColor?: string;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             */
+                            shadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             */
+                            shadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             */
+                            shadowOffsetY?: number;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make
+                             * simple table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth`
+                             * (that is, the width without `padding`) of its
+                             * container box.
+                             * It is based on `contentWidth` because that each
+                             * text fregment is layout based on the `content
+                             * box`, where it makes no sense that calculating
+                             * width based on `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             */
+                            width?: number | string;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using
+                             * background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             */
+                            height?: number | string;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             */
+                            textBorderColor?: string;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             */
+                            textBorderWidth?: number;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             */
+                            textShadowColor?: string;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             */
+                            textShadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number;
+                        };
+                    };
+                };
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis
+                 */
+                emphasis?: {
+                    /**
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label
+                     */
+                    label?: {
+                        /**
+                         * If show label on edge.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position, options：
+                         *
+                         * + `'start'`
+                         * + `'middle'`
+                         * + `'end'`
+                         *
+                         *
+                         * @default
+                         * "middle"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.position
+                         */
+                        position?: string;
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a
+                         * new line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`,
+                         * for example,`{@product}`refers the value of`'product'\`
+                         * dimension。
+                         * + `{@[n]}: the value of a dimension at the index
+                         * of`n`, for example,`{@\[3\]}\` refers the value at
+                         * dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {@score}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.formatter
+                         */
+                        formatter?: Function | string;
 
                         /**
                          * text color.
                          *
                          *
                          * @default
-                         * "#fff"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.color
+                         * ""#fff""
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.color
                          */
                         color?: string;
 
@@ -21950,7 +20397,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -21968,9 +20415,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -21980,7 +20427,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -21989,10 +20436,48 @@ declare namespace echarts {
                          *
                          *
                          * @default
-                         * 14
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontSize
+                         * 12
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontSize
                          */
                         fontSize?: number;
+
+                        /**
+                         * Horizontal alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'left'`
+                         * + `'center'`
+                         * + `'right'`
+                         *
+                         * If `align` is not set in `rich`, `align` in parent
+                         * level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.verticalAlign
+                         */
+                        verticalAlign?: string;
 
                         /**
                          * Line height of the text fregment.
@@ -22000,12 +20485,108 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.lineHeight
                          */
                         lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
 
                         /**
                          * Width of the text block.
@@ -22030,7 +20611,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.width
                          */
                         width?: number | string;
 
@@ -22047,7 +20628,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.height
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.height
                          */
                         height?: number | string;
 
@@ -22057,7 +20638,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -22065,7 +20646,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -22075,7 +20656,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -22083,7 +20664,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -22091,7 +20672,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -22099,29 +20680,472 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich
+                         */
+                        rich?: {
+                            /**
+                             * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+                                /**
+                                 * text color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string | number;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
                     };
 
                     /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.extraCssText
+                     * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle
                      */
-                    extraCssText?: string;
+                    lineStyle?: {
+                        /**
+                         * Line color.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.lineStyle)
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * line width.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.width
+                         */
+                        width?: number;
+
+                        /**
+                         * line type.
+                         *
+                         * Options are:
+                         *
+                         * + `'solid'`
+                         * + `'dashed'`
+                         * + `'dotted'`
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.type
+                         */
+                        type?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.links.emphasis.lineStyle)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle.opacity
+                         */
+                        opacity?: number;
+                    };
                 };
+
+                /**
+                 * Symbol of edge ends.
+                 * Can be an array with two item to specify two ends, or a string
+                 * specifies both ends.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.symbol
+                 */
+                symbol?: any[] | string;
+
+                /**
+                 * Symbol size of edge ends.
+                 * Can be an array with two item to specify two ends, or a string
+                 * specifies both ends.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-graph.links.symbolSize
+                 */
+                symbolSize?: any[] | string;
             }
         }
     }

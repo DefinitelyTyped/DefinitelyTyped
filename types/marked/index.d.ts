@@ -1,4 +1,4 @@
-// Type definitions for Marked 0.7
+// Type definitions for Marked 1.2
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -6,6 +6,8 @@
 //                 Mike Wickett <https://github.com/mwickett>
 //                 Hitomi Hatsukaze <https://github.com/htkzhtm>
 //                 Ezra Celli <https://github.com/ezracelli>
+//                 Romain LE BARO <https://github.com/scandinave>
+//                 Sarun Intaralawan <https://github.com/sarunint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -81,6 +83,15 @@ declare namespace marked {
     function parser(src: TokensList, options?: MarkedOptions): string;
 
     /**
+     * Compiles markdown to HTML without enclosing `p` tag.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+    function parseInline(src: string, options?: MarkedOptions): string;
+
+    /**
      * Sets the default options.
      *
      * @param options Hash of options
@@ -99,6 +110,14 @@ declare namespace marked {
      */
     function getDefaults(): MarkedOptions;
 
+    function walkTokens(tokens: TokensList, callback: (token: Token) => void): typeof marked;
+
+    /**
+     * Use Extension
+     * @param Renderer
+     */
+    function use(options: MarkedOptions): void;
+
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);
         options: MarkedOptions;
@@ -112,6 +131,37 @@ declare namespace marked {
         outputLink(cap: string[], link: string): string;
         smartypants(text: string): string;
         mangle(text: string): string;
+    }
+
+    class Tokenizer {
+        constructor(options?: MarkedOptions);
+        options: MarkedOptions;
+        space(src: string): Tokens.Space;
+        code(src: string, token: Token): Tokens.Code;
+        fences(src: string): Tokens.Code;
+        heading(src: string): Tokens.Heading;
+        nptable(src: string): Tokens.Table;
+        hr(src: string): Tokens.Hr;
+        blockquote(src: string): Tokens.Blockquote;
+        list(src: string): Tokens.List;
+        html(src: string): Tokens.HTML;
+        def(src: string): Tokens.Def;
+        table(src: string): Tokens.Table;
+        lheading(src: string): Tokens.Heading;
+        paragraph(src: string): Tokens.Paragraph;
+        text(src: string): Tokens.Text;
+        escape(src: string): Tokens.Escape;
+        tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag;
+        link(src: string): Tokens.Image | Tokens.Link;
+        reflink(src: string, links: Tokens.Link[] |Tokens.Image[]): Tokens.Link |Tokens.Image | Tokens.Text;
+        strong(src: string): Tokens.Strong;
+        em(src: string): Tokens.Em;
+        codespan(src: string): Tokens.Codespan;
+        br(src: string): Tokens.Br;
+        del(src: string): Tokens.Del;
+        autolink(src: string, mangle: (cap: string) => string): Tokens.Link;
+        url(src: string, mangle: (cap: string) => string): Tokens.Link;
+        inlineText(src: string, inRawBlock: boolean, smartypants: (cap: string) => string): Tokens.Text;
     }
 
     class Renderer {
@@ -137,8 +187,8 @@ declare namespace marked {
         codespan(code: string): string;
         br(): string;
         del(text: string): string;
-        link(href: string, title: string, text: string): string;
-        image(href: string, title: string, text: string): string;
+        link(href: string | null, title: string | null, text: string): string;
+        image(href: string | null, title: string | null, text: string): string;
         text(text: string): string;
     }
 
@@ -148,9 +198,10 @@ declare namespace marked {
         codespan(text: string): string;
         del(text: string): string;
         text(text: string): string;
-        link(href: string, title: string, text: string): string;
-        image(href: string, title: string, text: string): string;
+        link(href: string | null, title: string | null, text: string): string;
+        image(href: string | null, title: string | null, text: string): string;
         br(): string;
+        html(text: string): string;
     }
 
     class Parser {
@@ -177,6 +228,7 @@ declare namespace marked {
         static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
         token(src: string, top: boolean): TokensList;
+        inline(tokens: TokensList): TokensList;
     }
 
     class Slugger {
@@ -190,7 +242,7 @@ declare namespace marked {
 
     type TokensList = Token[] & {
         links: {
-            [key: string]: { href: string; title: string; }
+            [key: string]: { href: string | null; title: string | null; }
         }
     };
 
@@ -200,24 +252,34 @@ declare namespace marked {
         | Tokens.Heading
         | Tokens.Table
         | Tokens.Hr
+        | Tokens.Blockquote
         | Tokens.BlockquoteStart
         | Tokens.BlockquoteEnd
-        | Tokens.ListStart
-        | Tokens.LooseItemStart
-        | Tokens.ListItemStart
-        | Tokens.ListItemEnd
-        | Tokens.ListEnd
+        | Tokens.List
+        | Tokens.ListItem
         | Tokens.Paragraph
         | Tokens.HTML
-        | Tokens.Text;
+        | Tokens.Text
+        | Tokens.Def
+        | Tokens.Escape
+        | Tokens.Tag
+        | Tokens.Image
+        | Tokens.Link
+        | Tokens.Strong
+        | Tokens.Em
+        | Tokens.Codespan
+        | Tokens.Br
+        | Tokens.Del;
 
     namespace Tokens {
         interface Space {
             type: 'space';
+            raw: string;
         }
 
         interface Code {
             type: 'code';
+            raw: string;
             codeBlockStyle?: 'indented';
             lang?: string;
             text: string;
@@ -225,12 +287,14 @@ declare namespace marked {
 
         interface Heading {
             type: 'heading';
+            raw: string;
             depth: number;
             text: string;
         }
 
         interface Table {
             type: 'table';
+            raw: string;
             header: string[];
             align: Array<'center' | 'left' | 'right' | null>;
             cells: string[][];
@@ -238,53 +302,128 @@ declare namespace marked {
 
         interface Hr {
             type: 'hr';
+            raw: string;
+        }
+
+        interface Blockquote {
+            type: 'blockquote';
+            raw: string;
+            text: string;
         }
 
         interface BlockquoteStart {
             type: 'blockquote_start';
+            raw: string;
         }
 
         interface BlockquoteEnd {
             type: 'blockquote_end';
+            raw: string;
         }
 
-        interface ListStart {
+        interface List {
             type: 'list_start';
+            raw: string;
             ordered: boolean;
+            start: boolean;
+            loose: boolean;
+            items: ListItem[];
         }
 
-        interface LooseItemStart {
-            type: 'loose_item_start';
-        }
-
-        interface ListItemStart {
-            type: 'list_item_start';
-        }
-
-        interface ListItemEnd {
-            type: 'list_item_end';
-        }
-
-        interface ListEnd {
-            type: 'list_end';
+        interface ListItem {
+            type: 'list_item';
+            raw: string;
+            task: boolean;
+            checked: boolean;
+            loose: boolean;
+            text: string;
         }
 
         interface Paragraph {
             type: 'paragraph';
+            raw: string;
             pre?: boolean;
             text: string;
         }
 
         interface HTML {
             type: 'html';
+            raw: string;
             pre: boolean;
             text: string;
         }
 
         interface Text {
             type: 'text';
+            raw: string;
             text: string;
         }
+
+        interface Def {
+            raw: string;
+            href: string;
+            title: string;
+        }
+
+        interface Escape {
+            type: 'escape';
+            raw: string;
+            text: string;
+        }
+
+        interface Tag {
+            type: 'text' | 'html';
+            raw: string;
+            inLink: boolean;
+            inRawBlock: boolean;
+            text: string;
+        }
+
+        interface Link {
+            type: 'link';
+            raw: string;
+            href: string;
+            title: string;
+            text: string;
+            tokens?: Text[];
+        }
+
+        interface Image {
+            type: 'image';
+            raw: string;
+            href: string;
+            title: string;
+            text: string;
+        }
+
+        interface Strong {
+            type: 'strong';
+            raw: string;
+            text: string;
+        }
+
+         interface Em {
+             type: 'em';
+             raw: string;
+             text: string;
+         }
+
+         interface Codespan {
+             type: 'codespan';
+             raw: string;
+             text: string;
+         }
+
+         interface Br {
+            type: 'br';
+            raw: string;
+         }
+
+         interface Del {
+             type: 'del';
+             raw: string;
+             text: string;
+         }
     }
 
     interface MarkedOptions {
@@ -368,6 +507,18 @@ declare namespace marked {
          */
         smartypants?: boolean;
 
+        /**
+         * The tokenizer defines how to turn markdown text into tokens.
+         */
+        tokenizer?: Tokenizer;
+
+        /**
+         * The walkTokens function gets called with every token.
+         * Child tokens are called before moving on to sibling tokens.
+         * Each token is passed by reference so updates are persisted when passed to the parser.
+         * The return value of the function is ignored.
+         */
+        walkTokens?: (tokens: TokensList, callback: (token: Token) => void) => any;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */

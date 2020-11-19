@@ -2,6 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 //                 Nekith <https://github.com/Nekith>
+//                 Philip Frank <https://github.com/bananer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -59,6 +60,10 @@ export interface OnExternalPlaybackChangeData {
     isExternalPlaybackActive: boolean;
 }
 
+export interface OnBufferData {
+    isBuffering: boolean;
+}
+
 export const TextTrackType: {
     SRT: 'application/x-subrip';
     TTML: 'application/ttml+xml';
@@ -109,7 +114,7 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string } | number;
+    source: { uri?: string, headers?: {[key: string]: string } } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
     resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
@@ -141,10 +146,11 @@ export interface VideoProperties extends ViewProps {
     hideShutterView?: boolean;
     allowsExternalPlayback?: boolean;
     audioOnly?: boolean;
+    preventsDisplaySleepDuringVideoPlayback?: boolean;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
-    onBuffer?(): void;
+    onBuffer?(data: OnBufferData): void;
     onError?(error: LoadError): void;
     onProgress?(data: OnProgressData): void;
     onBandwidthUpdate?(data: OnBandwidthUpdateData): void;

@@ -40,7 +40,6 @@ import {
     ShadowProps,
 } from 'styled-system';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
 
 const boxStyle = variant({
@@ -220,6 +219,7 @@ const test = () => (
         <Box display={{ sm: 'block', md: 'inline-block' }} />
         // maxWidth (responsive)
         <Box maxWidth={1024} />
+        <Box maxWidth={null} />
         <Box maxWidth={[768, null, null, 1024]} />
         <Box maxWidth={{ sm: 768, lg: 1024 }} />
         // minWidth (responsive)

@@ -349,6 +349,8 @@ function sample6() {
         obj.set('opacity', (1 / (dist / 20)));
       });
     });
+  }, null, {
+      crossOrigin:'anonymous'
   });
 }
 
@@ -1050,4 +1052,9 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+}
+
+function sample13() {
+  const rectangle = new fabric.Rect({top: 0, left: 0, width: 10, height: 10});
+  const rectangleAsHtmlCanvas: HTMLCanvasElement = rectangle.toCanvasElement();
 }

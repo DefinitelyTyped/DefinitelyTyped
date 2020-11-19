@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ReactNode } from 'react';
 import { Value } from '@wordpress/rich-text';
 
 declare namespace Autocomplete {
@@ -106,6 +106,7 @@ declare namespace Autocomplete {
         activeId: string;
         isExpanded: boolean;
         listBoxId: string;
+        onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
     }
 
     interface Props<T> {
@@ -114,6 +115,7 @@ declare namespace Autocomplete {
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
         record?: Value;
+        isSelected?: boolean;
     }
 }
 

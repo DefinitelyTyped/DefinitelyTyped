@@ -2,9 +2,10 @@
 // Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
-//                  Brad Besserman <https://github.com/bradbesserman>
-//                  Pawel Krol <https://github.com/pawkrol>
-//                  Charlee Li <https://github.com/charlee>
+//                  Brad Besserman <https://github.com/bradbesserman>,
+//                  Pawel Krol <https://github.com/pawkrol>,
+//                  Charlee Li <https://github.com/charlee>,
+//                  Mark Wiemer <https://github.com/mark-wiemer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3072,6 +3073,7 @@ declare namespace math {
         isSymbolNode?: boolean;
         isUpdateNode?: boolean;
         comment?: string;
+        content?: MathNode;
         op?: string;
         fn?: string;
         args?: MathNode[];
@@ -4075,7 +4077,7 @@ declare namespace math {
         /**
          * Filter the items in an array or one dimensional matrix.
          */
-        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)| RegExp): MathJsChain;
+        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => boolean)| RegExp): MathJsChain;
 
         /**
          * Flatten a multi dimensional matrix into a single dimensional matrix.
@@ -4295,7 +4297,6 @@ declare namespace math {
          * @param min Minimum boundary for the random value, included
          * @param max Maximum boundary for the random value, excluded
          */
-        // tslint:disable-next-line unified-signatures
         random(max?: number): MathJsChain;
         // tslint:disable-next-line unified-signatures
         random(min: number, max: number): MathJsChain;
@@ -4306,7 +4307,6 @@ declare namespace math {
          * @param min Minimum boundary for the random value, included
          * @param max Maximum boundary for the random value, excluded
          */
-        // tslint:disable-next-line unified-signatures
         randomInt(max?: number): MathJsChain;
         // tslint:disable-next-line unified-signatures
         randomInt(min: number, max: number): MathJsChain;

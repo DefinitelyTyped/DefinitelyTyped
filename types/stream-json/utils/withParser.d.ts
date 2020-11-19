@@ -1,9 +1,8 @@
 import { Writable, WritableOptions, Duplex, DuplexOptions, Transform, TransformOptions } from 'stream';
-import * as Chain from 'stream-chain';
-import * as Parser from '../Parser';
-import * as FilterBase from '../filters/FilterBase';
-import * as StreamBase from '../streamers/StreamBase';
-
+import FilterBase = require('../filters/FilterBase');
+import Parser = require('../Parser');
+import StreamBase = require('../streamers/StreamBase');
+import Chain = require('stream-chain');
 export = withParser;
 
 declare function withParser(

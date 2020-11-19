@@ -657,11 +657,11 @@ export type RoomSummary = any;
 export type EventStatus = any;
 
 export interface CreateRoomOptions {
-  invite?: string[];                 //  <string> A list of user IDs to invite to this room.
-  name?: string;                     //  The name to give this room.
-  room_alias_name?: string;          //  The alias localpart to assign to this room.
-  topic?: string;                    //  The topic to give this room.
-  visibility?: 'public' | 'private'; //  Either 'public' or 'private'.
+  invite?: string[];  //  <string> A list of user IDs to invite to this room.
+  name?: string;         //  The name to give this room.
+  room_alias_name?: string;         //  The alias localpart to assign to this room.
+  topic?: string;         //  The topic to give this room.
+  visibility?: 'public' | 'private';         //  Either 'public' or 'private'.
 }
 
 export type FilterComponent = any;

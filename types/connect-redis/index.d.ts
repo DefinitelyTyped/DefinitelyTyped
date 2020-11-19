@@ -1,7 +1,7 @@
 // Type definitions for connect-redis
 // Project: https://npmjs.com/package/connect-redis
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
-//				   Seth Butler <https://github.com/sbutler2901>
+//                   Seth Butler <https://github.com/sbutler2901>
 //                 Jip Sterk <https://github.com/JipSterk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -29,7 +29,7 @@ declare module 'connect-redis' {
             port?: number;
             socket?: string;
             url?: string;
-            ttl?: number | string | ((store: RedisStore, sess: Express.SessionData, sid: string) => number);
+            ttl?: number | string | ((store: RedisStore, sess: session.SessionData, sid: string) => number);
             disableTTL?: boolean;
             disableTouch?: boolean;
             db?: number;

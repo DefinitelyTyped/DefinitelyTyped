@@ -4,6 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nikolai Ommundsen <https://github.com/niikoo>
 //                 Nitecube <https://github.com/Nitecube>
+//                 Hossein Hosni <https://github.com/hosni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -231,6 +232,8 @@ declare namespace Fancytree {
         extraClasses: string;
         /** Folder nodes have different default icons and click behavior. Note: Also non-folders may have children. */
         folder: boolean;
+        /** Icon of the tree node. */
+        icon: string;
         /** null or type of temporarily generated system node like 'loading', or 'error'. */
         statusNodeType: string;
         /** True if this node is loaded on demand, i.e. on first expansion. */
@@ -824,7 +827,7 @@ declare namespace Fancytree {
         /** navigate to next node by typing the first letters (default: false) */
         quicksearch?: boolean;
         /** Right to left mode (default: false) */
-        rtl?: false;
+        rtl?: boolean;
         /** optional margins for node.scrollIntoView() (default: {top: 0, bottom: 0}) */
         scrollOfs?: { top: number, bottom: number };
         /** scrollable container for node.scrollIntoView() (default: $container) */
@@ -1129,6 +1132,8 @@ declare namespace Fancytree {
         getNode(el: JQuery): FancytreeNode;
         getNode(el: Event): FancytreeNode;
         getNode(el: Element): FancytreeNode;
+
+        getTree(el: Element | JQuery | Event | number | string): Fancytree;
 
         info(msg: string): void;
 

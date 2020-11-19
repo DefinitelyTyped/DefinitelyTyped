@@ -4,23 +4,23 @@ var suite = new Benchmark.Suite;
 
 // add tests
 suite.add('RegExp#test', function() {
-  /o/.test('Hello World!');
+    /o/.test('Hello World!');
 })
-.add('String#indexOf', function() {
-  'Hello World!'.indexOf('o') > -1;
-})
-.add('String#match', function() {
-  !!'Hello World!'.match(/o/);
-})
-// add listeners
-.on('cycle', function(event: {target: any}) {
-  console.log(String(event.target));
-})
-.on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').pluck('name'));
-})
-// run async
-.run({ 'async': true });
+    .add('String#indexOf', function() {
+        'Hello World!'.indexOf('o') > -1;
+    })
+    .add('String#match', function() {
+        !!'Hello World!'.match(/o/);
+    })
+    // add listeners
+    .on('cycle', function(event: Benchmark.Event) {
+        console.log(String(event.target));
+    })
+    .on('complete', function(this: Benchmark.Suite) {
+        console.log('Fastest is ' + this.filter('fastest').map('name'));
+    })
+    // run async
+    .run({ 'async': true });
 
 var fn: Function;
 var onStart: Function;
@@ -44,7 +44,7 @@ var bench = new Benchmark('foo', fn);
 // or with options
 var bench = new Benchmark('foo', fn, {
 
-  // displayed by Benchmark#toString if `name` is not available
+  // displayed by `Benchmark#toString` if `name` is not available
   'id': 'xyz',
 
   // called when the benchmark starts running
@@ -79,8 +79,8 @@ var bench = new Benchmark('foo', {
   'defer': true,
 
   // benchmark test function
-  'fn': function(deferred: {resolve(): void}) {
-    // call resolve() when the deferred test is finished
+  'fn': function(deferred: Benchmark.Deferred) {
+    // call `Deferred#resolve` when the deferred test is finished
     deferred.resolve();
   }
 });
@@ -97,7 +97,7 @@ var bench = new Benchmark({
 
 // a test’s `this` binding is set to the benchmark instance
 var bench = new Benchmark('foo', function() {
-  'My name is '.concat(this.name); // My name is foo
+  'My name is '.concat(this.name); // "My name is foo"
 });
 
 // get odd numbers
@@ -192,6 +192,40 @@ bench.off();
 
 // register a listener for an event type
 bench.on('cycle', listener);
+
+// ensure target is correct type
+bench.on('cycle', (event: Benchmark.Event) => {
+  const target = event.target;
+  target.options;
+  target.async;
+  target.defer;
+  target.delay;
+  target.initCount;
+  target.maxTime;
+  target.minSamples;
+  target.minTime;
+  target.name;
+  target.fn;
+  target.id;
+  target.stats;
+  target.stats.moe;
+  target.stats.rme;
+  target.stats.sem;
+  target.stats.deviation;
+  target.stats.mean;
+  target.stats.sample;
+  target.stats.variance;
+  target.times;
+  target.times.cycle;
+  target.times.elapsed;
+  target.times.period;
+  target.times.timeStamp;
+  target.running;
+  target.count;
+  target.compiled;
+  target.cycles;
+  target.hz;
+});
 
 // register a listener for multiple event types
 bench.on('start cycle', listener);

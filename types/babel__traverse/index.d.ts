@@ -1,36 +1,71 @@
 // Type definitions for @babel/traverse 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
+// Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Dean L. <https://github.com/dlgrit>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import * as t from "@babel/types";
+import * as t from '@babel/types';
+export import Node = t.Node;
 
-export type Node = t.Node;
+declare const traverse: {
+    <S>(
+        parent: Node | Node[] | null | undefined,
+        opts: TraverseOptions<S>,
+        scope: Scope | undefined,
+        state: S,
+        parentPath?: NodePath,
+    ): void;
+    (
+        parent: Node | Node[] | null | undefined,
+        opts?: TraverseOptions,
+        scope?: Scope,
+        state?: any,
+        parentPath?: NodePath,
+    ): void;
 
-export default function traverse<S>(
-    parent: Node | Node[],
-    opts: TraverseOptions<S>,
-    scope: Scope | undefined,
-    state: S,
-    parentPath?: NodePath,
-): void;
-export default function traverse(
-    parent: Node | Node[],
-    opts: TraverseOptions,
-    scope?: Scope,
-    state?: any,
-    parentPath?: NodePath,
-): void;
+    visitors: typeof visitors;
+    verify: typeof visitors.verify;
+    explode: typeof visitors.explode;
+};
+
+export namespace visitors {
+    /**
+     * `explode()` will take a `Visitor` object with all of the various shorthands
+     * that we support, and validates & normalizes it into a common format, ready
+     * to be used in traversal.
+     *
+     * The various shorthands are:
+     * - `Identifier() { ... }` -> `Identifier: { enter() { ... } }`
+     * - `"Identifier|NumericLiteral": { ... }` -> `Identifier: { ... }, NumericLiteral: { ... }`
+     * - Aliases in `@babel/types`: e.g. `Property: { ... }` -> `ObjectProperty: { ... }, ClassProperty: { ... }`
+     *
+     * Other normalizations are:
+     * - Visitors of virtual types are wrapped, so that they are only visited when their dynamic check passes
+     * - `enter` and `exit` functions are wrapped in arrays, to ease merging of visitors
+     */
+    function explode<S = {}>(
+        visitor: Visitor<S>,
+    ): {
+        [Type in Node['type']]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
+    };
+    function verify(visitor: Visitor): void;
+    function merge<S = {}>(visitors: Array<Visitor<S>>, states?: S[]): Visitor<unknown>;
+}
+
+export default traverse;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
     noScope?: boolean;
 }
+
+export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
 
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
@@ -38,8 +73,8 @@ export class Scope {
     block: Node;
     parentBlock: Node;
     parent: Scope;
-    hub: Hub;
-    bindings: { [name: string]: Binding; };
+    hub: HubInterface;
+    bindings: { [name: string]: Binding };
 
     /** Traverse node with current scope and path. */
     traverse<S>(node: Node | Node[], opts: TraverseOptions<S>, state: S): void;
@@ -103,12 +138,7 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: {
-        id: t.LVal,
-        init?: t.Expression,
-        unique?: boolean,
-        kind?: "var" | "let" | "const",
-    }): void;
+    push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
 
     getProgramParent(): Scope;
 
@@ -144,11 +174,17 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: "var" | "let" | "const"; });
+    constructor(opts: {
+        existing: Binding;
+        identifier: t.Identifier;
+        scope: Scope;
+        path: NodePath;
+        kind: 'var' | 'let' | 'const';
+    });
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: "var" | "let" | "const" | "module";
+    kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
@@ -156,22 +192,28 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
-    [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
-} & {
-    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
-};
+export type Visitor<S = {}> = VisitNodeObject<S, Node> &
+    {
+        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+    } &
+    {
+        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+    };
 
-export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
+export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
-export type VisitNodeFunction<S, P> = (this: S, path: NodePath<P>, state: S) => void;
+export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, state: S) => void;
 
-export interface VisitNodeObject<S, P> {
+export interface VisitNodeObject<S, P extends Node> {
     enter?: VisitNodeFunction<S, P>;
     exit?: VisitNodeFunction<S, P>;
 }
 
-export type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
+export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]
+    ? { -readonly [K in keyof T]: NodePath<Extract<T[K], Node>> }
+    : T extends Node
+    ? [NodePath<T>]
+    : never;
 
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
@@ -194,7 +236,7 @@ export class NodePath<T = Node> {
     key: string | number;
     node: T;
     scope: Scope;
-    type: T extends undefined | null ? string | null : string;
+    type: T extends null | undefined ? undefined : T extends Node ? T['type'] : string | undefined;
     typeAnnotation: object;
 
     getScope(scope: Scope): Scope;
@@ -215,20 +257,36 @@ export class NodePath<T = Node> {
     // Example: https://github.com/babel/babel/blob/63204ae51e020d84a5b246312f5eeb4d981ab952/packages/babel-traverse/src/path/modification.js#L83
     debug(buildMessage: () => string): void;
 
-    // ------------------------- ancestry -------------------------
-    /**
-     * Call the provided `callback` with the `NodePath`s of all the parents.
-     * When the `callback` returns a truthy value, we return that node path.
-     */
-    findParent(callback: (path: NodePath) => boolean): NodePath;
+    static get<C extends Node, K extends keyof C>(opts: {
+        hub: HubInterface;
+        parentPath: NodePath | null;
+        parent: Node;
+        container: C;
+        listKey?: string;
+        key: K;
+    }): NodePath<C[K]>;
 
-    find(callback: (path: NodePath) => boolean): NodePath;
+    //#region ------------------------- ancestry -------------------------
+    /**
+     * Starting at the parent path of the current `NodePath` and going up the
+     * tree, return the first `NodePath` that causes the provided `callback`
+     * to return a truthy value, or `null` if the `callback` never returns a
+     * truthy value.
+     */
+    findParent(callback: (path: NodePath) => boolean): NodePath | null;
+
+    /**
+     * Starting at current `NodePath` and going up the tree, return the first
+     * `NodePath` that causes the provided `callback` to return a truthy value,
+     * or `null` if the `callback` never returns a truthy value.
+     */
+    find(callback: (path: NodePath) => boolean): NodePath | null;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath<t.Function>;
+    getFunctionParent(): NodePath<t.Function> | null;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath<t.Statement>;
+    getStatementParent(): NodePath<t.Statement> | null;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -237,12 +295,12 @@ export class NodePath<T = Node> {
      * Earliest is defined as being "before" all the other nodes in terms of list container
      * position and visiting key.
      */
-    getEarliestCommonAncestorFrom(paths: NodePath[]): NodePath[];
+    getEarliestCommonAncestorFrom(paths: NodePath[]): NodePath;
 
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
         paths: NodePath[],
-        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath,
     ): NodePath;
 
     /**
@@ -250,11 +308,22 @@ export class NodePath<T = Node> {
      *
      * NOTE: The current node path is included in this.
      */
-    getAncestry(): NodePath[];
+    getAncestry(): [this, ...NodePath[]];
+
+    /**
+     * A helper to find if `this` path is an ancestor of `maybeDescendant`
+     */
+    isAncestor(maybeDescendant: NodePath): boolean;
+
+    /**
+     * A helper to find if `this` path is a descendant of `maybeAncestor`
+     */
+    isDescendant(maybeAncestor: NodePath): boolean;
 
     inType(...candidateTypes: string[]): boolean;
+    //#endregion
 
-    // ------------------------- inference -------------------------
+    //#region ------------------------- inference -------------------------
     /** Infer the type of the current `NodePath`. */
     getTypeAnnotation(): t.FlowType;
 
@@ -265,8 +334,9 @@ export class NodePath<T = Node> {
     baseTypeStrictlyMatches(right: NodePath): boolean;
 
     isGenericType(genericName: string): boolean;
+    //#endregion
 
-    // ------------------------- replacement -------------------------
+    //#region ------------------------- replacement -------------------------
     /**
      * Replace a node with an array of multiple. This method performs the following steps:
      *
@@ -274,7 +344,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
+    replaceWithMultiple<Nodes extends readonly Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -283,21 +353,22 @@ export class NodePath<T = Node> {
      * transforming ASTs is an antipattern and SHOULD NOT be encouraged. Even if it's
      * easier to use, your transforms will be extremely brittle.
      */
-    replaceWithSourceString(replacement: any): void;
+    replaceWithSourceString(replacement: any): [NodePath];
 
     /** Replace the current node with another. */
-    replaceWith(replacement: Node | NodePath): void;
+    replaceWith<T extends Node>(replacement: T | NodePath<T>): [NodePath<T>];
 
     /**
      * This method takes an array of statements nodes and then explodes it
      * into expressions. This method retains completion records which is
      * extremely important to retain original semantics.
      */
-    replaceExpressionWithStatements(nodes: Node[]): Node;
+    replaceExpressionWithStatements<Nodes extends readonly Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
-    replaceInline(nodes: Node | Node[]): void;
+    replaceInline<Nodes extends Node | readonly Node[]>(nodes: Nodes): NodePaths<Nodes>;
+    //#endregion
 
-    // ------------------------- evaluation -------------------------
+    //#region ------------------------- evaluation -------------------------
     /**
      * Walk the input `node` and statically evaluate if it's truthy.
      *
@@ -322,8 +393,9 @@ export class NodePath<T = Node> {
      *   t.evaluate(parse("foo + foo")) // { confident: false, value: undefined }
      */
     evaluate(): { confident: boolean; value: any };
+    //#endregion
 
-    // ------------------------- introspection -------------------------
+    //#region ------------------------- introspection -------------------------
     /**
      * Match the current node if it matches the provided `pattern`.
      *
@@ -392,8 +464,9 @@ export class NodePath<T = Node> {
 
     /** Check if the current path will maybe execute before another path */
     willIMaybeExecuteBefore(path: NodePath): boolean;
+    //#endregion
 
-    // ------------------------- context -------------------------
+    //#region ------------------------- context -------------------------
     call(key: string): boolean;
 
     isBlacklisted(): boolean;
@@ -413,19 +486,21 @@ export class NodePath<T = Node> {
     popContext(): void;
 
     pushContext(context: TraversalContext): void;
+    //#endregion
 
-    // ------------------------- removal -------------------------
+    //#region ------------------------- removal -------------------------
     remove(): void;
+    //#endregion
 
-    // ------------------------- modification -------------------------
+    //#region ------------------------- modification -------------------------
     /** Insert the provided nodes before the current one. */
-    insertBefore(nodes: Node | Node[]): any;
+    insertBefore<Nodes extends Node | readonly Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert the provided nodes after the current one. When inserting nodes after an
      * expression, ensure that the completion record is correct by pushing the current node.
      */
-    insertAfter(nodes: Node | Node[]): any;
+    insertAfter<Nodes extends Node | readonly Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
@@ -435,19 +510,20 @@ export class NodePath<T = Node> {
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    unshiftContainer<Nodes extends Node | Node[]>(listKey: string, nodes: Nodes): NodePaths<Nodes>;
+    unshiftContainer<Nodes extends Node | readonly Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert child nodes at the end of the current node.
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    pushContainer(listKey: string, nodes: Node | Node[]): void;
+    pushContainer<Nodes extends Node | readonly Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;
+    //#endregion
 
-    // ------------------------- family -------------------------
+    //#region ------------------------- family -------------------------
     getOpposite(): NodePath;
 
     getCompletionRecords(): NodePath[];
@@ -456,17 +532,22 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(key: K, context?: boolean | TraversalContext):
-        T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>> :
-        T[K] extends Node | null | undefined ? NodePath<T[K]> :
-        never;
+    get<K extends keyof T>(
+        key: K,
+        context?: boolean | TraversalContext,
+    ): T[K] extends Array<Node | null | undefined>
+        ? Array<NodePath<T[K][number]>>
+        : T[K] extends Node | null | undefined
+        ? NodePath<T[K]>
+        : never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 
     getOuterBindingIdentifiers(duplicates?: boolean): Node[];
+    //#endregion
 
-    // ------------------------- comments -------------------------
+    //#region ------------------------- comments -------------------------
     /** Share comments amongst siblings. */
     shareCommentsWithSiblings(): void;
 
@@ -474,368 +555,602 @@ export class NodePath<T = Node> {
 
     /** Give node `comments` of the specified `type`. */
     addComments(type: string, comments: any[]): void;
+    //#endregion
 
-    // ------------------------- isXXX -------------------------
-    isArrayExpression(opts?: object): this is NodePath<t.ArrayExpression>;
-    isAssignmentExpression(opts?: object): this is NodePath<t.AssignmentExpression>;
-    isBinaryExpression(opts?: object): this is NodePath<t.BinaryExpression>;
-    isDirective(opts?: object): this is NodePath<t.Directive>;
-    isDirectiveLiteral(opts?: object): this is NodePath<t.DirectiveLiteral>;
-    isBlockStatement(opts?: object): this is NodePath<t.BlockStatement>;
-    isBreakStatement(opts?: object): this is NodePath<t.BreakStatement>;
-    isCallExpression(opts?: object): this is NodePath<t.CallExpression>;
-    isCatchClause(opts?: object): this is NodePath<t.CatchClause>;
-    isConditionalExpression(opts?: object): this is NodePath<t.ConditionalExpression>;
-    isContinueStatement(opts?: object): this is NodePath<t.ContinueStatement>;
-    isDebuggerStatement(opts?: object): this is NodePath<t.DebuggerStatement>;
-    isDoWhileStatement(opts?: object): this is NodePath<t.DoWhileStatement>;
-    isEmptyStatement(opts?: object): this is NodePath<t.EmptyStatement>;
-    isExpressionStatement(opts?: object): this is NodePath<t.ExpressionStatement>;
-    isFile(opts?: object): this is NodePath<t.File>;
-    isForInStatement(opts?: object): this is NodePath<t.ForInStatement>;
-    isForStatement(opts?: object): this is NodePath<t.ForStatement>;
-    isFunctionDeclaration(opts?: object): this is NodePath<t.FunctionDeclaration>;
-    isFunctionExpression(opts?: object): this is NodePath<t.FunctionExpression>;
-    isIdentifier(opts?: object): this is NodePath<t.Identifier>;
-    isIfStatement(opts?: object): this is NodePath<t.IfStatement>;
-    isLabeledStatement(opts?: object): this is NodePath<t.LabeledStatement>;
-    isStringLiteral(opts?: object): this is NodePath<t.StringLiteral>;
-    isNumericLiteral(opts?: object): this is NodePath<t.NumericLiteral>;
-    isNullLiteral(opts?: object): this is NodePath<t.NullLiteral>;
-    isBooleanLiteral(opts?: object): this is NodePath<t.BooleanLiteral>;
-    isRegExpLiteral(opts?: object): this is NodePath<t.RegExpLiteral>;
-    isLogicalExpression(opts?: object): this is NodePath<t.LogicalExpression>;
-    isMemberExpression(opts?: object): this is NodePath<t.MemberExpression>;
-    isNewExpression(opts?: object): this is NodePath<t.NewExpression>;
-    isProgram(opts?: object): this is NodePath<t.Program>;
-    isObjectExpression(opts?: object): this is NodePath<t.ObjectExpression>;
-    isObjectMethod(opts?: object): this is NodePath<t.ObjectMethod>;
-    isObjectProperty(opts?: object): this is NodePath<t.ObjectProperty>;
-    isRestElement(opts?: object): this is NodePath<t.RestElement>;
-    isReturnStatement(opts?: object): this is NodePath<t.ReturnStatement>;
-    isSequenceExpression(opts?: object): this is NodePath<t.SequenceExpression>;
-    isSwitchCase(opts?: object): this is NodePath<t.SwitchCase>;
-    isSwitchStatement(opts?: object): this is NodePath<t.SwitchStatement>;
-    isThisExpression(opts?: object): this is NodePath<t.ThisExpression>;
-    isThrowStatement(opts?: object): this is NodePath<t.ThrowStatement>;
-    isTryStatement(opts?: object): this is NodePath<t.TryStatement>;
-    isUnaryExpression(opts?: object): this is NodePath<t.UnaryExpression>;
-    isUpdateExpression(opts?: object): this is NodePath<t.UpdateExpression>;
-    isVariableDeclaration(opts?: object): this is NodePath<t.VariableDeclaration>;
-    isVariableDeclarator(opts?: object): this is NodePath<t.VariableDeclarator>;
-    isWhileStatement(opts?: object): this is NodePath<t.WhileStatement>;
-    isWithStatement(opts?: object): this is NodePath<t.WithStatement>;
-    isAssignmentPattern(opts?: object): this is NodePath<t.AssignmentPattern>;
-    isArrayPattern(opts?: object): this is NodePath<t.ArrayPattern>;
-    isArrowFunctionExpression(opts?: object): this is NodePath<t.ArrowFunctionExpression>;
-    isClassBody(opts?: object): this is NodePath<t.ClassBody>;
-    isClassDeclaration(opts?: object): this is NodePath<t.ClassDeclaration>;
-    isClassExpression(opts?: object): this is NodePath<t.ClassExpression>;
-    isExportAllDeclaration(opts?: object): this is NodePath<t.ExportAllDeclaration>;
-    isExportDefaultDeclaration(opts?: object): this is NodePath<t.ExportDefaultDeclaration>;
-    isExportNamedDeclaration(opts?: object): this is NodePath<t.ExportNamedDeclaration>;
-    isExportSpecifier(opts?: object): this is NodePath<t.ExportSpecifier>;
-    isForOfStatement(opts?: object): this is NodePath<t.ForOfStatement>;
-    isImportDeclaration(opts?: object): this is NodePath<t.ImportDeclaration>;
-    isImportDefaultSpecifier(opts?: object): this is NodePath<t.ImportDefaultSpecifier>;
-    isImportNamespaceSpecifier(opts?: object): this is NodePath<t.ImportNamespaceSpecifier>;
-    isImportSpecifier(opts?: object): this is NodePath<t.ImportSpecifier>;
-    isMetaProperty(opts?: object): this is NodePath<t.MetaProperty>;
-    isClassMethod(opts?: object): this is NodePath<t.ClassMethod>;
-    isObjectPattern(opts?: object): this is NodePath<t.ObjectPattern>;
-    isSpreadElement(opts?: object): this is NodePath<t.SpreadElement>;
-    isSuper(opts?: object): this is NodePath<t.Super>;
-    isTaggedTemplateExpression(opts?: object): this is NodePath<t.TaggedTemplateExpression>;
-    isTemplateElement(opts?: object): this is NodePath<t.TemplateElement>;
-    isTemplateLiteral(opts?: object): this is NodePath<t.TemplateLiteral>;
-    isYieldExpression(opts?: object): this is NodePath<t.YieldExpression>;
-    isAnyTypeAnnotation(opts?: object): this is NodePath<t.AnyTypeAnnotation>;
-    isArrayTypeAnnotation(opts?: object): this is NodePath<t.ArrayTypeAnnotation>;
-    isBooleanTypeAnnotation(opts?: object): this is NodePath<t.BooleanTypeAnnotation>;
-    isBooleanLiteralTypeAnnotation(opts?: object): this is NodePath<t.BooleanLiteralTypeAnnotation>;
-    isNullLiteralTypeAnnotation(opts?: object): this is NodePath<t.NullLiteralTypeAnnotation>;
-    isClassImplements(opts?: object): this is NodePath<t.ClassImplements>;
-    isClassProperty(opts?: object): this is NodePath<t.ClassProperty>;
-    isDeclareClass(opts?: object): this is NodePath<t.DeclareClass>;
-    isDeclareFunction(opts?: object): this is NodePath<t.DeclareFunction>;
-    isDeclareInterface(opts?: object): this is NodePath<t.DeclareInterface>;
-    isDeclareModule(opts?: object): this is NodePath<t.DeclareModule>;
-    isDeclareTypeAlias(opts?: object): this is NodePath<t.DeclareTypeAlias>;
-    isDeclareVariable(opts?: object): this is NodePath<t.DeclareVariable>;
-    isFunctionTypeAnnotation(opts?: object): this is NodePath<t.FunctionTypeAnnotation>;
-    isFunctionTypeParam(opts?: object): this is NodePath<t.FunctionTypeParam>;
-    isGenericTypeAnnotation(opts?: object): this is NodePath<t.GenericTypeAnnotation>;
-    isInterfaceExtends(opts?: object): this is NodePath<t.InterfaceExtends>;
-    isInterfaceDeclaration(opts?: object): this is NodePath<t.InterfaceDeclaration>;
-    isIntersectionTypeAnnotation(opts?: object): this is NodePath<t.IntersectionTypeAnnotation>;
-    isMixedTypeAnnotation(opts?: object): this is NodePath<t.MixedTypeAnnotation>;
-    isNullableTypeAnnotation(opts?: object): this is NodePath<t.NullableTypeAnnotation>;
-    isNumberTypeAnnotation(opts?: object): this is NodePath<t.NumberTypeAnnotation>;
-    isStringLiteralTypeAnnotation(opts?: object): this is NodePath<t.StringLiteralTypeAnnotation>;
-    isStringTypeAnnotation(opts?: object): this is NodePath<t.StringTypeAnnotation>;
-    isThisTypeAnnotation(opts?: object): this is NodePath<t.ThisTypeAnnotation>;
-    isTupleTypeAnnotation(opts?: object): this is NodePath<t.TupleTypeAnnotation>;
-    isTypeofTypeAnnotation(opts?: object): this is NodePath<t.TypeofTypeAnnotation>;
-    isTypeAlias(opts?: object): this is NodePath<t.TypeAlias>;
-    isTypeAnnotation(opts?: object): this is NodePath<t.TypeAnnotation>;
-    isTypeCastExpression(opts?: object): this is NodePath<t.TypeCastExpression>;
-    isTypeParameterDeclaration(opts?: object): this is NodePath<t.TypeParameterDeclaration>;
-    isTypeParameterInstantiation(opts?: object): this is NodePath<t.TypeParameterInstantiation>;
-    isObjectTypeAnnotation(opts?: object): this is NodePath<t.ObjectTypeAnnotation>;
-    isObjectTypeCallProperty(opts?: object): this is NodePath<t.ObjectTypeCallProperty>;
-    isObjectTypeIndexer(opts?: object): this is NodePath<t.ObjectTypeIndexer>;
-    isObjectTypeProperty(opts?: object): this is NodePath<t.ObjectTypeProperty>;
-    isQualifiedTypeIdentifier(opts?: object): this is NodePath<t.QualifiedTypeIdentifier>;
-    isUnionTypeAnnotation(opts?: object): this is NodePath<t.UnionTypeAnnotation>;
-    isVoidTypeAnnotation(opts?: object): this is NodePath<t.VoidTypeAnnotation>;
-    isJSXAttribute(opts?: object): this is NodePath<t.JSXAttribute>;
-    isJSXClosingElement(opts?: object): this is NodePath<t.JSXClosingElement>;
-    isJSXElement(opts?: object): this is NodePath<t.JSXElement>;
-    isJSXEmptyExpression(opts?: object): this is NodePath<t.JSXEmptyExpression>;
-    isJSXExpressionContainer(opts?: object): this is NodePath<t.JSXExpressionContainer>;
-    isJSXIdentifier(opts?: object): this is NodePath<t.JSXIdentifier>;
-    isJSXMemberExpression(opts?: object): this is NodePath<t.JSXMemberExpression>;
-    isJSXNamespacedName(opts?: object): this is NodePath<t.JSXNamespacedName>;
-    isJSXOpeningElement(opts?: object): this is NodePath<t.JSXOpeningElement>;
-    isJSXSpreadAttribute(opts?: object): this is NodePath<t.JSXSpreadAttribute>;
-    isJSXText(opts?: object): this is NodePath<t.JSXText>;
-    isNoop(opts?: object): this is NodePath<t.Noop>;
-    isParenthesizedExpression(opts?: object): this is NodePath<t.ParenthesizedExpression>;
-    isAwaitExpression(opts?: object): this is NodePath<t.AwaitExpression>;
-    isBindExpression(opts?: object): this is NodePath<t.BindExpression>;
-    isDecorator(opts?: object): this is NodePath<t.Decorator>;
-    isDoExpression(opts?: object): this is NodePath<t.DoExpression>;
-    isExportDefaultSpecifier(opts?: object): this is NodePath<t.ExportDefaultSpecifier>;
-    isExportNamespaceSpecifier(opts?: object): this is NodePath<t.ExportNamespaceSpecifier>;
-    isRestProperty(opts?: object): this is NodePath<t.RestProperty>;
-    isSpreadProperty(opts?: object): this is NodePath<t.SpreadProperty>;
-    isExpression(opts?: object): this is NodePath<t.Expression>;
-    isBinary(opts?: object): this is NodePath<t.Binary>;
-    isScopable(opts?: object): this is NodePath<t.Scopable>;
-    isBlockParent(opts?: object): this is NodePath<t.BlockParent>;
-    isBlock(opts?: object): this is NodePath<t.Block>;
-    isStatement(opts?: object): this is NodePath<t.Statement>;
-    isTerminatorless(opts?: object): this is NodePath<t.Terminatorless>;
-    isCompletionStatement(opts?: object): this is NodePath<t.CompletionStatement>;
-    isConditional(opts?: object): this is NodePath<t.Conditional>;
-    isLoop(opts?: object): this is NodePath<t.Loop>;
-    isWhile(opts?: object): this is NodePath<t.While>;
-    isExpressionWrapper(opts?: object): this is NodePath<t.ExpressionWrapper>;
-    isFor(opts?: object): this is NodePath<t.For>;
-    isForXStatement(opts?: object): this is NodePath<t.ForXStatement>;
-    isFunction(opts?: object): this is NodePath<t.Function>;
-    isFunctionParent(opts?: object): this is NodePath<t.FunctionParent>;
-    isPureish(opts?: object): this is NodePath<t.Pureish>;
-    isDeclaration(opts?: object): this is NodePath<t.Declaration>;
-    isLVal(opts?: object): this is NodePath<t.LVal>;
-    isLiteral(opts?: object): this is NodePath<t.Literal>;
-    isImmutable(opts?: object): this is NodePath<t.Immutable>;
-    isUserWhitespacable(opts?: object): this is NodePath<t.UserWhitespacable>;
-    isMethod(opts?: object): this is NodePath<t.Method>;
-    isObjectMember(opts?: object): this is NodePath<t.ObjectMember>;
-    isProperty(opts?: object): this is NodePath<t.Property>;
-    isUnaryLike(opts?: object): this is NodePath<t.UnaryLike>;
-    isPattern(opts?: object): this is NodePath<t.Pattern>;
-    isClass(opts?: object): this is NodePath<t.Class>;
-    isModuleDeclaration(opts?: object): this is NodePath<t.ModuleDeclaration>;
-    isExportDeclaration(opts?: object): this is NodePath<t.ExportDeclaration>;
-    isModuleSpecifier(opts?: object): this is NodePath<t.ModuleSpecifier>;
-    isFlow(opts?: object): this is NodePath<t.Flow>;
-    isFlowBaseAnnotation(opts?: object): this is NodePath<t.FlowBaseAnnotation>;
-    isFlowDeclaration(opts?: object): this is NodePath<t.FlowDeclaration>;
-    isJSX(opts?: object): this is NodePath<t.JSX>;
-    isNumberLiteral(opts?: object): this is NodePath<t.NumericLiteral>;
-    isRegexLiteral(opts?: object): this is NodePath<t.RegExpLiteral>;
-    isReferencedIdentifier(opts?: object): this is NodePath<t.Identifier | t.JSXIdentifier>;
-    isReferencedMemberExpression(opts?: object): this is NodePath<t.MemberExpression>;
-    isBindingIdentifier(opts?: object): this is NodePath<t.Identifier>;
-    isScope(opts?: object): this is NodePath<t.Scopable>;
-    isReferenced(opts?: object): boolean;
-    isBlockScoped(opts?: object): this is NodePath<t.FunctionDeclaration | t.ClassDeclaration | t.VariableDeclaration>;
-    isVar(opts?: object): this is NodePath<t.VariableDeclaration>;
-    isUser(opts?: object): boolean;
-    isGenerated(opts?: object): boolean;
-    isPure(opts?: object): boolean;
+    //#region ------------------------- isXXX -------------------------
+    isAnyTypeAnnotation(props?: object | null): this is NodePath<t.AnyTypeAnnotation>;
+    isArrayExpression(props?: object | null): this is NodePath<t.ArrayExpression>;
+    isArrayPattern(props?: object | null): this is NodePath<t.ArrayPattern>;
+    isArrayTypeAnnotation(props?: object | null): this is NodePath<t.ArrayTypeAnnotation>;
+    isArrowFunctionExpression(props?: object | null): this is NodePath<t.ArrowFunctionExpression>;
+    isAssignmentExpression(props?: object | null): this is NodePath<t.AssignmentExpression>;
+    isAssignmentPattern(props?: object | null): this is NodePath<t.AssignmentPattern>;
+    isAwaitExpression(props?: object | null): this is NodePath<t.AwaitExpression>;
+    isBigIntLiteral(props?: object | null): this is NodePath<t.BigIntLiteral>;
+    isBinary(props?: object | null): this is NodePath<t.Binary>;
+    isBinaryExpression(props?: object | null): this is NodePath<t.BinaryExpression>;
+    isBindExpression(props?: object | null): this is NodePath<t.BindExpression>;
+    isBlock(props?: object | null): this is NodePath<t.Block>;
+    isBlockParent(props?: object | null): this is NodePath<t.BlockParent>;
+    isBlockStatement(props?: object | null): this is NodePath<t.BlockStatement>;
+    isBooleanLiteral(props?: object | null): this is NodePath<t.BooleanLiteral>;
+    isBooleanLiteralTypeAnnotation(props?: object | null): this is NodePath<t.BooleanLiteralTypeAnnotation>;
+    isBooleanTypeAnnotation(props?: object | null): this is NodePath<t.BooleanTypeAnnotation>;
+    isBreakStatement(props?: object | null): this is NodePath<t.BreakStatement>;
+    isCallExpression(props?: object | null): this is NodePath<t.CallExpression>;
+    isCatchClause(props?: object | null): this is NodePath<t.CatchClause>;
+    isClass(props?: object | null): this is NodePath<t.Class>;
+    isClassBody(props?: object | null): this is NodePath<t.ClassBody>;
+    isClassDeclaration(props?: object | null): this is NodePath<t.ClassDeclaration>;
+    isClassExpression(props?: object | null): this is NodePath<t.ClassExpression>;
+    isClassImplements(props?: object | null): this is NodePath<t.ClassImplements>;
+    isClassMethod(props?: object | null): this is NodePath<t.ClassMethod>;
+    isClassPrivateMethod(props?: object | null): this is NodePath<t.ClassPrivateMethod>;
+    isClassPrivateProperty(props?: object | null): this is NodePath<t.ClassPrivateProperty>;
+    isClassProperty(props?: object | null): this is NodePath<t.ClassProperty>;
+    isCompletionStatement(props?: object | null): this is NodePath<t.CompletionStatement>;
+    isConditional(props?: object | null): this is NodePath<t.Conditional>;
+    isConditionalExpression(props?: object | null): this is NodePath<t.ConditionalExpression>;
+    isContinueStatement(props?: object | null): this is NodePath<t.ContinueStatement>;
+    isDebuggerStatement(props?: object | null): this is NodePath<t.DebuggerStatement>;
+    isDeclaration(props?: object | null): this is NodePath<t.Declaration>;
+    isDeclareClass(props?: object | null): this is NodePath<t.DeclareClass>;
+    isDeclareExportAllDeclaration(props?: object | null): this is NodePath<t.DeclareExportAllDeclaration>;
+    isDeclareExportDeclaration(props?: object | null): this is NodePath<t.DeclareExportDeclaration>;
+    isDeclareFunction(props?: object | null): this is NodePath<t.DeclareFunction>;
+    isDeclareInterface(props?: object | null): this is NodePath<t.DeclareInterface>;
+    isDeclareModule(props?: object | null): this is NodePath<t.DeclareModule>;
+    isDeclareModuleExports(props?: object | null): this is NodePath<t.DeclareModuleExports>;
+    isDeclareOpaqueType(props?: object | null): this is NodePath<t.DeclareOpaqueType>;
+    isDeclareTypeAlias(props?: object | null): this is NodePath<t.DeclareTypeAlias>;
+    isDeclareVariable(props?: object | null): this is NodePath<t.DeclareVariable>;
+    isDeclaredPredicate(props?: object | null): this is NodePath<t.DeclaredPredicate>;
+    isDecorator(props?: object | null): this is NodePath<t.Decorator>;
+    isDirective(props?: object | null): this is NodePath<t.Directive>;
+    isDirectiveLiteral(props?: object | null): this is NodePath<t.DirectiveLiteral>;
+    isDoExpression(props?: object | null): this is NodePath<t.DoExpression>;
+    isDoWhileStatement(props?: object | null): this is NodePath<t.DoWhileStatement>;
+    isEmptyStatement(props?: object | null): this is NodePath<t.EmptyStatement>;
+    isEmptyTypeAnnotation(props?: object | null): this is NodePath<t.EmptyTypeAnnotation>;
+    isExistsTypeAnnotation(props?: object | null): this is NodePath<t.ExistsTypeAnnotation>;
+    isExportAllDeclaration(props?: object | null): this is NodePath<t.ExportAllDeclaration>;
+    isExportDeclaration(props?: object | null): this is NodePath<t.ExportDeclaration>;
+    isExportDefaultDeclaration(props?: object | null): this is NodePath<t.ExportDefaultDeclaration>;
+    isExportDefaultSpecifier(props?: object | null): this is NodePath<t.ExportDefaultSpecifier>;
+    isExportNamedDeclaration(props?: object | null): this is NodePath<t.ExportNamedDeclaration>;
+    isExportNamespaceSpecifier(props?: object | null): this is NodePath<t.ExportNamespaceSpecifier>;
+    isExportSpecifier(props?: object | null): this is NodePath<t.ExportSpecifier>;
+    isExpression(props?: object | null): this is NodePath<t.Expression>;
+    isExpressionStatement(props?: object | null): this is NodePath<t.ExpressionStatement>;
+    isExpressionWrapper(props?: object | null): this is NodePath<t.ExpressionWrapper>;
+    isFile(props?: object | null): this is NodePath<t.File>;
+    isFlow(props?: object | null): this is NodePath<t.Flow>;
+    isFlowBaseAnnotation(props?: object | null): this is NodePath<t.FlowBaseAnnotation>;
+    isFlowDeclaration(props?: object | null): this is NodePath<t.FlowDeclaration>;
+    isFlowPredicate(props?: object | null): this is NodePath<t.FlowPredicate>;
+    isFlowType(props?: object | null): this is NodePath<t.FlowType>;
+    isFor(props?: object | null): this is NodePath<t.For>;
+    isForInStatement(props?: object | null): this is NodePath<t.ForInStatement>;
+    isForOfStatement(props?: object | null): this is NodePath<t.ForOfStatement>;
+    isForStatement(props?: object | null): this is NodePath<t.ForStatement>;
+    isForXStatement(props?: object | null): this is NodePath<t.ForXStatement>;
+    isFunction(props?: object | null): this is NodePath<t.Function>;
+    isFunctionDeclaration(props?: object | null): this is NodePath<t.FunctionDeclaration>;
+    isFunctionExpression(props?: object | null): this is NodePath<t.FunctionExpression>;
+    isFunctionParent(props?: object | null): this is NodePath<t.FunctionParent>;
+    isFunctionTypeAnnotation(props?: object | null): this is NodePath<t.FunctionTypeAnnotation>;
+    isFunctionTypeParam(props?: object | null): this is NodePath<t.FunctionTypeParam>;
+    isGenericTypeAnnotation(props?: object | null): this is NodePath<t.GenericTypeAnnotation>;
+    isIdentifier(props?: object | null): this is NodePath<t.Identifier>;
+    isIfStatement(props?: object | null): this is NodePath<t.IfStatement>;
+    isImmutable(props?: object | null): this is NodePath<t.Immutable>;
+    isImport(props?: object | null): this is NodePath<t.Import>;
+    isImportDeclaration(props?: object | null): this is NodePath<t.ImportDeclaration>;
+    isImportDefaultSpecifier(props?: object | null): this is NodePath<t.ImportDefaultSpecifier>;
+    isImportNamespaceSpecifier(props?: object | null): this is NodePath<t.ImportNamespaceSpecifier>;
+    isImportSpecifier(props?: object | null): this is NodePath<t.ImportSpecifier>;
+    isInferredPredicate(props?: object | null): this is NodePath<t.InferredPredicate>;
+    isInterfaceDeclaration(props?: object | null): this is NodePath<t.InterfaceDeclaration>;
+    isInterfaceExtends(props?: object | null): this is NodePath<t.InterfaceExtends>;
+    isInterfaceTypeAnnotation(props?: object | null): this is NodePath<t.InterfaceTypeAnnotation>;
+    isInterpreterDirective(props?: object | null): this is NodePath<t.InterpreterDirective>;
+    isIntersectionTypeAnnotation(props?: object | null): this is NodePath<t.IntersectionTypeAnnotation>;
+    isJSX(props?: object | null): this is NodePath<t.JSX>;
+    isJSXAttribute(props?: object | null): this is NodePath<t.JSXAttribute>;
+    isJSXClosingElement(props?: object | null): this is NodePath<t.JSXClosingElement>;
+    isJSXClosingFragment(props?: object | null): this is NodePath<t.JSXClosingFragment>;
+    isJSXElement(props?: object | null): this is NodePath<t.JSXElement>;
+    isJSXEmptyExpression(props?: object | null): this is NodePath<t.JSXEmptyExpression>;
+    isJSXExpressionContainer(props?: object | null): this is NodePath<t.JSXExpressionContainer>;
+    isJSXFragment(props?: object | null): this is NodePath<t.JSXFragment>;
+    isJSXIdentifier(props?: object | null): this is NodePath<t.JSXIdentifier>;
+    isJSXMemberExpression(props?: object | null): this is NodePath<t.JSXMemberExpression>;
+    isJSXNamespacedName(props?: object | null): this is NodePath<t.JSXNamespacedName>;
+    isJSXOpeningElement(props?: object | null): this is NodePath<t.JSXOpeningElement>;
+    isJSXOpeningFragment(props?: object | null): this is NodePath<t.JSXOpeningFragment>;
+    isJSXSpreadAttribute(props?: object | null): this is NodePath<t.JSXSpreadAttribute>;
+    isJSXSpreadChild(props?: object | null): this is NodePath<t.JSXSpreadChild>;
+    isJSXText(props?: object | null): this is NodePath<t.JSXText>;
+    isLVal(props?: object | null): this is NodePath<t.LVal>;
+    isLabeledStatement(props?: object | null): this is NodePath<t.LabeledStatement>;
+    isLiteral(props?: object | null): this is NodePath<t.Literal>;
+    isLogicalExpression(props?: object | null): this is NodePath<t.LogicalExpression>;
+    isLoop(props?: object | null): this is NodePath<t.Loop>;
+    isMemberExpression(props?: object | null): this is NodePath<t.MemberExpression>;
+    isMetaProperty(props?: object | null): this is NodePath<t.MetaProperty>;
+    isMethod(props?: object | null): this is NodePath<t.Method>;
+    isMixedTypeAnnotation(props?: object | null): this is NodePath<t.MixedTypeAnnotation>;
+    isModuleDeclaration(props?: object | null): this is NodePath<t.ModuleDeclaration>;
+    isModuleSpecifier(props?: object | null): this is NodePath<t.ModuleSpecifier>;
+    isNewExpression(props?: object | null): this is NodePath<t.NewExpression>;
+    isNoop(props?: object | null): this is NodePath<t.Noop>;
+    isNullLiteral(props?: object | null): this is NodePath<t.NullLiteral>;
+    isNullLiteralTypeAnnotation(props?: object | null): this is NodePath<t.NullLiteralTypeAnnotation>;
+    isNullableTypeAnnotation(props?: object | null): this is NodePath<t.NullableTypeAnnotation>;
 
-    // ------------------------- assertXXX -------------------------
-    assertArrayExpression(opts?: object): void;
-    assertAssignmentExpression(opts?: object): void;
-    assertBinaryExpression(opts?: object): void;
-    assertDirective(opts?: object): void;
-    assertDirectiveLiteral(opts?: object): void;
-    assertBlockStatement(opts?: object): void;
-    assertBreakStatement(opts?: object): void;
-    assertCallExpression(opts?: object): void;
-    assertCatchClause(opts?: object): void;
-    assertConditionalExpression(opts?: object): void;
-    assertContinueStatement(opts?: object): void;
-    assertDebuggerStatement(opts?: object): void;
-    assertDoWhileStatement(opts?: object): void;
-    assertEmptyStatement(opts?: object): void;
-    assertExpressionStatement(opts?: object): void;
-    assertFile(opts?: object): void;
-    assertForInStatement(opts?: object): void;
-    assertForStatement(opts?: object): void;
-    assertFunctionDeclaration(opts?: object): void;
-    assertFunctionExpression(opts?: object): void;
-    assertIdentifier(opts?: object): void;
-    assertIfStatement(opts?: object): void;
-    assertLabeledStatement(opts?: object): void;
-    assertStringLiteral(opts?: object): void;
-    assertNumericLiteral(opts?: object): void;
-    assertNullLiteral(opts?: object): void;
-    assertBooleanLiteral(opts?: object): void;
-    assertRegExpLiteral(opts?: object): void;
-    assertLogicalExpression(opts?: object): void;
-    assertMemberExpression(opts?: object): void;
-    assertNewExpression(opts?: object): void;
-    assertProgram(opts?: object): void;
-    assertObjectExpression(opts?: object): void;
-    assertObjectMethod(opts?: object): void;
-    assertObjectProperty(opts?: object): void;
-    assertRestElement(opts?: object): void;
-    assertReturnStatement(opts?: object): void;
-    assertSequenceExpression(opts?: object): void;
-    assertSwitchCase(opts?: object): void;
-    assertSwitchStatement(opts?: object): void;
-    assertThisExpression(opts?: object): void;
-    assertThrowStatement(opts?: object): void;
-    assertTryStatement(opts?: object): void;
-    assertUnaryExpression(opts?: object): void;
-    assertUpdateExpression(opts?: object): void;
-    assertVariableDeclaration(opts?: object): void;
-    assertVariableDeclarator(opts?: object): void;
-    assertWhileStatement(opts?: object): void;
-    assertWithStatement(opts?: object): void;
-    assertAssignmentPattern(opts?: object): void;
-    assertArrayPattern(opts?: object): void;
-    assertArrowFunctionExpression(opts?: object): void;
-    assertClassBody(opts?: object): void;
-    assertClassDeclaration(opts?: object): void;
-    assertClassExpression(opts?: object): void;
-    assertExportAllDeclaration(opts?: object): void;
-    assertExportDefaultDeclaration(opts?: object): void;
-    assertExportNamedDeclaration(opts?: object): void;
-    assertExportSpecifier(opts?: object): void;
-    assertForOfStatement(opts?: object): void;
-    assertImportDeclaration(opts?: object): void;
-    assertImportDefaultSpecifier(opts?: object): void;
-    assertImportNamespaceSpecifier(opts?: object): void;
-    assertImportSpecifier(opts?: object): void;
-    assertMetaProperty(opts?: object): void;
-    assertClassMethod(opts?: object): void;
-    assertObjectPattern(opts?: object): void;
-    assertSpreadElement(opts?: object): void;
-    assertSuper(opts?: object): void;
-    assertTaggedTemplateExpression(opts?: object): void;
-    assertTemplateElement(opts?: object): void;
-    assertTemplateLiteral(opts?: object): void;
-    assertYieldExpression(opts?: object): void;
-    assertAnyTypeAnnotation(opts?: object): void;
-    assertArrayTypeAnnotation(opts?: object): void;
-    assertBooleanTypeAnnotation(opts?: object): void;
-    assertBooleanLiteralTypeAnnotation(opts?: object): void;
-    assertNullLiteralTypeAnnotation(opts?: object): void;
-    assertClassImplements(opts?: object): void;
-    assertClassProperty(opts?: object): void;
-    assertDeclareClass(opts?: object): void;
-    assertDeclareFunction(opts?: object): void;
-    assertDeclareInterface(opts?: object): void;
-    assertDeclareModule(opts?: object): void;
-    assertDeclareTypeAlias(opts?: object): void;
-    assertDeclareVariable(opts?: object): void;
-    assertExistentialTypeParam(opts?: object): void;
-    assertFunctionTypeAnnotation(opts?: object): void;
-    assertFunctionTypeParam(opts?: object): void;
-    assertGenericTypeAnnotation(opts?: object): void;
-    assertInterfaceExtends(opts?: object): void;
-    assertInterfaceDeclaration(opts?: object): void;
-    assertIntersectionTypeAnnotation(opts?: object): void;
-    assertMixedTypeAnnotation(opts?: object): void;
-    assertNullableTypeAnnotation(opts?: object): void;
-    assertNumericLiteralTypeAnnotation(opts?: object): void;
-    assertNumberTypeAnnotation(opts?: object): void;
-    assertStringLiteralTypeAnnotation(opts?: object): void;
-    assertStringTypeAnnotation(opts?: object): void;
-    assertThisTypeAnnotation(opts?: object): void;
-    assertTupleTypeAnnotation(opts?: object): void;
-    assertTypeofTypeAnnotation(opts?: object): void;
-    assertTypeAlias(opts?: object): void;
-    assertTypeAnnotation(opts?: object): void;
-    assertTypeCastExpression(opts?: object): void;
-    assertTypeParameterDeclaration(opts?: object): void;
-    assertTypeParameterInstantiation(opts?: object): void;
-    assertObjectTypeAnnotation(opts?: object): void;
-    assertObjectTypeCallProperty(opts?: object): void;
-    assertObjectTypeIndexer(opts?: object): void;
-    assertObjectTypeProperty(opts?: object): void;
-    assertQualifiedTypeIdentifier(opts?: object): void;
-    assertUnionTypeAnnotation(opts?: object): void;
-    assertVoidTypeAnnotation(opts?: object): void;
-    assertJSXAttribute(opts?: object): void;
-    assertJSXClosingElement(opts?: object): void;
-    assertJSXElement(opts?: object): void;
-    assertJSXEmptyExpression(opts?: object): void;
-    assertJSXExpressionContainer(opts?: object): void;
-    assertJSXIdentifier(opts?: object): void;
-    assertJSXMemberExpression(opts?: object): void;
-    assertJSXNamespacedName(opts?: object): void;
-    assertJSXOpeningElement(opts?: object): void;
-    assertJSXSpreadAttribute(opts?: object): void;
-    assertJSXText(opts?: object): void;
-    assertNoop(opts?: object): void;
-    assertParenthesizedExpression(opts?: object): void;
-    assertAwaitExpression(opts?: object): void;
-    assertBindExpression(opts?: object): void;
-    assertDecorator(opts?: object): void;
-    assertDoExpression(opts?: object): void;
-    assertExportDefaultSpecifier(opts?: object): void;
-    assertExportNamespaceSpecifier(opts?: object): void;
-    assertRestProperty(opts?: object): void;
-    assertSpreadProperty(opts?: object): void;
-    assertExpression(opts?: object): void;
-    assertBinary(opts?: object): void;
-    assertScopable(opts?: object): void;
-    assertBlockParent(opts?: object): void;
-    assertBlock(opts?: object): void;
-    assertStatement(opts?: object): void;
-    assertTerminatorless(opts?: object): void;
-    assertCompletionStatement(opts?: object): void;
-    assertConditional(opts?: object): void;
-    assertLoop(opts?: object): void;
-    assertWhile(opts?: object): void;
-    assertExpressionWrapper(opts?: object): void;
-    assertFor(opts?: object): void;
-    assertForXStatement(opts?: object): void;
-    assertFunction(opts?: object): void;
-    assertFunctionParent(opts?: object): void;
-    assertPureish(opts?: object): void;
-    assertDeclaration(opts?: object): void;
-    assertLVal(opts?: object): void;
-    assertLiteral(opts?: object): void;
-    assertImmutable(opts?: object): void;
-    assertUserWhitespacable(opts?: object): void;
-    assertMethod(opts?: object): void;
-    assertObjectMember(opts?: object): void;
-    assertProperty(opts?: object): void;
-    assertUnaryLike(opts?: object): void;
-    assertPattern(opts?: object): void;
-    assertClass(opts?: object): void;
-    assertModuleDeclaration(opts?: object): void;
-    assertExportDeclaration(opts?: object): void;
-    assertModuleSpecifier(opts?: object): void;
-    assertFlow(opts?: object): void;
-    assertFlowBaseAnnotation(opts?: object): void;
-    assertFlowDeclaration(opts?: object): void;
-    assertJSX(opts?: object): void;
-    assertNumberLiteral(opts?: object): void;
-    assertRegexLiteral(opts?: object): void;
+    /** @deprecated Use `isNumericLiteral` */
+    isNumberLiteral(props?: object | null): this is NodePath<t.NumericLiteral>;
+    isNumberLiteralTypeAnnotation(props?: object | null): this is NodePath<t.NumberLiteralTypeAnnotation>;
+    isNumberTypeAnnotation(props?: object | null): this is NodePath<t.NumberTypeAnnotation>;
+    isNumericLiteral(props?: object | null): this is NodePath<t.NumericLiteral>;
+    isObjectExpression(props?: object | null): this is NodePath<t.ObjectExpression>;
+    isObjectMember(props?: object | null): this is NodePath<t.ObjectMember>;
+    isObjectMethod(props?: object | null): this is NodePath<t.ObjectMethod>;
+    isObjectPattern(props?: object | null): this is NodePath<t.ObjectPattern>;
+    isObjectProperty(props?: object | null): this is NodePath<t.ObjectProperty>;
+    isObjectTypeAnnotation(props?: object | null): this is NodePath<t.ObjectTypeAnnotation>;
+    isObjectTypeCallProperty(props?: object | null): this is NodePath<t.ObjectTypeCallProperty>;
+    isObjectTypeIndexer(props?: object | null): this is NodePath<t.ObjectTypeIndexer>;
+    isObjectTypeInternalSlot(props?: object | null): this is NodePath<t.ObjectTypeInternalSlot>;
+    isObjectTypeProperty(props?: object | null): this is NodePath<t.ObjectTypeProperty>;
+    isObjectTypeSpreadProperty(props?: object | null): this is NodePath<t.ObjectTypeSpreadProperty>;
+    isOpaqueType(props?: object | null): this is NodePath<t.OpaqueType>;
+    isOptionalCallExpression(props?: object | null): this is NodePath<t.OptionalCallExpression>;
+    isOptionalMemberExpression(props?: object | null): this is NodePath<t.OptionalMemberExpression>;
+    isParenthesizedExpression(props?: object | null): this is NodePath<t.ParenthesizedExpression>;
+    isPattern(props?: object | null): this is NodePath<t.Pattern>;
+    isPatternLike(props?: object | null): this is NodePath<t.PatternLike>;
+    isPipelineBareFunction(props?: object | null): this is NodePath<t.PipelineBareFunction>;
+    isPipelinePrimaryTopicReference(props?: object | null): this is NodePath<t.PipelinePrimaryTopicReference>;
+    isPipelineTopicExpression(props?: object | null): this is NodePath<t.PipelineTopicExpression>;
+    isPrivate(props?: object | null): this is NodePath<t.Private>;
+    isPrivateName(props?: object | null): this is NodePath<t.PrivateName>;
+    isProgram(props?: object | null): this is NodePath<t.Program>;
+    isProperty(props?: object | null): this is NodePath<t.Property>;
+    isPureish(props?: object | null): this is NodePath<t.Pureish>;
+    isQualifiedTypeIdentifier(props?: object | null): this is NodePath<t.QualifiedTypeIdentifier>;
+    isRegExpLiteral(props?: object | null): this is NodePath<t.RegExpLiteral>;
+
+    /** @deprecated Use `isRegExpLiteral` */
+    isRegexLiteral(props?: object | null): this is NodePath<t.RegExpLiteral>;
+    isRestElement(props?: object | null): this is NodePath<t.RestElement>;
+
+    /** @deprecated Use `isRestElement` */
+    isRestProperty(props?: object | null): this is NodePath<t.RestElement>;
+    isReturnStatement(props?: object | null): this is NodePath<t.ReturnStatement>;
+    isScopable(props?: object | null): this is NodePath<t.Scopable>;
+    isSequenceExpression(props?: object | null): this is NodePath<t.SequenceExpression>;
+    isSpreadElement(props?: object | null): this is NodePath<t.SpreadElement>;
+
+    /** @deprecated Use `isSpreadElement` */
+    isSpreadProperty(props?: object | null): this is NodePath<t.SpreadElement>;
+    isStatement(props?: object | null): this is NodePath<t.Statement>;
+    isStringLiteral(props?: object | null): this is NodePath<t.StringLiteral>;
+    isStringLiteralTypeAnnotation(props?: object | null): this is NodePath<t.StringLiteralTypeAnnotation>;
+    isStringTypeAnnotation(props?: object | null): this is NodePath<t.StringTypeAnnotation>;
+    isSuper(props?: object | null): this is NodePath<t.Super>;
+    isSwitchCase(props?: object | null): this is NodePath<t.SwitchCase>;
+    isSwitchStatement(props?: object | null): this is NodePath<t.SwitchStatement>;
+    isTSAnyKeyword(props?: object | null): this is NodePath<t.TSAnyKeyword>;
+    isTSArrayType(props?: object | null): this is NodePath<t.TSArrayType>;
+    isTSAsExpression(props?: object | null): this is NodePath<t.TSAsExpression>;
+    isTSBooleanKeyword(props?: object | null): this is NodePath<t.TSBooleanKeyword>;
+    isTSCallSignatureDeclaration(props?: object | null): this is NodePath<t.TSCallSignatureDeclaration>;
+    isTSConditionalType(props?: object | null): this is NodePath<t.TSConditionalType>;
+    isTSConstructSignatureDeclaration(props?: object | null): this is NodePath<t.TSConstructSignatureDeclaration>;
+    isTSConstructorType(props?: object | null): this is NodePath<t.TSConstructorType>;
+    isTSDeclareFunction(props?: object | null): this is NodePath<t.TSDeclareFunction>;
+    isTSDeclareMethod(props?: object | null): this is NodePath<t.TSDeclareMethod>;
+    isTSEntityName(props?: object | null): this is NodePath<t.TSEntityName>;
+    isTSEnumDeclaration(props?: object | null): this is NodePath<t.TSEnumDeclaration>;
+    isTSEnumMember(props?: object | null): this is NodePath<t.TSEnumMember>;
+    isTSExportAssignment(props?: object | null): this is NodePath<t.TSExportAssignment>;
+    isTSExpressionWithTypeArguments(props?: object | null): this is NodePath<t.TSExpressionWithTypeArguments>;
+    isTSExternalModuleReference(props?: object | null): this is NodePath<t.TSExternalModuleReference>;
+    isTSFunctionType(props?: object | null): this is NodePath<t.TSFunctionType>;
+    isTSImportEqualsDeclaration(props?: object | null): this is NodePath<t.TSImportEqualsDeclaration>;
+    isTSImportType(props?: object | null): this is NodePath<t.TSImportType>;
+    isTSIndexSignature(props?: object | null): this is NodePath<t.TSIndexSignature>;
+    isTSIndexedAccessType(props?: object | null): this is NodePath<t.TSIndexedAccessType>;
+    isTSInferType(props?: object | null): this is NodePath<t.TSInferType>;
+    isTSInterfaceBody(props?: object | null): this is NodePath<t.TSInterfaceBody>;
+    isTSInterfaceDeclaration(props?: object | null): this is NodePath<t.TSInterfaceDeclaration>;
+    isTSIntersectionType(props?: object | null): this is NodePath<t.TSIntersectionType>;
+    isTSLiteralType(props?: object | null): this is NodePath<t.TSLiteralType>;
+    isTSMappedType(props?: object | null): this is NodePath<t.TSMappedType>;
+    isTSMethodSignature(props?: object | null): this is NodePath<t.TSMethodSignature>;
+    isTSModuleBlock(props?: object | null): this is NodePath<t.TSModuleBlock>;
+    isTSModuleDeclaration(props?: object | null): this is NodePath<t.TSModuleDeclaration>;
+    isTSNamespaceExportDeclaration(props?: object | null): this is NodePath<t.TSNamespaceExportDeclaration>;
+    isTSNeverKeyword(props?: object | null): this is NodePath<t.TSNeverKeyword>;
+    isTSNonNullExpression(props?: object | null): this is NodePath<t.TSNonNullExpression>;
+    isTSNullKeyword(props?: object | null): this is NodePath<t.TSNullKeyword>;
+    isTSNumberKeyword(props?: object | null): this is NodePath<t.TSNumberKeyword>;
+    isTSObjectKeyword(props?: object | null): this is NodePath<t.TSObjectKeyword>;
+    isTSOptionalType(props?: object | null): this is NodePath<t.TSOptionalType>;
+    isTSParameterProperty(props?: object | null): this is NodePath<t.TSParameterProperty>;
+    isTSParenthesizedType(props?: object | null): this is NodePath<t.TSParenthesizedType>;
+    isTSPropertySignature(props?: object | null): this is NodePath<t.TSPropertySignature>;
+    isTSQualifiedName(props?: object | null): this is NodePath<t.TSQualifiedName>;
+    isTSRestType(props?: object | null): this is NodePath<t.TSRestType>;
+    isTSStringKeyword(props?: object | null): this is NodePath<t.TSStringKeyword>;
+    isTSSymbolKeyword(props?: object | null): this is NodePath<t.TSSymbolKeyword>;
+    isTSThisType(props?: object | null): this is NodePath<t.TSThisType>;
+    isTSTupleType(props?: object | null): this is NodePath<t.TSTupleType>;
+    isTSType(props?: object | null): this is NodePath<t.TSType>;
+    isTSTypeAliasDeclaration(props?: object | null): this is NodePath<t.TSTypeAliasDeclaration>;
+    isTSTypeAnnotation(props?: object | null): this is NodePath<t.TSTypeAnnotation>;
+    isTSTypeAssertion(props?: object | null): this is NodePath<t.TSTypeAssertion>;
+    isTSTypeElement(props?: object | null): this is NodePath<t.TSTypeElement>;
+    isTSTypeLiteral(props?: object | null): this is NodePath<t.TSTypeLiteral>;
+    isTSTypeOperator(props?: object | null): this is NodePath<t.TSTypeOperator>;
+    isTSTypeParameter(props?: object | null): this is NodePath<t.TSTypeParameter>;
+    isTSTypeParameterDeclaration(props?: object | null): this is NodePath<t.TSTypeParameterDeclaration>;
+    isTSTypeParameterInstantiation(props?: object | null): this is NodePath<t.TSTypeParameterInstantiation>;
+    isTSTypePredicate(props?: object | null): this is NodePath<t.TSTypePredicate>;
+    isTSTypeQuery(props?: object | null): this is NodePath<t.TSTypeQuery>;
+    isTSTypeReference(props?: object | null): this is NodePath<t.TSTypeReference>;
+    isTSUndefinedKeyword(props?: object | null): this is NodePath<t.TSUndefinedKeyword>;
+    isTSUnionType(props?: object | null): this is NodePath<t.TSUnionType>;
+    isTSUnknownKeyword(props?: object | null): this is NodePath<t.TSUnknownKeyword>;
+    isTSVoidKeyword(props?: object | null): this is NodePath<t.TSVoidKeyword>;
+    isTaggedTemplateExpression(props?: object | null): this is NodePath<t.TaggedTemplateExpression>;
+    isTemplateElement(props?: object | null): this is NodePath<t.TemplateElement>;
+    isTemplateLiteral(props?: object | null): this is NodePath<t.TemplateLiteral>;
+    isTerminatorless(props?: object | null): this is NodePath<t.Terminatorless>;
+    isThisExpression(props?: object | null): this is NodePath<t.ThisExpression>;
+    isThisTypeAnnotation(props?: object | null): this is NodePath<t.ThisTypeAnnotation>;
+    isThrowStatement(props?: object | null): this is NodePath<t.ThrowStatement>;
+    isTryStatement(props?: object | null): this is NodePath<t.TryStatement>;
+    isTupleTypeAnnotation(props?: object | null): this is NodePath<t.TupleTypeAnnotation>;
+    isTypeAlias(props?: object | null): this is NodePath<t.TypeAlias>;
+    isTypeAnnotation(props?: object | null): this is NodePath<t.TypeAnnotation>;
+    isTypeCastExpression(props?: object | null): this is NodePath<t.TypeCastExpression>;
+    isTypeParameter(props?: object | null): this is NodePath<t.TypeParameter>;
+    isTypeParameterDeclaration(props?: object | null): this is NodePath<t.TypeParameterDeclaration>;
+    isTypeParameterInstantiation(props?: object | null): this is NodePath<t.TypeParameterInstantiation>;
+    isTypeofTypeAnnotation(props?: object | null): this is NodePath<t.TypeofTypeAnnotation>;
+    isUnaryExpression(props?: object | null): this is NodePath<t.UnaryExpression>;
+    isUnaryLike(props?: object | null): this is NodePath<t.UnaryLike>;
+    isUnionTypeAnnotation(props?: object | null): this is NodePath<t.UnionTypeAnnotation>;
+    isUpdateExpression(props?: object | null): this is NodePath<t.UpdateExpression>;
+    isUserWhitespacable(props?: object | null): this is NodePath<t.UserWhitespacable>;
+    isVariableDeclaration(props?: object | null): this is NodePath<t.VariableDeclaration>;
+    isVariableDeclarator(props?: object | null): this is NodePath<t.VariableDeclarator>;
+    isVariance(props?: object | null): this is NodePath<t.Variance>;
+    isVoidTypeAnnotation(props?: object | null): this is NodePath<t.VoidTypeAnnotation>;
+    isWhile(props?: object | null): this is NodePath<t.While>;
+    isWhileStatement(props?: object | null): this is NodePath<t.WhileStatement>;
+    isWithStatement(props?: object | null): this is NodePath<t.WithStatement>;
+    isYieldExpression(props?: object | null): this is NodePath<t.YieldExpression>;
+
+    isBindingIdentifier(props?: object | null): this is NodePath<t.Identifier>;
+    isBlockScoped(
+        props?: object | null,
+    ): this is NodePath<t.FunctionDeclaration | t.ClassDeclaration | t.VariableDeclaration>;
+    isGenerated(props?: object | null): boolean;
+    isPure(props?: object | null): boolean;
+    isReferenced(props?: object | null): boolean;
+    isReferencedIdentifier(props?: object | null): this is NodePath<t.Identifier | t.JSXIdentifier>;
+    isReferencedMemberExpression(props?: object | null): this is NodePath<t.MemberExpression>;
+    isScope(props?: object | null): this is NodePath<t.Scopable>;
+    isUser(props?: object | null): boolean;
+    isVar(props?: object | null): this is NodePath<t.VariableDeclaration>;
+    //#endregion
+
+    //#region ------------------------- assertXXX -------------------------
+    assertAnyTypeAnnotation(props?: object | null): void;
+    assertArrayExpression(props?: object | null): void;
+    assertArrayPattern(props?: object | null): void;
+    assertArrayTypeAnnotation(props?: object | null): void;
+    assertArrowFunctionExpression(props?: object | null): void;
+    assertAssignmentExpression(props?: object | null): void;
+    assertAssignmentPattern(props?: object | null): void;
+    assertAwaitExpression(props?: object | null): void;
+    assertBigIntLiteral(props?: object | null): void;
+    assertBinary(props?: object | null): void;
+    assertBinaryExpression(props?: object | null): void;
+    assertBindExpression(props?: object | null): void;
+    assertBlock(props?: object | null): void;
+    assertBlockParent(props?: object | null): void;
+    assertBlockStatement(props?: object | null): void;
+    assertBooleanLiteral(props?: object | null): void;
+    assertBooleanLiteralTypeAnnotation(props?: object | null): void;
+    assertBooleanTypeAnnotation(props?: object | null): void;
+    assertBreakStatement(props?: object | null): void;
+    assertCallExpression(props?: object | null): void;
+    assertCatchClause(props?: object | null): void;
+    assertClass(props?: object | null): void;
+    assertClassBody(props?: object | null): void;
+    assertClassDeclaration(props?: object | null): void;
+    assertClassExpression(props?: object | null): void;
+    assertClassImplements(props?: object | null): void;
+    assertClassMethod(props?: object | null): void;
+    assertClassPrivateMethod(props?: object | null): void;
+    assertClassPrivateProperty(props?: object | null): void;
+    assertClassProperty(props?: object | null): void;
+    assertCompletionStatement(props?: object | null): void;
+    assertConditional(props?: object | null): void;
+    assertConditionalExpression(props?: object | null): void;
+    assertContinueStatement(props?: object | null): void;
+    assertDebuggerStatement(props?: object | null): void;
+    assertDeclaration(props?: object | null): void;
+    assertDeclareClass(props?: object | null): void;
+    assertDeclareExportAllDeclaration(props?: object | null): void;
+    assertDeclareExportDeclaration(props?: object | null): void;
+    assertDeclareFunction(props?: object | null): void;
+    assertDeclareInterface(props?: object | null): void;
+    assertDeclareModule(props?: object | null): void;
+    assertDeclareModuleExports(props?: object | null): void;
+    assertDeclareOpaqueType(props?: object | null): void;
+    assertDeclareTypeAlias(props?: object | null): void;
+    assertDeclareVariable(props?: object | null): void;
+    assertDeclaredPredicate(props?: object | null): void;
+    assertDecorator(props?: object | null): void;
+    assertDirective(props?: object | null): void;
+    assertDirectiveLiteral(props?: object | null): void;
+    assertDoExpression(props?: object | null): void;
+    assertDoWhileStatement(props?: object | null): void;
+    assertEmptyStatement(props?: object | null): void;
+    assertEmptyTypeAnnotation(props?: object | null): void;
+    assertExistsTypeAnnotation(props?: object | null): void;
+    assertExportAllDeclaration(props?: object | null): void;
+    assertExportDeclaration(props?: object | null): void;
+    assertExportDefaultDeclaration(props?: object | null): void;
+    assertExportDefaultSpecifier(props?: object | null): void;
+    assertExportNamedDeclaration(props?: object | null): void;
+    assertExportNamespaceSpecifier(props?: object | null): void;
+    assertExportSpecifier(props?: object | null): void;
+    assertExpression(props?: object | null): void;
+    assertExpressionStatement(props?: object | null): void;
+    assertExpressionWrapper(props?: object | null): void;
+    assertFile(props?: object | null): void;
+    assertFlow(props?: object | null): void;
+    assertFlowBaseAnnotation(props?: object | null): void;
+    assertFlowDeclaration(props?: object | null): void;
+    assertFlowPredicate(props?: object | null): void;
+    assertFlowType(props?: object | null): void;
+    assertFor(props?: object | null): void;
+    assertForInStatement(props?: object | null): void;
+    assertForOfStatement(props?: object | null): void;
+    assertForStatement(props?: object | null): void;
+    assertForXStatement(props?: object | null): void;
+    assertFunction(props?: object | null): void;
+    assertFunctionDeclaration(props?: object | null): void;
+    assertFunctionExpression(props?: object | null): void;
+    assertFunctionParent(props?: object | null): void;
+    assertFunctionTypeAnnotation(props?: object | null): void;
+    assertFunctionTypeParam(props?: object | null): void;
+    assertGenericTypeAnnotation(props?: object | null): void;
+    assertIdentifier(props?: object | null): void;
+    assertIfStatement(props?: object | null): void;
+    assertImmutable(props?: object | null): void;
+    assertImport(props?: object | null): void;
+    assertImportDeclaration(props?: object | null): void;
+    assertImportDefaultSpecifier(props?: object | null): void;
+    assertImportNamespaceSpecifier(props?: object | null): void;
+    assertImportSpecifier(props?: object | null): void;
+    assertInferredPredicate(props?: object | null): void;
+    assertInterfaceDeclaration(props?: object | null): void;
+    assertInterfaceExtends(props?: object | null): void;
+    assertInterfaceTypeAnnotation(props?: object | null): void;
+    assertInterpreterDirective(props?: object | null): void;
+    assertIntersectionTypeAnnotation(props?: object | null): void;
+    assertJSX(props?: object | null): void;
+    assertJSXAttribute(props?: object | null): void;
+    assertJSXClosingElement(props?: object | null): void;
+    assertJSXClosingFragment(props?: object | null): void;
+    assertJSXElement(props?: object | null): void;
+    assertJSXEmptyExpression(props?: object | null): void;
+    assertJSXExpressionContainer(props?: object | null): void;
+    assertJSXFragment(props?: object | null): void;
+    assertJSXIdentifier(props?: object | null): void;
+    assertJSXMemberExpression(props?: object | null): void;
+    assertJSXNamespacedName(props?: object | null): void;
+    assertJSXOpeningElement(props?: object | null): void;
+    assertJSXOpeningFragment(props?: object | null): void;
+    assertJSXSpreadAttribute(props?: object | null): void;
+    assertJSXSpreadChild(props?: object | null): void;
+    assertJSXText(props?: object | null): void;
+    assertLVal(props?: object | null): void;
+    assertLabeledStatement(props?: object | null): void;
+    assertLiteral(props?: object | null): void;
+    assertLogicalExpression(props?: object | null): void;
+    assertLoop(props?: object | null): void;
+    assertMemberExpression(props?: object | null): void;
+    assertMetaProperty(props?: object | null): void;
+    assertMethod(props?: object | null): void;
+    assertMixedTypeAnnotation(props?: object | null): void;
+    assertModuleDeclaration(props?: object | null): void;
+    assertModuleSpecifier(props?: object | null): void;
+    assertNewExpression(props?: object | null): void;
+    assertNoop(props?: object | null): void;
+    assertNullLiteral(props?: object | null): void;
+    assertNullLiteralTypeAnnotation(props?: object | null): void;
+    assertNullableTypeAnnotation(props?: object | null): void;
+
+    /** @deprecated Use `assertNumericLiteral` */
+    assertNumberLiteral(props?: object | null): void;
+    assertNumberLiteralTypeAnnotation(props?: object | null): void;
+    assertNumberTypeAnnotation(props?: object | null): void;
+    assertNumericLiteral(props?: object | null): void;
+    assertObjectExpression(props?: object | null): void;
+    assertObjectMember(props?: object | null): void;
+    assertObjectMethod(props?: object | null): void;
+    assertObjectPattern(props?: object | null): void;
+    assertObjectProperty(props?: object | null): void;
+    assertObjectTypeAnnotation(props?: object | null): void;
+    assertObjectTypeCallProperty(props?: object | null): void;
+    assertObjectTypeIndexer(props?: object | null): void;
+    assertObjectTypeInternalSlot(props?: object | null): void;
+    assertObjectTypeProperty(props?: object | null): void;
+    assertObjectTypeSpreadProperty(props?: object | null): void;
+    assertOpaqueType(props?: object | null): void;
+    assertOptionalCallExpression(props?: object | null): void;
+    assertOptionalMemberExpression(props?: object | null): void;
+    assertParenthesizedExpression(props?: object | null): void;
+    assertPattern(props?: object | null): void;
+    assertPatternLike(props?: object | null): void;
+    assertPipelineBareFunction(props?: object | null): void;
+    assertPipelinePrimaryTopicReference(props?: object | null): void;
+    assertPipelineTopicExpression(props?: object | null): void;
+    assertPrivate(props?: object | null): void;
+    assertPrivateName(props?: object | null): void;
+    assertProgram(props?: object | null): void;
+    assertProperty(props?: object | null): void;
+    assertPureish(props?: object | null): void;
+    assertQualifiedTypeIdentifier(props?: object | null): void;
+    assertRegExpLiteral(props?: object | null): void;
+
+    /** @deprecated Use `assertRegExpLiteral` */
+    assertRegexLiteral(props?: object | null): void;
+    assertRestElement(props?: object | null): void;
+
+    /** @deprecated Use `assertRestElement` */
+    assertRestProperty(props?: object | null): void;
+    assertReturnStatement(props?: object | null): void;
+    assertScopable(props?: object | null): void;
+    assertSequenceExpression(props?: object | null): void;
+    assertSpreadElement(props?: object | null): void;
+
+    /** @deprecated Use `assertSpreadElement` */
+    assertSpreadProperty(props?: object | null): void;
+    assertStatement(props?: object | null): void;
+    assertStringLiteral(props?: object | null): void;
+    assertStringLiteralTypeAnnotation(props?: object | null): void;
+    assertStringTypeAnnotation(props?: object | null): void;
+    assertSuper(props?: object | null): void;
+    assertSwitchCase(props?: object | null): void;
+    assertSwitchStatement(props?: object | null): void;
+    assertTSAnyKeyword(props?: object | null): void;
+    assertTSArrayType(props?: object | null): void;
+    assertTSAsExpression(props?: object | null): void;
+    assertTSBooleanKeyword(props?: object | null): void;
+    assertTSCallSignatureDeclaration(props?: object | null): void;
+    assertTSConditionalType(props?: object | null): void;
+    assertTSConstructSignatureDeclaration(props?: object | null): void;
+    assertTSConstructorType(props?: object | null): void;
+    assertTSDeclareFunction(props?: object | null): void;
+    assertTSDeclareMethod(props?: object | null): void;
+    assertTSEntityName(props?: object | null): void;
+    assertTSEnumDeclaration(props?: object | null): void;
+    assertTSEnumMember(props?: object | null): void;
+    assertTSExportAssignment(props?: object | null): void;
+    assertTSExpressionWithTypeArguments(props?: object | null): void;
+    assertTSExternalModuleReference(props?: object | null): void;
+    assertTSFunctionType(props?: object | null): void;
+    assertTSImportEqualsDeclaration(props?: object | null): void;
+    assertTSImportType(props?: object | null): void;
+    assertTSIndexSignature(props?: object | null): void;
+    assertTSIndexedAccessType(props?: object | null): void;
+    assertTSInferType(props?: object | null): void;
+    assertTSInterfaceBody(props?: object | null): void;
+    assertTSInterfaceDeclaration(props?: object | null): void;
+    assertTSIntersectionType(props?: object | null): void;
+    assertTSLiteralType(props?: object | null): void;
+    assertTSMappedType(props?: object | null): void;
+    assertTSMethodSignature(props?: object | null): void;
+    assertTSModuleBlock(props?: object | null): void;
+    assertTSModuleDeclaration(props?: object | null): void;
+    assertTSNamespaceExportDeclaration(props?: object | null): void;
+    assertTSNeverKeyword(props?: object | null): void;
+    assertTSNonNullExpression(props?: object | null): void;
+    assertTSNullKeyword(props?: object | null): void;
+    assertTSNumberKeyword(props?: object | null): void;
+    assertTSObjectKeyword(props?: object | null): void;
+    assertTSOptionalType(props?: object | null): void;
+    assertTSParameterProperty(props?: object | null): void;
+    assertTSParenthesizedType(props?: object | null): void;
+    assertTSPropertySignature(props?: object | null): void;
+    assertTSQualifiedName(props?: object | null): void;
+    assertTSRestType(props?: object | null): void;
+    assertTSStringKeyword(props?: object | null): void;
+    assertTSSymbolKeyword(props?: object | null): void;
+    assertTSThisType(props?: object | null): void;
+    assertTSTupleType(props?: object | null): void;
+    assertTSType(props?: object | null): void;
+    assertTSTypeAliasDeclaration(props?: object | null): void;
+    assertTSTypeAnnotation(props?: object | null): void;
+    assertTSTypeAssertion(props?: object | null): void;
+    assertTSTypeElement(props?: object | null): void;
+    assertTSTypeLiteral(props?: object | null): void;
+    assertTSTypeOperator(props?: object | null): void;
+    assertTSTypeParameter(props?: object | null): void;
+    assertTSTypeParameterDeclaration(props?: object | null): void;
+    assertTSTypeParameterInstantiation(props?: object | null): void;
+    assertTSTypePredicate(props?: object | null): void;
+    assertTSTypeQuery(props?: object | null): void;
+    assertTSTypeReference(props?: object | null): void;
+    assertTSUndefinedKeyword(props?: object | null): void;
+    assertTSUnionType(props?: object | null): void;
+    assertTSUnknownKeyword(props?: object | null): void;
+    assertTSVoidKeyword(props?: object | null): void;
+    assertTaggedTemplateExpression(props?: object | null): void;
+    assertTemplateElement(props?: object | null): void;
+    assertTemplateLiteral(props?: object | null): void;
+    assertTerminatorless(props?: object | null): void;
+    assertThisExpression(props?: object | null): void;
+    assertThisTypeAnnotation(props?: object | null): void;
+    assertThrowStatement(props?: object | null): void;
+    assertTryStatement(props?: object | null): void;
+    assertTupleTypeAnnotation(props?: object | null): void;
+    assertTypeAlias(props?: object | null): void;
+    assertTypeAnnotation(props?: object | null): void;
+    assertTypeCastExpression(props?: object | null): void;
+    assertTypeParameter(props?: object | null): void;
+    assertTypeParameterDeclaration(props?: object | null): void;
+    assertTypeParameterInstantiation(props?: object | null): void;
+    assertTypeofTypeAnnotation(props?: object | null): void;
+    assertUnaryExpression(props?: object | null): void;
+    assertUnaryLike(props?: object | null): void;
+    assertUnionTypeAnnotation(props?: object | null): void;
+    assertUpdateExpression(props?: object | null): void;
+    assertUserWhitespacable(props?: object | null): void;
+    assertVariableDeclaration(props?: object | null): void;
+    assertVariableDeclarator(props?: object | null): void;
+    assertVariance(props?: object | null): void;
+    assertVoidTypeAnnotation(props?: object | null): void;
+    assertWhile(props?: object | null): void;
+    assertWhileStatement(props?: object | null): void;
+    assertWithStatement(props?: object | null): void;
+    assertYieldExpression(props?: object | null): void;
+
+    assertBindingIdentifier(props?: object | null): void;
+    assertBlockScoped(props?: object | null): void;
+    assertGenerated(props?: object | null): void;
+    assertPure(props?: object | null): void;
+    assertReferenced(props?: object | null): void;
+    assertReferencedIdentifier(props?: object | null): void;
+    assertReferencedMemberExpression(props?: object | null): void;
+    assertScope(props?: object | null): void;
+    assertUser(props?: object | null): void;
+    assertVar(props?: object | null): void;
+    //#endregion
 }
 
-export class Hub {
-    constructor(file: any, options: any);
-    file: any;
-    options: any;
+export interface HubInterface {
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError<E extends Error>(node: Node, msg: string, Error: new (message?: string) => E): E;
+}
+
+export class Hub implements HubInterface {
+    constructor();
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError<E extends Error>(node: Node, msg: string, Constructor: new (message?: string) => E): E;
 }
 
 export interface TraversalContext {

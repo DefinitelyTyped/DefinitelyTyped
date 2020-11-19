@@ -1,4 +1,5 @@
 import {
+    FirehoseRecordMetadata,
     FirehoseRecordTransformationStatus,
     FirehoseTransformationHandler, FirehoseTransformationResult,
     KinesisStreamHandler,
@@ -32,7 +33,14 @@ const handler: KinesisStreamHandler = async (event, context, callback) => {
 };
 
 const firehoseHandler: FirehoseTransformationHandler = async (event, context, callback) => {
+    let firehoseRecordMetadata: FirehoseRecordMetadata | undefined;
+
     str = event.records[0].recordId;
+    firehoseRecordMetadata = event.records[0].kinesisRecordMetadata;
+
+    if (firehoseRecordMetadata) {
+        numOrUndefined = firehoseRecordMetadata.approximateArrivalTimestamp;
+    }
 
     const result: FirehoseTransformationResult = {
         records: [

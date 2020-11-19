@@ -1,4 +1,4 @@
-// Type definitions for flatbush 3.1
+// Type definitions for flatbush 3.3
 // Project: https://github.com/mourner/flatbush
 // Definitions by: Matt Fedderly <https://github.com/mfedderly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,9 +24,9 @@ declare class FlatbushClass {
     constructor(numItems: number, nodeSize?: number, arrayType?: TypedArrayConstructor);
 
     /**
-     * Adds a given rectangle to the index.
+     * Adds a given rectangle to the index. Returns a zero-based, incremental number that represents the newly added rectangle.
      */
-    add(minX: number, minY: number, maxX: number, maxY: number): void;
+    add(minX: number, minY: number, maxX: number, maxY: number): number;
 
     /**
      * Performs indexing of the added rectangles. Their number must match the one provided when creating a Flatbush object.
@@ -53,7 +53,7 @@ declare class FlatbushClass {
      * Recreates a Flatbush index from raw ArrayBuffer data (that's exposed as index.data on a previously indexed Flatbush instance).
      * Very useful for transferring indices between threads or storing them in a file.
      */
-    static from(data: ArrayBuffer): Flatbush;
+    static from(data: ArrayBuffer): FlatbushClass;
 
     /**
      * array buffer that holds the index
@@ -95,6 +95,8 @@ declare class FlatbushClass {
     readonly IndexArrayType: TypedArrayConstructor;
 }
 
-export type Flatbush = FlatbushClass;
-// tslint:disable-next-line:npm-naming https://github.com/mourner/flatbush/blob/master/index.js#L11
-export default FlatbushClass;
+declare namespace FlatbushClass {
+    type Flatbush = FlatbushClass;
+}
+
+export = FlatbushClass;

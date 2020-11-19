@@ -1,17 +1,10 @@
 import * as React from "react";
 
-type SVGAttr = React.SVGAttributes<SVGSVGElement>;
-
-interface SVGInheritedProps {
-    className?: SVGAttr["className"],
-    fill?: SVGAttr["fill"],
-    fillRule?: SVGAttr["fillRule"],
-    height?: SVGAttr["height"],
-    role?: SVGAttr["role"],
-    style?: SVGAttr["style"],
-    viewBox?: SVGAttr["viewBox"],
-    width?: SVGAttr["width"],
-}
+export function findIcon<T extends { name?: string }>(name: string, iconsObj?: readonly T[]): false | T;
+export function setIconsList<T extends { name?: string }>(list: readonly T[]): void;
+export function getSvgData<R = unknown>(iconName: string): R;
+export function svgShapes<D = unknown>(svgData: D): Array<React.ReactNode | React.ReactNodeArray>;
+export function isPrefixed(name: string): boolean;
 
 export interface IconData {
     width?: string;
@@ -20,15 +13,15 @@ export interface IconData {
     svgData: any;
 }
 
-export interface IconProps extends SVGInheritedProps {
+export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
     description: string,
     icon?: IconData,
     iconRef?: React.Ref<HTMLElement>,
-    iconTitle?: string
+    iconTitle?: string,
 }
 
 declare const Icon: React.FC<IconProps>;
 
-// TODO: icons
+export declare const icons: any;
 
 export default Icon;

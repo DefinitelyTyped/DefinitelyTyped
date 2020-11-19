@@ -3,6 +3,7 @@
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
 //                 lierdakil <https://github.com/lierdakil>
+//                 aminya <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -5704,7 +5705,7 @@ export interface CursorPositionChangedEvent {
     newBufferPosition: Point;
     newScreenPosition: Point;
     textChanged: boolean;
-    cursor:	Cursor;
+    cursor: Cursor;
 }
 
 export interface DecorationPropsChangedEvent {

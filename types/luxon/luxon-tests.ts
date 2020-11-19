@@ -1,19 +1,20 @@
 import {
     DateTime,
     Duration,
-    Interval,
-    Info,
-    Settings,
-    InvalidZone,
-    LocalZone,
     FixedOffsetZone,
     IANAZone,
+    Info,
+    Interval,
+    Settings,
     Zone,
-    ZoneOffsetOptions,
     ZoneOffsetFormat,
+    ZoneOffsetOptions,
 } from 'luxon';
 
 /* DateTime */
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
 const now = DateTime.local();
@@ -46,7 +47,7 @@ const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
 
-FixedOffsetZone.utcInstance;
+FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
@@ -71,9 +72,11 @@ getters.isInLeapYear;
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true }); // $ExpectType string
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
+dt.toISODate({ format: 'basic'}); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
+dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
@@ -197,6 +200,7 @@ Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
+Info.features().relative;
 
 /* Settings */
 Settings.defaultLocale;
@@ -288,6 +292,8 @@ DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
 DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
+DateTime.invalid('Timestamp out of range');
+DateTime.invalid('mismatched weekday', "you can't specify both a weekday and a date");
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });

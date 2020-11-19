@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLTableSectionElement> { }
-
-export interface TableHeadProps extends InheritedProps { }
+export interface TableHeadProps extends ReactAttr<HTMLTableSectionElement> { }
 
 declare const TableHead: React.FC<TableHeadProps>;
 

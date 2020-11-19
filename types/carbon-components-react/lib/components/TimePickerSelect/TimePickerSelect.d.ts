@@ -1,13 +1,8 @@
 import * as React from "react";
-import { EmbeddedIconProps, RequiresIdProps } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "id">,
-    EmbeddedIconProps,
-    RequiresIdProps
-{ }
-
-export interface TimePickerSelectProps extends InheritedProps {
+export interface TimePickerSelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "id"> {
+    iconDescription?: string,
+    id: string,
     inline?: boolean,
     labelText: NonNullable<React.ReactNode>,
 }

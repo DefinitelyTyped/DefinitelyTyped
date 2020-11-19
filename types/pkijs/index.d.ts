@@ -2,6 +2,7 @@
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
@@ -29,15 +30,15 @@ declare module "pkijs/src/AttributeTypeAndValue" {
     export default class AttributeTypeAndValue {
 
         /**
-         * 
-         * 
+         *
+         *
          * @type {ObjectIdentifier}
          * @memberOf AttributeTypeAndValue
          */
         type: ObjectIdentifier;
         /**
-         * 
-         * 
+         *
+         *
          * @type {*}
          * @memberOf AttributeTypeAndValue
          */
@@ -45,10 +46,10 @@ declare module "pkijs/src/AttributeTypeAndValue" {
 
         /**
          * Compare two AttributeTypeAndValue values, or AttributeTypeAndValue with ArrayBuffer value
-         * 
+         *
          * @param {(AttributeTypeAndValue|ArrayBuffer)} compareTo The value compare to current
          * @returns {boolean}
-         * 
+         *
          * @memberOf AttributeTypeAndValue
          */
         isEqual(compareTo: AttributeTypeAndValue|ArrayBuffer): boolean;
@@ -92,7 +93,7 @@ declare module "pkijs/src/GeneralName" {
 
         /**
          * value type - from a tagged value (0 for "otherName", 1 for "rfc822Name" etc.)
-         * 
+         *
          * @type {number}
          * @memberOf GeneralName
          */
@@ -100,7 +101,7 @@ declare module "pkijs/src/GeneralName" {
 
         /**
          * asn1js object having GENERAL_NAME value (type depends on "type" value)
-         * 
+         *
          * @type {*}
          * @memberOf GeneralName
          */
@@ -188,7 +189,7 @@ declare module "pkijs/src/AccessDescription" {
     import GeneralName from "pkijs/src/AccessDescription";
     /**
      * Class from RFC5280
-     * 
+     *
      * @export
      * @class AccessDescription
      */
@@ -252,7 +253,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         isForCertificate: boolean;
         /**
          * 0 = good, 1 = revoked, 2 = unknown
-         * 
+         *
          * @type {number}
          * @memberOf GetCertificateStatusResult
          */
@@ -279,7 +280,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
         /**
          * Make signature for current OCSP Basic Response
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
          * @returns {PromiseLike<ArrayBuffer>}
@@ -287,7 +288,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
         /**
          * Verify existing OCSP Basic Response
-         * 
+         *
          * @param {{ trustedCerts?: Certificate[] }} parameters Additional parameters
          * @returns {PromiseLike<boolean>}
          */
@@ -374,7 +375,7 @@ declare module "pkijs/src/Certificate" {
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -394,7 +395,7 @@ declare module "pkijs/src/Certificate" {
         getKeyHash(): PromiseLike<ArrayBuffer>;
         /**
          * Make a signature for current value from TBS section
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {string} [hashAlgorithm="SHA-1"] Hashing algorithm
          */
@@ -463,7 +464,7 @@ declare module "pkijs/src/CertificateRevocationList" {
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import RevokedCertificate from "pkijs/src/RevokedCertificate";
     import Time from "pkijs/src/Time";
-    import Extension from "pkijs/src/Extension";
+    import Extensions from "pkijs/src/Extensions";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
     import { BitString, Sequence } from "asn1js";
@@ -476,13 +477,13 @@ declare module "pkijs/src/CertificateRevocationList" {
         thisUpdate: Time;
         nextUpdate?: Time;
         revokedCertificates?: RevokedCertificate[];
-        crlExtension?: Extension[];
+        crlExtensions?: Extensions;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -550,7 +551,7 @@ declare module "pkijs/src/CertificationRequest" {
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -558,25 +559,25 @@ declare module "pkijs/src/CertificationRequest" {
 
         /**
          * Aux function making ASN1js Sequence from current TBS
-         * 
+         *
          * @returns {Sequence}
          */
         encodeTBS(): Sequence;
         /**
          * Makes signature for currect certification request
-         * 
+         *
          * @param {CryptoKey} privateKey WebCrypto private key
          * @param {string} [hashAlgorithm] String representing current hashing algorithm
          * @returns {PromiseLike<ArrayBuffer>}
-         * 
+         *
          * @memberOf CertificationRequest
          */
         sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
         /**
          * Verify existing certification request signature
-         * 
+         *
          * @returns {PromiseLike<boolean>}
-         * 
+         *
          * @memberOf CertificationRequest
          */
         verify(): PromiseLike<boolean>;
@@ -632,12 +633,12 @@ declare module "pkijs/src/CryptoEngine" {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
-        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
-        exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
+        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): Promise<ArrayBuffer>;
+        exportKey(format: string, key: CryptoKey): Promise<JsonWebKey | ArrayBuffer>;
 
         /**
          * Convert WebCrypto keys between different export formats
@@ -651,21 +652,21 @@ declare module "pkijs/src/CryptoEngine" {
          */
         convert(inputFormat: string, outputFormat: string, keyData: BufferSource | JsonWebKey, algorithm: Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<BufferSource | JsonWebKey>;
 
-        generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>;
-        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>;
-        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair | CryptoKey>;
+        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
+        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-        unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
-        wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>;
-        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
-        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>;
-        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+        sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+        wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): Promise<ArrayBuffer>;
+        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
+        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
     }
 }
 
@@ -1204,7 +1205,7 @@ declare module "pkijs/src/KeyTransRecipientInfo" {
         encryptedKey: OctetString;
         /**
          * For some reasons we need to store recipient's certificate here
-         * 
+         *
          * @type {Certificate}
          * @memberOf KeyTransRecipientInfo
          */
@@ -1302,7 +1303,7 @@ declare module "pkijs/src/OCSPRequest" {
         optionalSignature?: Signature;
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -1640,7 +1641,7 @@ declare module "pkijs/src/PolicyInformation" {
     export default class PolicyInformation {
         policyIdentifier: string;
         /**
-         * Value of the TIME class 
+         * Value of the TIME class
          */
         policyQualifiers: PolicyQualifierInfo[];
 
@@ -1979,7 +1980,7 @@ declare module "pkijs/src/ResponseData" {
         responseExtensions: Extension[];
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2120,28 +2121,28 @@ declare module "pkijs/src/RSASSAPSSParams" {
     export default class RSASSAPSSParams {
         /**
          * Algorithms of hashing (DEFAULT sha1)
-         * 
+         *
          * @type {AlgorithmIdentifier}
          * @memberOf RSASSAPSSParams
          */
         hashAlgorithm: AlgorithmIdentifier;
         /**
          * Algorithm of "mask generaion function (MGF)" (DEFAULT mgf1SHA1)
-         * 
+         *
          * @type {AlgorithmIdentifier}
          * @memberOf RSASSAPSSParams
          */
         maskGenAlgorithm: AlgorithmIdentifier;
         /**
          * Salt length (DEFAULT 20)
-         * 
+         *
          * @type {number}
          * @memberOf RSASSAPSSParams
          */
         saltLength: number;
         /**
          * (DEFAULT 1)
-         * 
+         *
          * @type {number}
          * @memberOf RSASSAPSSParams
          */
@@ -2254,7 +2255,7 @@ declare module "pkijs/src/SignedData" {
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2263,13 +2264,13 @@ declare module "pkijs/src/SignedData" {
         verify(options: VerifyParams): PromiseLike<VerifyResult>;
         /**
          * Signing current SignedData
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {number} signerIndex Index number (starting from 0) of signer index to make signature for
          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
          * @param {BufferSource} [data] Detached data
          * @returns {ArrayBuffer}
-         * 
+         *
          * @memberOf SignedData
          */
         sign(privateKey: CryptoKey, signerIndex: number, hashAlgorithm?: string, data?: BufferSource): ArrayBuffer;
@@ -2373,7 +2374,7 @@ declare module "pkijs/src/TBSRequest" {
         requestExtensions?: Extension;
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2538,70 +2539,70 @@ declare module "pkijs/src/common" {
     function getEngine(): Engine;
     /**
      * Get crypto subtle from current "crypto engine" or "undefined"
-     * 
+     *
      * @returns {(SubtleCrypto | undefined)}
      */
     function getCrypto(): SubtleCrypto | undefined;
     /**
      * Initialize input Uint8Array by random values (with help from current "crypto engine")
-     * 
+     *
      * @param {ArrayBufferView} view
      * @returns {ArrayBufferView}
      */
     function getRandomValues(view: ArrayBufferView): ArrayBufferView;
     /**
      * Get OID for each specific WebCrypto algorithm
-     * 
+     *
      * @param {Algorithm} algorithm
      * @returns {string}
      */
     function getOIDByAlgorithm(algorithm: Algorithm): string;
     /**
      * Get default algorithm parameters for each kind of operation
-     * 
+     *
      * @param {string} algorithmName Algorithm name to get common parameters for
      * @param {string} operation Kind of operation: "sign", "encrypt", "generatekey", "importkey", "exportkey", "verify"
-     * @returns {{ algorithm: Algorithm; usages: string[]; }}
+     * @returns {{ algorithm: Algorithm; usages: KeyUsage[]; }}
      */
-    function getAlgorithmParameters(algorithmName: string, operation: string): { algorithm: Algorithm; usages: string[]; };
+    function getAlgorithmParameters(algorithmName: string, operation: string): { algorithm: Algorithm; usages: KeyUsage[]; };
     /**
      * Create CMS ECDSA signature from WebCrypto ECDSA signature
-     * 
+     *
      * @param {ArrayBuffer} signatureBuffer WebCrypto result of "sign" function
      * @returns {ArrayBuffer}
      */
     function createCMSECDSASignature(signatureBuffer: ArrayBuffer): ArrayBuffer;
     /**
      * String preparation function. In a future here will be realization of algorithm from RFC4518
-     * 
+     *
      * @param {string} inputString JavaScript string. As soon as for each ASN.1 string type we have a specific transformation function here we will work with pure JavaScript string
      * @returns {string} Formated string
      */
     function stringPrep(inputString: string): string;
     /**
      * Create a single ArrayBuffer from CMS ECDSA signature
-     * 
+     *
      * @param {Sequence} cmsSignature ASN.1 SEQUENCE contains CMS ECDSA signature
      * @returns {ArrayBuffer}
      */
     function createECDSASignatureFromCMS(cmsSignature: Sequence): ArrayBuffer;
     /**
      * Get WebCrypto algorithm by wel-known OID
-     * 
+     *
      * @param {string} oid Wel-known OID to search for
      * @returns {Algorithm}
      */
     function getAlgorithmByOID(oid: string): Algorithm;
     /**
      * Getting hash algorithm by signature algorithm
-     * 
+     *
      * @param {AlgorithmIdentifier} signatureAlgorithm Signature algorithm
      * @returns {string}
      */
     function getHashAlgorithm(signatureAlgorithm: AlgorithmIdentifier): string;
     /**
      * ANS X9.63 Key Derivation Function having a "Counter" as a parameter
-     * 
+     *
      * @param {string} hashFunction Used hash function
      * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
      * @param {number} Counter
@@ -2610,7 +2611,7 @@ declare module "pkijs/src/common" {
     function kdfWithCounter(hashFunction: string, Zbuffer: ArrayBuffer, Counter: number, SharedInfo: ArrayBuffer): PromiseLike<{ counter: number; result: ArrayBuffer; }>
     /**
      * ANS X9.63 Key Derivation Function
-     * 
+     *
      * @param {string} hashFunction Used hash function
      * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
      * @param {number} keydatalen Length (!!! in BITS !!!) of used kew derivation function

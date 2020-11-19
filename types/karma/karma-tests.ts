@@ -91,7 +91,7 @@ module.exports = (config: karma.Config) => {
         browserNoActivityTimeout: 10_000,
         browserSocketTimeout: 20_000,
 
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome', 'Firefox', 'FirefoxHeadless'],
         customHeaders: [
             {
                 match: '.*foo.html',
@@ -196,3 +196,22 @@ karma.config.parseConfig('karma.conf.js', {
     singleRun: true,
     restartOnFileChange: true,
 });
+
+// constants
+karma.VERSION; // $ExpectType string
+karma.constants.VERSION; // $ExpectType string
+karma.constants.DEFAULT_PORT; // $ExpectType string | number
+karma.constants.DEFAULT_HOSTNAME; // $ExpectType string
+karma.constants.DEFAULT_LISTEN_ADDR; // $ExpectType string
+karma.constants.LOG_DISABLE; // $ExpectType "OFF"
+karma.constants.LOG_ERROR; // $ExpectType "ERROR"
+karma.constants.LOG_WARN; // $ExpectType "WARN"
+karma.constants.LOG_INFO; // $ExpectType "INFO"
+karma.constants.LOG_DEBUG; // $ExpectType "DEBUG"
+karma.constants.LOG_LOG; // $ExpectType "LOG"
+karma.constants.LOG_PRIORITIES; // $ExpectType ["OFF", "ERROR", "WARN", "LOG", "INFO", "DEBUG"]
+karma.constants.COLOR_PATTERN; // $ExpectType string
+karma.constants.NO_COLOR_PATTERN; // $ExpectType string
+karma.constants.CONSOLE_APPENDER; // $ExpectType { type: string; layout: { type: string; pattern: string; }; }
+karma.constants.EXIT_CODE; // $ExpectType string
+karma.constants.LOG_PRIORITIES[5] === 'DEBUG';

@@ -7,6 +7,22 @@ const glob = path.join(__dirname, '..', '*.md');
 
 const options: xo.Options = {};
 
+options.space = 2;
+options.space = true;
+options.space = false;
+
+options.webpack = {
+    config: {
+        resolve: {
+            alias: {
+                file2alias: path.resolve(__dirname, process.cwd(), './file2.js'),
+            },
+        },
+    },
+};
+options.webpack = true;
+options.webpack = false;
+
 if (options.semicolon === false && !options.prettier) {
     if (options.rules) {
         options.rules.semi = ['error', 'never'];

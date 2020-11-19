@@ -14,7 +14,7 @@ interface PluginCleanupAttrs {
 }
 
 interface PluginInlineStyles {
-    cleanupAttrs: boolean | object;
+    inlineStyles: boolean | object;
 }
 
 interface PluginRemoveDoctype {
@@ -119,7 +119,7 @@ interface PluginRemoveUnusedNS {
 }
 
 interface PluginPrefixIds {
-    /** prefix IDs and classes with the SVG filename or an arbitrary string	 */
+    /** prefix IDs and classes with the SVG filename or an arbitrary string     */
     prefixIds: boolean | object;
 }
 

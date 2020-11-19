@@ -16,6 +16,9 @@
         "paths": {
             "hapi": [
                 "hapi/v17"
+            ],
+            "hapi/*": [
+                "hapi/v17/*"
             ]
         },
         "noEmit": true,

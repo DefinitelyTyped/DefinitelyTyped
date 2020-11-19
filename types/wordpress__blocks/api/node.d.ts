@@ -1,4 +1,4 @@
-import { ReactChild, ReactElement } from '@wordpress/element';
+import { ReactChild, ReactElement } from 'react';
 
 import children from './children';
 

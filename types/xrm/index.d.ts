@@ -164,7 +164,12 @@ declare namespace Xrm {
      */
     interface OrganizationSettings {
         /**
+         * Returns a lookup object containing the ID, name, and entity type of the base currency for the current organization.
+         */
+        baseCurrency: LookupValue;
+        /**
          * Returns the ID of the base currency for the current organization.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.OrganizationSettings.baseCurrency globalContext.organizationSettings.baseCurrency} instead to display name along with the ID.
          */
         baseCurrencyId: string;
 
@@ -215,29 +220,29 @@ declare namespace Xrm {
      * Interface for UserSettings.dateFormattingInfo response
      */
     interface DateFormattingInfo {
-        amDesignator: string;
-        abbreviatedDayNames: string[];
-        abbreviatedMonthGenitiveNames: string[];
-        abbreviatedMonthNames: string[];
-        calendarWeekRule: number;
-        calendar: Calendar;
-        dateSeparator: string;
-        dayNames: string[];
-        firstDayOfWeek: number;
-        fullDateTimePattern: string;
-        longDatePattern: string;
-        longTimePattern: string;
-        monthDayPattern: string;
-        monthGenitiveNames: string[];
-        monthNames: string[];
-        pmDesignator: string;
-        shortDatePattern: string;
-        shortTimePattern: string;
-        shortestDayNames: string[];
-        sortableDateTimePattern: string;
-        timeSeparator: string;
-        universalSortableDateTimePattern: string;
-        yearMonthPattern: string;
+        AmDesignator: string;
+        AbbreviatedDayNames: string[];
+        AbbreviatedMonthGenitiveNames: string[];
+        AbbreviatedMonthNames: string[];
+        CalendarWeekRule: number;
+        Calendar: Calendar;
+        DateSeparator: string;
+        DayNames: string[];
+        FirstDayOfWeek: number;
+        FullDateTimePattern: string;
+        LongDatePattern: string;
+        LongTimePattern: string;
+        MonthDayPattern: string;
+        MonthGenitiveNames: string[];
+        MonthNames: string[];
+        PmDesignator: string;
+        ShortDatePattern: string;
+        ShortTimePattern: string;
+        ShortestDayNames: string[];
+        SortableDateTimePattern: string;
+        TimeSeparator: string;
+        UniversalSortableDateTimePattern: string;
+        YearMonthPattern: string;
     }
 
     /**
@@ -247,7 +252,7 @@ declare namespace Xrm {
         /**
          * Returns the date formatting information for the current user.
          */
-        dateFormattingInfo(): DateFormattingInfo;
+        dateFormattingInfo: DateFormattingInfo;
         /**
          * Returns the ID of the default dashboard for the current user.
          */
@@ -269,15 +274,26 @@ declare namespace Xrm {
          */
         languageId: number;
         /**
+         * Returns a collection of lookup objects containing the GUID and display name of each of the security role or teams that the user is associated with.
+         */
+        roles: Collection.ItemCollection<LookupValue>;
+        /**
          * Returns an array of strings that represent the GUID values of each of the security role privilege that the user is associated with or any teams that the user is associated with.
          */
         securityRolePrivileges: string[];
         /**
          * Returns an array of strings that represent the GUID values of each of the security role that the user is associated with or any teams that the user is associated with.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead to display names of security roles or teams along with the ID.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         securityRoles: string[];
         /**
+         * Returns a lookup object containing the ID, display name, and entity type of the transaction currency for the current user.
+         */
+        transactionCurrency: LookupValue;
+        /**
          * Returns the transaction currency ID for the current user.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.UserSettings.transactionCurrency globalContext.userSettings.transactionCurrency} instead to display name along with the ID.
          */
         transactionCurrencyId: string;
         /**
@@ -439,7 +455,7 @@ declare namespace Xrm {
 
         /**
          * Gets all user security roles.
-         * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.securityRoles globalContext.userSettings.securityRoles} instead.
+         * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns An array of user role identifiers, in Guid format.
          * @example Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
@@ -2066,7 +2082,7 @@ declare namespace Xrm {
          * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
-            "lookup" | "memo" | "money" | "multioptionset" | "optionset" | "string";
+            "lookup" | "memo" | "money" | "multiselectoptionset" | "optionset" | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.
@@ -3025,6 +3041,12 @@ declare namespace Xrm {
             refresh(): void;
 
             /**
+             * Refreshes the sub grid ribbon.
+             * @see {@link https://docs.microsoft.com/it-it/powerapps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
+             */
+            refreshRibbon(): void;
+
+            /**
              * Use this method to remove event handlers from the GridControl's OnLoad event.
              * @param handler The handler.
              */
@@ -3138,6 +3160,15 @@ declare namespace Xrm {
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          */
         interface FramedControl extends Control {
+            /**
+             * Returns the content window that represents an IFRAME or web resource.
+             * @returns A promise that contains a content window instance representing an IFRAME or web resource.
+             * @remarks This method is supported only on Unified Interface.  The implementer is expected to call
+             * a custom function within the returned window that will receive the Xrm and formContext objects as
+             * parameters.
+             */
+            getContentWindow(): Promise<Window>;
+
             /**
              * Gets the DOM element containing the control.
              * @returns The container object.
@@ -4214,6 +4245,10 @@ declare namespace Xrm {
              *  The message to be displyed in the alert dialog.
              */
             text: string;
+            /**
+             * (Optional) The title of the alert dialog.
+             */
+            title?: string;
         }
 
         interface ConfirmStrings {
@@ -4423,12 +4458,131 @@ declare namespace Xrm {
              */
             roleType?: XrmEnum.RoleType;
         }
+
+        interface PageInputEntityRecord {
+            pageType: "entityrecord";
+            /**
+             * Logical name of the entity to display the form for.
+             * */
+            entityName: string;
+            /**
+             * ID of the entity record to display the form for. If you don't specify this value, the form will be opened in create mode.
+             * */
+            entityId?: string;
+            /**
+             * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
+             */
+            createFromEntity?: boolean;
+            /**
+             * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
+             */
+            data?: { [attributeName: string]: any };
+            /**
+             * ID of the form instance to be displayed.
+             */
+            formId?: string;
+            /**
+             * Indicates whether the form is navigated to from a different entity using cross-entity business process flow.
+             */
+            isCrossEntityNavigate?: boolean;
+            /**
+             * Indicates whether there are any offline sync errors.
+             */
+            isOfflineSyncError?: boolean;
+            /**
+             * ID of the business process to be displayed on the form.
+             */
+            processId?: string;
+            /**
+             * ID of the business process instance to be displayed on the form.
+             */
+            processInstanceId?: string;
+            /**
+             * Define a relationship object to display the related records on the form.
+             */
+            relationship?: Relationship;
+            /**
+             * ID of the selected stage in business process instance.
+             */
+            selectedStageId?: string;
+        }
+
+        interface PageInputEntityList {
+            pageType: "entitylist";
+            /**
+             * The logical name of the entity to load in the list control.
+             * */
+            entityName: string;
+            /**
+             * The ID of the view to load. If you don't specify it, navigates to the default main view for the entity.
+             * */
+            viewId?: string;
+            /**
+             * Type of view to load. Specify "savedquery" or "userquery".
+             * */
+            viewType?: "savedquery" |"userquery";
+        }
+
+        interface PageInputHtmlWebResource {
+            pageType: "webresource";
+            /**
+             * The name of the web resource to load.
+             * */
+            webresourceName: string;
+            /**
+             * The data to pass to the web resource.
+             * */
+            data?: string;
+        }
+
+        /**
+         * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
+         * */
+        interface NavigationOptions {
+            /**
+             * Specify 1 to open the page inline; 2 to open the page in a dialog.
+             * Entity lists can only be opened inline; web resources can be opened either inline or in a dialog.
+             * */
+            target: 1 | 2;
+            /**
+             * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+             * */
+            width?: number | NavigationOptions.SizeValue;
+            /**
+            * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+            * */
+            height?: number | NavigationOptions.SizeValue;
+            /**
+             * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
+             * */
+            position?: 1 | 2;
+        }
+
+        namespace NavigationOptions {
+            interface SizeValue {
+                /**
+                 * The numerical value
+                 * */
+                value: number;
+                /**
+                 * The unit of measurement. Specify "%" or "px". Default value is "px"
+                 * */
+                unit: "%" | "px";
+            }
+        }
     }
 
     /**
      * Interface for the Xrm.Navigation API
      */
     interface Navigation {
+        /**
+         * Navigates to the specified page.
+         * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
+         * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
+         */
+        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+
         /**
          * Displays an alert dialog containing a message and a button.
          * @param alertStrings The strings to be used in the alert dialog.
@@ -4566,19 +4720,18 @@ declare namespace Xrm {
          * Type to hold the Attribute metadata as part of the EntityMetadata
          */
         interface AttributeMetadata {
-            defaultFormValue: number;
+            DefaultFormValue: number;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: string[];
-            logicalName: string;
-            displayName: string;
-            attributeType: XrmEnum.AttributeTypeCode;
-            entityLogicalName: string;
+            LogicalName: string;
+            DisplayName: string;
+            AttributeType: XrmEnum.AttributeTypeCode;
+            EntityLogicalName: string;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: OptionMetadata[];
+            OptionSet: OptionMetadata[];
         }
 
         /**
@@ -5072,10 +5225,10 @@ declare namespace XrmEnum {
     }
 
     const enum ClientFormFactor {
-        Unknown = 1,
-        Desktop = 2,
-        Tablet = 3,
-        Phone = 4
+        Unknown = 0,
+        Desktop = 1,
+        Tablet = 2,
+        Phone = 3
     }
 
     /**

@@ -25,6 +25,9 @@ export interface TileInfo {
     width: number;
     height?: number;
 }
+/**
+ * Enum representing the major IIIF Image API versions
+ */
 export enum Versions {
     VERSION1 = 'version1',
     VERSION2 = 'version2',
@@ -36,6 +39,6 @@ export default class IIIFInfo {
     getComplianceLevelFromProfile(version: Versions): string;
     getComplianceLevelSupportedFeatures(): SupportedFeatures;
     getImageApiVersion(): Versions;
-    getTileSourceOptions(opt_preferredOptions: PreferredOptions): Options;
+    getTileSourceOptions(opt_preferredOptions?: PreferredOptions): Options;
     setImageInfo(imageInfo: string | ImageInformationResponse): void;
 }

@@ -1,6 +1,6 @@
 // Type definitions for karma-jasmine-html-reporter 1.5
 // Project: https://github.com/dfederm/karma-jasmine-html-reporter#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -16,6 +16,10 @@ declare module 'karma' {
         jasmineHtmlReporter?: JasmineHtmlReporterOptions;
     }
     interface JasmineHtmlReporterOptions {
+        /**
+         * Suppress all messages (overrides other suppress settings)
+         */
+        suppressAll?: boolean;
         /** Suppress failed messages */
         suppressFailed?: boolean;
     }

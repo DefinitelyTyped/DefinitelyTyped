@@ -1,15 +1,13 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
-import { SwitchProps } from "./Switch";
 
-interface InheritedProps extends Omit<ReactDivAttr, "onChange"> {
-    onChange: NonNullable<SwitchProps["onClick"]>,
-}
-
-export interface ContentSwitcherProps extends InheritedProps {
+export interface ContentSwitcherProps extends Omit<ReactDivAttr, "role"> {
+    light?: boolean,
     selectedIndex?: number,
+    selectionMode?: "automatic" | "manual";
+    size?: "sm" | "xl";
 }
 
-declare const ContentSwitcher: React.FC<ContentSwitcherProps>;
+declare class ContentSwitcher extends React.Component<ContentSwitcherProps> {}
 
 export default ContentSwitcher;

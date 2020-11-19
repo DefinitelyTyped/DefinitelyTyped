@@ -2,12 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-		"test/braintree-web-drop-in-global.test.ts",
-		"test/braintree-web-drop-in-module.test.ts"
+        "test/braintree-web-drop-in-global.test.ts",
+        "test/braintree-web-drop-in-module.test.ts"
     ]
 }

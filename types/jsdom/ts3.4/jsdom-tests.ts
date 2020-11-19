@@ -1,7 +1,8 @@
-import '../ts3.1/jsdom-tests';
+import '../test/core';
 import jsdom = require('jsdom');
 
-declare const domWindow: jsdom.DOMWindow;
+const dom = new jsdom.JSDOM();
+const domWindow = dom.window; // $ExpectType DOMWindow
 
 domWindow.document.querySelector('slot'); // $ExpectType HTMLSlotElement | null
 domWindow.AbstractRange.prototype; // $ExpectType AbstractRange

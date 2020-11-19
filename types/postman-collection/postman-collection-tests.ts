@@ -19,8 +19,8 @@ pb.findInParents('string', el => true); // $ExpectType PropertyBase<PropertyBase
 
 pb.findParentContaining('string', el => true); // $ExpectType PropertyBase<PropertyBaseDefinition>
 
-pb.forEachParent(el => {}); // $ExpectType void
-pb.forEachParent({ withRoot: true }, el => {}); // $ExpectType void
+pb.forEachParent(el => { }); // $ExpectType void
+pb.forEachParent({ withRoot: true }, el => { }); // $ExpectType void
 
 pb.meta(); // $ExpectType any
 
@@ -93,10 +93,10 @@ pList.assimilate(pList, false); // $ExpectType void
 pList.assimilate([certificate], false); // ExpectType void
 pList.clear(); // $ExpectType void
 pList.count(); // $ExpectType number
-pList.each((el: pmCollection.Certificate) => {}); // $ExpectType void
-pList.each((el: pmCollection.Certificate) => {}, pList); // $ExpectType void
-pList.eachParent((el: any) => {}); // $ExpectType void
-pList.eachParent((el: any) => {}, pList); // $ExpectType void
+pList.each((el: pmCollection.Certificate) => { }); // $ExpectType void
+pList.each((el: pmCollection.Certificate) => { }, pList); // $ExpectType void
+pList.eachParent((el: any) => { }); // $ExpectType void
+pList.eachParent((el: any) => { }, pList); // $ExpectType void
 pList.filter(el => true, pList); // $ExpectType Certificate[]
 pList.find(el => true, pList); // $ExpectType Certificate
 pList.get('string'); // $ExpectType any
@@ -144,8 +144,8 @@ ig.authorizeRequestsUsing('string'); // $ExpectType void
 ig.authorizeRequestsUsing({}); // $ExpectType void
 ig.authorizeRequestsUsing('string', new pmCollection.VariableList(ig, [])); // $ExpectType void
 
-ig.forEachItem(el => {}); // $ExpectType void
-ig.forEachItemGroup(el => {}); // $ExpectType void
+ig.forEachItem(el => { }); // $ExpectType void
+ig.forEachItemGroup(el => { }); // $ExpectType void
 
 ig.oneDeep('string'); // $ExpectType Certificate
 
@@ -176,12 +176,12 @@ pmCollection.Collection.isCollection(collection); // $ExpectType boolean
 
 // CookieDefinition Tests
 const cookieDef: pmCollection.CookieDefinition = {
-    domain: 'string',
-    path: 'string',
+  domain: 'string',
+  path: 'string',
 };
 cookieDef.key; // $ExpectType string | undefined
 cookieDef.value; // ExpectType string | undefined
-cookieDef.expires; // $ExpectType string | Date | undefined
+cookieDef.expires; // $ExpectType string | number | Date | undefined
 cookieDef.maxAge; // $ExpectType number | undefined
 cookieDef.domain; // $ExpectType string
 cookieDef.path; // $ExpectType string
@@ -195,7 +195,7 @@ cookieDef.extensions; // $ExpectType { key: string; value: string; }[] | undefin
 
 let cookie = new pmCollection.Cookie();
 cookie = new pmCollection.Cookie(cookieDef);
-
+cookie.name; // $ExpectType string | undefined
 cookie.domain; // $ExpectType string
 cookie.expires; // $ExpectType Date
 cookie.extensions; // $ExpectType { key: string; value: string; }[] | undefined
@@ -206,15 +206,12 @@ cookie.path; // $ExpectType string
 cookie.secure; // $ExpectType boolean | undefined
 cookie.session; // $ExpectType boolean | undefined
 cookie.value; // $ExpectType string | undefined
-
 cookie.update(cookieDef); // $ExpectType void
-
 cookie.valueOf(); // $ExpectType string
-
 pmCollection.Cookie.isCookie({}); // $ExpectType boolean
-pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
-pmCollection.Cookie.splitParam('string'); // $ExpectType { key: string; value: string | boolean; }
-
+const parsed = pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
+const unparsed = pmCollection.Cookie.unparseSingle(parsed); // $ExpectType string
+pmCollection.Cookie.stringify(parsed); // $ExpectType string
 // CookieList Tests
 
 const cookieList = new pmCollection.CookieList(null, [cookie]);
@@ -224,8 +221,8 @@ pmCollection.CookieList.isCookieList(cookieList); // $ExpectType boolean
 // DescriptionDefinition Tests
 
 const descDef: pmCollection.DescriptionDefinition = {
-    content: 'string',
-    type: 'string',
+  content: 'string',
+  type: 'string',
 };
 descDef.content; // $ExpectType string
 descDef.type; // $ExpectType string | undefined
@@ -250,7 +247,7 @@ pmCollection.Description.isDescription(desc); // $ExpectType boolean
 // EventDefinition Tests
 
 const eventDesc: pmCollection.EventDefinition = {
-    script: 'string',
+  script: 'string',
 };
 eventDesc.listen; // $ExpectType string | undefined
 eventDesc.script; // $ExpectType string | string[] | ScriptDefinition | Script
@@ -289,8 +286,8 @@ fp.valueOf(); // $ExpectType any
 // HeaderDefinition Tests
 
 const headerDef: pmCollection.HeaderDefinition = {
-    key: 'string',
-    value: 'string',
+  key: 'string',
+  value: 'string',
 };
 headerDef.key; // $ExpectType string | undefined
 headerDef.value; // $ExpectType string | undefined
@@ -339,7 +336,7 @@ pmCollection.HeaderList.isHeaderList(headerList); // $ExpectType boolean
 
 const itemDef: pmCollection.ItemDefinition = {};
 itemDef.request; // $ExpectType RequestDefinition | undefined
-itemDef.responses; // $ExpectType ResponseDefinition[] | undefined
+itemDef.response; // $ExpectType ResponseDefinition[] | undefined
 itemDef.events; // $ExpectType EventDefinition[] | undefined
 
 // Item Tests
@@ -403,8 +400,8 @@ pmCollection.ProxyConfigList.isProxyConfigList(proxyConfigList); // $ExpectType 
 // QueryParamDefinition Tests
 
 const qpDef: pmCollection.QueryParamDefinition = {
-    key: null,
-    value: null,
+  key: null,
+  value: null,
 };
 qpDef.key; // $ExpectType string | null
 qpDef.value; // $ExpectType string | null
@@ -443,7 +440,7 @@ pmCollection.QueryParam.unparseSingle(qpDef, true); // $ExpectType string
 // RequestDefinition Tests
 
 const reqDef: pmCollection.RequestDefinition = {
-    url: 'string',
+  url: 'string',
 };
 reqDef.url; // $ExpectType string | Url
 reqDef.method; // $ExpectType string | undefined
@@ -477,7 +474,7 @@ req.getHeaders({ ignoreCase: true }); // $ExpectType any
 req.getHeaders({ enabled: true }); // $ExpectType any
 req.getHeaders({ ignoreCase: true, enabled: true }); // $ExpectType any
 
-req.forEachHeader((header: pmCollection.Header, context: pmCollection.Request) => {}); // $ExpectType void
+req.forEachHeader((header: pmCollection.Header, context: pmCollection.Request) => { }); // $ExpectType void
 
 req.addHeader(header); // $ExpectType void
 req.addHeader(headerDef); // $ExpectType void
@@ -634,18 +631,18 @@ pmCollection.Script.isScript(script); // $ExpectType boolean
 // UrlDefinition Tests
 
 let urlDef: pmCollection.UrlDefinition = {
-    host: 'string',
-    path: 'string',
+  host: 'string',
+  path: 'string',
 };
 urlDef = {
-    host: ['string'],
-    path: ['string'],
+  host: ['string'],
+  path: ['string'],
 };
 
 urlDef.auth; // $ExpectType { user: string; password: string; } | undefined
 urlDef.hash; // $ExpectType string | undefined
 urlDef.host; // $ExpectType string | string[] | undefined
-urlDef.path; // $ExpectType string | string[]
+urlDef.path; // $ExpectType string | string[] | undefined
 urlDef.port; // $ExpectType string | undefined
 urlDef.query; // $ExpectType string | QueryParamDefinition[] | PropertyList<QueryParam> | undefined
 urlDef.variable; // $ExpectType VariableDefinition[] | undefined
@@ -659,7 +656,7 @@ url = new pmCollection.Url('string');
 url.auth; // $ExpectType { user: string; password: string; } | undefined
 url.hash; // $ExpectType string | undefined
 url.host; // $ExpectType string[] | undefined
-url.path; // $ExpectType string[]
+url.path; // $ExpectType string[] | undefined
 url.port; // $ExpectType string | undefined
 url.protocol; // $ExpectType string | undefined
 url.query; // $ExpectType PropertyList<QueryParam>

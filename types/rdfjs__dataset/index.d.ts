@@ -3,13 +3,11 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, DefaultGraph } from 'rdf-js';
+import { BaseQuad, DataFactory, DefaultGraph, Quad } from 'rdf-js';
 import DatasetCore = require('./DatasetCore');
 
-declare function dataset(): DatasetCore;
-
 declare const Dataset: {
-    dataset(): DatasetCore;
+    dataset<InQuad extends BaseQuad = Quad>(quads?: InQuad[]): DatasetCore<InQuad>;
     defaultGraphInstance: DefaultGraph;
 } & Required<DataFactory>;
 

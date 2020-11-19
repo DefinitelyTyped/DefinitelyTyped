@@ -1,5 +1,7 @@
 import { EventEmitter } from 'events';
 
+import { Connection } from './client';
+
 export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
 export interface JSONObject {
   [name: string]: JSONValue;
@@ -44,12 +46,36 @@ export interface RawOp {
     src: string;
     seq: number;
     v: number;
-    op: Op[];
     m: any;
     c: string;
     d: string;
 }
-export type OTType = 'ot-text' | 'ot-json0' | 'ot-text-tp2' | 'rich-text';
+
+export type CreateOp = RawOp & { create: { type: string; data: any }; del: undefined; op: undefined; };
+export type DeleteOp = RawOp & { del: boolean; create: undefined; op: undefined; };
+export type EditOp = RawOp & { op: Op[]; create: undefined; del: undefined; };
+
+export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
+
+export interface Type {
+    name?: string;
+    uri?: string;
+    create(initialData?: any): any;
+    apply(snapshot: any, op: any): any;
+    transform(op1: any, op2: any, side: 'left' | 'right'): any;
+    compose(op1: any, op2: any): any;
+    invert?(op: any): any;
+    normalize?(op: any): any;
+    transformCursor?(cursor: any, op: any, isOwnOp: boolean): any;
+    serialize?(snapshot: any): any;
+    deserialize?(data: any): any;
+    [key: string]: any;
+}
+export interface Types {
+    register: (type: Type) => void;
+    map: { [key: string]: Type };
+}
+
 export interface Error {
     code: number;
     message: string;
@@ -64,9 +90,13 @@ export type Callback = (err: Error) => any;
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
 export class Doc extends EventEmitter {
-    type: string;
+    connection: Connection;
+    type: Type | null;
     id: string;
+    collection: string;
     data: any;
+    version: number | null;
+
     fetch: (callback: (err: Error) => void) => void;
     subscribe: (callback: (err: Error) => void) => void;
 

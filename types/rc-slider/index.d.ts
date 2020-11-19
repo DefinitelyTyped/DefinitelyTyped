@@ -150,6 +150,11 @@ export interface SliderProps extends CommonApiProps {
      */
     value?: number;
     /**
+     * Track starts from this value. If `undefined`, `min` is used.
+     * @default undefined
+     */
+    startPoint?: number;
+    /**
      * Set the tabIndex of the slider handle.
      * @default 0
      */

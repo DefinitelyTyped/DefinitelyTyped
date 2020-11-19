@@ -2,7 +2,7 @@
 // Project: https://github.com/vkarpov15/mongoose-lean-virtuals
 // Definitions by: Isaac Herrera <https://github.com/isaacdecoded>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 import { Schema } from 'mongoose';
 

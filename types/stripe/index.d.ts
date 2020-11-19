@@ -8,7 +8,6 @@
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Gal Talmor <https://github.com/galtalmor>
-//                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Slava Yultyyev <https://github.com/yultyyev>
@@ -35,6 +34,7 @@
 //                 Collin Pham <https://github.com/collin-pham>
 //                 Timon van Spronsen <https://github.com/TimonVS>
 //                 Sean Chen <https://github.com/kamiyo>
+//                 Asitha de Silva <https://github.com/asithade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10650,6 +10650,22 @@ declare namespace Stripe {
              * Indicates if a customer is on or off-session while an invoice payment is attempted.
              */
             off_session?: boolean;
+
+            /**
+             * If specified, the funds from the subscription’s invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
+             */
+            transfer_data?: {
+                /**
+                 * ID of an existing, connected Stripe account.
+                 */
+                destination: string;
+                /**
+                 * A non-negative decimal between 0 and 100, with at most two decimal places.
+                 * This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
+                 * By default, the entire amount is transferred to the destination.
+                 */
+                amount_percent?: number;
+            };
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -10708,6 +10724,12 @@ declare namespace Stripe {
              * prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
              */
             proration_date?: number;
+
+            /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
 
             /**
              * The quantity you'd like to apply to the subscription you're creating. For example, if your plan is £10/user/month, and your customer
@@ -10994,6 +11016,12 @@ declare namespace Stripe {
              * proration that was previewed with the upcoming invoice endpoint.
              */
             proration_date?: number;
+
+            /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
         }
 
         interface ISubscriptionItemListOptions extends IListOptionsCreated {

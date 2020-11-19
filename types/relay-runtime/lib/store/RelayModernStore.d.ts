@@ -7,46 +7,40 @@ import {
     OperationAvailability,
     OperationDescriptor,
     RecordSource,
-    ReaderSelector,
+    SingularReaderSelector,
     Snapshot,
     RequestDescriptor,
 } from './RelayStoreTypes';
-import { Disposable } from '../util/RelayRuntimeTypes';
-import {
-    ConnectionReference,
-    ConnectionResolver,
-    ConnectionSnapshot,
-    ConnectionInternalEvent,
-    ConnectionID,
-} from './RelayConnection';
+import { DataID, Disposable } from '../util/RelayRuntimeTypes';
 
-export class RelayModernStore implements Store {
-    constructor(source: MutableRecordSource, options?: {
-        gcScheduler?: Scheduler | null,
-        operationLoader?: OperationLoader | null,
-        gcReleaseBufferSize?: number | null,
-    });
+export interface InvalidationState {
+    dataIDs: ReadonlyArray<DataID>;
+    invalidations: Map<DataID, number | undefined | null>;
+}
+
+export default class RelayModernStore implements Store {
+    constructor(
+        source: MutableRecordSource,
+        options?: {
+            gcScheduler?: Scheduler | null;
+            operationLoader?: OperationLoader | null;
+            gcReleaseBufferSize?: number | null;
+            queryCacheExpirationTime?: number | null;
+        },
+    );
     getSource(): RecordSource;
     check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
     retain(operation: OperationDescriptor): Disposable;
-    lookup(selector: ReaderSelector): Snapshot;
-    notify(): ReadonlyArray<RequestDescriptor>;
-    publish(source: RecordSource): void;
+    lookup(selector: SingularReaderSelector): Snapshot;
+    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): ReadonlyArray<RequestDescriptor>;
+    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
     holdGC(): Disposable;
+    lookupInvalidationState(dataIDs: ReadonlyArray<DataID>): InvalidationState;
+    checkInvalidationState(previousInvalidationState: InvalidationState): boolean;
+    subscribeToInvalidationState(invalidationState: InvalidationState, callback: () => void): Disposable;
     toJSON(): unknown;
-    lookupConnection_UNSTABLE<TEdge, TState>(
-        connectionReference: ConnectionReference<TEdge>,
-        resolver: ConnectionResolver<TEdge, TState>,
-    ): ConnectionSnapshot<TEdge, TState>;
-
-    subscribeConnection_UNSTABLE<TEdge, TState>(
-        snapshot: ConnectionSnapshot<TEdge, TState>,
-        resolver: ConnectionResolver<TEdge, TState>,
-        callback: (state: TState) => void,
-    ): Disposable;
-    publishConnectionEvents_UNSTABLE(events: ConnectionInternalEvent[], final: boolean): void;
-    getConnectionEvents_UNSTABLE(connectionID: ConnectionID): ReadonlyArray<ConnectionInternalEvent>;
     snapshot(): void;
     restore(): void;
+    scheduleGC(): void;
 }

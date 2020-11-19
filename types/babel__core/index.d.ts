@@ -4,24 +4,17 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Jessica Franco <https://github.com/Jessidhia>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import { GeneratorOptions } from "@babel/generator";
-import traverse, { Visitor, NodePath } from "@babel/traverse";
-import template from "@babel/template";
-import * as t from "@babel/types";
-import { ParserOptions } from "@babel/parser";
+import { GeneratorOptions } from '@babel/generator';
+import traverse, { Visitor, NodePath, Hub, Scope } from '@babel/traverse';
+import template from '@babel/template';
+import * as t from '@babel/types';
+import { ParserOptions } from '@babel/parser';
 
-export {
-    ParserOptions,
-    GeneratorOptions,
-    t as types,
-    template,
-    traverse,
-    NodePath,
-    Visitor
-};
+export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
 
 export type Node = t.Node;
 export type ParseResult = t.File | t.Program;
@@ -71,7 +64,7 @@ export interface TransformOptions {
      *
      * Default: `undefined`
      */
-    configFile?: string | false | null;
+    configFile?: string | boolean | null;
 
     /**
      * Specify whether or not to use .babelrc and
@@ -87,7 +80,7 @@ export interface TransformOptions {
      *
      * Default: `(root)`
      */
-    babelrcRoots?: true | string | string[] | null;
+    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
@@ -120,7 +113,7 @@ export interface TransformOptions {
      *
      * Default: `"auto"`
      */
-    compact?: boolean | "auto" | null;
+    compact?: boolean | 'auto' | null;
 
     /**
      * The working directory that Babel's programmatic options are loaded relative to.
@@ -143,7 +136,7 @@ export interface TransformOptions {
      *
      * Default: `{}`
      */
-    env?: { [index: string]: TransformOptions | null | undefined; } | null;
+    env?: { [index: string]: TransformOptions | null | undefined } | null;
 
     /**
      * A path to a `.babelrc` file to extend
@@ -192,7 +185,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    ignore?: string[] | null;
+    ignore?: MatchPattern[] | null;
 
     /**
      * This option is a synonym for "test"
@@ -240,7 +233,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    only?: string | RegExp | Array<string | RegExp> | null;
+    only?: MatchPattern[] | null;
 
     /**
      * Allows users to provide an array of options that will be merged into the current configuration one at a time.
@@ -296,7 +289,7 @@ export interface TransformOptions {
      *
      * Default: `false`
      */
-    sourceMaps?: boolean | "inline" | "both" | null;
+    sourceMaps?: boolean | 'inline' | 'both' | null;
 
     /**
      * The root from which all sources are relative
@@ -311,7 +304,7 @@ export interface TransformOptions {
      *
      * Default: `("module")`
      */
-    sourceType?: "script" | "module" | "unambiguous" | null;
+    sourceType?: 'script' | 'module' | 'unambiguous' | null;
 
     /**
      * If all patterns fail to match, the current configuration object is considered inactive and is ignored during config processing.
@@ -322,7 +315,13 @@ export interface TransformOptions {
      * An optional callback that can be used to wrap visitor methods. **NOTE**: This is useful for things like introspection, and not really needed for implementing anything. Called as
      * `wrapPluginVisitorMethod(pluginAlias, visitorType, callback)`.
      */
-    wrapPluginVisitorMethod?: ((pluginAlias: string, visitorType: "enter" | "exit", callback: (path: NodePath, state: any) => void) => (path: NodePath, state: any) => void) | null;
+    wrapPluginVisitorMethod?:
+        | ((
+              pluginAlias: string,
+              visitorType: 'enter' | 'exit',
+              callback: (path: NodePath, state: any) => void,
+          ) => (path: NodePath, state: any) => void)
+        | null;
 }
 
 export interface TransformCaller {
@@ -331,6 +330,8 @@ export interface TransformCaller {
     // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
     supportsDynamicImport?: boolean;
+    supportsExportNamespaceFrom?: boolean;
+    supportsTopLevelAwait?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
@@ -396,7 +397,12 @@ export function transformFromAst(ast: Node, code: string | undefined, callback: 
 /**
  * Given an AST, transform it.
  */
-export function transformFromAst(ast: Node, code: string | undefined, opts: TransformOptions | undefined, callback: FileResultCallback): void;
+export function transformFromAst(
+    ast: Node,
+    code: string | undefined,
+    opts: TransformOptions | undefined,
+    callback: FileResultCallback,
+): void;
 
 /**
  * Here for backward-compatibility. Ideally use ".transformSync" if you want a synchronous API.
@@ -406,19 +412,43 @@ export function transformFromAstSync(ast: Node, code?: string, opts?: TransformO
 /**
  * Given an AST, transform it.
  */
-export function transformFromAstAsync(ast: Node, code?: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
+export function transformFromAstAsync(
+    ast: Node,
+    code?: string,
+    opts?: TransformOptions,
+): Promise<BabelFileResult | null>;
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
 // The list of allowed plugin keys is here:
 // https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
-export interface PluginObj<S = {}> {
+export interface PluginObj<S = PluginPass> {
     name?: string;
     manipulateOptions?(opts: any, parserOpts: any): void;
-    pre?(this: S, state: any): void;
+    pre?(this: S, file: BabelFile): void;
     visitor: Visitor<S>;
-    post?(this: S, state: any): void;
+    post?(this: S, file: BabelFile): void;
     inherits?: any;
+}
+
+export interface BabelFile {
+    ast: t.File;
+    opts: TransformOptions;
+    hub: Hub;
+    metadata: object;
+    path: NodePath<t.Program>;
+    scope: Scope;
+    inputMap: object | null;
+    code: string;
+}
+
+export interface PluginPass {
+    file: BabelFile;
+    key: string;
+    opts: PluginOptions;
+    cwd: string;
+    filename: string;
+    [key: string]: unknown;
 }
 
 export interface BabelFileResult {
@@ -527,6 +557,7 @@ export interface PartialConfig {
     babelrc?: string;
     babelignore?: string;
     config?: string;
+    hasFilesystemConfig: () => boolean;
 }
 
 export interface ConfigItem {
@@ -571,14 +602,19 @@ export type PluginOptions = object | undefined | false;
 
 export type PluginTarget = string | object | ((...args: any[]) => any);
 
-export type PluginItem = ConfigItem | PluginObj<any> | PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined];
+export type PluginItem =
+    | ConfigItem
+    | PluginObj<any>
+    | PluginTarget
+    | [PluginTarget, PluginOptions]
+    | [PluginTarget, PluginOptions, string | undefined];
 
 export function resolvePlugin(name: string, dirname: string): string | null;
 export function resolvePreset(name: string, dirname: string): string | null;
 
 export interface CreateConfigItemOptions {
     dirname?: string;
-    type?: "preset" | "plugin";
+    type?: 'preset' | 'plugin';
 }
 
 /**
@@ -586,7 +622,10 @@ export interface CreateConfigItemOptions {
  * given plugin, Babel will call the plugin's function itself multiple times. If you have a clear set of expected
  * plugins and presets to inject, pre-constructing the config items would be recommended.
  */
-export function createConfigItem(value: PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined], options?: CreateConfigItemOptions): ConfigItem;
+export function createConfigItem(
+    value: PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined],
+    options?: CreateConfigItemOptions,
+): ConfigItem;
 
 // NOTE: the documentation says the ConfigAPI also exposes @babel/core's exports, but it actually doesn't
 /**

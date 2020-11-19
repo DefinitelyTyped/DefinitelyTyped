@@ -1,10 +1,11 @@
 import * as React from "react";
 import { ReactAnchorAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAnchorAttr { }
-
-export interface LinkProps extends InheritedProps {
+export interface LinkProps extends ReactAnchorAttr { // this is a <p> element when disabled but accounting for it is useless
     disabled?: boolean,
+    inline?: boolean,
+    size?: "sm" | "lg",
+    visited?: boolean,
 }
 
 declare const Link: React.FC<LinkProps>;

@@ -20,6 +20,10 @@ function testFind() {
         sort: [{fieldName: 'asc'}]
     });
 
+    db.find({
+        selector: {_id: 'toto'}
+    });
+
     // test combinations of selectors
     db.find({
         selector: {
