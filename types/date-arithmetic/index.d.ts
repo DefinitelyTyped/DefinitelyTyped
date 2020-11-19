@@ -50,7 +50,7 @@ export function endOf(date: Date, unit: Unit): Date;
  * Return a new date with the relevent date parts zero'd out.
  * You only need to provide a firstOfWeek when the unit is 'week'
  */
-export function startOf(date: Date, unit: 'week', firtOfWeek: StartOfWeeek): Date;
+export function startOf(date: Date, unit: 'week', firtOfWeek: StartOfWeek): Date;
 export function startOf(date: Date, unit: Exclude<Unit, 'week'>): Date;
 
 /** Subtract specified amount of units from a provided date and return new date as a result */
