@@ -20,13 +20,11 @@ function testSandbox() {
         useFakeServer: sinon.fakeServer.create(),
     });
     sinon.createSandbox(sinon.defaultConfig);
-    sinon.sandbox.create();
-    sinon.sandbox.create(sinon.defaultConfig);
 
     const sb = sinon.createSandbox();
 
     sb.fake.returns(42);
-    sb.match(/foo/).test('foo')
+    sb.match(/foo/).test('foo');
 
     sb.assert.pass('foo');
     sb.clock.tick(1000);
@@ -683,11 +681,11 @@ function testMock() {
 }
 
 function testAddBehavior() {
-    sinon.addBehavior('returnsNum', function (fake, n) {
+    sinon.addBehavior('returnsNum', (fake, n) => {
         fake.returns(n);
     });
 }
 
-function testSetFormatter(){
-    sinon.setFormatter( (...args) => JSON.stringify(args));
+function testSetFormatter() {
+    sinon.setFormatter((...args) => JSON.stringify(args));
 }

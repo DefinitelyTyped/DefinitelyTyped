@@ -1672,27 +1672,17 @@ declare namespace Sinon {
          * its return value will be ignored). The fn will be passed the fake instance
          * as its first argument, and then the user's arguments.
          */
-        addBehavior: (name: string, fn: (fake: SinonStub, ...userArgs: any[] ) => void ) => void;
-
+        addBehavior: (name: string, fn: (fake: SinonStub, ...userArgs: any[]) => void) => void;
 
         /**
          * Replace the default formatter used when formatting ECMAScript object
          * An example converts a basic object, such as  {id: 42 }, to a string
          * on a format of your choosing, such as "{ id: 42 }"
          */
-        setFormatter: (customFormatter: (...args: any[]) => string) => void
+        setFormatter: (customFormatter: (...args: any[]) => string) => void;
     }
 
-    interface LegacySandbox {
-        sandbox: {
-            /**
-             * @deprecated Since 5.0, use `sinon.createSandbox` instead
-             */
-            create(config?: Partial<SinonSandboxConfig>): SinonSandbox;
-        };
-    }
-
-    type SinonStatic = SinonSandbox & LegacySandbox & SinonApi;
+    type SinonStatic = SinonSandbox & SinonApi;
 }
 
 declare const Sinon: Sinon.SinonStatic;
