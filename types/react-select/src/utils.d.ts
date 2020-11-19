@@ -29,7 +29,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export function cleanValue<OptionType extends OptionTypeBase, IsMulti extends boolean>(value: ValueType<OptionType, IsMulti>): OptionsType<OptionType>;
+export function cleanValue<OptionType extends OptionTypeBase>(value: ValueType<OptionType, true | false>): OptionsType<OptionType>;
 
 // ==============================
 // Handle Input Change
