@@ -49,5 +49,6 @@ declare namespace SockJS {
         server?: string;
         sessionId?: number | SessionGenerator;
         transports?: string | string[];
+        timeout?: number;
     }
 }
