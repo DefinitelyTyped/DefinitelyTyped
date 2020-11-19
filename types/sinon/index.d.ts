@@ -1673,6 +1673,14 @@ declare namespace Sinon {
          * as its first argument, and then the user's arguments.
          */
         addBehavior: (name: string, fn: (fake: SinonStub, ...userArgs: any[] ) => void ) => void;
+
+
+        /**
+         * Replace the default formatter used when formatting ECMAScript object
+         * An example converts a basic object, such as  {id: 42 }, to a string
+         * on a format of your choosing, such as "{ id: 42 }"
+         */
+        setFormatter: (customFormatter: (...args: any[]) => string) => void
     }
 
     interface LegacySandbox {

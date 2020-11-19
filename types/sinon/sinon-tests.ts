@@ -687,3 +687,7 @@ function testAddBehavior() {
         fake.returns(n);
     });
 }
+
+function testSetFormatter(){
+    sinon.setFormatter( (...args) => JSON.stringify(args));
+}
