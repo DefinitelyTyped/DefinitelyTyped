@@ -26,6 +26,6 @@ export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends bool
 
 export function css(state: State): React.CSSProperties;
 
-declare const Control: ComponentType<ControlProps<any, any>>;
+declare const Control: ComponentType<ControlProps<any, boolean>>;
 
 export default Control;

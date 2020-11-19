@@ -13,6 +13,6 @@ export interface PlaceholderProps<OptionType extends OptionTypeBase, IsMulti ext
 
 export function placeholderCSS(): React.CSSProperties;
 
-export const Placeholder: ComponentType<PlaceholderProps<any, any>>;
+export const Placeholder: ComponentType<PlaceholderProps<any, boolean>>;
 
 export default Placeholder;

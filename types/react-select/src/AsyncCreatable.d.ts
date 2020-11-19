@@ -9,7 +9,7 @@ export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = 
 export type State<OptionType extends OptionTypeBase> = AsyncState<OptionType> & CreatableState<OptionType>;
 
 export class AsyncCreatable<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<Props<OptionType, IsMulti>, State<OptionType>> {
-    static defaultProps: Props<any, any>;
+    static defaultProps: Props<any, boolean>;
     select: ElementRef<any>;
     lastRequest: {};
     mounted: boolean;

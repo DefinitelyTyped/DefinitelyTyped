@@ -27,13 +27,13 @@ export type IndicatorProps<OptionType extends OptionTypeBase, IsMulti extends bo
   isDisabled: boolean
 };
 
-export type baseCSS = (props: IndicatorProps<any, any>) => React.CSSProperties;
+export type baseCSS = (props: IndicatorProps<any, boolean>) => React.CSSProperties;
 
 export const dropdownIndicatorCSS: baseCSS;
-export const DropdownIndicator: ComponentType<IndicatorProps<any, any>>;
+export const DropdownIndicator: ComponentType<IndicatorProps<any, boolean>>;
 
 export const clearIndicatorCSS: baseCSS;
-export const ClearIndicator: ComponentType<IndicatorProps<any, any>>;
+export const ClearIndicator: ComponentType<IndicatorProps<any, boolean>>;
 
 // ==============================
 // Separator
@@ -43,7 +43,7 @@ export interface SeparatorState { isDisabled: boolean; }
 
 export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
 
-export const IndicatorSeparator: ComponentType<IndicatorProps<any, any>>;
+export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
 
 // ==============================
 // Loading
@@ -65,5 +65,5 @@ export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends 
   /** Set size of the container. */
   size: number,
 };
-export const LoadingIndicator: ComponentType<LoadingIconProps<any, any>>;
+export const LoadingIndicator: ComponentType<LoadingIconProps<any, boolean>>;
 // TODO LoadingIndicator.defaultProps: { size: number };

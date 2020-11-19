@@ -32,7 +32,7 @@ export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti exten
 
 export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> & CreatableProps<OptionType, IsMulti>;
 
-export const defaultProps: Props<any, any>;
+export const defaultProps: Props<any, boolean>;
 
 export interface State<OptionType extends OptionTypeBase> {
   newOption: OptionType | undefined;
@@ -40,7 +40,7 @@ export interface State<OptionType extends OptionTypeBase> {
 }
 
 export class Creatable<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
-  static defaultProps: Props<any, any>;
+  static defaultProps: Props<any, boolean>;
   select: React.Ref<any>;
 
   onChange: (newValue: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
@@ -48,6 +48,6 @@ export class Creatable<OptionType extends OptionTypeBase, IsMulti extends boolea
   blur(): void;
 }
 
-export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any, any>;
+export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any, boolean>;
 
 export default Creatable;

@@ -209,7 +209,7 @@ export interface NamedProps<
 
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
-  defaultValue?: ValueType<OptionType, true | false>;
+  defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
 }
 
 export interface Props<

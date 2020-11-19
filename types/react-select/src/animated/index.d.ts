@@ -11,8 +11,8 @@ export function makeAnimated<OptionType extends OptionTypeBase, IsMulti extends 
 
 export const Input: ComponentType<AnimatedInputProps>;
 export const MultiValue: ComponentType<AnimatedMultiValueProps<any>>;
-export const Placeholder: ComponentType<AnimatedPlaceholderProps<any, true | false>>;
+export const Placeholder: ComponentType<AnimatedPlaceholderProps<any, boolean>>;
 export const SingleValue: ComponentType<AnimatedSingleValueProps<any>>;
-export const ValueContainer: ComponentType<AnimatedValueContainerProps<any, true | false>>;
+export const ValueContainer: ComponentType<AnimatedValueContainerProps<any, boolean>>;
 
 export default makeAnimated;

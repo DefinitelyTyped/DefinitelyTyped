@@ -39,6 +39,6 @@ export type OptionProps<OptionType extends OptionTypeBase, IsMulti extends boole
 
 export function optionCSS(state: State): React.CSSProperties;
 
-export const Option: ComponentType<OptionProps<any, any>>;
+export const Option: ComponentType<OptionProps<any, boolean>>;
 
 export default Option;

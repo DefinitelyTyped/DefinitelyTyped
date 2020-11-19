@@ -20,7 +20,7 @@ export interface AsyncProps<OptionType extends OptionTypeBase> {
 
 export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> & AsyncProps<OptionType>;
 
-export const defaultProps: Props<any, any>;
+export const defaultProps: Props<any, boolean>;
 
 export interface State<OptionType extends OptionTypeBase> {
   defaultOptions?: OptionsType<OptionType>;
@@ -32,7 +32,7 @@ export interface State<OptionType extends OptionTypeBase> {
 }
 
 export class Async<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
-  static defaultProps: Props<any, any>;
+  static defaultProps: Props<any, boolean>;
   select: React.Ref<any>;
   lastRequest: {};
   mounted: boolean;

@@ -21,7 +21,7 @@ export type ContainerProps<OptionType extends OptionTypeBase, IsMulti extends bo
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
 export function containerCSS(state: ContainerState): React.CSSProperties;
-export const SelectContainer: ComponentType<ContainerProps<any, any>>;
+export const SelectContainer: ComponentType<ContainerProps<any, boolean>>;
 
 // ==============================
 // Value Container
@@ -36,7 +36,7 @@ export type ValueContainerProps<OptionType extends OptionTypeBase, IsMulti exten
   children: ReactNode,
 };
 export function valueContainerCSS(): React.CSSProperties;
-export class ValueContainer extends Component<ValueContainerProps<any, any>> {}
+export class ValueContainer extends Component<ValueContainerProps<any, boolean>> {}
 
 // ==============================
 // Indicator Container
@@ -56,4 +56,4 @@ export type IndicatorContainerProps<OptionType extends OptionTypeBase, IsMulti e
   };
 
 export function indicatorsContainerCSS(): React.CSSProperties;
-export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any, any>>;
+export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any, boolean>>;

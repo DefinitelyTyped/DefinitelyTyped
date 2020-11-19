@@ -17,7 +17,7 @@ export type GroupProps<OptionType extends OptionTypeBase, IsMulti extends boolea
 
 export function groupCSS(): React.CSSProperties;
 
-export const Group: ComponentType<GroupProps<any, any>>;
+export const Group: ComponentType<GroupProps<any, boolean>>;
 
 export function groupHeadingCSS(): React.CSSProperties;
 

@@ -6,20 +6,20 @@ import { ActionMeta, InputActionMeta, OptionTypeBase, ValueType } from './types'
 export interface DefaultProps<OptionType extends OptionTypeBase> {
   defaultInputValue: string;
   defaultMenuIsOpen: boolean;
-  defaultValue: ValueType<OptionType, true | false>;
+  defaultValue: ValueType<OptionType, boolean>;
 }
 
 export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
-  defaultValue?: ValueType<OptionType, true | false>;
+  defaultValue?: ValueType<OptionType, boolean>;
   inputValue?: string;
   menuIsOpen?: boolean;
   value?: ValueType<OptionType, IsMulti>;
   onChange?: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
-type StateProps<T extends SelectProps<any, true | false>> = Pick<T, Exclude<keyof T,
+type StateProps<T extends SelectProps<any, boolean>> = Pick<T, Exclude<keyof T,
   | 'inputValue'
   | 'value'
   | 'menuIsOpen'
@@ -56,8 +56,8 @@ export class StateManager<
   onMenuClose: () => void;
 }
 
-export function manageState<T extends SelectBase<any, true | false>>(
+export function manageState<T extends SelectBase<any, boolean>>(
   SelectComponent: T
-): StateManager<GetOptionType<T>, true | false, T>;
+): StateManager<GetOptionType<T>, boolean, T>;
 
 export default manageState;

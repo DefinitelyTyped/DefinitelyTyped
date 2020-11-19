@@ -86,7 +86,7 @@ export type DeepNonNullable<T> = {
     [P in keyof T]-?: NonNullable<T[P]>;
 };
 
-export const components: Required<DeepNonNullable<SelectComponents<any, any>>>;
+export const components: Required<DeepNonNullable<SelectComponents<any, boolean>>>;
 
 export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   components: SelectComponentsConfig<OptionType, IsMulti>;

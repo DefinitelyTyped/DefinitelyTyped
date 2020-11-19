@@ -100,7 +100,7 @@ export type MenuListComponentProps<OptionType extends OptionTypeBase, IsMulti ex
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): React.CSSProperties;
-export const MenuList: ComponentType<MenuListComponentProps<any, any>>;
+export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
 
 // ==============================
 // Menu Notices
@@ -116,12 +116,12 @@ export type NoticeProps<OptionType extends OptionTypeBase, IsMulti extends boole
   innerProps: { [key: string]: any },
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps<any, any>>;
+export const NoOptionsMessage: ComponentType<NoticeProps<any, boolean>>;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps<any, any>>;
+export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
