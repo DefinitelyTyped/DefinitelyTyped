@@ -1,4 +1,4 @@
-// Type definitions for postcss-less 3.1
+// Type definitions for postcss-less 4.0
 // Project: https://github.com/shellscape/postcss-less
 // Definitions by: Masafumi Koba <https://github.com/ybiquitous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
