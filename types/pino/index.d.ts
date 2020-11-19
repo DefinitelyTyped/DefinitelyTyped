@@ -600,12 +600,10 @@ declare namespace P {
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
 
-    interface LogDescriptor {
-        level: number;
-        time: number;
-        msg: string;
-        [key: string]: any;
-    }
+    /**
+     * Describes a log line.
+     */
+    type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
         level?: Level | string;
