@@ -692,8 +692,21 @@ export class MatrixEvent {
   forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
   constructor(event: object)
-  getType(): EventType;
+  getId(): string;
   getSender(): string;
+  getType(): EventType;
+  getWireType(): string;
+  getRoomId(): string;
+  getTs(): Date;
+  getDate(): Date;
+  getContent(): EventContentType;
+  getOriginalContent(): EventContentType;
+  getWireContent(): EventContentType;
+  getPrevContent(): object;
+  getDirectionalContent(): object;
+  getAge(): number;
+  getLocalAge(): number;
+  getStateKey(): string;
 }
 
 export class RoomMember {
@@ -782,18 +795,19 @@ export interface CreateClientOption {
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
-export interface ContentType {
+export interface EventContentType {
   body: string;
   msgtype: MsgType;
 }
 
 export interface UnsignedType {
   age: number;
+  redacted_because: RawEvent;
 }
 
 export interface RawEvent {
-  content: ContentType;
-  origin_server_ts: number;
+  content: EventContentType;
+  origin_server_ts: Date;
   sender: string;
   type: EventType;
   unsigned: UnsignedType;
