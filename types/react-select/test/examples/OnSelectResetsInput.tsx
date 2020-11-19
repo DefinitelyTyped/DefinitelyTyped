@@ -32,7 +32,7 @@ export default class OnSelectResetsInput extends React.Component {
     const { inputValue, menuIsOpen } = this.state;
     return (
       <Select
-        isMulti
+        
         defaultValue={colourOptions[0]}
         isClearable
         isSearchable

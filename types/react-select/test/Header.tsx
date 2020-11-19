@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { ControlProps } from 'react-select/src/components/Control';
 
 const headerSelectStyles = {
-    control: (base: React.CSSProperties, { isFocused }: ControlProps<{}>) => ({
+    control: (base: React.CSSProperties, { isFocused }: ControlProps<{}, any>) => ({
         ...base,
         backgroundClip: 'padding-box',
         borderColor: 'rgba(0,0,0,0.1)',

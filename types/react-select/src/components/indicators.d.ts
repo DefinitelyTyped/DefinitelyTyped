@@ -14,7 +14,7 @@ export function DownChevron(props: any): any; // TODO svg type
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
+export type IndicatorProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
   /** The children to be rendered inside the indicator. */
   children: ElementType,
   /** Props that will be passed on to the children. */
@@ -27,13 +27,13 @@ export type IndicatorProps<OptionType extends OptionTypeBase> = CommonProps<Opti
   isDisabled: boolean
 };
 
-export type baseCSS = (props: IndicatorProps<any>) => React.CSSProperties;
+export type baseCSS = (props: IndicatorProps<any, any>) => React.CSSProperties;
 
 export const dropdownIndicatorCSS: baseCSS;
-export const DropdownIndicator: ComponentType<IndicatorProps<any>>;
+export const DropdownIndicator: ComponentType<IndicatorProps<any, any>>;
 
 export const clearIndicatorCSS: baseCSS;
-export const ClearIndicator: ComponentType<IndicatorProps<any>>;
+export const ClearIndicator: ComponentType<IndicatorProps<any, any>>;
 
 // ==============================
 // Separator
@@ -43,7 +43,7 @@ export interface SeparatorState { isDisabled: boolean; }
 
 export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
 
-export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
+export const IndicatorSeparator: ComponentType<IndicatorProps<any, any>>;
 
 // ==============================
 // Loading
@@ -54,16 +54,16 @@ export function loadingIndicatorCSS(state: {
   size: number,
 }): React.CSSProperties;
 
-export type LoadingIconProps<OptionType extends OptionTypeBase> = {
+export type LoadingIconProps<OptionType extends OptionTypeBase, isMulti extends boolean> = {
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-} & CommonProps<OptionType> & {
+} & CommonProps<OptionType, isMulti> & {
   /** Set size of the container. */
   size: number,
 };
-export const LoadingIndicator: ComponentType<LoadingIconProps<any>>;
+export const LoadingIndicator: ComponentType<LoadingIconProps<any, any>>;
 // TODO LoadingIndicator.defaultProps: { size: number };

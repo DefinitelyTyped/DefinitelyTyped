@@ -13,7 +13,7 @@ export interface ContainerState {
   isRtl: boolean;
 }
 
-export type ContainerProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
+export type ContainerProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> &
   ContainerState & {
     /** The children to be rendered. */
     children: ReactNode,
@@ -21,13 +21,13 @@ export type ContainerProps<OptionType extends OptionTypeBase> = CommonProps<Opti
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
 export function containerCSS(state: ContainerState): React.CSSProperties;
-export const SelectContainer: ComponentType<ContainerProps<any>>;
+export const SelectContainer: ComponentType<ContainerProps<any, any>>;
 
 // ==============================
 // Value Container
 // ==============================
 
-export type ValueContainerProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
+export type ValueContainerProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
   /** Set when the value container should hold multiple values */
   isMulti: boolean,
   /** Whether the value container currently holds a value. */
@@ -36,7 +36,7 @@ export type ValueContainerProps<OptionType extends OptionTypeBase> = CommonProps
   children: ReactNode,
 };
 export function valueContainerCSS(): React.CSSProperties;
-export class ValueContainer extends Component<ValueContainerProps<any>> {}
+export class ValueContainer extends Component<ValueContainerProps<any, any>> {}
 
 // ==============================
 // Indicator Container
@@ -49,11 +49,11 @@ export interface IndicatorsState {
   isDisabled: boolean;
 }
 
-export type IndicatorContainerProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
+export type IndicatorContainerProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> &
   IndicatorsState & {
     /** The children to be rendered. */
     children: ReactNode,
   };
 
 export function indicatorsContainerCSS(): React.CSSProperties;
-export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any>>;
+export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any, any>>;

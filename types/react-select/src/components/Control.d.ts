@@ -12,7 +12,7 @@ interface State {
   menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
+export type ControlProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> &
   PropsWithStyles &
   State & {
     /** Children to render. */
@@ -26,6 +26,6 @@ export type ControlProps<OptionType extends OptionTypeBase> = CommonProps<Option
 
 export function css(state: State): React.CSSProperties;
 
-declare const Control: ComponentType<ControlProps<any>>;
+declare const Control: ComponentType<ControlProps<any, any>>;
 
 export default Control;
