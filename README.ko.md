@@ -19,7 +19,7 @@
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [린터](#린터)
-    - [<my package>-tests.ts](#my-package-teststs)
+    - [\<my package>-tests.ts](#my-package-teststs)
     - [검증하기](#검증하기)
     </details>
   - [Definition Owners](#definition-owners)
@@ -187,7 +187,7 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | 파일 이름 | 용도 |
 | --- | --- |
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
-| [<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
 | tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
@@ -255,7 +255,7 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 (린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `//tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
 
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.

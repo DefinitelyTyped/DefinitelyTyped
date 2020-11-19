@@ -21,7 +21,7 @@
     - [常见错误](#常见错误)
     - [删除一个包](#删除一个包)
     - [Linter](#linter)
-    - [<my package>-tests.ts](#my-package-teststs)
+    - [\<my package>-tests.ts](#my-package-teststs)
     - [验证](#验证)
     </details>
   - [Definition Owners](#definition-owners)
@@ -175,7 +175,7 @@ Version | Released | End of Support
 | 文件名 | 目的 |
 | --- | --- |
 | index.d.ts | 这里包含了包的类型声明。 |
-| [<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
+| [\<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | tsconfig.json | 这里允许你在包里运行 `tsc`. |
 | tslint.json | 启用 linting. |
 
@@ -260,7 +260,7 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 (若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `//tslint:disable-next-line rule-name` 更好。)
 
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
