@@ -25,6 +25,9 @@ function testSandbox() {
 
     const sb = sinon.createSandbox();
 
+    sb.fake.returns(42);
+    sb.match(/foo/).test('foo')
+
     sb.assert.pass('foo');
     sb.clock.tick(1000);
     sb.spy();

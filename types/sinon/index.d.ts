@@ -1521,6 +1521,7 @@ declare namespace Sinon {
         clock: SinonFakeTimers;
         requests: SinonFakeXMLHttpRequest[];
         server: SinonFakeServer;
+        match: SinonMatch;
         /**
          * Works exactly like sinon.spy
          */
@@ -1533,6 +1534,8 @@ declare namespace Sinon {
          * Works exactly like sinon.mock
          */
         mock: SinonMockStatic;
+
+        fake: SinonFake;
 
         /**
          * * No param : Causes Sinon to replace the global setTimeout, clearTimeout, setInterval, clearInterval, setImmediate, clearImmediate, process.hrtime, performance.now(when available)
@@ -1644,8 +1647,6 @@ declare namespace Sinon {
     }
 
     interface SinonApi {
-        fake: SinonFake;
-        match: SinonMatch;
         expectation: SinonExpectationStatic;
 
         clock: {
