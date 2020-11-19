@@ -4,7 +4,7 @@ import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase 
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType extends OptionTypeBase, isMulti extends boolean> {
+export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   /* Allow options to be created while the `isLoading` prop is true. Useful to
      prevent the "create new ..." option being displayed while async results are
      still being loaded. */
@@ -16,7 +16,7 @@ export interface CreatableProps<OptionType extends OptionTypeBase, isMulti exten
      the current input value, select value and options array. */
   isValidNewOption?: (
     inputValue: string,
-    value: ValueType<OptionType, isMulti>,
+    value: ValueType<OptionType, IsMulti>,
     options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
    ) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
@@ -30,7 +30,7 @@ export interface CreatableProps<OptionType extends OptionTypeBase, isMulti exten
   createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType extends OptionTypeBase, isMulti extends boolean> = SelectProps<OptionType, isMulti> & CreatableProps<OptionType, isMulti>;
+export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> & CreatableProps<OptionType, IsMulti>;
 
 export const defaultProps: Props<any, any>;
 
@@ -39,11 +39,11 @@ export interface State<OptionType extends OptionTypeBase> {
   options: OptionsType<OptionType>;
 }
 
-export class Creatable<OptionType extends OptionTypeBase, isMulti extends boolean = false> extends React.Component<Props<OptionType, isMulti>, State<OptionType>> {
+export class Creatable<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
   static defaultProps: Props<any, any>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType<OptionType, isMulti>, actionMeta: ActionMeta<OptionType>) => void;
+  onChange: (newValue: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
   focus(): void;
   blur(): void;
 }

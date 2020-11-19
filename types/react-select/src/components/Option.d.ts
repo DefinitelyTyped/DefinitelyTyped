@@ -19,8 +19,8 @@ interface InnerProps {
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }
-export type OptionProps<OptionType extends OptionTypeBase, isMulti extends boolean> = PropsWithStyles &
-  CommonProps<OptionType, isMulti> &
+export type OptionProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = PropsWithStyles &
+  CommonProps<OptionType, IsMulti> &
   State & {
     /** The children to be rendered. */
     children: ReactNode,

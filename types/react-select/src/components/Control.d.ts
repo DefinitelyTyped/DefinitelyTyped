@@ -12,7 +12,7 @@ interface State {
   menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> &
+export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> &
   PropsWithStyles &
   State & {
     /** Children to render. */

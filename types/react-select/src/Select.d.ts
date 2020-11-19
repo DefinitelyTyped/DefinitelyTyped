@@ -45,17 +45,17 @@ export type MouseOrTouchEvent =
   | React.MouseEvent<HTMLElement>
   | React.TouchEvent<HTMLElement>;
 export type FormatOptionLabelContext = 'menu' | 'value';
-export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase, isMulti extends boolean> {
+export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   context: FormatOptionLabelContext;
   inputValue: string;
-  selectValue: ValueType<OptionType, isMulti>;
+  selectValue: ValueType<OptionType, IsMulti>;
 }
 
 export type SelectComponentsProps = { [key in string]: any };
 
 export interface NamedProps<
   OptionType extends OptionTypeBase = { label: string; value: string },
-  isMulti extends boolean = false
+  IsMulti extends boolean = false
 > {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
@@ -97,7 +97,7 @@ export interface NamedProps<
     instead. For a list of the components that can be passed in, and the shape
     that will be passed to them, see [the components docs](/api#components)
   */
-  components?: SelectComponentsConfig<OptionType, isMulti>;
+  components?: SelectComponentsConfig<OptionType, IsMulti>;
   /* Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
   controlShouldRenderValue?: boolean;
   /* Delimiter used to join multiple values into a single HTML Input value */
@@ -112,7 +112,7 @@ export interface NamedProps<
   /* Formats group labels in the menu as React components */
   formatGroupLabel?: formatGroupLabel<OptionType>;
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, isMulti>) => React.ReactNode;
+  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, IsMulti>) => React.ReactNode;
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel?: getOptionLabel<OptionType>;
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -138,7 +138,7 @@ export interface NamedProps<
   /* Override the built-in logic to detect whether an option is selected */
   isOptionSelected?: (option: OptionType, options: OptionsType<OptionType>) => boolean;
   /* Support multiple selected options */
-  isMulti?: isMulti;
+  IsMulti?: IsMulti;
   /* Is the select direction right-to-left */
   isRtl?: boolean;
   /* Whether to enable search functionality */
@@ -169,7 +169,7 @@ export interface NamedProps<
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
-  onChange?: (value: ValueType<OptionType, isMulti>, action: ActionMeta<OptionType>) => void;
+  onChange?: (value: ValueType<OptionType, IsMulti>, action: ActionMeta<OptionType>) => void;
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler;
   /* Handle change events on the input */
@@ -205,7 +205,7 @@ export interface NamedProps<
   /* Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
   /* The value of the select; reflected by the selected option */
-  value?: ValueType<OptionType, isMulti>;
+  value?: ValueType<OptionType, IsMulti>;
 
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
@@ -214,8 +214,8 @@ export interface NamedProps<
 
 export interface Props<
   OptionType extends OptionTypeBase = { label: string; value: string },
-  isMulti extends boolean = false
-> extends NamedProps<OptionType, isMulti>, SelectComponentsProps {}
+  IsMulti extends boolean = false
+> extends NamedProps<OptionType, IsMulti>, SelectComponentsProps {}
 
 export const defaultProps: Props<any>;
 
@@ -240,8 +240,8 @@ export type ElRef = React.Ref<any>;
 
 export default class Select<
   OptionType extends OptionTypeBase,
-  isMulti extends boolean = false
-> extends React.Component<Props<OptionType, isMulti>, State<OptionType>> {
+  IsMulti extends boolean = false
+> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
   static defaultProps: Props<any>;
 
   // Misc. Instance Properties
@@ -250,7 +250,7 @@ export default class Select<
   blockOptionHover: boolean;
   clearFocusValueOnUpdate: boolean;
   commonProps: any; // TODO
-  components: SelectComponents<OptionType, isMulti>;
+  components: SelectComponents<OptionType, IsMulti>;
   hasGroups: boolean;
   initialTouchX: number;
   initialTouchY: number;
@@ -275,7 +275,7 @@ export default class Select<
   // Lifecycle
   // ------------------------------
 
-  cacheComponents: (components: SelectComponents<OptionType, isMulti>) => void;
+  cacheComponents: (components: SelectComponents<OptionType, IsMulti>) => void;
 
   // ==============================
   // Consumer Handlers
@@ -301,7 +301,7 @@ export default class Select<
 
   focusOption(direction: FocusDirection): void;
   setValue: (
-    newValue: ValueType<OptionType, isMulti>,
+    newValue: ValueType<OptionType, IsMulti>,
     action: ActionTypes,
     option?: OptionType
   ) => void;
@@ -320,11 +320,11 @@ export default class Select<
     getStyles: (key: string, props: {}) => {};
     getValue: () => OptionType[];
     hasValue: boolean;
-    isMulti: boolean;
+    IsMulti: boolean;
     isRtl: boolean;
     options: OptionsType<any>;
     selectOption: (newValue: OptionType) => void;
-    setValue: (newValue: ValueType<OptionType, isMulti>, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
     selectProps: Readonly<{
         children?: React.ReactNode;
     }> & Readonly<Props<OptionType>>;
@@ -422,7 +422,7 @@ export default class Select<
   constructAriaLiveMessage(): string;
 
   renderInput(): React.ReactNode;
-  renderPlaceholderOrValue(): PlaceholderOrValue<OptionType, isMulti> | null;
+  renderPlaceholderOrValue(): PlaceholderOrValue<OptionType, IsMulti> | null;
   renderClearIndicator(): React.ReactNode;
   renderLoadingIndicator(): React.ReactNode;
   renderIndicatorSeparator(): React.ReactNode;

@@ -46,7 +46,7 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
+export type MenuProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & {
   /** The children to be rendered. */
   children: ReactElement,
   /** Callback to update the portal after possible flip. */
@@ -69,12 +69,12 @@ export type MenuProps<OptionType extends OptionTypeBase, isMulti extends boolean
 
 export function menuCSS(state: MenuState): React.CSSProperties;
 
-export class Menu<OptionType extends OptionTypeBase, isMulti extends boolean> extends Component<MenuProps<OptionType, isMulti>, MenuState> {
+export class Menu<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<MenuProps<OptionType, IsMulti>, MenuState> {
   static contextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };
   getPlacement: (ref: ElementRef<any>) => void;
-  getState: () => MenuProps<OptionType, isMulti> & MenuState;
+  getState: () => MenuProps<OptionType, IsMulti> & MenuState;
 }
 
 export default Menu;
@@ -96,7 +96,7 @@ export interface MenuListProps {
   /** Inner ref to DOM Node */
   innerRef: InnerRef;
 }
-export type MenuListComponentProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> &
+export type MenuListComponentProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> &
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): React.CSSProperties;
@@ -109,7 +109,7 @@ export const MenuList: ComponentType<MenuListComponentProps<any, any>>;
 export function noOptionsMessageCSS(): React.CSSProperties;
 export function loadingMessageCSS(): React.CSSProperties;
 
-export type NoticeProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
+export type NoticeProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & {
   /** The children to be rendered. */
   children: ReactNode,
   /** Props to be passed on to the wrapper. */
@@ -130,7 +130,7 @@ export const LoadingMessage: ComponentType<NoticeProps<any, any>>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
+export type MenuPortalProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & {
   appendTo: HTMLElement,
   children: ReactNode, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
@@ -148,7 +148,7 @@ interface PortalStyleArgs {
 
 export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
 
-export class MenuPortal<OptionType extends OptionTypeBase, isMulti extends boolean> extends Component<MenuPortalProps<OptionType, isMulti>, MenuPortalState> {
+export class MenuPortal<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<MenuPortalProps<OptionType, IsMulti>, MenuPortalState> {
   static childContextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };

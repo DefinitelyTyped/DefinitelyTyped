@@ -13,7 +13,7 @@ interface ComponentProps {
   /** Label to be displayed in the heading component. */
   label: ReactNode;
 }
-export type GroupProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & ComponentProps;
+export type GroupProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & ComponentProps;
 
 export function groupCSS(): React.CSSProperties;
 

@@ -14,7 +14,7 @@ export function DownChevron(props: any): any; // TODO svg type
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps<OptionType extends OptionTypeBase, isMulti extends boolean> = CommonProps<OptionType, isMulti> & {
+export type IndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & {
   /** The children to be rendered inside the indicator. */
   children: ElementType,
   /** Props that will be passed on to the children. */
@@ -54,14 +54,14 @@ export function loadingIndicatorCSS(state: {
   size: number,
 }): React.CSSProperties;
 
-export type LoadingIconProps<OptionType extends OptionTypeBase, isMulti extends boolean> = {
+export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = {
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-} & CommonProps<OptionType, isMulti> & {
+} & CommonProps<OptionType, IsMulti> & {
   /** Set size of the container. */
   size: number,
 };

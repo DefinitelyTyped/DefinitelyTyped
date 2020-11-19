@@ -45,42 +45,42 @@ import Placeholder, { PlaceholderProps } from './Placeholder';
 import SingleValue, { SingleValueProps } from './SingleValue';
 import { OptionTypeBase } from '../types';
 
-export type PlaceholderOrValue<OptionType extends OptionTypeBase, isMulti extends boolean> =
-  | Element<ComponentType<PlaceholderProps<OptionType, isMulti>>>
+export type PlaceholderOrValue<OptionType extends OptionTypeBase, IsMulti extends boolean> =
+  | Element<ComponentType<PlaceholderProps<OptionType, IsMulti>>>
   | Element<ComponentType<SingleValueProps<OptionType>>>
   | Array<Element<ComponentType<MultiValueProps<OptionType>>>>;
 
-export type IndicatorComponentType<OptionType extends OptionTypeBase, isMulti extends boolean> = ComponentType<IndicatorProps<OptionType, isMulti>>;
+export type IndicatorComponentType<OptionType extends OptionTypeBase, IsMulti extends boolean> = ComponentType<IndicatorProps<OptionType, IsMulti>>;
 
-export interface SelectComponents<OptionType extends OptionTypeBase, isMulti extends boolean> {
-  ClearIndicator: IndicatorComponentType<OptionType, isMulti> | null;
-  Control: ComponentType<ControlProps<OptionType, isMulti>>;
-  DropdownIndicator: IndicatorComponentType<OptionType, isMulti> | null;
+export interface SelectComponents<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+  ClearIndicator: IndicatorComponentType<OptionType, IsMulti> | null;
+  Control: ComponentType<ControlProps<OptionType, IsMulti>>;
+  DropdownIndicator: IndicatorComponentType<OptionType, IsMulti> | null;
   DownChevron: ComponentType<any>;
   CrossIcon: ComponentType<any>;
-  Group: ComponentType<GroupProps<OptionType, isMulti>>;
+  Group: ComponentType<GroupProps<OptionType, IsMulti>>;
   GroupHeading: ComponentType<any>;
-  IndicatorsContainer: ComponentType<IndicatorContainerProps<OptionType, isMulti>>;
-  IndicatorSeparator: IndicatorComponentType<OptionType, isMulti> | null;
+  IndicatorsContainer: ComponentType<IndicatorContainerProps<OptionType, IsMulti>>;
+  IndicatorSeparator: IndicatorComponentType<OptionType, IsMulti> | null;
   Input: ComponentType<InputProps>;
-  LoadingIndicator: ComponentType<LoadingIconProps<OptionType, isMulti>> | null;
-  Menu: ComponentType<MenuProps<OptionType, isMulti>>;
-  MenuList: ComponentType<MenuListComponentProps<OptionType, isMulti>>;
-  MenuPortal: ComponentType<MenuPortalProps<OptionType, isMulti>>;
-  LoadingMessage: ComponentType<NoticeProps<OptionType, isMulti>>;
-  NoOptionsMessage: ComponentType<NoticeProps<OptionType, isMulti>>;
+  LoadingIndicator: ComponentType<LoadingIconProps<OptionType, IsMulti>> | null;
+  Menu: ComponentType<MenuProps<OptionType, IsMulti>>;
+  MenuList: ComponentType<MenuListComponentProps<OptionType, IsMulti>>;
+  MenuPortal: ComponentType<MenuPortalProps<OptionType, IsMulti>>;
+  LoadingMessage: ComponentType<NoticeProps<OptionType, IsMulti>>;
+  NoOptionsMessage: ComponentType<NoticeProps<OptionType, IsMulti>>;
   MultiValue: ComponentType<MultiValueProps<OptionType>>;
   MultiValueContainer: ComponentType<any>;
   MultiValueLabel: ComponentType<any>;
   MultiValueRemove: ComponentType<any>;
-  Option: ComponentType<OptionProps<OptionType, isMulti>>;
-  Placeholder: ComponentType<PlaceholderProps<OptionType, isMulti>>;
-  SelectContainer: ComponentType<ContainerProps<OptionType, isMulti>>;
+  Option: ComponentType<OptionProps<OptionType, IsMulti>>;
+  Placeholder: ComponentType<PlaceholderProps<OptionType, IsMulti>>;
+  SelectContainer: ComponentType<ContainerProps<OptionType, IsMulti>>;
   SingleValue: ComponentType<SingleValueProps<OptionType>>;
-  ValueContainer: ComponentType<ValueContainerProps<OptionType, isMulti>>;
+  ValueContainer: ComponentType<ValueContainerProps<OptionType, IsMulti>>;
 }
 
-export type SelectComponentsConfig<OptionType extends OptionTypeBase, isMulti extends boolean> = Partial<SelectComponents<OptionType, isMulti>>;
+export type SelectComponentsConfig<OptionType extends OptionTypeBase, IsMulti extends boolean> = Partial<SelectComponents<OptionType, IsMulti>>;
 
 export type DeepNonNullable<T> = {
     [P in keyof T]-?: NonNullable<T[P]>;
@@ -88,8 +88,8 @@ export type DeepNonNullable<T> = {
 
 export const components: Required<DeepNonNullable<SelectComponents<any, any>>>;
 
-export interface Props<OptionType extends OptionTypeBase, isMulti extends boolean> {
-  components: SelectComponentsConfig<OptionType, isMulti>;
+export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+  components: SelectComponentsConfig<OptionType, IsMulti>;
 }
 
-export function defaultComponents<OptionType extends OptionTypeBase, isMulti extends boolean>(props: Props<OptionType, isMulti>): SelectComponents<OptionType, isMulti>;
+export function defaultComponents<OptionType extends OptionTypeBase, IsMulti extends boolean>(props: Props<OptionType, IsMulti>): SelectComponents<OptionType, IsMulti>;

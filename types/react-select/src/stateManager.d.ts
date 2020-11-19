@@ -9,14 +9,14 @@ export interface DefaultProps<OptionType extends OptionTypeBase> {
   defaultValue: ValueType<OptionType, true | false>;
 }
 
-export interface Props<OptionType extends OptionTypeBase, isMulti extends boolean> {
+export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
   defaultValue?: ValueType<OptionType, true | false>;
   inputValue?: string;
   menuIsOpen?: boolean;
-  value?: ValueType<OptionType, isMulti>;
-  onChange?: (value: ValueType<OptionType, isMulti>, actionMeta: ActionMeta<OptionType>) => void;
+  value?: ValueType<OptionType, IsMulti>;
+  onChange?: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
 type StateProps<T extends SelectProps<any, true | false>> = Pick<T, Exclude<keyof T,
@@ -29,19 +29,19 @@ type StateProps<T extends SelectProps<any, true | false>> = Pick<T, Exclude<keyo
   | 'onMenuOpen'
 >>;
 
-interface State<OptionType extends OptionTypeBase, isMulti extends boolean> {
+interface State<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   inputValue: string;
   menuIsOpen: boolean;
-  value: ValueType<OptionType, isMulti>;
+  value: ValueType<OptionType, IsMulti>;
 }
 
 type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;
 
 export class StateManager<
   OptionType extends OptionTypeBase = { label: string; value: string },
-  isMulti extends boolean = false,
-  T extends SelectBase<OptionType, isMulti> = SelectBase<OptionType, isMulti>
-> extends Component<StateProps<SelectProps<OptionType, isMulti>> & Props<OptionType, isMulti> & SelectProps<OptionType, isMulti>, State<OptionType, isMulti>> {
+  IsMulti extends boolean = false,
+  T extends SelectBase<OptionType, IsMulti> = SelectBase<OptionType, IsMulti>
+> extends Component<StateProps<SelectProps<OptionType, IsMulti>> & Props<OptionType, IsMulti> & SelectProps<OptionType, IsMulti>, State<OptionType, IsMulti>> {
   static defaultProps: DefaultProps<any>;
 
   select: T;
@@ -50,8 +50,8 @@ export class StateManager<
   blur(): void;
   getProp(key: string): any;
   callProp(name: string, ...args: any[]): any;
-  onChange: (value: ValueType<OptionType, isMulti>, actionMeta: ActionMeta<OptionType>) => void;
-  onInputChange: (value: ValueType<OptionType, isMulti>, actionMeta: InputActionMeta) => void;
+  onChange: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
+  onInputChange: (value: ValueType<OptionType, IsMulti>, actionMeta: InputActionMeta) => void;
   onMenuOpen: () => void;
   onMenuClose: () => void;
 }
