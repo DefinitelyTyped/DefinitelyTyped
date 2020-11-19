@@ -29,7 +29,7 @@ export function date(date: Date, value: number): Date;
 export function day(date: Date): number;
 export function day(date: Date, value: number): Date;
 export function weekday(date: Date, value: Date): number;
-export function weekday(date: Date, value: Date, firstOfWeek: StartOfWeeek): Date;
+export function weekday(date: Date, value: Date, firstOfWeek: StartOfWeek): Date;
 export function month(date: Date): number;
 export function month(date: Date, value: number): Date;
 export function year(date: Date): number;
