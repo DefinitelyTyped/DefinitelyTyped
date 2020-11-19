@@ -493,6 +493,7 @@
 /types/bit-twiddle/                                     @adamzerella
 /types/bitauth/                                         @nitsujlangston
 /types/bitcore-lib/                                     @lautarodragan
+/types/bitcore-lib-cash/                                @jcramer @blockparty-sh @rkalis
 /types/bittorrent-protocol/                             @feross @tlaziuk @h1b9b
 /types/bitwise-xor/                                     @rogierschouten @BendingBender
 /types/bl/                                              @Bartvds @reconbot
