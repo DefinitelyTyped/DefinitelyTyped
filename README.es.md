@@ -310,7 +310,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en NPM?
 
-La `master` branch es automáticamente publicada en el alcance de los  `@types` en NPM gracias a los [types-publisher](https://github.com/Microsoft/types-publisher).
+La `master` branch es automáticamente publicada en el alcance de los  `@types` en NPM gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 

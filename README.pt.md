@@ -33,7 +33,7 @@ Ela pode servir de ajuda para contribuidores que estejam passado por problemas c
 
 * Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/types-publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Atualizações do status da infraestrutura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) atual
 
@@ -239,7 +239,7 @@ Por exemplo:
 }
 ```
 
-Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao dependenciesWhitelist.txt em types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
 
@@ -345,7 +345,7 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
 
 #### Qual exatamente é a relação entre este repositório e os pacotes `@types` no NPM?
 
-A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [types-publisher](https://github.com/Microsoft/types-publisher).
+A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### Eu já enviei uma pull request. Quanto tempo pode demorar até que haja um merge?
 
@@ -373,7 +373,7 @@ O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacote
 Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
 [Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
-Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
 
 Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
@@ -463,7 +463,7 @@ Quando o padrão sair do papel, nós o removeremos do Definitely Typed e descont
 _NOTA: A discussão nesta sessão supõe familiaridade com [versionamento semântico](https://semver.org/)_
 
 Cada pacote do Definitely Typed é versionado ao ser publicado ao NPM.
-O [types-publisher](https://github.com/Microsoft/types-publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
+O [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
 Por exemplo, aqui estão as primeiras linhas das [declarações de tipo do Node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) para a versão `10.12.x`, no momento de escrita:
 
 ```js
