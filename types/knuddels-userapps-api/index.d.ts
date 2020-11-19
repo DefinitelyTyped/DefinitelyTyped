@@ -907,14 +907,8 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeEventListener
 		 */
 		static removeEventListener(
-			type: string
-		): void;
-		/**
-		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeEventListener
-		 */
-		static removeEventListener(
 			type: string,
-			callback: (event: {type: string, data: KnuddelsEvent}) => void
+			callback?: (event: {type: string, data: KnuddelsEvent}) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/Client.html#method_includeCSS
@@ -2313,14 +2307,7 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
 		 */
 		replaceAll(
-			search: string,
-			replacement: string
-		): string;
-		/**
-		 * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
-		 */
-		replaceAll(
-			regexp: RegExp,
+			search: string | RegExp,
 			replacement: string
 		): string;
 		/**
@@ -2959,7 +2946,7 @@ declare global {
 		 */
 		getUserIdsByKey(
 			key: string,
-			callback: (userIds: Number[]) => void
+			callback: (userIds: number[]) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getNicksByKey
@@ -2967,7 +2954,7 @@ declare global {
 		 */
 		getNicksByKey(
 			key: string,
-			callback: (nicks: String[]) => void
+			callback: (nicks: string[]) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getAllKeys
@@ -3015,7 +3002,7 @@ declare global {
 		 */
 		getUserIdsByKey(
 			key: string,
-			callback: (userIds: Number[]) => void
+			callback: (userIds: number[]) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getNicksByKey
@@ -3023,7 +3010,7 @@ declare global {
 		 */
 		getNicksByKey(
 			key: string,
-			callback: (nicks: String[]) => void
+			callback: (nicks: string[]) => void
 		): void;
 	}
 
@@ -3074,7 +3061,7 @@ declare global {
 		 */
 		getUserIdsByKey(
 			key: string,
-			callback: (userIds: Number[]) => void
+			callback: (userIds: number[]) => void
 		): void;
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getNicksByKey
@@ -3082,7 +3069,7 @@ declare global {
 		 */
 		getNicksByKey(
 			key: string,
-			callback: (nicks: String[]) => void
+			callback: (nicks: string[]) => void
 		): void;
 	}
 
