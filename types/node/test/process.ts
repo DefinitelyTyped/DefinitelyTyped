@@ -87,3 +87,9 @@ import { EventEmitter } from "events";
 {
     process.traceDeprecation = true;
 }
+
+{
+    function abortNeverReturns(): never {
+        process.abort();
+    }
+}
