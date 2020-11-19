@@ -707,6 +707,7 @@ export class MatrixEvent {
   getAge(): number;
   getLocalAge(): number;
   getStateKey(): string;
+  isState(): boolean;
 }
 
 export class RoomMember {
