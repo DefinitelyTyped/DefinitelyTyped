@@ -1646,7 +1646,6 @@ declare namespace Sinon {
     interface SinonApi {
         fake: SinonFake;
         match: SinonMatch;
-        spyCall(...args: any[]): SinonSpyCall;
         expectation: SinonExpectationStatic;
 
         clock: {
