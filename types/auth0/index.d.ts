@@ -1291,10 +1291,6 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
 
   // User enrollment
-  getGuardianEnrollment(params: ObjectWithId): Promise<Enrollment>;
-  getGuardianEnrollment(cb: (err: Error, response: Enrollment) => void): void;
-
-
   getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
   getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
 
