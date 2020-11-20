@@ -1,13 +1,13 @@
 import autoprefixer = require('autoprefixer');
 import Browsers = require('autoprefixer/lib/browsers');
 import Prefixes = require('autoprefixer/lib/prefixes');
-import { Transformer } from 'postcss';
+import { Plugin } from 'postcss';
 
 // No options
-const ap1: Transformer = autoprefixer();
+const ap1: Plugin = autoprefixer();
 
 // Default options
-const ap2: Transformer = autoprefixer({
+const ap2: Plugin = autoprefixer({
     overrideBrowserslist: [],
     env: 'test',
     cascade: true,
@@ -27,11 +27,11 @@ const deprecationTest = autoprefixer({
 });
 
 autoprefixer.info(); // $ExpectedType () => void
-autoprefixer.data; // $ExpectType any
+autoprefixer.data; // $ExpectType { browsers: any; prefixes: any; }
 autoprefixer.defaults; // $ExpectedType string
 
 // Using environment map in "overrideBrowserslist"
-const ap3: Transformer = autoprefixer({
+const ap3: Plugin = autoprefixer({
     overrideBrowserslist: {
         production: ['> 1%', 'ie 10'],
         modern: ['last 1 chrome version', 'last 1 firefox version'],

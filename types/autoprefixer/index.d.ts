@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Plugin } from 'postcss';
+import { PluginCreator } from 'postcss';
 import { Stats } from 'browserslist';
 
 declare namespace autoprefixer {
@@ -62,7 +62,7 @@ declare namespace autoprefixer {
         info(): void;
     }
 
-    type Autoprefixer = Plugin<Options> & ExportedAPI;
+    type Autoprefixer = PluginCreator<Options> & ExportedAPI;
 }
 
 declare const autoprefixer: autoprefixer.Autoprefixer;
