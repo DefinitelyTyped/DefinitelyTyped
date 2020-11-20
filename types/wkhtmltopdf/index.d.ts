@@ -1,6 +1,7 @@
 // Type definitions for wkhtmltopdf 0.3
 // Project: https://github.com/devongovett/node-wkhtmltopdf
 // Definitions by: Jasper <https://github.com/digijap>
+//                 Rens de Wolf <https://github.com/rensdewolf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This is based on wkhtmltopdf version 0.12.6
@@ -320,6 +321,16 @@ interface Options {
     tocTextSizeShrink?: number;
     /** Use the supplied xsl style sheet for printing the table of contents */
     xslStyleSheet?: string;
+
+    /**************************************
+     * Special keys for node implementation
+     **************************************/
+    /** Cover object */
+    cover?: string;
+    /** TOC object */
+    toc?: string;
+    /** Page object */
+    page?: string;
 }
 
 interface OptionsOutfile extends Options {
