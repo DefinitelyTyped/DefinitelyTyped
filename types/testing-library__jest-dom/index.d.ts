@@ -22,7 +22,7 @@ declare namespace jest {
          * @see
          * [testing-library/jest-dom#toBeInTheDom](https:github.com/testing-library/jest-dom#toBeInTheDom)
          */
-        toBeInTheDOM(container?: HTMLElement | SVGElement): R;
+        toBeInTheDOM(container?: Element): R;
         /**
          * @description
          * Assert whether an element is present in the document or not.
@@ -205,7 +205,7 @@ declare namespace jest {
          * @see
          * [testing-library/jest-dom#tocontainelement](https:github.com/testing-library/jest-dom#tocontainelement)
          */
-        toContainElement(element: HTMLElement | SVGElement | null): R;
+        toContainElement(element: Element | null): R;
         /**
          * @description
          * Assert whether a string representing a HTML element is contained in another element.
