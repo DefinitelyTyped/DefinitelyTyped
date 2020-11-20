@@ -4,11 +4,11 @@ declare namespace echarts {
          * Line style
          */
         interface LineStyle {
-            color?: string | string[];
+            color?: EChartOption.Color;
             width?: number;
             type?: 'solid' | 'dashed' | 'dotted';
             shadowBlur?: number;
-            shadowColor?: string;
+            shadowColor?: EChartOption.Color;
             shadowOffsetX?: number;
             shadowOffsetY?: number;
             opacity?: number;
