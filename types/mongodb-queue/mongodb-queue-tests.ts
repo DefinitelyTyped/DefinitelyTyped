@@ -34,8 +34,8 @@ mongoClient.connect().then(() => {
         if (err) {
             console.log('error: ' + err);
         } else {
-            const msgId: string = res;
-            console.log('msgId: ' + msgId);
+            const msgIds: string[] = res;
+            console.log('msgId: ' + msgIds);
         }
     });
 
