@@ -638,9 +638,8 @@ declare namespace stripe {
         save_payment_method?: boolean;
         /**
          * Indicates that you intend to make future payments with this PaymentIntent's payment method.
-         * Valid values are: ["on_session", "off_session"]
          */
-        setup_future_usage?: string;
+        setup_future_usage?: "on_session" | "off_session";
     }
     interface ConfirmCardPaymentOptions {
         /*
