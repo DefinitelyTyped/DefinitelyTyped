@@ -309,7 +309,7 @@ f('one');
 }
 ```
 
-(Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `//tslint:disable-next-line rule-name`.)
+(Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `// tslint:disable-next-line rule-name`.)
 
 #### package.json
 

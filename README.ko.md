@@ -308,7 +308,7 @@ f("one");
 }
 ```
 
-(린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `//tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
+(린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `// tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
 
 #### package.json
 

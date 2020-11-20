@@ -283,7 +283,7 @@ Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha 
 }
 ```
 
-(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `//tslint:disable-next-line rule-name`.)
+(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `// tslint:disable-next-line rule-name`.)
 
 #### package.json
 

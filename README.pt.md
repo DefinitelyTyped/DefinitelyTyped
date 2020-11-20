@@ -319,7 +319,8 @@ Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finaliza
 }
 ```
 
-(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
+(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `// tslint:disable-next-line nome-da-regra`.)
+
 
 #### package.json
 

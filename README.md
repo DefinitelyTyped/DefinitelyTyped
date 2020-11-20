@@ -319,7 +319,7 @@ This should be the only content in a finished project's `tslint.json` file. If a
 }
 ```
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `// tslint:disable-next-line rule-name`.)
 
 #### package.json
 
