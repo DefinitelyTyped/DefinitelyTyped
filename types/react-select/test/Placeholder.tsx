@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { PlaceholderProps } from 'react-select/src/components/Placeholder';
 
 const placeholderSelectStyles = {
-    placeholder: (base: React.CSSProperties, { isDisabled, isFocused }: PlaceholderProps<{}, any>) => ({
+    placeholder: (base: React.CSSProperties, { isDisabled, isFocused }: PlaceholderProps<{}, boolean>) => ({
         // TODO Do something
     }),
 };

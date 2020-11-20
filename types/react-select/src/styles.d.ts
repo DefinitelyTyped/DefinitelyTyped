@@ -9,7 +9,7 @@ export type StylesConfigFunction<Props = any> = (base: CSSProperties, props: Pro
 export interface Styles {
   clearIndicator?: StylesConfigFunction;
   container?: StylesConfigFunction;
-  control?: StylesConfigFunction<ControlProps<{}, any>>;
+  control?: StylesConfigFunction<ControlProps<{}, boolean>>;
   dropdownIndicator?: StylesConfigFunction;
   group?: StylesConfigFunction;
   groupHeading?: StylesConfigFunction;
@@ -28,7 +28,7 @@ export interface Styles {
   // TODO noOptionsMessageCSS?: StylesConfigFunction;
   noOptionsMessage?: StylesConfigFunction;
   option?: StylesConfigFunction;
-  placeholder?: StylesConfigFunction<PlaceholderProps<{}, any>>;
+  placeholder?: StylesConfigFunction<PlaceholderProps<{}, boolean>>;
   singleValue?: StylesConfigFunction;
   valueContainer?: StylesConfigFunction;
 }
