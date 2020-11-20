@@ -1,4 +1,4 @@
-// Type definitions for react-test-renderer 17.0
+// Type definitions for react-test-renderer 16.9
 // Project: https://facebook.github.io/react/
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 //                 Lochbrunner <https://github.com/lochbrunner>
