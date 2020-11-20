@@ -17,7 +17,7 @@ class Person extends Model.extend({
     title: attr({ defaultValue: 'The default' }),
     title2: attr({ defaultValue: () => 'The default' }),
 
-    fullName: computed('firstName', 'lastName', function() {
+    fullName: computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 }) {}

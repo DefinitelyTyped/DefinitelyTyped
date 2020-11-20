@@ -1,4 +1,4 @@
-// Type definitions for ECharts 4.8.0
+// Type definitions for ECharts 4.9.0
 // Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>

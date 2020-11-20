@@ -1,5 +1,4 @@
 interface EventListener {
-  // tslint:disable-next-line: callable-types
   (evt: Event): void;
 }
 

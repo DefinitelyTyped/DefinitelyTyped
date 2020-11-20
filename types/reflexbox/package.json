@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@emotion/styled": "*"
+        "@emotion/styled": "*",
+        "@emotion/react": "*"
     }
 }

@@ -84,7 +84,7 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
             case 'state':
                 if (object.acl) object.acl.state.toFixed();
                 object.common.def;
-                object.common.desc && object.common.desc.toLowerCase();
+                typeof object.common.desc === "string" && object.common.desc.toLowerCase();
                 object.common.history;
                 object.common.max && object.common.max.toFixed();
                 object.common.min && object.common.min.toFixed();
@@ -221,8 +221,6 @@ adapter.setObject('id', {
         defAck: false,
     },
     native: {},
-    protectedNative: ['none'],
-    encryptedNative: ['none'],
     from: 'me',
     user: 'also me',
     ts: Date.now(),
@@ -255,8 +253,6 @@ adapter.setObject(
     {
         type: 'state',
         native: {},
-        protectedNative: ['none'],
-        encryptedNative: ['none'],
         from: 'me',
         ts: Date.now(),
     },
@@ -406,7 +402,7 @@ adapter.subscribeForeignObjectsAsync('*').catch(handleError);
 adapter.unsubscribeObjectsAsync('*').catch(handleError);
 adapter.unsubscribeForeignObjectsAsync('*').catch(handleError);
 
-adapter.getHistory('state.id', {}, (err, result: ioBroker.GetHistoryResult) => {});
+adapter.getHistory('state.id', {}, (err, result?: ioBroker.GetHistoryResult) => {});
 
 (() => adapter.terminate())();
 (() => adapter.terminate(1))();
@@ -579,3 +575,67 @@ adapter.delFile(null, "foo", (err) => {
         native: config,
     });
 }
+
+// Test some of the more uncommon object types
+const adapterObject: ioBroker.AdapterObject = {
+    _id: "",
+    type: "adapter",
+    native: {},
+    common: {
+        enabled: true,
+        installedVersion: "1.2.3",
+        materialize: false,
+        materializeTab: false,
+        mode: "daemon",
+        name: "test",
+        platform: "Javascript/Node.js",
+        titleLang: {
+            de: "foo",
+            es: "foo",
+            fr: "foo",
+            it: "foo",
+            nl: "foo",
+            pl: "foo",
+            pt: "foo",
+            ru: "foo",
+            en: "foo",
+            "zh-cn": "foo"
+        },
+        version: "1.2.3"
+    }
+};
+
+const folderObject: ioBroker.FolderObject = {
+    _id: '',
+    type: 'folder',
+    common: { name: 'My Folder' },
+    native: {},
+};
+
+const enumObject: ioBroker.EnumObject = {
+    _id: '',
+    type: 'enum',
+    common: { name: 'My Enum', members: [] },
+    native: {},
+};
+
+const metaObject: ioBroker.MetaObject = {
+    _id: '',
+    type: 'meta',
+    common: { type: 'meta.folder', name: 'foobar' },
+    native: {},
+};
+
+const instanceObject: ioBroker.InstanceObject = {
+    _id: '',
+    type: 'instance',
+    common: { enabled: true, host: 'my host', mode: 'daemon', name: 'instance 1' },
+    native: {},
+};
+
+const userObject: ioBroker.UserObject = {
+    _id: '',
+    type: 'user',
+    common: { name: 'me', password: '*****', enabled: true },
+    native: {},
+};

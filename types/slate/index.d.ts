@@ -460,7 +460,6 @@ export type NodeProperties =
     | InlineProperties
     | TextProperties;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseNode extends Immutable.Record({}) {
     data: Data;
     type: string;
@@ -916,7 +915,6 @@ export type RangeTypeProperties =
 export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON | AnnotationJSON;
 export type RangeType = Range | Selection | Decoration | Annotation;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseRange extends Immutable.Record({}) {
     readonly isCollapsed: boolean;
     readonly isExpanded: boolean;

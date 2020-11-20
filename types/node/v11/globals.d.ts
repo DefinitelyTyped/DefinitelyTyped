@@ -193,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -832,7 +831,7 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;

@@ -1065,6 +1065,39 @@ describe("jasmine.any", () => {
     });
 });
 
+describe('DiffBuilder', function() {
+  it('can be passed to matchersUtil.equals', () => {
+      const differ = jasmine.DiffBuilder();
+      jasmine.matchersUtil.equals(1, 1, undefined, differ);
+  });
+
+  it('records the actual and expected objects', () => {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({ x: 'actual' }, { x: 'expected' });
+      diffBuilder.recordMismatch();
+
+      expect(diffBuilder.getMessage()).toEqual(
+          "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
+      );
+  });
+
+  it("allows customization of the message", function() {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({x: 'bar'}, {x: 'foo'});
+
+      function darthVaderFormatter(actual: any, expected: any, path: any) {
+          return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
+      }
+
+      diffBuilder.withPath('x', () => {
+          diffBuilder.recordMismatch(darthVaderFormatter);
+      });
+
+      expect(diffBuilder.getMessage())
+          .toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
+  });
+});
+
 describe('custom asymmetry', function() {
     const tester: jasmine.AsymmetricMatcher<string> = {
         asymmetricMatch: (actual: string, customTesters) => {
@@ -1511,7 +1544,6 @@ describe("Custom async matcher: 'toBeEight'", () => {
         jasmine.addAsyncMatchers({
             toBeEight: () => {
                 return {
-                    // tslint:disable-next-line:no-any
                     compare: async (input: any) => {
                         return {
                             pass: input === 8,
@@ -1636,7 +1668,6 @@ var myReporter: jasmine.CustomReporter = {
 
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Spec: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
@@ -1648,7 +1679,6 @@ var myReporter: jasmine.CustomReporter = {
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Suite: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);

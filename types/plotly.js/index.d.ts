@@ -208,6 +208,30 @@ export interface SliderEndEvent {
     step: SliderStep;
 }
 
+export interface SunburstClickEvent {
+    event: MouseEvent;
+    nextLevel: string;
+    points: SunburstPlotDatum[];
+}
+
+export interface SunburstPlotDatum {
+    color: number;
+    curveNumber: number;
+    data: Data;
+    entry: string;
+    fullData: Data;
+    hovertext: string;
+    id: string;
+    label: string;
+    parent: string;
+    percentEntry: number;
+    percentParent: number;
+    percentRoot: number;
+    pointNumber: number;
+    root: string;
+    value: number;
+}
+
 export interface BeforePlotEvent {
     data: Data[];
     layout: Partial<Layout>;
@@ -225,6 +249,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
     on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
     on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
     on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+    on(event: 'plotly_sunburstclick', callback: (event: SunburstClickEvent) => void): void;
     on(event: 'plotly_event', callback: (data: any) => void): void;
     on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
     on(
@@ -1234,7 +1259,7 @@ export interface PlotData {
     rotation: number;
     theta: Datum[];
     r: Datum[];
-    customdata: Datum[];
+    customdata: Datum[] | Datum[][];
     selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
@@ -1244,6 +1269,8 @@ export interface PlotData {
     }>;
     title: Partial<DataTitle>;
     branchvalues: 'total' | 'remainder';
+    ids: string[];
+    level: string;
 }
 
 /**

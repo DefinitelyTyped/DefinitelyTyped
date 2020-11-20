@@ -44,6 +44,9 @@ console.log(marked.parse('6) I am using __markdown__.', options));
 marked.parse('7) I am using __markdown__.', callback);
 marked.parse('8) I am using __markdown__.', options, callback);
 
+console.log(marked.parseInline('9) I am using __markdown__.'));
+console.log(marked.parseInline('10) I am using __markdown__.', options));
+
 const text = 'Something';
 const tokens: marked.TokensList = marked.lexer(text, options);
 console.log(marked.parser(tokens));

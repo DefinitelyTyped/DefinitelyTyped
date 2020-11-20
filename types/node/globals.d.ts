@@ -559,7 +559,6 @@ declare namespace NodeJS {
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;

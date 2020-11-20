@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-bad-reference
 import '../ts3.4/node-tests';
 
 /////////////////////////////////////////////////////

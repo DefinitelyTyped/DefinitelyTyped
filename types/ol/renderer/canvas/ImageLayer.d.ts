@@ -20,8 +20,17 @@ export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
         declutteredFeatures: FeatureLike[],
     ): T;
     getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

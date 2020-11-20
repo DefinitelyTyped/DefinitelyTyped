@@ -275,3 +275,7 @@ sharp('input.jpg')
 // From https://sharp.pixelplumbing.com/api-output#examples-9
 // Extract alpha channel as raw pixel data from PNG input
 sharp('input.png').ensureAlpha().extractChannel(3).toColourspace('b-w').raw().toBuffer();
+
+// From https://sharp.pixelplumbing.com/api-constructor#examples-4
+// Convert an animated GIF to an animated WebP
+sharp('in.gif', { animated: true }).toFile('out.webp');

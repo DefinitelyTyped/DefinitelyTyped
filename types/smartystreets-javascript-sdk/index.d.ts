@@ -25,8 +25,8 @@ export namespace core {
         sender: any;
     }
 
-    interface Client extends ClientInstance {
-        send(lookup: any): Promise<Batch>;
+    interface Client<T> extends ClientInstance {
+        send(lookup: T): Promise<T>;
     }
 
     class StaticCredentials {
@@ -39,7 +39,7 @@ export namespace core {
         sign(request: Request): any;
     }
 
-    class ClientBuilder {
+    class ClientBuilder<T> {
         constructor(credentials: StaticCredentials | SharedCredentials);
 
         signer: StaticCredentials | SharedCredentials;
@@ -52,42 +52,42 @@ export namespace core {
         debug: boolean;
         licenses: string[];
 
-        withMaxRetries(retries: number): ClientBuilder;
-        withMaxTimeout(timeout: number): ClientBuilder;
-        withSender(sender: any): ClientBuilder;
-        withBaseUrl(url: string): ClientBuilder;
+        withMaxRetries(retries: number): ClientBuilder<T>;
+        withMaxTimeout(timeout: number): ClientBuilder<T>;
+        withSender(sender: any): ClientBuilder<T>;
+        withBaseUrl(url: string): ClientBuilder<T>;
         withProxy(
             host: string,
             port: number,
             username?: string,
             password?: string,
-        ): ClientBuilder;
-        withCustomHeaders(customHeaders: any): ClientBuilder;
-        withDebug(): ClientBuilder;
-        withLicenses(licenses: string[]): ClientBuilder;
+        ): ClientBuilder<T>;
+        withCustomHeaders(customHeaders: any): ClientBuilder<T>;
+        withDebug(): ClientBuilder<T>;
+        withLicenses(licenses: string[]): ClientBuilder<T>;
         buildSender(): any;
-        buildClient(baseUrl: string, Client: Client): Client;
-        buildUsStreetApiClient(): Client;
-        buildUsZipcodeClient(): Client;
-        buildUsAutocompleteClient(): Client;
-        buildUsAutocompleteProClient(): Client;
-        buildUsExtractClient(): Client;
-        buildInternationalStreetClient(): Client;
+        buildClient(baseUrl: string, Client: Client<T>): Client<T>;
+        buildUsStreetApiClient(): Client<usStreet.Lookup>;
+        buildUsZipcodeClient(): Client<usZipcode.Lookup>;
+        buildUsAutocompleteClient(): Client<usAutocomplete.Lookup>;
+        buildUsAutocompleteProClient(): Client<usAutocompletePro.Lookup>;
+        buildUsExtractClient(): Client<usExtract.Lookup>;
+        buildInternationalStreetClient(): Client<internationalStreet.Lookup>;
     }
 
     namespace buildClient {
-        function usStreet(credentials: StaticCredentials | SharedCredentials): Client;
+        function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup>;
         function usAutocomplete(
             credentials: StaticCredentials | SharedCredentials,
-        ): Client;
+        ): Client<usAutocomplete.Lookup>;
         function usAutocompletePro(
             credentials: StaticCredentials | SharedCredentials,
-        ): Client;
-        function usExtract(credentials: StaticCredentials | SharedCredentials): Client;
-        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client;
+        ): Client<usAutocompletePro.Lookup>;
+        function usExtract(credentials: StaticCredentials | SharedCredentials): Client<usExtract.Lookup>;
+        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client<usZipcode.Lookup>;
         function internationalStreet(
             credentials: StaticCredentials | SharedCredentials,
-        ): Client;
+        ): Client<internationalStreet.Lookup>;
     }
 
     namespace Errors {

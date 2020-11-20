@@ -60,6 +60,7 @@ import {
     MaskedViewIOS,
     Modal,
     NativeEventEmitter,
+    NativeModule, // Not actually exported, not sure why
     NativeModules,
     NativeScrollEvent,
     NativeSyntheticEvent,
@@ -381,7 +382,9 @@ export class TouchableNativeFeedbackTest extends React.Component {
 }
 
 // PressableTest
-export class PressableTest extends React.Component {
+export class PressableTest extends React.Component<{}> {
+    private readonly myRef: React.RefObject<View> = React.createRef();
+
     onPressButton = (e: GestureResponderEvent) => {
         e.persist();
         e.isPropagationStopped();
@@ -391,7 +394,7 @@ export class PressableTest extends React.Component {
     render() {
         return (
             <>
-                <Pressable onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -875,8 +878,23 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
-const nativeEventEmitter = new NativeEventEmitter();
-nativeEventEmitter.removeAllListeners('event');
+// NativeEventEmitter - Android
+const androidEventEmitter = new NativeEventEmitter();
+const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub1);
+
+// NativeEventEmitter - IOS
+const nativeModule: NativeModule = {
+    addListener(eventType: string) {},
+    removeListeners(count: number) {},
+};
+const iosEventEmitter = new NativeEventEmitter(nativeModule);
+const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
@@ -1059,6 +1077,7 @@ export class ImageTest extends React.Component {
             (width, height) => console.log(width, height),
             error => console.error(error),
         );
+        Image.prefetch(uri); // $ExpectType Promise<boolean>
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {

@@ -1,13 +1,10 @@
-// Type definitions for copy-webpack-plugin 6.0
+// Type definitions for copy-webpack-plugin 6.3
 // Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 //                 avin-kavish  <https://github.com/avin-kavish>
 //                 Piotr Błażejewicz  <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node"/>
-
-import { Plugin } from 'webpack';
+import { WebpackPluginInstance as Plugin } from 'webpack';
 
 interface ObjectPattern {
     /**
@@ -38,6 +35,11 @@ interface ObjectPattern {
      * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#globoptions}
      */
     globOptions?: object;
+
+    /**
+     * Allows to filter copied assets.
+     */
+    filter?: (resourcePath: string) => boolean;
 
     /**
      * How to interpret `to`. default: undefined

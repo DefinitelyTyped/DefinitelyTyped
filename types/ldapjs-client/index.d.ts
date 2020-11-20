@@ -75,7 +75,6 @@ declare class LdapClient {
      *
      * Note that the defaults for options are a 'base' search.
      */
-    // tslint:disable-next-line: no-unnecessary-generics
     search(base: string, options: LdapClient.SearchOptions): Promise<unknown[]>;
 
     /**
