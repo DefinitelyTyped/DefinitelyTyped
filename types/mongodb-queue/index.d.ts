@@ -1,6 +1,7 @@
 // Type definitions for mongodb-queue 4.0
 // Project: https://github.com/chilts/mongodb-queue
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
+// Definitions updated by: John C. Kennedy <https://github.com/codejockie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -13,8 +14,8 @@ declare namespace mongodbQueue {
         constructor(db: Db, name: string, opts?: QueueOptions);
 
         createIndexes(callback: QueueCallback<string>): void;
-        add(payload: string, callback: QueueCallback<string>): void;
-        add(payload: string, opts: QueueOptions, callback: QueueCallback<string>): void;
+        add(payload: Payload, callback: QueueCallback<string>): void;
+        add(payload: Payload, opts: QueueOptions, callback: QueueCallback<string>): void;
         get(callback: QueueCallback<QueueMessage | undefined>): void;
         get(opts: QueueOptions, callback: QueueCallback<QueueMessage | undefined>): void;
         ping(ack: string, callback: QueueCallback<string>): void;
@@ -26,6 +27,8 @@ declare namespace mongodbQueue {
         inflight(callback: QueueCallback<number>): void;
         done(callback: QueueCallback<number>): void;
     }
+
+    type Payload = string | Record<string, unknown> | Array<string | Record<string, unknown>>;
 
     interface QueueOptions {
         deadQueue?: Queue;
