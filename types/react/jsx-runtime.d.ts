@@ -1,3 +1,2 @@
-import { createElement } from './';
-
-export default createElement;
+// Expose `JSX` namespace in `global` namespace
+import './';
