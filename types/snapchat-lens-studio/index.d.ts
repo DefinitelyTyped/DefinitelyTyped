@@ -31,7 +31,7 @@ declare function print(message: any): void;
  * // Bind a function to the MouthOpened event
  * function onMouthOpen(eventData)
  * {
- * 	print("mouth was opened");
+ *     print("mouth was opened");
  * }
  * var event = script.createEvent("MouthOpenedEvent");
  * event.bind(onMouthOpen);
@@ -838,7 +838,7 @@ declare enum AttachmentPointType {
  *
  * function onTap(eventData)
  * {
- * 	script.manip.enableManipulateType(ManipulateType.Scale, false);
+ *     script.manip.enableManipulateType(ManipulateType.Scale, false);
  * }
  * var tapEvent = script.createEvent("TapEvent");
  * tapEvent.bind(onTap);
@@ -882,14 +882,14 @@ declare enum FaceInsetRegion {
  *
  * function onTap(eventData)
  * {
- * 	var touchPos = eventData.getTouchPosition();
- * 	var intersectManipFrame = script.manip.intersectManipulateFrame(touchPos);
- * 	if(intersectManipFrame && intersectManipFrame.isValid())
- * 	{
- * 		screenPoint = intersectManipFrame.getIntersectionPoint();
+ *     var touchPos = eventData.getTouchPosition();
+ *     var intersectManipFrame = script.manip.intersectManipulateFrame(touchPos);
+ *     if(intersectManipFrame && intersectManipFrame.isValid())
+ *     {
+ *         screenPoint = intersectManipFrame.getIntersectionPoint();
  *
- * 		print(screenPoint.toString());
- * 	}
+ *         print(screenPoint.toString());
+ *     }
  * }
  * var tapEvent = script.createEvent("TapEvent");
  * tapEvent.bind(onTap);
