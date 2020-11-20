@@ -14,7 +14,7 @@
         ],
         "paths": {
             "autoprefixer": [
-                "autoprefixer/v9"
+                "autoprefixer/v9/*"
             ]
         },
         "types": [],
