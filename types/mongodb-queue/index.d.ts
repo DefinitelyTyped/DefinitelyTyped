@@ -1,7 +1,7 @@
 // Type definitions for mongodb-queue 4.0
 // Project: https://github.com/chilts/mongodb-queue
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
-// Definitions updated by: John C. Kennedy <https://github.com/codejockie>
+//                 John C. Kennedy <https://github.com/codejockie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 

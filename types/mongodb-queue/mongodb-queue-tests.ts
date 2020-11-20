@@ -21,6 +21,24 @@ mongoClient.connect().then(() => {
         }
     });
 
+    mongoQueue.add({ name: 'foo' }, (err, res) => {
+        if (err) {
+            console.log('error: ' + err);
+        } else {
+            const msgId: string = res;
+            console.log('msgId: ' + msgId);
+        }
+    });
+
+    mongoQueue.add(['foo1', 'foo2'], (err, res) => {
+        if (err) {
+            console.log('error: ' + err);
+        } else {
+            const msgId: string = res;
+            console.log('msgId: ' + msgId);
+        }
+    });
+
     mongoQueue.get((err, res) => {
         if (err) {
             console.log('error: ' + err);
