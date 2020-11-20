@@ -253,7 +253,7 @@ export class MongoError extends Error {
      * Checks the error to see if it has an error label
      */
     hasErrorLabel(label: string): boolean;
-    code?: number;
+    code?: number | string;
     /**
      * While not documented, the 'errmsg' prop is AFAIK the only way to find out
      * which unique index caused a duplicate key error. When you have multiple
@@ -2725,7 +2725,7 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind<U = T>(field: string): AggregationCursor<U>;
+    unwind<U = T>(field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean; }): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

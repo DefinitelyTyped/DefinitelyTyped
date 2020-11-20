@@ -175,6 +175,8 @@ declare module Meteor {
 
     function loginWithToken(token: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
+    function loggingOut(): boolean;
+
     function logout(callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function logoutOtherClients(callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;

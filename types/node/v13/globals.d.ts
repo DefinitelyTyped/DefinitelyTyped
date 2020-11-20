@@ -798,7 +798,7 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;

@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.22
+// Type definitions for carbon-components-react 7.24
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -11,6 +11,7 @@ export as namespace CarbonReact;
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
 export * from "./lib/components/AccordionItem";
+export * from "./lib/components/AspectRatio";
 export * from "./lib/components/Breadcrumb";
 export * from "./lib/components/BreadcrumbItem";
 export * from "./lib/components/Button";
@@ -96,6 +97,7 @@ export * from "./lib/components/UnorderedList";
 
 export { default as Accordion } from "./lib/components/Accordion";
 export { default as AccordionItem } from "./lib/components/AccordionItem";
+export { AspectRatio } from "./lib/components/AspectRatio";
 export { Breadcrumb, BreadcrumbItem } from "./lib/components/Breadcrumb";
 export { default as Button } from "./lib/components/Button";
 export { default as ButtonSet } from "./lib/components/ButtonSet";

@@ -239,7 +239,7 @@ declare namespace DB {
     class DocumentReference {
         private constructor(docId: string | number, database: Database)
 
-        field(object: object): this
+        field(object: Record<string, any>): this
 
         get(options: OQ<IGetDocumentOptions>): void
         get(options?: RQ<IGetDocumentOptions>): Promise<IQuerySingleResult>
@@ -274,7 +274,7 @@ declare namespace DB {
 
         skip(offset: number): Query
 
-        field(object: object): Query
+        field(object: Record<string, any>): Query
 
         get(options: OQ<IGetDocumentOptions>): void
         get(options?: RQ<IGetDocumentOptions>): Promise<IQueryResult>
@@ -553,21 +553,21 @@ declare namespace DB {
      * A contract that all API provider must adhere to
      */
     class APIBaseContract<
-        PROMISE_RETURN,
-        CALLBACK_RETURN,
-        PARAM extends IAPIParam,
-        CONTEXT = any
+        PromiseReturn,
+        CallbackReturn,
+        Param extends IAPIParam,
+        Context = any
     > {
-        getContext(param: PARAM): CONTEXT
+        getContext(param: Param): Context
 
         /**
          * In case of callback-style invocation, this function will be called
          */
-        getCallbackReturn(param: PARAM, context: CONTEXT): CALLBACK_RETURN
+        getCallbackReturn(param: Param, context: Context): CallbackReturn
 
-        getFinalParam<T extends PARAM>(param: PARAM, context: CONTEXT): T
+        getFinalParam<T extends Param>(param: Param, context: Context): T
 
-        run<T extends PARAM>(param: T): Promise<PROMISE_RETURN>
+        run<T extends Param>(param: T): Promise<PromiseReturn>
     }
 
     interface IGeoPointConstructor {
@@ -659,7 +659,7 @@ declare namespace DB {
 
         constructor(longitude: number, latitude: number)
 
-        toJSON(): object
+        toJSON(): Record<string, any>
         toString(): string
     }
 

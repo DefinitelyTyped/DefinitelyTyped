@@ -97,6 +97,8 @@ declare namespace Aws {
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
+        metrics?: boolean;
+        shouldStartNameWithService?: boolean;
     }
 
     interface CognitoAuthorizer {
@@ -282,7 +284,7 @@ declare namespace Aws {
 
     interface HttpRequestValidation {
         parameters?: HttpRequestParametersValidation;
-        schema?: { [key: string]: string };
+        schema?: { [key: string]: Record<string, unknown> };
     }
 
     interface Http {
@@ -366,7 +368,8 @@ declare namespace Aws {
     }
 
     interface Sns {
-        topicName: string;
+        arn?: string;
+        topicName?: string;
         displayName?: string;
         filterPolicy?: string[] | { [key: string]: string };
         redrivePolicy?: RedrivePolicy;
@@ -565,6 +568,7 @@ declare namespace Aws {
     }
 
     interface Resources {
+        Description?: string;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources;
         Outputs?: Outputs;

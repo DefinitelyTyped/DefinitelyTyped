@@ -218,6 +218,15 @@ const workout = { key: 'workout', color: 'green' };
         textDayFontSize: 16,
         textMonthFontSize: 16,
         textDayHeaderFontSize: 16,
+        textDayStyle: {
+            fontSize: 20,
+        },
+        dotStyle: {
+            backgroundColor: 'white',
+        },
+        arrowStyle: {
+            padding: 0,
+        },
     }}
 />;
 

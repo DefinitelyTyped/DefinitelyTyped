@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    AspectRatio,
     Button,
     CodeSnippet,
     CodeSnippetType,
@@ -60,6 +61,22 @@ const accordionItemTwo = (
     <AccordionItem title={accordionTitle} className="extra-class">
         Lorem ipsum.
     </AccordionItem>
+);
+
+//
+// AspectRatio
+//
+
+const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string }> = () => <div/>;
+
+const aspectRatioT1 = (
+    <AspectRatio>Default</AspectRatio>
+);
+const aspectRatioT2 = (
+    <AspectRatio as="section" onClick={(e) => {}}>IntrinsicElement</AspectRatio>
+);
+const aspectRatioT3 = (
+    <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3}>Component</AspectRatio>
 );
 
 //
@@ -598,6 +615,7 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
 
 // NumberInput
 const numberInput = <NumberInput id="my-id" value={12} />;
+const emptyNumberInput = <NumberInput id="empty-id" value="" />;
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;

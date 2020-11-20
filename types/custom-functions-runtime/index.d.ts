@@ -1,4 +1,4 @@
-// Type definitions for non-npm package custom-functions-runtime 1.3
+// Type definitions for non-npm package custom-functions-runtime 1.6
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
@@ -31,17 +31,17 @@ declare namespace CustomFunctions {
      * [Api set: CustomFunctionsRuntime 1.2]
      */
     class Error {
-        constructor(errorCode: ErrorCode, errorMessage?: string);
+        constructor(code: ErrorCode, message?: string);
          /**
           * The error code returned by your custom function.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorCode: ErrorCode;
+        code: ErrorCode;
          /**
           * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorMessage?: string;
+        message?: string;
     }
 
     /**

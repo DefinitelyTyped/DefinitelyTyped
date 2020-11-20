@@ -5861,6 +5861,7 @@ fp.now(); // $ExpectType number
 // _.transform
 {
     const array: number[] = [];
+    const readonlyArray: ReadonlyArray<number> = [];
     const dictionary: _.Dictionary<number> = {};
 
     {
@@ -5870,6 +5871,7 @@ fp.now(); // $ExpectType number
         _.transform(array); // $ExpectType any[]
         _.transform<number, AbcObject[]>(array, iterator); // $ExpectType AbcObject[]
         _.transform<number, AbcObject[]>(array, iterator, accumulator); // $ExpectType AbcObject[]
+        _.transform<number, AbcObject[]>(readonlyArray, iterator, accumulator); // $ExpectType AbcObject[]
         _(array).transform(); // $ExpectType Collection<any>
         _(array).transform(iterator); // $ExpectType Collection<AbcObject>
         _(array).transform(iterator, accumulator); // $ExpectType Collection<AbcObject>

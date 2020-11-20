@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-export interface TabContentProps extends Omit<ReactDivAttr, "aria-live" | "hidden"> {
+export interface TabContentProps extends Omit<ReactDivAttr, "hidden"> {
     selected?: boolean,
 }
 
