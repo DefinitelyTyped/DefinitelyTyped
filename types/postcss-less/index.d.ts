@@ -3,6 +3,7 @@
 // Definitions by: Masafumi Koba <https://github.com/ybiquitous>
 //                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import * as postcss from 'postcss';
 
