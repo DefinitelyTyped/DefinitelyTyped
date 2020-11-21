@@ -5,9 +5,9 @@ const path = require("path");
 
 const typingsPackageName = process.argv[2];
 const asOfVersion = process.argv[3];
-const libraryName = process.argv[5] || typingsPackageName;
+const libraryName = process.argv[4] || typingsPackageName;
 
-if (process.argv.length !== 5 && process.argv.length !== 6) {
+if (process.argv.length !== 4 && process.argv.length !== 5) {
 	console.log("Usage: npm run not-needed -- typingsPackageName asOfVersion [libraryName]");
 	process.exit(1);
 }
