@@ -9334,13 +9334,23 @@ type ScreenRect = {
     height: number;
 };
 
-export interface KeyboardEvent {
+type BaseKeyboardEvent = {
     duration: number;
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect;
-    startCoordinates: ScreenRect;
-    isEventFromThisApp: boolean;
+    endCoordinates: ScreenRect
 }
+
+type AndroidKeyboardEvent = BaseKeyboardEvent & {
+    duration: 0,
+    easing: 'keyboard'
+}
+
+type IOSKeyboardEvent = BaseKeyboardEvent & {
+  startCoordinates: ScreenRect,
+  isEventFromThisApp: boolean
+}
+
+export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
