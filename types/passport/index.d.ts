@@ -102,7 +102,7 @@ declare namespace passport {
          * useful for third-party authentication strategies to pass profile
          * details.
          */
-        success(user: object, info?: object): void;
+        success(user: Express.User, info?: object): void;
         /**
          * Fail authentication, with optional `challenge` and `status`, defaulting
          * to 401.
