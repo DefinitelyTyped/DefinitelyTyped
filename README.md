@@ -218,7 +218,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed — typingsPackageName asOfVersion [libraryName]`.
+You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 * `typingsPackageName`: This is the name of the directory to delete.
 * `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 * `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
