@@ -15,7 +15,13 @@ namespace express_tests {
     express.static.mime.define({
         'application/fx': ['fx']
     });
-    app.use('/static', express.static(__dirname + '/public'));
+    app.use('/static', express.static(__dirname + '/public', {
+        setHeaders: res => {
+            // $ExpectType Response<any>
+            res;
+            res.set("foo", "bar");
+        }
+    }));
 
     // simple logger
     app.use((req, res, next) => {

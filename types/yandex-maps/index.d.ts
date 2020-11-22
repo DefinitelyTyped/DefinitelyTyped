@@ -215,7 +215,7 @@ declare namespace ymaps {
     }
 
     namespace clusterer {
-        class Balloon implements IBalloonManager<Clusterer> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Clusterer> {
             constructor(clusterer: Clusterer);
 
             events: IEventManager;
@@ -759,12 +759,12 @@ declare namespace ymaps {
 
     namespace geometry {
         namespace base {
-            class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
+            class LineString implements IBaseLineStringGeometry {
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString;
 
-                static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: geometry.LineString): string;
 
                 getBounds(): number[][] | null;
 
@@ -809,7 +809,7 @@ declare namespace ymaps {
                 fire(type: string, eventobject: object | IEvent): this;
             }
 
-            class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
+            class Point implements IBasePointGeometry {
                 events: IEventManager;
 
                 getBounds(): number[][] | null;
@@ -826,8 +826,8 @@ declare namespace ymaps {
 
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-                static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+                static toEncodedCoordinates(geometry: Polygon): string;
 
                 contains(position: number[]): boolean;
 
@@ -879,8 +879,8 @@ declare namespace ymaps {
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): LineString;
+            static toEncodedCoordinates(geometry: LineString): string;
 
             getMap(): Map | null;
 
@@ -958,8 +958,8 @@ declare namespace ymaps {
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+            static toEncodedCoordinates(geometry: Polygon): string;
 
             add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
@@ -1437,7 +1437,7 @@ declare namespace ymaps {
     }
 
     namespace geoObject {
-        class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<GeoObject> {
             constructor(geoObject: GeoObject);
 
             events: IEventManager;
@@ -1589,7 +1589,7 @@ declare namespace ymaps {
             }
         }
 
-        namespace behavior { //tslint:disable-line no-shadowed-variable
+        namespace behavior {
             class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
                 constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
@@ -1683,7 +1683,7 @@ declare namespace ymaps {
             }
         }
 
-        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ {
             constructor(map: Map);
 
             events: IEventManager;
@@ -3294,13 +3294,13 @@ declare namespace ymaps {
         getType(): string;
     }
 
-    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {
     }
 
-    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {
     }
 
-    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {
     }
 
     interface IBehavior extends IChildOnMap, ICustomizable {
@@ -3317,10 +3317,10 @@ declare namespace ymaps {
         setParent(parent: object | null): this;
     }
 
-    interface IChildOnMap extends IChild<IControlParent> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IChildOnMap extends IChild<IControlParent> {
     }
 
-    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {
     }
 
     interface ICircleGeometryAccess extends IFreezable {
@@ -3345,7 +3345,7 @@ declare namespace ymaps {
         remove(object: object): this;
     }
 
-    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface
         // new (options?: object);
     }
 
@@ -3361,7 +3361,7 @@ declare namespace ymaps {
         solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
     }
 
-    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface
     }
 
     interface ICopyrightsProvider extends IEventEmitter {
@@ -3380,7 +3380,7 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
     }
 
     interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
@@ -3463,7 +3463,7 @@ declare namespace ymaps {
         onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
     }
 
-    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IFreezable {
@@ -3514,7 +3514,7 @@ declare namespace ymaps {
         getPixels(): number[];
     }
 
-    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface
     }
 
     interface IGeometryJson {
@@ -3573,7 +3573,7 @@ declare namespace ymaps {
         indexOf(geoObject: IGeoObject): number;
     }
 
-    interface IHintManager<T> extends IPopupManager<T> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IHintManager<T> extends IPopupManager<T> {
     }
 
     interface IIterator {
@@ -3639,7 +3639,7 @@ declare namespace ymaps {
         unfreeze(): IFreezable;
     }
 
-    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {
     }
 
     interface ILineStringGeometryAccess extends IFreezable {
@@ -3670,7 +3670,7 @@ declare namespace ymaps {
         end(): void;
     }
 
-    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {
     }
 
     interface IMultiRouteModelJson {
@@ -3774,7 +3774,7 @@ declare namespace ymaps {
         getPanorama(): IPanorama;
     }
 
-    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {
     }
 
     interface IPanoramaGraph {
@@ -3891,7 +3891,7 @@ declare namespace ymaps {
         shift(offset: number[]): IPixelGeometry;
     }
 
-    interface IPointGeometry extends IGeometry, IPointGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPointGeometry extends IGeometry, IPointGeometryAccess {
     }
 
     interface IPointGeometryAccess {
@@ -3900,7 +3900,7 @@ declare namespace ymaps {
         setCoordinates(coordinates: number[] | null): this;
     }
 
-    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {
     }
 
     interface IPolygonGeometryAccess extends IFreezable {
@@ -4004,7 +4004,7 @@ declare namespace ymaps {
         switchPoints(): void;
     }
 
-    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface
     }
 
     interface ISelectableControl extends IControl {
@@ -4021,7 +4021,7 @@ declare namespace ymaps {
         select(): void;
     }
 
-    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IShape {

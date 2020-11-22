@@ -113,6 +113,14 @@ declare module Meteor {
     function wrapAsync(func: Function, context?: Object): any;
 
     function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
+
+    class EnvironmentVariable<T> {
+        readonly slot: number;
+        constructor();
+        get(): T;
+        getOrNullIfOutsideFiber(): T | null;
+        withValue<U>(value: T, fn: () => U): U;
+    }
     /** utils **/
 
     /** Pub/Sub **/
@@ -166,6 +174,8 @@ declare module Meteor {
     function loginWithPassword(user: Object | string, password: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function loginWithToken(token: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+
+    function loggingOut(): boolean;
 
     function logout(callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 

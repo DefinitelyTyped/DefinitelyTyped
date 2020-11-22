@@ -192,7 +192,7 @@ declare module "process" {
                 argv0: string;
                 execArgv: string[];
                 execPath: string;
-                abort(): void;
+                abort(): never;
                 chdir(directory: string): void;
                 cwd(): string;
                 debugPort: number;
@@ -271,7 +271,7 @@ declare module "process" {
                 /**
                  * Can only be set if not in worker thread.
                  */
-                umask(mask: number): number;
+                umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
                 domain: Domain;
@@ -294,6 +294,8 @@ declare module "process" {
                 report?: ProcessReport;
 
                 resourceUsage(): ResourceUsage;
+
+                traceDeprecation: boolean;
 
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;

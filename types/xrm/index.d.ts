@@ -2082,7 +2082,7 @@ declare namespace Xrm {
          * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
-            "lookup" | "memo" | "money" | "multioptionset" | "optionset" | "string";
+            "lookup" | "memo" | "money" | "multiselectoptionset" | "optionset" | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.

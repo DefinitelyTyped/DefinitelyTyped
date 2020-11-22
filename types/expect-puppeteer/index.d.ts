@@ -4,7 +4,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Jason Mong <https://github.com/jfm710>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 
@@ -81,7 +81,6 @@ interface ExpectPuppeteer {
 
 declare global {
     namespace jest {
-        // tslint:disable-next-line no-empty-interface
         interface Matchers<R, T> {
             // These must all match the ExpectPuppeteer interface above.
             // We can't extend from it directly because some method names conflict in type-incompatible ways.

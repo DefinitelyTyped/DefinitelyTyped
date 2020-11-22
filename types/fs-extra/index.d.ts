@@ -109,7 +109,10 @@ export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType)
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
+export const emptydir: typeof emptyDir;
+
 export function emptyDirSync(path: string): void;
+export const emptydirSync: typeof emptyDirSync;
 
 export function pathExists(path: string): Promise<boolean>;
 export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
@@ -234,9 +237,9 @@ export function rmdir(path: PathLike): Promise<void>;
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;
 
-export function symlink(target: PathLike, path: PathLike, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(target: PathLike, path: PathLike, type: SymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(target: PathLike, path: PathLike, type?: FsSymlinkType): Promise<void>;
+export function symlink(target: PathLike, path: PathLike, type?: SymlinkType): Promise<void>;
 
 export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: PathLike, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -297,8 +300,7 @@ export interface PathEntryStream {
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = "dir" | "file";
-export type FsSymlinkType = "dir" | "file" | "junction";
+export type SymlinkType = "dir" | "file" | "junction";
 
 export type Mode = string | number;
 

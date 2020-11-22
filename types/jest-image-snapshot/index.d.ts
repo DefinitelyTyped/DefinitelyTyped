@@ -4,7 +4,7 @@
 //                 erbridge <https://github.com/erbridge>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 import { PixelmatchOptions } from 'pixelmatch';
@@ -19,7 +19,7 @@ export interface MatchImageSnapshotOptions {
     /**
      * Custom config passed to 'pixelmatch' or 'ssim'
      */
-    customDiffConfig?: PixelmatchOptions | SSIMOptions;
+    customDiffConfig?: PixelmatchOptions | Partial<SSIMOptions>;
     /**
      * The method by which images are compared.
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.

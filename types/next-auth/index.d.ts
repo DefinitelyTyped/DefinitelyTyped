@@ -94,9 +94,9 @@ interface Session {
 }
 
 interface User {
-    name: string;
-    email: string;
-    image: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
 }
 
 interface JWTOptions {

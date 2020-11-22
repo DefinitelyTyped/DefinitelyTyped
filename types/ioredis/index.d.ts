@@ -629,8 +629,8 @@ declare namespace IORedis {
         zrevrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrevrank(key: KeyType, member: string): Promise<number | null>;
 
-        hset(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
-        hset(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
+        hset: OverloadedKeyedHashCommand<ValueType, Ok>;
+
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
         hsetBuffer(key: KeyType, field: string, value: ValueType): Promise<Buffer>;
 
@@ -686,6 +686,8 @@ declare namespace IORedis {
 
         mset: OverloadedHashCommand<ValueType, Ok>;
         msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
+
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Promise<number>;
 
         randomkey(callback: Callback<string>): void;
         randomkey(): Promise<string>;
@@ -1195,6 +1197,8 @@ declare namespace IORedis {
 
         zrevrank(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
 
+        hset(key: KeyType, ...args: ValueType[]): Pipeline;
+        hset(key: KeyType, data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
         hset(key: KeyType, field: string, value: ValueType, callback?: Callback<BooleanResponse>): Pipeline;
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback?: Callback<Buffer>): Pipeline;
 
@@ -1239,6 +1243,8 @@ declare namespace IORedis {
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
+
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Pipeline;
 
         randomkey(callback?: Callback<string>): Pipeline;
 
@@ -1571,6 +1577,12 @@ declare namespace IORedis {
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
         showFriendlyErrorStack?: boolean;
+        /**
+         * When enabled, all commands issued during an event loop iteration are automatically wrapped in a
+         * pipeline and sent to the server at the same time. This can improve performance by 30-50%.
+         * default: false.
+         */
+        enableAutoPipelining?: boolean;
     }
 
     interface AddressFromResponse {

@@ -45,6 +45,8 @@ export class ValueContainer extends Component<ValueContainerProps<any>> {}
 export interface IndicatorsState {
   /** Whether the text should be rendered right to left. */
   isRtl: boolean;
+  /** Whether the component is disabled */
+  isDisabled: boolean;
 }
 
 export type IndicatorContainerProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &

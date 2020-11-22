@@ -52,6 +52,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     maxRequest?: number;
     oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
+    httpProxy?: string;
     redirectUri?: string;
     refreshToken?: string;
     refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
@@ -173,7 +174,7 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
+    request<T = object>(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: T) => void): Promise<T>;
     query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
@@ -236,6 +237,7 @@ export class Connection extends BaseConnection {
     version: string;
     accessToken: string;
     refreshToken?: string;
+    userInfo?: UserInfo;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;

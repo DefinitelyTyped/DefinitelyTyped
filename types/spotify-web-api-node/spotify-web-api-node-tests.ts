@@ -456,6 +456,15 @@ spotifyApi.getMyCurrentPlaybackState({
   }, (err) => {
     console.log('Something went wrong!', err);
   });
+
+// Add track or episode to device queue
+spotifyApi.addToQueue('spotify:track:4iV5W9uYEdYUVa79Axb7Rh')
+  .then(() => {
+    console.log('Track added to queue');
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
 /* Get Recommendations Based on Seeds */
 // TBD
 

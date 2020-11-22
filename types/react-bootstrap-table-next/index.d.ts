@@ -2,6 +2,7 @@
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
 //                 Valentin Slobozanin <https://github.com/ignefolio>
+//                 Jakub Różbicki <https://github.com/jrozbicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -66,6 +67,20 @@ export type ColumnSortFunc<T, E extends keyof T = any> = (
     rowB: T,
 ) => number;
 
+export type ColumnSortCaret<T extends object = any, E = any> = (
+    order: 'asc' | 'desc' | undefined,
+    column: ColumnDescription<T, E>,
+) => JSX.Element | string | null;
+
+export type HeaderSortingClasses<T extends object = any, E = any> =
+    | string
+    | ((
+          column: ColumnDescription<T, E>,
+          sortOrder: 'asc' | 'desc',
+          isLastSorting: boolean,
+          colIndex: number,
+      ) => string);
+
 export interface TableChangeState<T> {
     page: number;
     sizePerPage: number;
@@ -109,11 +124,13 @@ export interface ColumnDescription<T extends object = any, E = any> {
      */
     text: string;
     classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    headerClasses?: string | ((column: ColumnDescription<T, E>, colIndex: number) => string);
     style?:
         | React.CSSProperties
         | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
+    sortCaret?: ColumnSortCaret<T, E>;
     searchable?: boolean;
     align?: CellAlignment;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties);
@@ -125,6 +142,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     filterValue?: (cell: T[keyof T], row: T) => string;
     headerAlign?: CellAlignment;
     headerFormatter?: HeaderFormatter<T>;
+    headerSortingClasses?: HeaderSortingClasses<T, E>;
     formatExtraData?: {
         tooltipFormatter?: (row: T) => JSX.Element;
     } & E;
@@ -431,7 +449,7 @@ export interface BootstrapTableRef<T extends object = any> {
     };
 }
 
-export interface BootstrapTableProps<T extends object = any> {
+export interface BootstrapTableProps<T extends object = any, K = number> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -465,7 +483,7 @@ export interface BootstrapTableProps<T extends object = any> {
     filter?: unknown;
     cellEdit?: any;
     selectRow?: SelectRowProps<T>;
-    expandRow?: ExpandRowProps<T>;
+    expandRow?: ExpandRowProps<T, K>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
     rowEvents?: RowEventHandlerProps;
@@ -493,7 +511,7 @@ export interface BootstrapTableProps<T extends object = any> {
     search?: SearchProps<T> | boolean;
 }
 
-declare class BootstrapTable<T extends object = any> extends Component<BootstrapTableProps<T>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
@@ -519,12 +537,12 @@ export interface ExpandHeaderColumnRenderer {
     isAnyExpands: boolean;
 }
 
-export interface ExpandRowProps<T> {
+export interface ExpandRowProps<T, K = number> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: any[];
+    expanded?: K[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
     onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
-    nonExpandable?: number[];
+    nonExpandable?: K[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;

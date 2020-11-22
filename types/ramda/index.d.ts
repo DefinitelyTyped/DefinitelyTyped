@@ -1003,13 +1003,23 @@ export function mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResu
 /**
  * Like mapObj, but but passes additional arguments to the predicate function.
  */
+type PartialRecord<K extends keyof any, T> = {
+    [P in K]?: T;
+};
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
     obj: Record<TKey, T>
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
+    fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+    obj: PartialRecord<TKey, T>
+): PartialRecord<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
 ): (obj: Record<TKey, T>) => Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+    fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult
+): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
@@ -1020,9 +1030,6 @@ export function mapObjIndexed<T, TResult>(
 ): {
     [key: string]: TResult
 };
-export function mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
-export function mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
-
 /**
  * Tests a regular expression agains a String
  */

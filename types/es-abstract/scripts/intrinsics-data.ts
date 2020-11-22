@@ -8,16 +8,13 @@ const { getPrototypeOf: getProto, getOwnPropertyDescriptor: $gOPD, setPrototypeO
     setPrototypeOf(target: object, proto: object | null): boolean;
 };
 
-// tslint:disable: only-arrow-functions space-before-function-paren
 const ThrowTypeError = (function () {
     return $gOPD(arguments, 'callee')!.get;
 })();
 
-// tslint:disable: no-async-without-await
 const generator = function* () {};
 const asyncFn = async function () {};
 const asyncGen = async function* () {};
-// tslint:enable
 
 const generatorFunction = generator ? /** @type {GeneratorFunctionConstructor} */ generator.constructor : undefined;
 const generatorFunctionPrototype = generatorFunction ? generatorFunction.prototype : undefined;
@@ -29,7 +26,6 @@ const asyncGenFunction = asyncGen ? /** @type {AsyncGeneratorFunctionConstructor
 const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype : undefined;
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 
-// tslint:disable-next-line: ban-types
 const TypedArray = typeof Uint8Array === 'undefined' ? undefined : (getProto(Uint8Array) as Function);
 
 const $ObjectPrototype = Object.prototype;

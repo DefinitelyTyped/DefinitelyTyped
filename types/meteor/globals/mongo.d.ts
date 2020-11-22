@@ -125,44 +125,46 @@ declare module Mongo {
         [id: string]: Number;
     }
 
+    type Transform<T> = ((doc: T) => any) | null | undefined;
+
+    type Options<T> = {
+        sort?: SortSpecifier;
+        skip?: number;
+        limit?: number;
+        fields?: FieldSpecifier;
+        reactive?: boolean;
+        transform?: Transform<T>;
+    }
+
+    type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any ? ReturnType<Transform> : Transform extends null ? T : U;
+
     var Collection: CollectionStatic;
     interface CollectionStatic {
-        new <T>(name: string | null, options?: {
+        new <T, U = T>(name: string | null, options?: {
             connection?: Object | null;
             idGeneration?: string;
-            transform?: Function | null;
-        }): Collection<T>;
+            transform?: (doc: T) => U;
+        }): Collection<T, U>;
     }
-    interface Collection<T> {
-        allow(options: {
-            insert?: (userId: string, doc: T) => boolean;
-            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: T) => boolean;
+    interface Collection<T, U = T> {
+        allow<Fn extends Transform<T> = undefined>(options: {
+            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
-            transform?: Function | null;
+            transform?: Fn;
         }): boolean;
-        deny(options: {
-            insert?: (userId: string, doc: T) => boolean;
-            update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: T) => boolean;
+        deny<Fn extends Transform<T> = undefined>(options: {
+            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
-            transform?: Function | null;
+            transform?: Fn;
         }): boolean;
-        find(selector?: Selector<T> | ObjectID | string, options?: {
-            sort?: SortSpecifier;
-            skip?: number;
-            limit?: number;
-            fields?: FieldSpecifier;
-            reactive?: boolean;
-            transform?: Function | null;
-        }): Cursor<T>;
-        findOne(selector?: Selector<T> | ObjectID | string, options?: {
-            sort?: SortSpecifier;
-            skip?: number;
-            fields?: FieldSpecifier;
-            reactive?: boolean;
-            transform?: Function | null;
-        }): T | undefined;
+        find(selector?: Selector<T> | ObjectID | string): Cursor<T, U>;
+        find<O extends Options<T>>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O['transform'], T, U>>;
+        findOne(selector?: Selector<T> | ObjectID | string): U | undefined;
+        findOne<O extends Omit<Options<T>, 'limit'>>(selector?: Selector<T> | ObjectID | string, options?: O): DispatchTransform<O['transform'], T, U> | undefined;
         insert(doc: OptionalId<T>, callback?: Function): string;
         rawCollection(): any;
         rawDatabase(): any;
@@ -189,7 +191,7 @@ declare module Mongo {
 
     var Cursor: CursorStatic;
     interface CursorStatic {
-        new <T>(): Cursor<T>;
+        new <T, U = T>(): Cursor<T, U>;
     }
     interface ObserveCallbacks<T> {
         added?(document: T): void;
@@ -207,12 +209,12 @@ declare module Mongo {
         movedBefore?(id: string, before: T | null): void;
         removed?(id: string): void;
     }
-    interface Cursor<T> {
+    interface Cursor<T, U = T> {
         count(applySkipLimit?: boolean): number;
-        fetch(): Array<T>;
-        forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
-        map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
-        observe(callbacks: ObserveCallbacks<T>): Meteor.LiveQueryHandle;
+        fetch(): Array<U>;
+        forEach(callback: (doc: U, index: number, cursor: Cursor<T, U>) => void, thisArg?: any): void;
+        map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
+        observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
         observeChanges(callbacks: ObserveChangesCallbacks<T>): Meteor.LiveQueryHandle;
     }
 

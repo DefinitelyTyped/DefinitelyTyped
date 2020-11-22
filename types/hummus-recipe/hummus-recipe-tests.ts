@@ -8,6 +8,13 @@ const newDoc = new Recipe('new', 'test.pdf', {
     author: 'John Doe',
     title: 'Hummus Recipe',
     subject: 'A brand new PDF',
+    colorspace: 'rgb',
+    keywords: ['hummus', 'recipe'],
+    password: 'password',
+    userPassword: 'userPassword',
+    ownerPassword: 'ownerPassword',
+    userProtectionFlag: 'print',
+    fontSrcPath: 'path/to/fonts',
 });
 
 // $ExpectType Recipe

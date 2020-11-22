@@ -334,6 +334,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
@@ -348,6 +364,7 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+Chart.defaults.global.defaultColor = ctx.createLinearGradient(0, 0, 0, 100);
 
 // Update Chart defaults using scaleService
 Chart.scaleService.updateScaleDefaults('time', {
@@ -530,3 +547,9 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};

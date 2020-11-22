@@ -317,7 +317,7 @@ declare namespace Two {
             command: Commands | string
         );
 
-        command: string;
+        command: Commands | string;
         controls?: { right: Vector; left: Vector };
 
         listen(): this;

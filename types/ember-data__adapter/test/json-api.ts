@@ -19,7 +19,7 @@ const Customized = JSONAPIAdapter.extend({
 
 const AuthTokenHeader = JSONAPIAdapter.extend({
     session: service('session'),
-    headers: computed('session.authToken', function() {
+    headers: computed('session.authToken', function () {
         return {
             API_KEY: this.get('session.authToken'),
             ANOTHER_HEADER: 'Some header value',

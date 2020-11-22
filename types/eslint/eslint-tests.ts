@@ -421,6 +421,10 @@ linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalR
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } }, 'test.js');
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'readonly' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'readable' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'writable' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'writeable' } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
 linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
 linter.verify(SOURCE, { processor: 'a-plugin/a-processor' }, 'test.js');
