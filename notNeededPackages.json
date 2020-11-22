@@ -4566,7 +4566,7 @@
             "asOfVersion": "4.2.0"
         },
         {
-            "libraryName": "testing-library__vue",
+            "libraryName": "@testing-library/vue",
             "typingsPackageName": "testing-library__vue",
             "asOfVersion": "5.3.0"
         },
