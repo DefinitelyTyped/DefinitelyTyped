@@ -4,6 +4,7 @@
 //                 Eduard Zintz <https://github.com/ezintz>
 //                 Tan Nguyen <https://github.com/ngtan>
 //                 Gleb Varenov <https://github.com/acerbic>
+//                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,7 +49,7 @@ export class Strategy extends oauth2.Strategy {
         options: StrategyOptions,
         verify: (
             accessToken: string,
-            refreshToken: string,
+            refreshToken: string | undefined,
             profile: Profile,
             done: VerifyCallback
         ) => void
@@ -57,7 +58,7 @@ export class Strategy extends oauth2.Strategy {
         options: StrategyOptions,
         verify: (
             accessToken: string,
-            refreshToken: string,
+            refreshToken: string | undefined,
             params: any,
             profile: Profile,
             done: VerifyCallback
@@ -68,7 +69,7 @@ export class Strategy extends oauth2.Strategy {
         verify: (
             req: express.Request,
             accessToken: string,
-            refreshToken: string,
+            refreshToken: string | undefined,
             profile: Profile,
             done: VerifyCallback
         ) => void
@@ -78,7 +79,7 @@ export class Strategy extends oauth2.Strategy {
         verify: (
             req: express.Request,
             accessToken: string,
-            refreshToken: string,
+            refreshToken: string | undefined,
             params: any,
             profile: Profile,
             done: VerifyCallback
