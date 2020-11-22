@@ -56,12 +56,7 @@ export namespace core {
         withMaxTimeout(timeout: number): ClientBuilder<T>;
         withSender(sender: any): ClientBuilder<T>;
         withBaseUrl(url: string): ClientBuilder<T>;
-        withProxy(
-            host: string,
-            port: number,
-            username?: string,
-            password?: string,
-        ): ClientBuilder<T>;
+        withProxy(host: string, port: number, username?: string, password?: string): ClientBuilder<T>;
         withCustomHeaders(customHeaders: any): ClientBuilder<T>;
         withDebug(): ClientBuilder<T>;
         withLicenses(licenses: string[]): ClientBuilder<T>;
@@ -77,9 +72,7 @@ export namespace core {
 
     namespace buildClient {
         function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup>;
-        function usAutocomplete(
-            credentials: StaticCredentials | SharedCredentials,
-        ): Client<usAutocomplete.Lookup>;
+        function usAutocomplete(credentials: StaticCredentials | SharedCredentials): Client<usAutocomplete.Lookup>;
         function usAutocompletePro(
             credentials: StaticCredentials | SharedCredentials,
         ): Client<usAutocompletePro.Lookup>;
@@ -97,48 +90,65 @@ export namespace core {
         class BatchFullError extends SmartyError {
             constructor();
         }
-        class BatchEmptyError extends SmartyError  {
+        class BatchEmptyError extends SmartyError {
             constructor();
         }
-        class UndefinedLookupError extends SmartyError  {
+        class UndefinedLookupError extends SmartyError {
             constructor();
         }
-       class  BadCredentialsError extends SmartyError  {
+        class BadCredentialsError extends SmartyError {
             constructor();
         }
-        class PaymentRequiredError extends SmartyError  {
+        class PaymentRequiredError extends SmartyError {
             constructor();
         }
-        class RequestEntityTooLargeError extends SmartyError  {
+        class RequestEntityTooLargeError extends SmartyError {
             constructor();
         }
-        class BadRequestError extends SmartyError  {
+        class BadRequestError extends SmartyError {
             constructor();
         }
-        class UnprocessableEntityError extends SmartyError  {
+        class UnprocessableEntityError extends SmartyError {
             constructor(message: string);
         }
-        class TooManyRequestsError extends SmartyError  {
+        class TooManyRequestsError extends SmartyError {
             constructor();
         }
-        class InternalServerError extends SmartyError  {
+        class InternalServerError extends SmartyError {
             constructor();
         }
-        class ServiceUnavailableError extends SmartyError  {
+        class ServiceUnavailableError extends SmartyError {
             constructor();
         }
-        class GatewayTimeoutError extends SmartyError  {
+        class GatewayTimeoutError extends SmartyError {
             constructor();
         }
     }
-    type Lookup = usStreet.Lookup | usZipcode.Lookup | usAutocomplete.Lookup | usAutocompletePro.Lookup | usExtract.Lookup | internationalStreet.Lookup;
+    type Lookup =
+        | usStreet.Lookup
+        | usZipcode.Lookup
+        | usAutocomplete.Lookup
+        | usAutocompletePro.Lookup
+        | usExtract.Lookup
+        | internationalStreet.Lookup;
 }
 
 export namespace usStreet {
     class Lookup {
-        constructor(street1?: string, street2?: string, secondary?: string, city?: string, state?: string, zipCode?: string,
-            lastLine?: string, addressee?: string, urbanization?: string, match?: string, maxCandidates?: string,
-            inputId?: string);
+        constructor(
+            street1?: string,
+            street2?: string,
+            secondary?: string,
+            city?: string,
+            state?: string,
+            zipCode?: string,
+            lastLine?: string,
+            addressee?: string,
+            urbanization?: string,
+            match?: string,
+            maxCandidates?: string,
+            inputId?: string,
+        );
         street: string;
         street2: string;
         secondary: string;
@@ -294,17 +304,17 @@ export namespace usAutocompletePro {
         constructor(search: string);
         result: [any];
         search: string;
-		selected: any;
-		maxResults: number;
-		includeOnlyCities: [any];
-		includeOnlyStates: [any];
-		includeOnlyZIPCodes: [any];
-		excludeStates: [any];
-		preferCities: [any];
-		preferStates: [any];
-		preferZIPCodes: [any];
-		preferRatio: any;
-		preferGeolocation: any;
+        selected: any;
+        maxResults: number;
+        includeOnlyCities: [any];
+        includeOnlyStates: [any];
+        includeOnlyZIPCodes: [any];
+        excludeStates: [any];
+        preferCities: [any];
+        preferStates: [any];
+        preferZIPCodes: [any];
+        preferRatio: any;
+        preferGeolocation: any;
     }
     class Suggestion {
         constructor(responseData: any);
@@ -320,7 +330,7 @@ export namespace usAutocompletePro {
 export namespace usExtract {
     class Lookup {
         constructor(text: string);
-        result: { meta: any, addresses: any };
+        result: { meta: any; addresses: any };
         text: string;
         html: any;
         aggressive: any;
@@ -328,7 +338,7 @@ export namespace usExtract {
         addressesPerLine: any;
     }
     class Result {
-        constructor(x: {meta: any, addresses: any});
+        constructor(x: { meta: any; addresses: any });
         meta: {
             lines: any;
             unicode: any;
@@ -343,20 +353,20 @@ export namespace usExtract {
 
 export namespace internationalStreet {
     class Lookup {
-        constructor(country: string, freeform: string)
+        constructor(country: string, freeform: string);
         result: [any];
         country: string;
-		freeform: string;
-		address1: string;
-		address2: string;
-		address3: string;
-		address4: string;
-		organization: string;
-		locality: string;
-		administrativeArea: string;
-		postalCode: string;
-		geocode: string;
-		language: string;
+        freeform: string;
+        address1: string;
+        address2: string;
+        address3: string;
+        address4: string;
+        organization: string;
+        locality: string;
+        administrativeArea: string;
+        postalCode: string;
+        geocode: string;
+        language: string;
         inputId: string;
         readonly ensureEnoughInfo: boolean;
         readonly ensureValidData: boolean;
@@ -364,18 +374,18 @@ export namespace internationalStreet {
     class Candidate {
         constructor(reponseData: any);
         organization: string;
-		address1: string;
-		address2: string;
-		address3: string;
-		address4: string;
-		address5: string;
-		address6: string;
-		address7: string;
-		address8: string;
-		address9: string;
-		address10: string;
-		address11: string;
-		address12: string;
+        address1: string;
+        address2: string;
+        address3: string;
+        address4: string;
+        address5: string;
+        address6: string;
+        address7: string;
+        address8: string;
+        address9: string;
+        address10: string;
+        address11: string;
+        address12: string;
         components: any;
         analysis: any;
         metadata: any;
