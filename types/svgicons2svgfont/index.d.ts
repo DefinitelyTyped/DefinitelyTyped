@@ -22,7 +22,7 @@ declare namespace SVGIcons2SVGFont {
         /**
          * The font id you want (Default value: the options.fontName)
          *
-         * Default value: the options.fontName value
+         * @default the options.fontName value
          */
         fontId?: string;
         /**
