@@ -3,11 +3,7 @@
 // Definitions by: Emmanuel N Kyeyune <https://github.com/emmanuelnk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const phonetic: Phonetic;
-
-export = phonetic;
-
-interface PhoneticOptions {
+export interface PhoneticOptions {
     syllables?: number;
     seed?: string;
     phoneticSimplicity?: number;
@@ -15,6 +11,4 @@ interface PhoneticOptions {
     capFirst?: boolean;
 }
 
-interface Phonetic {
-  generate: (options: PhoneticOptions) => string;
-}
+export function generate(options: PhoneticOptions): string;
