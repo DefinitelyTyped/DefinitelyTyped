@@ -1,4 +1,4 @@
-import SVGIcons2SVGFont from 'svgicons2svgfont';
+import SVGIcons2SVGFont = require('svgicons2svgfont');
 
 let svgIcons2SvgFont = new SVGIcons2SVGFont();
 svgIcons2SvgFont = new SVGIcons2SVGFont({});
