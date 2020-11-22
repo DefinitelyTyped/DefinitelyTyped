@@ -52,7 +52,7 @@ declare namespace SVGIcons2SVGFont {
         /**
          * Setup SVG path rounding.
          *
-         * Default value: 10e12
+         * @default 10e12
          */
         round?: number;
         /**
