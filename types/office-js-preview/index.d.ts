@@ -580,7 +580,7 @@ declare namespace Office {
         ): Promise<RemoveEventListener>;
     }
     /**
-     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
      */
     interface Ribbon {
         /**
@@ -590,7 +590,7 @@ declare namespace Office {
          * 
          * @beta
          * 
-         * @param tabDefinition - Specifies the tab's properties and child controls and their properties. Pass a JSON string that conforms to the Office contextual tabs JSON schema to `JSON.parse`, and then pass the returned object to this method.
+         * @param tabDefinition - Specifies the tab's properties and child controls and their properties. Pass a JSON string that conforms to the Office dynamic-ribbon JSON schema to `JSON.parse`, and then pass the returned object to this method.
          */
         requestCreateControls(tabDefinition: Object): Promise<void>;
         /**
