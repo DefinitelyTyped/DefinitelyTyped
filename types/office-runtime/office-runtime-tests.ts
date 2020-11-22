@@ -26,4 +26,3 @@ OfficeRuntime.displayWebDialog("https://localhost:3000", {
 
 // Check for the support of the requirement-set (note that it only accepts strings.)
 const supported = OfficeRuntime.apiInformation.isSetSupported("ExcelApi", "1.9");
-
