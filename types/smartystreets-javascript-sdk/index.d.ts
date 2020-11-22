@@ -265,15 +265,17 @@ export namespace usZipcode {
         state: string;
     }
 }
+
 export namespace usAutocomplete {
     class Lookup {
         constructor(prefix: string);
+        result: [any];
         prefix: string;
         maxSuggestions: number;
         cityFilter: [any];
         stateFilter: [any];
         prefer: [any];
-        preferRation: any;
+        preferRatio: any;
         geolocate: any;
         geolocatePrecision: any;
     }
@@ -286,6 +288,7 @@ export namespace usAutocomplete {
         state: string;
     }
 }
+
 export namespace usAutocompletePro {
     class Lookup {
         constructor(search: string);
@@ -313,6 +316,7 @@ export namespace usAutocompletePro {
         entries: number;
     }
 }
+
 export namespace usExtract {
     class Lookup {
         constructor(text: string);
@@ -336,6 +340,7 @@ export namespace usExtract {
         addressees: [any];
     }
 }
+
 export namespace internationalStreet {
     class Lookup {
         constructor(country: string, freeform: string)
