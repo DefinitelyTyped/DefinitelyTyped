@@ -81,7 +81,7 @@ declare namespace SVGIcons2SVGFont {
          *
          * Set to function(){} to disable logging.
          *
-         * Defaults to console.log()
+         * @default console.log()
          */
         log?: (message?: any) => void;
     }
