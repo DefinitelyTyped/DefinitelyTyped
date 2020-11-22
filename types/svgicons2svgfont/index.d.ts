@@ -16,7 +16,7 @@ declare namespace SVGIcons2SVGFont {
         /**
          * The font family name you want
          *
-         * Default value: 'iconfont'
+         * @default 'iconfont'
          */
         fontName?: string;
         /**
