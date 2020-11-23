@@ -45,7 +45,6 @@ declare global {
             | 'config'
             | 'group'
             | 'host'
-            | 'info'
             | 'instance'
             | 'meta'
             | 'script'
@@ -628,7 +627,7 @@ declare global {
         }
 
         interface OtherObject extends BaseObject {
-            type: 'config' | 'info' | 'chart';
+            type: 'config' | 'chart';
             common: OtherCommon;
         }
         interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
