@@ -585,7 +585,7 @@ declare namespace Office {
     interface Ribbon {
         /**
          * Registers a custom contextual tab with Office and defines the tab's controls.
-         * This method only requests that the tab be registered. The actual registration is controlled by the Office application and may not be complete when the returned Promise object is resolved.
+         * This method only requests that the tab be registered. The actual registration is controlled by the Office application and may not be complete when the returned `Promise` object is resolved.
          * For more information and code examples, see {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
          * 
          * @beta
@@ -638,10 +638,6 @@ declare namespace Office {
          * Identifier of the control as specified in the manifest.
          */
         id: string;
-        /**
-         * Indicates whether the control should be visible or hidden. The default is true.
-         */
-        visible?: boolean;
         /**
          * Indicates whether the control should be enabled or disabled. The default is true.
          */
