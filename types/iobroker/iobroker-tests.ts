@@ -73,7 +73,6 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
             case 'enum':
             case 'group':
             case 'host':
-            case 'info':
             case 'instance':
             case 'meta':
             case 'script':
