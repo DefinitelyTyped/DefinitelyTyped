@@ -62,4 +62,4 @@ export interface BindingOptions {
  * @param mod Module name or loading configuration
  * @returns loaded module or undefined
  */
-export default function bindings(mod: string | BindingOptions): any;
+export function bindings(mod: string | BindingOptions): any;
