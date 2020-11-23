@@ -14,7 +14,7 @@ export type PaymentSearchResponse = MercadoPagoResponse<ExecOptions<SearchConfig
 
 export interface MercadoPagoPayment {
   create(payload: CreatePaymentPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentCreateResponse>;
-  
+
   /** Alias for `create` method. */
   save(payload: CreatePaymentPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentCreateResponse>;
 
@@ -28,8 +28,5 @@ export interface MercadoPagoPayment {
   search(configuration: SearchConfiguration, callback?: CallbackFunction): Promise<PaymentSearchResponse>;
 
   /** Cancel payment */
-  cancel(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>
+  cancel(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>;
 }
-
-// SE É GET OU DELETE OS ARGUMENTOS EM ORDEM SERAO ADICIONADOS AO PATH, ENTÃO N TERIA O PAYLOAD
-// SENAO VAI VIM NO PAYLOAD MSM

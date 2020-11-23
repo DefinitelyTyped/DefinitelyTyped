@@ -3,5 +3,5 @@ export interface UpdatePaymentPayload {
   id: number;
 
   /** Payment status. */
-  status: 'pending' | 'approved' | 'authorized' | 'in_process' | 'in_mediation' | 'rejected' | 'cancelled' | 'refunded' | 'charged_back'; 
+  status: 'pending' | 'approved' | 'authorized' | 'in_process' | 'in_mediation' | 'rejected' | 'cancelled' | 'refunded' | 'charged_back';
 }

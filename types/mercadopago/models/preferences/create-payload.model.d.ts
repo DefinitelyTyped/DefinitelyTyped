@@ -41,15 +41,15 @@ export interface PreferencePayer {
 
 export interface PreferencePaymentMethods {
   /** Métodos de pagamento não são permitidos no fluxo de pagamento (à exceção de account_money). */
-  excluded_payment_methods?: {
+  excluded_payment_methods?: Array<{
     /** Identificador do método de pagamento. */
     id: string
-  }[];
+  }>;
   /** Tipos de pagamento não são permitidos no fluxo de pagamento. */
-  excluded_payment_types?: {
+  excluded_payment_types?: Array<{
     /** Identificador de data_type do meio de pagamento. */
     id: string;
-  }[];
+  }>;
   /** Meio de pagamento preferido. */
   default_payment_method_id?: string;
   /** Número Máximo de cotas. */
@@ -72,10 +72,10 @@ export interface PreferenceShipment {
   /** Escolha um método de envio padrão no _checkout_(mode:me2 somente). */
   default_shipping_method?: number;
   /** Oferecer um método de frete grátis (mode:me2 somente). */
-  free_methods?: {
+  free_methods?: Array<{
     /** Identificador do método de envio. */
     id: number;
-  }[];
+  }>;
   /** Custo do transporte (mode:custom somente). */
   cost?: number;
   /** Preferência de frete grátis para mode:custom. */

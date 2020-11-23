@@ -17,14 +17,14 @@ export interface MercadoPagoCard {
 
   /** Alias for `create` method. */
   save(payload: CreateCardPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardCreateResponse>;
-  
+
   update(payload: UpdateCardPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardUpdateResponse>;
 
   get(customerId: string, id: number | string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardGetResponse>;
-  
+
   /** Alias for `get` method. */
   findById(customerId: string, id: number | string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardGetResponse>;
-  
+
   all(customerId: string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardGetResponse>;
 
   delete(id: number | string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CardDeleteResponse>;

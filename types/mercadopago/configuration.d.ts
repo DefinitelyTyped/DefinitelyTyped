@@ -1,13 +1,13 @@
-interface ConfigCredentialsOption extends GeneralConfigOptions {
+export interface ConfigCredentialsOption extends GeneralConfigOptions {
   client_id: string;
   client_secret: string;
 }
 
-interface ConfigTokenOption extends GeneralConfigOptions {
+export interface ConfigTokenOption extends GeneralConfigOptions {
   access_token: string;
 }
 
-interface GeneralConfigOptions {
+export interface GeneralConfigOptions {
   platform_id?: string;
   corporation_id?: string;
   integrator_id?: string;
@@ -22,7 +22,7 @@ export interface MercadoPagoConfig {
   show_promise_error: boolean;
   cache_max_size: number;
 
-  configure<T = ConfigOptions>(options: T): void;
+  configure(options: ConfigOptions): void;
   getClientId(): string;
   getClientSecret(): string;
   getPlatformId(): string;

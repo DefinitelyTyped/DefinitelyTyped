@@ -21,7 +21,7 @@ export interface MercadoPagoCustomer {
 
   /** Alias for `create` method. */
   save(payload: CreateCustomerPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CustomerCreateResponse>;
-  
+
   update(payload: UpdateCustomerPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CustomerUpdateResponse>;
 
   get(id: string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CustomerGetResponse>;

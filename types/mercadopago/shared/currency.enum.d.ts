@@ -1,4 +1,4 @@
-export declare enum Currency {
+export enum Currency {
   /** United Arab Emirates dirham */
   AED = "AED",
   /** Afghan afghani */

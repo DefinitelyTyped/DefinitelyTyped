@@ -8,7 +8,7 @@ export interface ExecOptions<K, P> {
   /** Configurations object */
   config: K;
   /** Payload to send */
-  payload: P,
+  payload: P;
   /** If needs the idempotency header */
   idempotency: boolean;
   access_token: string;
@@ -23,7 +23,7 @@ export interface Pagination {
   offset: number;
 }
 
-export declare class MercadoPagoResponse<K> {
+export class MercadoPagoResponse<K> {
   body: any;
   response: any;
   status: number;

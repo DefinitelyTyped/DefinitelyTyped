@@ -15,11 +15,11 @@ export interface MercadoPagoMerchantOrder {
 
   /** Alias for `create` method. */
   save(payload: CreateMerchantOrderPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<MerchantOrderCreateResponse>;
-  
+
   update(payload: UpdateMerchantOrderPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<MerchantOrderUpdateResponse>;
 
   get(id: number | string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<MerchantOrderGetResponse>;
-  
+
   /** Alias for `get` method. */
   findById(id: number | string, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<MerchantOrderGetResponse>;
 }

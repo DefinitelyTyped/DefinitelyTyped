@@ -2,8 +2,6 @@ import { SimpleAddressId } from '../../shared/address';
 import { Identification } from '../../shared/payer-identification';
 import { Phone } from '../../shared/phone';
 
-
-
 export interface CreateCustomerPayload {
   /** Nome do cliente. */
   first_name?: string;

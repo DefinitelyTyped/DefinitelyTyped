@@ -10,4 +10,4 @@ export interface CustomerQs {
   description?: string;
 }
 
-export type CustomerSearchConfiguration = SearchConfiguration<CustomerQs>; 
+export type CustomerSearchConfiguration = SearchConfiguration<CustomerQs>;

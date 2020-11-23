@@ -18,4 +18,3 @@ export interface CompleteAddress extends Address {
   city_name: string;
   state_name: string;
 }
-

@@ -6,7 +6,7 @@ import { Phone } from '../../shared/phone';
 export interface PaymentOrder {
   type: 'mercadolibre' | 'mercadopago';
   id: number;
-} 
+}
 
 export interface PaymentPayer {
   /** Identificação do pagador associado. */
