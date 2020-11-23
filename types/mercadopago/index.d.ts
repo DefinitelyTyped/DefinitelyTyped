@@ -12,18 +12,23 @@ import { MercadoPagoPayment } from './resources/payment';
 import { MercadoPagoPreApproval } from './resources/preapproval';
 import { MercadoPagoPreference } from './resources/preferences';
 
-export const configure: MercadoPagoConfig['configure'];
-export const utils: any;
-export const configurations: MercadoPagoConfig;
-export const payment: MercadoPagoPayment;
-export const preferences: MercadoPagoPreference;
-export const preapproval: MercadoPagoPreApproval;
-export const merchant_orders: MercadoPagoMerchantOrder;
-export const customers: MercadoPagoCustomer;
-export const ipn: any;
-export const connect: any;
-export const money_requests: any;
-export const card: MercadoPagoCard;
-export const card_token: any;
-export const refund: any;
-export const discount_campaign: any;
+declare namespace MercadoPago {
+  const configure: MercadoPagoConfig['configure'];
+  const utils: any;
+  const configurations: MercadoPagoConfig;
+  const payment: MercadoPagoPayment;
+  const preferences: MercadoPagoPreference;
+  const preapproval: MercadoPagoPreApproval;
+  const merchant_orders: MercadoPagoMerchantOrder;
+  const customers: MercadoPagoCustomer;
+  const ipn: any;
+  const connect: any;
+  const money_requests: any;
+  const card: MercadoPagoCard;
+  const card_token: any;
+  const refund: any;
+  const discount_campaign: any;
+}
+
+// tslint:disable-next-line export-just-namespace
+export = MercadoPago;
