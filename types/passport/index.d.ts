@@ -32,8 +32,16 @@ declare global {
             logout(): void;
             logOut(): void;
 
-            isAuthenticated(): boolean;
-            isUnauthenticated(): boolean;
+            isAuthenticated(): this is AuthenticatedRequest;
+            isUnauthenticated(): this is UnauthenticatedRequest;
+        }
+
+        interface AuthenticatedRequest extends Request {
+            user: User;
+        }
+
+        interface UnauthenticatedRequest extends Request {
+            user?: undefined;
         }
     }
 }
