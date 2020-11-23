@@ -237,7 +237,7 @@ export namespace usZipcode {
         state: string;
         zipCode: string;
         inputId: string;
-        result: [any];
+        result: [Result];
     }
 
     class Result {
@@ -279,7 +279,7 @@ export namespace usZipcode {
 export namespace usAutocomplete {
     class Lookup {
         constructor(prefix: string);
-        result: [any];
+        result: [Suggestion];
         prefix: string;
         maxSuggestions: number;
         cityFilter: [any];
@@ -302,7 +302,7 @@ export namespace usAutocomplete {
 export namespace usAutocompletePro {
     class Lookup {
         constructor(search: string);
-        result: [any];
+        result: [Suggestion];
         search: string;
         selected: any;
         maxResults: number;
@@ -330,7 +330,7 @@ export namespace usAutocompletePro {
 export namespace usExtract {
     class Lookup {
         constructor(text: string);
-        result: { meta: any; addresses: any };
+        result: [Result];
         text: string;
         html: any;
         aggressive: any;
@@ -354,7 +354,7 @@ export namespace usExtract {
 export namespace internationalStreet {
     class Lookup {
         constructor(country: string, freeform: string);
-        result: [any];
+        result: [Candidate];
         country: string;
         freeform: string;
         address1: string;
