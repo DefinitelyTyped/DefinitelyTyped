@@ -1,11 +1,3 @@
-// Type definitions for jsonexport 3.0
-// Project: https://github.com/kaue/jsonexport
-// Definitions by: Guillaume Ongenae <https://github.com/g-ongenae>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
-import { Transform } from 'stream';
-
 declare namespace jsonexport {
     interface UserOptions {
         /** Used to set a custom header order, defaults to [] */
@@ -106,7 +98,7 @@ declare namespace jsonexport {
  *      if error, returning error in call back.
  *      if csv is created successfully, returning csv output to callback.
  */
-declare function jsonexport(userOptions?: jsonexport.UserOptions): Transform;
+declare function jsonexport(userOptions?: jsonexport.UserOptions): never;
 declare function jsonexport(json: object | object[], userOptions?: jsonexport.UserOptionsWithHandlers): Promise<string>;
 declare function jsonexport(json: object | object[], cb: (err: Error, csv: string) => void): void;
 declare function jsonexport(
