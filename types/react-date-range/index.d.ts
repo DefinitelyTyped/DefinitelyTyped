@@ -213,7 +213,7 @@ export interface ScrollOptions {
     calendarHeight?: number;
 }
 
-interface DefinedRangeCommon {
+export interface DefinedRangeCommon {
     label: string;
     isSelected: (range: Range) => boolean;
     hasCustomRendering?: boolean;
