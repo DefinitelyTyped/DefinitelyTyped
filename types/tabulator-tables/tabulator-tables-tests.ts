@@ -932,7 +932,7 @@ calcComponent.getCell(column);
 const rowContextMenu2: Array<Tabulator.MenuObject<Tabulator.ColumnComponent>> = [
     {
         label: 'Hide Column',
-        action: function(e, column) {
+        action: (e, column) => {
             column.hide();
         },
     },

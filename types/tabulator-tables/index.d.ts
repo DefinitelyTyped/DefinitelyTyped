@@ -832,7 +832,7 @@ declare namespace Tabulator {
         label: string | HTMLElement | ((component: T) => string | HTMLElement);
         action?: (e: any, component: T) => any;
         disabled?: boolean | ((component: T) => boolean);
-        menu?: MenuObject<T>[];
+        menu?: Array<MenuObject<T>>;
     }
     interface MenuSeparator {
         separator?: boolean;
