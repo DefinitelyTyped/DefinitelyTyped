@@ -43,6 +43,7 @@ declare namespace introJs {
         tooltipPosition?: string;
         tooltipClass?: string;
         highlightClass?: string;
+        buttonClass?: string;
         exitOnEsc?: boolean;
         exitOnOverlayClick?: boolean;
         showStepNumbers?: boolean;
