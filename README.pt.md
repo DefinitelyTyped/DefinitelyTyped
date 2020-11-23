@@ -29,7 +29,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 ## Status atual
 
 Essa seção acompanha a saúde do respositório e o processo de publicação.
-Ela pode servir de ajuda para contribuidores que estejam passado por problemas com suas PRs e pacotes.
+Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
 * Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
