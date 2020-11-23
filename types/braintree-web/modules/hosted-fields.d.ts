@@ -128,7 +128,8 @@ export interface HostedFieldsStateObject {
     fields: HostedFieldsFieldDataFields;
 }
 
-export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty' | 'cardTypeChange' | 'validityChange';
+export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
+    | 'cardTypeChange' | 'validityChange' | 'inputSubmitRequest';
 
 export interface HostedFieldsAccountDetails {
     bin: string;
