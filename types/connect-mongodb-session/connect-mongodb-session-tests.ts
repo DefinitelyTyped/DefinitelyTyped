@@ -1,23 +1,23 @@
-import * as express from 'express'
-import session = require('express-session')
-import connectMongo = require('connect-mongodb-session')
+import * as express from 'express';
+import session = require('express-session');
+import connectMongo = require('connect-mongodb-session');
 
-const MongoDBStore = connectMongo(session)
+const MongoDBStore = connectMongo(session);
 
 const app = express();
 const store = new MongoDBStore({
     uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
     collection: 'mySessions'
-}, function(error) {
+}, (error) => {
     // some connection error occur
 });
 
-store.on('connected', function() {
+store.on('connected', () => {
     store.client; // The underlying MongoClient object from the MongoDB driver
 });
 
 // Catch errors
-store.on('error', function(error) {
+store.on('error', (error) => {
 });
 
 app.use(session({
@@ -25,7 +25,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     },
-    store: store,
+    store,
     // Boilerplate options, see:
     // * https://www.npmjs.com/package/express-session#resave
     // * https://www.npmjs.com/package/express-session#saveuninitialized
@@ -33,8 +33,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.send('Hello ' + JSON.stringify(req.session));
 });
 
-const server = app.listen(3000);
+app.listen(3000);
