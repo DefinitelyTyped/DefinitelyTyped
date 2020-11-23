@@ -117,7 +117,7 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: 2 */
     calendars?: number;
     /** default: none */
-    ranges?: Record<string, Range>;
+    ranges?: Range[];
     /** default: { enabled: false } */
     scroll?: ScrollOptions;
     /** default: false */
