@@ -1,10 +1,10 @@
 # Definitely Typed
 
-> The repository for *high quality* TypeScript type definitions.
+> 高品質な TypeScript の型定義用レポジトリ
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md) and [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)!*
+*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
 
-*Link to [Admin manual](./docs/admin.md)*
+*[管理者用マニュアル](./docs/admin.md)はこちら*
 
 ## Table of Contents
 
