@@ -1,4 +1,4 @@
-import { Currency } from '../../shared/currency.enum';
+import { Currency } from '../../shared/currency';
 
 export interface AutoRecurring {
   /** Número de dias de recorrência. */

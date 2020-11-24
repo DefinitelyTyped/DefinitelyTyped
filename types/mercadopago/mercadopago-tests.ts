@@ -1,4 +1,5 @@
 import * as MercadoPago from 'mercadopago';
+import { Currency } from 'mercadopago/shared/currency';
 
 const clientId = 'CLIENT_ID';
 const clientSecret = 'CLIENT_SECRET';
@@ -12,3 +13,5 @@ MercadoPago.configurations.configure({
   client_id: clientId,
   client_secret: clientSecret
 });
+
+const currencyIdIso4217: Currency = 'USD';

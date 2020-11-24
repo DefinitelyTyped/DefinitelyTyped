@@ -1,5 +1,5 @@
 import { CompleteAddress, SimpleAddress } from '../../shared/address';
-import { Currency } from '../../shared/currency.enum';
+import { Currency } from '../../shared/currency';
 import { Identification } from '../../shared/payer-identification';
 import { Phone } from '../../shared/phone';
 
