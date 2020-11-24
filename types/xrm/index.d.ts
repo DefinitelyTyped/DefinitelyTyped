@@ -4472,7 +4472,7 @@ declare namespace Xrm {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: Xrm.LookupValue;
+            createFromEntity?: LookupValue;
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
