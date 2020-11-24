@@ -11,4 +11,4 @@ export interface PhoneticOptions {
     capFirst?: boolean;
 }
 
-export function generate(options: PhoneticOptions): string;
+export function generate(options?: PhoneticOptions): string;
