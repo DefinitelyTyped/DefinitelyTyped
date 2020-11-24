@@ -745,6 +745,41 @@ function test_push() {
             },
         },
     );
+
+    Parse.Push.send(
+        {
+            data: {
+                alert: 'Willie Hayes injured by own pop fly.',
+            },
+            contentAvailable: true
+        },
+        {
+            success() {
+                // Push was successful
+            },
+            error(error: any) {
+                // Handle error
+            },
+        },
+    );
+
+    Parse.Push.send(
+        {
+            data: {
+                alert: 'Willie Hayes injured by own pop fly.',
+            },
+            // $ExpectError
+            contentAvailable: 'true'
+        },
+        {
+            success() {
+                // Push was successful
+            },
+            error(error: any) {
+                // Handle error
+            },
+        },
+    );
 }
 
 function test_batch_operations() {
