@@ -1,4 +1,4 @@
-// Type definitions for trusted-types 1.2.1
+// Type definitions for trusted-types 2.0
 // Project: https://github.com/WICG/trusted-types
 // Definitions by: Jakub Vrana <https://github.com/vrana>
 //                 Damien Engels <https://github.com/engelsdamien>
@@ -78,10 +78,11 @@ declare const trustedTypes: InternalTrustedTypePolicyFactory;
 
 declare class TrustedTypesEnforcer {
     constructor(config: TrustedTypeConfig);
-    install: () => void
-    uninstall: () => void
+    install: () => void;
+    uninstall: () => void;
 }
 
+// tslint:disable-next-line
 declare class TrustedTypeConfig {
   constructor(
     isLoggingEnabled: boolean,
@@ -94,4 +95,4 @@ declare class TrustedTypeConfig {
 }
 
 // These are the available exports when using the polyfill as npm package (e.g. in nodejs)
-export {trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory};
+export { trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory };

@@ -104,11 +104,11 @@ trustedHTML = trustedScript;
 // $ExpectError
 new TrustedHTML();
 
-// $ExpectType TrustedHTML
+// $ExpectType typeof TrustedHTML
 TrustedHTML;
-// $ExpectType TrustedScript
+// $ExpectType typeof TrustedScript
 TrustedScript;
-// $ExpectType TrustedScriptURL
+// $ExpectType typeof TrustedScriptURL
 TrustedScriptURL;
 
 // $ExpectType TrustedHTML
