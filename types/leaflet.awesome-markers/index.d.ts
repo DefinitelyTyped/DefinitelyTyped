@@ -24,7 +24,7 @@ declare module 'leaflet' {
             /**
              * Color of the marker
              */
-            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue';
+            markerColor?: 'white' | 'red' |'darkred' | 'lightred' | 'orange' | 'beige' | 'green' | 'darkgreen' | 'lightgreen' | 'blue' | 'darkblue' | 'lightblue' | 'purple' | 'darkpurple' | 'pink' | 'cadetblue' | 'white' | 'gray' | 'lightgray' | 'black';
 
             /**
              * Color of the icon. 'white', 'black' or css code (hex, rgba etc).
