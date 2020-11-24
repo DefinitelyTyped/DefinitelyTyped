@@ -11,7 +11,7 @@
 * [現在のステータス](#current-status)
 * [型定義ファイルとは何ですか？ またどのように入手できますか？](#what-are-declaration-files-and-how-do-i-get-them)
 * [コントリビュート（貢献）する方法](#how-can-i-contribute)
-  - [テスト](#testing)
+  - [試してみる](#testing)
   - [PR を作成する](#make-a-pull-request)<details><summary></summary>
     - [既存のパッケージを編集する](#edit-an-existing-package)
     - [新しくパッケージを作成する](#create-a-new-package)
@@ -114,33 +114,33 @@ TypeScript 2.0 ～ 3.1 を使用している場合、引き続き `@types` パ�
 
 ## コントリビュート（貢献）する方法
 
-Definitely Typed only works because of contributions by users like you!
+Definitely Typed は、あなたのようなユーザーによるコントリビュート（貢献）のおかげで成り立っています！
 
-### テスト
+### 試してみる
 
-Before you share your improvement with the world, use it yourself.
+改良したものを世界中に共有する前に、まず自分自身で使ってみてください。
 
-#### Test editing an existing package
+> <small>（訳注: 原文における本セクションでの "test"・"testing" は、[テストの実行](#running-tests)で言及されるような dtslint による自動テストではなく、単に提出しようとしている変更を実際のアプリで試すことを指します。）</small>
 
-To test local to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
-Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+#### 既存のパッケージへの変更点を試す
 
-#### Adding tests to a new package
+（訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（module augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
+また、 `node_modules/@types/foo/index.d.ts` にある型定義を直接編集して、変更点を動作確認できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
 
-Add to your `tsconfig.json`:
+#### 新しいパッケージを試す
+
+次のコードを、（訳注: 新しい型定義を試すための）あなたのアプリの `tsconfig.json` に追加してください:
 
 ```json
 "baseUrl": "types",
 "typeRoots": ["types"],
 ```
 
-Create `types/foo/index.d.ts` containing declarations for the module "foo".
-You should now be able to import from `"foo"` in your code and it will route to the new type definition.
-Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+次に、 `types/foo/index.d.ts` を作成し、「foo」モジュールの型定義を含めてください。
+これで、あなたのコード上で `"foo"` モジュールからインポートできるようになりました。インポートは新しい型定義を参照します。
+そのあと、コードをビルドし、**そして**実行し、作製した型定義が実行時の動作と実際に一致していることを確認してください。
 
-Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
-then follow the instructions to [edit an existing package](#edit-an-existing-package) or
-[create a new package](#create-a-new-package).
+実際のコードで試す工程が完了したら、 [PR](#make-a-pull-request) を作成するので、[既存のパッケージを編集する](#edit-an-existing-package)か[新しくパッケージを作成する](#create-a-new-package)か、いずれかの指示に従ってください。
 
 ### PR を作成する
 
