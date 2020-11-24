@@ -6,6 +6,8 @@
 
 /// <reference types="jquery"/>
 
+/* tslint:disable:unified-signatures */
+
 interface JQueryTimepickerOptions {
 	// Override where the dropdown is appended.
 	// Takes either a string to use as a selector, a function that gets passed the clicked input element as argument or a jquery object to use directly.
