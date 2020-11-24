@@ -14,7 +14,7 @@ export interface Configuration {
     placeholder?: boolean;
     showCursor?: boolean;
     disableBackTyping?: boolean;
-    onFinished?: () => unknown;
+    onFinished?: () => void;
     loop?: boolean;
 }
 
