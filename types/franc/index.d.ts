@@ -13,13 +13,13 @@ interface Options {
     minLength?: number;
     whitelist?: ISO6393[];
     blacklist?: ISO6393[];
-    only?: string[];
+    only?: ISO6393[];
 }
 
 declare function detect(text: string, options?: Options): ISO6393;
 
 declare namespace detect {
-    function all(text: string, options?: Options): [ISO6393, number];
+    function all(text: string, options?: Options): Array<[ISO6393, Confidence]>;
 }
 
 export = detect;
