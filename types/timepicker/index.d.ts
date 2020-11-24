@@ -133,7 +133,7 @@ interface JQueryTimepickerOptions {
     wrapHours?: boolean;
 }
 
-interface JQuery { // eslint-disable-line @typescript-eslint/no-unused-vars
+interface JQuery {
     timepicker(options: JQueryTimepickerOptions): JQuery;
 
     /** Get the time as an integer, expressed as seconds from 12am. */
