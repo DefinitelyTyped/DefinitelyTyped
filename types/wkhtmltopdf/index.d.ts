@@ -10,35 +10,29 @@
 /// <reference types="node"/>
 
 /**
- * Call wkhtmltopdf with a callback
- * If options.output is defined the file will be returned in the stream
- *
- * @param html HTML that needs to be compiled to PDF
- * @param options Options
- * @param callback Callback function to handle the incoming PDF
- */
-declare function wkhtmltopdf(html: string, options: Options, callback: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
-/**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
  *
  * @param html HTML to convert to PDF
  * @param [options] Options
  */
-declare function wkhtmltopdf(html: string, options?: Options): NodeJS.ReadWriteStream;
+declare function wkhtmltopdf(html: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
 /**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
  *
  * @param url URL to convert to PDF
  * @param [options] Options
+ * @param [callback] Callback
  */
-declare function wkhtmltopdf(url: string, options?: Options): NodeJS.ReadWriteStream;/**
+declare function wkhtmltopdf(url: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
+/**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
  *
  * @param inputStream Input stream of html
  * @param [options] Options
+ * @param [callback] Callback
  */
 declare function wkhtmltopdf(inputStream: NodeJS.ReadStream, options?: Options): NodeJS.ReadWriteStream;
 
