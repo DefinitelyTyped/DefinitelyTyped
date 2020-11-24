@@ -571,7 +571,7 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
+         * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
