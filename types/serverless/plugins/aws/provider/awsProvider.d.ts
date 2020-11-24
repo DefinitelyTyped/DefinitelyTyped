@@ -384,7 +384,7 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
-        type?: string;
+        type?: "dynamodb" | "kinesis";
     }
 
     interface AlexaSkill {
