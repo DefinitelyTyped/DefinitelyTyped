@@ -500,7 +500,7 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
         showKeyboardShortcuts={false}
         startDate={moment()}
         minDate={moment()}
-        maxDate={moment().add('30', 'days')}
+        maxDate={moment().add(30, 'days')}
         startDateOffset={day => day.subtract(3, 'days')}
         transitionDuration={5}
         verticalBorderSpacing={5}
@@ -529,7 +529,7 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
         calendarInfoPosition="top"
         date={moment()}
         minDate={moment()}
-        maxDate={moment().add('30', 'days')}
+        maxDate={moment().add(30, 'days')}
         dayAriaLabelFormat="dd"
         dayPickerNavigationInlineStyles={{ width: '10' }}
         daySize={50}
