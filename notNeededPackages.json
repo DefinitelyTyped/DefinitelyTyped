@@ -4901,6 +4901,11 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "webpack",
+            "typingsPackageName": "webpack",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "webpack-chain",
             "typingsPackageName": "webpack-chain",
             "asOfVersion": "5.2.0"
