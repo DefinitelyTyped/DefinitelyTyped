@@ -15207,11 +15207,11 @@ declare namespace Office {
         options?: Office.AsyncContextOptions;
     }
     /**
-     * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user. 
+     * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user.
      * That is, they are available only to the add-in that created them, and only from the user's mailbox in which they are saved.
      *
-     * While the Outlook add-in API limits access to these settings to only the add-in that created them, these settings should not be considered 
-     * secure storage. They can be accessed by Exchange Web Services or Extended MAPI. 
+     * While the Outlook add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
+     * secure storage. They can be accessed by Exchange Web Services or Extended MAPI.
      * They should not be used to store sensitive information such as user credentials or security tokens.
      *
      * The name of a setting is a String, while the value can be a String, Number, Boolean, null, Object, or Array.
@@ -15220,9 +15220,9 @@ declare namespace Office {
      *
      * **Important**:
      *
-     * - The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded. 
+     * - The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
      * For task panes, this means that it is only initialized when the task pane first opens.
-     * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if 
+     * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if
      * your add-in has persisted changes.
      * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
      *
