@@ -192,27 +192,27 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 #### よくあるミス
 
-* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier — --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
+* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier — --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
   const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
   ```
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
+* `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
 * `interface Foo { new(): Foo; }`:
-  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+  これは new 可能な object の型定義です。書きたかったのは `declare class Foo { constructor(); }` ではありませんか？
 * `const Class: { new(): IClass; }`:
-  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
+  new 可能な定数ではなく、クラス定義 `class Class { constructor(); }` を使ってください。
 * `getMeAT<T>(): T`:
-  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
-  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
-  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
-  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
-  Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+  型パラメーターが関数の引数の型で全く使用されない場合、その関数は本当のジェネリック関数にはなっていません。型注釈みたいに誤魔化された何かを書いているだけです。
+  実際の型を型注釈として使用してください（例: `getMeAT() as number`）。
+  型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
+  使用してはいけない例: `function parseJson<T>(json: string): T;`。
+  例外: `new Map<string, number>()` はOKです。
+* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
 * `var foo: string | any`:
-  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
-  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
+  `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
+  シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
 
 #### パッケージを削除する
 
