@@ -12,6 +12,8 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "triple-equals": false,
-        "whitespace": false
+        "whitespace": false,
+        "no-unnecessary-generics": false,
+        "unified-signatures": false
     }
 }
