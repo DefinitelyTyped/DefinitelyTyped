@@ -2,7 +2,7 @@
 // Project: <https://github.com/jonthornton/jquery-timepicker>
 // Definitions by: doberkofler <https://github.com/doberkofler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
