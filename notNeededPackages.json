@@ -4431,6 +4431,11 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "stripe",
+            "typingsPackageName": "stripe",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "asOfVersion": "3.1.1"
