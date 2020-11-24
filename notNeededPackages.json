@@ -2781,6 +2781,11 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "next-seo",
+            "typingsPackageName": "next-seo",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "next-server",
             "typingsPackageName": "next-server",
             "asOfVersion": "9.0.0"
