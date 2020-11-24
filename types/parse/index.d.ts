@@ -1433,7 +1433,7 @@ namespace Parse {
             sound?: string;
             title?: string;
             notification?: any;
-            content_available?: any;
+            contentAvailable?: boolean;
         }
 
         interface SendOptions extends UseMasterKeyOption {
