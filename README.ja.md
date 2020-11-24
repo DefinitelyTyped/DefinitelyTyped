@@ -216,17 +216,17 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 #### パッケージを削除する
 
-When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
+パッケージに型定義が[バンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-* `typingsPackageName`: This is the name of the directory to delete.
-* `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
+`npm run not-needed -- typingsPackageName asOfVersion [libraryName]` を実行するとパッケージを削除できます。.
+* `typingsPackageName`: 削除したいディレクトリ名。
+* `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより高く、かつ npm 上の `foo` のバージョンとあわせる必要があります。
+* `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に "typingsPackageName" と一致し、その場合は省略できます。
 
-Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
-You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
-For example:
+削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
+`npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
+エラーを修正するには、 `package.json` を追加し、 `"dependencies": { "foo": "x.y.z" }` と記述します。
+たとえば下記のようになります:
 
 ```json
 {
@@ -237,9 +237,9 @@ For example:
 }
 ```
 
-When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+`foo` に依存するモジュールに `package.json` を追加する場合は、 [DefinitelyTyped-tools の allowedPackageJsonDependencies.txt](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に `foo` を追加する PR も併せて作成する必要があります。
 
-If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
+パッケージが Definitely Typed に存在しなかった場合は、 `notNeededPackages.json` に追加する必要はありません。
 
 #### Linter
 
