@@ -321,16 +321,16 @@ f("one");
 
 ### 型定義のオーナー
 
-DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+DefinitelyTyped では、ある特定のモジュールの型定義の品質を管理している人を「型定義のオーナー」としています。
 
-* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+* あなたの名前をリストに載せると、誰かがパッケージに対して PR や issue を作成した際に、 GitHub のユーザー名によってあなたに通知されます。
+* オーナーが PR をレビューすると、このレポジトリ全体を管理する [bot](https://github.com/DefinitelyTyped/dt-mergebot) は、そのレビューを他より重要なものとして扱います。
+* DefinitelyTyped のメンテナーは、安定したエコシステムを確保するべく、型定義のオーナーに信用を置いています。軽率にオーナーになるのはお控えください。
 
-To Add yourself as a Definition Owner:
+型定義のオーナーになるには:
 
-* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Or if there are more people, it can be multiline
+* `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>` というような形式で、行の終わりにあなたの名前を追加してください。
+* 行が長くなるようであれば、複数行にしてもかまいません。
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -338,7 +338,7 @@ To Add yourself as a Definition Owner:
   //                 John <https://github.com/john>
   ```
 
-Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
+型定義のオーナーのリストが、週に1回 [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) に同期されます。このファイルが私たちの信頼の源になります。
 
 ## よくある質問
 
