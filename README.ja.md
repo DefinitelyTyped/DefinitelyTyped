@@ -125,7 +125,7 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 #### 既存のパッケージへの変更点を試す
 
 （訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（module augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
-また、 `node_modules/@types/foo/index.d.ts` にある型定義を直接編集して、変更点を動作確認できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
+また、 `node_modules/@types/foo/index.d.ts` にある型定義を直接編集して、変更点を検証できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
 
 #### 新しいパッケージを試す
 
@@ -243,7 +243,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 #### Linter
 
-All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+新しいパッケージはすべて Lint される必要があります。パッケージを Lint するには、パッケージに `tslint.json` を追加し、下記のコードを記述します。
 
 ```js
 {
@@ -251,30 +251,29 @@ All new packages must be linted. To lint a package, add a `tslint.json` to that 
 }
 ```
 
-This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+完成したパッケージの `tslint.json` ファイルには上記のコードのみが含まれているようにすべきです。もし `tslint.json` で何かのルールがオフになっていれば、パッケージに修正が必要であるとみなされます。 例:
 
 ```js
 {
   "extends": "dtslint/dt.json",
   "rules": {
-    // This package uses the Function type, and it will take effort to fix.
+    // このパッケージは Function 型を使用しているが、その修正には労力を要する。
     "ban-types": false
   }
 }
 ```
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
+（本当に適用させたくないルールがある場合は、 `// tslint:disable ルール名` か `//tslint:disable-next-line ルール名` （より良い）を使用してください。）
 
 #### \<パッケージ名>-tests.ts
 
-There should be a `<パッケージ名>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<パッケージ名>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+パッケージには `<パッケージ名>-tests.ts` が必要です。このファイルは、ファイル内でインポートしている他の `*.ts` とあわせて、テスト用のファイルになります。
+モジュールのフォルダにテスト用ファイルが見当たらない場合は、 `<パッケージ名>-tests.ts` を作成してください。
+これらのファイルは、 `@types/<パッケージ名>` で取得される `*.d.ts` ファイルからエクスポートされた API を検証するのに使われます。
 
-Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<パッケージ名>-tests.ts`
+`*.d.ts` ファイルを変更した場合は、対応する `*.ts` ファイルを変更して API がどのように使われるかを示し、他者が意図せずあなたのコードを破壊しないようにします。
 
-For example, this change to a function in a `.d.ts` file adding a new param to a function:
+下記は、 `.d.ts` 内の関数に新しい引数を追加する変更の例です:
 
 `index.d.ts`:
 
@@ -291,18 +290,18 @@ import {twoslash} from "./"
 // $ExpectType string
 const result = twoslash("//")
 
-+ // Handle options param
++ // オプションの引数に対応
 + const resultWithOptions = twoslash("//", { version: "3.7" })
-+ // When the param is incorrect
++ // 引数が正しくないとき
 + // $ExpectError
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+もしどこからテストコードを書き始めればよいかわからないときは、そのモジュールの README に書かれてるサンプルをテストするコードから始めるのがよいでしょう。よいでしょう。
 
-You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+レポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#running-tests)することができます。
 
-Use `$ExpectType` to assert that an expression is of a given type, and `$ExpectError` to assert that a compile error. Examples:
+式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `$ExpectError` をそれぞれ使います。 例:
 
 ```js
 // $ExpectType void
@@ -312,13 +311,13 @@ f(1);
 f("one");
 ```
 
-For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+詳しくは、 [dtslint](https://github.com/Microsoft/dtslint#write-tests) の README を参照してください。
 
 #### テストの実行
 
-Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
+`npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
-This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
 
 ### 型定義のオーナー
 
