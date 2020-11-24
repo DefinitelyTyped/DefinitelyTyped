@@ -86,6 +86,14 @@ function testAddIn() {
     cf = cf.addIn(manyPredicates, manyObjects);
 }
 
+function testAddInBlankNode() {
+    const cf: clownface.AnyPointer = <any> {};
+
+    function bnodeCallback(bnode: clownface.GraphPointer<BlankNode>): void {}
+    cf.addIn(node, null, bnodeCallback);
+    cf.addIn(node, undefined, bnodeCallback);
+}
+
 function testAddList() {
     let cf: clownface.AnyPointer<NamedNode> = <any> {};
     cf = cf.addList(predicate, [node]);
@@ -111,11 +119,22 @@ function testAddOut() {
     cf = cf.addOut(manyPredicates, manyObjects);
 }
 
+function testAddOutBlankNode() {
+    const cf: clownface.AnyPointer = <any> {};
+
+    function bnodeCallback(bnode: clownface.GraphPointer<BlankNode>): void {}
+    cf.addOut(node, null, bnodeCallback);
+    cf.addOut(node, undefined, bnodeCallback);
+}
+
 function testBlankNode() {
     const cf: clownface.AnyPointer<Term[], Dataset> = <any> {};
     let singleBlank: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode();
     singleBlank = cf.blankNode('label');
     const multiBlankContext: clownface.AnyPointer<BlankNode[], Dataset> = cf.blankNode([ 'b1', 'b2' ]);
+
+    const fromOther: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
+    const fromMultipleOther: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(multiBlankContext);
 }
 
 function testDeleteIn() {
@@ -244,9 +263,12 @@ function testList() {
 function testLiteral() {
     const cf: clownface.AnyPointer<undefined, Dataset> = <any> {};
     let cfOneLit: clownface.AnyPointer<Literal, Dataset> = cf.literal('foo');
-    const cfLiterasl: clownface.AnyPointer<Literal[], Dataset> = cf.literal(['foo', 'bar']);
+    const cfLiterals: clownface.AnyPointer<Literal[], Dataset> = cf.literal(['foo', 'bar']);
     cfOneLit = cf.literal('foo', node);
     cfOneLit = cf.literal('foo', 'en');
+
+    const fromOther: clownface.AnyPointer<Literal, Dataset> = cf.literal(cfOneLit);
+    const fromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.literal(cfLiterals);
 }
 
 function testMap() {
@@ -264,6 +286,9 @@ function testNamedNode() {
     let cfSingleNamed: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(node);
     cfSingleNamed = cf.namedNode('http://example.com/');
     const cfNamedMany: clownface.AnyPointer<NamedNode[], Dataset> = cf.namedNode(['http://example.com/', 'http://example.org/']);
+
+    const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
+    const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
 }
 
 function testNode() {
@@ -276,6 +301,11 @@ function testNode() {
     const cfBlank: clownface.AnyPointer<BlankNode, Dataset> = cf.node(null, { type: 'BlankNode' });
     cfLit = cf.node('example', { datatype: node.value });
     cfLit = cf.node('example', { datatype: node });
+
+    const fromOtherNode: clownface.MultiPointer<Term, Dataset> = cf.node(singleTerm);
+    const literalFromOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLit);
+
+    const literalFromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLitMany);
 }
 
 function testOut() {
@@ -364,4 +394,14 @@ function addInAddOutRetainsType() {
     const addInSingleNoObject: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate);
     const addInSingleWithCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, () => {});
     const addInSingleWithObjectAndCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, 'foo', () => {});
+}
+
+function testAny() {
+    const multiPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    const graphPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    let anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+
+    anyPointer = anyPointer.any();
+    anyPointer = multiPtr.any();
+    anyPointer = graphPtr.any();
 }

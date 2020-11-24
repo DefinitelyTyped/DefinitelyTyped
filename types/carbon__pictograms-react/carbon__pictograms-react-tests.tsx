@@ -13,7 +13,7 @@ import {
     Export_01,
     Upload_01,
     Video_01,
-} from '@carbon/pictograms-react';
+} from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
 <Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element

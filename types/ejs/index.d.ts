@@ -9,6 +9,11 @@
 export as namespace ejs;
 
 /**
+ * Version of EJS.
+ */
+export const VERSION: string;
+
+/**
  * Name for detection of EJS.
  */
 export const name: 'ejs';

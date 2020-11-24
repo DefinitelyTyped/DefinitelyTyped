@@ -1,10 +1,13 @@
-// Type definitions for @carbon/pictograms-react 10.17
+// Type definitions for @carbon/pictograms-react 10.18
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
+// TypeScript Version: 4.0
 
-export interface CarbonPictogramProps extends Omit<React.SVGProps<SVGElement>, 'tabIndex' | 'aria-hidden'> {
+/** 609 pictograms in total */
+
+export interface CarbonPictogramProps
+    extends Omit<React.SVGProps<React.ReactSVGElement>, 'ref' | 'tabIndex' | 'aria-hidden'> {
     'aria-hidden'?: string;
     'aria-label'?: string;
     'aria-labelledby'?: string;
@@ -17,7 +20,9 @@ export interface CarbonPictogramProps extends Omit<React.SVGProps<SVGElement>, '
     xmlns?: string;
 }
 
-export type CarbonPictogramType = (props: CarbonPictogramProps) => React.FunctionComponentElement<CarbonPictogramProps>;
+export type CarbonPictogramType = React.ForwardRefExoticComponent<
+    CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
+>;
 
 export const ActiveServer: CarbonPictogramType;
 export const AddDevice: CarbonPictogramType;
@@ -77,6 +82,7 @@ export const Care: CarbonPictogramType;
 export const CargoCrane: CarbonPictogramType;
 export const CargoShip: CarbonPictogramType;
 export const Cell: CarbonPictogramType;
+export const Chart_3D: CarbonPictogramType;
 export const ChartArea: CarbonPictogramType;
 export const ChartBar: CarbonPictogramType;
 export const ChartBubble: CarbonPictogramType;
@@ -98,7 +104,6 @@ export const ChartScatterplot: CarbonPictogramType;
 export const ChartStepper: CarbonPictogramType;
 export const ChartSunburst: CarbonPictogramType;
 export const ChartTSne: CarbonPictogramType;
-export const Chart_3D: CarbonPictogramType;
 export const Cheese: CarbonPictogramType;
 export const Cherries: CarbonPictogramType;
 export const ChipCircuit: CarbonPictogramType;
@@ -184,9 +189,9 @@ export const DocumentConversion: CarbonPictogramType;
 export const DocumentSecurity: CarbonPictogramType;
 export const DoorHandle: CarbonPictogramType;
 export const Download: CarbonPictogramType;
-export const DownloadAlt: CarbonPictogramType;
 export const Download_01: CarbonPictogramType;
 export const Download_02: CarbonPictogramType;
+export const DownloadAlt: CarbonPictogramType;
 export const DubaiPalmIslands: CarbonPictogramType;
 export const DubaiSkyscraper: CarbonPictogramType;
 export const DublinBrewery: CarbonPictogramType;
@@ -211,9 +216,9 @@ export const ExpandHorz: CarbonPictogramType;
 export const ExpandUser: CarbonPictogramType;
 export const ExpandVert: CarbonPictogramType;
 export const Export: CarbonPictogramType;
-export const ExportAlt: CarbonPictogramType;
 export const Export_01: CarbonPictogramType;
 export const Export_02: CarbonPictogramType;
+export const ExportAlt: CarbonPictogramType;
 export const Eye: CarbonPictogramType;
 export const FaceDissatisfied: CarbonPictogramType;
 export const FaceNeutral: CarbonPictogramType;
@@ -300,7 +305,6 @@ export const IbmCloud: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
 export const IbmWatson: CarbonPictogramType;
 export const IbmZ: CarbonPictogramType;
-export const Icon: CarbonPictogramType;
 export const IdBadge: CarbonPictogramType;
 export const Idea: CarbonPictogramType;
 export const Ideate: CarbonPictogramType;
@@ -317,12 +321,12 @@ export const Justice: CarbonPictogramType;
 export const KeyUsers: CarbonPictogramType;
 export const KnowsDarkData: CarbonPictogramType;
 export const Language: CarbonPictogramType;
-export const LanguageTranslation: CarbonPictogramType;
-export const LanguageTranslationAlphabetAExpanded: CarbonPictogramType;
 export const Language_01: CarbonPictogramType;
 export const Language_02: CarbonPictogramType;
 export const Language_03: CarbonPictogramType;
 export const Language_04: CarbonPictogramType;
+export const LanguageTranslation: CarbonPictogramType;
+export const LanguageTranslationAlphabetAExpanded: CarbonPictogramType;
 export const Launch: CarbonPictogramType;
 export const Lightning: CarbonPictogramType;
 export const ListBullet: CarbonPictogramType;
@@ -434,9 +438,9 @@ export const Presenter: CarbonPictogramType;
 export const Price: CarbonPictogramType;
 export const Printer: CarbonPictogramType;
 export const PrivateNetwork: CarbonPictogramType;
+export const PrivateNetwork_01: CarbonPictogramType;
 export const PrivateNetworkAlt: CarbonPictogramType;
 export const PrivateNetworkAlt_01: CarbonPictogramType;
-export const PrivateNetwork_01: CarbonPictogramType;
 export const Process: CarbonPictogramType;
 export const Progress: CarbonPictogramType;
 export const Puzzle: CarbonPictogramType;
@@ -452,8 +456,8 @@ export const Receipt: CarbonPictogramType;
 export const Recycle: CarbonPictogramType;
 export const Refinery: CarbonPictogramType;
 export const Refresh: CarbonPictogramType;
-export const RelationshipDiagram: CarbonPictogramType;
 export const RelationshipExtraction: CarbonPictogramType;
+export const RelationshipDiagram: CarbonPictogramType;
 export const Renew: CarbonPictogramType;
 export const RenewTeam: CarbonPictogramType;
 export const Repeat: CarbonPictogramType;
@@ -550,8 +554,8 @@ export const Tennis: CarbonPictogramType;
 export const TestTubes: CarbonPictogramType;
 export const TextToSpeech: CarbonPictogramType;
 export const Time: CarbonPictogramType;
-export const TimeLapse: CarbonPictogramType;
 export const TimePlot: CarbonPictogramType;
+export const TimeLapse: CarbonPictogramType;
 export const Toggle: CarbonPictogramType;
 export const TokyoCherryBlossom: CarbonPictogramType;
 export const TokyoGates: CarbonPictogramType;
@@ -583,9 +587,9 @@ export const University: CarbonPictogramType;
 export const Unlock: CarbonPictogramType;
 export const UnlockAlt: CarbonPictogramType;
 export const Upload: CarbonPictogramType;
-export const UploadAlt: CarbonPictogramType;
 export const Upload_01: CarbonPictogramType;
 export const Upload_02: CarbonPictogramType;
+export const UploadAlt: CarbonPictogramType;
 export const User: CarbonPictogramType;
 export const UserAnalytics: CarbonPictogramType;
 export const UserInsights: CarbonPictogramType;
@@ -594,11 +598,11 @@ export const UserProfile: CarbonPictogramType;
 export const UserSearch: CarbonPictogramType;
 export const Vancouver: CarbonPictogramType;
 export const Video: CarbonPictogramType;
+export const Video_01: CarbonPictogramType;
+export const Video_02: CarbonPictogramType;
 export const VideoAlt: CarbonPictogramType;
 export const VideoChat: CarbonPictogramType;
 export const VideoPlay: CarbonPictogramType;
-export const Video_01: CarbonPictogramType;
-export const Video_02: CarbonPictogramType;
 export const Virus: CarbonPictogramType;
 export const Vision: CarbonPictogramType;
 export const VisualInsights: CarbonPictogramType;

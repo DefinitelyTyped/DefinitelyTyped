@@ -47,6 +47,10 @@ import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionA
       triggerAsyncId: 0,
       requireManualDestroy: true
     });
+
+    let res = AsyncResource.bind((x: number) => x)(42);
+    const asyncResource = new AsyncResource('');
+    res = asyncResource.bind((x: number) => x)(42);
 }
 
 {

@@ -7,101 +7,105 @@ import * as Stream from 'mithril/stream';
 const FRAME_BUDGET = 100;
 
 {
-    const vnode = m("div");
-    console.assert(vnode.tag === "div");
+    const vnode = m('div');
+    console.assert(vnode.tag === 'div');
 }
 
 {
-    const vnode = m.trust("<br>");
+    const vnode = m.trust('<br>');
 }
 
 {
-    const vnode = m.fragment({key: 123}, [m("div")]);
+    const vnode = m.fragment({ key: 123 }, [m('div')]);
     console.assert((vnode.children as Array<m.Vnode<any, any>>).length === 1);
     console.assert((vnode.children as Array<m.Vnode<any, any>>)[0].tag === 'div');
 }
 
 {
-    const params = m.parseQueryString("?a=1&b=2");
-    const query = m.buildQueryString({a: 1, b: 2});
+    const params = m.parseQueryString('?a=1&b=2');
+    const query = m.buildQueryString({ a: 1, b: 2 });
 }
 
 {
-    const {params, path} = m.parsePathname('/api/user/1');
+    const { params, path } = m.parsePathname('/api/user/1');
     console.assert(params != null);
     console.assert(typeof path === 'string');
 
-    const url = m.buildPathname('/api/user/:id', {id: 1});
+    const url = m.buildPathname('/api/user/:id', { id: 1 });
     console.assert(url.endsWith('/1'));
 }
 
 {
-    const root = window.document.createElement("div");
-    m.render(root, m("div"));
+    const root = window.document.createElement('div');
+    m.render(root, m('div'));
     console.assert(root.childNodes.length === 1);
 }
 
 {
-    const root = window.document.createElement("div");
-    m.mount(root, { view: () => m("div") });
+    const root = window.document.createElement('div');
+    m.mount(root, { view: () => m('div') });
     console.assert(root.childNodes.length === 1);
-    console.assert(root.firstChild!.nodeName === "DIV");
+    console.assert(root.firstChild!.nodeName === 'DIV');
 }
 
 {
-    const root = window.document.createElement("div");
-    m.route(root, "/a", {
-        "/a": { view: () => m("div") }
+    const root = window.document.createElement('div');
+    m.route(root, '/a', {
+        '/a': { view: () => m('div') },
     });
 
     setTimeout(() => {
         console.assert(root.childNodes.length === 1);
-        console.assert(root.firstChild!.nodeName === "DIV");
+        console.assert(root.firstChild!.nodeName === 'DIV');
     }, FRAME_BUDGET);
 }
 
 {
-    const root = window.document.createElement("div");
-    m.route.prefix = "#";
-    m.route(root, "/a", {
-        "/a": { view: () => m("div") }
+    const root = window.document.createElement('div');
+    m.route.prefix = '#';
+    m.route(root, '/a', {
+        '/a': { view: () => m('div') },
     });
 
     setTimeout(() => {
         console.assert(root.childNodes.length === 1);
-        console.assert(root.firstChild!.nodeName === "DIV");
+        console.assert(root.firstChild!.nodeName === 'DIV');
     }, FRAME_BUDGET);
 }
 
 {
-    const root = window.document.createElement("div");
-    m.route(root, "/a", {
-        "/a": { view: () => m("div") }
+    const root = window.document.createElement('div');
+    m.route(root, '/a', {
+        '/a': { view: () => m('div') },
     });
 
     setTimeout(() => {
-        console.assert(m.route.get() === "/a");
+        console.assert(m.route.get() === '/a');
     }, FRAME_BUDGET);
 }
 
 {
-    const root = window.document.createElement("div");
-    m.route(root, "/a", {
-        "/:id": { view: () => m("div") }
+    const root = window.document.createElement('div');
+    m.route(root, '/a', {
+        '/:id': { view: () => m('div') },
     });
 
     setTimeout(() => {
-        m.route.set("/b");
+        m.route.set('/b');
         setTimeout(() => {
-            console.assert(m.route.get() === "/b");
+            console.assert(m.route.get() === '/b');
         }, FRAME_BUDGET);
     }, FRAME_BUDGET);
 }
 
 {
     let count = 0;
-    const root = window.document.createElement("div");
-    m.mount(root, {view() { count++; }});
+    const root = window.document.createElement('div');
+    m.mount(root, {
+        view() {
+            count++;
+        },
+    });
     setTimeout(() => {
         m.redraw();
         console.assert(count === 2);
@@ -120,12 +124,12 @@ const FRAME_BUDGET = 100;
     // define a component
     const Greeter: m.Comp<{ style: string }> = {
         view(vnode) {
-            return m("div", vnode.attrs, ["Hello ", vnode.children]);
-        }
+            return m('div', vnode.attrs, ['Hello ', vnode.children]);
+        },
     };
 
     // consume it
-    m(Greeter, { style: "color:red;" }, "world");
+    m(Greeter, { style: 'color:red;' }, 'world');
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -134,13 +138,13 @@ const FRAME_BUDGET = 100;
 
 {
     const users = [
-        { id: 1, name: "John" },
-        { id: 2, name: "Mary" },
+        { id: 1, name: 'John' },
+        { id: 2, name: 'Mary' },
     ];
 
-    const userInputs = (users: Array<{ id: number, name: string }>) => {
+    const userInputs = (users: Array<{ id: number; name: string }>) => {
         return users.map(u => {
-            return m("input", { key: u.id }, u.name);
+            return m('input', { key: u.id }, u.name);
         });
     };
 
@@ -152,40 +156,40 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-    const ComponentWithInitialState: m.Comp<{}, {data: string}> = {
-        data: "Initial content",
+    const ComponentWithInitialState: m.Comp<{}, { data: string }> = {
+        data: 'Initial content',
         view(vnode) {
-            return m("div", vnode.state.data);
-        }
+            return m('div', vnode.state.data);
+        },
     };
 
     m(ComponentWithInitialState);
 }
 
 {
-    const ComponentWithDynamicState: m.Comp<{text: string}, {data?: string}> = {
+    const ComponentWithDynamicState: m.Comp<{ text: string }, { data?: string }> = {
         oninit(vnode) {
             vnode.state.data = vnode.attrs.text;
         },
         view(vnode) {
-            return m("div", vnode.state.data);
-        }
+            return m('div', vnode.state.data);
+        },
     };
 
-    m(ComponentWithDynamicState, { text: "Hello" });
+    m(ComponentWithDynamicState, { text: 'Hello' });
 }
 
 {
-    const ComponentUsingThis: m.Comp<{text: string}, {data?: string}> = {
+    const ComponentUsingThis: m.Comp<{ text: string }, { data?: string }> = {
         oninit(vnode) {
             this.data = vnode.attrs.text;
         },
         view(vnode) {
-            return m("div", this.data);
-        }
+            return m('div', this.data);
+        },
     };
 
-    m(ComponentUsingThis, { text: "Hello" });
+    m(ComponentUsingThis, { text: 'Hello' });
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,13 +199,13 @@ const FRAME_BUDGET = 100;
 {
     const Fader: m.Comp = {
         onbeforeremove(vnode) {
-            vnode.dom.classList.add("fade-out");
+            vnode.dom.classList.add('fade-out');
             return new Promise(resolve => {
                 setTimeout(resolve, 1000);
             });
         },
         view() {
-            return m("div", "Bye");
+            return m('div', 'Bye');
         },
     };
 }
@@ -213,25 +217,25 @@ const FRAME_BUDGET = 100;
 {
     const Home = {
         view() {
-            return "Welcome";
-        }
+            return 'Welcome';
+        },
     };
 
     const state = {
-        term: "",
+        term: '',
         search() {
             // save the state for this route
             // this is equivalent to `history.replaceState({term: state.term}, null, location.href)`
             m.route.set(m.route.get(), null, { replace: true, state: { term: state.term } });
 
             // navigate away
-            location.href = "https://google.com/?q=" + state.term;
-        }
+            location.href = 'https://google.com/?q=' + state.term;
+        },
     };
 
-    const Form: m.Comp<{term: string}> = {
+    const Form: m.Comp<{ term: string }> = {
         oninit(vnode) {
-            state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
+            state.term = vnode.attrs.term || ''; // populated from the `history.state` property if the user presses the back button
         },
         view() {
             return m('form', [
@@ -243,41 +247,41 @@ const FRAME_BUDGET = 100;
                 }),
                 m('button', { onclick: state.search }, 'Search'),
             ]);
-        }
+        },
     };
 
     const Layout: m.Comp = {
         view(vnode) {
-            return m(".layout", vnode.children);
-        }
+            return m('.layout', vnode.children);
+        },
     };
 
     // example 1
-    m.route(document.body, "/", {
-        "/": {
+    m.route(document.body, '/', {
+        '/': {
             view() {
                 return m(Layout, m(Home));
             },
         },
-        "/form": {
+        '/form': {
             view() {
                 return m(Layout, m(Form));
             },
-        }
+        },
     });
 
     // example 2
-    m.route(document.body, "/", {
-        "/": {
+    m.route(document.body, '/', {
+        '/': {
             render() {
                 return m(Layout, m(Home));
             },
         },
-        "/form": {
+        '/form': {
             render() {
                 return m(Layout, m(Form));
             },
-        }
+        },
     });
 
     // functionally equivalent to example 1
@@ -292,16 +296,16 @@ const FRAME_BUDGET = 100;
         },
     };
 
-    m.route(document.body, "/", {
-        "/": {
+    m.route(document.body, '/', {
+        '/': {
             render() {
                 return m(Anon1);
-            }
+            },
         },
-        "/form": {
+        '/form': {
             render() {
                 return m(Anon2);
-            }
+            },
         },
     });
 }
@@ -314,18 +318,18 @@ const FRAME_BUDGET = 100;
     const state = {
         users: [] as any[],
         loadUsers() {
-            return m.request<any>("/api/v1/users").then(users => {
+            return m.request<any>('/api/v1/users').then(users => {
                 state.users = users;
             });
-        }
+        },
     };
 
-    m.route(document.body, "/user/list", {
-        "/user/list": {
+    m.route(document.body, '/user/list', {
+        '/user/list': {
             onmatch: state.loadUsers,
             render() {
-                return state.users.map(user => m("div", user.id));
-            }
+                return state.users.map(user => m('div', user.id));
+            },
         },
     });
 }
@@ -339,27 +343,24 @@ const FRAME_BUDGET = 100;
 
     m.mount(document.body, {
         view() {
-            return [
-                m("input[type=file]", { onchange: upload }),
-                progress + "% completed"
-            ];
-        }
+            return [m('input[type=file]', { onchange: upload }), progress + '% completed'];
+        },
     });
 
     const upload = (e: Event) => {
         const file = ((e.target as HTMLInputElement).files as FileList)[0];
         const data = new FormData();
-        data.append("myfile", file);
+        data.append('myfile', file);
         m.request({
-            method: "POST",
-            url: "/api/v1/upload",
+            method: 'POST',
+            url: '/api/v1/upload',
             body: data,
             config: xhr => {
-                xhr.addEventListener("progress", e => {
+                xhr.addEventListener('progress', e => {
                     progress = e.loaded / e.total;
                     m.redraw(); // tell Mithril that data changed and a re-render is needed
                 });
-            }
+            },
         });
     };
 }
@@ -383,11 +384,10 @@ const FRAME_BUDGET = 100;
     // }
 
     m.request<User[]>({
-        method: "GET",
-        url: "/api/v1/users",
-        type: User
-    })
-    .then(users => {
+        method: 'GET',
+        url: '/api/v1/users',
+        type: User,
+    }).then(users => {
         console.log(users[0].name); // logs a name
     });
 }
@@ -398,11 +398,10 @@ const FRAME_BUDGET = 100;
 
 {
     m.request<string>({
-        method: "GET",
-        url: "/files/icon.svg",
-        deserialize: value => value
-    })
-    .then(svg => {
+        method: 'GET',
+        url: '/files/icon.svg',
+        deserialize: value => value,
+    }).then(svg => {
         m.render(document.body, m.trust(svg));
     });
 }
@@ -413,11 +412,10 @@ const FRAME_BUDGET = 100;
 
 {
     m.jsonp({
-        url: "/api/v1/users/:id",
+        url: '/api/v1/users/:id',
         params: { id: 1 },
-        callbackKey: "callback",
-    })
-    .then(result => {
+        callbackKey: 'callback',
+    }).then(result => {
         console.log(result);
     });
 }
@@ -429,17 +427,19 @@ const FRAME_BUDGET = 100;
 {
     const groupVisible = true;
     const log = () => {
-        console.log("group is now visible");
+        console.log('group is now visible');
     };
 
-    m("ul", [
-        m("li", "child 1"),
-        m("li", "child 2"),
-        groupVisible ? m.fragment({ oninit: log }, [
-            // a fragment containing two elements
-            m("li", "child 3"),
-            m("li", "child 4"),
-        ]) : null
+    m('ul', [
+        m('li', 'child 1'),
+        m('li', 'child 2'),
+        groupVisible
+            ? m.fragment({ oninit: log }, [
+                  // a fragment containing two elements
+                  m('li', 'child 3'),
+                  m('li', 'child 4'),
+              ])
+            : null,
     ]);
 }
 
@@ -448,15 +448,15 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-    const firstName = Stream("John");
-    const lastName = Stream("Doe");
+    const firstName = Stream('John');
+    const lastName = Stream('Doe');
     const fullName = Stream.merge([firstName, lastName]).map(values => {
-        return values.join(" ");
+        return values.join(' ');
     });
 
     console.log(fullName()); // logs "John Doe"
 
-    firstName("Mary");
+    firstName('Mary');
 
     console.log(fullName()); // logs "Mary Doe"
 }
@@ -483,9 +483,12 @@ const FRAME_BUDGET = 100;
     const a = Stream(5);
     const b = Stream(7);
 
-    const added = Stream.combine((a: Stream<number>, b: Stream<number>) => {
-        return a() + b();
-    }, [a, b]);
+    const added = Stream.combine(
+        (a: Stream<number>, b: Stream<number>) => {
+            return a() + b();
+        },
+        [a, b],
+    );
 
     console.log(added()); // logs 12
 }
@@ -512,20 +515,25 @@ const FRAME_BUDGET = 100;
 // Excerpt
 
 {
-    const root = document.getElementById("root")!;
+    const root = document.getElementById('root')!;
     const empty: any[] = [];
     const full: any[] = [];
     for (let i = 0; i < 100; i++) full.push(i);
     let cells: any[];
 
-    const view = () => m(".container", cells.map(i =>
-        m(".slice", {
-            style: {backgroundPosition: `${i % 10 * 11}% ${Math.floor(i / 10) * 11}%`},
-            onbeforeremove: exit
-        })));
+    const view = () =>
+        m(
+            '.container',
+            cells.map(i =>
+                m('.slice', {
+                    style: { backgroundPosition: `${(i % 10) * 11}% ${Math.floor(i / 10) * 11}%` },
+                    onbeforeremove: exit,
+                }),
+            ),
+        );
 
     const exit = (vnode: m.VnodeDOM<any, any>) => {
-        vnode.dom.classList.add("exit");
+        vnode.dom.classList.add('exit');
         return new Promise(resolve => {
             setTimeout(resolve, 1000);
         });
@@ -555,10 +563,10 @@ const FRAME_BUDGET = 100;
 
     // model
     const state = {
-        text: "# Markdown Editor\n\nType on the left panel and see the result on the right panel",
+        text: '# Markdown Editor\n\nType on the left panel and see the result on the right panel',
         update(value: string) {
             state.text = value;
-        }
+        },
     };
 
     // view
@@ -573,10 +581,10 @@ const FRAME_BUDGET = 100;
                 }),
                 m('.preview', m.trust(marked(state.text))),
             ];
-        }
+        },
     };
 
-    m.mount(document.getElementById("editor")!, Editor);
+    m.mount(document.getElementById('editor')!, Editor);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -589,23 +597,22 @@ const FRAME_BUDGET = 100;
         dispatch(action: string, args?: any) {
             (state as any)[action].apply(state, args || []);
             requestAnimationFrame(() => {
-                localStorage["todos-mithril"] = JSON.stringify(state.todos);
+                localStorage['todos-mithril'] = JSON.stringify(state.todos);
             });
         },
 
-        todos: JSON.parse(localStorage["todos-mithril"] || "[]"),
+        todos: JSON.parse(localStorage['todos-mithril'] || '[]'),
         editing: null as any,
-        filter: "",
+        filter: '',
         remaining: 0,
         todosByStatus: [] as any[],
         showing: undefined as any,
 
         createTodo(title: string) {
-            state.todos.push({title: title.trim(), completed: false});
+            state.todos.push({ title: title.trim(), completed: false });
         },
         setStatuses(completed: boolean) {
-            for (const todo of state.todos)
-                todo.completed = completed;
+            for (const todo of state.todos) todo.completed = completed;
         },
         setStatus(todo: any, completed: boolean) {
             todo.completed = completed;
@@ -626,7 +633,7 @@ const FRAME_BUDGET = 100;
         update(title: string) {
             if (state.editing != null) {
                 state.editing.title = title.trim();
-                if (state.editing.title === "") state.destroy(state.editing);
+                if (state.editing.title === '') state.destroy(state.editing);
                 state.editing = null;
             }
         },
@@ -635,37 +642,43 @@ const FRAME_BUDGET = 100;
         },
 
         computed(vnode: m.Vnode<any, any>) {
-            state.showing = vnode.attrs.status || "";
+            state.showing = vnode.attrs.status || '';
             state.remaining = state.todos.filter((todo: any) => !todo.completed).length;
             state.todosByStatus = state.todos.filter((todo: any) => {
                 switch (state.showing) {
-                    case "": return true;
-                    case "active": return !todo.completed;
-                    case "completed": return todo.completed;
+                    case '':
+                        return true;
+                    case 'active':
+                        return !todo.completed;
+                    case 'completed':
+                        return todo.completed;
                 }
             });
-        }
+        },
     };
 
     // view
-    const Todos: m.Comp<{}, {
-        add(e: Event): void
-        toggleAll(): void
-        toggle(todo: any): void
-        focus(vnode: m.VnodeDOM<any, any>, todo: any): void
-        save(e: KeyboardEvent): void
-    }> = {
+    const Todos: m.Comp<
+        {},
+        {
+            add(e: Event): void;
+            toggleAll(): void;
+            toggle(todo: any): void;
+            focus(vnode: m.VnodeDOM<any, any>, todo: any): void;
+            save(e: KeyboardEvent): void;
+        }
+    > = {
         add(e: KeyboardEvent) {
             if (e.keyCode === 13) {
-                state.dispatch("createTodo", [(e.target as HTMLInputElement).value]);
-                (e.target as HTMLInputElement).value = "";
+                state.dispatch('createTodo', [(e.target as HTMLInputElement).value]);
+                (e.target as HTMLInputElement).value = '';
             }
         },
         toggleAll() {
-            state.dispatch("setStatuses", [(document.getElementById("toggle-all") as HTMLInputElement).checked]);
+            state.dispatch('setStatuses', [(document.getElementById('toggle-all') as HTMLInputElement).checked]);
         },
         toggle(todo: any) {
-            state.dispatch("setStatus", [todo, !todo.completed]);
+            state.dispatch('setStatus', [todo, !todo.completed]);
         },
         focus(vnode: m.VnodeDOM<any, any>, todo: any) {
             if (todo === state.editing && vnode.dom !== document.activeElement) {
@@ -676,55 +689,96 @@ const FRAME_BUDGET = 100;
             }
         },
         save(e: KeyboardEvent) {
-            if (e.keyCode === 13 || e.type === "blur") state.dispatch("update", [(e.target as HTMLInputElement).value]);
-            else if (e.keyCode === 27) state.dispatch("reset");
+            if (e.keyCode === 13 || e.type === 'blur') state.dispatch('update', [(e.target as HTMLInputElement).value]);
+            else if (e.keyCode === 27) state.dispatch('reset');
         },
         oninit: state.computed,
         onbeforeupdate: state.computed,
         view(vnode) {
             const ui = vnode.state;
             return [
-                m("header.header", [
-                    m("h1", "todos"),
-                    m("input#new-todo[placeholder='What needs to be done?'][autofocus]", {onkeypress: ui.add}),
+                m('header.header', [
+                    m('h1', 'todos'),
+                    m("input#new-todo[placeholder='What needs to be done?'][autofocus]", { onkeypress: ui.add }),
                 ]),
-                m("section#main", {style: {display: state.todos.length > 0 ? "" : "none"}}, [
-                    m("input#toggle-all[type='checkbox']", {checked: state.remaining === 0, onclick: ui.toggleAll}),
-                    m("label[for='toggle-all']", {onclick: ui.toggleAll}, "Mark all as complete"),
-                    m("ul#todo-list", [
+                m('section#main', { style: { display: state.todos.length > 0 ? '' : 'none' } }, [
+                    m("input#toggle-all[type='checkbox']", { checked: state.remaining === 0, onclick: ui.toggleAll }),
+                    m("label[for='toggle-all']", { onclick: ui.toggleAll }, 'Mark all as complete'),
+                    m('ul#todo-list', [
                         state.todosByStatus.map((todo: any) => {
-                            return m("li", {class: `${todo.completed ? "completed" : ""} ${todo === state.editing ? "editing" : ""}`}, [
-                                m(".view", [
-                                    m("input.toggle[type='checkbox']", { checked: todo.completed, onclick: () => { ui.toggle(todo); } }),
-                                    m("label", { ondblclick: () => { state.dispatch("edit", [todo]); } }, todo.title),
-                                    m("button.destroy", { onclick: () => { state.dispatch("destroy", [todo]); } }),
-                                ]),
-                                m("input.edit", { onupdate(vnode: m.VnodeDOM<any, any>) { ui.focus(vnode, todo); }, onkeypress: ui.save, onblur: ui.save })
-                            ]);
+                            return m(
+                                'li',
+                                {
+                                    class: `${todo.completed ? 'completed' : ''} ${
+                                        todo === state.editing ? 'editing' : ''
+                                    }`,
+                                },
+                                [
+                                    m('.view', [
+                                        m("input.toggle[type='checkbox']", {
+                                            checked: todo.completed,
+                                            onclick: () => {
+                                                ui.toggle(todo);
+                                            },
+                                        }),
+                                        m(
+                                            'label',
+                                            {
+                                                ondblclick: () => {
+                                                    state.dispatch('edit', [todo]);
+                                                },
+                                            },
+                                            todo.title,
+                                        ),
+                                        m('button.destroy', {
+                                            onclick: () => {
+                                                state.dispatch('destroy', [todo]);
+                                            },
+                                        }),
+                                    ]),
+                                    m('input.edit', {
+                                        onupdate(vnode: m.VnodeDOM<any, any>) {
+                                            ui.focus(vnode, todo);
+                                        },
+                                        onkeypress: ui.save,
+                                        onblur: ui.save,
+                                    }),
+                                ],
+                            );
                         }),
                     ]),
                 ]),
-                state.todos.length ? m("footer#footer", [
-                    m("span#todo-count", [
-                        m("strong", state.remaining),
-                        state.remaining === 1 ? " item left" : " items left",
-                    ]),
-                    m("ul#filters", [
-                        // m("li", m("a[href='/']", {oncreate: m.route.link, class: state.showing === "" ? "selected" : ""}, "All")),
-                        // m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
-                        // m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
-                        m(m.route.Link, {href: "/"}, "All"),
-                        m(m.route.Link, {href: "/active"}, "Active"),
-                        m(m.route.Link, {href: "/completed"}, "Completed")
-                    ]),
-                    m("button#clear-completed", { onclick: () => { state.dispatch("clear"); } }, "Clear completed"),
-                ]) : null,
+                state.todos.length
+                    ? m('footer#footer', [
+                          m('span#todo-count', [
+                              m('strong', state.remaining),
+                              state.remaining === 1 ? ' item left' : ' items left',
+                          ]),
+                          m('ul#filters', [
+                              // m("li", m("a[href='/']", {oncreate: m.route.link, class: state.showing === "" ? "selected" : ""}, "All")),
+                              // m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
+                              // m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
+                              m(m.route.Link, { href: '/' }, 'All'),
+                              m(m.route.Link, { href: '/active' }, 'Active'),
+                              m(m.route.Link, { href: '/completed' }, 'Completed'),
+                          ]),
+                          m(
+                              'button#clear-completed',
+                              {
+                                  onclick: () => {
+                                      state.dispatch('clear');
+                                  },
+                              },
+                              'Clear completed',
+                          ),
+                      ])
+                    : null,
             ];
-        }
+        },
     };
 
-    m.route(document.getElementById("todoapp")!, "/", {
-        "/": Todos,
-        "/:status": Todos,
+    m.route(document.getElementById('todoapp')!, '/', {
+        '/': Todos,
+        '/:status': Todos,
     });
 }

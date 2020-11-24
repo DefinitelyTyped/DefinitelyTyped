@@ -14,8 +14,7 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#dataZoom-inside
          * @see https://echarts.apache.org/en/option.html#dataZoom-slider
          */
-        type DataZoom = DataZoom.Inside
-            | DataZoom.Slider;
+        type DataZoom = DataZoom.Inside | DataZoom.Slider;
 
         namespace DataZoom {
             /**

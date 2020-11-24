@@ -2,6 +2,7 @@
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
+//                 Juan <https://github.com/JuanM04>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -10,10 +11,13 @@
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
+import { SessionProvider } from './client';
+import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
-export interface InitOptions {
+interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
-    database?: ConnectionOptions | string;
+    database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;
     jwt?: JWTOptions;
@@ -26,7 +30,29 @@ export interface InitOptions {
     cookies?: Cookies;
 }
 
-export interface PageOptions {
+interface AppOptions {
+    debug: boolean;
+    pages: PageOptions;
+    adapter: Adapter;
+    baseUrl: string;
+    basePath: string;
+    action: 'providers' | 'session' | 'csrf' | 'signin' | 'signout' | 'callback' | 'verify-request' | 'error';
+    provider?: string;
+    cookies: Cookies;
+    secret: string;
+    csrfToken: string;
+    providers: {
+        [provider: string]: SessionProvider;
+    };
+    session: Session;
+    jwt: JWTOptions;
+    events: Events;
+    callbacks: Callbacks;
+    callbackUrl: string;
+    // redirect?(redirectUrl: string): any;
+}
+
+interface PageOptions {
     signIn?: string;
     signOut?: string;
     error?: string;
@@ -40,25 +66,25 @@ interface Cookies {
 
 interface Cookie {
     name: string;
-    options: CookieOptions;
+    options?: CookieOptions;
 }
 
-export interface CookieOptions {
+interface CookieOptions {
     httpOnly?: boolean;
-    // TODO: type available `sameSite` identifiers
-    sameSite: string;
-    path: string;
-    secure: boolean;
+    sameSite?: true | 'strict' | 'lax' | 'none';
+    path?: string;
+    secure?: boolean;
+    maxAge?: number;
 }
 
 interface Events {
-    signIn?(message: string): Promise<void>;
-    signOut?(message: string): Promise<void>;
-    createUser?(message: string): Promise<void>;
-    updateUser?(message: string): Promise<void>;
-    linkAccount?(message: string): Promise<void>;
-    session?(message: string): Promise<void>;
-    error?(message: string): Promise<void>;
+    signIn?(message: any): Promise<void>;
+    signOut?(message: any): Promise<void>;
+    createUser?(message: any): Promise<void>;
+    updateUser?(message: any): Promise<void>;
+    linkAccount?(message: any): Promise<void>;
+    session?(message: any): Promise<void>;
+    error?(message: any): Promise<void>;
 }
 
 interface Session {
@@ -67,61 +93,28 @@ interface Session {
     updateAge?: number;
 }
 
+interface User {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+}
+
 interface JWTOptions {
-    secret: string;
+    secret?: string;
     maxAge?: number;
+    encryption?: boolean;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;
 }
 
-interface JWTSignInOptions {
-    expiresIn: string;
-}
-
-interface JWTVerificationOptions {
-    maxTokenAge: string;
-    algorithms: string[];
-}
-
-interface JWTDecryptionOptions {
-    algorithms: string[];
-}
-
-interface JWTDecodeParams {
-    secret: string;
-    token: GenericObject;
-    maxAge?: number;
-    signingKey?: string;
-    verificationKey?: string;
-    verificationOptions?: JWTVerificationOptions;
-    decryptionKey?: string;
-    decryptionOptions?: JWTDecryptionOptions;
-    encryption?: boolean;
-}
-
-interface JWTEncodeParams {
-    secret: string;
-    token: GenericObject;
-    signingKey?: string;
-    encryptionKey?: string;
-    signingOptions?: JWTSignInOptions;
-    encryptionOptions?: GenericObject;
-    encryption?: boolean;
-    maxAge?: number;
-}
-
-interface GenericObject {
-    [key: string]: any;
-}
-
 // TODO: Improve callback typings
-export interface Callbacks {
-    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
+interface Callbacks {
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: Session, user: GenericObject): Promise<GenericObject>;
+    session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
-        user: GenericObject,
+        user: User,
         account: GenericObject,
         profile: GenericObject,
         isNewUser: boolean,
@@ -130,38 +123,4 @@ export interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-
-/**
- * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
- * @see https://github.com/microsoft/dtslint/issues/297
- */
-
-interface NextApiRequest {
-    query: {
-        [key: string]: string | string[];
-    };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-    env: Env;
-}
-
-interface NextApiResponse<T = any> {
-    send: Send<T>;
-    json: Send<T>;
-    status: (statusCode: number) => NextApiResponse<T>;
-    setPreviewData: (
-        data: object | string,
-        options?: {
-            maxAge?: number;
-        },
-    ) => NextApiResponse<T>;
-    clearPreviewData: () => NextApiResponse<T>;
-}
-
-interface Env {
-    [key: string]: string;
-}
-
-type Send<T> = (body: T) => void;
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

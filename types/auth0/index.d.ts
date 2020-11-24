@@ -285,7 +285,7 @@ export interface Client {
    */
   cross_origin_auth?: boolean;
   /**
-   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
    */
   cross_origin_loc?: string;
   /**
@@ -731,6 +731,38 @@ export interface VerificationEmailJob {
     created_at?: string;
 }
 
+export type CustomDomainVerificationMethod = 'txt';
+
+export type CustomDomainStatus = 'disabled' | 'pending' | 'pending_verification' | 'ready';
+
+export type CustomDomainType = 'auth0_managed_certs' | 'self_managed_certs';
+
+export interface CreateDomainData {
+    domain: string;
+    type: CustomDomainType;
+    verification_method?: CustomDomainVerificationMethod;
+    tls_policy?: string;
+    custom_client_ip_header?: string;
+}
+
+export interface Domain {
+    custom_domain_id: string;
+    domain: string;
+    primary: boolean;
+    status: CustomDomainStatus;
+    type: CustomDomainType;
+    origin_domain_name?: string;
+    verification: {
+        methods: any[];
+    };
+    custom_client_ip_header?: string;
+    tls_policy?: string;
+}
+
+export interface DomainVerification extends Domain {
+    cname_api_key?: string;
+}
+
 export interface BaseImportUsersOptions {
     connection_id: string;
     upsert?: boolean;
@@ -805,6 +837,11 @@ export interface TokenManagerOptions extends BaseClientOptions {
 }
 export interface UsersOptions extends BaseClientOptions {
   headers?: any;
+}
+
+export interface CustomDomainsManagerOptions extends BaseClientOptions {
+  headers?: any;
+  retry?: RetryOptions;
 }
 
 export interface SignInOptions extends VerifyOptions {
@@ -1181,17 +1218,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
 
   // Jobs
-    getJob(params: ObjectWithId): Promise<Job>;
-    getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
+  getJob(params: ObjectWithId): Promise<Job>;
+  getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
-    importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
-    importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+  importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
+  importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
-    exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
-    exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
+  exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
+  exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+  sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
+  sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -1223,6 +1260,23 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
   updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+
+  // Custom Domains
+  createCustomDomain(data: CreateDomainData): Promise<Domain>;
+  createCustomDomain(data: CreateDomainData, cb: (err: Error, domain: Domain) => void): void;
+
+  getCustomDomains(): Promise<Domain[]>;
+  getCustomDomains(cb: (err: Error, data: Domain[]) => void): void;
+
+  getCustomDomain(params: ObjectWithId): Promise<Domain>;
+  getCustomDomain(params: ObjectWithId, cb: (err: Error, data: Domain) => void): void;
+
+
+  verifyCustomDomain(params: ObjectWithId): Promise<DomainVerification>;
+  verifyCustomDomain(params: ObjectWithId, cb: (err: Error, data: DomainVerification) => void): void;
+
+  deleteCustomDomain(params: ObjectWithId): Promise<void>;
+  deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
 }
 
 

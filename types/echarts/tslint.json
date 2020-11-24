@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
@@ -11,10 +10,8 @@
         "no-declare-current-package": false,
         "no-irregular-whitespace": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "space-within-parens": false,
         "typedef-whitespace": false,

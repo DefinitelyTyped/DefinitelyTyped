@@ -1,4 +1,4 @@
-import matchSorter = require('match-sorter');
+import { matchSorter } from 'match-sorter';
 
 // # Basic Sample
 {
@@ -16,7 +16,7 @@ import matchSorter = require('match-sorter');
         { name: 'Janice', color: 'Green' },
         { name: 'Fred', color: 'Orange' },
         { name: 'George', color: 'Blue' },
-        { name: 'Jen', color: 'Red' }
+        { name: 'Jen', color: 'Red' },
     ];
     matchSorter(objList, 'g', { keys: ['name', 'color'] });
     // [{name: 'George', color: 'Blue'}, {name: 'Janice', color: 'Green'}, {name: 'Fred', color: 'Orange'}]
@@ -30,7 +30,7 @@ import matchSorter = require('match-sorter');
     const iceCreamYum = [
         { favoriteIceCream: ['mint', 'chocolate'] },
         { favoriteIceCream: ['candy cane', 'brownie'] },
-        { favoriteIceCream: ['birthday cake', 'rocky road', 'strawberry'] }
+        { favoriteIceCream: ['birthday cake', 'rocky road', 'strawberry'] },
     ];
     matchSorter(iceCreamYum, 'cc', { keys: ['favoriteIceCream'] });
     // [{favoriteIceCream: ['candy cane', 'brownie']}, {favoriteIceCream: ['mint', 'chocolate']}]
@@ -42,7 +42,7 @@ import matchSorter = require('match-sorter');
         { name: { first: 'Janice' } },
         { name: { first: 'Fred' } },
         { name: { first: 'George' } },
-        { name: { first: 'Jen' } }
+        { name: { first: 'Jen' } },
     ];
     matchSorter(nestedObjList, 'j', { keys: ['name.first'] });
     // [{name: {first: 'Janice'}}, {name: {first: 'Jen'}}]
@@ -52,7 +52,7 @@ import matchSorter = require('match-sorter');
         { name: [{ first: 'Janice' }] },
         { name: [{ first: 'Fred' }] },
         { name: [{ first: 'George' }] },
-        { name: [{ first: 'Jen' }] }
+        { name: [{ first: 'Jen' }] },
     ];
     matchSorter(nestedObjList, 'j', { keys: ['name.0.first'] });
     // [{name: {first: 'Janice'}}, {name: {first: 'Jen'}}]
@@ -61,12 +61,7 @@ import matchSorter = require('match-sorter');
 
 // ### Property Callbacks
 {
-    const list = [
-        { name: 'Janice' },
-        { name: 'Fred' },
-        { name: 'George' },
-        { name: 'Jen' }
-    ];
+    const list = [{ name: 'Janice' }, { name: 'Fred' }, { name: 'George' }, { name: 'Jen' }];
     matchSorter(list, 'j', { keys: [item => item.name] });
     // [{name: 'Janice'}, {name: 'Jen'}]
 }
@@ -74,7 +69,7 @@ import matchSorter = require('match-sorter');
     const tea = [
         { tea: 'Earl Grey', alias: 'A' },
         { tea: 'Assam', alias: 'B' },
-        { tea: 'Black', alias: 'C' }
+        { tea: 'Black', alias: 'C' },
     ];
     matchSorter(tea, 'e', { keys: [item => [item.tea, item.alias]] });
     // [{tea: 'Earl Grey', alias: 'A'}]
@@ -83,13 +78,15 @@ import matchSorter = require('match-sorter');
     const tea = [
         { tea: 'Earl Grey', alias: 'A' },
         { tea: 'Assam', alias: 'B' },
-        { tea: 'Black', alias: 'C' }
+        { tea: 'Black', alias: 'C' },
     ];
     matchSorter(tea, 'e', {
-        keys: [{
-            key: item => [item.alias, item.tea],
-            minRanking: matchSorter.rankings.EQUAL
-        }]
+        keys: [
+            {
+                key: item => [item.alias, item.tea],
+                minRanking: matchSorter.rankings.EQUAL,
+            },
+        ],
     });
     // [{tea: 'Earl Grey', alias: 'A'}]
 }
@@ -99,13 +96,10 @@ import matchSorter = require('match-sorter');
     const tea = [
         { tea: 'Earl Grey', alias: 'A' },
         { tea: 'Assam', alias: 'B' },
-        { tea: 'Black', alias: 'C' }
+        { tea: 'Black', alias: 'C' },
     ];
     matchSorter(tea, 'A', {
-        keys: [
-            'tea',
-            { maxRanking: matchSorter.rankings.STARTS_WITH, key: 'alias' }
-        ]
+        keys: ['tea', { maxRanking: matchSorter.rankings.STARTS_WITH, key: 'alias' }],
     });
     // without maxRanking, Earl Grey would come first because the alias "A" would be CASE_SENSITIVE_EQUAL
     // `tea` key comes before `alias` key, so Assam comes first even though both match as STARTS_WITH
@@ -115,10 +109,10 @@ import matchSorter = require('match-sorter');
     const tea = [
         { tea: 'Milk', alias: 'moo' },
         { tea: 'Oolong', alias: 'B' },
-        { tea: 'Green', alias: 'C' }
+        { tea: 'Green', alias: 'C' },
     ];
     matchSorter(tea, 'oo', {
-        keys: ['tea', { minRanking: matchSorter.rankings.EQUAL, key: 'alias' }]
+        keys: ['tea', { minRanking: matchSorter.rankings.EQUAL, key: 'alias' }],
     });
     // minRanking bumps Milk up to EQUAL from CONTAINS (alias)
     // Oolong matches as STARTS_WITH
@@ -131,13 +125,10 @@ import matchSorter = require('match-sorter');
     const tea = [
         { tea: 'Milk', alias: 'moo' },
         { tea: 'Oolong', alias: 'B' },
-        { tea: 'Green', alias: 'C' }
+        { tea: 'Green', alias: 'C' },
     ];
     matchSorter(tea, 'oo', {
-        keys: [
-            item => item.tea,
-            { minRanking: matchSorter.rankings.EQUAL, key: item => item.alias }
-        ]
+        keys: [item => item.tea, { minRanking: matchSorter.rankings.EQUAL, key: item => item.alias }],
     });
     // minRanking bumps Milk up to EQUAL from CONTAINS (alias)
     // Oolong matches as STARTS_WITH
@@ -155,29 +146,16 @@ import matchSorter = require('match-sorter');
     matchSorter(things, 'app', { threshold: matchSorter.rankings.EQUAL });
     // ['app'] (only items that are equal)
 
-    const otherThings = [
-        'fiji apple',
-        'google',
-        'app',
-        'crabapple',
-        'apple',
-        'apply'
-    ];
+    const otherThings = ['fiji apple', 'google', 'app', 'crabapple', 'apple', 'apply'];
     matchSorter(otherThings, 'app', {
-        threshold: matchSorter.rankings.WORD_STARTS_WITH
+        threshold: matchSorter.rankings.WORD_STARTS_WITH,
     });
     // ['app', 'apple', 'apply', 'fiji apple'] (everything that matches with "word starts with" or better)
 }
 
 // ## keepDiacritics: boolean
 {
-    const thingsWithDiacritics = [
-        'jalapeño',
-        'à la carte',
-        'café',
-        'papier-mâché',
-        'à la mode'
-    ];
+    const thingsWithDiacritics = ['jalapeño', 'à la carte', 'café', 'papier-mâché', 'à la mode'];
     matchSorter(thingsWithDiacritics, 'aa');
     // ['jalapeño', 'à la carte', 'à la mode', 'papier-mâché']
 

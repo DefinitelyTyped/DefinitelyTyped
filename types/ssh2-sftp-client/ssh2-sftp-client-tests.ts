@@ -35,8 +35,10 @@ client.fastGet('/remote/path', 'local/path').then(() => null);
 client.put('/local/path', '/remote/path').then(() => null);
 client.put(new Buffer('content'), '/remote/path').then(() => null);
 client.put(fs.createReadStream('Hello World'), '/remote/path').then(() => null);
+client.put('/local/path', '/remote/path', { flags: 'w', encoding: 'utf-8', autoClose: true }).then(() => null);
 
 client.fastPut('/remote/path', 'local/path').then(() => null);
+client.fastPut('/remote/path', 'local/path', { concurrency: 4, chunkSize: 256, mode: 0o066 }).then(() => null);
 
 client.cwd().then(() => null);
 

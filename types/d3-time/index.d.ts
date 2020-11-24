@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-time module 1.0
+// Type definitions for D3JS d3-time module 2.0
 // Project: https://github.com/d3/d3-time/, https://d3js.org/d3-time
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.7
+// Last module patch version validated against: 2.0.0
 
 // ---------------------------------------------------------------
 // Interfaces
@@ -18,7 +19,8 @@
 export interface TimeInterval {
     /**
      * Returns a new date representing the latest interval boundary date before or equal to date.
-     * This function is an alias for "TimeInterval.floor(date)". For example, timeYear(date) and timeYear.floor(date) are equivalent.
+     * Equivalent to interval.floor, except it date is not specified, it defaults to the current time.
+     * For example, d3.timeYear(date) and d3.timeYear.floor(date) are equivalent.
      *
      * For example, timeDay(date) typically returns 12:00 AM local time on the given date.
      *
@@ -35,7 +37,7 @@ export interface TimeInterval {
      *
      * @param date A date object.
      */
-    (date: Date): Date;
+    (date?: Date): Date;
 
     /**
      * Returns a new date representing the latest interval boundary date before or equal to date.

@@ -1,5 +1,5 @@
-import sharp = require("sharp");
-import { createReadStream, createWriteStream } from "fs";
+import sharp = require('sharp');
+import { createReadStream, createWriteStream } from 'fs';
 
 // Test samples taken from the official documentation
 
@@ -25,12 +25,12 @@ sharp('3-channel-rgb-input.png')
 sharp('input.png')
     .rotate(180)
     .resize(300)
-    .flatten({ background: "#ff6600" })
-    .composite([{ input: 'overlay.png',  gravity: sharp.gravity.southeast }])
+    .flatten({ background: '#ff6600' })
+    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast }])
     .sharpen()
     .withMetadata()
     .webp({
-        quality: 90
+        quality: 90,
     })
     .toBuffer()
     .then((outputBuffer: Buffer) => {
@@ -46,22 +46,18 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
-sharp('input.jpg')
-    .resize({width: 300})
-    .blur(false)
-    .blur(true)
-    .toFile('output.jpg');
+sharp('input.jpg').resize({ width: 300 }).blur(false).blur(true).toFile('output.jpg');
 
 sharp({
     create: {
         width: 300,
         height: 200,
         channels: 4,
-        background: { r: 255, g: 0, b: 0, alpha: 128 }
-    }
+        background: { r: 255, g: 0, b: 0, alpha: 128 },
+    },
 })
-.png()
-.toBuffer();
+    .png()
+    .toBuffer();
 
 let transformer = sharp()
     .resize(300)
@@ -87,7 +83,7 @@ readableStream.pipe(pipeline);
 const image: sharp.Sharp = sharp(input);
 image
     .metadata()
-    .then<Buffer|undefined>((metadata: sharp.Metadata) => {
+    .then<Buffer | undefined>((metadata: sharp.Metadata) => {
         if (metadata.width) {
             return image
                 .resize(Math.round(metadata.width / 2))
@@ -111,7 +107,7 @@ readableStream.pipe(pipeline);
 
 sharp(input)
     .extract({ left: 0, top: 0, width: 100, height: 100 })
-    .toFile("output", (err: Error) => {
+    .toFile('output', (err: Error) => {
         // Extract a region of the input image, saving in the same format.
     });
 
@@ -119,7 +115,7 @@ sharp(input)
     .extract({ left: 0, top: 0, width: 100, height: 100 })
     .resize(200, 200)
     .extract({ left: 0, top: 0, width: 100, height: 100 })
-    .toFile("output", (err: Error) => {
+    .toFile('output', (err: Error) => {
         // Extract a region, resize, then extract from the resized image
     });
 
@@ -133,7 +129,7 @@ sharp(input)
     .convolve({
         width: 3,
         height: 3,
-        kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
+        kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1],
     })
     .raw()
     .toBuffer((err: Error, data: Buffer, info: sharp.OutputInfo) => {
@@ -144,7 +140,7 @@ sharp(input)
 sharp('input.tiff')
     .png()
     .tile({
-        size: 512
+        size: 512,
     })
     .toFile('output.dz', (err: Error, info: sharp.OutputInfo) => {
         // output.dzi is the Deep Zoom XML definition
@@ -153,10 +149,10 @@ sharp('input.tiff')
 
 sharp(input)
     .resize(200, 300, {
-        fit: "contain",
-        position: "north",
+        fit: 'contain',
+        position: 'north',
         kernel: sharp.kernel.lanczos2,
-        background: "white"
+        background: 'white',
     })
     .toFile('output.tiff')
     .then(() => {
@@ -167,8 +163,8 @@ sharp(input)
 
 transformer = sharp()
     .resize(200, 200, {
-        fit: "cover",
-        position: sharp.strategy.entropy
+        fit: 'cover',
+        position: sharp.strategy.entropy,
     })
     .on('error', (err: Error) => {
         console.log(err);
@@ -179,9 +175,9 @@ readableStream.pipe(transformer).pipe(writableStream);
 
 sharp('input.gif')
     .resize(200, 300, {
-        fit: "contain",
-        position: "north",
-        background: { r: 0, g: 0, b: 0, alpha: 0 }
+        fit: 'contain',
+        position: 'north',
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
     })
     .toFormat(sharp.format.webp)
     .toBuffer((err: Error, outputBuffer: Buffer) => {
@@ -193,7 +189,7 @@ sharp('input.gif')
     });
 
 sharp(input)
-    .resize(200, 200, { fit: "inside" })
+    .resize(200, 200, { fit: 'inside' })
     .toFormat('jpeg')
     .toBuffer()
     .then((outputBuffer: Buffer) => {
@@ -211,7 +207,7 @@ sharp(input)
 sharp(input)
     .resize(100, 100)
     .toBuffer({ resolveWithObject: true })
-    .then((object: { data: Buffer, info: sharp.OutputInfo }) => {
+    .then((object: { data: Buffer; info: sharp.OutputInfo }) => {
         // Resolve with an object containing data Buffer and an OutputInfo object
         // when resolveWithObject is true
     });
@@ -247,30 +243,39 @@ sharp('input.gif')
 
     .recomb([
         [0.3588, 0.7044, 0.1368],
-        [0.2990, 0.5870, 0.1140],
+        [0.299, 0.587, 0.114],
         [0.2392, 0.4696, 0.0912],
     ])
 
     .modulate({ brightness: 2 })
     .modulate({ hue: 180 })
-    .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 })
-;
+    .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 });
 
 // From https://sharp.pixelplumbing.com/api-output#examples-9
 // Extract raw RGB pixel data from JPEG input
 sharp('input.jpg')
-  .raw()
-  .toBuffer({ resolveWithObject: true })
-  .then(({data, info}) => {
-    console.log(data);
-    console.log(info);
-  });
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
+sharp('input.jpg')
+    .stats()
+    .then(stats => {
+        const {
+            sharpness,
+            dominant: { r, g, b },
+        } = stats;
+        console.log(sharpness);
+        console.log(`${r}, ${g}, ${b}`);
+    });
 
 // From https://sharp.pixelplumbing.com/api-output#examples-9
 // Extract alpha channel as raw pixel data from PNG input
-sharp('input.png')
-.ensureAlpha()
-.extractChannel(3)
-.toColourspace('b-w')
-.raw()
-.toBuffer();
+sharp('input.png').ensureAlpha().extractChannel(3).toColourspace('b-w').raw().toBuffer();
+
+// From https://sharp.pixelplumbing.com/api-constructor#examples-4
+// Convert an animated GIF to an animated WebP
+sharp('in.gif', { animated: true }).toFile('out.webp');

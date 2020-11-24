@@ -100,6 +100,8 @@ barPar = fooPar.map((f) => {
 
 strPar = P.string(str);
 
+strPar = strPar.assert((s: string) => s === 'foo', 'reason goes here');
+
 strPar = strPar.contramap((f) => {
     f; // $ExpectType string
     return f.toUpperCase();

@@ -1,4 +1,4 @@
-// Type definitions for @xstyled/system 1.17
+// Type definitions for @xstyled/system 1.19
 // Project: https://github.com/smooth-code/xstyled
 // Definitions by: Steve Johns <https://github.com/stevejay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,7 @@ export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
 
 export type StyledSystemLength = string | number;
 
-export type ResponsiveValue<T> = T | { [key: string]: T };
+export type ResponsiveValue<T> = T | T[] | { [key: string]: T };
 
 export type AliasKey = string;
 
@@ -74,8 +74,8 @@ export interface OverflowProps {
     readonly overflow?: ResponsiveValue<CSS.Property.Overflow>;
 }
 
-export interface TransitionProps {
-    readonly transition?: ResponsiveValue<string>;
+export interface TransitionProps<TLength = StyledSystemLength> {
+    readonly transition?: ResponsiveValue<CSS.Property.Transition<TLength>>;
 }
 
 export interface BasicsProps extends OpacityProps, OverflowProps, TransitionProps {}
@@ -318,6 +318,8 @@ export const alignContent: StyleFunc;
 export const justifyContent: StyleFunc;
 export const justifyItems: StyleFunc;
 export const flexWrap: StyleFunc;
+export const flexGrow: StyleFunc;
+export const flexShrink: StyleFunc;
 export const flexBasis: StyleFunc;
 export const flexDirection: StyleFunc;
 export const flex: StyleFunc;
@@ -344,6 +346,14 @@ export interface JustifyItemsProps {
 
 export interface FlexWrapProps {
     readonly flexWrap?: ResponsiveValue<CSS.Property.FlexWrap>;
+}
+
+export interface FlexGrowProps {
+    readonly flexGrow?: ResponsiveValue<CSS.Property.FlexGrow>;
+}
+
+export interface FlexShrinkProps {
+    readonly flexShrink?: ResponsiveValue<CSS.Property.FlexShrink>;
 }
 
 export interface FlexBasisProps<TLength = StyledSystemLength> {
@@ -377,6 +387,8 @@ export interface FlexboxesProps
         JustifyContentProps,
         JustifyItemsProps,
         FlexWrapProps,
+        FlexGrowProps,
+        FlexShrinkProps,
         FlexBasisProps,
         FlexDirectionProps,
         FlexProps,

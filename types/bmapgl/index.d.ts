@@ -2,6 +2,7 @@
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
 // Definitions by: Junior2ran <http://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /* *****************************************************************************
 Copyright [Junior2ran] [hdr01@126.com]

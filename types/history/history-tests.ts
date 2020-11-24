@@ -153,5 +153,5 @@ let input = { value: '' };
 {
     const anything: any = {};
     const history: History = anything;
-    history.location.state; // $ExpectType UnknownFacade
+    history.location.state; // $ExpectType unknown
 }

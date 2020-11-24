@@ -18,11 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/data": [
-                "wordpress__data"
-            ],
-            "@wordpress/viewport": [
-                "wordpress__viewport"
+            "@wordpress/*": [
+                "wordpress__*"
             ]
         }
     },

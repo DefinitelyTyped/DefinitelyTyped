@@ -269,6 +269,7 @@ function Argv$command() {
                     demand: false
                 }
             },
+            deprecated: false,
             handler: (args: any) => {
                 /* handle me mateys! */
             }
@@ -303,7 +304,11 @@ function Argv$command() {
             },
             (argv) => {
                 console.dir(argv.url);
-            }
+            },
+            // middlewares
+            [],
+            // deprecated
+            'use --newGet'
         )
         .help()
         .argv;
@@ -320,6 +325,33 @@ function Argv$command() {
         })
         .help()
         .argv;
+}
+
+function Argv$example() {
+    yargs
+        .command({
+            command: 'get',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'post',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'delete',
+            handler: () => {
+                // command
+            },
+        })
+        .example([
+            ['$0 get', 'get https://example.com/'],
+            ['$0 post', 'post https://example.com/'],
+        ])
+        .example('$0 delete', 'delete https://example.com').argv;
 }
 
 function Argv$positional() {
@@ -343,6 +375,7 @@ function Argv$commandModule() {
         handler(args: yargs.Arguments): void {
             console.log("one");
         }
+        deprecated: true;
     }
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
@@ -805,6 +838,8 @@ function Argv$commandObject() {
         defaultDescription: "description",
         demand: true,
         demandOption: true,
+        deprecate: true,
+        deprecated: "deprecated",
         desc: "desc",
         describe: "describe",
         description: "description",
@@ -839,6 +874,14 @@ function Argv$demandOption() {
         .demandOption(['a', 'b'])
         .demandOption(['a', 'b'], 'a and b are required')
         .demandOption(['a', 'b'], true)
+        .argv;
+}
+
+function Argv$deprecateOption() {
+    const ya = yargs
+        .option('old', {})
+        .deprecateOption('old', 'use --new')
+        .option('new', {})
         .argv;
 }
 
@@ -1032,6 +1075,20 @@ function Argv$inferMultipleOptionTypes() {
     yargs
         .coerce({ a: Date.parse, b: String.prototype.toLowerCase, c: (s: string) => new Date(s) })
         .demandOption(["a", "b", "c"])
+        .argv;
+
+    // $ExpectType { [x: string]: unknown; a: number; b: string[]; _: string[]; $0: string; }
+    yargs
+        .options({
+            a: {
+                type: 'number',
+                default: 4
+            },
+            b: {
+                coerce: (arg: string) => arg.split(','),
+                default: 'one,two,three'
+            }
+        })
         .argv;
 
     // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: string[]; $0: string; }
@@ -1233,4 +1290,15 @@ function Argv$commandsWithAsynchronousBuilders() {
 
 function makeSingleton() {
     yargsSingleton(process.argv.slice(2));
+}
+
+function Argv$strictOptions() {
+    // test taken from https://github.com/yargs/yargs/blob/master/test/validation.cjs#L1036
+    const argv1 = yargs
+    .command('foo', 'foo command')
+    .option('a', {
+        describe: 'a is for option'
+    })
+    .strictOptions()
+    .argv;
 }

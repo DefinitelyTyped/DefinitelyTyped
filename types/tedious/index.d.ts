@@ -657,6 +657,12 @@ export class Connection extends events.EventEmitter {
     constructor(config: ConnectionConfig);
 
     /**
+     * Establish a connection to the server.
+     * @param callback The callback is called when the connection was established or an error occured. If an error occured then err will describe the error.
+     */
+    connect(callback?: (err?: Error) => void): void;
+
+    /**
      * Start a transaction. As only one request at a time may be executed on
      * a connection, another request should not be initiated until this callback is called.
      * @param callback The callback is called when the request to start the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.

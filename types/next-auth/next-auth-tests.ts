@@ -5,48 +5,30 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
+import Adapters, { Adapter, EmailSessionProvider, Profile, Session, VerificationRequest } from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
+import NextAuth, * as NextAuthTypes from 'next-auth';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { IncomingMessage, ServerResponse } from 'http';
+import { Socket } from 'net';
 
 // --------------------------------------------------------------------------
 // Server
 // --------------------------------------------------------------------------
 
-interface GenericObject {
-    [key: string]: any;
-}
+const req: NextApiRequest = Object.assign(new IncomingMessage(new Socket()), {
+    query: {},
+    cookies: {},
+    body: {},
+});
 
-interface Session {
-    jwt?: boolean;
-    maxAge?: number;
-    updateAge?: number;
-}
-
-const req = {
-    query: {
-        foo: 'bar',
-    },
-    cookies: {
-        bar: 'baz',
-    },
-    body: {
-        bam: 'bom',
-    },
-    env: {
-        SOMETHING: 'SOMETHING',
-    },
-};
-
-const res = {
+const res: NextApiResponse = Object.assign(new ServerResponse(req), {
     send: () => undefined,
     json: () => undefined,
     status: (code: number) => res,
-    setPreviewData: (data: object | string) => res,
-    clearPreviewData: () => res,
-};
+});
 
 const pageOptions = {
     signin: 'path/to/signin',
@@ -68,6 +50,70 @@ const simpleConfig = {
     ],
 };
 
+const exampleUser: NextAuthTypes.User = {
+    name: '',
+    image: '',
+    email: '',
+};
+
+const exampleSession: Session = {
+    userId: '',
+    accessToken: '',
+    sessionToken: '',
+    expires: new Date(),
+};
+
+const exampleVerificatoinRequest: VerificationRequest = {
+    identifier: '',
+    token: '',
+    expires: new Date(),
+};
+
+const adapter: Adapter<NextAuthTypes.User, Profile, Session, VerificationRequest> = {
+    getAdapter(appOptions: NextAuthTypes.AppOptions) {
+        return Promise.resolve({
+            createUser: (profile: Profile) => Promise.resolve(exampleUser),
+            getUser: (id: string) => Promise.resolve(exampleUser),
+            getUserByEmail: (email: string) => Promise.resolve(exampleUser),
+            getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve(exampleUser),
+            updateUser: (user: NextAuthTypes.User) => Promise.resolve(exampleUser),
+            linkAccount: (
+                userId: string,
+                providerId: string,
+                providerType: string,
+                providerAccountId: string,
+                refreshToken: string,
+                accessToken: string,
+                accessTokenExpires: number,
+            ) => Promise.resolve(),
+            createSession: (user: NextAuthTypes.User) => Promise.resolve(exampleSession),
+            getSession: (sessionToken: string) => Promise.resolve(exampleSession),
+            updateSession: (session: Session, force?: boolean) => Promise.resolve(exampleSession),
+            deleteSession: (sessionToken: string) => Promise.resolve(),
+            createVerificationRequest: (
+                email: string,
+                url: string,
+                token: string,
+                secret: string,
+                provider: EmailSessionProvider,
+                options: NextAuthTypes.AppOptions,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            getVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            deleteVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(),
+        });
+    },
+};
+
 const allConfig = {
     site: 'https://foo.com',
     providers: [
@@ -87,17 +133,18 @@ const allConfig = {
     jwt: {
         secret: 'secret-thing',
         maxAge: 365,
+        encryption: true,
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
     pages: pageOptions,
     callbacks: {
-        signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
-            user: GenericObject,
+            user: NextAuthTypes.User,
             account: GenericObject,
             profile: GenericObject,
             isNewUser: boolean,
@@ -123,25 +170,14 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: () => {
-        async function getAdapter() {
-            return Promise.resolve({
-                getSession: async function getSession() {
-                    return null;
-                },
-            });
-        }
-        return {
-            getAdapter,
-        };
-    },
+    adapter,
     useSecureCookies: true,
     cookies: {
         sessionToken: {
             name: `__Secure-next-auth.session-token`,
             options: {
                 httpOnly: true,
-                sameSite: 'foo',
+                sameSite: true as true,
                 path: '/',
                 secure: true,
             },
@@ -177,11 +213,6 @@ const baseContext = {
     triggerEvent: false,
 };
 
-const pageContext = {
-    ...baseContext,
-    ctx: { ...baseContext },
-};
-
 const githubProvider = {
     id: '123',
     name: 'github',
@@ -200,26 +231,26 @@ const session = {
     expires: '1234',
 };
 
-// $ExpectType [Session, boolean]
+// $ExpectType [Session | null | undefined, boolean]
 client.useSession();
 
 // $ExpectType Promise<Session | null>
-client.getSession(pageContext);
+client.getSession({ req });
 
 // $ExpectType Promise<Session | null>
-client.session(pageContext);
+client.session({ req });
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.getProviders(pageContext);
+client.getProviders();
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.providers(pageContext);
+client.providers();
 
 // $ExpectType Promise<string | null>
-client.getCsrfToken(pageContext);
+client.getCsrfToken({ req });
 
 // $ExpectType Promise<string | null>
-client.csrfToken(pageContext);
+client.csrfToken({ req });
 
 // $ExpectType Promise<void>
 client.signin('github', { data: 'foo' });
@@ -234,9 +265,31 @@ client.signout({ callbackUrl: 'https://foo.com/callback' });
 client.Provider({
     session,
     options: {
-        site: 'https://foo.com',
+        baseUrl: 'https://foo.com',
         basePath: '/',
         clientMaxAge: 1234,
+    },
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session,
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: undefined,
+    options: {},
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: null,
+    options: {
+        baseUrl: 'https://foo.com',
+        basePath: '/',
+        clientMaxAge: 1234,
+        keepAlive: 4321,
     },
 });
 
@@ -340,6 +393,13 @@ Providers.Google({
 });
 
 // $ExpectType GenericReturnConfig
+Providers.Google({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    authorizationUrl: 'https://foo.google.com',
+});
+
+// $ExpectType GenericReturnConfig
 Providers.Auth0({
     clientId: 'foo123',
     clientSecret: 'bar123',
@@ -411,6 +471,7 @@ Providers.Yandex({
 Providers.LinkedIn({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'r_emailaddress r_liteprofile',
 });
 
 // $ExpectType GenericReturnConfig

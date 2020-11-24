@@ -293,7 +293,6 @@ export interface ShareOpenGraphValueContainer {
     /**
      * Sets a number for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putNumber(key: string, number: number): void;
 
     /**
@@ -309,7 +308,6 @@ export interface ShareOpenGraphValueContainer {
     /**
      * Sets a string for the specified key.
      */
-    // tslint:disable-next-line:variable-name
     putString(key: string, string: string): void;
 
     /**

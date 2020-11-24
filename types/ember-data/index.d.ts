@@ -134,6 +134,8 @@ export namespace DS {
         options?: AttrOptions<TransformRegistry[K]>
     ): Ember.ComputedProperty<TransformRegistry[K]>;
     function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
+    function attr(target: any, propertyKey: string): void;
+
     /**
      * WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4
      * ## Using BuildURLMixin
@@ -1214,15 +1216,7 @@ export namespace DS {
      * requests that follow the [JSON API](http://jsonapi.org/format/)
      * format.
      */
-    class JSONAPIAdapter extends RESTAdapter {
-        /**
-         * By default the JSONAPIAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-    }
+    class JSONAPIAdapter extends RESTAdapter {}
     /**
      * The REST adapter allows your store to communicate with an HTTP server by
      * transmitting JSON via XHR. Most Ember.js apps that consume a JSON API
@@ -1242,22 +1236,6 @@ export namespace DS {
          * server.
          */
         sortQueryParams(obj: {}): {};
-        /**
-         * By default the RESTAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-        /**
-         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
-         * property on the adapter:
-         */
-        namespace: string;
-        /**
-         * An adapter can target other hosts by setting the `host` property.
-         */
-        host: string;
         /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
@@ -1489,10 +1467,19 @@ export namespace DS {
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
     }
 
-    // Instead of declaring `headers as a property we now declare it in an
+    // Instead of declaring `namespace`, `host`, and `headers` as a property we now declare it in an
     // interface. This works around the issue noted here with TypeScript 4:
     // https://github.com/microsoft/TypeScript/issues/40220
     interface RESTAdapter {
+        /**
+         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
+         * property on the adapter:
+         */
+        namespace: string;
+        /**
+         * An adapter can target other hosts by setting the `host` property.
+         */
+        host: string;
         /**
          * Some APIs require HTTP headers, e.g. to provide an API
          * key. Arbitrary headers can be set as key/value pairs on the
@@ -2103,13 +2090,6 @@ export namespace DS {
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
-         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
-         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
-         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
-         * coalesceFindRequests to false.
-         */
-        coalesceFindRequests: boolean;
-        /**
          * The store will call `findMany` instead of multiple `findRecord`
          * requests to find multiple records at once if coalesceFindRequests
          * is true.
@@ -2161,6 +2141,18 @@ export namespace DS {
             store: Store,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): boolean;
+    }
+    // Instead of declaring `coalesceFindRequests` as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface Adapter {
+        /**
+         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
+         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
+         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
+         * coalesceFindRequests to false.
+         */
+        coalesceFindRequests: boolean;
     }
     /**
      * `DS.Serializer` is an abstract base class that you should override in your

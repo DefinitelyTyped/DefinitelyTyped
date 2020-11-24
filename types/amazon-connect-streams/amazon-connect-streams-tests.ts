@@ -6,15 +6,15 @@ const container: HTMLElement = new HTMLElement();
 connect.core.initCCP(container, { ccpUrl: "" }); // $ExpectType void
 // $ExpectType void
 connect.core.initCCP(container, {
-  ccpUrl: "",
-  region: "",
-  loginPopup: true,
-  loginPopupAutoClose: true,
-  loginUrl: "",
-  softphone: {
-    allowFramedSoftphone: true,
-    disableRingtone: true,
-    ringtoneUrl: ""
+  ccpUrl: "",                     // REQUIRED
+  loginUrl: "",                   // optional custom URL for SAML authentication
+  region: "",                     // REQUIRED for `CHAT`, optional otherwise
+  loginPopup: true,               // optional, defaults to `true`
+  loginPopupAutoClose: true,      // optional, defaults to `true`
+  softphone: {                    // optional
+    allowFramedSoftphone: true,   // optional
+    disableRingtone: false,       // optional
+    ringtoneUrl: ""               // optional
   }
 });
 

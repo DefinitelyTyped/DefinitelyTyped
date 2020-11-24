@@ -15,7 +15,7 @@ import { ConnectionOptions } from 'tls';
 export interface ClientConfig {
     user?: string;
     database?: string;
-    password?: string;
+    password?: string | (() => string | Promise<string>);
     port?: number;
     host?: string;
     connectionString?: string;
@@ -28,6 +28,7 @@ export interface ClientConfig {
     keepAliveInitialDelayMillis?: number;
     idle_in_transaction_session_timeout?: number;
     application_name?: string;
+    connectionTimeoutMillis?: number;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -44,7 +45,6 @@ export interface PoolConfig extends ClientConfig {
     // properties from module 'node-pool'
     max?: number;
     min?: number;
-    connectionTimeoutMillis?: number;
     idleTimeoutMillis?: number;
     log?: (...messages: any[]) => void;
     Promise?: PromiseConstructorLike;
@@ -249,6 +249,13 @@ export class ClientBase extends events.EventEmitter {
 }
 
 export class Client extends ClientBase {
+    user?: string;
+    database?: string;
+    port: number;
+    host: string;
+    password?: string;
+    ssl: boolean;
+
     constructor(config?: string | ClientConfig);
 
     end(): Promise<void>;

@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
@@ -29,15 +29,16 @@ export interface Options {
     map?: PluggableMap;
     declutter?: boolean;
     style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
     imageRatio?: number;
 }
 export default class VectorImageLayer extends BaseVectorLayer {
     constructor(opt_options?: Options);
-    protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Create a renderer for this layer.
+     */
+    createRenderer(): LayerRenderer<Layer<Source>>;
     getImageRatio(): number;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

@@ -7,16 +7,16 @@ import TableBatchAction from "./TableBatchAction";
 import TableBatchActions from "./TableBatchActions";
 import TableBody from "./TableBody";
 import TableCell from "./TableCell";
-import TableContainer from "./TableContainer";
+import TableContainer, { TableContainerProps } from "./TableContainer";
 import TableExpandedRow from "./TableExpandedRow";
-import TableExpandHeader from "./TableExpandHeader";
+import TableExpandHeader, { TableExpandHeaderProps } from "./TableExpandHeader";
 import TableExpandRow from "./TableExpandRow";
 import TableHead from "./TableHead";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import TableSelectAll from "./TableSelectAll";
 import TableSelectRow from "./TableSelectRow";
-import TableToolbar from "./TableToolbar";
+import TableToolbar, { TableToolbarProps } from "./TableToolbar";
 import TableToolbarAction from "./TableToolbarAction";
 import TableToolbarContent from "./TableToolbarContent";
 import TableToolbarMenu from "./TableToolbarMenu";
@@ -46,8 +46,7 @@ export interface FilterRowsData<R extends DataTableRow = DataTableRow, H extends
     rowIds: ReadonlyArray<R['id']>;
 }
 
-export type DenormalizedRow<R extends DataTableRow = DataTableRow> =
-    R & { cells: DataTableCell[] };
+export type DenormalizedRow = DataTableRow & { cells: DataTableCell[] };
 
 export interface DataTableCustomRowData<R extends DataTableRow = DataTableRow> {
     onClick?(event: React.MouseEvent<HTMLElement>): void,
@@ -55,10 +54,10 @@ export interface DataTableCustomRowData<R extends DataTableRow = DataTableRow> {
 }
 
 export interface DataTableCustomRowProps<R extends DataTableRow = DataTableRow> {
-    ariaLabel?: string,
-    disabled: R["disabled"],
-    isExpanded: R["isExpanded"],
-    isSelected: R["isSelected"],
+    ariaLabel: string,
+    disabled: Exclude<R["disabled"], undefined>,
+    isExpanded: Exclude<R["isExpanded"], undefined>,
+    isSelected: Exclude<R["isSelected"], undefined>,
     key: R["id"],
     onExpand(event: React.MouseEvent<HTMLElement>): void,
 }
@@ -139,26 +138,30 @@ export interface DataTableCustomRenderProps<
     R extends DataTableRow = DataTableRow,
     H extends DataTableHeader = DataTableHeader
 > {
+    expandAll(): void;
     expandRow(rowId: R['id']): void;
     getBatchActionProps<E extends object = ReactDivAttr>(
         data?: ShapeOf<DataTableCustomBatchActionsData, E>
     ): ShapeOf<DataTableCustomBatchActionsProps, E>;
+    getExpandHeaderProps(props?: TableExpandHeaderProps): TableExpandHeaderProps;
     getHeaderProps<E extends object = ReactAttr>(
         data: ShapeOf<DataTableCustomHeaderData<H>, E>
     ): ShapeOf<DataTableCustomHeaderProps<H>, E>;
     getRowProps<E extends object = ReactAttr<HTMLTableRowElement>>(
-        data: ShapeOf<DataTableCustomRowData<R>, E>
-    ): ShapeOf<DataTableCustomRowProps<R>, E>;
+        data: ShapeOf<DataTableCustomRowData, E>
+    ): ShapeOf<DataTableCustomRowProps, E>;
     getSelectionProps<E extends object = {}>(
-        data?: ShapeOf<DataTableCustomSelectionData<R>, E>
+        data?: ShapeOf<DataTableCustomSelectionData, E>
     ): ShapeOf<DataTableCustomSelectionProps<R>, E> | ShapeOf<DataTableCustomSelectionProps<never>, E>;
+    getTableContainerProps(): Pick<TableContainerProps, "stickyHeader">,
     getTableProps(): TableCarbonProps;
+    getToolbarProps(props?: TableToolbarProps): TableToolbarProps;
     headers: DataTableProps<R, H>['headers'];
     onInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
     radio?: DataTableProps<R, H>['radio'];
-    rows: ReadonlyArray<DenormalizedRow<R>>;
+    rows: ReadonlyArray<DenormalizedRow>;
     selectAll(): void;
-    selectedRows: ReadonlyArray<DenormalizedRow<R>>;
+    selectedRows: ReadonlyArray<DenormalizedRow>;
     selectRow(rowId: R['id']): void;
     sortBy(headerKey: H['key']): void;
 }
@@ -166,15 +169,17 @@ export interface DataTableCustomRenderProps<
 export type DataTableTranslationKey =
     "carbon.table.row.expand"
     | "carbon.table.row.collapse"
+    | "carbon.table.all.expand"
+    | "carbon.table.all.collapse"
     | "carbon.table.all.select"
     | "carbon.table.all.unselect"
     | "carbon.table.row.select"
     | "carbon.table.row.unselect";
 
-interface DataTableInheritedProps extends InternationalProps<DataTableTranslationKey>, TableCarbonProps { }
-
-export interface DataTableProps<R extends DataTableRow = DataTableRow, H extends DataTableHeader = DataTableHeader>
-    extends DataTableInheritedProps {
+export interface DataTableProps<
+    R extends DataTableRow = DataTableRow,
+    H extends DataTableHeader = DataTableHeader
+> extends InternationalProps<DataTableTranslationKey>, TableCarbonProps {
     filterRows?(data: FilterRowsData<R, H>): Array<R['id']>;
     headers: H[];
     locale?: string;
@@ -182,6 +187,7 @@ export interface DataTableProps<R extends DataTableRow = DataTableRow, H extends
     render?(props: DataTableCustomRenderProps<R, H>): React.ReactNode;
     rows: R[];
     sortRow?(cellA: any, cellB: any, data: SortRowData): number;
+    stickyHeader?: boolean;
 }
 
 declare class DataTable<

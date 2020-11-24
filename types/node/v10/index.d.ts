@@ -42,3 +42,4 @@
 // Typically type modificatons should be made in base.d.ts instead of here
 
 /// <reference path="base.d.ts" />
+/// <reference path="ts3.6/base.d.ts" />

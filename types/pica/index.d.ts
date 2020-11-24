@@ -33,7 +33,7 @@ declare namespace pica {
         // 0..255. Default = 0. Threshold for applying unsharp mask.
         unsharpThreshold?: number;
         // Promise instance. If defined, current operation will be terminated on rejection.
-        cancelToken?: string;
+        cancelToken?: Promise<unknown>;
     }
 
     interface PicaResizeBufferOptions {

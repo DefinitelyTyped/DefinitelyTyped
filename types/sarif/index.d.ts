@@ -1,11 +1,11 @@
 // Type definitions for non-npm package Sarif 2.1
 // Project: https://github.com/Microsoft/sarif-sdk
-// Definitions by: Rusty Scrivens <https://github.com/rscrivens>
+// Definitions by: Jeff King <https://github.com/jeffersonking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema: a standard format for the output of static
+ * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static
  * analysis tools.
  */
 export interface Log {
@@ -2026,9 +2026,9 @@ export interface Suppression {
     location?: Location;
 
     /**
-     * A string that indicates the state of the suppression.
+     * A string that indicates the review status of the suppression.
      */
-    state?: Suppression.state;
+    status?: Suppression.status;
 
     /**
      * Key/value pairs that provide additional information about the suppression.
@@ -2041,7 +2041,7 @@ export namespace Suppression {
         "inSource" |
         "external";
 
-    type state =
+    type status =
         "accepted" |
         "underReview" |
         "rejected";
