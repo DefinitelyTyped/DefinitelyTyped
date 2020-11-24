@@ -2725,7 +2725,7 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind<U = T>(field: string): AggregationCursor<U>;
+    unwind<U = T>(field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean; }): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

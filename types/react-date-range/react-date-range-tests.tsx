@@ -1,10 +1,15 @@
 import * as React from "react";
 import {
-    defaultRanges,
     DateRange,
     DateRangePicker,
     OnChangeProps
 } from "react-date-range";
+
+const range = {
+    startDate: new Date('2020-11-01'),
+    endDate: new Date('2020-11-30'),
+    key: 'selected'
+};
 
 class ReactDatePicker extends React.Component<any, any> {
     constructor(props: {}) {
@@ -20,7 +25,7 @@ class ReactDatePicker extends React.Component<any, any> {
             <div>
                 <DateRange
                     linkedCalendars={true}
-                    ranges={defaultRanges}
+                    ranges={[range]}
                     onInit={this.handleChange}
                     onChange={this.handleChange}
                     theme={{
@@ -50,7 +55,7 @@ class ReactDateRangePicker extends React.Component<any, any> {
             <div>
                 <DateRangePicker
                     linkedCalendars={true}
-                    ranges={defaultRanges}
+                    ranges={[range]}
                     scroll={{enabled: true}}
                     onInit={this.handleChange}
                     onChange={this.handleChange}

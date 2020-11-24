@@ -210,8 +210,8 @@ declare namespace session {
      * }
      *
      */
-    // tslint:disable-next-line no-empty-interface
     interface SessionData {
+        cookie: Cookie;
     }
 
     interface CookieOptions {

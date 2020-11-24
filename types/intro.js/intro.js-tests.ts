@@ -71,6 +71,8 @@ intro
     .start()
     .goToStep(2)
     .exit()
+    .exit(true)
+    .exit(false)
     .refresh()
     .onbeforechange(function(element) {
         element.getAttribute('class');
@@ -104,6 +106,8 @@ intro
     .hideHint(1)
     .hideHints()
     .clone();
+
+const currentStep: number | undefined = intro.currentStep();
 
 introWithElement
     .start()

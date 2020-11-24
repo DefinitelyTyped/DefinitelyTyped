@@ -1,4 +1,4 @@
-// Type definitions for parse 2.12
+// Type definitions for parse 2.18
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -679,6 +679,7 @@ namespace Parse {
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
+        findAll(options?: Query.BatchOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromNetwork(): this;
         fromLocalDatastore(): this;
