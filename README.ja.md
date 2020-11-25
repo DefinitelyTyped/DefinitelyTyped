@@ -138,7 +138,7 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 
 次に、 `types/foo/index.d.ts` を作成し、「foo」モジュールの型定義を含めてください。
 これで、あなたのコード上で `"foo"` モジュールからインポートできるようになりました。インポートは新しい型定義を参照します。
-そのあと、コードをビルドし、**そして**実行し、作製した型定義が実行時の動作と実際に一致していることを確認してください。
+そのあと、コードをビルドし、**そして**実行し、作成した型定義が実行時の動作と実際に一致していることを確認してください。
 
 実際のコードで試す工程が完了したら、 [PR](#make-a-pull-request) を作成するので、[既存のパッケージを編集する](#edit-an-existing-package)か[新しくパッケージを作成する](#create-a-new-package)か、いずれかの指示に従ってください。
 
@@ -186,14 +186,14 @@ dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen
 
 もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
 
-Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によって処理が遅れる場合があることをご了承ください。
+Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によっては処理が遅れる場合があることをご了承ください。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) を、パッケージのサンプルとして参考にするのがよいでしょう。
 
 #### よくあるミス
 
 * はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
-* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier — --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
+* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
   const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
@@ -220,7 +220,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]` を実行するとパッケージを削除できます。.
 * `typingsPackageName`: 削除したいディレクトリ名。
-* `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより高く、かつ npm 上の `foo` のバージョンとあわせる必要があります。
+* `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `foo` のバージョンとあわせる必要があります。
 * `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に "typingsPackageName" と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
@@ -297,7 +297,7 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-もしどこからテストコードを書き始めればよいかわからないときは、そのモジュールの README に書かれてるサンプルをテストするコードから始めるのがよいでしょう。よいでしょう。
+もしどこからテストコードを書き始めればよいかわからないときは、そのモジュールの README に書かれてるサンプルをテストするコードから始めるのがよいでしょう。
 
 レポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#running-tests)することができます。
 
