@@ -102,7 +102,7 @@ async () => {
     await webRtcEp.getSourceConnections('VIDEO', 'description', () => {}); // $ExpectType ElementConnectionData[]
 
     // Test return type of MediaElement.getSinkConnections
-    (await webRtcEp.getSinkConnections()).forEach((conns) => {
+    (await webRtcEp.getSinkConnections()).forEach(conns => {
         conns.source; // $ExpectType MediaElement
         conns.sink; // $ExpectType MediaElement
         conns.type; // $ExpectType MediaType
