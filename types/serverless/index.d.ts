@@ -85,12 +85,12 @@ declare class Serverless {
     resources: AwsProvider.Resources;
 
     configSchemaHandler: {
-        defineCustomProperties: (props: any) => {};
-        defineFunctionEvent: (provider: string, event: string, props: any) => {};
-        defineFunctionEventProperties: (provider: string, existingEvent: string, props: any) => {};
-        defineFunctionProperties: (provider: string, props: any) => {};
-        defineProvider: (provider: string, props: any) => {};
-        defineTopLevelProperty: (provider: string, props: any) => {};
+        defineCustomProperties(props: any): any;
+        defineFunctionEvent(provider: string, event: string, props: any): any;
+        defineFunctionEventProperties(provider: string, existingEvent: string, props: any): any;
+        defineFunctionProperties(provider: string, props: any): any;
+        defineProvider(provider: string, props: any): any;
+        defineTopLevelProperty(provider: string, props: any): any;
     };
 }
 
