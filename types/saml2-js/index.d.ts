@@ -79,7 +79,12 @@ declare module 'saml2-js' {
         alt_certs?: string[];
         /** If set, at least one of the <Audience> values within the <AudienceRestriction> condition of a SAML authentication response must match. Defaults to `entity_id`. */
         audience?: string | RegExp;
-        /** To account for clock skew between IdP and SP, accept responses with a NotBefore condition ahead of the current time (according to our clock) by this number of seconds. Defaults to 1. Set it to 0 for optimum security but no tolerance for clock skew. */
+        /**
+         * To account for clock skew between IdP and SP, accept responses with a NotBefore condition
+         * ahead of the current time (according to our clock) by this number of seconds.
+         *
+         * Defaults to 1.
+         * Set it to 0 for optimum security but no tolerance for clock skew. */
         notbefore_skew?: number;
         /** If true, forces re-authentication of users even if the user has a SSO session with the IdP. This can also be configured on the IdP or on a per-method basis. */
         force_authn?: boolean;
@@ -118,7 +123,12 @@ declare module 'saml2-js' {
     export interface PostAssertOptions extends RedirectAssertOptions {
         /** If set, at least one of the <Audience> values within the <AudienceRestriction> condition of a SAML authentication response must match. Defaults to entity_id. */
         audience?: string | RegExp;
-        /** To account for clock skew between IdP and SP, accept responses with a NotBefore condition ahead of the current time (according to our clock) by this number of seconds. Defaults to 1. Set it to 0 for optimum security but no tolerance for clock skew. */
+        /**
+         * To account for clock skew between IdP and SP, accept responses with a NotBefore condition
+         * ahead of the current time (according to our clock) by this number of seconds.
+         *
+         * Defaults to 1.
+         * Set it to 0 for optimum security but no tolerance for clock skew. */
         notbefore_skew?: boolean;
     }
     export interface CreateLogoutRequestUrlOptions {

@@ -65,23 +65,23 @@ import * as saml2 from 'saml2-js';
     // ------ Define express endpoints ------
 
     // Endpoint to retrieve metadata
-    app.get('/metadata.xml', function (req, res) {
+    app.get('/metadata.xml', function(req, res) {
         res.type('application/xml');
         res.send(sp.create_metadata());
     });
 
     // Starting point for login
-    app.get('/login', function (req, res) {
-        sp.create_login_request_url(idp, {}, function (err, login_url, request_id) {
+    app.get('/login', function(req, res) {
+        sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
             if (err != null) return res.send(500);
             res.redirect(login_url);
         });
     });
 
     // Assert endpoint for when login completes
-    app.post('/assert', function (req, res) {
+    app.post('/assert', function(req, res) {
         const options = { request_body: req.body };
-        sp.post_assert(idp, options, function (err, saml_response) {
+        sp.post_assert(idp, options, function(err, saml_response) {
             if (err != null) return res.send(500);
 
             // Save name_id and session_index for logout
@@ -94,7 +94,7 @@ import * as saml2 from 'saml2-js';
     });
 
     // Starting point for logout
-    app.get('/logout', function (req, res) {
+    app.get('/logout', function(req, res) {
         let name_id = '';
         let session_index = '';
         const options = {
@@ -102,7 +102,7 @@ import * as saml2 from 'saml2-js';
             session_index: session_index,
         };
 
-        sp.create_logout_request_url(idp, options, function (err, logout_url) {
+        sp.create_logout_request_url(idp, options, function(err, logout_url) {
             if (err != null) return res.send(500);
             res.redirect(logout_url);
         });
