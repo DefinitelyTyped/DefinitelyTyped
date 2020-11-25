@@ -84,7 +84,8 @@ declare module 'saml2-js' {
          * ahead of the current time (according to our clock) by this number of seconds.
          *
          * Defaults to 1.
-         * Set it to 0 for optimum security but no tolerance for clock skew. */
+         * Set it to 0 for optimum security but no tolerance for clock skew.
+         */
         notbefore_skew?: number;
         /** If true, forces re-authentication of users even if the user has a SSO session with the IdP. This can also be configured on the IdP or on a per-method basis. */
         force_authn?: boolean;
@@ -128,7 +129,8 @@ declare module 'saml2-js' {
          * ahead of the current time (according to our clock) by this number of seconds.
          *
          * Defaults to 1.
-         * Set it to 0 for optimum security but no tolerance for clock skew. */
+         * Set it to 0 for optimum security but no tolerance for clock skew.
+         */
         notbefore_skew?: boolean;
     }
     export interface CreateLogoutRequestUrlOptions {
