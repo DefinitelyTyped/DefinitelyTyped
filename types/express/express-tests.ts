@@ -17,7 +17,7 @@ namespace express_tests {
     });
     app.use('/static', express.static(__dirname + '/public', {
         setHeaders: res => {
-            // $ExpectType Response<any>
+            // $ExpectType Response<any, number, Record<string, any>>
             res;
             res.set("foo", "bar");
         }
@@ -196,6 +196,12 @@ namespace express_tests {
         res.json();
         res.json(1); // $ExpectError
         res.send(1); // $ExpectError
+    });
+
+    // Response locals custom type
+    router.get<{}, any, any, {}, {userId: number}>('/', (req, res) => {
+      res.locals.userId; // $ExpectType number
+      res.locals.invalid; // $ExpectError
     });
 
     app.use((req, res, next) => {

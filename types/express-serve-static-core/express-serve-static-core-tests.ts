@@ -57,14 +57,14 @@ app.post("/", (req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any
-    res.send("ok"); // $ExpectType Response<any, number>
+    res.send("ok"); // $ExpectType Response<any, number, Record<string, any>>
 });
 
 // No params, only response body type
 app.get<never, { foo: string; }>("/", (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body; // $ExpectType any
 });
 
@@ -72,11 +72,17 @@ app.get<never, { foo: string; }>("/", (req, res) => {
 app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body.bar; // $ExpectType number
 
     res.json({ baz: "fail" }); // $ExpectError
     req.body.baz; // $ExpectError
+});
+
+// Response locals custom type
+app.get<{}, any, any, {}, {userId: number}>('/', (req, res) => {
+  res.locals.userId; // $ExpectType number
+  res.locals.invalid; // $ExpectError
 });
 
 app.engine('ntl', (_filePath, _options, callback) => {
