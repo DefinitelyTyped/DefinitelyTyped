@@ -27,3 +27,33 @@ jobs:
           TOKEN='7469b4e94ce21b43e3ab7a'
           TOKEN+='79960c12a1e067f2ec'
           DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci || $( exit 0 )
+  annotate:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install @actions/core @actions/github
+      - run: |
+          node <<'script'
+            const core = require("@actions/core");
+            const github = require("@actions/github");
+
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/", 2);
+            octokit.actions.listJobsForWorkflowRun({
+              owner,
+              repo,
+              run_id: process.env.GITHUB_RUN_ID,
+            }).then(async ({ data }) => {
+              const util = require("util");
+              console.log(util.inspect(data, { depth: Infinity }));
+              const { id: job_id } = data.jobs.find(({ name }) => name === "test");
+              const logs = await octokit.actions.downloadJobLogsForWorkflowRun({
+                owner,
+                repo,
+                job_id,
+              });
+              console.log(util.inspect(logs, { depth: Infinity }));
+            });
+          script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
