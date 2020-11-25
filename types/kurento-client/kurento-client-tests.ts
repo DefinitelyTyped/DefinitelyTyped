@@ -79,6 +79,14 @@ async () => {
     await playerEp.pause(); // $ExpectType UriEndpointState
     await playerEp.stop(); // $ExpectType UriEndpointState
 
+    // Test MediaElement.isMediaFlowingIn/Out with each MediaType
+    await webRtcEp.isMediaFlowingIn('VIDEO'); // $ExpectType boolean
+    await webRtcEp.isMediaFlowingIn('AUDIO'); // $ExpectType boolean
+    await webRtcEp.isMediaFlowingIn('DATA'); // $ExpectType boolean
+    await webRtcEp.isMediaFlowingOut('VIDEO'); // $ExpectType boolean
+    await webRtcEp.isMediaFlowingOut('AUDIO'); // $ExpectType boolean
+    await webRtcEp.isMediaFlowingOut('DATA'); // $ExpectType boolean
+
     // Test commonly used event listeners
     webRtcEp.on('IceCandidateFound', ev => {
         ev.candidate; // $ExpectType IceCandidate

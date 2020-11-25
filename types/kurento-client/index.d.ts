@@ -664,7 +664,7 @@ declare namespace kurento {
     type ConnectionState = 'DISCONNECTED' | 'CONNECTED';
     type MediaState = 'DISCONNECTED' | 'CONNECTED';
     type UriEndpointState = 'STOP' | 'START' | 'PAUSE';
-    type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
+    type MediaType = 'AUDIO' | 'DATA' | 'VIDEO';
     type MediaFlowState = 'FLOWING' | 'NOT_FLOWING';
     type MediaTranscodingState = 'TRANSCODING' | 'NOT_TRANSCODING';
 
