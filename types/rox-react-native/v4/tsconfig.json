@@ -18,7 +18,7 @@
         "strictFunctionTypes": true
     },
     "paths": {
-        "rox-react-native": ["rox-react-native/v4"],
+        "rox-react-native": ["rox-react-native/v4"]
     },
     "files": [
         "index.d.ts",

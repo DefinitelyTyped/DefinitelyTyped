@@ -18,7 +18,7 @@
         "strictFunctionTypes": true
     },
     "paths": {
-        "rox-browser": ["rox-browser/v4"],
+        "rox-browser": ["rox-browser/v4"]
     },
     "files": [
         "index.d.ts",
