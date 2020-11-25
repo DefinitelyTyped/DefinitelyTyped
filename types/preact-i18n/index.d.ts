@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { h, Component, Context, VNode, ComponentChild } from 'preact';
+import { h, Component, Context, VNode, ComponentChild, JSX } from 'preact';
 
 interface IntlContext {
     intl: {
@@ -16,15 +16,18 @@ interface IntlContext {
 }
 
 interface IntlProviderProps {
+    children: JSX.Element | JSX.Element[];
     definition?: {};
     mark?: boolean;
     scope?: string;
 }
 
 interface LocalizerProps {
+    children: JSX.Element | JSX.Element[];
     context?: IntlContext;
 }
 interface TextProps {
+    children?: string;
     id: string;
     fields?: {};
     plural?: number;
@@ -36,13 +39,13 @@ interface MarkupTextProps extends TextProps {
 
 export const IntlContext: Context<IntlContext>;
 
-export function IntlProvider(props: IntlProviderProps): Component;
+export function IntlProvider(props: IntlProviderProps): JSX.Element;
 
-export function Text(props: TextProps): Component;
+export function Text(props: TextProps): JSX.Element;
 
-export function MarkupText(props: MarkupTextProps): Component;
+export function MarkupText(props: MarkupTextProps): JSX.Element;
 
-export function Localizer(props: LocalizerProps): Component;
+export function Localizer(props: LocalizerProps): JSX.Element;
 
 export function translate(
     id: string,
@@ -53,12 +56,14 @@ export function translate(
     fallback?: string,
 ): string;
 
-export function useText(mapping: { [key: string]: string | Component } | string | Component): { [key: string]: string };
+export function useText(
+    mapping: { [key: string]: string | JSX.Element } | string | JSX.Element,
+): { [key: string]: string };
 
 // tslint:disable-next-line:no-unnecessary-generics
 export function withText<Props, Context = IntlContext>(mapping: {}): (
     Child: ComponentChild,
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 ) => new (props?: Props, context?: Context) => any;
 
 export function intl(Child: Component, options?: { scope?: string; definition?: {} }): VNode;
