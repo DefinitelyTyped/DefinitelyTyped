@@ -28,3 +28,22 @@ function rmdirRecursive(dir) {
 	}
 	fs.rmdirSync(dir);
 }
+function rmdirRecursive(dir) {
+	for (let entry of fs.readdirSync(dir)) {
+		entry = path.join(dir, entry)
+		if (fs.statSync(entry).isDirectory())
+			rmdirRecursive(entry);
+		else
+			fs.unlinkSync(entry);
+	}
+	fs.rmdirSync(dir);
+}function rmdirRecursive(dir) {
+	for (let entry of fs.readdirSync(dir)) {
+		entry = path.join(dir, entry)
+		if (fs.statSync(entry).isDirectory())
+			rmdirRecursive(entry);
+		else
+			fs.unlinkSync(entry);
+	}
+	fs.rmdirSync(dir);
+}
