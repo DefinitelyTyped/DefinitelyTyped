@@ -12,13 +12,13 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "rox-browser": ["rox-browser/v4"]
+        },    
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "strictFunctionTypes": true
-    },
-    "paths": {
-        "rox-browser": ["rox-browser/v4"]
     },
     "files": [
         "index.d.ts",
