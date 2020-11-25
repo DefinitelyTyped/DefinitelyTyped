@@ -189,6 +189,7 @@ interface Auth0IdTokenPayload {
     sub: string;
     acr?: string;
     amr?: string[];
+    [key: string]: any;
 }
 
 interface AuthResult {
