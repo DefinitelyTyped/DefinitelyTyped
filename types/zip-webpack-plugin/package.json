@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/webpack": "^4.41.25"
+    }
+}
