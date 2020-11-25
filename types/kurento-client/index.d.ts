@@ -150,12 +150,12 @@ declare namespace kurento {
 
         isMediaFlowingIn(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
         isMediaFlowingOut(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
 
