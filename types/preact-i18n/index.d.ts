@@ -24,7 +24,6 @@ interface IntlProviderProps {
 
 interface LocalizerProps {
     children: JSX.Element | JSX.Element[];
-    context?: IntlContext;
 }
 interface TextProps {
     children?: string;
@@ -33,17 +32,13 @@ interface TextProps {
     plural?: number;
 }
 
-interface MarkupTextProps extends TextProps {
-    context?: IntlContext;
-}
-
 export const IntlContext: Context<IntlContext>;
 
 export function IntlProvider(props: IntlProviderProps): JSX.Element;
 
 export function Text(props: TextProps): JSX.Element;
 
-export function MarkupText(props: MarkupTextProps): JSX.Element;
+export function MarkupText(props: TextProps): JSX.Element;
 
 export function Localizer(props: LocalizerProps): JSX.Element;
 
