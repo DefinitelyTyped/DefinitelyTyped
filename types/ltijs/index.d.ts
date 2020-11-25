@@ -9,8 +9,8 @@ import { IdToken } from './lib/IdToken';
 import { PlatformContext } from './lib/Utils/Platform';
 
 declare module 'express' {
-    interface Response {
-        locals: {
+    interface Response<ResBody, StatusCode, Locals> {
+        locals: Locals & {
             token?: IdToken;
             context?: PlatformContext;
         };

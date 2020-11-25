@@ -95,8 +95,13 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
-        extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
+    interface ErrorRequestHandler<
+        P = core.ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = core.Query,
+        Locals extends core.LocalsBase = core.LocalsDefault,
+    > extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
@@ -105,10 +110,26 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
-    interface RequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery> { }
+    interface Request<
+        P = core.ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = core.Query,
+        Locals extends core.LocalsBase = core.LocalsDefault,
+    > extends core.Request<P, ResBody, ReqBody, ReqQuery, Locals> { }
+    interface RequestHandler<
+        P = core.ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = core.Query,
+        Locals extends core.LocalsBase = core.LocalsDefault,
+    > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
-    export interface Response<ResBody = any> extends core.Response<ResBody> { }
+    export interface Response<
+        ResBody = any,
+        StatusCode extends number = number,
+        Locals extends core.LocalsBase = core.LocalsDefault,
+    > extends core.Response<ResBody, StatusCode, Locals> { }
     interface Router extends core.Router { }
     interface Send extends core.Send { }
 }

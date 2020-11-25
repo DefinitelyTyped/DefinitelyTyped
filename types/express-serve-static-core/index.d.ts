@@ -46,28 +46,61 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-export interface RequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
+export type LocalsBase = Record<string, unknown>;
+export type LocalsDefault = Record<string, any>;
+
+export interface RequestHandler<
+    P = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs,
+    Locals extends LocalsBase = LocalsDefault,
+> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): void;
+    (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>, res: Response<ResBody, number, Locals>, next: NextFunction): void;
 }
 
-export type ErrorRequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> =
-    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => void;
+export type ErrorRequestHandler<
+    P = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs,
+    Locals extends LocalsBase = LocalsDefault,
+> =
+    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery, Locals>, res: Response<ResBody, number, Locals>, next: NextFunction) => void;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>
-    = RequestHandler<P, ResBody, ReqBody, ReqQuery>
-    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery>
+export type RequestHandlerParams<
+    P = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs,
+    Locals extends LocalsBase = LocalsDefault,
+>
+    = RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
+    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P>
     | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any> {
-    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
-    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
+    // tslint:disable:no-unnecessary-generics (These generics is meant to be passed explicitly.)
+    <
+        P = ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends LocalsBase = LocalsDefault,
+    >(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>): T;
+    <
+        P = ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends LocalsBase = LocalsDefault,
+    >(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>): T;
     (path: PathParams, subApplication: Application): T;
+    // tslint:enable:no-unnecessary-generics
 }
 
 export interface IRouterHandler<T> {
@@ -216,7 +249,13 @@ export type Errback = (err: Error) => void;
  *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
  *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
  */
-export interface Request<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> extends http.IncomingMessage, Express.Request {
+export interface Request<
+    P = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs,
+    Locals extends LocalsBase = LocalsDefault,
+> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -488,7 +527,7 @@ export interface Request<P = ParamsDictionary, ResBody = any, ReqBody = any, Req
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody>;
+    res?: Response<ResBody, number, Locals>;
     next?: NextFunction;
 }
 
@@ -501,7 +540,11 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface Response<ResBody = any, StatusCode extends number = number> extends http.ServerResponse, Express.Response {
+export interface Response<
+    ResBody = any,
+    StatusCode extends number = number,
+    Locals extends LocalsBase = LocalsDefault,
+> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
@@ -841,7 +884,7 @@ export interface Response<ResBody = any, StatusCode extends number = number> ext
     render(view: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
-    locals: Record<string, any>;
+    locals: Locals;
 
     charset: string;
 
