@@ -1,4 +1,4 @@
-// Type definitions for TweenJS 1.0.3
+// Type definitions for TweenJS 1.0.4
 // Project: http://www.createjs.com/#!/TweenJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, J.C <https://github.com/jcyuan>, Lloyd Evans <https://github.com/lloydevans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
