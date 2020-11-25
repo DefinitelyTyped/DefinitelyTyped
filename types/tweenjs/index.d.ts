@@ -189,7 +189,7 @@ declare namespace createjs {
         wait(duration:number, passive?:boolean):this;
         to(props:Partial<T>, duration?:number, ease?:Function):this;
         label(name:string):this;
-        call(callback:(...params:any[]) => void, params?:Partial<T>, scope?:any):this;
+        call(callback:(...params:any[]) => void, params?:any[], scope?:any):this;
         set(props:any, target?:any):this;
         play(tween?:Tween):this;
         pause(tween?:Tween):this;
