@@ -19,9 +19,9 @@ declare namespace kurento {
     }
 
     interface ElementConnectionData {
-        source: WebRtcEndpoint;
-        sink: WebRtcEndpoint;
-        type: any;
+        source: MediaElement;
+        sink: MediaElement;
+        type: MediaType;
         sourceDescription: string;
         sinkDescription: string;
     }

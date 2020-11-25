@@ -101,6 +101,15 @@ async () => {
     await webRtcEp.getSourceConnections('VIDEO', 'description'); // $ExpectType ElementConnectionData[]
     await webRtcEp.getSourceConnections('VIDEO', 'description', () => {}); // $ExpectType ElementConnectionData[]
 
+    // Test return type of MediaElement.getSinkConnections
+    (await webRtcEp.getSinkConnections()).forEach((conns) => {
+        conns.source; // $ExpectType MediaElement
+        conns.sink; // $ExpectType MediaElement
+        conns.type; // $ExpectType MediaType
+        conns.sourceDescription; // $ExpectType string
+        conns.sinkDescription; // $ExpectType string
+    });
+
     // Test commonly used methods
     await webRtcEp.processOffer('some offer'); // $ExpectType string
     await recorderEp.record(); // $ExpectType void
