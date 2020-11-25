@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "monthpicker-tests.ts"
+        "jquery-monthpicker-tests.ts"
     ]
 }
