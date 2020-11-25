@@ -570,6 +570,6 @@ GitHubは、名前が変更されたファイルの履歴には[対応してい�
 
 ## ライセンス
 
-This project is licensed under the MIT license.
+このプロジェクトは MIT License でライセンスされています。
 
-Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
+型定義ファイルの著作権は、各定義ファイルの冒頭に掲載されているコントリビューターそれぞれに帰属します。
