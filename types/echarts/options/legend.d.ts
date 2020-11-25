@@ -538,11 +538,11 @@ declare namespace echarts {
                  * @example
                  * ```ts
                  * backgroundColor: {
-                 * 	image: 'xxx/xxx.png'
-                 * 	// It can be URL of a image,
-                 * 	// or dataURI,
-                 * 	// or HTMLImageElement,
-                 * 	// or HTMLCanvasElement.
+                 *     image: 'xxx/xxx.png'
+                 *     // It can be URL of a image,
+                 *     // or dataURI,
+                 *     // or HTMLImageElement,
+                 *     // or HTMLCanvasElement.
                  * }
                  * ```
                  *
