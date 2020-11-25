@@ -1296,6 +1296,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
   deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+  //MFA invalidate remember browser
+  invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
+  invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
 }
 
 
