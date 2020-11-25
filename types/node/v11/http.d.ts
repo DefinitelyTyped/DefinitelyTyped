@@ -169,6 +169,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        method: string;
         readonly path: string;
         abort(): void;
         onSocket(socket: Socket): void;
