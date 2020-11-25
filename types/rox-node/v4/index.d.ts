@@ -49,11 +49,11 @@ export interface RoxSetupOptions {
   fetchIntervalInSec?: number;
   disableNetworkFetch?: boolean;
   devModeSecret?: string;
-  /**	
-   * Set Roxy's URL for automated tests or local development.	
-   *	
+  /**
+   * Set Roxy's URL for automated tests or local development.
+   *
    * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
-   */	
+   */
   roxy?: string;
 }
 
