@@ -69,6 +69,16 @@ async () => {
     playerEp.connect(webRtcEp);
     playerEp.connect(recorderEp);
 
+    // Test MediaElement.connect with each MediaType
+    await webRtcEp.connect(webRtcEp, 'VIDEO');
+    await webRtcEp.connect(webRtcEp, 'AUDIO');
+    await webRtcEp.connect(webRtcEp, 'DATA');
+
+    // Test MediaElement.connect with method overloading
+    await webRtcEp.connect(webRtcEp, 'VIDEO', 'source description');
+    await webRtcEp.connect(webRtcEp, 'VIDEO', 'source description', 'sink description');
+    await webRtcEp.connect(webRtcEp, 'VIDEO', 'source description', 'sink description', () => {});
+
     // Test commonly used methods
     await webRtcEp.processOffer('some offer'); // $ExpectType string
     await recorderEp.record(); // $ExpectType void

@@ -133,7 +133,10 @@ declare namespace kurento {
     }
 
     interface MediaElement extends MediaObject {
-        connect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
+        connect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        connect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        connect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, callback?: Callback<void>): Promise<void>;
+        connect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, sinkMediaDescriptionopt: string, callback?: Callback<void>): Promise<void>;
         disconnect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
         getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
         getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
