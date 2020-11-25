@@ -23,7 +23,7 @@ export interface MercadoPagoPayment {
 
   get(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentGetResponse>;
 
-  capture(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<CreatePaymentPayload>;
+  capture(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>;
 
   capturePartial(payload: CapturePartialPaymentPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>;
 
