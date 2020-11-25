@@ -47,7 +47,7 @@ interface JQueryMonthPickerOptions {
     OnAfterMenuOpen?: () => void;
 }
 
-interface JQuery { // eslint-disable-line @typescript-eslint/no-unused-vars
+interface JQuery {
     MonthPicker(options: JQueryMonthPickerOptions): JQuery;
 
     MonthPicker(methodName: 'Clear'): void;
