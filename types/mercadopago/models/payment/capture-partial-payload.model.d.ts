@@ -1,4 +1,4 @@
-export interface CapturePartialPayload {
+export interface CapturePartialPaymentPayload {
     /** Payment id. */
     id: number;
 
