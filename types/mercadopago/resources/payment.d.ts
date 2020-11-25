@@ -1,6 +1,7 @@
 import { DefaultConfigurationOmitQs, SearchConfiguration } from '../models/default-configuration.model';
 import { CreatePaymentPayload } from '../models/payment/create-payload.model';
 import { UpdatePaymentPayload } from '../models/payment/update-payload.model';
+import { CapturePartialPayload } from '../models/payment/capturePartial-payload.model';
 import { CallbackFunction } from '../shared/types';
 import { ExecOptions, MercadoPagoResponse } from '../utils/mercadopago-respose';
 
@@ -21,6 +22,8 @@ export interface MercadoPagoPayment {
   update(payload: UpdatePaymentPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>;
 
   get(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentGetResponse>;
+
+  capturePartial(payload: CapturePartialPayload, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentCreateResponse>;
 
   /** Alias for `get` method. */
   findById(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentGetResponse>;
