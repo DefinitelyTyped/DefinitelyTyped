@@ -137,9 +137,16 @@ declare namespace kurento {
         connect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
         connect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, callback?: Callback<void>): Promise<void>;
         connect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, sinkMediaDescriptionopt: string, callback?: Callback<void>): Promise<void>;
-        disconnect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
-        getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
-        getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
+        disconnect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        disconnect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        disconnect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, callback?: Callback<void>): Promise<void>;
+        disconnect(sink: MediaElement, mediaType: MediaType, sourceMediaDescription: string, sinkMediaDescriptionopt: string, callback?: Callback<void>): Promise<void>;
+        getSinkConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSinkConnections(mediaType: MediaType, callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSinkConnections(mediaType: MediaType, description: string, callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSourceConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSourceConnections(mediaType: MediaType, callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSourceConnections(mediaType: MediaType, description: string, callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
 
         isMediaFlowingIn(
             mediaType: MediaType,

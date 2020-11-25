@@ -79,6 +79,28 @@ async () => {
     await webRtcEp.connect(webRtcEp, 'VIDEO', 'source description', 'sink description');
     await webRtcEp.connect(webRtcEp, 'VIDEO', 'source description', 'sink description', () => {});
 
+    // Test MediaElement.disconnect with each MediaType
+    await webRtcEp.disconnect(webRtcEp, 'VIDEO');
+    await webRtcEp.disconnect(webRtcEp, 'AUDIO');
+    await webRtcEp.disconnect(webRtcEp, 'DATA');
+
+    // Test MediaElement.disconnect with method overloading
+    await webRtcEp.disconnect(webRtcEp, 'VIDEO', 'source description');
+    await webRtcEp.disconnect(webRtcEp, 'VIDEO', 'source description', 'sink description');
+    await webRtcEp.disconnect(webRtcEp, 'VIDEO', 'source description', 'sink description', () => {});
+
+    // Test MediaElement.getSinkConnections with method overloading
+    await webRtcEp.getSinkConnections(); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSinkConnections('VIDEO'); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSinkConnections('VIDEO', 'description'); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSinkConnections('VIDEO', 'description', () => {}); // $ExpectType ElementConnectionData[]
+
+    // Test MediaElement.getSourceConnections with method overloading
+    await webRtcEp.getSourceConnections(); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSourceConnections('VIDEO'); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSourceConnections('VIDEO', 'description'); // $ExpectType ElementConnectionData[]
+    await webRtcEp.getSourceConnections('VIDEO', 'description', () => {}); // $ExpectType ElementConnectionData[]
+
     // Test commonly used methods
     await webRtcEp.processOffer('some offer'); // $ExpectType string
     await recorderEp.record(); // $ExpectType void
