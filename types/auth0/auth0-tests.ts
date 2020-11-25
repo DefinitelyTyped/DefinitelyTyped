@@ -642,6 +642,5 @@ management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }).then(() => co
 management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => console.log('deleted error'));
 
 //MFA invalidate remember browser
-
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => console.log('mfa resetter'));
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }, err => console.log('mfa resetter error'));
