@@ -342,89 +342,89 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 ## よくある質問
 
-#### What exactly is the relationship between this repository and the `@types` packages on NPM?
+#### 厳密には、このレポジトリと NPM 上の `@types` パッケージはどう関係していますか？
 
-The `master` branch is automatically published to the `@types` scope on NPM thanks to [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 NPM の `@types` スコープに公開してくれています。
 
-#### I've submitted a pull request. How long until it is merged?
+#### PR を送りましたが、どれぐらいでマージされますか？
 
-It depends, but most pull requests will be merged within a week.
-Some PRs can be merged by the owners of a module, and they can be merged much faster.
-Roughly:
+一概には言えませんが、ほとんどの PR は1週間以内にマージされます。
+モジュールの作者によりマージされることもあり、その場合はかなり早く処理されます。
+大まかには次のようにいえるでしょう。
 
-> PRs which only change the types of a module, and have corresponding tests changes will be merged much faster
+> モジュールの型定義のみの変更で、対応するテストもきちんと変更されている PR は早くマージされる
 
-PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 DefinitelyTyped のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や DefinitelyTyped のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) で進捗を確認できます。
 
-#### My PR is merged; when will the `@types` NPM package be updated?
+#### PR はマージされましたが、 `@types` NPM パッケージはいつ更新されますか？
 
-NPM packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) and the current maintainer will get the correct team member to investigate.
+NPM パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
 
-#### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
+#### 作成中の型定義が別の型定義に依存しています。 `<reference types="" />` を使うかインポートするか、どちらがよいですか？
 
-If the module you're referencing is an external module (uses `export`), use an import.
-If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
+参照しているモジュールが外部モジュールの場合（ `export` を使っている場合）は、インポートしてください。
+参照しているモジュールがアンビエント モジュールの場合（ `declare module` を使っているか、グローバルに宣言している場合）は、 `<reference types="" />` を使用してください。
 
-#### I notice some packages having a `package.json` here.
+#### `package.json` が存在するパッケージがありました。
 
-Usually you won't need this.
-DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
-A `package.json` may be included to specify dependencies that are not other `@types` packages.
-[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
-You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
-This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+基本的にはこのファイルは不要です。
+DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
+`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
+[Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
+また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
+`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
 
-In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
-Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
+ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
+依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
 
-#### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
+#### `tslint.json` が無かったり、 `tsconfig.json` から `"noImplicitAny": true` や `"noImplicitThis": true` 、 `"strictNullChecks": true` が抜けたりしているパッケージがあります。
 
-Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
+それらは、私たちがまだ把握しきれていない不備です。修正する PR の作成をぜひお願いします。
 
-#### Can I request a definition?
+#### 型定義をリクエストしたいです。
 
-Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)です。
 
-#### What about type definitions for the DOM?
+#### DOM に対する型定義はどうすればよいですか？
 
-If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+その型がウェブ標準の一部であれば、 [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) に対してコントリビュートしてください。コントリビュートした内容が、デフォルトの `lib.dom.d.ts` に反映されます。
 
-#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
+#### モジュールをエクスポートしてないパッケージでは、 ES6 方式のインポートを使えるようにするために、空の名前空間を追加すべきですか？
 
-Some packages, like [chai-http](https://github.com/chaijs/chai-http), export a function.
+[chai-http](https://github.com/chaijs/chai-http) などのいくつかのパッケージでは関数をエクスポートしています。
 
-Importing this module with an ES6 style import in the form `import * as foo from "foo";` leads to the error:
+このモジュールを ES6 方式の `import * as foo from "foo";` でインポートすると次のようなエラーになります。
 
 > error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
 
-This error can be suppressed by merging the function declaration with an empty namespace of the same name, but this practice is discouraged.
-This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) regarding this matter.
+このエラーは、同じ名前の空の名前空間を関数の宣言と一緒におくことで抑制できますが、この慣例は避けるべきです。
+この件についてはよく [Stack Overflow の回答](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this)が引用されています。
 
-It is more appropriate to import the module using the `import foo = require("foo");` syntax.
-Nevertheless, if you want to use a default import like `import foo from "foo";` you have two options:
-- you can use the [`--allowSyntheticDefaultImports` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) if your module runtime supports an interop scheme for non-ECMAScript modules, i.e. if default imports work in your environment (e.g. Webpack, SystemJS, esm).
-- you can use the [`--esModuleInterop` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) if you want TypeScript to take care of non-ECMAScript interop (since TypeScript 2.7).
+`import foo = require("foo");` 構文を使ってモジュールをインポートするほうが適切でしょう。
+それでもなお `import foo from "foo";` のようなデフォルトインポートを使いたい場合は、2つ選択肢があります:
+- モジュールの実行環境で非 ECMAScript モジュール向けの相互運用体系が整っている場合、つまりデフォルトインポートがあなたの環境（ Webpack や SystemJS 、 esm など）で動作する場合は、 [`--allowSyntheticDefaultImports` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)が使用できます。
+- TypeScript 側に非 ECMAScript の対応をさせたい場合は、 [`--esModuleInterop` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)が使用できます（ TypeScript 2.7 以降）。
 
-#### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
+#### パッケージでは `export =` が使われていますが、デフォルトインポートを使えるようにしたいので、 `export =` を `export default` に変えても良いですか？
 
-Like in the previous question, refer to using either the [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
-or [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
-compiler options.
+1つ前の回答の繰り返しになりますが、 [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
+または [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
+コンパイラー オプションを確認してください。
 
-Do not change the type definition if it is accurate.
-For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
+型定義が正確に記述されているときは変更しないでください。
+NPM パッケージでは、モジュールを `node -p 'require("foo")'` でインポートできるときは `export =` が、 `node -p 'require("foo").default'` でインポートできるときは `export default` がそれぞれ正しい表記です。
 
-#### I want to use features from TypeScript 3.3 or above.
+#### TypeScript 3.3 以上にある機能を使いたいです。
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
+その場合は、型定義ファイルのヘッダーの最後の行（ `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` の次行）に、 `// Minimum TypeScript Version: 3.3` といったコメントを追加してください。
 
-However, if your project needs to maintain types that are compatible with, say, 3.7 and above *at the same time as* types that are compatible with 3.6 or below, you will need to use the `typesVersions` feature.
-You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
+なお、たとえば「3.7 以上」用と「3.6 以下」用の型定義を**それぞれ同時に**管理する必要がある場合は、 `typesVersions` 機能を使用することになります。
+この機能の詳しい説明は [TypeScript 公式ドキュメント](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions)を確認してください。
 
-Here's a short example to get you started:
+以下に、簡易的な例を示します:
 
-1. You'll have to add a `package.json` file to your package definition, with the following contents:
+1. `package.json` をパッケージに追加し、次の内容を記述する:
 
    ```json
    {
@@ -436,12 +436,12 @@ Here's a short example to get you started:
    }
    ```
 
-2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
-   `ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
+2. 型定義のディレクトリ内に、 `typesVersions` に指定したサブディレクトリ（上の例では `ts3.6/` ）を作成する。
+   `ts3.6/` が TypeScript 3.6 以下用のディレクトリになるので、既存の型定義とテストをそこにコピーする。
 
-   You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
+   型定義ファイルのヘッダーは `index.d.ts` のみにあればよいので、 `ts3.6/index.d.ts` からは削除する。
 
-3. Set the `baseUrl` and `typeRoots` options in `ts3.6/tsconfig.json` to the correct paths, which should look something like this:
+3. `ts3.6/tsconfig.json` の `baseUrl` ・ `typeRoots` オプションに正しいパスを指定する。次のような値になるはずです:
    ```json
    {
      "compilerOptions": {
@@ -451,25 +451,25 @@ Here's a short example to get you started:
    }
    ```
 
-4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
-   When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
+4. パッケージのルートに戻り、使用したい TypeScript 3.7 の機能を追加する。
+   これで、パッケージが使用されるときは、 TypeScript 3.6 以下の場合は `ts3.6/index.d.ts` を、 TypeScript 3.7 以上の場合は `index.d.ts` をそれぞれ読みにいくようになります。
 
-   You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) for an example.
+   [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) モジュールを参考にしてください。
 
-#### I want to add a DOM API not present in TypeScript by default.
+#### デフォルトでは TypeScript に存在しない DOM API を追加したいです。
 
-This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
-If the standard is still a draft, it belongs here.
-Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
-When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.
+それは [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme) に含めるものかもしれないので、そちらの方針を確認してください。
+該当するウェブ標準の仕様がまだ草稿段階なら、このレポジトリに含められます。
+型定義パッケージ名は `dom-` から始まるようにし、型定義ヘッダーの "Project" リンクに仕様書へのリンクを張ってください。
+仕様書が草稿から脱すると、パッケージは Definitely Typed から削除され、対応する `@types` パッケージは非推奨となります。
 
-#### How do Definitely Typed package versions relate to versions of the corresponding library?
+#### Definitely Typed パッケージのバージョンと、対応するライブラリ本体のバージョンはどのように関係していますか？
 
-*NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
+*注意: このセクションを読むには[セマンティック バージョニング](https://semver.org/)の知識が必要です。*
 
-Each Definitely Typed package is versioned when published to NPM.
-The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
-For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
+Definitely Typed の各パッケージは NPM に公開される際にバージョン番号が付されます。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) （ `@types` パッケージを npm に公開するツール）は、パッケージの `index.d.ts` の1行目に載っている `メジャー.マイナー` バージョン番号を使って、型定義パッケージのバージョンを付けます。
+たとえば、下記は執筆時点<small>（訳注: 英語版執筆当時）</small>の [Node の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts)（バージョン `10.12.x` 用）の最初の数行です:
 
 ```js
 // Type definitions for Node.js 10.12
@@ -479,44 +479,44 @@ For example, here are the first few lines of [Node's type declarations](https://
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-Because `10.12` is at the end of the first line, the npm version of the `@types/node` package will also be `10.12.x`.
-Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
-This is because only the major and minor release numbers are aligned between library packages and type declaration packages.
-The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
+1行目の終わりが `10.12` なので、 `@types/node` パッケージの npm でのバージョン番号も `10.12.x` になります。
+`index.d.ts` の1行目には `メジャー.マイナー` バージョンのみ（例: `10.12` ）を含めます。パッチバージョンは含めないでください（ `10.12.4` のようにはしない）。
+これは、メジャーバージョンとマイナーバージョンの番号のみを、ライブラリ本体と型定義パッケージで揃えるためです。
+型定義パッケージのパッチバージョン番号（ `10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが NPM に公開されるたびに増えていきます。
 
-Sometimes type declaration package versions and library package versions can get out of sync.
-Below are a few common reasons why, in order of how much they inconvenience users of a library.
-Only the last case is typically problematic.
+ときどき、型定義パッケージとライブラリ本体のバージョンが揃わなくなることがあります。
+考えられる原因を、ライブラリ使用者にとって困る順に下記に列挙します。
+一番下のものが一般的に問題となります。
 
-* As noted above, the patch version of the type declaration package is unrelated to the library patch version.
-  This allows Definitely Typed to safely update type declarations for the same major/minor version of a library.
-* If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
-  If users make sure versions correspond between JavaScript packages and their respective `@types` packages, then `npm update` should typically just work.
-* It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update Definitely Typed when new library features are released.
-  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
-  If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
+* 先述した通り、型定義パッケージのパッチバージョンはライブラリ本体とは無関係です。
+  これにより Definitely Typed 側で、同じメジャー・マイナーバージョン用の型定義を安全に更新することができます。
+* パッケージを新機能で更新したときは、ライブラリ本体のバージョンと合うように、型定義パッケージのバージョン番号を更新してください。
+  JavaScript のパッケージとそれぞれの `@types` パッケージのバージョンが一致することがユーザー側で把握されていれば、 `npm update` は基本的に正常に動作します。
+* 型定義パッケージの更新がライブラリ本体の更新から遅れることはよくあります。これは、ライブラリに新しい機能がリリースされた際に Definitely Typed を更新しているのが、メンテナーではなくライブラリ使用者である場合も多いためです。
+  そのため、面倒見の良いコミュニティメンバーが、新しいリリース用に型定義を更新する PR を送ってくれるまで、数日、数週間、場合によって数か月かかる場合があります。
+  もしこれによってお困りでしたら、「世の中に見たいと思う変化にあなたがなって」あなたがその面倒見の良いコミュニティメンバーになるのはいかがでしょうか？
 
-:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in the first line of `index.d.ts` to match the library version that you're documenting! :exclamation:
+:exclamation: ライブラリの型定義を更新する際は、 `index.d.ts` の1行目の `メジャー.マイナー` バージョンを対象のライブラリのバージョンに必ず合わせてください！ :exclamation:
 
-#### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
+#### ライブラリが破壊的な変更をして、メジャーバージョンが更新されました。型定義パッケージはどのように更新すればよいですか？
 
-[Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.
-For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.
-Furthermore, when the library's `4.0.0` release is out, its Definitely Typed type declaration package should also be updated to `4.0.0`, including any breaking changes to the library's API.
+[セマンティック バージョニング](https://semver.org/)では、破壊的な変更を行なった場合はメジャーバージョン番号を増やすように定められています。
+たとえば、あるライブラリがバージョン `3.5.8` をリリースした後、 public にエクスポートしていた関数を削除した場合、次のリリースではバージョン `4.0.0` に上げなければなりません。
+そして、ライブラリがバージョン `4.0.0` をリリースしたら、 Definitely Typed 側の型定義パッケージも同様に、ライブラリ API への破壊的変更を含んだ `4.0.0` に更新する必要があります。
 
-Many libraries have a large installed base of developers (including maintainers of other packages using that library as a dependency) who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version.
-In the meantime, users of old library versions still may want to update type declarations for older versions.
+ほとんどのライブラリには、破壊的な変更を含んだ次のバージョンにすぐ乗り換えない使用者が多くいます。これにはそのライブラリに依存した他のパッケージのメンテナーも含まれ、彼らが新しいバージョンにあわせて自分たちのコードを書き直すには数か月かかることもあります。
+その間は、古いバージョンを使用しているライブラリ使用者のために、そのバージョンの型定義の更新を行う必要があるかもしれません。
 
-If you intend to continue updating the older version of a library's type declarations, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it.
+もし古いバージョンの型定義も更新し続けたい場合は、現在のバージョン（すぐに「古い」バージョンとなる方）用に新しいサブフォルダー（例: `/v2/` ）を作成し、現在のバージョンのファイルをコピーしてください。
 
-Because the root folder should always contain the type declarations for the latest ("new") version, you'll need to make a few changes to the files in your old-version subdirectory to ensure that relative path references point to the subdirectory, not the root.
+ルートフォルダーは必ず最新の（「新しい」）バージョンの型定義が含まれるようになるので、古いバージョン用のサブフォルダー内のファイルにおいて、きちんと相対パスがルートフォルダーではなくサブフォルダーに向くように変更する必要があります。
 
-1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
-2. Add path mapping rules to ensure that tests are running against the intended version.
+1. `tsconfig.json` と `tslint.json` 内の相対パスを更新する。
+2. テストが意図したバージョンで実行されるように、パスの変換ルールを追加する。
 
-For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
-Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
-At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
+たとえば、 [`history`](https://github.com/ReactTraining/history/) ライブラリはバージョン `2.x` から `3.x` の間で破壊的な変更を行いました。
+多くのユーザーがなお古いバージョン `2.x` 系を使用していたので、バージョン `3.x` 系の型定義に更新したかったメンテナーは `v2` フォルダーを作成し、そこに古いバージョン用の型定義を含めるようにしました。
+下記は、執筆時点<small>（訳注: 英語版執筆当時）</small>の [history モジュールの v2 の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) の大まかな内容です:
 
 ```json
 {
@@ -534,27 +534,27 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 }
 ```
 
-If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version.
-You will also need to do this recursively for packages depending on the old version.
+あるライブラリの新しいバージョンに、 Definitely Typed 内の他のパッケージが対応していない場合は、古いバージョンへのパス変換<small>（path mapping）</small>を追加する必要があります。
+古いバージョンに対応していないパッケージにさらに依存しているパッケージに対しても、再帰的に行う必要があります。
 
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`.
-Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was updated to the latest version.
+たとえば、 `react-router` は `history@2` に依存しているため、 [react-router の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) には `"history": [ "history/v2" ]` というパス変換が追加されています。
+さらに、 `react-router` に依存している `react-router-bootstrap` でも、 `react-router` が最新版に更新されるまでの間、 `tsconfig.json` の中で同様のパス変換（ `"history": [ "history/v2" ]` ）を行う必要があります。
 
-Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+`/// <reference types=".." />` についてはパス変換でうまく動作しないため、依存モジュールは `import` を使う必要があります。
 
-#### How do I write definitions for packages that can be used globally and as a module?
+#### グローバルにも使えてモジュールとしても使えるパッケージについては、どのように型定義すればよいですか？
 
-The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[このような型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に[big.js の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
 
-To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします - このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 big.js の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
 
-Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
+両方のテストファイルで、型定義に対する完全なテストを行う必要はありません - *global* テストファイルではグローバルな要素にアクセスできるかのみをテストし、 *module* テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
 
-#### What about scoped packages?
+#### スコープ付きパッケージについてはどうすればよいですか？
 
-Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+スコープ付きパッケージ「`@foo/bar`」の型定義は、 `types/foo__bar` の中に含めてください（アンダーバー2つに注意）。
 
-When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated `tsconfig.json` to correctly reference the scoped package:
+`dts-gen` をスコープ付きパッケージの初期生成に使用した場合、生成された `tsconfig.json` の `paths` プロパティを、スコープ付きパッケージを正しく参照できるように手動で修正する必要があります:
 
 ```json
 {
@@ -564,9 +564,9 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 }
 ```
 
-#### The file history in GitHub looks incomplete.
+#### GitHub のファイル履歴がおかしいです。
 
-GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
+GitHubは、名前が変更されたファイルの履歴には[対応していない](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
 
 ## ライセンス
 
