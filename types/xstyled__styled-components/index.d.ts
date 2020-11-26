@@ -25,7 +25,7 @@ export class ColorModeProvider extends React.Component<ColorModeProviderProps> {
 
 export function useColorMode(): [string, (colorMode: string) => void];
 
-export function getColorModeInitScriptElement(): React.ReactElement;
+export function getColorModeInitScriptElement(options: { target: string }): React.ReactElement;
 
 export function getColorModeInitScriptTag(options: { target: string }): string;
 
