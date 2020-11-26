@@ -1,6 +1,7 @@
 // Type definitions for non-npm package snapchat-lens-studio 3.2
 // Project: https://lensstudio.snapchat.com/api/
 // Definitions by: Olen Davis <https://github.com/OlenDavis>
+//                 Matt Winkler <https://github.com/mhwinkler>
 //                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
