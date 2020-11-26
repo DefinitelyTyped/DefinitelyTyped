@@ -7,9 +7,7 @@
 //  @input bool showVideo = true
 //  @input Asset.Texture movie { "label":"Background Video" }
 //  @ui {"widget":"group_end"}
-
 // @ui {"widget":"label"}
-
 //  @ui {"widget":"group_start", "label":"Tracked Image Control"}
 //  @input Asset.Texture mainImage { "label":"Image" }
 //  @input Asset.Texture opacityTexture { "label":"Opacity Image" }
@@ -20,27 +18,22 @@
 //  @input float imageAlpha = 1.0 {"label":"Alpha","widget":"slider", "min":0.0, "max":1.0, "step":0.1}
 //  @input int imageSort {"widget":"combobox", "values":[{"label":"In Front of Video", "value":0}, {"label":"Behind Video", "value":1}, {"label":"Manual Sorting", "value":2}]}
 //  @ui {"widget":"group_end"}
-
 // @ui {"widget":"label"}
-
 // @ui {"widget":"separator"}
-
 //  @input bool advanced
 //  @ui {"widget":"group_start", "label":"Tracking Control", "showIf": "advanced"}
 //  @input bool trackPosition = true {"label":"Position"}
 //  @input bool trackScale = true {"label":"Scale"}
 //  @input bool trackRotation = true {"label":"Rotation"}
 // @ui {"widget":"group_end"}
-
 // @ui {"widget":"separator", "showIf": "advanced"}
-
 //  @input Component.ScreenTransform trackedImageTransform {"showIf": "advanced"}
 //  @input Component.Image movieImage {"showIf": "advanced"}
 //  @input Component.ScreenTransform extentsTarget {"showIf": "advanced"}
 //  @input Component.Image backgroundImage {"showIf": "advanced"}
 //  @input Component.Image errorImage {"showIf": "advanced"}
 
-import type { AnimData } from './tracking-data-example';
+import type { AnimationData } from './animation-data';
 
 declare global {
     interface Pass {
@@ -54,9 +47,32 @@ declare global {
          */
         opacityTex: Asset.Texture;
     }
+    namespace SnapchatLensStudio {
+        interface ScriptInputs {
+            showVideo: boolean;
+            movie: Asset.Texture;
+            mainImage: Asset.Texture;
+            opacityTexture: Asset.Texture;
+            imageSize: number;
+            imageOffsetX: number;
+            imageOffsetY: number;
+            imageRotation: number;
+            imageAlpha: number;
+            imageSort: number;
+            advanced: boolean;
+            trackPosition: boolean;
+            trackScale: boolean;
+            trackRotation: boolean;
+            trackedImageTransform: Component.ScreenTransform;
+            movieImage: Component.Image;
+            extentsTarget: Component.ScreenTransform;
+            backgroundImage: Component.Image;
+            errorImage: Component.Image;
+        }
+    }
 }
 
-let animData: AnimData;
+let animationData: AnimationData;
 let provider: AnimatedTextureFileProvider;
 let timer = 0;
 let timeLimit: number;
@@ -86,33 +102,12 @@ const {
     extentsTarget,
     backgroundImage,
     errorImage,
-} = script as Component.ScriptComponent<ScriptInputs>;
-interface ScriptInputs {
-    showVideo: boolean;
-    movie: Asset.Texture;
-    mainImage: Asset.Texture;
-    opacityTexture: Asset.Texture;
-    imageSize: number;
-    imageOffsetX: number;
-    imageOffsetY: number;
-    imageRotation: number;
-    imageAlpha: number;
-    imageSort: number;
-    advanced: boolean;
-    trackPosition: boolean;
-    trackScale: boolean;
-    trackRotation: boolean;
-    trackedImageTransform: Component.ScreenTransform;
-    movieImage: Component.Image;
-    extentsTarget: Component.ScreenTransform;
-    backgroundImage: Component.Image;
-    errorImage: Component.Image;
-}
+} = script;
 
 initialize();
 
 function initialize() {
-    findTrackingData();
+    findAnimationData();
 
     if (checkProperties()) {
         setupTracking();
@@ -139,7 +134,7 @@ function configureImageTransform({
     imageRotation: rotationToAdd,
     imageAlpha,
 }: Pick<
-    ScriptInputs,
+    SnapchatLensStudio.ScriptInputs,
     | 'mainImage'
     | 'opacityTexture'
     | 'trackedImageTransform'
@@ -240,13 +235,13 @@ function playAnimatedTexture() {
         provider = movie.control as AnimatedTextureFileProvider;
         provider.pause();
         provider.isAutoplay = false;
-        if (animData.duration + 1 !== provider.getFramesCount()) {
+        if (animationData.duration + 1 !== provider.getFramesCount()) {
             showError(
                 "ERROR: Exported tracking data frame numbers don't match the animated texture duration. Make sure to export the whole comp in After Effects or trim your comp.",
             );
             return;
         }
-        const providerDurationCheck = roundToNearest(animData.duration / animData.frameRate);
+        const providerDurationCheck = roundToNearest(animationData.duration / animationData.frameRate);
         const providerDuration = roundToNearest(provider.getDuration());
         if (providerDuration !== providerDurationCheck) {
             showError('ERROR: You need to set the duration on animated texture to: ' + providerDurationCheck);
@@ -264,9 +259,9 @@ function setAnimatedTextureTime(overtime: number) {
 }
 
 function positionImage(frame: number) {
-    if (animData.positions[frame] !== null) {
+    if (animationData.positions[frame] !== null) {
         if (trackPosition) {
-            const screenPos = animData.positions[frame];
+            const screenPos = animationData.positions[frame];
             const offsetPos = startingPositionOffset.add(screenPos);
             const worldPoint = extentsTarget.localPointToWorldPoint(offsetPos);
             const parentPoint = trackedImageTransform.worldPointToParentPoint(worldPoint);
@@ -274,14 +269,14 @@ function positionImage(frame: number) {
         }
 
         if (trackScale) {
-            const { x, y } = animData.scales[frame];
+            const { x, y } = animationData.scales[frame];
             const trackedScale = new vec2(x, y).uniformScale(1 / 100);
             const newScale = startingScaleOffset.mult(trackedScale);
             trackedImageTransform.offsets.setSize(newScale);
         }
 
         if (trackRotation) {
-            const rot = quat.fromEulerVec(animData.rotations[frame].uniformScale(-Math.PI / 180));
+            const rot = quat.fromEulerVec(animationData.rotations[frame].uniformScale(-Math.PI / 180));
             const rotateTo = startingRotationOffset.multiply(rot);
             trackedImageTransform.rotation = rotateTo;
         }
@@ -290,8 +285,8 @@ function positionImage(frame: number) {
 
 function trackAnimatedTexture() {
     if (animatedTextureInitialized) {
-        const frameNumber = Math.floor(timer * animData.frameRate);
-        if (frameNumber <= animData.duration) {
+        const frameNumber = Math.floor(timer * animationData.frameRate);
+        if (frameNumber <= animationData.duration) {
             positionImage(frameNumber);
 
             if (showVideo) {
@@ -315,13 +310,13 @@ function playBackTimer() {
     }
 }
 
-function findTrackingData() {
-    const results: AnimData[] = [];
+function findAnimationData() {
+    const results: AnimationData[] = [];
     const allComponents = script.getSceneObject().getComponents('Component.ScriptComponent');
     for (const component of allComponents) {
         if (component.api) {
-            if ('animData' in component.api) {
-                results.push((component as Component.ScriptComponent<{}, { animData: AnimData }>).api.animData);
+            if (component.api.animationData) {
+                results.push(component.api.animationData);
             }
         }
     }
@@ -336,8 +331,8 @@ function findTrackingData() {
         );
     }
 
-    animData = results[results.length - 1];
-    timeLimit = animData.duration / animData.frameRate;
+    animationData = results[results.length - 1];
+    timeLimit = animationData.duration / animationData.frameRate;
 }
 
 function roundToNearest(value: number) {
@@ -352,7 +347,7 @@ function setAlpha(color: vec4, alpha: number) {
 }
 
 function checkProperties() {
-    if (!animData) {
+    if (!animationData) {
         showError(
             'ERROR: Tracking data not found. Please place the tracking data on the FaceInVideoController [EDIT_ME] object',
         );
