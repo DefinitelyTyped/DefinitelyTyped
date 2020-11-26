@@ -457,7 +457,19 @@ const requestInfo: sf.RequestInfo = {
     method: '',
     url: ''
 };
-salesforceConnection.request(requestInfo);
+
+// Default return type is Object
+ salesforceConnection.request(requestInfo).then((obj: Object) => {
+    console.log(obj);
+ });
+
+// Can typecast the return type, too
+interface MyFoo {
+    anything: string;
+}
+salesforceConnection.request<MyFoo>(requestInfo).then((myFoo: MyFoo) => {
+    console.log(myFoo.anything)
+});
 
 const queryOptions: sf.ExecuteOptions = {
     autoFetch: true,

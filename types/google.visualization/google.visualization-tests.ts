@@ -600,6 +600,12 @@ function test_ChartsLoadWithPromise() {
     google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
 }
 
+function test_ChartsSafeLoad() {
+    google.charts.safeLoad({packages: ['corechart']}).then(() => {
+        // Draw a chart.
+    });
+}
+
 function test_ChartAnnotations() {
     var annotations:google.visualization.ChartAnnotations = {
         boxStyle: {

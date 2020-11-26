@@ -1,10 +1,10 @@
-// Type definitions for intl-tel-input 14.0
+// Type definitions for intl-tel-input 17.0
 // Project: https://github.com/jackocnr/intl-tel-input
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Márton Molnár <https://github.com/molnarm>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export as namespace intlTelInput;
 
@@ -34,6 +34,12 @@ declare namespace IntlTelInput {
          * formatting/validation etc.
          */
         loadUtils(path: string, utilsScriptDeferred?: boolean): void;
+
+        /**
+         * After initialising the plugin, you can always access the instance again using this method,
+         * by just passing in the relevant input element.
+         */
+        getInstance(node: Element): Plugin;
     }
 
     interface Plugin {

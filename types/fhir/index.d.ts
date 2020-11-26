@@ -1,6 +1,6 @@
-// Type definitions for FHIR Release 3 (STU)
+// Type definitions for FHIR Release 3.0
 // Project: http://hl7.org/fhir/index.html
-// Definitions by: Artifact Health <https://www.artifacthealth.com>
+// Definitions by: Artifact Health <https://github.com/meirgottlieb>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module fhir {
     /**

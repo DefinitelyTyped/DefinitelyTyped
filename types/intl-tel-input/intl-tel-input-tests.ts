@@ -2,12 +2,12 @@
 
 // Global
 
-// $ExpectType (node: Element, options?: Options) => Plugin
+// $ExpectType (node: Element, options?: Options | undefined) => Plugin
 intlTelInput;
 
 // Normal version
 
-const input = document.querySelector("#phone");
+const input = document.querySelector("#phone")! ;
 window.intlTelInput(input);
 
 window.intlTelInput(input, {
@@ -173,3 +173,6 @@ $('#phone').intlTelInput({
     preferredCountries: ["us", "gb"],
     separateDialCode: false
 });
+
+const iti = window.intlTelInputGlobals.getInstance(input);
+iti.isValidNumber(); // etc

@@ -139,6 +139,7 @@
     listWidget.addImage("42");
 
     const widgetSpacer = listWidget.addSpacer(10);
+    listWidget.addSpacer();
     // $ExpectError
     listWidget.addSpacer("10");
 
@@ -444,6 +445,8 @@
     widgetStack.addImage(Image.fromFile("some/image.png"));
     // $ExpectType WidgetSpacer
     widgetStack.addSpacer(4);
+    // $ExpectType WidgetSpacer
+    widgetStack.addSpacer();
     // $ExpectType WidgetStack
     widgetStack.addStack();
     // $ExpectType void

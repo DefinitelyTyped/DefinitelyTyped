@@ -548,7 +548,7 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
+         * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
@@ -864,7 +864,7 @@ declare namespace Office {
         interface EventCompletedOptions {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler, 
-             * this value indicates of the handled event should continue execution or be canceled. 
+             * this value indicates if the handled event should continue execution or be canceled. 
              * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
@@ -11095,6 +11095,10 @@ declare namespace Office {
          * The `prependAsync` method inserts the specified string at the beginning of the item body.
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
+         * When working with HTML-formatted bodies, it's important to note that the client may modify the value passed to `prependAsync` in order to
+         * make it render efficiently with its rendering engine. This means that the value returned from a subsequent call to `Body.getAsync` method
+         * will not necessarily exactly contain the value that was passed in the `prependAsync` method previously.
+         *
          * When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
          * (see the **Examples** section for a sample).
          *
@@ -16171,6 +16175,8 @@ declare namespace OfficeCore {
 /////////////////////// Begin Excel APIs ///////////////////////
 ////////////////////////////////////////////////////////////////
 
+
+
 declare namespace Excel {
     /**
      *
@@ -16827,10 +16833,8 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
-    
     interface Session {
     }
-    
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -17587,8 +17591,7 @@ declare namespace Excel {
     interface BindingSelectionChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. 
-         * Use that ID with `BindingCollection.getItem(id)` to get the binding.
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -17631,8 +17634,7 @@ declare namespace Excel {
     interface BindingDataChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. 
-         * Use that ID with `BindingCollection.getItem(id)` to get the binding.
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -18477,28 +18479,28 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comments that raised the Added event.
+     * Provides information about the comments that raised the "CommentAdded" event.
      *
      * [Api set: ExcelApi 1.12]
      */
     interface CommentAddedEventArgs {
         /**
          *
-         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
          *
          * [Api set: ExcelApi 1.12]
          */
         commentDetails: Excel.CommentDetail[];
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Specifies the source of the event. See `Excel.EventSource` for details.
          *
          * [Api set: ExcelApi 1.12]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Gets the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See `Excel.EventType` for details.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -18513,28 +18515,28 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comments that raised the Deleted event.
+     * Provides information about the comments that raised the "CommentDeleted" event.
      *
      * [Api set: ExcelApi 1.12]
      */
     interface CommentDeletedEventArgs {
         /**
          *
-         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         * Gets the `CommentDetail` array that contains the comment ID and IDs of its related replies.
          *
          * [Api set: ExcelApi 1.12]
          */
         commentDetails: Excel.CommentDetail[];
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Specifies the source of the event. See `Excel.EventSource` for details.
          *
          * [Api set: ExcelApi 1.12]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Gets the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See `Excel.EventType` for details.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -19773,7 +19775,7 @@ declare namespace Excel {
         readonly onCalculated: OfficeExtension.EventHandlers<Excel.WorksheetCalculatedEventArgs>;
         /**
          *
-         * Occurs when data changed on a specific worksheet.
+         * Occurs when data changes in a specific worksheet.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -20241,7 +20243,7 @@ declare namespace Excel {
          */
         freezeAt(frozenRange: Range | string): void;
         /**
-         * Freeze the first column(s) of the worksheet in place.
+         * Freeze the first column or columns of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -20249,7 +20251,7 @@ declare namespace Excel {
          */
         freezeColumns(count?: number): void;
         /**
-         * Freeze the top row(s) of the worksheet in place.
+         * Freeze the top row or rows of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -20382,7 +20384,7 @@ declare namespace Excel {
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -20783,8 +20785,7 @@ declare namespace Excel {
         getEntireRow(): Excel.Range;
         /**
          * Renders the range as a base64-encoded png image.
-         * 
-         * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
+                    **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -21578,7 +21579,7 @@ declare namespace Excel {
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns ranges that comprise this object in a `RangeCollection` object.
+         * Returns ranges that comprise this object in a `RangeCollection` object.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -21591,7 +21592,7 @@ declare namespace Excel {
          */
         readonly addresses: string[];
         /**
-         * Returns the `RangeAreas` object based on worksheet id or name in the collection.
+         * Returns the `RangeAreas` object based on worksheet ID or name in the collection.
          *
          * [Api set: ExcelApi 1.12]
          *
@@ -21599,7 +21600,7 @@ declare namespace Excel {
          */
         getRangeAreasBySheet(key: string): Excel.RangeAreas;
         /**
-         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         * Returns the `RangeAreas` object based on worksheet name or ID in the collection. If the worksheet does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.12]
          *
@@ -24388,7 +24389,7 @@ declare namespace Excel {
         patternTintAndShade: number;
         /**
          *
-         * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+         * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                     If the tintAndShades are not uniform, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
@@ -33326,7 +33327,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+         * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33491,7 +33492,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+         * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -39805,7 +39806,12 @@ declare namespace Excel {
          * LinkedDataTypeAdded represents the type of event registered on LinkedDataType, and occurs when a new linked data type is added to the workbook.
          *
          */
-        linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded"
+        linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded",
+        /**
+         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when formula is changed.
+         *
+         */
+        worksheetFormulaChanged = "WorksheetFormulaChanged"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -44306,6 +44312,7 @@ declare namespace Excel {
         conflict = "Conflict",
         filteredRangeConflict = "FilteredRangeConflict",
         generalException = "GeneralException",
+        inactiveWorkbook = "InactiveWorkbook",
         insertDeleteConflict = "InsertDeleteConflict",
         invalidArgument = "InvalidArgument",
         invalidBinding = "InvalidBinding",
@@ -44523,21 +44530,21 @@ declare namespace Excel {
             columnHidden?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: any[][];
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: any[][];
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -45019,7 +45026,7 @@ declare namespace Excel {
             patternTintAndShade?: number;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -47809,7 +47816,7 @@ declare namespace Excel {
         interface TopBottomConditionalFormatUpdateData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -47843,7 +47850,7 @@ declare namespace Excel {
         interface TextConditionalFormatUpdateData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -49503,21 +49510,21 @@ declare namespace Excel {
             columnIndex?: number;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: any[][];
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: any[][];
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -49771,7 +49778,7 @@ declare namespace Excel {
             areas?: Excel.Interfaces.RangeAreasData[];
             /**
             *
-            * Returns a collection of ranges that comprise this WorkbookRangeAreas object.
+            * Returns ranges that comprise this object in a RangeCollection object.
             *
             * [Api set: ExcelApi 1.12]
             */
@@ -50416,7 +50423,7 @@ declare namespace Excel {
             patternTintAndShade?: number;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -53709,7 +53716,7 @@ declare namespace Excel {
         interface TopBottomConditionalFormatData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -53743,7 +53750,7 @@ declare namespace Excel {
         interface TextConditionalFormatData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -55797,21 +55804,21 @@ declare namespace Excel {
             columnIndex?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: boolean;
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -56059,7 +56066,7 @@ declare namespace Excel {
         }
         /**
          *
-         * WorkbookRangeAreas represents a collection of one or more rectangular ranges in multi worksheet.
+         * Represents a collection of one or more rectangular ranges in multiple worksheets.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -57367,7 +57374,7 @@ declare namespace Excel {
             patternTintAndShade?: boolean;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -62543,7 +62550,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -62595,7 +62602,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -63747,21 +63754,21 @@ declare namespace Excel {
             columnIndex?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in A1-style notation.
+             * For EACH ITEM in the collection: Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * For EACH ITEM in the collection: Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in R1C1-style notation.
+             * For EACH ITEM in the collection: Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */

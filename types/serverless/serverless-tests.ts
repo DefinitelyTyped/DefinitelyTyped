@@ -408,7 +408,14 @@ const awsServerless: Aws.Serverless = {
                                 },
                             },
                             schema: {
-                                'application/json': 'schema1'
+                                'application/json': {
+                                    type: 'object',
+                                    properties: {
+                                        productId: {
+                                            type: 'integer'
+                                        }
+                                    }
+                                }
                             },
                         }
                     },

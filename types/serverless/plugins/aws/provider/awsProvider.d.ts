@@ -97,6 +97,8 @@ declare namespace Aws {
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
+        metrics?: boolean;
+        shouldStartNameWithService?: boolean;
     }
 
     interface CognitoAuthorizer {
@@ -282,7 +284,7 @@ declare namespace Aws {
 
     interface HttpRequestValidation {
         parameters?: HttpRequestParametersValidation;
-        schema?: { [key: string]: string };
+        schema?: { [key: string]: Record<string, unknown> };
     }
 
     interface Http {
@@ -293,6 +295,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer;
         request?: HttpRequestValidation;
+        integration?: "lambda" | "mock";
     }
 
     interface NamedHttpApiEventAuthorizer {

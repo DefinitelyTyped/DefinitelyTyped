@@ -12,6 +12,8 @@ declare namespace google {
     // https://developers.google.com/chart/interactive/docs/basic_load_libs
     namespace charts {
         function load(version: string | number, packages: Object, mapsApiKey?: string): Promise<void>;
+        /** Loads with `safeMode` enabled. */
+        function safeLoad(packages: Object): Promise<void>;
         function setOnLoadCallback(handler: Function): void;
     }
 
