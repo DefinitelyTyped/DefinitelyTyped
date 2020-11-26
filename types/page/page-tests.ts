@@ -91,6 +91,9 @@ page('/user/:name', load, show);
 page('*', notfound);
 page();
 
+const homePage = page.create();
+const aboutPage = page.create({});
+
 declare var iframe: HTMLIFrameElement;
 const otherPage = page.create({
     window: iframe.contentWindow!,
