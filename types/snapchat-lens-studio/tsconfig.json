@@ -15,5 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "test/expression-controller.ts",
+        "test/face-in-video-controller.ts"
+    ]
 }
