@@ -138,6 +138,8 @@ export class Scope {
 
     removeData(key: string): void;
 
+    crawl(): void;
+
     push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
 
     getProgramParent(): Scope;

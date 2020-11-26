@@ -124,6 +124,8 @@ const v1: Visitor = {
         path.scope.rename('n', 'x');
         path.scope.rename('n');
 
+        path.scope.crawl();
+
         // $ExpectError
         path.pushContainer('returnType', t.stringLiteral('hello'));
         // $ExpectError
