@@ -96,4 +96,4 @@ const otherPage = page.create({
     window: iframe.contentWindow!,
 });
 otherPage('/', index2);
-otherPage.clickHandler; // $ExpectType (e: UIEvent) => void
+otherPage.clickHandler; // $ExpectType (e: MouseEvent) => void
