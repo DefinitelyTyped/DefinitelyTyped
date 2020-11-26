@@ -15,9 +15,9 @@ import { SystemProps } from '@xstyled/system';
 export * from 'styled-components';
 
 export interface ColorModeProviderProps {
-    children: React.ReactNode;
-    target: HTMLElement;
-    targetSelector: string;
+    children?: React.ReactNode;
+    target?: HTMLElement;
+    targetSelector?: string;
 }
 
 export class ColorModeProvider extends React.Component<ColorModeProviderProps> {}
