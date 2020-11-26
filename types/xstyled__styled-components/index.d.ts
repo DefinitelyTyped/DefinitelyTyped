@@ -13,6 +13,7 @@ import _styled, {
 } from 'styled-components';
 import { SystemProps } from '@xstyled/system';
 export * from 'styled-components';
+export * from '@xstyled/system';
 
 export interface ColorModeProviderProps {
     children?: React.ReactNode;
