@@ -1,7 +1,7 @@
 // Type definitions for rox-browser 5.0
 // Project: https://rollout.io
 // Definitions by: g-guirado <https://github.com/g-guirado>
-//                 rollout: <https://github.com/rollout>
+//                 AsafRollout: <https://github.com/asafRollout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
