@@ -1,6 +1,7 @@
 // Type definitions for Mandrill API 1.x
 // Project: http://mandrill.com/
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
+//                 Ahmed Hussein <https://github.com/ahmedHusseinF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -11,10 +12,8 @@
 
 /// <reference types="node" />
 
-
-
 export interface ICallback {
-    (json: Object): void;
+    (json: Record<string, string>): void;
 }
 
 export interface IErrorCallback {
@@ -44,6 +43,328 @@ export declare class Mandrill {
     call(uri: string, params: any, onresult?: ICallback, onerror?: ICallback): void;
 }
 
+interface GlobalMergeVar {
+    name: string;
+    content: any;
+}
+
+interface MergeVar {
+    rcpt: string;
+    vars: GlobalMergeVar[];
+}
+
+declare namespace Templates {
+    interface AddUpdateParams {
+        name: string;
+        from_email?: string;
+        from_name?: string;
+        subject?: string;
+        code?: string;
+        text?: string;
+        publish?: boolean;
+        labels?: string[];
+    }
+
+    interface NameOnlyParam {
+        name: string;
+    }
+
+    interface LabelOnlyParam {
+        label: string;
+    }
+
+    interface RenderParams {
+        template_name: string;
+        template_content: GlobalMergeVar[];
+        merge_vars?: GlobalMergeVar[];
+    }
+}
+
+declare namespace Exports {
+    interface InfoParams {
+        id: string;
+    }
+
+    interface EmailOnlyParam {
+        notify_email?: string;
+    }
+
+    interface ActivityParams {
+        notify_email?: string;
+        date_from?: string;
+        date_to?: string;
+        tags?: string[];
+        senders?: string[];
+        states?: string[];
+    }
+}
+
+declare namespace Rejects {
+    interface AddParams {
+        email: string;
+        comment?: string;
+        subaccount?: string;
+    }
+
+    interface ListParams {
+        email?: string;
+        include_expired?: boolean;
+        subaccount?: string;
+    }
+
+    interface DeleteParams {
+        email: string;
+        subaccount?: string;
+    }
+}
+
+declare namespace Inbound {
+    interface DomainOnlyParam {
+        domain: string;
+    }
+
+    interface AddRouteParams {
+        domain: string;
+        pattern: string;
+        url: string;
+    }
+
+    interface UpdateRouteParams {
+        id: string;
+        pattern?: string;
+        url?: string;
+    }
+
+    interface DeleteRouteParams {
+        id: string;
+    }
+
+    interface SendRawParams {
+        raw_message: string;
+        to?: string[];
+        mail_from?: string;
+        helo?: string;
+        client_address?: string;
+    }
+}
+
+declare namespace Messages {
+    interface ToEmail {
+        email: string;
+        name?: string;
+        type?: 'to' | 'cc' | 'bcc';
+    }
+
+    interface Attachment {
+        type: string;
+        name: string;
+        content: string;
+    }
+
+    interface RecipientMetadata {
+        rcpt: string;
+        values: Record<string, any>;
+    }
+
+    interface Message {
+        html?: string;
+        text?: string;
+        subject?: string;
+        from_email?: string;
+        from_name?: string;
+        to: ToEmail[];
+        headers?: Record<string, string>;
+        important?: boolean;
+        track_opens?: boolean;
+        track_clicks?: boolean;
+        auto_text?: boolean;
+        auto_html?: boolean;
+        inline_css?: boolean;
+        url_strip_qs?: boolean;
+        preserve_recipients?: boolean;
+        view_content_link?: boolean;
+        bcc_address?: string;
+        tracking_domain?: string;
+        signing_domain?: string;
+        return_path_domain?: string;
+        merge?: boolean;
+        merge_language?: 'mailchimp' | 'handlebars';
+        global_merge_vars?: GlobalMergeVar[];
+        merge_vars?: MergeVar[];
+        tags?: string[];
+        subaccount?: string;
+        google_analytics_domains?: string[];
+        google_analytics_campaign?: string[] | string;
+        metadata?: Record<string, any>;
+        recipient_metadata?: RecipientMetadata[];
+        attachments?: Attachment[];
+        images?: Attachment[];
+    }
+
+    interface SendParams {
+        message: Message;
+        async?: boolean;
+        ip_pool?: string;
+        send_at?: string;
+    }
+
+    interface SendTemplateParams {
+        template_name: string;
+        template_content: GlobalMergeVar[];
+        message: Message;
+        async?: boolean;
+        ip_pool?: string;
+        send_at?: string;
+    }
+
+    type SearchParams = {
+        api_keys?: string[];
+        limit?: number;
+    } & SearchTimeSeriesParams;
+
+
+    interface SearchTimeSeriesParams {
+        query?: string;
+        date_from?: string;
+        date_to?: string;
+        tags?: string[];
+        senders?: string[];
+    }
+
+    interface IdParam {
+        id: string;
+    }
+
+    interface ParseParam {
+        raw_message: string;
+    }
+
+    interface ListScheduledParam {
+        to: string;
+    }
+
+    interface RescheduleParams {
+        id: string;
+        send_at: string;
+    }
+
+    interface SendRawParams {
+        raw_message: string;
+        from_email?: string;
+        from_name?: string;
+        to?: string[];
+        async?: boolean;
+        send_at?: string;
+        return_path_domain?: string;
+    }
+}
+
+declare namespace Tags {
+    interface TagParam {
+        tag: string;
+    }
+}
+
+declare namespace Whitelists {
+    interface EmailParam {
+        email: string;
+    }
+
+    interface AddWhitelistParams extends EmailParam {
+        comment?: string;
+    }
+}
+
+declare namespace Ips {
+    interface IpParam {
+        ip: string;
+    }
+
+    interface ProvisionParams {
+        warmup?: boolean;
+        pool?: string;
+    }
+
+    interface SetPoolParams extends IpParam {
+        pool: string;
+        create_pool?: boolean;
+    }
+
+    interface PoolParam {
+        pool: string;
+    }
+
+    interface CustomDnsParams extends IpParam {
+        domain: string;
+    }
+}
+
+declare namespace Subaccounts {
+    interface ListParam {
+        q?: string;
+    }
+
+    interface IdParam {
+        id: string;
+    }
+
+    interface AccountParams extends IdParam {
+        name?: string;
+        notes?: string;
+        custom_quota?: number;
+    }
+}
+
+declare namespace Urls {
+    interface ListParam {
+        q: string;
+    }
+
+    interface DomainParam {
+        domain: string;
+    }
+
+    interface UrlParam {
+        url: string;
+    }
+}
+
+declare namespace Webhooks {
+    interface AddParams {
+        url: string;
+        description?: string;
+        events?: string[];
+    }
+
+    interface IdParam {
+        id: number;
+    }
+}
+
+declare namespace Senders {
+    interface DomainParam {
+        domain: string;
+    }
+
+    interface AddressParam {
+        address: string;
+    }
+
+    interface VerifyParams extends DomainParam {
+        mailbox: string;
+    }
+}
+
+declare namespace Metadata {
+    interface NameParam {
+        name: string;
+    }
+
+    interface MetadataParams extends NameParam {
+        view_template?: string;
+    }
+}
+
 export declare class Templates {
     constructor(master: Mandrill);
 
@@ -62,7 +383,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    add(params: Templates.AddUpdateParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Get the information for an existing template
@@ -71,7 +392,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    info(params: Templates.NameOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Update the code for an existing template. If null is provided for any fields, the values will remain unchanged.
@@ -88,7 +409,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    update(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    update(params: Templates.AddUpdateParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Publish the content for the template. Any new messages sent using this template will start using the content that was previously in draft.
@@ -97,7 +418,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    publish(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    publish(params: Templates.NameOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Delete a template
@@ -106,7 +427,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    delete(params: Templates.NameOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return a list of all the templates available to this user
@@ -115,7 +436,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: Templates.LabelOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the recent history (hourly stats for the last 30 days) for a template
@@ -124,7 +445,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    timeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    timeSeries(params: Templates.NameOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Inject content and optionally merge fields into a template, returning the HTML that results
@@ -141,7 +462,7 @@ export declare class Templates {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    render(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    render(params: Templates.RenderParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Exports {
@@ -158,8 +479,7 @@ export declare class Exports {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    info(params: Exports.InfoParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Returns a list of your exports.
@@ -167,7 +487,7 @@ export declare class Exports {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Begins an export of your rejection blacklist. The blacklist will be exported to a zip archive
@@ -178,7 +498,7 @@ export declare class Exports {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    rejects(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    rejects(params: Exports.EmailOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Begins an export of your rejection whitelist. The whitelist will be exported to a zip archive
@@ -189,7 +509,7 @@ export declare class Exports {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    whitelist(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    whitelist(params: Exports.EmailOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Begins an export of your activity history. The activity will be exported to a zip archive
@@ -212,7 +532,7 @@ export declare class Exports {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    activity(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    activity(params: Exports.ActivityParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Users {
@@ -224,8 +544,7 @@ export declare class Users {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    info(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Validate an API key and respond to a ping
@@ -233,8 +552,7 @@ export declare class Users {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    ping(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    ping(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Validate an API key and respond to a ping (anal JSON parser version)
@@ -242,7 +560,7 @@ export declare class Users {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    ping2(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    ping2(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the senders that have tried to use this account, both verified and unverified
@@ -250,8 +568,7 @@ export declare class Users {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    senders(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    senders(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Rejects {
@@ -269,7 +586,7 @@ export declare class Rejects {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    add(params: Rejects.AddParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Retrieves your email rejection blacklist. You can provide an email
@@ -283,8 +600,7 @@ export declare class Rejects {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    list(params: Rejects.ListParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Deletes an email rejection. There is no limit to how many rejections
@@ -296,8 +612,7 @@ export declare class Rejects {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    delete(params: Rejects.DeleteParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Inbound {
@@ -309,8 +624,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    domains(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    domains(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Add an inbound domain to your account
@@ -319,8 +633,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    addDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    addDomain(params: Inbound.DomainOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Check the MX settings for an inbound domain. The domain must have already been added with the add-domain call
@@ -329,8 +642,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    checkDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    checkDomain(params: Inbound.DomainOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Delete an inbound domain from the account. All mail will stop routing for this domain immediately.
@@ -339,8 +651,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    deleteDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    deleteDomain(params: Inbound.DomainOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * List the mailbox routes defined for an inbound domain
@@ -349,8 +660,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    routes(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    routes(params: Inbound.DomainOnlyParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Add a new mailbox route to an inbound domain
@@ -361,8 +671,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    addRoute(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    addRoute(params: Inbound.AddRouteParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Update the pattern or webhook of an existing inbound mailbox route. If null is provided for any fields, the values will remain unchanged.
@@ -373,8 +682,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    updateRoute(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    updateRoute(params: Inbound.UpdateRouteParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Delete an existing inbound mailbox route
@@ -383,8 +691,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    deleteRoute(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    deleteRoute(params: Inbound.DeleteRouteParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Take a raw MIME document destined for a domain with inbound domains set up, and send it to the inbound hook exactly as if it had been sent over SMTP
@@ -398,8 +705,7 @@ export declare class Inbound {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    sendRaw(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    sendRaw(params: Inbound.SendRawParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Tags {
@@ -411,8 +717,7 @@ export declare class Tags {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Deletes a tag permanently. Deleting a tag removes the tag from any messages
@@ -423,8 +728,7 @@ export declare class Tags {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    delete(params: Tags.TagParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return more detailed information about a single tag, including aggregates of recent stats
@@ -433,7 +737,7 @@ export declare class Tags {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    info(params: Tags.TagParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the recent history (hourly stats for the last 30 days) for a tag
@@ -442,7 +746,7 @@ export declare class Tags {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    timeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    timeSeries(params: Tags.TagParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the recent history (hourly stats for the last 30 days) for all tags
@@ -450,7 +754,7 @@ export declare class Tags {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    allTimeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    allTimeSeries(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Messages {
@@ -523,7 +827,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    send(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    send(params: Messages.SendParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Send a new transactional message through Mandrill using a template
@@ -597,7 +901,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    sendTemplate(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    sendTemplate(params: Messages.SendTemplateParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Search recently sent messages and optionally narrow by date range, tags, senders, and API keys. If no date range is specified, results within the last 7 days are returned. This method may be called up to 20 times per minute. If you need the data more often, you can use <a href="/api/docs/messages.html#method=info">/messages/info.json</a> to get the information for a single message, or <a href="http://help.mandrill.com/entries/21738186-Introduction-to-Webhooks">webhooks</a> to push activity to your own application for querying.
@@ -612,7 +916,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    search(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    search(params: Messages.SearchParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Search the content of recently sent messages and return the aggregated hourly stats for matching messages
@@ -625,7 +929,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    searchTimeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    searchTimeSeries(params: Messages.SearchTimeSeriesParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Get the information for a single recently sent message
@@ -634,8 +938,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    info(params: Messages.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Get the full content of a recently sent message
@@ -644,8 +947,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    content(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    content(params: Messages.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Parse the full MIME document for an email message, returning the content of the message broken into its constituent pieces
@@ -654,7 +956,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    parse(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    parse(params: Messages.ParseParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Take a raw MIME document for a message, and send it exactly as if it were sent through Mandrill's SMTP servers
@@ -671,8 +973,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    sendRaw(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    sendRaw(params: Messages.SendRawParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Queries your scheduled emails by sender or recipient, or both.
@@ -681,7 +982,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    listScheduled(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    listScheduled(params: Messages.ListScheduledParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Cancels a scheduled email.
@@ -690,8 +991,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    cancelScheduled(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    cancelScheduled(params: Messages.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Reschedules a scheduled email.
@@ -701,8 +1001,7 @@ export declare class Messages {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    reschedule(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    reschedule(params: Messages.RescheduleParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Whitelists {
@@ -718,7 +1017,7 @@ export declare class Whitelists {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    add(params: Whitelists.AddWhitelistParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Retrieves your email rejection whitelist. You can provide an email
@@ -728,7 +1027,7 @@ export declare class Whitelists {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: Whitelists.EmailParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Removes an email address from the whitelist.
@@ -737,8 +1036,7 @@ export declare class Whitelists {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    delete(params: Whitelists.EmailParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Ips {
@@ -750,8 +1048,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Retrieves information about a single dedicated ip.
@@ -760,8 +1057,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    info(params: Ips.IpParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Requests an additional dedicated IP for your account. Accounts may
@@ -773,8 +1069,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    provision(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    provision(params: Ips.ProvisionParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Begins the warmup process for a dedicated IP. During the warmup process,
@@ -786,7 +1081,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    startWarmup(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    startWarmup(params: Ips.IpParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Cancels the warmup process for a dedicated IP.
@@ -795,8 +1090,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    cancelWarmup(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    cancelWarmup(params: Ips.IpParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Moves a dedicated IP to a different pool.
@@ -807,8 +1101,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    setPool(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    setPool(params: Ips.SetPoolParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Deletes a dedicated IP. This is permanent and cannot be undone.
@@ -817,7 +1110,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    delete(params: Ips.IpParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Lists your dedicated IP pools.
@@ -825,8 +1118,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    listPools(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    listPools(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Describes a single dedicated IP pool.
@@ -835,8 +1127,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    poolInfo(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    poolInfo(params: Ips.PoolParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Creates a pool and returns it. If a pool already exists with this
@@ -846,8 +1137,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    createPool(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    createPool(params: Ips.PoolParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Deletes a pool. A pool must be empty before you can delete it, and you cannot delete your default pool.
@@ -856,7 +1146,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    deletePool(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    deletePool(params: Ips.PoolParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Tests whether a domain name is valid for use as the custom reverse
@@ -867,7 +1157,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    checkCustomDns(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    checkCustomDns(params: Ips.CustomDnsParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Configures the custom DNS name for a dedicated IP.
@@ -877,7 +1167,7 @@ export declare class Ips {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    setCustomDns(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    setCustomDns(params: Ips.CustomDnsParams, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Internal {
@@ -894,7 +1184,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: Subaccounts.ListParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Add a new subaccount
@@ -906,8 +1196,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    add(params: Subaccounts.AccountParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Given the ID of an existing subaccount, return the data about it
@@ -916,7 +1205,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    info(params: Subaccounts.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Update an existing subaccount
@@ -928,7 +1217,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    update(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    update(params: Subaccounts.AccountParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Delete an existing subaccount. Any email related to the subaccount will be saved, but stats will be removed and any future sending calls to this subaccount will fail.
@@ -937,8 +1226,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    delete(params: Subaccounts.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Pause a subaccount's sending. Any future emails delivered to this subaccount will be queued for a maximum of 3 days until the subaccount is resumed.
@@ -947,7 +1235,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    pause(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    pause(params: Subaccounts.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Resume a paused subaccount's sending
@@ -956,7 +1244,7 @@ export declare class Subaccounts {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    resume(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    resume(params: Subaccounts.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Urls {
@@ -968,7 +1256,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the 100 most clicked URLs that match the search query given
@@ -977,7 +1265,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    search(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    search(params: Urls.ListParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the recent history (hourly stats for the last 30 days) for a url
@@ -986,7 +1274,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    timeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    timeSeries(params: Urls.UrlParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Get the list of tracking domains set up for this account
@@ -994,7 +1282,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    trackingDomains(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    trackingDomains(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Add a tracking domain to your account
@@ -1003,7 +1291,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    addTrackingDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    addTrackingDomain(params: Urls.DomainParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Checks the CNAME settings for a tracking domain. The domain must have been added already with the add-tracking-domain call
@@ -1012,7 +1300,7 @@ export declare class Urls {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    checkTrackingDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    checkTrackingDomain(params: Urls.DomainParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Webhooks {
@@ -1024,7 +1312,7 @@ export declare class Webhooks {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Add a new webhook
@@ -1036,7 +1324,7 @@ export declare class Webhooks {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    add(params: Webhooks.AddParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Given the ID of an existing webhook, return the data about it
@@ -1045,7 +1333,7 @@ export declare class Webhooks {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    info(params: Webhooks.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Update an existing webhook
@@ -1058,7 +1346,7 @@ export declare class Webhooks {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    update(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    update(params: Webhooks.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Delete an existing webhook
@@ -1067,8 +1355,7 @@ export declare class Webhooks {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: { id: number }, onsuccess?: ICallback, onerror?: ICallback): void;
-
+    delete(params: Webhooks.IdParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Senders {
@@ -1080,7 +1367,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Returns the sender domains that have been added to this account.
@@ -1088,7 +1375,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    domains(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    domains(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Adds a sender domain to your account. Sender domains are added automatically as you
@@ -1098,7 +1385,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    addDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    addDomain(params: Senders.DomainParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Checks the SPF and DKIM settings for a domain. If you haven't already added this domain to your
@@ -1108,7 +1395,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    checkDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    checkDomain(params: Senders.DomainParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Sends a verification email in order to verify ownership of a domain.
@@ -1122,7 +1409,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    verifyDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    verifyDomain(params: Senders.VerifyParams, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return more detailed information about a single sender, including aggregates of recent stats
@@ -1131,7 +1418,7 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    info(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    info(params: Senders.AddressParam, onsuccess?: ICallback, onerror?: ICallback): void;
 
     /**
      * Return the recent history (hourly stats for the last 30 days) for a sender
@@ -1140,18 +1427,20 @@ export declare class Senders {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    timeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    timeSeries(params: Senders.AddressParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
 export declare class Metadata {
     constructor(master: Mandrill);
+
     /**
      * Get the list of custom metadata fields indexed for the account.
      * @param {Object} params the hash of the parameters to pass to the request
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    list(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    list(params: {}, onsuccess?: ICallback, onerror?: ICallback): void;
+
     /**
      * Add a new custom metadata field to be indexed for the account.
      * @param {Object} params the hash of the parameters to pass to the request
@@ -1160,7 +1449,8 @@ export declare class Metadata {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    add(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    add(params: Metadata.MetadataParams, onsuccess?: ICallback, onerror?: ICallback): void;
+
     /**
      * Update an existing custom metadata field.
      * @param {Object} params the hash of the parameters to pass to the request
@@ -1169,7 +1459,8 @@ export declare class Metadata {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    update(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    update(params: Metadata.MetadataParams, onsuccess?: ICallback, onerror?: ICallback): void;
+
     /**
      * Delete an existing custom metadata field. Deletion isn't instataneous, and /metadata/list will continue to return the field until the asynchronous deletion process is complete.
      * @param {Object} params the hash of the parameters to pass to the request
@@ -1177,5 +1468,5 @@ export declare class Metadata {
      * @param {Function} onsuccess an optional callback to execute when the API call is successfully made
      * @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
      */
-    delete(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
+    delete(params: Metadata.NameParam, onsuccess?: ICallback, onerror?: ICallback): void;
 }
