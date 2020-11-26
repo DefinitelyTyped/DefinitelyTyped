@@ -184,7 +184,7 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
-export function mkdir(path: PathLike): Promise<void>;
+export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
