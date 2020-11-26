@@ -196,7 +196,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[]|string;
+        subnetIds: string[] | string;
     }
 
     interface StackParameters {
@@ -384,7 +384,7 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
-        type?: "dynamodb" | "kinesis";
+        type?: 'dynamodb' | 'kinesis';
     }
 
     interface AlexaSkill {
@@ -515,7 +515,7 @@ declare namespace Aws {
         tags?: Tags;
         vpc?: Vpc;
         package?: Package;
-        layers?: (string|Record<string,string>)[];
+        layers?: Array<string | Record<string, string>>;
         tracing?: string;
         condition?: string;
         dependsOn?: string[];
