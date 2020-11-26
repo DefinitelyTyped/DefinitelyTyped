@@ -173,7 +173,7 @@ declare namespace PageJS {
         /**
          * This is the click handler used by page to handle routing when a user clicks an anchor like `<a href="/user/profile">`
          */
-        clickHandler(e: UIEvent): void;
+        clickHandler(e: MouseEvent): void;
     }
 
     interface Route {
