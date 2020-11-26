@@ -459,7 +459,7 @@ const awsServerless: Aws.Serverless = {
                     sns: {
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
-                        filterPolicy: ['testfilterpolicy'],
+                        filterPolicy: { testFilterPolicy: 'testfilterpolicy' },
                         redrivePolicy: {
                             deadLetterTargetArn: 'testdeadLetterTargetArn',
                             deadLetterTargetRef: 'testdeadLetterTargetRef',
