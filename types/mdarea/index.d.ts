@@ -127,4 +127,4 @@ interface MarkdownArea {
 
 declare const mdArea: MarkdownArea;
 
-export default mdArea;
+export = mdArea;
