@@ -4,13 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export interface License {
+    licenses: string;
+    licenseUrl: string;
+    parents: string;
+    repository: string;
+}
+
 export interface Licenses {
-    [repository: string]: {
-        licenses: string;
-        licenseUrl: string;
-        parents: string;
-        repository: string;
-    };
+    [repository: string]: License;
 }
 
 export interface CrawlerOptions {
