@@ -2807,9 +2807,69 @@ declare namespace LayerSet {
  * Controls the position, rotation, and scale of a SceneObject. Every SceneObject automatically has a Transform attached.
  * Lens Studio v1.0.0+
  */
-interface Transform {
+interface Transform extends ScriptObject {
+    /** Returns the Transform’s back directional vector. */
+    back: vec3;
+
+    /** Returns the Transform’s down directional vector. */
+    down: vec3;
+
+    /** Returns the Transform’s forward directional vector. */
+    forward: vec3;
+
+    /** Returns the Transform’s left directional vector. */
+    left: vec3;
+
+    /** Returns the Transform’s right directional vector. */
+    right: vec3;
+
+    /** Returns the Transform’s up directional vector. */
+    up: vec3;
+
+    /** Returns the Transform’s world-to-local transformation matrix. */
+    getInvertedWorldTransform(): mat4;
+
+    /** Returns the Transform’s position relative to its parent. */
     getLocalPosition(): vec3;
+
+    /** Returns the Transform’s rotation relative to its parent. */
+    getLocalRotation(): quat;
+
+    /** Returns the Transform’s scale relative to its parent. */
+    getLocalScale(): vec3;
+
+    /** Returns the SceneObject the Transform is attached to. */
+    getSceneObject(): SceneObject;
+
+    /** Returns the Transform’s position relative to the world. */
     getWorldPosition(): vec3;
+
+    /** Returns the Transform’s rotation relative to the world. */
+    getWorldRotation(): quat;
+
+    /** Returns the Transform’s scale relative to the world. */
+    getWorldScale(): vec3;
+
+    /** Returns the Transform’s local-to-world transformation matrix. */
+    getWorldTransform(): mat4;
+
+    /** Sets the Transform’s position relative to its parent. */
+    setLocalPosition(pos: vec3): void;
+
+    /** Sets the Transform’s rotation relative to its parent. */
+    setLocalRotation(rotation: quat): void;
+
+    /** Sets the Transform’s scale relative to its parent. */
+    setLocalScale(scale: vec3): void;
+
+    /** Sets the Transform’s position relative to the world. */
+    setWorldPosition(pos: vec3): void;
+
+    /** Sets the Transform’s rotation relative to the world. */
+    setWorldRotation(rotation: quat): void;
+
+    /** Sets the Transform’s scale relative to the world. This may produce lossy results when parent objects are rotated, so use setLocalScale( instead: ) if possible. */
+    setWorldScale(scale: vec3): void;
 }
 
 /** The base class for animation tracks. */
@@ -2978,7 +3038,32 @@ declare namespace Asset {
         getAspectRatio(): number;
     }
 
-    type Material = Asset;
+    /**
+     * An asset that describes how visual objects should appear. Each Material is a collection of Passes which define the actual rendering passes. Materials are used by MeshVisuals for drawing meshes
+     * in the scene.
+     * ```
+     * // Gets the first pass of a material on a sprite and plays the animation from its texture
+     * var sprite = script.getSceneObject().getFirstComponent("Component.SpriteVisual");
+     * var material = sprite.getMaterial(0);
+     * material.getPass(0).baseTex.control.play(-1,0.0);
+     * // Print number of passes
+     * print("Pass count = " + material.getPassCount().toString());
+     * ```
+     */
+    interface Material extends Asset {
+        /** The first Pass of the Material. */
+        mainPass: Pass;
+
+        /** Returns a copy of the Material. */
+        clone(): Material;
+
+        /** Returns the Pass of the Material at index index. */
+        getPass(index: number): Pass;
+
+        /** Returns the number of Passes for the Material. */
+        getPassCount(): number;
+    }
+
     type ObjectPrefab = Asset;
     /** Represents a mesh asset. See also: Asset.RenderMeshVisual. */
     interface RenderMesh extends Asset {
