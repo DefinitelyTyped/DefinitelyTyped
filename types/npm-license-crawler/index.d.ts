@@ -36,6 +36,8 @@ export interface CrawlerOptions {
     start: string | string[];
     /** show only licenses that can't be determined or have been guessed. */
     unknown?: boolean;
+    /** don't show colors in the console output */
+    noColor?: boolean;
 }
 
 export type Callback = (error: Error | null, licenses: Licenses) => void;
