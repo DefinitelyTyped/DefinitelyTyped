@@ -15,9 +15,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "test/expression-controller.ts"
-    ]
+    }
 }

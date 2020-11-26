@@ -402,8 +402,6 @@
 //  @input bool advanced = false
 //  @input Component.RenderMeshVisual faceMesh                   {"showIf" : "advanced"}
 
-// import 'snapchat-lens-studio';
-
 const {
     blendShapesComponent,
     customizeExpressions,
@@ -477,7 +475,7 @@ function checkBlendShapes() {
 }
 
 function getBlendShapeName(name: keyof Expressions) {
-    return expressionConfig[`${name}Rename` as `${keyof Expressions}Rename`] || name;
+    return expressionConfig[`${name}Rename` as const] || name; // tslint:disable-line no-unnecessary-type-assertion
 }
 
 function setBlendShapes() {
@@ -495,7 +493,7 @@ function setBlendShapes() {
                 blendShapesComponent,
                 blendShapeName,
                 i,
-                expressionConfig[`${name}Scale` as `${keyof Expressions}Scale`],
+                expressionConfig[`${name}Scale` as const], // tslint:disable-line no-unnecessary-type-assertion
             );
         }
     }
