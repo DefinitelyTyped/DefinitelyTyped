@@ -1,7 +1,7 @@
 // Type definitions for FHIR Release 3.0
 // Project: http://hl7.org/fhir/index.html
 // Definitions by: Artifact Health <https://github.com/meirgottlieb>
-//                 Jan Huenges < https://github.com/jhuenges>
+//                 Jan Huenges <https://github.com/jhuenges>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
 declare module fhir {
@@ -2846,7 +2846,7 @@ declare module fhir {
             | 'transaction'
             | 'transaction-response'
             | 'batch'
-            | ' batch-response'
+            | 'batch-response'
             | 'history'
             | 'searchset'
             | 'collection';
