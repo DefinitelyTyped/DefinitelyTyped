@@ -1,5 +1,5 @@
 import dateArithmetic = require('date-arithmetic');
-import { add, subtract, eq, neq, gt, gte, lt, lte, inRange, min, max } from 'date-arithmetic';
+import { add, subtract, eq, neq, gt, gte, lt, lte, inRange, min, max, diff } from 'date-arithmetic';
 
 dateArithmetic.add(new Date(2010, 7, 23), 2, 'seconds');
 dateArithmetic.add(new Date(2010, 7, 23), 2, 'minutes');
@@ -80,3 +80,6 @@ min(new Date(), new Date(), new Date());
 
 dateArithmetic.max(new Date(), new Date(), new Date());
 max(new Date(), new Date(), new Date());
+
+dateArithmetic.diff(new Date(), new Date(), 'day', true);
+diff(new Date(), new Date(), 'day');

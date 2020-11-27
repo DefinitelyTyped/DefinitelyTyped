@@ -84,4 +84,7 @@ export function min(...dates: Date[]): Date;
 /** Return the latest date from the passed dates */
 export function max(...dates: Date[]): Date;
 
+/** Return difference between two dates in provided units */
+export function diff(date1: Date, date2: Date, unit: Unit, asFloat?: boolean): number;
+
 export type StartOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
