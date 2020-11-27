@@ -12,9 +12,20 @@ import _styled, {
     FlattenSimpleInterpolation,
 } from 'styled-components';
 import { SystemProps } from '@xstyled/system';
+
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/index.js#L1-L16}
+ */
 export * from 'styled-components';
+
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/index.js#L20}
+ */
 export * from '@xstyled/system';
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L11}
+ */
 export interface ColorModeProviderProps {
     children?: React.ReactNode;
     target?: HTMLElement;
@@ -23,10 +34,20 @@ export interface ColorModeProviderProps {
 
 export class ColorModeProvider extends React.Component<ColorModeProviderProps> {}
 
+
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L18}
+ */
 export function useColorMode(): [string, (colorMode: string) => void];
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L19}
+ */
 export function getColorModeInitScriptElement(options?: { target: string }): React.ReactElement;
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L20}
+ */
 export function getColorModeInitScriptTag(options?: { target: string }): string;
 
 /**
@@ -74,14 +95,29 @@ type WithBreakpointArgs<Props> = {
     [Key in keyof Props]?: Props[Key] | BreakpointObject<Props[Key]>;
 };
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/breakpoints.js#L11}
+ */
 export function useBreakpoints(): DefaultBreakpoints;
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/breakpoints.js#L9}
+ */
 export function useViewportWidth(): number | string;
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/breakpoints.js#L15}
+ */
 export function useBreakpoint(): BreakpointName;
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/breakpoints.js#L19}
+ */
 export function useUp(_bereakpointName: BreakpointName): boolean;
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/breakpoints.js#L23}
+ */
 export function useDown(_bereakpointName: BreakpointName): boolean;
 
 export type BoxProps = WithBreakpointArgs<SystemProps>;
@@ -96,13 +132,20 @@ export type BoxProps = WithBreakpointArgs<SystemProps>;
 //   >
 // }
 
+/**
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/styled.js#L27}
+ */
 export const Box: StyledComponent<'div', DefaultTheme, BoxProps>;
 
 export function breakpoints(styles: BreakpointObject<FlattenSimpleInterpolation | string>): TemplateStringsArray;
 
-/* Support for xxBoxes, i.e. aBox, articleBox
+/**
+ * Support for xxBoxes, i.e. aBox, articleBox
  * List of dom elements from Styled Components:
- * https://github.com/styled-components/styled-components/blob/master/packages/styled-components/src/utils/domElements.js */
+ * https://github.com/styled-components/styled-components/blob/master/packages/styled-components/src/utils/domElements.js
+ *
+ * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/styled.js#L31-L36}
+ */
 
 declare const styled: typeof _styled & {
     aBox: ThemedStyledFunction<'a', DefaultTheme, BoxProps>;
