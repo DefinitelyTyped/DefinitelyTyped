@@ -677,7 +677,7 @@ namespace Parse {
         filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
-            key: K, 
+            key: K,
             value: (T['attributes'][K] extends any[] ? T['attributes'][K][0] : T['attributes'][K]) | (T['attributes'][K] extends Object ? Pointer : never)
         ): this;
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
