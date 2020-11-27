@@ -1,4 +1,4 @@
-import type { Configuration as WebpackConfig } from 'webpack';
+import { Configuration as WebpackConfig } from 'webpack';
 
 /**
  * An override function is supplied a webpack config, which it modifies
@@ -28,3 +28,17 @@ export function overrideDevServer(...args: OverrideFunc[]): OverrideFunc;
 
 /** logs the config to the console, useful for debugging */
 export function tap(options?: { message?: string; dest?: string }): OverrideFunc;
+
+/**
+ *
+ * Returns the `babel` loader from the provided `config`.
+ *
+ * `create-react-app` defines two `babel` configurations, one for js files
+ * found in `src/` and another for any js files found outside that directory.
+ * This function can target either using the `isOutsideOfApp` param.
+ *
+ * @param config The webpack config to search.
+ * @param isOutsideOfApp Flag for whether to use the `babel-loader`
+ * for matching files in `src/` or files outside of `src/`.
+ */
+export function getBabelLoader(config: WebpackConfig, isOutsideOfApp: boolean): unknown;

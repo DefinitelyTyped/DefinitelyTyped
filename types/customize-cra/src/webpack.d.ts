@@ -1,4 +1,4 @@
-import { Configuration as WebpackConfig, RuleSetRule, Options, Rule } from 'webpack';
+import { Configuration as WebpackConfig, RuleSetRule, Options, Plugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { GenerateSWOptions } from 'workbox-webpack-plugin';
 import { OverrideFunc } from './core';
@@ -54,6 +54,10 @@ export function addWebpackExternals(options: WebpackConfig['externals']): Overri
  * @see https://webpack.js.org/configuration/module/#modulerules
  */
 export function addWebpackModuleRule(rule: RuleSetRule): OverrideFunc;
+
+export function addWebpackResolve(resolve: WebpackConfig['resolve']): OverrideFunc;
+
+export function addWebpackPlugin(plugin: Plugin): OverrideFunc;
 
 // TODO: type
 export function addTslintLoader(x: any): OverrideFunc;
