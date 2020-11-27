@@ -1,11 +1,9 @@
-// Type definitions for module-deps 6.1
+// Type definitions for module-deps 6.2
 // Project: https://github.com/browserify/module-deps
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-import * as browserResolve from "browser-resolve";
 
 /**
  * Return an object transform stream 'd' that expects entry filenames or '{ id: ..., file: ... }' objects
@@ -35,7 +33,7 @@ declare namespace moduleDeps {
         /**
          * Custom resolve function using the opts.resolve(id, parent, cb) signature that browser-resolve has
          */
-        resolve?: (id: string, opts: browserResolve.SyncOpts, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void;
+        resolve?: (id: string, opts: ParentObject, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void;
 
         /**
          * A custom dependency detection function. opts.detect(source) should return an array of dependency module names. By default detective is used
@@ -108,7 +106,7 @@ declare namespace moduleDeps {
     }
 
     interface ModuleDepsObject extends NodeJS.ReadWriteStream {
-        resolve(id: string, parent: { id: string }, cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any): any;
+        resolve(id: string, parent: Partial<ParentObject> & { id: string; [name: string]: any }, cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any): any;
 
         readFile(file: string, id?: any, pkg?: PackageObject): NodeJS.ReadableStream;
 
@@ -159,6 +157,19 @@ declare namespace moduleDeps {
         transform: string | (() => any);
         options: any;
         global?: boolean;
+    }
+
+    interface ParentObject {
+        id: string;
+        filename: string;
+        basedir: string;
+        paths: string[];
+        package?: any;
+        packageFilter?: (p: PackageObject, x: string) => PackageObject & { __dirname: string };
+        inNodeModules?: boolean;
+        // undocumented, see 'Options' interface
+        extensions?: string[];
+        modules?: { [name: string]: any };
     }
 
     interface TransformObject {

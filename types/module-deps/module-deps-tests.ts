@@ -23,11 +23,17 @@ function coreDepsTest() {
             }
         }
     });
+
+    s.resolve("id", { id: "id" }, (err, file, pkg) => {
+        const errMsg: string | null = err != null ? err.message : null;
+        const ext: string = file != null ? file.substr(file.indexOf(".")) : "js";
+    });
 }
 
 function rifiTest() {
     const md = moduleDeps({
         resolve: (id, parent, cb) => {
+            const parentDependency = parent.id.substr(1);
             const dependency = id.substr(1);
         },
         transform: [],
