@@ -7,11 +7,11 @@
 declare namespace core {
     function seed(value: number | string): void;
 
-    function float(max: number): number; // tslint:disable-line unified-signatures
+    function float(max: number): number;
     function float(min: number, max: number): number; // tslint:disable-line unified-signatures
     function float(min: number, max: number, n: number): number[];
 
-    function int(max: number): number; // tslint:disable-line unified-signatures
+    function int(max: number): number;
     function int(min: number, max: number): number; // tslint:disable-line unified-signatures
     function int(min: number, max: number, n: number): number[];
 

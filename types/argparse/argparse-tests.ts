@@ -11,6 +11,7 @@ import {
     OPTIONAL,
     SUPPRESS,
     REMAINDER,
+    ArgumentError,
 } from 'argparse';
 let args: any;
 
@@ -48,6 +49,9 @@ console.dir(args);
 console.log('-----------');
 args = simpleExample.parse_args('--foo 5 --bar 6'.split(' '));
 console.dir(args);
+console.log('-----------');
+
+console.dir(simpleExample.convert_arg_line_to_args("foo  bar   asd"));
 console.log('-----------');
 
 const choicesExample = new ArgumentParser({
@@ -348,7 +352,21 @@ args = constExample.parse_args('--foo x --bar --baz y --qux z a b c d e'.split('
 console.dir(args);
 console.log('-----------');
 
-const versionExample = new ArgumentParser({description: 'Add version'});
-versionExample.add_argument('-v', '--v', {action: 'version', version: '1.0.0'});
+const versionExample = new ArgumentParser({ description: 'Add version' });
+versionExample.add_argument('-v', '--v', { action: 'version', version: '1.0.0' });
 versionExample.print_help();
+console.log('-----------');
+
+const noExitOnError = new ArgumentParser({
+    exit_on_error: false
+});
+noExitOnError.add_argument('-f', '--foo', { action: 'store_true' });
+try {
+    noExitOnError.parse_args(['unknown']);
+} catch (err) {
+    if (err instanceof ArgumentError) {
+        const errorMessage: string = err.str();
+        console.log(errorMessage);
+    }
+}
 console.log('-----------');

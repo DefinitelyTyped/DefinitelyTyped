@@ -19,7 +19,7 @@ export interface MatchImageSnapshotOptions {
     /**
      * Custom config passed to 'pixelmatch' or 'ssim'
      */
-    customDiffConfig?: PixelmatchOptions | SSIMOptions;
+    customDiffConfig?: PixelmatchOptions | Partial<SSIMOptions>;
     /**
      * The method by which images are compared.
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.

@@ -16,6 +16,7 @@ var config: tedious.ConnectionConfig = {
 };
 
 var connection = new tedious.Connection(config);
+connection.connect((error: Error): void => {});
 connection.on("connect", (): void => {
     console.log("hurray");
 });

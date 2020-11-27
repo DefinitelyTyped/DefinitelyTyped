@@ -12,6 +12,8 @@ const App = () => {
                 type="Audio"
                 visible={true}
                 width={80}
+                className="some-class"
+                style={{color: "red"}}
             />
             <Loader
                 color="#8000FF"

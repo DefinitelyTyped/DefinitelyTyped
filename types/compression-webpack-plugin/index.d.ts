@@ -1,11 +1,11 @@
-// Type definitions for compression-webpack-plugin 4.0
+// Type definitions for compression-webpack-plugin 6.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 //                 Rhys van der Waerden <https://github.com/rhys-vdw>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 import { ZlibOptions as ZlibCompressionOptions } from 'zlib';
 
 export = CompressionPlugin;
@@ -16,6 +16,8 @@ export = CompressionPlugin;
 declare class CompressionPlugin<O = any> extends Plugin {
     static isWebpack4(): boolean;
     constructor(options?: CompressionPlugin.Options<O>);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace CompressionPlugin {

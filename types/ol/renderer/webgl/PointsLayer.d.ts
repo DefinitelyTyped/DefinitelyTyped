@@ -10,10 +10,18 @@ import Source from '../../source/Source';
 import { UniformValue } from '../../webgl/Helper';
 import WebGLLayerRenderer, { PostProcessesOptions } from './Layer';
 
+/**
+ * A description of a custom attribute to be passed on to the GPU, with a value different
+ * for each feature.
+ */
 export interface CustomAttribute {
     name: string;
     callback: (p0: Feature<Geometry>, p1: { [key: string]: any }) => number;
 }
+/**
+ * Object that holds a reference to a feature, its geometry and properties. Used to optimize
+ * rebuildBuffers by accessing these objects quicker.
+ */
 export interface FeatureCacheItem {
     feature: Feature<Geometry>;
     properties: { [key: string]: any };
@@ -30,6 +38,9 @@ export interface Options {
 }
 export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
     constructor(layer: Layer<Source>, options: Options);
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
@@ -39,9 +50,21 @@ export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
         declutteredFeatures: FeatureLike[],
     ): T;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState): HTMLElement;
+    /**
+     * Render the hit detection data to the corresponding render target
+     */
     renderHitDetection(frameState: FrameState): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

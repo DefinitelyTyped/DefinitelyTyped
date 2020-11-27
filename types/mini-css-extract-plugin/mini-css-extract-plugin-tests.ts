@@ -77,7 +77,30 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
+            filename: configuration.output!.filename,
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
             esModule: true,
         }),
     ],
 };
+
+configuration = {
+    // `linkType`
+    plugins: [
+        new MiniCssExtractPlugin({
+            linkType: 'text/css',
+        }),
+        new MiniCssExtractPlugin({
+            linkType: false,
+        }),
+    ],
+};
+
+new MiniCssExtractPlugin().apply(new webpack.Compiler());

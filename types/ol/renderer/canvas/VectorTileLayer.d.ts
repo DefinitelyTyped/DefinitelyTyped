@@ -24,18 +24,35 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
     ): T;
+    /**
+     * Asynchronous layer level hit detection.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
     getTile(z: number, x: number, y: number, frameState: FrameState): Tile;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
     isDrawableTile(tile: VectorRenderTile): boolean;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
-    prepareTile(tile: VectorRenderTile, pixelRatio: number, projection: Projection, queue: boolean): boolean;
+    prepareTile(
+        tile: VectorRenderTile,
+        pixelRatio: number,
+        projection: Projection,
+        queue: boolean,
+    ): boolean | undefined;
     renderFeature(
         feature: FeatureLike,
         squaredTolerance: number,
         styles: Style | Style[],
         executorGroup: BuilderGroup,
     ): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     renderQueuedTileImages_(hifi: boolean, frameState: FrameState): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -41,7 +41,7 @@ export function once(
 interface RegularRequestOptionsType {
     domain?: DomainMatcher;
     fireAndForget?: false;
-    timout?: number;
+    timeout?: number;
 }
 
 interface ResponseMessageEvent {
@@ -53,7 +53,7 @@ interface ResponseMessageEvent {
 interface FireAndForgetRequestOptionsType {
     domain?: DomainMatcher;
     fireAndForget?: true;
-    timout?: number;
+    timeout?: number;
 }
 
 // based on https://github.com/post-robot/src/public/send.js

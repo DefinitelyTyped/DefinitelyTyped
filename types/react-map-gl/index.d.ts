@@ -207,6 +207,10 @@ export class MapController implements BaseMapController {
 export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
+    offsetCenter: {
+        x: number;
+        y: number;
+    };
     lngLat: [number, number];
     target: any;
     srcEvent: any;

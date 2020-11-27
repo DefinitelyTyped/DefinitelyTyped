@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import * as utils from '@ember/utils';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
@@ -12,22 +12,20 @@ function testIsNoneType() {
 }
 
 function testMerge() {
-    assertType<{ first: string, last: string }>(
-        Ember.merge({ first: 'Tom' }, { last: 'Dale' })
-    );
+    assertType<{ first: string; last: string }>(Ember.merge({ first: 'Tom' }, { last: 'Dale' }));
 }
 
 function testAssign() {
-    assertType<{ first: string, middle: string, last: string }>(
-        Ember.assign({ first: 'Tom' }, { middle: 'M' }, { last: 'Dale' })
+    assertType<{ first: string; middle: string; last: string }>(
+        Ember.assign({ first: 'Tom' }, { middle: 'M' }, { last: 'Dale' }),
     );
 }
 
 function testOnError() {
-    Ember.onerror = function(error) {
+    Ember.onerror = function (error) {
         Ember.$.post('/report-error', {
             stack: error.stack,
-            otherInformation: 'whatever app state you want to provide'
+            otherInformation: 'whatever app state you want to provide',
         });
     };
 }
@@ -51,11 +49,11 @@ function testDeprecateFunc() {
 }
 
 function testDeprecate() {
-  Ember.deprecate('This has been deprecated', false, {
-    id: 'some.id',
-    until: '1.0.0',
-    url: 'http://www.emberjs.com'
-  });
+    Ember.deprecate('This has been deprecated', false, {
+        id: 'some.id',
+        until: '1.0.0',
+        url: 'http://www.emberjs.com',
+    });
 }
 
 function testDefineProperty() {
@@ -66,14 +64,18 @@ function testDefineProperty() {
         writable: true,
         configurable: false,
         enumerable: true,
-        value: 'Charles'
+        value: 'Charles',
     });
 
     // define a simple property
     Ember.defineProperty(contact, 'lastName', undefined, 'Jolley');
 
     // define a computed property
-    Ember.defineProperty(contact, 'fullName', Ember.computed('firstName', 'lastName', function() {
-        return `${this.firstName} ${this.lastName}`;
-    }));
+    Ember.defineProperty(
+        contact,
+        'fullName',
+        Ember.computed('firstName', 'lastName', function () {
+            return `${this.firstName} ${this.lastName}`;
+        }),
+    );
 }

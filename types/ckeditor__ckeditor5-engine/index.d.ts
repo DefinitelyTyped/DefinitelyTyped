@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as ckutils from "ckeditor__ckeditor5-utils";
+import * as ckutils from "@ckeditor/ckeditor5-utils";
 
 export namespace controller {
     // engine/controller/datacontroller

@@ -200,6 +200,17 @@ describe("Included matchers:", () => {
         expect(new Error()).toBeInstanceOf(Error);
     });
 
+    it("The 'toHaveSize' matcher is for testing the size of objects", () => {
+      expect([1, 2, 3]).toHaveSize(3);
+      expect(new Set([1, 2])).toHaveSize(2);
+      expect(new Map([[1, 'one']])).toHaveSize(1);
+      expect({length: 5}).toHaveSize(5);
+      expect({a: 5, b: 6}).toHaveSize(2);
+      // Expected size should be number
+      // $ExpectError
+      expect([1, 2, 3]).toHaveSize("size should be number");
+    });
+
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
@@ -361,6 +372,24 @@ describe("Pending specs", () => {
     });
 });
 
+describe('setSpecProperty', () => {
+  it("should be able to set spec property", () => {
+    setSpecProperty('name', 'value');
+    // Key must be string
+    // $ExpectError
+    setSpecProperty(42, 'value');
+  });
+});
+
+describe('setSuiteProperty', () => {
+  it("should be able to set suite property", () => {
+    setSuiteProperty('name', true);
+    // Key must be string
+    // $ExpectError
+    setSuiteProperty(42, true);
+  });
+});
+
 describe("A spy", () => {
     var foo: any, bar: any, baz: any = null;
 
@@ -380,6 +409,7 @@ describe("A spy", () => {
         foo.setBar(123);
         foo.setBar(456, 'another param');
         foo.setBaz(789);
+        foo.setBaz(789);
     });
 
     it("tracks that the spy was called", () => {
@@ -387,8 +417,15 @@ describe("A spy", () => {
     });
 
     it("tracks all the arguments of its calls", () => {
-        expect(foo.setBar).toHaveBeenCalledWith(123);
-        expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+      expect(foo.setBar).toHaveBeenCalledWith(123);
+      expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+    });
+
+    it("tracks called once", () => {
+        expect(foo.setBar).toHaveBeenCalledOnceWith(123);
+        expect(foo.setBar).toHaveBeenCalledOnceWith(456, 'another param');
+        expect(foo.setBar).not.toHaveBeenCalledOnceWith(0);
+        expect(foo.setBar).not.toHaveBeenCalledOnceWith(789);
     });
 
     it("tracks the order in which spies were called", () => {
@@ -1028,6 +1065,39 @@ describe("jasmine.any", () => {
     });
 });
 
+describe('DiffBuilder', function() {
+  it('can be passed to matchersUtil.equals', () => {
+      const differ = jasmine.DiffBuilder();
+      jasmine.matchersUtil.equals(1, 1, undefined, differ);
+  });
+
+  it('records the actual and expected objects', () => {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({ x: 'actual' }, { x: 'expected' });
+      diffBuilder.recordMismatch();
+
+      expect(diffBuilder.getMessage()).toEqual(
+          "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
+      );
+  });
+
+  it("allows customization of the message", function() {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({x: 'bar'}, {x: 'foo'});
+
+      function darthVaderFormatter(actual: any, expected: any, path: any) {
+          return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
+      }
+
+      diffBuilder.withPath('x', () => {
+          diffBuilder.recordMismatch(darthVaderFormatter);
+      });
+
+      expect(diffBuilder.getMessage())
+          .toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
+  });
+});
+
 describe('custom asymmetry', function() {
     const tester: jasmine.AsymmetricMatcher<string> = {
         asymmetricMatch: (actual: string, customTesters) => {
@@ -1347,6 +1417,26 @@ describe("custom equality", () => {
     });
 });
 
+// test based on https://jasmine.github.io/tutorials/custom_object_formatters
+describe("custom object formatter", () => {
+  const myCustomFormatter: jasmine.CustomObjectFormatter = function(value: unknown): string | undefined {
+      if (typeof value === "number") {
+          return '0x' + value.toString(16);
+      }
+  };
+
+  beforeEach(() => {
+      jasmine.addCustomObjectFormatter(myCustomFormatter);
+      // Invalid return value
+      // $ExpectError
+      jasmine.addCustomObjectFormatter(() => 3);
+  });
+
+  it("should be okay to compare", () => {
+      expect(1).not.toEqual(2);
+  });
+});
+
 // test based on http://jasmine.github.io/2.2/custom_matcher.html
 var customMatchers: jasmine.CustomMatcherFactories = {
     toBeGoofy: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
@@ -1360,8 +1450,8 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
 
                 result.message = result.pass ?
-                    `Expected ${actual} not to be quite so goofy` :
-                    `Expected ${actual} to be goofy, but it was not very goofy`;
+                    `Expected ${util.pp(actual)} not to be quite so goofy` :
+                    `Expected ${util.pp(actual)} to be goofy, but it was not very goofy`;
 
                 return result;
             }
@@ -1371,13 +1461,13 @@ var customMatchers: jasmine.CustomMatcherFactories = {
         return {
             compare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
                 const pass = actual >= floor && actual <= ceiling;
-                const message = `expected ${actual} to be within range ${floor}-${ceiling}`;
+                const message = `expected ${util.pp(actual)} to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             },
 
             negativeCompare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
                 const pass = actual < floor && actual > ceiling;
-                const message = `expected ${actual} not to be within range ${floor}-${ceiling}`;
+                const message = `expected ${util.pp(actual)} not to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             }
         };
@@ -1454,7 +1544,6 @@ describe("Custom async matcher: 'toBeEight'", () => {
         jasmine.addAsyncMatchers({
             toBeEight: () => {
                 return {
-                    // tslint:disable-next-line:no-any
                     compare: async (input: any) => {
                         return {
                             pass: input === 8,
@@ -1579,7 +1668,6 @@ var myReporter: jasmine.CustomReporter = {
 
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Spec: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
@@ -1591,7 +1679,6 @@ var myReporter: jasmine.CustomReporter = {
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Suite: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
@@ -1812,6 +1899,9 @@ describe("User scenarios", () => {
     env.specFilter = (spec) => {
         return specFilter.matches(spec.getFullName());
     };
+
+    env.setSpecProperty('name', 'value');
+    env.setSuiteProperty('other-name', null);
 
     const currentWindowOnload = window.onload;
     window.onload = () => {

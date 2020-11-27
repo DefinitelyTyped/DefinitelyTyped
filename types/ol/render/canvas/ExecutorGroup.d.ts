@@ -33,11 +33,17 @@ export default class ExecutorGroup {
         hitTolerance: number,
         callback: (p0: FeatureLike) => T,
         declutteredFeatures: FeatureLike[],
-    ): T;
+    ): T | undefined;
     getClipCoords(transform: Transform): number[];
     hasExecutors(executors: BuilderType[]): boolean;
     isEmpty(): boolean;
 }
+/**
+ * This methods creates a circle inside a fitting array. Points inside the
+ * circle are marked by true, points on the outside are undefined.
+ * It uses the midpoint circle algorithm.
+ * A cache is used to increase performance.
+ */
 export function getCircleArray(radius: number): (boolean | undefined)[][];
 export function replayDeclutter(
     declutterReplays: { [key: string]: any[] },

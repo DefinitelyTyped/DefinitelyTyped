@@ -798,7 +798,7 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
@@ -870,7 +870,7 @@ declare namespace NodeJS {
         /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask?: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1085,11 +1085,21 @@ declare namespace NodeJS {
         refresh(): this;
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;

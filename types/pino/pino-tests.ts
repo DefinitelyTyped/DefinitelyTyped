@@ -248,3 +248,10 @@ interface StrictShape {
 info<StrictShape>({
     activity: 'Required property',
 });
+
+const logLine: pino.LogDescriptor = {
+    level: 20,
+    msg: 'A log message',
+    time: new Date().getTime(),
+    aCustomProperty: true,
+};
