@@ -11,7 +11,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "paths": {
+            "@orbit-ui/*": ["orbit-ui__*"]
+        }
     },
     "files": ["index.d.ts", "orbit-ui__react-components-tests.tsx"]
 }
