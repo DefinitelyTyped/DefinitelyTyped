@@ -1,4 +1,4 @@
-// Type definitions for @xstyled/styled-components 1.19
+// Type definitions for @xstyled/styled-components 1.19.1
 // Project: https://github.com/smooth-code/xstyled
 // Definitions by: Joseph Thomas <https://github.com/good-idea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,7 +33,6 @@ export interface ColorModeProviderProps {
 }
 
 export class ColorModeProvider extends React.Component<ColorModeProviderProps> {}
-
 
 /**
  * @see {@link https://github.com/smooth-code/xstyled/blob/v1.19.1/packages/styled-components/src/colorModes.js#L18}
