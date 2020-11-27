@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "moment": "*",
+        "react": "*",
+        "semantic-ui-react": "0.88.1"
+    }
+}
