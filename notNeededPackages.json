@@ -2421,6 +2421,11 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "match-sorter",
+            "typingsPackageName": "match-sorter",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "matcher",
             "typingsPackageName": "matcher",
             "asOfVersion": "2.0.0"
