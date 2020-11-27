@@ -1,8 +1,9 @@
 // Type definitions for FHIR Release 3.0
 // Project: http://hl7.org/fhir/index.html
 // Definitions by: Artifact Health <https://github.com/meirgottlieb>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Jan Huenges <https://github.com/jhuenges>
+//                 Jan Huenges < https://github.com/jhuenges>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
+
 declare module fhir {
     /**
      * Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.
