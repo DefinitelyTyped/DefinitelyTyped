@@ -1,5 +1,4 @@
 import singleSpaReact = require("single-spa-react");
-import { Lifecycles } from "single-spa-react";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -17,5 +16,8 @@ class rootComponent extends React.Component<customProps> {
 singleSpaReact({
     React,
     ReactDOM,
-    rootComponent
+    rootComponent,
+    errorBoundary(err: Error, _info: React.ErrorInfo, _props: any) {
+        console.log(err, _info, _props);
+    },
 });

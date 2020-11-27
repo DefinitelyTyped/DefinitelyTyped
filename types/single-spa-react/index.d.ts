@@ -23,6 +23,7 @@ declare namespace SingleSpaReact {
         domElementGetter?: () => Element;
         suppressComponentDidCatchWarning?: boolean;
         parcelCanUpdate?: boolean;
+        errorBoundary?: (err: Error, _info: React.ErrorInfo, _props: any) => void;
     }
 
     interface Lifecycles {
