@@ -61,10 +61,6 @@ declare module fhir {
      */
     type unsignedInt = number;
     /**
-     * Indicates the progression of a study subject through a study
-     */
-    type ResearchSubjectStatus = 'candidate' | 'enrolled' | 'active' | 'suspended' | 'withdrawn' | 'completed';
-    /**
      * Time range defined by start and end date/time
      */
     interface Period extends Element {
@@ -20857,7 +20853,7 @@ declare module fhir {
         /**
          * candidate | enrolled | active | suspended | withdrawn | completed
          */
-        status: ResearchSubjectStatus;
+        status: 'candidate' | 'enrolled' | 'active' | 'suspended' | 'withdrawn' | 'completed';
         /**
          * Contains extended information for property 'status'.
          */
