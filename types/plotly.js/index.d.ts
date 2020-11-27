@@ -436,6 +436,7 @@ export interface Layout {
     barnorm: '' | 'fraction' | 'percent';
     bargap: number;
     bargroupgap: number;
+    boxmode: 'group' | 'overlay';
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
     grid: Partial<{
