@@ -13,5 +13,5 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
     },
-    "files": ["index.d.ts", "orbit-ui__react-components-tests.ts"]
+    "files": ["index.d.ts", "orbit-ui__react-components-tests.tsx"]
 }

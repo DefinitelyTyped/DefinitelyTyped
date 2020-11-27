@@ -1,6 +1,6 @@
-// Type definitions for orbit-ui__react-components x.x
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Alexandre Asselin <https://github.com/me>
+// Type definitions for @orbit-ui/react-components 11.1.0
+// Project: https://github.com/gsoft-inc/sg-orbit
+// Definitions by: Alexandre Asselin <https://github.com/alexasselin008>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module '@orbit-ui/react-components' {
     import type {
@@ -100,7 +100,6 @@ declare module '@orbit-ui/react-components' {
         [key: string]: any;
     }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Button extends Component<ButtonProps, {}> {
         static Content: typeof ButtonContent;
         static Group: typeof ButtonGroup;
@@ -512,7 +511,6 @@ declare module '@orbit-ui/react-components' {
 
     const DropdownItem: ComponentType<DropdownItemProps>;
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Dropdown extends Component<DropdownProps, {}> {
         static Divider: typeof SemanticDropdown.Divider;
         static Header: typeof SemanticDropdown.Header;
@@ -694,7 +692,6 @@ declare module '@orbit-ui/react-components' {
         [key: string]: any;
     }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Label extends Component<LabelProps, {}> {
         Detail: typeof LabelDetail;
         Group: typeof LabelGroup;
@@ -711,7 +708,6 @@ declare module '@orbit-ui/react-components' {
         [key: string]: any;
     }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Message extends Component<MessageProps, {}> {
         static Content: typeof MessageContent;
         static Header: typeof MessageHeader;
@@ -1327,10 +1323,8 @@ declare module '@orbit-ui/react-components' {
         className?: string;
     }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class SearchInput<T> extends Component<SearchInputProps<T>, {}> { }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class RemoteSearchInput<T> extends Component<RemoteSearchInputProps<T>, {}> { }
 
     const SearchInputController: ComponentType<SearchInputControllerProps>;
@@ -1451,7 +1445,6 @@ declare module '@orbit-ui/react-components' {
 
     const SelectItem: ComponentType<SelectItemProps>;
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Select extends Component<SelectProps, {}> {
         static Divider: typeof SemanticDropdown.Divider;
         static Header: typeof SemanticDropdown.Header;
@@ -1594,7 +1587,6 @@ declare module '@orbit-ui/react-components' {
 
     const SelectedItem: ComponentType<TagsPickerSelectedItemsProps>;
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class TagsPicker extends Component<TagsPickerProps, {}> {
         static SelectedItems: typeof SelectedItem;
     }
@@ -1791,7 +1783,6 @@ declare module '@orbit-ui/react-components' {
         [key: string]: any;
     }
 
-    // eslint-disable-next-line @sharegate/apricot/no-class-components
     class Tooltip extends Component<TooltipProps, {}> {
         static Content: typeof SemanticPopup.Content;
         static Header: typeof SemanticPopup.Header;
