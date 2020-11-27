@@ -1,9 +1,10 @@
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
+ * Adapted to mongoose-aggregate-paginate-v2 by Alexandre Croteau <https://github.com/acrilex1>
  */
 
-import { Schema, model, PaginateModel, PaginateOptions, PaginateResult, Document } from 'mongoose';
-import mongoosePaginate = require('mongoose-paginate-v2');
+import { Schema, model, AggregatePaginateModel, PaginateOptions, AggregatePaginateResult, Document } from 'mongoose';
+import mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
@@ -19,9 +20,9 @@ const UserSchema: Schema = new Schema({
     password: String,
 });
 
-UserSchema.plugin(mongoosePaginate);
+UserSchema.plugin(mongooseAggregatePaginate);
 
-interface UserModel<T extends Document> extends PaginateModel<T> { }
+interface UserModel<T extends Document> extends AggregatePaginateModel<T> {}
 
 const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion
@@ -32,16 +33,8 @@ const router: Router = Router();
 router.get('/users.json', (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
-    options.select = 'email username';
     options.sort = { username: descending ? -1 : 1 };
-    options.collation = { locale: 'en_US', strength: 1 };
     options.pagination = false;
-    options.populate = '';
-    options.populate = {
-        path: '',
-    };
-    options.lean = true;
-    options.leanWithId = false;
     options.offset = 0;
     options.page = 1;
     options.limit = 10;
@@ -54,10 +47,20 @@ router.get('/users.json', (req: Request, res: Response) => {
         nextPage: 'nextPageCustom',
         prevPage: 'prevPageCustom',
     };
-    options.projection = { _id: 0 };
-    options.options = { batchSize: 200 };
 
-    UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
+    const aggregate = UserModel.aggregate([
+        {
+            $project: {
+                id: 0,
+                email: 1,
+                username: 1,
+            },
+        },
+    ])
+        .collation({ locale: 'en_US', strength: 1 })
+        .cursor({ batchSize: 200 });
+
+    UserModel.aggregatePaginate(aggregate, options, (err: any, value: AggregatePaginateResult<User>) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);

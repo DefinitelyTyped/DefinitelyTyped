@@ -1,15 +1,18 @@
-// Type definitions for mongoose-paginate-v2 1.3
-// Project: https://github.com/webgangster/mongoose-paginate-v2
+// Type definitions for mongoose-aggregate-paginate-v2 1.0
+// Project: https://github.com/webgangster/mongoose-aggregate-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 gamsterX <https://github.com/gamsterx>
+//                 knyuwork <https://github.com/knyuwork>
+//                 LiRen Tu <https://github.com/tuliren>
+//                 Alexandre Croteau <https://github.com/acrilex1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 //
-// Based on type declarations for mongoose-paginate 5.0.0.
+// Based on type declarations for mongoose-paginate-v2 1.3.
 
 declare module 'mongoose' {
     interface CustomLabels {
@@ -20,32 +23,22 @@ declare module 'mongoose' {
         docs?: string;
         nextPage?: string;
         prevPage?: string;
-    }
-
-    interface ReadOptions {
-        pref: string;
-        tags?: any[];
+        pagingCounter?: string;
+        hasPrevPage?: string;
+        hasNextPage?: string;
     }
 
     interface PaginateOptions {
         /* tslint:disable-next-line: ban-types */
-        select?: Object | string;
-        /* tslint:disable-next-line: ban-types */
         sort?: Object | string;
-        customLabels?: CustomLabels;
-        collation?: CollationOptions;
-        /* tslint:disable-next-line: ban-types */
-        populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
-        lean?: boolean;
-        leanWithId?: boolean;
         offset?: number;
         page?: number;
         limit?: number;
-        read?: ReadOptions;
+        customLabels?: CustomLabels;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean;
-        projection?: any;
-        options?: QueryFindOptions;
+        allowDiskUse?: boolean;
+        countQuery?: object;
     }
 
     interface QueryPopulateOptions {
@@ -63,7 +56,7 @@ declare module 'mongoose' {
         populate?: QueryPopulateOptions | QueryPopulateOptions[];
     }
 
-    interface PaginateResult<T> {
+    interface AggregatePaginateResult<T> {
         docs: T[];
         totalDocs: number;
         limit: number;
@@ -78,20 +71,20 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface PaginateModel<T extends Document> extends Model<T> {
-        paginate(
-            query?: FilterQuery<T>,
+    interface AggregatePaginateModel<T extends Document> extends Model<T> {
+        aggregatePaginate(
+            query?: Aggregate<T[]>,
             options?: PaginateOptions,
-            callback?: (err: any, result: PaginateResult<T>) => void,
-        ): Promise<PaginateResult<T>>;
+            callback?: (err: any, result: AggregatePaginateResult<T>) => void,
+        ): Promise<AggregatePaginateResult<T>>;
     }
 
-    function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): PaginateModel<any>;
+    function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): AggregatePaginateModel<any>;
 }
 
 import mongoose = require('mongoose');
 declare function _(schema: mongoose.Schema): void;
 export = _;
 declare namespace _ {
-    const paginate: { options: mongoose.PaginateOptions };
+    const aggregatePaginate: { options: mongoose.PaginateOptions };
 }
