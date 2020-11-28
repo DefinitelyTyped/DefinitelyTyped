@@ -529,7 +529,7 @@ declare module "../index" {
          * @return Returns the new memoizing function.
          */
         memoize: {
-            <T extends (...args: any) => any>(func: T, resolver?: (...args: any[]) => any): T & MemoizedFunction;
+            <T extends (...args: any) => any>(func: T, resolver?: (...args: Parameters<T>) => any): T & MemoizedFunction;
             Cache: MapCacheConstructor;
         };
     }

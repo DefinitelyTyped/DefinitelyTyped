@@ -36,7 +36,7 @@ declare namespace c {
         getEnv(varName: string): string;
 
         // Return the config for the project based on directory param if not directory then return default one (config).
-        loadFileConfigs(configDir: string): any;
+        loadFileConfigs(configDir?: string): any;
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];

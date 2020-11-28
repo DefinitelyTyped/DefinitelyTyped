@@ -308,6 +308,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         plugins?: ChartPluginsOptions;
+        defaultColor?: ChartColor;
     }
 
     interface ChartFontOptions {
@@ -738,6 +739,7 @@ declare namespace Chart {
         type?: ScaleType | string;
         display?: boolean | string;
         id?: string;
+        labels?: string[];
         stacked?: boolean;
         position?: string;
         ticks?: TickOptions;

@@ -33,7 +33,7 @@ import Store from 'ember-data/store';
 // Errors
 import * as EDErrors from 'ember-data/adapters/errors';
 
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 // ADAPTERS
 // - identity

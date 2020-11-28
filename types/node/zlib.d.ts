@@ -1,4 +1,3 @@
-/* tslint:enable: unified-signatures */
 declare module "zlib" {
     import * as stream from "stream";
 

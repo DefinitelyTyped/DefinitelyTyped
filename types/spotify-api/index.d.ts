@@ -489,6 +489,14 @@ declare namespace SpotifyApi {
     interface UsersRecentlyPlayedTracksResponse extends CursorBasedPagingObject<PlayHistoryObject> {}
 
     /**
+     * Add an item to the end of the user’s current playback queue.
+     *
+     * POST /v1/me/player/queue
+     * https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
+     */
+    interface AddToQueueResponse extends VoidResponse {}
+
+    /**
      * Get recommendations based on seeds
      * 
      * GET /v1/recommendations

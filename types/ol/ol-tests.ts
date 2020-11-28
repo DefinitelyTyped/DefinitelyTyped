@@ -24,7 +24,6 @@ import { register } from 'ol/proj/proj4';
 import { OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
-
 import proj4 = require('proj4');
 
 /**
@@ -104,7 +103,7 @@ const styles: { [key: string]: Style } = {
     }),
 };
 
-const styleFunction: StyleFunction = feature => styles[feature.getGeometry().getType()];
+const styleFunction: StyleFunction = feature => styles[feature.getGeometry()!.getType()];
 
 /**
  * ==================================================
@@ -381,10 +380,9 @@ interface CustomControlOptions extends ControlOptions {
 }
 
 class CustomControl extends Control {
-    element: HTMLElement;
     name: string;
     mapViewport?: HTMLElement;
-    private readonly _boundListener: (e: Event) => void;
+    private readonly _boundListener: (e: MouseEvent) => void;
     private readonly _eventKeys: EventsKey[];
 
     constructor(options: CustomControlOptions = {}) {

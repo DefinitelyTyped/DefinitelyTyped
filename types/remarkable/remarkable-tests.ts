@@ -1,8 +1,7 @@
 // This code does not run, but it is type-checked.
 
 import hljs = require("highlight.js");
-import Remarkable = require("remarkable");
-import * as ImportedRemarkable from "remarkable";
+import { Remarkable } from "remarkable";
 
 /**
  * Examples from README.
@@ -11,9 +10,6 @@ export class RemarkableTest {
     usage() {
         const md = new Remarkable();
         md.render("# Remarkable rulezz!");
-
-        const importedMd = new ImportedRemarkable();
-        importedMd.render("# Remarkable rulezz!");
     }
 
     defineOptionsInContructor() {

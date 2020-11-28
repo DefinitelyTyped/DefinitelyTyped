@@ -1,7 +1,7 @@
 import intlTelInput = require('intl-tel-input');
 
 function test_import() {
-    // $ExpectType (node: Element, options?: Options) => Plugin
+    // $ExpectType (node: Element, options?: Options | undefined) => Plugin
     intlTelInput;
 }
 
@@ -13,7 +13,7 @@ function test_IntlTelInput_not_visible() {
 }
 
 function test_intlTelInputUtils_global() {
-    const input = document.querySelector('#phone');
+    const input = document.querySelector('#phone')!;
     const iti = intlTelInput(input, {
         utilsScript: 'node_modules/intl-tel-input/build/js/utils.js'
     });

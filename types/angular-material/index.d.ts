@@ -75,7 +75,6 @@ declare module 'angular' {
             multiple(multiple: boolean): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface IAlertDialog extends IPresetDialog<IAlertDialog> {
         }
 
@@ -192,7 +191,6 @@ declare module 'angular' {
             toastClass(toastClass: string): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
         }
 

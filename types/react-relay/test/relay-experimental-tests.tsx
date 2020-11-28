@@ -1,37 +1,44 @@
 import * as React from 'react';
-
 import {
-    Environment,
-    RecordSource,
-    Store,
-    Network,
-    commitMutation,
-    FragmentRefs,
-    GraphQLSubscriptionConfig,
-} from 'relay-runtime';
-import {
+    EntryPoint,
+    EntryPointComponent,
+    EntryPointContainer,
     fetchQuery,
     graphql,
-    RelayEnvironmentProvider,
-    useRelayEnvironment,
-    preloadQuery,
+    IEnvironmentProvider,
+    JSResourceReference,
+    loadEntryPoint,
+    loadQuery,
     PreloadedQuery,
-    usePreloadedQuery,
-    useLazyLoadQuery,
-    useFragment,
-    useRefetchableFragment,
-    usePaginationFragment,
+    RelayEnvironmentProvider,
     useBlockingPaginationFragment,
+    useEntryPointLoader,
+    useFragment,
+    useLazyLoadQuery,
     useMutation,
-    useSubscription,
+    usePaginationFragment,
+    usePreloadedQuery,
     useQueryLoader,
-    loadQuery
+    useRefetchableFragment,
+    useRelayEnvironment,
+    useSubscription,
 } from 'react-relay/hooks';
+
+import {
+    commitMutation,
+    ConcreteRequest,
+    Environment,
+    FragmentRefs,
+    GraphQLSubscriptionConfig,
+    Network,
+    RecordSource,
+    Store,
+} from 'relay-runtime';
 
 const source = new RecordSource();
 const store = new Store(source);
 
-function cacheHandler(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+function cacheHandler(operation: any, variables: { [key: string]: string }, _cacheConfig: {}) {
     return fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
@@ -49,6 +56,15 @@ const environment = new Environment({
     network,
     store,
 });
+
+const environmentProvider: IEnvironmentProvider<any> = {
+    getEnvironment(): Environment {
+        return environment;
+    },
+};
+
+// tslint:disable-next-line no-unnecessary-generics
+declare function JSResource<TModule extends any>(): JSResourceReference<TModule>;
 
 const query = graphql`
     query SomeQuery {
@@ -74,11 +90,13 @@ dispose.unsubscribe();
 interface AppQueryVariables {
     id: string;
 }
+
 interface AppQueryResponse {
     readonly user: {
         readonly name: string;
     } | null;
 }
+
 interface AppQuery {
     readonly response: AppQueryResponse;
     readonly variables: AppQueryVariables;
@@ -135,29 +153,6 @@ function RelayEnvironment() {
 }
 
 /**
- * Tests of usePreloadedQuery
- * see https://relay.dev/docs/en/experimental/api-reference#usepreloadedquery
- */
-function PreloadedQuery() {
-    const appQuery = graphql`
-        query AppQuery($id: ID!) {
-            user(id: $id) {
-                name
-            }
-        }
-    `;
-
-    const result = preloadQuery<AppQuery>(environment, appQuery, { id: '4' }, { fetchPolicy: 'store-or-network' });
-
-    return function App() {
-        const data = usePreloadedQuery(query, result);
-
-        if (!data.user) return;
-        return <h1>{data.user.name}</h1>;
-    };
-}
-
-/**
  * Tests for useLazyLoadQuery
  * see https://relay.dev/docs/en/experimental/api-reference#uselazyloadquery
  */
@@ -193,7 +188,9 @@ interface UserComponent_user {
     };
     readonly ' $refType': 'UserComponent_user';
 }
+
 type UserComponent_user$data = UserComponent_user;
+
 interface UserComponent_user$key {
     readonly ' $data'?: UserComponent_user$data;
     readonly ' $fragmentRefs': FragmentRefs<'UserComponent_user'>;
@@ -206,7 +203,7 @@ function NonNullableFragment() {
 
     return function UserComponent(props: Props) {
         // $ExpectType UserComponent_user
-        useFragment(
+        const data = useFragment(
             graphql`
                 fragment UserComponent_user on User {
                     name
@@ -218,7 +215,7 @@ function NonNullableFragment() {
             props.user,
         );
 
-        return null;
+        return data.name;
     };
 }
 
@@ -240,7 +237,6 @@ function NullableFragment() {
             `,
             props.user,
         );
-        return null;
     };
 }
 
@@ -355,11 +351,13 @@ function RefetchableFragment() {
         lang: string;
         id: string;
     }
+
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
         } | null;
     }
+
     interface CommentBodyRefetchQuery {
         readonly response: CommentBodyRefetchQueryResponse;
         readonly variables: CommentBodyRefetchQueryVariables;
@@ -372,7 +370,9 @@ function RefetchableFragment() {
         readonly id: string | null;
         readonly ' $refType': 'CommentBody_comment';
     }
+
     type CommentBody_comment$data = CommentBody_comment;
+
     interface CommentBody_comment$key {
         readonly ' $data'?: CommentBody_comment$data;
         readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
@@ -427,11 +427,13 @@ function PaginationFragment() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -450,7 +452,9 @@ function PaginationFragment() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -509,11 +513,13 @@ function PaginationFragment_WithNonNullUserProp() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -532,7 +538,9 @@ function PaginationFragment_WithNonNullUserProp() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -595,11 +603,13 @@ function BlockingPaginationFragment() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -618,7 +628,9 @@ function BlockingPaginationFragment() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -675,11 +687,13 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -698,7 +712,9 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -845,6 +861,7 @@ function Subscription() {
     interface SubscriptionVariables {
         id: string;
     }
+
     interface SubscriptionResponse {
         readonly store: {
             readonly id: string;
@@ -852,6 +869,7 @@ function Subscription() {
             readonly value2: number;
         };
     }
+
     interface Subscription {
         readonly response: SubscriptionResponse;
         readonly variables: SubscriptionVariables;
@@ -957,18 +975,18 @@ function LoadQuery() {
         }
     `;
 
-    const variables: AppQueryVariables  = {
-        id: "1"
+    const variables: AppQueryVariables = {
+        id: '1',
     };
 
     const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
         fetchPolicy: 'store-or-network',
         networkCacheConfig: {
-            force: true
-        }
+            force: true,
+        },
     });
 
-    function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
+    function ShouldPassIntoUsePreloadQuery({ preloadedQuery }: { preloadedQuery: PreloadedQuery<AppQuery> }) {
         const data = usePreloadedQuery(query, preloadedQuery); // $ExpectType AppQueryResponse
 
         return <>{data.user.name}</>;
@@ -976,8 +994,222 @@ function LoadQuery() {
 
     // To depict some sort of running app
     function App() {
+        return <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />;
+    }
+}
+
+/*
+EntryPoint tests
+ */
+
+function EntryPointTests() {
+    interface SomeQueryResponse {
+        readonly post: {
+            readonly name: string;
+        };
+    }
+
+    interface SomeQueryVariables {
+        slug: string;
+    }
+
+    interface SomeQuery {
+        readonly response: SomeQueryResponse;
+        readonly variables: SomeQueryVariables;
+    }
+
+    const query = graphql`
+        query SomeQuery($slug: String!) {
+            post {
+                name
+            }
+        }
+    ` as ConcreteRequest;
+
+    // RootEntrypoint.entrypoint
+    const RootEntryPointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }, {}, { onClick: () => void }> = ({
+        queries,
+        props,
+    }) => {
+        const data = usePreloadedQuery(query, queries.someQueryRef);
+
+        return <button onClick={props.onClick}>{data.post.name}</button>;
+    };
+
+    interface Params {
+        slug: string;
+    }
+
+    const entrypoint: EntryPoint<typeof RootEntryPointComponent, Params> = {
+        root: JSResource<typeof RootEntryPointComponent>(),
+        getPreloadProps(
+            // $ExpectType Params
+            params,
+        ) {
+            return {
+                queries: {
+                    someQueryRef: {
+                        parameters: query,
+                        variables: {
+                            slug: params.slug,
+                        },
+                    },
+                },
+            };
+        },
+    };
+
+    const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
+        slug: 'test-slug',
+    });
+
+    // $ExpectType SomeQueryVariables
+    const vars = entrypointReference.queries.someQueryRef.variables;
+
+    /*
+    EntrypointContainer Tests
+     */
+    function EntryPointContainerTests() {
         return (
-            <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />
+            <EntryPointContainer
+                entryPointReference={entrypointReference}
+                props={{
+                    onClick() {},
+                }}
+            />
         );
+    }
+
+    /*
+    EntryPointContainerNested Tests
+     */
+    function EntryPointContainerNested() {
+        const entrypointA: EntryPoint<typeof RootEntryPointComponent, Params> = {
+            root: JSResource(),
+            getPreloadProps(params) {
+                return {
+                    queries: {
+                        someQueryRef: {
+                            parameters: query,
+                            variables: {
+                                slug: params.slug,
+                            },
+                        },
+                    },
+                };
+            },
+        };
+
+        const entrypointB: EntryPoint<typeof RootEntryPointComponent, { author: string }> = {
+            root: JSResource(),
+            getPreloadProps(params) {
+                console.log(params.author);
+                return {
+                    queries: {
+                        someQueryRef: {
+                            parameters: query,
+                            variables: {
+                                slug: '/test',
+                            },
+                        },
+                    },
+                };
+            },
+        };
+
+        const SuperParentComponent: EntryPointComponent<
+            {},
+            { mainPanelA?: typeof entrypointA; mainPanelB?: typeof entrypointB },
+            {},
+            { foo: 'bar' }
+        > = ({ entryPoints, extraProps }) => {
+            const onClick = () => {
+                console.log(extraProps.foo);
+            };
+
+            return (
+                <>
+                    {entryPoints.mainPanelA ? (
+                        <EntryPointContainer
+                            entryPointReference={entryPoints.mainPanelA}
+                            props={{
+                                onClick,
+                            }}
+                        />
+                    ) : null}
+                    {entryPoints.mainPanelB ? (
+                        <EntryPointContainer
+                            entryPointReference={entryPoints.mainPanelB}
+                            props={{
+                                onClick,
+                            }}
+                        />
+                    ) : null}
+                </>
+            );
+        };
+
+        const entrypoint: EntryPoint<typeof SuperParentComponent, { route: string }> = {
+            root: JSResource(),
+            getPreloadProps(params) {
+                return {
+                    entryPoints:
+                        params.route === 'a'
+                            ? {
+                                  mainPanelA: {
+                                      entryPoint: entrypointA,
+                                      entryPointParams: {
+                                          slug: 'hello',
+                                      },
+                                  },
+                              }
+                            : {
+                                  mainPanelB: {
+                                      entryPoint: entrypointB,
+                                      entryPointParams: {
+                                          author: 'world',
+                                      },
+                                  },
+                              },
+                    queries: {},
+                    extraProps: {
+                        foo: 'bar',
+                    },
+                };
+            },
+        };
+
+        const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
+            route: 'b',
+        });
+
+        return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
+    }
+
+    /*
+    useEntryPointLoader Tests
+     */
+    function UseEntryPointLoaderTests() {
+        const [queryReference, entryPointLoaderCallback, dispose] = useEntryPointLoader(
+            environmentProvider,
+            entrypoint,
+        );
+
+        React.useEffect(() => {
+            entryPointLoaderCallback({
+                slug: 'test-slug',
+            });
+
+            return dispose;
+        }, []);
+
+        return queryReference ? (
+            <EntryPointContainer
+                entryPointReference={queryReference}
+                props={{
+                    onClick() {},
+                }}
+            />
+        ) : null;
     }
 }

@@ -16,6 +16,17 @@
 }
 
 {
+    const c = new Color("ffffff", 1);
+    c.red = 42;
+    c.green = 42;
+    c.blue = 42;
+    c.alpha = 0.42;
+
+    // $ExpectType Color
+    Color.dynamic(c, Color.black());
+}
+
+{
     // $ExpectType Promise<string[]>
     DocumentPicker.open(['public.plain-text']);
     // $ExpectType Promise<string>
@@ -37,6 +48,20 @@
     DocumentPicker.exportData(Data.fromFile('test.bin'));
     // $ExpectType Promise<string[]>
     DocumentPicker.exportData(Data.fromFile('test.bin'), 'super interesting data.bin');
+}
+
+{
+    const fm = FileManager.iCloud();
+    // $ExpectError
+    const error = new FileManager();
+    // $ExpectType string
+    fm.documentsDirectory();
+    // $ExpectType string
+    fm.libraryDirectory();
+    // $ExpectType string
+    fm.temporaryDirectory();
+    // $ExpectType string
+    fm.cacheDirectory();
 }
 
 {
@@ -77,6 +102,14 @@
     // $ExpectError
     gradient.locations = 1;
 
+    gradient.startPoint = new Point(0, 1);
+    // $ExpectError
+    gradient.startPoint = 1;
+
+    gradient.endPoint = new Point(0, 1);
+    // $ExpectError
+    gradient.endPoint = 1;
+
     listWidget.backgroundGradient = gradient;
     // $ExpectError
     listWidget.backgroundGradient = "bar";
@@ -106,6 +139,7 @@
     listWidget.addImage("42");
 
     const widgetSpacer = listWidget.addSpacer(10);
+    listWidget.addSpacer();
     // $ExpectError
     listWidget.addSpacer("10");
 
@@ -411,6 +445,8 @@
     widgetStack.addImage(Image.fromFile("some/image.png"));
     // $ExpectType WidgetSpacer
     widgetStack.addSpacer(4);
+    // $ExpectType WidgetSpacer
+    widgetStack.addSpacer();
     // $ExpectType WidgetStack
     widgetStack.addStack();
     // $ExpectType void
@@ -427,6 +463,22 @@
     widgetStack.layoutHorizontally();
     // $ExpectType void
     widgetStack.layoutVertically();
+}
+
+{
+    const url = "http://httpbin.org/POST";
+    const req = new Request(url);
+    req.url === url;
+    req.method = "POST";
+    req.headers = {
+        "Content-Type": "application/json"
+    };
+    req.body = '{"answer":42}';
+    req.timeoutInterval = 5;
+    req.allowInsecureRequest = true;
+    // $ExpectType Promise<any>
+    const res = req.loadJSON();
+    res.then(() => {});
 }
 
 {

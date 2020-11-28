@@ -34,6 +34,8 @@ interface BootstrapSelectOptions {
     showIcon?: boolean;
     showSubtext?: boolean;
     showTick?: boolean;
+    sanitize?: boolean;
+    sanitizeFn?: (unsafeElements: Array<HTMLElement | ChildNode | Node>) => void;
     size?: 'auto' | number | boolean;
     style?: string;
     styleBase?: string;

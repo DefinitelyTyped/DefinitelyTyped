@@ -606,7 +606,6 @@ export class Ref {
     private readonly __isYupRef: true;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema<any> {}
 
 export interface FormatErrorParams {
