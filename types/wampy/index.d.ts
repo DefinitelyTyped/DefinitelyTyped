@@ -148,7 +148,7 @@ declare namespace wampy {
         onReconnectSuccess?: Callback;
         ws?: any;
         serializer?: any;
-        urlValidation?: "strict" | "loose";
+        uriValidation?: "strict" | "loose";
     }
 
     interface WampyOpStatus

@@ -192,9 +192,11 @@ class MyHtmlElRegion extends Marionette.Region {
     }
 }
 
-class MyCollectionView extends Marionette.CollectionView<MyModel, MyView | MyOtherView> {
-    constructor() {
-        super();
+type MyCollectionViewChildViews = MyView | MyOtherView;
+
+class MyCollectionView extends Marionette.CollectionView<MyModel, MyCollectionViewChildViews> {
+    constructor(options?: Marionette.CollectionViewOptions<MyModel>) {
+        super(options);
 
         this.childView = (model: MyModel) => {
             if (model.get('isFoo')) {
@@ -295,11 +297,15 @@ function ViewTests() {
 }
 
 function CollectionViewTests() {
-    const cv = new MyCollectionView();
+    const cvWithoutOptions = new MyCollectionView();
+    const cv = new MyCollectionView({
+        viewFilter: (_view?: MyCollectionViewChildViews, _index?: number, children?: MyCollectionViewChildViews[]) =>
+            true,
+    });
     cv.collection.add(new MyModel());
     app.mainRegion.show(cv);
     cv.emptyView = MyView;
-    const view: Marionette.CollectionView<MyModel, MyView | MyOtherView> = cv.destroy();
+    const view: Marionette.CollectionView<MyModel, MyCollectionViewChildViews> = cv.destroy();
 }
 
 class MyController {

@@ -8,6 +8,11 @@ import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
 import PointerInteraction from './Pointer';
 
+/**
+ * A function that takes a {@link module:ol/MapBrowserEvent} and two
+ * {@link module:ol/pixel~Pixel}s and returns a {boolean}. If the condition is met,
+ * true should be returned.
+ */
 export type EndCondition = (this: any, p0: MapBrowserEvent<UIEvent>, p1: Pixel, p2: Pixel) => boolean;
 export interface Options {
     className?: string;
@@ -18,11 +23,30 @@ export interface Options {
 }
 export default class DragBox extends PointerInteraction {
     constructor(opt_options?: Options);
+    /**
+     * The default condition for determining whether the boxend event
+     * should fire.
+     */
     defaultBoxEndCondition(mapBrowserEvent: MapBrowserEvent<UIEvent>, startPixel: Pixel, endPixel: Pixel): boolean;
+    /**
+     * Returns geometry of last drawn box.
+     */
     getGeometry(): Polygon;
+    /**
+     * Handle pointer down events.
+     */
     handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer drag events.
+     */
     handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handle pointer up events.
+     */
     handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Function to execute just before onboxend is fired
+     */
     onBoxEnd(event: MapBrowserEvent<UIEvent>): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -51,6 +75,9 @@ export default class DragBox extends PointerInteraction {
 }
 declare class DragBoxEvent extends BaseEvent {
     constructor(type: string, coordinate: Coordinate, mapBrowserEvent: MapBrowserEvent<UIEvent>);
+    /**
+     * The coordinate of the drag event.
+     */
     coordinate: Coordinate;
     mapBrowserEvent: MapBrowserEvent<UIEvent>;
 }

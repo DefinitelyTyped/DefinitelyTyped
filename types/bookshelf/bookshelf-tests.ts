@@ -925,7 +925,7 @@ new User({id: 1}).destroy({require: true})
 
 // TODO No example provided on Bookshelf website
 
-new User({id: 1}).save({}, {patch: true, require: true})
+new User({id: 1}).save({}, {patch: true, require: true, autoRefresh: true})
 .then(user => {
     console.log(user.toJSON());
 })

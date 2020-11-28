@@ -3817,6 +3817,10 @@ declare namespace cytoscape {
              * The distance the edge ends from its target.
              */
             "target-distance-from-node"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its source.
+             */
+            "source-distance-from-node"?: PropertyValueEdge<number>;
         }
 
         /**

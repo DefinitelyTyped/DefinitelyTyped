@@ -48,6 +48,7 @@ declare namespace clownface {
     readonly dataset: D;
     readonly datasets: D[];
     readonly _context: Array<Context<D, Term>>;
+    any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
     filter(cb: (quad: Iteratee<T, D>) => boolean): AnyPointer<T, D>;

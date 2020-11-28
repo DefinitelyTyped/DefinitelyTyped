@@ -416,6 +416,16 @@ declare module 'fs/promises' {
     function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
 
     /**
+     * Changes the access and modification times of a file in the same way as `fsPromises.utimes()`,
+     * with the difference that if the path refers to a symbolic link, then the link is not
+     * dereferenced: instead, the timestamps of the symbolic link itself are changed.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+
+    /**
      * Asynchronous fchown(2) - Change ownership of a file.
      * @param handle A `FileHandle`.
      */

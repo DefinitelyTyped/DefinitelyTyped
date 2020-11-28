@@ -80761,7 +80761,6 @@ declare namespace Titanium {
     /**
      * IOStream is the interface that all stream types implement.
      */
-    // tslint:disable-next-line:interface-name
     class IOStream extends Titanium.Proxy {
         /**
          * Adds the specified callback as an event listener for the named event.

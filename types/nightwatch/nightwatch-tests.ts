@@ -188,7 +188,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
   const self = this;
 
   this.execute(
-    // tslint:disable-next-line
+    // tslint:disable-next-line:only-arrow-functions
     function(key) {
       return window.localStorage.getItem(key);
     },
