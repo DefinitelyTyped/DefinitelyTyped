@@ -4,7 +4,7 @@ const video = videojs('myvideo', {
     autoplay: true,
 });
 
-video.ready(function () {
+video.ready(function() {
     this.hotkeys({
         volumeStep: 0.1,
         seekStep: 1,
