@@ -1,4 +1,4 @@
-// Type definitions for @mapbox/mapbox-sdk 0.6
+// Type definitions for @mapbox/mapbox-sdk 0.11
 // Project: https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
