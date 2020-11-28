@@ -185,6 +185,7 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  */
 export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
 export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
+export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
