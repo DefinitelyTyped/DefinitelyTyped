@@ -667,6 +667,62 @@ declare namespace Mocha {
     let test: TestFunction;
 
     /**
+     * Configures one or more global setup fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#globalSetup
+     */
+    let globalSetup: Mocha.HookFunction;
+
+    /**
+     * Configures one or more global teardown fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#globalTeardown
+     */
+    let globalTeardown: Mocha.HookFunction;
+
+    /**
+     * Returns `true` if one or more global setup fixtures have been supplied
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalSetupFixtures
+     */
+    let hasGlobalSetupFixtures: () => boolean;
+
+    /**
+     * Returns `true` if one or more global teardown fixtures have been supplied
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalTeardownFixtures
+     */
+    let hasGlobalTeardownFixtures: () => boolean;
+
+    /**
+     * Toggle execution of any global setup fixture(s)
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalSetup
+     */
+    let enableGlobalSetup: (enabled: boolean) => void;
+
+    /**
+     * Toggle execution of any global teardown fixture(s)
+     *
+     * - _Only available when invoked via the mocha CLI._
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalTeardown
+     */
+    let enableGlobalTeardown: (enabled: boolean) => void;
+
+    /**
      * Triggers root suite execution.
      *
      * - _Only available if flag --delay is passed into Mocha._
