@@ -1,4 +1,4 @@
-// Type definitions for mysql2 v2.2.5
+// Type definitions for mysql2 2.2
 // Project: https://github.com/sidorares/node-mysql2
 // Definitions by:  WeiJan Chen <https://github.com/cweijan>
 //    William Johnston <https://github.com/wjohnsto>
