@@ -1,12 +1,13 @@
 declare module "util" {
+    // tslint:disable-next-line no-empty-interface
     interface InspectOptions extends NodeJS.InspectOptions { }
     type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
     type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => string;
     interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
-    function format(format?: any, ...param: any[]): string;
-    function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    function format(format: any, ...param: any[]): string;
+    function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use a third party module instead. */
     function log(string: string): void;
     function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
@@ -92,64 +93,74 @@ declare module "util" {
     }
 
     type CustomPromisify<TCustom extends Function> = CustomPromisifySymbol<TCustom> | CustomPromisifyLegacy<TCustom>;
+
     function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    function promisify<T extends (...args: any[]) => any>(fn: T): Promisify<T>;
+    function promisify<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => Promise<TResult>;
+    function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
+    function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    function promisify<T1>(fn: (arg1: T1, callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
+    function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void):
+        (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    function promisify<T1, T2, T3, T4, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void):
+        (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    function promisify<T1, T2, T3, T4, T5, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    function promisify<T1, T2, T3, T4, T5>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    function promisify(fn: Function): Function;
     namespace promisify {
         const custom: unique symbol;
     }
 
     namespace types {
-        function isAnyArrayBuffer(object: any): object is ArrayBufferLike;
+        function isAnyArrayBuffer(object: any): boolean;
         function isArgumentsObject(object: any): object is IArguments;
         function isArrayBuffer(object: any): object is ArrayBuffer;
-        function isArrayBufferView(object: any): object is NodeJS.ArrayBufferView;
+        function isArrayBufferView(object: any): object is ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
         function isBigInt64Array(value: any): value is BigInt64Array;
         function isBigUint64Array(value: any): value is BigUint64Array;
         function isBooleanObject(object: any): object is Boolean;
-        function isBoxedPrimitive(object: any): object is String | Number | BigInt | Boolean | Symbol;
+        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;
         function isDate(object: any): object is Date;
         function isExternal(object: any): boolean;
         function isFloat32Array(object: any): object is Float32Array;
         function isFloat64Array(object: any): object is Float64Array;
-        function isGeneratorFunction(object: any): object is GeneratorFunction;
-        function isGeneratorObject(object: any): object is Generator;
+        function isGeneratorFunction(object: any): boolean;
+        function isGeneratorObject(object: any): boolean;
         function isInt8Array(object: any): object is Int8Array;
         function isInt16Array(object: any): object is Int16Array;
         function isInt32Array(object: any): object is Int32Array;
-        function isMap<T>(
-            object: T | {},
-        ): object is T extends ReadonlyMap<any, any>
-            ? unknown extends T
-                ? never
-                : ReadonlyMap<any, any>
-            : Map<any, any>;
+        function isMap(object: any): boolean;
         function isMapIterator(object: any): boolean;
         function isModuleNamespaceObject(value: any): boolean;
         function isNativeError(object: any): object is Error;
         function isNumberObject(object: any): object is Number;
-        function isPromise(object: any): object is Promise<any>;
+        function isPromise(object: any): boolean;
         function isProxy(object: any): boolean;
         function isRegExp(object: any): object is RegExp;
-        function isSet<T>(
-            object: T | {},
-        ): object is T extends ReadonlySet<any>
-            ? unknown extends T
-                ? never
-                : ReadonlySet<any>
-            : Set<any>;
+        function isSet(object: any): boolean;
         function isSetIterator(object: any): boolean;
-        function isSharedArrayBuffer(object: any): object is SharedArrayBuffer;
-        function isStringObject(object: any): object is String;
-        function isSymbolObject(object: any): object is Symbol;
+        function isSharedArrayBuffer(object: any): boolean;
+        function isStringObject(object: any): boolean;
+        function isSymbolObject(object: any): boolean;
         function isTypedArray(object: any): object is NodeJS.TypedArray;
         function isUint8Array(object: any): object is Uint8Array;
         function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
         function isUint16Array(object: any): object is Uint16Array;
         function isUint32Array(object: any): object is Uint32Array;
-        function isWeakMap(object: any): object is WeakMap<any, any>;
-        function isWeakSet(object: any): object is WeakSet<any>;
+        function isWeakMap(object: any): boolean;
+        function isWeakSet(object: any): boolean;
+        function isWebAssemblyCompiledModule(object: any): boolean;
     }
 
     class TextDecoder {
@@ -184,46 +195,3 @@ declare module "util" {
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
 }
-
-// Helper types for smart promisify signature
-/**
- * Returns a promisified function signature for the given callback-style function.
- */
-type Promisify<
-    T extends (...args: any[]) => any,
-    TReturn = CallbackAPIReturnType<T>,
-    TArgs extends any[] = Lead<Parameters<T>>
-> = (...args: TArgs) => Promise<TReturn>;
-
-/**
- * Returns the last item's type in a tuple
- */
-type Last<T extends unknown[]> = T extends []
-    ? never
-    : T extends [...infer _, infer R]
-    ? R
-    : T extends [...infer _, (infer R)?]
-    ? R | undefined
-    : never;
-
-/** Returns the type of the last argument of a function */
-type LastArgument<T extends (...args: any[]) => any> = Last<Parameters<T>>;
-
-/** Returns the "return" type of a callback-style API */
-type CallbackAPIReturnType<
-    T extends (...args: any[]) => any,
-    TCb extends (...args: any[]) => any = LastArgument<T>,
-    TCbArgs = Parameters<Exclude<TCb, undefined>>
-> = TCbArgs extends [(Error | null | undefined)?]
-    // tslint:disable-next-line void-return This is a return type!
-    ? void
-    : TCbArgs extends [Error | null | undefined, infer U]
-    ? U
-    : TCbArgs extends any[]
-    ? TCbArgs[1]
-    : never;
-
-/**
- * Returns all but the last item's type in a tuple/array
- */
-type Lead<T extends unknown[]> = T extends [] ? [] : T extends [...infer L, any?] ? L : [];
