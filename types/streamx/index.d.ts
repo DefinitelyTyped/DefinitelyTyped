@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+import { Writable as NodeJSWritable, Readable as NodeJSReadable, Stream as NodeJSStream } from 'stream';
+
 export interface AbortSignalLike {
     addEventListener: (type: 'abort', listener: (this: AbortSignalLike, event: any) => any) => void;
 }
-
-import { EventEmitter } from 'events';
-import { Writable as NodeJSWritable, Readable as NodeJSReadable, Stream as NodeJSStream } from 'stream';
 
 export type AnyStream = NodeJSStream | Stream;
 export type AnyWritable<TType = any, TMap = TType, TByte = TMap> =
