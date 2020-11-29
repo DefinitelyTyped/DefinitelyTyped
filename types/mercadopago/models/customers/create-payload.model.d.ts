@@ -4,7 +4,7 @@ import { Phone } from '../../shared/phone';
 
 export interface CreateCustomerPayload {
   /** Email do cliente */
-  email: string;
+  email?: string;
   /** Nome do cliente. */
   first_name?: string;
   /** Sobrenome do cliente. */
