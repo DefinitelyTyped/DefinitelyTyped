@@ -1,19 +1,15 @@
 /*
-
   This file contains tests for the named export definitions of big.js.
-  Import the Big constructor and any types from 'big.js'
-  Do not use the global Big constructor or the types in the global BigJs namespace.
 
   Tests include code from http://mikemcl.github.io/big.js/
 
   Minor changes have been made such as adding variable definitions where required.
-
 */
 
 import { Big, RoundingMode } from 'big.js';
 
 function constructorTests() {
-    const x = new Big(9); // '9'
+    const x: Big = new Big(9); // '9'
     const y = new Big(x); // '9'
     const d = Big(435.345); // 'new' is optional
     const e = Big('435.345'); // 'new' is optional
