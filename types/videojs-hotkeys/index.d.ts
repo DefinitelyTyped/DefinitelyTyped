@@ -7,7 +7,7 @@ import { VideoJsPlayer } from 'video.js';
 
 declare module 'video.js' {
     interface VideoJsPlayer {
-        hotkeys(options: VideoJsHotkeysOptions): void;
+        hotkeys(options?: VideoJsHotkeysOptions): void;
     }
 }
 
