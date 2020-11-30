@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button } from "@orbit-ui/react-components";
 
-const MyComponent = () => {
+const MyButton = () => {
     return (
         <>
             <Button circular={true} />
