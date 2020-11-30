@@ -88,7 +88,7 @@ declare class Serverless {
         defineCustomProperties(schema: JSONSchemaProperties): void;
         defineFunctionEvent(provider: string, event: string, props: any): any;
         defineFunctionEventProperties(provider: string, existingEvent: string, props: any): any;
-        defineFunctionProperties(provider: string, props: any): any;
+        defineFunctionProperties(provider: string, schema: JSONSchemaProperties): void;
         defineProvider(provider: string, options?: Record<string, unknown>): void;
         defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
     };
