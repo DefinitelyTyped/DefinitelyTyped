@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "google-maps-web.ts"
+        "google-maps-web-tests.ts"
     ]
 }
