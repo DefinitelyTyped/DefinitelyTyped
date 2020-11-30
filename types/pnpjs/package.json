@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "dependencies": {
+        "msal": "^1.4.4",
+        "https-proxy-agent": "^5.0.0",
+        "@microsoft/microsoft-graph-types": "1.13.0",
+        "adal-node": "0.2.1",
+        "@azure/msal-node": "1.0.0-beta.1"
+    }
+}
