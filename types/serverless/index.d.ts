@@ -86,7 +86,7 @@ declare class Serverless {
 
     configSchemaHandler: {
         defineCustomProperties(schema: JSONSchemaProperties): void;
-        defineFunctionEvent(provider: string, event: string, props: any): any;
+        defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
         defineFunctionEventProperties(provider: string, existingEvent: string, schema: JSONSchemaProperties): void;
         defineFunctionProperties(provider: string, schema: JSONSchemaProperties): void;
         defineProvider(provider: string, options?: Record<string, unknown>): void;
