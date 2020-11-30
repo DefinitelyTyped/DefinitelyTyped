@@ -173,6 +173,19 @@ function streamPipelineFinished() {
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
 }
 
+function pipelineIterator() {
+    const iterator = ['foo', 'bar'];
+    pipeline(iterator, process.stdout, (err?: Error | null) => {});
+}
+
+function pipelineAsyncIterator() {
+    const asyncGenerator = async function*() {
+        yield 'foo';
+        yield 'bar';
+    };
+    pipeline(asyncGenerator(), process.stdout, (err?: Error | null) => {});
+}
+
 async function asyncStreamPipelineFinished() {
     const fin = promisify(finished);
     await fin(process.stdin);

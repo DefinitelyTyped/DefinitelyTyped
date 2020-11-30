@@ -302,7 +302,11 @@ declare module 'stream' {
             function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
-        function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
+        function pipeline<T extends NodeJS.WritableStream>(
+            stream1: NodeJS.ReadableStream | Iterable<any> | AsyncIterable<any>,
+            stream2: T,
+            callback?: (err: NodeJS.ErrnoException | null) => void
+        ): T;
         function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
         function pipeline<T extends NodeJS.WritableStream>(
             stream1: NodeJS.ReadableStream,
