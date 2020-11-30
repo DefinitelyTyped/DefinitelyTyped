@@ -83,7 +83,13 @@ featureWithPolygon.geometry.coordinates;  // $ExpectType number[][][] || Positio
 
 const point: Point = {
     type: "Point",
-    coordinates: [100.0, 0.0]
+    coordinates: [100.0, 0.0],
+    crs: {
+        type: "name",
+        properties: {
+            name: "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    }
 };
 
 // This type is commonly used in the turf package
@@ -91,14 +97,28 @@ const pointCoordinates: number[] = point.coordinates;
 
 const lineString: LineString = {
     type: "LineString",
-    coordinates: [[100.0, 0.0], [101.0, 1.0]]
+    coordinates: [[100.0, 0.0], [101.0, 1.0]],
+    crs: {
+        type: "link",
+        properties: {
+            href: "data.crs",
+            type: "ogcwkt"
+        }
+    }
 };
 
 const polygon: Polygon = {
     type: "Polygon",
     coordinates: [
         [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
-    ]
+    ],
+    crs: {
+        type: "link",
+        properties: {
+            href: "http://example.com/crs/42",
+            type: "proj4"
+        }
+    }
 };
 
 const polygonWithHole: Polygon = {
