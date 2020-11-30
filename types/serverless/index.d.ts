@@ -90,7 +90,7 @@ declare class Serverless {
         defineFunctionEventProperties(provider: string, existingEvent: string, props: any): any;
         defineFunctionProperties(provider: string, props: any): any;
         defineProvider(provider: string, options?: Record<string, unknown>): void;
-        defineTopLevelProperty(provider: string, props: any): any;
+        defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
     };
 }
 
