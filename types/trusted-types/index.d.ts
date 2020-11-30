@@ -60,18 +60,19 @@ declare global {
         // people handle the case when their code is running in a browser not
         // supporting trustedTypes.
         trustedTypes?: TrustedTypePolicyFactory;
-        TrustedHTML: TrustedHTML;
-        TrustedScript: TrustedScript;
-        TrustedScriptURL: TrustedScriptURL;
+        TrustedHTML: typeof TrustedHTML;
+        TrustedScript: typeof TrustedScript;
+        TrustedScriptURL: typeof TrustedScriptURL;
         TrustedTypePolicyFactory: TrustedTypePolicyFactory;
         TrustedTypePolicy: TrustedTypePolicy;
     }
 }
 
+// These are the available exports when using the polyfill as npm package (e.g. in nodejs)
 interface InternalTrustedTypePolicyFactory extends TrustedTypePolicyFactory {
-  TrustedHTML: TrustedHTML;
-  TrustedScript: TrustedScript;
-  TrustedScriptURL: TrustedScriptURL;
+  TrustedHTML: typeof TrustedHTML;
+  TrustedScript: typeof TrustedScript;
+  TrustedScriptURL: typeof TrustedScriptURL;
 }
 
 declare const trustedTypes: InternalTrustedTypePolicyFactory;
@@ -94,5 +95,4 @@ declare class TrustedTypeConfig {
   )
 }
 
-// These are the available exports when using the polyfill as npm package (e.g. in nodejs)
 export { trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory };
