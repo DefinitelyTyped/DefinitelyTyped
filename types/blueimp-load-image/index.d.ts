@@ -1,4 +1,4 @@
-// Type definitions for blueimp-load-image 2.23
+// Type definitions for blueimp-load-image 5.14
 // Project: https://github.com/blueimp/JavaScript-Load-Image
 // Definitions by: Evan Kesten <https://github.com/ebk46>
 //                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
