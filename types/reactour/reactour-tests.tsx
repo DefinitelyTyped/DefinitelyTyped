@@ -100,7 +100,11 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                             navDotAriaLabel: 'Got to last step'
                         },
                         {
-                            content: 'Last step'
+                            content: 'Last step',
+                            observe: 'button.opener',
+                            highlightedSelectors: ['button.opener'],
+                            mutationObservables: ['button.opener'],
+                            resizeObservables: ['button.opener']
                         }
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
