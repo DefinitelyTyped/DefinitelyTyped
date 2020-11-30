@@ -89,7 +89,13 @@ export function raw(sql: string): {
 export interface Connection extends EscapeFunctions {
     config: ConnectionConfig;
 
+    /**
+     * use authorized instead
+     * @deprecated
+     */
     state: 'connected' | 'authenticated' | 'disconnected' | 'protocol_error' | string;
+
+    authorized: boolean;
 
     threadId: number | null;
 
@@ -753,6 +759,11 @@ export const enum Types {
 
 export interface UntypedFieldInfo {
     catalog: string;
+    schema: string;
+    /**
+     * db is invalid, use schema
+     * @deprecated
+     */
     db: string;
     table: string;
     orgTable: string;
