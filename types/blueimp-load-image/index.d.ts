@@ -6,9 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace loadImage {
-    type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
-
+    type EventOrImage = Event | HTMLCanvasElement | HTMLImageElement;
+    type LoadImageCallback = (eventOrImage: EventOrImage, data?: MetaData) => void;
     type ParseMetaDataCallback = (data: ImageHead) => void;
+    interface PromiseApiResolveArg extends MetaData {
+        image: EventOrImage;
+    }
 
     interface Exif {
         [tag: number]: number | string | string[];
@@ -99,11 +102,15 @@ declare namespace loadImage {
 }
 
 // loadImage is implemented as a callable object.
-interface LoadImage  {
+interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
         | HTMLImageElement
         | FileReader
         | false;
+
+    (file: File | Blob | string, options: loadImage.LoadImageOptions): Promise<
+        loadImage.PromiseApiResolveArg
+    >;
 
     // Parses image meta data and calls the callback with the image head
     parseMetaData: (

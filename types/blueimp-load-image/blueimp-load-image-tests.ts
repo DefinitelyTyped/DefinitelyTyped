@@ -30,3 +30,13 @@ loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, da
     console.log(url);
   });
 }, {canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true});
+
+loadImage(imageUrlJPEG, { canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true }).then(data => {
+  const { image } = data;
+  const canvas = image as HTMLCanvasElement;
+  console.log(data);
+  canvas.toBlob((blob: Blob | null): void => {
+    const url = canvas.toDataURL('image/png');
+    console.log(url);
+  });
+});
