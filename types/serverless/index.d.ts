@@ -85,7 +85,7 @@ declare class Serverless {
     resources: AwsProvider.Resources;
 
     configSchemaHandler: {
-        defineCustomProperties(props: any): any;
+        defineCustomProperties(schema: JSONSchemaProperties): void;
         defineFunctionEvent(provider: string, event: string, props: any): any;
         defineFunctionEventProperties(provider: string, existingEvent: string, props: any): any;
         defineFunctionProperties(provider: string, props: any): any;
