@@ -27,7 +27,7 @@ declare global {
         private brand: true; // To prevent structural typing.
     }
 
-    class TrustedTypePolicyFactory {
+    abstract class TrustedTypePolicyFactory {
         createPolicy<Options extends TrustedTypePolicyOptions>(
             policyName: string,
             policyOptions?: Options,
@@ -42,7 +42,7 @@ declare global {
         readonly defaultPolicy: TrustedTypePolicy | null;
     }
 
-    class TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
+    abstract class TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
         readonly name: string;
         createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
         createScript(...args: Args<Options, 'createScript'>): TrustedScript;
