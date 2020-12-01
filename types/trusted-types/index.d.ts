@@ -83,7 +83,7 @@ declare class TrustedTypesEnforcer {
     uninstall: () => void;
 }
 
-// tslint:disable-next-line
+// tslint:disable-next-line no-unnecessary-class
 declare class TrustedTypeConfig {
   constructor(
     isLoggingEnabled: boolean,

@@ -107,3 +107,13 @@ TrustedHTML;
 TrustedScript;
 // $ExpectType typeof TrustedScriptURL
 TrustedScriptURL;
+
+// $ExpectType typeof TrustedHTML
+window.TrustedHTML;
+// $ExpectType typeof TrustedScript
+window.TrustedScript;
+// $ExpectType typeof TrustedScriptURL
+window.TrustedScriptURL;
+
+// $ExpectError
+trustedTypes;
