@@ -130,6 +130,7 @@ interface SimpleSchemaStatic {
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
   getDefinition(key: string, propList?: any, functionContext?: any): any;
+  get(key: string, prop: string): any;
   keyIsInBlackBox(key: string): boolean;
   labels(labels: {[key: string]: string}): void;
   label(key: any): any;
