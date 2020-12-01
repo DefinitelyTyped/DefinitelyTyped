@@ -678,7 +678,14 @@ namespace Parse {
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
             key: K,
-            value: (T['attributes'][K] extends any[] ? T['attributes'][K][0] : T['attributes'][K]) | (T['attributes'][K] extends Object ? Pointer : never)
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
         ): this;
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
@@ -704,7 +711,17 @@ namespace Parse {
         matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         near<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         notContainedIn<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K]>): this;
-        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: (T['attributes'][K] extends any[] ? T['attributes'][K][0] : T['attributes'][K])): this;
+        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
+            key: K,
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
+        ): this;
         polygonContains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         skip(n: number): Query<T>;

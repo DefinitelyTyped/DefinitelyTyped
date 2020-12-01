@@ -649,7 +649,17 @@ namespace Parse {
         reduce<U>(callback: (accumulator: U, currentObject: T, index: number) => PromiseLike<U> | U, initialValue: U, options?: Query.BatchOptions): Promise<U>;
         filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
-        equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
+        equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
+            key: K,
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
+        ): this;
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
@@ -673,7 +683,17 @@ namespace Parse {
         matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         near<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         notContainedIn<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K]>): this;
-        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
+            key: K,
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
+        ): this;
         polygonContains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         skip(n: number): Query<T>;
