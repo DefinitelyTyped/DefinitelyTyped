@@ -11,12 +11,16 @@ validate.scopedPackagePattern; // $ExpectType RegExp
 
 const results = validate('@jane/foo.js');
 
+// backward compatibility check
+const { validForNewPackages, validForOldPackages, errors, warnings } = results;
+
+validForNewPackages; // $ExpectType boolean
+validForOldPackages; // $ExpectType boolean
+errors; // $ExpectType string[] | undefined
+warnings; // $ExpectType string[] | undefined
+
 if (results.validForNewPackages) {
     results.validForOldPackages; // $ExpectType true
-    // $ExpectError
-    results.errors;
-    // $ExpectError
-    results.warnings;
 } else {
     if (results.validForOldPackages) {
         results.warnings; // $ExpectType string[]

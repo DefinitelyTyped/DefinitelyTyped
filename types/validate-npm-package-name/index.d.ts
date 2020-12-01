@@ -7,18 +7,25 @@
 declare namespace validate {
     let scopedPackagePattern: RegExp;
 
-    interface ValidNames {
+    interface Results {
+        validForNewPackages: boolean;
+        validForOldPackages: boolean;
+        errors?: string[];
+        warnings?: string[];
+    }
+
+    interface ValidNames extends Results {
         validForNewPackages: true;
         validForOldPackages: true;
     }
 
-    interface InvalidNames {
+    interface InvalidNames extends Results {
         validForNewPackages: false;
         validForOldPackages: false;
         errors: string[];
     }
 
-    interface LegacyNames {
+    interface LegacyNames extends Results {
         validForNewPackages: false;
         validForOldPackages: true;
         warnings: string[];
