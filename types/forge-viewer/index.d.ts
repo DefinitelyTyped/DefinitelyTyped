@@ -1104,6 +1104,7 @@ declare namespace Autodesk {
 
         namespace Private {
             const env: string;
+            const LocalStorage: LocalStorageClass;
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
@@ -1111,6 +1112,16 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            class LocalStorageClass {
+              clear(): void;
+              getAllKeys(): string[];
+              getItem(key: string): string;
+              isSupported(): boolean;
+              removeItem(key: string): void;
+              setItem(key: string, value: string): void;
+            }
+
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
