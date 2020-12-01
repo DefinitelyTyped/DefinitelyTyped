@@ -212,7 +212,7 @@ export interface DatePreset {
     text?: string;
 }
 
-export function preset(text: string, startDate: Moment, endDate: Moment): DatePreset
+export function preset(text: string, startDate: Moment, endDate: Moment): DatePreset;
 
 export const DEFAULT_DATES_PRESETS: [DatePreset];
 export const LAST_12_MONTHS_PRESET: DatePreset;
