@@ -1,15 +1,17 @@
 declare module 'util' {
-    /**
-     * Returns a promisified function signature for the given callback-style function.
-     */
-    type Promisify<
-        T extends (...args: any[]) => any,
-        TReturn = CallbackAPIReturnType<T>,
-        TArgs extends any[] = Lead<Parameters<T>>
-    > = (...args: TArgs) => Promise<TReturn>;
-
+    // Custom promisify must exist or promisifying functions with overloads will break
+    function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     function promisify<T extends (...args: any[]) => any>(fn: T): Promisify<T>;
 }
+
+/**
+ * Returns a promisified function signature for the given callback-style function.
+ */
+type Promisify<
+    T extends (...args: any[]) => any,
+    TReturn = CallbackAPIReturnType<T>,
+    TArgs extends any[] = Lead<Parameters<T>>
+> = [(...args: TArgs) => Promise<TReturn>][0]; // By indexing into the tuple, we force TypeScript to resolve the return type
 
 // Helper types for smart promisify signature
 /**
@@ -32,6 +34,7 @@ type CallbackAPIReturnType<
     TCb extends (...args: any[]) => any = LastArgument<T>,
     TCbArgs = Parameters<Exclude<TCb, undefined>>
 > = TCbArgs extends [(Error | null | undefined)?]
+    // tslint:disable-next-line void-return This is a return type
     ? void
     : TCbArgs extends [Error | null | undefined, infer U]
     ? U
