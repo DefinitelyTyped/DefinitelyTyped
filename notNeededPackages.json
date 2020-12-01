@@ -2722,6 +2722,11 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "mongoose",
+            "typingsPackageName": "mongoose",
+            "asOfVersion": "5.11.0"
+        },
+        {
             "libraryName": "monk",
             "typingsPackageName": "monk",
             "asOfVersion": "6.0.0"
