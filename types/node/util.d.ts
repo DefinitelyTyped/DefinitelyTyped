@@ -92,8 +92,29 @@ declare module "util" {
     }
 
     type CustomPromisify<TCustom extends Function> = CustomPromisifySymbol<TCustom> | CustomPromisifyLegacy<TCustom>;
+
     function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    function promisify<T extends (...args: any[]) => any>(fn: T): Promisify<T>;
+    function promisify<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => Promise<TResult>;
+    function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
+    function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    function promisify<T1>(fn: (arg1: T1, callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
+    function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void):
+        (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    function promisify<T1, T2, T3, T4, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void):
+        (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    function promisify<T1, T2, T3, T4, T5, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    function promisify<T1, T2, T3, T4, T5>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    function promisify(fn: Function): Function;
     namespace promisify {
         const custom: unique symbol;
     }
@@ -184,46 +205,3 @@ declare module "util" {
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
 }
-
-// Helper types for smart promisify signature
-/**
- * Returns a promisified function signature for the given callback-style function.
- */
-type Promisify<
-    T extends (...args: any[]) => any,
-    TReturn = CallbackAPIReturnType<T>,
-    TArgs extends any[] = Lead<Parameters<T>>
-> = (...args: TArgs) => Promise<TReturn>;
-
-/**
- * Returns the last item's type in a tuple
- */
-type Last<T extends unknown[]> = T extends []
-    ? never
-    : T extends [...infer _, infer R]
-    ? R
-    : T extends [...infer _, (infer R)?]
-    ? R | undefined
-    : never;
-
-/** Returns the type of the last argument of a function */
-type LastArgument<T extends (...args: any[]) => any> = Last<Parameters<T>>;
-
-/** Returns the "return" type of a callback-style API */
-type CallbackAPIReturnType<
-    T extends (...args: any[]) => any,
-    TCb extends (...args: any[]) => any = LastArgument<T>,
-    TCbArgs = Parameters<Exclude<TCb, undefined>>
-> = TCbArgs extends [(Error | null | undefined)?]
-    // tslint:disable-next-line void-return This is a return type!
-    ? void
-    : TCbArgs extends [Error | null | undefined, infer U]
-    ? U
-    : TCbArgs extends any[]
-    ? TCbArgs[1]
-    : never;
-
-/**
- * Returns all but the last item's type in a tuple/array
- */
-type Lead<T extends unknown[]> = T extends [] ? [] : T extends [...infer L, any?] ? L : [];

@@ -49,7 +49,7 @@
 /// <reference path="../trace_events.d.ts" />
 /// <reference path="../tty.d.ts" />
 /// <reference path="../url.d.ts" />
-//  util.d.ts is modified in v4.0+
+/// <reference path="../util.d.ts" />
 /// <reference path="../v8.d.ts" />
 /// <reference path="../vm.d.ts" />
 /// <reference path="../worker_threads.d.ts" />
