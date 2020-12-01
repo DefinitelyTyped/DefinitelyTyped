@@ -1,41 +1,39 @@
 import http = require("tiny-json-http");
 
-const callback: http.Callback = (err, res) => {};
-
 // $ExpectType void
 http.get({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.head({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.options({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.post({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.put({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.patch({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // $ExpectType void
 http.del({
   url: "https://github.com"
-}, callback);
+}, (err, res) => {});
 
 // Promise alternatives
 Promise.resolve()

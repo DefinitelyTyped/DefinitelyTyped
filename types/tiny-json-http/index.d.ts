@@ -3,44 +3,48 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-  url: string;
-  data?: any;
-  headers?: any;
-  /**
-   * Set to true the response body is returned as a buffer
-   */
-  buffer?: boolean;
-  timeout?: number;
+declare namespace TinyJsonHttp {
+  interface Options {
+    url: string;
+    data?: any;
+    headers?: any;
+    /**
+     * Set to true the response body is returned as a buffer
+     */
+    buffer?: boolean;
+    timeout?: number;
+  }
+
+  interface Result {
+    body: any;
+    headers: any;
+  }
+  type Callback = (err: Error | null, res?: Result) => void;
+
+  interface Api {
+    get(options: Options): Promise<Result>;
+    get(options: Options, callback: Callback): void;
+
+    head(options: Options): Promise<Result>;
+    head(options: Options, callback: Callback): void;
+
+    options(options: Options): Promise<Result>;
+    options(options: Options, callback: Callback): void;
+
+    post(options: Options): Promise<Result>;
+    post(options: Options, callback: Callback): void;
+
+    put(options: Options): Promise<Result>;
+    put(options: Options, callback: Callback): void;
+
+    patch(options: Options): Promise<Result>;
+    patch(options: Options, callback: Callback): void;
+
+    del(options: Options): Promise<Result>;
+    del(options: Options, callback: Callback): void;
+  }
 }
 
-export interface Result {
-  body: any;
-  headers: any;
-}
-export type Callback = (err: Error | null, res?: Result) => void;
+declare const http: TinyJsonHttp.Api;
 
-export function get(options: Options): Promise<Result>;
-export function get(options: Options, callback: Callback): void;
-
-export function head(options: Options): Promise<Result>;
-export function head(options: Options, callback: Callback): void;
-
-export function options(options: Options): Promise<Result>;
-export function options(options: Options, callback: Callback): void;
-
-export function post(options: Options): Promise<Result>;
-export function post(options: Options, callback: Callback): void;
-
-export function put(options: Options): Promise<Result>;
-export function put(options: Options, callback: Callback): void;
-
-export function patch(options: Options): Promise<Result>;
-export function patch(options: Options, callback: Callback): void;
-
-export function del(options: Options): Promise<Result>;
-export function del(options: Options, callback: Callback): void;
-
-// delete is a function option, but typescript has reserved that word
-// export function delete(options: Options): Promise<Result>;
-// export function delete(options: Options, callback: Callback): void;
+export = http;
