@@ -1,4 +1,4 @@
-// Type definitions for Akumina 4.5
+// Type definitions for Akumina 5.0
 // Project: https://github.com/akumina/AkuminaDev
 // Definitions by: Akumina <https://github.com/akumina>
 //                 Jason Arden <https://github.com/jasonarden>
@@ -12,6 +12,8 @@
 import IGetListRequest from "./interfaces/IGetListRequest";
 // tslint:disable-next-line interface-name
 import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
+import IPageWidget from "./interfaces/IPageWidget";
+import { IPageVersionPriorityGroup, IPageVersionProperties, IPageVersion } from "./interfaces/IPageInterfaces";
 
 declare namespace Akumina {
     class BaseWidget {
@@ -109,7 +111,6 @@ declare namespace Akumina {
             /** Associative Array of objects */
             static DepartmentSiteMap: any[];
             static GoogleMapKey: string;
-            static ApplicationInsightsKey: string;
             static SkypeApiKey: string;
             static SkypeApiKeyCC: string;
             static TenantUrl: string;
@@ -125,6 +126,8 @@ declare namespace Akumina {
             static PersonaEnabledLists: any;
             /** SPA COre page path */
             static SPACorePageUrl: string;
+            /** Home page path */
+            static HomePageUrl: string;
             static TemplateURLPrefix: string;
             /** Site URL  */
             static ConfigurationSiteUrl: string;
@@ -174,6 +177,10 @@ declare namespace Akumina {
             static PageRouteInfo: any;
             static ValidRoutes: any;
             static AssetLibraryName: string;
+            static AppManagerWidgets: string[];
+            static InstrumentationKey: string;
+            static AppInsightAppId: string;
+            static EnableAnalytics: boolean;
             /** Contains Array of pageTypes object */
             static PageTypes: any[];
             /**
@@ -234,6 +241,7 @@ declare namespace Akumina {
             */
             static GetSiteVisibleLanguages(languages: any): any;
             static IsSPAMode: boolean;
+            static CentralPipedSiteIdWebId: string;
         }
         class UserContext {
             static LanguageCode: string;
@@ -247,7 +255,15 @@ declare namespace Akumina {
             static Department: string;
             static UserLoginName: string;
             static LoginName: string;
-            static userPersonas: string[];
+            static userPersonas: Array<string>;
+            static GetPagePersona(): string;
+            /** Persona Based On Priority**/
+            static PagePersona: string;
+            /** Persona Selected for CReating Page Version**/
+            static SelectedPagePersona: string;
+            static GraphUserId: string;
+            static GetAllUserGroups(): JQueryDeferred<any>;
+            static GetUserAuthorizedPersona(objectid: string | null): JQueryDeferred<any>;
         }
         class SiteContext {
             static IsLoaderComplete: boolean;
@@ -264,7 +280,7 @@ declare namespace Akumina {
              */
             static IsInDesignMode(): string;
             /** Get Site Type developer|delivery */
-            static GetSiteType(): string;
+            static GetSiteType(): string
             static FrameworkLoadTime: number;
             static TotalLoadTime: number;
             static TotalConnectTime: number;
@@ -317,15 +333,25 @@ declare namespace Akumina {
             */
             static ViewsInUse: string[];
             static WebTitle: string;
+            static IsSharePointOnline: boolean;
+            static IsTimedOut: boolean;
+            static LicensingInformation: any;
         }
         class PageContext {
             static EditMode: boolean;
             static PageId: string;
-            static PageTitle: string;
+            static PageVersionId: string;
+            static PageVersionName: string;
+            static PreviewPageVersionId: string;
+            static PageTitle: string;            
+            static PageVersionsCount : number;
             static MapPageUrl(pageUrl: string): string;
+            static GetHomePageUrl(siteUrl: string): string;
+            static SetPageVersionsCount(count: number): void;
             static PageRouteInfo: {
                 email: string
             };
+            static PagePriorityGroups : Array<string>;
         }
         class Utilities {
             /**
@@ -337,7 +363,7 @@ declare namespace Akumina {
             /**
              * Called to show confirmation pop up while exiting edit page mode.
              */
-            static AttemptReset(): void;
+            static AttemptReset(callback: any): void;
 
             /**
              * Check if iser is logged into appmanager and set the flag accordingly
@@ -394,7 +420,7 @@ declare namespace Akumina {
              * @param instanceId Widget Instance ID
              */
             static GetPageGridByInstance(instanceId: string): string[];
-            static GetPropertyValue(requestIn: any, key: string, defaultValue: string, dataType: string): boolean | JSON;
+            static GetPropertyValue(requestIn: any, key: string, defaultValue: string, dataType: string): any; // Boolean, string, number, JSON object
             /** Retrive search parameter value from results */
             static GetSearchParameter(itemResults: any[], paramToRetrieve: string, defaultValue: string): string;
             /**
@@ -463,8 +489,13 @@ declare namespace Akumina {
             static ToggleWidgetManager(): void;
             static IsLoggedinToAppManager(): void;
             static LoginToAppmanagerHtml(): void;
-            static AzureADEnabledOrAppManagerLoggedIn(): void;
+            static AzureADEnabledOrAppManagerLoggedIn(): boolean;
             static ExitEditModeAndRefreshPage(): void;
+            static ArePersonasDefined(): boolean;
+            static GetStickyNoteMessage(): string;
+            static IsSignInAccount(): boolean;
+            static OnSpaLinkClick(pageRoute: string, openInNewWindow: boolean): void;
+            static CreatePageLink(url: string) : string;
         }
         class Language {
             static TryGetText(Token: string): string; /* Added */
@@ -481,11 +512,12 @@ declare namespace Akumina {
 
         class ScriptManager {
             GetManagerScript(callback: () => void): JQueryDeferred<any>;
-            GetWidgetLegacyScript(callback: () => void): JQueryDeferred<any>;
+            //removed in 5.0 - JA - GetWidgetLegacyScript(callback: () => void): JQueryDeferred<any>;
             GetLanguageMappingsScript(callback: () => void): JQueryDeferred<any>;
-            GetBabelScript(callback: () => void): JQueryDeferred<any>;
-            GetBxSliderScript(callback: () => void): JQueryDeferred<any>;
+            //removed in 5.0 - JA - GetBabelGetBabelScript(callback: () => void): JQueryDeferred<any>;
+            //removed in 5.0 - JA - GetBxSliderScript(callback: () => void): JQueryDeferred<any>;
             LoadPageBuilderCSS(): JQueryDeferred<any>;
+            GetScript(key: string, callback: () => void): JQueryDeferred<any>;
         }
 
         class PerfLogger {
@@ -543,7 +575,9 @@ declare namespace Akumina {
                 constructor();
                 static Subscribe(e: string, func: any, caller?: any): void; /* Updated */
                 static Publish(t: string, data?: any): void; /* Updated */
-                static ResetTrackedEvents(): void; /* Added */
+                static UnSubscribe(e: string, func: any, caller?: any): void; /* Updated */
+                static ClearSubscribedAndPublished(e: string): void;
+                static ResetTrackedEvents(widgetsOnPage: string[]): void; /* Added */
             }
             class Data {
                 Templates: Templates;
@@ -647,6 +681,7 @@ declare namespace Akumina {
                  * @param implementation
                  */
                 SetImpl(implementation: string): void;
+
 
                 SetContextUrl(siteCOntextUrl: string): void;
 
@@ -763,7 +798,7 @@ declare namespace Akumina {
                  * @param pageId
                  * @param pageWidgets
                  */
-                ProvisionPageWidgets(widgetName: string, pageId: string, pageWidgets: any[]): JQueryDeferred<any>;
+                ProvisionPageWidgets(widgetName: string, pageId: string, pageVersionId: string, pageWidgets: any[]): JQueryDeferred<any>;
                 UpdatePageUrlsItem(pageObject: any, pageId: string, pageTypeList?: string): JQueryDeferred<any>;
                 LoadTermSet(termSetName?: string | null, columnName?: string | null, columnValue?: string | null): JQueryDeferred<any>;
                 LoadTermSetByColumnName(request: IGetListRequest, columnName: string, columnValue?: string | null): JQueryDeferred<any>;
@@ -862,11 +897,32 @@ declare namespace Akumina {
                 *Load all list fields
                * @param configItem Key value pair of item which needs to be updated or added
                */
-                AddOrEditConfiguration(configItem: any): JQueryDeferred<any>;
-                  /**
-                 * Get User Props
-                 */
+                AddOrEditConfiguration(configItem: any): JQueryDeferred<any>
+                /**
+               * Get User Props
+               */
                 GetUser(userPrincipal: string): JQueryDeferred<any>;
+
+                AddPageWidgets(listName: any, pageId: any, widgetName: any, pageWidgets: any): JQueryDeferred<any>
+            }
+
+            class PageFactory {
+                constructor(legacyMode?: boolean);
+                CreatePage(createPageRequest: any): JQueryDeferred<any>;
+                CreatePageVersion(createPageVersionRequest: IPageVersionProperties): JQueryDeferred<IPageVersionProperties>;
+                GetPageVersion(pageVersionId: string): JQueryDeferred<IPageVersionProperties>;
+                DeletePageVersion(pageVersionId: string): JQueryDeferred<IPageVersionProperties>;
+                ClonePageVersionFrom(pageVersionId: string, newPageVersion: IPageVersionProperties): JQueryDeferred<IPageVersion>;
+                AssignPriorityGroupToPageVersion(pageVersionPriority: IPageVersionPriorityGroup): JQueryDeferred<any>;
+                SetPagePriorityGroups(pagePriorityGroups: string[]): JQueryDeferred<any>;
+                MarkPageVersionActive(pageVersionId: string): JQueryDeferred<{}>;
+                ProvisionPageWidgets(widgetName: string, pageVersion: any, pageWidgets: Array<any>): JQueryDeferred<{}>;
+                GetAllVersionsForPage(pageId: string): JQueryDeferred<any>;
+                PageVersionExists(pageVersionName: string): JQueryDeferred<any>;
+                AddPageVersion(newVersionProperties: any, pageWidgets: any): JQueryDeferred<IPageVersion>;
+                static GetPageObjectsCacheKey(): string;
+                static GetSavedLayoutsCacheKey(): string;
+                static GetPageWidgetsCacheKey(pageVersionId: string): string;
             }
 
             class RestSharepoint { }
@@ -927,6 +983,7 @@ declare namespace Akumina {
                  */
                 GetSPUserGroups(): JQueryDeferred<any>;
                 // LoadTermSet(termSetName: string, columnName: string, columnValue: string): JQueryDeferred<any>;
+
             }
             class PersonaManager {
                 /** Does List reuire persona check
@@ -1138,11 +1195,19 @@ declare namespace Akumina {
                * Save page widgets
                * @param pageId
                */
-                ProvisionPageWidgets(pageWidgetsRequest: ISavePageWidgetRequest): JQueryDeferred<any>;
+                //ProvisionPageWidgets(pageWidgetsRequest: ISavePageWidgetRequest): JQueryDeferred<any>;
+
+                UpdatePageVersionWidgetsInCache(pageId: string, pageVersionId: string, pageVersionWidgets: IPageWidget[]): JQueryDeferred<any>;
+                UpdatePageVersionPropertiesInCache(pageVersionProperties: IPageVersionProperties): JQueryDeferred<any>;
+
+                RemovePageVersionFromCache(pageId: string, pageVersionId: string): JQueryDeferred<any>;
+
+                UpdatePagePropertiesInCache(pageProperties: any): JQueryDeferred<any>;
 
                 UpdateWidgetInstanceCacheAsModel(widgetInstanceId: string, widgetProps: string): JQueryDeferred<any>;
 
                 UpdatePageWidgetInstanceCacheAsModel(pageId: string, widgetInstanceId: string, virtualWidgetInstanceId: string, widgetProps: string): JQueryDeferred<any>;
+                AddOrReplacePageVersionInCache(completePageVersion: IPageVersion): JQueryDeferred<any>;
             }
 
             class PageManager {
@@ -1150,6 +1215,11 @@ declare namespace Akumina {
                  **
                  */
                 constructor(pageUrl?: string);
+                /** 
+                * Get default page layouts
+                * @return Array of page layout object
+                * {displayOrder:, layoutId:, layoutImage:, layoutTemplate:, layoutTitle:, selectedLayout:, spPageLayoutId: }
+                */
                 GetPageLayouts(): any[];
 
                 /**
@@ -1334,7 +1404,7 @@ declare namespace Akumina {
                  * @param pageId
                  * @param pageWidgets
                  */
-                ProvisionPageWidgets(widgetName: string, pageId: string, pageWidgets: any[]): JQueryDeferred<any>;
+                ProvisionPageWidgets(widgetName: string, pageId: string, pageVersionId: string, pageWidgets: any[]): JQueryDeferred<any>;
                 SavePage(pageId: string): JQueryDeferred<any>;
 
                 /**
@@ -1429,13 +1499,16 @@ declare namespace Akumina {
                 GetProfilePicture(email: string, flag: boolean): Promise<any>;
             }
         }
+        namespace ActivityStreams {
+            class GenericHelper { }
+        }
     }
     namespace AddIn {
         class Utilities {
             static getEditMode(): boolean;
             static IsNullOrEmpty(value: string): boolean;
             static GetFriendlyUrl(url: string): string;
-            static getQueryStringParameter(url: string): string;
+            static getQueryStringParameter(url: string, ret?: string | null): string;
             static substring(str: string, maxChar: number): string;
             static ItemExpired(date: string): boolean;
             static TryParseInt(val: any, defaultValue: any): number | null;
