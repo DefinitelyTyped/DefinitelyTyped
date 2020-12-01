@@ -37,8 +37,22 @@ import type {
     StrictPopupProps as SemanticPopupProps,
     StrictRadioProps as SemanticRadioProps,
     TextAreaProps as SemanticTextAreaProps,
+    StrictMenuProps,
+    StrictTabProps
 } from 'semantic-ui-react';
 import type { Moment } from 'moment';
+
+export interface MenuProps extends StrictMenuProps {
+    [key: string]: any;
+}
+
+export const Tab: ComponentType<MenuProps>;
+
+export interface TabProps extends StrictTabProps {
+    [key: string]: any;
+}
+
+export const Menu: ComponentType<MenuProps>;
 
 export type UnsupportedButtonProps = 'animated' | 'attached' | 'color' | 'labelPosition' | 'floated' | 'inverted';
 export type ButtonPropsToOverwrite = 'onClick';
@@ -198,7 +212,14 @@ export interface DatePreset {
     text?: string;
 }
 
+export function preset(text: string, startDate: Moment, endDate: Moment): DatePreset
+
 export const DEFAULT_DATES_PRESETS: [DatePreset];
+export const LAST_12_MONTHS_PRESET: DatePreset;
+export const LAST_3_MONTHS_PRESET: DatePreset;
+export const LAST_6_MONTHS_PRESET: DatePreset;
+export const LAST_MONTH_PRESET: DatePreset;
+export const LAST_WEEK_PRESET: DatePreset;
 
 export interface DateRangePickerProps {
     /**
@@ -503,10 +524,14 @@ export class MultiVariantIcon {
 
 export const AddIcon24: ComponentType<IconProps>;
 export const AddIcon32: ComponentType<IconProps>;
+export const ArrowIcon24: ComponentType<IconProps>;
+export const ArrowIcon32: ComponentType<IconProps>;
 export const CalendarIcon24: ComponentType<IconProps>;
 export const CalendarIcon32: ComponentType<IconProps>;
 export const CarretIcon24: ComponentType<IconProps>;
 export const CarretIcon32: ComponentType<IconProps>;
+export const CheckCircleIcon24: ComponentType<IconProps>;
+export const CheckCircleIcon32: ComponentType<IconProps>;
 export const CheckIcon24: ComponentType<IconProps>;
 export const CheckIcon32: ComponentType<IconProps>;
 export const ChevronIcon24: ComponentType<IconProps>;
@@ -517,43 +542,78 @@ export const ClearFilterIcon24: ComponentType<IconProps>;
 export const ClearFilterIcon32: ComponentType<IconProps>;
 export const CrossIcon24: ComponentType<IconProps>;
 export const CrossIcon32: ComponentType<IconProps>;
+export const CsvIcon24: ComponentType<IconProps>;
 export const CsvIcon32: ComponentType<IconProps>;
+export const DashIcon24: ComponentType<IconProps>;
+export const DashIcon32: ComponentType<IconProps>;
 export const DoNotDisturbIcon32: ComponentType<IconProps>;
+export const DownloadIcon24: ComponentType<IconProps>;
 export const DownloadIcon32: ComponentType<IconProps>;
+export const EmailIcon24: ComponentType<IconProps>;
 export const EmailIcon32: ComponentType<IconProps>;
+export const EmailReminderIcon24: ComponentType<IconProps>;
 export const EmailReminderIcon32: ComponentType<IconProps>;
+export const EditIcon24: ComponentType<IconProps>;
 export const EditIcon32: ComponentType<IconProps>;
+export const FileIcon24: ComponentType<IconProps>;
 export const FileIcon32: ComponentType<IconProps>;
+export const FilterIcon24: ComponentType<IconProps>;
+export const FilterIcon32: ComponentType<IconProps>;
+export const FlagIcon24: ComponentType<IconProps>;
+export const FlagIcon32: ComponentType<IconProps>;
+export const FolderIcon24: ComponentType<IconProps>;
 export const FolderIcon32: ComponentType<IconProps>;
+export const GearIcon24: ComponentType<IconProps>;
 export const GearIcon32: ComponentType<IconProps>;
+export const GroupIcon24: ComponentType<IconProps>;
 export const GroupIcon32: ComponentType<IconProps>;
+export const GuestAddIcon24: ComponentType<IconProps>;
+export const GuestAddIcon32: ComponentType<IconProps>;
+export const GuestRemoveIcon24: ComponentType<IconProps>;
+export const GuestRemoveIcon32: ComponentType<IconProps>;
 export const HelpIcon24: ComponentType<IconProps>;
 export const HelpIcon32: ComponentType<IconProps>;
+export const HorizontalDotsIcon24: ComponentType<IconProps>;
 export const HorizontalDotsIcon32: ComponentType<IconProps>;
+export const ImageIcon24: ComponentType<IconProps>;
 export const ImageIcon32: ComponentType<IconProps>;
 export const InfoIcon24: ComponentType<IconProps>;
 export const InfoIcon32: ComponentType<IconProps>;
 export const LightbulbIcon24: ComponentType<IconProps>;
 export const LightbulbIcon32: ComponentType<IconProps>;
+export const MagnifierIcon24: ComponentType<IconProps>;
 export const MagnifierIcon32: ComponentType<IconProps>;
+export const MusicIcon24: ComponentType<IconProps>;
 export const MusicIcon32: ComponentType<IconProps>;
 export const NotificationIcon24: ComponentType<IconProps>;
 export const NotificationIcon32: ComponentType<IconProps>;
+export const NotificationOffIcon24: ComponentType<IconProps>;
+export const NotificationOffIcon32: ComponentType<IconProps>;
+export const PdfIcon24: ComponentType<IconProps>;
 export const PdfIcon32: ComponentType<IconProps>;
 export const PrinterIcon24: ComponentType<IconProps>;
 export const PrinterIcon32: ComponentType<IconProps>;
 export const PrivacyIcon24: ComponentType<IconProps>;
+export const PrivacyIcon32: ComponentType<IconProps>;
 export const SignoutIcon24: ComponentType<IconProps>;
 export const SignoutIcon32: ComponentType<IconProps>;
+export const SlashIcon24: ComponentType<IconProps>;
+export const SlashIcon32: ComponentType<IconProps>;
 export const SortIcon24: ComponentType<IconProps>;
 export const SortIcon32: ComponentType<IconProps>;
+export const TrashIcon24: ComponentType<IconProps>;
 export const TrashIcon32: ComponentType<IconProps>;
+export const UserAddIcon24: ComponentType<IconProps>;
 export const UserAddIcon32: ComponentType<IconProps>;
+export const UserRemoveIcon24: ComponentType<IconProps>;
 export const UserRemoveIcon32: ComponentType<IconProps>;
+export const VerticalDotsIcon24: ComponentType<IconProps>;
 export const VerticalDotsIcon32: ComponentType<IconProps>;
+export const VideoIcon24: ComponentType<IconProps>;
 export const VideoIcon32: ComponentType<IconProps>;
 export const WarningIcon24: ComponentType<IconProps>;
 export const WarningIcon32: ComponentType<IconProps>;
+export const ZipIcon24: ComponentType<IconProps>;
 export const ZipIcon32: ComponentType<IconProps>;
 
 export const AddIcon: ComponentType<MultiVariantIconProps>;
@@ -561,20 +621,26 @@ export const ArrowIcon: ComponentType<MultiVariantIconProps>;
 export const ChevronIcon: ComponentType<MultiVariantIconProps>;
 export const CalendarIcon: ComponentType<MultiVariantIconProps>;
 export const CarretIcon: ComponentType<MultiVariantIconProps>;
+export const CheckCircleIcon: ComponentType<MultiVariantIconProps>;
 export const CheckIcon: ComponentType<MultiVariantIconProps>;
 export const CircleIcon: ComponentType<MultiVariantIconProps>;
 export const ClearFilterIcon: ComponentType<MultiVariantIconProps>;
 export const CrossIcon: ComponentType<MultiVariantIconProps>;
 export const CsvIcon: ComponentType<MultiVariantIconProps>;
+export const DashIcon: ComponentType<MultiVariantIconProps>;
 export const DoNotDisturbIcon: ComponentType<MultiVariantIconProps>;
 export const DownloadIcon: ComponentType<MultiVariantIconProps>;
 export const EditIcon: ComponentType<MultiVariantIconProps>;
 export const EmailIcon: ComponentType<MultiVariantIconProps>;
 export const EmailReminderIcon: ComponentType<MultiVariantIconProps>;
 export const FileIcon: ComponentType<MultiVariantIconProps>;
+export const FilterIcon: ComponentType<MultiVariantIconProps>;
+export const FlagIcon: ComponentType<MultiVariantIconProps>;
 export const FolderIcon: ComponentType<MultiVariantIconProps>;
 export const GearIcon: ComponentType<MultiVariantIconProps>;
 export const GroupIcon: ComponentType<MultiVariantIconProps>;
+export const GuestAddIcon: ComponentType<MultiVariantIconProps>;
+export const GuestRemoveIcon: ComponentType<MultiVariantIconProps>;
 export const HelpIcon: ComponentType<MultiVariantIconProps>;
 export const HorizontalDotsIcon: ComponentType<MultiVariantIconProps>;
 export const ImageIcon: ComponentType<MultiVariantIconProps>;
@@ -583,9 +649,11 @@ export const LightbulbIcon: ComponentType<MultiVariantIconProps>;
 export const MagnifierIcon: ComponentType<MultiVariantIconProps>;
 export const MusicIcon: ComponentType<MultiVariantIconProps>;
 export const NotificationIcon: ComponentType<MultiVariantIconProps>;
+export const NotificationOffIcon: ComponentType<MultiVariantIconProps>;
 export const PdfIcon: ComponentType<MultiVariantIconProps>;
 export const PrinterIcon: ComponentType<MultiVariantIconProps>;
 export const PrivacyIcon: ComponentType<MultiVariantIconProps>;
+export const SlashIcon: ComponentType<MultiVariantIconProps>;
 export const SortIcon: ComponentType<MultiVariantIconProps>;
 export const SignoutIcon: ComponentType<MultiVariantIconProps>;
 export const TrashIcon: ComponentType<MultiVariantIconProps>;
