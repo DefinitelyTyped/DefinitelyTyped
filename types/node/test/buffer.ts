@@ -43,7 +43,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     // Array
     const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
     // Buffer
-    const buf2: Buffer = Buffer.from(buf1);
+    const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
     const buf3: Buffer = Buffer.from('this is a tést');
     // ArrayBuffer
@@ -56,6 +56,8 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf6: Buffer = Buffer.from(buf1);
     const sb: SharedArrayBuffer = {} as any;
     const buf7: Buffer = Buffer.from(sb);
+    // $ExpectError
+    Buffer.from({});
 }
 
 // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -67,11 +69,31 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     let buf: Buffer;
     buf = Buffer.from(arr.buffer, 1);
     buf = Buffer.from(arr.buffer, 0, 1);
+
+    // $ExpectError
+    Buffer.from("this is a test", 1, 1);
+    // Ideally passing a normal Buffer would be a type error too, but it's not
+    //  since Buffer is assignable to ArrayBuffer currently
 }
 
 // Class Method: Buffer.from(str[, encoding])
 {
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    // $ExpectError
+    Buffer.from(buf2, 'hex');
+}
+
+// Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
+{
+    const pseudoBuf = { valueOf() { return Buffer.from([1, 2, 3]); } };
+    let buf: Buffer = Buffer.from(pseudoBuf);
+    const pseudoString = { valueOf() { return "Hello"; }};
+    buf = Buffer.from(pseudoString);
+    buf = Buffer.from(pseudoString, "utf-8");
+    // $ExpectError
+    Buffer.from(pseudoString, 1, 2);
+    const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
+    buf = Buffer.from(pseudoArrayBuf, 1, 1);
 }
 
 // Class Method: Buffer.alloc(size[, fill[, encoding]])
