@@ -1,6 +1,9 @@
 // $ExpectType TrustedTypePolicyFactory | undefined
 window.trustedTypes;
 
+// $ExpectError
+trustedTypes;
+
 const rules = {
     createHTML: (s: string) => s,
     createScript: (s: string) => s,

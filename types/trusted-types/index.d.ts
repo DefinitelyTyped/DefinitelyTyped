@@ -27,7 +27,7 @@ declare global {
         private brand: true; // To prevent structural typing.
     }
 
-    interface TrustedTypePolicyFactory {
+    class TrustedTypePolicyFactory {
         createPolicy<Options extends TrustedTypePolicyOptions>(
             policyName: string,
             policyOptions?: Options,
@@ -42,7 +42,7 @@ declare global {
         readonly defaultPolicy: TrustedTypePolicy | null;
     }
 
-    interface TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
+    class TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
         readonly name: string;
         createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
         createScript(...args: Args<Options, 'createScript'>): TrustedScript;
@@ -63,8 +63,8 @@ declare global {
         TrustedHTML: typeof TrustedHTML;
         TrustedScript: typeof TrustedScript;
         TrustedScriptURL: typeof TrustedScriptURL;
-        TrustedTypePolicyFactory: TrustedTypePolicyFactory;
-        TrustedTypePolicy: TrustedTypePolicy;
+        TrustedTypePolicyFactory: typeof TrustedTypePolicyFactory;
+        TrustedTypePolicy: typeof TrustedTypePolicy;
     }
 }
 
