@@ -1,18 +1,13 @@
 // Type definitions for mongoose-aggregate-paginate-v2 1.0
 // Project: https://github.com/webgangster/mongoose-aggregate-paginate-v2
-// Definitions by: Linus Brolin <https://github.com/linusbrolin>
-//                 simonxca <https://github.com/simonxca>
-//                 woutgg <https://github.com/woutgg>
-//                 oktapodia <https://github.com/oktapodia>
-//                 Dongjun Lee <https://github.com/ChazEpps>
-//                 gamsterX <https://github.com/gamsterx>
-//                 knyuwork <https://github.com/knyuwork>
-//                 LiRen Tu <https://github.com/tuliren>
-//                 Alexandre Croteau <https://github.com/acrilex1>
+// Definitions by: Alexandre Croteau <https://github.com/acrilex1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 //
 // Based on type declarations for mongoose-paginate-v2 1.3.
+//
+// Thanks to knyuwork <https://github.com/knyuwork>
+// and LiRen Tu <https://github.com/tuliren> for their contribution
 
 declare module 'mongoose' {
     interface CustomLabels {
@@ -29,8 +24,7 @@ declare module 'mongoose' {
     }
 
     interface PaginateOptions {
-        /* tslint:disable-next-line: ban-types */
-        sort?: Object | string;
+        sort?: any;
         offset?: number;
         page?: number;
         limit?: number;
@@ -83,8 +77,8 @@ declare module 'mongoose' {
 }
 
 import mongoose = require('mongoose');
-declare function _(schema: mongoose.Schema): void;
-export = _;
+declare function mongooseAggregatePaginate(schema: mongoose.Schema): void;
+export = mongooseAggregatePaginate;
 declare namespace _ {
     const aggregatePaginate: { options: mongoose.PaginateOptions };
 }
