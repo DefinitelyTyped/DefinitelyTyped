@@ -80,7 +80,7 @@ export interface ReactDatePickerProps {
     minTime?: Date;
     monthsShown?: number;
     name?: string;
-    nextMonthButtonLabel?: string| React.ReactNode;
+    nextMonthButtonLabel?: string | React.ReactNode;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
