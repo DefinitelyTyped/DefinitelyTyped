@@ -27,6 +27,7 @@ import path = require('path');
             },
             styles: {
                 format: 'fragment',
+                keepAttributes: true,
                 filename: path.join(__dirname, 'src/scss/_sprites.scss'),
                 callback: (content) => `[class*="sprite-"] { background-size: cover; } ${content}`,
             },
