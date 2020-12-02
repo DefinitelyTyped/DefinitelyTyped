@@ -26,8 +26,6 @@
     "dist"
   ],
   "files": [
-    "index.d.ts",
-    "btreenode.d.ts",
-    "btree.d.ts"
+    "index.d.ts"
   ]
 }
