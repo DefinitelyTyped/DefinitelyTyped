@@ -53,6 +53,8 @@ declare namespace Serverless {
     }
 }
 
+declare namespace JSONSchema4Type {}
+
 declare class Serverless {
     constructor(config?: {});
 
@@ -85,10 +87,10 @@ declare class Serverless {
     resources: AwsProvider.Resources;
 
     configSchemaHandler: {
-        defineCustomProperties(schema: JSONSchemaProperties): void;
+        defineCustomProperties(schema: unknown): void;
         defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
-        defineFunctionEventProperties(provider: string, existingEvent: string, schema: JSONSchemaProperties): void;
-        defineFunctionProperties(provider: string, schema: JSONSchemaProperties): void;
+        defineFunctionEventProperties(provider: string, existingEvent: string, schema: unknown): void;
+        defineFunctionProperties(provider: string, schema: unknown): void;
         defineProvider(provider: string, options?: Record<string, unknown>): void;
         defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
     };
