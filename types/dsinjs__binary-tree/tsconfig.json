@@ -15,7 +15,11 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
   },
   "exclude": [
     "node_modules",
