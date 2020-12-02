@@ -1,4 +1,4 @@
-import { Duck, DuckOptions, DuckCreators, DuckReducer, DuckSagas, DuckTakes, DuckInstance } from 'extensible-duck';
+import Duck, { DuckOptions, DuckCreators, DuckReducer, DuckSagas, DuckTakes, DuckInstance } from 'extensible-duck';
 
 // mandatory prop types
 interface TState {
