@@ -1,4 +1,3 @@
-// Minimum TypeScript Version: 3.0
 // used to add new page version (no widgets) /get page version properties
 // tslint:disable-next-line interface-name
 export interface IPageVersionProperties {
@@ -20,5 +19,5 @@ export interface IPageVersionPriorityGroup {
 // used to get/update complete page version ==> properties + widgets
 // tslint:disable-next-line interface-name
 export interface IPageVersion extends IPageVersionProperties  {
-    pageWidgets: [];    
+    pageWidgets: any[];
 }
