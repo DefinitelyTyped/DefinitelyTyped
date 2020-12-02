@@ -9,6 +9,6 @@ new Vue({
     },
     data: {
         nodes: [],
-        connections: []
-    }
+        connections: [],
+    },
 });
