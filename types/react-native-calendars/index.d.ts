@@ -110,6 +110,9 @@ export interface MultiPeriodMarking {
         endingDay?: boolean;
         color?: string;
     }>;
+    disabled?: boolean;
+    selected?: boolean;
+    selectedColor?: string;
 }
 
 export interface PeriodMarking {
