@@ -26,7 +26,24 @@ import {
     SubmissionError,
     FieldArrayFieldsProps,
     DecoratedFormProps,
-    ReduxFormContext
+    ReduxFormContext,
+    getFormValues,
+    getFormInitialValues,
+    getFormSyncErrors,
+    getFormMeta,
+    getFormAsyncErrors,
+    getFormSyncWarnings,
+    getFormSubmitErrors,
+    getFormError,
+    getFormNames,
+    isDirty,
+    isPristine,
+    isValid,
+    isInvalid,
+    isSubmitting,
+    isAsyncValidating,
+    hasSubmitSucceeded,
+    hasSubmitFailed,
 } from 'redux-form';
 
 import {
@@ -500,4 +517,30 @@ class TestReduxFormContext extends React.Component {
             </ReduxFormContext.Consumer>
         );
     }
+}
+
+// Test generic selectors
+{
+    interface State { names: string[] };
+    interface FormFields { name: string };
+
+    const state = { names: ['A', 'B', 'C' ] };
+
+    getFormValues<FormFields, State>('some-form')(state).name;
+    getFormInitialValues<FormFields, State>('some-form')(state).name;
+    getFormSyncErrors<FormFields, State, number>('some-form', undefined)(state)._error;
+    getFormMeta<FormFields, State>('some-form')(state).name;
+    getFormAsyncErrors<FormFields, State, number>('some-form', undefined)(state)._error;
+    getFormSyncWarnings<FormFields, State, number>('some-form', undefined)(state)._error;
+    getFormSubmitErrors<FormFields, State, number>('some-form', undefined)(state)._error;
+    getFormError<FormFields, State, number>('some-form', undefined)(state)._error;
+    getFormNames<State>(undefined)(state);
+    isDirty<State>('some-form')(state);
+    isPristine<State>('some-form')(state);
+    isValid<State>('some-form')(state);
+    isInvalid<State>('some-form')(state);
+    isSubmitting<State>('some-form')(state);
+    isAsyncValidating<State>('some-form')(state);
+    hasSubmitSucceeded<State>('some-form')(state);
+    hasSubmitFailed<State>('some-form')(state);
 }
