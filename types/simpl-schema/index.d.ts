@@ -41,13 +41,13 @@ interface CustomValidationContext {
      * (non-generic schema key) as the only argument. The return object will
      * have isSet, value, and operator properties for that field.
      */
-    field(): any;
+    field(name: string): any;
     /**
      * Use this method to get information about other fields that have the same
      * parent object. Works the same way as field(). This is helpful when you use
      * sub-schemas or when you're dealing with arrays of objects.
      */
-    siblingField(): any;
+    siblingField(name: string): any;
 
     /**
      * Call this to add validation errors for any key. In general, you should use
@@ -130,6 +130,7 @@ interface SimpleSchemaStatic {
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
   getDefinition(key: string, propList?: any, functionContext?: any): any;
+  get(key: string, prop: string): any;
   keyIsInBlackBox(key: string): boolean;
   labels(labels: {[key: string]: string}): void;
   label(key: any): any;
