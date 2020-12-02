@@ -585,7 +585,7 @@ export interface LogLevels {
     webrtc: LogLevel;
 }
 export interface MediaStreamTrackPublishOptions extends LocalTrackOptions {
-    priority: Track.Priority;
+    priority?: Track.Priority;
 }
 export type NetworkQualityLevel = number;
 export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
