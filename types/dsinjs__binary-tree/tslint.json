@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dtslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "max-line-length": {
             "options": [180]
@@ -7,7 +7,8 @@
         "new-parens": true,
         "no-conditional-assignment": true,
         "no-consecutive-blank-lines": false,
-        "no-redundant-jsdoc": false
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false
     },
     "jsRules": {
         "max-line-length": {

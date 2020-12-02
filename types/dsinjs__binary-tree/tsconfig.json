@@ -11,15 +11,15 @@
       "es5",
       "dom"
     ],
-    "declaration": true,
-    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "downlevelIteration": true,
     "baseUrl": "../",
     "typeRoots": [
       "../"
     ],
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "node_modules",
