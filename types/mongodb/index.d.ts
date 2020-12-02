@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.5
+// Type definitions for MongoDB 3.6
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -32,6 +32,7 @@
 //                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
 //                 Anna Henningsen <https://github.com/addaleax>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -253,7 +254,7 @@ export class MongoError extends Error {
      * Checks the error to see if it has an error label
      */
     hasErrorLabel(label: string): boolean;
-    code?: number;
+    code?: number | string;
     /**
      * While not documented, the 'errmsg' prop is AFAIK the only way to find out
      * which unique index caused a duplicate key error. When you have multiple
@@ -936,8 +937,15 @@ export interface CollectionCreateOptions extends CommonOptions {
     pkFactory?: object;
     readPreference?: ReadPreferenceOrMode;
     serializeFunctions?: boolean;
+    /**
+     * @deprecated
+     * @see https://jira.mongodb.org/browse/NODE-2746
+     */
     strict?: boolean;
     capped?: boolean;
+    /**
+     * @deprecated
+     */
     autoIndexId?: boolean;
     size?: number;
     max?: number;
@@ -2725,7 +2733,7 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind<U = T>(field: string): AggregationCursor<U>;
+    unwind<U = T>(field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean; }): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

@@ -32,6 +32,8 @@ serveStatic.mime.define({
 
 serveStatic('/does-not-assume-express', {
     setHeaders: function(res) {
+        // ServerResponse
+        res;
         // $ExpectError
         res.set("foo", "bar");
     }

@@ -1,5 +1,10 @@
 import EventHooksPlugin = require('event-hooks-webpack-plugin');
+import { Compiler } from 'webpack';
 
+declare let compiler: Compiler;
+
+new EventHooksPlugin();
+new EventHooksPlugin().apply(compiler);
 new EventHooksPlugin({});
 new EventHooksPlugin({
     done: () => {},

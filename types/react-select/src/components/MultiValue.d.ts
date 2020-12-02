@@ -3,7 +3,7 @@ import { ComponentType, Component, ReactNode } from 'react';
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase } from '../types';
 
-export type MultiValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &{
+export type MultiValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, true> &{
   children: ReactNode,
   components: any,
   cropWithEllipsis: boolean,
@@ -32,7 +32,7 @@ export const MultiValueGeneric: ComponentType<MultiValueGenericProps<any>>;
 
 export const MultiValueContainer: typeof MultiValueGeneric;
 export const MultiValueLabel: typeof MultiValueGeneric;
-export type MultiValueRemoveProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
+export type MultiValueRemoveProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, true> & {
   children: ReactNode,
   innerProps: {
     className: string,

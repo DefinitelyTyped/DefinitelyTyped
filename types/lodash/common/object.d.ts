@@ -2263,7 +2263,7 @@ declare module "../index" {
          * @param accumulator The custom accumulator value.
          * @return Returns the accumulated value.
          */
-        transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: ReadonlyArray<T>, iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */

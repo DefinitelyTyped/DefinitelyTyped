@@ -330,6 +330,8 @@ export interface TransformCaller {
     // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
     supportsDynamicImport?: boolean;
+    supportsExportNamespaceFrom?: boolean;
+    supportsTopLevelAwait?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 

@@ -72,7 +72,7 @@ export interface SideNavSizingProps {
 //  function component with no generics: export declare const Comp: React.FC<PropsInterface>;
 //  function component with generics: export declare function Comp<T extends SomeType>(props: FCProps<PropsInterface<T>>): FCReturn;
 //  forwardRef component with no generics: export declare const Comp: ForwardRefReturn<HTMLElement, PropsInterface>;
-//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<PropsInterface<T>>): FCReturn;
+//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<HTMLElement, PropsInterface<T>>): FCReturn;
 //
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
 export type FCReturn = ReturnType<React.FC>;

@@ -1,4 +1,4 @@
-// Type definitions for svg-spritemap-webpack-plugin 3.6
+// Type definitions for svg-spritemap-webpack-plugin 3.7
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,6 +92,8 @@ declare namespace SVGSpritemapPlugin {
                       variables?: string;
                       mixin?: string;
                   };
+                  /** @default undefined */
+                  callback?: (content: string) => string
               };
     }
 }

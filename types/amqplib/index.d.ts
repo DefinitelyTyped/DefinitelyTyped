@@ -3,7 +3,7 @@
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>,
 //                 Ab Reitsma <https://github.com/abreits>,
 //                 Nicolás Fantone <https://github.com/nfantone>,
-//                 Nick Zelei <https://github.com/zelein>,
+//                 Nick Zelei <https://github.com/nickzelei>,
 //                 Vincenzo Chianese <https://github.com/XVincentX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
@@ -34,7 +34,7 @@ export interface Channel extends events.EventEmitter {
     bindQueue(queue: string, source: string, pattern: string, args?: any): Promise<Replies.Empty>;
     unbindQueue(queue: string, source: string, pattern: string, args?: any): Promise<Replies.Empty>;
 
-    assertExchange(exchange: string, type: '' | 'direct' | 'topic' | 'headers' | 'fanout' | 'match', options?: Options.AssertExchange): Promise<Replies.AssertExchange>;
+    assertExchange(exchange: string, type: 'direct' | 'topic' | 'headers' | 'fanout' | 'match' | string, options?: Options.AssertExchange): Promise<Replies.AssertExchange>;
     checkExchange(exchange: string): Promise<Replies.Empty>;
 
     deleteExchange(exchange: string, options?: Options.DeleteExchange): Promise<Replies.Empty>;

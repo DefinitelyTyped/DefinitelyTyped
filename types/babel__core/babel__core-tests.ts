@@ -52,7 +52,7 @@ checkOptions({ envName: 'banana' });
 // $ExpectError
 checkOptions({ envName: null });
 checkOptions({ caller: { name: '@babel/register' } });
-checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false } });
+checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false, supportsTopLevelAwait: true } });
 // don't add an index signature; users should augment the interface instead if they need to
 // $ExpectError
 checkOptions({ caller: { name: '', tomato: true } });

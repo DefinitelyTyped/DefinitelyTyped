@@ -44,7 +44,7 @@ import {
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
-import { ConcatSource } from 'webpack-sources';
+import { Source, ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -785,8 +785,71 @@ declare namespace webpack {
         }
     }
 
+    type LibraryExport = string | string[];
+
+    interface AssetInfo {
+        /**
+         * true, if the asset can be long term cached forever (contains a hash)
+         */
+        immutable?: boolean;
+
+        /**
+         * the value(s) of the full hash used for this asset
+         */
+        fullhash?: LibraryExport;
+
+        /**
+         * the value(s) of the chunk hash used for this asset
+         */
+        chunkhash?: LibraryExport;
+
+        /**
+         * the value(s) of the module hash used for this asset
+         */
+        modulehash?: LibraryExport;
+
+        /**
+         * the value(s) of the content hash used for this asset
+         */
+        contenthash?: LibraryExport;
+
+        /**
+         * size in bytes, only set after asset has been emitted
+         */
+        size?: number;
+
+        /**
+         * true, when asset is only used for development and doesn't count towards user-facing assets
+         */
+        development?: boolean;
+
+        /**
+         * true, when asset ships data for updating an existing application (HMR)
+         */
+        hotModuleReplacement?: boolean;
+
+        /**
+         * object of pointers to other assets, keyed by type of relation (only points from parent to child)
+         */
+        related?: Record<string, LibraryExport>;
+    }
+
     namespace compilation {
         class Asset {
+            /**
+             * the filename of the asset
+             */
+            name: string;
+
+            /**
+             * source of the asset
+             */
+            source: Source;
+
+            /**
+             * info about the asset
+             */
+            info: AssetInfo;
         }
 
         class DependenciesBlock {
@@ -962,6 +1025,7 @@ declare namespace webpack {
         }
 
         class ChunkHash {
+            update(data: string | Buffer, inputEncoding?: string): ChunkHash;
         }
 
         interface SourcePosition {
@@ -1273,6 +1337,13 @@ declare namespace webpack {
                 contentHashType?: string,
                 contentHash?: string,
             }): string;
+
+            getAsset(name: string): Readonly<Asset>;
+            updateAsset(
+                file: string,
+                newSourceOrFunction: Source | ((arg0: Source) => Source),
+                assetInfoUpdateOrFunction?: AssetInfo | ((arg0: AssetInfo) => AssetInfo)
+            ): void;
 
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
@@ -2128,7 +2199,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
+            pitch?(this: LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -2139,7 +2210,11 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
+        type loaderCallback = (
+            err: Error | undefined | null,
+            content?: string | Buffer,
+            sourceMap?: string | RawSourceMap
+        ) => void;
 
         interface LoaderContext {
             /**

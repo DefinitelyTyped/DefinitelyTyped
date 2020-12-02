@@ -1001,7 +1001,7 @@ export interface XAxisProps extends EventAttributes {
     tickCount?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
-    padding?: XPadding;
+    padding?: Partial<XPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1061,7 +1061,7 @@ export interface YAxisProps extends EventAttributes {
     // The orientation of axis
     orientation?: 'left' | 'right';
     type?: 'number' | 'category';
-    padding?: YPadding;
+    padding?: Partial<YPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;

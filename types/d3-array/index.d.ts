@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.5
+// Type definitions for D3JS d3-array module 2.8
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.5.1
+// Last module patch version validated against: 2.8.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -28,7 +28,7 @@ export interface Numeric {
 }
 
 // --------------------------------------------------------------------------------------
-// Descriptive Statistics
+// Statistics
 // --------------------------------------------------------------------------------------
 
 /**
@@ -282,7 +282,7 @@ export class Adder {
 }
 
 // --------------------------------------------------------------------------------------
-// Searching Arrays
+// Search
 // --------------------------------------------------------------------------------------
 
 /**
@@ -357,11 +357,16 @@ export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi
 export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
 export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
+export function bisectCenter(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
     left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
     right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    center(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -415,17 +420,19 @@ export function ascending(a: Primitive | undefined, b: Primitive | undefined): n
 export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // --------------------------------------------------------------------------------------
-// Transforming Arrays
+// Transformations
 // --------------------------------------------------------------------------------------
 
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
 export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -437,6 +444,7 @@ export function group<TObject, TKey1, TKey2>(
 ): Map<TKey1, Map<TKey2, TObject[]>>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -451,6 +459,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
@@ -460,6 +469,7 @@ export function groups<TObject, TKey>(
 ): Array<[TKey, TObject[]]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -471,6 +481,7 @@ export function groups<TObject, TKey1, TKey2>(
 ): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -482,6 +493,77 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
+
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function index<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Map<TKey1, Map<TKey2, TObject>>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function index<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Map<TKey1, Map<TKey2, Map<TKey3, TObject>>>;
+
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function indexes<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey
+): Array<[TKey, TObject]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function indexes<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, Array<[TKey2, TObject]>]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function indexes<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
@@ -659,6 +741,11 @@ export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32A
 export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
 
 /**
+ * Returns a shuffle function given the specified random source.
+ */
+export function shuffler(random: () => number): typeof shuffle;
+
+/**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
  * Each value is a power of ten multiplied by 1, 2 or 5. See also d3.tickIncrement, d3.tickStep and linear.ticks.
  *
@@ -675,7 +762,7 @@ export function ticks(start: number, stop: number, count: number): number[];
  * Returns the difference between adjacent tick values if the same arguments were passed to d3.ticks:
  * a nicely-rounded value that is a power of ten multiplied by 1, 2 or 5.
  *
- * Like d3.tickStep, except requires that start is always less than or equal to step, and if the tick step for the given start,
+ * Like d3.tickStep, except requires that start is always less than or equal to stop, and if the tick step for the given start,
  * stop and count would be less than one, returns the negative inverse tick step instead.
  *
  * This method is always guaranteed to return an integer, and is used by d3.ticks to avoid guarantee that the returned tick values
@@ -701,6 +788,16 @@ export function tickIncrement(start: number, stop: number, count: number): numbe
 export function tickStep(start: number, stop: number, count: number): number;
 
 /**
+ * Returns a new interval [niceStart, niceStop] covering the given interval [start, stop] and where niceStart and niceStop are guaranteed to align with the corresponding tick step.
+ * Like d3.tickIncrement, this requires that start is less than or equal to stop.
+ *
+ * @param start Start value for ticks
+ * @param stop Stop value for ticks
+ * @param count count + 1 is the approximate number of ticks to be returned by d3.ticks.
+ */
+export function nice(start: number, stop: number, count: number): [number, number];
+
+/**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
  */
 export function range(stop: number): number[];
@@ -722,7 +819,114 @@ export function transpose<T>(matrix: ArrayLike<ArrayLike<T>>): T[][];
 export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 
 // --------------------------------------------------------------------------------------
-// Histogram
+// Iterables
+// --------------------------------------------------------------------------------------
+
+/**
+ * Returns true if the given test function returns true for every value in the given iterable.
+ * This method returns as soon as test returns a non-truthy value or all values are iterated over.
+ * Equivalent to array.every.
+ */
+export function every<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): boolean;
+
+/**
+ * Returns true if the given test function returns true for any value in the given iterable.
+ * This method returns as soon as test returns a truthy value or all values are iterated over.
+ * Equivalent to array.some.
+ */
+export function some<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): boolean;
+
+/**
+ * Returns a new array containing the values from iterable, in order, for which the given test function returns true.
+ * Equivalent to array.filter.
+ */
+export function filter<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): T[];
+
+/**
+ * Returns a new array containing the mapped values from iterable, in order, as defined by given mapper function.
+ * Equivalent to array.map and Array.from.
+ */
+export function map<T, U>(iterable: Iterable<T>, mapper: (value: T, index: number, iterable: Iterable<T>) => U): U[];
+
+/**
+ * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
+ * Equivalent to array.reduce.
+ */
+export function reduce<T>(
+    iterable: Iterable<T>,
+    reducer: (previousValue: T, currentValue: T, currentIndex: number, iterable: Iterable<T>) => T,
+    initialValue?: T
+): T;
+/**
+ * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
+ * Equivalent to array.reduce.
+ */
+export function reduce<T, U>(
+    iterable: Iterable<T>,
+    reducer: (previousValue: U, currentValue: T, currentIndex: number, iterable: Iterable<T>) => U,
+    initialValue: U
+): U;
+
+/**
+ * Returns an array containing the values in the given iterable in reverse order.
+ * Equivalent to array.reverse, except that it does not mutate the given iterable.
+ */
+export function reverse<T>(iterable: Iterable<T>): T[];
+
+/**
+ * Returns an array containing the values in the given iterable in the sorted order defined by the given comparator function.
+ * If comparator is not specified, it defaults to d3.ascending.
+ * Equivalent to array.sort, except that it does not mutate the given iterable, and the comparator defaults to natural order instead of lexicographic order.
+ */
+export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T[];
+
+// --------------------------------------------------------------------------------------
+// Sets
+// --------------------------------------------------------------------------------------
+
+/**
+ * Returns a new Set containing every value in iterable that is not in any of the others iterables.
+ */
+export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns a new Set containing every (distinct) value that appears in any of the given iterables.
+ * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ */
+export function union<T>(...iterables: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns a new Set containing every (distinct) value that appears in all of the given iterables.
+ * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ */
+export function intersection<T>(...iterables: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns true if a is a superset of b: if every value in the given iterable b is also in the given iterable a.
+ */
+export function superset<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+/**
+ * Returns true if a is a subset of b: if every value in the given iterable a is also in the given iterable b.
+ */
+export function subset<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+/**
+ * Returns true if a and b are disjoint: if a and b contain no shared value.
+ */
+export function disjoint<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+// --------------------------------------------------------------------------------------
+// Bins
 // --------------------------------------------------------------------------------------
 
 export interface Bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {

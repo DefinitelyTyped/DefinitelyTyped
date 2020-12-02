@@ -529,8 +529,10 @@ declare namespace Autodesk {
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
+            getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
@@ -1063,8 +1065,46 @@ declare namespace Autodesk {
           }
         }
 
+        class SceneBuilder extends Extension {
+          addNewModel(options: {
+            conserveMemory?: boolean,
+            createWireFrame?: boolean
+          }): Promise<ModelBuilder>;
+        }
+
+        class ModelBuilder {
+          fragList: any;
+          geomList: any;
+          instanceTree: any;
+          model: Model;
+
+          constructor(model: Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
+          addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
+          addMaterial(name: string, material: THREE.Material): boolean;
+          addMesh(mesh: THREE.Mesh): boolean;
+          changeFragmentsDbId(fragments: number|number[]|THREE.Mesh|THREE.Mesh[], dbId: number): boolean;
+          changeFragmentGeometry(fragment: number|THREE.Mesh, geometry: number|THREE.BufferGeometry, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeFragmentMaterial(fragment: number|THREE.Mesh, material: string|THREE.Material): boolean;
+          changeFragmentTransform(fragment: number|THREE.Mesh, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeGeometry(existingGeom: number|THREE.BufferGeometry, geometry: THREE.BufferGeometry, numFragments?: number): boolean;
+          changeMaterial(existingMaterial: string, material: THREE.Material): boolean;
+          findGeometryFragments(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): number[];
+          findMaterial(name: string): THREE.Material;
+          findMaterialFragments(materials: string|string[]|THREE.Material|THREE.Material[]): number[];
+          isConservingMemory(): boolean;
+          packNormals(geometry: THREE.BufferGeometry): THREE.BufferGeometry;
+          removeFragment(fragments: number|number[]|THREE.Mesh|THREE.Mesh[]): boolean;
+          removeGeometry(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): boolean;
+          removeMaterial(materials: string|string[]|THREE.Material|THREE.Material[]): boolean;
+          removeMesh(meshes: THREE.Mesh|THREE.Mesh[]): boolean;
+          sceneUpdated(objectsMoved: boolean, skipRepaint: boolean): void;
+          updateMesh(meshes: THREE.Mesh|THREE.Mesh[], skipGeom: boolean, skipTransform: boolean): boolean;
+        }
+
         namespace Private {
             const env: string;
+            const LocalStorage: LocalStorageClass;
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
@@ -1072,6 +1112,16 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            class LocalStorageClass {
+              clear(): void;
+              getAllKeys(): string[];
+              getItem(key: string): string;
+              isSupported(): boolean;
+              removeItem(key: string): void;
+              setItem(key: string, value: string): void;
+            }
+
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1110,6 +1160,15 @@ declare namespace Autodesk {
               enumGeoms(filter: any, callback: any): void;
               enumGeomsForObject(dbId: number, callback: any): void;
               enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+            }
+
+            namespace VertexEnumerator {
+              function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
+              function getVertexCount(geom: THREE.Geometry): number;
             }
 
             class ViewerState {
@@ -1156,7 +1215,7 @@ declare namespace Autodesk {
 
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
-                model: any;
+                model: Model;
                 overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
@@ -1165,6 +1224,7 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                clearHighlight(): void;
                 clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;

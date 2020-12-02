@@ -362,6 +362,7 @@ describe("Stripe elements", () => {
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?)
         stripe
             .confirmCardPayment(
@@ -379,11 +380,13 @@ describe("Stripe elements", () => {
                         },
                         name: 'Recipient name',
                     },
+                    setup_future_usage: 'off_session',
                 }
             )
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?,options?)
         stripe
             .confirmCardPayment(
@@ -395,6 +398,7 @@ describe("Stripe elements", () => {
                             name: 'Jenny Rosen',
                         },
                     },
+                    setup_future_usage: 'on_session',
                 },
                 {
                     handleActions: false,

@@ -174,7 +174,7 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
+    request<T = object>(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: T) => void): Promise<T>;
     query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
