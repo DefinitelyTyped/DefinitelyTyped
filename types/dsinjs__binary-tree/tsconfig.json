@@ -26,7 +26,6 @@
     "dist"
   ],
   "files": [
-    "index.d.ts",
-    "dsinjs__binary-tree-tests.ts"
+    "index.d.ts"
   ]
 }
