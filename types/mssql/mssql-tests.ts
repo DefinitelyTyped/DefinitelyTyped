@@ -252,3 +252,30 @@ function test_rows_and_columnns() {
     var table = new sql.Table('#temp_table3');
     table.columns.forEach(col => col.name)
 }
+
+function test_mssql_errors() {
+    // Test constructors
+    const sqlDriverError = new Error('mock error');
+    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, 'EREQUEST');
+    const connectionError = new sql.ConnectionError(sqlDriverError, 'ELOGIN');
+    const requestError = new sql.RequestError(sqlDriverError, 'EREQUEST');
+    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, 'EINJECT');
+    const transactionError = new sql.TransactionError(sqlDriverError, 'EABORT');
+
+    // Test inheritance
+    if (
+        baseMSSQLError instanceof Error &&
+        connectionError instanceof sql.MSSQLError &&
+        requestError instanceof sql.MSSQLError &&
+        preparedStatementError instanceof sql.MSSQLError &&
+        transactionError instanceof sql.MSSQLError
+    ) {
+        const { code, message, name, originalError, stack } = baseMSSQLError;
+        requestError.message;
+        requestError.lineNumber;
+        requestError.originalError;
+        connectionError.originalError;
+        preparedStatementError.originalError;
+        transactionError.originalError;
+    }
+}
