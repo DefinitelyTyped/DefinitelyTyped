@@ -255,7 +255,7 @@ declare namespace Akumina {
             static Department: string;
             static UserLoginName: string;
             static LoginName: string;
-            static userPersonas: Array<string>;
+            static userPersonas: string[];
             static GetPagePersona(): string;
             /** Persona Based On Priority**/
             static PagePersona: string;
@@ -280,7 +280,7 @@ declare namespace Akumina {
              */
             static IsInDesignMode(): string;
             /** Get Site Type developer|delivery */
-            static GetSiteType(): string
+            static GetSiteType(): string;
             static FrameworkLoadTime: number;
             static TotalLoadTime: number;
             static TotalConnectTime: number;
@@ -343,15 +343,15 @@ declare namespace Akumina {
             static PageVersionId: string;
             static PageVersionName: string;
             static PreviewPageVersionId: string;
-            static PageTitle: string;            
-            static PageVersionsCount : number;
+            static PageTitle: string;
+            static PageVersionsCount: number;
             static MapPageUrl(pageUrl: string): string;
             static GetHomePageUrl(siteUrl: string): string;
             static SetPageVersionsCount(count: number): void;
             static PageRouteInfo: {
                 email: string
             };
-            static PagePriorityGroups : Array<string>;
+            static PagePriorityGroups: string[];
         }
         class Utilities {
             /**
@@ -495,7 +495,7 @@ declare namespace Akumina {
             static GetStickyNoteMessage(): string;
             static IsSignInAccount(): boolean;
             static OnSpaLinkClick(pageRoute: string, openInNewWindow: boolean): void;
-            static CreatePageLink(url: string) : string;
+            static CreatePageLink(url: string): string;
         }
         class Language {
             static TryGetText(Token: string): string; /* Added */
@@ -512,10 +512,10 @@ declare namespace Akumina {
 
         class ScriptManager {
             GetManagerScript(callback: () => void): JQueryDeferred<any>;
-            //removed in 5.0 - JA - GetWidgetLegacyScript(callback: () => void): JQueryDeferred<any>;
+            // removed in 5.0 - JA - GetWidgetLegacyScript(callback: () => void): JQueryDeferred<any>;
             GetLanguageMappingsScript(callback: () => void): JQueryDeferred<any>;
-            //removed in 5.0 - JA - GetBabelGetBabelScript(callback: () => void): JQueryDeferred<any>;
-            //removed in 5.0 - JA - GetBxSliderScript(callback: () => void): JQueryDeferred<any>;
+            // removed in 5.0 - JA - GetBabelGetBabelScript(callback: () => void): JQueryDeferred<any>;
+            // removed in 5.0 - JA - GetBxSliderScript(callback: () => void): JQueryDeferred<any>;
             LoadPageBuilderCSS(): JQueryDeferred<any>;
             GetScript(key: string, callback: () => void): JQueryDeferred<any>;
         }
@@ -681,7 +681,6 @@ declare namespace Akumina {
                  * @param implementation
                  */
                 SetImpl(implementation: string): void;
-
 
                 SetContextUrl(siteCOntextUrl: string): void;
 
@@ -897,13 +896,13 @@ declare namespace Akumina {
                 *Load all list fields
                * @param configItem Key value pair of item which needs to be updated or added
                */
-                AddOrEditConfiguration(configItem: any): JQueryDeferred<any>
+                AddOrEditConfiguration(configItem: any): JQueryDeferred<any>;
                 /**
                * Get User Props
                */
                 GetUser(userPrincipal: string): JQueryDeferred<any>;
 
-                AddPageWidgets(listName: any, pageId: any, widgetName: any, pageWidgets: any): JQueryDeferred<any>
+                AddPageWidgets(listName: any, pageId: any, widgetName: any, pageWidgets: any): JQueryDeferred<any>;
             }
 
             class PageFactory {
@@ -916,7 +915,7 @@ declare namespace Akumina {
                 AssignPriorityGroupToPageVersion(pageVersionPriority: IPageVersionPriorityGroup): JQueryDeferred<any>;
                 SetPagePriorityGroups(pagePriorityGroups: string[]): JQueryDeferred<any>;
                 MarkPageVersionActive(pageVersionId: string): JQueryDeferred<{}>;
-                ProvisionPageWidgets(widgetName: string, pageVersion: any, pageWidgets: Array<any>): JQueryDeferred<{}>;
+                ProvisionPageWidgets(widgetName: string, pageVersion: any, pageWidgets: any[]): JQueryDeferred<any>;
                 GetAllVersionsForPage(pageId: string): JQueryDeferred<any>;
                 PageVersionExists(pageVersionName: string): JQueryDeferred<any>;
                 AddPageVersion(newVersionProperties: any, pageWidgets: any): JQueryDeferred<IPageVersion>;
@@ -983,7 +982,6 @@ declare namespace Akumina {
                  */
                 GetSPUserGroups(): JQueryDeferred<any>;
                 // LoadTermSet(termSetName: string, columnName: string, columnValue: string): JQueryDeferred<any>;
-
             }
             class PersonaManager {
                 /** Does List reuire persona check
@@ -1195,7 +1193,7 @@ declare namespace Akumina {
                * Save page widgets
                * @param pageId
                */
-                //ProvisionPageWidgets(pageWidgetsRequest: ISavePageWidgetRequest): JQueryDeferred<any>;
+                // ProvisionPageWidgets(pageWidgetsRequest: ISavePageWidgetRequest): JQueryDeferred<any>;
 
                 UpdatePageVersionWidgetsInCache(pageId: string, pageVersionId: string, pageVersionWidgets: IPageWidget[]): JQueryDeferred<any>;
                 UpdatePageVersionPropertiesInCache(pageVersionProperties: IPageVersionProperties): JQueryDeferred<any>;
@@ -1215,7 +1213,7 @@ declare namespace Akumina {
                  **
                  */
                 constructor(pageUrl?: string);
-                /** 
+                /**
                 * Get default page layouts
                 * @return Array of page layout object
                 * {displayOrder:, layoutId:, layoutImage:, layoutTemplate:, layoutTitle:, selectedLayout:, spPageLayoutId: }
