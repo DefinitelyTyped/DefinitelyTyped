@@ -26,6 +26,7 @@
     "dist"
   ],
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "binary-tree-tests.ts"
   ]
 }
