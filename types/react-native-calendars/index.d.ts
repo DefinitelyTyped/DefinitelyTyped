@@ -112,7 +112,6 @@ export interface MultiPeriodMarking {
     }>;
     disabled?: boolean;
     selected?: boolean;
-    selectedColor?: string;
 }
 
 export interface PeriodMarking {

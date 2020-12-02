@@ -149,7 +149,6 @@ const workout = { key: 'workout', color: 'green' };
                 { startingDay: true, endingDay: false, color: '#f0e68c' },
             ],
             selected: true,
-            selectedColor: 'blue',
         },
         '2017-12-15': {
             periods: [
