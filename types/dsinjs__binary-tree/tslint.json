@@ -1,0 +1,17 @@
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        "max-line-length": {
+            "options": [180]
+        },
+        "new-parens": true,
+        "no-conditional-assignment": true,
+        "no-consecutive-blank-lines": false,
+        "no-redundant-jsdoc": false
+    },
+    "jsRules": {
+        "max-line-length": {
+            "options": [180]
+        }
+    }
+}

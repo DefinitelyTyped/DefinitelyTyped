@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "ES2018",
+      "ES2019",
+      "es2017",
+      "es7",
+      "es6",
+      "es5",
+      "dom"
+    ],
+    "declaration": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "files": [
+    "index.d.ts",
+    "btreenode.d.ts",
+    "btree.d.ts"
+  ]
+}
