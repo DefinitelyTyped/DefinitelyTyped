@@ -91,9 +91,9 @@ class TestFormComponent extends React.Component<TestFormComponentProps & Injecte
 }
 
 const TestFormRequired = reduxForm<TestFormData, TestFormComponentProps>({})(TestFormComponent);
-const TestForm = reduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormComponent);
+const TestForm = reduxForm<TestFormData, TestFormComponentProps>({ form: "test" })(TestFormComponent);
 const TestFormImmRequired = immutableReduxForm<TestFormData, TestFormComponentProps>({})(TestFormComponent);
-const TestFormImm = immutableReduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormComponent);
+const TestFormImm = immutableReduxForm<TestFormData, TestFormComponentProps>({ form: "test" })(TestFormComponent);
 
 const TestFormStatelessComponent: React.StatelessComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
     const foo = initialValues.foo;
@@ -101,7 +101,7 @@ const TestFormStatelessComponent: React.StatelessComponent<TestFormComponentProp
 };
 
 const TestFormStatelessRequired = reduxForm<TestFormData, TestFormComponentProps>({})(TestFormStatelessComponent);
-const TestFormStateless = reduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormStatelessComponent);
+const TestFormStateless = reduxForm<TestFormData, TestFormComponentProps>({ form: "test" })(TestFormStatelessComponent);
 
 /* formValues decorator */
 
@@ -111,7 +111,7 @@ const ItemList = formValues<TestFormData>("foo")(
     }
 );
 
-const ItemListObj = formValues({ fooBar : "foo" })(
+const ItemListObj = formValues({ fooBar: "foo" })(
     ({ fooBar }) => {
         return null;
     }
@@ -208,10 +208,10 @@ const TestForms: React.StatelessComponent = () => {
     return (
         <div>
             <TestFormRequired form="test" baz='baz' />
-            <TestForm initialValues={ { foo : "test" } } baz='baz' />
+            <TestForm initialValues={{ foo: "test" }} baz='baz' />
 
             <TestFormImmRequired form="test" baz='baz' />
-            <TestFormImm initialValues={ { foo : "test" } } baz='baz' />
+            <TestFormImm initialValues={{ foo: "test" }} baz='baz' />
 
             <TestFormStatelessRequired form="test" baz='baz' />
             <TestFormStateless baz='baz' />
@@ -257,12 +257,12 @@ const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComp
         values: Partial<TestFormData>,
         dispatch: Dispatch<any>,
         props: DecoratedFormProps<TestFormData, TestFormComponentProps>,
-        previousValues: Partial<TestFormData>) => {}
+        previousValues: Partial<TestFormData>) => { }
 });
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
-    form : "test",
+    form: "test",
     shouldError: ({
         values,
         nextProps,
@@ -274,7 +274,7 @@ const Test = reduxForm<TestFormData>({
     }) => true,
 })(
     class Test extends React.Component<TestProps> {
-        handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+        handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => { };
 
         render() {
             const { handleSubmit } = this.props;
@@ -282,7 +282,7 @@ const Test = reduxForm<TestFormData>({
 
             return (
                 <div>
-                    <FormCustom onSubmit={ handleSubmit(this.handleSubmitForm) }>
+                    <FormCustom onSubmit={handleSubmit(this.handleSubmitForm)}>
                         <FormSection<MyFormSectionProps>
                             name="my-section"
                             component={MyFormSection}
@@ -309,8 +309,8 @@ const Test = reduxForm<TestFormData>({
                             <Field
                                 name="field4"
                                 component="input"
-                                onChange={(event, newValue, previousValue, fieldName) => {}}
-                                onBlur={(event, newValue, previousValue, fieldName) => {}}
+                                onChange={(event, newValue, previousValue, fieldName) => { }}
+                                onBlur={(event, newValue, previousValue, fieldName) => { }}
                             />
 
                             <ImmutableField
@@ -320,13 +320,13 @@ const Test = reduxForm<TestFormData>({
 
                             <Field
                                 name="field4"
-                                component={ MyField }
+                                component={MyField}
                                 foo="bar"
                             />
 
                             <FieldCustom
                                 name="field4"
-                                component={ MyField }
+                                component={MyField}
                                 foo="bar"
                             />
 
@@ -337,30 +337,30 @@ const Test = reduxForm<TestFormData>({
 
                             <FieldImmutableCustom
                                 name="field4"
-                                component={ MyField }
+                                component={MyField}
                                 foo="bar"
                             />
 
                             <Fields
-                                names={ ["field5", "field6"] }
-                                component={ () => null }
+                                names={["field5", "field6"]}
+                                component={() => null}
                             />
 
                             <FieldsCustom
-                                names={ ["field7", "field8"] }
-                                component={ () => null }
+                                names={["field7", "field8"]}
+                                component={() => null}
                                 foo="bar"
                             />
 
                             <FieldArray<{}>
                                 name="field9"
-                                component={ MyArrayField }
+                                component={MyArrayField}
                             />
 
                             {/* Passing child props via explicit props arg (TS-preferable)*/}
                             <FieldArrayCustom
                                 name="field10"
-                                component={ MyCustomArrayField }
+                                component={MyCustomArrayField}
                                 props={{
                                     foo: 'bar',
                                     bar: 123
@@ -370,7 +370,7 @@ const Test = reduxForm<TestFormData>({
                             {/* Passing child props via extra props passed to parent */}
                             <FieldArrayCustom
                                 name="field10"
-                                component={ MyCustomArrayField }
+                                component={MyCustomArrayField}
                                 foo="bar"
                                 bar={23}
                             />
@@ -403,7 +403,7 @@ reducer.plugin({
 });
 
 try {
-    throw new SubmissionError({_error: "Submission failed."});
+    throw new SubmissionError({ _error: "Submission failed." });
 } catch (error) {
     if (!(error instanceof SubmissionError)) {
         throw new Error("SubmissionError not imported correctly");
@@ -430,13 +430,13 @@ const DefaultFormSection = (
 );
 
 const TestLibFormRequired = libReduxForm<TestFormData, TestFormComponentProps>({})(TestFormComponent);
-const TestLibForm = libReduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormComponent);
+const TestLibForm = libReduxForm<TestFormData, TestFormComponentProps>({ form: "test" })(TestFormComponent);
 
 const testSubmit = submit("test");
 const testLibSubmit = libActions.submit("test");
 
 try {
-    throw new LibSubmissionError({_error: "Submission failed."});
+    throw new LibSubmissionError({ _error: "Submission failed." });
 } catch (error) {
     if (!(error instanceof LibSubmissionError)) {
         throw new Error("SubmissionError from lib not imported correctly");
@@ -446,13 +446,13 @@ try {
 /* Test handleSubmit prop using as onSubmit handler */
 type HandleSubmitTestProps = {} & InjectedFormProps<TestFormData>;
 const HandleSubmitTestForm = reduxForm<TestFormData>({
-    form : "test"
+    form: "test"
 })(
-    (props: HandleSubmitTestProps) => <form onSubmit={ props.handleSubmit } />
+    (props: HandleSubmitTestProps) => <form onSubmit={props.handleSubmit} />
 );
 
 class HandleSubmitTest extends React.Component {
-    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => { };
     render() {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
     }
@@ -485,12 +485,12 @@ new SubmissionError({
 });
 
 // Test forms with custom error format.
-const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form : "test" })(
-    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={ props.handleSubmit } />
+const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form: "test" })(
+    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={props.handleSubmit} />
 );
 
 class HandleSubmitTest2 extends React.Component {
-    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => { };
     render() {
         return <HandleSubmitTestForm2 onSubmit={this.handleSubmit} />;
     }
@@ -521,26 +521,25 @@ class TestReduxFormContext extends React.Component {
 
 // Test generic selectors
 {
-    interface State { names: string[] };
-    interface FormFields { name: string };
+    interface FormFields { name: string; }
 
-    const state = { names: ['A', 'B', 'C' ] };
+    const state = { names: ['A', 'B', 'C'] };
 
-    getFormValues<FormFields, State>('some-form')(state).name;
-    getFormInitialValues<FormFields, State>('some-form')(state).name;
-    getFormSyncErrors<FormFields, State, number>('some-form', undefined)(state)._error;
-    getFormMeta<FormFields, State>('some-form')(state).name;
-    getFormAsyncErrors<FormFields, State, number>('some-form', undefined)(state)._error;
-    getFormSyncWarnings<FormFields, State, number>('some-form', undefined)(state)._error;
-    getFormSubmitErrors<FormFields, State, number>('some-form', undefined)(state)._error;
-    getFormError<FormFields, State, number>('some-form', undefined)(state)._error;
-    getFormNames<State>(undefined)(state);
-    isDirty<State>('some-form')(state);
-    isPristine<State>('some-form')(state);
-    isValid<State>('some-form')(state);
-    isInvalid<State>('some-form')(state);
-    isSubmitting<State>('some-form')(state);
-    isAsyncValidating<State>('some-form')(state);
-    hasSubmitSucceeded<State>('some-form')(state);
-    hasSubmitFailed<State>('some-form')(state);
+    getFormValues<FormFields>('some-form')(state).name;
+    getFormInitialValues<FormFields>('some-form')(state).name;
+    getFormSyncErrors<FormFields, number>('some-form', undefined)(state)._error;
+    getFormMeta<FormFields>('some-form')(state).name;
+    getFormAsyncErrors<FormFields, number>('some-form', undefined)(state)._error;
+    getFormSyncWarnings<FormFields, number>('some-form', undefined)(state)._error;
+    getFormSubmitErrors<FormFields, number>('some-form', undefined)(state)._error;
+    getFormError<FormFields, number>('some-form', undefined)(state)._error;
+    getFormNames(undefined)(state);
+    isDirty('some-form')(state);
+    isPristine('some-form')(state);
+    isValid('some-form')(state);
+    isInvalid('some-form')(state);
+    isSubmitting('some-form')(state);
+    isAsyncValidating('some-form')(state);
+    hasSubmitSucceeded('some-form')(state);
+    hasSubmitFailed('some-form')(state);
 }
