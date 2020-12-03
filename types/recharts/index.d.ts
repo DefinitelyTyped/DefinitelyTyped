@@ -424,7 +424,6 @@ export type BBoxUpdateCallback = (box: { width: number; height: number; }) => vo
 export interface LayerProps {
     className?: string;
     children?: React.ReactNode[] | React.ReactNode;
-    key?: any; // https://github.com/recharts/recharts/blob/master/demo/component/DemoSankeyLink.js
 }
 
 export class Layer extends React.Component<LayerProps> { }
