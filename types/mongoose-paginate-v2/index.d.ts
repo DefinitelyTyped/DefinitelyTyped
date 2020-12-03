@@ -30,8 +30,7 @@ declare module 'mongoose' {
     interface PaginateOptions {
         /* tslint:disable-next-line: ban-types */
         select?: Object | string;
-        /* tslint:disable-next-line: ban-types */
-        sort?: Object | string;
+        sort?: object | string;
         customLabels?: CustomLabels;
         collation?: CollationOptions;
         /* tslint:disable-next-line: ban-types */

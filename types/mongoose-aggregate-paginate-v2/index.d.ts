@@ -24,7 +24,7 @@ declare module 'mongoose' {
     }
 
     interface PaginateOptions {
-        sort?: any;
+        sort?: object | string;
         offset?: number;
         page?: number;
         limit?: number;
