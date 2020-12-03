@@ -408,7 +408,14 @@ const awsServerless: Aws.Serverless = {
                                 },
                             },
                             schema: {
-                                'application/json': 'schema1'
+                                'application/json': {
+                                    type: 'object',
+                                    properties: {
+                                        productId: {
+                                            type: 'integer'
+                                        }
+                                    }
+                                }
                             },
                         }
                     },
@@ -482,6 +489,14 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
+                        enabled: true
+                    }
+                }, {
+                    msk: {
+                        arn: 'testarn',
+                        topic: 'testTopic',
+                        batchSize: 1,
+                        startingPosition: 'LATEST',
                         enabled: true
                     }
                 }, {

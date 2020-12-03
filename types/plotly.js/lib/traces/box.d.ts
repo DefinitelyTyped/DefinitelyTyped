@@ -24,10 +24,8 @@ export interface BoxPlotData extends PlotData {
             outlierwidth: number;
         }>;
     }>;
-
     offsetgroup: string;
     alignmentgroup: string;
-
     selected: ScatterSelectedMarker;
     unselected: ScatterSelectedMarker;
 }

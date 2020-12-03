@@ -13,11 +13,11 @@ interface ComponentProps {
   /** Label to be displayed in the heading component. */
   label: ReactNode;
 }
-export type GroupProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & ComponentProps;
+export type GroupProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & ComponentProps;
 
 export function groupCSS(): React.CSSProperties;
 
-export const Group: ComponentType<GroupProps<any>>;
+export const Group: ComponentType<GroupProps<any, boolean>>;
 
 export function groupHeadingCSS(): React.CSSProperties;
 

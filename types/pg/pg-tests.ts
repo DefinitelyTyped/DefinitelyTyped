@@ -12,6 +12,14 @@ const client = new Client({
     application_name: 'DefinitelyTyped',
     keepAlive: true,
 });
+
+const user: string | undefined = client.user;
+const database: string | undefined = client.database;
+const port: number = client.port;
+const host: string = client.host;
+const password: string | undefined = client.password;
+const ssl: boolean = client.ssl;
+
 client.connect(err => {
     if (err) {
         console.error('Could not connect to postgres', err);

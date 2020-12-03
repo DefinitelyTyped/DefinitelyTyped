@@ -3,8 +3,6 @@
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import express = require('express');
 
 /**
@@ -30,7 +28,7 @@ declare namespace expressSitemapXml {
     }
 
     /**
-     *
+     * @async
      * Create an object where the keys are sitemap URLs to be served by the server
      * and the values are strings of sitemap XML content
      */

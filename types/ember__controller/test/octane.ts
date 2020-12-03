@@ -12,6 +12,7 @@ class FirstController extends Controller {
             searchTerm: {
                 as: 'search',
             },
+            subCategory: 'sub-category',
         },
     ];
 

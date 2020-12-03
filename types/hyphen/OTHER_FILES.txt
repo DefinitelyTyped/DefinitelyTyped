@@ -9,14 +9,18 @@ cs.d.ts
 cu.d.ts
 cy.d.ts
 da.d.ts
+de.d.ts
 de-1901.d.ts
 de-1996.d.ts
 de-ch-1901.d.ts
+el.d.ts
 el-monoton.d.ts
 el-polyton.d.ts
+en.d.ts
 en-us.d.ts
 es.d.ts
 et.d.ts
+ethi.d.ts
 eu.d.ts
 fi.d.ts
 fr.d.ts
@@ -43,6 +47,7 @@ la.d.ts
 lt.d.ts
 lv.d.ts
 ml.d.ts
+mn.d.ts
 mn-cyrl-x-lmc.d.ts
 mn-cyrl.d.ts
 mr.d.ts
@@ -62,10 +67,12 @@ rm.d.ts
 ro.d.ts
 ru.d.ts
 sa.d.ts
+sh.d.ts
 sh-cyrl.d.ts
 sh-latn.d.ts
 sk.d.ts
 sl.d.ts
+sr.d.ts
 sr-cyrl.d.ts
 sv.d.ts
 ta.d.ts
@@ -74,6 +81,7 @@ th.d.ts
 tk.d.ts
 tr.d.ts
 uk.d.ts
+zh.d.ts
 zh-latn-pinyin.d.ts
 
 patterns/af.d.ts

@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.9.2
+// Type definitions for QUnit v2.11.3
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
@@ -71,6 +71,18 @@ declare global {
          * @param {number} amount Number of assertions in this test.
          */
         expect(amount: number): void;
+
+        /**
+         * A strict comparison that passes if the first argument is boolean `false`.
+         *
+         * `false()` requires just one argument.
+         * If the first argument evaluates to false, the assertion passes; otherwise, it fails.
+         * If a second message argument is provided, it will be displayed in place of the result.
+         *
+         * @param state Expression being tested
+         * @param {string} message A short description of the assertion
+         */
+        false(state: any, message?: string): void;
 
         /**
          * An inverted deep recursive comparison, working on primitive types,
@@ -219,6 +231,18 @@ declare global {
          * @param {string} [message] A short description of the assertion
          */
         strictEqual<T>(actual: T, expected: T, message?: string): void;
+
+        /**
+         * A strict comparison that passes if the first argument is boolean `true`.
+         *
+         * `true()` requires just one argument.
+         * If the first argument evaluates to true, the assertion passes; otherwise, it fails.
+         * If a second message argument is provided, it will be displayed in place of the result.
+         *
+         * @param state Expression being tested
+         * @param {string} message A short description of the assertion
+         */
+        true(state: any, message?: string): void;
 
         /**
          * Test if a callback throws an exception, and optionally compare the thrown
