@@ -36,7 +36,7 @@ export interface StreamOptions<TStream extends Stream<TByteType>, TByteType = an
     signal?: AbortSignalLike;
 }
 
-/* tslint:disable-next-line interface-over-type-literal */
+/* tslint:disable-next-line interface-over-type-literal - cause: https://github.com/microsoft/TypeScript/issues/15300 */
 export type StreamEvents = {
     open: () => void;
     close: () => void;
