@@ -189,10 +189,3 @@ export interface Pane extends VueConstructor {
 
 export const Pane: Pane;
 export const Splitpane: Splitpane;
-
-declare let _default: {
-    Pane: Pane,
-    Splitpane: Splitpane,
-};
-
-export default _default;
