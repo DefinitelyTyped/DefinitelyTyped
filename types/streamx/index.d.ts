@@ -123,7 +123,6 @@ export type ReadableOptions<
           }
     );
 
-/* tslint:disable-next-line strict-export-declare-modifiers */
 type FromType<TData> = TData extends Readable
     ? TData
     : TData extends Iterable<infer TType>
@@ -307,3 +306,5 @@ export class PassThrough<TRead = any, TWrite = any> extends Transform<TRead, TWr
 
 export function isStream(input: object): input is AnyStream;
 export function isStreamx(input: object): input is Stream;
+
+export {};
