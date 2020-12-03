@@ -1,12 +1,12 @@
-// Type definitions for react-slider 1.0
+// Type definitions for react-slider 1.1
 // Project: https://github.com/zillow/react-slider
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 //                 Björgvin Bæhrenz Þórðarson <https://github.com/bjorgvin>
+//                 Loïc Huder <https://github.com/loichuder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import * as motion from 'react-motion';
 
 declare namespace ReactSlider {
     interface ReactSliderProps {
@@ -124,19 +124,42 @@ declare namespace ReactSlider {
          * aria-valuetext for screen-readers.
          * Can be a static string, or a function that returns a string.
          */
-        ariaValuetext?: string | ((value: {index: number, value: number | number[], valueNow: number }) => string);
+        ariaValuetext?: string | ((value: { index: number; value: number | number[]; valueNow: number }) => string);
         /**
          * Provide a custom render function for the track node.
          * The render function will be passed two arguments. The first is
          * an object that should be added to your handle node.
          */
-        renderTrack?: (props: object, state: {index: number, value: number | number[] }) => JSX.Element;
+        renderTrack?: (
+            props: React.HTMLProps<HTMLDivElement>,
+            state: { index: number; value: number | number[] },
+        ) => JSX.Element;
         /**
          * Provide a custom render function for dynamic thumb content.
-         * The render function will be passed two arguments.The first is
-         * an object that should be added to your thumb node,
+         * The render function will be passed two arguments. The first is
+         * an object that should be added to your thumb node.
          */
-        renderThumb?: (props: object, state: {index: number, value: number | number[], valueNow: number }) => JSX.Element;
+        renderThumb?: (
+            props: React.HTMLProps<HTMLDivElement>,
+            state: { index: number; value: number | number[]; valueNow: number },
+        ) => JSX.Element;
+        /**
+         * Shows passed marks on the track, if true it shows all the marks,
+         * if an array of numbers it shows just the passed marks, if a number
+         * is passed it shows just the marks in that steps: like passing 3
+         * shows the marks 3, 6, 9.
+         */
+        marks?: boolean | number | number[];
+        /**
+         * The CSS class set on the marks
+         */
+        markClassName?: string;
+        /**
+         * Provide a custom render function for the mark node.
+         * The render function will be passed one argument,
+         * an object with props that should be added to your handle node.
+         */
+        renderMark?: (props: React.HTMLProps<HTMLSpanElement>) => JSX.Element;
     }
 }
 
