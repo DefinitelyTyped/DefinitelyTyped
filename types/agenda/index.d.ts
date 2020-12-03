@@ -9,7 +9,7 @@
 
 import { EventEmitter } from "events";
 
-import { Db, Collection, ObjectID, FilterQuery, SortOptionObject } from "mongodb";
+import { MongoClient, Db, Collection, ObjectID, FilterQuery, SortOptionObject } from "mongodb";
 
 export = Agenda;
 
