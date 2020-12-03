@@ -233,7 +233,11 @@ declare namespace marked {
 
     class Slugger {
         seen: {[slugValue: string]: number};
-        slug(value: string): string;
+        slug(value: string, options?: SluggerOptions): string;
+    }
+
+    interface SluggerOptions {
+        dryrun: boolean;
     }
 
     interface Rules {
@@ -518,7 +522,7 @@ declare namespace marked {
          * Each token is passed by reference so updates are persisted when passed to the parser.
          * The return value of the function is ignored.
          */
-        walkTokens?: (tokens: TokensList, callback: (token: Token) => void) => any;
+        walkTokens?: (callback: (token: Token) => void) => any;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */
