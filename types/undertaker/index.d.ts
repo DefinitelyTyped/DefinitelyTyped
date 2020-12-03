@@ -23,7 +23,7 @@ declare namespace Undertaker {
     }
 
     interface TaskFunctionBase {
-        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+        (done: (error?: Error | null) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
     }
 
     interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
