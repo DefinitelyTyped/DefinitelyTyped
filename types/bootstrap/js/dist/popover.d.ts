@@ -122,7 +122,7 @@ declare namespace Popover {
          *
          * @default ''
          */
-        content: string | Element | (() => void);
+        content: string | Element | ((this: HTMLElement) => string);
 
         /**
          * Delay showing and hiding the popover (ms) - does not apply to manual
@@ -188,7 +188,7 @@ declare namespace Popover {
          *
          * @default ''
          */
-        title: string | Element | (() => void);
+        title: string | Element | ((this: HTMLElement) => string);
 
         /**
          * How popover is triggered - click | hover | focus | manual. You may

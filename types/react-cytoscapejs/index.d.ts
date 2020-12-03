@@ -23,6 +23,7 @@ interface CytoscapeComponentProps {
     boxSelectionEnabled?: boolean;
     autoungrabify?: boolean;
     autounselectify?: boolean;
+    wheelSensitivity?: number;
 }
 
 declare class CytoscapeComponent extends Component<CytoscapeComponentProps> {

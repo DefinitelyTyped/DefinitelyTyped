@@ -133,6 +133,8 @@ const buttons = (
         <Button type="positive">Positive Button</Button>
         <Button type="medium">Medium Button</Button>
         <Button type="negative">Negative Button</Button>
+        <Button type="ghost">Ghost Button</Button>
+        <Button type="attention">Attention Button</Button>
         <Button glyph="cart" option="emphasized">
             Add to Cart
         </Button>
@@ -2339,105 +2341,26 @@ const tabs = (
 
 const tiles = (
     <div>
-        <Tile>
-            <Tile.Content title="Tile Title">
+        <Tile className="tile-class-1" size="s">
+            <Tile.Content twoColumns className="tileContent-class-1">
                 <p>Tile Description</p>
             </Tile.Content>
-        </Tile>
-        <Tile>
-            <Tile.Media>
-                <Image photo="https://placeimg.com/400/400/nature" size="m" />
-            </Tile.Media>
-            <Tile.Content title="Tile Title" />
+            <Tile.Footer className="tileFooter-class-1">
+                <b>tile footer</b>
+            </Tile.Footer>
         </Tile>
         <br />
-        <Tile role="button">
-            <Tile.Media>
-                <Image
-                    photo="https://placeimg.com/400/400/nature"
-                    size="l"
-                    type="circle"
-                />
-            </Tile.Media>
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
+        <Tile isDouble>
+            <Tile.Header className="tileHeader-class-1" subtitle="Header Subtitle">
+                <p>Header Description</p>
+            </Tile.Header>
         </Tile>
         <br />
-        <Tile role="button">
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <Tile>
-            <Tile.Content title="Tile Title" />
-            <Tile.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="transparent" />}
-                    placement="bottom-end"
-                />
-            </Tile.Actions>
-        </Tile>
-        <Tile product role="button">
-            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <br />
-        <Tile product disabled>
-            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <Tile.Content title="Tile Title">
-                <p>Tile Description</p>
-            </Tile.Content>
-        </Tile>
-        <LayoutGrid cols={4}>
-            <Tile colorAccent={7} rowSpan={2}>
+            <Tile onClick={function w() {}}>
                 <Tile.Content title="Tile Title">
                     <p>Tile Description</p>
                 </Tile.Content>
             </Tile>
-            <Tile>
-                <Tile.Media>
-                    <Image
-                        photo="https://placeimg.com/400/400/nature"
-                        size="l"
-                        type="circle"
-                    />
-                </Tile.Media>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile role="button">
-                <Tile.Content title="Tile Title" />
-            </Tile>
-            <Tile>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-            <Tile colorAccent={4} columnSpan={2}>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
-        </LayoutGrid>
     </div>
 );
 

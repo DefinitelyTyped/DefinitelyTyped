@@ -3,6 +3,7 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
+        "await-promise": false,
         "ban-types": false,
         "comment-format": false,
         "dt-header": false,

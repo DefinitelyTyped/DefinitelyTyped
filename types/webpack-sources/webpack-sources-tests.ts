@@ -137,4 +137,8 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
 
     source = new SizeOnlySource(42);
     source.size(); // $ExpectType number
+
+    const { source: sourceCode, map } = source.sourceAndMap(options);
+    sourceCode; // $ExpectType string | Buffer
+    map; // $ExpectType RawSourceMap | null
 };

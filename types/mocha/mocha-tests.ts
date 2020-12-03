@@ -946,6 +946,18 @@ function test_growl() {
     mocha.growl();
 }
 
+function test_dispose(localMocha: LocalMocha) {
+    // Runner dispose
+    mocha.run().dispose();
+    localMocha.run().dispose();
+
+    // Suite dispose
+    localMocha.suite.dispose();
+
+    // Mocha instance dispose
+    localMocha.dispose();
+}
+
 function test_chaining() {
     new LocalMocha({ slow: 25 })
         .growl()

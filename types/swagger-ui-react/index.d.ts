@@ -1,4 +1,4 @@
-// Type definitions for swagger-ui-react 3.23
+// Type definitions for swagger-ui-react 3.35
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: viki.green <https://github.com/VictoriaGreen93>
 //                 Mendes <https://github.com/fernando-msj>
@@ -29,6 +29,7 @@ export interface SwaggerUIProps {
     defaultModelExpandDepth?: number;
     plugins?: Plugin[];
     supportedSubmitMethods?: string[];
+    deepLinking?: boolean;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

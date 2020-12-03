@@ -235,7 +235,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     width?: string;
 
     // Not in https://select2.org/configuration/options-api
-    createTag?: (params: SearchOptions) => IdTextPair | null;
+    createTag?: (params: SearchOptions) => (IdTextPair & Record<string, any>) | null;
     insertTag?: (data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void;
 }
 

@@ -177,12 +177,12 @@ enterprieseRouter.calculateIsoline(
 
 // Create a clustering provider
 const clusteredDataProvider = new H.clustering.Provider([], {
-clusteringOptions: {
-  // Maximum radius of the neighborhood
-  eps: 64,
-  // minimum weight of points required to form a cluster
-  minWeight: 3
-}
+    clusteringOptions: {
+        // Maximum radius of the neighborhood
+        eps: 64,
+        // minimum weight of points required to form a cluster
+        minWeight: 3
+    }
 });
 
 // Create a layer that will consume objects from our clustering provider
@@ -210,3 +210,14 @@ engine.removeEventListener('tap', engineListener);
 // Get group bounds
 const group = new H.map.Group();
 const bounds = group.getBoundingBox();
+
+// Create your own LocalObjectProvider and add some hierarchical objects:
+const localProvider = new H.map.provider.LocalObjectProvider();
+map.addLayer(new H.map.layer.ObjectLayer(localProvider));
+const position = { lat: 52.5308, lng: 13.3852 };
+group.addObject(new H.map.Circle(position, 35));
+localProvider.getRootGroup().addObjects([
+    group,
+    new H.map.Marker(position)
+]);
+map.setCenter(position).setZoom(18);
