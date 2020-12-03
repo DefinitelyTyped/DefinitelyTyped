@@ -1,4 +1,4 @@
-// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.3
+// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.7
 // Project: https://github.com/infobip/mobile-messaging-cordova-plugin
 // Definitions by: kostap13 <https://github.com/kostap13>,
 //                 tjuric <https://github.com/tjuric>
