@@ -344,13 +344,14 @@ export interface FlexProps {
     children?: React.ReactNode;
     direction?: 'row' | 'column';
     fit?: boolean;
+    flex: 'grow' | 'shrink' | 'none';
     gap?: UnsignedUpTo12;
     height?: number | string;
     justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
     maxHeight?: number | string;
     maxWidth?: number | string;
     minHeight?: number | string;
-    minWidht?: number | string;
+    minWidth?: number | string;
     wrap?: boolean;
 }
 
