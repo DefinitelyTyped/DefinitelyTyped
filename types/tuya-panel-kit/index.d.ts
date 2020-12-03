@@ -1604,11 +1604,6 @@ export interface UnitTextProps {
 
 export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-export class WebView extends React.Component {
-    title?: string;
-    source?: string;
-}
-
 export interface ThemeProps {
     theme: {};
     children: React.ReactNode;
