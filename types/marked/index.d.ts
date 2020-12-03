@@ -233,7 +233,11 @@ declare namespace marked {
 
     class Slugger {
         seen: {[slugValue: string]: number};
-        slug(value: string): string;
+        slug(value: string, options?: SluggerOptions): string;
+    }
+
+    interface SluggerOptions {
+        dryrun: boolean;
     }
 
     interface Rules {
