@@ -1,8 +1,9 @@
 // Type definitions for mongodb-queue 4.0
 // Project: https://github.com/chilts/mongodb-queue
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
+//                 John C. Kennedy <https://github.com/codejockie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 3.5
 
 import { Db, MongoError } from 'mongodb';
 
@@ -13,8 +14,10 @@ declare namespace mongodbQueue {
         constructor(db: Db, name: string, opts?: QueueOptions);
 
         createIndexes(callback: QueueCallback<string>): void;
-        add(payload: string, callback: QueueCallback<string>): void;
-        add(payload: string, opts: QueueOptions, callback: QueueCallback<string>): void;
+        add(payload: Payload, callback: QueueCallback<string>): void;
+        add(payload: ArrayPayload, callback: QueueCallback<string[]>): void;
+        add(payload: Payload, opts: QueueOptions, callback: QueueCallback<string>): void;
+        add(payload: ArrayPayload, opts: QueueOptions, callback: QueueCallback<string[]>): void;
         get(callback: QueueCallback<QueueMessage | undefined>): void;
         get(opts: QueueOptions, callback: QueueCallback<QueueMessage | undefined>): void;
         ping(ack: string, callback: QueueCallback<string>): void;
@@ -27,6 +30,9 @@ declare namespace mongodbQueue {
         done(callback: QueueCallback<number>): void;
     }
 
+    type Payload = string | Record<string, unknown>;
+    type ArrayPayload = Array<string | Record<string, unknown>>;
+
     interface QueueOptions {
         deadQueue?: Queue;
         delay?: number;
@@ -37,7 +43,7 @@ declare namespace mongodbQueue {
     interface QueueMessage {
         ack: string;
         id: string;
-        payload: string;
+        payload: Payload | ArrayPayload;
         tries: number;
     }
 

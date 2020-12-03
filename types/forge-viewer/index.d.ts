@@ -1104,6 +1104,7 @@ declare namespace Autodesk {
 
         namespace Private {
             const env: string;
+            const LocalStorage: LocalStorageClass;
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
@@ -1111,6 +1112,16 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            class LocalStorageClass {
+              clear(): void;
+              getAllKeys(): string[];
+              getItem(key: string): string;
+              isSupported(): boolean;
+              removeItem(key: string): void;
+              setItem(key: string, value: string): void;
+            }
+
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1149,6 +1160,15 @@ declare namespace Autodesk {
               enumGeoms(filter: any, callback: any): void;
               enumGeomsForObject(dbId: number, callback: any): void;
               enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+            }
+
+            namespace VertexEnumerator {
+              function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
+              function getVertexCount(geom: THREE.Geometry): number;
             }
 
             class ViewerState {

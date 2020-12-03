@@ -335,7 +335,7 @@ declare namespace Parsimmon {
     /**
      * is a parser that expects to find "my-string", and will yield the same.
      */
-    function string(string: string): Parser<string>;
+    function string<T extends string>(string: T): Parser<T>;
 
     /**
      * Returns a parser that looks for exactly one character from string, and yields that character.

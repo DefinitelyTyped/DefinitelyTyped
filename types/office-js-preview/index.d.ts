@@ -571,7 +571,7 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
+         * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
@@ -580,12 +580,24 @@ declare namespace Office {
         ): Promise<RemoveEventListener>;
     }
     /**
-     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
      */
     interface Ribbon {
         /**
+         * Registers a custom contextual tab with Office and defines the tab's controls.
+         * This method only requests that the tab be registered. The actual registration is controlled by the Office application and may not be complete when the returned `Promise` object is resolved.
+         * For more information and code examples, see {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+         * 
+         * @beta
+         * 
+         * @param tabDefinition - Specifies the tab's properties and child controls and their properties. Pass a JSON string that conforms to the Office dynamic-ribbon JSON schema to `JSON.parse`, and then pass the returned object to this method.
+         */
+        requestCreateControls(tabDefinition: Object): Promise<void>;
+        /**
          * Sends a request to Office to update the ribbon.
          * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+         * For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+         * 
          * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
@@ -600,7 +612,7 @@ declare namespace Office {
         tabs: Tab[];
     }
     /**
-     * Represents an individual tab and the state it should have.
+     * Represents an individual tab and the state it should have. For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
      */
     interface Tab {
         /**
@@ -610,7 +622,13 @@ declare namespace Office {
         /**
          * Specifies the controls in the tab, such as menu items, buttons, etc.
          */
-        controls: Control[];
+        controls?: Control[];
+        /**
+         * Specifies whether the tab is visible on the ribbon. Used only with contextual tabs.
+         *
+         * @beta 
+         */
+        visible?: boolean;
     }
     /**
      * Represents an individual control or command and the state it should have.
@@ -620,10 +638,6 @@ declare namespace Office {
          * Identifier of the control as specified in the manifest.
          */
         id: string;
-        /**
-         * Indicates whether the control should be visible or hidden. The default is true.
-         */
-        visible?: boolean;
         /**
          * Indicates whether the control should be enabled or disabled. The default is true.
          */
@@ -871,7 +885,7 @@ declare namespace Office {
         interface EventCompletedOptions {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler,
-             * this value indicates of the handled event should continue execution or be canceled.
+             * this value indicates if the handled event should continue execution or be canceled.
              * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
@@ -15869,9 +15883,9 @@ declare namespace Office {
     }
     /**
      * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user.
-     * That is, they are available only to the add-in that created them, and only from the user's mail box in which they are saved.
+     * That is, they are available only to the add-in that created them, and only from the user's mailbox in which they are saved.
      *
-     * While the Outlook Add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
+     * While the Outlook add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
      * secure storage. They can be accessed by Exchange Web Services or Extended MAPI.
      * They should not be used to store sensitive information such as user credentials or security tokens.
      *
@@ -15879,11 +15893,15 @@ declare namespace Office {
      *
      * The `RoamingSettings` object is accessible via the `roamingSettings` property in the `Office.context` namespace.
      *
-     * **Important**: The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
+     * **Important**:
+     *
+     * - The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
      * For task panes, this means that it is only initialized when the task pane first opens.
      * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if
      * your add-in has persisted changes.
      * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
+     *
+     * - When set and saved through Outlook on Windows or Mac, these settings are reflected in Outlook on the web only after a browser refresh.
      *
      * @remarks
      *
@@ -70428,7 +70446,7 @@ declare namespace Word {
          */
         clear(): void;
         /**
-         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -70815,6 +70833,8 @@ declare namespace Word {
         /**
          *
          * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+         * 
+         * **Note**: This API is not supported in Word on the web.
          *
          * [Api set: WordApi 1.1]
          */
@@ -70904,7 +70924,7 @@ declare namespace Word {
          */
         delete(keepContent: boolean): void;
         /**
-         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -71325,7 +71345,7 @@ declare namespace Word {
         readonly type: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
         /**
          *
-         * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+         * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
          *
          * [Api set: WordApi 1.3]
          */
@@ -73490,7 +73510,7 @@ declare namespace Word {
          */
         detachFromList(): void;
         /**
-         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -74051,7 +74071,7 @@ declare namespace Word {
          */
         getBookmarks(includeHidden?: boolean, includeAdjacent?: boolean): OfficeExtension.ClientResult<string[]>;
         /**
-         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -77082,6 +77102,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -77130,7 +77152,7 @@ declare namespace Word {
         interface CustomPropertyUpdateData {
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -78009,6 +78031,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -78092,7 +78116,7 @@ declare namespace Word {
             type?: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -79367,6 +79391,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -79533,6 +79559,8 @@ declare namespace Word {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -79621,7 +79649,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -79654,7 +79682,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */

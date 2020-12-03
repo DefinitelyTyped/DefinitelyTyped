@@ -548,7 +548,7 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
+         * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
@@ -864,7 +864,7 @@ declare namespace Office {
         interface EventCompletedOptions {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler, 
-             * this value indicates of the handled event should continue execution or be canceled. 
+             * this value indicates if the handled event should continue execution or be canceled. 
              * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
@@ -15207,22 +15207,26 @@ declare namespace Office {
         options?: Office.AsyncContextOptions;
     }
     /**
-     * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user. 
-     * That is, they are available only to the add-in that created them, and only from the user's mail box in which they are saved.
+     * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user.
+     * That is, they are available only to the add-in that created them, and only from the user's mailbox in which they are saved.
      *
-     * While the Outlook Add-in API limits access to these settings to only the add-in that created them, these settings should not be considered 
-     * secure storage. They can be accessed by Exchange Web Services or Extended MAPI. 
+     * While the Outlook add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
+     * secure storage. They can be accessed by Exchange Web Services or Extended MAPI.
      * They should not be used to store sensitive information such as user credentials or security tokens.
      *
      * The name of a setting is a String, while the value can be a String, Number, Boolean, null, Object, or Array.
      *
      * The `RoamingSettings` object is accessible via the `roamingSettings` property in the `Office.context` namespace.
      *
-     * **Important**: The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded. 
-     * For task panes, this means that it is only initialized when the task pane first opens. 
-     * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if 
+     * **Important**:
+     *
+     * - The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
+     * For task panes, this means that it is only initialized when the task pane first opens.
+     * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if
      * your add-in has persisted changes.
      * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
+     *
+     * - When set and saved through Outlook on Windows or Mac, these settings are reflected in Outlook on the web only after a browser refresh.
      *
      * @remarks
      * 
@@ -65848,7 +65852,7 @@ declare namespace Word {
          */
         clear(): void;
         /**
-         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -66235,6 +66239,8 @@ declare namespace Word {
         /**
          *
          * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+         * 
+         * **Note**: This API is not supported in Word on the web.
          *
          * [Api set: WordApi 1.1]
          */
@@ -66324,7 +66330,7 @@ declare namespace Word {
          */
         delete(keepContent: boolean): void;
         /**
-         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -66715,7 +66721,7 @@ declare namespace Word {
         readonly type: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
         /**
          *
-         * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+         * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
          *
          * [Api set: WordApi 1.3]
          */
@@ -68405,7 +68411,7 @@ declare namespace Word {
          */
         detachFromList(): void;
         /**
-         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -68956,7 +68962,7 @@ declare namespace Word {
          */
         expandToOrNullObject(range: Word.Range): Word.Range;
         /**
-         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -71748,6 +71754,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -71796,7 +71804,7 @@ declare namespace Word {
         interface CustomPropertyUpdateData {
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -72652,6 +72660,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -72735,7 +72745,7 @@ declare namespace Word {
             type?: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -73920,6 +73930,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -74086,6 +74098,8 @@ declare namespace Word {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: This API is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -74174,7 +74188,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -74207,7 +74221,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */

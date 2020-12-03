@@ -1092,7 +1092,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1102,7 +1102,7 @@ declare namespace echarts {
                  * "#aaa"
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1145,7 +1145,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -2071,7 +2071,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2081,7 +2081,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2122,7 +2122,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2459,7 +2459,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2469,7 +2469,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2510,7 +2510,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3315,7 +3315,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -3326,7 +3326,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -3367,7 +3367,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

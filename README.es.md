@@ -15,9 +15,10 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
     - [Errores comunes](#errores-comunes)
     - [Remover un paquete](#remover-un-paquete)
-    - [Lint](#lint)
-    - [<my package>-tests.ts](#my-package-teststs)
     - [Running Tests](#running-tests)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Lint](#lint)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -165,7 +166,7 @@ Tu paquete debería tener esta estructura:
 | Archivo | Propósito |
 | --- | --- |
 | index.d.ts | Este contiene los typings del paquete. |
-| [<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
+| [\<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
 | tslint.json | Permite linting. |
 
@@ -209,29 +210,16 @@ Se puede remover ejecutando `npm run not-needed -- typingsPackageName asOfVersio
 - `asOfVersion`: Un stub será publicado a `@types/foo` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
 - `libraryName`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a "typingsPackageName".)
 
-Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, añade `package.json` con `"dependencies": { "foo": "x.y.z" }`.
+Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "foo": "x.y.z" }`.
 
 Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `notNeededPackages.json`.
 
+#### Running Tests
 
-#### Lint
+Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
+Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
 
-Para realizar el lint a un paquete, solo añade `tslint.json` al paquete que contiene `{ "extends": "dtslint/dt.json" }`. Todos los paquetes nuevos deberán pasar por el proceso de linted.
-Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha acomodado. Por ejemplo:
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `//tslint:disable-next-line rule-name`.)
-
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
@@ -280,10 +268,29 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Running Tests
+#### Lint
 
-Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
-Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+Para realizar el lint a un paquete, solo añade `tslint.json` al paquete que contiene `{ "extends": "dtslint/dt.json" }`. Todos los paquetes nuevos deberán pasar por el proceso de linted.
+Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha acomodado. Por ejemplo:
+
+```js
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "ban-types": false
+    }
+}
+```
+
+(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `// tslint:disable-next-line rule-name`.)
+
+#### package.json
+
+Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros automáticamente crearemos un `package.json` para eso.
+Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
+No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
+Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al package.json.
 
 ### Definition Owners
 
@@ -310,7 +317,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en NPM?
 
-La `master` branch es automáticamente publicada en el alcance de los  `@types` en NPM gracias a los [types-publisher](https://github.com/Microsoft/types-publisher).
+La `master` branch es automáticamente publicada en el alcance de los  `@types` en NPM gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
@@ -324,13 +331,6 @@ Los paquetes NPM deberán ser actualizados en unas cuantas horas. Si ha pasado m
 
 Si el módulo al cual te estás refiriendo es un módulo externo (utiliza `export`), utilice una import.
 Si el módulo al cual te refieres es un módulo ambiente (utiliza `declare module`, o simplemente declara las globales), utilice `<reference types="" />`.
-
-#### He notado que algunos paquetes aquí tienen `package.json`.
-
-Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros automáticamente crearemos un `package.json` para eso.
-Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
-No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
-Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al package.json.
 
 #### Algunos paquetes no tienen `tslint.json`, y algunos `tsconfig.json` no contienen `"noImplicitAny": true`, `"noImplicitThis": true`, o `"strictNullChecks": true`.
 

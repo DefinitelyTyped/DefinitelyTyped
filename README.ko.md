@@ -18,9 +18,10 @@
     - [새 패키지를 만들기](#새-패키지를-만들기)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     - [패키지 삭제하기](#패키지-삭제하기)
-    - [린터](#린터)
-    - [<my package>-tests.ts](#my-package-teststs)
     - [검증하기](#검증하기)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [린터](#린터)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [자주 하는 질문들](#자주-하는-질문들)
@@ -33,7 +34,7 @@
 
 * 최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/types-publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 상태 표시가 비정상이거나 고장 표시가 발생하면 [Definitely Typed Discord 채널](https://discord.gg/typescript)에서 이 문제를 알려주세요.
@@ -187,7 +188,7 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | 파일 이름 | 용도 |
 | --- | --- |
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
-| [<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
 | tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
 | tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
@@ -233,29 +234,17 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 - `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
 
-Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 `package.json` 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
+Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
 
 Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
 
+#### 검증하기
 
-#### 린터
+`npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
 
-자료형(Typing) 패키지를 린트(Lint)하려면, 패키지 디렉토리에 `{ "extends": "dtslint/dt.json" }` 를 포함하고 있는 `tslint.json` 파일을 추가해주시면 됩니다. 모든 새 패키지는 해당 파일을 가지고 있어야 합니다.
-고쳐야 하지만 아직 고쳐지지 않은 린트(Lint) 결과가 있을 때에만 `tslint.json` 에서 린트 규칙(Lint rule)을 사용하지 않도록 설정할 수 있습니다. 예를 들어,
+작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
 
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
-        "ban-types": false
-    }
-}
-```
-
-(린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `//tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
-
-#### <my package>-tests.ts
+#### \<my package>-tests.ts
 
 There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
@@ -304,11 +293,29 @@ f("one");
 
 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
 
-#### 검증하기
+#### 린터
 
-`npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
+자료형(Typing) 패키지를 린트(Lint)하려면, 패키지 디렉토리에 `{ "extends": "dtslint/dt.json" }` 를 포함하고 있는 `tslint.json` 파일을 추가해주시면 됩니다. 모든 새 패키지는 해당 파일을 가지고 있어야 합니다.
+고쳐야 하지만 아직 고쳐지지 않은 린트(Lint) 결과가 있을 때에만 `tslint.json` 에서 린트 규칙(Lint rule)을 사용하지 않도록 설정할 수 있습니다. 예를 들어,
 
-작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
+```js
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
+        "ban-types": false
+    }
+}
+```
+
+(린트 규칙(Lint rule)이 절대로 적용되서는 안되는 경우에는, `// tslint:disable rule-name` 나 `// tslint:disable-next-line rule-name` 를 사용하는 것이 좋습니다. 후자가 더 나은 방식입니다.)
+
+#### package.json
+
+일반적으로는 `package.json` 파일을 사용할 필요가 없습니다. 패키지가 퍼블리시(Publish)될 때 패키지를 위한 `package.json` 파일은 자동으로 생성됩니다.
+가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
+의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
+옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
 
 ### Definition Owners
 
@@ -335,7 +342,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### 이 저장소와 `@types` 패키지들이 대체 무슨 관계가 있는 건가요?
 
-`master` 브랜치(Branch)의 내용들이 [types-publisher](https://github.com/Microsoft/types-publisher) 를 사용해 자동으로 `@types` 퍼블리시(Publish)됩니다.
+`master` 브랜치(Branch)의 내용들이 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) 를 사용해 자동으로 `@types` 퍼블리시(Publish)됩니다.
 
 #### 풀 리퀘스트(Pull request)를 제출했습니다. 이게 합쳐질 때까지 얼마나 걸리나요?
 
@@ -349,13 +356,6 @@ NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 
 외부 모듈(`export` 를 사용하는 모듈)을 사용할 경우, 임포트(import)를 사용해주세요.
 환경과 관련된 모듈(ambient module)(`declare module` 를 쓰거나 전역 변수들을 선언한 모듈)을 사용할 경우, `<reference types="" />` 를 사용해주세요.
-
-#### `package.json` 파일이 가끔 보이던데?
-
-일반적으로는 `package.json` 파일을 사용할 필요가 없습니다. 패키지가 퍼블리시(Publish)될 때 패키지를 위한 `package.json` 파일은 자동으로 생성됩니다.
-가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
-의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
-옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
 
 #### 어떤 패키지들에 `tslint.json` 이 없거나, `tsconfig.json` 에 `"noImplicitAny": true`, `"noImplicitThis": true`, 나 `"strictNullChecks": true` 가 없어요.
 
