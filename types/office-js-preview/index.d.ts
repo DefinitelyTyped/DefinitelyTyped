@@ -742,7 +742,7 @@ declare namespace Office {
         * Contains the Office application host in which the add-in is running.
         *
         * **Important**: In Outlook, this property is available from requirement set 1.5.
-        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get this information.
+        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get the host.
         */
         host: HostType;
         /**
@@ -775,7 +775,7 @@ declare namespace Office {
         * Provides the platform on which the add-in is running.
         *
         * **Important**: In Outlook, this property is available from requirement set 1.5.
-        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get this information.
+        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get the platform.
         */
         platform: PlatformType;
         /**
