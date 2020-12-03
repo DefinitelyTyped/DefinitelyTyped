@@ -3,12 +3,8 @@
     "target": "es5",
     "module": "commonjs",
     "lib": [
-      "ES2018",
-      "ES2019",
       "es2017",
-      "es7",
       "es6",
-      "es5",
       "dom"
     ],
     "strict": true,
@@ -17,6 +13,11 @@
     "typeRoots": [
       "../"
     ],
+    "paths": {
+      "@dsinjs/*": [
+        "dsinjs__*"
+      ]
+    },
     "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
