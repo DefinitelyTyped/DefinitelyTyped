@@ -621,6 +621,7 @@ export interface NotificationProps extends TouchableOpacityProps {
     backIconSize?: number;
     backIconCenter?: boolean;
 }
+// tslint:disable-next-line no-unnecessary-class
 export class Notification {
     static show: (option: NotificationProps) => void;
     static hide: () => void;
@@ -780,8 +781,9 @@ export interface PopUpCountdownProps extends PopupProps {
     minuteUnitStyle?: StyleProp<TextStyle>;
 }
 
-export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'> {
+export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'| 'children'> {
     _onDataChange?: (date: Date) => void;
+    children?: React.ReactNode;
 }
 
 export interface PopupNumberSelectorProps
@@ -2071,7 +2073,7 @@ export type GotoDpAlarmData = Array<{
 }>;
 
 export interface StringType {
-    [key: string]: string
+    [key: string]: string;
 }
 export let Strings: {
     /**
@@ -2080,11 +2082,11 @@ export let Strings: {
      */
     applyStrings: (strings: {
         [key: string]: StringType
-    },force?: boolean) => void
+    }, force?: boolean) => void
     setLanguage: (language: string) => void
     buildLanguage: (language: string) => void
     formatString: (str: string, ...args: string[]) => string
-    formatValue: (key: string,value: string | number) => string
+    formatValue: (key: string, value: string | number) => string
     getDpLang: (code: string, value?: boolean | string) => string
     getDpName: (code: string, defaultName: string) => string
     getDpsLang: (key: string) => {[key: string]: string}
@@ -2100,8 +2102,8 @@ export let Strings: {
      * @param t 倒计时剩余(秒)
      * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
      */
-    parseCountdown: (t: number, power: 'on' | 'off') => string
-}
+    parseCountdown: (t: number, power: 'on' | 'off') => string;
+};
 
 export let TYSdk: {
     DeviceEventEmitter: {
