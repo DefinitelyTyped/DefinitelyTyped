@@ -1089,8 +1089,6 @@ describe('', () => {
             speak() { return 'meow'; }
         }
         expect(new Cat()).toStrictEqual({ type: 'cat' });
-        // $ExpectError
-        expect('abc').toStrictEqual(2);
 
         const errInstance = new Error();
         const willThrow = () => {
@@ -1132,8 +1130,6 @@ describe('', () => {
 
         expect(Promise.resolve('jest')).resolves.toStrictEqual('jest').then(() => {});
         expect(Promise.resolve('jest')).resolves.not.toStrictEqual('other').then(() => {});
-        // $ExpectError
-        expect(Promise.resolve('jest')).resolves.toStrictEqual(123).then(() => {});
 
         /* type matchers */
 
