@@ -1195,7 +1195,7 @@ declare module "mongoose" {
     _id?: boolean;
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
-    /** When true mongoose will throw a Version Error if a document has change before saving - defaults to false */
+    /** When true, mongoose will throw a Version Error if a document has changed before saving - defaults to false */
     optimisticConcurrency?: boolean;
     read?: string;
     writeConcern?: WriteConcern;
