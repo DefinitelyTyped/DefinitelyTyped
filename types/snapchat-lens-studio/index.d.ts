@@ -45,7 +45,7 @@ declare const script: Component.ScriptComponent;
  * Lens Studio v1.0.0+
  */
 declare class vec2 {
-    constructor(x: number, y: number);
+    constructor(x?: number, y?: number);
 
     /** Alternate name for the y component. */
     g: number;
@@ -149,7 +149,7 @@ declare class vec2 {
  * Lens Studio v1.0.0+
  */
 declare class vec3 {
-    constructor(x: number, y: number, z: number);
+    constructor(x?: number, y?: number, z?: number);
 
     /** Alternate name for the z component. */
     b: number;
@@ -277,7 +277,7 @@ declare class vec3 {
  * Lens Studio v1.0.0+
  */
 declare class vec4 {
-    constructor(x: number, y: number, z: number, w: number);
+    constructor(x?: number, y?: number, z?: number, w?: number);
 
     /** Alternate name for the w component. */
     a: number;
@@ -382,7 +382,7 @@ declare class vec4 {
  */
 declare class vec4b {
     /** Creates a new instance of a vec4b. */
-    constructor(x: boolean, y: boolean, z: boolean, w: boolean);
+    constructor(x?: boolean, y?: boolean, z?: boolean, w?: boolean);
 
     /** Returns a string representation of the vector. */
     toString(): string;
@@ -646,7 +646,7 @@ declare class quat {
     z: number;
 
     /** Creates a new quat. */
-    constructor(w: number, x: number, y: number, z: number);
+    constructor(w?: number, x?: number, y?: number, z?: number);
 
     /** Returns the dot product of the two quats. */
     dot(quat: quat): number;
