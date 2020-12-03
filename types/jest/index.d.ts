@@ -1028,7 +1028,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toStrictEqual<E extends T>(expected: E): R;
+        toStrictEqual<E = T>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
