@@ -77,7 +77,7 @@ declare namespace MobileMessagingCordova {
         phones?: string[];
         emails?: string[];
         tags?: string[];
-        customAttributes?: Record<string, string | number | boolean | any[]>;
+        customAttributes?: Record<string, string | number | boolean | object[]>;
     }
 
     interface Installation {
@@ -107,7 +107,7 @@ declare namespace MobileMessagingCordova {
 
     interface PersonalizeContext {
         userIdentity: UserIdentity;
-        userAttributes?: Record<string, string | number | boolean | any[]>;
+        userAttributes?: Record<string, string | number | boolean | object[]>;
         forceDepersonalize?: boolean;
     }
 
