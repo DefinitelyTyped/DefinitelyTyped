@@ -532,6 +532,7 @@ declare namespace Autodesk {
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getPageToModelTransform(vpId: number): THREE.Matrix4;
@@ -556,6 +557,7 @@ declare namespace Autodesk {
             getUnitScale(): number;
             getUnitString(): string;
             getUpVector(): number[];
+            getVisibleBounds(includeGhosted?: boolean, excludeShadow?: boolean): THREE.Box3;
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
