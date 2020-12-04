@@ -1,4 +1,4 @@
-// Type definition for the non-npm package Google Maps JavaScript API 3.42
+// Type definitions for non-npm package Google Maps JavaScript API 3.42
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
