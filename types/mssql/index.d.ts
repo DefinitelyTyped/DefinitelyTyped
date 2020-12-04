@@ -345,8 +345,8 @@ export declare class Request extends events.EventEmitter {
 export declare class RequestError extends MSSQLError {
     public number?: number;
     public lineNumber?: number;
-    public state?: number;
-    public class?: number;
+    public state?: string;
+    public class?: string;
     public serverName?: string;
     public procName?: string;
 }
