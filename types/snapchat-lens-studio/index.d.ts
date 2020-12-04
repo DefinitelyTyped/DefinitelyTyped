@@ -6,10 +6,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-// This alone doesn't work when `@types/node` is present:
+// This doesn't work when `@types/node` is present:
 declare const global: SnapchatLensStudio.Global;
 
-// // When `@types/node` is present, please add this shim will be needed to establish the typings `global`:
+// // Instead, when `@types/node` is present, please add this shim will be needed to establish the typings `global`:
 // declare module NodeJS {
 //     interface Global extends SnapchatLensStudio.Global {}
 // }
