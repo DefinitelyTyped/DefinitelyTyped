@@ -42,11 +42,11 @@ rp('http://google.com').promise().then(console.dir);
 rp({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => {});
 
 rp({ uri: 'http://google.com', simple: false }
-).catch(errors.StatusCodeError, (reason: errors.StatusCodeError) => {
+).catch((reason: errors.StatusCodeError) => {
   reason.name; // $ExpectType "StatusCodeError"
-}).catch(errors.RequestError, (reason: errors.RequestError) => {
+}).catch((reason: errors.RequestError) => {
   reason.name; // $ExpectType "RequestError"
-}).catch(errors.TransformError, (reason: errors.TransformError) => {
+}).catch((reason: errors.TransformError) => {
   reason.name; // $ExpectType "TransformError"
 });
 
