@@ -62,3 +62,30 @@ const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, "/child/23");
 
 // pass this into ReactDOM.render
 <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>;
+
+interface CustomRouteConfig extends RouteConfig {
+    customProperty: string;
+}
+
+const routesWithCustomConfig: CustomRouteConfig[] = [
+    {
+        component: Root,
+        customProperty: 'hello',
+        routes: [
+            {
+                path: "/",
+                exact: true,
+                component: Home,
+            },
+        ]
+    }
+];
+
+// $ExpectType MatchedRoute<{}, CustomRouteConfig>[]
+const branchWithCustomRoutes = matchRoutes(routesWithCustomConfig, "/child/23");
+// $ExpectType MatchedRoute<{}, CustomRouteConfig>
+const customRoute = branchWithCustomRoutes[0];
+// $ExpectType string
+const customProperty = customRoute.route.customProperty;
+
+<BrowserRouter>{renderRoutes(routesWithCustomConfig)}</BrowserRouter>;

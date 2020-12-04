@@ -27,12 +27,15 @@ export interface RouteConfig {
     [propName: string]: any;
 }
 
-export interface MatchedRoute<Params extends { [K in keyof Params]?: string }> {
-    route: RouteConfig;
+export interface MatchedRoute<Params extends { [K in keyof Params]?: string }, TRouteConfig extends RouteConfig = RouteConfig> {
+    route: TRouteConfig;
     match: match<Params>;
 }
 
-export function matchRoutes<Params extends { [K in keyof Params]?: string }>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<Params>>;
+export function matchRoutes<Params extends { [K in keyof Params]?: string }, TRouteConfig extends RouteConfig = RouteConfig>(
+    routes: TRouteConfig[],
+    pathname: string,
+): Array<MatchedRoute<Params, TRouteConfig>>;
 
 export function renderRoutes(
     routes: RouteConfig[] | undefined,
