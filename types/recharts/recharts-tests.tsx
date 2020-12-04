@@ -235,8 +235,8 @@ class Component extends React.Component<{}, ComponentState> {
                             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
                             </linearGradient>
                         </defs>
-                        <XAxis dataKey="name" />
-                        <YAxis />
+                        <XAxis dataKey="name" padding={{left: 20}} />
+                        <YAxis padding={{top: 10}} />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Area id="custom-id" type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />

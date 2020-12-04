@@ -17,9 +17,10 @@
     - [Create a new package](#create-a-new-package)
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
-    - [Linter](#linter)
-    - [\<my package>-tests.ts](#my-package-teststs)
     - [Running Tests](#running-tests)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -225,7 +226,7 @@ You can remove it by running `npm run not-needed -- typingsPackageName asOfVersi
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "foo": "x.y.z" }`.
 For example:
 
 ```json
@@ -241,29 +242,11 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Linter
+#### Running Tests
 
-All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
-
-This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
-
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // This package uses the Function type, and it will take effort to fix.
-    "ban-types": false
-  }
-}
-```
-
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
+This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 #### \<my package>-tests.ts
 
@@ -314,11 +297,42 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Running Tests
+#### Linter
 
-Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
+All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 
-This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+```js
+{
+  "extends": "dtslint/dt.json"
+}
+```
+
+This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+
+```js
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
+}
+```
+
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `// tslint:disable-next-line rule-name`.)
+
+#### package.json
+
+Usually you won't need this.
+DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+A `package.json` may be included to specify dependencies that are not other `@types` packages.
+[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
+You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+
+In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
+Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 ### Definition Owners
 
@@ -365,19 +379,6 @@ NPM packages should update within a few minutes. If it's been more than an hour,
 
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
-
-#### I notice some packages having a `package.json` here.
-
-Usually you won't need this.
-DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
-A `package.json` may be included to specify dependencies that are not other `@types` packages.
-[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
-You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
-This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
-
-In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
-Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 

@@ -606,6 +606,28 @@ function test_ChartsSafeLoad() {
     });
 }
 
+function test_ChartsLoadLegacy() {
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.charts.load("visualization", "1", {packages:["corechart"]});
+}
+
+function test_ChartsLoadWithVersion() {
+    google.charts.load('current', {packages: ['corechart']});
+}
+
+function test_ChartsLoadOptions() {
+    google.charts.load({
+        packages: ['corechart'],
+        callback: drawChart,
+        mapsApiKey: 'mapsApiKey',
+        safeMode: true,
+        language: 'ja'
+    });
+
+    function drawChart(){}
+}
+
+
 function test_ChartAnnotations() {
     var annotations:google.visualization.ChartAnnotations = {
         boxStyle: {

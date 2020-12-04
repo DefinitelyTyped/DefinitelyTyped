@@ -1,6 +1,6 @@
-// Type definitions for TweenJS 1.0.3
+// Type definitions for TweenJS 1.0.2
 // Project: http://www.createjs.com/#!/TweenJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, J.C <https://github.com/jcyuan>, Lloyd Evans <https://github.com/lloydevans>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -168,31 +168,31 @@ declare namespace createjs {
         toString():string;
     }
 
-    export class Tween<T = any> extends AbstractTween {
-        constructor(target: T, props?: TweenProps);
+    export class Tween extends AbstractTween {
+        constructor(target: any, props?: TweenProps);
 
         static IGNORE:any;
 
         // properties
-        target: T;
+        target: any;
         pluginData: any;
         passive: boolean;
 
         // methods
-        static get<T>(target:T, props?:TweenProps):Tween<T>;
+        static get(target:any, props?:TweenProps):Tween;
         static tick(delta:number, paused:boolean):void;
         static handleEvent(e:Event):void;
         static removeTweens(target:any):void;
         static removeAllTweens():void;
         static hasActiveTweens(target:any):boolean;
 
-        wait(duration:number, passive?:boolean):this;
-        to(props:Partial<T>, duration?:number, ease?:Function):this;
-        label(name:string):this;
-        call(callback:(...params:any[]) => void, params?:Partial<T>, scope?:any):this;
-        set(props:any, target?:any):this;
-        play(tween?:Tween):this;
-        pause(tween?:Tween):this;
+        wait(duration:number, passive?:boolean):Tween;
+        to(props:any, duration?:number, ease?:Function):Tween;
+        label(name:string):Tween;
+        call(callback:(...params:any[]) => void, params?:any[], scope?:any):Tween;
+        set(props:any, target?:any):Tween;
+        play(tween?:Tween):Tween;
+        pause(tween?:Tween):Tween;
     }
 
     export class TweenJS {

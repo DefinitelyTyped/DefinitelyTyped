@@ -12,10 +12,8 @@ export interface BoxPlotData extends PlotData {
     jitter: number;
     pointpos: number;
     marker: Partial<BoxPlotMarker>;
-
     offsetgroup: string;
     alignmentgroup: string;
-
     selected: ScatterSelectedMarker;
     unselected: ScatterSelectedMarker;
 }

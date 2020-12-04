@@ -1224,7 +1224,7 @@ declare namespace math {
          * @param args Two or more matrices
          * @returns Concatenated matrix
          */
-        concat(...args: Array<MathArray | Matrix>): MathArray | Matrix;
+        concat(...args: Array<MathArray | Matrix | number | BigNumber>): MathArray | Matrix;
 
         /**
          * Calculate the cross product for two vectors in three dimensional

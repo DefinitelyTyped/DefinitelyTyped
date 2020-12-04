@@ -24,6 +24,7 @@ import isCurrencyFunc from 'validator/lib/isCurrency';
 import isEthereumAddressFunc from 'validator/lib/isEthereumAddress';
 import isBtcAddressFunc from 'validator/lib/isBtcAddress';
 import isDataURIFunc from 'validator/lib/isDataURI';
+import isDateFunc from 'validator/lib/isDate';
 import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
@@ -143,6 +144,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isDataURI = validator.isDataURI;
     _isDataURI = isDataURIFunc;
+
+    let _isDate = validator.isDate;
+    _isDate = isDateFunc;
 
     let _isDecimal = validator.isDecimal;
     _isDecimal = isDecimalFunc;
@@ -352,6 +356,7 @@ import isCurrencyFuncEs from 'validator/es/lib/isCurrency';
 import isEthereumAddressFuncEs from 'validator/es/lib/isEthereumAddress';
 import isBtcAddressFuncEs from 'validator/es/lib/isBtcAddress';
 import isDataURIFuncEs from 'validator/es/lib/isDataURI';
+import isDateFuncEs from 'validator/es/lib/isDate';
 import isDecimalFuncEs from 'validator/es/lib/isDecimal';
 import isDivisibleByFuncEs from 'validator/es/lib/isDivisibleBy';
 import isEmailFuncEs from 'validator/es/lib/isEmail';
@@ -562,6 +567,10 @@ const any: any = null;
     result = validator.isBtcAddress('sample');
 
     result = validator.isDataURI('sample');
+
+    const isDateOptions: validator.IsDateOptions = {};
+    result = validator.isDate('sample');
+    result = validator.isDate('sample', isDateOptions);
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal('sample');

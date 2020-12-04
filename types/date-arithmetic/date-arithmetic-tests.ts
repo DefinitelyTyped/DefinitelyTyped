@@ -1,5 +1,5 @@
 import dateArithmetic = require('date-arithmetic');
-import { add, subtract, eq, neq, gt, gte, lt, lte } from 'date-arithmetic';
+import { add, subtract, eq, neq, gt, gte, lt, lte, inRange, min, max, diff } from 'date-arithmetic';
 
 dateArithmetic.add(new Date(2010, 7, 23), 2, 'seconds');
 dateArithmetic.add(new Date(2010, 7, 23), 2, 'minutes');
@@ -22,11 +22,19 @@ dateArithmetic.subtract(new Date(2010, 7, 22), 8, 'decade');
 dateArithmetic.subtract(new Date(2010, 7, 21), 9, 'century');
 
 dateArithmetic.eq(new Date(), new Date());
+dateArithmetic.eq(new Date(), new Date(), 'day');
 dateArithmetic.neq(new Date(), new Date());
+dateArithmetic.neq(new Date(), new Date(), 'week');
 dateArithmetic.gt(new Date(), new Date());
+dateArithmetic.gt(new Date(), new Date(), 'seconds');
 dateArithmetic.gte(new Date(), new Date());
+dateArithmetic.gte(new Date(), new Date(), 'minutes');
 dateArithmetic.lt(new Date(), new Date());
+dateArithmetic.lt(new Date(), new Date(), 'year');
+dateArithmetic.lt(new Date(), new Date());
+dateArithmetic.lt(new Date(), new Date(), 'century');
 dateArithmetic.lte(new Date(), new Date());
+dateArithmetic.lte(new Date(), new Date(), 'decade');
 
 add(new Date(2010, 7, 23), 2, 'seconds');
 subtract(new Date(2010, 7, 30), 1, 'seconds');
@@ -61,3 +69,17 @@ dateArithmetic.decade(new Date());
 dateArithmetic.decade(new Date(), 20);
 dateArithmetic.century(new Date());
 dateArithmetic.century(new Date(), 21);
+
+dateArithmetic.inRange(new Date(), new Date(), new Date());
+dateArithmetic.inRange(new Date(), new Date(), new Date(), 'day');
+inRange(new Date(), new Date(), new Date());
+inRange(new Date(), new Date(), new Date(), 'day');
+
+dateArithmetic.min(new Date(), new Date(), new Date());
+min(new Date(), new Date(), new Date());
+
+dateArithmetic.max(new Date(), new Date(), new Date());
+max(new Date(), new Date(), new Date());
+
+dateArithmetic.diff(new Date(), new Date(), 'day', true);
+diff(new Date(), new Date(), 'day');

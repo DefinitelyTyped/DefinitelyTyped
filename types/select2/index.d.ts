@@ -228,14 +228,14 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     sorter?: (data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>;
     tags?: boolean;
     templateResult?: (result: LoadingData | Result) => string | JQuery | null;
-    templateSelection?: (selection: IdTextPair | LoadingData | Result) => string | JQuery;
+    templateSelection?: (selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery;
     theme?: string;
     tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Options) => string;
     tokenSeparators?: string[];
     width?: string;
 
     // Not in https://select2.org/configuration/options-api
-    createTag?: (params: SearchOptions) => IdTextPair | null;
+    createTag?: (params: SearchOptions) => (IdTextPair & Record<string, any>) | null;
     insertTag?: (data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void;
 }
 

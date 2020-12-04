@@ -18,9 +18,10 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Crie um novo pacote](#crie-um-novo-pacote)
     - [Erros comuns](#erros-comuns)
     - [Removendo um pacote](#removendo-um-pacote)
-    - [Linter](#linter)
-    - [\<my package>-tests.ts](#my-package-teststs)
     - [Verificando](#verificando)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#package.json)
     </details>
   - [Donos de definição](#donos-de-definição)
 * [FAQ](#faq)
@@ -227,7 +228,7 @@ Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfV
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
 Você pode obter esta lista olhando os erros do `npm test`.
-Para corrigir os erros, adicione o arquivo `package.json` com `"dependencies": { "foo": "x.y.z" }`.
+Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "foo": "x.y.z" }`.
 Por exemplo:
 
 ```json
@@ -243,28 +244,11 @@ Quando você adicionar um `package.json` aos dependentes de `foo`, você também
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
 
-#### Linter
+#### Verificando
 
-Todos os novos pacotes devem passar pelo linter. Para habilitar o linter num pacote, adicione um `tslint.json` para aquele pacote, contendo:
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
+Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
-Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finalizado. Se um `tslint.json` desabilitar certas regras, é porque elas ainda não foram corrigidas. Por exemplo:
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // Este pacote usa o tipo Function, e vai dar trabalho para arrumar.
-        "ban-types": false
-    }
-}
-```
-
-(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
+Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
 #### \<my package>-tests.ts
 
@@ -314,11 +298,42 @@ f("um");
 
 Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
 
-#### Verificando
+#### Linter
 
-Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+Todos os novos pacotes devem passar pelo linter. Para habilitar o linter num pacote, adicione um `tslint.json` para aquele pacote, contendo:
+```js
+{
+    "extends": "dtslint/dt.json"
+}
+```
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finalizado. Se um `tslint.json` desabilitar certas regras, é porque elas ainda não foram corrigidas. Por exemplo:
+
+```js
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Este pacote usa o tipo Function, e vai dar trabalho para arrumar.
+        "ban-types": false
+    }
+}
+```
+
+(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `// tslint:disable-next-line nome-da-regra`.)
+
+
+#### package.json
+
+Geralmente você não precisa disso.
+O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
+Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
+[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
+Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
+
+Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
+Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
 
 ### Donos de definição
 
@@ -365,19 +380,6 @@ Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma ho
 
 Se o módulo o qual você está referenciando é um módulo externo (usa `export`), use um import.
 Se o módulo que você está referenciando é um módulo de ambiente (usa `declare module`, ou apenas declara globalmente), use `<reference types="" />`.
-
-#### Eu percebi que alguns pacotes tem um `package.json` aqui.
-
-Geralmente você não precisa disso.
-O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
-Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
-[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
-Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
-Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
-
-Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
-Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
 
 #### Alguns pacotes não têm `tslint.json`, e alguns arquivos `tsconfig.json` não têm `"noImplicitAny": true`, `"noImplicitThis": true`, ou `"strictNullChecks": true`.
 

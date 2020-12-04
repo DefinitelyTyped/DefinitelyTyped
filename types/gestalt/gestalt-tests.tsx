@@ -11,8 +11,11 @@ import {
     Checkbox,
     Collage,
     Column,
+    CompositeZIndex,
     Container,
     Divider,
+    FixedZIndex,
+    Flex,
     Flyout,
     GroupAvatar,
     Heading,
@@ -50,15 +53,26 @@ import {
     Tooltip,
     Typeahead,
     Upsell,
+    useFocusVisible,
+    useReducedMotion,
     Video,
-    FixedZIndex,
-    CompositeZIndex,
 } from 'gestalt';
 import * as React from 'react';
 
 const MasonryComponent = ({}) => {
     return <div>Masonry</div>;
 };
+
+const CheckUseFocusVisible = () => {
+    const { isFocusVisible } = useFocusVisible();
+    return <>{isFocusVisible ? 'is visible' : 'no visible'}</>;
+};
+
+const CheckUseReducedMotion = () => {
+    const shouldReduceMotion = useReducedMotion();
+    return <>{shouldReduceMotion ? 'reduced' : 'not reduced'}</>;
+};
+
 <ActivationCard
     status="notStarted"
     statusMessage="Not started"
@@ -104,6 +118,7 @@ const MasonryComponent = ({}) => {
 <Column span={1} />;
 <Container />;
 <Divider />;
+<Flex />;
 <Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;

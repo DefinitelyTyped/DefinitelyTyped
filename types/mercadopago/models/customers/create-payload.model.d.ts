@@ -3,6 +3,8 @@ import { Identification } from '../../shared/payer-identification';
 import { Phone } from '../../shared/phone';
 
 export interface CreateCustomerPayload {
+  /** Email do cliente */
+  email?: string;
   /** Nome do cliente. */
   first_name?: string;
   /** Sobrenome do cliente. */

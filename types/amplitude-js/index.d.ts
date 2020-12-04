@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 6.0
+// Type definitions for Amplitude SDK 7.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>

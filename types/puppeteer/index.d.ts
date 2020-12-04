@@ -47,12 +47,9 @@ declare class CustomError extends Error {
  */
 declare class TimeoutError extends CustomError {}
 
-export const errors: {
-    TimeoutError: TimeoutError;
-    puppeteerErrors: {
-        TimeoutError: TimeoutError;
-    };
-};
+export namespace errors {
+    class TimeoutError extends CustomError {}
+}
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -329,16 +326,16 @@ export interface MouseWheelOptions {
 }
 
 export interface MouseWheelOptions {
-  /**
-   * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
-   * @default 0
-   */
-  deltaX?: number;
-  /**
-   * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
-   * @default 0
-   */
-  deltaY?: number;
+    /**
+     * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
+     * @default 0
+     */
+    deltaX?: number;
+    /**
+     * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
+     * @default 0
+     */
+    deltaY?: number;
 }
 
 export interface Mouse {
