@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dtslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "no-unnecessary-qualifier": false,
         "use-default-type-parameter": false,
