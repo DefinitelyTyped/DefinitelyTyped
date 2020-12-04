@@ -49,14 +49,14 @@ const memoryUpload: Multer = multer({ storage: memoryStorage });
 
 const customStorage = {
     _handleFile: (
-            req: Request,
+            req: express.Request,
             file: Express.Multer.File,
             callback: (error?: any, info?: Partial<Express.Multer.File>) => void
         ): void => {
         callback();
     },
     _removeFile: (
-        req: Request,
+        req: express.Request,
         file: Express.Multer.File,
         callback: (error?: Error) => void
     ): void => {
