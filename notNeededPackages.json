@@ -4726,6 +4726,11 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "universal-cookie",
+            "typingsPackageName": "universal-cookie",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "universal-router",
             "typingsPackageName": "universal-router",
             "asOfVersion": "8.0.0"
