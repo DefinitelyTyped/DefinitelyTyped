@@ -4,7 +4,6 @@
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Spencer Miskoviak <https://github.com/skovy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 David Fong <https://github.com/david-fong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Configuration, Compiler } from 'webpack';
