@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export type ChannelStatus = 'ok' | 'error' | 'timeout';
+export type PushStatus = 'ok' | 'error' | 'timeout';
 
 export class Push {
   constructor(channel: Channel, event: string, payload: object, timeout: number);
@@ -14,7 +14,7 @@ export class Push {
   send(): void;
   resend(timeout: number): void;
 
-  receive(status: ChannelStatus, callback: (response?: any) => any): this;
+  receive(status: PushStatus, callback: (response?: any) => any): this;
 }
 
 export class Channel {
