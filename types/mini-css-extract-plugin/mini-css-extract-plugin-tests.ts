@@ -25,8 +25,12 @@ configuration = {
                 test: /\.css$/,
                 use: {
                     loader: MiniCssExtractPlugin.loader,
-                    options: {
+                    options: <MiniCssExtractPlugin.LoaderOptions>{
                         publicPath: '/',
+                        esModule: true,
+                        modules: {
+                            namedExport: true,
+                        }
                     },
                 },
             },
@@ -78,15 +82,6 @@ configuration = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: configuration.output!.filename,
-        }),
-    ],
-};
-
-configuration = {
-    // ...
-    plugins: [
-        new MiniCssExtractPlugin({
-            esModule: true,
         }),
     ],
 };

@@ -52,14 +52,14 @@ declare namespace MiniCssExtractPlugin {
          *
          * A string value specifies a DOM query for a parent element to attach to.
          *
-         * A fuction allows to override default behavior for non-entry CSS chunks.
+         * A function allows to override default behavior for non-entry CSS chunks.
          * This code will run in the browser alongside your application. It is recommend
          * to only use ECMA 5 features and syntax. The function won't have access to the
          * scope of the webpack configuration module.
          *
          * @default function() { document.head.appendChild(linkTag); }
          */
-        insert?: string | ((linkTag: HTMLLinkElement) => void);
+        insert?: string | ((linkTag: any) => void);
         /**
          * Specify additional html attributes to add to the link tag.
          *
@@ -73,14 +73,14 @@ declare namespace MiniCssExtractPlugin {
          *
          * `false` disables the link `type` attribute.
          *
-         * @default `text/css`
+         * @default 'text/css'
          */
         linkType?: string | false | 'text/css';
     }
     interface LoaderOptions {
         /**
          * Overrides [`output.publicPath`](https://webpack.js.org/configuration/output/#outputpublicpath).
-         * @default `output.publicPath`.
+         * @default output.publicPath
          */
         publicPath?: string | ((resourcePath: string, context: string) => string);
         /**
