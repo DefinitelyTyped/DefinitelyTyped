@@ -22,7 +22,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
-import { BoxPlotData } from './lib/traces/box';
+import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
 
 export as namespace Plotly;
@@ -1109,7 +1109,7 @@ export interface PlotData {
     'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
     'line.smoothing': number;
     'line.simplify': boolean;
-    marker: Partial<PlotMarker>;
+    marker: Partial<PlotMarker> | Partial<BoxPlotMarker>;
     'marker.symbol': MarkerSymbol | MarkerSymbol[];
     'marker.color': Color;
     'marker.colorscale': ColorScale | ColorScale[];
