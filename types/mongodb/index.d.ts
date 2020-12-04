@@ -45,9 +45,6 @@ import { EventEmitter } from 'events';
 import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
-// We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
@@ -1070,10 +1067,13 @@ export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
 
-// TypeScript Omit (Exclude to be specific) does not work for objects with an "any" indexed type
+// TypeScript Omit (Exclude to be specific) does not work for objects with an "any" indexed type, and breaks discriminated unions
 type EnhancedOmit<T, K> = string | number extends keyof T
     ? T // T has indexed type e.g. { _id: string; [k: string]: any; } or it is "any"
-    : Omit<T, K>;
+    : (T extends any
+        ? Pick<T, Exclude<keyof T, K>> // discriminated unions
+        : never
+    );
 
 type ExtractIdType<TSchema> = TSchema extends { _id: infer U } // user has defined a type for _id
     ? {} extends U
