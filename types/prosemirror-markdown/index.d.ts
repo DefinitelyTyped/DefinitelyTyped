@@ -54,6 +54,13 @@ export interface TokenConfig {
      * When true, ignore content for the matched token.
      */
     ignore?: boolean;
+    
+    /**
+     * Indicates that the [markdown-it token](https://markdown-it.github.io/markdown-it/#Token) 
+     * has no `_open` or `_close` for the nodes. 
+     * This defaults to true for `code_inline`, `code_block` and `fence`.
+     */
+    noCloseToken?: boolean
 }
 
 /**
