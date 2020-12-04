@@ -5,13 +5,14 @@ export interface StepInputProps {
     disabled?: boolean;
     disableStyles?: boolean;
     localizedText?: any;
+    onChange?: (stepValue: number) => void
     placeholder?: string;
     readOnly?: boolean;
     validationState?: {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    value?: number;
+    stepValue?: number;
 }
 
 declare const StepInput: React.FunctionComponent<StepInputProps> & {
