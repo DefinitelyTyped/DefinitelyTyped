@@ -256,6 +256,7 @@ function test_rows_and_columnns() {
 function test_mssql_errors() {
     // Test constructors
     const sqlDriverError = new Error('mock error');
+    const mssqlStringError = new sql.MSSQLError('Something went wrong');
     const baseMSSQLError = new sql.MSSQLError(sqlDriverError, 'EREQUEST');
     const connectionError = new sql.ConnectionError(sqlDriverError, 'ELOGIN');
     const requestError = new sql.RequestError(sqlDriverError, 'EREQUEST');
@@ -264,18 +265,18 @@ function test_mssql_errors() {
 
     // Test inheritance
     if (
-        baseMSSQLError instanceof Error &&
-        connectionError instanceof sql.MSSQLError &&
-        requestError instanceof sql.MSSQLError &&
-        preparedStatementError instanceof sql.MSSQLError &&
-        transactionError instanceof sql.MSSQLError
+        'name' in baseMSSQLError &&
+        'name' in connectionError &&
+        'name' in requestError &&
+        'name' in preparedStatementError &&
+        'name' in transactionError
     ) {
-        const { code, message, name, originalError, stack } = baseMSSQLError;
-        requestError.message;
-        requestError.lineNumber;
-        requestError.originalError;
-        connectionError.originalError;
-        preparedStatementError.originalError;
-        transactionError.originalError;
+        let name: string = baseMSSQLError.name;
+        let msg: string = requestError.message;
+        let lineNo: number = requestError.lineNumber;
+        let err: Error = requestError.originalError;
+        err = connectionError.originalError;
+        err = preparedStatementError.originalError;
+        err = transactionError.originalError;
     }
 }
