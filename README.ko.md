@@ -20,6 +20,7 @@
     - [검증하기](#검증하기)
     - [\<my package>-tests.ts](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
+    - [tsconfig.json](#tsconfigjson)
     - [package.json](#packagejson)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
@@ -189,14 +190,12 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 | --- | --- |
 | index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
 | [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
-| tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
+| [tsconfig.json](#tsconfigjson) | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
 | [tslint.json](#linter-tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my package> --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my package> --template module` 명령으로 만들 수 있습니다.
 `dts-gen` 의 모든 옵션(Option)을 보고싶으시면 [dts-gen](https://github.com/Microsoft/dts-gen) 저장소를 확인해주세요.
-
-자료형(Typing) 패키지에 새 파일을 추가하거나, `async` 키워드를 사용하기 위해 `"target"` 을 `"es6"` 로 설정하거나, `"lib"` 를 추가하거나, `jsx` 지원을 추가하기 위해서 `tsconfig.json` 파일을 변경해야 할 수도 있습니다.
 
 Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
 다른 풀 리퀘스트(Pull request)가 많을 경우 확인이 느려질 수 있다는 걸 알아주세요.
@@ -276,6 +275,12 @@ f("one");
 The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+
+#### tsconfig.json
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+자료형(Typing) 패키지에 새 파일을 추가하거나, `async` 키워드를 사용하기 위해 `"target"` 을 `"es6"` 로 설정하거나, `"lib"` 를 추가하거나, `jsx` 지원을 추가하기 위해서 `tsconfig.json` 파일을 변경해야 할 수도 있습니다.
 
 #### package.json
 
