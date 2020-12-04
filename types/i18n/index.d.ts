@@ -1,9 +1,9 @@
-// Type definitions for i18n-node 0.8
+// Type definitions for i18n-node 0.12
 // Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.1
 
 declare namespace i18n {
     interface Response extends i18nAPI {
