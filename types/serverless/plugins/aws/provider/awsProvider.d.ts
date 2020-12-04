@@ -240,7 +240,7 @@ declare namespace Aws {
     }
 
     interface Logs {
-        restApi?: RestApiLogs;
+        restApi?: true | RestApiLogs;
         websocket?: WebsocketLogs;
         httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
