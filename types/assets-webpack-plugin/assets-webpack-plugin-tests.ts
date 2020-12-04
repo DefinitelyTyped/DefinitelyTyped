@@ -14,6 +14,7 @@ const config: webpack.Configuration = {
             fileTypes: ['css'],
             includeManifest: ['manifest'],
             includeAllFileTypes: false,
+            includeAuxiliaryAssets: true,
             includeFilesWithoutChunk: true,
             integrity: true,
             keepInMemory: true,

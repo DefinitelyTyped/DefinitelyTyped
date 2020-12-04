@@ -54,8 +54,13 @@ declare namespace AssetsWebpackPlugin {
         includeAllFileTypes?: boolean;
 
         /**
-         * When set and "entrypoints" is set true, will output any files that are part of the unnamed chunk to an additional unnamed ("") entry.
-         * false by default
+         * When set, will output any files that are part of the chunk and marked as auxiliary assets.
+         *
+         * `false` by default.
+         */
+        includeAuxiliaryAssets?: boolean;
+
+        /**
          * When set and `entrypoints` is set `true` , will output any files that are part of the unnamed chunk to an additional unnamed ("") entry.
          *
          * `false` by default.
