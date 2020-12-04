@@ -21,8 +21,6 @@
 //                 Oleg Shilov <https://github.com/olegshilov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Minimum TypeScript Version: 3.4
-
 import * as _d3 from 'd3';
 import { BoxPlotData } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
