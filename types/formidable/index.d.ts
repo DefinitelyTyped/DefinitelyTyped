@@ -34,7 +34,7 @@ export interface Fields {
 }
 
 export interface Files {
-    [key: string]: File | File[];	// is an array when multiples is true
+    [key: string]: File | File[]; // is an array when multiples is true
 }
 
 export interface Part extends stream.Stream {
