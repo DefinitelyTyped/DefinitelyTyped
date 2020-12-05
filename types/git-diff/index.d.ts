@@ -1,5 +1,5 @@
-// Type definitions for git-dff 2.0
-// Project: https://github.com/danday74/git-diff
+// Type definitions for git-diff 2.0
+// Project: https://github.com/danday74/git-diff#readme
 // Definitions by: Sang Han <https://github.com/hantatsang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
