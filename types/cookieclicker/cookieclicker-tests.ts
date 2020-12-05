@@ -101,3 +101,19 @@ Game.registerHook('ticker', () => ['hi']);
 Game.WriteSave();
 
 Game.LoadSave();
+
+// A live example of ascension modes, commented out it the code
+Game.ascensionModes[2] = {
+    name: 'Trigger finger',
+    desc: `In this run, scrolling your mouse wheel on the cookie counts as clicking it. Some upgrades introduce new clicking behaviors.<br>
+No clicking achievements may be obtained in this mode.
+<div class="line"></div>
+Reaching 1 quadrillion cookies in this mode unlocks a special heavenly upgrade.`,
+    icon: [12, 0],
+};
+
+const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10, 0] };
+
+// `TickerEffect` can also be 0
+// $ExpectError
+Game.TickerEffect.type;

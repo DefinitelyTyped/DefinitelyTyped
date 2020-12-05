@@ -997,7 +997,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1007,7 +1007,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1048,7 +1048,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1893,7 +1893,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1903,7 +1903,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1944,7 +1944,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4704,7 +4704,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4714,7 +4714,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4755,7 +4755,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4804,7 +4804,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4815,7 +4815,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4856,7 +4856,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5160,7 +5160,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -5171,7 +5171,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -5212,7 +5212,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5261,7 +5261,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -5272,7 +5272,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -5314,7 +5314,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7217,7 +7217,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -7263,7 +7263,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -7323,7 +7323,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -7369,7 +7369,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -7701,7 +7701,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -7747,7 +7747,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7810,7 +7810,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7858,7 +7858,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -8311,7 +8311,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -8357,7 +8357,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -8420,7 +8420,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -8468,7 +8468,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -10331,7 +10331,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -10341,7 +10341,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -10382,7 +10382,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -10431,7 +10431,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -10442,7 +10442,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -10483,7 +10483,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -10682,7 +10682,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -10693,7 +10693,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -10735,7 +10735,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -10786,7 +10786,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10797,7 +10797,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -10841,7 +10841,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -12557,7 +12557,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -12568,7 +12568,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -12610,7 +12610,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -12661,7 +12661,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -12672,7 +12672,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -12716,7 +12716,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pictorialBar.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -16054,7 +16054,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -16064,7 +16064,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -16105,7 +16105,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pictorialBar.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.

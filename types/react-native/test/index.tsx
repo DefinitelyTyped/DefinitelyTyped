@@ -300,7 +300,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -331,7 +331,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         const { rootView } = this.refs;
 
         rootView.setNativeProps({});
-        rootView.measure((x: number, y: number, width: number, height: number) => {});
+        rootView.measure((x: number, y: number, width: number, height: number) => { });
     }
 
     testFindNodeHandle() {
@@ -423,10 +423,10 @@ export class PressableTest extends React.Component<{}> {
                                 <Text>Pressed</Text>
                             </View>
                         ) : (
-                            <View>
-                                <Text>Not Pressed</Text>
-                            </View>
-                        )
+                                <View>
+                                    <Text>Not Pressed</Text>
+                                </View>
+                            )
                     }
                 </Pressable>
                 {/* Android Ripple */}
@@ -734,7 +734,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
-                            onScrollToTop={() => {}}
+                            onScrollToTop={() => { }}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                         />
@@ -769,7 +769,7 @@ class TabBarTest extends React.Component {
                     badgeColor="red"
                     icon={{ uri: undefined }}
                     selected={true}
-                    onPress={() => {}}
+                    onPress={() => { }}
                     renderAsOriginal={true}
                     selectedIcon={undefined}
                     systemIcon="history"
@@ -786,13 +786,13 @@ class AlertTest extends React.Component {
             'Title',
             'Message',
             [
-                { text: 'First button', onPress: () => {} },
-                { text: 'Second button', onPress: () => {} },
-                { text: 'Third button', onPress: () => {} },
+                { text: 'First button', onPress: () => { } },
+                { text: 'Second button', onPress: () => { } },
+                { text: 'Third button', onPress: () => { } },
             ],
             {
                 cancelable: false,
-                onDismiss: () => {},
+                onDismiss: () => { },
             },
         );
     }
@@ -896,10 +896,10 @@ const sub4 = androidEventEmitter.addListener('event', (event: object) => event, 
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub3);
 
-class CustomEventEmitter extends NativeEventEmitter {}
+class CustomEventEmitter extends NativeEventEmitter { }
 
 const customEventEmitter = new CustomEventEmitter();
-customEventEmitter.addListener('event', () => {});
+customEventEmitter.addListener('event', () => { });
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
@@ -1140,13 +1140,13 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
                 accessibilityTraits={'none'}
-                onAccessibilityTap={() => {}}
+                onAccessibilityTap={() => { }}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
-                onMagicTap={() => {}}
-                onAccessibilityEscape={() => {}}
+                onMagicTap={() => { }}
+                onAccessibilityEscape={() => { }}
             >
                 <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
                     Text
@@ -1232,7 +1232,7 @@ const DatePickerAndroidTest = () => {
 };
 
 const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => { }}>
         <Picker.Item label="Item1" value="v1" />
         <Picker.Item label="Item2" value="v2" />
     </Picker>
@@ -1303,6 +1303,14 @@ const KeyboardTest = () => {
         event;
     });
     subscriber.remove();
+
+    Keyboard.dismiss();
+
+    // Android Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'keyboard', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 } })
+
+    // IOS Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'easeInEaseOut', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, isEventFromThisApp: true })
 };
 
 const PermissionsAndroidTest = () => {

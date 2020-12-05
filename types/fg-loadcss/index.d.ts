@@ -3,16 +3,12 @@
 // Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace loadCSS;
-
-declare function loadCSS(
+export function loadCSS(
     href: string,
     before?: HTMLElement,
     media?: string,
     attributes?: Record<string, string>,
 ): HTMLLinkElement;
-
-export = loadCSS;
 
 declare global {
     interface Window {

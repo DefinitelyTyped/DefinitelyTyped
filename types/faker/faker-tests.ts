@@ -42,7 +42,7 @@ resultStr = faker.address.cardinalDirection(true);
 resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
 resultStrArr = faker.address.nearbyGPSCoordinate();
-resultStrArr = faker.address.nearbyGPSCoordinate('foo', 0, true);
+resultStrArr = faker.address.nearbyGPSCoordinate(['0', '0'], 0, true);
 resultStr = faker.address.timeZone();
 
 resultStr = faker.commerce.color();

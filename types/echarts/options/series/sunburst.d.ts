@@ -1021,7 +1021,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1031,7 +1031,7 @@ declare namespace echarts {
                  * "white"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1074,7 +1074,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -2072,7 +2072,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2082,7 +2082,7 @@ declare namespace echarts {
                      * "white"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2125,7 +2125,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3050,7 +3050,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -3060,7 +3060,7 @@ declare namespace echarts {
                      * "white"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -3103,7 +3103,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4028,7 +4028,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4038,7 +4038,7 @@ declare namespace echarts {
                      * "white"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4081,7 +4081,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -5019,7 +5019,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -5029,7 +5029,7 @@ declare namespace echarts {
                      * "white"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -5072,7 +5072,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6016,7 +6016,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -6027,7 +6027,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -6070,7 +6070,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -7015,7 +7015,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -7026,7 +7026,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -7069,7 +7069,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -8014,7 +8014,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -8025,7 +8025,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -8068,7 +8068,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -9139,7 +9139,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -9149,7 +9149,7 @@ declare namespace echarts {
                      * "white"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -9192,7 +9192,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -10136,7 +10136,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -10147,7 +10147,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -10190,7 +10190,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -11135,7 +11135,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -11146,7 +11146,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -11189,7 +11189,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -12134,7 +12134,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -12145,7 +12145,7 @@ declare namespace echarts {
                          * "white"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -12188,7 +12188,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

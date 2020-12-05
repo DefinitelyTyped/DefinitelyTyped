@@ -20,8 +20,10 @@
     - [创建一个新的包](#创建一个新的包)
     - [常见错误](#常见错误)
     - [删除一个包](#删除一个包)
-    - [Linter](#linter)
     - [验证](#验证)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -34,7 +36,7 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* 所有的包都会在1小时内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
@@ -143,8 +145,8 @@ Version | Released | End of Support
 
 #### 编辑一个现有包
 
-* `cd types/my-package-to-edit`
-* 作出修改之后，记得新增测试。
+* `cd types/<package to edit>`
+* 作出修改之后，[记得新增测试](#my-package-teststs)。
   如果你进行了重大修改，不要忘记 [更新主版本](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
@@ -156,7 +158,7 @@ Version | Released | End of Support
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* 如果这里有 `tslint.json` 文件，就运行 `npm run lint package-name`。否则，在包目录里运行 `tsc`.
+* [就运行 `npm test <package to test>`](#验证).
 
 当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
@@ -174,11 +176,11 @@ Version | Released | End of Support
 | 文件名 | 目的 |
 | --- | --- |
 | index.d.ts | 这里包含了包的类型声明。 |
-| foo-tests.ts | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
+| [\<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | tsconfig.json | 这里允许你在包里运行 `tsc`. |
 | tslint.json | 启用 linting. |
 
-如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name my-package-name --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name my-package-name --template module`.
+如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
 
 你可以编辑 `tsconfig.json` 来增加新文件，增加 `"target": "es6"` (异步函数需要)，去增加 `"lib"`，或者增加 `"jsx"` 编译选项。
@@ -220,8 +222,8 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 - `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 "typingsPackageName" 相同，这种情况下你可以忽略它。
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
-你可以查看 `npm run test` 中的错误来获得此列表。
-添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 `package.json` 文件，去修复这些错误。
+你可以查看 `npm test` 中的错误来获得此列表。
+添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
 比如：
 
 ```json
@@ -233,9 +235,63 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 }
 ```
 
-当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["types-publisher" 中的 "dependenciesWhitelist.txt"](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
+
+#### 验证
+
+通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
+这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+
+#### \<my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#验证) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
+若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
 #### Linter
 
@@ -257,24 +313,21 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 }
 ```
 
-(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `//tslint:disable-next-line rule-name` 更好。)
+(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `// tslint:disable-next-line rule-name` 更好。)
 
-若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `$ExpectError`.
+#### package.json
 
-```js
-// $ExpectType void
-f(1);
-
-// $ExpectError
-f("one");
-```
-
-你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
-
-#### 验证
-
-通过运行 `npm run lint package-name` 去测试你的改动，其中 `package-name` 是你的包名。
-这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+通常你不需要它。
+Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
+`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
+当你发布包的时候会自动创建一个 `package.json` 的文件。
+[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
+包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
+你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)。
+即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
+该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
+在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
+再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 ### Definition Owners
 
@@ -301,7 +354,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### 这个仓库和 NPM 上的 `@types` 包究竟有什么关系？
 
-`master` 分支会通过 [types-publisher](https://github.com/Microsoft/types-publisher) 自动发布到 NPM 上的 `@types`.
+`master` 分支会通过 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) 自动发布到 NPM 上的 `@types`.
 
 #### 我已经发起了 PR, 它多久会被合并？
 
@@ -315,20 +368,6 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 如果你引用的外部模块（使用 `export`），那么请使用导入。
 如果你引用的是环境模块（使用 `declare module`, 或者只声明全局变量），那么请使用 `<reference types="" />`.
-
-#### 我注意带这里有一些包含 `package.json` 的包。
-
-通常你不需要它。
-Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
-`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
-当你发布包的时候会自动创建一个 `package.json` 的文件。
-[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt)。
-即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
-该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
-在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
-再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 
@@ -413,7 +452,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.org/)_
 
 每个 Definitely Typed 包在发布到 NPM 时都会进行版本控制。
-[types-publisher](https://github.com/Microsoft/types-publisher) (将 `@types` 包发布到 npm 的工具) 会通过将 `major.minor` 版本号写在 `index.d.ts` 文件的第一行来设置定义包的版本号。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (将 `@types` 包发布到 npm 的工具) 会通过将 `major.minor` 版本号写在 `index.d.ts` 文件的第一行来设置定义包的版本号。
 例如，以下是 `10.12.x` 版本的 [Node 的类型声明](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) 的前几行：
 
 ```js

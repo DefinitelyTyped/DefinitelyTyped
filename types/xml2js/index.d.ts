@@ -9,6 +9,7 @@
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.5
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
@@ -76,6 +77,7 @@ export interface ParserOptions {
     attrValueProcessors?: Array<(value: string, name: string) => any>;
     tagNameProcessors?: Array<(name: string) => any>;
     valueProcessors?: Array<(value: string, name: string) => any>;
+    chunkSize?: number;
 }
 
 export interface BuilderOptions {
@@ -90,42 +92,8 @@ export interface BuilderOptions {
     cdata?: boolean;
 }
 
-export interface Options {
-    async?: boolean;
-    attrkey?: string;
-    attrNameProcessors?: Array<(name: string) => any>;
-    attrValueProcessors?: Array<(value: string, name: string) => any>;
-    charkey?: string;
-    charsAsChildren?: boolean;
-    childkey?: string;
-    emptyTag?: any;
-    explicitArray?: boolean;
-    explicitCharkey?: boolean;
-    explicitChildren?: boolean;
-    explicitRoot?: boolean;
-    ignoreAttrs?: boolean;
-    includeWhiteChars?: boolean;
-    mergeAttrs?: boolean;
-    normalize?: boolean;
-    normalizeTags?: boolean;
-    strict?: boolean;
-    tagNameProcessors?: Array<(name: string) => any>;
-    trim?: boolean;
-    validator?: Function;
-    valueProcessors?: Array<(value: string, name: string) => any>;
-    xmlns?: boolean;
-}
-
-export interface OptionsV2 extends Options {
-    preserveChildrenOrder?: boolean;
-    rootName?: string;
-    xmldec?: XmlDeclarationAttributes;
-    doctype?: any;
-    renderOpts?: RenderOptions;
-    headless?: boolean;
-    chunkSize?: number;
-    cdata?: boolean;
-}
+export type Options = Omit<ParserOptions, "preserveChildrenOrder" | "chunkSize">;
+export type OptionsV2 = ParserOptions & BuilderOptions;
 
 export interface convertableToString {
     toString(): string;

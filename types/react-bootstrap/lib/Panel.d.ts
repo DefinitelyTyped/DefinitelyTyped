@@ -9,6 +9,7 @@ import PanelFooter = require('./PanelFooter');
 
 declare namespace Panel {
     export interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
+        bsClass?: string;
         bsStyle?: string;
         defaultExpanded?: boolean;
         eventKey?: any;

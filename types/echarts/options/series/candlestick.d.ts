@@ -207,7 +207,7 @@ declare namespace echarts {
                  * "#c23531"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * Fill color of bearish candle stick.
@@ -247,7 +247,7 @@ declare namespace echarts {
                  * "#c23531"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * Border color of bearish candle stick.
@@ -300,7 +300,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -358,7 +358,7 @@ declare namespace echarts {
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * Fill color of bearish candle stick.
@@ -398,7 +398,7 @@ declare namespace echarts {
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * Border color of bearish candle stick.
@@ -451,7 +451,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2413,7 +2413,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2423,7 +2423,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2464,7 +2464,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2513,7 +2513,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -2524,7 +2524,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -2565,7 +2565,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -2869,7 +2869,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -2880,7 +2880,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -2921,7 +2921,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -2970,7 +2970,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -2981,7 +2981,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -3023,7 +3023,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -4926,7 +4926,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -4972,7 +4972,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -5032,7 +5032,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -5078,7 +5078,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5410,7 +5410,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -5456,7 +5456,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -5519,7 +5519,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -5567,7 +5567,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -6020,7 +6020,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -6066,7 +6066,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6129,7 +6129,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -6177,7 +6177,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -8040,7 +8040,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -8050,7 +8050,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -8091,7 +8091,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -8140,7 +8140,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -8151,7 +8151,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -8192,7 +8192,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -8391,7 +8391,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -8402,7 +8402,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -8444,7 +8444,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -8495,7 +8495,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -8506,7 +8506,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -8550,7 +8550,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -10266,7 +10266,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -10277,7 +10277,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -10319,7 +10319,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -10370,7 +10370,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10381,7 +10381,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -10425,7 +10425,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -12269,7 +12269,7 @@ declare namespace echarts {
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * Fill color of bearish candle stick.
@@ -12309,7 +12309,7 @@ declare namespace echarts {
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * Border color of bearish candle stick.
@@ -12362,7 +12362,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -12421,7 +12421,7 @@ declare namespace echarts {
                          * "#c23531"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * Fill color of bearish candle stick.
@@ -12463,7 +12463,7 @@ declare namespace echarts {
                          * "#c23531"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * Border color of bearish candle stick.
@@ -12517,7 +12517,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

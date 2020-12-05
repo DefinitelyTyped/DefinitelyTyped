@@ -42,6 +42,7 @@
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Guillem Gelabert Sunyer <https://github.com/guillem-gelabert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -1194,6 +1195,8 @@ declare module "mongoose" {
     _id?: boolean;
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
+    /** When true, mongoose will throw a Version Error if a document has changed before saving - defaults to false */
+    optimisticConcurrency?: boolean;
     read?: string;
     writeConcern?: WriteConcern;
     /** defaults to true. */

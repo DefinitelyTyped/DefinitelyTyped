@@ -1,5 +1,6 @@
 import { Comment, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from 'eslint';
+import { ESLintRules } from 'eslint/rules';
 
 const SOURCE = `var foo = bar;`;
 
@@ -620,6 +621,18 @@ resultsPromise.then(results => {
         }
     }
 });
+
+//#endregion
+
+//#region ESLintRules
+
+let eslintConfig: Linter.Config<ESLintRules>;
+
+eslintConfig = {
+    rules: {
+        'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
+    }
+};
 
 //#endregion
 

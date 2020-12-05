@@ -1,4 +1,4 @@
-import loadCSS  = require("fg-loadcss");
+import { loadCSS } from 'fg-loadcss';
 
 loadCSS("example.css");
 loadCSS("example.css", document.body);

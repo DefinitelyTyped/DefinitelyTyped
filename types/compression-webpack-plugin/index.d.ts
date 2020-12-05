@@ -42,7 +42,7 @@ declare namespace CompressionPlugin {
         query: string;
     }
 
-    type FilenameFunction = (info: FileInfo) => string;
+    type FilenameFunction = (pathData: FileInfo) => string;
 
     interface BaseOptions {
         /**
@@ -61,7 +61,7 @@ declare namespace CompressionPlugin {
         exclude?: Rules;
         /**
          * The target asset filename.
-         * @default '[path].gz[query]'
+         * @default '[path][base].gz'
          */
         filename?: string | FilenameFunction;
         /**

@@ -748,6 +748,11 @@ declare namespace CodeMirror {
         The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
         replaceSelection(replacement: string, collapse?: string): void;
 
+        /** Replaces the content of the selections with the strings in the array.
+        The length of the given array should be the same as the number of active selections.
+        The collapse argument works the same as in replaceSelection. */
+        replaceSelections(replacements: Array<string>, collapse?: string): void;
+
         /** start is a an optional string indicating which end of the selection to return.
         It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
         or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/

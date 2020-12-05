@@ -84,7 +84,7 @@ declare namespace yar {
              * enables the same-site cookie parameter.
              * Default to 'Lax'.
              */
-            isSameSite?: 'Lax' | 'Strict' | false;
+            isSameSite?: 'Lax' | 'Strict' | 'None' | false;
             /**
              * determines whether or not to transfer using TLS/SSL.
              * Defaults to true.

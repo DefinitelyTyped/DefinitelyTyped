@@ -22,6 +22,7 @@ const withSchema = new LinkifyIt(
 // fluent interface
 linkifier
     .add("git:", "http:")
+    .add('ftp:', null)
     .set({ fuzzyIP: true })
     .tlds("onion", true)
     .test("https://github.com/DefinitelyTyped/DefinitelyTyped/");
