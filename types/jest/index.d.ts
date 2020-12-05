@@ -1052,8 +1052,6 @@ declare namespace jest {
     T['length'] extends 0 ? [] :
         (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
 
-    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
-
     interface AsymmetricMatcher {
         asymmetricMatch(other: unknown): boolean;
     }
