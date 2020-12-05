@@ -284,6 +284,37 @@ const graphDiv = '#test';
     };
     Plotly.newPlot('myDiv', data, layout, config);
 })();
+(() => {
+    // should create a boxplot with boxmode 'group'
+    const y: number[] = [];
+    const x: string[] = [];
+    for (let i = 0; i < 50; i++) {
+        y.push(Math.random());
+        x.push('category 1');
+        y.push(Math.random() + 1);
+        x.push('category 2');
+    }
+    const data: Array<Partial<Plotly.BoxPlotData>> = [
+        {
+            y,
+            x,
+            type: 'box',
+            name: 'group A'
+        },
+        {
+            y: y.map(e => e + 1),
+            x,
+            type: 'box',
+            name: 'group B'
+        }
+    ];
+    const layout: Partial<Layout> = {
+        title: 'Grouped Box Plot',
+        boxmode: 'overlay'
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
+})();
 
 //////////////////////////////////////////////////////////////////////
 
