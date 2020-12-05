@@ -100,7 +100,7 @@ declare namespace MiniCssExtractPlugin {
              *
              * @default false
              */
-            namedExport: boolean;
+            namedExport?: boolean;
         };
     }
 }

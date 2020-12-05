@@ -25,13 +25,13 @@ configuration = {
                 test: /\.css$/,
                 use: {
                     loader: MiniCssExtractPlugin.loader,
-                    options: <MiniCssExtractPlugin.LoaderOptions>{
+                    options: {
                         publicPath: '/',
                         esModule: true,
                         modules: {
                             namedExport: true,
                         }
-                    },
+                    } as MiniCssExtractPlugin.LoaderOptions,
                 },
             },
             // Optionally extract less files
