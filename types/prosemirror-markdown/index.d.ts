@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-markdown 1.0
+// Type definitions for prosemirror-markdown 1.5
 // Project: https://github.com/ProseMirror/prosemirror-markdown
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
