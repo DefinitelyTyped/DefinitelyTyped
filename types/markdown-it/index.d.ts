@@ -4,7 +4,7 @@
 //                 Robert Coie <https://github.com/rapropos>
 //                 duduluu <https://github.com/duduluu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 2.0
 
 import MarkdownIt = require('./lib');
 
