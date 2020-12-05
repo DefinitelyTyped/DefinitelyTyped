@@ -44,6 +44,7 @@ interface VerificationRequestParams {
     identifier: string;
     url: string;
     baseUrl: string;
+    token: string;
     provider: ProviderEmailOptions;
 }
 
