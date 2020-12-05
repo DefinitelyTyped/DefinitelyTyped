@@ -11,12 +11,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+///<reference lib="dom" /> required by socket.io-parser.
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
 import { Server as HttpServer, IncomingMessage } from 'http';
 import { Server as HttpsServer } from 'https';
-import { EventEmitter } from 'events';
+import SocketIoParser = require('socket.io-parser');
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
@@ -456,7 +457,7 @@ declare namespace SocketIO {
      */
     interface ServerOptions extends engine.ServerAttachOptions {
         /**
-         * The path to server the client file to
+         * The path to server the client file to.
          * @default '/socket.io'
          */
         path?: string;
@@ -469,16 +470,23 @@ declare namespace SocketIO {
 
         /**
          * The adapter to use for handling rooms. NOTE: this should be a class,
-         * not an object
+         * not an object.
          * @default typeof Adapter
          */
         adapter?: Adapter;
 
         /**
-         * Accepted origins
+         * Accepted origins.
          * @default '*:*'
          */
         origins?: string | string[];
+
+        /**
+         * The parser to use. Defaults to an instance of the `Parser` that
+         * ships with socket.io which is memory-based. See `socket.io-parser`.
+         * @default require('socket.io-parser')
+         */
+        parser?: typeof SocketIoParser;
     }
 
     /**
