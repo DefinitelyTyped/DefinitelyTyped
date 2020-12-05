@@ -14,6 +14,6 @@ let columnsFromSemicolon: string[];
 
 columnsFromSemicolon = csvrow.parse(rowSemicolonDelimited, ";");
 
-rowSemicolonDelimited = csvrow.stringify(columnsFromSemicolon);
+rowSemicolonDelimited = csvrow.stringify(columnsFromSemicolon, ";");
 
-rowSemicolonDelimited = csvrow.normalize(rowSemicolonDelimited);
+// csvrow.normalize doesn't seem to have support for different delimiters yet
