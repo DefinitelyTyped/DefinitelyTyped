@@ -44,7 +44,7 @@ import LinkifyIt = require('linkify-it');
         linkify: false,
         typographer: false,
         quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
-        highlight: null,
+        highlight: function(str, lang, attrs) { return ""; },
     };
 }
 
