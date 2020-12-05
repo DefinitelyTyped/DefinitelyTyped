@@ -43,7 +43,7 @@ interface PaymentRequestApi {
         countryCode: string;
     }): void;
 
-    getPrime(callback: (result: BaseResult & {
+    getPrime(callback: (result: BaseResult & MerchantReferenceInfo & {
         prime_expiry_millis: number;
         total_amount: string;
         payer: {
@@ -61,8 +61,5 @@ interface PaymentRequestApi {
          * Real Card Info
          */
         card: Card
-        merchant_reference_info: {
-            affiliate_codes: string[];
-        };
     }) => void): void;
 }

@@ -20,13 +20,10 @@ interface SamsungPay {
     ): void;
 
     getPrime(callback: (
-        result: BaseResult & {
+        result: BaseResult & MerchantReferenceInfo & {
             card_info: CardInfoV2;
             card: Card;
             total_amount: string;
-            merchant_reference_info: {
-                affiliate_codes: string[];
-            };
         }
     ) => void): void;
 }

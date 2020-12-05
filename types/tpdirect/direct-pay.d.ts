@@ -1,6 +1,12 @@
 /// <reference path="common.d.ts" />
 
 interface UpdateResult {
+    /**
+     * ```markdown
+     * `true` means all fields are correct.
+     * You may now call getPrime.
+     * ```
+     */
     canGetPrime: boolean;
     cardType: "mastercard" | "visa" | "jcb" | "amex" | "unionpay" | "unknown";
     status: {
@@ -59,13 +65,13 @@ interface DirectPay {
 
     getPrime(callback: (
         result: {
+            /**
+             * 0 is successful.
+             */
             status: Pick<BaseResult, "status">;
             clientip: Pick<BaseResult, "client_ip">;
             card_identifier: string;
-            merchant_reference_info: {
-                affiliate_codes: string[];
-            };
             card: CardInfoV1 & Pick<BaseResult, "prime">;
-        }
+        } & MerchantReferenceInfo
     ) => void): void;
 }

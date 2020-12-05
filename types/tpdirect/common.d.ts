@@ -2,12 +2,28 @@ type AllowedNetworks = "AMEX" | "JCB" | "MASTERCARD" | "VISA";
 
 interface BaseResult {
     /**
-     * 0 is successfuly.
+     * 0 is successful.
      */
     status: number;
     msg: string;
     prime: string;
     client_ip: string;
+}
+
+interface MerchantReferenceInfo {
+    /**
+     * ```markdown
+     * If the merchant uses the co-branded card management in the TapPay portal,
+     * and the transaction card number meets the setting.
+     * ```
+     */
+    merchant_reference_info: {
+        /**
+         * Affiliated codes set by the merchant in the Co-brand card management
+         * area of the TapPay portal.
+         */
+        affiliate_codes: string[];
+    };
 }
 
 interface BaseCardInfo {
@@ -39,17 +55,29 @@ interface BaseCardInfo {
 }
 
 interface Card extends Pick<BaseCardInfo, "funding" | "type"> {
+    /**
+     * Real Card
+     */
     lastfour: string;
 }
 
 interface CardInfoV1 extends BaseCardInfo {
     bincode: string;
+    /**
+     * Real Card for Direct Pay
+     */
     lastfour: string;
     countrycode: string;
 }
 
 interface CardInfoV2 extends BaseCardInfo {
     bin_code: string;
+    /**
+     * ```markdown
+     * Real Card for Google Pay (card isn't installed in phohe)
+     * Token Card for Google Pay, Apple Pay, Samsung Pay
+     * ```
+     */
     last_four: string;
     country_code: string;
 }
