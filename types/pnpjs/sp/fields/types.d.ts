@@ -309,7 +309,7 @@ export declare enum FieldUserSelectionMode {
     PeopleAndGroups = 1,
     PeopleOnly = 0
 }
-export interface IFieldCreationProperties extends ITypedHash<string | number | boolean> {
+export interface IFieldCreationProperties extends ITypedHash<string | number | boolean | undefined> {
     DefaultFormula?: string;
     Description?: string;
     EnforceUniqueValues?: boolean;
