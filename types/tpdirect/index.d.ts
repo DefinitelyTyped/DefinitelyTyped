@@ -1,4 +1,4 @@
-// Type definitions for tpdirect 1.0
+// Type definitions for non-npm package tpdirect-browser 1.0
 // Project: https://github.com/Yu-Jack/DefinitelyTyped
 // Definitions by: Yu-Jack <https://github.com/Yu-Jack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
