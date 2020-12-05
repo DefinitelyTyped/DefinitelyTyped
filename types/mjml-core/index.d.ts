@@ -1,49 +1,156 @@
-/**
- * An map of components available to be used in mjml
- */
-export const components: {[componentName: string]: Component | undefined};
+// Type definitions for mjml-core 4.7
+// Project: https://mjml.io
+// Definitions by: Ian Edington       <https://github.com/IanEdington>
+//                 aahoughton         <https://github.com/aahoughton>
+//                 marpstar           <https://github.com/marpstar>
+//                 eiskalteschatten   <https://github.com/eiskalteschatten>
+//                 emrah88            <https://github.com/emrah88>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IInitialData {
-  attributes: IAttributes;
-  children: IInitialData[];
-  content: string;
-  context: {
-    add(attr: any, ...params: any[]): void;
-    addMediaQuery(className: any, unit: { parsedWidth: any; unit: any }): void;
-    addHeadStyle(identifier: any, headStyle: any): void;
-    addComponentHeadSyle(headStyle: any): void;
-    setBackgroundColor(color: string): void;
-    processing(node: any, context: any): void;
-  };
-  props: {};
-  globalAttributes: IAttributes;
+/**
+ * The main parser for MJML.
+ * This version doesn't contain any of the components registered in the 'mjml' package.
+ */
+export default function mjml2html(input: string | MJMLJsonObject, options?: MJMLParsingOptions): MJMLParseResults;
+
+/**
+ * Options passed as an object to the mjml2html function
+ * 
+ * https://documentation.mjml.io/#inside-node-js
+ */
+export interface MJMLParsingOptions {
+    /**
+     * Default fonts imported in the HTML rendered by HTML
+     * ie. { 'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700' }
+     * 
+     * default: @see https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js
+     */
+    fonts?: { [key: string]: string; };
+
+    /**
+     * Option to keep comments in the HTML output
+     * default: true
+     */
+    keepComments?: boolean;
+
+    /**
+     * @deprecated use js-beautify directly after processing the MJML
+     * 
+     * Option to beautify the HTML output
+     * default: false
+     */
+    beautify?: boolean;
+
+    /**
+     * @deprecated use html-minifier directly after processing the MJML
+     * 
+     * Option to minify the HTML output
+     * 
+     * default: false
+     */
+    minify?: boolean;
+    /**
+     * @deprecated @see minify
+     * 
+     * Options for html minifier, see mjml-cli documentation for more info
+     * Passed directly to html-minifier as options
+     * 
+     * default: @see htmlMinify usage in mjml-core/src/index.js
+     */
+    minifyOptions?: MJMLMinifyOptions;
+
+    /**
+     * How to validate your MJML
+     *
+     * skip: your document is rendered without going through validation
+     * soft: your document is going through validation and is rendered, even if it has errors
+     * strict: your document is going through validation and is not rendered if it has any error
+     *
+     * default: soft
+     */
+    validationLevel?: 'strict' | 'soft' | 'skip';
+
+    /**
+     * Full path of the specified file to use when resolving paths from mj-include components
+     * default: '.'
+     */
+    filePath?: string;
+    /**
+     * The path or directory of the .mjmlconfig file
+     * default: process.cwd()
+     **/
+    mjmlConfigPath?: string;
+
+    /**
+     * Use the config attribute defined in the .mjmlconfig file.
+     * The config passed into mjml2html overrides the .mjmlconfig.
+     * default: false
+     */
+    useMjmlConfigOptions?: boolean;
+
+    /**
+     * optional setting when inlining css, see mjml-cli documentation for more info
+     */
+    juicePreserveTags?: { [index: string]: { start: string; end: string } };
+    juiceOptions?: any;
+
+    /**
+     * undocumented
+     * a function returning html skeleton
+     * default: see mjml-core/src/helpers/skeleton.js
+     */
+    skeleton?: string | (() => string);
+
+    actualPath?: string;
+    /**
+     * undocumented
+     * ignore mj-include elements
+     * default: false
+     */
+    ignoreIncludes?: any;
+    /** see mjml-parser-xml */
+    preprocessors?: ((xml: string)=>string)[];
 }
 
-export function initComponent({ initialData, name }: { initialData: IInitialData; name: any }): any;
+export interface MJMLMinifyOptions {
+    collapseWhitespace?: boolean;
+    minifyCSS?: boolean;
+    removeEmptyAttributes?: boolean;
+}
+
+export interface MJMLParseResults {
+    html: string;
+    json: MJMLJsonObject;
+    errors: MJMLParseError[];
+}
+
+export interface MJMLParseError {
+    line: number;
+    message: string;
+    tagName: string;
+    formattedMessage: string;
+}
+
+export interface MJMLJsonObject {
+    tagName: string;
+    attributes: object;
+    children?: MJMLJsonObject[];
+    content?: string;
+}
+
+/**
+ * An map of elements to handling component available to be used in mjml
+ */
+export const components: {[componentName: string]: Component | undefined};
 
 /**
  * Registers a component for use in mjml
  */
-export function registerComponent(Component: Component): void;
-
-export function suffixCssClasses(classes: any, suffix: any): any;
-
-export function handleMjmlConfig(
-  configPathOrDir?: string,
-  registerCompFn?: typeof registerComponent
-):
-  | {
-      success: any[];
-      failures: any[];
-    }
-  | {
-      error: any;
-    };
-
-export function initializeType(typeConfig: any): any;
+export function registerComponent<T extends typeof Component>(Component: T): void;
 
 export abstract class BodyComponent extends Component {
-  constructor(initialData: IInitialData);
+
+  constructor(initialData: unknown);
 
   getStyles(): {};
 
@@ -71,23 +178,21 @@ export abstract class BodyComponent extends Component {
     options?: {
       props?: Component['props'];
       renderer?: (component: Component) => any;
-      attributes?: IAttributes;
+      attributes?: Record<string, string>;
       rawXML?: boolean;
     }
   ): string;
 }
 
 export abstract class HeadComponent extends Component {
-  constructor(initialData: IInitialData);
+  constructor(initialData: unknown);
 
   handlerChildren(): any;
+
+  render(): string;
 }
 
-export interface IAttributes {
-  [attribute: string]: string;
-}
-
-abstract class Component {
+declare abstract class Component {
   static getTagName(): any;
 
   static isRawElement(): boolean;
@@ -105,10 +210,10 @@ abstract class Component {
     sibling: number;
     nonRawSiblings: number;
   };
-  attributes: IAttributes;
+  attributes: Record<string,string>;
   context: any;
 
-  constructor(initialData: IInitialData);
+  constructor(initialData: unknown);
 
   getChildContext(): any;
 
@@ -131,12 +236,19 @@ abstract class Component {
   componentHeadStyle(breakpoint: number): string;
 
   /**
-   * If you want to return mjml from a component, it needs to be processed first
+   * If you want to return mjml from a component, it needs to be processed first, ie.
+   * 
+   * render() {
+   *   return this.renderMJML('<mj-text>hello world</mj-text>');
+   * }
    */
   renderMJML(mjml: string, options?: {}): string;
 
   /**
    * Expected to return an html string
+   * @see renderMJML for returning an mjml string
    */
   abstract render(): string;
 }
+
+export function suffixCssClasses(classes: string, suffix: string): string;

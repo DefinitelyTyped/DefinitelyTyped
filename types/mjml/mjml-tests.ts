@@ -1,4 +1,4 @@
-import mjml2html = require("mjml");
+import mjml2html from "mjml";
 
 const simple_test = mjml2html("<mjml>");
 const html = simple_test.html;
