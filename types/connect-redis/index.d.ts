@@ -19,7 +19,7 @@ declare module 'connect-redis' {
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
     namespace s {
-        type Client = redis.RedisClient | ioRedis.Redis | ioRedis.Cluster
+        type Client = redis.RedisClient | ioRedis.Redis | ioRedis.Cluster;
         interface RedisStore extends session.Store {
             new (options: RedisStoreOptions): RedisStore;
             client: Client;
