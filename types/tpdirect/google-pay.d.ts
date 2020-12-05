@@ -35,7 +35,6 @@ interface GooglePay {
             prime: Pick<BaseResult, "prime">,
             result: Pick<BaseResult, "client_ip"> & {
                 card_info: CardInfoV2;
-            } & {
                 merchant_reference_info: {
                     affiliate_codes: string[];
                 };
@@ -57,7 +56,6 @@ interface GooglePay {
             prime: Pick<BaseResult, "prime">,
             result: Pick<BaseResult, "client_ip"> & {
                 card_info: CardInfoV2;
-            } & {
                 merchant_reference_info: {
                     affiliate_codes: string[];
                 };
