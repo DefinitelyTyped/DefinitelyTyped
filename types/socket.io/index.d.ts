@@ -11,6 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+///<reference lib="dom" />
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
