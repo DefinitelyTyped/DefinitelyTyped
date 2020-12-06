@@ -1607,7 +1607,7 @@ declare namespace Autodesk {
       }
 
       class SurfaceShadingData extends SurfaceShadingGroup {
-        initialize(model: Autodesk.Viewing.Model): void;
+        initialize(model: Viewing.Model): void;
       }
 
       class SurfaceShadingGroup {
@@ -1621,20 +1621,20 @@ declare namespace Autodesk {
         addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
         getChildLeafs(results: SurfaceShadingNode[]): void;
         getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
-        update(model: Autodesk.Viewing.Model): void;
+        update(model: Viewing.Model): void;
       }
 
       class SurfaceShadingNode {
         constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
 
         addPoint(point: SurfaceShadingPoint): void;
-        update(model: Autodesk.Viewing.Model): void;
+        update(model: Viewing.Model): void;
       }
 
       class SurfaceShadingPoint {
         constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
 
-        positionFromDBId(model: Autodesk.Viewing.Model, dbId: number): void;
+        positionFromDBId(model: Viewing.Model, dbId: number): void;
       }
 
       class ViewableData {
