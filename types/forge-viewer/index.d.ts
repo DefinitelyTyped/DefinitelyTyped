@@ -1583,7 +1583,7 @@ declare namespace Autodesk {
       }
 
       class ModelStructureInfo {
-        constructor(model: Autodesk.Viewing.Model);
+        constructor(model: Viewing.Model);
 
         generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
       }
@@ -1650,6 +1650,11 @@ declare namespace Autodesk {
       }
 
       class ViewableStyle {
+        color: THREE.Color;
+        id: string;
+        type: ViewableType;
+        url: string;
+
         constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
       }
     }
@@ -1667,7 +1672,7 @@ declare namespace Autodesk {
         removeAllViewables(): void;
         removeSurfaceShading(): void;
         renderSurfaceShading(nodeIds: string|string[],
-          sensorType: string, 
+          sensorType: string,
           valueCallback: (device: DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.SurfaceShadingData): void;
         showHideViewables(visible: boolean, occlusion: boolean): void;
