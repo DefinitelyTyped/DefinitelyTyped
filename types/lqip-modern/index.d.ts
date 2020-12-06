@@ -9,7 +9,7 @@
 import sharp = require("sharp");
 
 declare namespace lqip {
-    export interface LqipResult {
+    interface LqipResult {
         content: Buffer;
         metadata: {
             originalWidth: number;
@@ -29,7 +29,7 @@ declare namespace lqip {
         'jpg': sharp.JpegOptions;
     }
 
-    export interface LqipOptions<T extends OutputFormat> {
+    interface LqipOptions<T extends OutputFormat> {
         concurrency?: number;
         outputFormat?: T;
         outputOptions?: OutputOptions[T];
