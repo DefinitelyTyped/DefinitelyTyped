@@ -49,12 +49,14 @@ interface MustacheStatic {
     Writer: typeof MustacheWriter;
 
     /**
-     * Escapes HTML-characters.
+     * HTML escaping by default, can be overriden by setting Mustache.escape explicitly.
+     *
+     * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
      *
      * @param value
-     * The string to escape.
+     * The value to escape into a string.
      */
-    escape: (value: string) => string;
+    escape: EscapeFunction;
 
     /**
      * Clears all cached templates in this writer.
@@ -364,6 +366,12 @@ type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number, TemplateSpans, number]
     | [TemplateSpanType, string, number, number, string, number, boolean]
 >;
+
+/**
+ * Function responsible for escaping values from the view into the rendered output when templates
+ * has `{{ value }}` in them.
+ */
+type EscapeFunction = (value: any) => string;
 
 /**
  * An array of two strings, representing the opening and closing tags respectively, to be used in the templates being rendered.
