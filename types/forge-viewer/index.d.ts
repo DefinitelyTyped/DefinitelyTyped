@@ -1,11 +1,11 @@
-// Type definitions for non-npm package Forge Viewer 7.5
+// Type definitions for non-npm package Forge Viewer 7.32
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
 //                 Petr Broz <https://github.com/petrbroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.6
 
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
