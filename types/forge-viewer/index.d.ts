@@ -1655,10 +1655,10 @@ declare namespace Autodesk {
     }
 
     namespace Extensions {
-      class DataVisualization extends Autodesk.Viewing.Extension {
-        sceneModel: Autodesk.Viewing.Model;
+      class DataVisualization extends Viewing.Extension {
+        sceneModel: Viewing.Model;
 
-        addViewables(data: Autodesk.DataVisualization.ViewableData): void;
+        addViewables(data: DataVisualization.ViewableData): void;
         clearHighlightedViewables(): void;
         changeOcclusion(enable: boolean): void;
         hideTextures(): void;
@@ -1666,11 +1666,14 @@ declare namespace Autodesk {
         registerSurfaceShadingColors(sensorType: string, colors: number[]): void;
         removeAllViewables(): void;
         removeSurfaceShading(): void;
-        renderSurfaceShading(nodeIds: string|string[], sensorType: string, valueCallback: (device: Autodesk.DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
-        setupSurfaceShading(model: Autodesk.Viewing.Model, shadingData: Autodesk.DataVisualization.SurfaceShadingData): void;
+        renderSurfaceShading(nodeIds: string|string[],
+          sensorType: string, 
+          valueCallback: (device: DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.SurfaceShadingData): void;
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
-        updateSurfaceShading(valueCallback: (device: Autodesk.DataVisualization.SurfaceShadingPoint, sensorType: string) => number): void;
+        updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
+          sensorType: string) => number): void;
       }
     }
 }
