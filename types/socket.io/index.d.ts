@@ -16,7 +16,7 @@ declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
 import { Server as HttpServer, IncomingMessage } from 'http';
 import { Server as HttpsServer } from 'https';
-import SocketIoParser = require('socket.io-parser');
+import { Encoder as ParserEncoder, Decoder as ParserDecoder } from 'socket.io-parser';
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
@@ -485,7 +485,10 @@ declare namespace SocketIO {
          * ships with socket.io which is memory-based. See `socket.io-parser`.
          * @default require('socket.io-parser')
          */
-        parser?: typeof SocketIoParser;
+        parser?: {
+            Encoder: ParserEncoder,
+            Decoder: ParserDecoder,
+        };
     }
 
     /**
