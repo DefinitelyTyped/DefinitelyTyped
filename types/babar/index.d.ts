@@ -3,11 +3,11 @@
 // Definitions by: Matt Bachmann <https://github.com/Bachmann1234>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type color = 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue' | 'ascii';
+type color = 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue';
 
 interface Options {
     caption?: string;
-    color?: color;
+    color?: color | 'ascii';
     grid?: color;
     width?: number;
     height?: number;
