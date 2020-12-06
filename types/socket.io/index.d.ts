@@ -11,7 +11,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
-///<reference lib="dom" /> required by socket.io-parser.
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
