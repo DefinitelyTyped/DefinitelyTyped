@@ -10,7 +10,7 @@ const graphWithCaption = babar([[0, 1], [1, 5], [2, 5], [3, 1], [4, 6]], {captio
 const graphWithAllOptions = babar([[0, 1], [1, 5], [2, 5], [3, 1], [4, 6]], {
     caption: 'Test',
     color: 'green',
-    grid: 'black',
+    grid: 'blue',
     width: 80,
     height: 15,
     xFractions: 20,

@@ -3,10 +3,12 @@
 // Definitions by: Matt Bachmann <https://github.com/Bachmann1234>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type color = 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue' | 'ascii';
+
 interface Options {
     caption?: string;
-    color?: 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue' | 'ascii';
-    grid?: string;
+    color?: color;
+    grid?: color;
     width?: number;
     height?: number;
     xFractions?: number;
