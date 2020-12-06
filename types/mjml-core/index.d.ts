@@ -15,17 +15,17 @@ export default function mjml2html(input: string | MJMLJsonObject, options?: MJML
 
 /**
  * Options passed as an object to the mjml2html function
- * 
+ *
  * https://documentation.mjml.io/#inside-node-js
  */
 export interface MJMLParsingOptions {
     /**
      * Default fonts imported in the HTML rendered by HTML
      * ie. { 'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700' }
-     * 
+     *
      * default: @see https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js
      */
-    fonts?: { [key: string]: string; };
+    fonts?: { [key: string]: string };
 
     /**
      * Option to keep comments in the HTML output
@@ -35,7 +35,7 @@ export interface MJMLParsingOptions {
 
     /**
      * @deprecated use js-beautify directly after processing the MJML
-     * 
+     *
      * Option to beautify the HTML output
      * default: false
      */
@@ -43,18 +43,18 @@ export interface MJMLParsingOptions {
 
     /**
      * @deprecated use html-minifier directly after processing the MJML
-     * 
+     *
      * Option to minify the HTML output
-     * 
+     *
      * default: false
      */
     minify?: boolean;
     /**
      * @deprecated @see minify
-     * 
+     *
      * Options for html minifier, see mjml-cli documentation for more info
      * Passed directly to html-minifier as options
-     * 
+     *
      * default: @see htmlMinify usage in mjml-core/src/index.js
      */
     minifyOptions?: MJMLMinifyOptions;
@@ -109,7 +109,7 @@ export interface MJMLParsingOptions {
      */
     ignoreIncludes?: any;
     /** see mjml-parser-xml */
-    preprocessors?: ((xml: string)=>string)[];
+    preprocessors?: ((xml: string) => string)[];
 }
 
 export interface MJMLMinifyOptions {
@@ -141,7 +141,7 @@ export interface MJMLJsonObject {
 /**
  * An map of elements to handling component available to be used in mjml
  */
-export const components: {[componentName: string]: Component | undefined};
+export const components: { [componentName: string]: Component | undefined };
 
 /**
  * Registers a component for use in mjml
@@ -149,106 +149,105 @@ export const components: {[componentName: string]: Component | undefined};
 export function registerComponent<T extends typeof Component>(Component: T): void;
 
 export abstract class BodyComponent extends Component {
+    constructor(initialData: unknown);
 
-  constructor(initialData: unknown);
+    getStyles(): {};
 
-  getStyles(): {};
+    /** takes a style attribute and tries to parse it's value
+     * ie. padding="1 2 3 4"
+     * getShorthandAttrValue("padding","left") => 1
+     *  */
+    getShorthandAttrValue(attribute: any, direction: any): number;
 
-  /** takes a style attribute and tries to parse it's value
-   * ie. padding="1 2 3 4"
-   * getShorthandAttrValue("padding","left") => 1
-   *  */
-  getShorthandAttrValue(attribute: any, direction: any): number;
+    getShorthandBorderValue(direction: any): number;
 
-  getShorthandBorderValue(direction: any): number;
+    getBoxWidths(): {
+        totalWidth: number;
+        borders: number;
+        paddings: number;
+        box: number;
+    };
 
-  getBoxWidths(): {
-    totalWidth: number;
-    borders: number;
-    paddings: number;
-    box: number;
-  };
+    htmlAttributes(attributes: any): any;
 
-  htmlAttributes(attributes: any): any;
+    styles(styles: any): any;
 
-  styles(styles: any): any;
-
-  renderChildren(
-    children?: [],
-    options?: {
-      props?: Component['props'];
-      renderer?: (component: Component) => any;
-      attributes?: Record<string, string>;
-      rawXML?: boolean;
-    }
-  ): string;
+    renderChildren(
+        children?: [],
+        options?: {
+            props?: Component['props'];
+            renderer?: (component: Component) => any;
+            attributes?: Record<string, string>;
+            rawXML?: boolean;
+        },
+    ): string;
 }
 
 export abstract class HeadComponent extends Component {
-  constructor(initialData: unknown);
+    constructor(initialData: unknown);
 
-  handlerChildren(): any;
+    handlerChildren(): any;
 
-  render(): string;
+    render(): string;
 }
 
 declare abstract class Component {
-  static getTagName(): any;
+    static getTagName(): any;
 
-  static isRawElement(): boolean;
+    static isRawElement(): boolean;
 
-  static defaultAttributes: { [prop: string]: string | undefined };
+    static defaultAttributes: { [prop: string]: string | undefined };
 
-  props: {
-    children: any;
-    /** is first child */
-    first: boolean;
-    index: number;
-    /** is last child */
-    last: boolean;
-    /** number of sibling elements */
-    sibling: number;
-    nonRawSiblings: number;
-  };
-  attributes: Record<string,string>;
-  context: any;
+    props: {
+        children: any;
+        /** is first child */
+        first: boolean;
+        index: number;
+        /** is last child */
+        last: boolean;
+        /** number of sibling elements */
+        sibling: number;
+        nonRawSiblings: number;
+    };
+    attributes: Record<string, string>;
+    context: any;
 
-  constructor(initialData: unknown);
+    constructor(initialData: unknown);
 
-  getChildContext(): any;
+    getChildContext(): any;
 
-  getAttribute(name: any): any;
+    getAttribute(name: any): any;
 
-  getContent(): any;
+    getContent(): any;
 
-  /**
-   * Use if you want the CSS to be registered once
-   *
-   * @returns string css style string
-   */
-  headStyle(breakpoint: number): string;
+    /**
+     * Use if you want the CSS to be registered once
+     *
+     * @returns string css style string
+     */
+    headStyle(breakpoint: number): string;
 
-  /**
-   * Use if you need custom styles for every instance of a component
-   *
-   * @returns string css style string
-   */
-  componentHeadStyle(breakpoint: number): string;
+    /**
+     * Use if you need custom styles for every instance of a component
+     *
+     * @returns string css style string
+     */
+    componentHeadStyle(breakpoint: number): string;
 
-  /**
-   * If you want to return mjml from a component, it needs to be processed first, ie.
-   * 
-   * render() {
-   *   return this.renderMJML('<mj-text>hello world</mj-text>');
-   * }
-   */
-  renderMJML(mjml: string, options?: {}): string;
+    /**
+     * If you want to return mjml from a component, it needs to be processed first, ie.
+     *
+     * render() {
+     *   return this.renderMJML('<mj-text>hello world</mj-text>');
+     * }
+     */
+    renderMJML(mjml: string, options?: {}): string;
 
-  /**
-   * Expected to return an html string
-   * @see renderMJML for returning an mjml string
-   */
-  abstract render(): string;
+    /**
+     * Expected to return an html string
+     * @see renderMJML for returning an mjml string
+     */
+    abstract render(): string;
 }
 
 export function suffixCssClasses(classes: string, suffix: string): string;
