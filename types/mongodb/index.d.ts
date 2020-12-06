@@ -1801,7 +1801,7 @@ export type RootQuerySelector<T> = {
         $search: string;
         $language?: string;
         $caseSensitive?: boolean;
-        $diacraticSensitive?: boolean;
+        $diacriticSensitive?: boolean;
     };
     /** https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where */
     $where?: string | Function;
