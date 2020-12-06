@@ -1,4 +1,7 @@
+import { exec } from "child_process";
+import { EventEmitter } from "events";
 import * as fs from "fs";
+import { fromEvent } from "rxjs";
 import Undertaker = require("undertaker");
 import Registry = require("undertaker-registry");
 
@@ -33,6 +36,19 @@ const {
     description,
     flags,
 } = taker.task("task4").unwrap();
+
+taker.task("task5", () => {
+    const emitter = new EventEmitter();
+    setTimeout(() => emitter.emit("done"), 1000);
+    return emitter;
+});
+
+taker.task("task6", () => exec("ls"));
+
+taker.task("task7", () => {
+    const lsProcess = exec("ls");
+    return fromEvent(lsProcess, "exit");
+});
 
 taker.task("combined", taker.series("task1", "task2"));
 
