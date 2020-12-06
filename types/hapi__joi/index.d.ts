@@ -693,7 +693,7 @@ declare namespace Joi {
         message: (messages: LanguageMessages, local?: Context) => ErrorReport;
     }
 
-    type CustomValidator<V = any> = (value: V, helpers: CustomHelpers) => V;
+    type CustomValidator<V = any> = (value: V, helpers: CustomHelpers) => V|ErrorReport;
 
     type ExternalValidationFunction = (value: any) => any;
 
