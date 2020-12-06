@@ -33,11 +33,11 @@ declare namespace lqip {
         concurrency?: number;
         outputFormat?: T;
         outputOptions?: OutputOptions[T];
-        resize?: number | any[];
+        resize?: number | ReadonlyArray<any>;
     }
 }
 
 declare function lqip<T extends lqip.OutputFormat = 'webp'>(input: string | Buffer, options?: lqip.LqipOptions<T>): Promise<lqip.LqipResult>;
-declare function lqip<T extends lqip.OutputFormat = 'webp'>(input: string[] | Buffer[], options?: lqip.LqipOptions<T>): Promise<lqip.LqipResult[]>;
+declare function lqip<T extends lqip.OutputFormat = 'webp'>(input: ReadonlyArray<string> | ReadonlyArray<Buffer>, options?: lqip.LqipOptions<T>): Promise<lqip.LqipResult[]>;
 
 export = lqip;
