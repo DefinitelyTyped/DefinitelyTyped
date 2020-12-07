@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.12
+// Type definitions for Mapbox GL JS 1.13
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -82,6 +82,7 @@ declare namespace mapboxgl {
 
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
+    type Offset = number | PointLike | { [_: string]: PointLike };
 
     type ExpressionName =
         // Types
@@ -198,6 +199,15 @@ declare namespace mapboxgl {
         ): this;
 
         removeControl(control: Control | IControl): this;
+
+        /**
+         * Checks if a control exists on the map.
+         *
+         * @param {IControl} control The {@link IControl} to check.
+         * @returns {boolean} True if map contains control.
+         * @example
+         */
+        hasControl(control: IControl): boolean;
 
         resize(eventData?: EventData): this;
 
@@ -832,6 +842,33 @@ declare namespace mapboxgl {
         enable(): void;
 
         disable(): void;
+
+        /**
+         * Returns true if the handler is enabled and has detected the start of a
+         * zoom/rotate gesture.
+         *
+         * @returns {boolean} `true` if the handler is enabled and has detected the
+         * start of a zoom/rotate gesture.
+         */
+        isActive(): boolean;
+
+        /**
+         * Disables the "keyboard pan/rotate" interaction, leaving the
+         * "keyboard zoom" interaction enabled.
+         *
+         * @example
+         *   map.keyboard.disableRotation();
+         */
+        disableRotation(): void;
+
+        /**
+         * Enables the "keyboard pan/rotate" interaction.
+         *
+         * @example
+         *   map.keyboard.enable();
+         *   map.keyboard.enableRotation();
+         */
+        enableRotation(): void;
     }
 
     /**
@@ -1014,6 +1051,14 @@ declare namespace mapboxgl {
         removeClassName(className: string): void;
 
         /**
+         * Sets the popup's offset.
+         *
+         * @param offset Sets the popup's offset.
+         * @returns {Popup} `this`
+         */
+        setOffset(offset?: Offset | null): this;
+
+        /**
          * Add or remove the given CSS class on the popup container, depending on whether the container currently has that class.
          *
          * @param {string} className Non-empty string with CSS class name to add/remove
@@ -1037,9 +1082,15 @@ declare namespace mapboxgl {
          */
         closeOnMove?: boolean;
 
+        /**
+         * @param {boolean} [options.focusAfterOpen=true] If `true`, the popup will try to focus the
+         *   first focusable element inside the popup.
+         */
+        focusAfterOpen?: boolean | null;
+
         anchor?: Anchor;
 
-        offset?: number | PointLike | { [key: string]: PointLike };
+        offset?: Offset | null;
 
         className?: string;
 
@@ -1533,6 +1584,12 @@ declare namespace mapboxgl {
 
         /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean;
+
+        /**
+         * The max number of pixels a user can shift the mouse pointer during a click on the marker for it to be considered a valid click
+         * (as opposed to a marker drag). The default (0) is to inherit map's clickTolerance.
+         */
+        clickTolerance?: number | null;
 
         /** The rotation angle of the marker in degrees, relative to its `rotationAlignment` setting. A positive value will rotate the marker clockwise.
          * The default value is 0.
