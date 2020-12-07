@@ -23,6 +23,7 @@ export default class Rave {
     VerifyTransaction: VerifyTransaction
     BillsPayment: BillsPayment
     Settlement: Settlement
+    USSD: USSD
 
 }
 
@@ -1836,5 +1837,45 @@ interface SettlementFetchResponse extends BaseResponse {
             }[]
         },
         settlement_cycle: any
+    }
+}
+
+interface USSD {
+    charge(data: USSDChargeRequest): Promise<AxiosResponse<USSDChargeResponse>>
+}
+
+interface USSDChargeRequest {
+    currency: string,
+    country: string,
+    payment_type?: string,
+    amount: string,
+    email: string,
+    phonenumber?: string,
+    firstname?: string,
+    lastname?: string,
+    IP?: string,
+    txRef: string,
+    orderRef: string,
+    is_ussd: string,
+    device_fingerprint?: string,
+}
+
+interface USSDChargeResponse {
+    data: {
+        data: {
+            amount: string,
+            type: string,
+            redirect: boolean,
+            note: string,
+            transaction_date: string,
+            transaction_reference: string,
+            flw_reference: string,
+            redirect_url: any,
+            payment_code: string,
+            type_data: string,
+            meta_data: any
+        },
+        response_code: string,
+        response_message: string
     }
 }
