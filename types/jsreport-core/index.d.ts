@@ -36,7 +36,7 @@ declare namespace JsReport {
         writable?: boolean;
         configurable?: boolean;
         enumerable?: boolean;
-        template?: Template;
+        template?: Partial<Template>;
         options?: RequestOptions;
         context?: Context;
         data?: any;
