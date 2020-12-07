@@ -266,6 +266,7 @@ interface StatusXqequeryRequest {
 
 interface Account {
     charge(data: AccountChargeRequest): Promise<AxiosResponse<any>>
+    validate(data: AccountValidateRequest): Promise<AxiosResponse<any>>
 }
 
 interface AccountChargeRequest {
@@ -290,4 +291,9 @@ interface AccountChargeRequest {
     payment_type?: string,
     is_internet_banking?: any,
     include_integrity_hash?: any
+}
+
+interface AccountValidateRequest {
+    otp: string | number,
+    transactionreference: string
 }
