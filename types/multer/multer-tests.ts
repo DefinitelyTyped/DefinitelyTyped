@@ -60,7 +60,7 @@ const customStorage = {
         file: Express.Multer.File,
         callback: (error: Error | null) => void
     ): void => {
-        callback();
+        callback(null);
     }
 };
 
