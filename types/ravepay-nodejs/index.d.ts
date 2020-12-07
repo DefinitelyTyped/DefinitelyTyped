@@ -444,6 +444,7 @@ interface MobileOptionsChargeUssdResponse extends BaseResponse {
 interface Misc {
     getFee(data: MiscGetFeeRequest): Promise<AxiosResponse<any>>
     getBalHist(data: MiscGetBalHistRequest): Promise<AxiosResponse<any>>
+    getBanks(data: MiscGetBanksRequest): Promise<AxiosResponse<any>>
 }
 
 interface MiscGetFeeRequest {
@@ -458,4 +459,8 @@ interface MiscGetBalHistRequest {
     from: string,
     to: string,
     page: string,
+}
+
+interface MiscGetBanksRequest {
+    __n?: string,
 }
