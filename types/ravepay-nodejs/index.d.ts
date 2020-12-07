@@ -583,6 +583,7 @@ interface Transfer {
     bulk(data: TransferBulkRequest): Promise<AxiosResponse<TransferBulkResponse>>
     fetch(data: TransferFetchRequest): Promise<AxiosResponse<TransferFetchResponse>>
     list(data: TransferListRequest): Promise<AxiosResponse<TransferListResponse>>
+    getApplicableFee(data: TransferGetApplicableFeeRequest): Promise<AxiosResponse<TransferGetApplicableFeeResponse>>
 }
 
 interface TransferInitiateRequest {
@@ -700,4 +701,24 @@ interface TransferListResponse extends BaseResponse {
 
         ]
     }
+}
+
+interface TransferGetApplicableFeeRequest {
+    currency: string,
+    amount: string,
+}
+
+interface TransferGetApplicableFeeResponse extends BaseResponse {
+    data: [
+        {
+            id: number,
+            fee_type: string,
+            currency: string,
+            fee: number,
+            createdAt: string,
+            updatedAt: string,
+            deletedAt: string,
+            AccountId: number
+        }
+    ]
 }
