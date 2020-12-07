@@ -6,6 +6,7 @@ export default class Rave {
     Status: Status
     Account: Account
     TokenCharge: TokenCharge
+    MobileOptions: MobileOptions
 }
 
 interface BaseResponse {
@@ -396,5 +397,45 @@ interface TokenChargeCardResponse extends BaseResponse {
             }[],
             life_time_token: string
         }
+    }
+}
+
+interface MobileOptions {
+    chargeUssd(data: MobileOptionsChargeUssdRequest): Promise<AxiosResponse<MobileOptionsChargeUssdResponse>>
+}
+
+interface MobileOptionsChargeUssdRequest {
+    currency: string,
+    country: string,
+    payment_type?: string,
+    amount: string,
+    email: string,
+    phonenumber?: string,
+    firstname?: string,
+    lastname?: string,
+    IP?: string,
+    txRef: string,
+    orderRef: string,
+    is_ussd: string,
+    device_fingerprint?: string
+}
+
+interface MobileOptionsChargeUssdResponse extends BaseResponse {
+    data: {
+        data: {
+            amount: string,
+            type: string,
+            redirect: boolean,
+            note: string,
+            transaction_date: string,
+            transaction_reference: string,
+            flw_reference: string,
+            redirect_url: any,
+            payment_code: string,
+            type_data: string,
+            meta_data: any
+        },
+        response_code: string,
+        response_message: string
     }
 }
