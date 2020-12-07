@@ -1,4 +1,4 @@
-// Type definitions for assets-webpack-plugin 6.0
+// Type definitions for assets-webpack-plugin 6.1
 // Project: https://github.com/ztoben/assets-webpack-plugin
 // Definitions by: Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,6 +59,13 @@ declare namespace AssetsWebpackPlugin {
          * `false` by default.
          */
         includeAuxiliaryAssets?: boolean;
+
+        /**
+         * When set, will output any files that are part of the chunk and marked as preloadable or prefechtable child assets via a dynamic import.
+         *
+         * `false` by default.
+         */
+        includeDynamicImportedAssets?: boolean;
 
         /**
          * When set and `entrypoints` is set `true` , will output any files that are part of the unnamed chunk to an additional unnamed ("") entry.
