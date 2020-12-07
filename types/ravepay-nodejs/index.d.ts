@@ -12,6 +12,7 @@ export default class Rave {
     security: security
     CustomRequest: CustomRequest
     Transfer: Transfer
+    Subaccount: Subaccount
 
 }
 
@@ -790,5 +791,39 @@ interface TranferAccountVerificationResponse {
             internalreference: any
         },
         status: string
+    }
+}
+
+interface Subaccount {
+    create(data: SubaccountCreateRequest): Promise<AxiosResponse<SubaccountCreateResponse>>
+}
+
+interface SubaccountCreateRequest {
+    account_bank: string,
+    account_number: string,
+    business_name: string,
+    business_email?: string,
+    business_contact?: string,
+    business_contact_mobile?: string,
+    business_mobile: string,
+    meta?: string,
+    split_type: string,
+    split_value: string,
+    country: string,
+}
+
+interface SubaccountCreateResponse extends BaseResponse {
+    data: {
+        id: number,
+        account_number: string,
+        account_bank: string,
+        fullname: string,
+        date_created: string,
+        meta: {
+            metaname: string,
+            metavalue: string
+        }[],
+        subaccount_id: string,
+        bank_name: string
     }
 }
