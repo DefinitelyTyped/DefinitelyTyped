@@ -317,13 +317,13 @@ declare namespace mapboxgl {
 
         listImages(): string[];
 
-        addLayer(layer: mapboxgl.Layer | mapboxgl.CustomLayerInterface, before?: string): this;
+        addLayer(layer: mapboxgl.AnyLayer, before?: string): this;
 
         moveLayer(id: string, beforeId?: string): this;
 
         removeLayer(id: string): this;
 
-        getLayer(id: string): mapboxgl.Layer;
+        getLayer(id: string): mapboxgl.AnyLayer;
 
         setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
@@ -1050,7 +1050,7 @@ declare namespace mapboxgl {
         bearing?: number;
         center?: number[];
         glyphs?: string;
-        layers?: Layer[];
+        layers?: AnyLayer[];
         metadata?: any;
         name?: string;
         pitch?: number;
@@ -1875,8 +1875,9 @@ declare namespace mapboxgl {
         | HeatmapPaint
         | HillshadePaint;
 
-    interface LayerBase {
+    interface Layer {
         id: string;
+        type: string;
 
         metadata?: any;
         ref?: string;
@@ -1891,63 +1892,65 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
+        layout?: Layout;
+        paint?: object;
     }
 
-    interface BackgroundLayer extends LayerBase {
-        type: "background";
+    interface BackgroundLayer extends Layer {
+        type: 'background';
         layout?: BackgroundLayout;
         paint?: BackgroundPaint;
     }
 
-    interface CircleLayer extends LayerBase {
-        type: "circle";
+    interface CircleLayer extends Layer {
+        type: 'circle';
         layout?: CircleLayout;
         paint?: CirclePaint;
     }
 
-    interface FillExtrusionLayer extends LayerBase {
-        type: "fill-extrusion";
+    interface FillExtrusionLayer extends Layer {
+        type: 'fill-extrusion';
         layout?: FillExtrusionLayout;
         paint?: FillExtrusionPaint;
     }
 
-    interface FillLayer extends LayerBase {
-        type: "fill";
+    interface FillLayer extends Layer {
+        type: 'fill';
         layout?: FillLayout;
         paint?: FillPaint;
     }
 
-    interface HeatmapLayer extends LayerBase {
-        type: "heatmap";
+    interface HeatmapLayer extends Layer {
+        type: 'heatmap';
         layout?: HeatmapLayout;
         paint?: HeatmapPaint;
     }
 
-    interface HillshadeLayer extends LayerBase {
-        type: "hillshade";
+    interface HillshadeLayer extends Layer {
+        type: 'hillshade';
         layout?: HillshadeLayout;
         paint?: HillshadePaint;
     }
 
-    interface LineLayer extends LayerBase {
-        type: "line";
+    interface LineLayer extends Layer {
+        type: 'line';
         layout?: LineLayout;
         paint?: LinePaint;
     }
 
-    interface RasterLayer extends LayerBase {
-        type: "raster";
+    interface RasterLayer extends Layer {
+        type: 'raster';
         layout?: RasterLayout;
         paint?: RasterPaint;
     }
 
-    interface SymbolLayer extends LayerBase {
-        type: "symbol";
+    interface SymbolLayer extends Layer {
+        type: 'symbol';
         layout?: SymbolLayout;
         paint?: SymbolPaint;
     }
 
-    export type Layer =
+    export type AnyLayer =
         | BackgroundLayer
         | CircleLayer
         | FillExtrusionLayer
@@ -1956,7 +1959,8 @@ declare namespace mapboxgl {
         | HillshadeLayer
         | LineLayer
         | RasterLayer
-        | SymbolLayer;
+        | SymbolLayer
+        | CustomLayerInterface;
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
