@@ -2364,6 +2364,17 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
+     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
+     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
+     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
+     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
+     * @platform android
+     * @deprecated This props has been removed and will not work with versions 0.57.0 and above. Use `accessibilityRole` and` accessibilityState` instead.
+     * @see https://github.com/facebook/react-native/pull/24344
+     */
+    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
+
+    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2392,6 +2403,15 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean;
+
+    /**
+     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
+     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
+     * @platform ios
+     * @deprecated This props has been removed and will not work with versions 0.57.0 and above. Use `accessibilityRole` and` accessibilityState` instead.
+     * @see https://github.com/facebook/react-native/pull/24344
+     */
+    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
@@ -2423,6 +2443,29 @@ export interface AccessibilityPropsIOS {
      */
     accessibilityIgnoresInvertColors?: boolean;
 }
+
+/**
+ * @deprecated The prop used for this type is deprecated.
+ * @see https://github.com/facebook/react-native/pull/24344
+ */
+type AccessibilityTrait =
+    | 'none'
+    | 'button'
+    | 'link'
+    | 'header'
+    | 'search'
+    | 'image'
+    | 'selected'
+    | 'plays'
+    | 'key'
+    | 'text'
+    | 'summary'
+    | 'disabled'
+    | 'frequentUpdates'
+    | 'startsMedia'
+    | 'adjustable'
+    | 'allowsDirectInteraction'
+    | 'pageTurn';
 
 /**
  * @see https://reactnative.dev/docs/view#props
