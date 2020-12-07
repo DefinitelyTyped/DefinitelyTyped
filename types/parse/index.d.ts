@@ -1113,6 +1113,16 @@ namespace Parse {
     }
 
     /**
+     * Provides utility functions for working with Anonymously logged-in users.
+     */
+    namespace AnonymousUtils  {
+        function init(): void;
+        function isLinked(user: User): boolean;
+        function link(user: User, options?: SuccessFailureOptions): void;
+        function logIn(options?: FullOptions): void;
+    }
+
+    /**
      * Provides a set of utilities for using Parse with Facebook.
      * Provides a set of utilities for using Parse with Facebook.
      */
