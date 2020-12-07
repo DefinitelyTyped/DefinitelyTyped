@@ -16,6 +16,7 @@ export default class Rave {
     Subscription: Subscription
     Paymentplan: Paymentplan
     MobileMoney: MobileMoney
+    VirtualCards: VirtualCards
 
 }
 
@@ -1379,5 +1380,46 @@ interface MobileMoneyUgandaResponse {
             AccountId: number
         },
         validateInstructions: string
+    }
+}
+
+interface VirtualCards {
+    create(data: VirtualCardsCreateRequest): Promise<AxiosResponse<VirtualCardsCreateResponse>>
+}
+
+interface VirtualCardsCreateRequest {
+    currency: string,
+    amount: string,
+    billing_name: string,
+    billing_address?: string,
+    billing_city?: string,
+    billing_state?: string,
+    billing_postal_code?: string,
+    billing_country?: string,
+    callback_url?: string,
+}
+
+interface VirtualCardsCreateResponse extends BaseResponse {
+    data: {
+        id: string,
+        AccountId: number,
+        amount: string,
+        currency: string,
+        card_hash: string,
+        cardpan: string,
+        maskedpan: string,
+        city: string,
+        state: any,
+        address_1: string,
+        address_2: any,
+        zip_code: string,
+        cvv: string,
+        expiration: string,
+        send_to: any,
+        bin_check_name: any,
+        card_type: string,
+        name_on_card: string,
+        date_created: string,
+        is_active: true
     }
 }
