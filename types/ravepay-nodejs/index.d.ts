@@ -12,6 +12,7 @@ interface BaseResponse {
 
 interface Card {
     charge(data: CardChargeRequest): Promise<Promise<AxiosResponse<CardChargeResponse>>>,
+    validate(data: CardValidateRequest): Promise<AxiosResponse<CardValidateResponse>>
 }
 
 interface CardChargeRequest {
@@ -101,6 +102,72 @@ interface CardChargeResponse extends BaseResponse {
             brand: string,
             card_tokens: { embedtoken: string, shortcode: string, expiry: string }[]
             life_time_token: string
+        }
+    }
+}
+
+interface CardValidateRequest {
+    transaction_reference: string,
+    otp?: string,
+}
+
+interface CardValidateResponse extends BaseResponse {
+    data: {
+        data: {
+            responsecode: string,
+            responsemessage: string
+        },
+        tx: {
+            id: number,
+            txRef: string,
+            orderRef: string,
+            flwRef: string,
+            redirectUrl: string,
+            device_fingerprint: string | any,
+            settlement_token: any,
+            cycle: string,
+            amount: number,
+            charged_amount: number,
+            appfee: number,
+            merchantfee: number,
+            merchantbearsfee: number,
+            chargeResponseCode: string,
+            chargeResponseMessage: string,
+            authModelUsed: string,
+            currency: string,
+            IP: string,
+            narration: string,
+            status: string,
+            vbvrespmessage: string,
+            authurl: string,
+            vbvrespcode: string,
+            acctvalrespmsg: any,
+            acctvalrespcode: any,
+            paymentType: string,
+            paymentId: string,
+            fraud_status: string,
+            charge_type: string,
+            is_live: number,
+            createdAt: string,
+            updatedAt: string,
+            deletedAt: any,
+            customerId: number,
+            AccountId: number,
+            customer: {
+                id: number,
+                phone: any,
+                fullName: string,
+                customertoken: any,
+                email: string,
+                createdAt: string,
+                updatedAt: string,
+                deletedAt: any,
+                AccountId: number
+            },
+            chargeToken: {
+                user_token: string,
+                embed_token: string
+            }
         }
     }
 }
