@@ -22,6 +22,7 @@ export default class Rave {
     Refund: Refund
     VerifyTransaction: VerifyTransaction
     BillsPayment: BillsPayment
+    Settlement: Settlement
 
 }
 
@@ -1698,4 +1699,67 @@ interface BillsPaymentBillsRequest {
 }
 
 interface BillsPaymentBillsResponse extends BaseResponse {
+}
+
+interface Settlement {
+    list(data: SettlementListRequest): Promise<AxiosResponse<SettlementListResponse>>
+}
+
+interface SettlementListRequest {
+    from?: string,
+    to?: string,
+    page?: string,
+    subaccountid?: string,
+}
+
+interface SettlementListResponse extends BaseResponse {
+    data: {
+        page_info: {
+            total: number,
+            current_page: number,
+            total_pages: number,
+            page_size: number
+        },
+        info: {
+            id: number,
+            merchant_id: number,
+            merchant_name: string,
+            merchant_email: string,
+            settlement_account: string,
+            bankcode: string,
+            transaction_date: string,
+            due_date: string,
+            processed_date: any,
+            status: string,
+            is_local: boolean,
+            currency: string,
+            gross_amount: number,
+            appfees: number,
+            merchantfees: number,
+            chargeback: number,
+            refund: number,
+            net_amount: number,
+            transaction_count: number,
+            parent_id: number,
+            processor_ref: any,
+            disburse_ref: any,
+            disburse_message: any,
+            destination: string,
+            fxdata: any,
+            flagmessage: any,
+            meta: any,
+            refund_meta: string,
+            chargeback_meta: any,
+            is_batch: boolean,
+            cron_status: string,
+            source_bankcode: any,
+            created_at: string,
+            updated_at: string,
+            Account: {
+                compliance_status: string,
+                country: string,
+                createdAt: string
+            }
+        }[]
+    }
 }
