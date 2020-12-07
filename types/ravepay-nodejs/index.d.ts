@@ -4,6 +4,7 @@ export default class Rave {
     constructor(publicKey: string, privateKey: string, productionFlag: boolean)
     Card: Card
     Status: Status
+    Account: Account
 }
 
 interface BaseResponse {
@@ -261,4 +262,32 @@ interface StatusXqequeryRequest {
     txref?: string,
     last_attempt?: string,
     only_successful?: string,
+}
+
+interface Account {
+    charge(data: AccountChargeRequest): Promise<AxiosResponse<any>>
+}
+
+interface AccountChargeRequest {
+    currency?: string,
+    country?: string,
+    amount: string,
+    phonenumber?: string,
+    billingzip?: string,
+    email: string,
+    firstname?: string,
+    lastname?: string,
+    IP?: string,
+    narration?: string,
+    txRef: string,
+    meta?: any,
+    pin?: string,
+    bvn?: string,
+    charge_type?: string,
+    device_fingerprint: string,
+    accountbank: string,
+    accountnumber: string,
+    payment_type?: string,
+    is_internet_banking?: any,
+    include_integrity_hash?: any
 }
