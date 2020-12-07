@@ -885,6 +885,7 @@ interface Subscription {
     list(data: SubscriptionListRequest): Promise<AxiosResponse<any>>
     fetch(data: SubscriptionFetchRequest): Promise<AxiosResponse<any>>
     activate(data: SubscriptionActivateRequest): Promise<AxiosResponse<any>>
+    cancel(data: SubscriptionCancelRequest): Promise<AxiosResponse<any>>
 }
 
 interface SubscriptionListRequest {
@@ -896,6 +897,11 @@ interface SubscriptionFetchRequest {
 }
 
 interface SubscriptionActivateRequest {
+    id: string,
+    fetch_by_tx: string,
+}
+
+interface SubscriptionCancelRequest {
     id: string,
     fetch_by_tx: string,
 }
