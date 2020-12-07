@@ -582,6 +582,7 @@ interface Transfer {
     initiate(data: TransferInitiateRequest): Promise<AxiosResponse<TransferInitiateResponse>>
     bulk(data: TransferBulkRequest): Promise<AxiosResponse<TransferBulkResponse>>
     fetch(data: TransferFetchRequest): Promise<AxiosResponse<TransferFetchResponse>>
+    list(data: TransferListRequest): Promise<AxiosResponse<TransferListResponse>>
 }
 
 interface TransferInitiateRequest {
@@ -662,6 +663,41 @@ interface TransferFetchResponse extends BaseResponse {
                 is_approved: number,
                 bank_name: string
             }
+        ]
+    }
+}
+
+interface TransferListRequest {
+    page?: string,
+    status?: string
+}
+
+interface TransferListResponse extends BaseResponse {
+    data: {
+        page_info: {
+            total: number,
+            current_page: string,
+            total_pages: number
+        },
+        transfers: [
+            {
+                id: number,
+                account_number: string,
+                bank_code: string,
+                fullname: string,
+                date_created: string,
+                currency: string,
+                amount: number,
+                fee: number,
+                status: string,
+                narration: string,
+                approver: any,
+                complete_message: string,
+                requires_approval: number,
+                is_approved: number,
+                bank_name: string
+            },
+
         ]
     }
 }
