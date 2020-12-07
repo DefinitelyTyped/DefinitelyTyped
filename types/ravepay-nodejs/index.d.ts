@@ -1703,6 +1703,7 @@ interface BillsPaymentBillsResponse extends BaseResponse {
 
 interface Settlement {
     list(data: SettlementListRequest): Promise<AxiosResponse<SettlementListResponse>>
+    fetch(data: SettlementFetchRequest): Promise<AxiosResponse<SettlementFetchResponse>>
 }
 
 interface SettlementListRequest {
@@ -1761,5 +1762,79 @@ interface SettlementListResponse extends BaseResponse {
                 createdAt: string
             }
         }[]
+    }
+}
+
+interface SettlementFetchRequest {
+    id: string,
+    from?: string,
+    to?: string,
+}
+
+interface SettlementFetchResponse extends BaseResponse {
+    data: {
+        id: number,
+        merchant_id: number,
+        merchant_name: string,
+        merchant_email: any,
+        settlement_account: any,
+        bankcode: any,
+        transaction_date: string,
+        due_date: string,
+        processed_date: any,
+        status: string,
+        is_local: number,
+        currency: string,
+        gross_amount: number,
+        appfees: number,
+        merchantfees: number,
+        chargeback: number,
+        refund: number,
+        net_amount: number,
+        transaction_count: number,
+        parent_id: number,
+        processor_ref: any,
+        disburse_ref: any,
+        disburse_message: any,
+        destination: string,
+        fxdata: any,
+        flagmessage: string,
+        meta: string,
+        refund_meta: any,
+        chargeback_meta: any,
+        is_batch: number,
+        cron_status: string,
+        source_bankcode: any,
+        created_at: string,
+        updated_at: string,
+        "Account.parent_account_id": number,
+        "Account.country": string,
+        "Account.createdAt": string,
+        transactions: {
+            page_info: {
+                total: number,
+                current_page: number,
+                total_pages: number,
+                page_size: number
+            },
+            info: {
+                customer_email: string,
+                flw_ref: string,
+                tx_ref: string,
+                transaction_id: number,
+                txId: number,
+                charged_amount: number,
+                appfee: number,
+                merchantfee: any,
+                settlement_amount: number,
+                status: string,
+                payment_entity: string,
+                transaction_date: string,
+                currency: string,
+                card_locale: string,
+                RRN: string
+            }[]
+        },
+        settlement_cycle: any
     }
 }
