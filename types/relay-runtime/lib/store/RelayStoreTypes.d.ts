@@ -458,6 +458,35 @@ type LogEvent =
           transactionID: number;
       }>
     | Readonly<{
+        name: 'network.info',
+        transactionID: number,
+        info: any,
+    }>
+    | Readonly<{
+        name: 'network.start',
+        transactionID: number,
+        params: RequestParameters,
+        variables: Variables,
+    }>
+    | Readonly<{
+        name: 'network.next',
+        transactionID: number,
+        response: GraphQLResponse,
+    }>
+    | Readonly<{
+        name: 'network.error',
+        transactionID: number,
+        error: Error,
+    }>
+    | Readonly<{
+        name: 'network.complete',
+        transactionID: number,
+    }>
+    | Readonly<{
+        name: 'network.unsubscribe',
+        transactionID: number,
+    }>
+    | Readonly<{
           name: 'store.publish';
           source: RecordSource;
           optimistic: boolean;
