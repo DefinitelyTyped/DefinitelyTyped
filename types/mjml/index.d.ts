@@ -9,4 +9,4 @@
 
 import mjml2html from 'mjml-core';
 
-export default mjml2html;
+export = mjml2html;
