@@ -504,6 +504,7 @@ interface MiscListTransactionsRequest {
 interface Preauth {
     preauth(data: PreauthPreauthRequest): Promise<AxiosResponse<any>>
     void(data: PreauthVoidRequest): Promise<AxiosResponse<PreauthVoidRespone>>
+    refund(data: PreauthVoidRequest): Promise<AxiosResponse<PreauthVoidRespone>>
 }
 
 interface PreauthPreauthRequest {
