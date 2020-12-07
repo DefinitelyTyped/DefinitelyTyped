@@ -883,8 +883,13 @@ interface SubaccountFetchResponse {
 
 interface Subscription {
     list(data: SubscriptionListRequest): Promise<AxiosResponse<any>>
+    fetch(data: SubscriptionFetchRequest): Promise<AxiosResponse<any>>
 }
 
 interface SubscriptionListRequest {
     transaction_id: string,
+}
+
+interface SubscriptionFetchRequest {
+    transaction_id: string
 }
