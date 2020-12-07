@@ -175,6 +175,7 @@ interface CardValidateResponse extends BaseResponse {
 
 interface Status {
     requery(data: StatusRequeryRequest): Promise<AxiosResponse<StatusRequeryResponse>>
+    xrequery(data: StatusXqequeryRequest): Promise<AxiosResponse<any>>
 }
 
 interface StatusRequeryRequest {
@@ -253,4 +254,11 @@ interface StatusRequeryResponse extends BaseResponse {
             getpaidTransactionId: number
         }[]
     }
+}
+
+interface StatusXqequeryRequest {
+    flwref?: string,
+    txref?: string,
+    last_attempt?: string,
+    only_successful?: string,
 }
