@@ -102,32 +102,48 @@ export type ClientSessionId = unknown;
 export interface ClientSession extends EventEmitter {
     /** The server id associated with this session */
     id: ClientSessionId;
+
     /**
      * Aborts the currently active transaction in this session.
-     * @param cb Optional callback for completion of this operation
      */
-    abortTransaction(cb?: MongoCallback<void>): Promise<void>;
+    abortTransaction(): Promise<void>;
     /**
-     * Advances the operationTime for a ClientSession.
+     * Aborts the currently active transaction in this session.
+     * @param callback for completion of this operation
      */
-    advanceOperationTime(operamtionTime: Timestamp): void;
+    abortTransaction(callback?: MongoCallback<void>): void;
+
+    /**
+     * Advances the operationTime for a {@link ClientSession}.
+     */
+    advanceOperationTime(operationTime: Timestamp): void;
+
     /**
      * Commits the currently active transaction in this session.
-     * @param cb Optional callback for completion of this operation
      */
-    commitTransaction(cb?: MongoCallback<void>): Promise<void>;
+    commitTransaction(): Promise<void>;
+    /**
+     * Commits the currently active transaction in this session.
+     * @param callback - for completion of this operation
+     */
+    commitTransaction(callback: MongoCallback<void>): void;
 
     /**
      * Ends this session on the server
-     * @param cb Optional callback for completion of this operation
+     * @param callback - for completion of this operation
      */
-    endSession(cb?: MongoCallback<void>): void;
+    endSession(callback?: MongoCallback<void>): void;
     /**
      * Ends this session on the server
-     * @param options Optional settings. Currently reserved for future use
-     * @param cb Optional callback for completion of this operation
+     * @param options - settings. Currently reserved for future use
+     * @param callback - for completion of this operation
      */
-    endSession(options: any, cb?: MongoCallback<void>): void;
+    endSession(options: unknown, callback: MongoCallback<void>): void;
+    /**
+     * Ends this session on the server
+     * @param options - settings. Currently reserved for future use
+     */
+    endSession(options?: unknown): Promise<void>;
 
     /**
      * Used to determine if this session equals another
