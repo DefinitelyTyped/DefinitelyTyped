@@ -586,6 +586,7 @@ interface Transfer {
     getApplicableFee(data: TransferGetApplicableFeeRequest): Promise<AxiosResponse<TransferGetApplicableFeeResponse>>
     getBalance(data: TransferGetBalanceRequest): Promise<AxiosResponse<TransferGetBalanceResponse>>
     retrieveStatusOfBulk(data: TransferRetrieveStatusOfBulkRequest): Promise<AxiosResponse<TransferRetrieveStatusOfBulkResponse>>
+    accountVerification(data: TranferAccountVerificationRequest): Promise<AxiosResponse<TranferAccountVerificationResponse>>
 }
 
 interface TransferInitiateRequest {
@@ -767,5 +768,27 @@ interface TransferRetrieveStatusOfBulkResponse extends BaseResponse {
             is_approved: number,
             bank_name: string
         }[]
+    }
+}
+
+interface TranferAccountVerificationRequest {
+    recipientaccount: string,
+    destbankcode: string,
+    currency?: string,
+    country?: string,
+}
+
+interface TranferAccountVerificationResponse {
+    data: {
+        data: {
+            responsecode: string,
+            accountnumber: string,
+            accountname: string,
+            responsemessage: string,
+            phonenumber: any,
+            uniquereference: string,
+            internalreference: any
+        },
+        status: string
     }
 }
