@@ -7,6 +7,7 @@ export default class Rave {
     Account: Account
     TokenCharge: TokenCharge
     MobileOptions: MobileOptions
+    Misc: Misc
 }
 
 interface BaseResponse {
@@ -438,4 +439,15 @@ interface MobileOptionsChargeUssdResponse extends BaseResponse {
         response_code: string,
         response_message: string
     }
+}
+
+interface Misc {
+    getFee(data: MiscGetFeeRequest): Promise<AxiosResponse<any>>
+}
+
+interface MiscGetFeeRequest {
+    amount: string | number,
+    card6?: any,
+    ptype?: any,
+    currency?: string
 }
