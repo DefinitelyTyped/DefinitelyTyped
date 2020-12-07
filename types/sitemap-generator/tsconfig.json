@@ -13,6 +13,11 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "@simplecrawler/*": [
+                "simplecrawler__*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true
