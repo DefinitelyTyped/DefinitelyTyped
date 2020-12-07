@@ -1,42 +1,42 @@
 import Vue from 'vue';
-import { Splitpane, Pane } from 'splitpanes';
+import { Splitpanes, Pane } from 'splitpanes';
 
 new Vue({
     el: '#app',
     data: {},
     components: {
-        Splitpane,
+        Splitpanes,
         Pane,
     },
     template: `
         <!-- Basic test -->
-        <Splitpane>
+        <Splitpanes>
         <Pane>
             A
         </Pane>
         <Pane>
             B
         </Pane>
-        </Splitpane>
+        </Splitpanes>
 
         <!-- Splitpane Prop test -->
-        <Splitpane horizontal=true pushOtherPanes=true dblClickSplitter=true firstSplitter=true>
+        <Splitpanes horizontal=true pushOtherPanes=true dblClickSplitter=true firstSplitter=true>
         <Pane>
             A
         </Pane>
         <Pane>
             B
         </Pane>
-        </Splitpane>
+        </Splitpanes>
 
         <!-- Pane Prop test -->
-        <Splitpane>
+        <Splitpanes>
         <Pane size="2" minSize="1" maxSize="3">
             A
         </Pane>
         <Pane size=2 minSize=1 maxSize=3>
             B
         </Pane>
-        </Splitpane>
+        </Splitpanes>
     `,
 });
