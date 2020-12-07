@@ -21,7 +21,7 @@ declare namespace JsReport {
         content?: string;
         engine?: Engine | string;
         helpers?: Helpers;
-        recipe?: Recipe | string;
+        recipe: Recipe | string;
         pathToEngine?: string;
     }
 
