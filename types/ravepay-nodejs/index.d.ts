@@ -585,6 +585,7 @@ interface Transfer {
     list(data: TransferListRequest): Promise<AxiosResponse<TransferListResponse>>
     getApplicableFee(data: TransferGetApplicableFeeRequest): Promise<AxiosResponse<TransferGetApplicableFeeResponse>>
     getBalance(data: TransferGetBalanceRequest): Promise<AxiosResponse<TransferGetBalanceResponse>>
+    retrieveStatusOfBulk(data: TransferRetrieveStatusOfBulkRequest): Promise<AxiosResponse<TransferRetrieveStatusOfBulkResponse>>
 }
 
 interface TransferInitiateRequest {
@@ -735,5 +736,36 @@ interface TransferGetBalanceResponse extends BaseResponse {
         WalletNumber: string,
         AvailableBalance: number,
         LedgerBalance: number
+    }
+}
+
+interface TransferRetrieveStatusOfBulkRequest {
+    batch_id: string,
+}
+
+interface TransferRetrieveStatusOfBulkResponse extends BaseResponse {
+    data: {
+        page_info: {
+            total: number,
+            current_page: number,
+            total_pages: number
+        },
+        transfers: {
+            id: number,
+            account_number: string,
+            bank_code: string,
+            fullname: string,
+            date_created: string,
+            currency: string,
+            amount: number,
+            fee: number,
+            status: string,
+            narration: string,
+            approver: any,
+            complete_message: string,
+            requires_approval: number,
+            is_approved: number,
+            bank_name: string
+        }[]
     }
 }
