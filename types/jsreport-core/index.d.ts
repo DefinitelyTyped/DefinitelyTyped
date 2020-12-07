@@ -19,7 +19,7 @@ declare namespace JsReport {
 
     interface Template {
         content?: string;
-        engine?: Engine | string;
+        engine: Engine | string;
         helpers?: Helpers;
         recipe: Recipe | string;
         pathToEngine?: string;
