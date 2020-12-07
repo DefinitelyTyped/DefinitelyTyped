@@ -162,7 +162,7 @@ export interface Trigger {
 export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any> extends JQueryAjaxSettingsBase {
     delay?: number;
     url?: string | ((params: QueryOptions) => string);
-    data?: (params: QueryOptions) => PlainObject;
+    data?: (params: QueryOptions) => PlainObject | string;
     transport?: (settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void;
     processResults?: (data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>;
 }
