@@ -49,6 +49,7 @@ interface VerificationRequestParams {
 }
 
 interface ProviderEmailOptions {
+    name?: string;
     server?: string | ProviderEmailServer;
     from?: string;
     maxAge?: number;
@@ -93,6 +94,7 @@ interface CredentialInput {
 type Apple = (options: ProviderAppleOptions) => GenericReturnConfig;
 
 interface ProviderAppleOptions {
+    name?: string;
     clientId: string;
     clientSecret: ProviderAppleSecret;
 }
@@ -110,6 +112,7 @@ interface ProviderAppleSecret {
 type Twitter = (options: ProviderTwitterOptions) => GenericReturnConfig;
 
 interface ProviderTwitterOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -120,6 +123,7 @@ interface ProviderTwitterOptions {
 type Facebook = (options: ProviderFacebookOptions) => GenericReturnConfig;
 
 interface ProviderFacebookOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -130,6 +134,7 @@ interface ProviderFacebookOptions {
 type GitHub = (options: ProviderGitHubOptions) => GenericReturnConfig;
 
 interface ProviderGitHubOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     scope?: string;
@@ -141,6 +146,7 @@ interface ProviderGitHubOptions {
 type GitLab = (options: ProviderGitLabOptions) => GenericReturnConfig;
 
 interface ProviderGitLabOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -151,6 +157,7 @@ interface ProviderGitLabOptions {
 type Slack = (options: ProviderSlackOptions) => GenericReturnConfig;
 
 interface ProviderSlackOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -161,6 +168,7 @@ interface ProviderSlackOptions {
 type Google = (options: ProviderGoogleOptions) => GenericReturnConfig;
 
 interface ProviderGoogleOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     authorizationUrl?: string;
@@ -172,6 +180,7 @@ interface ProviderGoogleOptions {
 type Auth0 = (options: ProviderAuth0Options) => GenericReturnConfig;
 
 interface ProviderAuth0Options {
+    name?: string;
     clientId: string;
     clientSecret: string;
     domain: string;
@@ -198,6 +207,7 @@ interface ProviderIS4Options {
 type Discord = (options: ProviderDiscordOptions) => GenericReturnConfig;
 
 interface ProviderDiscordOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -208,6 +218,7 @@ interface ProviderDiscordOptions {
 type Twitch = (options: ProviderTwitchOptions) => GenericReturnConfig;
 
 interface ProviderTwitchOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -218,6 +229,7 @@ interface ProviderTwitchOptions {
 type Mixer = (options: ProviderMixerOptions) => GenericReturnConfig;
 
 interface ProviderMixerOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -228,6 +240,7 @@ interface ProviderMixerOptions {
 type Okta = (options: ProviderOktaOptions) => GenericReturnConfig;
 
 interface ProviderOktaOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     domain: string;
@@ -239,6 +252,7 @@ interface ProviderOktaOptions {
 type BattleNet = (options: ProviderBattleNetOptions) => GenericReturnConfig;
 
 interface ProviderBattleNetOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     region: string;
@@ -250,6 +264,7 @@ interface ProviderBattleNetOptions {
 type Box = (options: ProviderBoxOptions) => GenericReturnConfig;
 
 interface ProviderBoxOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -260,6 +275,7 @@ interface ProviderBoxOptions {
 type Cognito = (options: ProviderCognitoOptions) => GenericReturnConfig;
 
 interface ProviderCognitoOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     domain: string;
@@ -271,6 +287,7 @@ interface ProviderCognitoOptions {
 type Yandex = (options: ProviderYandexOptions) => GenericReturnConfig;
 
 interface ProviderYandexOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -281,6 +298,7 @@ interface ProviderYandexOptions {
 type LinkedIn = (options: ProviderLinkedInOptions) => GenericReturnConfig;
 
 interface ProviderLinkedInOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     scope?: string;
@@ -292,6 +310,7 @@ interface ProviderLinkedInOptions {
 type Spotify = (options: ProviderSpotifyOptions) => GenericReturnConfig;
 
 interface ProviderSpotifyOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
     scope?: string;
@@ -303,6 +322,7 @@ interface ProviderSpotifyOptions {
 type Basecamp = (options: ProviderBasecampOptions) => GenericReturnConfig;
 
 interface ProviderBasecampOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
@@ -313,6 +333,7 @@ interface ProviderBasecampOptions {
 type Reddit = (options: ProviderRedditOptions) => GenericReturnConfig;
 
 interface ProviderRedditOptions {
+    name?: string;
     clientId: string;
     clientSecret: string;
 }
