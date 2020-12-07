@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import sharp = require("sharp");
+import sharp = require('sharp');
 
 declare namespace lqip {
     interface LqipResult {
@@ -16,28 +16,38 @@ declare namespace lqip {
             originalHeight: number;
             width: number;
             height: number;
-            type: string;
+            type: OutputFormat;
             dataURIBase64: string;
         };
     }
 
-    type OutputFormat = 'webp' | 'jpeg' | 'jpg';
+    type OutputFormat = WebpOptions['outputFormat'] | JpegOptions['outputFormat'] | JpgOptions['outputFormat'];
 
-    interface OutputOptions {
-        'webp': sharp.WebpOptions;
-        'jpeg': sharp.JpegOptions;
-        'jpg': sharp.JpegOptions;
+    type LqipOptions = WebpOptions | JpegOptions | JpgOptions;
+
+    interface DefaultOptions {
+        concurrency?: number;
+        resize?: number | ReadonlyArray<any>;
     }
 
-    interface LqipOptions<T extends OutputFormat> {
-        concurrency?: number;
-        outputFormat?: T;
-        outputOptions?: OutputOptions[T];
-        resize?: number | ReadonlyArray<any>;
+    interface WebpOptions extends DefaultOptions {
+        readonly outputFormat: 'webp';
+        readonly outputOptions: sharp.WebpOptions;
+    }
+    interface JpegOptions extends DefaultOptions {
+        readonly outputFormat: 'jpeg';
+        readonly outputOptions: sharp.JpegOptions;
+    }
+    interface JpgOptions extends DefaultOptions {
+        readonly outputFormat: 'jpg';
+        readonly outputOptions: sharp.JpegOptions;
     }
 }
 
-declare function lqip<T extends lqip.OutputFormat = 'webp'>(input: string | Buffer, options?: lqip.LqipOptions<T>): Promise<lqip.LqipResult>;
-declare function lqip<T extends lqip.OutputFormat = 'webp'>(input: ReadonlyArray<string> | ReadonlyArray<Buffer>, options?: lqip.LqipOptions<T>): Promise<lqip.LqipResult[]>;
+declare function lqip(input: string | Buffer, options?: lqip.LqipOptions): Promise<lqip.LqipResult>;
+declare function lqip(
+    input: ReadonlyArray<string> | ReadonlyArray<Buffer>,
+    options?: lqip.LqipOptions,
+): Promise<lqip.LqipResult[]>;
 
 export = lqip;
