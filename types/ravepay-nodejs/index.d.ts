@@ -18,6 +18,7 @@ export default class Rave {
     MobileMoney: MobileMoney
     VirtualCards: VirtualCards
     Bvn: Bvn
+    VirtualAccount: VirtualAccount
 
 }
 
@@ -1614,5 +1615,34 @@ interface BvnVerificationResponse extends BaseResponse {
         registration_date: string,
         enrollment_bank: string,
         enrollment_branch: string
+    }
+}
+
+interface VirtualAccount {
+    accountNumber(data: VirtualAccountAccountNumberRequest): Promise<AxiosResponse<VirtualAccountAccountNumberResponse>>
+}
+
+interface VirtualAccountAccountNumberRequest {
+    email: string,
+    is_permanent?: string,
+    frequency?: string,
+    duration?: string,
+    narration?: string,
+    txref?: string,
+}
+
+interface VirtualAccountAccountNumberResponse extends BaseResponse {
+    data: {
+        response_code: string,
+        response_message: string,
+        flw_reference: string,
+        accountnumber: string,
+        accountstatus: string,
+        frequency: string,
+        bankname: string,
+        created_on: string,
+        expiry_date: string,
+        note: string,
+        amount: any
     }
 }
