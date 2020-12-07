@@ -1388,6 +1388,7 @@ interface VirtualCards {
     list(data: VirtualCardsListRequest): Promise<AxiosResponse<VirtualCardsListResponse>>
     get(data: VirtualCardsGetRequest): Promise<AxiosResponse<VirtualCardsGetResponse>>
     terminate(data: VirtualCardsTerminateRequest): Promise<AxiosResponse<VirtualCardsTerminateResponse>>
+    fund(data: VirtualCardsFundRequest): Promise<AxiosResponse<VirtualCardsFundResponse>>
 }
 
 interface VirtualCardsCreateRequest {
@@ -1513,4 +1514,14 @@ interface VirtualCardsTerminateResponse extends BaseResponse {
         date_created: string,
         is_active: boolean
     }
+}
+
+interface VirtualCardsFundRequest {
+    id: string,
+    amount: string,
+    debit_currency?: string
+}
+
+interface VirtualCardsFundResponse extends BaseResponse {
+    Reference: string
 }
