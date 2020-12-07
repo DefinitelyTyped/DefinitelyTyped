@@ -97,7 +97,7 @@ export class MongoClient extends EventEmitter {
 export type ClientSessionId = unknown;
 
 /**
- * http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html
  */
 export interface ClientSession extends EventEmitter {
     /** The server id associated with this session */
@@ -148,16 +148,16 @@ export interface ClientSession extends EventEmitter {
     /**
      * Used to determine if this session equals another
      *
-     * @param session A class representing a client session on the server
-     * @returns Whether the sessions are equal
+     * @param session - a class representing a client session on the server
+     * @returns `true` if the sessions are equal
      */
     equals(session: ClientSession): boolean;
 
-    /** Increment the transaction number on the internal ServerSession */
+    /** Increment the transaction number on the internal `ServerSession` */
     incrementTransactionNumber(): void;
 
     /**
-     * @returns Whether this session is currently in a transaction or not
+     * @returns whether this session is currently in a transaction or not
      */
     inTransaction(): boolean;
 
@@ -171,11 +171,11 @@ export interface ClientSession extends EventEmitter {
      * or entire transaction as needed (and when the error permits) to better ensure that
      * the transaction can complete successfully.
      *
-     * IMPORTANT: This method requires the user to return a Promise, all lambdas that do not
-     * return a Promise will result in undefined behavior.
+     * IMPORTANT: This method requires the user to return a {@link Promise}, all lambdas that do not
+     * return a {@link Promise} will result in undefined behavior.
      *
-     * @param fn Function to execute with the new session.
-     * @param options Optional settings for the transaction
+     * @param fn
+     * @param options - settings for the transaction
      */
     withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<void>;
 }
@@ -253,6 +253,13 @@ export interface MongoCallback<T> {
     (error: MongoError, result: T): void;
 }
 
+/**
+ * A user provided function to be run within a transaction
+ *
+ * @param session - the parent session of the transaction running the operation.
+ *                  This should be passed into each operation within the lambda.
+ * @returns - the resulting {@link Promise} of operations run within this transaction
+ */
 export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
 /**
