@@ -58,7 +58,7 @@ const customStorage = {
     _removeFile: (
         req: express.Request,
         file: Express.Multer.File,
-        callback: (error?: Error) => void
+        callback: (error: Error | null) => void
     ): void => {
         callback();
     }
