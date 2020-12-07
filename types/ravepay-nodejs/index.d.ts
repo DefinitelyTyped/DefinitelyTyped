@@ -1390,6 +1390,7 @@ interface VirtualCards {
     terminate(data: VirtualCardsTerminateRequest): Promise<AxiosResponse<VirtualCardsTerminateResponse>>
     fund(data: VirtualCardsFundRequest): Promise<AxiosResponse<VirtualCardsFundResponse>>
     fetchTransactions(data: VirtualCardsFetchTransactionsRequest): Promise<AxiosResponse<VirtualCardsFetchTransactionsResponse>>
+    withdraw(data: VirtualCardsWithrawRequest): Promise<AxiosResponse<VirtualCardsWithrawResponse>>
 }
 
 interface VirtualCardsCreateRequest {
@@ -1572,4 +1573,13 @@ interface VirtualCardsFetchTransactionsResponse extends BaseResponse {
     },
 
     Data: any
+}
+
+interface VirtualCardsWithrawRequest {
+    card_id: string,
+    amount: string,
+}
+
+interface VirtualCardsWithrawResponse extends BaseResponse {
+    Reference: string,
 }
