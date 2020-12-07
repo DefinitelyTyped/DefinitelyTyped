@@ -448,6 +448,7 @@ interface Misc {
     disburse(data: MiscDisburseRequest): Promise<AxiosResponse<any>>
     getBalance(data: MistGetBalanceRequest): Promise<AxiosResponse<any>>
     exchange_rates(data: MiscExchangeRatesRequest): Promise<AxiosResponse<any>>
+    list_transactions(data: MiscListTransactionsRequest): Promise<AxiosResponse<any>>
 }
 
 interface MiscGetFeeRequest {
@@ -489,4 +490,11 @@ interface MiscExchangeRatesRequest {
     service_channel: string,
     service_channel_group: string,
     service_payload: string
+}
+
+interface MiscListTransactionsRequest {
+    seckey?: string,
+    from?: string,
+    to?: string,
+    page?: string,
 }
