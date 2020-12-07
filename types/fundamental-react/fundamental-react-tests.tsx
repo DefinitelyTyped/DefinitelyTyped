@@ -2147,8 +2147,8 @@ const sideNavs = (
 
 const stepInputs = (
     <div>
-        <StepInput disabled stepValue={10} />
-        <StepInput readOnly stepValue={10} />
+        <StepInput disabled value={10} />
+        <StepInput readOnly value={10} />
         <StepInput
             onChange={(stepValue) => {}}
             placeholder='Error'

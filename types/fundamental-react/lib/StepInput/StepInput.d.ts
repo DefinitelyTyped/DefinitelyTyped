@@ -12,7 +12,7 @@ export interface StepInputProps {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    stepValue?: number;
+    value?: number;
 }
 
 declare const StepInput: React.FunctionComponent<StepInputProps> & {
