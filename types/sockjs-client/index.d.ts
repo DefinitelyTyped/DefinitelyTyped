@@ -1,9 +1,10 @@
-// Type definitions for sockjs-client 1.1
+// Type definitions for sockjs-client 1.5
 // Project: https://github.com/sockjs/sockjs-client, http://sockjs.org
 // Definitions by: Emil Ivanov <https://github.com/vladev>
 //                 Alexander Rusakov <https://github.com/arusakov>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Soner Köksal <https://github.com/renjfk>
+//                 Alexander Putilov <https://github.com/PutilovAI>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = SockJS;
@@ -49,5 +50,6 @@ declare namespace SockJS {
         server?: string;
         sessionId?: number | SessionGenerator;
         transports?: string | string[];
+        timeout?: number;
     }
 }

@@ -42,6 +42,7 @@
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Guillem Gelabert Sunyer <https://github.com/guillem-gelabert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -804,6 +805,8 @@ declare module "mongoose" {
    *   expose its interface to enable type-checking.
    */
   class QueryCursor<T extends Document> extends stream.Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
+
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -1192,6 +1195,8 @@ declare module "mongoose" {
     _id?: boolean;
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
+    /** When true, mongoose will throw a Version Error if a document has changed before saving - defaults to false */
+    optimisticConcurrency?: boolean;
     read?: string;
     writeConcern?: WriteConcern;
     /** defaults to true. */
@@ -1959,6 +1964,8 @@ declare module "mongoose" {
    */
   class Query<T> extends DocumentQuery<T, any> { }
   class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
+    [Symbol.asyncIterator](): AsyncIterableIterator<DocType>;
+
     /**
      * Specifies a javascript function or expression to pass to MongoDBs query system.
      * Only use $where when you have a condition that cannot be met using other MongoDB

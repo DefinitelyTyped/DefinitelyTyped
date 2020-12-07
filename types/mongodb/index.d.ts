@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.5
+// Type definitions for MongoDB 3.6
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -32,6 +32,7 @@
 //                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
 //                 Anna Henningsen <https://github.com/addaleax>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -44,9 +45,6 @@ import { Binary, Decimal128, Double, Int32, Long, ObjectId, Timestamp } from 'bs
 import { EventEmitter } from 'events';
 import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
-
-// We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
@@ -782,7 +780,10 @@ export class Db extends EventEmitter {
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#command */
     command(command: object, callback: MongoCallback<any>): void;
-    command(command: object, options?: { readPreference?: ReadPreferenceOrMode; session?: ClientSession }): Promise<any>;
+    command(
+        command: object,
+        options?: { readPreference?: ReadPreferenceOrMode; session?: ClientSession },
+    ): Promise<any>;
     command(
         command: object,
         options: { readPreference: ReadPreferenceOrMode; session?: ClientSession },
@@ -936,8 +937,15 @@ export interface CollectionCreateOptions extends CommonOptions {
     pkFactory?: object;
     readPreference?: ReadPreferenceOrMode;
     serializeFunctions?: boolean;
+    /**
+     * @deprecated
+     * @see https://jira.mongodb.org/browse/NODE-2746
+     */
     strict?: boolean;
     capped?: boolean;
+    /**
+     * @deprecated
+     */
     autoIndexId?: boolean;
     size?: number;
     max?: number;
@@ -1070,10 +1078,12 @@ export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
 
-// TypeScript Omit (Exclude to be specific) does not work for objects with an "any" indexed type
+// TypeScript Omit (Exclude to be specific) does not work for objects with an "any" indexed type, and breaks discriminated unions
 type EnhancedOmit<T, K> = string | number extends keyof T
     ? T // T has indexed type e.g. { _id: string; [k: string]: any; } or it is "any"
-    : Omit<T, K>;
+    : T extends any
+    ? Pick<T, Exclude<keyof T, K>> // discriminated unions
+    : never;
 
 type ExtractIdType<TSchema> = TSchema extends { _id: infer U } // user has defined a type for _id
     ? {} extends U
@@ -2153,8 +2163,8 @@ export interface BulkWriteOpResultObject {
     modifiedCount?: number;
     deletedCount?: number;
     upsertedCount?: number;
-    insertedIds?: {[index: number]: any};
-    upsertedIds?: {[index: number]: any};
+    insertedIds?: { [index: number]: any };
+    upsertedIds?: { [index: number]: any };
     result?: any;
 }
 
@@ -2725,7 +2735,9 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind<U = T>(field: string): AggregationCursor<U>;
+    unwind<U = T>(
+        field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean },
+    ): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

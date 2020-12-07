@@ -148,6 +148,7 @@ const workout = { key: 'workout', color: 'green' };
                 { startingDay: false, endingDay: true, color: '#ffa500' },
                 { startingDay: true, endingDay: false, color: '#f0e68c' },
             ],
+            selected: true,
         },
         '2017-12-15': {
             periods: [
@@ -155,6 +156,7 @@ const workout = { key: 'workout', color: 'green' };
                 { color: 'transparent' },
                 { startingDay: false, endingDay: false, color: '#f0e68c' },
             ],
+            disabled: true,
         },
     }}
     // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
@@ -218,6 +220,15 @@ const workout = { key: 'workout', color: 'green' };
         textDayFontSize: 16,
         textMonthFontSize: 16,
         textDayHeaderFontSize: 16,
+        textDayStyle: {
+            fontSize: 20,
+        },
+        dotStyle: {
+            backgroundColor: 'white',
+        },
+        arrowStyle: {
+            padding: 0,
+        },
     }}
 />;
 

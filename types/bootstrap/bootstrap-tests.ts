@@ -228,7 +228,7 @@ element.addEventListener(Toast.Events.shown, event => {
  */
 
 // $ExpectType Tooltip
-const tooltip = new Tooltip(element);
+const tooltip = new Tooltip(element, { delay: 0.5, title: () => "foo" });
 
 // $ExpectType Tooltip
 const instanceTooltip = Tooltip.getInstance(element);

@@ -1,3 +1,4 @@
+import { IControl } from 'mapbox-gl';
 import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
@@ -663,6 +664,12 @@ bounds.extend([
 ]);
 // $ExpectType LngLatBounds
 bounds.extend([45, 30, 60, 60]);
+
+// controls
+// $ExpectType IControl
+new mapboxgl.Control() as IControl;
+// $ExpectType IControl
+new mapboxgl.AttributionControl() as IControl;
 
 /*
  * GeolocateControl
@@ -1639,6 +1646,22 @@ expectType<mapboxgl.AnyPaint>(
         hillshadePaint,
     ),
 );
+
+/*
+ * Make sure layer gets proper Paint, corresponding to layer's type
+ */
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'background-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'fill-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'line-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'fill-opacity': 1 } });
 
 /**
  * Test map.addImage()

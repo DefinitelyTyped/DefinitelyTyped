@@ -7,7 +7,7 @@ export type AudioEncodingAndroidType = 'aac_eld' | 'amr_nb' | 'amr_wb' | 'he_aac
 
 export type AudioEncodingIOSType = 'lpcm' | 'ima4' | 'MAC3' | 'MAC6' | 'ulaw' | 'alaw' | 'mp1' | 'mp2' | 'alac' | 'amr';
 
-export type AudioEncodingType = 'aac' | AudioEncodingAndroidType | AudioEncodingAndroidType;
+export type AudioEncodingType = 'aac' | AudioEncodingAndroidType | AudioEncodingIOSType;
 
 export interface RecordingOptions {
     SampleRate?: number;

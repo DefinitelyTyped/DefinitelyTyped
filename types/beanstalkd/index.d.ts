@@ -185,7 +185,7 @@ export default class BeanstalkdClient {
      *
      * @param tube The Tube name to watch.
      */
-    watch(tube: number): Promise<number>;
+    watch(tube: string): Promise<number>;
 
     /**
      * Ignore the named tube.
@@ -193,7 +193,7 @@ export default class BeanstalkdClient {
      *
      * @param tube The Tube name to ignore.
      */
-    ignore(tube: number): Promise<number>;
+    ignore(tube: string): Promise<number>;
 
     /**
      * Responds with an array containing the names of the tubes currently watched by the client.

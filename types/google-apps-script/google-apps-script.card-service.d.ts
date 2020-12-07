@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 Safal Pillai <https://github.com/malienist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -247,6 +248,7 @@ declare namespace GoogleAppsScript {
       OnClose: typeof OnClose;
       OpenAs: typeof OpenAs;
       SelectionInputType: typeof SelectionInputType;
+      SwitchControlType: typeof SwitchControlType;
       TextButtonStyle: typeof TextButtonStyle;
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
@@ -544,6 +546,7 @@ declare namespace GoogleAppsScript {
      *         .setSwitch(CardService.newSwitch()
      *             .setFieldName("form_input_switch_key")
      *             .setValue("form_input_switch_value")
+     *             .setControlType(CardService.SwitchControlType.SWITCH)
      *             .setOnChangeAction(CardService.newAction()
      *                 .setFunctionName("handleSwitchChange")));
      */
@@ -552,7 +555,12 @@ declare namespace GoogleAppsScript {
       setOnChangeAction(action: Action): Switch;
       setSelected(selected: boolean): Switch;
       setValue(value: string): Switch;
+      setControlType(type: SwitchControlType): Switch;
     }
+    /**
+     * Type of switch.
+     */
+    enum SwitchControlType { SWITCH, CHECK_BOX }
     /**
      * A TextButton with a text label. You can set the background color and disable the button when
      * needed.

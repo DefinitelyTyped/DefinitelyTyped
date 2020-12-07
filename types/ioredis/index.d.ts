@@ -1577,6 +1577,12 @@ declare namespace IORedis {
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
         showFriendlyErrorStack?: boolean;
+        /**
+         * When enabled, all commands issued during an event loop iteration are automatically wrapped in a
+         * pipeline and sent to the server at the same time. This can improve performance by 30-50%.
+         * default: false.
+         */
+        enableAutoPipelining?: boolean;
     }
 
     interface AddressFromResponse {

@@ -1,4 +1,4 @@
-// Type definitions for gestalt 14.26
+// Type definitions for gestalt 14.28
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -331,6 +331,28 @@ export interface ColumnProps {
  */
 export interface ContainerProps {
     children?: React.ReactNode;
+}
+
+/**
+ * Flex Props Interface
+ * https://gestalt.netlify.app/Flex
+ */
+export interface FlexProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    direction?: 'row' | 'column';
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    wrap?: boolean;
 }
 
 /**
@@ -1088,7 +1110,7 @@ export interface TextProps {
         | 'white';
     inline?: boolean;
     italic?: boolean;
-    overflow?: 'normal' | 'breakWord';
+    overflow?: 'normal' | 'breakWord' | 'noWrap';
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
     weight?: 'bold' | 'normal';
@@ -1142,8 +1164,8 @@ export interface TextFieldProps {
  */
 export interface ToastProps {
     button?: React.ReactNode;
-    color?: 'darkGray' | 'red';
-    text?: string | React.ReactElement;
+    color?: 'white' | 'red';
+    text?: string | React.ReactNode;
     thumbnail?: React.ReactNode;
     thumbnailShape?: 'circle' | 'rectangle' | 'square';
 }
@@ -1192,6 +1214,21 @@ export interface TypeaheadProps {
     placeholder?: string;
     size?: 'md' | 'lg';
     value?: string;
+}
+
+/**
+ * Upsell Props Interface
+ * https://gestalt.netlify.app/Upsell
+ */
+export interface UpsellProps {
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    message: string;
+    primaryLink?: LinkData;
+    secondaryLink?: LinkData;
+    title?: string;
 }
 
 /**
@@ -1273,6 +1310,7 @@ export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
+export class Flex extends React.Component<FlexProps, any> {}
 export class Flyout extends React.Component<FlyoutProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
@@ -1320,4 +1358,8 @@ export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
 export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
+export class Upsell extends React.Component<UpsellProps, any> {}
 export class Video extends React.Component<VideoProps, any> {}
+
+export function useReducedMotion(): boolean;
+export function useFocusVisible(): { isFocusVisible: boolean };
