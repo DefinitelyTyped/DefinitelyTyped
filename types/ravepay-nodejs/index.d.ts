@@ -446,6 +446,7 @@ interface Misc {
     getBalHist(data: MiscGetBalHistRequest): Promise<AxiosResponse<any>>
     getBanks(data: MiscGetBanksRequest): Promise<AxiosResponse<any>>
     disburse(data: MiscDisburseRequest): Promise<AxiosResponse<any>>
+    getBalance(data: MistGetBalanceRequest): Promise<AxiosResponse<any>>
 }
 
 interface MiscGetFeeRequest {
@@ -471,4 +472,11 @@ interface MiscDisburseRequest {
     account_number: string,
     currency: string,
     amount: string,
+}
+
+interface MistGetBalanceRequest {
+    service: string,
+    service_method: string,
+    service_version: string,
+    service_channel: string,
 }
