@@ -912,6 +912,7 @@ interface Paymentplan {
     list(data: PaymentplanListRequest): Promise<AxiosResponse<PaymentplanListResponse>>
     fetch(data: PaymentplanFetchRequest): Promise<AxiosResponse<PaymentplanFetchResponse>>
     cancel(data: PaymentplanCancelRequest): Promise<AxiosResponse<PaymentplanCancelResponse>>
+    edit(data: PaymentplanEditRequest): Promise<AxiosResponse<PaymentplanEditRequest>>
 }
 
 interface PaymentplanCreateRequest {
@@ -974,4 +975,14 @@ interface PaymentplanCancelRequest {
 }
 
 interface PaymentplanCancelResponse {
+}
+
+interface PaymentplanEditRequest {
+    id: string,
+    name?: string,
+    status?: string,
+}
+
+interface PaymentplanEditResponse {
+
 }
