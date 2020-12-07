@@ -1,3 +1,8 @@
+// Type definitions for flutterwave-node 1.0
+// Project: https://github.com/Flutterwave/ravepay-nodejs
+// Definitions by: Besemuna <https://github.com/besemuna>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import { AxiosResponse } from 'axios';
 
 export default class Rave {
@@ -273,7 +278,7 @@ export interface StatusRequeryResponse extends BaseResponse {
             updatedAt: string;
             deletedAt: any;
             getpaidTransactionId: number;
-        }>
+        }>;
     };
 }
 
@@ -782,7 +787,7 @@ export interface TransferRetrieveStatusOfBulkResponse extends BaseResponse {
             requires_approval: number;
             is_approved: number;
             bank_name: string;
-        }>
+        }>;
     };
 }
 
@@ -947,7 +952,9 @@ export interface PaymentplanCreateResponse extends BaseResponse {
     };
 }
 
-export interface PaymentplanListRequest { [others: string]: any; }
+export interface PaymentplanListRequest {
+    [others: string]: any;
+}
 
 export interface PaymentplanListResponse extends BaseResponse {
     data: {
@@ -976,13 +983,17 @@ export interface PaymentplanFetchRequest {
     q?: string;
 }
 
-export interface PaymentplanFetchResponse { [others: string]: any; }
+export interface PaymentplanFetchResponse {
+    [others: string]: any;
+}
 
 export interface PaymentplanCancelRequest {
     id: string;
 }
 
-export interface PaymentplanCancelResponse { [others: string]: any; }
+export interface PaymentplanCancelResponse {
+    [others: string]: any;
+}
 
 export interface PaymentplanEditRequest {
     id: string;
@@ -990,7 +1001,9 @@ export interface PaymentplanEditRequest {
     status?: string;
 }
 
-export interface PaymentplanEditResponse { [others: string]: any; }
+export interface PaymentplanEditResponse {
+    [others: string]: any;
+}
 
 export interface MobileMoney {
     mpesa(data: MobileMoneyMpesaRequest): Promise<AxiosResponse<MobileMoneyMpesaResponse>>;
@@ -1593,7 +1606,9 @@ export interface VirtualCardsFreezeUnfreezeRequest {
     status_action: string;
 }
 
-export interface VirtualCardsFreezeUnfreezeResponse { [others: string]: any; }
+export interface VirtualCardsFreezeUnfreezeResponse {
+    [others: string]: any;
+}
 
 export interface Bvn {
     verification(data: BvnVerificationRequest): Promise<AxiosResponse<BvnVerificationResponse>>;
@@ -1679,7 +1694,9 @@ export interface VerifyTransactionVerifyRequest {
     txref: string;
 }
 
-export interface VerifyTransactionVerifyResponse extends BaseResponse { [others: string]: any; }
+export interface VerifyTransactionVerifyResponse extends BaseResponse {
+    [others: string]: any;
+}
 
 export interface BillsPayment {
     bills(data: BillsPaymentBillsRequest): Promise<AxiosResponse<BillsPaymentBillsResponse>>;
@@ -1693,7 +1710,9 @@ export interface BillsPaymentBillsRequest {
     service_payload?: string;
 }
 
-export interface BillsPaymentBillsResponse extends BaseResponse { [others: string]: any; }
+export interface BillsPaymentBillsResponse extends BaseResponse {
+    [others: string]: any;
+}
 
 export interface Settlement {
     list(data: SettlementListRequest): Promise<AxiosResponse<SettlementListResponse>>;
