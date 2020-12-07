@@ -21,6 +21,7 @@ export default class Rave {
     VirtualAccount: VirtualAccount
     Refund: Refund
     VerifyTransaction: VerifyTransaction
+    BillsPayment: BillsPayment
 
 }
 
@@ -1682,4 +1683,19 @@ interface VerifyTransactionVerifyRequest {
 }
 
 interface VerifyTransactionVerifyResponse extends BaseResponse {
+}
+
+interface BillsPayment {
+    bills(data: BillsPaymentBillsRequest): Promise<AxiosResponse<BillsPaymentBillsResponse>>
+}
+
+interface BillsPaymentBillsRequest {
+    service: string,
+    service_method: string,
+    service_version: string,
+    service_channel: string,
+    service_payload?: string,
+}
+
+interface BillsPaymentBillsResponse extends BaseResponse {
 }
