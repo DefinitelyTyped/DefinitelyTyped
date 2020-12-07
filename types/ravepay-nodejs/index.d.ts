@@ -992,6 +992,7 @@ interface MobileMoney {
     mpesa(data: MobileMoneyMpesaRequest): Promise<AxiosResponse<MobileMoneyMpesaResponse>>
     ghana(data: MobileMoneyGhanaRequest): Promise<AxiosResponse<MobileMoneyGhanaResponse>>
     zambia(data: MobileMoneyZambiaRequest): Promise<AxiosResponse<MobileMoneyZambiaResponse>>
+    rwanda(data: MobileMoneyRwandaRequest): Promise<AxiosResponse<MobileMoneyRwandaResponse>>
 }
 
 interface MobileMoneyMpesaRequest {
@@ -1139,6 +1140,80 @@ interface MobileMoneyZambiaRequest {
 }
 
 interface MobileMoneyZambiaResponse extends BaseResponse {
+    data: {
+        id: number,
+        txRef: string,
+        orderRef: any,
+        flwRef: string,
+        redirectUrl: string,
+        device_fingerprint: string,
+        settlement_token: any,
+        cycle: string,
+        amount: number,
+        charged_amount: number,
+        appfee: number,
+        merchantfee: number,
+        merchantbearsfee: number,
+        chargeResponseCode: string,
+        raveRef: any,
+        chargeResponseMessage: string,
+        authModelUsed: string,
+        currency: string,
+        IP: string,
+        narration: string,
+        status: string,
+        vbvrespmessage: string,
+        authurl: string,
+        vbvrespcode: string,
+        acctvalrespmsg: any,
+        acctvalrespcode: any,
+        paymentType: string,
+        paymentPlan: any,
+        paymentPage: any,
+        paymentId: string,
+        fraud_status: string,
+        charge_type: string,
+        is_live: number,
+        createdAt: string,
+        updatedAt: string,
+        deletedAt: any,
+        customerId: number,
+        AccountId: number,
+        customer: {
+            id: number,
+            phone: string,
+            fullName: string,
+            customertoken: any,
+            email: string,
+            createdAt: string,
+            updatedAt: string,
+            deletedAt: any,
+            AccountId: number
+        },
+        validateInstructions: string
+    }
+}
+
+interface MobileMoneyRwandaRequest {
+    currency: string,
+    country: string,
+    payment_type: string,
+    amount: string,
+    network: string,
+    email: string,
+    phonenumber: string,
+    firstname?: string,
+    lastname?: string,
+    subaccounts?: string,
+    IP?: string,
+    txRef: string,
+    orderRef: string,
+    voucher: string,
+    is_mobile_money_gh: string,
+    device_fingerprint: string,
+}
+
+interface MobileMoneyRwandaResponse extends BaseResponse {
     data: {
         id: number,
         txRef: string,
