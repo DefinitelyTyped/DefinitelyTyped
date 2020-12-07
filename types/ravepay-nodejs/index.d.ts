@@ -1385,6 +1385,7 @@ interface MobileMoneyUgandaResponse {
 
 interface VirtualCards {
     create(data: VirtualCardsCreateRequest): Promise<AxiosResponse<VirtualCardsCreateResponse>>
+    list(data: VirtualCardsListRequest): Promise<AxiosResponse<VirtualCardsListResponse>>
 }
 
 interface VirtualCardsCreateRequest {
@@ -1422,4 +1423,34 @@ interface VirtualCardsCreateResponse extends BaseResponse {
         date_created: string,
         is_active: true
     }
+}
+
+interface VirtualCardsListRequest {
+    page?: string,
+}
+
+interface VirtualCardsListResponse extends BaseResponse {
+    data: {
+        id: string,
+        AccountId: number,
+        amount: string,
+        currency: string,
+        card_hash: string,
+        cardpan: string,
+        maskedpan: string,
+        city: string,
+        state: string,
+        address_1: string,
+        address_2: any,
+        zip_code: string,
+        cvv: string,
+        expiration: string,
+        send_to: any,
+        bin_check_name: any,
+        card_type: string,
+        name_on_card: string,
+        date_created: string,
+        is_active: true
+    }[]
+
 }
