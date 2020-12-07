@@ -17,6 +17,7 @@ export default class Rave {
     Paymentplan: Paymentplan
     MobileMoney: MobileMoney
     VirtualCards: VirtualCards
+    Bvn: Bvn
 
 }
 
@@ -1592,4 +1593,26 @@ interface VirtualCardsFreezeUnfreezeRequest {
 }
 
 interface VirtualCardsFreezeUnfreezeResponse {
+}
+
+interface Bvn {
+    verification(data: BvnVerificationRequest): Promise<AxiosResponse<BvnVerificationResponse>>
+}
+
+interface BvnVerificationRequest {
+    bvn: string
+}
+
+interface BvnVerificationResponse extends BaseResponse {
+    data: {
+        bvn: string,
+        first_name: string,
+        middle_name: string,
+        last_name: string,
+        date_of_birth: string,
+        phone_number: string,
+        registration_date: string,
+        enrollment_bank: string,
+        enrollment_branch: string
+    }
 }
