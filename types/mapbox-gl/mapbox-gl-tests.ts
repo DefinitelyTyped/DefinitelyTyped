@@ -1651,29 +1651,29 @@ expectType<mapboxgl.AnyPaint>(
  * Make sure layer gets proper Paint, corresponding to layer's type
  */
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'background-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'fill-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'fill-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
 
 /**
  * Test map.addImage()
  */
 
 // HTMLImageElement
-const fooHTMLImageElement = document.createElement("img");
-map.addImage("foo", fooHTMLImageElement);
+const fooHTMLImageElement = document.createElement('img');
+map.addImage('foo', fooHTMLImageElement);
 
 // ImageData
 const fooImageData = new ImageData(8, 8);
-map.addImage("foo", fooImageData);
+map.addImage('foo', fooImageData);
 
 // ImageData like
 const fooImageDataLike1 = {
@@ -1681,20 +1681,20 @@ const fooImageDataLike1 = {
     height: 10,
     data: new Uint8ClampedArray(8),
 };
-map.addImage("foo", fooImageDataLike1);
+map.addImage('foo', fooImageDataLike1);
 
 const fooImageDataLike2 = {
     width: 10,
     height: 10,
     data: new Uint8Array(8),
 };
-map.addImage("foo", fooImageDataLike2);
+map.addImage('foo', fooImageDataLike2);
 
 // ArrayBufferView
 const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
-map.addImage("foo", fooArrayBufferView);
+map.addImage('foo', fooArrayBufferView);
 
 // ImageBitmap
-createImageBitmap(fooHTMLImageElement).then((fooImageBitmap) => {
-    map.addImage("foo", fooImageBitmap);
+createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
+    map.addImage('foo', fooImageBitmap);
 });
