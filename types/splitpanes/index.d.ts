@@ -137,7 +137,7 @@ export interface SplitpaneWatch {
     dblClickSplitter: (enable: boolean) => void;
 }
 
-export interface Splitpane extends VueConstructor {
+export interface Splitpanes extends VueConstructor {
     props: SplitpaneProps;
     data: () => SplitpaneData;
     computed: SplitpaneComputed;
