@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "simplecrawler": "^1.1.9"
+    }
+}
