@@ -1387,6 +1387,7 @@ interface VirtualCards {
     create(data: VirtualCardsCreateRequest): Promise<AxiosResponse<VirtualCardsCreateResponse>>
     list(data: VirtualCardsListRequest): Promise<AxiosResponse<VirtualCardsListResponse>>
     get(data: VirtualCardsGetRequest): Promise<AxiosResponse<VirtualCardsGetResponse>>
+    terminate(data: VirtualCardsTerminateRequest): Promise<AxiosResponse<VirtualCardsTerminateResponse>>
 }
 
 interface VirtualCardsCreateRequest {
@@ -1482,5 +1483,34 @@ interface VirtualCardsGetResponse extends BaseResponse {
         name_on_card: any,
         date_created: string,
         is_active: true
+    }
+}
+
+interface VirtualCardsTerminateRequest {
+    id: string,
+}
+
+interface VirtualCardsTerminateResponse extends BaseResponse {
+    data: {
+        id: number,
+        card_hash: string,
+        cardpan: string,
+        maskedpan: string,
+        city: string,
+        address_1: string,
+        address_2: string,
+        state: string,
+        zip_code: string,
+        name_on_card: string,
+        expiration: string,
+        amount: number,
+        currency: string,
+        cvv: string,
+        card_type: string,
+        bin_check_name: string,
+        send_to: string,
+        AccountId: number,
+        date_created: string,
+        is_active: boolean
     }
 }
