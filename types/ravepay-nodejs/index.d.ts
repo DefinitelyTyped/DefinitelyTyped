@@ -796,6 +796,7 @@ interface TranferAccountVerificationResponse {
 
 interface Subaccount {
     create(data: SubaccountCreateRequest): Promise<AxiosResponse<SubaccountCreateResponse>>
+    list(data: SubaccountListRequest): Promise<AxiosResponse<SubaccountListResponse>>
 }
 
 interface SubaccountCreateRequest {
@@ -825,5 +826,34 @@ interface SubaccountCreateResponse extends BaseResponse {
         }[],
         subaccount_id: string,
         bank_name: string
+    }
+}
+
+interface SubaccountListRequest {
+    account_number?: string,
+    account_bank?: string,
+    bank_name?: string,
+}
+
+interface SubaccountListResponse {
+    data: {
+        page_info: {
+            total: number,
+            current_page: number,
+            total_pages: number
+        },
+        subaccounts: {
+            id: number,
+            account_number: string,
+            account_bank: string,
+            fullname: string,
+            date_created: string,
+            meta: {
+                metaname: string,
+                metavalue: string
+            }[],
+            subaccount_id: string,
+            bank_name: string
+        }[]
     }
 }
