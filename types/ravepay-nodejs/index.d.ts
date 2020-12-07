@@ -505,6 +505,7 @@ interface Preauth {
     preauth(data: PreauthPreauthRequest): Promise<AxiosResponse<any>>
     void(data: PreauthVoidRequest): Promise<AxiosResponse<PreauthVoidRespone>>
     refund(data: PreauthVoidRequest): Promise<AxiosResponse<PreauthVoidRespone>>
+    captureCard(data: PreauthCaptureCardRequest): Promise<AxiosResponse<any>>
 }
 
 interface PreauthPreauthRequest {
@@ -557,4 +558,9 @@ interface PreauthVoidRespone extends BaseResponse {
         },
         status: string
     }
+}
+
+interface PreauthCaptureCardRequest {
+    flwRef: string,
+    amount?: string,
 }
