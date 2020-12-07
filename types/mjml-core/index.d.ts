@@ -78,7 +78,7 @@ export interface MJMLParsingOptions {
     /**
      * The path or directory of the .mjmlconfig file
      * default: process.cwd()
-     **/
+     */
     mjmlConfigPath?: string;
 
     /**
@@ -108,8 +108,10 @@ export interface MJMLParsingOptions {
      * default: false
      */
     ignoreIncludes?: any;
-    /** see mjml-parser-xml */
-    preprocessors?: ((xml: string) => string)[];
+    /**
+     * see mjml-parser-xml
+     */
+    preprocessors?: Array<((xml: string) => string)>;
 }
 
 export interface MJMLMinifyOptions {
@@ -146,17 +148,18 @@ export const components: { [componentName: string]: Component | undefined };
 /**
  * Registers a component for use in mjml
  */
-export function registerComponent<T extends typeof Component>(Component: T): void;
+export function registerComponent(ComponentClass: typeof Component): void;
 
 export abstract class BodyComponent extends Component {
     constructor(initialData: unknown);
 
     getStyles(): {};
 
-    /** takes a style attribute and tries to parse it's value
+    /**
+     * takes a style attribute and tries to parse it's value
      * ie. padding="1 2 3 4"
      * getShorthandAttrValue("padding","left") => 1
-     *  */
+     */
     getShorthandAttrValue(attribute: any, direction: any): number;
 
     getShorthandBorderValue(direction: any): number;
@@ -191,7 +194,7 @@ export abstract class HeadComponent extends Component {
     render(): string;
 }
 
-declare abstract class Component {
+export abstract class Component {
     static getTagName(): any;
 
     static isRawElement(): boolean;
