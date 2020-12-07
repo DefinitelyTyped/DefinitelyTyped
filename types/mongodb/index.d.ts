@@ -332,7 +332,7 @@ export interface MongoClientOptions
 
     /**
      * Validate MongoClient passed in options for correctness.
-     * Default: false
+     * @default false
      */
     validateOptions?: object | boolean;
 
@@ -359,11 +359,12 @@ export interface MongoClientOptions
      * Determines whether or not to use the new url parser. Enables the new, spec-compliant
      * url parser shipped in the core driver. This url parser fixes a number of problems with
      * the original parser, and aims to outright replace that parser in the near future.
+     * @default true
      */
     useNewUrlParser?: boolean;
 
     /**
-     * number of retries for a tailable cursor
+     * Number of retries for a tailable cursor
      * @default 5
      */
     numberOfRetries?: number;
@@ -398,7 +399,8 @@ export interface SSLOptions {
      */
     ecdhCurve?: string;
     /**
-     * Default:5; Number of connections for each server instance; set to 5 as default for legacy reasons.
+     * Number of connections for each server instance; set to 5 as default for legacy reasons.
+     * @default 5
      */
     poolSize?: number;
     /**
@@ -410,11 +412,13 @@ export interface SSLOptions {
      */
     ssl?: boolean;
     /**
-     * Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
+     * Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
+     * @default true
      */
     sslValidate?: boolean;
     /**
-     * Default: true; Server identity checking during SSL
+     * Server identity checking during SSL
+     * @default true
      */
     checkServerIdentity?: boolean | typeof checkServerIdentity;
     /**
@@ -481,15 +485,17 @@ export interface TLSOptions {
 
 export interface HighAvailabilityOptions {
     /**
-     * Default: true; Turn on high availability monitoring.
+     * Turn on high availability monitoring.
+     * @default true
      */
     ha?: boolean;
     /**
-     * Default: 10000; The High availability period for replicaset inquiry
+     * The High availability period for replicaset inquiry
+     * @default 10000
      */
     haInterval?: number;
     /**
-     * Default: false;
+     * @default false
      */
     domainsEnabled?: boolean;
 
@@ -530,39 +536,43 @@ export interface DbCreateOptions extends CommonOptions {
      */
     authSource?: string;
     /**
-     * Default: false; Force server to create _id fields instead of client.
+     * Force server to assign `_id` fields instead of driver.
+     * @default false
      */
     forceServerObjectId?: boolean;
     /**
-     * Default: false; Use c++ bson parser.
+     * Use c++ bson parser.
+     * @default false
      */
     native_parser?: boolean;
     /**
      * Serialize functions on any object.
+     * @default false
      */
     serializeFunctions?: boolean;
     /**
      * Specify if the BSON serializer should ignore undefined fields.
+     * @default false
      */
     ignoreUndefined?: boolean;
     /**
      * Return document results as raw BSON buffers.
+     * @default false
      */
     raw?: boolean;
     /**
-     * Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
+     * Promotes Long values to number if they fit inside the 53 bits resolution.
+     * @default true
      */
     promoteLongs?: boolean;
     /**
-     * Default: false; Promotes Binary BSON values to native Node Buffers
+     * Promotes Binary BSON values to native Node Buffers
+     * @default false
      */
     promoteBuffers?: boolean;
     /**
-     * the prefered read preference. use 'ReadPreference' class.
-     */
-    readPreference?: ReadPreferenceOrMode;
-    /**
-     * Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+     * Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+     * @default true
      */
     promoteValues?: boolean;
     /**
@@ -600,7 +610,7 @@ export interface UnifiedTopologyOptions {
     /**
      * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
      * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
-     * Default: 30000
+     * @default 30000
      */
     serverSelectionTimeoutMS?: number;
 
@@ -735,7 +745,8 @@ export interface ServerOptions extends SSLOptions {
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Mongos.html */
 export interface MongosOptions extends SSLOptions, HighAvailabilityOptions {
     /**
-     * Default: 15; Cutoff latency point in MS for MongoS proxy selection
+     * Cutoff latency point in MS for MongoS proxy selection
+     * @default 15
      */
     acceptableLatencyMS?: number;
 
@@ -756,7 +767,8 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
      */
     replicaSet?: string;
     /**
-     * Default: 15 ; Range of servers to pick when using NEAREST (lowest ping ms + the latency fence, ex: range of 1 to (1 + 15) ms)
+     * Range of servers to pick when using NEAREST (lowest ping ms + the latency fence, ex: range of 1 to (1 + 15) ms)
+     * @default 15
      */
     secondaryAcceptableLatencyMS?: number;
     connectWithNoPrimary?: boolean;
@@ -2897,7 +2909,8 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
      */
     chunkSizeBytes?: number;
     /**
-     * Default false; If true, disables adding an md5 field to file data
+     * If true, disables adding an md5 field to file data
+     * @default false
      */
     disableMD5?: boolean;
 }
