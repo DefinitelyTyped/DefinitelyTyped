@@ -15,6 +15,7 @@ export default class Rave {
     Subaccount: Subaccount
     Subscription: Subscription
     Paymentplan: Paymentplan
+    MobileMoney: MobileMoney
 
 }
 
@@ -985,4 +986,59 @@ interface PaymentplanEditRequest {
 
 interface PaymentplanEditResponse {
 
+}
+
+interface MobileMoney {
+    mpesa(data: MobileMoneyMpesaRequest): Promise<AxiosResponse<MobileMoneyMpesaResponse>>
+}
+
+interface MobileMoneyMpesaRequest {
+    currency: string,
+    country: string,
+    amount: string,
+    phonenumber: string,
+    email: string,
+    firstname?: string,
+    lastname?: string,
+    IP?: string,
+    narration?: string,
+    txRef: string,
+    meta?: string,
+    payment_type: string,
+    is_mpesa: string,
+    is_mpesa_lipa: string,
+}
+
+interface MobileMoneyMpesaResponse extends BaseResponse {
+    data: {
+        cycle: string,
+        merchantbearsfee: number,
+        status: string,
+        vbvrespmessage: string,
+        authurl: string,
+        vbvrespcode: string,
+        paymentId: string,
+        charge_type: string,
+        is_live: number,
+        id: number,
+        txRef: string,
+        redirectUrl: string,
+        amount: string,
+        charged_amount: string,
+        authModelUsed: string,
+        flwRef: string,
+        orderRef: string,
+        currency: string,
+        device_fingerprint: string,
+        customerId: number,
+        paymentType: string,
+        narration: string,
+        IP: string,
+        fraud_status: string,
+        AccountId: number,
+        merchantfee: number,
+        updatedAt: string,
+        createdAt: string,
+        business_number: string
+    }
 }
