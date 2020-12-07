@@ -11,6 +11,7 @@ export default class Rave {
     Preauth: Preauth
     security: security
     CustomRequest: CustomRequest
+    Transfer: Transfer
 
 }
 
@@ -575,4 +576,42 @@ interface security {
 
 interface CustomRequest {
     custom(path: string, data: any): Promise<AxiosResponse<any>>
+}
+
+interface Transfer {
+    initiate(data: TransferInitiateRequest): Promise<AxiosResponse<TransferInitiateResponse>>
+}
+
+interface TransferInitiateRequest {
+    account_bank?: string,
+    account_number?: string,
+    recipient?: string,
+    amount: string,
+    narration?: string,
+    currency: string,
+    reference?: string,
+    callback_url?: string,
+    beneficiary_name: string,
+    destination_branch_code: string,
+    debit_currency?: string,
+}
+
+interface TransferInitiateResponse extends BaseResponse {
+    data: {
+        id: number,
+        account_number: string,
+        bank_code: string,
+        fullname: string,
+        date_created: string,
+        currency: string,
+        amount: number,
+        fee: number,
+        status: string,
+        reference: string,
+        narration: string,
+        complete_message: string,
+        requires_approval: number,
+        is_approved: number,
+        bank_name: string
+    }
 }
