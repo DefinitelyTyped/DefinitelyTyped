@@ -10,6 +10,7 @@ export default class Rave {
     Misc: Misc
     Preauth: Preauth
     security: security
+    CustomRequest: CustomRequest
 
 }
 
@@ -570,4 +571,8 @@ interface security {
     getEncryptionKey(seckey: string): string
     encrypt(key: string, text: string): string
     getIntegrityHash(data: any, pubKey: string, seckey: string): string
+}
+
+interface CustomRequest {
+    custom(path: string, data: any): Promise<AxiosResponse<any>>
 }
