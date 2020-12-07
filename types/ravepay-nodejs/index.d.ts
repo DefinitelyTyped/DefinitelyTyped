@@ -19,6 +19,7 @@ export default class Rave {
     VirtualCards: VirtualCards
     Bvn: Bvn
     VirtualAccount: VirtualAccount
+    Refund: Refund
 
 }
 
@@ -1645,4 +1646,28 @@ interface VirtualAccountAccountNumberResponse extends BaseResponse {
         note: string,
         amount: any
     }
+}
+
+interface Refund {
+    refund(data: RefundRefundRequest): Promise<AxiosResponse<RefundRefundResponse>>
+
+}
+
+interface RefundRefundRequest {
+    ref: string,
+    amount?: string,
+}
+
+interface RefundRefundResponse extends BaseResponse {
+    data: {
+        AmountRefunded: number,
+        walletId: number,
+        createdAt: string,
+        AccountId: number,
+        id: number,
+        FlwRef: string,
+        TransactionId: number,
+        status: string,
+        updatedAt: string
+    },
 }
