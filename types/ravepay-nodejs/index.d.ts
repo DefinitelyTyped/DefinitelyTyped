@@ -8,6 +8,8 @@ export default class Rave {
     TokenCharge: TokenCharge
     MobileOptions: MobileOptions
     Misc: Misc
+    Preauth: Preauth
+
 }
 
 interface BaseResponse {
@@ -497,4 +499,35 @@ interface MiscListTransactionsRequest {
     from?: string,
     to?: string,
     page?: string,
+}
+
+interface Preauth {
+    preauth(data: PreauthPreauthRequest): Promise<AxiosResponse<any>>
+}
+
+interface PreauthPreauthRequest {
+    cardno: string | number,
+    currency?: string,
+    suggested_auth?: string,
+    country?: string,
+    settlement_token?: string,
+    cvv: string | number,
+    amount: string | number,
+    phonenumber?: string | number,
+    billingzip?: string | number,
+    expiryyear: string | number,
+    expirymonth: string | number,
+    email: string,
+    firstname?: string,
+    lastname?: string,
+    IP: string,
+    narration?: string,
+    txRef: string,
+    meta?: any
+    pin?: string | number,
+    bvn?: string | number,
+    charge_type: string,
+    device_fingerprint?: string,
+    recurring_stop?: string,
+    include_integrity_hash?: string,
 }
