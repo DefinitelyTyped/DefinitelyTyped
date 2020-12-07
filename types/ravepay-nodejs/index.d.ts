@@ -24,6 +24,7 @@ export default class Rave {
     BillsPayment: BillsPayment
     Settlement: Settlement
     USSD: USSD
+    Ebills: Ebills
 
 }
 
@@ -1877,5 +1878,32 @@ interface USSDChargeResponse {
         },
         response_code: string,
         response_message: string
+    }
+}
+
+
+interface Ebills {
+    create(data: EbillsCreateRequest): Promise<AxiosResponse<EbillsCreateResponse>>
+}
+
+interface EbillsCreateRequest {
+    narration?: string,
+    numberofunits: string,
+    currency: string,
+    amount: string,
+    phonenumber: string,
+    email: string,
+    txRef: string,
+    IP: string,
+    country: string,
+    custom_business_name?: string,
+}
+
+interface EbillsCreateResponse extends BaseResponse {
+    data: {
+        order: string,
+        flwRef: string,
+        txRef: string,
+        chargeResponseMessage: string
     }
 }
