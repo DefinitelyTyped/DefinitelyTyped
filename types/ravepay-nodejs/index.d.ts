@@ -909,6 +909,7 @@ interface SubscriptionCancelRequest {
 
 interface Paymentplan {
     create(data: PaymentplanCreateRequest): Promise<AxiosResponse<PaymentplanCreateResponse>>
+    list(data: PaymentplanListRequest): Promise<AxiosResponse<PaymentplanListResponse>>
 }
 
 interface PaymentplanCreateRequest {
@@ -928,5 +929,31 @@ interface PaymentplanCreateResponse extends BaseResponse {
         status: string,
         plan_token: string,
         date_created: string
+    }
+}
+
+interface PaymentplanListRequest {
+
+}
+
+interface PaymentplanListResponse extends BaseResponse {
+    data: {
+        page_info: {
+            total: number,
+            current_page: number,
+            total_pages: number
+        },
+        paymentplans: [
+            {
+                id: number,
+                name: string,
+                amount: number,
+                interval: string,
+                duration: number,
+                status: string,
+                plan_token: string,
+                date_created: string
+            }
+        ]
     }
 }
