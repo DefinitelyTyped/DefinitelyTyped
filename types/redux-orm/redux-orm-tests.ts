@@ -115,7 +115,13 @@ type Schema = typeof schema;
 
 // create ORM instance and register { Book, Publisher, Person, Authorship } schema
 const ormFixture = () => {
-    const orm = new ORM<Schema>();
+    interface RootState {
+        db: OrmState<Schema>;
+    }
+
+    const orm = new ORM<Schema>({
+        stateSelector: (state: RootState) => state.db,
+    });
     orm.register(Book, Authorship, Person, Publisher);
     return orm;
 };
