@@ -23,9 +23,10 @@ declare namespace createServer {
 
     type NextFunction = (err?: any) => void;
 
+    export type SimpleHandleFunction = (req: IncomingMessage, res: http.ServerResponse) => void;
     export type NextHandleFunction = (req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type ErrorHandleFunction = (err: any, req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
-    export type HandleFunction = NextHandleFunction | ErrorHandleFunction;
+    export type HandleFunction = SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 
     export interface ServerStackItem {
         route: string;
@@ -50,9 +51,9 @@ declare namespace createServer {
         * not be invoked for _/_, or _/posts_.
         */
         use(fn: NextHandleFunction): Server;
-        use(fn: ErrorHandleFunction): Server;
+        use(fn: HandleFunction): Server;
         use(route: string, fn: NextHandleFunction): Server;
-        use(route: string, fn: ErrorHandleFunction): Server;
+        use(route: string, fn: HandleFunction): Server;
 
         /**
         * Handle server requests, punting them down
