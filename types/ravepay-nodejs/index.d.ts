@@ -993,6 +993,7 @@ interface MobileMoney {
     ghana(data: MobileMoneyGhanaRequest): Promise<AxiosResponse<MobileMoneyGhanaResponse>>
     zambia(data: MobileMoneyZambiaRequest): Promise<AxiosResponse<MobileMoneyZambiaResponse>>
     rwanda(data: MobileMoneyRwandaRequest): Promise<AxiosResponse<MobileMoneyRwandaResponse>>
+    francophone(data: MobileMoneyFrancophoneRequest): Promise<AxiosResponse<MobileMoneyFrancophoneResponse>>
 }
 
 interface MobileMoneyMpesaRequest {
@@ -1265,5 +1266,43 @@ interface MobileMoneyRwandaResponse extends BaseResponse {
             AccountId: number
         },
         validateInstructions: string
+    }
+}
+
+interface MobileMoneyFrancophoneRequest {
+    currency: string,
+    country: string,
+    payment_type: string,
+    amount: string,
+    network: string,
+    email: string,
+    phonenumber: string,
+    firstname?: string,
+    lastname?: string,
+    subaccounts?: string,
+    IP?: string,
+    txRef: string,
+    orderRef: string,
+    voucher: string,
+    is_mobile_money_franco: string,
+    device_fingerprint: string,
+}
+
+interface MobileMoneyFrancophoneResponse extends BaseResponse {
+    data: {
+        data: {
+            amount: string,
+            type: string,
+            redirect: true,
+            note: any,
+            transaction_date: string,
+            transaction_reference: string,
+            flw_reference: string,
+            redirect_url: string,
+            payment_code: any,
+            type_data: string
+        },
+        response_code: string,
+        response_message: string
     }
 }
