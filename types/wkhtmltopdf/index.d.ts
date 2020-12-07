@@ -274,8 +274,8 @@ interface Options {
     noFooterLine?: boolean;
     /** Right aligned footer text */
     footerRight?: string;
-    /** Spacing between footer and content in mm (e.g 10mm 2cm 0.5in) (default 0) */
-    footerSpacing?: string;
+    /** Spacing between footer and content in mm (default 0) */
+    footerSpacing?: number;
 
     /** Centered header text */
     headerCenter?: string;
@@ -293,8 +293,8 @@ interface Options {
     noHeaderLine?: boolean;
     /** Right aligned header text */
     headerRight?: string;
-    /** Spacing between header and content in mm (e.g 10mm 2cm 0.5in) (default 0) */
-    headerSpacing?: string;
+    /** Spacing between header and content in mm (default 0) */
+    headerSpacing?: number;
     /** Replace [name] with value in header and footer (repeatable) */
     replace?: ReadonlyArray<[string, string]>;
 
