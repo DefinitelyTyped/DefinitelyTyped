@@ -257,35 +257,38 @@ export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
 /**
  * Creates a new MongoError
- * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html
  */
 export class MongoError extends Error {
     constructor(message: string | Error | object);
     /**
-     * @deprecated
+     * @deprecated Use `new MongoError()` instead.
      */
     static create(options: string | Error | object): MongoError;
     /**
      * Checks the error to see if it has an error label
+     * @return `true` if the error has the provided error label
      */
     hasErrorLabel(label: string): boolean;
+    readonly errorLabels: string[];
     code?: number | string;
     /**
-     * While not documented, the 'errmsg' prop is AFAIK the only way to find out
+     * While not documented, the `errmsg` prop is AFAIK the only way to find out
      * which unique index caused a duplicate key error. When you have multiple
      * unique indexes on a collection, knowing which index caused a duplicate
      * key error enables you to send better (more precise) error messages to the
      * client/user (eg. "Email address must be unique" instead of "Both email
-     * address and username must be unique") - which caters for a better (app)
+     * address and username must be unique") – which caters for a better (app)
      * user experience.
      *
-     * Details: https://github.com/Automattic/mongoose/issues/2129 (issue for
-     * mongoose, but the same applies for the native mongodb driver)
+     * Details:
+     * {@link https://github.com/Automattic/mongoose/issues/2129 How to get index name on duplicate document 11000 error?}
+     * (issue for mongoose, but the same applies for the native mongodb driver).
      *
      * Note that in mongoose (the link above) the prop in question is called
      * 'message' while in mongodb it is called 'errmsg'. This can be seen in
-     * multiple places in the source code, for example here:
-     * https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111
+     * multiple places in the source code, for example
+     * {@link https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111 here}.
      */
     errmsg?: string;
     name: string;
@@ -293,19 +296,43 @@ export class MongoError extends Error {
 
 /**
  * An error indicating an issue with the network, including TCP errors and timeouts
- * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoNetworkError.html}
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoNetworkError.html
  */
-export class MongoNetworkError extends MongoError {
-    constructor(message: string);
-    errorLabels: string[];
-}
+export class MongoNetworkError extends MongoError {}
 
 /**
  * An error used when attempting to parse a value (like a connection string)
- * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoParseError.html}
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoParseError.html
  */
-export class MongoParseError extends MongoError {
-    constructor(message: string);
+export class MongoParseError extends MongoError {}
+
+/**
+ * An error signifying a client-side timeout event
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoTimeoutError.html
+ */
+export class MongoTimeoutError extends MongoError {
+    /**
+     * An optional reason context for the timeout, generally an error
+     * saved during flow of monitoring and selecting servers
+     */
+    reason?: string | object;
+}
+
+/**
+ * An error signifying a client-side server selection error
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoServerSelectionError.html
+ */
+export class MongoServerSelectionError extends MongoTimeoutError {}
+
+/**
+ * An error thrown when the server reports a writeConcernError
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoWriteConcernError.html
+ */
+export class MongoWriteConcernError extends MongoError {
+    /**
+     * The result document (provided if ok: 1)
+     */
+    result?: object;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
