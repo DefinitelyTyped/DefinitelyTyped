@@ -188,4 +188,4 @@ export interface Pane extends VueConstructor {
 }
 
 export const Pane: Pane;
-export const Splitpane: Splitpane;
+export const Splitpanes: Splitpanes;
