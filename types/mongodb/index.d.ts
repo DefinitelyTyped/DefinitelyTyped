@@ -94,12 +94,14 @@ export class MongoClient extends EventEmitter {
     writeConcern: WriteConcern;
 }
 
+export type ClientSessionId = unknown;
+
 /**
  * http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html
  */
 export interface ClientSession extends EventEmitter {
     /** The server id associated with this session */
-    id: any;
+    id: ClientSessionId;
     /**
      * Aborts the currently active transaction in this session.
      * @param cb Optional callback for completion of this operation
