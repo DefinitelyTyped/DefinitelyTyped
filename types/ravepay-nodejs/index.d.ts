@@ -503,6 +503,7 @@ interface MiscListTransactionsRequest {
 
 interface Preauth {
     preauth(data: PreauthPreauthRequest): Promise<AxiosResponse<any>>
+    void(data: PreauthVoidRequest): Promise<AxiosResponse<PreauthVoidRespone>>
 }
 
 interface PreauthPreauthRequest {
@@ -530,4 +531,29 @@ interface PreauthPreauthRequest {
     device_fingerprint?: string,
     recurring_stop?: string,
     include_integrity_hash?: string,
+}
+
+interface PreauthVoidRequest {
+    id?: string,
+    ref?: string,
+    amount?: string,
+    action?: string,
+}
+
+interface PreauthVoidRespone extends BaseResponse {
+    data: {
+        data: {
+            responsecode: string,
+            redirecturl: any,
+            avsresponsemessage: any,
+            avsresponsecode: any,
+            authorizeId: string,
+            responsemessage: string,
+            otptransactionidentifier: any,
+            transactionreference: string,
+            responsehtml: any,
+            responsetoken: any
+        },
+        status: string
+    }
 }
