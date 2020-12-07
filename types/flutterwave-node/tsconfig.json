@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "ravepay-nodejs-tests.ts"
+        "flutterwave-node-tests.ts"
     ]
 }
