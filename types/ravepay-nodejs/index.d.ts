@@ -3,6 +3,7 @@ import { AxiosResponse } from "./axios";
 export default class Rave {
     constructor(publicKey: string, privateKey: string, productionFlag: boolean)
     Card: Card
+    Status: Status
 }
 
 interface BaseResponse {
@@ -169,5 +170,87 @@ interface CardValidateResponse extends BaseResponse {
                 embed_token: string
             }
         }
+    }
+}
+
+interface Status {
+    requery(data: StatusRequeryRequest): Promise<AxiosResponse<StatusRequeryResponse>>
+}
+
+interface StatusRequeryRequest {
+    flwref?: string,
+    txref?: string,
+}
+
+interface StatusRequeryResponse extends BaseResponse {
+    data: {
+        txid: number,
+        txref: string,
+        flwref: string,
+        devicefingerprint: string,
+        cycle: string,
+        amount: number,
+        currency: string,
+        chargedamount: number,
+        appfee: number,
+        merchantfee: number,
+        merchantbearsfee: number,
+        chargecode: string,
+        chargemessage: string,
+        authmodel: string,
+        ip: string,
+        narration: string,
+        status: string,
+        vbvcode: string,
+        vbvmessage: string,
+        authurl: string,
+        acctcode: any,
+        acctmessage: any,
+        paymenttype: string,
+        paymentid: string,
+        fraudstatus: string,
+        chargetype: string,
+        createdday: number,
+        createddayname: string,
+        createdweek: number,
+        createdmonth: number,
+        createdmonthname: string,
+        createdquarter: number,
+        createdyear: number,
+        createdyearisleap: boolean,
+        createddayispublicholiday: number,
+        createdhour: number,
+        createdminute: number,
+        createdpmam: string,
+        created: string,
+        customerid: number,
+        custphone: any,
+        custnetworkprovider: string,
+        custname: string,
+        custemail: string,
+        custemailprovider: string,
+        custcreated: string,
+        accountid: number,
+        acctbusinessname: string,
+        acctcontactperson: string,
+        acctcountry: string,
+        acctbearsfeeattransactiontime: number,
+        acctparent: number,
+        acctvpcmerchant: number,
+        acctalias: string,
+        acctisliveapproved: number,
+        orderref: string,
+        paymentplan: any,
+        paymentpage: any,
+        raveref: string,
+        meta: {
+            id: number,
+            metaname: string,
+            metavalue: string,
+            createdAt: string,
+            updatedAt: string,
+            deletedAt: any,
+            getpaidTransactionId: number
+        }[]
     }
 }
