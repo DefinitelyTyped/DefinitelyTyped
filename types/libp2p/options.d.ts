@@ -116,7 +116,7 @@ export interface KeychainOptions {
      */
     pass: string;
     /**
-     * @link https://github.com/ipfs/interface-datastore
+     * @see https://github.com/ipfs/interface-datastore
      */
     datastore: object; // FIXME
 }
@@ -159,12 +159,12 @@ export interface PeerStoreOptions {
 }
 
 /**
- * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md
+ * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md
  */
 export interface Options {
     /**
      * Libp2p modules to use
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#modules
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#modules
      */
     modules: object[];
 
@@ -176,34 +176,34 @@ export interface Options {
     host: HostOptions;
 
     /**
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
      */
     connectionManager: ConnectionManagerOptions;
 
     /**
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-transport-manager
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-transport-manager
      */
     transportManager: TransportManagerOptions;
 
     /**
      * Must implement ipfs/interface-datastore (in memory datastore will be used if not provided)
-     * @link https://github.com/ipfs/interface-datastore
+     * @see https://github.com/ipfs/interface-datastore
      */
     datastore: object; // FIXME
     /**
      * Dialing in libp2p can be configured to limit the rate of dialing, and how long dials are allowed to take.
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
      */
     dialer: DialerOptions;
     /**
      * Keychain configuration
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#setup-with-keychain
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#setup-with-keychain
      */
     keychain: KeychainOptions;
 
     /**
      * Metrics configuration
-     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-metrics
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-metrics
      */
     metrics: MetricOptions;
 
