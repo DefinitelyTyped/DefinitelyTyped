@@ -336,3 +336,12 @@ function testNullishPath(
     const expectedType: t.Node['type'] | undefined = actualType;
     actualType = expectedType;
 }
+
+const visitorWithDenylist: Visitor = {
+    denylist: ['TypeAnnotation'],
+};
+
+const visitorWithInvalidDenylist: Visitor = {
+    // $ExpectError
+    denylist: ['SomeRandomType'],
+};
