@@ -3,8 +3,10 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RedisClient } from 'redis';
-import { Redis as IORedisClient } from 'ioredis';
+
+interface RedisClient {
+    multi(operations: any[][]): { exec(cb: (err: any, res: any) => unknown): void };
+}
 
 declare class Limiter {
     constructor(opts: Limiter.LimiterOption);
@@ -30,7 +32,7 @@ declare namespace Limiter {
         /**
          * Redis connection instance
          */
-        db: RedisClient | IORedisClient;
+        db: RedisClient;
 
         /**
          * Max requests within duration
