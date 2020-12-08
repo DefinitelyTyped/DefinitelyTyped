@@ -34,6 +34,16 @@ declare class Libp2p {
      */
     loadKeychain(): Promise<void>;
 
+    /**
+     * Starts the libp2p node.
+     * Promise resolves when the node is ready
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start
+     * @example
+    const libp2p = await Libp2p.create(options)
+    // start libp2p
+    await libp2p.start()
+     */
+    start(): Promise<void>;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
