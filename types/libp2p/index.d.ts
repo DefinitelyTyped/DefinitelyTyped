@@ -156,6 +156,14 @@ declare class Libp2p {
     handle(protocols: string[], handler: (params: { connection: any; stream: any; protocol: string }) => any): void;
     // FIXME any params
 
+    /**
+     * Unregisters all handlers with the given protocols
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#unhandle
+     * @example
+    libp2p.unhandle(['/echo/1.0.0'])
+     */
+    unhandle(protocols: string[]): void;
+
 }
 
 export * from './options';
