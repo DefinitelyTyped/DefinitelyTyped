@@ -93,6 +93,29 @@ declare class Libp2p {
     await conn.close()
      */
     dial(peer: PeerId | MultiAddr | string, options: { signal: AbortSignal }): Promise<Connection>;
+
+    /**
+     * Dials to another peer in the network and selects a protocol to communicate with that peer. The stream between both parties is returned, together with the negotiated protocol.
+     *
+     * If a Multiaddr or its string is provided, it must include the peer id. Moreover, if a PeerId is given, the peer will need to have known multiaddrs for it in the PeerStore.
+     * 
+     * Promise resolves with a duplex stream and the protocol used
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#dialprotocol
+     * @example
+    // ...
+    import pipe from 'it-pipe';
+
+    const { stream, protocol } = await libp2p.dialProtocol(remotePeerId, protocols)
+
+    // Use this new stream like any other duplex stream
+    pipe([1, 2, 3], stream, consume)
+     */
+    dialProtocol(
+        peer: PeerId | MultiAddr | string,
+        protocols: string[],
+        options: { signal: AbortSignal },
+    ): // FIXME replace stream type
+    Promise<{ stream: any; protocol: string }>;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
