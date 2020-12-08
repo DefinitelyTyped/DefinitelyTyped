@@ -61,6 +61,21 @@ declare class Libp2p {
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addresses
      */
     get addresses(): any;
+
+    /**
+     * A Getter that returns a Map of the current Connections libp2p has to other peers.
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#connections 
+     * @see https://github.com/libp2p/js-peer-id
+     * @see https://github.com/libp2p/js-libp2p-interfaces/tree/master/src/connection
+     * @example 
+    for (const [peerId, connections] of libp2p.connections) {
+        for (const connection of connections) {
+            console.log(peerId, connection.remoteAddr.toString())
+            // Logs the PeerId string and the observed remote multiaddr of each Connection
+        }
+    }
+     */
+    get connections(): Map<string, Connection[]>;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
