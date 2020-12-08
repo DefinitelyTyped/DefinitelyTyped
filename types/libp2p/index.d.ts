@@ -10,6 +10,16 @@
 
 import { Options } from './options';
 
+// FIXME replace those types
+// https://github.com/libp2p/js-peer-id/blob/master/src/index.d.ts
+type PeerId = any;
+// https://github.com/multiformats/js-multiaddr/blob/master/src/index.d.ts
+type MultiAddr = any;
+// https://github.com/libp2p/js-libp2p-interfaces/tree/master/src/connection
+type Connection = any;
+// https://developer.mozilla.org/en-US/docs/Web/API/AbortController/signal
+type AbortSignal = any;
+
 /**
  * @fires Libp2p#error Emitted when an error occurs
  * @fires Libp2p#peer:discovery Emitted when a peer is discovered
