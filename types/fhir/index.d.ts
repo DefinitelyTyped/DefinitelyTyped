@@ -62,6 +62,1049 @@ declare module fhir {
      */
     type unsignedInt = number;
     /**
+     * This value set includes Status codes
+     */
+    type FinancialResourceStatusCode = 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+    /**
+     * 	The use of an address
+     */
+    type AdressUse = 'home' | 'work' | 'temp' | 'old';
+    /**
+     * The type of an address (physical / postal)
+     */
+    type AdressType = 'postal' | 'physical' | 'both';
+    /**
+     * How the Quantity should be understood and represented
+     */
+    type QuantityComparator = '<' | '<=' | '>=' | '>';
+    /**
+     * Identifies the purpose for this identifier, if known
+     */
+    type IdentifierUse = 'usual' | 'official' | 'temp' | 'secondary';
+    /**
+     * Telecommunications form for contact point
+     */
+    type ContactPointSystem = 'phone' | 'fax' | 'email' | 'pager' | 'url' | 'sms' | 'other';
+    /**
+     * Use of contact point
+     */
+    type ContactPointUse = 'home' | 'work' | 'temp' | 'old' | 'mobile';
+    /**
+     * The use of a human name
+     */
+    type NameUse = 'usual' | 'official' | 'temp' | 'nickname' | 'anonymous' | 'old' | 'maiden';
+    /**
+     * 	A unit of time (units from UCUM)
+     */
+    type UnitsOfTime = 's' | 'min' | 'h' | 'd' | 'wk' | 'mo' | 'a';
+    /**
+     * The status of a resource narrative
+     */
+    type NarrativeStatus = 'generated' | 'extensions' | 'additional' | 'empty';
+    /**
+     * Indicates whether the account is available to be used
+     */
+    type AccountStatus = 'active' | 'inactive' | 'entered-in-error';
+    /**
+     * The type of contributor
+     */
+    type ContributorType = 'author' | 'editor' | 'reviewer' | 'endorser';
+    /**
+     * The type of relationship to the related artifact
+     */
+    type RelatedArtifactType =
+        | 'documentation'
+        | 'justification'
+        | 'citation'
+        | 'predecessor'
+        | 'successor'
+        | 'derived-from'
+        | 'depends-on'
+        | 'composed-of';
+    /**
+     * The type of participant for the action
+     */
+    type ActionParticipantType = 'patient' | 'practitioner' | 'related-person';
+    /**
+     * The lifecycle status of a Value Set or Concept Map
+     */
+    type PublicationStatus = 'draft' | 'active' | 'retired' | 'unknown';
+    /**
+     * TODO
+     */
+    type AdverseEventCausality = 'causality1' | 'causality2';
+    /**
+     * Overall categorization of the event, e.g. real or potential
+     */
+    type AdverseEventCategory = 'AE' | 'PAE';
+    /**
+     * Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different manifestations
+     */
+    type AllergyIntoleranceSeverity = 'mild' | 'moderate' | 'severe';
+    /**
+     * The clinical status of the allergy or intolerance
+     */
+    type AllergyIntoleranceClinicalStatus = 'active' | 'inactive' | 'resolved';
+    /**
+     * Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified substance
+     */
+    type AllergyIntoleranceVerificationStatus = 'unconfirmed' | 'confirmed' | 'refuted' | 'entered-in-error';
+    /**
+     * Identification of the underlying physiological mechanism for a Reaction Risk
+     */
+    type AllergyIntoleranceType = 'allergy' | 'intolerance';
+    /**
+     * Category of an identified substance
+     */
+    type AllergyIntoleranceCategory = 'food' | 'medication' | 'environment' | 'biologic';
+    /**
+     * Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.
+     */
+    type AllergyIntoleranceCriticality = 'low' | 'high' | 'unable-to-assess';
+    /**
+     * Is the Participant required to attend the appointment
+     */
+    type ParticipantRequired = 'required' | 'optional' | 'information-only';
+    /**
+     * The Participation status of an appointment
+     */
+    type ParticipationStatus = 'accepted' | 'declined' | 'tentative' | 'needs-action';
+    /**
+     * The free/busy status of an appointment
+     */
+    type AppointmentStatus =
+        | 'proposed'
+        | 'pending'
+        | 'booked'
+        | 'arrived'
+        | 'fulfilled'
+        | 'cancelled'
+        | 'noshow'
+        | 'entered-in-error';
+    /**
+     * Why an entry is in the result set - whether it's included as a match or because of an _include requirement
+     */
+    type SearchEntryMode = 'match' | 'include' | 'outcome';
+    /**
+     * HTTP verbs (in the HTTP command line)
+     */
+    type HTTPVerb = 'GET' | 'POST' | 'PUT' | 'DELETE';
+    /**
+     * Indicates the purpose of a bundle - how it was intended to be used.
+     */
+    type BundleType =
+        | 'document'
+        | 'message'
+        | 'transaction'
+        | 'transaction-response'
+        | 'batch'
+        | 'batch-response'
+        | 'history'
+        | 'searchset'
+        | 'collection';
+    /**
+     * The mode of a RESTful capability statement
+     */
+    type RestfulCapabilityMode = 'client' | 'server';
+    /**
+     * How the system supports versioning for a resource
+     */
+    type ResourceVersionPolicy = 'no-version' | 'versioned' | 'versioned-update';
+    /**
+     * A code that indicates how the server supports conditional read
+     */
+    type ConditionalReadStatus = 'not-supported' | 'modified-since' | 'not-match' | 'full-support';
+    /**
+     * A code that indicates how the server supports conditional delete
+     */
+    type ConditionalDeleteStatus = 'not-supported' | 'single' | 'multiple';
+    /**
+     * A set of flags that defines how references are supported
+     */
+    type ReferenceHandlingPolicy = 'literal' | 'logical' | 'resolves' | 'enforced' | 'local';
+    /**
+     * Operations supported by REST at the type or instance level
+     */
+    type TypeRestfulInteraction =
+        | 'read'
+        | 'vread'
+        | 'update'
+        | 'patch'
+        | 'delete'
+        | 'history-instance'
+        | 'history-type'
+        | 'create'
+        | 'search-type';
+    /**
+     * Data types allowed to be used for search parameters
+     */
+    type SearchParamType = 'number' | 'date' | 'string' | 'token' | 'reference' | 'composite' | 'quantity' | 'uri';
+    /**
+     * Operations supported by REST at the system level
+     */
+    type SystemRestfulInteraction =
+        | 'read'
+        | 'vread'
+        | 'update'
+        | 'patch'
+        | 'delete'
+        | 'history'
+        | 'history-instance'
+        | 'history-type'
+        | 'history-system'
+        | 'create'
+        | 'search'
+        | 'search-type'
+        | 'search-system'
+        | 'capabilities'
+        | 'transaction'
+        | 'batch'
+        | 'operation';
+    /**
+     * The mode of a message capability statement
+     */
+    type EventCapabilityMode = 'sender' | 'receiver';
+    /**
+     * One of the message events defined as part of FHIR
+     */
+    type MessageEvent = 'Consequence' | 'Currency' | 'Notification';
+    /**
+     * Whether the application produces or consumes documents
+     */
+    type DocumentMode = 'producer' | 'consumer';
+    /**
+     * How a capability statement is intended to be used
+     */
+    type CapabilityStatementKind = 'instance' | 'capability' | 'requirements';
+    /**
+     * A code that indicates whether an application accepts unknown elements or extensions when reading resources
+     */
+    type UnknownContentCode = 'no' | 'extensions' | 'elements' | 'both';
+    /**
+     * Indicates where the activity is at in its overall life cycle
+     */
+    type CarePlanActivityStatus =
+        | 'not-started'
+        | 'scheduled'
+        | 'in-progress'
+        | 'on-hold'
+        | 'completed'
+        | 'cancelled'
+        | 'unknown';
+    /**
+     * Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical record
+     */
+    type CarePlanStatus = 'draft' | 'active' | 'suspended' | 'completed' | 'entered-in-error' | 'cancelled' | 'unknown';
+    /**
+     * Codes indicating the degree of authority/intentionality associated with a care plan
+     */
+    type CarePlanIntent = 'proposal' | 'plan' | 'order' | 'option';
+    /**
+     * Indicates the status of the care team
+     */
+    type CareTeamStatus = 'proposed' | 'active' | 'suspended' | 'inactive' | 'entered-in-error';
+    /**
+     * Codes identifying the stage lifecycle stage of a ChargeItem
+     */
+    type ChargeItemStatus =
+        | 'planned'
+        | 'billable'
+        | 'not-billable'
+        | 'aborted'
+        | 'billed'
+        | 'entered-in-error'
+        | 'unknown';
+    /**
+     * Complete, proposed, exploratory, other
+     */
+    type Use = 'complete' | 'proposed' | 'exploratory' | 'other';
+    /**
+     * The workflow state of a clinical impression
+     */
+    type ClinicalImpressionStatus = 'draft' | 'completed' | 'entered-in-error';
+    /**
+     * The type of a property value
+     */
+    type PropertyType = 'code' | Coding | 'string' | 'integer' | 'boolean' | 'dateTime';
+    /**
+     * The meaning of the hierarchy of concepts in a code system
+     */
+    type CodeSystemHierarchyMeaning = 'grouped-by' | 'is-a' | 'part-of' | 'classified-with';
+    /**
+     * How much of the content of the code system - the concepts and codes it defines - are represented in a code system resource
+     */
+    type CodeSystemContentMode = 'not-present' | 'example' | 'fragment' | 'complete';
+    /**
+     * Codes identifying the stage lifecycle stage of a event
+     */
+    type EventStatus =
+        | 'preparation'
+        | 'in-progress'
+        | 'suspended'
+        | 'aborted'
+        | 'completed'
+        | 'entered-in-error'
+        | 'unknown';
+    /**
+     * Codes identifying the stage lifecycle stage of a request
+     */
+    type RequestStatus = 'draft' | 'active' | 'suspended' | 'cancelled' | 'completed' | 'entered-in-error' | 'unknown';
+    /**
+     * The way in which a person authenticated a composition
+     */
+    type CompositionAttestationMode = 'personal' | 'professional' | 'legal' | 'official';
+    /**
+     * The type of relationship between documents
+     */
+    type DocumentRelationshipType = 'replaces' | 'transforms' | 'signs' | 'appends';
+    /**
+     * The processing mode that applies to this list
+     */
+    type ListMode = 'working' | 'snapshot' | 'changes';
+    /**
+     * The workflow/clinical status of the composition
+     */
+    type CompositionStatus = 'preliminary' | 'final' | 'amended' | 'entered-in-error';
+    /**
+     * The degree of equivalence between concepts
+     */
+    type ConceptMapEquivalence =
+        | 'relatedto'
+        | 'equivalent'
+        | 'equal'
+        | 'wider'
+        | 'subsumes'
+        | 'narrower'
+        | 'specializes'
+        | 'inexact'
+        | 'unmatched'
+        | 'disjoint';
+    /**
+     * Defines which action to take if there is no match in the group
+     */
+    type ConceptMapGroupUnmappedMode = 'provided' | 'fixed' | 'other-map';
+    /**
+     * Preferred value set for Condition Clinical Status
+     */
+    type ConditionClinicalStatusCodes = 'active' | 'recurrence' | 'inactive' | 'remission' | 'resolved';
+    /**
+     * The verification status to support or decline the clinical status of the condition or diagnosis
+     */
+    type ConditionVerificationStatus =
+        | 'provisional'
+        | 'differential'
+        | 'confirmed'
+        | 'refuted'
+        | 'entered-in-error'
+        | 'unknown';
+    /**
+     * How a resource reference is interpreted when testing consent restrictions
+     */
+    type ConsentDataMeaning = 'instance' | 'related' | 'dependents' | 'authoredby';
+    /**
+     * How an exception statement is applied, such as adding additional consent or removing consent
+     */
+    type ConsentExceptType = 'deny' | 'permit';
+    /**
+     * Indicates the state of the consent
+     */
+    type ConsentState = 'draft' | 'proposed' | 'active' | 'rejected' | 'inactive' | 'entered-in-error';
+    /**
+     * This value set contract specific codes for status
+     */
+    type ContractResourceStatusCodes =
+        | 'amended'
+        | 'appended'
+        | 'cancelled'
+        | 'disputed'
+        | 'entered-in-error'
+        | 'executable'
+        | 'executed'
+        | 'negotiable'
+        | 'offered'
+        | 'policy'
+        | 'rejected'
+        | 'renewed'
+        | 'revoked'
+        | 'resolved'
+        | 'terminated';
+    /**
+     * How slices are interpreted when evaluating an instance
+     */
+    type SlicingRules = 'closed' | 'open' | 'openAtEnd';
+    /**
+     * How an element value is interpreted when discrimination is evaluated
+     */
+    type DiscriminatorType = 'value' | 'exists' | 'pattern' | 'type' | 'profile';
+    /**
+     * How resource references can be aggregated
+     */
+    type AggregationMode = 'contained' | 'referenced' | 'bundled';
+    /**
+     * Whether a reference needs to be version specific or version independent, or whether either can be used
+     */
+    type ReferenceVersionRules = 'either' | 'independent' | 'specific';
+    /**
+     * SHALL applications comply with this constraint?
+     */
+    type ConstraintSeverity = 'error' | 'warning';
+    /**
+     * Indication of the degree of conformance expectations associated with a binding
+     */
+    type BindingStrength = 'required' | 'extensible' | 'preferred' | 'example';
+    /**
+     * How a property is represented when serialized
+     */
+    type PropertyRepresentation = 'xmlAttr' | 'xmlText' | 'typeAttr' | 'cdaText' | 'xhtml';
+    /**
+     * Indicates the degree of precision of the data element definition
+     */
+    type DataElementStringency =
+        | 'comparable'
+        | 'fully-specified'
+        | 'equivalent'
+        | 'convertable'
+        | 'scaleable'
+        | 'flexible';
+    /**
+     * Codes providing the status of an observation
+     */
+    type ObservationStatus =
+        | 'registered'
+        | 'preliminary'
+        | 'final'
+        | 'amended'
+        | 'corrected'
+        | 'cancelled'
+        | 'entered-in-error'
+        | 'unknown';
+    /**
+     * Indicates the potential degree of impact of the identified issue on the patient
+     */
+    type DetectedIssueSeverity = 'high' | 'moderate' | 'low';
+    /**
+     * Codes to identify how UDI data was entered
+     */
+    type UDIEntryType = 'barcode' | 'rfid' | 'manual' | 'card' | 'self-reported' | 'unknown';
+    /**
+     * The availability status of the device
+     */
+    type FHIRDeviceStatus = 'active' | 'inactive' | 'entered-in-error' | 'unknown';
+    /**
+     * Different measurement principle supported by the device
+     */
+    type MeasmntPrinciple =
+        | 'other'
+        | 'chemical'
+        | 'electrical'
+        | 'impedance'
+        | 'nuclear'
+        | 'optical'
+        | 'thermal'
+        | 'biological'
+        | 'mechanical'
+        | 'acoustical'
+        | 'manual';
+    /**
+     * Describes the type of a metric calibration
+     */
+    type DeviceMetricCalibrationType = 'unspecified' | 'offset' | 'gain' | 'two-point';
+    /**
+     * Describes the state of a metric calibration
+     */
+    type DeviceMetricCalibrationState = 'not-calibrated' | 'calibration-required' | 'calibrated' | 'unspecified';
+    /**
+     * Describes the operational status of the DeviceMetric
+     */
+    type DeviceMetricOperationalStatus = 'on' | 'off' | 'standby' | 'entered-in-error';
+    /**
+     * Describes the typical color of representation
+     */
+    type DeviceMetricColor = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
+    /**
+     * Describes the category of the metric
+     */
+    type DeviceMetricCategory = 'measurement' | 'setting' | 'calculation' | 'unspecified';
+    /**
+     * A coded concept indicating the current status of a the Device Usage
+     */
+    type DeviceUseStatementStatus = 'active' | 'completed' | 'entered-in-error' | 'intented' | 'stopped' | 'on-hold';
+    /**
+     * The status of the diagnostic report as a whole
+     */
+    type DiagnosticReportStatus =
+        | 'registered'
+        | 'partial'
+        | 'preliminary'
+        | 'final'
+        | 'amended'
+        | 'corrected'
+        | 'appended'
+        | 'cancelled'
+        | 'entered-in-error'
+        | 'unknown';
+    /**
+     * The status of the document reference
+     */
+    type DocumentReferenceStatus = 'current' | 'superseded' | 'entered-in-error';
+    /**
+     * Current state of the encounter
+     */
+    type EncounterStatus =
+        | 'planned'
+        | 'arrived'
+        | 'triaged'
+        | 'in-progress'
+        | 'onleave'
+        | 'finished'
+        | 'cancelled'
+        | 'entered-in-error'
+        | 'unkown';
+    /**
+     * The status of the location
+     */
+    type EncounterLocationStatus = 'planned' | 'active' | 'reserved' | 'completed';
+    /**
+     * The status of the endpoint
+     */
+    type EndpointStatus = 'active' | 'suspended' | 'error' | 'off' | 'entered-in-error' | 'test';
+    /**
+     * The status of the episode of care
+     */
+    type EpisodeOfCareStatus =
+        | 'planned'
+        | 'waitlist'
+        | 'active'
+        | 'onhold'
+        | 'finished'
+        | 'cancelled'
+        | 'entered-in-error';
+    /**
+     * How to manage the intersection between a fixed version in a value set, and a fixed version of the system in the expansion profile
+     */
+    type SystemVersionProcessingMode = 'default' | 'check' | 'override';
+    /**
+     * A code specifying the state of the resource instance
+     */
+    type ExplanationOfBenefitStatus = 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+    /**
+     * A code that identifies the status of the family history record
+     */
+    type FamilyHistoryStatus = 'partial' | 'completed' | 'entered-in-error' | 'health-unknown';
+    /**
+     * The gender of a person used for administrative purposes
+     */
+    type AdministrativeGender = 'male' | 'female' | 'other' | 'unknown';
+    /**
+     * Indicates whether this flag is active and needs to be displayed to a user, or whether it is no longer needed or entered in error
+     */
+    type FlagStatus = 'active' | 'inactive' | 'entered-in-error';
+    /**
+     * Indicates whether the goal has been met and is still being targeted
+     */
+    type GoalStatus =
+        | 'proposed'
+        | 'accepted'
+        | 'planned'
+        | 'in-progress'
+        | 'on-target'
+        | 'ahead-of-target'
+        | 'behind-target'
+        | 'sustaining'
+        | 'achieved'
+        | 'on-hold'
+        | 'cancelled'
+        | 'entered-in-error'
+        | 'rejected';
+    /**
+     * How a compartment must be linked
+     */
+    type GraphCompartmentRule = 'identical' | 'matching' | 'different' | 'custom';
+    /**
+     * Types of resources that are part of group
+     */
+    type GroupType = 'person' | 'animal' | 'practitioner' | 'device' | 'medication' | 'substance';
+    /**
+     * The status of a guidance response
+     */
+    type GuidanceResponseStatus =
+        | 'success'
+        | 'data-requested'
+        | 'data-required'
+        | 'in-progress'
+        | 'failure'
+        | 'entered-in-error';
+    /**
+     * The days of the week
+     */
+    type DaysOfWeek = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+    /**
+     * Availability of the resource
+     */
+    type InstanceAvailability = 'ONLINE' | 'OFFLINE' | 'NEARLINE' | 'UNAVAILABLE';
+    /**
+     * The value set to instantiate this attribute should be drawn from a terminologically robust code system that consists of or contains concepts to support describing the current status of the administered dose of vaccine
+     */
+    type ImmunizationStatusCodes = 'completed' | 'entered-in-error';
+    /**
+     * How a dependency is represented when the guide is published
+     */
+    type GuideDependencyType = 'reference' | 'inclusion';
+    /**
+     * The kind of an included page
+     */
+    type GuidePageKind = 'page' | 'example' | 'list' | 'include' | 'directory' | 'dictionary' | 'toc' | 'resource';
+    /**
+     * Used to distinguish different roles a resource can play within a set of linked resources
+     */
+    type LinkageType = 'source' | 'alternate' | 'historical';
+    /**
+     * The current state of the list
+     */
+    type ListStatus = 'current' | 'retired' | 'entered-in-error';
+    /**
+     * Indicates whether the location is still in use
+     */
+    type LocationStatus = 'active' | 'suspended' | 'inactive';
+    /**
+     * Indicates whether a resource instance represents a specific location or a class of locations
+     */
+    type LocationMode = 'instance' | 'kind';
+    /**
+     * The status of the measure report
+     */
+    type MeasureReportStatus = 'complete' | 'pending' | 'error';
+    /**
+     * The type of the measure report
+     */
+    type MeasureReportType = 'individual' | 'patient-list' | 'summary';
+    /**
+     * Whether the media is a photo, video, or audio
+     */
+    type DigitalMediaType = 'photo' | 'video' | 'audio';
+    /**
+     * A coded concept defining if the medication is in active use
+     */
+    type MedicationStatus = 'active' | 'inactive' | 'entered-in-error';
+    /**
+     * A set of codes indicating the current status of a MedicationAdministration
+     */
+    type MedicationAdministrationStatus =
+        | 'in-progress'
+        | 'on-hold'
+        | 'completed'
+        | 'entered-in-error'
+        | 'stopped'
+        | 'unknown';
+    /**
+     * A coded concept specifying the state of the dispense event.
+     */
+    type MedicationDispenseStatus =
+        | 'preparation'
+        | 'in-progress'
+        | 'on-hold'
+        | 'completed'
+        | 'entered-in-error'
+        | 'stopped';
+    /**
+     * A coded concept specifying the state of the prescribing event. Describes the lifecycle of the prescription
+     */
+    type MedicationRequestStatus =
+        | 'active'
+        | 'on-hold'
+        | 'cancelled'
+        | 'completed'
+        | 'entered-in-error'
+        | 'stopped'
+        | 'draft'
+        | 'unknown';
+    /**
+     * The kind of medication order
+     */
+    type MedicationRequestIntent = 'proposal' | 'plan' | 'order' | 'instance-order';
+    /**
+     * Identifies the level of importance to be assigned to actioning the request
+     */
+    type MedicationRequestPriority = 'routine' | 'urgent' | 'stat' | 'asap';
+    /**
+     * A coded concept indicating the current status of a MedicationStatement
+     */
+    type MedicationStatementStatus = 'active' | 'completed' | 'entered-in-error' | 'intended' | 'stopped' | 'on-hold';
+    /**
+     * A coded concept identifying level of certainty if patient has taken or has not taken the medication
+     */
+    type MedicationStatementTaken = 'y' | 'n' | 'unk' | 'na';
+    /**
+     * The kind of response to a message
+     */
+    type ResponseType = 'ok' | 'transient-error' | 'fatal-error';
+    /**
+     * Identifies the style of unique identifier used to identify a namespace
+     */
+    type NamingSystemIdentifierType = 'oid' | 'uuid' | 'uri' | 'other';
+    /**
+     * Identifies the purpose of the naming system
+     */
+    type NamingSystemType = 'codesystem' | 'identifier' | 'root';
+    /**
+     * Codes specifying the state of the request. Describes the lifecycle of the nutrition order
+     */
+    type NutritionOrderStatus =
+        | 'proposed'
+        | 'draft'
+        | 'planned'
+        | 'requested'
+        | 'active'
+        | 'on-hold'
+        | 'completed'
+        | 'cancelled'
+        | 'entered-in-error';
+    /**
+     * Codes specifying how two observations are related
+     */
+    type ObservationRelationshipType =
+        | 'has-member'
+        | 'derived-from'
+        | 'sequel-to'
+        | 'replaces'
+        | 'qualified-by'
+        | 'interfered-by';
+    /**
+     * Whether an operation parameter is an input or an output parameter
+     */
+    type OperationParameterUse = 'in' | 'out';
+    /**
+     * Whether an operation is a normal operation or a query
+     */
+    type OperationKind = 'operation' | 'query';
+    /**
+     * How the issue affects the success of the action
+     */
+    type IssueSeverity = 'fatal' | 'error' | 'warning' | 'information';
+    /**
+     * The type of link between this patient resource and another patient resource
+     */
+    type LinkType = 'replaced-by' | 'replaces' | 'refer' | 'seealso';
+    /**
+     * The level of confidence that this link represents the same actual person, based on NIST Authentication Levels
+     */
+    type IdentityAssuranceLevel = 'level1' | 'level2' | 'level3' | 'level4';
+    /**
+     * Defines organization behavior of a grou
+     */
+    type ActionGroupingBehavior = 'visual-group' | 'logical-group' | 'sentence-group';
+    /**
+     * Defines selection behavior of a group
+     */
+    type ActionSelectionBehavior = 'any' | 'all' | 'all-or-none' | 'exactly-one' | 'at-most-one' | 'one-or-more';
+    /**
+     * Defines requiredness behavior for selecting an action or an action group
+     */
+    type ActionRequiredBehavior = 'must' | 'could' | 'must-unless-documented';
+    /**
+     * Defines selection frequency behavior for an action or group
+     */
+    type ActionPrecheckBehavior = 'yes' | 'no';
+    /**
+     * Defines behavior for an action or a group for how many times that item may be repeated
+     */
+    type ActionCardinalityBehavior = 'single' | 'multiple';
+    /**
+     * The type of trigger
+     */
+    type TriggerType =
+        | 'named-event'
+        | 'periodic'
+        | 'data-added'
+        | 'data-modified'
+        | 'data-removed'
+        | 'data-accessed'
+        | 'data-access-ended';
+    /**
+     * Defines the kinds of conditions that can appear on actions
+     */
+    type ActionConditionKind = 'applicability' | 'start' | 'stop';
+    /**
+     * Defines the types of relationships between actions
+     */
+    type ActionRelationshipType =
+        | 'before-start'
+        | 'before'
+        | 'before-end'
+        | 'concurrent-with-start'
+        | 'concurrent'
+        | 'concurrent-with-end'
+        | 'after-start'
+        | 'after'
+        | 'after-end';
+    /**
+     * Codes indicating the degree of authority/intentionality associated with a request
+     */
+    type RequestIntent =
+        | 'proposal'
+        | 'plan'
+        | 'order'
+        | 'original-order'
+        | 'reflex-order'
+        | 'filler-order'
+        | 'instance-order'
+        | 'option';
+    /**
+     * The clinical priority of a diagnostic order
+     */
+    type RequestPriority = 'routine' | 'urgent' | 'asap' | 'stat';
+    /**
+     * List of allowable action which this resource can request
+     */
+    type ActionList = 'cancel' | 'poll' | 'reprocess' | 'status';
+    /**
+     * How an entity was used in an activity
+     */
+    type ProvenanceEntityRole = 'derivation' | 'revision' | 'quotation' | 'source' | 'removal';
+    /**
+     * Distinguishes groups from questions and display text and indicates data type for questions
+     */
+    type QuestionnaireItemType =
+        | 'group'
+        | 'display'
+        | 'boolean'
+        | 'decimal'
+        | 'integer'
+        | 'date'
+        | 'dateTime'
+        | 'time'
+        | 'string'
+        | 'text'
+        | 'url'
+        | 'choice'
+        | 'open-choice'
+        | 'attachment'
+        | 'reference'
+        | 'quantity';
+    /**
+     * Lifecycle status of the questionnaire response
+     */
+    type QuestionnaireResponseStatus = 'in-progress' | 'completed' | 'amended' | 'entered-in-error' | 'stopped';
+    /**
+     * Codes that convey the current status of the research study
+     */
+    type ResearchStudyStatus = 'draft' | 'in-progress' | 'suspended' | 'stopped' | 'completed' | 'entered-in-error';
+    /**
+     * Indicates the progression of a study subject through a study
+     */
+    type ResearchSubjectStatus = 'candidate' | 'enrolled' | 'active' | 'suspended' | 'withdrawn' | 'completed';
+    /**
+     * How a search parameter relates to the set of elements returned by evaluating its xpath query
+     */
+    type XPathUsageType = 'normal' | 'phonetic' | 'nearby' | 'distance' | 'other';
+    /**
+     * What Search Comparator Codes are supported in search
+     */
+    type SearchComparator = 'eq' | 'ne' | 'gt' | 'lt' | 'ge' | 'le' | 'sa' | 'eb' | 'ap';
+    /**
+     * A supported modifier for a search parameter
+     */
+    type SearchModifierCode =
+        | 'missing'
+        | 'exact'
+        | 'contains'
+        | 'not'
+        | 'text'
+        | 'in'
+        | 'not-in'
+        | 'below'
+        | 'above'
+        | 'type';
+    /**
+     * Type for quality report
+     */
+    type QualityType = 'indel' | 'snp' | 'unknown';
+    /**
+     * Type for access of external URI
+     */
+    type RepositoryType = 'directlink' | 'openapi' | 'login' | 'oauth' | 'other';
+    /**
+     * Type if a sequence -- DNA, RNA, or amino acid sequence
+     */
+    type SequenceType = 'aa' | 'dna' | 'rna';
+    /**
+     * The free/busy status of the slot
+     */
+    type SlotStatus = 'busy' | 'free' | 'busy-unavailable' | 'busy-tentative' | 'entered-in-error';
+    /**
+     * Codes providing the status/availability of a specimen
+     */
+    type SpecimenStatus = 'available' | 'unavailable' | 'unsatisfactory' | 'entered-in-error';
+    /**
+     * Defines the type of structure that a definition is describing
+     */
+    type StructureDefinitionKind = 'primitive-type' | 'complex-type' | 'resource' | 'logical';
+    /**
+     * How an extension context is interpreted
+     */
+    type ExtensionContext = 'resource' | 'datatype' | 'extension';
+    /**
+     * How a type relates to its baseDefinition
+     */
+    type TypeDerivationRule = 'specialization' | 'constraint';
+    /**
+     * How the referenced structure is used in this mapping
+     */
+    type StructureMapModelMode = 'source' | 'queried' | 'target' | 'produced';
+    /**
+     * If this is the default rule set to apply for the source type, or this combination of types
+     */
+    type StructureMapGroupTypeMode = 'none' | 'types' | 'type-and-types';
+    /**
+     * Mode for this instance of data
+     */
+    type StructureMapInputMode = 'source' | 'target';
+    /**
+     * If field is a list, how to manage the source
+     */
+    type StructureMapSourceListMode = 'first' | 'not_first' | 'last' | 'not_last' | 'only_one';
+    /**
+     * How to interpret the context
+     */
+    type StructureMapContextType = 'type' | 'variable';
+    /**
+     * If field is a list, how to manage the production
+     */
+    type StructureMapTargetListMode = 'first' | 'share' | 'last' | 'collate';
+    /**
+     * How data is copied/created
+     */
+    type StructureMapTransform =
+        | 'create'
+        | 'copy'
+        | 'truncate'
+        | 'excape'
+        | 'cast'
+        | 'append'
+        | 'translate'
+        | 'reference'
+        | 'dateOP'
+        | 'uuid'
+        | 'pointer'
+        | 'evaluate'
+        | 'cc'
+        | 'c'
+        | 'qty'
+        | 'id'
+        | 'cp';
+    /**
+     * The type of method used to execute a subscription
+     */
+    type SubscriptionChannelType = 'rest-hook' | 'websocket' | 'email' | 'sms' | 'message';
+    /**
+     * The status of a subscription
+     */
+    type SubscriptionStatus = 'requested' | 'active' | 'error' | 'off';
+    /**
+     * A code to indicate if the substance is actively used
+     */
+    type FHIRSubstanceStatus = 'active' | 'inactive' | 'entered-in-error';
+    /**
+     * Status of the supply delivery
+     */
+    type SupplyDeliveryStatus = 'in-progress' | 'completed' | 'abandoned' | 'entered-in-error';
+    /**
+     * The current status of the task
+     */
+    type TaskStatus =
+        | 'draft'
+        | 'requested'
+        | 'received'
+        | 'accepted'
+        | 'rejected'
+        | 'ready'
+        | 'cancelled'
+        | 'in-progress'
+        | 'on-hold'
+        | 'failed'
+        | 'completed'
+        | 'entered-in-error';
+    /**
+     * The type of participant
+     */
+    type TestReportParticipantType = 'test-engine' | 'client' | 'server';
+    /**
+     * The results of executing an action
+     */
+    type TestReportActionResult = 'pass' | 'skip' | 'fail' | 'warning' | 'error';
+    /**
+     * The current status of the test report
+     */
+    type TestReportStatus = 'completed' | 'in-progress' | 'waiting' | 'stopped' | 'entered-in-error';
+    /**
+     * The reported execution result
+     */
+    type TestReportResult = 'pass' | 'fail' | 'pending';
+    /**
+     * The content or mime type
+     */
+    type ContentType = 'xml' | 'json' | 'ttl' | 'none';
+    /**
+     * The type of direction to use for assertion
+     */
+    type AssertionDirectionType = 'response' | 'request';
+    /**
+     * The type of operator to use for assertion
+     */
+    type AssertionOperatorType =
+        | 'equals'
+        | 'notEquals'
+        | 'in'
+        | 'notIn'
+        | 'greaterThan'
+        | 'lessThan'
+        | 'empty'
+        | 'notEmpty'
+        | 'contains'
+        | 'notContains'
+        | 'eval';
+    /**
+     * The allowable request method or HTTP operation codes
+     */
+    type TestScriptRequestMethodCode = 'delete' | 'get' | 'options' | 'patch' | 'post' | 'put';
+    /**
+     * The type of response code to use for assertion
+     */
+    type AssertionResponseTypes =
+        | 'okay'
+        | 'created'
+        | 'noContent'
+        | 'notModified'
+        | 'bad'
+        | 'forbidden'
+        | 'notFound'
+        | 'methodNotAllowed'
+        | 'conflict'
+        | 'gone'
+        | 'preconditionFailed'
+        | 'unprocessable';
+    /**
+     * The kind of operation to perform as a part of a property based filter
+     */
+    type FilterOperator =
+        | '='
+        | 'is-a'
+        | 'descendent-of'
+        | 'is-not-a'
+        | 'regex'
+        | 'in'
+        | 'not-in'
+        | 'generalizes'
+        | 'exists';
+    /**
+     * A coded concept listing the eye codes
+     */
+    type VisionEyes = 'right' | 'left';
+    /**
+     * A coded concept listing the base codes
+     */
+    type VisionBase = 'up' | 'down' | 'in' | 'out';
+    /**
      * Time range defined by start and end date/time
      */
     interface Period extends Element {
@@ -89,7 +1132,7 @@ declare module fhir {
         /**
          * home | work | temp | old - purpose of this address
          */
-        use?: 'home' | 'work' | 'temp' | 'old';
+        use?: AdressUse;
         /**
          * Contains extended information for property 'use'.
          */
@@ -97,7 +1140,7 @@ declare module fhir {
         /**
          * postal | physical | both
          */
-        type?: 'postal' | 'physical' | 'both';
+        type?: AdressType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -178,7 +1221,7 @@ declare module fhir {
         /**
          * < | <= | >= | > - how to understand the value
          */
-        comparator?: '<' | '<=' | '>=' | '>';
+        comparator?: QuantityComparator;
         /**
          * Contains extended information for property 'comparator'.
          */
@@ -281,7 +1324,7 @@ declare module fhir {
         /**
          * usual | official | temp | secondary (If known)
          */
-        use?: 'usual' | 'official' | 'temp' | 'secondary';
+        use?: IdentifierUse;
         /**
          * Contains extended information for property 'use'.
          */
@@ -449,7 +1492,7 @@ declare module fhir {
         /**
          * phone | fax | email | pager | url | sms | other
          */
-        system?: 'phone' | 'fax' | 'email' | 'pager' | 'url' | 'sms' | 'other';
+        system?: ContactPointSystem;
         /**
          * Contains extended information for property 'system'.
          */
@@ -465,7 +1508,7 @@ declare module fhir {
         /**
          * home | work | temp | old | mobile - purpose of this contact point
          */
-        use?: 'home' | 'work' | 'temp' | 'old' | 'mobile';
+        use?: ContactPointUse;
         /**
          * Contains extended information for property 'use'.
          */
@@ -502,7 +1545,7 @@ declare module fhir {
         /**
          * usual | official | temp | nickname | anonymous | old | maiden
          */
-        use?: 'usual' | 'official' | 'temp' | 'nickname' | 'anonymous' | 'old' | 'maiden';
+        use?: NameUse;
         /**
          * Contains extended information for property 'use'.
          */
@@ -751,7 +1794,7 @@ declare module fhir {
         /**
          * s | min | h | d | wk | mo | a - unit of time (UCUM)
          */
-        durationUnit?: 's' | 'min' | 'h' | 'd' | 'wk' | 'mo' | 'a';
+        durationUnit?: UnitsOfTime;
         /**
          * Contains extended information for property 'durationUnit'.
          */
@@ -791,7 +1834,7 @@ declare module fhir {
         /**
          * s | min | h | d | wk | mo | a - unit of time (UCUM)
          */
-        periodUnit?: 's' | 'min' | 'h' | 'd' | 'wk' | 'mo' | 'a';
+        periodUnit?: UnitsOfTime;
         /**
          * Contains extended information for property 'periodUnit'.
          */
@@ -799,7 +1842,7 @@ declare module fhir {
         /**
          * mon | tue | wed | thu | fri | sat | sun
          */
-        dayOfWeek?: Array<'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'>;
+        dayOfWeek?: DaysOfWeek[];
         /**
          * Contains extended information for property 'dayOfWeek'.
          */
@@ -1189,7 +2232,7 @@ declare module fhir {
         /**
          * generated | extensions | additional | empty
          */
-        status: 'generated' | 'extensions' | 'additional' | 'empty';
+        status: NarrativeStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -1282,7 +2325,7 @@ declare module fhir {
         /**
          * active | inactive | entered-in-error
          */
-        status?: 'active' | 'inactive' | 'entered-in-error';
+        status?: AccountStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -1381,7 +2424,7 @@ declare module fhir {
         /**
          * author | editor | reviewer | endorser
          */
-        type: 'author' | 'editor' | 'reviewer' | 'endorser';
+        type: ContributorType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -1406,15 +2449,7 @@ declare module fhir {
         /**
          * documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of
          */
-        type:
-            | 'documentation'
-            | 'justification'
-            | 'citation'
-            | 'predecessor'
-            | 'successor'
-            | 'derived-from'
-            | 'depends-on'
-            | 'composed-of';
+        type: RelatedArtifactType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -1459,7 +2494,7 @@ declare module fhir {
         /**
          * patient | practitioner | related-person
          */
-        type: 'patient' | 'practitioner' | 'related-person';
+        type: ActionParticipantType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -1642,7 +2677,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -1831,7 +2866,7 @@ declare module fhir {
         /**
          * causality1 | causality2
          */
-        causality?: 'causality1' | 'causality2';
+        causality?: AdverseEventCausality;
         /**
          * Contains extended information for property 'causality'.
          */
@@ -1873,7 +2908,7 @@ declare module fhir {
          * AE | PAE
          * An adverse event is an event that caused harm to a patient,  an adverse reaction is a something that is a subject-specific event that is a result of an exposure to a medication, food, device or environmental substance, a potential adverse event is something that occurred and that could have caused harm to a patient but did not
          */
-        category?: 'AE' | 'PAE';
+        category?: AdverseEventCategory;
         /**
          * Contains extended information for property 'category'.
          */
@@ -1974,7 +3009,7 @@ declare module fhir {
         /**
          * mild | moderate | severe (of event as a whole)
          */
-        severity?: 'mild' | 'moderate' | 'severe';
+        severity?: AllergyIntoleranceSeverity;
         /**
          * Contains extended information for property 'severity'.
          */
@@ -1999,7 +3034,7 @@ declare module fhir {
         /**
          * active | inactive | resolved
          */
-        clinicalStatus?: 'active' | 'inactive' | 'resolved';
+        clinicalStatus?: AllergyIntoleranceClinicalStatus;
         /**
          * Contains extended information for property 'clinicalStatus'.
          */
@@ -2007,7 +3042,7 @@ declare module fhir {
         /**
          * unconfirmed | confirmed | refuted | entered-in-error
          */
-        verificationStatus: 'unconfirmed' | 'confirmed' | 'refuted' | 'entered-in-error';
+        verificationStatus: AllergyIntoleranceVerificationStatus;
         /**
          * Contains extended information for property 'verificationStatus'.
          */
@@ -2015,7 +3050,7 @@ declare module fhir {
         /**
          * allergy | intolerance - Underlying mechanism (if known)
          */
-        type?: 'allergy' | 'intolerance';
+        type?: AllergyIntoleranceType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -2023,7 +3058,7 @@ declare module fhir {
         /**
          * food | medication | environment | biologic
          */
-        category?: Array<'food' | 'medication' | 'environment' | 'biologic'>;
+        category?: AllergyIntoleranceCategory[];
         /**
          * Contains extended information for property 'category'.
          */
@@ -2031,7 +3066,7 @@ declare module fhir {
         /**
          * low | high | unable-to-assess
          */
-        criticality?: 'low' | 'high' | 'unable-to-assess';
+        criticality?: AllergyIntoleranceCriticality;
         /**
          * Contains extended information for property 'criticality'.
          */
@@ -2120,7 +3155,7 @@ declare module fhir {
         /**
          * required | optional | information-only
          */
-        required?: 'required' | 'optional' | 'information-only';
+        required?: ParticipantRequired;
         /**
          * Contains extended information for property 'required'.
          */
@@ -2128,7 +3163,7 @@ declare module fhir {
         /**
          * accepted | declined | tentative | needs-action
          */
-        status: 'accepted' | 'declined' | 'tentative' | 'needs-action';
+        status: ParticipationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -2145,15 +3180,7 @@ declare module fhir {
         /**
          * proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error
          */
-        status:
-            | 'proposed'
-            | 'pending'
-            | 'booked'
-            | 'arrived'
-            | 'fulfilled'
-            | 'cancelled'
-            | 'noshow'
-            | 'entered-in-error';
+        status: AppointmentStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -2298,14 +3325,7 @@ declare module fhir {
         /**
          * accepted | declined | tentative | in-process | completed | needs-action | entered-in-error
          */
-        participantStatus:
-            | 'accepted'
-            | 'declined'
-            | 'tentative'
-            | 'in-process'
-            | 'completed'
-            | 'needs-action'
-            | 'entered-in-error';
+        participantStatus: ParticipationStatus;
         /**
          * Contains extended information for property 'participantStatus'.
          */
@@ -2721,7 +3741,7 @@ declare module fhir {
         /**
          * match | include | outcome - why this is in the result set
          */
-        mode?: 'match' | 'include' | 'outcome';
+        mode?: SearchEntryMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -2742,7 +3762,7 @@ declare module fhir {
         /**
          * GET | POST | PUT | DELETE
          */
-        method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+        method: HTTPVerb;
         /**
          * Contains extended information for property 'method'.
          */
@@ -2840,16 +3860,7 @@ declare module fhir {
         /**
          * document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection
          */
-        type:
-            | 'document'
-            | 'message'
-            | 'transaction'
-            | 'transaction-response'
-            | 'batch'
-            | 'batch-response'
-            | 'history'
-            | 'searchset'
-            | 'collection';
+        type: BundleType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -2932,7 +3943,7 @@ declare module fhir {
         /**
          * client | server
          */
-        mode: 'client' | 'server';
+        mode: RestfulCapabilityMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -3055,7 +4066,7 @@ declare module fhir {
         /**
          * no-version | versioned | versioned-update
          */
-        versioning?: 'no-version' | 'versioned' | 'versioned-update';
+        versioning?: ResourceVersionPolicy;
         /**
          * Contains extended information for property 'versioning'.
          */
@@ -3087,7 +4098,7 @@ declare module fhir {
         /**
          * not-supported | modified-since | not-match | full-support
          */
-        conditionalRead?: 'not-supported' | 'modified-since' | 'not-match' | 'full-support';
+        conditionalRead?: ConditionalReadStatus;
         /**
          * Contains extended information for property 'conditionalRead'.
          */
@@ -3103,7 +4114,7 @@ declare module fhir {
         /**
          * not-supported | single | multiple - how conditional delete is supported
          */
-        conditionalDelete?: 'not-supported' | 'single' | 'multiple';
+        conditionalDelete?: ConditionalDeleteStatus;
         /**
          * Contains extended information for property 'conditionalDelete'.
          */
@@ -3111,7 +4122,7 @@ declare module fhir {
         /**
          * literal | logical | resolves | enforced | local
          */
-        referencePolicy?: Array<'literal' | 'logical' | 'resolves' | 'enforced' | 'local'>;
+        referencePolicy?: ReferenceHandlingPolicy[];
         /**
          * Contains extended information for property 'referencePolicy'.
          */
@@ -3144,16 +4155,7 @@ declare module fhir {
         /**
          * read | vread | update | patch | delete | history-instance | history-type | create | search-type
          */
-        code:
-            | 'read'
-            | 'vread'
-            | 'update'
-            | 'patch'
-            | 'delete'
-            | 'history-instance'
-            | 'history-type'
-            | 'create'
-            | 'search-type';
+        code: SystemRestfulInteraction;
         /**
          * Contains extended information for property 'code'.
          */
@@ -3190,7 +4192,7 @@ declare module fhir {
         /**
          * number | date | string | token | reference | composite | quantity | uri
          */
-        type: 'number' | 'date' | 'string' | 'token' | 'reference' | 'composite' | 'quantity' | 'uri';
+        type: SearchParamType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -3211,7 +4213,7 @@ declare module fhir {
         /**
          * transaction | batch | search-system | history-system
          */
-        code: 'transaction' | 'batch' | 'search-system' | 'history-system';
+        code: SystemRestfulInteraction;
         /**
          * Contains extended information for property 'code'.
          */
@@ -3299,7 +4301,7 @@ declare module fhir {
         /**
          * sender | receiver
          */
-        mode: 'sender' | 'receiver';
+        mode: EventCapabilityMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -3320,7 +4322,7 @@ declare module fhir {
         /**
          * Consequence | Currency | Notification
          */
-        category?: 'Consequence' | 'Currency' | 'Notification';
+        category?: MessageEvent;
         /**
          * Contains extended information for property 'category'.
          */
@@ -3328,7 +4330,7 @@ declare module fhir {
         /**
          * sender | receiver
          */
-        mode: 'sender' | 'receiver';
+        mode: EventCapabilityMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -3365,7 +4367,7 @@ declare module fhir {
         /**
          * producer | consumer
          */
-        mode: 'producer' | 'consumer';
+        mode: DocumentMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -3422,7 +4424,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -3490,7 +4492,7 @@ declare module fhir {
         /**
          * instance | capability | requirements
          */
-        kind: 'instance' | 'capability' | 'requirements';
+        kind: CapabilityStatementKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -3522,7 +4524,7 @@ declare module fhir {
         /**
          * no | extensions | elements | both
          */
-        acceptUnknown: 'no' | 'extensions' | 'elements' | 'both';
+        acceptUnknown: UnknownContentCode;
         /**
          * Contains extended information for property 'acceptUnknown'.
          */
@@ -3624,7 +4626,7 @@ declare module fhir {
         /**
          * not-started | scheduled | in-progress | on-hold | completed | cancelled | unknown
          */
-        status: 'not-started' | 'scheduled' | 'in-progress' | 'on-hold' | 'completed' | 'cancelled' | 'unknown';
+        status: CarePlanActivityStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -3721,7 +4723,7 @@ declare module fhir {
         /**
          * draft | active | suspended | completed | entered-in-error | cancelled | unknown
          */
-        status: 'draft' | 'active' | 'suspended' | 'completed' | 'entered-in-error' | 'cancelled' | 'unknown';
+        status: CarePlanStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -3729,7 +4731,7 @@ declare module fhir {
         /**
          * proposal | plan | order | option
          */
-        intent: 'proposal' | 'plan' | 'order' | 'option';
+        intent: CarePlanIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -3827,7 +4829,7 @@ declare module fhir {
         /**
          * proposed | active | suspended | inactive | entered-in-error
          */
-        status?: 'proposed' | 'active' | 'suspended' | 'inactive' | 'entered-in-error';
+        status?: CareTeamStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -3909,7 +4911,7 @@ declare module fhir {
         /**
          * planned | billable | not-billable | aborted | billed | entered-in-error | unknown
          */
-        status: 'planned' | 'billable' | 'not-billable' | 'aborted' | 'billed' | 'entered-in-error' | 'unknown';
+        status: ChargeItemStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -4531,7 +5533,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -4547,7 +5549,7 @@ declare module fhir {
         /**
          * complete | proposed | exploratory | other
          */
-        use?: 'complete' | 'proposed' | 'exploratory' | 'other';
+        use?: Use;
         /**
          * Contains extended information for property 'use'.
          */
@@ -5002,7 +6004,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -5145,7 +6147,7 @@ declare module fhir {
         /**
          * draft | completed | entered-in-error
          */
-        status: 'draft' | 'completed' | 'entered-in-error';
+        status: ClinicalImpressionStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -5311,7 +6313,7 @@ declare module fhir {
         /**
          * code | Coding | string | integer | boolean | dateTime
          */
-        type: 'code' | Coding | 'string' | 'integer' | 'boolean' | 'dateTime';
+        type: PropertyType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -5483,7 +6485,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -5567,7 +6569,7 @@ declare module fhir {
         /**
          * grouped-by | is-a | part-of | classified-with
          */
-        hierarchyMeaning?: 'grouped-by' | 'is-a' | 'part-of' | 'classified-with';
+        hierarchyMeaning?: CodeSystemHierarchyMeaning;
         /**
          * Contains extended information for property 'hierarchyMeaning'.
          */
@@ -5591,7 +6593,7 @@ declare module fhir {
         /**
          * not-present | example | fragment | complete
          */
-        content: 'not-present' | 'example' | 'fragment' | 'complete';
+        content: CodeSystemContentMode;
         /**
          * Contains extended information for property 'content'.
          */
@@ -5661,7 +6663,7 @@ declare module fhir {
         /**
          * preparation | in-progress | suspended | aborted | completed | entered-in-error
          */
-        status: 'preparation' | 'in-progress' | 'suspended' | 'aborted' | 'completed' | 'entered-in-error';
+        status: EventStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -5796,7 +6798,7 @@ declare module fhir {
         /**
          * draft | active | suspended | cancelled | completed | entered-in-error | unknown
          */
-        status: 'draft' | 'active' | 'suspended' | 'cancelled' | 'completed' | 'entered-in-error' | 'unknown';
+        status: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -5938,7 +6940,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -6023,7 +7025,7 @@ declare module fhir {
         /**
          * personal | professional | legal | official
          */
-        mode: Array<'personal' | 'professional' | 'legal' | 'official'>;
+        mode: CompositionAttestationMode[];
         /**
          * Contains extended information for property 'mode'.
          */
@@ -6048,7 +7050,7 @@ declare module fhir {
         /**
          * replaces | transforms | signs | appends
          */
-        code: 'replaces' | 'transforms' | 'signs' | 'appends';
+        code: DocumentRelationshipType;
         /**
          * Contains extended information for property 'code'.
          */
@@ -6102,7 +7104,7 @@ declare module fhir {
         /**
          * working | snapshot | changes
          */
-        mode?: 'working' | 'snapshot' | 'changes';
+        mode?: ListMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -6135,7 +7137,7 @@ declare module fhir {
         /**
          * preliminary | final | amended | entered-in-error
          */
-        status: 'preliminary' | 'final' | 'amended' | 'entered-in-error';
+        status: CompositionStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -6298,17 +7300,7 @@ declare module fhir {
         /**
          * relatedto | equivalent | equal | wider | subsumes | narrower | specializes | inexact | unmatched | disjoint
          */
-        equivalence?:
-            | 'relatedto'
-            | 'equivalent'
-            | 'equal'
-            | 'wider'
-            | 'subsumes'
-            | 'narrower'
-            | 'specializes'
-            | 'inexact'
-            | 'unmatched'
-            | 'disjoint';
+        equivalence?: ConceptMapEquivalence;
         /**
          * Contains extended information for property 'equivalence'.
          */
@@ -6374,7 +7366,7 @@ declare module fhir {
         /**
          * provided | fixed | other-map
          */
-        mode: 'provided' | 'fixed' | 'other-map';
+        mode: ConceptMapGroupUnmappedMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -6447,7 +7439,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -6578,7 +7570,7 @@ declare module fhir {
         /**
          * active | recurrence | inactive | remission | resolved
          */
-        clinicalStatus?: 'active' | 'recurrence' | 'inactive' | 'remission' | 'resolved';
+        clinicalStatus?: ConditionClinicalStatusCodes;
         /**
          * Contains extended information for property 'clinicalStatus'.
          */
@@ -6586,7 +7578,7 @@ declare module fhir {
         /**
          * provisional | differential | confirmed | refuted | entered-in-error | unknown
          */
-        verificationStatus?: 'provisional' | 'differential' | 'confirmed' | 'refuted' | 'entered-in-error' | 'unknown';
+        verificationStatus?: ConditionVerificationStatus;
         /**
          * Contains extended information for property 'verificationStatus'.
          */
@@ -6745,7 +7737,7 @@ declare module fhir {
         /**
          * instance | related | dependents | authoredby
          */
-        meaning: 'instance' | 'related' | 'dependents' | 'authoredby';
+        meaning: ConsentDataMeaning;
         /**
          * Contains extended information for property 'meaning'.
          */
@@ -6762,7 +7754,7 @@ declare module fhir {
         /**
          * deny | permit
          */
-        type: 'deny' | 'permit';
+        type: ConsentExceptType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -6824,7 +7816,7 @@ declare module fhir {
         /**
          * instance | related | dependents | authoredby
          */
-        meaning: 'instance' | 'related' | 'dependents' | 'authoredby';
+        meaning: ConsentDataMeaning;
         /**
          * Contains extended information for property 'meaning'.
          */
@@ -6845,7 +7837,7 @@ declare module fhir {
         /**
          * draft | proposed | active | rejected | inactive | entered-in-error
          */
-        status: 'draft' | 'proposed' | 'active' | 'rejected' | 'inactive' | 'entered-in-error';
+        status: ConsentState;
         /**
          * Contains extended information for property 'status'.
          */
@@ -7195,22 +8187,7 @@ declare module fhir {
         /**
          * amended | appended | cancelled | disputed | entered-in-error | executable | executed | negotiable | offered | policy | rejected | renewed | revoked | resolved | terminated
          */
-        status?:
-            | 'amended'
-            | 'appended'
-            | 'cancelled'
-            | 'disputed'
-            | 'entered-in-error'
-            | 'executable'
-            | 'executed'
-            | 'negotiable'
-            | 'offered'
-            | 'policy'
-            | 'rejected'
-            | 'renewed'
-            | 'revoked'
-            | 'resolved'
-            | 'terminated';
+        status?: ContractResourceStatusCodes;
         /**
          * Contains extended information for property 'status'.
          */
@@ -7420,7 +8397,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -7566,7 +8543,7 @@ declare module fhir {
         /**
          * closed | open | openAtEnd
          */
-        rules: 'closed' | 'open' | 'openAtEnd';
+        rules: SlicingRules;
         /**
          * Contains extended information for property 'rules'.
          */
@@ -7579,7 +8556,7 @@ declare module fhir {
         /**
          * value | exists | pattern | type | profile
          */
-        type: 'value' | 'exists' | 'pattern' | 'type' | 'profile';
+        type: DiscriminatorType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -7653,7 +8630,7 @@ declare module fhir {
         /**
          * contained | referenced | bundled - how aggregated
          */
-        aggregation?: Array<'contained' | 'referenced' | 'bundled'>;
+        aggregation?: AggregationMode[];
         /**
          * Contains extended information for property 'aggregation'.
          */
@@ -7661,7 +8638,7 @@ declare module fhir {
         /**
          * either | independent | specific
          */
-        versioning?: 'either' | 'independent' | 'specific';
+        versioning?: ReferenceVersionRules;
         /**
          * Contains extended information for property 'versioning'.
          */
@@ -7919,7 +8896,7 @@ declare module fhir {
         /**
          * error | warning
          */
-        severity: 'error' | 'warning';
+        severity: ConstraintSeverity;
         /**
          * Contains extended information for property 'severity'.
          */
@@ -7964,7 +8941,7 @@ declare module fhir {
         /**
          * required | extensible | preferred | example
          */
-        strength: 'required' | 'extensible' | 'preferred' | 'example';
+        strength: BindingStrength;
         /**
          * Contains extended information for property 'strength'.
          */
@@ -8042,7 +9019,7 @@ declare module fhir {
         /**
          * xmlAttr | xmlText | typeAttr | cdaText | xhtml
          */
-        representation?: Array<'xmlAttr' | 'xmlText' | 'typeAttr' | 'cdaText' | 'xhtml'>;
+        representation?: PropertyRepresentation[];
         /**
          * Contains extended information for property 'representation'.
          */
@@ -9027,7 +10004,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9095,7 +10072,7 @@ declare module fhir {
         /**
          * comparable | fully-specified | equivalent | convertable | scaleable | flexible
          */
-        stringency?: 'comparable' | 'fully-specified' | 'equivalent' | 'convertable' | 'scaleable' | 'flexible';
+        stringency?: DataElementStringency;
         /**
          * Contains extended information for property 'stringency'.
          */
@@ -9141,7 +10118,7 @@ declare module fhir {
         /**
          * registered | preliminary | final | amended +
          */
-        status: 'registered' | 'preliminary' | 'final' | 'amended';
+        status: ObservationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9153,7 +10130,7 @@ declare module fhir {
         /**
          * high | moderate | low
          */
-        severity?: 'high' | 'moderate' | 'low';
+        severity?: DetectedIssueSeverity;
         /**
          * Contains extended information for property 'severity'.
          */
@@ -9254,7 +10231,7 @@ declare module fhir {
         /**
          * barcode | rfid | manual +
          */
-        entryType?: 'barcode' | 'rfid' | 'manual';
+        entryType?: UDIEntryType;
         /**
          * Contains extended information for property 'entryType'.
          */
@@ -9275,7 +10252,7 @@ declare module fhir {
         /**
          * active | inactive | entered-in-error | unknown
          */
-        status?: 'active' | 'inactive' | 'entered-in-error' | 'unknown';
+        status?: FHIRDeviceStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9425,18 +10402,7 @@ declare module fhir {
         /**
          * other | chemical | electrical | impedance | nuclear | optical | thermal | biological | mechanical | acoustical | manual+
          */
-        measurementPrinciple?:
-            | 'other'
-            | 'chemical'
-            | 'electrical'
-            | 'impedance'
-            | 'nuclear'
-            | 'optical'
-            | 'thermal'
-            | 'biological'
-            | 'mechanical'
-            | 'acoustical'
-            | 'manual';
+        measurementPrinciple?: MeasmntPrinciple;
         /**
          * Contains extended information for property 'measurementPrinciple'.
          */
@@ -9457,7 +10423,7 @@ declare module fhir {
         /**
          * unspecified | offset | gain | two-point
          */
-        type?: 'unspecified' | 'offset' | 'gain' | 'two-point';
+        type?: DeviceMetricCalibrationType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -9465,7 +10431,7 @@ declare module fhir {
         /**
          * not-calibrated | calibration-required | calibrated | unspecified
          */
-        state?: 'not-calibrated' | 'calibration-required' | 'calibrated' | 'unspecified';
+        state?: DeviceMetricCalibrationState;
         /**
          * Contains extended information for property 'state'.
          */
@@ -9506,7 +10472,7 @@ declare module fhir {
         /**
          * on | off | standby | entered-in-error
          */
-        operationalStatus?: 'on' | 'off' | 'standby' | 'entered-in-error';
+        operationalStatus?: DeviceMetricOperationalStatus;
         /**
          * Contains extended information for property 'operationalStatus'.
          */
@@ -9514,7 +10480,7 @@ declare module fhir {
         /**
          * black | red | green | yellow | blue | magenta | cyan | white
          */
-        color?: 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
+        color?: DeviceMetricColor;
         /**
          * Contains extended information for property 'color'.
          */
@@ -9522,7 +10488,7 @@ declare module fhir {
         /**
          * measurement | setting | calculation | unspecified
          */
-        category: 'measurement' | 'setting' | 'calculation' | 'unspecified';
+        category: DeviceMetricCategory;
         /**
          * Contains extended information for property 'category'.
          */
@@ -9576,7 +10542,7 @@ declare module fhir {
         /**
          * draft | active | suspended | completed | entered-in-error | cancelled
          */
-        status?: 'draft' | 'active' | 'suspended' | 'completed' | 'entered-in-error' | 'cancelled';
+        status?: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9677,7 +10643,7 @@ declare module fhir {
         /**
          * active | completed | entered-in-error +
          */
-        status: 'active' | 'completed' | 'entered-in-error';
+        status: DeviceUseStatementStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9780,7 +10746,7 @@ declare module fhir {
         /**
          * registered | partial | preliminary | final +
          */
-        status: 'registered' | 'partial' | 'preliminary' | 'final';
+        status: DiagnosticReportStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9899,7 +10865,7 @@ declare module fhir {
         /**
          * current | superseded | entered-in-error
          */
-        status: 'current' | 'superseded' | 'entered-in-error';
+        status: DocumentReferenceStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -9960,7 +10926,7 @@ declare module fhir {
         /**
          * replaces | transforms | signs | appends
          */
-        code: 'replaces' | 'transforms' | 'signs' | 'appends';
+        code: DocumentRelationshipType;
         /**
          * Contains extended information for property 'code'.
          */
@@ -10044,15 +11010,15 @@ declare module fhir {
         /**
          * current | superseded | entered-in-error
          */
-        status: 'current' | 'superseded' | 'entered-in-error';
+        status: DocumentReferenceStatus;
         /**
          * Contains extended information for property 'status'.
          */
         _status?: Element;
         /**
-         * preliminary | final | appended | amended | entered-in-error
+         * preliminary | final | amended | entered-in-error
          */
-        docStatus?: 'preliminary' | 'final' | 'appended' | 'amended' | 'entered-in-error';
+        docStatus?: CompositionStatus;
         /**
          * Contains extended information for property 'docStatus'.
          */
@@ -10133,7 +11099,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10338,7 +11304,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10407,7 +11373,7 @@ declare module fhir {
         /**
          * planned | arrived | triaged | in-progress | onleave | finished | cancelled +
          */
-        status: 'planned' | 'arrived' | 'triaged' | 'in-progress' | 'onleave' | 'finished' | 'cancelled';
+        status: EncounterStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10520,7 +11486,7 @@ declare module fhir {
         /**
          * planned | active | reserved | completed
          */
-        status?: 'planned' | 'active' | 'reserved' | 'completed';
+        status?: EncounterLocationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10541,7 +11507,7 @@ declare module fhir {
         /**
          * planned | arrived | triaged | in-progress | onleave | finished | cancelled +
          */
-        status: 'planned' | 'arrived' | 'triaged' | 'in-progress' | 'onleave' | 'finished' | 'cancelled';
+        status: EncounterStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10634,7 +11600,7 @@ declare module fhir {
         /**
          * active | suspended | error | off | entered-in-error | test
          */
-        status: 'active' | 'suspended' | 'error' | 'off' | 'entered-in-error' | 'test';
+        status: EndpointStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10703,7 +11669,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10748,7 +11714,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10797,7 +11763,7 @@ declare module fhir {
         /**
          * planned | waitlist | active | onhold | finished | cancelled | entered-in-error
          */
-        status: 'planned' | 'waitlist' | 'active' | 'onhold' | 'finished' | 'cancelled' | 'entered-in-error';
+        status: EpisodeOfCareStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10839,7 +11805,7 @@ declare module fhir {
         /**
          * planned | waitlist | active | onhold | finished | cancelled | entered-in-error
          */
-        status: 'planned' | 'waitlist' | 'active' | 'onhold' | 'finished' | 'cancelled' | 'entered-in-error';
+        status: EpisodeOfCareStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -10908,7 +11874,7 @@ declare module fhir {
         /**
          * default | check | override
          */
-        mode: 'default' | 'check' | 'override';
+        mode: SystemVersionProcessingMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -11035,7 +12001,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -11954,7 +12920,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: ExplanationOfBenefitStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -12172,7 +13138,7 @@ declare module fhir {
         /**
          * partial | completed | entered-in-error | health-unknown
          */
-        status: 'partial' | 'completed' | 'entered-in-error' | 'health-unknown';
+        status: FamilyHistoryStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -12216,7 +13182,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -12325,7 +13291,7 @@ declare module fhir {
         /**
          * active | inactive | entered-in-error
          */
-        status: 'active' | 'inactive' | 'entered-in-error';
+        status: FlagStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -12399,20 +13365,7 @@ declare module fhir {
         /**
          * proposed | accepted | planned | in-progress | on-target | ahead-of-target | behind-target | sustaining | achieved | on-hold | cancelled | entered-in-error | rejected
          */
-        status:
-            | 'proposed'
-            | 'accepted'
-            | 'planned'
-            | 'in-progress'
-            | 'on-target'
-            | 'ahead-of-target'
-            | 'behind-target'
-            | 'sustaining'
-            | 'achieved'
-            | 'on-hold'
-            | 'cancelled'
-            | 'entered-in-error'
-            | 'rejected';
+        status: GoalStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -12579,7 +13532,7 @@ declare module fhir {
         /**
          * identical | matching | different | custom
          */
-        rule: 'identical' | 'matching' | 'different' | 'custom';
+        rule: GraphCompartmentRule;
         /**
          * Contains extended information for property 'rule'.
          */
@@ -12632,7 +13585,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -12791,7 +13744,7 @@ declare module fhir {
         /**
          * person | animal | practitioner | device | medication | substance
          */
-        type: 'person' | 'animal' | 'practitioner' | 'device' | 'medication' | 'substance';
+        type: GroupType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -12963,7 +13916,7 @@ declare module fhir {
         /**
          * success | data-requested | data-required | in-progress | failure | entered-in-error
          */
-        status: 'success' | 'data-requested' | 'data-required' | 'in-progress' | 'failure' | 'entered-in-error';
+        status: GuidanceResponseStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -13024,7 +13977,7 @@ declare module fhir {
         /**
          * mon | tue | wed | thu | fri | sat | sun
          */
-        daysOfWeek?: Array<'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'>;
+        daysOfWeek?: DaysOfWeek[];
         /**
          * Contains extended information for property 'daysOfWeek'.
          */
@@ -13351,7 +14304,7 @@ declare module fhir {
         /**
          * ONLINE | OFFLINE | NEARLINE | UNAVAILABLE
          */
-        availability?: 'ONLINE' | 'OFFLINE' | 'NEARLINE' | 'UNAVAILABLE';
+        availability?: InstanceAvailability;
         /**
          * Contains extended information for property 'availability'.
          */
@@ -13445,7 +14398,7 @@ declare module fhir {
         /**
          * ONLINE | OFFLINE | NEARLINE | UNAVAILABLE
          */
-        availability?: 'ONLINE' | 'OFFLINE' | 'NEARLINE' | 'UNAVAILABLE';
+        availability?: InstanceAvailability;
         /**
          * Contains extended information for property 'availability'.
          */
@@ -13642,7 +14595,7 @@ declare module fhir {
         /**
          * completed | entered-in-error
          */
-        status: 'completed' | 'entered-in-error';
+        status: ImmunizationStatusCodes;
         /**
          * Contains extended information for property 'status'.
          */
@@ -13867,7 +14820,7 @@ declare module fhir {
         /**
          * reference | inclusion
          */
-        type: 'reference' | 'inclusion';
+        type: GuideDependencyType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -13999,7 +14952,7 @@ declare module fhir {
         /**
          * page | example | list | include | directory | dictionary | toc | resource
          */
-        kind: 'page' | 'example' | 'list' | 'include' | 'directory' | 'dictionary' | 'toc' | 'resource';
+        kind: GuidePageKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -14064,7 +15017,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -14254,7 +15207,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -14383,7 +15336,7 @@ declare module fhir {
         /**
          * source | alternate | historical
          */
-        type: 'source' | 'alternate' | 'historical';
+        type: LinkageType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -14454,7 +15407,7 @@ declare module fhir {
         /**
          * current | retired | entered-in-error
          */
-        status: 'current' | 'retired' | 'entered-in-error';
+        status: ListStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -14462,7 +15415,7 @@ declare module fhir {
         /**
          * working | snapshot | changes
          */
-        mode: 'working' | 'snapshot' | 'changes';
+        mode: ListMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -14556,7 +15509,7 @@ declare module fhir {
         /**
          * active | suspended | inactive
          */
-        status?: 'active' | 'suspended' | 'inactive';
+        status?: LocationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -14592,7 +15545,7 @@ declare module fhir {
         /**
          * instance | kind
          */
-        mode?: 'instance' | 'kind';
+        mode?: LocationMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -14797,7 +15750,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15123,7 +16076,7 @@ declare module fhir {
         /**
          * complete | pending | error
          */
-        status: 'complete' | 'pending' | 'error';
+        status: MeasureReportStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15131,7 +16084,7 @@ declare module fhir {
         /**
          * individual | patient-list | summary
          */
-        type: 'individual' | 'patient-list' | 'summary';
+        type: MeasureReportType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -15184,7 +16137,7 @@ declare module fhir {
         /**
          * photo | video | audio
          */
-        type: 'photo' | 'video' | 'audio';
+        type: DigitalMediaType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -15365,7 +16318,7 @@ declare module fhir {
         /**
          * active | inactive | entered-in-error
          */
-        status?: 'active' | 'inactive' | 'entered-in-error';
+        status?: MedicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15476,7 +16429,7 @@ declare module fhir {
         /**
          * in-progress | on-hold | completed | entered-in-error | stopped | unknown
          */
-        status: 'in-progress' | 'on-hold' | 'completed' | 'entered-in-error' | 'stopped' | 'unknown';
+        status: MedicationAdministrationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15615,7 +16568,7 @@ declare module fhir {
         /**
          * preparation | in-progress | on-hold | completed | entered-in-error | stopped
          */
-        status?: 'preparation' | 'in-progress' | 'on-hold' | 'completed' | 'entered-in-error' | 'stopped';
+        status?: MedicationDispenseStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15807,15 +16760,7 @@ declare module fhir {
         /**
          * active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown
          */
-        status?:
-            | 'active'
-            | 'on-hold'
-            | 'cancelled'
-            | 'completed'
-            | 'entered-in-error'
-            | 'stopped'
-            | 'draft'
-            | 'unknown';
+        status?: MedicationRequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15823,7 +16768,7 @@ declare module fhir {
         /**
          * proposal | plan | order | instance-order
          */
-        intent: 'proposal' | 'plan' | 'order' | 'instance-order';
+        intent: MedicationRequestIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -15835,7 +16780,7 @@ declare module fhir {
         /**
          * routine | urgent | stat | asap
          */
-        priority?: 'routine' | 'urgent' | 'stat' | 'asap';
+        priority?: MedicationRequestPriority;
         /**
          * Contains extended information for property 'priority'.
          */
@@ -15936,7 +16881,7 @@ declare module fhir {
         /**
          * active | completed | entered-in-error | intended | stopped | on-hold
          */
-        status: 'active' | 'completed' | 'entered-in-error' | 'intended' | 'stopped' | 'on-hold';
+        status: MedicationStatementStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -15988,7 +16933,7 @@ declare module fhir {
         /**
          * y | n | unk | na
          */
-        taken: 'y' | 'n' | 'unk' | 'na';
+        taken: MedicationStatementTaken;
         /**
          * Contains extended information for property 'taken'.
          */
@@ -16107,7 +17052,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -16191,7 +17136,7 @@ declare module fhir {
         /**
          * Consequence | Currency | Notification
          */
-        category?: 'Consequence' | 'Currency' | 'Notification';
+        category?: MessageEvent;
         /**
          * Contains extended information for property 'category'.
          */
@@ -16294,7 +17239,7 @@ declare module fhir {
         /**
          * ok | transient-error | fatal-error
          */
-        code: 'ok' | 'transient-error' | 'fatal-error';
+        code: ResponseType;
         /**
          * Contains extended information for property 'code'.
          */
@@ -16368,7 +17313,7 @@ declare module fhir {
         /**
          * oid | uuid | uri | other
          */
-        type: 'oid' | 'uuid' | 'uri' | 'other';
+        type: NamingSystemIdentifierType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -16417,7 +17362,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -16425,7 +17370,7 @@ declare module fhir {
         /**
          * codesystem | identifier | root
          */
-        kind: 'codesystem' | 'identifier' | 'root';
+        kind: NamingSystemType;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -16672,16 +17617,7 @@ declare module fhir {
         /**
          * proposed | draft | planned | requested | active | on-hold | completed | cancelled | entered-in-error
          */
-        status?:
-            | 'proposed'
-            | 'draft'
-            | 'planned'
-            | 'requested'
-            | 'active'
-            | 'on-hold'
-            | 'completed'
-            | 'cancelled'
-            | 'entered-in-error';
+        status?: NutritionOrderStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -16771,7 +17707,7 @@ declare module fhir {
         /**
          * has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by
          */
-        type?: 'has-member' | 'derived-from' | 'sequel-to' | 'replaces' | 'qualified-by' | 'interfered-by';
+        type?: ObservationRelationshipType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -16869,15 +17805,7 @@ declare module fhir {
         /**
          * registered | preliminary | final | amended +
          */
-        status:
-            | 'registered'
-            | 'preliminary'
-            | 'final'
-            | 'amended'
-            | 'corrected'
-            | 'cancelled'
-            | 'entered-in-error'
-            | 'unknown';
+        status: ObservationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -17042,7 +17970,7 @@ declare module fhir {
         /**
          * in | out
          */
-        use: 'in' | 'out';
+        use: OperationParameterUse;
         /**
          * Contains extended information for property 'use'.
          */
@@ -17082,7 +18010,7 @@ declare module fhir {
         /**
          * number | date | string | token | reference | composite | quantity | uri
          */
-        searchType?: 'number' | 'date' | 'string' | 'token' | 'reference' | 'composite' | 'quantity' | 'uri';
+        searchType?: SearchParamType;
         /**
          * Contains extended information for property 'searchType'.
          */
@@ -17107,7 +18035,7 @@ declare module fhir {
         /**
          * required | extensible | preferred | example
          */
-        strength: 'required' | 'extensible' | 'preferred' | 'example';
+        strength: BindingStrength;
         /**
          * Contains extended information for property 'strength'.
          */
@@ -17177,7 +18105,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -17185,7 +18113,7 @@ declare module fhir {
         /**
          * operation | query
          */
-        kind: 'operation' | 'query';
+        kind: OperationKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -17318,7 +18246,7 @@ declare module fhir {
         /**
          * fatal | error | warning | information
          */
-        severity: 'fatal' | 'error' | 'warning' | 'information';
+        severity: IssueSeverity;
         /**
          * Contains extended information for property 'severity'.
          */
@@ -17716,7 +18644,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -17775,7 +18703,7 @@ declare module fhir {
         /**
          * replaced-by | replaces | refer | seealso - type of link
          */
-        type: 'replaced-by' | 'replaces' | 'refer' | 'seealso';
+        type: LinkType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -17808,7 +18736,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -17901,7 +18829,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -18012,7 +18940,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -18085,7 +19013,7 @@ declare module fhir {
         /**
          * level1 | level2 | level3 | level4
          */
-        assurance?: 'level1' | 'level2' | 'level3' | 'level4';
+        assurance?: IdentityAssuranceLevel;
         /**
          * Contains extended information for property 'assurance'.
          */
@@ -18110,7 +19038,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -18317,7 +19245,7 @@ declare module fhir {
         /**
          * visual-group | logical-group | sentence-group
          */
-        groupingBehavior?: 'visual-group' | 'logical-group' | 'sentence-group';
+        groupingBehavior?: ActionGroupingBehavior;
         /**
          * Contains extended information for property 'groupingBehavior'.
          */
@@ -18325,7 +19253,7 @@ declare module fhir {
         /**
          * any | all | all-or-none | exactly-one | at-most-one | one-or-more
          */
-        selectionBehavior?: 'any' | 'all' | 'all-or-none' | 'exactly-one' | 'at-most-one' | 'one-or-more';
+        selectionBehavior?: ActionSelectionBehavior;
         /**
          * Contains extended information for property 'selectionBehavior'.
          */
@@ -18333,7 +19261,7 @@ declare module fhir {
         /**
          * must | could | must-unless-documented
          */
-        requiredBehavior?: 'must' | 'could' | 'must-unless-documented';
+        requiredBehavior?: ActionRequiredBehavior;
         /**
          * Contains extended information for property 'requiredBehavior'.
          */
@@ -18341,7 +19269,7 @@ declare module fhir {
         /**
          * yes | no
          */
-        precheckBehavior?: 'yes' | 'no';
+        precheckBehavior?: ActionPrecheckBehavior;
         /**
          * Contains extended information for property 'precheckBehavior'.
          */
@@ -18349,7 +19277,7 @@ declare module fhir {
         /**
          * single | multiple
          */
-        cardinalityBehavior?: 'single' | 'multiple';
+        cardinalityBehavior?: ActionCardinalityBehavior;
         /**
          * Contains extended information for property 'cardinalityBehavior'.
          */
@@ -18378,14 +19306,7 @@ declare module fhir {
         /**
          * named-event | periodic | data-added | data-modified | data-removed | data-accessed | data-access-ended
          */
-        type:
-            | 'named-event'
-            | 'periodic'
-            | 'data-added'
-            | 'data-modified'
-            | 'data-removed'
-            | 'data-accessed'
-            | 'data-access-ended';
+        type: TriggerType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -18434,7 +19355,7 @@ declare module fhir {
         /**
          * applicability | start | stop
          */
-        kind: 'applicability' | 'start' | 'stop';
+        kind: ActionConditionKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -18479,16 +19400,7 @@ declare module fhir {
         /**
          * before-start | before | before-end | concurrent-with-start | concurrent | concurrent-with-end | after-start | after | after-end
          */
-        relationship:
-            | 'before-start'
-            | 'before'
-            | 'before-end'
-            | 'concurrent-with-start'
-            | 'concurrent'
-            | 'concurrent-with-end'
-            | 'after-start'
-            | 'after'
-            | 'after-end';
+        relationship: ActionRelationshipType;
         /**
          * Contains extended information for property 'relationship'.
          */
@@ -18509,7 +19421,7 @@ declare module fhir {
         /**
          * patient | practitioner | related-person
          */
-        type: 'patient' | 'practitioner' | 'related-person';
+        type: ActionParticipantType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -18603,7 +19515,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -18773,7 +19685,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -18806,7 +19718,7 @@ declare module fhir {
         /**
          * mon | tue | wed | thu | fri | sat | sun
          */
-        daysOfWeek?: Array<'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'>;
+        daysOfWeek?: DaysOfWeek[];
         /**
          * Contains extended information for property 'daysOfWeek'.
          */
@@ -18975,7 +19887,7 @@ declare module fhir {
         /**
          * preparation | in-progress | suspended | aborted | completed | entered-in-error | unknown
          */
-        status: 'preparation' | 'in-progress' | 'suspended' | 'aborted' | 'completed' | 'entered-in-error' | 'unknown';
+        status: EventStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -19117,7 +20029,7 @@ declare module fhir {
         /**
          * draft | active | suspended | completed | entered-in-error | cancelled
          */
-        status: 'draft' | 'active' | 'suspended' | 'completed' | 'entered-in-error' | 'cancelled';
+        status: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -19125,15 +20037,7 @@ declare module fhir {
         /**
          * proposal | plan | order +
          */
-        intent:
-            | 'proposal'
-            | 'plan'
-            | 'order'
-            | 'original-order'
-            | 'reflex-order'
-            | 'filler-order'
-            | 'instance-order'
-            | 'option';
+        intent: RequestIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -19141,7 +20045,7 @@ declare module fhir {
         /**
          * routine | urgent | asap | stat
          */
-        priority?: 'routine' | 'urgent' | 'asap' | 'stat';
+        priority?: RequestPriority;
         /**
          * Contains extended information for property 'priority'.
          */
@@ -19271,7 +20175,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -19279,7 +20183,7 @@ declare module fhir {
         /**
          * cancel | poll | reprocess | status
          */
-        action?: 'cancel' | 'poll' | 'reprocess' | 'status';
+        action?: ActionList;
         /**
          * Contains extended information for property 'action'.
          */
@@ -19381,7 +20285,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
@@ -19483,7 +20387,7 @@ declare module fhir {
         /**
          * derivation | revision | quotation | source | removal
          */
-        role: 'derivation' | 'revision' | 'quotation' | 'source' | 'removal';
+        role: ProvenanceEntityRole;
         /**
          * Contains extended information for property 'role'.
          */
@@ -19605,23 +20509,7 @@ declare module fhir {
         /**
          * group | display | boolean | decimal | integer | date | dateTime +
          */
-        type:
-            | 'group'
-            | 'display'
-            | 'boolean'
-            | 'decimal'
-            | 'integer'
-            | 'date'
-            | 'dateTime'
-            | 'time'
-            | 'string'
-            | 'text'
-            | 'url'
-            | 'choice'
-            | 'open-choice'
-            | 'attachment'
-            | 'reference'
-            | 'quantity';
+        type: QuestionnaireItemType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -19940,7 +20828,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20195,7 +21083,7 @@ declare module fhir {
         /**
          * in-progress | completed | amended | entered-in-error | stopped
          */
-        status: 'in-progress' | 'completed' | 'amended' | 'entered-in-error' | 'stopped';
+        status: QuestionnaireResponseStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20269,7 +21157,7 @@ declare module fhir {
         /**
          * draft | active | suspended | cancelled | completed | entered-in-error | unknown
          */
-        status: 'draft' | 'active' | 'suspended' | 'cancelled' | 'completed' | 'entered-in-error' | 'unknown';
+        status: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20277,7 +21165,7 @@ declare module fhir {
         /**
          * proposal | plan | order
          */
-        intent: 'proposal' | 'plan' | 'order';
+        intent: RequestIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -20402,7 +21290,7 @@ declare module fhir {
         /**
          * male | female | other | unknown
          */
-        gender?: 'male' | 'female' | 'other' | 'unknown';
+        gender?: AdministrativeGender;
         /**
          * Contains extended information for property 'gender'.
          */
@@ -20515,7 +21403,7 @@ declare module fhir {
         /**
          * visual-group | logical-group | sentence-group
          */
-        groupingBehavior?: 'visual-group' | 'logical-group' | 'sentence-group';
+        groupingBehavior?: ActionGroupingBehavior;
         /**
          * Contains extended information for property 'groupingBehavior'.
          */
@@ -20523,7 +21411,7 @@ declare module fhir {
         /**
          * any | all | all-or-none | exactly-one | at-most-one | one-or-more
          */
-        selectionBehavior?: 'any' | 'all' | 'all-or-none' | 'exactly-one' | 'at-most-one' | 'one-or-more';
+        selectionBehavior?: ActionSelectionBehavior;
         /**
          * Contains extended information for property 'selectionBehavior'.
          */
@@ -20531,7 +21419,7 @@ declare module fhir {
         /**
          * must | could | must-unless-documented
          */
-        requiredBehavior?: 'must' | 'could' | 'must-unless-documented';
+        requiredBehavior?: ActionRequiredBehavior;
         /**
          * Contains extended information for property 'requiredBehavior'.
          */
@@ -20539,7 +21427,7 @@ declare module fhir {
         /**
          * yes | no
          */
-        precheckBehavior?: 'yes' | 'no';
+        precheckBehavior?: ActionPrecheckBehavior;
         /**
          * Contains extended information for property 'precheckBehavior'.
          */
@@ -20547,7 +21435,7 @@ declare module fhir {
         /**
          * single | multiple
          */
-        cardinalityBehavior?: 'single' | 'multiple';
+        cardinalityBehavior?: ActionCardinalityBehavior;
         /**
          * Contains extended information for property 'cardinalityBehavior'.
          */
@@ -20568,7 +21456,7 @@ declare module fhir {
         /**
          * applicability | start | stop
          */
-        kind: 'applicability' | 'start' | 'stop';
+        kind: ActionConditionKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -20613,16 +21501,7 @@ declare module fhir {
         /**
          * before-start | before | before-end | concurrent-with-start | concurrent | concurrent-with-end | after-start | after | after-end
          */
-        relationship:
-            | 'before-start'
-            | 'before'
-            | 'before-end'
-            | 'concurrent-with-start'
-            | 'concurrent'
-            | 'concurrent-with-end'
-            | 'after-start'
-            | 'after'
-            | 'after-end';
+        relationship: ActionRelationshipType;
         /**
          * Contains extended information for property 'relationship'.
          */
@@ -20663,7 +21542,7 @@ declare module fhir {
         /**
          * draft | active | suspended | cancelled | completed | entered-in-error | unknown
          */
-        status: 'draft' | 'active' | 'suspended' | 'cancelled' | 'completed' | 'entered-in-error' | 'unknown';
+        status: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20671,7 +21550,7 @@ declare module fhir {
         /**
          * proposal | plan | order
          */
-        intent: 'proposal' | 'plan' | 'order';
+        intent: RequestIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -20679,7 +21558,7 @@ declare module fhir {
         /**
          * routine | urgent | asap | stat
          */
-        priority?: 'routine' | 'urgent' | 'asap' | 'stat';
+        priority?: RequestPriority;
         /**
          * Contains extended information for property 'priority'.
          */
@@ -20773,7 +21652,7 @@ declare module fhir {
         /**
          * draft | in-progress | suspended | stopped | completed | entered-in-error
          */
-        status: 'draft' | 'in-progress' | 'suspended' | 'stopped' | 'completed' | 'entered-in-error';
+        status: ResearchStudyStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20854,7 +21733,7 @@ declare module fhir {
         /**
          * candidate | enrolled | active | suspended | withdrawn | completed
          */
-        status: 'candidate' | 'enrolled' | 'active' | 'suspended' | 'withdrawn' | 'completed';
+        status: ResearchSubjectStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -20960,7 +21839,7 @@ declare module fhir {
         /**
          * registered | preliminary | final | amended +
          */
-        status: 'registered' | 'preliminary' | 'final' | 'amended';
+        status: ObservationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -21127,7 +22006,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -21195,7 +22074,7 @@ declare module fhir {
         /**
          * number | date | string | token | reference | composite | quantity | uri
          */
-        type: 'number' | 'date' | 'string' | 'token' | 'reference' | 'composite' | 'quantity' | 'uri';
+        type: SearchParamType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -21235,7 +22114,7 @@ declare module fhir {
         /**
          * normal | phonetic | nearby | distance | other
          */
-        xpathUsage?: 'normal' | 'phonetic' | 'nearby' | 'distance' | 'other';
+        xpathUsage?: XPathUsageType;
         /**
          * Contains extended information for property 'xpathUsage'.
          */
@@ -21251,7 +22130,7 @@ declare module fhir {
         /**
          * eq | ne | gt | lt | ge | le | sa | eb | ap
          */
-        comparator?: Array<'eq' | 'ne' | 'gt' | 'lt' | 'ge' | 'le' | 'sa' | 'eb' | 'ap'>;
+        comparator?: SearchComparator[];
         /**
          * Contains extended information for property 'comparator'.
          */
@@ -21259,9 +22138,7 @@ declare module fhir {
         /**
          * missing | exact | contains | not | text | in | not-in | below | above | type
          */
-        modifier?: Array<
-            'missing' | 'exact' | 'contains' | 'not' | 'text' | 'in' | 'not-in' | 'below' | 'above' | 'type'
-        >;
+        modifier?: SearchModifierCode[];
         /**
          * Contains extended information for property 'modifier'.
          */
@@ -21392,7 +22269,7 @@ declare module fhir {
         /**
          * indel | snp | unknown
          */
-        type: 'indel' | 'snp' | 'unknown';
+        type: QualityType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -21497,7 +22374,7 @@ declare module fhir {
         /**
          * directlink | openapi | login | oauth | other
          */
-        type: 'directlink' | 'openapi' | 'login' | 'oauth' | 'other';
+        type: RepositoryType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -21554,7 +22431,7 @@ declare module fhir {
         /**
          * aa | dna | rna
          */
-        type?: 'aa' | 'dna' | 'rna';
+        type?: SequenceType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -21667,7 +22544,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -21816,7 +22693,7 @@ declare module fhir {
         /**
          * busy | free | busy-unavailable | busy-tentative | entered-in-error
          */
-        status: 'busy' | 'free' | 'busy-unavailable' | 'busy-tentative' | 'entered-in-error';
+        status: SlotStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -21972,7 +22849,7 @@ declare module fhir {
         /**
          * available | unavailable | unsatisfactory | entered-in-error
          */
-        status?: 'available' | 'unavailable' | 'unsatisfactory' | 'entered-in-error';
+        status?: SpecimenStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -22116,7 +22993,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -22200,7 +23077,7 @@ declare module fhir {
         /**
          * primitive-type | complex-type | resource | logical
          */
-        kind: 'primitive-type' | 'complex-type' | 'resource' | 'logical';
+        kind: StructureDefinitionKind;
         /**
          * Contains extended information for property 'kind'.
          */
@@ -22216,7 +23093,7 @@ declare module fhir {
         /**
          * resource | datatype | extension
          */
-        contextType?: 'resource' | 'datatype' | 'extension';
+        contextType?: ExtensionContext;
         /**
          * Contains extended information for property 'contextType'.
          */
@@ -22256,7 +23133,7 @@ declare module fhir {
         /**
          * specialization | constraint - How relates to base definition
          */
-        derivation?: 'specialization' | 'constraint';
+        derivation?: TypeDerivationRule;
         /**
          * Contains extended information for property 'derivation'.
          */
@@ -22285,7 +23162,7 @@ declare module fhir {
         /**
          * source | queried | target | produced
          */
-        mode: 'source' | 'queried' | 'target' | 'produced';
+        mode: StructureMapModelMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -22330,7 +23207,7 @@ declare module fhir {
         /**
          * none | types | type-and-types
          */
-        typeMode: 'none' | 'types' | 'type-and-types';
+        typeMode: StructureMapGroupTypeMode;
         /**
          * Contains extended information for property 'typeMode'.
          */
@@ -22375,7 +23252,7 @@ declare module fhir {
         /**
          * source | target
          */
-        mode: 'source' | 'target';
+        mode: StructureMapInputMode;
         /**
          * Contains extended information for property 'mode'.
          */
@@ -22689,7 +23566,7 @@ declare module fhir {
         /**
          * first | not_first | last | not_last | only_one
          */
-        listMode?: 'first' | 'not_first' | 'last' | 'not_last' | 'only_one';
+        listMode?: StructureMapSourceListMode;
         /**
          * Contains extended information for property 'listMode'.
          */
@@ -22734,7 +23611,7 @@ declare module fhir {
         /**
          * type | variable
          */
-        contextType?: 'type' | 'variable';
+        contextType?: StructureMapContextType;
         /**
          * Contains extended information for property 'contextType'.
          */
@@ -22758,7 +23635,7 @@ declare module fhir {
         /**
          * first | share | last | collate
          */
-        listMode?: Array<'first' | 'share' | 'last' | 'collate'>;
+        listMode?: StructureMapTargetListMode[];
         /**
          * Contains extended information for property 'listMode'.
          */
@@ -22774,24 +23651,7 @@ declare module fhir {
         /**
          * create | copy +
          */
-        transform?:
-            | 'create'
-            | 'copy'
-            | 'truncate'
-            | 'excape'
-            | 'cast'
-            | 'append'
-            | 'translate'
-            | 'reference'
-            | 'dateOP'
-            | 'uuid'
-            | 'pointer'
-            | 'evaluate'
-            | 'cc'
-            | 'c'
-            | 'qty'
-            | 'id'
-            | 'cp';
+        transform?: StructureMapTransform;
         /**
          * Contains extended information for property 'transform'.
          */
@@ -22910,7 +23770,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -22999,7 +23859,7 @@ declare module fhir {
         /**
          * rest-hook | websocket | email | sms | message
          */
-        type: 'rest-hook' | 'websocket' | 'email' | 'sms' | 'message';
+        type: SubscriptionChannelType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -23036,7 +23896,7 @@ declare module fhir {
         /**
          * requested | active | error | off
          */
-        status: 'requested' | 'active' | 'error' | 'off';
+        status: SubscriptionStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -23135,7 +23995,7 @@ declare module fhir {
         /**
          * active | inactive | entered-in-error
          */
-        status?: 'active' | 'inactive' | 'entered-in-error';
+        status?: FHIRSubstanceStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -23201,7 +24061,7 @@ declare module fhir {
         /**
          * in-progress | completed | abandoned | entered-in-error
          */
-        status?: 'in-progress' | 'completed' | 'abandoned' | 'entered-in-error';
+        status?: SupplyDeliveryStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -23288,7 +24148,7 @@ declare module fhir {
         /**
          * draft | active | suspended +
          */
-        status?: 'draft' | 'active' | 'suspended' | 'cancelled' | 'completed' | 'entered-in-error' | 'unknown';
+        status?: RequestStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -23300,7 +24160,7 @@ declare module fhir {
         /**
          * routine | urgent | asap | stat
          */
-        priority?: 'routine' | 'urgent' | 'asap' | 'stat';
+        priority?: RequestPriority;
         /**
          * Contains extended information for property 'priority'.
          */
@@ -23877,19 +24737,7 @@ declare module fhir {
         /**
          * draft | requested | received | accepted | +
          */
-        status:
-            | 'draft'
-            | 'requested'
-            | 'received'
-            | 'accepted'
-            | 'rejected'
-            | 'ready'
-            | 'cancelled'
-            | 'in-progress'
-            | 'on-hold'
-            | 'failed'
-            | 'completed'
-            | 'entered-in-error';
+        status: TaskStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -23905,15 +24753,7 @@ declare module fhir {
         /**
          * proposal | plan | order +
          */
-        intent:
-            | 'proposal'
-            | 'plan'
-            | 'order'
-            | 'original-order'
-            | 'reflex-order'
-            | 'filler-order'
-            | 'instance-order'
-            | 'option';
+        intent: RequestIntent;
         /**
          * Contains extended information for property 'intent'.
          */
@@ -23921,7 +24761,7 @@ declare module fhir {
         /**
          * routine | normal | urgent | asap | stat
          */
-        priority?: 'routine' | 'normal' | 'urgent' | 'asap' | 'stat';
+        priority?: RequestPriority;
         /**
          * Contains extended information for property 'priority'.
          */
@@ -24014,7 +24854,7 @@ declare module fhir {
         /**
          * test-engine | client | server
          */
-        type: 'test-engine' | 'client' | 'server';
+        type: TestReportParticipantType;
         /**
          * Contains extended information for property 'type'.
          */
@@ -24065,7 +24905,7 @@ declare module fhir {
         /**
          * pass | skip | fail | warning | error
          */
-        result: 'pass' | 'skip' | 'fail' | 'warning' | 'error';
+        result: TestReportActionResult;
         /**
          * Contains extended information for property 'result'.
          */
@@ -24094,7 +24934,7 @@ declare module fhir {
         /**
          * pass | skip | fail | warning | error
          */
-        result: 'pass' | 'skip' | 'fail' | 'warning' | 'error';
+        result: TestReportActionResult;
         /**
          * Contains extended information for property 'result'.
          */
@@ -24191,7 +25031,7 @@ declare module fhir {
         /**
          * completed | in-progress | waiting | stopped | entered-in-error
          */
-        status: 'completed' | 'in-progress' | 'waiting' | 'stopped' | 'entered-in-error';
+        status: TestReportStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -24203,7 +25043,7 @@ declare module fhir {
         /**
          * pass | fail | pending
          */
-        result: 'pass' | 'fail' | 'pending';
+        result: TestReportResult;
         /**
          * Contains extended information for property 'result'.
          */
@@ -24610,7 +25450,7 @@ declare module fhir {
         /**
          * xml | json | ttl | none
          */
-        accept?: 'xml' | 'json' | 'ttl' | 'none';
+        accept?: ContentType;
         /**
          * Contains extended information for property 'accept'.
          */
@@ -24618,7 +25458,7 @@ declare module fhir {
         /**
          * xml | json | ttl | none
          */
-        contentType?: 'xml' | 'json' | 'ttl' | 'none';
+        contentType?: ContentType;
         /**
          * Contains extended information for property 'contentType'.
          */
@@ -24744,7 +25584,7 @@ declare module fhir {
         /**
          * response | request
          */
-        direction?: 'response' | 'request';
+        direction?: AssertionDirectionType;
         /**
          * Contains extended information for property 'direction'.
          */
@@ -24776,7 +25616,7 @@ declare module fhir {
         /**
          * xml | json | ttl | none
          */
-        contentType?: 'xml' | 'json' | 'ttl' | 'none';
+        contentType?: ContentType;
         /**
          * Contains extended information for property 'contentType'.
          */
@@ -24816,18 +25656,7 @@ declare module fhir {
         /**
          * equals | notEquals | in | notIn | greaterThan | lessThan | empty | notEmpty | contains | notContains | eval
          */
-        operator?:
-            | 'equals'
-            | 'notEquals'
-            | 'in'
-            | 'notIn'
-            | 'greaterThan'
-            | 'lessThan'
-            | 'empty'
-            | 'notEmpty'
-            | 'contains'
-            | 'notContains'
-            | 'eval';
+        operator?: AssertionOperatorType;
         /**
          * Contains extended information for property 'operator'.
          */
@@ -24843,7 +25672,7 @@ declare module fhir {
         /**
          * delete | get | options | patch | post | put
          */
-        requestMethod?: 'delete' | 'get' | 'options' | 'patch' | 'post' | 'put';
+        requestMethod?: TestScriptRequestMethodCode;
         /**
          * Contains extended information for property 'requestMethod'.
          */
@@ -24867,19 +25696,7 @@ declare module fhir {
         /**
          * okay | created | noContent | notModified | bad | forbidden | notFound | methodNotAllowed | conflict | gone | preconditionFailed | unprocessable
          */
-        response?:
-            | 'okay'
-            | 'created'
-            | 'noContent'
-            | 'notModified'
-            | 'bad'
-            | 'forbidden'
-            | 'notFound'
-            | 'methodNotAllowed'
-            | 'conflict'
-            | 'gone'
-            | 'preconditionFailed'
-            | 'unprocessable';
+        response?: AssertionResponseTypes;
         /**
          * Contains extended information for property 'response'.
          */
@@ -25125,7 +25942,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -25366,7 +26183,7 @@ declare module fhir {
         /**
          * = | is-a | descendent-of | is-not-a | regex | in | not-in | generalizes | exists
          */
-        op: '=' | 'is-a' | 'descendent-of' | 'is-not-a' | 'regex' | 'in' | 'not-in' | 'generalizes' | 'exists';
+        op: FilterOperator;
         /**
          * Contains extended information for property 'op'.
          */
@@ -25590,7 +26407,7 @@ declare module fhir {
         /**
          * draft | active | retired | unknown
          */
-        status: 'draft' | 'active' | 'retired' | 'unknown';
+        status: PublicationStatus;
         /**
          * Contains extended information for property 'status'.
          */
@@ -25691,7 +26508,7 @@ declare module fhir {
         /**
          * right | left
          */
-        eye?: 'right' | 'left';
+        eye?: VisionEyes;
         /**
          * Contains extended information for property 'eye'.
          */
@@ -25731,7 +26548,7 @@ declare module fhir {
         /**
          * up | down | in | out
          */
-        base?: 'up' | 'down' | 'in' | 'out';
+        base?: VisionBase;
         /**
          * Contains extended information for property 'base'.
          */
@@ -25804,7 +26621,7 @@ declare module fhir {
         /**
          * active | cancelled | draft | entered-in-error
          */
-        status?: 'active' | 'cancelled' | 'draft' | 'entered-in-error';
+        status?: FinancialResourceStatusCode;
         /**
          * Contains extended information for property 'status'.
          */
