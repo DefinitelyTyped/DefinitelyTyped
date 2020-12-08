@@ -15,10 +15,16 @@ declare global {
     // Global variable with Figma's plugin API.
     const figma: PluginAPI;
     const __html__: string;
+    const __uiFiles__: {
+        [key: string]: string;
+    };
 
     interface PluginAPI {
         readonly apiVersion: '1.0.0';
         readonly command: string;
+
+        readonly fileKey: string | undefined;
+
         readonly viewport: ViewportAPI;
         closePlugin(message?: string): void;
 
@@ -70,6 +76,7 @@ declare global {
         getLocalGridStyles(): GridStyle[];
 
         importComponentByKeyAsync(key: string): Promise<ComponentNode>;
+        importComponentSetByKeyAsync(key: string): Promise<ComponentSetNode>;
         importStyleByKeyAsync(key: string): Promise<BaseStyle>;
 
         listAvailableFontsAsync(): Promise<Font[]>;
@@ -81,6 +88,11 @@ declare global {
         createImage(data: Uint8Array): Image;
         getImageByHash(hash: string): Image;
 
+        combineAsVariants(
+            nodes: ReadonlyArray<ComponentNode>,
+            parent: BaseNode & ChildrenMixin,
+            index?: number,
+        ): ComponentSetNode;
         group(nodes: ReadonlyArray<BaseNode>, parent: BaseNode & ChildrenMixin, index?: number): GroupNode;
         flatten(nodes: ReadonlyArray<BaseNode>, parent?: BaseNode & ChildrenMixin, index?: number): VectorNode;
 
@@ -99,7 +111,7 @@ declare global {
     }
 
     interface ClientStorageAPI {
-        getAsync(key: string): Promise<any>;
+        getAsync(key: string): Promise<any | undefined>;
         setAsync(key: string, value: any): Promise<void>;
     }
 
@@ -197,6 +209,7 @@ declare global {
         readonly color: RGBA;
         readonly offset: Vector;
         readonly radius: number;
+        readonly spread?: number;
         readonly visible: boolean;
         readonly blendMode: BlendMode;
     }
@@ -373,7 +386,6 @@ declare global {
           };
 
     type BlendMode =
-        | 'PASS_THROUGH'
         | 'NORMAL'
         | 'DARKEN'
         | 'MULTIPLY'
@@ -397,10 +409,7 @@ declare global {
         fontName: FontName;
     }
 
-    interface Reaction {
-        action: Action;
-        trigger: Trigger;
-    }
+    type Reaction = { action: Action; trigger: Trigger };
 
     type Action =
         | { readonly type: 'BACK' | 'CLOSE' }
@@ -443,6 +452,14 @@ declare global {
 
     interface Easing {
         readonly type: 'EASE_IN' | 'EASE_OUT' | 'EASE_IN_AND_OUT' | 'LINEAR';
+        readonly easingFunctionCubicBezier?: EasingFunctionBezier;
+    }
+
+    interface EasingFunctionBezier {
+        x1: number;
+        y1: number;
+        x2: number;
+        y2: number;
     }
 
     type OverflowDirection = 'NONE' | 'HORIZONTAL' | 'VERTICAL' | 'BOTH';
@@ -460,6 +477,8 @@ declare global {
     type OverlayBackground = { readonly type: 'NONE' } | { readonly type: 'SOLID_COLOR'; readonly color: RGBA };
 
     type OverlayBackgroundInteraction = 'NONE' | 'CLOSE_ON_CLICK_OUTSIDE';
+
+    type PublishStatus = 'UNPUBLISHED' | 'CURRENT' | 'CHANGED';
 
     ////////////////////////////////////////////////////////////////////////////////
     // Mixins
@@ -524,15 +543,17 @@ declare global {
         readonly height: number;
         constrainProportions: boolean;
 
-        layoutAlign: 'MIN' | 'CENTER' | 'MAX' | 'STRETCH'; // applicable only inside auto-layout frames
+        layoutAlign: 'MIN' | 'CENTER' | 'MAX' | 'STRETCH' | 'INHERIT'; // applicable only inside auto-layout frames
+        layoutGrow: number;
 
         resize(width: number, height: number): void;
         resizeWithoutConstraints(width: number, height: number): void;
+        rescale(scale: number): void;
     }
 
     interface BlendMixin {
         opacity: number;
-        blendMode: BlendMode;
+        blendMode: 'PASS_THROUGH' | BlendMode;
         isMask: boolean;
         effects: ReadonlyArray<Effect>;
         effectStyleId: string;
@@ -579,8 +600,24 @@ declare global {
         exportAsync(settings?: ExportSettings): Promise<Uint8Array>; // Defaults to PNG format
     }
 
+    interface FramePrototypingMixin {
+        overflowDirection: OverflowDirection;
+        numberOfFixedChildren: number;
+
+        readonly overlayPositionType: OverlayPositionType;
+        readonly overlayBackground: OverlayBackground;
+        readonly overlayBackgroundInteraction: OverlayBackgroundInteraction;
+    }
+
     interface ReactionMixin {
         readonly reactions: ReadonlyArray<Reaction>;
+    }
+
+    interface PublishableMixin {
+        description: string;
+        readonly remote: boolean;
+        readonly key: string; // The key to use with "importComponentByKeyAsync", "importComponentSetByKeyAsync", and "importStyleByKeyAsync"
+        getPublishStatusAsync(): Promise<PublishStatus>;
     }
 
     interface DefaultShapeMixin
@@ -592,10 +629,9 @@ declare global {
             LayoutMixin,
             ExportMixin {}
 
-    interface DefaultFrameMixin
+    interface BaseFrameMixin
         extends BaseNodeMixin,
             SceneNodeMixin,
-            ReactionMixin,
             ChildrenMixin,
             ContainerMixin,
             GeometryMixin,
@@ -606,23 +642,28 @@ declare global {
             LayoutMixin,
             ExportMixin {
         layoutMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL';
+        primaryAxisSizingMode: 'FIXED' | 'AUTO'; // applicable only if layoutMode != "NONE"
         counterAxisSizingMode: 'FIXED' | 'AUTO'; // applicable only if layoutMode != "NONE"
-        horizontalPadding: number; // applicable only if layoutMode != "NONE"
-        verticalPadding: number; // applicable only if layoutMode != "NONE"
+
+        primaryAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN'; // applicable only if layoutMode != "NONE"
+        counterAxisAlignItems: 'MIN' | 'MAX' | 'CENTER'; // applicable only if layoutMode != "NONE"
+
+        paddingLeft: number; // applicable only if layoutMode != "NONE"
+        paddingRight: number; // applicable only if layoutMode != "NONE"
+        paddingTop: number; // applicable only if layoutMode != "NONE"
+        paddingBottom: number; // applicable only if layoutMode != "NONE"
         itemSpacing: number; // applicable only if layoutMode != "NONE"
+
+        horizontalPadding: number; // DEPRECATED: use the individual paddings
+        verticalPadding: number; // DEPRECATED: use the individual paddings
 
         layoutGrids: ReadonlyArray<LayoutGrid>;
         gridStyleId: string;
         clipsContent: boolean;
         guides: ReadonlyArray<Guide>;
-
-        overflowDirection: OverflowDirection;
-        numberOfFixedChildren: number;
-
-        readonly overlayPositionType: OverlayPositionType;
-        readonly overlayBackground: OverlayBackground;
-        readonly overlayBackgroundInteraction: OverlayBackgroundInteraction;
     }
+
+    interface DefaultFrameMixin extends BaseFrameMixin, FramePrototypingMixin, ReactionMixin {}
 
     ////////////////////////////////////////////////////////////////////////////////
     // Nodes
@@ -634,7 +675,7 @@ declare global {
 
         appendChild(child: PageNode): void;
         insertChild(index: number, child: PageNode): void;
-        findChildren(callback?: (node: PageNode) => boolean): PageNode[];
+        findChildren(callback?: (node: PageNode) => boolean): Array<PageNode>;
         findChild(callback: (node: PageNode) => boolean): PageNode | null;
 
         /**
@@ -766,20 +807,22 @@ declare global {
         setRangeFillStyleId(start: number, end: number, value: string): void;
     }
 
-    interface ComponentNode extends DefaultFrameMixin {
+    interface ComponentSetNode extends BaseFrameMixin, PublishableMixin {
+        readonly type: 'COMPONENT_SET';
+        clone(): ComponentSetNode;
+        readonly defaultVariant: ComponentNode;
+    }
+
+    interface ComponentNode extends DefaultFrameMixin, PublishableMixin {
         readonly type: 'COMPONENT';
         clone(): ComponentNode;
-
         createInstance(): InstanceNode;
-        description: string;
-        readonly remote: boolean;
-        readonly key: string; // The key to use with "importComponentByKeyAsync"
     }
 
     interface InstanceNode extends DefaultFrameMixin {
         readonly type: 'INSTANCE';
         clone(): InstanceNode;
-        masterComponent: ComponentNode;
+        mainComponent: ComponentNode | null;
         scaleFactor: number;
     }
 
@@ -797,6 +840,7 @@ declare global {
         | SliceNode
         | FrameNode
         | GroupNode
+        | ComponentSetNode
         | ComponentNode
         | InstanceNode
         | BooleanOperationNode
@@ -814,6 +858,7 @@ declare global {
         | 'SLICE'
         | 'FRAME'
         | 'GROUP'
+        | 'COMPONENT_SET'
         | 'COMPONENT'
         | 'INSTANCE'
         | 'BOOLEAN_OPERATION'
@@ -829,13 +874,10 @@ declare global {
     // Styles
     type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID';
 
-    interface BaseStyle {
+    interface BaseStyle extends PublishableMixin {
         readonly id: string;
         readonly type: StyleType;
         name: string;
-        description: string;
-        remote: boolean;
-        readonly key: string; // The key to use with "importStyleByKeyAsync"
         remove(): void;
     }
 
