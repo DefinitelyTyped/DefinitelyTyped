@@ -164,6 +164,17 @@ declare class Libp2p {
      */
     unhandle(protocols: string[]): void;
 
+    /**
+     *
+     * Pings a given peer and get the operation's latency.
+     *
+     * Returns promise with latency in ms
+     * 
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#ping
+     * @example
+    const latency = await libp2p.ping(otherPeerId)
+     */
+    ping(peer: PeerId | MultiAddr | string): Promise<number>;
 }
 
 export * from './options';
