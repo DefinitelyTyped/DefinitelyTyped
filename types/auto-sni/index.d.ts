@@ -12,7 +12,7 @@ declare namespace createServer {
     interface Options {
         email: string;
         agreeTos: boolean;
-        domains: DomainList | () => (DomainList | Promise<DomainList>);
+        domains: DomainList | (() => (DomainList | Promise<DomainList>));
         ports?: {
             http?: number,
             https?: number
