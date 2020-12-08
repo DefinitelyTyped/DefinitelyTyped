@@ -76,6 +76,23 @@ declare class Libp2p {
     }
      */
     get connections(): Map<string, Connection[]>;
+
+    /**
+     * If a Multiaddr or its string is provided, it must include the peer id. Moreover, if a PeerId is given, the peer will need to have known multiaddrs for it in the PeerStore.
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#dial
+     * @example
+    // ...
+    const conn = await libp2p.dial(remotePeerId)
+
+    // create a new stream within the connection
+    const { stream, protocol } = await conn.newStream(['/echo/1.1.0', '/echo/1.0.0'])
+
+    // protocol negotiated: 'echo/1.0.0' means that the other party only supports the older version
+
+    // ...
+    await conn.close()
+     */
+    dial(peer: PeerId | MultiAddr | string, options: { signal: AbortSignal }): Promise<Connection>;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
