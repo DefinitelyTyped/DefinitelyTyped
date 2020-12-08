@@ -4,6 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { RedisClient } from 'redis';
+import { Redis as IORedisClient } from 'ioredis';
 
 declare class Limiter {
     constructor(opts: Limiter.LimiterOption);
@@ -29,7 +30,7 @@ declare namespace Limiter {
         /**
          * Redis connection instance
          */
-        db: RedisClient;
+        db: RedisClient | IORedisClient;
 
         /**
          * Max requests within duration
