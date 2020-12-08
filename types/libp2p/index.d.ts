@@ -346,6 +346,11 @@ declare class Libp2p {
     peerStore: {
         /**
          * Get all the stored information of every peer.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstorepeers
+         * @example
+        for (let [peerIdString, peer] of peerStore.peers.entries()) {
+            // peer { id, addresses, metadata, protocols }
+        }
          */
         peers: Map<
             string,
