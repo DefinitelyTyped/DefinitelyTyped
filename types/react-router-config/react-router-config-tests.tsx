@@ -1,6 +1,6 @@
-import * as React from "react";
-import { RouteConfig, matchRoutes, MatchedRoute, renderRoutes, RouteConfigComponentProps } from "react-router-config";
-import { BrowserRouter } from "react-router-dom";
+import * as React from 'react';
+import { RouteConfig, matchRoutes, MatchedRoute, renderRoutes, RouteConfigComponentProps } from 'react-router-config';
+import { BrowserRouter } from 'react-router-dom';
 
 const Root = ({ route }: RouteConfigComponentProps) => (
     <div>
@@ -36,24 +36,26 @@ const routes: RouteConfig[] = [
         component: Root,
         routes: [
             {
-                path: "/",
+                path: '/',
                 exact: true,
-                component: Home
+                component: Home,
             },
             {
-                path: "/child/:id",
+                path: '/child/:id',
                 component: Child,
-                routes: [{
-                    path: "/child/:id/grand-child",
-                    component: GrandChild
-                }],
-                loadData: () => Promise.resolve({})
-            }
-        ]
-    }
+                routes: [
+                    {
+                        path: '/child/:id/grand-child',
+                        component: GrandChild,
+                    },
+                ],
+                loadData: () => Promise.resolve({}),
+            },
+        ],
+    },
 ];
 
-const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, "/child/23");
+const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, '/child/23');
 // using the routes shown earlier, this returns
 // [
 //   routes[0],
@@ -73,16 +75,16 @@ const routesWithCustomConfig: CustomRouteConfig[] = [
         customProperty: 'hello',
         routes: [
             {
-                path: "/",
+                path: '/',
                 exact: true,
                 component: Home,
             },
-        ]
-    }
+        ],
+    },
 ];
 
 // $ExpectType MatchedRoute<{}, CustomRouteConfig>[]
-const branchWithCustomRoutes = matchRoutes(routesWithCustomConfig, "/child/23");
+const branchWithCustomRoutes = matchRoutes(routesWithCustomConfig, '/child/23');
 // $ExpectType MatchedRoute<{}, CustomRouteConfig>
 const customRoute = branchWithCustomRoutes[0];
 // $ExpectType string
