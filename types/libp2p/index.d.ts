@@ -108,7 +108,7 @@ declare class Libp2p {
     // ...
     await conn.close()
      */
-    dial(peer: PeerId | MultiAddr | string, options: { signal: AbortSignal }): Promise<Connection>;
+    dial(peer: PeerId | MultiAddr | string, options?: { signal: AbortSignal }): Promise<Connection>;
 
     /**
      * Dials to another peer in the network and selects a protocol to communicate with that peer. The stream between both parties is returned, together with the negotiated protocol.
@@ -129,7 +129,7 @@ declare class Libp2p {
     dialProtocol(
         peer: PeerId | MultiAddr | string,
         protocols: string[],
-        options: { signal: AbortSignal },
+        options?: { signal: AbortSignal },
     ): // FIXME replace stream type
     Promise<{ stream: any; protocol: string }>;
 
@@ -248,7 +248,7 @@ declare class Libp2p {
          */
         findProviders(
             cid: CID,
-            options: { timeout: number; maxNumProviders: number },
+            options?: { timeout: number; maxNumProviders: number },
         ): Iterable<{ id: PeerId; multiaddrs: MultiAddr[] }>;
         // TODO: fix the return value, not sure if that's good
 
@@ -291,7 +291,7 @@ declare class Libp2p {
         const key = '/key'
         const value = await libp2p.contentRouting.get(key)
          */
-        get(key: string, options: { timeout: number }): Promise<Uint8Array>;
+        get(key: string, options?: { timeout: number }): Promise<Uint8Array>;
         // TODO: Not sure about return value, docs and source code says completely different things
 
         /**
@@ -305,7 +305,11 @@ declare class Libp2p {
         const key = '/key'
         const records = await libp2p.contentRouting.getMany(key, 2)
          */
-        getMany(key: string, nvals: number, options: { timeout: number }): Promise<{ from: PeerId; val: Uint8Array }[]>;
+        getMany(
+            key: string,
+            nvals: number,
+            options?: { timeout: number },
+        ): Promise<{ from: PeerId; val: Uint8Array }[]>;
     };
 }
 

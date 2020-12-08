@@ -3,21 +3,21 @@ export interface AddressesOptions {
      * Provided to the libp2p underlying transports for listening on them.
      * @default []
      */
-    listen: string[];
+    listen?: string[];
     /**
      * Used to compute the advertises that the node should advertise to the network.
      * @default []
      */
-    announce: string[];
+    announce?: string[];
     /**
      * Used as a filter to compute the advertises that the node should advertise to the network.
      * @default []
      */
-    noAnnounce: string[];
+    noAnnounce?: string[];
 }
 
 export interface HostOptions {
-    agentVersion: string;
+    agentVersion?: string;
 }
 
 export interface ConnectionManagerOptions {
@@ -25,53 +25,53 @@ export interface ConnectionManagerOptions {
      * Minimum number of connections below which libp2p not activate preemptive disconnections. Defaults to 0
      * @default 0
      */
-    minConnections: number;
+    minConnections?: number;
     /**
      * Maximum number of connections libp2p is willing to have before it starts disconnecting.
      * @default Infinity
      */
-    maxConnections: number;
+    maxConnections?: number;
 
     /**
      * Sets the maximum data — in bytes per second - (sent and received) this node is willing to endure before it starts disconnecting peers.
      * @default Infinity
      */
-    maxData: number;
+    maxData?: number;
 
     /**
      *  Sets the maximum sent data — in bytes per second - this node is willing to endure before it starts disconnecting peers.
      * @default Infinity
      */
-    maxSentData: number;
+    maxSentData?: number;
     /**
      *  Sets the maximum received data — in bytes per second - this node is willing to endure before it starts disconnecting peers.
      * @default Infinity
      */
-    maxReceivedData: number;
+    maxReceivedData?: number;
 
     /**
      * Sets the maximum event loop delay (measured in milliseconds) this node is willing to endure before it starts disconnecting peers.
      * @default Infinity
      */
-    maxEventLoopDelay: number;
+    maxEventLoopDelay?: number;
 
     /**
      * Sets the poll interval (in milliseconds) for assessing the current state and determining if this peer needs to force a disconnect.
      * @default 2000(ms)
      */
-    pollInterval: number;
+    pollInterval?: number;
 
     /**
      * The interval used to calculate moving averages (in milliseconds). This must be an available interval configured in Metrics
      * @default 60000(ms)
      */
-    movingAverageInterval: number;
+    movingAverageInterval?: number;
 
     /**
      * Number between 0 and 1.
      * @default 1
      */
-    defaultPeerValue: number;
+    defaultPeerValue?: number;
 }
 
 /**
@@ -88,74 +88,74 @@ export enum FaultTolerance {
 }
 
 export interface TransportManagerOptions {
-    faultTolerance: FaultTolerance;
+    faultTolerance?: FaultTolerance;
 }
 
 export interface DialerOptions {
     /**
      * How many multiaddrs we can dial in parallel.
      */
-    maxParallelDials: number;
+    maxParallelDials?: number;
 
     /**
      * How many multiaddrs we can dial per peer, in parallel.
      */
-    maxDialsPerPeer: number;
+    maxDialsPerPeer?: number;
 
     /**
      * Second dial timeout per peer in ms.
      */
-    dialTimeout: number;
+    dialTimeout?: number;
 
-    resolvers: object; // FIXME
+    resolvers?: object; // FIXME
 }
 
 export interface KeychainOptions {
     /**
      * Passphrase to use in the keychain (minimum of 20 characters).
      */
-    pass: string;
+    pass?: string;
     /**
      * @see https://github.com/ipfs/interface-datastore
      */
-    datastore: object; // FIXME
+    datastore?: object; // FIXME
 }
 
 export interface MetricOptions {
     /**
      * Enabled metrics collection.
      */
-    enabled: boolean;
+    enabled?: boolean;
     /**
      * How many messages a stat will queue before processing.
      */
-    computeThrottleMaxQueueSize: number;
+    computeThrottleMaxQueueSize?: number;
 
     /**
      * Time in milliseconds a stat will wait, after the last item was added, before processing.
      */
-    computeThrottleTimeout: number;
+    computeThrottleTimeout?: number;
 
     /**
      * The moving averages that will be computed.
      */
-    movingAverageIntervals: number[];
+    movingAverageIntervals?: number[];
 
     /**
      * How many disconnected peers we will retain stats for.
      */
-    maxOldPeersRetention: number;
+    maxOldPeersRetention?: number;
 }
 
 export interface PeerStoreOptions {
     /**
      * Is persistence enabled.
      */
-    persistence: boolean;
+    persistence?: boolean;
     /**
      * Number of dirty peers allowed.
      */
-    threshold: number;
+    threshold?: number;
 }
 
 /**
@@ -171,46 +171,46 @@ export interface Options {
     /**
      * Addresses for transport listening and to advertise to the network
      */
-    addresses: AddressesOptions;
-    config: any; // FIXME
-    host: HostOptions;
+    addresses?: AddressesOptions;
+    config?: any; // FIXME
+    host?: HostOptions;
 
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
      */
-    connectionManager: ConnectionManagerOptions;
+    connectionManager?: ConnectionManagerOptions;
 
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-transport-manager
      */
-    transportManager: TransportManagerOptions;
+    transportManager?: TransportManagerOptions;
 
     /**
      * Must implement ipfs/interface-datastore (in memory datastore will be used if not provided)
      * @see https://github.com/ipfs/interface-datastore
      */
-    datastore: object; // FIXME
+    datastore?: object; // FIXME
     /**
      * Dialing in libp2p can be configured to limit the rate of dialing, and how long dials are allowed to take.
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
      */
-    dialer: DialerOptions;
+    dialer?: DialerOptions;
     /**
      * Keychain configuration
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#setup-with-keychain
      */
-    keychain: KeychainOptions;
+    keychain?: KeychainOptions;
 
     /**
      * Metrics configuration
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-metrics
      */
-    metrics: MetricOptions;
+    metrics?: MetricOptions;
 
     /**
      * peerId instance (it will be created if not provided)
      */
-    peerId: object; // FIXME
+    peerId?: object; // FIXME
 
-    peerStore: PeerStoreOptions;
+    peerStore?: PeerStoreOptions;
 }
