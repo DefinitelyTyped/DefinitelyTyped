@@ -686,6 +686,122 @@ declare class Libp2p {
          */
         size: number;
     };
+    keychain: {
+        /**
+         * Create a key in the keychain.
+         * @param name The local key name. It cannot already exist.
+         * @param type One of the key types; 'rsa'
+         * @param size The key size in bits. Must be provided for rsa keys.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychaincreatekey
+         * @example
+        const keyInfo = await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+         */
+        createKey(name: string, type: string, size?: number): Promise<{ id: string; name: string }>;
+
+        /**
+         * 
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainrenamekey
+         * @example
+        await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const keyInfo = await libp2p.keychain.renameKey('keyTest', 'keyNewNtest')
+         */
+        renameKey(oldName: string, newName: string): Promise<{ id: string; name: string }>;
+
+        /**
+         * Removes a key from the keychain.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainremovekey
+         * @example
+        await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const keyInfo = await libp2p.keychain.removeKey('keyTest')
+         */
+        removeKey(name: string): Promise<{ id: string; name: string }>;
+
+        /**
+         * Export an existing key as a PEM encrypted PKCS #8 string.
+         * @param name The local key name. It must already exist.
+         * @param password The password to use.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainexportkey
+         * @example
+        await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const pemKey = await libp2p.keychain.exportKey('keyTest', 'password123')
+         */
+        exportKey(name: string, password: string): Promise<string>;
+
+        /**
+         * Import a new key from a PEM encoded PKCS #8 string.
+         * @param name The local key name. It must not exist.
+         * @param pem The PEM encoded PKCS #8 string.
+         * @param password The password to use.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainimportkey
+         * @example
+        await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const pemKey = await libp2p.keychain.exportKey('keyTest', 'password123')
+        const keyInfo = await libp2p.keychain.importKey('keyTestImport', pemKey, 'password123')
+         */
+        importKey(name: string, pem: string, password: string): Promise<{ id: string; name: string }>;
+
+        /**
+         * Import a new key from a PeerId.
+         * @param name  The local key name. It must not exist.
+         * @param peerId The PEM encoded PKCS #8 string.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainimportpeer
+         * @example
+         * const keyInfo = await libp2p.keychain.importPeer('keyTestImport', peerId)
+         */
+        importPeer(name: string, peerId: PeerId): Promise<{ id: string; name: string }>;
+
+        /**
+         * List all the keys.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainlistkeys
+         * @returns {Promise<Array<{ id, name }>>} Array of key info
+         * @example
+         * const keyInfos = await libp2p.keychain.listKeys()
+         */
+        listKeys(): Promise<{ id: string; name: string }[]>;
+
+        /**
+         * Find a key by it's id.
+         * @param id The universally unique key identifier.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainfindkeybyid
+         * @example
+        const keyInfo = await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const keyInfo2 = await libp2p.keychain.findKeyById(keyInfo.id)
+         */
+        findKeyById(id: string): Promise<{ id: string; name: string }>;
+
+        /**
+         * Find a key by it's name.
+         * @param id The universally unique key identifier.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#keychainfindkeybyname
+         * @example
+        const keyInfo = await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+        const keyInfo2 = await libp2p.keychain.findKeyByName('keyTest')
+         */
+        findKeyByName(id: string): Promise<{ id: string; name: string }>;
+
+        cms: {
+            /**
+             * Encrypt protected data using the Cryptographic Message Syntax (CMS).
+             * @param name The local key name.
+             * @param data The data to encrypt.
+             * @returns {Promise<Uint8Array>} Encrypted data as a PKCS #7 message in DER.
+             * @example
+            const keyInfo = await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+            const enc = await libp2p.keychain.cms.encrypt('keyTest', uint8ArrayFromString('data'))
+             */
+            encrypt(name: string, data: Uint8Array): Promise<Uint8Array>;
+
+            /**
+             * Decrypt protected data using the Cryptographic Message Syntax (CMS). The keychain must contain one of the keys used to encrypt the data. If none of the keys exists, an Error is returned with the property 'missingKeys'.
+             * @param cmsData The CMS encrypted data to decrypt.
+             * @example
+             * const keyInfo = await libp2p.keychain.createKey('keyTest', 'rsa', 4096)
+             * const enc = await libp2p.keychain.cms.encrypt('keyTest', uint8ArrayFromString('data'))
+             * const decData = await libp2p.keychain.cms.decrypt(enc)
+             */
+            decrypt(cmsData: string): Promise<Uint8Array>;
+        };
+    };
 }
 
 export * from './options';
