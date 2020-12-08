@@ -147,6 +147,17 @@ export interface MetricOptions {
     maxOldPeersRetention: number;
 }
 
+export interface PeerStoreOptions {
+    /**
+     * Is persistence enabled.
+     */
+    persistence: boolean;
+    /**
+     * Number of dirty peers allowed.
+     */
+    threshold: number;
+}
+
 /**
  * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md
  */
@@ -200,4 +211,6 @@ export interface Options {
      * peerId instance (it will be created if not provided)
      */
     peerId: object; // FIXME
+
+    peerStore: PeerStoreOptions;
 }
