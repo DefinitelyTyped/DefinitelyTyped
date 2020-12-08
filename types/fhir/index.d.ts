@@ -66,7 +66,7 @@ declare module fhir {
      */
     type FinancialResourceStatusCode = 'active' | 'cancelled' | 'draft' | 'entered-in-error';
     /**
-     * 	The use of an address
+     * The use of an address
      */
     type AdressUse = 'home' | 'work' | 'temp' | 'old';
     /**
@@ -94,7 +94,7 @@ declare module fhir {
      */
     type NameUse = 'usual' | 'official' | 'temp' | 'nickname' | 'anonymous' | 'old' | 'maiden';
     /**
-     * 	A unit of time (units from UCUM)
+     * A unit of time (units from UCUM)
      */
     type UnitsOfTime = 's' | 'min' | 'h' | 'd' | 'wk' | 'mo' | 'a';
     /**
