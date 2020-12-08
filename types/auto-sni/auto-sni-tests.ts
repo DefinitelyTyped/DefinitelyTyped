@@ -11,7 +11,7 @@ const b = autosni({
     domains: () => []
 });
 
-const b = autosni({
+const c = autosni({
     agreeTos: true,
     email: '',
     domains: () => Promise.resolve([])
