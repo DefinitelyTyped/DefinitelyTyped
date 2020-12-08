@@ -23,3 +23,18 @@ const imageOptions: OSS.ImageClientOptions = {
 };
 
 const imageClient = new OSS.ImageClient(imageOptions);
+
+const sts = new OSS.STS({
+    accessKeyId: "access key",
+    accessKeySecret: "access secret"
+});
+sts.assumeRole("roleArn", undefined, 3600, "session name").then((token) => {
+    const { credentials } = token;
+    const stsClient = new OSS({
+        accessKeyId: credentials.AccessKeyId,
+        accessKeySecret: credentials.AccessKeySecret,
+        stsToken: credentials.SecurityToken,
+        bucket: "bucket name",
+        region: "oss-cn-hangzhou"
+    });
+});

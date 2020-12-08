@@ -2,7 +2,7 @@
 // Project: https://github.com/aliyun/oss-nodejs-sdk
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 export = OSS;
 
@@ -19,6 +19,64 @@ declare namespace OSS {
         secure?: boolean; // instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol.
         timeout?: string | number; // instance level timeout for all operations, default is 60s
         cname?: boolean; // use custom domain name
+    }
+
+    /**
+     * Generate STS Authorization
+     */
+    class STS {
+        constructor(options: STSOptions);
+
+        assumeRole(
+            roleArn: string,
+            /**
+             * RAM Policy config object or valid JSON string
+             */
+            policy?: object | string, // TODO: RAM policy type
+            expirationSeconds?: number,
+            session?: string,
+            options?: {
+                timeout: number;
+                /**
+                 * ctx param in urllib's request param
+                 */
+                ctx: any;
+            },
+        ): Promise<{ credentials: Credentials }>;
+    }
+
+    interface Credentials {
+        /**
+         * STS access key id.
+         */
+        AccessKeyId: string;
+
+        /**
+         * STS access key secret.
+         */
+        AccessKeySecret: string;
+
+        /**
+         * STS token.
+         */
+        SecurityToken: string;
+
+        /**
+         * STS expiration UTC time in ISO format.
+         */
+        Expiration: string;
+    }
+
+    interface STSOptions {
+        /**
+         * Access key id.
+         */
+        accessKeyId: string;
+
+        /**
+         * Access key secret.
+         */
+        accessKeySecret: string;
     }
 
     interface Bucket {
