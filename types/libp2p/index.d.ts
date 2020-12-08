@@ -175,6 +175,15 @@ declare class Libp2p {
     const latency = await libp2p.ping(otherPeerId)
      */
     ping(peer: PeerId | MultiAddr | string): Promise<number>;
+
+    /**
+     * Gets the multiaddrs the libp2p node announces to the network. This computes the advertising multiaddrs of the peer by joining the multiaddrs that libp2p transports are listening on with the announce multiaddrs provided in the libp2p config. Configured no announce multiaddrs will be filtered out of the advertised addresses.
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#multiaddrs
+     * @example
+    const listenMa = libp2p.multiaddrs
+    // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
+     */
+    mutliaddrs: MultiAddr[];
 }
 
 export * from './options';
