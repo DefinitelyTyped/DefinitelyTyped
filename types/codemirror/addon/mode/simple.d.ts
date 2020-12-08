@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import "codemirror";
 
 declare module "codemirror" {
   // Based on https://codemirror.net/demo/simplemode.html
@@ -15,8 +15,8 @@ declare module "codemirror" {
     dedentIfLineStart?: boolean;
   }
 
-  function defineSimpleMode(
+  function defineSimpleMode<K extends string>(
     name: string,
-    mode: { start: Array<Rule>; comment?: Array<Rule>; meta?: any }
+    mode: {[P in K]: P extends "meta" ? Record<string, any> : Array<Rule>} & {start: Array<Rule>}
   ): void;
 }
