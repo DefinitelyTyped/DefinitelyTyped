@@ -19,6 +19,9 @@ declare class Libp2p {
     /**
      * Like `new Libp2p(options)` except it will create a `PeerId`
      * instance if one is not provided in options.
+     */
+    static create(options: Options): Promise<Libp2p>;
+
     /**
      * Load keychain keys from the datastore, importing the private key as 'self', if needed.
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#loadkeychain
