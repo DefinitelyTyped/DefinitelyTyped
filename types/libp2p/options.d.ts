@@ -110,6 +110,16 @@ export interface DialerOptions {
     resolvers: object; // FIXME
 }
 
+export interface KeychainOptions {
+    /**
+     * Passphrase to use in the keychain (minimum of 20 characters).
+     */
+    pass: string;
+    /**
+     * @link https://github.com/ipfs/interface-datastore
+     */
+    datastore: object; // FIXME
+}
 /**
  * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md
  */
@@ -147,4 +157,9 @@ export interface Options {
      * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
      */
     dialer: DialerOptions;
+    /**
+     * Keychain configuration
+     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#setup-with-keychain
+     */
+    keychain: KeychainOptions;
 }
