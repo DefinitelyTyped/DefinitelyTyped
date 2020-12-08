@@ -154,6 +154,8 @@ declare class Libp2p {
     libp2p.handle('/echo/1.0.0', handler)
      */
     handle(protocols: string[], handler: (params: { connection: any; stream: any; protocol: string }) => any): void;
+    // FIXME any params
+
 }
 
 export * from './options';
