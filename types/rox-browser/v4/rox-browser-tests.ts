@@ -1,28 +1,30 @@
-import * as Rox from 'rox-node';
+import * as Rox from 'rox-browser';
 
 const flags = {
-  superFlag: new Rox.Flag(false),
+  superFlag: new Rox.Flag(false, { freeze: Rox.RoxFlagFreezeLevel.None }),
   superFlag2: new Rox.Flag(),
 };
 
-const stringFlags = {
-  strFlag: new Rox.RoxString('value1', ['value1', 'value2']),
+const variants = {
+  superVariant: new Rox.Variant('value1', ['value1', 'value2']),
 };
 
-const numberFlags = {
-  numFlag: new Rox.RoxNumber(12, [18, 24]),
+const configurations = {
+  superConfiguration: new Rox.Configuration('☀️'),
+  superConfiguration2: new Rox.Configuration(true),
 };
 
 // The register function should be called before the call to Rox.setup()
-Rox.register('default', { ...numberFlags, ...stringFlags, ...flags });
+Rox.register('default', { ...configurations, ...variants, ...flags });
 Rox.setContext({ user: 'John Doe' });
 Rox.setup('ROLLOUT_IO_KEY', {
   impressionHandler,
   configurationFetchedHandler,
-  dynamicPropertyRuleHandler
 }).then(linkTargetGroupAttributes);
 
 Rox.fetch();
+
+Rox.showOverrides(Rox.RoxOverridesPosition.BottomLeft);
 
 Rox.dynamicApi.isEnabled('system.repotAnalytics', false);
 Rox.dynamicApi.value('ui.textColor', 'red');
@@ -33,15 +35,18 @@ Rox.flags[0].name;
 flags.superFlag.isEnabled();
 flags.superFlag.isEnabled({ user: 'John' });
 
-numberFlags.numFlag.defaultValue;
-numberFlags.numFlag.name;
-numberFlags.numFlag.getValue();
-numberFlags.numFlag.getValue({ user: 'John' });
+configurations.superConfiguration.defaultValue;
+configurations.superConfiguration.name;
+configurations.superConfiguration.getValue();
+configurations.superConfiguration.getValue({ user: 'John' });
 
-stringFlags.strFlag.defaultValue;
-stringFlags.strFlag.name;
-stringFlags.strFlag.getValue();
-stringFlags.strFlag.getValue({ user: 'John' });
+variants.superVariant.defaultValue;
+variants.superVariant.name;
+variants.superVariant.getValue();
+variants.superVariant.getValue({ user: 'John' });
+
+Rox.unfreeze();
+flags.superFlag.unfreeze();
 
 function linkTargetGroupAttributes() {
   Rox.setCustomStringProperty('id', 'someId');
@@ -55,16 +60,18 @@ function linkTargetGroupAttributes() {
   Rox.setCustomNumberProperty('aNumberProperty', 17);
   Rox.setCustomNumberProperty('aNumberProperty', () => 17);
   Rox.setCustomNumberProperty('aNumberProperty', (context: any): number => context.value);
-}
 
-function dynamicPropertyRuleHandler(propName: string, _context: unknown) {
-  return propName === 'myPropName';
+  Rox.setDynamicCustomPropertyRule((propName: string, _context: unknown) => {
+    return propName === 'myPropName';
+  });
 }
 
 function impressionHandler(
-  _reporting: Rox.RoxReporting
+  _reporting: Rox.RoxReporting,
+  _experiment?: Rox.RoxExperiment,
 ) {
-  // If _reporting.targeting is false, it mean there were no dashboard conditions, and default value was used
+  // If there is no experiment it means that the user has not been enrolled
+  // or that the reporting is not used yet
 }
 
 function configurationFetchedHandler(fetcherResult: Rox.RoxFetcherResult) {
