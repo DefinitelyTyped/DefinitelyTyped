@@ -79,6 +79,8 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method: Buffer.from(str[, encoding])
 {
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    /* tslint:disable-next-line no-construct */
+    Buffer.from(new String("DEADBEEF"), "hex");
     // $ExpectError
     Buffer.from(buf2, 'hex');
 }
