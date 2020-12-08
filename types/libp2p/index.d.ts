@@ -1,6 +1,6 @@
 // Type definitions for libp2p 0.29
 // Project: https://libp2p.io
-// Definitions by: Grzegorz Baranski <https://github.com/gbaranski>
+// Definitions by: gbaranski <https://github.com/gbaranski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
