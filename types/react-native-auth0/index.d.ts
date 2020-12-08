@@ -74,6 +74,7 @@ export interface RefreshTokenResponse {
     accessToken: string;
     expiresIn: number;
     idToken: string;
+    refreshToken?: string;
     scope?: string;
     tokenType: string;
 }
@@ -127,6 +128,8 @@ export interface LoginWithSMSParams {
 export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
+    familyName: string;
+    givenName: string;
     name: string;
     nickname: string;
     picture: string;

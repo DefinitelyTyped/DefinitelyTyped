@@ -129,6 +129,12 @@ redis.zpopmax('myset', cb);
 redis.zpopmax('myset', 1, cb);
 redis.zpopmax('myset', 1).then(console.log);
 redis.zpopmax('myset').then(console.log);
+redis.bzpopmin('myset', 0).then(console.log);
+redis.bzpopmin('mysetA', 'mysetB', 0).then(console.log);
+redis.bzpopmin(['mysetA', 'mysetB', 0]).then(console.log);
+redis.bzpopmin('myset', 0, cb);
+redis.bzpopmin('mysetA', 'mysetB', 0, cb);
+redis.bzpopmin(['mysetA', 'mysetB', 0], cb);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -146,7 +152,18 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
 
-// Test OverloadedKeyedHashCommand
+// Test OverloadedKeyedHashCommand for hset
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
+redis.hset('foo', '1', '2', '3', 4).then(console.log);
+redis.hset('foo', '1', '2', '3', 4);
+redis.hset('foo', '1', '2').then(console.log);
+redis.hset('foo', '1', ['1', 2]);
+redis.hset('foo', { a: 'b', c: 4 }).then(console.log);
+redis.hset('foo', { a: 'b', c: 4 }, cb);
+redis.hset('foo', new Map<string, number>(), cb);
+
+// Test OverloadedKeyedHashCommand for hmset
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.hmset('foo', '1', '2', '3', 4).then(console.log);
@@ -176,6 +193,9 @@ redis.msetnx('1', ['1', 2]);
 redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
 redis.msetnx(new Map<string, number>(), cbNumber);
+
+// Test for memory usage
+redis.memory('USAGE', 'foo').then(console.log);
 
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
@@ -293,6 +313,7 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
+    enableAutoPipelining: true
 });
 
 const pub = new Redis();

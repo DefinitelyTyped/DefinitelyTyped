@@ -3,5 +3,4 @@ declare const settings: {
     selectorTabbable: string;
     selectorFocusable: string;
 };
-
 export default settings;

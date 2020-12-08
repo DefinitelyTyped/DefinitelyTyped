@@ -1,12 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "max-line-length": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "unified-signatures": false
     }

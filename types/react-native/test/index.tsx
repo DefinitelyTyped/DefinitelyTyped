@@ -3,10 +3,10 @@ The content of index.io.js could be something like
 
     'use strict';
 
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
+    import { AppRegistry } from 'react-native'
+    import Welcome from './gen/Welcome'
 
-     AppRegistry.registerComponent('MopNative', () => Welcome);
+    AppRegistry.registerComponent('MopNative', () => Welcome);
 
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
@@ -14,7 +14,9 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    ART,
     AccessibilityInfo,
+    AsyncStorage,
     Alert,
     AppState,
     AppStateStatus,
@@ -37,6 +39,7 @@ import {
     FlatListProps,
     GestureResponderEvent,
     HostComponent,
+    I18nManager,
     Image,
     ImageBackground,
     ImageErrorEventData,
@@ -57,15 +60,18 @@ import {
     MaskedViewIOS,
     Modal,
     NativeEventEmitter,
+    NativeModule, // Not actually exported, not sure why
     NativeModules,
     NativeScrollEvent,
     NativeSyntheticEvent,
     PermissionsAndroid,
     Picker,
+    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
     ProgressBarAndroid,
+    ProgressViewIOS,
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
@@ -82,6 +88,7 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
+    SwitchIOS,
     Systrace,
     TabBarIOS,
     Text,
@@ -110,6 +117,8 @@ import {
     requireNativeComponent,
     useColorScheme,
     useWindowDimensions,
+    SectionListData,
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -291,7 +300,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -322,7 +331,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         const { rootView } = this.refs;
 
         rootView.setNativeProps({});
-        rootView.measure((x: number, y: number, width: number, height: number) => {});
+        rootView.measure((x: number, y: number, width: number, height: number) => { });
     }
 
     testFindNodeHandle() {
@@ -373,7 +382,9 @@ export class TouchableNativeFeedbackTest extends React.Component {
 }
 
 // PressableTest
-export class PressableTest extends React.Component {
+export class PressableTest extends React.Component<{}> {
+    private readonly myRef: React.RefObject<View> = React.createRef();
+
     onPressButton = (e: GestureResponderEvent) => {
         e.persist();
         e.isPropagationStopped();
@@ -383,7 +394,7 @@ export class PressableTest extends React.Component {
     render() {
         return (
             <>
-                <Pressable onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -412,10 +423,10 @@ export class PressableTest extends React.Component {
                                 <Text>Pressed</Text>
                             </View>
                         ) : (
-                            <View>
-                                <Text>Not Pressed</Text>
-                            </View>
-                        )
+                                <View>
+                                    <Text>Not Pressed</Text>
+                                </View>
+                            )
                     }
                 </Pressable>
                 {/* Android Ripple */}
@@ -580,6 +591,78 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
     }
 }
 
+type SectionT = { displayTitle: false } | { displayTitle: true; title: string };
+
+export class SectionListTypedSectionTest extends React.Component<SectionListProps<string, SectionT>, {}> {
+    myList: React.RefObject<SectionList<string, SectionT>>;
+
+    constructor(props: SectionListProps<string, SectionT>) {
+        super(props);
+        this.myList = React.createRef();
+    }
+
+    scrollMe = () => {
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+    };
+
+    render() {
+        const sections: SectionListData<string, SectionT>[] = [
+            {
+                displayTitle: false,
+                data: ['A', 'B', 'C', 'D', 'E'],
+            },
+            {
+                displayTitle: true,
+                title: 'Section 2',
+                data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+                renderItem: (info: { item: string }) => (
+                    <View>
+                        <Text>{info.item}</Text>
+                    </View>
+                ),
+            },
+        ];
+
+        const cellRenderer = ({ children }: any) => {
+            return <View>{children}</View>;
+        };
+
+        return (
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                />
+            </React.Fragment>
+        );
+    }
+}
+
 export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || '') as string;
@@ -651,7 +734,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
-                            onScrollToTop={() => {}}
+                            onScrollToTop={() => { }}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                         />
@@ -686,7 +769,7 @@ class TabBarTest extends React.Component {
                     badgeColor="red"
                     icon={{ uri: undefined }}
                     selected={true}
-                    onPress={() => {}}
+                    onPress={() => { }}
                     renderAsOriginal={true}
                     selectedIcon={undefined}
                     systemIcon="history"
@@ -703,13 +786,13 @@ class AlertTest extends React.Component {
             'Title',
             'Message',
             [
-                { text: 'First button', onPress: () => {} },
-                { text: 'Second button', onPress: () => {} },
-                { text: 'Third button', onPress: () => {} },
+                { text: 'First button', onPress: () => { } },
+                { text: 'Second button', onPress: () => { } },
+                { text: 'Third button', onPress: () => { } },
             ],
             {
                 cancelable: false,
-                onDismiss: () => {},
+                onDismiss: () => { },
             },
         );
     }
@@ -795,13 +878,28 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
-const nativeEventEmitter = new NativeEventEmitter();
-nativeEventEmitter.removeAllListeners('event');
+// NativeEventEmitter - Android
+const androidEventEmitter = new NativeEventEmitter();
+const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub1);
 
-class CustomEventEmitter extends NativeEventEmitter {}
+// NativeEventEmitter - IOS
+const nativeModule: NativeModule = {
+    addListener(eventType: string) {},
+    removeListeners(count: number) {},
+};
+const iosEventEmitter = new NativeEventEmitter(nativeModule);
+const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub3);
+
+class CustomEventEmitter extends NativeEventEmitter { }
 
 const customEventEmitter = new CustomEventEmitter();
-customEventEmitter.addListener('event', () => {});
+customEventEmitter.addListener('event', () => { });
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
@@ -979,6 +1077,7 @@ export class ImageTest extends React.Component {
             (width, height) => console.log(width, height),
             error => console.error(error),
         );
+        Image.prefetch(uri); // $ExpectType Promise<boolean>
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -1041,13 +1140,13 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
                 accessibilityTraits={'none'}
-                onAccessibilityTap={() => {}}
+                onAccessibilityTap={() => { }}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
-                onMagicTap={() => {}}
-                onAccessibilityEscape={() => {}}
+                onMagicTap={() => { }}
+                onAccessibilityEscape={() => { }}
             >
                 <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
                     Text
@@ -1133,7 +1232,7 @@ const DatePickerAndroidTest = () => {
 };
 
 const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => { }}>
         <Picker.Item label="Item1" value="v1" />
         <Picker.Item label="Item2" value="v2" />
     </Picker>
@@ -1180,8 +1279,7 @@ const NativeIDTest = () => (
 );
 
 const ScrollViewMaintainVisibleContentPositionTest = () => (
-    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
-    </ScrollView>
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
@@ -1205,6 +1303,14 @@ const KeyboardTest = () => {
         event;
     });
     subscriber.remove();
+
+    Keyboard.dismiss();
+
+    // Android Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'keyboard', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 } })
+
+    // IOS Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'easeInEaseOut', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, isEventFromThisApp: true })
 };
 
 const PermissionsAndroidTest = () => {
@@ -1525,3 +1631,32 @@ export class DrawerLayoutAndroidTest extends React.Component {
         );
     }
 }
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    );
+};
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+};
+
+const I18nManagerTest = () => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    I18nManager.swapLeftAndRightInRTL(true);
+    const { isRTL, doLeftAndRightSwapInRTL } = I18nManager.getConstants();
+    const isRtlFlag = I18nManager.isRTL;
+    const doLeftAndRightSwapInRtlFlag = I18nManager.doLeftAndRightSwapInRTL;
+
+    console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
+};

@@ -1,19 +1,10 @@
 // Type definitions for react-relay 7.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
-// Definitions by: Johannes Schickling <https://github.com/graphcool>
-//                 Matt Martin <https://github.com/voxmatt>
-//                 Eloy Durán <https://github.com/alloy>
-//                 Nicolas Pirotte <https://github.com/npirotte>
-//                 Cameron Knight <https://github.com/ckknight>
-//                 Kaare Hoff Skovgaard <https://github.com/kastermester>
-//                 Matt Krick <https://github.com/mattkrick>
-//                 Jared Kass <https://github.com/jdk243>
-//                 Renan Machado <https://github.com/renanmav>
-//                 Janic Duplessis <https://github.com/janicduplessis>
-//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
+// Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Marais Rossouw <https://github.com/maraisr>
+//                 Edvin Erikson <https://github.com/edvinerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.7
 
 import * as React from 'react';
 import {

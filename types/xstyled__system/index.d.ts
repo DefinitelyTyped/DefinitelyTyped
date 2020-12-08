@@ -20,7 +20,7 @@ export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
 
 export type StyledSystemLength = string | number;
 
-export type ResponsiveValue<T> = T | { [key: string]: T };
+export type ResponsiveValue<T> = T | T[] | { [key: string]: T };
 
 export type AliasKey = string;
 

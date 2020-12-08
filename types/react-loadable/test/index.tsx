@@ -88,23 +88,21 @@ Loadable100.preload();
 // all of these disables are specifically for working around this issue,
 // no rules were intended to be skipped.
 
-// tslint:disable-next-line one-variable-per-declaration
 const WithImport = Loadable({
   loader: () => import('./imports/with-default'),
-  loading: LoadingComponent // tslint:disable-line semicolon
+  loading: LoadingComponent
   // render is optional
-}); // tslint:disable-line semicolon
+});
 
 const usedImport = <WithImport foo={false}/>;
 
-// tslint:disable-next-line one-variable-per-declaration
 const WithImportNoDefault = Loadable({
   loader: () => import('./imports/no-default'),
   loading: LoadingComponent,
   // render is mandatory
-  render(loaded, props: { text: string }) { // tslint:disable-line whitespace
+  render(loaded, props: { text: string }) {
     return <loaded.AComponent {...props}/>;
-  } // tslint:disable-line semicolon
-}); // tslint:disable-line semicolon
+  }
+});
 
 const usedImportNodefault = <WithImportNoDefault text='import'/>;

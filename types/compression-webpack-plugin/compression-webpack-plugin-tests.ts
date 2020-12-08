@@ -21,11 +21,11 @@ const config: Configuration = {
             deleteOriginalAssets: true
         }),
         new CompressionPlugin({
-            filename: (info) => {
-                info.file; // $ExpectType string
-                info.path; // $ExpectType string
-                info.query; // $ExpectType string
-                return `${info.path}.gz${info.query}`;
+            filename: pathData => {
+                pathData.file; // $ExpectType string
+                pathData.path; // $ExpectType string
+                pathData.query; // $ExpectType string
+                return `${pathData.path}.gz${pathData.query}`;
             },
         })
     ]

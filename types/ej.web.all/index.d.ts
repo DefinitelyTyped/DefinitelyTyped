@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 18.2
+// Type definitions for non-npm package ej.web.all 18.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 18.2.0.44
+*  version : 18.3.0.47
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -43231,6 +43231,12 @@ declare namespace ej {
          * @returns {void}
          */
         setActiveCell(rowIdx: number, colIdx: number, sheetIdx: number): void;
+
+        /** This method is used to set active sheet index for the Spreadsheet.
+         * @param {number} Pass the active sheet index for Spreadsheet.
+         * @returns {void}
+         */
+        setActiveSheetIndex(sheetIdx: number): void;
 
         /** This method is used to set border for the specified range of cells in the Spreadsheet.
          * @param {Spreadsheet.BorderOptions} Pass the Object "BorderOptions".

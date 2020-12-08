@@ -47,32 +47,32 @@ declare namespace P {
     const LOG_VERSION: number;
     const levels: LevelMapping;
     const symbols: {
-        setLevelSym: symbol,
-        getLevelSym: symbol,
-        levelValSym: symbol,
-        useLevelLabelsSym: symbol,
-        mixinSym: symbol,
-        lsCacheSym: symbol,
-        chindingsSym: symbol,
-        parsedChindingsSym: symbol,
-        asJsonSym: symbol,
-        writeSym: symbol,
-        serializersSym: symbol,
-        redactFmtSym: symbol,
-        timeSym: symbol,
-        timeSliceIndexSym: symbol,
-        streamSym: symbol,
-        stringifySym: symbol,
-        stringifiersSym: symbol,
-        endSym: symbol,
-        formatOptsSym: symbol,
-        messageKeySym: symbol,
-        nestedKeySym: symbol,
-        wildcardFirstSym: symbol,
-        needsMetadataGsym: symbol,
-        useOnlyCustomLevelsSym: symbol,
-        formattersSym: symbol,
-        hooksSym: symbol,
+        readonly setLevelSym: unique symbol,
+        readonly getLevelSym: unique symbol,
+        readonly levelValSym: unique symbol,
+        readonly useLevelLabelsSym: unique symbol,
+        readonly mixinSym: unique symbol,
+        readonly lsCacheSym: unique symbol,
+        readonly chindingsSym: unique symbol,
+        readonly parsedChindingsSym: unique symbol,
+        readonly asJsonSym: unique symbol,
+        readonly writeSym: unique symbol,
+        readonly serializersSym: unique symbol,
+        readonly redactFmtSym: unique symbol,
+        readonly timeSym: unique symbol,
+        readonly timeSliceIndexSym: unique symbol,
+        readonly streamSym: unique symbol,
+        readonly stringifySym: unique symbol,
+        readonly stringifiersSym: unique symbol,
+        readonly endSym: unique symbol,
+        readonly formatOptsSym: unique symbol,
+        readonly messageKeySym: unique symbol,
+        readonly nestedKeySym: unique symbol,
+        readonly wildcardFirstSym: unique symbol,
+        readonly needsMetadataGsym: unique symbol,
+        readonly useOnlyCustomLevelsSym: unique symbol,
+        readonly formattersSym: unique symbol,
+        readonly hooksSym: unique symbol,
     };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
@@ -600,15 +600,10 @@ declare namespace P {
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
 
-    interface LogDescriptor {
-        pid: number;
-        hostname: string;
-        level: number;
-        time: string;
-        msg: string;
-        v: number;
-        [key: string]: any;
-    }
+    /**
+     * Describes a log line.
+     */
+    type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
         level?: Level | string;

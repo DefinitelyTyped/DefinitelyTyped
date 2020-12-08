@@ -1,28 +1,131 @@
 declare namespace google.maps {
-    type MarkerChangeOptionEventNames =
-        | 'animation_changed'
-        | 'clickable_changed'
-        | 'cursor_changed'
-        | 'draggable_changed'
-        | 'flat_changed'
-        | 'icon_changed'
-        | 'position_changed'
-        | 'shape_changed'
-        | 'title_changed'
-        | 'visible_changed'
-        | 'zindex_changed';
+    interface MarkerHandlerMap<C extends Marker> {
+        /**
+         * This event is fired when the marker's animation property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.animation_changed Maps JavaScript API}
+         */
+        animation_changed: (this: C) => void;
 
-    type MarkerMouseEventNames =
-        | 'click'
-        | 'dblclick'
-        | 'drag'
-        | 'dragend'
-        | 'dragstart'
-        | 'mousedown'
-        | 'mouseout'
-        | 'mouseover'
-        | 'mouseup'
-        | 'rightclick';
+        /**
+         * This event is fired when the marker icon was clicked.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.click Maps JavaScript API}
+         */
+        click: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the marker's clickable property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.clickable_changed Maps JavaScript API}
+         */
+        clickable_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker's cursor property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.cursor_changed Maps JavaScript API}
+         */
+        cursor_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker icon was double clicked.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dblclick Maps JavaScript API}
+         */
+        dblclick: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is repeatedly fired while the user drags the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.drag Maps JavaScript API}
+         */
+        drag: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the user stops dragging the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dragend Maps JavaScript API}
+         */
+        dragend: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the marker's draggable property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.draggable_changed Maps JavaScript API}
+         */
+        draggable_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the user starts dragging the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dragstart Maps JavaScript API}
+         */
+        dragstart: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the marker's flat property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.flat_changed Maps JavaScript API}
+         */
+        flat_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker icon property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.icon_changed Maps JavaScript API}
+         */
+        icon_changed: (this: C) => void;
+
+        /**
+         * This event is fired for a mousedown on the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mousedown Maps JavaScript API}
+         */
+        mousedown: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the mouse leaves the area of the marker icon.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseout Maps JavaScript API}
+         */
+        mouseout: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the mouse enters the area of the marker icon.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseover Maps JavaScript API}
+         */
+        mouseover: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired for a mouseup on the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseup Maps JavaScript API}
+         */
+        mouseup: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the marker position property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.position_changed Maps JavaScript API}
+         */
+        position_changed: (this: C) => void;
+
+        /**
+         * This event is fired for a rightclick on the marker.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.rightclick Maps JavaScript API}
+         */
+        rightclick: (this: C, event: MouseEvent) => void;
+
+        /**
+         * This event is fired when the marker's shape property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.shape_changed Maps JavaScript API}
+         */
+        shape_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker title property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.title_changed Maps JavaScript API}
+         */
+        title_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker's visible property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.visible_changed Maps JavaScript API}
+         */
+        visible_changed: (this: C) => void;
+
+        /**
+         * This event is fired when the marker's zIndex property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.zindex_changed Maps JavaScript API}
+         */
+        zindex_changed: (this: C) => void;
+    }
 
     /**
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker Maps JavaScript API}
@@ -107,13 +210,37 @@ declare namespace google.maps {
         setVisible(visible: boolean): void;
         /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.setZIndex Maps JavaScript API} */
         setZIndex(zIndex: number | null): void;
-        addListener(eventName: MarkerChangeOptionEventNames, handler: (this: Marker) => void): MapsEventListener;
-        addListener(
-            eventName: MarkerMouseEventNames,
-            handler: (this: Marker, event: MouseEvent) => void,
+
+        /**
+         * @see {@link MarkerHandlerMap#animation_changed animation_changed} event
+         * @see {@link MarkerHandlerMap#click click} event
+         * @see {@link MarkerHandlerMap#clickable_changed clickable_changed} event
+         * @see {@link MarkerHandlerMap#cursor_changed cursor_changed} event
+         * @see {@link MarkerHandlerMap#dblclick dblclick} event
+         * @see {@link MarkerHandlerMap#drag drag} event
+         * @see {@link MarkerHandlerMap#dragend dragend} event
+         * @see {@link MarkerHandlerMap#draggable_changed draggable_changed} event
+         * @see {@link MarkerHandlerMap#dragstart dragstart} event
+         * @see {@link MarkerHandlerMap#flat_changed flat_changed} event
+         * @see {@link MarkerHandlerMap#icon_changed icon_changed} event
+         * @see {@link MarkerHandlerMap#mousedown mousedown} event
+         * @see {@link MarkerHandlerMap#mouseout mouseout} event
+         * @see {@link MarkerHandlerMap#mouseover mouseover} event
+         * @see {@link MarkerHandlerMap#mouseup mouseup} event
+         * @see {@link MarkerHandlerMap#position_changed position_changed} event
+         * @see {@link MarkerHandlerMap#rightclick rightclick} event
+         * @see {@link MarkerHandlerMap#shape_changed shape_changed} event
+         * @see {@link MarkerHandlerMap#title_changed title_changed} event
+         * @see {@link MarkerHandlerMap#visible_changed visible_changed} event
+         * @see {@link MarkerHandlerMap#zindex_changed zindex_changed} event
+         */
+        addListener<N extends keyof MarkerHandlerMap<this>>(
+            eventName: N,
+            handler: MarkerHandlerMap<this>[N],
         ): MapsEventListener;
+
         /** @deprecated */
-        addListener(eventName: string, handler: (this: Marker, ...args: any[]) => void): MapsEventListener;
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
     }
 
     /**

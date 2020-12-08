@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-format module 1.4
+// Type definitions for D3JS d3-format module 2.0
 // Project: https://github.com/d3/d3-format/, https://d3js.org/d3-format
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.4.5
+// Last module patch version validated against: 2.0.0
 
 /**
  * Specification of locale to use when creating a new FormatLocaleObject
@@ -18,7 +18,7 @@ export interface FormatLocaleDefinition {
      */
     decimal: string;
     /**
-     * The group separator (e.g., ","). Note that the thousands property is a misnomer, as\
+     * The group separator (e.g., ","). Note that the thousands property is a misnomer, as
      * the grouping definition allows groups other than thousands.
      */
     thousands: string;
@@ -39,11 +39,11 @@ export interface FormatLocaleDefinition {
      */
     percent?: string;
     /**
-     * Optional; the minus sign (defaults to hyphen-minus, "-").
+     * Optional; the minus sign (defaults to "−").
      */
     minus?: string;
     /**
-     * Optional; the not-a-number value (defaults `"NaN"`).
+     * Optional; the not-a-number value (defaults "NaN").
      */
     nan?: string;
 }

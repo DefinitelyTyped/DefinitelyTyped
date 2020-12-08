@@ -28,7 +28,6 @@ declare namespace ym {
         // tslint:disable-next-line no-unnecessary-generics
         <CTX>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
         (counterId: number, eventName: 'params', parameters: VisitParameters | VisitParameters[]): void;
-        // tslint:disable-next-line no-unnecessary-generics
         <CTX>(
             counterId: number,
             eventName: 'reachGoal',

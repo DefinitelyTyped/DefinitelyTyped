@@ -13,6 +13,7 @@ declare namespace DatadogWinston {
         service?: string;
         ddsource?: string;
         ddtags?: string;
+        intakeRegion?: string;
     }
 }
 

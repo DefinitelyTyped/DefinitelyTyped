@@ -1,4 +1,4 @@
-// Type definitions for karma-firefox-launcher 1.3
+// Type definitions for karma-firefox-launcher 2.1
 // Project: https://github.com/karma-runner/karma-firefox-launcher#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,5 +17,15 @@ declare module 'karma' {
          * extensions that you want loaded into the browser on startup
          */
         extensions?: string[];
+
+        /**
+         * custom launcher name
+         */
+        name?: string;
+
+        /**
+         * location of the Firefox executable
+         */
+        command?: string;
     }
 }

@@ -690,6 +690,16 @@ import { promisify } from 'util';
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }
 
+// crypto.randomInt
+{
+    const callback = (error: Error|null, value: number): void => {};
+
+    const a: number = crypto.randomInt(10);
+    const b: number = crypto.randomInt(1, 10);
+    crypto.randomInt(10, callback);
+    crypto.randomInt(1, 10, callback);
+}
+
 {
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
@@ -742,4 +752,42 @@ import { promisify } from 'util';
     const cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from('key'), Buffer.from('iv'), { authTagLength: 16 });
     cipher.setAAD(Buffer.from('iv'));
     cipher.setAAD(new Uint8Array());
+}
+
+{
+    crypto.generateKeyPairSync('x25519').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('x448').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('ed25519').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('ed448').privateKey; // $ExpectType KeyObject
+
+    [undefined, {}].forEach((opts) => {
+        crypto.generateKeyPair('x25519', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('x448', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('ed25519', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('ed448', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+    });
+
+    const pGenerateKeyPair = promisify(crypto.generateKeyPair);
+    [undefined, {}].forEach(async (opts) => {
+        (await pGenerateKeyPair('x25519', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('x448', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('ed25519', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('ed448', opts)).privateKey; // $ExpectType KeyObject
+    });
+}
+
+{
+    crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
 }

@@ -5,6 +5,7 @@
 //                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
 //                 Dragoș Străinu <https://github.com/strdr4605>
+//                 Cédric Lisima <https://github.com/opii972>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -34,6 +35,12 @@ export function isPossiblePhoneNumber(value: string): boolean;
 export function isValidPhoneNumber(value?: string): boolean;
 
 export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+
+/**
+ * Returns a list of supported countries.
+ * @see https://github.com/catamphetamine/libphonenumber-js#getcountries-string
+ */
+export function getCountries(): string[];
 
 /**
  * @see https://github.com/catamphetamine/libphonenumber-js#phonenumber
@@ -68,11 +75,15 @@ export interface CountrySelectComponentProps {
      * The list of all selectable countries (including "International")
      */
     options?: Array<{ value?: string; label: string; icon: React.Component }>;
-    tabIndex?: number | string;
+    tabIndex?: number;
     /**
      * The currently selected country code
      */
     value?: string;
+    /**
+     * Language translations
+     */
+    labels?: { [key: string]: string };
 }
 
 export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {

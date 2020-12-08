@@ -3,17 +3,13 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-name": false,
         "max-line-length": false,
         "no-duplicate-imports": false,
-        "no-redundant-jsdoc": false,
-        "no-reference-import": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "space-before-function-paren": false
     }

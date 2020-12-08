@@ -1,3 +1,4 @@
+import { IControl } from 'mapbox-gl';
 import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
@@ -663,6 +664,12 @@ bounds.extend([
 ]);
 // $ExpectType LngLatBounds
 bounds.extend([45, 30, 60, 60]);
+
+// controls
+// $ExpectType IControl
+new mapboxgl.Control() as IControl;
+// $ExpectType IControl
+new mapboxgl.AttributionControl() as IControl;
 
 /*
  * GeolocateControl
@@ -1353,7 +1360,7 @@ const backgroundPaint: mapboxgl.BackgroundPaint = {
 };
 
 const fillLayout: mapboxgl.FillLayout = {
-    'fill-sort-key': 0,
+    'fill-sort-key': eitherType(0, expression),
 };
 
 const fillPaint: mapboxgl.FillPaint = {
@@ -1397,7 +1404,7 @@ const lineLayout: mapboxgl.LineLayout = {
     'line-join': eitherType('bevel', 'round', 'miter', expression),
     'line-miter-limit': eitherType(0, expression),
     'line-round-limit': eitherType(0, expression),
-    'line-sort-key': 0,
+    'line-sort-key': eitherType(0, expression),
 };
 
 const linePaint: mapboxgl.LinePaint = {
@@ -1519,11 +1526,11 @@ const rasterPaint: mapboxgl.RasterPaint = {
     'raster-contrast-transition': transition,
     'raster-fade-duration': eitherType(0, expression),
     'raster-resampling': eitherType('linear', 'nearest'),
-    'circle-sort-key': 0,
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
     visibility: eitherType('visible', 'none'),
+    'circle-sort-key': eitherType(0, expression),
 };
 
 const circlePaint: mapboxgl.CirclePaint = {
@@ -1639,3 +1646,55 @@ expectType<mapboxgl.AnyPaint>(
         hillshadePaint,
     ),
 );
+
+/*
+ * Make sure layer gets proper Paint, corresponding to layer's type
+ */
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
+
+/**
+ * Test map.addImage()
+ */
+
+// HTMLImageElement
+const fooHTMLImageElement = document.createElement('img');
+map.addImage('foo', fooHTMLImageElement);
+
+// ImageData
+const fooImageData = new ImageData(8, 8);
+map.addImage('foo', fooImageData);
+
+// ImageData like
+const fooImageDataLike1 = {
+    width: 10,
+    height: 10,
+    data: new Uint8ClampedArray(8),
+};
+map.addImage('foo', fooImageDataLike1);
+
+const fooImageDataLike2 = {
+    width: 10,
+    height: 10,
+    data: new Uint8Array(8),
+};
+map.addImage('foo', fooImageDataLike2);
+
+// ArrayBufferView
+const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
+map.addImage('foo', fooArrayBufferView);
+
+// ImageBitmap
+createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
+    map.addImage('foo', fooImageBitmap);
+});

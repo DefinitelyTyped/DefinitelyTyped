@@ -3,7 +3,7 @@
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 

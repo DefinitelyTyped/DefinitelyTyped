@@ -73,8 +73,17 @@ type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
 interface ProviderCredentialsOptions {
     id?: string;
     name: string;
-    credentials: unknown;
-    authorize(credentails: unknown): Promise<unknown | null>;
+    credentials: CredentialInput;
+    authorize(credentials: Record<string, string>): Promise<GenericReturnConfig | null>;
+}
+
+interface CredentialInput {
+    [key: string]: {
+        label?: string;
+        type?: string;
+        value?: string;
+        placeholder?: string;
+    };
 }
 
 /**
@@ -174,8 +183,8 @@ interface ProviderAuth0Options {
 type IdentityServer4 = (options: ProviderIS4Options) => GenericReturnConfig;
 
 interface ProviderIS4Options {
-    id: 'identity-server4';
-    name: 'IdentityServer4';
+    id: string;
+    name: string;
     scope: string;
     domain: string;
     clientId: string;
@@ -273,6 +282,7 @@ type LinkedIn = (options: ProviderLinkedInOptions) => GenericReturnConfig;
 interface ProviderLinkedInOptions {
     clientId: string;
     clientSecret: string;
+    scope?: string;
 }
 
 /**

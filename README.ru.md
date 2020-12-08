@@ -8,25 +8,24 @@ _Вы также можете прочитать этот README на [англ�
 
 ## Содержание
 
--   [Текущее состояние](#текущее-состояние)
--   [Что такое файлы декларации (файлы описания/объявления типов)?](#что-такое-файлы-декларации-файлы-описанияобъявления-типов)
--   [Как их получить?](#как-их-получить)
-    -   [npm](#npm)
-        -   [Typescript 2.7 и старее](#typescript-27-и-старее)
-    -   [Typescript 1.8 и старше](#typescript-18-и-старше)
--   [Как я могу внести свой вклад?](#как-я-могу-внести-свой-вклад)
-    -   [Тестирование](#тестирование)
-        -   [Тестирование редактирования существующего пакета](#тестирование-редактирования-существующего-пакета)
-        -   [Тестирование нового пакета](#тестирование-нового-пакета)
-    -   [Запрос на принятие изменений (PR)](#запрос-на-принятие-изменений-pr)
-        -   [Изменение существующего пакета](#изменение-существующего-пакета)
-        -   [Создание нового пакета](#создание-нового-пакета)
-        -   [Распространенные ошибки](#распространенные-ошибки)
-        -   [Удаление пакета](#удаление-пакета)
-        -   [Linter](#linter)
--   [Проверка](#проверка)
--   [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
--   [Лицензия](#лицензия)
+* [Текущее состояние](#текущее-состояние)
+* [Что такое файлы декларации (файлы описания/объявления типов)?](#что-такое-файлы-декларации-файлы-описанияобъявления-типов)
+* [Как их получить?](#как-их-получить)
+* [Как я могу внести свой вклад?](#как-я-могу-внести-свой-вклад)
+  - [Тестирование](#тестирование)
+  - [Запрос на принятие изменений (PR)](#запрос-на-принятие-изменений-pr)<details><summary></summary>
+    - [Изменение существующего пакета](#изменение-существующего-пакета)
+    - [Создание нового пакета](#создание-нового-пакета)
+    - [Распространенные ошибки](#распространенные-ошибки)
+    - [Удаление пакета](#удаление-пакета)
+    - [Проверка](#проверка)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#packagejson)
+    </details>
+  - [Definition Owners](#definition-owners)
+* [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
+* [Лицензия](#лицензия)
 
 ## Текущее состояние
 
@@ -35,7 +34,7 @@ _Вы также можете прочитать этот README на [англ�
 
 -   Самая последняя сборка [прошла проверку-типов/линтинг](https://github.com/Microsoft/dtslint) полностью: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 -   Все пакеты проходят проверку-типов/линтинг полностью на `typescript@next`: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
--   Все пакеты [публикуются на npm](https://github.com/Microsoft/types-publisher) в течении часа: [![Статус публикации](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+-   Все пакеты [публикуются на npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) в течении часа: [![Статус публикации](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 -   [typescript-bot](https://github.com/typescript-bot) проявляет активность на Definitely Typed [![Статус активности](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Discord](https://discord.gg/typescript).
@@ -152,8 +151,8 @@ Definitely Typed работает только благодаря вкладу �
 
 #### Изменение существующего пакета
 
--   `cd types/my-package-to-edit`
--   Внесите изменения. Не забудьте отредактировать тесты.
+-   `cd types/<package to edit>`
+-   Внесите изменения. [Не забудьте отредактировать тесты](#my-package-teststs).
     Если вы вносите критические изменения, не забудьте [обновить основную версию](#i-want-to-update-a-package-to-a-new-major-version).
 -   Вы также можете добавить себя в раздел "Definitions by" заголовка пакета.
 
@@ -168,7 +167,7 @@ Definitely Typed работает только благодаря вкладу �
     //                 John <https://github.com/john>
     ```
 
--   Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` в директории пакета.
+-   [Запустите `npm test <package to test>`](#проверка).
 
 Когда вы создаете PR для редактирования существующего пакета, `dt-bot` должен @-уведомить
 предыдущих авторов. Если этого не произойдет, вы можете сделать это самостоятельно в комментарии, связанном с PR.
@@ -186,11 +185,11 @@ Definitely Typed работает только благодаря вкладу �
 | Файл          | Назначение                                                                                           |
 | ------------- | ---------------------------------------------------------------------------------------------------- |
 | index.d.ts    | Содержит типизацию для пакета.                                                                       |
-| foo-tests.ts  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
+| [\<my package>-tests.ts](#my-package-teststs)  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | tsconfig.json | Позволяет вам запускать `tsc` внутри пакета.                                                         |
 | tslint.json   | Включает linting.                                                                                    |
 
-Создайте их, запустив `npx dts-gen --dt --name my-package-name --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name my-package-name --template module` в противном случае.
+Создайте их, запустив `npx dts-gen --dt --name <my package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my package> --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Вы можете отредактировать `tsconfig.json` чтобы добавить новые файлы, добавить `"target": "es6"` (необходимо для асинхронных функций), добавить в `"lib"`, или добавить опцию компилятора `"jsx"`.
@@ -223,16 +222,70 @@ Definitely Typed работает только благодаря вкладу �
 
 Когда пакет [объединяет](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) свои собственные типы, типы должны быть удалены из Definitely Typed чтобы избежать путаницы.
 
-Вы можете удалить его, запустив `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+Вы можете удалить его, запустив `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 
 -   `typingsPackageName`: название директории, который нужно удалить.
 -   `asOfVersion`: заглушка будет опубликована в `@types/foo` с этой версией. Должна быть выше, чем любая опубликованная на данный момент версия
--   `sourceRepoURL`: Это должно указывать на репозиторий, который содержит типизации.
 -   `libraryName`: описательное имя библиотеки, например, "Angular 2" вместо "angular2". (Если опущено, будет идентично "typingsPackageName".)
 
-Любые другие пакеты в Definitely Typed которые ссылаются на удаленный пакет, должны быть обновлены для ссылки на связанные типы. Для этого добавьте в `package.json` ссыклу `"dependencies": { "foo": "x.y.z" }`.
+Любые другие пакеты в Definitely Typed которые ссылаются на удаленный пакет, должны быть обновлены для ссылки на связанные типы. Для этого добавьте в [`package.json`](#packagejson) ссыклу `"dependencies": { "foo": "x.y.z" }`.
 
 Если пакет никогда не был в Definitely Typed, его не нужно добавлять в `notNeededPackages.json`.
+
+#### Проверка
+
+Протестируйте, запустив `npm test <package to test>` где `<package to test>` - это имя вашего пакета.
+
+Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
+
+#### \<my package>-tests.ts
+
+There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
+You can [validate your changes](#проверка) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+
+Чтобы проверить, что выражение имеет заданный тип, используйте `$ExpectType`. Чтобы проверить, что выражение вызывает ошибку компиляции, используйте `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f('one');
+```
+
+Для получения дополнительной информации см. [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
 #### Linter
 
@@ -256,31 +309,41 @@ Definitely Typed работает только благодаря вкладу �
 }
 ```
 
-(Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `//tslint:disable-next-line rule-name`.)
+(Чтобы указать, что правило lint действительно не применяется, используйте `// tslint:disable rule-name` или лучше, `// tslint:disable-next-line rule-name`.)
 
-Чтобы проверить, что выражение имеет заданный тип, используйте `$ExpectType`. Чтобы проверить, что выражение вызывает ошибку компиляции, используйте `$ExpectError`.
+#### package.json
 
-```js
-// $ExpectType void
-f(1);
+Обычно вам это не нужно. При публикации пакета мы обычно автоматически создаем `package.json`.
+`package.json` может быть включен для определения зависимостей. Вот [пример](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
+Мы не разрешаем определять другие поля, такие как "description", вручную.
+Кроме того, если вам нужно сослаться на более старую версию типизаций, вы должны сделать это, добавив в `package.json` строки `"dependencies": { "@types/foo": "x.y.z" }`.
 
-// $ExpectError
-f('one');
-```
+### Definition Owners
 
-Для получения дополнительной информации см. [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
-## Проверка
+* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
-Протестируйте, запустив `npm run lint package-name` где `package-name` - это имя вашего пакета.
+To Add yourself as a Definition Owner:
 
-Этот скрипт использует [dtslint](https://github.com/Microsoft/dtslint) для запуска компилятора TypeScript на ваших dts файлах.
+* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 ## Часто задаваемые вопросы
 
 #### Какая связь между этим репозиторием и пакетами `@types` в NPM?
 
-Ветвь `master` автоматически публикуется в область `@types` на NPM благодаря [types-publisher](https://github.com/Microsoft/types-publisher).
+Ветвь `master` автоматически публикуется в область `@types` на NPM благодаря [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### Я отправил PR. Когда он сольется?
 
@@ -294,13 +357,6 @@ f('one');
 
 Если модуль, на который вы ссылаетесь, является внешним модулем (использует `export`), используйте import.
 Если модуль, на который вы ссылаетесь, является окружающим модулем (использует `declare module`, или просто объявляет глобальные переменные), используйте `<reference types="" />`.
-
-#### Я заметил, что у некоторых пакетов есть `package.json`.
-
-Обычно вам это не нужно. При публикации пакета мы обычно автоматически создаем `package.json`.
-`package.json` может быть включен для определения зависимостей. Вот [пример](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
-Мы не разрешаем определять другие поля, такие как "description", вручную.
-Кроме того, если вам нужно сослаться на более старую версию типизаций, вы должны сделать это, добавив в `package.json` строки `"dependencies": { "@types/foo": "x.y.z" }`.
 
 #### В некоторых пакетах отсутствует `tslint.json`, а в некоторых `tsconfig.json` отсутствует `"noImplicitAny": true`, `"noImplicitThis": true`, или `"strictNullChecks": true`.
 

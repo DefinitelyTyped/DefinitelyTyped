@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.7
+// Type definitions for prosemirror-model 1.11
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -878,6 +878,11 @@ export class ResolvedPos<S extends Schema = any> {
    */
   nodeBefore?: ProsemirrorNode<S> | null;
   /**
+   * Get the position at the given index in the parent node at the
+   * given depth (which defaults to this.depth).
+   */
+  posAtIndex(index: number, depth?: number): number;
+  /**
    * Get the marks at this position, factoring in the surrounding
    * marks' [`inclusive`](#model.MarkSpec.inclusive) property. If the
    * position is at the start of a non-empty node, the marks of the
@@ -1026,6 +1031,10 @@ export class NodeType<S extends Schema = any> {
    * directly editable content.
    */
   isAtom: boolean;
+  /**
+   * Tells you whether this node type has any required attributes.
+   */
+  hasRequiredAttrs(): boolean;
   /**
    * Create a `Node` of this type. The given attributes are
    * checked and defaulted (you can pass `null` to use the type's

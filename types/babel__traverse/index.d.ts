@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.0
+// Type definitions for @babel/traverse 7.11
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -138,6 +138,8 @@ export class Scope {
 
     removeData(key: string): void;
 
+    crawl(): void;
+
     push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
 
     getProgramParent(): Scope;
@@ -204,9 +206,16 @@ export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeOb
 
 export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, state: S) => void;
 
+type NodeType = Node['type'] | keyof t.Aliases;
+
 export interface VisitNodeObject<S, P extends Node> {
     enter?: VisitNodeFunction<S, P>;
     exit?: VisitNodeFunction<S, P>;
+    denylist?: NodeType[];
+    /**
+     * @deprecated will be removed in Babel 8
+     */
+    blacklist?: NodeType[];
 }
 
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]

@@ -7,25 +7,31 @@ export interface Calendar extends VueConstructor {
     props: {
         locale: DateLocale;
         date: Date | string;
-        month?: Date;
+        initialDate?: Date;
+        enableGridSwitch: boolean;
         modifiers: Modifiers;
         modifiersClassNames: ModifiersClassNames;
         minimumDate: Date | null;
         maximumDate: Date | null;
     };
     data: () => {
-        receivedMonth?: Date | null;
-        $isChangedFromInput: boolean;
+        receivedInitialDate: Date | null;
+        gridType: string;
     };
     computed: {
         mergedModifiers: {
-            [propName: string]: (date: Date) => boolean;
+            [propName: string]: (date: Date, type: string) => boolean;
         };
     };
     watch: {
-        [propName: string]: (date: Date | string) => void;
+        [propName: string]: (newValue: Date | string, oldValue: Date | string) => void;
     };
     methods: {
-        [propName: string]: (date?: Date | string) => void;
+        handleClickTitle(): void;
+        handleNavigate(date: Date): void;
+        handleClickDate(date: Date, type: string): void;
+        handleMouseEnterDate(date: Date): void;
+        handleMouseLeaveDates(): void;
+        getGridType(type: string, isReverse: boolean): string;
     };
 }

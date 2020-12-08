@@ -8,7 +8,7 @@ import {
     XRViewerPose,
     XRRigidTransform,
     XRView,
-    XRViewPort,
+    XRViewport,
 } from 'webxr';
 
 const canvas = document.createElement('canvas');
@@ -49,12 +49,12 @@ const renderFrame = (frame: XRFrame) => {
     const tf = new XRRigidTransform(startSpot, startRot);
     space = space.getOffsetReferenceSpace(tf);
 
-    const pose: XRViewerPose = frame.getViewerPose(space);
+    const pose = frame.getViewerPose(space);
 
     if (pose) {
         let view: XRView;
         for (view of pose.views) {
-            const viewport: XRViewPort = layer.getViewport(view);
+            const viewport: XRViewport = layer.getViewport(view);
             // draw to the device eyes
         }
     }

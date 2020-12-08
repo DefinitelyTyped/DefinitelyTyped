@@ -5,9 +5,10 @@ import {
     PUBLIC_ROUTES, RecordCreator,
     RecordGetter, RecordRemover, RecordsCounter, RecordSerializer,
     RecordsGetter, RecordsRemover, RecordUpdater, StatSerialized, StatSerializer,
+    SmartActionOptions, SmartFieldOptions, SmartSegmentOptions,
     collection, CollectionOptions,
 } from 'forest-express-mongoose';
-import { RequestHandler } from 'express';
+import * as express from 'express';
 
 const MY_PUBLIC_ROUTES = PUBLIC_ROUTES;
 
@@ -62,7 +63,7 @@ recordsRemover.remove(['1234', '5678']);
 const recordSerializer = new RecordSerializer(model);
 recordSerializer.serialize([{}, {}]);
 
-let requestHandler: RequestHandler;
+let requestHandler: express.RequestHandler;
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('users');
 requestHandler = permissionMiddlewareCreator.list();
 requestHandler = permissionMiddlewareCreator.export();
@@ -81,18 +82,19 @@ statSerialized = statSerializer.perform();
 
 collection('simpleCollection', { });
 
+const fields: SmartFieldOptions[] = [{
+    field: 'simple-field',
+    type: 'boolean',
+}];
+const actions: SmartActionOptions[] = [{
+    name: 'simple-action',
+}];
+const segments: SmartSegmentOptions[] = [{
+    name: 'simple-segment',
+    where: () => ({ }),
+}];
 const simpleCollectionOptions: CollectionOptions = {
-    fields: [{
-        field: 'simple-field',
-        type: 'boolean',
-    }],
-    actions: [{
-        name: 'simple-action',
-    }],
-    segments: [{
-        name: 'simple-segment',
-        where: () => ({ }),
-    }],
+    fields, actions, segments,
 };
 collection('simpleCollection', simpleCollectionOptions);
 
@@ -196,3 +198,9 @@ const complexCollectionOptions: CollectionOptions = {
     }],
 };
 collection('complexCollection', complexCollectionOptions);
+
+const app = express();
+
+app.get('/', (request) => {
+    return recordsGetter.getIdsFromRequest(request);
+});

@@ -30,7 +30,7 @@ import * as fs from "fs";
                 return null;
             }
             return {
-                identitty: 'henlo',
+                identity: 'henlo',
                 psk: Buffer.from('asd'),
             };
         },

@@ -6,6 +6,11 @@ import path = require('path');
 const glob = path.join(__dirname, '..', '*.md');
 
 const options: xo.Options = {};
+
+options.space = 2;
+options.space = true;
+options.space = false;
+
 options.webpack = {
     config: {
         resolve: {

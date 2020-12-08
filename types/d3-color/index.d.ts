@@ -1,14 +1,14 @@
-// Type definitions for D3JS d3-color module 1.3
+// Type definitions for D3JS d3-color module 2.0
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>,
-//                 Alex Ford <https://github.com/gustavderdrache>,
-//                 Boris Yankov <https://github.com/borisyankov>,
-//                 denisname <https://github.com/denisname>,
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 //                 Hugues Stefanski <https://github.com/ledragon>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.3.0
+// Last module patch version validated against: 2.0.0
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -337,7 +337,7 @@ export interface LabColor extends Color {
  */
 export interface LabColorFactory extends Function {
     /**
-     * Constructs a new Lab color based on the specified channel values and opacity.
+     * Constructs a new CIELAB color based on the specified channel values and opacity.
      *
      * @param l Lightness typically in the range [0, 100].
      * @param a Position between red/magenta and green typically in [-160, +160].
@@ -354,9 +354,9 @@ export interface LabColorFactory extends Function {
     (cssColorSpecifier: string): LabColor;
     /**
      * Converts the provided color instance and returns a Lab color.
-     * The color instance is converted to the RGB color space using color.rgb and then converted to Lab.
+     * The color instance is converted to the RGB color space using color.rgb and then converted to CIELAB.
      * (Colors already in the Lab color space skip the conversion to RGB,
-     * and colors in the HCL color space are converted directly to Lab.)
+     * and colors in the HCL color space are converted directly to CIELAB.)
      *
      * @param color A permissible color space instance.
      */
@@ -372,7 +372,7 @@ export interface LabColorFactory extends Function {
  */
 export type GrayColorFactory =
     /**
-     * Constructs a new Lab color with the specified l value and a = b = 0.
+     * Constructs a new CIELAB color with the specified l value and a = b = 0.
      *
      * @param l Lightness typically in the range [0, 100].
      * @param opacity Optional opacity value, defaults to 1.
@@ -438,7 +438,7 @@ export interface HCLColorFactory extends Function {
      * @param l Luminance channel value typically in the range [0, 100].
      * @param opacity Optional opacity value, defaults to 1.
      */
-    (h: number, l: number, c: number, opacity?: number): HCLColor;
+    (h: number, c: number, l: number, opacity?: number): HCLColor;
     /**
      * Parses the specified CSS Color Module Level 3 specifier string, returning an HCL color.
      * If the specifier was not valid, null is returned.
