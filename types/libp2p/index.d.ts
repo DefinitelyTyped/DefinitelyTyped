@@ -344,6 +344,13 @@ declare class Libp2p {
         findPeer(peerId: PeerId, options?: { timeout: number }): Promise<{ id: PeerId; multiaddrs: MultiAddr[] }>;
     };
     peerStore: {
+        /**
+         * Get all the stored information of every peer.
+         */
+        peers: Map<
+            string,
+            { id: PeerId; addresses: Address[]; metadata: Map<String, ArrayBuffer>; protocols: string[] }
+        >;
         addressBook: {
             /**
              * 
