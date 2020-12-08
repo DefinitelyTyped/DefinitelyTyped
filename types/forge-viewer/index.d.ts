@@ -1,11 +1,11 @@
-// Type definitions for non-npm package Forge Viewer 7.5
+// Type definitions for non-npm package Forge Viewer 7.32
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
 //                 Petr Broz <https://github.com/petrbroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.6
 
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
@@ -1550,5 +1550,137 @@ declare namespace Autodesk {
             saveAsDefault(): void;
           }
         }
+    }
+
+    namespace DataVisualization {
+      const MOUSE_CLICK = 'HYPERION_OBJECT_CLICK';
+      const MOUSE_HOVERING = 'HYPERION_OBJECT_HOVERING';
+
+      enum ViewableType {
+        SPRITE = 1,
+        GEOMETRY = 2
+      }
+
+      class CustomViewable {
+        constructor(position: THREE.Vector3, style: ViewableStyle, dbId: number);
+
+        get dbId(): number;
+        get position(): THREE.Vector3;
+        get style(): ViewableStyle;
+      }
+
+      class Device {
+        id: string|number;
+        x: number;
+        y: number;
+        z: number;
+        sensorTypes: string[];
+
+        constructor(id: string|number, x: number, y: number, z: number, sensorTypes: string[]);
+      }
+
+      class LevelRoomsMap {
+        addRoomToLevel(levelName: string, room: Room): void;
+        getRoomsOnLevel(levelName: string, onlyRoomsWithDevices: boolean): Room[];
+      }
+
+      class ModelStructureInfo {
+        constructor(model: Viewing.Model);
+
+        generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+      }
+
+      class Room {
+        constructor(id: number, name: string, bounds: THREE.Box3);
+
+        get bounds(): THREE.Box3;
+        get devices(): Device[];
+        get id(): number;
+        get info(): { properties: any[] };
+        set info(value: { properties: any[] });
+        get name(): string;
+
+        addDevice(device: Device): void;
+      }
+
+      class SpriteViewable extends CustomViewable {
+        get color(): THREE.Color;
+        get type(): ViewableType;
+      }
+
+      class SurfaceShadingData extends SurfaceShadingGroup {
+        initialize(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingGroup {
+        id: string;
+        isLeaf: boolean;
+
+        constructor(id?: string);
+
+        get children(): SurfaceShadingGroup[];
+
+        addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
+        getChildLeafs(results: SurfaceShadingNode[]): void;
+        getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingNode {
+        constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
+
+        addPoint(point: SurfaceShadingPoint): void;
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingPoint {
+        constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
+
+        positionFromDBId(model: Viewing.Model, dbId: number): void;
+      }
+
+      class ViewableData {
+        spriteSize: number;
+
+        constructor(options?: { atlasWidth: number, atlasHeight: number });
+
+        get spriteAtlas(): any;
+        get viewables(): CustomViewable[];
+
+        addViewable(viewable: CustomViewable): void;
+        finish(): Promise<void>;
+      }
+
+      class ViewableStyle {
+        color: THREE.Color;
+        id: string;
+        type: ViewableType;
+        url: string;
+
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
+      }
+    }
+
+    namespace Extensions {
+      class DataVisualization extends Viewing.Extension {
+        sceneModel: Viewing.Model;
+
+        addViewables(data: DataVisualization.ViewableData): void;
+        clearHighlightedViewables(): void;
+        changeOcclusion(enable: boolean): void;
+        hideTextures(): void;
+        highlightViewables(dbIds: number|number[]): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[]): void;
+        removeAllViewables(): void;
+        removeSurfaceShading(): void;
+        renderSurfaceShading(nodeIds: string|string[],
+          sensorType: string,
+          valueCallback: (device: DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.SurfaceShadingData): void;
+        showHideViewables(visible: boolean, occlusion: boolean): void;
+        showTextures(): void;
+        updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
+          sensorType: string) => number): void;
+      }
     }
 }
