@@ -116,6 +116,13 @@ declare class Libp2p {
         options: { signal: AbortSignal },
     ): // FIXME replace stream type
     Promise<{ stream: any; protocol: string }>;
+
+    /**
+     * Attempts to gracefully close an open connection to the given peer. If the connection is not closed in the grace period, it will be forcefully closed.
+     * @example await libp2p.hangUp(remotePeerId)
+     */
+    hangUp(peer: PeerId | MultiAddr | string): Promise<void>;
+
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
