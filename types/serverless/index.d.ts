@@ -31,8 +31,9 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name: string;
-        package: Package;
+        name?: string;
+        package?: Package;
+        reservedConcurrency?: number;
         runtime?: string;
         handler: string;
         timeout?: number;
