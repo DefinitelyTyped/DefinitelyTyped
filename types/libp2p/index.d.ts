@@ -24,6 +24,7 @@ type CID = any;
 
 type AddressBook = any;
 type ProtoBook = any;
+type MetadataBook = any;
 type KeyBook = any;
 
 type RsaPublicKey = any;
@@ -455,6 +456,66 @@ declare class Libp2p {
             peerStore.keyBook.set(peerId, publicKey)
              */
             set(peerId: PeerId, publicKey: RsaPublicKey | Ed25519PublicKey | Secp256k1PublicKey): KeyBook;
+        };
+
+        metadataBook: {
+            /**
+             * Delete the provided peer from the book.
+             * Returns true if found and removed
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoremetadatabookdelete
+             * @example
+            peerStore.metadataBook.delete(peerId)
+            // false
+            peerStore.metadataBook.set(peerId, 'nickname', uint8ArrayFromString('homePeer'))
+            peerStore.metadataBook.delete(peerId)
+            // true
+
+             */
+            delete(peerId: PeerId): boolean;
+
+            /**
+             * Deletes the provided peer metadata key-value pair from the book.
+             * Returns true if found and removed
+             @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoremetadatabookdeletevalue
+             @example
+            peerStore.metadataBook.deleteValue(peerId, 'location')
+            // false
+            peerStore.metadataBook.set(peerId, 'location', uint8ArrayFromString('Berlin'))
+            peerStore.metadataBook.deleteValue(peerId, 'location')
+            // true
+             */
+            deleteValue(peerId: PeerId, key: string): boolean;
+
+            /**
+             * Returns Peer Metadata
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoremetadatabookget
+             * @example
+            peerStore.metadataBook.get(peerId)
+            // undefined
+            peerStore.metadataBook.set(peerId, 'location', uint8ArrayFromString('Berlin'))
+            peerStore.metadataBook.get(peerId)
+            // Metadata Map
+             */
+            get(peerId: PeerId): Map<string, Uint8Array>;
+
+            /**
+             * Get specific metadata of a provided peer.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoremetadatabookgetvalue
+             * @example
+            peerStore.metadataBook.getValue(peerId, 'location')
+            // undefined
+            peerStore.metadataBook.set(peerId, 'location', uint8ArrayFromString('Berlin'))
+            peerStore.metadataBook.getValue(peerId, 'location')
+            // Metadata Map
+             */
+            getValue(peerId: PeerId, key: string): Map<string, Uint8Array>;
+
+            /**
+             * Set known metadata of a given peerId.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoremetadatabookset
+             * @example peerStore.metadataBook.set(peerId, 'location', uint8ArrayFromString('Berlin'))
+             */
+            set(peerId: PeerId, key: string, value: Uint8Array): MetadataBook;
         };
     };
 }
