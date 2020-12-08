@@ -111,7 +111,7 @@ declare global {
     }
 
     interface ClientStorageAPI {
-        getAsync(key: string): Promise<any | undefined>;
+        getAsync(key: string): Promise<any>;
         setAsync(key: string, value: any): Promise<void>;
     }
 
@@ -409,7 +409,10 @@ declare global {
         fontName: FontName;
     }
 
-    type Reaction = { action: Action; trigger: Trigger };
+    interface Reaction {
+        action: Action;
+        trigger: Trigger;
+    }
 
     type Action =
         | { readonly type: 'BACK' | 'CLOSE' }
@@ -675,7 +678,7 @@ declare global {
 
         appendChild(child: PageNode): void;
         insertChild(index: number, child: PageNode): void;
-        findChildren(callback?: (node: PageNode) => boolean): Array<PageNode>;
+        findChildren(callback?: (node: PageNode) => boolean): PageNode[];
         findChild(callback: (node: PageNode) => boolean): PageNode | null;
 
         /**
