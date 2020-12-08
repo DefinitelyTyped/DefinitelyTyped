@@ -2118,7 +2118,7 @@ declare module 'azdata' {
          * Launches a flyout dialog that will display the information on how to complete device
          * code OAuth login to the user. Only one flyout can be opened at once and each must be closed
          * by calling {@link endAutoOAuthDeviceCode}.
-         * @param providerId	ID of the provider that's requesting the flyout be opened
+         * @param providerId ID of the provider that's requesting the flyout be opened
          */
         export function beginAutoOAuthDeviceCode(providerId: string, title: string, message: string, userCode: string, uri: string): Thenable<void>;
 
@@ -3237,9 +3237,9 @@ declare module 'azdata' {
     }
 
     export enum ColumnSizingMode {
-        ForceFit = 0,	// all columns will be sized to fit in viewable space, no horiz scroll bar
-        AutoFit = 1,	// columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
-        DataFit = 2		// columns use sizing based on cell data, horiz scroll bar present if more cells than visible in view area
+        ForceFit = 0, // all columns will be sized to fit in viewable space, no horiz scroll bar
+        AutoFit = 1, // columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
+        DataFit = 2 // columns use sizing based on cell data, horiz scroll bar present if more cells than visible in view area
     }
 
     export interface TableComponentProperties extends ComponentProperties {
@@ -4553,12 +4553,12 @@ declare module 'azdata' {
          * provider are defined in the `package.json:
          * ```json
          * {
-         * 	"contributes": {
-         * 		"notebook.providers": [{
-         * 			"provider": "providername",
-         * 			"fileExtensions": ["FILEEXT"]
-         * 		}]
-         * 	}
+         *    "contributes": {
+         *       "notebook.providers": [{
+         *          "provider": "providername",
+         *          "fileExtensions": ["FILEEXT"]
+         *        }]
+         *    }
          * }
          * ```
          * @param notebook provider
