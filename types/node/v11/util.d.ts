@@ -1,7 +1,9 @@
 declare module "util" {
     interface InspectOptions extends NodeJS.InspectOptions { }
     function format(format: any, ...param: any[]): string;
+    function format(...param: any[]): string;
     function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
+    function formatWithOptions(inspectOptions: InspectOptions, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
