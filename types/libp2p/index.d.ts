@@ -125,7 +125,7 @@ declare class Libp2p {
 
     /**
      * Sets up multistream-select routing of protocols to their application handlers. 
-     *
+     * 
      * Whenever a stream is opened on one of the provided protocols, the handler will be called. handle must be called in order to register a handler and support for a given protocol. This also informs other peers of the protocols you support.
      * 
      * In the event of a new handler for the same protocol being added, the first one is discarded.
