@@ -121,7 +121,7 @@ declare namespace JsReport {
         addRequestContextMetaConfig(property: any, options: any): void;
         getRequestContextMetaConfig(property: any): any;
         addPathToWatchForAutoCleanup(customPath: string): void;
-        getPathsToWatchForAutoCleanup(): [string];
+        getPathsToWatchForAutoCleanup(): string[];
         ensureTempDirectoryExists(): Promise<TempDirectoryResult>;
         readTempFile(filename: string, opts: any): Promise<ReadTempFileResult>;
         writeTempFile(filenameFn: () => string, content: any, opts: any): Promise<WriteFileResult>;
@@ -184,9 +184,9 @@ declare namespace JsReport {
             strategy?: EngineStrategy;
             numberOfWorkers?: number;
             forkOptions?: {
-                execArgv?: string | [string];
+                execArgv?: string | string[];
             },
-            allowedModules?: string | [string];
+            allowedModules?: string | string[];
             timeout?: number;
             templateCache?: {
                 max: number;
@@ -200,7 +200,7 @@ declare namespace JsReport {
             provider?: ReporterOptionsBlobStorageProvider;
         };
         extensions?: any;
-        extensionsList?: [string];
+        extensionsList?: string[];
         /** @default true */
         migrateEntitySetsToFolders?: boolean;
         connectionString?: string;
