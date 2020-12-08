@@ -123,11 +123,23 @@ declare class Libp2p {
      */
     hangUp(peer: PeerId | MultiAddr | string): Promise<void>;
 
+    /**
+     * Sets up multistream-select routing of protocols to their application handlers. 
      *
-     * @param {object} options - Libp2p configuration options
-     * @returns {Promise<Libp2p>}
+     * Whenever a stream is opened on one of the provided protocols, the handler will be called. handle must be called in order to register a handler and support for a given protocol. This also informs other peers of the protocols you support.
+     * 
+     * In the event of a new handler for the same protocol being added, the first one is discarded.
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#handle
+     * @see https://github.com/multiformats/multistream-select
+     * @example 
+    // ...
+    const handler = ({ connection, stream, protocol }) => {
+        // use stream or connection according to the needs
+    }
+
+    libp2p.handle('/echo/1.0.0', handler)
      */
-    static create(options: Options): Promise<Libp2p>;
+    handle(protocols: string[], handler: (params: { connection: any; stream: any; protocol: string }) => any): void;
 }
 
 export * from './options';
