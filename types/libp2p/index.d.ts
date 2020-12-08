@@ -311,6 +311,21 @@ declare class Libp2p {
             options?: { timeout: number },
         ): Promise<{ from: PeerId; val: Uint8Array }[]>;
     };
+
+    peerRouting: {
+        /**
+         * Iterates over all peer routers in series to find the given peer.
+         *
+         * @param {string} peerId - The id of the peer to find
+         * @param {object} [options]
+         * @param {number} [options.timeout] - How long the query should run
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerroutingfindpeer
+         * @example
+        // ...
+        const peer = await libp2p.peerRouting.findPeer(peerId, options)
+         */
+        findPeer(peerId: PeerId, options?: { timeout: number }): Promise<{ id: PeerId; multiaddrs: MultiAddr[] }>;
+    };
 }
 
 export * from './options';
