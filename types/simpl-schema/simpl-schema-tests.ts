@@ -25,7 +25,7 @@ const schema: SimpleSchemaDefinition = {
             this.value;
             this.operator;
             this.validationContext;
-            this.field();
+            this.field('field');
             this.siblingField('field');
             this.addValidationErrors([
                 {
