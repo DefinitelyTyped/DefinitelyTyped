@@ -19,6 +19,8 @@ type MultiAddr = any;
 type Connection = any;
 // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/signal
 type AbortSignal = any;
+// https://github.com/multiformats/js-cid/blob/master/src/index.d.ts
+type CID = any;
 
 /**
  * @fires Libp2p#error Emitted when an error occurs
@@ -224,6 +226,86 @@ declare class Libp2p {
         // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
          */
         getAddrs(): MultiAddr[];
+    };
+
+    contentRouting: {
+        /**
+         * Iterates over all content routers in series to find providers of the given key.
+         * Once a content router succeeds, iteration will stop.
+         *
+         * @param {CID} key - The CID key of the content to find
+         * @param {number} [options.timeout] - How long the query should run
+         * @param {number} [options.maxNumProviders] - maximum number of providers to find
+         * @returns {AsyncIterable<{ id: PeerId, multiaddrs: Multiaddr[] }>}
+         * 
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#contentroutingfindproviders
+         * @see https://github.com/multiformats/js-cid
+         * @example
+        // Iterate over the providers found for the given cid
+        for await (const provider of libp2p.contentRouting.findProviders(cid)) {
+            console.log(provider.id, provider.multiaddrs)
+        }
+         */
+        findProviders(
+            cid: CID,
+            options: { timeout: number; maxNumProviders: number },
+        ): Iterable<{ id: PeerId; multiaddrs: MultiAddr[] }>;
+        // TODO: fix the return value, not sure if that's good
+
+        /**
+         * Iterates over all content routers in parallel to notify it is
+         * a provider of the given key.
+         *
+         * @param {CID} key - The CID key of the content to find
+         * 
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#contentroutingprovide
+         * @example
+        // ...
+        await libp2p.contentRouting.provide(cid)
+         */
+        provide(cid: CID): Promise<void>;
+
+        /**
+         * Writes a value to a key in the DHT.
+         *
+         * @param {Uint8Array} key
+         * @param {Uint8Array} value
+         * @param {number} [options.minPeers] - minimum number of peers required to successfully put (default: closestPeers.length)
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#contentroutingput
+         * @example
+        // ...
+        const key = '/key'
+        const value = uint8ArrayFromString('oh hello there')
+
+        await libp2p.contentRouting.put(key, value)
+         */
+        put(key: string, value: Uint8Array, options?: { minPeers: number }): Promise<void>;
+
+        /**
+         * Queries the DHT for a value stored for a given key.
+         * Times out after 1 minute by default.
+         *
+         * @param {number} [options.timeout] - maximum time(ms) the query should run 
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#contentroutingget
+         * @example
+        const key = '/key'
+        const value = await libp2p.contentRouting.get(key)
+         */
+        get(key: string, options: { timeout: number }): Promise<Uint8Array>;
+        // TODO: Not sure about return value, docs and source code says completely different things
+
+        /**
+        * Queries the DHT for the n values stored for the given key (without sorting).
+        *  
+        * @param key - key to get from the dht
+        * @param nvals - number of values aimed
+        * @param {number} [options.timeout] - optional timeout (default: 60000)
+        * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#contentroutinggetmany
+        * @example
+        const key = '/key'
+        const records = await libp2p.contentRouting.getMany(key, 2)
+         */
+        getMany(key: string, nvals: number, options: { timeout: number }): Promise<{ from: PeerId; val: Uint8Array }[]>;
     };
 }
 
