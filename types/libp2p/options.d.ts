@@ -120,6 +120,33 @@ export interface KeychainOptions {
      */
     datastore: object; // FIXME
 }
+
+export interface MetricOptions {
+    /**
+     * Enabled metrics collection.
+     */
+    enabled: boolean;
+    /**
+     * How many messages a stat will queue before processing.
+     */
+    computeThrottleMaxQueueSize: number;
+
+    /**
+     * Time in milliseconds a stat will wait, after the last item was added, before processing.
+     */
+    computeThrottleTimeout: number;
+
+    /**
+     * The moving averages that will be computed.
+     */
+    movingAverageIntervals: number[];
+
+    /**
+     * How many disconnected peers we will retain stats for.
+     */
+    maxOldPeersRetention: number;
+}
+
 /**
  * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md
  */
@@ -162,4 +189,10 @@ export interface Options {
      * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#setup-with-keychain
      */
     keychain: KeychainOptions;
+
+    /**
+     * Metrics configuration
+     * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-metrics
+     */
+    metrics: MetricOptions;
 }
