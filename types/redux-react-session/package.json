@@ -1,6 +1,6 @@
 {
     "name": "@types/redux-react-session",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "TypeScript definitions for Redux React Session",
     "license": "MIT",
     "contributors": [
@@ -10,16 +10,13 @@
             "githubUsername": "joaomlneto"
         }
     ],
-    "main": "",
     "types": "index.d.ts",
     "repository": {
         "type": "git",
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
         "directory": "types/redux-react-session"
     },
-    "scripts": {},
     "dependencies": {
         "redux": "^4.0.5"
-    },
-    "typeScriptVersion": "3.2"
+    }
 }
