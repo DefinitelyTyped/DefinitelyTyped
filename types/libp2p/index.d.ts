@@ -44,6 +44,17 @@ declare class Libp2p {
     await libp2p.start()
      */
     start(): Promise<void>;
+    /**
+     * Stops the libp2p node.
+     * Promise resolves when the node is fully stopped
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop
+     * @example
+    const libp2p = await Libp2p.create(options)
+    // ...
+    // stop libp2p
+    await libp2p.stop()
+     */
+    stop(): Promise<void>;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
