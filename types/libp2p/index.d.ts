@@ -55,6 +55,12 @@ declare class Libp2p {
     await libp2p.stop()
      */
     stop(): Promise<void>;
+
+    // TODO fix
+    /**
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addresses
+     */
+    get addresses(): any;
      *
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
