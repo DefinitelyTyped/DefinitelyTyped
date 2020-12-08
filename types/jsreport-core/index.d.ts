@@ -36,8 +36,8 @@ declare namespace JsReport {
         writable?: boolean;
         configurable?: boolean;
         enumerable?: boolean;
-        template?: Partial<Template>;
-        options?: RequestOptions;
+        template: Partial<Template>;
+        options?: Partial<RequestOptions>;
         context?: Context;
         data?: any;
     }
@@ -87,22 +87,22 @@ declare namespace JsReport {
     interface ReporterInstance {
         defaults?: any;
         options?: Configuration;
-        afterRenderListeners?: ListenerCollection;
-        afterTemplatingEnginesExecutedListeners?: ListenerCollection;
-        beforeRenderListeners?: ListenerCollection;
-        closeListeners?: ListenerCollection;
-        documentStore?: DocumentStore;
-        blobStorage?: BlobStorage;
-        initializeListeners?: ListenerCollection;
-        renderErrorListeners?: ListenerCollection;
+        afterRenderListeners: ListenerCollection;
+        afterTemplatingEnginesExecutedListeners: ListenerCollection;
+        beforeRenderListeners: ListenerCollection;
+        closeListeners: ListenerCollection;
+        documentStore: DocumentStore;
+        blobStorage: BlobStorage;
+        initializeListeners: ListenerCollection;
+        renderErrorListeners: ListenerCollection;
         // it would be nice to add winston.LoggerInstance here
         // however adding import winston = require('winston') breaks exported enums
-        logger: any;
-        validateRenderListeners?: ListenerCollection;
+        logger?: any;
+        validateRenderListeners: ListenerCollection;
         version?: string;
-        settings?: Settings;
-        optionsValidator?: SchemaValidator;
-        entityTypeValidator?: SchemaValidator;
+        settings: Settings;
+        optionsValidator: SchemaValidator;
+        entityTypeValidator: SchemaValidator;
     }
 
     interface Reporter extends ReporterInstance {
