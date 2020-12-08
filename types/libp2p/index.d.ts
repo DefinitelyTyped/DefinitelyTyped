@@ -385,6 +385,7 @@ declare class Libp2p {
             /**
              * 
              * Get the known Multiaddr of a provided peer. All returned multiaddrs will include the encapsulated PeerId of the peer.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookgetmultiaddrsforpeer
              * @example
             peerStore.addressBook.getMultiaddrsForPeer(peerId)
             // undefined
@@ -400,6 +401,7 @@ declare class Libp2p {
             /**
              *
              * Set known multiaddrs of a given peer. This will replace previously stored multiaddrs, if available. Replacing stored multiaddrs might result in losing obtained certified addresses, which is not desirable. Consider using addressBook.add() if you're not sure this is what you want to do.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookset
              */
             set(peerId: PeerId, multiaddrs: MultiAddr[]): AddressBook;
         };
