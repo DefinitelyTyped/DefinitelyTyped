@@ -23,7 +23,7 @@ declare class Libp2p {
      * @param {object} options - Libp2p configuration options
      * @returns {Promise<Libp2p>}
      */
-    static create(options: Options): Libp2p;
+    static create(options: Options): Promise<Libp2p>;
 }
 
 export * from './options';
