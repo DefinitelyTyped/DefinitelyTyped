@@ -17,8 +17,25 @@ app.get('/:foo', req => {
     req.is(1);
 });
 
+app.route('/:foo').get(req => {
+    req.params.foo; // $ExpectType string
+    req.params[0]; // $ExpectType string
+    // $ExpectType string | false | null
+    req.is(['application/json', 'application/xml']);
+    // $ExpectType string | false | null
+    req.is('audio/wav');
+    // $ExpectError
+    req.is(1);
+});
+
 // Params can used as an array
 app.get<express.ParamsArray>('/*', req => {
+    req.params[0]; // $ExpectType string
+    req.params.length; // $ExpectType number
+});
+
+// Params can used as an array - under route
+app.route('/*').get<express.ParamsArray>(req => {
     req.params[0]; // $ExpectType string
     req.params.length; // $ExpectType number
 });
@@ -31,14 +48,32 @@ app.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
     req.params.baz; // $ExpectError
 });
 
+// Params can be a custom type - under route
+app.route('/:foo/:bar').get<{ foo: string, bar: number }>(req => {
+  req.params.foo; // $ExpectType string
+  req.params.bar; // $ExpectType number
+  req.params.baz; // $ExpectError
+});
+
 // Query can be a custom type
 app.get<{}, any, any, {q: string}>('/:foo', req => {
     req.query.q; // $ExpectType string
     req.query.a; // $ExpectError
 });
 
+// Query can be a custom type - under route
+app.route('/:foo').get<{}, any, any, {q: string}>(req => {
+    req.query.q; // $ExpectType string
+    req.query.a; // $ExpectError
+});
+
 // Query will be defaulted to Query type
 app.get('/:foo', req => {
+    req.query; // $ExpectType ParsedQs
+});
+
+// Query will be defaulted to Query type - under route
+app.route('/:foo').get(req => {
     req.query; // $ExpectType ParsedQs
 });
 
@@ -60,6 +95,14 @@ app.post("/", (req, res) => {
     res.send("ok"); // $ExpectType Response<any, number>
 });
 
+// Default types - under route
+app.route('/').post((req, res) => {
+    req.params[0]; // $ExpectType string
+
+    req.body; // $ExpectType any
+    res.send("ok"); // $ExpectType Response<any, number>
+});
+
 // No params, only response body type
 app.get<never, { foo: string; }>("/", (req, res) => {
     req.params.baz; // $ExpectError
@@ -68,8 +111,27 @@ app.get<never, { foo: string; }>("/", (req, res) => {
     req.body; // $ExpectType any
 });
 
+// No params, only response body type - under route
+app.route('/').get<never, { foo: string; }>((req, res) => {
+    req.params.baz; // $ExpectError
+
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    req.body; // $ExpectType any
+});
+
 // No params, request body type and response body type
 app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
+    req.params.baz; // $ExpectError
+
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    req.body.bar; // $ExpectType number
+
+    res.json({ baz: "fail" }); // $ExpectError
+    req.body.baz; // $ExpectError
+});
+
+// No params, request body type and response body type - under route
+app.route('/').post<never, { foo: string }, { bar: number }>((req, res) => {
     req.params.baz; // $ExpectError
 
     res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
