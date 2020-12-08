@@ -22,6 +22,16 @@ type AbortSignal = any;
 // https://github.com/multiformats/js-cid/blob/master/src/index.d.ts
 type CID = any;
 
+type AddressBook = any;
+
+export interface Address {
+    multiaddr: MultiAddr;
+    /**
+     * Is obtained from a signed peer record.
+     */
+    isCertified: boolean;
+}
+
 /**
  * @fires Libp2p#error Emitted when an error occurs
  * @fires Libp2p#peer:discovery Emitted when a peer is discovered
@@ -325,6 +335,74 @@ declare class Libp2p {
         const peer = await libp2p.peerRouting.findPeer(peerId, options)
          */
         findPeer(peerId: PeerId, options?: { timeout: number }): Promise<{ id: PeerId; multiaddrs: MultiAddr[] }>;
+    };
+    peerStore: {
+        addressBook: {
+            /**
+             * 
+             * Adds known multiaddrs of a given peer. If the peer is not known, it will be set with the provided multiaddrs.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookadd
+             * @example
+             peerStore.addressBook.add(peerId, multiaddr)
+             */
+            add(peerId: PeerId, multiaddrs: MultiAddr[]): AddressBook;
+            /**
+             * Delete the provided peer from the book.
+             * 
+             * Returns true if removed
+             * 
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookdelete
+             * @example
+            peerStore.addressBook.delete(peerId)
+            // false
+            peerStore.addressBook.set(peerId, multiaddr)
+            peerStore.addressBook.delete(peerId)
+            // true
+             */
+            delete(peerId: PeerId): boolean;
+
+            /**
+             * Get the known Addresses of a provided peer.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookget
+             * @example
+             * peerStore.addressBook.get(peerId)
+            // undefined
+            peerStore.addressBook.set(peerId, multiaddr)
+            peerStore.addressBook.get(peerId)
+            // [
+            // {
+            //   multiaddr: /ip4/140.10.2.1/tcp/8000,
+            //   ...
+            // },
+            // {
+            //   multiaddr: /ip4/140.10.2.1/ws/8001
+            //   ...
+            // },
+            // ]
+            */
+            get(peerId: PeerId): Address[];
+
+            /**
+             * 
+             * Get the known Multiaddr of a provided peer. All returned multiaddrs will include the encapsulated PeerId of the peer.
+             * @example
+            peerStore.addressBook.getMultiaddrsForPeer(peerId)
+            // undefined
+            peerStore.addressBook.set(peerId, multiaddr)
+            peerStore.addressBook.getMultiaddrsForPeer(peerId)
+            // [
+            // /ip4/140.10.2.1/tcp/8000/p2p/QmW8rAgaaA6sRydK1k6vonShQME47aDxaFidbtMevWs73t
+            // /ip4/140.10.2.1/ws/8001/p2p/QmW8rAgaaA6sRydK1k6vonShQME47aDxaFidbtMevWs73t
+            // ]
+             */
+            getMultiaddrsForPeer(peerId: PeerId): MultiAddr[];
+
+            /**
+             *
+             * Set known multiaddrs of a given peer. This will replace previously stored multiaddrs, if available. Replacing stored multiaddrs might result in losing obtained certified addresses, which is not desirable. Consider using addressBook.add() if you're not sure this is what you want to do.
+             */
+            set(peerId: PeerId, multiaddrs: MultiAddr[]): AddressBook;
+        };
     };
 }
 
