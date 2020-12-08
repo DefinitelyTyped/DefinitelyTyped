@@ -57,6 +57,7 @@ declare class Libp2p {
     await libp2p.start()
      */
     start(): Promise<void>;
+
     /**
      * Stops the libp2p node.
      * Promise resolves when the node is fully stopped
