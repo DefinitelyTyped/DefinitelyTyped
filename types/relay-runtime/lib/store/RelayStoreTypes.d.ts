@@ -460,7 +460,7 @@ type LogEvent =
     | Readonly<{
         name: 'network.info',
         transactionID: number,
-        info: any,
+        info: unknown,
     }>
     | Readonly<{
         name: 'network.start',
