@@ -53,8 +53,6 @@ declare namespace Serverless {
     }
 }
 
-declare namespace JSONSchema4Type {}
-
 declare class Serverless {
     constructor(config?: {});
 
