@@ -184,6 +184,47 @@ declare class Libp2p {
     // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
      */
     mutliaddrs: MultiAddr[];
+    addressManager: {
+        /**
+         * Get the multiaddrs that were provided for listening on libp2p transports.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addressmanagergetlistenaddrs
+         * @example
+         * 
+        // ...
+        const listenMa = libp2p.addressManager.getListenAddrs()
+        // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
+         */
+        getListenAddrs(): MultiAddr[];
+
+        /**
+         * Get the multiaddrs that were provided to announce to the network.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addressmanagergetannounceaddrs
+        @example
+        const announceMa = libp2p.addressManager.getAnnounceAddrs()
+        // [ <Multiaddr 047f00000106f9ba - /dns4/peer.io/...> ]
+         */
+        getAnnounceAddrs(): MultiAddr[];
+
+        /**
+         * Get the multiaddrs that were provided to not announce to the network.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addressmanagergetnoannounceaddrs
+         * @example
+        // ...
+        const noAnnounceMa = libp2p.addressManager.getNoAnnounceAddrs()
+        // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
+         */
+        getNoAnnounceAddrs(): MultiAddr[];
+
+        /**
+         * Get the multiaddrs that libp2p transports are using to listen on.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#addressmanagergetnoannounceaddrs
+         * @example
+        // ...
+        const listenMa = libp2p.transportManager.getAddrs()
+        // [ <Multiaddr 047f00000106f9ba - /ip4/127.0.0.1/tcp/63930> ]
+         */
+        getAddrs(): MultiAddr[];
+    };
 }
 
 export * from './options';
