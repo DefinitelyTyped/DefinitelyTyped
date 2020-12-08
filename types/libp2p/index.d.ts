@@ -23,6 +23,12 @@ type AbortSignal = any;
 type CID = any;
 
 type AddressBook = any;
+type ProtoBook = any;
+type KeyBook = any;
+
+type RsaPublicKey = any;
+type Ed25519PublicKey = any;
+type Secp256k1PublicKey = any;
 
 export interface Address {
     multiaddr: MultiAddr;
@@ -404,6 +410,51 @@ declare class Libp2p {
              * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreaddressbookset
              */
             set(peerId: PeerId, multiaddrs: MultiAddr[]): AddressBook;
+        };
+        protoBook: {
+            /**
+             * Add known protocols of a given peer.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstoreprotobookadd
+             * @example
+            peerStore.protoBook.add(peerId, protocols)
+             */
+            add(peerId: PeerId, protocols: string[]): ProtoBook;
+        };
+        keyBook: {
+            /**
+             * Delete the provided peer from the book.
+             * Returns true if found and removed
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstorekeybookdelete
+             * @example
+            peerStore.keyBook.delete(peerId)
+            // false
+            peerStore.keyBook.set(peerId, publicKey)
+            peerStore.keyBook.delete(peerId)
+            // true
+             */
+            delete(peerId: PeerId): boolean;
+
+            /**
+             * Get the known PublicKey of a provided peer.
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstorekeybookget
+             * @example
+            peerStore.keyBook.get(peerId)
+            // undefined
+            peerStore.keyBook.set(peerId, publicKey)
+            peerStore.keyBook.get(peerId)
+            // PublicKey
+             */
+            get(peerId: PeerId): RsaPublicKey | Ed25519PublicKey | Secp256k1PublicKey;
+
+            /**
+             * Set known peerId. This can include its Public Key.
+
+             * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#peerstorekeybookset
+             * @example
+            const publicKey = peerId.pubKey
+            peerStore.keyBook.set(peerId, publicKey)
+             */
+            set(peerId: PeerId, publicKey: RsaPublicKey | Ed25519PublicKey | Secp256k1PublicKey): KeyBook;
         };
     };
 }
