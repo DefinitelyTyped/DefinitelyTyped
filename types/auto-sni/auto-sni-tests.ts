@@ -2,6 +2,7 @@ import autosni = require("auto-sni");
 const a = autosni({
     agreeTos: true,
     email: '',
+    dir: '',
     domains: ['']
 });
 
