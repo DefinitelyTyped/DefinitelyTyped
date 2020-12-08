@@ -656,6 +656,36 @@ declare class Libp2p {
             delete(topic: string): boolean;
         };
     };
+    connectionManager: {
+        /**
+         * Get a connection with a given peer, if it exists.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#connectionmanagerget
+         * @example
+         * libp2p.connectionManager.get(peerId)
+         */
+        get(peerId: PeerId): Connection;
+
+        /**
+         * 
+         * Enables users to change the value of certain peers in a range of 0 to 1. Peers with the lowest values will have their Connections pruned first, if any Connection Manager limits are exceeded. See ./CONFIGURATION.md#configuring-connection-manager for details on how to configure these limits.
+         * @param value The value of the peer from 0 to 1
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#connectionmanagersetpeervalue
+         * @example
+        libp2p.connectionManager.setPeerValue(highPriorityPeerId, 1)
+        libp2p.connectionManager.setPeerValue(lowPriorityPeerId, 0)
+         */
+        setPeerValue(peerId: PeerId, value: number): void;
+
+        /**
+         * Getter for obtaining the current number of open connections.
+         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#connectionmanagersize
+         * @example
+        libp2p.connectionManager.size
+        // 10
+
+         */
+        size: number;
+    };
 }
 
 export * from './options';
