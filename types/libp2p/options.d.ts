@@ -195,4 +195,9 @@ export interface Options {
      * @link https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-metrics
      */
     metrics: MetricOptions;
+
+    /**
+     * peerId instance (it will be created if not provided)
+     */
+    peerId: object; // FIXME
 }
