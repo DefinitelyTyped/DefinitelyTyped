@@ -3,10 +3,12 @@
 // Definitions by: Will Ockmore <https://github.com/ktjd123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class StegCloak {
+declare class StegCloak {
     constructor(encryption: boolean, hmac: boolean);
 
     hide(secret: string, password: string, cover: string): string;
 
     reveal(data: string, password: string): string;
 }
+
+export = StegCloak;

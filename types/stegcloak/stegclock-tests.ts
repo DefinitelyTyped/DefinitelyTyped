@@ -1,3 +1,3 @@
-import StegClock = require('stegclock');
+import StegClock = require('stegcloak');
 
-StegClock(true, false); // $ExpectType string
+new StegClock(true, false);
