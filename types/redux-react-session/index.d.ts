@@ -27,6 +27,7 @@ export interface SessionServiceOptions {
     expires: number;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 export class sessionService /*implements Reducer<SessionState, Action>*/ {
     constructor(store: Store, options?: SessionServiceOptions);
     static setOptions(store: Store, options?: SessionServiceOptions): void;
