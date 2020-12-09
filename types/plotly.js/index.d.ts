@@ -21,7 +21,7 @@
 //                 Oleg Shilov <https://github.com/olegshilov>
 //                 Pablo Gracia <https://github.com/PabloGracia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4cd
+// Minimum TypeScript Version: 3.4
 
 import * as _d3 from 'd3';
 import { BoxPlotData } from './lib/traces/box';
