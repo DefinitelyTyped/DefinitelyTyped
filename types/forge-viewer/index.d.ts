@@ -483,6 +483,7 @@ declare namespace Autodesk {
         }
 
         class InstanceTree {
+            fragList: Private.FragmentList;
             maxDepth: number;
             nodeAccess: InstanceTreeAccess;
             numHidden: number;
@@ -528,7 +529,7 @@ declare namespace Autodesk {
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
-            getFragmentList(): any;
+            getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
@@ -1114,6 +1115,50 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            class FragmentList {
+              allVisible: boolean;
+              allVisibleDirty: boolean;
+              animxforms: any;
+              boxes: any;
+              db2ThemingColor: any[];
+              dbIdIsGhosted: any[];
+              dbIdOpacity: any[];
+              fragments: any;
+              geomids: Int32Array;
+              geoms: GeometryList;
+              is2d: boolean;
+              isFixedSize: boolean;
+              linesHidden: boolean;
+              materialIdMap: { [id: number]: any };
+              materialids: Int32Array;
+              materialmap: any;
+              matrix: any;
+              modelId: number;
+              nextAvailableFragID: number;
+              nextMaterialId: number;
+              originalColors: any[];
+              pointsHidden: boolean;
+              themingOrGhostingNeedsUpdate: any[];
+              transforms: any;
+              useThreeMesh: boolean;
+              vizflags: Uint32Array;
+              vizmeshes: THREE.Mesh[];
+            }
+
+            class GeometryList {
+              disableStreaming: boolean;
+              geomBoxes: Float32Array;
+              geomMemory: number;
+              geomPolyCount: number;
+              geoms: any[];
+              gpuMeshMemory: number;
+              gpuNumMeshes: number;
+              instancePolyCount: number;
+              is2d: boolean;
+              numGeomsInMemory: number;
+              numObjects: number;
+            }
 
             class LocalStorageClass {
               clear(): void;
