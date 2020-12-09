@@ -132,9 +132,11 @@ function testBlankNode() {
     let singleBlank: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode();
     singleBlank = cf.blankNode('label');
     const multiBlankContext: clownface.AnyPointer<BlankNode[], Dataset> = cf.blankNode([ 'b1', 'b2' ]);
+    const set: Set<BlankNode> = <any> {};
 
     const fromOther: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
     const fromMultipleOther: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(multiBlankContext);
+    const fromSet: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(set);
 }
 
 function testDeleteIn() {
@@ -269,6 +271,9 @@ function testLiteral() {
 
     const fromOther: clownface.AnyPointer<Literal, Dataset> = cf.literal(cfOneLit);
     const fromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.literal(cfLiterals);
+
+    const set: Set<Literal> = <any> {};
+    const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.literal(set);
 }
 
 function testMap() {
@@ -286,9 +291,11 @@ function testNamedNode() {
     let cfSingleNamed: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(node);
     cfSingleNamed = cf.namedNode('http://example.com/');
     const cfNamedMany: clownface.AnyPointer<NamedNode[], Dataset> = cf.namedNode(['http://example.com/', 'http://example.org/']);
+    const set: Set<NamedNode> = <any> {};
 
     const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
     const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
+    const fromSet: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(set);
 }
 
 function testNode() {
@@ -306,6 +313,9 @@ function testNode() {
     const literalFromOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLit);
 
     const literalFromMultipleOther: clownface.MultiPointer<Literal, Dataset> = cf.node(cfLitMany);
+
+    const set: Set<Literal | NamedNode> = <any> {};
+    const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(set);
 }
 
 function testOut() {
