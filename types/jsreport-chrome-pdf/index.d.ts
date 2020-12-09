@@ -5,14 +5,6 @@
 
 import { ExtensionDefinition } from 'jsreport-core';
 
-declare module 'jsreport-core' {
-    interface Template {
-        chrome?: Partial<JsReportChromePdf.Chrome>;
-        chromeImage?: Partial<JsReportChromePdf.ChromeImage>;
-        recipe: 'chrome-pdf' | 'chrome-image' | string;
-    }
-}
-
 declare namespace JsReportChromePdf {
     // https://jsreport.net/learn/chrome-pdf
     // https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagepdfoptions
@@ -109,6 +101,17 @@ declare namespace JsReportChromePdf {
         portRightBoundary: number;
         allowedModules: string[];
         launchOptions: Partial<LaunchOptions>;
+    }
+    interface ChromeTemplate {
+        chrome?: Partial<JsReportChromePdf.Chrome>;
+        chromeImage?: Partial<JsReportChromePdf.ChromeImage>;
+        recipe: 'chrome-pdf' | 'chrome-image' | string;
+    }
+}
+
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        ChromeTemplate: JsReportChromePdf.ChromeTemplate
     }
 }
 
