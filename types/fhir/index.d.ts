@@ -130,7 +130,7 @@ declare module fhir {
      */
     type PublicationStatus = 'draft' | 'active' | 'retired' | 'unknown';
     /**
-     * TODO
+     * @see http://www.hl7.org/fhir/STU3/codesystem-adverse-event-causality.html
      */
     type AdverseEventCausality = 'causality1' | 'causality2';
     /**
