@@ -1,7 +1,8 @@
 declare module 'util' {
+    export {};
     // Custom promisify must exist or promisifying functions with overloads will break
-    function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    function promisify<T extends (...args: any[]) => any>(fn: T): Promisify<T>;
+    export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
+    export function promisify<T extends (...args: any[]) => any>(fn: T): Promisify<T>;
 
     /**
      * Returns a promisified function signature for the given callback-style function.
