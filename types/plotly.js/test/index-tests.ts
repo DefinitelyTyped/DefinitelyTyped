@@ -239,6 +239,7 @@ const graphDiv = '#test';
             text: ['2', '3', '1', '4'],
             x: ['Jan', 'Feb', 'Mar', 'Apr'],
             y: [2, 3, 1, 4],
+            cliponaxis: false,
         },
         {
             type: 'scatter',
@@ -278,6 +279,7 @@ const graphDiv = '#test';
                     click: (gd, ev) => console.log('Download data'),
                 },
             ],
+            ['toImage'],
         ],
     };
     Plotly.newPlot('myDiv', data, layout, config);
@@ -308,6 +310,7 @@ const graphDiv = '#test';
     ];
     const layout: Partial<Layout> = {
         title: 'Grouped Box Plot',
+        boxmode: 'overlay',
     };
 
     Plotly.newPlot('myDiv', data, layout);
