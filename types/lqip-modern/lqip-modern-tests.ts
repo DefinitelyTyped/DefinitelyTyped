@@ -9,7 +9,7 @@ lqip(['tst']); // $ExpectType Promise<LqipResult[]>
 // it should not error when passing only part of `LqipOptions`
 lqip('tst', { resize: 32 });
 lqip('tst', { outputFormat: 'webp' });
-lqip(['tst'], { resize: 32, outputOptions: { lossless: true } });
+lqip('tst', { outputOptions: { lossless: true } });
 
 // it should validate `outputOptions` depending on `outputFormat`
 lqip('tst', { outputFormat: 'jpg', outputOptions: { lossless: true } }); // $ExpectError
