@@ -21,7 +21,6 @@
 //                 Oleg Shilov <https://github.com/olegshilov>
 //                 Pablo Gracia <https://github.com/PabloGracia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
 
 import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
@@ -437,7 +436,7 @@ export interface Layout {
     barmode: 'stack' | 'group' | 'overlay' | 'relative';
     barnorm: '' | 'fraction' | 'percent';
     bargap: number;
-    bargroupgap: number;;
+    bargroupgap: number;
     boxmode: 'group' | 'overlay';
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
