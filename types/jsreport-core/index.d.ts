@@ -94,7 +94,7 @@ declare namespace JsReport {
     }
 
     interface ReporterInstance {
-        defaults?: any;
+        defaults?: Defaults;
         options?: Configuration;
         afterRenderListeners: ListenerCollection;
         afterTemplatingEnginesExecutedListeners: ListenerCollection;
@@ -137,6 +137,11 @@ declare namespace JsReport {
         readTempFileStream(filename: string, opts: any): Promise<ReadTempFileStreamResult>;
         writeTempFileStream(filenameFn: () => string, opts: any): Promise<WriteFileStreamResult>;
         silentLogs(logger: any): void;
+    }
+
+    interface Defaults {
+        loadConfig?: boolean;
+        rootDirectory?: string;
     }
 
     type ReporterOptionsStoreProvider = 'memory';
@@ -278,7 +283,8 @@ declare namespace JsReport {
 }
 
 declare function JsReport(
-    config?: JsReport.Configuration
+    config?: JsReport.Configuration,
+    defaults?: JsReport.Defaults,
 ): JsReport.Reporter;
 
 export = JsReport;
