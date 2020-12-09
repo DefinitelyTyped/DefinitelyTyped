@@ -17,9 +17,10 @@
     - [Create a new package](#create-a-new-package)
     - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
-    - [Linter](#linter)
-    - [\<my package>-tests.ts](#my-package-teststs)
     - [Running Tests](#running-tests)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -33,7 +34,7 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 
 * Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* All packages are being [published to npm](https://github.com/microsoft/types-publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
@@ -150,7 +151,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.png?raw=true">
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
 
 #### Edit an existing package
 
@@ -193,7 +194,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier — --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
   const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
@@ -218,14 +219,14 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed — typingsPackageName asOfVersion [libraryName]`.
+You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 * `typingsPackageName`: This is the name of the directory to delete.
 * `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 * `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "foo": "x.y.z" }`.
 For example:
 
 ```json
@@ -241,29 +242,11 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Linter
+#### Running Tests
 
-All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
-
-This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
-
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // This package uses the Function type, and it will take effort to fix.
-    "ban-types": false
-  }
-}
-```
-
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
+This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 #### \<my package>-tests.ts
 
@@ -314,11 +297,42 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Running Tests
+#### Linter
 
-Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
+All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 
-This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+```js
+{
+  "extends": "dtslint/dt.json"
+}
+```
+
+This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+
+```js
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
+}
+```
+
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `// tslint:disable-next-line rule-name`.)
+
+#### package.json
+
+Usually you won't need this.
+DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+A `package.json` may be included to specify dependencies that are not other `@types` packages.
+[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
+You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+
+In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
+Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 ### Definition Owners
 
@@ -345,7 +359,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
-The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/microsoft/DefinitelyTyped-tools).
+The `master` branch is automatically published to the `@types` scope on NPM thanks to [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### I've submitted a pull request. How long until it is merged?
 
@@ -365,19 +379,6 @@ NPM packages should update within a few minutes. If it's been more than an hour,
 
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
-
-#### I notice some packages having a `package.json` here.
-
-Usually you won't need this.
-DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
-A `package.json` may be included to specify dependencies that are not other `@types` packages.
-[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
-You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
-This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
-
-In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
-Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
@@ -469,7 +470,7 @@ When it graduates draft mode, we may remove it from Definitely Typed and depreca
 *NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
 
 Each Definitely Typed package is versioned when published to NPM.
-The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
+The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
 For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
 
 ```js

@@ -1,4 +1,4 @@
-// Type definitions for tuya-panel-kit 2.0
+// Type definitions for tuya-panel-kit 4.0
 // Project: https://github.com/TuyaInc/tuya-panel-kit#readme
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
@@ -426,7 +426,7 @@ export class I18N {
 // IconFont
 export interface IconFontProps {
     viewBox?: string;
-    useART?: true;
+    useART?: boolean;
     ascent?: number;
     descent?: number;
     unitsPerEm?: number;
@@ -480,7 +480,7 @@ export interface TopBarActionProps extends TopBarProps, IconFontProps {
     size?: number;
     spacing?: number;
     color?: string;
-    source?: ImageSourcePropType;
+    source?: ImageSourcePropType | string;
     disabled?: boolean;
     children?: React.ReactNode;
     onPress?: (event: GestureResponderEvent) => void;
@@ -621,9 +621,10 @@ export interface NotificationProps extends TouchableOpacityProps {
     backIconSize?: number;
     backIconCenter?: boolean;
 }
+// tslint:disable-next-line no-unnecessary-class
 export class Notification {
-    show: (option: NotificationProps) => void;
-    hide: () => void;
+    static show: (option: NotificationProps) => void;
+    static hide: () => void;
 }
 
 // NotificationLegacy
@@ -780,8 +781,9 @@ export interface PopUpCountdownProps extends PopupProps {
     minuteUnitStyle?: StyleProp<TextStyle>;
 }
 
-export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'> {
+export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme'| 'children'> {
     _onDataChange?: (date: Date) => void;
+    children?: React.ReactNode;
 }
 
 export interface PopupNumberSelectorProps
@@ -1602,11 +1604,6 @@ export interface UnitTextProps {
 
 export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-export class WebView extends React.Component {
-    title?: string;
-    source?: string;
-}
-
 export interface ThemeProps {
     theme: {};
     children: React.ReactNode;
@@ -1968,12 +1965,16 @@ export interface LinearGradientBackgroundOffset {
 
 export interface NavigationOptions {
     /**
-     * @desc 自定义面板背景
-     * number: 渲染本地图片
-     * string: 渲染颜色
-     * { uri: string }: 渲染网络图片
-     * RadialGradientBackground: 渲染径向渐变
-     * LinearGradientBackground: 渲染线性渐变
+     * 容器样式
+     */
+    style: StyleProp<ViewStyle>;
+    /**
+     * 自定义面板背景
+     * @label `number` 渲染本地图片
+     * @label `string` 渲染颜色
+     * @label `{ uri: string }` 渲染网络图片
+     * @label `RadialGradientBackground` 渲染径向渐变
+     * @label `LinearGradientBackground` 渲染线性渐变
      *
      */
     background?:
@@ -1983,44 +1984,47 @@ export interface NavigationOptions {
         | RadialGradientBackground
         | (LinearGradientBackground & LinearGradientBackgroundOffset);
     /**
-     * @desc 自定义头部栏样式
+     * 自定义头部栏样式
      */
     topbarStyle?: StyleProp<ViewStyle>;
     /**
-     * @desc 自定义头部栏文字样式
+     * 自定义头部栏文字样式
      */
     topbarTextStyle?: StyleProp<TextStyle>;
     /**
-     * @desc 自定义面板背景样式
+     * 自定义面板背景样式
      */
     backgroundStyle?: StyleProp<ViewStyle>;
     /**
-     * @desc 自定义头部栏标题
+     * 自定义头部栏标题
      */
     title?: string;
     hideTopbar?: boolean;
     /**
-     * @desc 控制是否显示离线遮罩
-     * @default true
+     * 控制是否显示离线遮罩
+     * @defaultValue true
      */
     showOfflineView?: boolean;
+    /**
+     * 是否允许手势
+     */
     gesture?: boolean;
     /**
-     * @desc 是否启用首页手势返回 app 列表页面
-     * @default true
+     * 是否启用首页手势返回 app 列表页面
+     * @defaultValue true
      */
     enablePopGesture?: boolean;
     /**
      * @desc 蓝牙离线提示是否覆盖整个面板(除头部栏外)
-     * @default true
+     * @defaultValue true
      */
     isBleOfflineOverlay?: boolean;
     /**
-     * @desc 自定义渲染头部栏
+     * 自定义渲染头部栏
      */
     renderTopBar?: () => JSX.Element;
     /**
-     * @desc 自定义渲染状态栏
+     * 自定义渲染状态栏
      */
     renderStatusBar?: () => JSX.Element;
 }
@@ -2031,11 +2035,12 @@ export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalV
 }
 
 export interface NavigationRoute {
-    id: string;
-    Scene: React.ComponentType;
-    screenOptions?:
+    name: string;
+    component: React.ComponentType;
+    options?:
         | StackNavigationOptions
-        | ((props: { route: RouteProp<ParamListBase, string>; navigation: any }) => StackNavigationOptions);
+        | ((props: { route: RouteProp<ParamListBase, string>; navigation: any }) => StackNavigationOptions)
+        | NavigationOptions;
 }
 
 export type ScreenOptions =
@@ -2061,6 +2066,39 @@ export type GotoDpAlarmData = Array<{
     rangeKeys: DpValue[];
     rangeValues: string[];
 }>;
+
+export interface StringType {
+    [key: string]: string;
+}
+export let Strings: {
+    /**
+     * @param strings
+     * @param force false
+     */
+    applyStrings: (strings: {
+        [key: string]: StringType
+    }, force?: boolean) => void
+    setLanguage: (language: string) => void
+    buildLanguage: (language: string) => void
+    formatString: (str: string, ...args: string[]) => string
+    formatValue: (key: string, value: string | number) => string
+    getDpLang: (code: string, value?: boolean | string) => string
+    getDpName: (code: string, defaultName: string) => string
+    getDpsLang: (key: string) => {[key: string]: string}
+    getLang: (key: string, defaultString: string) => string
+    /**
+     * 获取 picker 标题
+     * @param dpCode
+     */
+    getRangeStrings: (dpCode: string | number) => string
+    /**
+     *  开关倒计时转换为文案 time => 设备将在xxx后 关闭／开启
+     *  精确到分钟
+     * @param t 倒计时剩余(秒)
+     * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
+     */
+    parseCountdown: (t: number, power: 'on' | 'off') => string;
+};
 
 export let TYSdk: {
     DeviceEventEmitter: {

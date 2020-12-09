@@ -2421,6 +2421,11 @@
             "asOfVersion": "0.18.0"
         },
         {
+            "libraryName": "match-sorter",
+            "typingsPackageName": "match-sorter",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "matcher",
             "typingsPackageName": "matcher",
             "asOfVersion": "2.0.0"
@@ -2779,6 +2784,11 @@
             "libraryName": "next-redux-wrapper",
             "typingsPackageName": "next-redux-wrapper",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "next-seo",
+            "typingsPackageName": "next-seo",
+            "asOfVersion": "2.1.2"
         },
         {
             "libraryName": "next-server",
@@ -4431,6 +4441,11 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "stripe",
+            "typingsPackageName": "stripe",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "asOfVersion": "3.1.1"
@@ -4564,6 +4579,11 @@
             "libraryName": "@testing-library/user-event",
             "typingsPackageName": "testing-library__user-event",
             "asOfVersion": "4.2.0"
+        },
+        {
+            "libraryName": "@testing-library/vue",
+            "typingsPackageName": "testing-library__vue",
+            "asOfVersion": "5.3.0"
         },
         {
             "libraryName": "text-clipper",
@@ -4744,6 +4764,11 @@
             "libraryName": "use-dark-mode",
             "typingsPackageName": "use-dark-mode",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "use-deep-compare-effect",
+            "typingsPackageName": "use-deep-compare-effect",
+            "asOfVersion": "1.5.0"
         },
         {
             "libraryName": "username",

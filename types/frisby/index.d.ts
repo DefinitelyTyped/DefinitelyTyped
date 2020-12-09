@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-/// <reference types='jest'/>
-
 // #region Imports
 export import nodeFetch = require('node-fetch'); // Import all definitions from node-fetch.
 //#endregion

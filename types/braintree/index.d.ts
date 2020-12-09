@@ -1566,12 +1566,7 @@ declare namespace braintree {
 
     export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
 
-    export enum TransactionRequestSource {
-        recurring = 'recurring',
-        unscheduled = 'unscheduled',
-        recurring_first = 'recurring_first',
-        moto = 'moto',
-    }
+    export type TransactionRequestSource = 'recurring' | 'unscheduled' | 'recurring_first' | 'moto';
 
     export interface TransactionRiskData {
         decision: string;

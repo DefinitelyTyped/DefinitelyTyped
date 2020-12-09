@@ -198,8 +198,6 @@ export interface Pool extends EscapeFunctions {
         callback: (err: MysqlError, connection: PoolConnection) => void,
     ): void;
 
-    releaseConnection(connection: PoolConnection): void;
-
     /**
      * Close the connection. Any queued data (eg queries) will be sent first. If
      * there are any fatal errors, the connection will be immediately closed.

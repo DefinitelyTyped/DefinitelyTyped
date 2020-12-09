@@ -1,6 +1,7 @@
 // Type definitions for wkhtmltopdf 0.3
 // Project: https://github.com/devongovett/node-wkhtmltopdf
 // Definitions by: Jasper <https://github.com/digijap>
+//                 Rens de Wolf <https://github.com/rensdewolf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This is based on wkhtmltopdf version 0.12.6
@@ -9,41 +10,31 @@
 /// <reference types="node"/>
 
 /**
- * Call wkhtmltopdf with a callback
- *
- * @param html HTML that needs to be compiled to PDF
- * @param options Options without the output parameter
- * @param callback Callback function to handle the incoming PDF
- */
-declare function wkhtmltopdf(html: string, options: Options, callback: (err: Error, stream: NodeJS.ReadWriteStream) => void): void;
-/**
- * Call wkhtmltopdf and write PDF directly to specified file
- *
- * @param url URL to convert to PDF
- * @param options Options with the output parameter
- */
-declare function wkhtmltopdf(url: string, options: OptionsOutfile): void;
-/**
- * Call wkhtmltopdf and write PDF directly to specified file
+ * Call wkhtmltopdf and write PDF
+ * If options.output is defined the file will be returned in the stream
  *
  * @param html HTML to convert to PDF
- * @param options Options with the output parameter
+ * @param [options] Options
  */
-declare function wkhtmltopdf(html: string, options: OptionsOutfile): void;
+declare function wkhtmltopdf(html: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
 /**
- * Call wkhtmltopdf and write PDF directly to specified file
- *
- * @param html HTML to convert to PDF
- * @param [options] Options without the output parameter
- */
-declare function wkhtmltopdf(html: string, options?: Options): NodeJS.ReadWriteStream;
-/**
- * Call wkhtmltopdf and write PDF directly to specified file
+ * Call wkhtmltopdf and write PDF
+ * If options.output is defined the file will be returned in the stream
  *
  * @param url URL to convert to PDF
- * @param [options] Options without the output parameter
+ * @param [options] Options
+ * @param [callback] Callback
  */
-declare function wkhtmltopdf(url: string, options?: Options): NodeJS.ReadWriteStream;
+declare function wkhtmltopdf(url: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
+/**
+ * Call wkhtmltopdf and write PDF
+ * If options.output is defined the file will be returned in the stream
+ *
+ * @param inputStream Input stream of html
+ * @param [options] Options
+ * @param [callback] Callback
+ */
+declare function wkhtmltopdf(inputStream: NodeJS.ReadStream, options?: Options): NodeJS.ReadWriteStream;
 
 declare namespace wkhtmltopdf {
     /**
@@ -102,13 +93,15 @@ interface Options {
     /** Do not use lossless compression on pdf objects */
     noPdfCompression?: boolean;
     /** Debug prints stderr messages */
-    debug?: boolean;
+    debug?: boolean|((data: Buffer) => void);
     /** debugStdOut prints any stdout warning messages */
     debugStdOut?: boolean;
     /** The title of the generated pdf file (The title of the first document is used if not specified) */
     title?: string;
     /** Ignore warnings */
     ignore?: ReadonlyArray<string|RegExp>;
+    /** If defined only output to this path */
+    output?: string;
 
     /*******************
      * Outline options *
@@ -281,8 +274,8 @@ interface Options {
     noFooterLine?: boolean;
     /** Right aligned footer text */
     footerRight?: string;
-    /** Spacing between footer and content in mm (e.g 10mm 2cm 0.5in) (default 0) */
-    footerSpacing?: string;
+    /** Spacing between footer and content in mm (default 0) */
+    footerSpacing?: number;
 
     /** Centered header text */
     headerCenter?: string;
@@ -300,8 +293,8 @@ interface Options {
     noHeaderLine?: boolean;
     /** Right aligned header text */
     headerRight?: string;
-    /** Spacing between header and content in mm (e.g 10mm 2cm 0.5in) (default 0) */
-    headerSpacing?: string;
+    /** Spacing between header and content in mm (default 0) */
+    headerSpacing?: number;
     /** Replace [name] with value in header and footer (repeatable) */
     replace?: ReadonlyArray<[string, string]>;
 
@@ -320,11 +313,16 @@ interface Options {
     tocTextSizeShrink?: number;
     /** Use the supplied xsl style sheet for printing the table of contents */
     xslStyleSheet?: string;
-}
 
-interface OptionsOutfile extends Options {
-    /** If defined only output to this path */
-    output: string;
+    /**************************************
+     * Special keys for node implementation
+     **************************************/
+    /** Cover object */
+    cover?: string;
+    /** TOC object */
+    toc?: string;
+    /** Page object */
+    page?: string;
 }
 
 export = wkhtmltopdf;

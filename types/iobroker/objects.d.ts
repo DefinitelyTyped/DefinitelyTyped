@@ -45,17 +45,95 @@ declare global {
             | 'config'
             | 'group'
             | 'host'
-            | 'info'
             | 'instance'
             | 'meta'
             | 'script'
             | 'user'
             | 'chart';
 
-        type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
+        // Define the naming schemes for objects so we can provide more specific types for get/setObject
+
+        namespace ObjectIDs {
+            // Guaranteed meta objects
+            type Meta =
+                | `${string}.${number}`
+                | `${string}.${"meta" | "admin"}`
+                | `${string}.meta.${string}`
+                | `${string}.${number}.meta.${string}`;
+
+            // Unsure, can be folder, device, channel or state
+            // --> We need this match to avoid matching the more specific types below
+            type Misc =
+                | `system.host.${string}.${string}`
+                | `0_userdata.0.${string}`;
+
+                // Guaranteed channel objects
+            type Channel =
+                | `script.js.${"common" | "global"}`
+                | `${string}.${number}.info`;
+            // Either script or channel object
+            type ScriptOrChannel = `script.js.${string}`;
+            // Guaranteed state objects
+            type State =
+                | `system.adapter.${string}.${number}.${string}`;
+            // Guaranteed enum objects
+            type Enum = `enum.${string}`;
+            // Guaranteed instance objects
+            type Instance = `system.adapter.${string}.${number}`;
+            // Guaranteed adapter objects
+            type Adapter = `system.adapter.${string}`;
+            // Guaranteed group objects
+            type Group = `system.group.${string}`;
+            // Guaranteed user objects
+            type User = `system.user.${string}`;
+            // Guaranteed host objects
+            type Host = `system.host.${string}`;
+            // Guaranteed config objects
+            type Config = `system.${"certificates" | "config" | "repositories"}`;
+
+            // Unsure, can be folder, device, channel or state (or whatever an adapter does)
+            type AdapterScoped =
+                | `${string}.${number}.${string}`;
+
+            /** All possible typed object IDs */
+            type Any =
+                | Meta
+                | Misc
+                | Channel
+                | ScriptOrChannel
+                | State
+                | Enum
+                | Instance
+                | Adapter
+                | Group
+                | User
+                | Host
+                | Config
+                | AdapterScoped;
+        }
+
+        type ObjectIdToObjectType<T extends string, Read extends "read" | "write" = "read"> =
+            // State must come before Adapter or system.adapter.admin.0.foobar will resolve to AdapterObject
+            T extends ObjectIDs.State ? StateObject :
+            // Instance and Adapter must come before meta or `system.adapter.admin` will resolve to MetaObject
+            T extends ObjectIDs.Instance ? InstanceObject :
+            T extends ObjectIDs.Adapter ? AdapterObject :
+            T extends ObjectIDs.Channel ? ChannelObject :
+            T extends ObjectIDs.Meta ? MetaObject :
+            T extends ObjectIDs.Misc ? AdapterScopedObject :
+            T extends ObjectIDs.ScriptOrChannel ? (ScriptObject | ChannelObject) :
+            T extends ObjectIDs.Enum ? EnumObject :
+            T extends ObjectIDs.Group ? GroupObject :
+            T extends ObjectIDs.User ? UserObject :
+            T extends ObjectIDs.Host ? HostObject :
+            T extends ObjectIDs.Config ? OtherObject & {type: "config"} :
+            T extends ObjectIDs.AdapterScoped ? AdapterScopedObject :
+            Read extends "read" ? ioBroker.Object : AnyObject;
 
         type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
         type StringOrTranslated = string | { [lang in Languages]?: string; };
+
+        type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
         interface ObjectCommon {
             /** The name of this object as a simple string or an object with translations */
@@ -425,6 +503,7 @@ declare global {
             custom?: undefined;
         }
 
+        /* Base type for Objects. Should not be used directly */
         interface BaseObject {
             /** The ID of this object */
             _id: string;
@@ -548,14 +627,13 @@ declare global {
         }
 
         interface OtherObject extends BaseObject {
-            type: 'adapter' | 'config' | 'info' | 'chart';
+            type: 'config' | 'chart';
             common: OtherCommon;
         }
         interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
             common?: Partial<OtherCommon>;
         }
 
-        // Base type for Objects. Should not be used directly
         type AnyObject =
             | StateObject
             | ChannelObject
@@ -571,22 +649,7 @@ declare global {
             | ScriptObject
             | OtherObject;
 
-        // For all objects that are exposed to the user we need to tone the strictness down.
-        // Otherwise, every operation on objects becomes a pain to work with
-        type Object = AnyObject & {
-            common: Record<string, any>;
-            native: Record<string, any>;
-        };
-
-        type SettableObjectWorker<T> = T extends AnyObject ? Omit<T, '_id' | 'acl'> & {
-            _id?: T['_id'];
-            acl?: T['acl'];
-        } : never;
-
-        // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-
-        type SettableObject = SettableObjectWorker<AnyObject>;
-        type PartialObject =
+        type AnyPartialObject =
             | PartialStateObject
             | PartialChannelObject
             | PartialDeviceObject
@@ -600,5 +663,26 @@ declare global {
             | PartialGroupObject
             | PartialScriptObject
             | PartialOtherObject;
+
+        /** All objects that usually appear in an adapter scope */
+        type AdapterScopedObject = FolderObject | DeviceObject | ChannelObject | StateObject;
+
+        // For all objects that are exposed to the user we need to tone the strictness down.
+        // Otherwise, every operation on objects becomes a pain to work with
+        type Object = AnyObject & {
+            common: Record<string, any>;
+            native: Record<string, any>;
+        };
+
+        // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
+        type SettableObjectWorker<T> = T extends AnyObject ? Omit<T, '_id' | 'acl'> & {
+            _id?: T['_id'];
+            acl?: T['acl'];
+        } : never;
+        // in extend[Foreign]Object, most properties are optional
+        type PartialObjectWorker<T> = T extends AnyObject ? AnyPartialObject & {type?: T["type"]} : never;
+
+        type SettableObject<T extends AnyObject = AnyObject> = SettableObjectWorker<T>;
+        type PartialObject<T extends AnyObject = AnyObject> = PartialObjectWorker<T>;
     }
 }

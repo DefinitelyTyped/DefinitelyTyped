@@ -632,7 +632,7 @@ declare namespace yargs {
 
     type Arguments<T = {}> = T & {
         /** Non-option arguments */
-        _: string[];
+        _: Array<string | number>;
         /** The script name or node command */
         $0: string;
         /** All remaining options */

@@ -20,9 +20,10 @@
     - [创建一个新的包](#创建一个新的包)
     - [常见错误](#常见错误)
     - [删除一个包](#删除一个包)
-    - [Linter](#linter)
-    - [\<my package>-tests.ts](#my-package-teststs)
     - [验证](#验证)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#packagejson)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -35,7 +36,7 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* 所有的包都会在1小时内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
@@ -222,7 +223,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
 你可以查看 `npm test` 中的错误来获得此列表。
-添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 `package.json` 文件，去修复这些错误。
+添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
 比如：
 
 ```json
@@ -234,31 +235,14 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 }
 ```
 
-当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["types-publisher" 中的 "dependenciesWhitelist.txt"](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
 
-#### Linter
+#### 验证
 
-所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
-
-这应该是一个已完成项目里 `tslint.json` 文件的唯一内容。如果这个文件关闭了某些规则，是因为它还未完全修复。例如：
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `//tslint:disable-next-line rule-name` 更好。)
+通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
+这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
 
 #### \<my package>-tests.ts
 
@@ -309,10 +293,41 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-#### 验证
+#### Linter
 
-通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
-这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
+```js
+{
+    "extends": "dtslint/dt.json"
+}
+```
+
+这应该是一个已完成项目里 `tslint.json` 文件的唯一内容。如果这个文件关闭了某些规则，是因为它还未完全修复。例如：
+```js
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "ban-types": false
+    }
+}
+```
+
+(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `// tslint:disable-next-line rule-name` 更好。)
+
+#### package.json
+
+通常你不需要它。
+Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
+`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
+当你发布包的时候会自动创建一个 `package.json` 的文件。
+[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
+包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
+你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)。
+即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
+该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
+在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
+再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 ### Definition Owners
 
@@ -339,7 +354,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### 这个仓库和 NPM 上的 `@types` 包究竟有什么关系？
 
-`master` 分支会通过 [types-publisher](https://github.com/Microsoft/types-publisher) 自动发布到 NPM 上的 `@types`.
+`master` 分支会通过 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) 自动发布到 NPM 上的 `@types`.
 
 #### 我已经发起了 PR, 它多久会被合并？
 
@@ -353,20 +368,6 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 如果你引用的外部模块（使用 `export`），那么请使用导入。
 如果你引用的是环境模块（使用 `declare module`, 或者只声明全局变量），那么请使用 `<reference types="" />`.
-
-#### 我注意带这里有一些包含 `package.json` 的包。
-
-通常你不需要它。
-Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
-`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
-当你发布包的时候会自动创建一个 `package.json` 的文件。
-[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt)。
-即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
-该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
-在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
-再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 
@@ -451,7 +452,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.org/)_
 
 每个 Definitely Typed 包在发布到 NPM 时都会进行版本控制。
-[types-publisher](https://github.com/Microsoft/types-publisher) (将 `@types` 包发布到 npm 的工具) 会通过将 `major.minor` 版本号写在 `index.d.ts` 文件的第一行来设置定义包的版本号。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (将 `@types` 包发布到 npm 的工具) 会通过将 `major.minor` 版本号写在 `index.d.ts` 文件的第一行来设置定义包的版本号。
 例如，以下是 `10.12.x` 版本的 [Node 的类型声明](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) 的前几行：
 
 ```js

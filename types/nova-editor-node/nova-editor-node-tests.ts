@@ -282,6 +282,14 @@ task.setAction(
     }),
 );
 
+/// https://docs.nova.app/api-reference/task-command-action/
+
+const action = new TaskCommandAction('myextension.runAction', {
+    args: ["I'm Running!"]
+});
+
+task.setAction(Task.Run, action);
+
 /// https://novadocs.panic.com/api-reference/text-editor/
 
 // $ExpectError

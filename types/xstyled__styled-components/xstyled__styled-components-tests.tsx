@@ -98,14 +98,25 @@ const Main = () => {
 
 const ColorMode = () => {
     return (
-        <ColorModeProvider target={document.body} targetSelector="#small-react-app">
-            test
-            {getColorModeInitScriptElement()}
-        </ColorModeProvider>
+        <>
+            <ColorModeProvider target={document.body} targetSelector="#small-react-app">
+                {getColorModeInitScriptElement()}
+                {getColorModeInitScriptElement({ target: 'document.body' })}
+                // $ExpectError
+                {getColorModeInitScriptElement({})}
+            </ColorModeProvider>
+
+            // expect ColorMode ProviderProps to be optional
+            <ColorModeProvider>
+            </ColorModeProvider>
+        </>
     );
 };
 
-let colorModeScriptTag = getColorModeInitScriptTag({ target: 'document.getElementById("small-react-app")' });
+let colorModeScriptTag = getColorModeInitScriptTag();
+colorModeScriptTag = getColorModeInitScriptTag({ target: 'document.getElementById("small-react-app")' });
+// $ExpectError
+colorModeScriptTag = getColorModeInitScriptTag({});
 
 // $ExpectError
 colorModeScriptTag = 111;

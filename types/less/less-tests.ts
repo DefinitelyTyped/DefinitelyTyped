@@ -23,11 +23,20 @@ var preProcessor: Less.PreProcessor = {
     }
 };
 
+class AliasResolvingFileManager extends less.FileManager {
+    loadFile(filename: string, currentDirectory: string, options: Less.LoadFileOptions, environment: Less.Environment) {
+        filename = filename.replace('foo', 'bar');
+        return super.loadFile(filename, currentDirectory, options, environment);
+    }
+}
+
 var myPlugin: Less.Plugin = {
     install: (less, pluginManager) => {
         alert(less.version[2]);
         pluginManager.addPreProcessor(preProcessor, 1000);
-    }
+        pluginManager.addFileManager(new AliasResolvingFileManager());
+    },
+    minVersion: [ 3, 0, 0 ]
 };
 
 /** Reference to: 

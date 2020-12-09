@@ -492,6 +492,14 @@ const awsServerless: Aws.Serverless = {
                         enabled: true
                     }
                 }, {
+                    msk: {
+                        arn: 'testarn',
+                        topic: 'testTopic',
+                        batchSize: 1,
+                        startingPosition: 'LATEST',
+                        enabled: true
+                    }
+                }, {
                     alexaSkill: {
                         appId: 'testappId',
                         enabled: true

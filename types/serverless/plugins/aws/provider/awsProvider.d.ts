@@ -295,6 +295,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer;
         request?: HttpRequestValidation;
+        integration?: "lambda" | "mock";
     }
 
     interface NamedHttpApiEventAuthorizer {
@@ -387,6 +388,14 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
+    }
+
+    interface Msk {
+        arn: string;
+        topic: string;
+        batchSize?: number;
+        enabled?: boolean;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
     }
 
     interface AlexaSkill {
@@ -490,6 +499,7 @@ declare namespace Aws {
         sns?: Sns;
         sqs?: Sqs;
         stream?: Stream;
+        msk?: Msk;
         alexaSkill?: AlexaSkill;
         alexaSmartHome?: AlexaSmartHome;
         iot?: Iot;

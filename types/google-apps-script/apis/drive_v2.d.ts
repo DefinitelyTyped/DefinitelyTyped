@@ -721,7 +721,7 @@ declare namespace GoogleAppsScript {
         name?: string;
         permissionDetails?: Drive.Schema.PermissionPermissionDetails[];
         photoLink?: string;
-        role?: string;
+        role?: "owner" | "organizer" | "fileOrganizer" | "writer" | "reader";
         selfLink?: string;
         teamDrivePermissionDetails?: Drive.Schema.PermissionTeamDrivePermissionDetails[];
         type?: string;
@@ -744,7 +744,7 @@ declare namespace GoogleAppsScript {
         inherited?: boolean;
         inheritedFrom?: string;
         permissionType?: string;
-        role?: string;
+        role?: "organizer" | "fileOrganizer" | "writer" | "reader";
       }
       interface PermissionTeamDrivePermissionDetails {
         additionalRoles?: string[];

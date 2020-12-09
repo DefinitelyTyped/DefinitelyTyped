@@ -47,12 +47,9 @@ declare class CustomError extends Error {
  */
 declare class TimeoutError extends CustomError {}
 
-export const errors: {
-    TimeoutError: TimeoutError;
-    puppeteerErrors: {
-        TimeoutError: TimeoutError;
-    };
-};
+export namespace errors {
+    class TimeoutError extends CustomError {}
+}
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -67,9 +64,15 @@ export interface JSONObject {
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
-export type Platform = 'mac' | 'win32' | 'win64' | 'linux';
+/**
+ * We want to maintain intellisense for known values but remain open to unknown values. This type is a workaround for
+ * [Microsoft/TypeScript#29729](https://github.com/Microsoft/TypeScript/issues/29729). It will be removed as soon as
+ * it's not needed anymore.
+ */
+type LiteralUnion<LiteralType> = LiteralType | (string & { _?: never });
 
-export type Product = 'chrome' | 'firefox';
+export type Platform = LiteralUnion<'mac' | 'win32' | 'win64' | 'linux'>;
+export type Product = LiteralUnion<'chrome' | 'firefox'>;
 
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
@@ -329,16 +332,16 @@ export interface MouseWheelOptions {
 }
 
 export interface MouseWheelOptions {
-  /**
-   * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
-   * @default 0
-   */
-  deltaX?: number;
-  /**
-   * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
-   * @default 0
-   */
-  deltaY?: number;
+    /**
+     * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
+     * @default 0
+     */
+    deltaX?: number;
+    /**
+     * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
+     * @default 0
+     */
+    deltaY?: number;
 }
 
 export interface Mouse {
