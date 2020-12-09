@@ -51,7 +51,7 @@ declare class Agenda extends EventEmitter {
      * @param collection name collection we want to use ('agendaJobs')
      * @param cb called when MongoDB connection fails or passes
      */
-    mongo(mdb: MongoClient, collection: string, cb?: ResultCallback<Collection>): this;
+    mongo(mdb: MongoClient | Db, collection?: string, cb?: ResultCallback<Collection>): this;
 
     /**
      * Set name of queue
