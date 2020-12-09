@@ -213,7 +213,7 @@ declare namespace JsReport {
         set(key: string, avalue: any, req: Request): any;
         addOrSet(key: string, avalue: any, req: Request): number | null;
         init(documentStore: any, authorization: any): any;
-        _collection: [SettingItem];
+        _collection: SettingItem[];
         documentStore: any;
         registerEntity(documentStore: any): void;
     }
