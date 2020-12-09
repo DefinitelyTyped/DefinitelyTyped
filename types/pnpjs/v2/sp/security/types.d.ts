@@ -42,12 +42,12 @@ export declare class _RoleAssignment extends _SharePointQueryableInstance<IRoleA
      * Gets the groups that directly belong to the access control list (ACL) for this securable object
      *
      */
-    get groups(): ISiteGroups;
+    readonly groups: ISiteGroups;
     /**
      * Gets the role definition bindings for this role assignment
      *
      */
-    get bindings(): ISharePointQueryableCollection;
+    readonly bindings: ISharePointQueryableCollection;
 }
 export interface IRoleAssignment extends _RoleAssignment, IDeleteable {
 }

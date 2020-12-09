@@ -1,4 +1,4 @@
-import { IFetchOptions, IRequestClient, IHttpClientImpl } from "../common";
+import { IFetchOptions, IRequestClient, IHttpClientImpl } from "@pnp/common";
 export declare class SPHttpClient implements IRequestClient {
     protected _impl: IHttpClientImpl;
     protected _digestCache: IGetDigest;
@@ -13,5 +13,5 @@ export declare class SPHttpClient implements IRequestClient {
 interface IGetDigest {
     (webUrl: string): Promise<string>;
 }
-export { };
+export {};
 //# sourceMappingURL=sphttpclient.d.ts.map

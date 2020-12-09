@@ -1,4 +1,4 @@
-import { IHttpClientImpl } from "../../common";
+import { IHttpClientImpl } from "@pnp/common";
 import { SPOAuthEnv, AuthToken } from "../types";
 /**
  * Fetch client for use within nodejs, requires you register a client id and secret with app only permissions

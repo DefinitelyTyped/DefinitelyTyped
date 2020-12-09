@@ -5,9 +5,9 @@ import { IGetById } from "../decorators";
  * Represents a insights entity
  */
 export declare class _Insights extends _GraphQueryableInstance<IOfficeGraphInsightsType> {
-    get trending(): ITrendingInsights;
-    get used(): IUsedInsights;
-    get shared(): ISharedInsights;
+    readonly trending: ITrendingInsights;
+    readonly used: IUsedInsights;
+    readonly shared: ISharedInsights;
 }
 export interface IInsights extends _Insights {
 }
@@ -16,7 +16,7 @@ export declare const Insights: (baseUrl: string | import("../graphqueryable").IG
  * Describes a Trending Insight instance
  */
 export declare class _TrendingInsight extends _GraphQueryableInstance<ITrendingInsightType> {
-    get resource(): IResource;
+    readonly resource: IResource;
 }
 export interface ITrendingInsight extends _TrendingInsight {
 }
@@ -34,7 +34,7 @@ export declare const TrendingInsights: (baseUrl: string | import("../graphquerya
  * Describes a Used Insight instance
  */
 export declare class _UsedInsight extends _GraphQueryableInstance<IUsedInsightType> {
-    get resource(): IResource;
+    readonly resource: IResource;
 }
 export interface IUsedInsight extends _UsedInsight {
 }
@@ -52,7 +52,7 @@ export declare const UsedInsights: (baseUrl: string | import("../graphqueryable"
  * Describes a Shared Insight instance
  */
 export declare class _SharedInsight extends _GraphQueryableInstance<ISharedInsightType> {
-    get resource(): IResource;
+    readonly resource: IResource;
 }
 export interface ISharedInsight extends _SharedInsight {
 }

@@ -12,7 +12,7 @@ export declare function defaultPath(path: string): <T extends new (...args: any[
  */
 export declare function deleteable(): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        delete(this: IGraphQueryable): Promise<void>;
+        delete(this: IGraphQueryable<any>): Promise<void>;
     };
 } & T;
 export interface IDeleteable {
@@ -26,7 +26,7 @@ export interface IDeleteable {
  */
 export declare function deleteableWithETag(): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        delete(this: IGraphQueryable, eTag?: string): Promise<void>;
+        delete(this: IGraphQueryable<any>, eTag?: string): Promise<void>;
     };
 } & T;
 export interface IDeleteableWithETag {
@@ -40,7 +40,7 @@ export interface IDeleteableWithETag {
  */
 export declare function updateable(): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        update(this: IGraphQueryable, props: any): Promise<void>;
+        update(this: IGraphQueryable<any>, props: any): Promise<void>;
     };
 } & T;
 export interface IUpdateable<T = any> {
@@ -56,7 +56,7 @@ export interface IUpdateable<T = any> {
  */
 export declare function updateableWithETag(): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        update(this: IGraphQueryable, props: any, eTag?: string): Promise<void>;
+        update(this: IGraphQueryable<any>, props: any, eTag?: string): Promise<void>;
     };
 } & T;
 export interface IUpdateableWithETag<T = any> {
@@ -72,7 +72,7 @@ export interface IUpdateableWithETag<T = any> {
  */
 export declare function addable(): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        add(this: IGraphQueryable, props: any): Promise<void>;
+        add(this: IGraphQueryable<any>, props: any): Promise<void>;
     };
 } & T;
 export interface IAddable<T = any, R = {
@@ -90,7 +90,7 @@ export interface IAddable<T = any, R = {
  */
 export declare function getById<R>(factory: (...args: any[]) => R): <T extends new (...args: any[]) => {}>(target: T) => {
     new (...args: any[]): {
-        getById(this: IGraphQueryable, id: string): R;
+        getById(this: IGraphQueryable<any>, id: string): R;
     };
 } & T;
 export interface IGetById<R = any, T = string> {

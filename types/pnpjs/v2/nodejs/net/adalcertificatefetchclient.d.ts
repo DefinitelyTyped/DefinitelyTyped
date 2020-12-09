@@ -1,5 +1,5 @@
 import { TokenResponse } from "adal-node";
-import { IHttpClientImpl } from "../../common";
+import { IHttpClientImpl } from "@pnp/common";
 /**
  *
  * Creates a fetch client that will aquire an access token using the client credentials

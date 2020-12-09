@@ -251,7 +251,7 @@ export interface ISearchResult {
     FileExtension?: string;
     ContentTypeId?: string;
     ParentLink?: string;
-    ViewsLifeTime?: number;
+    ViewsLifetime?: number;
     ViewsRecent?: number;
     SectionNames?: string;
     SectionIndexes?: string;

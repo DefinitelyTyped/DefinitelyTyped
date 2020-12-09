@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { _SharePointQueryableInstance, ISharePointQueryableCollection, _SharePointQueryableCollection, ISharePointQueryableInstance, ISharePointQueryable, IDeleteableWithETag } from "../sharepointqueryable";
 import { IItem } from "../items/types";
 import { IResourcePath } from "../utils/toResourcePath";
@@ -32,37 +32,37 @@ export declare class _Folder extends _SharePointQueryableInstance<IFolderInfo> {
      * Specifies the sequence in which content types are displayed.
      *
      */
-    get contentTypeOrder(): ISharePointQueryableCollection;
+    readonly contentTypeOrder: ISharePointQueryableCollection;
     /**
      * Gets this folder's sub folders
      *
      */
-    get folders(): IFolders;
+    readonly folders: IFolders;
     /**
      * Gets this folder's list item field values
      *
      */
-    get listItemAllFields(): ISharePointQueryableInstance;
+    readonly listItemAllFields: ISharePointQueryableInstance;
     /**
      * Gets the parent folder, if available
      *
      */
-    get parentFolder(): IFolder;
+    readonly parentFolder: IFolder;
     /**
      * Gets this folder's properties
      *
      */
-    get properties(): ISharePointQueryableInstance;
+    readonly properties: ISharePointQueryableInstance;
     /**
      * Gets this folder's server relative url
      *
      */
-    get serverRelativeUrl(): ISharePointQueryable;
+    readonly serverRelativeUrl: ISharePointQueryable;
     /**
      * Gets a value that specifies the content type order.
      *
      */
-    get uniqueContentTypeOrder(): ISharePointQueryableCollection;
+    readonly uniqueContentTypeOrder: ISharePointQueryableCollection;
     /**
      * Updates folder's properties
      * @param props Folder's properties to update
@@ -104,22 +104,6 @@ export declare class _Folder extends _SharePointQueryableInstance<IFolderInfo> {
      * @param keepBoth Keep both if folder with the same name in the same location already exists?
      */
     copyByPath(destUrl: string, KeepBoth?: boolean): Promise<void>;
-    /**
-     * Deletes the folder object with options.
-     *
-     * @param parameters Specifies the options to use when deleting a folder.
-     */
-    deleteWithParams(parameters: Partial<IFolderDeleteParams>): Promise<void>;
-    /**
-     * Create the subfolder inside the current folder, as specified by the leafPath
-     *
-     * @param leafPath leafName of the new folder
-     */
-    addSubFolderUsingPath(leafPath: string): Promise<IFolder>;
-    /**
-     * Gets the parent information for this folder's list and web
-     */
-    getParentInfos(): Promise<IFolderParentInfos>;
     /**
      * Gets the shareable item associated with this folder
      */
@@ -167,42 +151,5 @@ export interface IFolderInfo {
     TimeLastModified: string;
     UniqueId: string;
     WelcomePage: string;
-}
-export interface IFolderDeleteParams {
-    /**
-     * If true, delete or recycle a folder iff all files have
-     * LockType values SPLockType.Shared or SPLockType.None.
-     * When false, delete or recycle the folder if all files
-     * have  the LockType value SPLockType.None. See the <see cref="SPFile.SPLockType"/> enum.
-     */
-    BypassSharedLock: boolean;
-    /**
-     * Gets or sets a string value that allows SPFolder delete
-     * and recycle methods to target a folder with a matching value
-     */
-    ETagMatch: string;
-    /**
-     * Gets or sets a Boolean that controls the way in which folders
-     * are deleted. If set to true, only empty folders will be deleted.
-     * If set to false, folders that are not empty may be deleted.
-     */
-    DeleteIfEmpty: boolean;
-}
-export interface IFolderParentInfos {
-    Folder: {
-        ServerRelativeUrl: string;
-    };
-    ParentList: {
-        Id: string;
-        RootFolderServerRelativePath: IResourcePath;
-        RootFolderServerRelativeUrl: string;
-        RootFolderUniqueId: string;
-    };
-    ParentWeb: {
-        Id: string;
-        ServerRelativePath: IResourcePath;
-        ServerRelativeUrl: string;
-        Url: string;
-    };
 }
 //# sourceMappingURL=types.d.ts.map

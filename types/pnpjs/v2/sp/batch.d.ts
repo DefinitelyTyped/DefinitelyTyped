@@ -1,4 +1,4 @@
-import { Batch } from "../odata";
+import { Batch } from "@pnp/odata";
 /**
  * Manages a batch of OData operations
  */

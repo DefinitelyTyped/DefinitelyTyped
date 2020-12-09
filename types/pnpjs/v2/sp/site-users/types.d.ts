@@ -1,6 +1,6 @@
 import { _SharePointQueryableInstance, _SharePointQueryableCollection, IDeleteable } from "../sharepointqueryable";
 import { ISiteGroups } from "../site-groups/types";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { PrincipalType } from "../types";
 export declare class _SiteUsers extends _SharePointQueryableCollection<ISiteUserInfo[]> {
     /**
@@ -54,7 +54,7 @@ export declare class _SiteUser extends _SharePointQueryableInstance<ISiteUserInf
      * Gets the groups for this user
      *
      */
-    get groups(): ISiteGroups;
+    readonly groups: ISiteGroups;
     /**
     * Updates this user instance with the supplied properties
     *

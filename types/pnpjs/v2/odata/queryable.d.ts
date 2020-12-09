@@ -1,4 +1,4 @@
-import { IFetchOptions, IConfigOptions, IRequestClient } from "../common";
+import { IFetchOptions, IConfigOptions, IRequestClient } from "@pnp/common";
 import { ICachingOptions } from "./caching";
 import { Batch } from "./batch";
 import { PipelineMethod } from "./pipeline";
@@ -40,8 +40,7 @@ export interface IQueryable<DefaultActionType> {
 export declare abstract class Queryable<DefaultActionType = any> implements IQueryable<DefaultActionType> {
     private _data;
     constructor(dataSeed?: Partial<IQueryableData<DefaultActionType>>);
-    get data(): Partial<IQueryableData<DefaultActionType>>;
-    set data(value: Partial<IQueryableData<DefaultActionType>>);
+    data: Partial<IQueryableData<DefaultActionType>>;
     /**
      * Gets the full url with query information
      *
@@ -66,7 +65,7 @@ export declare abstract class Queryable<DefaultActionType = any> implements IQue
      * Provides access to the query builder for this url
      *
      */
-    get query(): Map<string, string>;
+    readonly query: Map<string, string>;
     /**
      * Sets custom options for current object and all derived objects accessible via chaining
      *
@@ -118,17 +117,17 @@ export declare abstract class Queryable<DefaultActionType = any> implements IQue
      * Indicates if the current query has a batch associated
      *
      */
-    protected get hasBatch(): boolean;
+    protected readonly hasBatch: boolean;
     /**
      * The batch currently associated with this query or null
      *
      */
-    protected get batch(): Batch | null;
+    protected readonly batch: Batch | null;
     /**
      * Gets the parent url used when creating this instance
      *
      */
-    protected get parentUrl(): string;
+    protected readonly parentUrl: string;
     /**
      * Clones this instance's data to target
      *

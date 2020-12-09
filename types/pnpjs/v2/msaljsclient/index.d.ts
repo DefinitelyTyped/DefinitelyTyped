@@ -1,5 +1,5 @@
 import { Configuration, UserAgentApplication } from "msal";
-import { BearerTokenFetchClient, IFetchOptions } from "../common";
+import { BearerTokenFetchClient, IFetchOptions } from "@pnp/common";
 /**
  * Modifies the msal libray type Configuration, omitting the "framework" property
  */

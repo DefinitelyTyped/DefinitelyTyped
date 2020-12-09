@@ -1343,7 +1343,7 @@ export declare enum FieldUserSelectionMode {
     PeopleAndGroups = 1,
     PeopleOnly = 0
 }
-export interface FieldCreationProperties extends TypedHash<string | number | boolean> {
+export interface FieldCreationProperties extends TypedHash<string | number | boolean | undefined> {
     DefaultFormula?: string;
     Description?: string;
     EnforceUniqueValues?: boolean;

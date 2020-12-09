@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { _SharePointQueryableInstance, _SharePointQueryableCollection, IDeleteable } from "../sharepointqueryable";
 export declare class _Views extends _SharePointQueryableCollection<IViewInfo[]> {
     /**
@@ -27,7 +27,7 @@ export interface IViews extends _Views {
 export declare const Views: import("../sharepointqueryable").ISPInvokableFactory<IViews>;
 export declare class _View extends _SharePointQueryableInstance<IViewInfo> {
     delete: (this: import("../sharepointqueryable").ISharePointQueryable<any>) => Promise<void>;
-    get fields(): IViewFields;
+    readonly fields: IViewFields;
     /**
      * Updates this view intance with the supplied properties
      *

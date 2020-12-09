@@ -7,7 +7,7 @@ export declare class _Site extends _SharePointQueryableInstance {
     * Gets the root web of the site collection
     *
     */
-    get rootWeb(): IWeb;
+    readonly rootWeb: IWeb;
     /**
      * Gets a Web instance representing the root web of the site collection
      * correctly setup for chaining within the library

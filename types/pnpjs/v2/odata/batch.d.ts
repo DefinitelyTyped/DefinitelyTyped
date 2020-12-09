@@ -1,4 +1,4 @@
-import { IFetchOptions } from "../common";
+import { IFetchOptions } from "@pnp/common";
 import { IODataParser } from "./parsers";
 import { IQueryable } from "./queryable";
 import { IRequestContext } from "./pipeline";
@@ -19,11 +19,11 @@ export declare abstract class Batch {
     protected _rDeps: Promise<void>[];
     private _index;
     constructor(_batchId?: string);
-    get batchId(): string;
+    readonly batchId: string;
     /**
      * The requests contained in this batch
      */
-    protected get requests(): IODataBatchRequestInfo[];
+    protected readonly requests: IODataBatchRequestInfo[];
     /**
      * Not meant for use directly
      *

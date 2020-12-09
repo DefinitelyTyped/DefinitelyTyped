@@ -15,11 +15,11 @@ export declare class _Files extends _SharePointQueryableCollection<IFileInfo[]> 
      * Uploads a file. Not supported for batching
      *
      * @param url The folder-relative url of the file.
-     * @param content The file contents
+     * @param content The file contents blob.
      * @param shouldOverWrite Should a file with the same name in the same location be overwritten? (default: true)
      * @returns The new File and the raw response.
      */
-    add(url: string, content: any, shouldOverWrite?: boolean): Promise<IFileAddResult>;
+    add(url: string, content: string | ArrayBuffer | Blob, shouldOverWrite?: boolean): Promise<IFileAddResult>;
     /**
      * Adds a file using the pound percent safe methods
      *
@@ -61,12 +61,12 @@ export declare class _File extends _SharePointQueryableInstance<IFileInfo> {
      * Gets a value that specifies the list item field values for the list item corresponding to the file.
      *
      */
-    get listItemAllFields(): ISharePointQueryableInstance;
+    readonly listItemAllFields: ISharePointQueryableInstance;
     /**
      * Gets a collection of versions
      *
      */
-    get versions(): IVersions;
+    readonly versions: IVersions;
     /**
      * Approves the file submitted for content approval with the specified comment.
      * Only documents in lists that are enabled for content approval can be approved.
@@ -147,12 +147,6 @@ export declare class _File extends _SharePointQueryableInstance<IFileInfo> {
      */
     recycle(): Promise<string>;
     /**
-     * Deletes the file object with options.
-     *
-     * @param parameters Specifies the options to use when deleting a file.
-     */
-    deleteWithParams(parameters: Partial<IFileDeleteParams>): Promise<void>;
-    /**
      * Reverts an existing checkout for the file.
      *
      */
@@ -163,11 +157,6 @@ export declare class _File extends _SharePointQueryableInstance<IFileInfo> {
      * @param comment The comment for the unpublish operation. Its length must be <= 1023.
      */
     unpublish(comment?: string): Promise<void>;
-    /**
-     * Checks to see if the file represented by this object exists
-     *
-     */
-    exists(): Promise<boolean>;
     /**
      * Gets the contents of the file as text. Not supported in batching.
      *
@@ -379,32 +368,15 @@ export interface IFileInfo {
     Level: number;
     LinkingUri: string | null;
     LinkingUrl: string;
-    ListId: string;
     MajorVersion: number;
     MinorVersion: number;
     Name: string;
     ServerRelativeUrl: string;
-    SiteId: string;
     TimeCreated: string;
     TimeLastModified: string;
     Title: string | null;
     UIVersion: number;
     UIVersionLabel: string;
     UniqueId: string;
-    WebId: string;
-}
-export interface IFileDeleteParams {
-    /**
-     * If true, delete or recyle a file when the LockType
-     * value is SPLockType.Shared or SPLockType.None.
-     * When false, delete or recycle the file when
-     * the LockType value SPLockType.None.
-     */
-    BypassSharedLock: boolean;
-    /**
-     * Gets or sets a string value that allows SPfile delete and recycle methods
-     * to target a file with a matching value. Use null to unconditionally delete the file.
-     */
-    ETagMatch: string;
 }
 //# sourceMappingURL=types.d.ts.map

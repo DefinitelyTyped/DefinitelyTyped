@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { Event as IEventType, Group as IGroupType } from "@microsoft/microsoft-graph-types";
 import { _GraphQueryableCollection } from "../graphqueryable";
 import { IDeleteable, IUpdateable, IGetById } from "../decorators";

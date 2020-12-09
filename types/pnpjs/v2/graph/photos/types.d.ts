@@ -6,7 +6,7 @@ export declare class _Photo extends _GraphQueryableInstance<IPhotoType> {
      */
     getBlob(): Promise<Blob>;
     /**
-     * Gets the image file bytes as a Buffer (node.js)
+     * Gets the image file byets as a Buffer (node.js)
      */
     getBuffer(): Promise<ArrayBuffer>;
     /**

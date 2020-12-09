@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { Invitation as IInvitationType } from "@microsoft/microsoft-graph-types";
 import { _GraphQueryableCollection } from "../graphqueryable";
 /**

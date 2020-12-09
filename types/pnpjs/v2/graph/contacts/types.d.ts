@@ -1,5 +1,5 @@
 import { _GraphQueryableCollection, _GraphQueryableInstance } from "../graphqueryable";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { Contact as IContactType, ContactFolder as IContactFolderType, EmailAddress as IEmailAddressType } from "@microsoft/microsoft-graph-types";
 import { IUpdateable, IDeleteable, IGetById } from "../decorators";
 /**
@@ -35,11 +35,11 @@ export declare class _ContactFolder extends _GraphQueryableInstance<IContactFold
     /**
      * Gets the contacts in this contact folder
      */
-    get contacts(): IContacts;
+    readonly contacts: IContacts;
     /**
     * Gets the contacts in this contact folder
     */
-    get childFolders(): IContactFolders;
+    readonly childFolders: IContactFolders;
 }
 export interface IContactFolder extends _ContactFolder, IUpdateable, IDeleteable {
 }

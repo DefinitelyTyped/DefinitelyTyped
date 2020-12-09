@@ -1,4 +1,4 @@
-import { ILibraryConfiguration, ITypedHash, IHttpClientImpl } from "../common";
+import { ILibraryConfiguration, ITypedHash, IHttpClientImpl } from "@pnp/common";
 export interface IGraphConfigurationPart {
     graph?: {
         /**
@@ -19,9 +19,9 @@ export interface IGraphConfiguration extends ILibraryConfiguration, IGraphConfig
 }
 export declare function setup(config: IGraphConfiguration): void;
 export declare class GraphRuntimeConfigImpl {
-    get headers(): ITypedHash<string>;
-    get baseUrl(): string;
-    get fetchClientFactory(): () => IHttpClientImpl;
+    readonly headers: ITypedHash<string>;
+    readonly baseUrl: string;
+    readonly fetchClientFactory: () => IHttpClientImpl;
 }
 export declare let GraphRuntimeConfig: GraphRuntimeConfigImpl;
 //# sourceMappingURL=graphlibconfig.d.ts.map

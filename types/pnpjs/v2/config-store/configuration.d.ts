@@ -1,4 +1,4 @@
-import { ITypedHash } from "../common";
+import { ITypedHash } from "@pnp/common";
 /**
  * Interface for configuration providers
  *

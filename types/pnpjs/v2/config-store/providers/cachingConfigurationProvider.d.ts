@@ -1,5 +1,5 @@
 import { IConfigurationProvider } from "../configuration";
-import { ITypedHash, IPnPClientStore } from "../../common";
+import { ITypedHash, IPnPClientStore } from "@pnp/common";
 /**
  * A caching provider which can wrap other non-caching providers
  *

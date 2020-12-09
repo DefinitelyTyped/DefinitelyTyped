@@ -1,4 +1,4 @@
-import { IHttpClientImpl } from "../../common";
+import { IHttpClientImpl } from "@pnp/common";
 /**
  * Fetch client that encapsulates the node-fetch library and also adds retry logic
  * when encountering transient errors.

@@ -6,7 +6,7 @@ import { calendarView } from "./funcs";
  * Calendar
  */
 export declare class _Calendar extends _GraphQueryableInstance<ICalendarType> {
-    get events(): IEvents;
+    readonly events: IEvents;
     calendarView: typeof calendarView;
 }
 export interface ICalendar extends _Calendar {

@@ -1,5 +1,5 @@
 import { SearchQueryInit } from "./types";
-import { ICachingOptions } from "../../odata";
+import { ICachingOptions } from "@pnp/odata";
 import { SearchResults } from "./query";
 import { ISuggestQuery, ISuggestResult } from "./suggest";
 export * from "./types";

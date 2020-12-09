@@ -1,4 +1,4 @@
-import { ITypedHash } from "../common";
+import { ITypedHash } from "@pnp/common";
 export declare type ValidProxyMethods = "apply" | "get" | "has" | "set";
 export declare type ExtensionDelegateType<T extends object> = {
     (op: string, target: T, ...rest: any[]): void;
@@ -9,21 +9,21 @@ export declare type ExtensionType<T extends object = {}> = Pick<ProxyHandler<T>,
  *
  * @param e The global extensions to apply
  */
-export declare const extendGlobal: (e: ExtensionType | ExtensionType[]) => void;
+export declare const extendGlobal: (e: ITypedHash<any> | Pick<ProxyHandler<{}>, ValidProxyMethods> | ExtensionDelegateType<{}> | ExtensionType<{}>[]) => void;
 /**
  * Applies the supplied extensions to a single instance
  *
  * @param target Object to which extensions are applied
  * @param extensions Extensions to apply
  */
-export declare const extendObj: <T extends object>(target: T, extensions: ExtensionType | ExtensionType[]) => T;
+export declare const extendObj: <T extends object>(target: T, extensions: ITypedHash<any> | Pick<ProxyHandler<{}>, ValidProxyMethods> | ExtensionDelegateType<{}> | ExtensionType<{}>[]) => T;
 /**
  * Allows applying extensions to all instances created from the supplied factory
  *
  * @param factory The Invokable Factory method to extend
  * @param extensions Extensions to apply
  */
-export declare const extendFactory: <T extends (...args: any[]) => any>(factory: T, extensions: ExtensionType | ExtensionType[]) => void;
+export declare const extendFactory: <T extends (...args: any[]) => any>(factory: T, extensions: ITypedHash<any> | Pick<ProxyHandler<{}>, ValidProxyMethods> | ExtensionDelegateType<{}> | ExtensionType<{}>[]) => void;
 /**
  * Clears all global extensions
  */

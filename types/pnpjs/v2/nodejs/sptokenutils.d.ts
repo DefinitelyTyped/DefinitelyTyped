@@ -1,4 +1,4 @@
-import { ITypedHash } from "../common";
+import { ITypedHash } from "@pnp/common";
 import { AuthToken } from "./types";
 export declare function validateProviderHostedRequestToken(requestToken: string, clientSecret: string): Promise<ITypedHash<string>>;
 /**

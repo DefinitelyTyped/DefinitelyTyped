@@ -1,4 +1,4 @@
-import { IRequestClient } from "../common";
+import { IRequestClient } from "@pnp/common";
 import { IQueryableData } from "./queryable";
 /**
  * Defines the context for a given request to be processed in the pipeline

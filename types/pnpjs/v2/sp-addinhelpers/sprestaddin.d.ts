@@ -1,6 +1,6 @@
-import { SPRest } from "../sp";
-import { IWeb } from "../sp/webs";
-import { ISite } from "../sp/sites";
+import { SPRest } from "@pnp/sp";
+import { IWeb } from "@pnp/sp/webs";
+import { ISite } from "@pnp/sp/sites";
 export declare class SPRestAddIn extends SPRest {
     /**
      * Begins a cross-domain, host site scoped REST request, for use in add-in webs

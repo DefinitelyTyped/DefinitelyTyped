@@ -117,10 +117,10 @@ export declare class PnPClientStorage {
     /**
      * Provides access to the local storage of the browser
      */
-    get local(): IPnPClientStore;
+    readonly local: IPnPClientStore;
     /**
      * Provides access to the session storage of the browser
      */
-    get session(): IPnPClientStore;
+    readonly session: IPnPClientStore;
 }
 //# sourceMappingURL=storage.d.ts.map

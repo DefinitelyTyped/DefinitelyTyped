@@ -12,11 +12,11 @@ export declare class _Profiles extends _SharePointQueryableInstance {
     /**
      * The url of the edit profile page for the current user
      */
-    get editProfileLink(): Promise<string>;
+    readonly editProfileLink: Promise<string>;
     /**
      * A boolean value that indicates whether the current user's "People I'm Following" list is public
      */
-    get isMyPeopleListPublic(): Promise<boolean>;
+    readonly isMyPeopleListPublic: Promise<boolean>;
     /**
      * A boolean value that indicates whether the current user is being followed by the specified user
      *
@@ -45,12 +45,12 @@ export declare class _Profiles extends _SharePointQueryableInstance {
      * Gets the people who are following the current user
      *
      */
-    get myFollowers(): ISharePointQueryableCollection;
+    readonly myFollowers: ISharePointQueryableCollection;
     /**
      * Gets user properties for the current user
      *
      */
-    get myProperties(): _SharePointQueryableInstance;
+    readonly myProperties: _SharePointQueryableInstance;
     /**
      * Gets the people who the specified user is following
      *
@@ -67,7 +67,7 @@ export declare class _Profiles extends _SharePointQueryableInstance {
      * Gets the 20 most popular hash tags over the past week, sorted so that the most popular tag appears first
      *
      */
-    get trendingTags(): Promise<IHashTagCollection>;
+    readonly trendingTags: Promise<IHashTagCollection>;
     /**
      * Gets the specified user profile property for the specified user
      *
@@ -120,11 +120,11 @@ export declare class _Profiles extends _SharePointQueryableInstance {
      * Gets the user profile of the site owner
      *
      */
-    get ownerUserProfile(): Promise<IUserProfile>;
+    readonly ownerUserProfile: Promise<IUserProfile>;
     /**
      * Gets the user profile for the current user
      */
-    get userProfile(): Promise<any>;
+    readonly userProfile: Promise<any>;
     /**
      * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files
      *

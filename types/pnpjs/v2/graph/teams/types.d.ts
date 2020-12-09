@@ -4,7 +4,7 @@ import { IUpdateable, IGetById, IDeleteable } from "../decorators";
  * Represents a Microsoft Team
  */
 export declare class _Team extends _GraphQueryableInstance<ITeamProperties> {
-    get channels(): IChannels;
+    readonly channels: IChannels;
     /**
      * Archives this Team
      *
@@ -39,7 +39,7 @@ export declare const Teams: (baseUrl: string | import("../graphqueryable").IGrap
  * Channel
  */
 export declare class _Channel extends _GraphQueryableInstance {
-    get tabs(): ITabs;
+    readonly tabs: ITabs;
 }
 export interface IChannel extends _Channel {
 }

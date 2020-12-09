@@ -65,7 +65,7 @@ export interface IRelatedItemManager {
      */
     deleteSingleLink(sourceListName: string, sourceItemId: number, sourceWebUrl: string, targetListName: string, targetItemId: number, targetWebUrl: string, tryDeleteReverseLink?: boolean): Promise<void>;
 }
-export declare const RelatedItemManager: (url: string | ISharePointQueryable) => IRelatedItemManager;
+export declare const RelatedItemManager: (url: string | ISharePointQueryable<any>) => IRelatedItemManager;
 export interface IRelatedItem {
     ListId: string;
     ItemId: number;

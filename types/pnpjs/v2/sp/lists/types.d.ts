@@ -6,7 +6,6 @@ import { IFormInfo } from "../forms/types";
 import { IFolderInfo } from "../folders/types";
 import { IViewInfo } from "../views/types";
 import { IUserCustomActionInfo } from "../user-custom-actions/types";
-import { IResourcePath } from "../utils/toResourcePath";
 export declare class _Lists extends _SharePointQueryableCollection<IListInfo[]> {
     /**
      * Gets a list from the collection by guid id
@@ -58,22 +57,22 @@ export declare class _List extends _SharePointQueryableInstance<IListInfo> {
      * Gets the effective base permissions of this list
      *
      */
-    get effectiveBasePermissions(): ISharePointQueryable;
+    readonly effectiveBasePermissions: ISharePointQueryable;
     /**
      * Gets the event receivers attached to this list
      *
      */
-    get eventReceivers(): ISharePointQueryableCollection;
+    readonly eventReceivers: ISharePointQueryableCollection;
     /**
      * Gets the related fields of this list
      *
      */
-    get relatedFields(): ISharePointQueryable;
+    readonly relatedFields: ISharePointQueryable;
     /**
      * Gets the IRM settings for this list
      *
      */
-    get informationRightsManagementSettings(): ISharePointQueryable;
+    readonly informationRightsManagementSettings: ISharePointQueryable;
     /**
      * Updates this list intance with the supplied properties
      *
@@ -110,10 +109,10 @@ export declare class _List extends _SharePointQueryableInstance<IListInfo> {
      * Returns the data for the specified query view
      *
      * @param parameters The parameters to be used to render list data as JSON string.
-     * @param overrideParams The parameters that are used to override and extend the regular SPRenderListDataParameters.
-     * @param query Allows setting of query parameters
+     * @param overrideParameters The parameters that are used to override and extend the regular SPRenderListDataParameters.
+     * @param queryParams Allows setting of query parameters
      */
-    renderListDataAsStream(parameters: IRenderListDataParameters, overrideParams?: any, query?: Map<string, string>): Promise<IRenderListDataAsStreamResult>;
+    renderListDataAsStream(parameters: IRenderListDataParameters, overrideParameters?: any, queryParams?: Map<string, string>): Promise<any>;
     /**
      * Gets the field values and field schema attributes for a list item.
      * @param itemId Item id of the item to render form data for
@@ -148,10 +147,6 @@ export declare class _List extends _SharePointQueryableInstance<IListInfo> {
          */
         objectType?: 0 | 1 | 2;
     }): Promise<IListItemFormUpdateValue[]>;
-    /**
-     * Gets the parent information for this item's list and web
-     */
-    getParentInfos(): Promise<IListParentInfos>;
 }
 export interface IList extends _List, IDeleteableWithETag {
 }
@@ -466,30 +461,5 @@ export interface IListInfo {
     Views: IViewInfo[];
     WorkflowAssociations: any[];
     WriteSecurity: number;
-}
-export interface IRenderListDataAsStreamResult {
-    CurrentFolderSpItemUrl: string;
-    FilterLink: string;
-    FirstRow: number;
-    FolderPermissions: string;
-    ForceNoHierarchy: string;
-    HierarchyHasIndention: string;
-    LastRow: number;
-    Row: any[];
-    RowLimit: number;
-}
-export interface IListParentInfos {
-    List: {
-        Id: string;
-        RootFolderServerRelativePath: IResourcePath;
-        RootFolderServerRelativeUrl: string;
-        RootFolderUniqueId: string;
-    };
-    ParentWeb: {
-        Id: string;
-        ServerRelativePath: IResourcePath;
-        ServerRelativeUrl: string;
-        Url: string;
-    };
 }
 //# sourceMappingURL=types.d.ts.map

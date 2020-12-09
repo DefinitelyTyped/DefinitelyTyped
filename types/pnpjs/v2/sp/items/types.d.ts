@@ -1,8 +1,7 @@
 import { _SharePointQueryableInstance, ISharePointQueryableInstance, _SharePointQueryableCollection, ISharePointQueryable, IDeleteableWithETag } from "../sharepointqueryable";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { IListItemFormUpdateValue } from "../lists/types";
 import { IList } from "../lists";
-import { IResourcePath } from '../utils/toResourcePath';
 /**
  * Describes a collection of Item objects
  *
@@ -66,32 +65,32 @@ export declare class _Item extends _SharePointQueryableInstance {
      * Gets the effective base permissions for the item
      *
      */
-    get effectiveBasePermissions(): ISharePointQueryable;
+    readonly effectiveBasePermissions: ISharePointQueryable;
     /**
      * Gets the effective base permissions for the item in a UI context
      *
      */
-    get effectiveBasePermissionsForUI(): ISharePointQueryable;
+    readonly effectiveBasePermissionsForUI: ISharePointQueryable;
     /**
      * Gets the field values for this list item in their HTML representation
      *
      */
-    get fieldValuesAsHTML(): ISharePointQueryableInstance;
+    readonly fieldValuesAsHTML: ISharePointQueryableInstance;
     /**
      * Gets the field values for this list item in their text representation
      *
      */
-    get fieldValuesAsText(): ISharePointQueryableInstance;
+    readonly fieldValuesAsText: ISharePointQueryableInstance;
     /**
      * Gets the field values for this list item for use in editing controls
      *
      */
-    get fieldValuesForEdit(): ISharePointQueryableInstance;
+    readonly fieldValuesForEdit: ISharePointQueryableInstance;
     /**
      * Gets the collection of versions associated with this item
      */
-    get versions(): IItemVersions;
-    get list(): IList;
+    readonly versions: IItemVersions;
+    readonly list: IList;
     /**
      * Updates this list intance with the supplied properties
      *
@@ -104,12 +103,6 @@ export declare class _Item extends _SharePointQueryableInstance {
      * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
     recycle(): Promise<string>;
-    /**
-     * Deletes the item object with options.
-     *
-     * @param parameters Specifies the options to use when deleting a item.
-     */
-    deleteWithParams(parameters: Partial<IItemDeleteParams>): Promise<void>;
     /**
      * Gets a string representation of the full URL to the WOPI frame.
      * If there is no associated WOPI application, or no associated action, an empty string is returned.
@@ -124,10 +117,6 @@ export declare class _Item extends _SharePointQueryableInstance {
      * @param bNewDocumentUpdate true if the list item is a document being updated after upload; otherwise false.
      */
     validateUpdateListItem(formValues: IListItemFormUpdateValue[], bNewDocumentUpdate?: boolean): Promise<IListItemFormUpdateValue[]>;
-    /**
-     * Gets the parent information for this item's list and web
-     */
-    getParentInfos(): Promise<IItemParentInfos>;
     /**
      * Ensures we have the proper list item entity type name, either from the value provided or from the list
      *
@@ -174,7 +163,7 @@ export declare class PagedItemCollection<T> {
     /**
      * If true there are more results available in the set, otherwise there are not
      */
-    get hasNext(): boolean;
+    readonly hasNext: boolean;
     /**
      * Gets the next set of results, or resolves to null if no results are available
      */
@@ -190,31 +179,5 @@ export interface IItemUpdateResult {
 }
 export interface IItemUpdateResultData {
     "odata.etag": string;
-}
-export interface IItemDeleteParams {
-    /**
-     * If true, delete or recycle a file when the LockType
-     * value is SPLockType.Shared or SPLockType.None.
-     * When false, delete or recycle the file when
-     * the LockType value SPLockType.None.
-     */
-    BypassSharedLock: boolean;
-}
-export interface IItemParentInfos {
-    Item: {
-        Id: string;
-    };
-    ParentList: {
-        Id: string;
-        RootFolderServerRelativePath: IResourcePath;
-        RootFolderServerRelativeUrl: string;
-        RootFolderUniqueId: string;
-    };
-    ParentWeb: {
-        Id: string;
-        ServerRelativePath: IResourcePath;
-        ServerRelativeUrl: string;
-        Url: string;
-    };
 }
 //# sourceMappingURL=types.d.ts.map

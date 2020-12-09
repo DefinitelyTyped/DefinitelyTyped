@@ -1,5 +1,5 @@
 import { _SharePointQueryableInstance, _SharePointQueryableCollection, IDeleteable } from "../sharepointqueryable";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 export declare class _Fields extends _SharePointQueryableCollection<IFieldInfo[]> {
     /**
      * Gets a field from the collection by id

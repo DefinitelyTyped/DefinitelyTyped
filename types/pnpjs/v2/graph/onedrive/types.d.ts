@@ -6,10 +6,10 @@ import { IGetById, IDeleteable, IUpdateable } from "../decorators";
  *
  */
 export declare class _Drive extends _GraphQueryableInstance<IDriveType> {
-    get root(): IRoot;
-    get list(): IGraphQueryableInstance;
-    get recent(): IDriveItems;
-    get sharedWithMe(): IDriveItems;
+    readonly root: IRoot;
+    readonly list: IGraphQueryableInstance;
+    readonly recent: IDriveItems;
+    readonly sharedWithMe: IDriveItems;
     getItemById(id: string): IDriveItem;
 }
 export interface IDrive extends _Drive {
@@ -29,9 +29,9 @@ export declare const Drives: (baseUrl: string | import("../graphqueryable").IGra
  *
  */
 export declare class _Root extends _GraphQueryableInstance<IDrive> {
-    get children(): IDriveItems;
+    readonly children: IDriveItems;
     search(query: string): Promise<any>;
-    get thumbnails(): IGraphQueryableCollection;
+    readonly thumbnails: IGraphQueryableCollection;
 }
 export interface IRoot extends _Root {
 }
@@ -41,9 +41,9 @@ export declare const Root: (baseUrl: string | import("../graphqueryable").IGraph
  *
  */
 export declare class _DriveItem extends _GraphQueryableInstance<any> {
-    get children(): IDriveItems;
-    get thumbnails(): IGraphQueryableCollection;
-    get versions(): IGraphQueryableCollection<IDriveItemVersionInfo>;
+    readonly children: IDriveItems;
+    readonly thumbnails: IGraphQueryableCollection;
+    readonly versions: IGraphQueryableCollection<IDriveItemVersionInfo>;
     move(parentReference: {
         id: "string";
     }, name: string): Promise<void>;

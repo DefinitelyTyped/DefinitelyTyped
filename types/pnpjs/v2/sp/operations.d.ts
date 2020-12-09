@@ -1,5 +1,5 @@
 import { ISharePointQueryable } from "./sharepointqueryable";
-import { IFetchOptions, IRequestClient } from "../common";
+import { IFetchOptions, IRequestClient } from "@pnp/common";
 export declare function registerCustomRequestClientFactory(requestClientFactory: () => IRequestClient): void;
 export declare const spGet: <T = any>(o: ISharePointQueryable<any>, options?: IFetchOptions) => Promise<T>;
 export declare const spPost: <T = any>(o: ISharePointQueryable<any>, options?: IFetchOptions) => Promise<T>;

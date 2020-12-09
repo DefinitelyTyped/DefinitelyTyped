@@ -1,5 +1,5 @@
 import { IODataParser } from "./parsers";
-import { IFetchOptions, IRequestClient } from "../common";
+import { IFetchOptions, IRequestClient } from "@pnp/common";
 import { IQueryableData } from "./queryable";
 import { PipelineMethod } from "./pipeline";
 export interface IRequestOptions<T> extends IFetchOptions {

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 /// <reference path="common/index.d.ts" />
 /// <reference path="config-store/index.d.ts" />
 /// <reference path="graph/index.d.ts" />
@@ -8,5 +10,3 @@
 /// <reference path="sp/index.d.ts" />
 /// <reference path="sp-clientsvc/index.d.ts" />
 /// <reference path="sp-taxonomy/index.d.ts" />
-
-export * from "./pnpjs";

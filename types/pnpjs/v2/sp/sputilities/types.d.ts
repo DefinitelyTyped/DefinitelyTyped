@@ -1,7 +1,7 @@
 import { _SharePointQueryable, ISharePointQueryable } from "../sharepointqueryable";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { SPBatch } from "../batch";
-import { ICachingOptions } from "../../odata";
+import { ICachingOptions } from "@pnp/odata";
 import { IPrincipalInfo, PrincipalType, PrincipalSource } from "../types";
 import { IFile } from "../files/types";
 export declare class _Utilities extends _SharePointQueryable implements IUtilities {

@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { _SharePointQueryableInstance, ISharePointQueryableCollection, _SharePointQueryableCollection, IDeleteable } from "../sharepointqueryable";
 export declare class _ContentTypes extends _SharePointQueryableCollection<IContentTypeInfo[]> {
     /**
@@ -32,19 +32,19 @@ export declare class _ContentType extends _SharePointQueryableInstance<IContentT
     /**
      * Gets the column (also known as field) references in the content type.
      */
-    get fieldLinks(): IFieldLinks;
+    readonly fieldLinks: IFieldLinks;
     /**
      * Gets a value that specifies the collection of fields for the content type.
      */
-    get fields(): ISharePointQueryableCollection;
+    readonly fields: ISharePointQueryableCollection;
     /**
      * Gets the parent content type of the content type.
      */
-    get parent(): IContentType;
+    readonly parent: IContentType;
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
-    get workflowAssociations(): ISharePointQueryableCollection;
+    readonly workflowAssociations: ISharePointQueryableCollection;
 }
 export interface IContentType extends _ContentType, IDeleteable {
 }

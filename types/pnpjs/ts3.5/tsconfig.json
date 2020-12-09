@@ -19,7 +19,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@pnp/*": [
-                "./*"
+                "pnpjs/ts3.5/*"
             ]
         }
     },

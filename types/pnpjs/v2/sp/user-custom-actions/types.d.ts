@@ -1,5 +1,5 @@
 import { _SharePointQueryableInstance, _SharePointQueryableCollection, IDeleteable } from "../sharepointqueryable";
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { IBasePermissions } from "../security";
 export declare class _UserCustomActions extends _SharePointQueryableCollection<IUserCustomActionInfo[]> {
     /**

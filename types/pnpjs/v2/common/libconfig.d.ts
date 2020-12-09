@@ -40,13 +40,13 @@ export declare class RuntimeConfigImpl {
      */
     assign(config: ITypedHash<any>): void;
     get(key: string): any;
-    get defaultCachingStore(): "session" | "local";
-    get defaultCachingTimeoutSeconds(): number;
-    get globalCacheDisable(): boolean;
-    get enableCacheExpiration(): boolean;
-    get cacheExpirationIntervalMilliseconds(): number;
-    get spfxContext(): ISPFXContext;
-    get ie11(): boolean;
+    readonly defaultCachingStore: "session" | "local";
+    readonly defaultCachingTimeoutSeconds: number;
+    readonly globalCacheDisable: boolean;
+    readonly enableCacheExpiration: boolean;
+    readonly cacheExpirationIntervalMilliseconds: number;
+    readonly spfxContext: ISPFXContext;
+    readonly ie11: boolean;
 }
 export declare let RuntimeConfig: RuntimeConfigImpl;
 //# sourceMappingURL=libconfig.d.ts.map

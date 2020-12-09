@@ -86,7 +86,7 @@ export declare class _SiteDesigns extends _SharePointQueryable {
 }
 export interface ISiteDesigns extends _SiteDesigns {
 }
-export declare const SiteDesigns: (baseUrl: string | ISharePointQueryable, methodName?: string) => ISiteDesigns;
+export declare const SiteDesigns: (baseUrl: string | ISharePointQueryable<any>, methodName?: string) => ISiteDesigns;
 /**
  * Result from creating or retrieving a site design
  *

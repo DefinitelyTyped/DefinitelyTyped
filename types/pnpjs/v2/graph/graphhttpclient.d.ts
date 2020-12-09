@@ -1,4 +1,4 @@
-import { IRequestClient, IFetchOptions } from "../common";
+import { IRequestClient, IFetchOptions } from "@pnp/common";
 export declare class GraphHttpClient implements IRequestClient {
     private _impl;
     constructor();

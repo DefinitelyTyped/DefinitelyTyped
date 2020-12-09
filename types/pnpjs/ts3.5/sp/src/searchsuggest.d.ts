@@ -3,7 +3,7 @@ import { SharePointQueryableInstance } from "./sharepointqueryable";
  * Defines a query execute against the search/suggest endpoint (see https://msdn.microsoft.com/en-us/library/office/dn194079.aspx)
  */
 export interface SearchSuggestQuery {
-    [key: string]: string | number | boolean;
+    [key: string]: string | number | boolean | undefined;
     /**
      * A string that contains the text for the search query.
      */

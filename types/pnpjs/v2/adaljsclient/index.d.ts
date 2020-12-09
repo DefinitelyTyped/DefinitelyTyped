@@ -1,4 +1,4 @@
-import { BearerTokenFetchClient, IFetchOptions, ISPFXContext, SPFxAdalClient } from "../common";
+import { BearerTokenFetchClient, IFetchOptions, ISPFXContext, SPFxAdalClient } from "@pnp/common";
 /**
  * Azure AD Client for use in the browser
  */

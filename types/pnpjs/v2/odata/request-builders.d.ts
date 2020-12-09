@@ -1,4 +1,4 @@
-import { ITypedHash } from "../common";
+import { ITypedHash } from "@pnp/common";
 export declare function body<T = unknown, U = any>(o: U, previous?: T): T & {
     body: string;
 };

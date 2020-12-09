@@ -32,5 +32,5 @@ export * from "../planner";
 export * from "../subscriptions";
 export * from "../teams";
 export * from "../users";
-export * from "../index";
+export { graph, GraphRest } from "../rest";
 //# sourceMappingURL=all.d.ts.map

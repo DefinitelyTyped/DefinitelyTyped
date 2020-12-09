@@ -1,4 +1,4 @@
-import { IConfigOptions, ISPFXContext } from "../common";
+import { IConfigOptions, ISPFXContext } from "@pnp/common";
 import { ISPConfiguration } from "./splibconfig";
 /**
  * Root of the SharePoint REST module

@@ -6,11 +6,11 @@ export declare class _User extends _DirectoryObject<IUserType> {
     /**
     * The groups and directory roles associated with the user
     */
-    get memberOf(): IDirectoryObjects;
+    readonly memberOf: IDirectoryObjects;
     /**
      * Retrieve a collection of person objects ordered by their relevance to the user
      */
-    get people(): IPeople;
+    readonly people: IPeople;
 }
 export interface IUser extends _User, IUpdateable<IUserType>, IDeleteable {
 }

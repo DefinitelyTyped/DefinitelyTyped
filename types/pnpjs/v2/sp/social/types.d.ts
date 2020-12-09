@@ -1,6 +1,6 @@
 import { _SharePointQueryableInstance, ISharePointQueryable } from "../sharepointqueryable";
 export declare class _Social extends _SharePointQueryableInstance implements ISocial {
-    get my(): IMySocial;
+    readonly my: IMySocial;
     getFollowedSitesUri(): Promise<string>;
     getFollowedDocumentsUri(): Promise<string>;
     follow(actorInfo: ISocialActorInfo): Promise<SocialFollowResult>;
@@ -46,7 +46,7 @@ export interface ISocial {
 /**
  * Get a new Social instance for the particular Url
  */
-export declare const Social: (baseUrl: string | ISharePointQueryable) => ISocial;
+export declare const Social: (baseUrl: string | ISharePointQueryable<any>) => ISocial;
 /**
  * Current user's Social instance
  */

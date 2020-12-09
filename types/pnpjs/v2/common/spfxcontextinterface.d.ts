@@ -7,7 +7,7 @@ export interface ISPFXContext {
             getToken(resource: string): Promise<string>;
         }>;
     };
-    msGraphClientFactory?: {
+    msGraphClientFactory: {
         getClient: () => Promise<any>;
     };
     pageContext: {

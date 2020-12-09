@@ -1,4 +1,4 @@
-import { ITypedHash } from "../../common";
+import { ITypedHash } from "@pnp/common";
 import { PlannerPlan as IPlannerPlanType, PlannerPlanDetails as IPlannerPlanDetailsType, PlannerTask as IPlannerTaskType, PlannerTaskDetails as IPlannerTaskDetailsType, PlannerBucket as IPlannerBucketType, Planner as IPlannerType } from "@microsoft/microsoft-graph-types";
 import { _GraphQueryableInstance, _GraphQueryableCollection } from "../graphqueryable";
 import { IGetById, IDeleteableWithETag, IUpdateableWithETag } from "../decorators";
@@ -6,9 +6,9 @@ import { IGetById, IDeleteableWithETag, IUpdateableWithETag } from "../decorator
  * Planner
  */
 export declare class _Planner extends _GraphQueryableInstance<IPlannerType> {
-    get plans(): IPlans;
-    get tasks(): ITasks;
-    get buckets(): IBuckets;
+    readonly plans: IPlans;
+    readonly tasks: ITasks;
+    readonly buckets: IBuckets;
 }
 export interface IPlanner extends _Planner {
 }
@@ -25,9 +25,9 @@ export declare const PlanDetails: (baseUrl: string | import("../graphqueryable")
  * Plan
  */
 export declare class _Plan extends _GraphQueryableInstance<IPlannerPlanType> {
-    get tasks(): ITasks;
-    get buckets(): IBuckets;
-    get details(): IPlanDetails;
+    readonly tasks: ITasks;
+    readonly buckets: IBuckets;
+    readonly details: IPlanDetails;
 }
 export interface IPlan extends _Plan, IUpdateableWithETag<IPlannerPlanType>, IDeleteableWithETag {
 }
@@ -56,7 +56,7 @@ export declare const TaskDetails: (baseUrl: string | import("../graphqueryable")
  * Task
  */
 export declare class _Task extends _GraphQueryableInstance<IPlannerTaskType> {
-    get details(): ITaskDetails;
+    readonly details: ITaskDetails;
 }
 export interface ITask extends _Task, IUpdateableWithETag<IPlannerTaskType>, IDeleteableWithETag {
 }
@@ -82,7 +82,7 @@ export declare const Tasks: (baseUrl: string | import("../graphqueryable").IGrap
  * Bucket
  */
 export declare class _Bucket extends _GraphQueryableInstance<IPlannerBucketType> {
-    get tasks(): ITasks;
+    readonly tasks: ITasks;
 }
 export interface IBucket extends _Bucket, IUpdateableWithETag<IPlannerBucketType>, IDeleteableWithETag {
 }

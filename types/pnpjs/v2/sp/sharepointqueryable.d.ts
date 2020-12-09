@@ -1,8 +1,8 @@
-import { IFetchOptions } from "../common";
-import { Queryable, IInvokable } from "../odata";
+import { IFetchOptions } from "@pnp/common";
+import { Queryable, IInvokable } from "@pnp/odata";
 import { SPBatch } from "./batch";
 export interface ISharePointQueryableConstructor<T extends ISharePointQueryable = ISharePointQueryable> {
-    new(baseUrl: string | ISharePointQueryable, path?: string): T;
+    new (baseUrl: string | ISharePointQueryable, path?: string): T;
 }
 export declare type ISPInvokableFactory<R = any> = (baseUrl: string | ISharePointQueryable, path?: string) => R;
 export declare const spInvokableFactory: <R>(f: any) => ISPInvokableFactory<R>;
@@ -120,14 +120,14 @@ export declare const SharePointQueryableInstance: ISPInvokableFactory<ISharePoin
 /**
  * Adds the a delete method to the tagged class taking no parameters and calling spPostDelete
  */
-export declare function deleteable(t: string): (this: ISharePointQueryable) => Promise<void>;
+export declare function deleteable(t: string): (this: ISharePointQueryable<any>) => Promise<void>;
 export interface IDeleteable {
     /**
      * Delete this instance
      */
     delete(): Promise<void>;
 }
-export declare function deleteableWithETag(t: string): (this: ISharePointQueryable, eTag?: string) => Promise<void>;
+export declare function deleteableWithETag(t: string): (this: ISharePointQueryable<any>, eTag?: string) => Promise<void>;
 export interface IDeleteableWithETag {
     /**
      * Delete this instance

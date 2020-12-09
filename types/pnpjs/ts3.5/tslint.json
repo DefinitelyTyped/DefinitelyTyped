@@ -6,6 +6,7 @@
         "no-declare-current-package": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,
+        "no-internal-module": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-class": false,
         "no-redundant-jsdoc-2": false,

@@ -1,5 +1,5 @@
 import { AADToken } from "../types";
-import { IHttpClientImpl } from "../../common";
+import { IHttpClientImpl } from "@pnp/common";
 export declare class AdalFetchClient implements IHttpClientImpl {
     private _tenant;
     private _clientId;

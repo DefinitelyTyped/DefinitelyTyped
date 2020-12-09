@@ -5,9 +5,9 @@ import { IGetById } from "../decorators";
  * Represents a onenote entity
  */
 export declare class _OneNote extends _GraphQueryableInstance<IOnenoteType> {
-    get notebooks(): INotebooks;
-    get sections(): ISections;
-    get pages(): IGraphQueryableCollection<IOnenotePageType[]>;
+    readonly notebooks: INotebooks;
+    readonly sections: ISections;
+    readonly pages: IGraphQueryableCollection<IOnenotePageType[]>;
 }
 export interface IOneNote extends _OneNote {
 }
@@ -17,7 +17,7 @@ export declare const OneNote: (baseUrl: string | import("../graphqueryable").IGr
  *
  */
 export declare class _Notebook extends _GraphQueryableInstance<INotebookType> {
-    get sections(): ISections;
+    readonly sections: ISections;
 }
 export interface INotebook extends _Notebook {
 }

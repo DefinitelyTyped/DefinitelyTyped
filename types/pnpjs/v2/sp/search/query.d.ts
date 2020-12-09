@@ -1,5 +1,5 @@
 import { _SharePointQueryableInstance, ISharePointQueryable } from "../sharepointqueryable";
-import { IConfigOptions } from "../../common";
+import { IConfigOptions } from "@pnp/common";
 import { ISearchQuery, ISearchResponse, ISearchResult, ISearchBuilder, SearchQueryInit } from "./types";
 /**
  * Creates a new instance of the SearchQueryBuilder
@@ -33,19 +33,19 @@ export declare class _Search extends _SharePointQueryableInstance {
 export interface ISearch {
     (queryInit: SearchQueryInit): Promise<SearchResults>;
 }
-export declare const Search: (baseUrl: string | ISharePointQueryable, options?: IConfigOptions) => ISearch;
+export declare const Search: (baseUrl: string | ISharePointQueryable<any>, options?: IConfigOptions) => ISearch;
 export declare class SearchResults {
     private _url;
     private _query;
     private _raw;
     private _primary;
     constructor(rawResponse: any, _url: string, _query: ISearchQuery, _raw?: ISearchResponse, _primary?: ISearchResult[]);
-    get ElapsedTime(): number;
-    get RowCount(): number;
-    get TotalRows(): number;
-    get TotalRowsIncludingDuplicates(): number;
-    get RawSearchResults(): ISearchResponse;
-    get PrimarySearchResults(): ISearchResult[];
+    readonly ElapsedTime: number;
+    readonly RowCount: number;
+    readonly TotalRows: number;
+    readonly TotalRowsIncludingDuplicates: number;
+    readonly RawSearchResults: ISearchResponse;
+    readonly PrimarySearchResults: ISearchResult[];
     /**
      * Gets a page of results
      *

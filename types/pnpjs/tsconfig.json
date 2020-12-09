@@ -10,9 +10,9 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
         "noEmit": true,
@@ -25,6 +25,7 @@
         }
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "pnp-tests.ts"
     ]
 }

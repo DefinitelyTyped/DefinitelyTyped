@@ -54,7 +54,7 @@ export declare class _SiteScripts extends _SharePointQueryable {
 }
 export interface ISiteScripts extends _SiteScripts {
 }
-export declare const SiteScripts: (baseUrl: string | ISharePointQueryable, methodName?: string) => ISiteScripts;
+export declare const SiteScripts: (baseUrl: string | ISharePointQueryable<any>, methodName?: string) => ISiteScripts;
 /**
  * Result from creating or retrieving a site script
  *
