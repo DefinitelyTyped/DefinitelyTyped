@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/b64": [
-                "hapi__b64"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "types": [],

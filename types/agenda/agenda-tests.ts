@@ -6,6 +6,7 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 (async () => {
     var agenda = new Agenda({ db: { address: mongoConnectionString } });
     var agenda = new Agenda({
+        name: 'backend',
         mongo: (await MongoClient.connect(mongoConnectionString)).db(),
         db: { collection: 'agenda-jobs' },
     });
@@ -75,6 +76,11 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
         job.save();
     });
 
+    const jobs2 = await agenda.jobs({ name: 'printAnalyticsReport' }, {}, 0, 0);
+    jobs2.forEach((job) => {
+        job.save();
+    });
+
     let numRemoved = await agenda.cancel({ name: 'printAnalyticsReport' });
 
     numRemoved = await agenda.purge();
@@ -108,4 +114,4 @@ class ExtendedAgenda extends Agenda {
 }
 
 const extendedAgenda: ExtendedAgenda = new ExtendedAgenda()
-    .mongo(new Db('some-database', new Server('host.name', 0)))
+    .mongo(new MongoClient(mongoConnectionString), "tes-collection");

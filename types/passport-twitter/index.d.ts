@@ -29,7 +29,7 @@ interface IStrategyOptionBase {
     includeStatus?: boolean;
     includeEntities?: boolean;
 
-    reguestTokenURL?: string;
+    requestTokenURL?: string;
     accessTokenURL?: string;
     userAuthorizationURL?: string;
     sessionKey?: string;

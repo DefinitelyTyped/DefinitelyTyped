@@ -1887,7 +1887,7 @@ declare namespace OracleDB {
      */
     interface GetPooledConnectionOptions {
         /** Database user to retrieve the connection for. */
-        user: string;
+        user?: string;
         /** Password of the specified user. */
         password?: string;
         /** Optionally set the connection tag. */

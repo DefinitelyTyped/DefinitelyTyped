@@ -1,6 +1,7 @@
 // Type definitions for jsreport-core 1.5
 // Project: http://jsreport.net
 // Definitions by: taoqf <https://github.com/taoqf>
+//                 pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,9 +21,13 @@ declare namespace JsReport {
         recipe: Recipe | string;
     }
 
+    interface Options {
+        preview?: boolean;
+    }
+
     interface Request {
         template: Partial<Template>;
-        options: object;
+        options?: Options;
         data: any;
     }
 
@@ -79,6 +84,7 @@ declare namespace JsReport {
         render(options: Partial<Request>): Promise<Response>;
         discover(): Reporter;
         createListenerCollection(): ListenerCollection;
+        close(): Promise<void>;
     }
 
     interface Configuration {

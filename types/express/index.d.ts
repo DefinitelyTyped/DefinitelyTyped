@@ -9,7 +9,7 @@
 
 /* =================== USAGE ===================
 
-    import * as express from "express";
+    import express = require("express");
     var app = express();
 
  =============================================== */
@@ -18,7 +18,7 @@
 /// <reference types="serve-static" />
 
 import * as bodyParser from "body-parser";
-import serveStatic = require("serve-static");
+import * as serveStatic from "serve-static";
 import * as core from "express-serve-static-core";
 import * as qs from "qs";
 
@@ -56,7 +56,7 @@ declare namespace e {
     /**
      * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
-    var static: typeof serveStatic;
+    var static: serveStatic.RequestHandlerConstructor<Response>;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
@@ -95,7 +95,7 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
+    interface ErrorRequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
         extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
@@ -105,8 +105,8 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
-    interface RequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery> { }
+    interface Request<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
+    interface RequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
     export interface Response<ResBody = any> extends core.Response<ResBody> { }
     interface Router extends core.Router { }

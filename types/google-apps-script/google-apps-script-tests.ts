@@ -164,3 +164,20 @@ const createFolderAndGetDescription = () => {
   // Get description. Expect 'DESC'.
   Logger.log(folder.getDescription().toUpperCase());
 };
+
+function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
+  if (e.changeType === 'FORMAT') {
+    console.log('Formatting change detected');
+  }
+}
+
+const createFileAndGetDescription = () => {
+  // Create file.
+  const file = DriveApp.createFile('New Text File', 'Hello, world!');
+  // Get description. Expect null.
+  Logger.log(file.getDescription());
+  // Set description.
+  file.setDescription('desc');
+  // Get description. Expect 'DESC'.
+  Logger.log(file.getDescription().toUpperCase());
+};

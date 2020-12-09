@@ -491,6 +491,8 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
@@ -499,6 +501,8 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
         function __promisify__(path: PathLike): Promise<Stats>;
     }
 
@@ -506,6 +510,8 @@ declare module "fs" {
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     function statSync(path: PathLike): Stats;
 
     /**
@@ -803,23 +809,6 @@ declare module "fs" {
 
     interface RmDirOptions {
         /**
-         * If `true`, perform a recursive directory removal. In
-         * recursive mode, errors are not reported if `path` does not exist, and
-         * operations are retried on failure.
-         * @experimental
-         * @default false
-         */
-        recursive?: boolean;
-    }
-
-    interface RmDirAsyncOptions extends RmDirOptions {
-        /**
-         * The amount of time in milliseconds to wait between retries.
-         * This option is ignored if the `recursive` option is not `true`.
-         * @default 100
-         */
-        retryDelay?: number;
-        /**
          * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
          * `EPERM` error is encountered, Node.js will retry the operation with a linear
          * backoff wait of `retryDelay` ms longer on each try. This option represents the
@@ -828,6 +817,20 @@ declare module "fs" {
          * @default 0
          */
         maxRetries?: number;
+        /**
+         * If `true`, perform a recursive directory removal. In
+         * recursive mode, errors are not reported if `path` does not exist, and
+         * operations are retried on failure.
+         * @experimental
+         * @default false
+         */
+        recursive?: boolean;
+        /**
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
+         */
+        retryDelay?: number;
     }
 
     /**
@@ -835,7 +838,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdir(path: PathLike, callback: NoParamCallback): void;
-    function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+    function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -843,7 +846,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmDirOptions): Promise<void>;
     }
 
     /**
@@ -2048,12 +2051,12 @@ declare module "fs" {
      */
     function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2064,22 +2067,22 @@ declare module "fs" {
     }
 
     namespace writev {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
     }
 
     /**
      * See `writev`.
      */
-    function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2090,13 +2093,13 @@ declare module "fs" {
     }
 
     namespace readv {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
     }
 
     /**
      * See `readv`.
      */
-    function readvSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     interface OpenDirOptions {
         encoding?: BufferEncoding;
@@ -2247,12 +2250,12 @@ declare module "fs" {
             /**
              * See `fs.writev` promisified version.
              */
-            writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+            writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
 
             /**
              * See `fs.readv` promisified version.
              */
-            readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+            readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
 
             /**
              * Asynchronous close(2) - close a `FileHandle`.
@@ -2359,7 +2362,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -2640,5 +2643,23 @@ declare module "fs" {
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
 
         function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    }
+
+    interface BigIntStats extends StatsBase<bigint> {
+    }
+
+    class BigIntStats {
+        atimeNs: bigint;
+        mtimeNs: bigint;
+        ctimeNs: bigint;
+        birthtimeNs: bigint;
+    }
+
+    interface BigIntOptions {
+        bigint: true;
+    }
+
+    interface StatOptions {
+        bigint: boolean;
     }
 }

@@ -8,6 +8,7 @@ declare namespace Collapse {
         in?: boolean;
         timeout?: number;
         transitionAppear?: boolean;
+        mountOnEnter?: boolean;
         unmountOnExit?: boolean;
     }
 }

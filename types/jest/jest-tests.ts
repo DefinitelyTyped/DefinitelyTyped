@@ -1,3 +1,17 @@
+/* Basic matchers */
+
+describe('', () => {
+    it('', () => {
+        expect(BigInt(0)).toBeGreaterThan(BigInt(1));
+
+        expect(BigInt(0)).toBeGreaterThanOrEqual(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThan(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThanOrEqual(BigInt(1));
+    });
+});
+
 /* Lifecycle events */
 
 beforeAll(() => {});
@@ -228,16 +242,6 @@ describe('', () => {
     });
 });
 
-/* NodeRequire interface (require extensions) */
-
-declare const nodeRequire: NodeRequire;
-
-// $ExpectType any
-nodeRequire.requireActual('moduleName');
-
-// $ExpectType any
-nodeRequire.requireMock('moduleName');
-
 /* Top-level jest namespace functions */
 
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
@@ -337,7 +341,7 @@ const mock6 = jest.fn((arg: {}) => arg);
 const mock7 = jest.fn((arg: number) => arg);
 // $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
-// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, [], _makeItStop: boolean]>
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
     Promise.resolve(_makeItStop)
 );
@@ -367,6 +371,9 @@ mock8.mockImplementation((arg: string) => 1);
 
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
+
+const createMockFromModule1: {} = jest.createMockFromModule('moduleName');
+const createMockFromModule2: { a: 'b' } = jest.createMockFromModule<{ a: 'b' }>('moduleName');
 
 const genMockModule1: {} = jest.genMockFromModule('moduleName');
 const genMockModule2: { a: 'b' } = jest.genMockFromModule<{ a: 'b' }>('moduleName');
@@ -836,15 +843,33 @@ describe('', () => {
         expect(jest.fn()).lastCalledWith();
         expect(jest.fn()).lastCalledWith('jest');
         expect(jest.fn()).lastCalledWith({}, {});
+        expect(jest.fn<void, [string]>()).lastCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).lastCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).lastCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).lastCalledWith('abc');
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn<string, []>()).lastReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).lastReturnedWith(123);
 
         expect(jest.fn()).nthCalledWith(0, 'jest');
         expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn<void, [string]>()).nthCalledWith(1, 'abc');
+        expect(jest.fn<void, [string, string?]>()).nthCalledWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).nthCalledWith(1, 123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).nthCalledWith(1, 'abc');
 
         expect(jest.fn()).nthReturnedWith(0, 'jest');
         expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn<string, []>()).nthReturnedWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).nthReturnedWith(1, 123);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -857,6 +882,13 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
+
+        expect(jest.fn<void, [string]>()).toBeCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toBeCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toBeCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toBeCalledWith('abc');
 
         // $ExpectError
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
@@ -899,13 +931,29 @@ describe('', () => {
         expect([]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
+        expect(new Set(['abc'])).toContain('abc');
         expect('abc').toContain('bc');
+        expect([1] as any).toContain(1);
+        expect('abc' as any).toContain('abc');
+        // $ExpectError
+        expect([1, 2, 3]).toContain('2');
+        // $ExpectError
+        expect({ 1: 1, 2: 2, length: 2 }).toContain('1');
+        // $ExpectError
+        expect('abc').toContain(2);
 
         expect([]).toContainEqual({});
         expect(['abc']).toContainEqual('def');
+        expect(new Set(['abc'])).toContainEqual('abc');
+        expect([1] as any).toContainEqual(1);
+        // $ExpectError
+        expect([1, 2, 3]).toContainEqual('2');
+        // $ExpectError
+        expect({ 1: 1, 2: 2, length: 2 }).toContainEqual('1');
 
         expect([]).toEqual([]);
         expect({}).toEqual({});
+        expect({a: 1}).toEqual({b: 'test'});
 
         expect(jest.fn()).toHaveBeenCalled();
 
@@ -920,18 +968,40 @@ describe('', () => {
         expect(jest.fn()).toHaveBeenCalledWith(1, 'jest');
         expect(jest.fn()).toHaveBeenCalledWith(2, {}, {});
 
+        expect(jest.fn<void, [string]>()).toHaveBeenCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toHaveBeenCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toHaveBeenCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toHaveBeenCalledWith('abc');
+
         expect(jest.fn()).toHaveBeenLastCalledWith();
         expect(jest.fn()).toHaveBeenLastCalledWith('jest');
         expect(jest.fn()).toHaveBeenLastCalledWith({}, {});
 
+        expect(jest.fn<void, [string]>()).toHaveBeenLastCalledWith('abc');
+        expect(jest.fn<void, [string, string?]>()).toHaveBeenLastCalledWith('abc');
+        // $ExpectError
+        expect(jest.fn<void, [string]>()).toHaveBeenLastCalledWith(123);
+        // $ExpectError
+        expect(jest.fn<void, [string, string]>()).toHaveBeenLastCalledWith('abc');
+
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+
+        expect(jest.fn<string, []>()).toHaveLastReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveLastReturnedWith(123);
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
         expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
         expect(jest.fn()).toHaveNthReturnedWith(1, {});
+
+        expect(jest.fn<string, []>()).toHaveNthReturnedWith(1, 'abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveNthReturnedWith(1, 123);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -947,6 +1017,10 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+
+        expect(jest.fn<string, []>()).toHaveReturnedWith('abc');
+        // $ExpectError
+        expect(jest.fn<string, []>()).toHaveReturnedWith(123);
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1005,6 +1079,12 @@ describe('', () => {
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
+        interface Animal { type: string; }
+        interface Dog extends Animal { breed: string; }
+        const dog: Dog = { type: 'dog', breed: 'chihuahua' };
+        expect(dog as Animal).toStrictEqual({ type: 'dog', breed: 'chihuahua' });
+        // $ExpectError
+        expect('abc').toStrictEqual(2);
 
         const errInstance = new Error();
         const willThrow = () => {
@@ -1017,9 +1097,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
@@ -1037,11 +1121,14 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
-        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
+        expect(Promise.reject('jest')).rejects.toStrictEqual('jest').then(() => {});
+        expect(Promise.reject('jest')).rejects.not.toStrictEqual('other').then(() => {});
 
-        expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
-        expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
+        expect(Promise.resolve('jest')).resolves.toStrictEqual('jest').then(() => {});
+        expect(Promise.resolve('jest')).resolves.not.toStrictEqual('other').then(() => {});
+        // $ExpectError
+        expect(Promise.resolve('jest')).resolves.toStrictEqual(123).then(() => {});
+
         /* type matchers */
 
         expect({}).toBe(expect.anything());
@@ -1054,6 +1141,11 @@ describe('', () => {
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
         expect.objectContaining({});
+        // $ExpectError
+        expect.objectContaining<{ a: string, b: string }>({ a: '123' });
+        // $ExpectError
+        expect.objectContaining<{ a: string, b: string }>({ a: 123 });
+
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
         expect.stringContaining('foo');
@@ -1067,6 +1159,21 @@ describe('', () => {
                 ghi: expect.stringMatching('foo'),
             })
         );
+
+        expect({ a: 2, b: 'abc' }).toEqual(expect.objectContaining({ a: 2 }));
+        expect({ a: 2, b: 'abc' }).toEqual(expect.anything());
+        expect([1, 2, 3]).toEqual(expect.arrayContaining([2]));
+
+        expect({ a: 2, b: 'abc' }).toStrictEqual(expect.objectContaining({ a: 2 }));
+        expect({ a: 2, b: 'abc' }).toStrictEqual(expect.anything());
+        expect([1, 2, 3]).toStrictEqual(expect.arrayContaining([2]));
+
+        expect([{ a: 2, b: 'abc' }]).toContain(expect.objectContaining({ a: 2 }));
+
+        const a = [{ a: "foo" }, { a: "bar" }, { b: "baz" }];
+        expect(a).toContain(expect.objectContaining({ a: "foo" }));
+
+        expect([{ a: 2, b: 'abc' }]).toContainEqual(expect.objectContaining({ a: 2 }));
 
         /* Inverse type matchers */
 

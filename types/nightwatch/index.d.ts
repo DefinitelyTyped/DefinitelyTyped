@@ -1,4 +1,4 @@
-// Type definitions for nightwatch 1.1
+// Type definitions for nightwatch 1.3
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
@@ -213,6 +213,7 @@ export interface NightwatchTestRunner {
 export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
+    node_options?: string | string[];
 }
 
 export interface NightwatchOptions {
@@ -552,6 +553,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    startWith(value: string): this;
+    startsWith(value: string): this;
+    endWith(value: string): this;
+    endsWith(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.
@@ -1021,13 +1026,13 @@ export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, Nightw
     launch_url: string;
 }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomCommands { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomAssertions { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomPageObjects { }
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {

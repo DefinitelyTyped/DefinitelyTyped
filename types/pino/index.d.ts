@@ -46,6 +46,34 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+    const symbols: {
+        readonly setLevelSym: unique symbol,
+        readonly getLevelSym: unique symbol,
+        readonly levelValSym: unique symbol,
+        readonly useLevelLabelsSym: unique symbol,
+        readonly mixinSym: unique symbol,
+        readonly lsCacheSym: unique symbol,
+        readonly chindingsSym: unique symbol,
+        readonly parsedChindingsSym: unique symbol,
+        readonly asJsonSym: unique symbol,
+        readonly writeSym: unique symbol,
+        readonly serializersSym: unique symbol,
+        readonly redactFmtSym: unique symbol,
+        readonly timeSym: unique symbol,
+        readonly timeSliceIndexSym: unique symbol,
+        readonly streamSym: unique symbol,
+        readonly stringifySym: unique symbol,
+        readonly stringifiersSym: unique symbol,
+        readonly endSym: unique symbol,
+        readonly formatOptsSym: unique symbol,
+        readonly messageKeySym: unique symbol,
+        readonly nestedKeySym: unique symbol,
+        readonly wildcardFirstSym: unique symbol,
+        readonly needsMetadataGsym: unique symbol,
+        readonly useOnlyCustomLevelsSym: unique symbol,
+        readonly formattersSym: unique symbol,
+        readonly hooksSym: unique symbol,
+    };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
      */
@@ -572,15 +600,10 @@ declare namespace P {
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
 
-    interface LogDescriptor {
-        pid: number;
-        hostname: string;
-        level: number;
-        time: string;
-        msg: string;
-        v: number;
-        [key: string]: any;
-    }
+    /**
+     * Describes a log line.
+     */
+    type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
         level?: Level | string;
@@ -705,6 +728,7 @@ declare namespace P {
          * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -714,6 +738,7 @@ declare namespace P {
          * Log at `'error'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -723,6 +748,7 @@ declare namespace P {
          * Log at `'warn'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -732,6 +758,7 @@ declare namespace P {
          * Log at `'info'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -741,6 +768,7 @@ declare namespace P {
          * Log at `'debug'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -750,6 +778,7 @@ declare namespace P {
          * Log at `'trace'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -784,8 +813,9 @@ declare namespace P {
     ) => void;
 
     interface LogFn {
+        /* tslint:disable:no-unnecessary-generics */
+        <T extends object>(obj: T, msg?: string, ...args: any[]): void;
         (msg: string, ...args: any[]): void;
-        (obj: object, msg?: string, ...args: any[]): void;
     }
 
     interface redactOptions {

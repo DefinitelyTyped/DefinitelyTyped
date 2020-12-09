@@ -623,7 +623,7 @@ declare namespace braintree {
         referenceNumber: string;
         replyByDate: Date;
         status: DisputeStatus;
-        statusHistory: DisputeStatusHistory;
+        statusHistory: DisputeStatusHistory[];
         transaction: {
             amount: string;
             createdAt: Date;
@@ -1021,7 +1021,7 @@ declare namespace braintree {
         billingDayOfMonth: number;
         billingFrequency: number;
         createdAt: Date;
-        currenyIsoCode: string;
+        currencyIsoCode: string;
         description?: string;
         discounts?: Discount[];
         id: string;
@@ -1346,7 +1346,7 @@ declare namespace braintree {
         shippingAmount?: string;
         shipsFromPostalCode?: string;
         status: TransactionStatus;
-        statusHistory?: TransactionStatusHistory;
+        statusHistory?: TransactionStatusHistory[];
         subscription?: {
             billingPeriodEndDate: Date;
             billingPeriodStartDate: Date;
@@ -1566,12 +1566,7 @@ declare namespace braintree {
 
     export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
 
-    export enum TransactionRequestSource {
-        recurring = 'recurring',
-        unscheduled = 'unscheduled',
-        recurring_first = 'recurring_first',
-        moto = 'moto',
-    }
+    export type TransactionRequestSource = 'recurring' | 'unscheduled' | 'recurring_first' | 'moto';
 
     export interface TransactionRiskData {
         decision: string;

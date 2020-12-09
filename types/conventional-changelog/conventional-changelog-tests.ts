@@ -1,4 +1,4 @@
-/* tslint:disable:no-mergeable-namespace no-namespace */
+/* tslint:disable:no-namespace */
 "use strict";
 
 import conventionalChangelog from "conventional-changelog";

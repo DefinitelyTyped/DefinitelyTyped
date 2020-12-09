@@ -3,6 +3,7 @@
     "rules": {
         "no-mergeable-namespace": false,
         "no-unnecessary-qualifier": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "max-line-length": false
     }
 }

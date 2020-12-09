@@ -1,6 +1,7 @@
-import * as view from 'prosemirror-view';
-import * as state from 'prosemirror-state';
+import * as model from 'prosemirror-model';
 import * as schema from 'prosemirror-schema-basic';
+import * as state from 'prosemirror-state';
+import * as view from 'prosemirror-view';
 
 const { Decoration } = view;
 const decoration = new Decoration();
@@ -21,6 +22,9 @@ nodeDecoration.spec.a; // $ExpectType number
 const res1_1 = new view.EditorView({} as any, {} as any);
 const res1_2: { pos: number, inside: number } = res1_1.posAtCoords({ left: 0, top: 0})!;
 const res1_3: boolean = res1_1.editable;
+const res1_4 = res1_1.coordsAtPos(1);
+const res1_5 = res1_1.coordsAtPos(1, 1);
+res1_1.setProps({ scrollThreshold: 42 });
 
 const res2_1: view.EditorProps = {} as any;
 const res2_plugin = new state.Plugin({});
@@ -50,5 +54,39 @@ const res5_view = new view.EditorView<typeof schema.schema>(undefined, {
         // From DirectEditorProps
         // Ensure that `this` is bound to type EditorView<schema.schema>
         const v: view.EditorView<typeof schema.schema> = this;
+    },
+});
+
+// Test `plain: boolean`
+const res6_plugin = new state.Plugin({
+    props: {
+        transformPastedText(text, plain) {
+            const isPlain: boolean = plain;
+            return text;
+        },
+
+        clipboardTextParser(text, $context, plain) {
+            const isPlain: boolean = plain;
+            return model.Slice.empty;
+        }
+    }
+});
+
+const view1 = new state.Plugin({
+    props: {
+        handleDOMEvents: {
+            click(view, event) {
+                event; // $ExpectType MouseEvent
+                return true;
+            },
+            blur(view, event) {
+                event; // $ExpectType FocusEvent
+                return true;
+            },
+            customxyz: (view, event) => {
+                event; // $ExpectType any
+                return true;
+            },
+        },
     },
 });

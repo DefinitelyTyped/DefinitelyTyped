@@ -15,7 +15,7 @@ taker.task("task2", () => {
 });
 
 taker.task("task3", () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         // do things
         resolve(); // when everything is done
     });
@@ -41,6 +41,17 @@ taker.task("all", taker.parallel("combined", "task3"));
 taker.task("all-parallel-array", taker.parallel(["combined", "task3"]));
 
 taker.task("all-series-array", taker.series(["combined", "task3"]));
+
+const version = 7;
+taker.task("checkVersion", (cb: Parameters<Undertaker.TaskFunction>[0]) => {
+    if (version < 7) {
+        cb(new Error("version < 7!"));
+    } else if (version < 9) {
+        cb(null);
+    } else {
+        cb();
+    }
+});
 
 const registry = new Registry();
 const CommonRegistry = (options: { buildDir: string }): Registry => {

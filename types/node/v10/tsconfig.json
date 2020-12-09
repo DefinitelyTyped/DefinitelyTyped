@@ -1,8 +1,10 @@
 {
     "files": [
-        "index.d.ts",
         "node-tests.ts",
-        "test/url.ts"
+        "test/url.ts",
+        "test/util.ts",
+        "test/zlib.ts",
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

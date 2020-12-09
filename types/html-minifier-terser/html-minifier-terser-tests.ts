@@ -1,6 +1,13 @@
 import { minify } from 'html-minifier-terser';
 
-const result = minify('<p title="blah" id="moo">foo</p>', {
+// $ExpectType string
+minify('<p title="blah" id="moo">foo</p>');
+
+// $ExpectType string
+minify('<p title="blah" id="moo">foo</p>', {});
+
+// $ExpectType string
+minify('<p title="blah" id="moo">foo</p>', {
     caseSensitive: true,
     collapseBooleanAttributes: true,
     collapseInlineTagWhitespace: true,
@@ -40,4 +47,3 @@ const result = minify('<p title="blah" id="moo">foo</p>', {
     trimCustomFragments: true,
     useShortDoctype: true,
 });
-result; // $ExpectType string

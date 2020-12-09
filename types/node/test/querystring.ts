@@ -27,6 +27,9 @@ interface SampleObject { [key: string]: string; }
         foo2: ['a', 'b'],
         bar2: [1, 2],
         baz2: [true, false],
+        rfoo2: ['a', 'b'] as ReadonlyArray<string>,
+        rbar2: [1, 2] as ReadonlyArray<number>,
+        rbaz2: [true, false] as ReadonlyArray<boolean>,
         a: undefined,
         b: null
     });

@@ -142,6 +142,10 @@ declare namespace Draft {
                  * that you set this to `true`.
                  */
                 stripPastedStyles?: boolean;
+                formatPastedText?: (
+                    text: string,
+                    html?: string,
+                ) => { text: string, html: string | undefined },
 
                 tabIndex?: number;
 
@@ -852,8 +856,20 @@ declare namespace Draft {
                 hasText(): boolean;
             }
 
+            interface SelectionStateProperties {
+                anchorKey: string
+                anchorOffset: number
+                focusKey: string
+                focusOffset: number
+                isBackward: boolean
+                hasFocus: boolean
+            }
+
             class SelectionState extends Record {
                 static createEmpty(key: string): SelectionState;
+
+                merge(...iterables: Immutable.Iterable<keyof SelectionStateProperties, SelectionStateProperties[keyof SelectionStateProperties]>[]): SelectionState
+                merge(...iterables: Partial<SelectionStateProperties>[]): SelectionState
 
                 serialize(): string;
                 getAnchorKey(): string;

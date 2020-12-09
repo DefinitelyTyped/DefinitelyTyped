@@ -15,7 +15,7 @@
             "../"
         ],
         "paths": {
-            "@ember/error": ["ember__error"]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,

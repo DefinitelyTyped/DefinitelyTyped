@@ -300,8 +300,15 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
 
 export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
-export type CoordinatesGenerator = (arg: {
+export type HorizontalCoordinatesGenerator = (arg: {
     yAxis: CartesianGridProps['yAxis'];
+    width: CartesianGridProps['chartWidth'];
+    height: CartesianGridProps['chartHeight'];
+    offset: CartesianGridProps['offset'];
+}) => ReadonlyArray<number>;
+
+export type VerticalCoordinatesGenerator = (arg: {
+    xAxis: CartesianGridProps['xAxis'];
     width: CartesianGridProps['chartWidth'];
     height: CartesianGridProps['chartHeight'];
     offset: CartesianGridProps['offset'];
@@ -315,17 +322,16 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     vertical?: object | React.ReactElement | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: ReadonlyArray<number>;
     verticalPoints?: ReadonlyArray<number>;
-    horizontalCoordinatesGenerator?: CoordinatesGenerator;
-    verticalCoordinatesGenerator?: CoordinatesGenerator;
-    xAxis?: object;
-    yAxis?: object;
-    offset?: object;
+    horizontalCoordinatesGenerator?: HorizontalCoordinatesGenerator;
+    verticalCoordinatesGenerator?: VerticalCoordinatesGenerator;
+    xAxis?: XAxisProps;
+    yAxis?: YAxisProps;
+    offset?: ChartOffset;
     chartWidth?: number;
     chartHeight?: number;
     horizontalFill?: ReadonlyArray<string>;
     verticalFill?: ReadonlyArray<string>;
 }
-
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
@@ -336,6 +342,16 @@ export interface CellProps extends Partial<PresentationAttributes> {
 }
 
 export class Cell extends React.Component<CellProps> { }
+
+export interface ChartOffset {
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    width?: number;
+    height?: number;
+    brushBottom?: number;
+}
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type ComposedChartProps = CategoricalChartWrapper & EventAttributes;
@@ -536,6 +552,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     stroke?: string;
     orientation?: 'inner' | 'outer';
     tickFormatter?: TickFormatterFunction;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -576,6 +593,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     domain?: Readonly<[PolarRadiusAxisDomain, PolarRadiusAxisDomain]>;
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
@@ -983,7 +1001,7 @@ export interface XAxisProps extends EventAttributes {
     tickCount?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
-    padding?: XPadding;
+    padding?: Partial<XPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1043,7 +1061,7 @@ export interface YAxisProps extends EventAttributes {
     // The orientation of axis
     orientation?: 'left' | 'right';
     type?: 'number' | 'category';
-    padding?: YPadding;
+    padding?: Partial<YPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1057,6 +1075,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    allowDuplicatedCategory?: boolean;
     stroke?: string;
 }
 

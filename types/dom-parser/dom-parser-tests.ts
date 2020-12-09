@@ -11,7 +11,7 @@ const element = dom.getElementById('one'); // $ExpectType Node | null
 dom.getElementsByClassName('myclass'); // $ExpectType Node[] | null
 dom.getElementsByTagName('div'); // $ExpectType Node[] | null
 dom.getElementsByName('somenonexistentname'); // $ExpectType Node[] | null
-dom.getElementsByAttribute('nonexistentattr'); // $ExpectType Node[] | null
+dom.getElementsByAttribute('nonexistentattr', 'nonexistentvalue'); // $ExpectType Node[] | null
 
 if (element) {
     element.getAttribute('madeupattr'); // $ExpectType string | null

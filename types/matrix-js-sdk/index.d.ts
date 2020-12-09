@@ -2,6 +2,7 @@
 // Project: https://github.com/matrix-org/matrix-js-sdk
 // Definitions by: Huan LI (李卓桓) <https://github.com/huan>
 //                 André Vitor L. Matos <https://github.com/andrevmatos>
+//                 Thibaut Sardan <https://github.com/Tbaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -243,10 +244,31 @@ export class IndexedDBStore extends MemoryStore {
 }
 
 export interface LoginPayload {
+  /* The fully-qualified Matrix ID for the account. */
   user_id: string;
+
+  /* An access token for the account.
+   * This access token can then be used to authorize other requests. */
   access_token: string;
-  home_server: string;
+
+  /* ID of the logged-in device. Will be the same as the
+   * corresponding parameter in the request, if one was specified. */
   device_id: string;
+
+  /* The server_name of the homeserver on which the account has been registered.
+   * @deprecated Clients should extract the server_name from
+   * ``user_id`` (by splitting at the first colon) if they require
+   * it. Note also that ``homeserver`` is not spelt this way.
+   */
+  home_server: string;
+
+  /**
+   * Optional client configuration provided by the server. If present,
+   * clients SHOULD use the provided object to reconfigure themselves,
+   * optionally validating the URLs within. This object takes the same
+   * form as the one returned from .well-known autodiscovery.
+   */
+  well_known?: any;
 }
 
 /**
@@ -648,7 +670,7 @@ export class Filter {
   static fromJson(userId: string, filterId: string, jsonObj: object): Filter;
 
   constructor(
-    userId: string,  // The user ID for this filter.
+    userId: string,   // The user ID for this filter.
     filterId?: string // <optional> The filter ID if known.
   )
 
@@ -662,16 +684,30 @@ export class Filter {
 }
 
 export class MatrixEvent {
-  event: any;       //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
-  sender: RoomMember;   //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
-  target: RoomMember;   //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
-  status: EventStatus;  //  The sending status of the event.
-  error: Error;        //  most recent error associated with sending the event, if any
-  forwardLooking: boolean;      //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
+  event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+  sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
+  target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
+  status: EventStatus;     //  The sending status of the event.
+  error: Error;            //  most recent error associated with sending the event, if any
+  forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
   constructor(event: object)
-  getType(): EventType;
+  getId(): string;
   getSender(): string;
+  getType(): EventType;
+  getWireType(): string;
+  getRoomId(): string;
+  getTs(): Date;
+  getDate(): Date;
+  getContent(): EventContentType;
+  getOriginalContent(): EventContentType;
+  getWireContent(): EventContentType;
+  getPrevContent(): object;
+  getDirectionalContent(): object;
+  getAge(): number;
+  getLocalAge(): number;
+  getStateKey(): string;
+  isState(): boolean;
 }
 
 export class RoomMember {
@@ -759,3 +795,23 @@ export interface CreateClientOption {
 }
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
+
+export interface EventContentType {
+  body: string;
+  msgtype: MsgType;
+}
+
+export interface UnsignedType {
+  age: number;
+  redacted_because: RawEvent;
+}
+
+export interface RawEvent {
+  content: EventContentType;
+  origin_server_ts: Date;
+  sender: string;
+  type: EventType;
+  unsigned: UnsignedType;
+  event_id: string;
+  room_id: string;
+}

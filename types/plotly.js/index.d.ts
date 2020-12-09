@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.50
+// Type definitions for plotly.js 1.54
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -18,10 +18,15 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Brandon Mitchell <https://github.com/brammitch>
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
+//                 Oleg Shilov <https://github.com/olegshilov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _d3 from "d3";
+import * as _d3 from 'd3';
+import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
+import { ViolinData } from './lib/traces/violin';
+
 export as namespace Plotly;
+export { BoxPlotData, ViolinData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -49,6 +54,7 @@ export interface PlotScatterDataPoint {
 export interface PlotDatum {
     curveNumber: number;
     data: PlotData;
+    customdata: Datum;
     pointIndex: number;
     pointNumber: number;
     x: Datum;
@@ -81,10 +87,11 @@ export interface PlotSelectionEvent {
     lassoPoints?: SelectionRange;
 }
 
-export type PlotRestyleEvent = [
-    any,        // update object -- attribute updated: new value
-    number[]    // array of traces updated
-];
+export interface PlotRestyleEventUpdate {
+    [key: string]: any;
+}
+
+export type PlotRestyleEvent = [PlotRestyleEventUpdate, number[]];
 
 export interface PlotScene {
     center: Point;
@@ -93,12 +100,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent extends Partial<Layout> {
-    "xaxis.range[0]"?: number;
-    "xaxis.range[1]"?: number;
-    "yaxis.range[0]"?: number;
-    "yaxis.range[1]"?: number;
-    "xaxis.autorange"?: boolean;
-    "yaxis.autorange"?: boolean;
+    'xaxis.range[0]'?: number;
+    'xaxis.range[1]'?: number;
+    'yaxis.range[0]'?: number;
+    'yaxis.range[1]'?: number;
+    'xaxis.autorange'?: boolean;
+    'yaxis.autorange'?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -144,7 +151,14 @@ export interface MapboxSymbol {
     text: string;
     placement: 'point' | 'line' | 'line-center';
     textfont: Partial<Font>;
-    textposition: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+    textposition:
+        | 'top left'
+        | 'top center'
+        | 'top right'
+        | 'middle center'
+        | 'bottom left'
+        | 'bottom center'
+        | 'bottom right';
 }
 export interface MapboxLayers {
     visible: true;
@@ -159,9 +173,9 @@ export interface MapboxLayers {
     opacity: number;
     minzoom: number;
     maxzoom: number;
-    circle: {radius: number};
+    circle: { radius: number };
     line: Partial<ShapeLine>;
-    fill: {outlinecolor: Color};
+    fill: { outlinecolor: Color };
     symbol: Partial<MapboxSymbol>;
     name: string;
     templateitemname: string;
@@ -194,6 +208,30 @@ export interface SliderEndEvent {
     step: SliderStep;
 }
 
+export interface SunburstClickEvent {
+    event: MouseEvent;
+    nextLevel: string;
+    points: SunburstPlotDatum[];
+}
+
+export interface SunburstPlotDatum {
+    color: number;
+    curveNumber: number;
+    data: Data;
+    entry: string;
+    fullData: Data;
+    hovertext: string;
+    id: string;
+    label: string;
+    parent: string;
+    percentEntry: number;
+    percentParent: number;
+    percentRoot: number;
+    pointNumber: number;
+    root: string;
+    value: number;
+}
+
 export interface BeforePlotEvent {
     data: Data[];
     layout: Partial<Layout>;
@@ -211,11 +249,25 @@ export interface PlotlyHTMLElement extends HTMLElement {
     on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
     on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
     on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+    on(event: 'plotly_sunburstclick', callback: (event: SunburstClickEvent) => void): void;
     on(event: 'plotly_event', callback: (data: any) => void): void;
     on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
-    on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
-        'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
-        'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
+    on(
+        event:
+            | 'plotly_afterexport'
+            | 'plotly_afterplot'
+            | 'plotly_animated'
+            | 'plotly_animationinterrupted'
+            | 'plotly_autosize'
+            | 'plotly_beforeexport'
+            | 'plotly_deselect'
+            | 'plotly_doubleclick'
+            | 'plotly_framework'
+            | 'plotly_redraw'
+            | 'plotly_transitioning'
+            | 'plotly_transitioninterrupted',
+        callback: () => void,
+    ): void;
     removeAllListeners: (handler: string) => void;
 }
 
@@ -246,39 +298,78 @@ export interface PolarLayout {
 
 export type Root = string | HTMLElement;
 
-export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
-export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function newPlot(
+    root: Root,
+    data: Data[],
+    layout?: Partial<Layout>,
+    config?: Partial<Config>,
+): Promise<PlotlyHTMLElement>;
+export function plot(
+    root: Root,
+    data: Data[],
+    layout?: Partial<Layout>,
+    config?: Partial<Config>,
+): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
 export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
+export function update(
+    root: Root,
+    traceUpdate: Data,
+    layoutUpdate: Partial<Layout>,
+    traces?: number[] | number,
+): Promise<PlotlyHTMLElement>;
+export function addTraces(
+    root: Root,
+    traces: Data | Data[],
+    newIndices?: number[] | number,
+): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
-export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
-export function extendTraces(root: Root, update: Data | Data[], indices: number | number[], maxPoints?: number): Promise<PlotlyHTMLElement>;
-export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function moveTraces(
+    root: Root,
+    currentIndices: number[] | number,
+    newIndices?: number[] | number,
+): Promise<PlotlyHTMLElement>;
+export function extendTraces(
+    root: Root,
+    update: Data | Data[],
+    indices: number | number[],
+    maxPoints?: number,
+): Promise<PlotlyHTMLElement>;
+export function prependTraces(
+    root: Root,
+    update: Data | Data[],
+    indices: number | number[],
+): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
-export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function react(
+    root: Root,
+    data: Data[],
+    layout?: Partial<Layout>,
+    config?: Partial<Config>,
+): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 
 // Layout
 export interface Layout {
     colorway: string[];
-    title: string | Partial<{
-        text: string;
-        font: Partial<Font>;
-        xref: 'container' | 'paper';
-        yref: 'container' | 'paper';
-        x: number;
-        y: number;
-        xanchor: 'auto' | 'left' | 'center' | 'right';
-        yanchor: 'auto' | 'top' | 'middle' | 'bottom';
-        pad: Partial<Padding>
-    }>;
+    title:
+        | string
+        | Partial<{
+              text: string;
+              font: Partial<Font>;
+              xref: 'container' | 'paper';
+              yref: 'container' | 'paper';
+              x: number;
+              y: number;
+              xanchor: 'auto' | 'left' | 'center' | 'right';
+              yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+              pad: Partial<Padding>;
+          }>;
     titlefont: Partial<Font>;
     autosize: boolean;
     showlegend: boolean;
@@ -343,24 +434,25 @@ export interface Layout {
     barnorm: '' | 'fraction' | 'percent';
     bargap: number;
     bargroupgap: number;
+    boxmode: 'group' | 'overlay';
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
     grid: Partial<{
         rows: number;
-        roworder: "top to bottom" | "bottom to top";
+        roworder: 'top to bottom' | 'bottom to top';
         columns: number;
         subplots: string[];
         xaxes: string[];
         yaxes: string[];
-        pattern: "independent" | "coupled";
+        pattern: 'independent' | 'coupled';
         xgap: number;
         ygap: number;
         domain: Partial<{
             x: number[];
             y: number[];
         }>;
-        xside: "bottom" | "bottom plot" | "top plot" | "top";
-        yside: "left" | "left plot" | "right plot" | "right";
+        xside: 'bottom' | 'bottom plot' | 'top plot' | 'top';
+        yside: 'left' | 'left plot' | 'right plot' | 'right';
     }>;
     polar: Partial<PolarLayout>;
     polar2: Partial<PolarLayout>;
@@ -372,6 +464,7 @@ export interface Layout {
     polar8: Partial<PolarLayout>;
     polar9: Partial<PolarLayout>;
     transition: Transition;
+    template: Template;
 }
 
 export interface Legend extends Label {
@@ -385,21 +478,93 @@ export interface Legend extends Label {
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
-export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
+export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category' | 'multicategory';
+
+export type DTickValue = number | string;
+
+export interface TickFormatStop {
+    /**
+     * Determines whether or not this stop is used. If `false`,
+     * this stop is ignored even within its `dtickrange`.
+     */
+    enabled: boolean;
+    /**
+     * Range [`min`, `max`], where `min`, `max` - dtick values
+     * which describe some zoom level, it is possible to omit `min` or `max`
+     * value by passing `null`
+     */
+    dtickrange: [DTickValue | null, DTickValue | null];
+    /**
+     * dtickformat for described zoom level, the same as `tickformat`
+     */
+    value: string;
+    /**
+     * When used in a template, named items are created in the output figure
+     * in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making
+     * your own item with `templateitemname` matching this `name`
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * Has no effect outside of a template.
+     */
+    name: string;
+    /**
+     * Used to refer to a named item in this array in the template.
+     * Named items from the template will be created even without
+     * a matching item in the input figure, but you can modify one by
+     * making an item with `templateitemname` matching its `name`,
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * If there is no template or no matching item, this item will be hidden
+     * unless you explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+}
 
 export interface Axis {
+    /**
+     * A single toggle to hide the axis while preserving interaction like dragging.
+     * Default is true when a cheater plot is present on the axis, otherwise
+     * false
+     */
     visible: boolean;
+    /**
+     * Sets default for all colors associated with this axis
+     * all at once: line, font, tick, and grid colors.
+     * Grid color is lightened by blending this with the plot background
+     * Individual pieces can override this.
+     */
     color: Color;
     title: string | Partial<DataTitle>;
+    /**
+     * Former `titlefont` is now the sub-attribute `font` of `title`.
+     * To customize title font properties, please use `title.font` now.
+     */
     titlefont: Partial<Font>;
     type: AxisType;
     autorange: true | false | 'reversed';
+    /**
+     * 'If *normal*, the range is computed in relation to the extrema
+     * of the input data.
+     * If *tozero*`, the range extends to 0,
+     * regardless of the input data
+     * If *nonnegative*, the range is non-negative,
+     * regardless of the input data.
+     * Applies only to linear axes.
+     */
     rangemode: 'normal' | 'tozero' | 'nonnegative';
     range: any[];
+    /**
+     * Determines whether or not this axis is zoom-able.
+     * If true, then zoom is disabled.
+     */
+    fixedrange: boolean;
+
+    /**
+     * Ticks
+     */
     tickmode: 'auto' | 'linear' | 'array';
     nticks: number;
     tick0: number | string;
-    dtick: number | string;
+    dtick: DTickValue;
     tickvals: any[];
     ticktext: string[];
     ticks: 'outside' | 'inside' | '';
@@ -411,39 +576,204 @@ export interface Axis {
     showspikes: boolean;
     spikecolor: Color;
     spikethickness: number;
-    categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' |
-    'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
-    'mean descending' | 'median ascending' | 'median descending';
+    /**
+     * Specifies the ordering logic for the case of categorical variables.
+     * By default, plotly uses *trace*, which specifies the order that is present in the data supplied.
+     * Set `categoryorder` to *category ascending* or *category descending* if order should be determined by
+     * the alphanumerical order of the category names.
+     * Set `categoryorder` to *array* to derive the ordering from the attribute `categoryarray`. If a category
+     * is not found in the `categoryarray` array, the sorting behavior for that attribute will be identical to
+     * the *trace* mode. The unspecified categories will follow the categories in `categoryarray`.
+     * Set `categoryorder` to *total ascending* or *total descending* if order should be determined by the
+     * numerical order of the values.
+     * Similarly, the order can be determined by the min, max, sum, mean or median of all the values.
+     */
+    categoryorder:
+        | 'trace'
+        | 'category ascending'
+        | 'category descending'
+        | 'array'
+        | 'total ascending'
+        | 'total descending'
+        | 'min ascending'
+        | 'min descending'
+        | 'max ascending'
+        | 'max descending'
+        | 'sum ascending'
+        | 'sum descending'
+        | 'mean ascending'
+        | 'mean descending'
+        | 'median ascending'
+        | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
     tickangle: number;
     tickprefix: string;
+    /**
+     * If `all`, all tick labels are displayed with a prefix.
+     * If `first`, only the first tick is displayed with a prefix.
+     * If `last`, only the last tick is displayed with a suffix.
+     * If `none`, tick prefixes are hidden.
+     */
     showtickprefix: 'all' | 'first' | 'last' | 'none';
+    /**
+     * Sets a tick label suffix.
+     */
     ticksuffix: string;
+    /**
+     * Same as `showtickprefix` but for tick suffixes.
+     */
     showticksuffix: 'all' | 'first' | 'last' | 'none';
+    /**
+     * If `all`, all exponents are shown besides their significands.
+     * If `first`, only the exponent of the first tick is shown.
+     * If `last`, only the exponent of the last tick is shown.
+     * If `none`, no exponents appear.
+     */
     showexponent: 'all' | 'first' | 'last' | 'none';
+    /**
+     * Determines a formatting rule for the tick exponents.
+     * For example, consider the number 1,000,000,000.
+     * If `none`, it appears as *1,000,000,000*.
+     * If `e`, *1e+9*.
+     * If `E`, *1E+9*.
+     * If `power`, *1x10^9* (with 9 in a super script).
+     * If `SI`, *1G*.
+     * If `B`, *1B*.
+     */
     exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+    /**
+     * 'If `true`, even 4-digit integers are separated
+     */
     separatethousands: boolean;
+    /**
+     * Sets the tick label formatting rule using d3 formatting mini-languages
+     * which are very similar to those in Python.
+     * For numbers, see: https://github.com/d3/d3-3.x-api-reference/blob/master/Formatting.md#d3_format
+     * And for dates see: https://github.com/d3/d3-3.x-api-reference/blob/master/Time-Formatting.md#format
+     * We add one item to d3's date formatter: `%{n}f` for fractional seconds with n digits.
+     * For example, `"2016-10-13 09:15:23.456"` with tickformat `"%H~%M~%S.%2f"` would display `"09~15~23.46"`
+     */
     tickformat: string;
+    /**
+     * Sets the hover text formatting rule using d3 formatting mini-languages
+     * which are very similar to those in Python.
+     * For numbers, see: https://github.com/d3/d3-3.x-api-reference/blob/master/Formatting.md#d3_format
+     * And for dates see: https://github.com/d3/d3-3.x-api-reference/blob/master/Time-Formatting.md#format
+     * We add one item to d3's date formatter: `%{n}f` for fractional seconds with n digits.
+     * For example, `"2016-10-13 09:15:23.456"` with tickformat `"%H~%M~%S.%2f"` would display "09~15~23.46"
+     */
     hoverformat: string;
-    showline: boolean;
-    linecolor: Color;
-    linewidth: number;
-    showgrid: boolean;
-    gridcolor: Color;
-    gridwidth: number;
-    zeroline: boolean;
-    zerolinecolor: Color;
-    zerolinewidth: number;
     calendar: Calendar;
+    /**
+     * Array of `Partial<TickFormatStop>` objects.
+     */
+    tickformatstops: Array<Partial<TickFormatStop>>;
+    spikedash: string;
+    /**
+     * Determines the drawing mode for the spike line.
+     * If `toaxis`, the line is drawn from the data point to the axis the
+     * series is plotted on.
+     * If `across`, the line is drawn across the entire plot area, and
+     * supercedes *toaxis*.
+     * If `marker`, then a marker dot is drawn on the axis the series is
+     * plotted on
+     */
+    spikemode:
+        | 'toaxis'
+        | 'across'
+        | 'marker'
+        | 'toaxis+across'
+        | 'toaxis+across+marker'
+        | 'across+marker'
+        | 'toaxis+marker';
+    /**
+     * Determines whether spikelines are stuck to the cursor or to the closest datapoints.
+     */
+    spikesnap: 'data' | 'cursor' | 'hovered data';
+
+    /**
+     * Lines and Grids
+     */
+
+    /**
+     * Determines whether or not a line bounding this axis is drawn.
+     */
+    showline: boolean;
+    /**
+     * Sets the axis line color
+     */
+    linecolor: Color;
+    /**
+     * Sets the width (in px) of the axis line.
+     */
+    linewidth: number;
+    /**
+     * Determines whether or not grid lines are drawn.
+     * If `true`, the grid lines are drawn at every tick mark.
+     */
+    showgrid: boolean;
+    /**
+     * Sets the color of the grid lines.
+     */
+    gridcolor: Color;
+    /**
+     * Sets the width (in px) of the grid lines.
+     */
+    gridwidth: number;
+    /**
+     * Determines whether or not a line is drawn at along the 0 value
+     * of this axis.
+     * If `true`, the zero line is drawn on top of the grid lines.
+     */
+    zeroline: boolean;
+    /**
+     * Sets the line color of the zero line.
+     */
+    zerolinecolor: Color;
+    /**
+     * Sets the width (in px) of the zero line.
+     */
+    zerolinewidth: number;
+    /**
+     * Determines whether or not a dividers are drawn
+     * between the category levels of this axis.
+     * Only has an effect on *multicategory* axes.
+     */
+    showdividers: boolean;
+    /**
+     * Sets the color of the dividers
+     * Only has an effect on *multicategory* axes.
+     */
+    dividercolor: Color;
+    /**
+     * Sets the width (in px) of the dividers
+     * Only has an effect on *multicategory* axes.
+     */
+    dividerwidth: number;
 }
 
-export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
-    'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
+export type Calendar =
+    | 'gregorian'
+    | 'chinese'
+    | 'coptic'
+    | 'discworld'
+    | 'ethiopian'
+    | 'hebrew'
+    | 'islamic'
+    | 'julian'
+    | 'mayan'
+    | 'nanakshahi'
+    | 'nepali'
+    | 'persian'
+    | 'jalali'
+    | 'taiwan'
+    | 'thai'
+    | 'ummalqura';
 
-export type AxisName =
-    | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9'
-    | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
+export type XAxisName = 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
+export type YAxisName = 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
@@ -451,8 +781,6 @@ export interface LayoutAxis extends Axis {
     scaleratio: number;
     constrain: 'range' | 'domain';
     constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
-    spikedash: string;
-    spikemode: string;
     anchor: 'free' | AxisName;
     side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
     overlaying: 'free' | AxisName;
@@ -484,13 +812,11 @@ export interface Shape {
     layer: 'below' | 'above';
     type: 'rect' | 'circle' | 'line' | 'path';
     path: string;
-    // x-reference is assigned to the x-values
-    xref: 'x' | 'paper';
-    xsizemode: "scaled" | "pixel";
+    xref: 'paper' | XAxisName;
+    xsizemode: 'scaled' | 'pixel';
     xanchor: number | string;
-    // y-reference is assigned to the plot paper [0,1]
-    yref: 'paper' | 'y';
-    ysizemode: "scaled" | "pixel";
+    yref: 'paper' | YAxisName;
+    ysizemode: 'scaled' | 'pixel';
     yanchor: number | string;
     x0: Datum;
     y0: Datum;
@@ -615,7 +941,7 @@ export interface Gauge {
     bordercolor: Color;
     borderwidth: number;
     axis: Partial<Axis>;
-    steps: Array<{range: number[], color: Color}>;
+    steps: Array<{ range: number[]; color: Color }>;
     threshold: Partial<Threshold>;
 }
 
@@ -635,9 +961,17 @@ export interface Delta {
 }
 
 export interface DataTitle {
-        text: string;
-        font: Partial<Font>;
-        position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+    text: string;
+    font: Partial<Font>;
+    standoff: number;
+    position:
+        | 'top left'
+        | 'top center'
+        | 'top right'
+        | 'middle center'
+        | 'bottom left'
+        | 'bottom center'
+        | 'bottom right';
 }
 
 export interface PlotNumber {
@@ -647,10 +981,24 @@ export interface PlotNumber {
     suffix: string;
 }
 
+export interface Template {
+    data?: { [type in PlotType]?: Partial<PlotData> };
+    layout?: Partial<Layout>;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
 
 export interface ErrorOptions {
     visible: boolean;
@@ -661,23 +1009,76 @@ export interface ErrorOptions {
     opacity: number;
 }
 
-export type ErrorBar = Partial<ErrorOptions> & ({
-    type: 'constant' | 'percent',
-    value: number,
-    valueminus?: number
-} | {
-    type: 'data',
-    array: Datum[],
-    arrayminus?: Datum[]
-});
+export type ErrorBar = Partial<ErrorOptions> &
+    (
+        | {
+              type: 'constant' | 'percent';
+              value: number;
+              valueminus?: number;
+          }
+        | {
+              type: 'data';
+              array: Datum[];
+              arrayminus?: Datum[];
+          }
+    );
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
-export type PlotType = 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
-    'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-    'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea' | 'scattermapbox';
+export type PlotType =
+    | 'bar'
+    | 'barpolar'
+    | 'box'
+    | 'candlestick'
+    | 'carpet'
+    | 'choropleth'
+    | 'choroplethmapbox'
+    | 'cone'
+    | 'contour'
+    | 'contourcarpet'
+    | 'contourgl'
+    | 'densitymapbox'
+    | 'funnel'
+    | 'funnelarea'
+    | 'heatmap'
+    | 'heatmapgl'
+    | 'histogram'
+    | 'histogram2d'
+    | 'histogram2dcontour'
+    | 'image'
+    | 'indicator'
+    | 'isosurface'
+    | 'mesh3d'
+    | 'ohlc'
+    | 'parcats'
+    | 'parcoords'
+    | 'pie'
+    | 'pointcloud'
+    | 'sankey'
+    | 'scatter'
+    | 'scatter3d'
+    | 'scattercarpet'
+    | 'scattergeo'
+    | 'scattergl'
+    | 'scattermapbox'
+    | 'scatterpolar'
+    | 'scatterpolargl'
+    | 'scatterternary'
+    | 'splom'
+    | 'streamtube'
+    | 'sunburst'
+    | 'surface'
+    | 'table'
+    | 'treemap'
+    | 'violin'
+    | 'volume'
+    | 'waterfall';
 
-export type Data = Partial<PlotData>;
-export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
+export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
+export type Color =
+    | string
+    | number
+    | Array<string | number | undefined | null>
+    | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
@@ -688,6 +1089,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -703,7 +1107,7 @@ export interface PlotData {
     'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
     'line.smoothing': number;
     'line.simplify': boolean;
-    marker: Partial<PlotMarker>;
+    marker: Partial<PlotMarker> | Partial<BoxPlotMarker>;
     'marker.symbol': MarkerSymbol | MarkerSymbol[];
     'marker.color': Color;
     'marker.colorscale': ColorScale | ColorScale[];
@@ -723,27 +1127,94 @@ export interface PlotData {
     'marker.pad.b': number;
     'marker.pad.l': number;
     'marker.pad.r': number;
-    mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
-    | 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
+    mode:
+        | 'lines'
+        | 'markers'
+        | 'text'
+        | 'lines+markers'
+        | 'text+markers'
+        | 'text+lines'
+        | 'text+lines+markers'
+        | 'none'
+        | 'gauge'
+        | 'number'
+        | 'delta'
+        | 'number+delta'
+        | 'gauge+number'
+        | 'gauge+number+delta'
+        | 'gauge+delta';
+    histfunc: 'count' | 'sum' | 'avg' | 'min' | 'max';
     hoveron: 'points' | 'fills';
-    hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
-    'x' | 'x+text' | 'x+name' |
-    'x+y' | 'x+y+text' | 'x+y+name' |
-    'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-    'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
-    'y+z' | 'y+z+text' | 'y+z+name' |
-    'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
-    'z+x' | 'z+x+text' | 'z+x+name' |
-    'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
-    'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+    hoverinfo:
+        | 'all'
+        | 'name'
+        | 'none'
+        | 'skip'
+        | 'text'
+        | 'x'
+        | 'x+text'
+        | 'x+name'
+        | 'x+y'
+        | 'x+y+text'
+        | 'x+y+name'
+        | 'x+y+z'
+        | 'x+y+z+text'
+        | 'x+y+z+name'
+        | 'y'
+        | 'y+name'
+        | 'y+x'
+        | 'y+text'
+        | 'y+x+text'
+        | 'y+x+name'
+        | 'y+z'
+        | 'y+z+text'
+        | 'y+z+name'
+        | 'y+x+z'
+        | 'y+x+z+text'
+        | 'y+x+z+name'
+        | 'z'
+        | 'z+x'
+        | 'z+x+text'
+        | 'z+x+name'
+        | 'z+y+x'
+        | 'z+y+x+text'
+        | 'z+y+x+name'
+        | 'z+x+y'
+        | 'z+x+y+text'
+        | 'z+x+y+name';
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
-    textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
-    | 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
-    | 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
-    textposition: "top left" | "top center" | "top right" | "middle left"
-    | "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside" | "outside";
+    textinfo:
+        | 'label'
+        | 'label+text'
+        | 'label+value'
+        | 'label+percent'
+        | 'label+text+value'
+        | 'label+text+percent'
+        | 'label+value+percent'
+        | 'text'
+        | 'text+value'
+        | 'text+percent'
+        | 'text+value+percent'
+        | 'value'
+        | 'value+percent'
+        | 'percent'
+        | 'none';
+    textposition:
+        | 'top left'
+        | 'top center'
+        | 'top right'
+        | 'middle left'
+        | 'middle center'
+        | 'middle right'
+        | 'bottom left'
+        | 'bottom center'
+        | 'bottom right'
+        | 'inside'
+        | 'outside'
+        | 'auto'
+        | 'none';
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
@@ -752,6 +1223,8 @@ export interface PlotData {
     parents: string[];
     name: string;
     stackgroup: string;
+    groupnorm: '' | 'fraction' | 'percent';
+    stackgaps: 'infer zero' | 'interpolate';
     connectgaps: boolean;
     visible: boolean | 'legendonly';
     delta: Partial<Delta>;
@@ -761,6 +1234,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -782,7 +1258,8 @@ export interface PlotData {
     rotation: number;
     theta: Datum[];
     r: Datum[];
-    customdata: Datum[];
+    customdata: Datum[] | Datum[][];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;
@@ -791,13 +1268,15 @@ export interface PlotData {
     }>;
     title: Partial<DataTitle>;
     branchvalues: 'total' | 'remainder';
+    ids: string[];
+    level: string;
+    cliponaxis: boolean;
 }
 
 /**
  * These interfaces are based on attribute descriptions in
  * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
  */
-
 export interface TransformStyle {
     target: number | string | number[] | string[];
     value: Partial<PlotData>;
@@ -843,7 +1322,7 @@ export interface ColorBar {
     tickmode: 'auto' | 'linear' | 'array';
     nticks: number;
     tick0: number | string;
-    dtick: number | string;
+    dtick: DTickValue;
     tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
     ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
     ticks: 'outside' | 'inside' | '';
@@ -854,10 +1333,7 @@ export interface ColorBar {
     tickfont: Font;
     tickangle: number;
     tickformat: string;
-    tickformatstops: {
-        dtickrange: any[];
-        value: string;
-    };
+    tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
     showtickprefix: 'all' | 'first' | 'last' | 'none';
     ticksuffix: string;
@@ -872,7 +1348,7 @@ export interface ColorBar {
     ticktextsrc: any;
 }
 
-export type MarkerSymbol = string | number | Array<(string | number)>;
+export type MarkerSymbol = string | number | Array<string | number>;
 
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
@@ -882,30 +1358,30 @@ export type MarkerSymbol = string | number | Array<(string | number)>;
 export interface PlotMarker {
     symbol: MarkerSymbol;
     color: Color | Color[];
-    colors: Color[];
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    colors?: Color[];
+    colorscale?: ColorScale;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
     opacity: number | number[];
     size: number | number[];
-    maxdisplayed: number;
-    sizeref: number;
-    sizemax: number;
-    sizemin: number;
-    sizemode: 'diameter' | 'area';
-    showscale: boolean;
+    maxdisplayed?: number;
+    sizeref?: number;
+    sizemax?: number;
+    sizemin?: number;
+    sizemode?: 'diameter' | 'area';
+    showscale?: boolean;
     line: Partial<ScatterMarkerLine>;
-    pad: Partial<Padding>;
-    width: number;
-    colorbar: Partial<ColorBar>;
-    gradient: {
-        type: 'radial' | 'horizontal' | 'vertical' | 'none',
-        color: Color,
-        typesrc: any,
-        colorsrc: any,
+    pad?: Partial<Padding>;
+    width?: number;
+    colorbar?: Partial<ColorBar>;
+    gradient?: {
+        type: 'radial' | 'horizontal' | 'vertical' | 'none';
+        color: Color;
+        typesrc: any;
+        colorsrc: any;
     };
 }
 
@@ -914,12 +1390,14 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
     width: number | number[];
     color: Color;
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    cmid?: number;
+    colorscale?: ColorScale;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
+    coloraxis?: string;
 }
 
 export interface ScatterLine {
@@ -1062,7 +1540,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
+    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
@@ -1153,7 +1631,7 @@ export interface HoverLabel extends Label {
      * Sets the horizontal alignment of the text content within hover label box.
      * @default "auto"
      */
-    align: "left" | "right" | "auto";
+    align: 'left' | 'right' | 'auto';
 
     /**
      * Sets the default length (in number of characters) of the trace name
@@ -1296,7 +1774,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    axref: 'pixel';
+    axref: 'pixel' | XAxisName;
 
     /**
      * Indicates in what terms the tail of the annotation (ax,ay)
@@ -1306,7 +1784,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    ayref: 'pixel';
+    ayref: 'pixel' | YAxisName;
 
     /**
      * Sets the annotation's x coordinate axis.
@@ -1315,7 +1793,7 @@ export interface Annotations extends Label {
      * the left side of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the left (right) side.
      */
-    xref: 'paper' | 'x';
+    xref: 'paper' | XAxisName;
 
     /**
      * Sets the annotation's x position.
@@ -1350,7 +1828,7 @@ export interface Annotations extends Label {
      * the bottom of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the bottom (top).
      */
-    yref: 'paper' | 'y';
+    yref: 'paper' | YAxisName;
 
     /**
      * Sets the annotation's y position.
@@ -1433,8 +1911,8 @@ export interface Image {
     y: number | string;
     xanchor: 'left' | 'center' | 'right';
     yanchor: 'top' | 'middle' | 'bottom';
-    xref: 'paper' | 'x';
-    yref: 'paper' | 'y';
+    xref: 'paper' | XAxisName;
+    yref: 'paper' | YAxisName;
 }
 
 export interface Scene {
@@ -1500,11 +1978,43 @@ export interface Transition {
     /**
      * Sets the easing function of the slider transition
      */
-    easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' |
-    'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
-    'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
-    'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
-    'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+    easing:
+        | 'linear'
+        | 'quad'
+        | 'cubic'
+        | 'sin'
+        | 'exp'
+        | 'circle'
+        | 'elastic'
+        | 'back'
+        | 'bounce'
+        | 'linear-in'
+        | 'quad-in'
+        | 'cubic-in'
+        | 'sin-in'
+        | 'exp-in'
+        | 'circle-in'
+        | 'elastic-in'
+        | 'back-in'
+        | 'bounce-in'
+        | 'linear-out'
+        | 'quad-out'
+        | 'cubic-out'
+        | 'sin-out'
+        | 'exp-out'
+        | 'circle-out'
+        | 'elastic-out'
+        | 'back-out'
+        | 'bounce-out'
+        | 'linear-in-out'
+        | 'quad-in-out'
+        | 'cubic-in-out'
+        | 'sin-in-out'
+        | 'exp-in-out'
+        | 'circle-in-out'
+        | 'elastic-in-out'
+        | 'back-in-out'
+        | 'bounce-in-out';
     /**
      * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
      * and layout change. Default is "layout first".

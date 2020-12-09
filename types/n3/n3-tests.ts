@@ -152,6 +152,12 @@ function test_doc_from_triple_stream_to_rdf_stream() {
     streamWriter.pipe(process.stdout);
 }
 
+function test_doc_streamwriter_import() {
+    const quadStream: RDF.Stream = {} as any;
+    const streamWriter: N3.StreamWriter = new N3.StreamWriter({ prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
+    streamWriter.import(quadStream);
+}
+
 function test_doc_blank_nodes_and_lists() {
     const writer: N3.Writer = new N3.Writer({
         prefixes: {
@@ -256,4 +262,13 @@ function test_doc_utility() {
     const namedNode1: RDF.NamedNode = N3Util.prefix('http://www.w3.org/2000/01/rdf-schema#')('label');
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
     const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
+}
+
+function test_parser_options() {
+    const parser = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'N-Triples',
+        blankNodePrefix: '',
+    });
 }

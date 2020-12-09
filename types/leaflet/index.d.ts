@@ -7,6 +7,7 @@
 //                 Sandra Frischmuth <https://github.com/sanfrisc>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Henry Thasler <https://github.com/henrythasler>
+//                 Colin Doig <https://github.com/captain-igloo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -94,6 +95,7 @@ export namespace CRS {
     const EPSG3395: CRS;
     const EPSG3857: CRS;
     const EPSG4326: CRS;
+    const EPSG900913: CRS;
     const Earth: CRS;
     const Simple: CRS;
 }
@@ -154,7 +156,7 @@ export class LatLngBounds {
     getNorth(): number;
     contains(otherBoundsOrLatLng: LatLngBoundsExpression | LatLngExpression): boolean;
     intersects(otherBounds: LatLngBoundsExpression): boolean;
-    overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
+    overlaps(otherBounds: LatLngBoundsExpression): boolean;
     toBBoxString(): string;
     equals(otherBounds: LatLngBoundsExpression): boolean;
     isValid(): boolean;
@@ -1289,7 +1291,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * Resets the given vector layer's style to the original GeoJSON style,
      * useful for resetting style after hover events.
      */
-    resetStyle(layer: Layer): Layer;
+    resetStyle(layer?: Layer): Layer;
 
     /**
      * Same as FeatureGroup's setStyle method, but style-functions are also
@@ -1409,7 +1411,7 @@ export namespace Control {
 
     class Attribution extends Control {
         constructor(options?: AttributionOptions);
-        setPrefix(prefix: string): this;
+        setPrefix(prefix: string | false): this;
         addAttribution(text: string): this;
         removeAttribution(text: string): this;
         options: AttributionOptions;
@@ -1541,6 +1543,11 @@ export interface PanOptions {
 // This is not empty, it extends two interfaces into one...
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
 
+export interface InvalidateSizeOptions extends ZoomPanOptions {
+    debounceMoveend?: boolean;
+    pan?: boolean;
+}
+
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
     paddingBottomRight?: PointExpression;
@@ -1622,7 +1629,7 @@ export interface LayersControlEvent extends LayerEvent {
 
 export interface TileEvent extends LeafletEvent {
     tile: HTMLImageElement;
-    coords: Point; // apparently not a normal point, since docs say it has z (zoom)
+    coords: Coords;
 }
 
 export interface TileErrorEvent extends TileEvent {
@@ -1741,7 +1748,7 @@ export class Map extends Evented {
     /**
      * Boolean for animate or advanced ZoomPanOptions
      */
-    invalidateSize(options?: boolean | ZoomPanOptions): this;
+    invalidateSize(options?: boolean | InvalidateSizeOptions): this;
     stop(): this;
     flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
@@ -1764,7 +1771,7 @@ export class Map extends Evented {
     getBounds(): LatLngBounds;
     getMinZoom(): number;
     getMaxZoom(): number;
-    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
+    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean, padding?: Point): number;
     getSize(): Point;
     getPixelBounds(): Bounds;
     getPixelOrigin(): Point;

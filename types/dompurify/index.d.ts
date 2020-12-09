@@ -1,12 +1,12 @@
 // Type definitions for DOM Purify 2.0
 // Project: https://github.com/cure53/DOMPurify
-// Definitions by: Dave Taylor <http://davetayls.me>
+// Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
 //                 FlowCrypt <https://github.com/FlowCrypt>
 //                 Exigerr <https://github.com/Exigerr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
@@ -16,7 +16,6 @@ declare const DOMPurify: createDOMPurifyI;
 
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
     (window?: Window): DOMPurify.DOMPurifyI;
-
 }
 
 declare namespace DOMPurify {

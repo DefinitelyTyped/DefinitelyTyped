@@ -2,13 +2,13 @@ import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
-import { OptionsType, InputActionMeta, OptionTypeBase } from './types';
+import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase } from './types';
 
 export interface AsyncProps<OptionType extends OptionTypeBase> {
   /* The default set of options to show before the user starts searching. When
      set to `true`, the results for loadOptions('') will be autoloaded.
      Default: false. */
-  defaultOptions?: OptionsType<OptionType> | boolean;
+  defaultOptions?: GroupedOptionsType<OptionType> | OptionsType<OptionType> | boolean;
   /* Function that returns a promise, which is the set of options to be used
      once the promise resolves. */
   loadOptions: (inputValue: string, callback: ((options: OptionsType<OptionType>) => void)) => Promise<any> | void;
@@ -18,9 +18,9 @@ export interface AsyncProps<OptionType extends OptionTypeBase> {
   cacheOptions?: any;
 }
 
-export type Props<OptionType extends OptionTypeBase> = SelectProps<OptionType> & AsyncProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> & AsyncProps<OptionType>;
 
-export const defaultProps: Props<any>;
+export const defaultProps: Props<any, boolean>;
 
 export interface State<OptionType extends OptionTypeBase> {
   defaultOptions?: OptionsType<OptionType>;
@@ -31,8 +31,8 @@ export interface State<OptionType extends OptionTypeBase> {
   passEmptyOptions: boolean;
 }
 
-export class Async<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
-  static defaultProps: Props<any>;
+export class Async<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
+  static defaultProps: Props<any, boolean>;
   select: React.Ref<any>;
   lastRequest: {};
   mounted: boolean;

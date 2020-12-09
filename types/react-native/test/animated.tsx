@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp, SectionListData } from 'react-native';
 
 interface CompProps {
     width: number;
@@ -24,6 +24,12 @@ const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
 });
 
 type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
+
+type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
+const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
+    key, // $ExpectType string | number | null | undefined
+    ...props
+}) => <Animated.Text {...props} />;
 
 function TestAnimatedAPI() {
     // Value
@@ -151,19 +157,53 @@ function TestAnimatedAPI() {
                     },
                 ]}
             />
-
             <AnimatedView ref={ref} style={{ top: 3 }}>
                 i has children
             </AnimatedView>
-
             <Animated.View ref={legacyRef} />
-
             <AnimatedView ref={legacyRef} />
-
             <AnimatedComp ref={AnimatedCompRef} width={v1} />
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+            <Animated.View
+                testID="expect-type-animated-view"
+                style={{ opacity: v1 }}
+                onLayout={event => {
+                    const x = event.nativeEvent.layout.x; // $ExpectType number
+                    const y = event.nativeEvent.layout.y; // $ExpectType number
+                    const width = event.nativeEvent.layout.width; // $ExpectType number
+                    const height = event.nativeEvent.layout.height; // $ExpectType number
+                }}
+            />
+            ;
+            <Animated.FlatList
+                testID="expect-type-animated-flatlist"
+                style={{ opacity: v1 }}
+                data={[1] as ReadonlyArray<number>}
+                renderItem={info => {
+                    info; // $ExpectType ListRenderItemInfo<number>
+                    return <View testID={info.item.toFixed(1)} />;
+                }}
+            />
+            ;
+            <Animated.SectionList
+                testID="expect-type-animated-sectionlist"
+                style={{ opacity: v1 }}
+                sections={[{ title: 'test', data: [1] }] as SectionListData<number, { title: string }>[]}
+                renderItem={info => {
+                    /*
+                     * Original <SectionList> expects:
+                     * SectionListRenderItemInfo<any>    on TS@3.5,
+                     * SectionListRenderItemInfo<number> on TS@4.0.
+                     * Skip until original is adjusted and type can be asserted
+                     */
+                    info; // Should expect SectionListRenderItemInfo<number>
+                    info.section.title; // $ExpectType string
+                    return <View testID={info.item.toFixed(1)} />;
+                }}
+            />
+            ;
         </View>
     );
 }

@@ -1,10 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "interface-name": false,
-        "no-redundant-jsdoc": false,
-        "npm-naming": false,
-        "prefer-method-signature": false
+        "npm-naming": false
     }
 }

@@ -483,12 +483,28 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
 
 function testAssistiveWindow() {
     chrome.input.ime.setAssistiveWindowProperties({
-      contextId: 0,
+      contextID: 0,
       properties: {
           type: 'undo',
           visible: true
         }
     });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        announceString: 'Undo button highlighted',
+        highlighted: true
+    });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        highlighted: false
+    });
+
     chrome.input.ime.onAssistiveWindowButtonClicked.addListener((details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
           details;
           console.log(

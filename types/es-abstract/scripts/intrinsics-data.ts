@@ -8,16 +8,13 @@ const { getPrototypeOf: getProto, getOwnPropertyDescriptor: $gOPD, setPrototypeO
     setPrototypeOf(target: object, proto: object | null): boolean;
 };
 
-// tslint:disable: only-arrow-functions space-before-function-paren
 const ThrowTypeError = (function () {
     return $gOPD(arguments, 'callee')!.get;
 })();
 
-// tslint:disable: no-async-without-await
 const generator = function* () {};
 const asyncFn = async function () {};
 const asyncGen = async function* () {};
-// tslint:enable
 
 const generatorFunction = generator ? /** @type {GeneratorFunctionConstructor} */ generator.constructor : undefined;
 const generatorFunctionPrototype = generatorFunction ? generatorFunction.prototype : undefined;
@@ -29,7 +26,6 @@ const asyncGenFunction = asyncGen ? /** @type {AsyncGeneratorFunctionConstructor
 const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype : undefined;
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 
-// tslint:disable-next-line: ban-types
 const TypedArray = typeof Uint8Array === 'undefined' ? undefined : (getProto(Uint8Array) as Function);
 
 const $ObjectPrototype = Object.prototype;
@@ -402,10 +398,6 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
     Promise: {
         type: 'PromiseConstructor',
         get: 'typeof Promise',
-        overrides: {
-            // TODO: Delete in v1.17:
-            allSettled: null,
-        },
     },
     Proxy: { type: 'ProxyConstructor', get: 'typeof Proxy' },
     RangeError: {
@@ -453,24 +445,16 @@ export const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = 
     String: {
         type: 'StringConstructor',
         get: 'typeof String',
-        overrides: {
-            prototype: {
-                type: 'typeof String.prototype',
-                overrides: {
-                    // TODO: Delete in v1.17:
-                    matchAll: null,
-                },
-            },
-        },
     },
     StringIteratorPrototype: 'IterableIterator<string>',
     Symbol: {
         type: 'SymbolConstructor',
         get: 'typeof Symbol',
         overrides: {
-            prototype: { type: 'typeof Symbol.prototype', getterType: 'symbol | Symbol' },
-            // TODO: Delete in v1.17:
-            matchAll: null,
+            prototype: {
+                type: 'typeof Symbol.prototype',
+                getterType: 'symbol | Symbol',
+            },
         },
     },
     SyntaxError: {

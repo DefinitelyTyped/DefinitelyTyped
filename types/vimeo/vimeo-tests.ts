@@ -56,7 +56,7 @@ const requestOptionsFull: RequestOptions = {
     method: 'GET',
     path: '/videos/123',
     headers: {},
-    query: 'thing=thing2',
+    query: {},
 };
 
 // $ExpectType void

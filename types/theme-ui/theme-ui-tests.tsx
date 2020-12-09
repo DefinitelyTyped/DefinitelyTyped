@@ -3,6 +3,7 @@ import { Flex, jsx, css, InitializeColorMode, ColorMode, Styled, SxStyleProp, Th
 
 export const Component = () => {
     const { theme, colorMode, setColorMode } = useThemeUI();
+
     return (
         <>
             <InitializeColorMode />
@@ -202,4 +203,24 @@ function cssUtility() {
     };
 
     css(styleObject)(theme);
+}
+
+{
+    const colorMode: ColorMode = {} as any;
+
+    // test: text and background are required
+
+    colorMode.text = '';
+    colorMode.background = '';
+
+    // test: arbitrary keys can hold colors or color scales
+
+    const seriousPink = colorMode.seriousPink;
+    if (typeof seriousPink !== 'string' && Array.isArray(seriousPink)) {
+        const [light, medium, dark]: string[] = seriousPink;
+    }
+
+    // test: interoperable base colors don't contain nested scales
+
+    const baseColors: Array<string | undefined> = [colorMode.primary, colorMode.secondary, colorMode.muted, colorMode.highlight, colorMode.accent];
 }

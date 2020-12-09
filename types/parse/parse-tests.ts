@@ -167,6 +167,17 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
+function test_query_exclude() {
+    const gameScore = new GameScore();
+
+    const query = new Parse.Query(GameScore);
+
+    // Show all keys, except the specified key.
+    query.exclude('place');
+
+    const testQuery = Parse.Query.or(query, query);
+}
+
 async function test_query_promise() {
     // Test promise with a query
     const findQuery = new Parse.Query('Test');
@@ -187,8 +198,8 @@ async function test_query_promise() {
     }
 
     await getQuery.map((score, index) => score.increment("score", index));
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 });
     await getQuery.filter((scores) => scores.get('score') > 0);
     await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }
@@ -266,6 +277,7 @@ function test_file() {
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
+
     // TODO: Check
 
     file.cancel();
@@ -931,6 +943,59 @@ async function test_schema(
     schema.purge().then(results => {});
     schema.save().then(results => {});
     schema.update().then(results => {});
+
+    function testGenericType() {
+        interface iTestAttributes {
+            arrField: any[];
+            boolField: boolean;
+            stringField: string;
+            numField: number;
+            dateField: Date;
+            fileField: Parse.File;
+            geoPointField: Parse.GeoPoint;
+            polygonField: Parse.Polygon;
+            objectField: object;
+            relationField: Parse.Relation;
+            pointerField: Parse.Pointer | Parse.Object;
+        }
+        class TestObject extends Parse.Object<iTestAttributes> { }
+
+        const schema = new Parse.Schema<TestObject>('TestObject');
+        schema.addArray('arrField');
+        schema.addBoolean('boolField');
+        schema.addDate('dateField');
+        schema.addFile('fileField');
+        schema.addGeoPoint('geoPointField');
+        schema.addNumber('numField');
+        schema.addObject('objectField');
+        schema.addPointer('pointerField', 'FooClass');
+        schema.addPolygon('polygonField');
+        schema.addRelation('relationField', 'FooClass');
+        schema.addString('stringField');
+
+        // $ExpectError
+        schema.addArray('wrong');
+        // $ExpectError
+        schema.addBoolean('wrong');
+        // $ExpectError
+        schema.addDate('wrong');
+        // $ExpectError
+        schema.addFile('wrong');
+        // $ExpectError
+        schema.addGeoPoint('wrong');
+        // $ExpectError
+        schema.addNumber('wrong');
+        // $ExpectError
+        schema.addObject('wrong');
+        // $ExpectError
+        schema.addPointer('wrong', 'FooClass');
+        // $ExpectError
+        schema.addPolygon('wrong');
+        // $ExpectError
+        schema.addRelation('wrong', 'FooClass');
+        // $ExpectError
+        schema.addString('wrong');
+    }
 }
 
 function testObject() {
@@ -1115,6 +1180,18 @@ function testObject() {
 
         // $ExpectError
         objTyped.fetchWithInclude([[[ 'example' ]]]);
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'notAnAttribute');
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllWithInclude([objTyped], 'notAnAttribute');
     }
 
     function testGet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
@@ -1379,7 +1456,7 @@ function testObject() {
         JSONTyped.someDate;
         // $ExpectType ToJSON<AttributesAllTypes>
         JSONTyped.someJSONObject;
-        // $ExpectType any[]
+        // $ExpectType ToJSON<AttributesAllTypes>[]
         JSONTyped.someJSONArray;
         // $ExpectType string
         JSONTyped.someRegExp;
@@ -1465,7 +1542,12 @@ function testQuery() {
                 super('Another', { x: 'example' });
             }
         }
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubClass}> { }
+        class MySubClass extends Parse.Object<{
+            attribute1: string,
+            attribute2: number,
+            attribute3: AnotherSubClass,
+            attribute4: string[]
+        }> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1563,6 +1645,26 @@ function testQuery() {
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
         query.equalTo('nonexistentProp', 'any value');
+
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', 'a_string_value'); // Can query contents of array
+        // Can query array itself if equal too (mongodb $eq matches the array exactly or the <field> contains an element that matches the array exactly)
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', ['a_string_value']);
+
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', 'a_string_value');
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', ['a_string_value']);
+
+        // $ExpectError
+        query.equalTo('attribute4', 5);
+        // $ExpectError
+        query.notEqualTo('attribute4', 5);
+        // $ExpectError
+        query.equalTo('attribute4', [5]);
+        // $ExpectError
+        query.notEqualTo('attribute4', [5]);
 
         // $ExpectType Query<MySubClass>
         query.exists('attribute1');

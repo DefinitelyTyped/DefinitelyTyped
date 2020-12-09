@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 3.0
+// Type definitions for react-datepicker 3.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -43,6 +43,7 @@ export interface ReactDatePickerProps {
     chooseDayAriaLabelPrefix?: string;
     className?: string;
     clearButtonTitle?: string;
+    closeOnScroll?: boolean | ((e: Event) => boolean);
     customInput?: React.ReactNode;
     customInputRef?: string;
     customTimeInput?: React.ReactNode;
@@ -79,12 +80,12 @@ export interface ReactDatePickerProps {
     minTime?: Date;
     monthsShown?: number;
     name?: string;
-    nextMonthButtonLabel?: string;
+    nextMonthButtonLabel?: string | React.ReactNode;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
-    onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
+    onChange(date: Date | [Date, Date] /* for selectsRange */ | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
     onDayMouseEnter?: (date: Date) => void;
@@ -111,7 +112,7 @@ export interface ReactDatePickerProps {
     popperPlacement?: string;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
-    previousMonthButtonLabel?: string;
+    previousMonthButtonLabel?: string | React.ReactNode;
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
@@ -134,6 +135,7 @@ export interface ReactDatePickerProps {
     selected?: Date | null;
     selectsEnd?: boolean;
     selectsStart?: boolean;
+    selectsRange?: boolean;
     shouldCloseOnSelect?: boolean;
     showDisabledMonthNavigation?: boolean;
     showFullMonthYearPicker?: boolean;

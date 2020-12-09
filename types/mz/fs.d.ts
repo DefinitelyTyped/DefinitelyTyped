@@ -6,7 +6,7 @@ import {
     FSWatcher,
     NoParamCallback,
     PathLike,
-    RmDirAsyncOptions,
+    RmDirOptions,
     WriteFileOptions,
     Stats,
     symlink as symlinkNS,
@@ -574,7 +574,7 @@ export function rmdir(path: PathLike, callback: NoParamCallback): void;
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
 
 /**
  * Asynchronous `rmdir(2)`
@@ -583,7 +583,7 @@ export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoPa
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+export function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
 
 /**
  * Asynchronous `mkdir(2)`.
@@ -1104,7 +1104,7 @@ export function read<TBuffer extends NodeJS.ArrayBufferView>(
     offset: number,
     length: number,
     position: number | null
-): Promise<{ bytesRead: number; buffer: TBuffer }>;
+): Promise<[number, TBuffer]>;
 
 /**
  * Asynchronously reads the entire contents of a file.

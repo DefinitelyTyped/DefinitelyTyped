@@ -1,6 +1,6 @@
+/// <reference path="./golden-layout.d.ts" />
 import { Identity } from '../../identity';
 import { LayoutPresetTypes } from './utils';
-import "./golden-layout";
 export interface InitLayoutOptions {
     containerId?: string;
     layout?: GoldenLayout.Config;
@@ -12,9 +12,7 @@ export interface PresetLayoutOptions {
  * InitLayoutOptions interface
  * @typedef { object } InitLayoutOptions
  * @property { string } [containerId] The id attribute of the container where the window's Layout should be initialized.  If not provided
- * then an element with id `layout-container` is used.
- * @property { LayoutConfig } [layout] The layout configuration to be initialized. If not provided then the layout included in window
- * options is used.
+ * then an element with id `layout-container` is used. We recommend using a div element.
  */
 /**
  * PresetLayoutOptions interface
@@ -28,6 +26,7 @@ export interface PresetLayoutOptions {
  * @property { Array<LayoutItem> } content Content of the layout.  There can only be one top-level LayoutItem in the content array.
  * We do not recommend trying to build Layouts or LayoutItems by hand and instead use calls such as {@link Platform#getSnapshot getSnapshot}
  * or our {@link https://openfin.github.io/golden-prototype/config-gen Layout Config Generation Tool }.
+ * @property { LayoutSettings } settings Configuration for certain Layout behaviors. See the LayoutSettings interface.
  */
 /**
  * LayoutItem Interface
@@ -39,6 +38,23 @@ export interface PresetLayoutOptions {
  * @property { string } [componentName] Only a `component` type will have this property and it should be set to `view`.
  * @property { View~options } [componentState] Only a `component` type will have this property and it represents the view
  * options of a given component.
+ */
+/**
+ * LayoutSettings Interface
+ * @typedef { object } LayoutSettings Represents a potential ways to customize behavior of your Layout
+ * @property { boolean } hasHeaders Turns tab headers on or off.
+ * If false, the layout will be displayed with splitters only.
+ * @property { boolean } popoutWholeStack Whether the popout button will only act on the entire stack,
+ * as opposed to only the active tab.
+ * @property { boolean } reorderEnabled If true, the user can re-arrange the layout by
+ * dragging items by their tabs to the desired location.
+ * @property { boolean } showCloseIcon Whether to show the close button on stack header
+ * (not to be confused with close button on every tab).
+ * @property { boolean } showMaximiseIcon Whether to show the maximize button on stack header.
+ * The button will maximize the current tab to fill the entire window.
+ * @property { boolean } showPopoutIcon Whether to show the popout button on stack header.
+ * The button will create a new window with current tab as its content.
+ * In case `popoutWholeStack` is set to true, all tabs in the stack will be in the new window.
  */
 /**
  * @lends Platform#Layout
@@ -75,10 +91,10 @@ export default class LayoutModule {
      */
     getCurrentSync(): Layout;
     /**
-     * Initialize the window's Layout.  Must be called from a custom window that has a truthy 'layout' option property (set `layout` to
-     * `true` in order to use this call with your own layout).  If a layout is not provided in the options for this call, the `layout`
-     * property set upon creation of that window is used.  If a containerId is not provided, this method attempts to find an element
-     * with the id `layout-container`.
+     * Initialize the window's Layout.  Must be called from a custom window that has a 'layout' option set upon creation of that window.
+     * If a containerId is not provided, this method attempts to find an element with the id `layout-container`.
+     * A Layout will <a href="tutorial-Layout.DOMEvents.html">emit events locally</a> on the DOM element representing the layout-container.
+     * In order to capture the relevant events during Layout initiation, set up the listeners on the DOM element prior to calling `init`.
      * @param { InitLayoutOptions } [options] - Layout init options.
      * @return { Promise<Layout> }
      * @static

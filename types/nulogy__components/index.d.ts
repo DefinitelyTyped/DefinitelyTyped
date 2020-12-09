@@ -1,11 +1,11 @@
-// Type definitions for @nulogy/components 2.16
+// Type definitions for @nulogy/components 3.1
 // Project: http://nulogy.design
 // Definitions by:  Evan Brodie <https://github.com/ecbrodie>
 //                  Marianne Borowiak <https://github.com/marboro92>
 //                  Matt Dunn <https://github.com/matthewlyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { NDSProvider } from './src/NDSProvider';
+export { NDSProvider, render } from './src/NDSProvider';
 export { theme } from './src/theme';
 export { Box } from './src/Box';
 export { Flex } from './src/Flex';

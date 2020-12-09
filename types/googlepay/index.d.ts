@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.4
+// Type definitions for non-npm package Google Pay API 0.5
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -6,8 +6,13 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
+/**
+ * Spec for the Google Pay APIs.
+ */
 declare namespace google.payments.api {
     /**
      * Request for payment data.
@@ -1662,14 +1667,38 @@ declare namespace google.payments.api {
         onClick: (event: Event) => void;
 
         /**
+         * Specifies the button color of the Google Pay button.
+         *
          * @default "default"
          */
         buttonColor?: ButtonColor;
 
         /**
-         * @default "long"
+         * Specifies the text to be displayed within the Google Pay button.
+         *
+         * @default "buy"
          */
         buttonType?: ButtonType;
+
+        /**
+         * Determines how the button's size should change relative to the
+         * button's parent element.
+         *
+         * @default "static"
+         */
+        buttonSizeMode?: ButtonSizeMode;
+
+        /**
+         * Specifies how to append Google Pay resources, such as `<style>` tags,
+         * in the DOM. Its default value is document.
+         *
+         * Use this property to integrate Google Pay with Web Components and the
+         * shadow DOM. Set its value to the result of
+         * [`container.getRootNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/getRootNode).
+         *
+         * @default document
+         */
+        buttonRootNode?: HTMLDocument | ShadowRoot;
     }
 
     /**
@@ -1914,18 +1943,42 @@ declare namespace google.payments.api {
     /**
      * Supported methods for presenting the Google Pay button.
      *
+     * A translated button label may appear if a language specified in the
+     * viewer's browser matches an [available
+     * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *
+     *
      * Options:
      *
+     * - `buy`:
+     *   "Buy with Google Pay" button.
+     *
+     * - `donate`:
+     *   "Donate with Google Pay" button.
+     *
+     * - `plain`:
+     *   "Google Pay" button without text.
+     *
      * - `long`:
-     *   "Buy with Google Pay" button. A translated button label may
-     *   appear if a language specified in the viewer's browser matches an
-     *   [available
-     *   language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *   Same as "buy".
      *
      * - `short`:
-     *   Google Pay payment button without the "Buy with" text.
+     *   Same as "plain".
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+
+    /**
+     * Supported methods for controlling the size of the Google Pay button.
+     *
+     * Options:
+     *
+     * - `static`:
+     *   Default behavior. The button has a fixed width and height.
+     *
+     * - `fill`:
+     *   The button fills its container.
+     */
+    type ButtonSizeMode = "static" | "fill";
 
     /**
      * Supported environment names to run Google Pay.

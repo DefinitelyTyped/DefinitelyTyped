@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "export-just-namespace": false,
@@ -10,8 +9,6 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

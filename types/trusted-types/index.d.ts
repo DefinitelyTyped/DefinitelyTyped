@@ -1,19 +1,17 @@
 // Type definitions for trusted-types 1.0
 // Project: https://github.com/WICG/trusted-types
-// Definitions by: Jakub Vrana <https://github.com/vrana>,
+// Definitions by: Jakub Vrana <https://github.com/vrana>
 //                 Damien Engels <https://github.com/engelsdamien>
 //                 Emanuel Tesar <https://github.com/siegrift>
+//                 Bjarki <https://github.com/bjarkler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
+
+type FnNames = keyof TrustedTypePolicyOptions;
+type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> =
+    Parameters<NonNullable<Options[K]>>;
 
 declare global {
-    interface TrustedTypePolicyOptions {
-        createHTML?: (input: string) => string;
-        createScript?: (input: string) => string;
-        createScriptURL?: (input: string) => string;
-        createURL?: (input: string) => string;
-    }
-
     class TrustedHTML {
         private constructor(); // To prevent instantiting with 'new'.
         private brand: true; // To prevent structural typing.
@@ -29,48 +27,42 @@ declare global {
         private brand: true; // To prevent structural typing.
     }
 
-    class TrustedURL {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
-    }
-
-    interface TrustedTypePolicy {
-        readonly name: string;
-        createHTML(input: string): TrustedHTML;
-        createScript(input: string): TrustedScript;
-        createScriptURL(input: string): TrustedScriptURL;
-        createURL(input: string): TrustedURL;
-    }
-
     interface TrustedTypePolicyFactory {
-        createPolicy<Keys extends keyof TrustedTypePolicyOptions>(
-            name: string,
-            policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
-            expose?: boolean,
-        ): Pick<TrustedTypePolicy, 'name' | Keys>;
-        getPolicyNames(): string[];
-        isHTML(value: any): value is TrustedHTML;
-        isScript(value: any): value is TrustedScript;
-        isScriptURL(value: any): value is TrustedScriptURL;
-        isURL(value: any): value is TrustedURL;
-        getAttributeType(tagName: string, attrName: string, elemNs?: string, attrNs?: string): string | undefined;
-        getPropertyType(tagName: string, propName: string, elemNs?: string): string | undefined;
-        defaultPolicy?: TrustedTypePolicy;
-        emptyHTML: TrustedHTML;
+        createPolicy<Options extends TrustedTypePolicyOptions>(
+            policyName: string,
+            policyOptions?: Options,
+        ): Pick<TrustedTypePolicy<Options>, 'name'|Extract<keyof Options, FnNames>>;
+        isHTML(value: unknown): value is TrustedHTML;
+        isScript(value: unknown): value is TrustedScript;
+        isScriptURL(value: unknown): value is TrustedScriptURL;
+        readonly emptyHTML: TrustedHTML;
+        readonly emptyScript: TrustedScript;
+        getAttributeType(tagName: string, attribute: string, elementNs?: string, attrNs?: string): string | null;
+        getPropertyType(tagName: string, property: string, elementNs?: string): string | null;
+        readonly defaultPolicy: TrustedTypePolicy | null;
+    }
+
+    interface TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
+        readonly name: string;
+        createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
+        createScript(...args: Args<Options, 'createScript'>): TrustedScript;
+        createScriptURL(...args: Args<Options, 'createScriptURL'>): TrustedScriptURL;
+    }
+
+    interface TrustedTypePolicyOptions {
+        createHTML?: (input: string, ...arguments: any[]) => string;
+        createScript?: (input: string, ...arguments: any[]) => string;
+        createScriptURL?: (input: string, ...arguments: any[]) => string;
     }
 
     interface Window {
-        // NOTE: This is needed while the implementation in Chrome still relies
-        // on the old uppercase name, either of the values below could be
-        // undefined.
-        // See https://github.com/w3c/webappsec-trusted-types/issues/177
+        // `trustedTypes` is left intentionally optional to make sure that
+        // people handle the case when their code is running in a browser not
+        // supporting trustedTypes.
         trustedTypes?: TrustedTypePolicyFactory;
-        /** @deprecated Prefer the lowercase version. */
-        TrustedTypes?: TrustedTypePolicyFactory;
         TrustedHTML: TrustedHTML;
         TrustedScript: TrustedScript;
         TrustedScriptURL: TrustedScriptURL;
-        TrustedURL: TrustedURL;
         TrustedTypePolicyFactory: TrustedTypePolicyFactory;
         TrustedTypePolicy: TrustedTypePolicy;
     }

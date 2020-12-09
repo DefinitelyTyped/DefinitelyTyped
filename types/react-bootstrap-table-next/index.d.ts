@@ -2,6 +2,7 @@
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
 //                 Valentin Slobozanin <https://github.com/ignefolio>
+//                 Jakub Różbicki <https://github.com/jrozbicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -66,6 +67,20 @@ export type ColumnSortFunc<T, E extends keyof T = any> = (
     rowB: T,
 ) => number;
 
+export type ColumnSortCaret<T extends object = any, E = any> = (
+    order: 'asc' | 'desc' | undefined,
+    column: ColumnDescription<T, E>,
+) => JSX.Element | string | null;
+
+export type HeaderSortingClasses<T extends object = any, E = any> =
+    | string
+    | ((
+          column: ColumnDescription<T, E>,
+          sortOrder: 'asc' | 'desc',
+          isLastSorting: boolean,
+          colIndex: number,
+      ) => string);
+
 export interface TableChangeState<T> {
     page: number;
     sizePerPage: number;
@@ -109,11 +124,13 @@ export interface ColumnDescription<T extends object = any, E = any> {
      */
     text: string;
     classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    headerClasses?: string | ((column: ColumnDescription<T, E>, colIndex: number) => string);
     style?:
         | React.CSSProperties
         | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
+    sortCaret?: ColumnSortCaret<T, E>;
     searchable?: boolean;
     align?: CellAlignment;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties);
@@ -125,6 +142,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     filterValue?: (cell: T[keyof T], row: T) => string;
     headerAlign?: CellAlignment;
     headerFormatter?: HeaderFormatter<T>;
+    headerSortingClasses?: HeaderSortingClasses<T, E>;
     formatExtraData?: {
         tooltipFormatter?: (row: T) => JSX.Element;
     } & E;
@@ -230,19 +248,19 @@ export type PaginationOptions = Partial<{
     /**
      * the text of first page button
      */
-    firstPageText: string;
+    firstPageText: string | JSX.Element;
     /**
      * the text of previous page button
      */
-    prePageText: string;
+    prePageText: string | JSX.Element;
     /**
      * the text of next page button
      */
-    nextPageText: string;
+    nextPageText: string | JSX.Element;
     /**
      * the text of last page button
      */
-    lastPageText: string;
+    lastPageText: string | JSX.Element;
     /**
      * the title of next page button
      */
@@ -378,10 +396,15 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: (options: { checked: boolean; disabled: boolean, mode: string; rowIndex: number }) => JSX.Element;
-    selectionHeaderRenderer?: (options: { mode: string, checked: boolean, indeterminate: boolean }) => JSX.Element;
+    selectionRenderer?: (options: {
+        checked: boolean;
+        disabled: boolean;
+        mode: string;
+        rowIndex: number;
+    }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
@@ -426,7 +449,7 @@ export interface BootstrapTableRef<T extends object = any> {
     };
 }
 
-export interface BootstrapTableProps<T extends object = any> {
+export interface BootstrapTableProps<T extends object = any, K = number> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -437,8 +460,10 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    remote?:
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
+    noDataIndication?: (() => JSX.Element | string) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -458,7 +483,7 @@ export interface BootstrapTableProps<T extends object = any> {
     filter?: unknown;
     cellEdit?: any;
     selectRow?: SelectRowProps<T>;
-    expandRow?: ExpandRowProps<T>;
+    expandRow?: ExpandRowProps<T, K>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
     rowEvents?: RowEventHandlerProps;
@@ -486,7 +511,7 @@ export interface BootstrapTableProps<T extends object = any> {
     search?: SearchProps<T> | boolean;
 }
 
-declare class BootstrapTable<T extends object = any> extends Component<BootstrapTableProps<T>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
@@ -512,17 +537,17 @@ export interface ExpandHeaderColumnRenderer {
     isAnyExpands: boolean;
 }
 
-export interface ExpandRowProps<T> {
+export interface ExpandRowProps<T, K = number> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: any[];
+    expanded?: K[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
-    nonExpandable?: number[];
+    onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
+    nonExpandable?: K[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
     expandColumnPosition?: 'left' | 'right';
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }

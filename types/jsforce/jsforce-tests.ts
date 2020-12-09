@@ -7,6 +7,7 @@ import * as sf from 'jsforce';
 import { RecordReference, Record } from 'jsforce/record';
 import { SObject } from 'jsforce/salesforce-object';
 import { RecordResult } from 'jsforce/record-result';
+import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -19,6 +20,19 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         return conn.login('username', 'password', callback);
     },
 });
+
+async function testProxyOptions() {
+    // send valid proxy values
+    // $ExpectType Connection
+    new sf.Connection({
+        proxyUrl: "http://127.0.0.1:8080/",
+        httpProxy: "127.0.0.1:8080",
+    });
+
+    // send invalid proxy values
+    // $ExpectError
+    new sf.Connection({ httpProxy: { host: "127.0.0.1:8080"} });
+}
 
 async function testIdentity(connection: sf.Connection) {
     // Callback style.
@@ -41,7 +55,9 @@ async function testSObject(connection: sf.Connection) {
 
     // currently untyped, but some future change may make this stricter
     const restApiOptions = {
-        headers: { Bearer: 'I have no idea what this wants' }
+        headers: { Bearer: 'I have no idea what this wants' },
+        allowRecursive: true,
+        allOrNone: true
     };
 
     { // Test SObject.record
@@ -441,7 +457,19 @@ const requestInfo: sf.RequestInfo = {
     method: '',
     url: ''
 };
-salesforceConnection.request(requestInfo);
+
+// Default return type is Object
+ salesforceConnection.request(requestInfo).then((obj: Object) => {
+    console.log(obj);
+ });
+
+// Can typecast the return type, too
+interface MyFoo {
+    anything: string;
+}
+salesforceConnection.request<MyFoo>(requestInfo).then((myFoo: MyFoo) => {
+    console.log(myFoo.anything)
+});
 
 const queryOptions: sf.ExecuteOptions = {
     autoFetch: true,
@@ -716,7 +744,8 @@ batch.on("response", (rets: sf.BatchResultInfo[]) => {
 
 salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
     console.log('Event Type : ' + message.event.type);
-    console.log('Event Created : ' + message.event.createdDate);
+    console.log('Replay Id : ' + message.event.replayId);
+    console.log('Object Id : ' + message.sobject.Id);
     console.log('Object Id : ' + message.sobject.Id);
 });
 const exitCallback = () => process.exit(1);
@@ -757,6 +786,12 @@ async function testDescribe() {
 
         const correctlyCached = object === cachedObject;
     });
+
+    const types = globalCached.sobjects.map(sobject => sobject.name);
+    const options: DescribeSObjectOptions = { type: types[0], ifModifiedSince: new Date().toUTCString() };
+    const sobject: DescribeSObjectResult = await salesforceConnection.describe(options);
+    const cachedSObject: DescribeSObjectResult = await salesforceConnection.describe$(options);
+    const batchSObjects: DescribeSObjectResult[] = await salesforceConnection.batchDescribe({ types, autofetch: false, maxConcurrentRequests: 15 });
 }
 
 async function testApex(conn: sf.Connection): Promise<void> {
@@ -848,4 +883,15 @@ async function testApex(conn: sf.Connection): Promise<void> {
             }
         });
     }
+}
+
+function testSfDate(): void {
+    const today = new Date();
+    const sfDateFromDate = sf.SfDate.toDateLiteral(today);
+    const sfDateFromString = sf.SfDate.toDateLiteral('01-01-2000');
+    const sfDateFromNumber = sf.SfDate.toDateLiteral(0);
+
+    const sfDateTimeFromDate = sf.SfDate.toDateTimeLiteral(today);
+    const sfDateTimeFromString = sf.SfDate.toDateTimeLiteral('01-01-2000');
+    const sfDateTimeFromNumber = sf.SfDate.toDateTimeLiteral(0);
 }

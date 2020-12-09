@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+/// <reference path="./cast.debug.d.ts" />
 /// <reference path="./cast.framework.d.ts" />
 /// <reference path="./cast.framework.breaks.d.ts" />
 /// <reference path="./cast.framework.events.d.ts" />
@@ -13,6 +14,7 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
+import * as debug from './cast.debug';
 import * as framework from './cast.framework';
 import { PlayerDataChangedEvent } from './cast.framework.ui';
 import { Event as SystemEvent } from './cast.framework.system';
@@ -40,10 +42,13 @@ import {
 } from './cast.framework.events';
 
 export as namespace cast;
-export { framework };
+export { debug, framework };
 
 declare global {
-    const cast: { framework: typeof framework };
+    const cast: {
+        debug: typeof debug;
+        framework: typeof framework;
+    };
 
     type EventHandler = (event: Event) => void;
     type SystemEventHandler = (event: SystemEvent) => void;

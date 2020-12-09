@@ -223,7 +223,8 @@ googletag.pubads().setForceSafeFrame(true);
 let pageConfig = {
     allowOverlayExpansion: true,
     allowPushExpansion: true,
-    sandbox: true
+    sandbox: true,
+    useUniqueDomain: true
 };
 
 let slotConfig = {allowOverlayExpansion: false};
@@ -267,6 +268,7 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     console.log(event.isEmpty);
     console.log(event.lineItemId);
     console.log(event.creativeId);
+    console.log(event.campaignId);
 });
 
 // 2. Slot render ended listener, slot specific logic.

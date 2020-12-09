@@ -18,8 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@fluent/langneg": [
-                "fluent__langneg"
+            "@fluent/*": [
+                "fluent__*"
             ]
         }
     },

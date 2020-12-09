@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot, PlotData } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, newPlot, PlotData, ViolinData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -9,12 +9,14 @@ const graphDiv = '#test';
     const trace1 = {
         x: [1999, 2000, 2001, 2002],
         y: [10, 15, 13, 17],
-        type: 'scatter'
+        customdata: [1, 2, 3],
+        type: 'scatter',
     } as ScatterData;
     const trace2 = {
         x: [1999, 2000, 2001, 2002],
         y: [16, 5, 11, 9],
-        type: 'scatter'
+        customdata: [[1, 'a'], [2, 'b'], [3, 'c']],
+        type: 'scatter',
     } as ScatterData;
     const data = [trace1, trace2];
     const layout = {
@@ -22,23 +24,42 @@ const graphDiv = '#test';
         xaxis: {
             title: 'Year',
             showgrid: false,
-            zeroline: false
+            zeroline: false,
         },
         yaxis: {
             title: 'Percent',
-            showline: false
-        }
+            showline: false,
+        },
     };
     Plotly.newPlot(graphDiv, data, layout);
+
+    const violinTrace = {
+        name: 'Values',
+        type: 'violin',
+        y: [10, 15, 13, 17],
+        points: 'all',
+        pointpos: -1,
+        marker: { opacity: 0.6 },
+        box: {
+            visible: true,
+            fillcolor: 'yellow',
+        },
+        line: { color: 'black' },
+        opacity: 0.6,
+        meanline: { visible: true },
+    } as ViolinData;
+    Plotly.newPlot(graphDiv, [violinTrace], { title: 'Sales growth' });
 })();
 (() => {
     // deprecated: calling plot again will add new trace(s) to the plot,
     // but will ignore new layout.
-    const data2 = [{
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 9, 8, 7],
-        type: 'scatter'
-    } as ScatterData];
+    const data2 = [
+        {
+            x: [1999, 2000, 2001, 2002],
+            y: [10, 9, 8, 7],
+            type: 'scatter',
+        } as ScatterData,
+    ];
     const layout2 = { title: 'Revenue' };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
@@ -55,7 +76,7 @@ const graphDiv = '#test';
     ];
     const layout = {
         height: 400,
-        width: 500
+        width: 500,
     };
     Plotly.newPlot('myDiv', data, layout);
 })();
@@ -68,7 +89,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update, 0);
 })();
@@ -77,14 +98,14 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update);
 })();
 // restyle the first trace's marker color 'red' and the second's 'green'
 (() => {
     const update = {
-        'marker.color': ['red', 'green']
+        'marker.color': ['red', 'green'],
     };
     Plotly.restyle(graphDiv, update, [0, 1]);
 })();
@@ -92,7 +113,7 @@ const graphDiv = '#test';
 // alternate between red and green for all traces (note omission of traces)
 (() => {
     const update = {
-        'marker.color': ['red', 'green']
+        'marker.color': ['red', 'green'],
     };
     Plotly.restyle(graphDiv, update);
 })();
@@ -101,7 +122,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update, [1, 2]);
 })();
@@ -110,30 +131,47 @@ const graphDiv = '#test';
 // have different colors
 (() => {
     const update = {
-        'marker.color': [['red', 'green']]
+        'marker.color': [['red', 'green']],
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
 
 // update two traces with new z data
 (() => {
-    const update = { z: [[[1, 2, 3], [2, 1, 2], [1, 1, 1]], [[0, 1, 1], [0, 2, 1], [3, 2, 1]]] };
+    const update = {
+        z: [
+            [
+                [1, 2, 3],
+                [2, 1, 2],
+                [1, 1, 1],
+            ],
+            [
+                [0, 1, 1],
+                [0, 2, 1],
+                [3, 2, 1],
+            ],
+        ],
+    };
     Plotly.restyle(graphDiv, update, [1, 2]);
 })();
 
 // replace the entire marker object with the one provided
 (() => {
     const update = {
-        marker: { color: 'red' }
+        marker: { color: 'red' },
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
 
 // Set the first trace's line to red, the second to the default, and ignore the third
 (() => {
-    Plotly.restyle(graphDiv, {
-        'line.color': ['red', null, undefined]
-    }, [0, 1, 2]);
+    Plotly.restyle(
+        graphDiv,
+        {
+            'line.color': ['red', null, undefined],
+        },
+        [0, 1, 2],
+    );
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -143,15 +181,15 @@ const graphDiv = '#test';
 (() => {
     const update: Partial<Layout> = {
         title: 'some new title', // updates the title
-        'xaxis.range': [0, 5],   // updates the xaxis range
-        'yaxis.range[1]': 15     // updates the end of the yaxis range
+        'xaxis.range': [0, 5], // updates the xaxis range
+        'yaxis.range[1]': 15, // updates the end of the yaxis range
     };
     Plotly.relayout(graphDiv, update);
 })();
 
 (() => {
     const data_update = {
-        marker: { color: 'red' }
+        marker: { color: 'red' },
     };
     const layout_update = {
         title: 'some new title', // updates the title
@@ -165,7 +203,7 @@ const graphDiv = '#test';
 (() => {
     const data_update: Partial<PlotData> = {
         marker: { color: 'red' },
-        type: 'bar'
+        type: 'bar',
     };
     const layout_update: Partial<Layout> = {
         title: 'some new title', // updates the title
@@ -259,7 +297,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then((dataUrl) => {
+    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then(dataUrl => {
         // use the dataUrl
     });
 })();
@@ -270,7 +308,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then((dataUrl) => {
+    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then(dataUrl => {
         // use the dataUrl
     });
 })();
@@ -289,13 +327,13 @@ function rand() {
 (() => {
     const n = 100;
     const frames = [
-        {name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+        { name: 'sine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: 'cosine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: 'circle', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
     ];
 
     for (let i = 0; i < n; i++) {
-        const t = i / (n - 1) * 2 - 1;
+        const t = (i / (n - 1)) * 2 - 1;
 
         // A sine wave:
         frames[0].data[0].x[i] = t * Math.PI;
@@ -318,12 +356,14 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Using events
 (async () => {
-    const myPlot = await newPlot(graphDiv, [{
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 9, 8, 7],
-        type: 'scatter'
-    }]);
-    myPlot.on('plotly_click', (data) => {
+    const myPlot = await newPlot(graphDiv, [
+        {
+            x: [1999, 2000, 2001, 2002],
+            y: [10, 9, 8, 7],
+            type: 'scatter',
+        },
+    ]);
+    myPlot.on('plotly_click', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -338,7 +378,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_hover', (data) => {
+    myPlot.on('plotly_hover', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -353,7 +393,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_unhover', (data) => {
+    myPlot.on('plotly_unhover', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -368,7 +408,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_selected', (data) => {
+    myPlot.on('plotly_selected', data => {
         const x = [] as Datum[];
         const y = [] as Datum[];
         const N = 1000;
@@ -378,33 +418,40 @@ function rand() {
         const colors = [] as string[];
         for (let i = 0; i < N; i++) colors.push(color1Light);
 
-        data.points.forEach((pt) => {
+        data.points.forEach(pt => {
             x.push(pt.x);
             y.push(pt.y);
             colors[pt.pointNumber] = color1;
         });
 
-        Plotly.restyle(myPlot, {
-            x: [x, y]
-        }, [1, 2]);
+        Plotly.restyle(
+            myPlot,
+            {
+                x: [x, y],
+            },
+            [1, 2],
+        );
 
-        Plotly.restyle(myPlot, {
-            'marker.color': [colors]
-        }, [0]);
+        Plotly.restyle(
+            myPlot,
+            {
+                'marker.color': [colors],
+            },
+            [0],
+        );
     });
 
-    myPlot.on('plotly_restyle', (data) => {
+    myPlot.on('plotly_restyle', data => {
         console.log('restyling');
     });
 
     myPlot.on('plotly_doubleclick', () => {
-        const orgColors = ['#00000', '#00000', '#00000',
-            '#00000', '#00000', '#00000'];
+        const orgColors = ['#00000', '#00000', '#00000', '#00000', '#00000', '#00000'];
         const update = { marker: { color: orgColors, size: 16 } };
         Plotly.restyle('myDiv', update);
     });
 
-    myPlot.on('plotly_beforeplot', (event) => {
+    myPlot.on('plotly_beforeplot', event => {
         console.log('plotting');
         const okToPlot = true;
         return okToPlot;
@@ -414,31 +461,31 @@ function rand() {
         console.log('done plotting');
     });
 
-    myPlot.on('plotly_animatingframe', (event) => {
+    myPlot.on('plotly_animatingframe', event => {
         console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
     });
 
-    myPlot.on('plotly_legendclick', (event) => {
+    myPlot.on('plotly_legendclick', event => {
         console.log('clicked on legend');
         const clickVal = true;
         return clickVal;
     });
 
-    myPlot.on('plotly_legenddoubleclick', (event) => {
+    myPlot.on('plotly_legenddoubleclick', event => {
         console.log('dbl clicked on legend');
         const dblClickVal = true;
         return dblClickVal;
     });
 
-    myPlot.on('plotly_sliderchange', (event) => {
+    myPlot.on('plotly_sliderchange', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on('plotly_sliderstart', (event) => {
+    myPlot.on('plotly_sliderstart', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y}`);
     });
 
-    myPlot.on('plotly_sliderend', (event) => {
+    myPlot.on('plotly_sliderend', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 

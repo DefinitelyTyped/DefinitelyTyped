@@ -3,10 +3,10 @@ The content of index.io.js could be something like
 
     'use strict';
 
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
+    import { AppRegistry } from 'react-native'
+    import Welcome from './gen/Welcome'
 
-     AppRegistry.registerComponent('MopNative', () => Welcome);
+    AppRegistry.registerComponent('MopNative', () => Welcome);
 
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
@@ -14,91 +14,111 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    ART,
+    AccessibilityInfo,
+    AsyncStorage,
     Alert,
     AppState,
+    AppStateStatus,
+    Appearance,
     BackHandler,
     Button,
     CheckBox,
     ColorPropType,
+    ColorValue,
     DataSourceAssetCallback,
+    DatePickerAndroid,
+    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
-    NativeEventEmitter,
     Dimensions,
-    Image,
-    ImageStyle,
-    ImageResizeMode,
-    ImageLoadEventData,
-    ImageErrorEventData,
-    ImageResolvedAssetSource,
-    ImageBackground,
-    InteractionManager,
-    Linking,
-    ListView,
-    ListViewDataSource,
-    StyleSheet,
-    StyleProp,
-    Systrace,
-    Text,
-    TextStyle,
-    TextProps,
-    View,
-    ViewStyle,
-    ViewPagerAndroid,
+    DrawerLayoutAndroid,
+    DrawerSlideEvent,
+    DynamicColorIOS,
     FlatList,
     FlatListProps,
+    GestureResponderEvent,
+    HostComponent,
+    I18nManager,
+    Image,
+    ImageBackground,
+    ImageErrorEventData,
+    ImageLoadEventData,
+    ImageResizeMode,
+    ImageResolvedAssetSource,
+    ImageStyle,
+    InputAccessoryView,
+    InteractionManager,
+    Keyboard,
+    KeyboardAvoidingView,
+    LayoutChangeEvent,
+    Linking,
+    ListRenderItemInfo,
+    ListView,
+    ListViewDataSource,
+    LogBox,
+    MaskedViewIOS,
+    Modal,
+    NativeEventEmitter,
+    NativeModule, // Not actually exported, not sure why
+    NativeModules,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    PermissionsAndroid,
+    Picker,
+    PickerIOS,
+    Platform,
+    PlatformColor,
+    Pressable,
+    ProgressBarAndroid,
+    ProgressViewIOS,
+    PushNotificationIOS,
+    RefreshControl,
+    RegisteredStyle,
     ScaledSize,
-    SectionList,
-    SectionListProps,
-    findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionList,
+    SectionListProps,
     SectionListRenderItemInfo,
     Share,
     ShareDismissedAction,
     ShareSharedAction,
-    Switch,
-    RefreshControl,
-    RegisteredStyle,
-    TabBarIOS,
-    NativeModules,
-    MaskedViewIOS,
-    TextInput,
-    TouchableNativeFeedback,
-    TextInputFocusEventData,
-    InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    GestureResponderEvent,
-    TextInputScrollEventData,
-    TextInputSelectionChangeEventData,
-    TextInputKeyPressEventData,
+    StyleProp,
+    StyleSheet,
+    Switch,
+    SwitchIOS,
+    Systrace,
+    TabBarIOS,
+    Text,
+    TextInput,
     TextInputChangeEventData,
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
+    TextInputFocusEventData,
+    TextInputKeyPressEventData,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
     TextInputSubmitEditingEventData,
-    KeyboardAvoidingView,
-    Modal,
+    TextLayoutEventData,
+    TextProps,
+    TextStyle,
     TimePickerAndroid,
-    DatePickerAndroid,
-    Picker,
+    TouchableNativeFeedback,
+    UIManager,
+    View,
+    ViewPagerAndroid,
     ViewPropTypes,
-    requireNativeComponent,
-    Keyboard,
-    PermissionsAndroid,
-    Platform,
-    ProgressBarAndroid,
-    PushNotificationIOS,
-    AccessibilityInfo,
-    YellowBox,
-    useWindowDimensions,
-    HostComponent,
-    Appearance,
-    useColorScheme,
-    DevSettings,
+    ViewStyle,
     VirtualizedList,
-    ListRenderItemInfo,
+    YellowBox,
+    findNodeHandle,
+    requireNativeComponent,
+    useColorScheme,
+    useWindowDimensions,
+    SectionListData,
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -233,11 +253,17 @@ const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle,
 
 const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(composeImageStyle, composeImageStyle);
 
-const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], [composeTextStyle]);
+const combinedStyle2: StyleProp<TextStyle | ConcatArray<TextStyle>> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
 
-const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle, null);
+const combinedStyle3: StyleProp<TextStyle | null> = StyleSheet.compose(composeTextStyle, null);
 
-const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], null);
+const combinedStyle4: StyleProp<TextStyle | ConcatArray<TextStyle> | null> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
 
 const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
     composeTextStyle,
@@ -274,7 +300,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -302,11 +328,10 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     };
 
     testNativeMethods() {
-        // this.setNativeProps({});
-
         const { rootView } = this.refs;
 
-        rootView.measure((x: number, y: number, width: number, height: number) => {});
+        rootView.setNativeProps({});
+        rootView.measure((x: number, y: number, width: number, height: number) => { });
     }
 
     testFindNodeHandle() {
@@ -356,6 +381,73 @@ export class TouchableNativeFeedbackTest extends React.Component {
     }
 }
 
+// PressableTest
+export class PressableTest extends React.Component<{}> {
+    private readonly myRef: React.RefObject<View> = React.createRef();
+
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
+    render() {
+        return (
+            <>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Style function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* Children function */}
+                <Pressable
+                    onPress={this.onPressButton}
+                    style={state => ({
+                        backgroundColor: state.pressed ? 'red' : 'blue',
+                    })}
+                >
+                    {state =>
+                        state.pressed ? (
+                            <View>
+                                <Text>Pressed</Text>
+                            </View>
+                        ) : (
+                                <View>
+                                    <Text>Not Pressed</Text>
+                                </View>
+                            )
+                    }
+                </Pressable>
+                {/* Android Ripple */}
+                <Pressable
+                    android_ripple={{
+                        borderless: true,
+                        color: 'green',
+                        radius: 20,
+                    }}
+                    onPress={this.onPressButton}
+                    style={{ backgroundColor: 'blue' }}
+                >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+            </>
+        );
+    }
+}
+
 // App State
 function appStateListener(state: string) {
     console.log('New state: ' + state);
@@ -367,6 +459,12 @@ function appStateTest() {
     AppState.addEventListener('blur', appStateListener);
     AppState.addEventListener('focus', appStateListener);
 }
+
+let appState: AppStateStatus = 'active';
+appState = 'background';
+appState = 'inactive';
+appState = 'unknown';
+appState = 'extension';
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -493,6 +591,78 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
     }
 }
 
+type SectionT = { displayTitle: false } | { displayTitle: true; title: string };
+
+export class SectionListTypedSectionTest extends React.Component<SectionListProps<string, SectionT>, {}> {
+    myList: React.RefObject<SectionList<string, SectionT>>;
+
+    constructor(props: SectionListProps<string, SectionT>) {
+        super(props);
+        this.myList = React.createRef();
+    }
+
+    scrollMe = () => {
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+    };
+
+    render() {
+        const sections: SectionListData<string, SectionT>[] = [
+            {
+                displayTitle: false,
+                data: ['A', 'B', 'C', 'D', 'E'],
+            },
+            {
+                displayTitle: true,
+                title: 'Section 2',
+                data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+                renderItem: (info: { item: string }) => (
+                    <View>
+                        <Text>{info.item}</Text>
+                    </View>
+                ),
+            },
+        ];
+
+        const cellRenderer = ({ children }: any) => {
+            return <View>{children}</View>;
+        };
+
+        return (
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                />
+            </React.Fragment>
+        );
+    }
+}
+
 export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || '') as string;
@@ -507,10 +677,33 @@ const getInitialUrlTest = () =>
         }
     });
 
+LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs(true);
+LogBox.ignoreLogs(['someString', /^aRegex/]);
+LogBox.install();
+LogBox.uninstall();
+
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
+
+    scrollView: ScrollView | null = null;
+
+    testNativeMethods() {
+        if (this.scrollView) {
+            this.scrollView.setNativeProps({ scrollEnabled: false });
+
+            // Dummy values for scroll dimensions changes
+            this.scrollView.getScrollResponder().scrollResponderZoomTo({
+                x: 0,
+                y: 0,
+                width: 300,
+                height: 500,
+                animated: true,
+            });
+        }
+    }
 
     render() {
         const scrollViewStyle1 = StyleSheet.create({
@@ -531,6 +724,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return (
                         <ScrollView
+                            ref={ref => (this.scrollView = ref)}
                             horizontal={true}
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
@@ -540,7 +734,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
-                            onScrollToTop={() => {}}
+                            onScrollToTop={() => { }}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                         />
@@ -575,7 +769,7 @@ class TabBarTest extends React.Component {
                     badgeColor="red"
                     icon={{ uri: undefined }}
                     selected={true}
-                    onPress={() => {}}
+                    onPress={() => { }}
                     renderAsOriginal={true}
                     selectedIcon={undefined}
                     systemIcon="history"
@@ -592,13 +786,13 @@ class AlertTest extends React.Component {
             'Title',
             'Message',
             [
-                { text: 'First button', onPress: () => {} },
-                { text: 'Second button', onPress: () => {} },
-                { text: 'Third button', onPress: () => {} },
+                { text: 'First button', onPress: () => { } },
+                { text: 'Second button', onPress: () => { } },
+                { text: 'Third button', onPress: () => { } },
             ],
             {
                 cancelable: false,
-                onDismiss: () => {},
+                onDismiss: () => { },
             },
         );
     }
@@ -684,13 +878,28 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
-const nativeEventEmitter = new NativeEventEmitter();
-nativeEventEmitter.removeAllListeners('event');
+// NativeEventEmitter - Android
+const androidEventEmitter = new NativeEventEmitter();
+const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub1);
 
-class CustomEventEmitter extends NativeEventEmitter {}
+// NativeEventEmitter - IOS
+const nativeModule: NativeModule = {
+    addListener(eventType: string) {},
+    removeListeners(count: number) {},
+};
+const iosEventEmitter = new NativeEventEmitter(nativeModule);
+const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub3);
+
+class CustomEventEmitter extends NativeEventEmitter { }
 
 const customEventEmitter = new CustomEventEmitter();
-customEventEmitter.addListener('event', () => {});
+customEventEmitter.addListener('event', () => { });
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
@@ -787,6 +996,48 @@ class TextInputTest extends React.Component<{}, { username: string }> {
     }
 }
 
+class TextTest extends React.Component {
+    handleOnLayout = (e: LayoutChangeEvent) => {
+        testNativeSyntheticEvent(e);
+
+        const x = e.nativeEvent.layout.x; // $ExpectType number
+        const y = e.nativeEvent.layout.y; // $ExpectType number
+        const width = e.nativeEvent.layout.width; // $ExpectType number
+        const height = e.nativeEvent.layout.height; // $ExpectType number
+    };
+
+    handleOnTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        e.nativeEvent.lines.forEach(line => {
+            const ascender = line.ascender; // $ExpectType number
+            const capHeight = line.capHeight; // $ExpectType number
+            const descender = line.descender; // $ExpectType number
+            const height = line.height; // $ExpectType number
+            const text = line.text; // $ExpectType string
+            const width = line.width; // $ExpectType number
+            const x = line.x; // $ExpectType number
+            const xHeight = line.xHeight; // $ExpectType number
+            const y = line.y; // $ExpectType number
+        });
+    };
+
+    render() {
+        return (
+            <Text
+                allowFontScaling={false}
+                ellipsizeMode="head"
+                lineBreakMode="clip"
+                numberOfLines={2}
+                onLayout={this.handleOnLayout}
+                onTextLayout={this.handleOnTextLayout}
+            >
+                Test text
+            </Text>
+        );
+    }
+}
+
 class StatusBarTest extends React.Component {
     render() {
         StatusBar.setBarStyle('dark-content', true);
@@ -800,6 +1051,7 @@ class StatusBarTest extends React.Component {
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png';
+        const headers = { Authorization: 'Bearer test' };
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
@@ -811,6 +1063,21 @@ export class ImageTest extends React.Component {
                     console.log(`Image is in ${status} cache`);
                 }
             });
+
+        Image.getSize(uri, (width, height) => console.log(width, height));
+        Image.getSize(
+            uri,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
+        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
+        Image.getSizeWithHeaders(
+            uri,
+            headers,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
+        Image.prefetch(uri); // $ExpectType Promise<boolean>
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -873,13 +1140,13 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
                 accessibilityTraits={'none'}
-                onAccessibilityTap={() => {}}
+                onAccessibilityTap={() => { }}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very importent header"
+                accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
-                onMagicTap={() => {}}
-                onAccessibilityEscape={() => {}}
+                onMagicTap={() => { }}
+                onAccessibilityEscape={() => { }}
             >
                 <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
                     Text
@@ -938,6 +1205,7 @@ AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID="modal-test-2" />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
@@ -964,7 +1232,7 @@ const DatePickerAndroidTest = () => {
 };
 
 const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => { }}>
         <Picker.Item label="Item1" value="v1" />
         <Picker.Item label="Item2" value="v2" />
     </Picker>
@@ -979,6 +1247,10 @@ class BridgedComponentTest extends React.Component {
     };
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
+
+    callNativeMethod = () => {
+        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), 'someNativeMethod', []);
+    };
 
     measureNativeComponent() {
         if (this.nativeComponentRef) {
@@ -1006,6 +1278,10 @@ const NativeIDTest = () => (
     </ScrollView>
 );
 
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
+);
+
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
@@ -1027,6 +1303,14 @@ const KeyboardTest = () => {
         event;
     });
     subscriber.remove();
+
+    Keyboard.dismiss();
+
+    // Android Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'keyboard', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 } })
+
+    // IOS Keyboard Event
+    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'easeInEaseOut', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, isEventFromThisApp: true })
 };
 
 const PermissionsAndroidTest = () => {
@@ -1081,10 +1365,94 @@ const PlatformTest = () => {
     }
 };
 
+Platform.select({ native: 1 }); // $ExpectType number | undefined
+Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
-Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
+
+PlatformColor('?attr/colorControlNormal');
+PlatformColor('?attr/colorControlNormal', '?attr/colorAccent', 'another');
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: 'midnightblue',
+});
+
+DynamicColorIOS({
+    dark: 'lightskyblue',
+    light: PlatformColor('labelColor'),
+});
+
+// Test you cannot set internals of ColorValue directly
+const OpaqueTest1 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                resource_paths: ['?attr/colorControlNormal'],
+            },
+        }}
+    />
+);
+
+const OpaqueTest2 = () => (
+    <View
+        // $ExpectError
+        style={{
+            backgroundColor: {
+                semantic: 'string',
+                dynamic: {
+                    light: 'light',
+                    dark: 'dark',
+                },
+            },
+        }}
+    />
+);
+
+// Test you cannot amend opaque type
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+
+const someColorProp: ColorValue = PlatformColor('test');
+
+// Test PlatformColor inside Platform select with stylesheet
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        ...Platform.select({
+            ios: { color: DynamicColorIOS({ dark: 'lightskyblue', light: PlatformColor('labelColor') }) },
+            android: {
+                color: PlatformColor('?attr/colorControlNormal'),
+            },
+            default: { color: PlatformColor('?attr/colorControlNormal') },
+        }),
+    },
+});
+
+// PlatformColor in style colors
+StyleSheet.create({
+    labelCell: {
+        flex: 1,
+        alignItems: 'stretch',
+        color: PlatformColor('test'),
+        backgroundColor: PlatformColor('test'),
+        borderBottomColor: PlatformColor('test'),
+        borderColor: PlatformColor('test'),
+        borderEndColor: PlatformColor('test'),
+        borderLeftColor: PlatformColor('test'),
+        borderRightColor: PlatformColor('test'),
+        borderStartColor: PlatformColor('test'),
+        borderTopColor: PlatformColor('test'),
+        overlayColor: PlatformColor('test'),
+        shadowColor: PlatformColor('test'),
+        textDecorationColor: PlatformColor('test'),
+        textShadowColor: PlatformColor('test'),
+        tintColor: PlatformColor('test'),
+    },
+});
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
@@ -1168,3 +1536,127 @@ DevSettings.addMenuItem('alert', () => {
 });
 DevSettings.reload();
 DevSettings.reload('reload with reason');
+
+// Accessibility custom actions
+const AccessibilityCustomActionsTest = () => {
+    return (
+        <View
+            accessible={true}
+            accessibilityActions={[
+                // should support custom defined actions
+                { name: 'cut', label: 'cut' },
+                { name: 'copy', label: 'copy' },
+                { name: 'paste', label: 'paste' },
+            ]}
+            onAccessibilityAction={event => {
+                switch (event.nativeEvent.actionName) {
+                    case 'cut':
+                        Alert.alert('Alert', 'cut action success');
+                        break;
+                    case 'copy':
+                        Alert.alert('Alert', 'copy action success');
+                        break;
+                    case 'paste':
+                        Alert.alert('Alert', 'paste action success');
+                        break;
+                }
+            }}
+        />
+    );
+};
+
+// DrawerLayoutAndroidTest
+export class DrawerLayoutAndroidTest extends React.Component {
+    drawerRef = React.createRef<DrawerLayoutAndroid>();
+
+    readonly styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 50,
+            backgroundColor: '#ecf0f1',
+            padding: 8,
+        },
+        navigationContainer: {
+            flex: 1,
+            paddingTop: 50,
+            backgroundColor: '#fff',
+            padding: 8,
+        },
+    });
+
+    readonly navigationView = (
+        <View style={this.styles.navigationContainer}>
+            <Text style={{ margin: 10, fontSize: 15 }}>I'm in the Drawer!</Text>
+        </View>
+    );
+
+    handleDrawerClose = () => {
+        console.log('handleDrawerClose');
+    };
+
+    handleDrawerOpen = () => {
+        console.log('handleDrawerOpen');
+    };
+
+    handleDrawerSlide = (event: DrawerSlideEvent) => {
+        console.log('handleDrawerSlide', event);
+    };
+
+    handleDrawerStateChanged = (event: 'Idle' | 'Dragging' | 'Settling') => {
+        console.log('handleDrawerStateChanged', event);
+    };
+
+    render() {
+        return (
+            <DrawerLayoutAndroid
+                ref={this.drawerRef}
+                drawerBackgroundColor="rgba(0,0,0,0.5)"
+                drawerLockMode="locked-closed"
+                drawerPosition="right"
+                drawerWidth={300}
+                keyboardDismissMode="on-drag"
+                onDrawerClose={this.handleDrawerClose}
+                onDrawerOpen={this.handleDrawerOpen}
+                onDrawerSlide={this.handleDrawerSlide}
+                onDrawerStateChanged={this.handleDrawerStateChanged}
+                renderNavigationView={() => this.navigationView}
+                statusBarBackgroundColor="yellow"
+            >
+                <View style={this.styles.container}>
+                    <Text style={{ margin: 10, fontSize: 15 }}>DrawerLayoutAndroid example</Text>
+                </View>
+            </DrawerLayoutAndroid>
+        );
+    }
+}
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    );
+};
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+};
+
+const I18nManagerTest = () => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    I18nManager.swapLeftAndRightInRTL(true);
+    const { isRTL, doLeftAndRightSwapInRTL } = I18nManager.getConstants();
+    const isRtlFlag = I18nManager.isRTL;
+    const doLeftAndRightSwapInRtlFlag = I18nManager.doLeftAndRightSwapInRTL;
+
+    console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
+};

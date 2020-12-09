@@ -36,4 +36,5 @@ export interface ConfirmOptions extends AlertOptions {
 export interface PromptOptions extends ConfirmOptions {
     required?: boolean;
     defaultValue?: string | number;
+    placeholder?: string;
 }

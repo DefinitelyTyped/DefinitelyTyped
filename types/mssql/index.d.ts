@@ -32,7 +32,7 @@ export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlT
 export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
 export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
 export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType: any): ISqlTypeWithTvpType }
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType?: any): ISqlTypeWithTvpType }
 
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
@@ -208,6 +208,13 @@ export interface config {
     beforeConnect?: (conn: tds.Connection) => void
 }
 
+export declare class MSSQLError extends Error {
+    constructor(message: Error | string, code?: string);
+    public code: string;
+    public name: string;
+    public originalError?: Error;
+}
+
 export declare class ConnectionPool extends events.EventEmitter {
     public connected: boolean;
     public connecting: boolean;
@@ -232,16 +239,14 @@ export declare class ConnectionPool extends events.EventEmitter {
     public transaction(): Transaction;
 }
 
-export declare class ConnectionError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class ConnectionError extends MSSQLError {}
 
 export interface IColumnOptions {
     nullable?: boolean;
     primary?: boolean;
+    identity?: boolean;
+    readOnly?: boolean;
+    length?: number
 }
 
 export interface IColumn extends ISqlType {
@@ -250,13 +255,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns extends Array {
+declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
 type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows extends Array {
+declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
 }
 
@@ -337,15 +342,11 @@ export declare class Request extends events.EventEmitter {
     public resume(): boolean;
 }
 
-export declare class RequestError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
+export declare class RequestError extends MSSQLError {
     public number?: number;
-    public state?: number;
-    public class?: number;
     public lineNumber?: number;
+    public state?: string;
+    public class?: string;
     public serverName?: string;
     public procName?: string;
 }
@@ -367,12 +368,7 @@ export declare class Transaction extends events.EventEmitter {
     public request(): Request;
 }
 
-export declare class TransactionError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class TransactionError extends MSSQLError {}
 
 export declare class PreparedStatement extends events.EventEmitter {
     public transaction: Transaction;
@@ -394,9 +390,4 @@ export declare class PreparedStatement extends events.EventEmitter {
     public unprepare(callback: (err?: Error) => void): PreparedStatement;
 }
 
-export declare class PreparedStatementError implements Error {
-    constructor(message: string, code?: any)
-    public name: string;
-    public message: string;
-    public code: string;
-}
+export declare class PreparedStatementError extends MSSQLError {}

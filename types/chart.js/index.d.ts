@@ -27,6 +27,7 @@
 //                 Marco Ru <https://github.com/Marcoru97>
 //                 Tony Liu <https://github.com/tonybadguy>
 //                 Mathias Helminger <https://github.com/Ilmarinen100>
+//                 Mostafa Sameti <https://github.com/IVIosi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -83,6 +84,10 @@ declare class Chart {
 
     static platform: {
         disableCSSInjection: boolean
+    };
+
+    static scaleService: {
+        updateScaleDefaults: (type: Chart.ScaleType, updates: Chart.ChartScales) => void;
     };
 
     // Tooltip Static Options
@@ -303,6 +308,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         plugins?: ChartPluginsOptions;
+        defaultColor?: ChartColor;
     }
 
     interface ChartFontOptions {
@@ -321,6 +327,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontStyle?: string;
         padding?: number;
+        lineHeight?: number | string;
         text?: string | string[];
     }
 
@@ -334,6 +341,8 @@ declare namespace Chart {
         onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
+        rtl?: boolean;
+        textDirection?: string;
     }
 
     interface ChartLegendLabelOptions {
@@ -349,6 +358,7 @@ declare namespace Chart {
     }
 
     interface ChartTooltipOptions {
+        axis?: 'x'|'y'|'xy';
         enabled?: boolean;
         custom?: (tooltipModel: ChartTooltipModel) => void;
         mode?: InteractionMode;
@@ -387,6 +397,8 @@ declare namespace Chart {
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
+        rtl?: boolean;
+        textDirection?: string;
     }
 
     interface ChartTooltipModel {
@@ -491,7 +503,9 @@ declare namespace Chart {
     }
 
     interface ChartArcOptions {
+        angle?: number;
         backgroundColor?: ChartColor;
+        borderAlign?: BorderAlignment;
         borderColor?: ChartColor;
         borderWidth?: number;
     }
@@ -514,6 +528,7 @@ declare namespace Chart {
     interface ChartPointOptions {
         radius?: number;
         pointStyle?: PointStyle;
+        rotation?: number;
         backgroundColor?: ChartColor;
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -724,6 +739,7 @@ declare namespace Chart {
         type?: ScaleType | string;
         display?: boolean | string;
         id?: string;
+        labels?: string[];
         stacked?: boolean;
         position?: string;
         ticks?: TickOptions;
@@ -775,7 +791,12 @@ declare namespace Chart {
         year?: string;
     }
 
+    interface DateAdapterOptions {
+        date?: object;
+    }
+
     interface TimeScale extends ChartScales {
+        adapters?: DateAdapterOptions;
         displayFormats?: TimeDisplayFormat;
         isoWeekday?: boolean;
         max?: string;
@@ -854,7 +875,7 @@ declare namespace Chart {
         resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
         destroy?(chartInstance: Chart): void;
 
-        /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+        /** Deprecated since version 2.5.0. Use `afterLayout` instead. */
         afterScaleUpdate?(chartInstance: Chart, options?: any): void;
     }
 

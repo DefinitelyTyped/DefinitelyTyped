@@ -57,7 +57,7 @@ declare namespace BMap {
         setMinZoom(zoom: number): void;
         setMaxZoom(zoom: number): void;
         setMapStyle(mapStyle: MapStyle): void;
-        setMapStyle2(style: MapStyleV2): void;
+        setMapStyleV2(style: MapStyleV2): void;
         setPanorama(pano: Panorama): void;
         disable3DBuilding(): void;
         getBounds(): Bounds;

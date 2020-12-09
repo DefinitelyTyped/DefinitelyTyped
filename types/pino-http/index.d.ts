@@ -16,7 +16,7 @@ declare function PinoHttp(opts?: PinoHttp.Options, stream?: DestinationStream): 
 declare function PinoHttp(stream?: DestinationStream): PinoHttp.HttpLogger;
 
 declare namespace PinoHttp {
-    type HttpLogger = (req: IncomingMessage, res: ServerResponse) => void;
+    type HttpLogger = (req: IncomingMessage, res: ServerResponse, next?: () => void) => void;
     type ReqId = number | string | object;
 
     /**
@@ -34,6 +34,7 @@ declare namespace PinoHttp {
         customSuccessMessage?: (res: ServerResponse) => string;
         customErrorMessage?: (error: Error, res: ServerResponse) => string;
         customAttributeKeys?: CustomAttributeKeys;
+        wrapSerializers?: boolean;
         reqCustomProps?: (req: IncomingMessage) => object;
     }
 
@@ -52,6 +53,8 @@ declare namespace PinoHttp {
         err?: string;
         responseTime?: string;
     }
+
+    const startTime: unique symbol;
 }
 
 declare module 'http' {
@@ -59,7 +62,12 @@ declare module 'http' {
         id: PinoHttp.ReqId;
         log: Logger;
     }
+
     interface ServerResponse {
         err?: Error;
+    }
+
+    interface OutgoingMessage {
+        [PinoHttp.startTime]: number;
     }
 }

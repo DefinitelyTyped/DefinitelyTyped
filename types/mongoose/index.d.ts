@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7.13
+// Type definitions for Mongoose 5.10.9
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -17,7 +17,6 @@
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
-//                 Orblazer <https://github.com/orblazer>
 //                 HughKu <https://github.com/HughKu>
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
@@ -42,6 +41,8 @@
 //                 Jeremy Bensimon <https://github.com/jeremyben>
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Guillem Gelabert Sunyer <https://github.com/guillem-gelabert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -88,7 +89,7 @@ declare module "mongoose" {
   type NonFunctionPropertyNames<T> = {
     [K in keyof T]: T[K] extends Function ? never : K;
   }[keyof T];
-  
+
   type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
   type IfEquals<X, Y, A, B> =
@@ -101,27 +102,36 @@ declare module "mongoose" {
 
   type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
 
-  // used to exclude functions from all levels of the schema
-  type DeepNonFunctionProperties<T> =
-    T extends Map<infer KM, infer KV> 
+  type MongooseBuiltIns = mongodb.ObjectID | mongodb.Decimal128 | Date | number | boolean;
+
+  type ImplicitMongooseConversions<T> =
+    T extends MongooseBuiltIns
+      ? T extends (boolean | mongodb.Decimal128 | Date) ? T | string | number // accept numbers for these
+      : T | string
+    : T;
+
+  type DeepCreateObjectTransformer<T> =
+    T extends MongooseBuiltIns
+      ? T
+      : T extends object
+        ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
+          ? ImplicitMongooseConversions<DeepCreateTransformer<NonNullable<T[V]>>>
+          : ImplicitMongooseConversions<T[V]> }
+        :
+      T;
+
+  // removes functions from schema from all levels
+  type DeepCreateTransformer<T> =
+    T extends Map<infer KM, infer KV>
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
       // ? Map<KM, DeepNonFunctionProperties<KV>>
-      ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
-      : 
-    T extends Array<infer U>
-      ? (U extends object 
-        ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
-          ? DeepNonFunctionProperties<NonNullable<U[V]>> 
-          : U[V] }
-        : U)[]
-      : 
-    T extends object
-      ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
-        ? DeepNonFunctionProperties<NonNullable<T[V]>> 
-        : T[V] }
+      ? { [key: string]: DeepCreateTransformer<KV> } | [KM, KV][] | Map<KM, KV>
       :
-    T;
+    T extends Array<infer U>
+      ? Array<DeepCreateObjectTransformer<U>>
+      :
+    DeepCreateObjectTransformer<T>;
 
   // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
   type DeepMapAsObject<T> = T extends object | undefined
@@ -140,7 +150,7 @@ declare module "mongoose" {
   /* Helper type to extract a definition type from a Document type */
   type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
 
-  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<T>>
+  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepCreateTransformer<T>>
 
   type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentDefinition<T>>;
 
@@ -185,9 +195,9 @@ declare module "mongoose" {
 
   // ensure that if an empty document type is passed, we allow any properties
   // for backwards compatibility
-  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true 
-    ? { _id?: any } & Record<string, any> 
-    : D extends { _id: infer TId } 
+  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true
+    ? { _id?: any } & Record<string, any>
+    : D extends { _id: infer TId }
       ? mongodb.OptionalId<CreateDocumentDefinition<D> & { _id: TId }>
       : CreateDocumentDefinition<D>
 
@@ -289,8 +299,16 @@ declare module "mongoose" {
   ): U;
 
   /**
-   * Returns an array of model names created on this instance of Mongoose.
-   * Does not include names of models created using connection.model().
+   * Removes the model named `name` from the default connection on this instance
+   * of Mongoose. You can use this function to clean up any models you created
+   * in your tests to prevent OverwriteModelErrors.
+   */
+  export function deleteModel(name: string | RegExp): Connection;
+
+  /**
+   * Returns an array of model names created on the default connection for this
+   * instance of Mongoose. Does not include names of models created
+   * on additional connections that were created with `createConnection()`.
    */
   export function modelNames(): string[];
 
@@ -787,6 +805,8 @@ declare module "mongoose" {
    *   expose its interface to enable type-checking.
    */
   class QueryCursor<T extends Document> extends stream.Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
+
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -970,6 +990,14 @@ declare module "mongoose" {
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => Promise<void>): this;
 
     post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
@@ -1167,6 +1195,8 @@ declare module "mongoose" {
     _id?: boolean;
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
+    /** When true, mongoose will throw a Version Error if a document has changed before saving - defaults to false */
+    optimisticConcurrency?: boolean;
     read?: string;
     writeConcern?: WriteConcern;
     /** defaults to true. */
@@ -1934,6 +1964,8 @@ declare module "mongoose" {
    */
   class Query<T> extends DocumentQuery<T, any> { }
   class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
+    [Symbol.asyncIterator](): AsyncIterableIterator<DocType>;
+
     /**
      * Specifies a javascript function or expression to pass to MongoDBs query system.
      * Only use $where when you have a condition that cannot be met using other MongoDB
@@ -1948,6 +1980,8 @@ declare module "mongoose" {
      */
     all(val: number): this;
     all(path: string, val: number): this;
+    all(val: any[]): this;
+    all(path: string, val: any[]): this;
 
     /**
      * Specifies arguments for a $and condition.
@@ -2577,6 +2611,15 @@ declare module "mongoose" {
      * Does nothing if schema-level timestamps are not set.
      */
     timestamps?:boolean;
+    /**
+     * True by default. Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
+     */
+    useFindAndModify?:boolean;
+    /**
+     * False by default. Setting this to true allows the update to overwrite the existing document if no update
+     * operators are included in the update. When set to false, mongoose will wrap the update in a $set.
+     */
+    overwrite?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3393,7 +3436,7 @@ declare module "mongoose" {
 
      /**
      * Issue a mongodb findOneAndDelete command by a document's _id field.
-     * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
+     * findByIdAndDelete(id, ...) is equivalent to findOneAndDelete({ _id: id }, ...).
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed, else a Query object is returned.
      *
@@ -3673,9 +3716,15 @@ declare module "mongoose" {
   }
 
   interface SaveOptions {
+    checkKeys?: boolean;
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    validateModifiedOnly?: boolean;
+    j?: boolean;
     session?: ClientSession;
+    timestamps?: boolean;
+    w?: number | string;
+    wtimeout?: number;
   }
 
   interface WriteConcern {

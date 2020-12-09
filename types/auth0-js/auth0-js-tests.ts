@@ -238,6 +238,43 @@ webAuth.checkSession({
     // Renewed tokens or error
 });
 
+//  use case; get a new token for the API
+webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
+    if (err) {
+        err; // $ExpectType Auth0Error
+    } else {
+        authResult.accessToken; // $ExpectType string
+    }
+});
+
+const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+webAuth.renderCaptcha(input);
+webAuth.renderCaptcha(input, {});
+webAuth.renderCaptcha(input, {
+    lang: 'pl',
+    templates: {
+        error: error => {
+            return 'error';
+        },
+        auth0: challenge => 'auth0',
+        recaptcha_v2: challenge => 'recaptcha_v2',
+    },
+});
+webAuth.renderCaptcha(input, {
+    lang: 'pl',
+    templates: {
+        error: error => {
+            return 'error';
+        },
+        auth0: challenge => 'auth0',
+        recaptcha_v2: challenge => 'recaptcha_v2',
+    },
+}, error => {
+    if (error) {
+        // handle error
+    }
+});
+
 const authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
     clientID: '...',

@@ -460,7 +460,7 @@ declare namespace jsrsasign {
             encAlg?: string,
             hexType?: string,
             ivsaltHex?: string,
-        ): void;
+        ): string;
 
         /**
          * get RSAKey/DSA/ECDSA public key object from PEM formatted PKCS#10 CSR string

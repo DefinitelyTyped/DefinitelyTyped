@@ -21,11 +21,11 @@ const config: Configuration = {
             deleteOriginalAssets: true
         }),
         new CompressionPlugin({
-            filename: (info) => {
-                info.file; // $ExpectType string
-                info.path; // $ExpectType string
-                info.query; // $ExpectType string
-                return `${info.path}.gz${info.query}`;
+            filename: pathData => {
+                pathData.file; // $ExpectType string
+                pathData.path; // $ExpectType string
+                pathData.query; // $ExpectType string
+                return `${pathData.path}.gz${pathData.query}`;
             },
         })
     ]
@@ -58,13 +58,14 @@ const badZlib: Configuration = {
     ]
 };
 
-function customAlgorithm(input: string, options: number, callback: (err: Error, result: Buffer) => void) {
-}
-
 const custom: Configuration = {
     plugins: [
         new CompressionPlugin({
-            algorithm: customAlgorithm,
+            algorithm: (input: string, options: number, callback: (err: Error, result: Buffer) => void) => {},
+            compressionOptions: 5
+        }),
+        new CompressionPlugin({
+            algorithm: (input: string, options: number, callback: (err: Error, result: Uint8Array) => void) => {},
             compressionOptions: 5
         })
     ]

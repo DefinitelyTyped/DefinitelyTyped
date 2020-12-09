@@ -2,7 +2,7 @@
 // Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 //                 Aleksey Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Application as FeathersApplication, ServiceMethods, SetupMethod } from '@feathersjs/feathers';

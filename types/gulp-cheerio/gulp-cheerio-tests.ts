@@ -1,4 +1,5 @@
-import cheerio = require('gulp-cheerio');
+import cheerio = require('cheerio');
+import gulpCheerio = require('gulp-cheerio');
 import gulp = require('gulp');
 import Vinyl = require('vinyl');
 
@@ -9,7 +10,7 @@ import Vinyl = require('vinyl');
 gulp.task('sync', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(cheerio(function ($: CheerioStatic, file: Vinyl) {
+        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl) {
             // Each file will be run through cheerio and each corresponding `$` will be passed here.
             // `file` is the gulp file object
             // Make all h1 tags uppercase
@@ -23,7 +24,7 @@ gulp.task('sync', function () {
 gulp.task('async', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(cheerio(function ($: CheerioStatic, file: Vinyl, done: Function) {
+        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl, done: Function) {
             // The only difference here is the inclusion of a `done` parameter.
             // Call `done` when everything is finished. `done` accepts an error if applicable.
             done();
@@ -41,8 +42,8 @@ gulp.task('async', function () {
 gulp.task('sync', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(cheerio({
-            run: function ($: CheerioStatic, file: Vinyl) {
+        .pipe(gulpCheerio({
+            run: function ($: cheerio.Root, file: Vinyl) {
                 // Each file will be run through cheerio and each corresponding `$` will be passed here.
                 // `file` is the gulp file object
                 // Make all h1 tags uppercase
@@ -58,8 +59,8 @@ gulp.task('sync', function () {
 gulp.task('async', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(cheerio({
-            run: function ($: CheerioStatic, file: Vinyl, done: Function) {
+        .pipe(gulpCheerio({
+            run: function ($: cheerio.Root, file: Vinyl, done: Function) {
                 // The only difference here is the inclusion of a `done` parameter.
                 // Call `done` when everything is finished. `done` accepts an error if applicable.
                 done();
@@ -84,5 +85,5 @@ cheerio({
 });
 
 cheerio({
-    cheerio: require('../cheerio/cheerio.d.ts') as CheerioStatic // special version of `cheerio`
+    cheerio: require('../cheerio/cheerio.d.ts')
 });

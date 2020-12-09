@@ -96,7 +96,7 @@ export interface Store<S, A extends Action = Action> {
 }
 
 export function registerGenericStore(key: string, config: GenericStoreConfig): void;
-export function registerStore<T = {}>(key: string, config: StoreConfig<T>): void;
+export function registerStore<T = {}>(key: string, config: StoreConfig<T>): Store<T>;
 
 //
 // Registry

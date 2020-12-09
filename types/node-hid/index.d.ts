@@ -1,4 +1,4 @@
-// Type definitions for node-hid 1.2
+// Type definitions for node-hid 1.3
 // Project: https://github.com/node-hid/node-hid#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 Robert Kiss <https://github.com/ert78gb>
@@ -36,5 +36,6 @@ export class HID extends EventEmitter {
     write(values: number[] | Buffer): number;
     setNonBlocking(no_block: boolean): void;
 }
+export function devices(vid: number, pid: number): Device[];
 export function devices(): Device[];
 export function setDriverType(type: 'hidraw' | 'libusb'): void;

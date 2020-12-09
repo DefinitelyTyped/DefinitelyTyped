@@ -1,5 +1,5 @@
 import { DownloadPreloadOption } from '../system/download-preload';
-import { RGB, ContextMenuSettings, Hotkey } from '../../shapes';
+import { RGB, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
 export interface WindowOption {
     accelerator?: Accelerator;
     alphaMask?: RGB;
@@ -41,6 +41,7 @@ export interface WindowOption {
     saveWindowState?: boolean;
     shadow?: boolean;
     showTaskbarIcon?: boolean;
+    showBackgroundImages?: boolean;
     smallWindow?: boolean;
     state?: string;
     taskbarIconGroup?: string;

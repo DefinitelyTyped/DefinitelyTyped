@@ -309,6 +309,8 @@ export interface Server extends EventEmitter {
      */
     listenFD(fileDescriptor: any): void;
 
+    close(callback: () => void): this;
+
     bind(mount: string, ...cbHandlers: any[]): void;
     add(mount: string, ...cbHandlers: any[]): void;
 

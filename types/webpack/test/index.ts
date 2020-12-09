@@ -109,27 +109,26 @@ configuration = {
 configuration = {
     externals: [
         // Disable TSLint for allowing non-arrow functions
-        /* tslint:disable-next-line */
+        /* tslint:disable-next-line:only-arrow-functions */
         function(context, request, callback) {
-            /* tslint:disable-next-line */
             if (/^yourregex$/.test(request)) {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
             }
             if (request === 'foo') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, ['path', 'to', 'external']);
             }
             if (request === 'bar') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, {}, 'commonjs');
             }
             if (request === 'baz') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, {});
             }
 
@@ -147,7 +146,7 @@ configuration = {
 
             // Continue without externalizing the import
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:no-void-expression */
             return callback();
         },
     ],
@@ -168,11 +167,11 @@ configuration = {
             subtract: ['./math', 'subtract']
             },
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:only-arrow-functions */
             function(context, request, callback) {
               if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
               }
               callback(null, {});
@@ -793,7 +792,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
+(loader as webpack.loader.Loader).pitch = function(this: webpack.loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any) { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
 
@@ -1060,6 +1059,7 @@ configuration = {
                 exclude: path => path.startsWith('/foo'),
                 resourceQuery: ['foo', 'bar'],
                 resolve: {
+                    roots: [process.cwd()],
                     mainFields: ['foo'],
                     aliasFields: [['bar']],
                 },
@@ -1102,14 +1102,19 @@ compiler.hooks.done.tap('foo', stats => {
 
 const multiCompiler = webpack([{}, {}]);
 
-multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
-    const stats = multiStats[0];
+multiCompiler.hooks.done.tap('foo', (multiStats) => {
+    const [firstStat] = multiStats.stats;
 
-    if (stats.startTime === undefined || stats.endTime === undefined) {
+    if (multiStats.hasWarnings() || multiStats.hasErrors()) {
+        throw new Error(multiStats.toString('errors-warnings'));
+    }
+    multiStats.toJson(); // $ExpectType ToJsonOutput
+
+    if (firstStat.startTime === undefined || firstStat.endTime === undefined) {
         throw new Error('Well, this is odd');
     }
 
-    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+    console.log(`Compiled in ${firstStat.endTime - firstStat.startTime}ms`, multiStats.hash);
 });
 
 webpack.Template.getFunctionContent(() => undefined).trimLeft();
@@ -1234,3 +1239,13 @@ compiler.hooks.compilation.tap('SomePlugin', compilation => {
     stats.normalizeFieldKey('field'); // $ExpectType string
     stats.sortOrderRegular('!field'); // $ExpectType boolean
 });
+
+const config1: webpack.ConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return {};
+};
+
+const config2: webpack.MultiConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return [];
+};

@@ -30,3 +30,12 @@ import * as R from 'ramda';
 
   R.pickBy(isUpperCase, { a: 1, b: 2, A: 3, B: 4 }); // => {A: 3, B: 4}
 };
+
+() => {
+    R.pickBy((_, key) => key !== 'c', { a: 1, b: 2, c: 3, d: 4 }); // => { a: 1, b: 2, d: 4 }
+
+    interface T1 { a: number; b: number; c: number; d: number; }
+    const excludePropertyD = R.pickBy<T1>((val, key) => key !== 'd');
+    interface T2 { a: number; b: number; c: number; }
+    const result = excludePropertyD<T2, T1>({ a: 1, b: 2, c: 3, d: 4 }); // => { a: 1, b: 2, c: 3 }
+};

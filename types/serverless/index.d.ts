@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.72
+// Type definitions for serverless 1.78
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -70,7 +70,9 @@ declare class Serverless {
 
     providers: {};
     utils: Utils;
-    variables: {};
+    variables: {
+        populateService(): Promise<any>;
+    };
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
@@ -79,6 +81,17 @@ declare class Serverless {
 
     service: Service;
     version: string;
+
+    resources: AwsProvider.Resources;
+
+    configSchemaHandler: {
+        defineCustomProperties(schema: unknown): void;
+        defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
+        defineFunctionEventProperties(provider: string, existingEvent: string, schema: unknown): void;
+        defineFunctionProperties(provider: string, schema: unknown): void;
+        defineProvider(provider: string, options?: Record<string, unknown>): void;
+        defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
+    };
 }
 
 export = Serverless;

@@ -46,7 +46,8 @@ var voice2 = new Vex.Flow.Voice(Vex.Flow.TIME4_4).addTickables([
 ]);
 
 // Format and justify the notes to 550 pixels
-var formatter = new Vex.Flow.Formatter().joinVoices([voice1, voice2]).format([voice1, voice2], 550);
+var formatter = new Vex.Flow.Formatter({softmaxFactor: null, maxIterations: 2})
+    .joinVoices([voice1, voice2]).format([voice1, voice2], 550);
 
 // Render stave
 stave.draw();

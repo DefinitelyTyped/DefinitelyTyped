@@ -92,6 +92,25 @@ export interface QRCodeToFileStreamOptions extends QRCodeRenderersOptions {
     };
 }
 
+export interface QRCodeToBufferOptions extends QRCodeRenderersOptions {
+    /**
+     * Output format. Only png supported for Buffer.
+     */
+    type?: "png";
+    rendererOpts?: {
+        /**
+         * Compression level for deflate.
+         * Default: 9
+         */
+        deflateLevel?: number;
+        /**
+         * Compression strategy for deflate.
+         * Default: 3
+         */
+        deflateStrategy?: number;
+    };
+}
+
 export interface QRCodeRenderersOptions extends QRCodeOptions {
     /**
      * Define how much wide the quiet zone should be.
@@ -267,3 +286,16 @@ export function toFileStream(stream: stream.Writable, text: string | QRCodeSegme
  * Writes QR Code image to stream. Only works with png format for now.
  */
 export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options: QRCodeToFileStreamOptions, callback: (error: Error) => void): void;
+
+/**
+ * Returns a Buffer containing a representation of the QR Code image. Only works with png format.
+ */
+export function toBuffer(text: string | QRCodeSegment[], callback: (error: Error, buffer: Buffer) => void): void;
+/**
+ * Returns a Buffer containing a representation of the QR Code image. Only works with png format.
+ */
+export function toBuffer(text: string | QRCodeSegment[], options?: QRCodeToBufferOptions): Promise<Buffer>;
+/**
+ * Returns a Buffer containing a representation of the QR Code image. Only works with png format.
+ */
+export function toBuffer(text: string | QRCodeSegment[], options: QRCodeToBufferOptions, callback: (error: Error, buffer: Buffer) => void): void;

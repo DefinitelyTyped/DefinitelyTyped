@@ -1,4 +1,4 @@
-import GlobalsResolver from "@ember/application/globals-resolver";
+import GlobalsResolver from '@ember/application/globals-resolver';
 
 const gr = GlobalsResolver.create();
 

@@ -14,7 +14,7 @@ export interface GroupType<OptionType extends OptionTypeBase> {
 
 export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
 
-export type ValueType<OptionType extends OptionTypeBase> = OptionType | OptionsType<OptionType> | null | undefined;
+export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> =  (IsMulti extends true ? OptionsType<OptionType> : OptionType) | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -33,28 +33,29 @@ export interface PropsWithStyles {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
+  theme: Theme;
 }
 
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType extends OptionTypeBase> {
+export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   clearValue: () => void;
   className?: string;
-  cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void;
+  cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
   /*
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
-  getValue: () => ValueType<OptionType>;
+  getValue: () => ValueType<OptionType, IsMulti>;
   hasValue: boolean;
   isMulti: boolean;
   options: OptionsType<OptionType>;
   selectOption: (option: OptionType) => void;
   selectProps: SelectProps<OptionType>;
-  setValue: (value: ValueType<OptionType>, action: ActionTypes) => void;
+  setValue: (value: ValueType<OptionType, IsMulti>, action: ActionTypes) => void;
 }
 
 export type ActionTypes =

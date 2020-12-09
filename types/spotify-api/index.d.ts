@@ -489,6 +489,14 @@ declare namespace SpotifyApi {
     interface UsersRecentlyPlayedTracksResponse extends CursorBasedPagingObject<PlayHistoryObject> {}
 
     /**
+     * Add an item to the end of the user’s current playback queue.
+     *
+     * POST /v1/me/player/queue
+     * https://developer.spotify.com/documentation/web-api/reference/player/add-to-queue/
+     */
+    interface AddToQueueResponse extends VoidResponse {}
+
+    /**
      * Get recommendations based on seeds
      * 
      * GET /v1/recommendations
@@ -985,6 +993,10 @@ declare namespace SpotifyApi {
          */
         collaborative: boolean;
         /**
+         * The playlist description. Only returned for modified, verified playlists, otherwise null.
+         */
+        description: string | null;
+        /**
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.
          */
         id: string;
@@ -1023,10 +1035,6 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#playlist-object-full)
      */
     interface PlaylistObjectFull extends PlaylistBaseObject {
-        /**
-         * The playlist description. Only returned for modified, verified playlists, otherwise null.
-         */
-        description: string | null;
         /**
          * Information about the followers of the playlist.
          */

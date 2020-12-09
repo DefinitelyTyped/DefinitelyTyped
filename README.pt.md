@@ -9,31 +9,36 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 ## Tabela de Conteúdos
 
 * [Status atual](#status-atual)
+* [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)
+* [Como eu consigo eles?](#como-eu-consigo-eles)
 * [Como eu posso contribuir?](#como-eu-posso-contribuir)
-    * [Testando](#testando)
-    * [Faça uma pull request](#faça-uma-pull-request)
-        * [Edite um pacote existente](#edite-um-pacote-existente)
-        * [Crie um novo pacote](#crie-um-novo-pacote)
-        * [Erros comuns](#erros-comuns)
-        * [Removendo um pacote](#removendo-um-pacote)
-        * [Linter](#linter)
-        * [Verificando](#verificando)
+  - [Testando](#testando)
+  - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
+    - [Edite um pacote existente](#edite-um-pacote-existente)
+    - [Crie um novo pacote](#crie-um-novo-pacote)
+    - [Erros comuns](#erros-comuns)
+    - [Removendo um pacote](#removendo-um-pacote)
+    - [Verificando](#verificando)
+    - [\<my package>-tests.ts](#my-package-teststs)
+    - [Linter](#linter)
+    - [package.json](#package.json)
+    </details>
+  - [Donos de definição](#donos-de-definição)
 * [FAQ](#faq)
+* [Licença](#licença)
 
 ## Status atual
 
 Essa seção acompanha a saúde do respositório e o processo de publicação.
-Ela pode servir de ajuda para contribuidores que estejam passado por problemas com suas PRs e pacotes.
+Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
 * Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
-* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/types-publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
+* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Atualizações do status da infraestrutura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) atual
 
-Se algo aqui parece estar errado, ou se algum dos itens acima está falhando, por favor fale sobre este problema no [canal do Definitely Typed no Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
-
-[![Entre no chat em https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Se algo aqui parece estar errado, ou se algum dos itens acima está falhando, por favor fale sobre este problema no [canal do Definitely Typed no Discord](https://discord.gg/typescript).
 
 ## O que são arquivos de declaração?
 
@@ -65,11 +70,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (2.9 e anteriores)
+#### Versões antigas do TypeScript (3.1 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.0 e acima são testadas.
-Se você está usando as versões 2.0 a 2.9 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.2 e acima são testadas.
+Se você está usando as versões 2.0 a 3.1 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -87,6 +92,7 @@ Versão | Lançada em | Término do suporte
 3.7 | Novembro 2019 | Novembro 2021
 3.8 | Fevereiro 2020 | Fevereiro 2022
 3.9 | Maio 2020 | Maio 2022
+4.0 | Agosto 2020 | Agosto 2022
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -136,8 +142,6 @@ Crie o arquivo `types/foo/index.d.ts` contendo as declarações para o módulo "
 Você deve conseguir fazer imports de `"foo"` em seu código e ele será redirecionado para a nova definição de tipos.
 Então faça uma build *e* execute o código para ter certeza que sua definição de tipos realmente corresponde ao que acontece em tempo de execução.
 
-Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
-
 Logo após testar suas definições com um código real, faça uma [PR](#faça-uma-pull-request)
 e então siga as instruções para [editar um pacote existente](#edite-um-pacote-existente) ou
 [criar um novo pacote](#crie-um-novo-pacote).
@@ -153,47 +157,12 @@ Primeiro, [faça um fork](https://guides.github.com/activities/forking/) deste r
 #### Edite um pacote existente
 
 * `cd types/meu-pacote-para-editar`
-* Faça as mudanças. Lembre de editar os testes.
+* Faça as mudanças. Lembre de [editar os testes](#my-package-teststs).
   Se você está fazendo mudanças que podem "quebrar" o pacote, não se esqueça de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versão-major-com-mudanças-drásticas-como-eu-devo-atualizar-a-declaração-de-tipos).
-
-* Se há um `tslint.json`, execute `npm run lint nome-do-pacote`. Senão, execute `tsc` no diretório do pacote.
+* [Execute `npm test nome-do-pacote`](#verificando).
 
 Quando você fizer uma PR para editar um pacote existente, o `dt-bot` deve mencionar (usando "@") os antigos autores.
 Se ele não o fizer, você mesmo pode fazer isso no comentário associado a PR.
-
-#### Editando testes em um pacote existente
-
-Deve existir um arquivo `[nomedomódulo]-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
-
-Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-
-Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
-
-`index.d.ts`:
-
-```diff
-- export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
-```
-
-`index-tests.ts`:
-```diff
-import {twoslash} from "./"
-
-// $ExpectType string
-const result = twoslash("//")
-
-+ // Lida com o parâmetro options
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
-+ // Quando o parâmetro está incorreto
-+ // $ExpectError
-+ const resultWithOptions = twoslash("//", {  })
-```
-
-Você pode validar suas mudanças executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
 #### Crie um novo pacote
 
@@ -208,7 +177,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | Arquivo | Propósito |
 | --- | --- |
 | index.d.ts | Contém os tipos para o pacote. |
-| foo-tests.ts | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
+| [\<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
 | tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
 | tslint.json | Habilita a análise do código pelo linter. |
 
@@ -222,26 +191,6 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
-## Donos de definição
-
-O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
-  - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
-  - Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
-  - Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
-
- Para se adicionar como um Dono de definição:
-  
-  - Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Ou se há muitas pessoas, pode ser em várias linhas:
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
-
-Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
 
 #### Erros comuns
 
@@ -272,15 +221,14 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`
+Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
 - `typingsPackageName`: O nome do diretório a ser deletado.
 - `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `sourceRepoURL`: Essa URL deve apontar um repositório que contém os tipos.
 - `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao "typingsPackageName", e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
-Você pode obter esta lista olhando os erros do `npm run test`.
-Para corrigir os erros, adicione o arquivo `package.json` com `"dependencies": { "foo": "x.y.z" }`.
+Você pode obter esta lista olhando os erros do `npm test`.
+Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "foo": "x.y.z" }`.
 Por exemplo:
 
 ```json
@@ -292,9 +240,63 @@ Por exemplo:
 }
 ```
 
-Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao dependenciesWhitelist.txt em types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
+
+#### Verificando
+
+Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+
+Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+
+#### \<my package>-tests.ts
+
+Deve existir um arquivo `<my package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
+
+Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+
+Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`<my package>-tests.ts`:
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Lida com o parâmetro options
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // Quando o parâmetro está incorreto
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
+
+Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
+
+Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("um");
+```
+
+Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
 
 #### Linter
 
@@ -317,32 +319,48 @@ Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finaliza
 }
 ```
 
-(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
+(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `// tslint:disable-next-line nome-da-regra`.)
 
-Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
 
-```js
-// $ExpectType void
-f(1);
+#### package.json
 
-// $ExpectError
-f("um");
-```
+Geralmente você não precisa disso.
+O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
+Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
+[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
+Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
 
-Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
+Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
 
-## Verificando
+### Donos de definição
 
-Teste suas mudanças executando o comando `npm run lint nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+* Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
+* Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
+* Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
 
+Para se adicionar como um Dono de definição:
+
+* Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Ou se há muitas pessoas, pode ser em várias linhas:
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
 
 ## FAQ
 
 #### Qual exatamente é a relação entre este repositório e os pacotes `@types` no NPM?
 
-A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [types-publisher](https://github.com/Microsoft/types-publisher).
+A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### Eu já enviei uma pull request. Quanto tempo pode demorar até que haja um merge?
 
@@ -356,25 +374,12 @@ PRs que forem aprovadas por um autor listado no cabeçalho da definição geralm
 
 #### Minha PR já sofreu merge; Quando é que o pacote `@types` no NPM será atualizado?
 
-Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Gitter do Definitely Typed](https://gitter.im/DefinitelyTyped/DefinitelyTyped) e um mantenedor vai contatar o membro certo do time para investigar.
+Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Discord do Definitely Typed](https://discord.gg/typescript) e um mantenedor vai contatar o membro certo do time para investigar.
 
 #### Eu estou criando uma definição que depende de outra definição. Eu deveria usar `<reference types="" />` ou um import?
 
 Se o módulo o qual você está referenciando é um módulo externo (usa `export`), use um import.
 Se o módulo que você está referenciando é um módulo de ambiente (usa `declare module`, ou apenas declara globalmente), use `<reference types="" />`.
-
-#### Eu percebi que alguns pacotes tem um `package.json` aqui.
-
-Geralmente você não precisa disso.
-O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
-Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
-[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
-Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
-Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
-
-Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
-Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
 
 #### Alguns pacotes não têm `tslint.json`, e alguns arquivos `tsconfig.json` não têm `"noImplicitAny": true`, `"noImplicitThis": true`, ou `"strictNullChecks": true`.
 
@@ -412,9 +417,9 @@ e [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-not
 Não mude a definição de tipo se ela já está correta.
 Para um pacote NPM, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
 
-#### Eu quero usar features do TypeScript 3.1 ou superior.
+#### Eu quero usar features do TypeScript 3.3 ou superior.
 
-Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 Entretanto, se o seu projeto precisa manter tipos que são compatíveis com o 3.1 e superior *ao mesmo tempo que* tipos que são compatíveis com o 3.0 ou inferior, você vai precisar usar a feature `typesVersions`, que está disponível no TypeScript 3.1 e superior.
 Você pode achar uma explicação detalhada dessa feature na [documentação oficial do TypeScript](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
@@ -460,7 +465,7 @@ Quando o padrão sair do papel, nós o removeremos do Definitely Typed e descont
 _NOTA: A discussão nesta sessão supõe familiaridade com [versionamento semântico](https://semver.org/)_
 
 Cada pacote do Definitely Typed é versionado ao ser publicado ao NPM.
-O [types-publisher](https://github.com/Microsoft/types-publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
+O [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
 Por exemplo, aqui estão as primeiras linhas das [declarações de tipo do Node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) para a versão `10.12.x`, no momento de escrita:
 
 ```js
@@ -550,7 +555,7 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

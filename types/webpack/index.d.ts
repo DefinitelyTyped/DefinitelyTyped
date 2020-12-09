@@ -21,6 +21,7 @@
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,7 +44,7 @@ import {
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
-import { ConcatSource } from 'webpack-sources';
+import { Source, ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -151,12 +152,12 @@ declare namespace webpack {
     }
 
     type ConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
@@ -390,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -415,7 +423,7 @@ declare namespace webpack {
         /**
          * Callback with an Error
          */
-        (error: {}): void; /* tslint:disable-line */
+        (error: {}): void; /* tslint:disable-line:unified-signatures */
         /**
          * Externalize the dependency
          */
@@ -603,7 +611,6 @@ declare namespace webpack {
     type Rule = RuleSetRule;
 
     namespace Options {
-        // tslint:disable-next-line:max-line-length
         type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
             | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
             | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
@@ -778,8 +785,71 @@ declare namespace webpack {
         }
     }
 
+    type LibraryExport = string | string[];
+
+    interface AssetInfo {
+        /**
+         * true, if the asset can be long term cached forever (contains a hash)
+         */
+        immutable?: boolean;
+
+        /**
+         * the value(s) of the full hash used for this asset
+         */
+        fullhash?: LibraryExport;
+
+        /**
+         * the value(s) of the chunk hash used for this asset
+         */
+        chunkhash?: LibraryExport;
+
+        /**
+         * the value(s) of the module hash used for this asset
+         */
+        modulehash?: LibraryExport;
+
+        /**
+         * the value(s) of the content hash used for this asset
+         */
+        contenthash?: LibraryExport;
+
+        /**
+         * size in bytes, only set after asset has been emitted
+         */
+        size?: number;
+
+        /**
+         * true, when asset is only used for development and doesn't count towards user-facing assets
+         */
+        development?: boolean;
+
+        /**
+         * true, when asset ships data for updating an existing application (HMR)
+         */
+        hotModuleReplacement?: boolean;
+
+        /**
+         * object of pointers to other assets, keyed by type of relation (only points from parent to child)
+         */
+        related?: Record<string, LibraryExport>;
+    }
+
     namespace compilation {
         class Asset {
+            /**
+             * the filename of the asset
+             */
+            name: string;
+
+            /**
+             * source of the asset
+             */
+            source: Source;
+
+            /**
+             * info about the asset
+             */
+            info: AssetInfo;
         }
 
         class DependenciesBlock {
@@ -955,6 +1025,7 @@ declare namespace webpack {
         }
 
         class ChunkHash {
+            update(data: string | Buffer, inputEncoding?: string): ChunkHash;
         }
 
         interface SourcePosition {
@@ -1267,6 +1338,13 @@ declare namespace webpack {
                 contentHash?: string,
             }): string;
 
+            getAsset(name: string): Readonly<Asset>;
+            updateAsset(
+                file: string,
+                newSourceOrFunction: Source | ((arg0: Source) => Source),
+                assetInfoUpdateOrFunction?: AssetInfo | ((arg0: AssetInfo) => AssetInfo)
+            ): void;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1304,6 +1382,14 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
+            /** Returns true if there were warnings while compiling. */
+            hasWarnings(): boolean;
+            /** Returns compilation information as a JSON object. */
+            toJson(options?: Stats.ToJsonOptions): Stats.ToJsonOutput;
+            /** Returns a formatted string of the compilation information (similar to CLI output). */
+            toString(options?: Stats.ToStringOptions): string;
         }
 
         interface MultiCompilerHooks {
@@ -1316,13 +1402,14 @@ declare namespace webpack {
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
-        run(handler: ICompiler.Handler): void;
-        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
+        run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
     }
 
     namespace ICompiler {
+        import MultiStats = compilation.MultiStats;
         type Handler = (err: Error, stats: Stats) => void;
-
+        type MultiHandler = (err: Error, stats: MultiStats) => void;
         interface WatchOptions {
             /**
              * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
@@ -1417,7 +1504,7 @@ declare namespace webpack {
     }
 
     namespace MultiCompiler {
-        type Handler = ICompiler.Handler;
+        type Handler = ICompiler.MultiHandler;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -1429,6 +1516,11 @@ declare namespace webpack {
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
     }
+
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
+    interface WebpackPluginInstance extends Plugin {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
@@ -2107,7 +2199,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
+            pitch?(this: LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -2118,7 +2210,11 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
+        type loaderCallback = (
+            err: Error | undefined | null,
+            content?: string | Buffer,
+            sourceMap?: string | RawSourceMap
+        ) => void;
 
         interface LoaderContext {
             /**

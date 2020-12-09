@@ -12,6 +12,8 @@ declare global {
     class Airtable {
         constructor(options?: Airtable.AirtableOptions);
         base(appId: string): Airtable.Base;
+        static base(appId: string): Airtable.Base;
+        static configure(options?: Airtable.AirtableOptions): Airtable;
     }
 
     namespace Airtable {
@@ -50,8 +52,8 @@ declare global {
         }
 
         interface SortParameter {
-          field: string;
-          direction?: 'asc' | 'desc';
+            field: string;
+            direction?: 'asc' | 'desc';
         }
 
         interface SelectOptions {
@@ -99,9 +101,9 @@ declare global {
         }
 
         interface Collaborator {
-          id: string;
-          email: string;
-          name: string;
+            id: string;
+            email: string;
+            name: string;
         }
     }
 }

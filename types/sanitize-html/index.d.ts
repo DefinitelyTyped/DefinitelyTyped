@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 1.23.0
+// Type definitions for sanitize-html 1.27
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -13,7 +13,6 @@
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import { ParserOptions } from "htmlparser2";
 
@@ -22,11 +21,9 @@ export = sanitize;
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
 declare namespace sanitize {
-  type Attributes = { [attr: string]: string };
+  interface Attributes { [attr: string]: string; }
 
-
-  type Tag = { tagName: string; attribs: Attributes; text?: string; };
-
+  interface Tag { tagName: string; attribs: Attributes; text?: string; }
 
   type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
@@ -34,6 +31,7 @@ declare namespace sanitize {
 
   type DisallowedTagsModes = 'discard' | 'escape' | 'recursiveEscape';
 
+  // tslint:disable-next-line:interface-name
   interface IDefaults {
     allowedAttributes: { [index: string]: AllowedAttribute[] };
     allowedSchemes: string[];
@@ -46,6 +44,7 @@ declare namespace sanitize {
     selfClosing: string[];
   }
 
+  // tslint:disable-next-line:interface-name
   interface IFrame {
     tag: string;
     attribs: { [index: string]: string };
@@ -53,11 +52,12 @@ declare namespace sanitize {
     tagPosition: number;
   }
 
-
+  // tslint:disable-next-line:interface-name
   interface IOptions {
     allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
-    allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
-    allowedClasses?: { [index: string]: string[] } | boolean;
+    allowedStyles?: { [index: string]: { [index: string]: RegExp[] } };
+    allowedClasses?: { [index: string]: string[] | boolean };
+    allowedIframeDomains?: string[];
     allowedIframeHostnames?: string[];
     allowIframeRelativeUrls?: boolean;
     allowedSchemes?: string[] | boolean;
@@ -65,7 +65,8 @@ declare namespace sanitize {
     allowedSchemesAppliedToAttributes?: string[];
     allowProtocolRelative?: boolean;
     allowedTags?: string[] | boolean;
-    textFilter?: (text: string, tagName: string) => string; 
+    allowVulnerableTags?: boolean;
+    textFilter?: (text: string, tagName: string) => string;
     exclusiveFilter?: (frame: IFrame) => boolean;
     nonTextTags?: string[];
     selfClosing?: string[];
@@ -81,9 +82,7 @@ declare namespace sanitize {
     enforceHtmlBoundary?: boolean;
   }
 
-
-  var defaults: IDefaults;
-
+  let defaults: IDefaults;
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }

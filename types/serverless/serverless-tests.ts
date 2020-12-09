@@ -121,6 +121,7 @@ const awsServerless: Aws.Serverless = {
         awsKmsKeyArn: 'testAwsKmsKeyArn'
     },
     frameworkVersion: 'testFrameworkVersion',
+    configValidationMode: 'error',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
@@ -342,7 +343,10 @@ const awsServerless: Aws.Serverless = {
             onError: 'testonError',
             awsKmsKeyArn: 'testawsKmsKeyArn',
             environment: {
-                testenvironment: 'testenvironmentvalue'
+                testenvironment: 'testenvironmentvalue',
+                testRefEnvironment: {
+                    Ref: 'MyRessource',
+                }
             },
             tags: {
                 testtagkey: 'testtagvalue'
@@ -404,7 +408,14 @@ const awsServerless: Aws.Serverless = {
                                 },
                             },
                             schema: {
-                                'application/json': 'schema1'
+                                'application/json': {
+                                    type: 'object',
+                                    properties: {
+                                        productId: {
+                                            type: 'integer'
+                                        }
+                                    }
+                                }
                             },
                         }
                     },
@@ -453,6 +464,7 @@ const awsServerless: Aws.Serverless = {
                     schedule: '1',
                 }, {
                     sns: {
+                        arn: 'testarn',
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
                         filterPolicy: ['testfilterpolicy'],
@@ -477,6 +489,14 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
+                        enabled: true
+                    }
+                }, {
+                    msk: {
+                        arn: 'testarn',
+                        topic: 'testTopic',
+                        batchSize: 1,
+                        startingPosition: 'LATEST',
                         enabled: true
                     }
                 }, {
@@ -585,6 +605,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     resources: {
+        Description: 'testStackDescription',
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',

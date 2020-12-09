@@ -35,7 +35,7 @@ expectType<
     | undefined
 >(ES2015.Type<any>(any));
 
-ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
+ES2015.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
 ES2015.ToInt16(any); // $ExpectType number
 ES2015.ToInt8(any); // $ExpectType number
 ES2015.ToUint8(any); // $ExpectType number
@@ -81,7 +81,6 @@ ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise
 
 // $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
-    // tslint:disable-next-line: invalid-void
     ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );
 
@@ -107,6 +106,14 @@ ES2015.GetMethod(anyIterator, 'next'); // $ExpectType (...args: [] | [unknown]) 
 ES2015.GetMethod(anyIterator, 'throw'); // $ExpectType ((e?: any) => IteratorResult<unknown, unknown>) | undefined
 ES2015.GetMethod(anyIterator, 'return'); // $ExpectType ((value?: unknown) => IteratorResult<unknown, unknown>) | undefined
 
+ES2015.Get(Object, 'prototype'); // $ExpectType Object
+ES2015.Get(123, 'valueOf'); // $ExpectError
+ES2015.Get(null, 'toString'); // $ExpectError
+
+ES2015.GetV(Object, 'prototype'); // $ExpectType Object
+ES2015.GetV(123, 'valueOf'); // $ExpectType () => number
+ES2015.GetV(null, 'toString'); // $ExpectError
+
 expectType<ES2015.PropertyDescriptor<typeof Reflect.getPrototypeOf> | undefined>(
     ES2015.OrdinaryGetOwnProperty(Reflect, 'getPrototypeOf'),
 );
@@ -115,7 +122,6 @@ expectType<ES2015.PropertyDescriptor<typeof Reflect.setPrototypeOf> | undefined>
 );
 
 const completeNullishUnionDescriptor = ES2015.CompletePropertyDescriptor(
-    // tslint:disable-next-line: no-null-undefined-union
     newType<{ '[[Value]]': object | null | undefined }>(),
 );
 completeNullishUnionDescriptor['[[Configurable]]']; // $ExpectType boolean
@@ -140,6 +146,50 @@ completeAccessorDescriptor['[[Configurable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Get]]']; // $ExpectType (() => symbol) | undefined
 completeAccessorDescriptor['[[Set]]']; // $ExpectType ((value: symbol) => void) | undefined
+
+declare namespace testDefinePropertyOrThrow {
+    interface Foo {
+        bar: string;
+    }
+}
+
+function testDefinePropertyOrThrow(foo: testDefinePropertyOrThrow.Foo) {
+    ES2015.DefinePropertyOrThrow(foo, 'baz', {
+        '[[Configurable]]': true,
+        '[[Writable]]': true,
+        '[[Value]]'() {
+            this; // $ExpectType Foo
+            this.bar; // $ExpectType string
+        },
+    });
+}
+
+declare class Foo {}
+
+declare const Bar: {
+    (): any;
+    new (): object;
+    readonly prototype: unknown;
+};
+
+declare const Baz: {
+    (foo: number): any;
+    new (bar: string): object;
+    readonly prototype?: unknown;
+};
+
+// tslint:disable-next-line: ban-types
+declare const Biz: { readonly prototype?: null } & Omit<Function, 'prototype'>;
+
+ES2015.GetPrototypeFromConstructor(Foo, '%Object.prototype%'); // $ExpectType Foo
+ES2015.GetPrototypeFromConstructor(Bar, '%Object.prototype%'); // $ExpectType Object
+ES2015.GetPrototypeFromConstructor(Baz, '%Object.prototype%'); // $ExpectType Object
+ES2015.GetPrototypeFromConstructor(Biz, '%Object.prototype%'); // $ExpectType Object
+
+ES2015.GetPrototypeFromConstructor(Foo, 'unknown'); // $ExpectType Foo
+ES2015.GetPrototypeFromConstructor(Bar, 'unknown'); // $ExpectType object
+ES2015.GetPrototypeFromConstructor(Baz, 'unknown'); // $ExpectType object
+ES2015.GetPrototypeFromConstructor(Biz, 'unknown'); // $ExpectType object
 
 // Removed in ES2015:
 ES2015.CheckObjectCoercible; // $ExpectError

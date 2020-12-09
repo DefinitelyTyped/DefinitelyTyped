@@ -4,6 +4,8 @@
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
 //                 Lucas Motta <https://github.com/lucasmotta>
+//                 Tom Xu <https://github.com/hengkx>
+//                 Leo Toneff <https://github.com/bragle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -23,6 +25,7 @@ import {
     Stats,
     TransferOptions,
     ReadFileOptions,
+    WriteFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
     FileEntry
@@ -457,6 +460,8 @@ export interface ConnectConfig {
     compress?: boolean | 'force';
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: (information: string) => any;
+    /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
+    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any;
 }
 
 export interface TcpConnectionDetails {
@@ -1307,6 +1312,24 @@ export interface SFTPWrapper extends events.EventEmitter {
 
     /**
      * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new writable stream for `path`.
      */
     createWriteStream(path: string, options?: WriteStreamOptions): stream.Writable;
@@ -1453,6 +1476,14 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
     stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+
+    /**
+     * (Client-only)
+     * `path` exists.
+     *
+     * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+     */
+    exists(path: string, callback: (err: any) => void): boolean;
 
     /**
      * (Client-only)

@@ -143,13 +143,11 @@ function test_table2() {
 
     table.create = true;
 
-    ([
-        { name: 'name', type: { typeName: 'VarChar', length: sql.MAX }, nullable: false },
-        { name: 'type', type: { typeName: 'Int' }, nullable: false },
-        { name: 'type', type: { typeName: 'Decimal', precision: 7, scale: 2 }, nullable: false }
-    ] as any[])
-        .forEach((col: sql.IColumn) =>
-            table.columns.add(col.name, _getSqlType(col.type), { nullable: col.nullable }));
+    table.columns.add('col1', sql.VarChar, { length: sql.MAX, nullable: false });
+    table.columns.add('col2', sql.Int, { nullable: false, identity: true });
+    table.columns.add('col3', sql.VarChar, { nullable: false, readOnly: true });
+    table.columns.add('col4', sql.VarChar, { nullable: false, length: 20 });
+    table.columns.add('col5', sql.Decimal(7, 2), { nullable: false});
 
     [['name', 42, 3.50], ['name2', 7, 3.14]].forEach((row: sql.IRow) => table.rows.add(...row));
 }
@@ -248,4 +246,37 @@ async function test_msnodesqlv8() {
     await connection.connect();
     const result = await connection.query`SELECT * FROM sys.databases`;
     await connection.close();
+}
+
+function test_rows_and_columnns() {
+    var table = new sql.Table('#temp_table3');
+    table.columns.forEach(col => col.name)
+}
+
+function test_mssql_errors() {
+    // Test constructors
+    const sqlDriverError = new Error('mock error');
+    const mssqlStringError = new sql.MSSQLError('Something went wrong');
+    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, 'EREQUEST');
+    const connectionError = new sql.ConnectionError(sqlDriverError, 'ELOGIN');
+    const requestError = new sql.RequestError(sqlDriverError, 'EREQUEST');
+    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, 'EINJECT');
+    const transactionError = new sql.TransactionError(sqlDriverError, 'EABORT');
+
+    // Test inheritance
+    if (
+        'name' in baseMSSQLError &&
+        'name' in connectionError &&
+        'name' in requestError &&
+        'name' in preparedStatementError &&
+        'name' in transactionError
+    ) {
+        let name: string = baseMSSQLError.name;
+        let msg: string = requestError.message;
+        let lineNo: number = requestError.lineNumber;
+        let err: Error = requestError.originalError;
+        err = connectionError.originalError;
+        err = preparedStatementError.originalError;
+        err = transactionError.originalError;
+    }
 }

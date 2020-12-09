@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@open-wc/webpack-import-meta-loader": [
-                "open-wc__webpack-import-meta-loader"
+            "@open-wc/*": [
+                "open-wc__*"
             ]
         }
     },

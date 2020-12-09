@@ -1,4 +1,4 @@
-import sermver = require('../');
+import sermver = require('../index');
 import SemVer = require('./semver');
 
 declare class Comparator {
