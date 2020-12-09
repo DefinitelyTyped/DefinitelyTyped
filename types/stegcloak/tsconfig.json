@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "stegclock-tests.ts"
+        "stegcloak-tests.ts"
     ]
 }
