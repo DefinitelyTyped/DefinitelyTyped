@@ -1,6 +1,6 @@
 import SitemapGenerator from 'sitemap-generator';
 
-// @ts-expect-error - no url
+// $ExpectError
 SitemapGenerator();
 
 SitemapGenerator('https://example.com/');
@@ -16,7 +16,7 @@ const generator = SitemapGenerator('https://example.com/', {
     // simplecrawler props
     userAgent: 'Node/SitemapGenerator',
     stripQuerystring: false,
-    // @ts-expect-error - exclude simplecrawler methods
+    // $ExpectError
     wait: () => {},
 });
 
@@ -26,9 +26,9 @@ generator.on('ignore', () => {});
 generator.on('error', error => {
     error.message;
 });
-// @ts-expect-error - invalid event
+// $ExpectError
 generator.on('bar', () => {});
-// @ts-expect-error - invalid arg
+// $ExpectError
 generator.on('add', error => {
     error.message;
 });
