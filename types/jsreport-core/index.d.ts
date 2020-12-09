@@ -37,9 +37,13 @@ declare namespace JsReport {
     }
 
     interface Request {
+        /** @default true */
         value?: boolean;
+        /** @default false */
         writable?: boolean;
+        /** @default false */
         configurable?: boolean;
+        /** @default false */
         enumerable?: boolean;
         template: Partial<Template>;
         options?: Partial<RequestOptions>;
