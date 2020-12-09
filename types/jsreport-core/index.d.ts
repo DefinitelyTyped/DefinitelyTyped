@@ -18,11 +18,16 @@ declare namespace JsReport {
     type Recipe = "html";
 
     interface Template {
-        content?: string;
+        /** template for the engine */
+        content: string;
+        /** templating engine used to assemble document */
         engine: Engine | string;
+        /** javascript helper functions used by templating engines */
         helpers?: Helpers;
+        /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string;
+        name?: string;
     }
 
     interface RequestOptions {
