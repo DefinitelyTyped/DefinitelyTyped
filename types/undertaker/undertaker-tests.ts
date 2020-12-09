@@ -45,11 +45,10 @@ taker.task("task5", () => {
 
 taker.task("task6", () => exec("ls"));
 
-taker.task("task7", () => {
-    const lsProcess = exec("ls");
-    return fromEvent(lsProcess, "exit");
-});
-
+declare const task7: () => {
+    subscribe(next?: (v: any) => void, error?: (e: any) => void, complete?: () => void);
+};
+taker.task("task7", task7);
 taker.task("combined", taker.series("task1", "task2"));
 
 taker.task("all", taker.parallel("combined", "task3"));
