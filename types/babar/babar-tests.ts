@@ -1,4 +1,4 @@
-import babar from "babar";
+import babar = require('babar');
 
 // $ExpectType string
 const graph = babar([[0, 1], [1, 5], [2, 5], [3, 1], [4, 6]]);

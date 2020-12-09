@@ -18,7 +18,6 @@ interface Options {
     minY?: number;
     maxY?: number;
 }
-
 declare function babar(points: ReadonlyArray<[number, number]>, options?: Options): string;
 
 export = babar;
