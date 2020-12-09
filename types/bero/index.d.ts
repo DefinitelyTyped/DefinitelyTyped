@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-type Block = string;
+export type Block = string;
 
-type Element = string | { [index: string]: any } | Array<string | undefined>;
+export type Element = string | { [index: string]: any } | Array<string | undefined>;
 
-type Modifier = { [index: string]: any } | Array<string | undefined>;
+export type Modifier = { [index: string]: any } | Array<string | undefined>;
 
-type Bemmed = (arg1?: Element | Modifier, arg2?: Modifier) => string;
+export type Bemmed = (arg1?: Element | Modifier, arg2?: Modifier) => string;
 
-type Joiner = string[];
+export type Joiner = string[];
 
-type Joined = string;
+export type Joined = string;
 
 export default function bem(block?: string, element?: Element, modifier?: Modifier): Bemmed;
 
