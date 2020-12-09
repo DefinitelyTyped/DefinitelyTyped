@@ -144,6 +144,9 @@ function testDeleteIn() {
     cf = cf.deleteIn();
     cf = cf.deleteIn(node);
     cf = cf.deleteIn([node, node]);
+    cf = cf.deleteIn([node, node], node);
+    cf = cf.deleteIn([node, node], [node]);
+    cf = cf.deleteIn([node, node], cf.out());
 }
 
 function testDeleteList() {
@@ -156,6 +159,9 @@ function testDeleteOut() {
     cf = cf.deleteOut();
     cf = cf.deleteOut(node);
     cf = cf.deleteOut([node, node]);
+    cf = cf.deleteOut([node, node], node);
+    cf = cf.deleteOut([node, node], [node]);
+    cf = cf.deleteOut([node, node], cf.out());
 }
 
 function testFactory() {

@@ -92,8 +92,8 @@ declare namespace clownface {
 
     addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): AnyPointer<T, D>;
 
-    deleteIn(predicates?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
-    deleteOut(predicates?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
+    deleteIn(predicates?: SingleOrArrayOfTerms<Term>, subjects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
+    deleteOut(predicates?: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
     deleteList(predicates: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
   }
 
