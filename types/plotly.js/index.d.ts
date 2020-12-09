@@ -465,6 +465,7 @@ export interface Layout {
     polar9: Partial<PolarLayout>;
     transition: Transition;
     template: Template;
+    clickmode: 'event' | 'select' | 'event+select' | 'none';
 }
 
 export interface Legend extends Label {
