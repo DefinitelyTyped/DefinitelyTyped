@@ -5,13 +5,11 @@
 
 import { ExtensionDefinition } from 'jsreport-core';
 
-declare module 'jsreport-core' {
-    interface Template {
+declare namespace JsReportDocx {
+    interface DocxTemplateModifier {
         docx?: JsReportDocx.DocxTemplate;
     }
-}
 
-declare namespace JsReportDocx {
     interface Configuration {
         preview?: {
             enabled: true;
@@ -26,6 +24,12 @@ declare namespace JsReportDocx {
             content: string;
             encoding: string;
         };
+    }
+}
+
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        DocxTemplateModifier: JsReportDocx.DocxTemplateModifier
     }
 }
 
