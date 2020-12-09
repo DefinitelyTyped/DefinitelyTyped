@@ -1,7 +1,6 @@
 import { exec } from "child_process";
 import { EventEmitter } from "events";
 import * as fs from "fs";
-import { fromEvent } from "rxjs";
 import Undertaker = require("undertaker");
 import Registry = require("undertaker-registry");
 

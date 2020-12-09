@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "async-done": "^1.3.2",
-        "rxjs": "^6.6.3"
+        "async-done": "^1.3.2"
     }
 }
