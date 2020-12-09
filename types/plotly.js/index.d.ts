@@ -19,14 +19,18 @@
 //                 Brandon Mitchell <https://github.com/brammitch>
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
 //                 Oleg Shilov <https://github.com/olegshilov>
+//                 Pablo Gracia <https://github.com/PabloGracia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.4cd
 
 import * as _d3 from 'd3';
-import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
+import { BoxPlotData } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
+import { OhclData } from './lib/traces/ohcl';
+import { CandlestickData } from './lib/traces/candlestick';
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData };
+export { BoxPlotData, ViolinData, OhclData, CandlestickData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -434,7 +438,6 @@ export interface Layout {
     barnorm: '' | 'fraction' | 'percent';
     bargap: number;
     bargroupgap: number;
-    boxmode: 'group' | 'overlay';
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
     grid: Partial<{
@@ -1073,7 +1076,13 @@ export type PlotType =
     | 'volume'
     | 'waterfall';
 
-export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
+export type Data =
+    | Partial<PlotData>
+    | Partial<BoxPlotData>
+    | Partial<ViolinData>
+    | Partial<OhclData>
+    | Partial<CandlestickData>;
+
 export type Color =
     | string
     | number
@@ -1107,7 +1116,7 @@ export interface PlotData {
     'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
     'line.smoothing': number;
     'line.simplify': boolean;
-    marker: Partial<PlotMarker> | Partial<BoxPlotMarker>;
+    marker: Partial<PlotMarker>;
     'marker.symbol': MarkerSymbol | MarkerSymbol[];
     'marker.color': Color;
     'marker.colorscale': ColorScale | ColorScale[];
@@ -1270,7 +1279,6 @@ export interface PlotData {
     branchvalues: 'total' | 'remainder';
     ids: string[];
     level: string;
-    cliponaxis: boolean;
 }
 
 /**
@@ -1358,26 +1366,26 @@ export type MarkerSymbol = string | number | Array<string | number>;
 export interface PlotMarker {
     symbol: MarkerSymbol;
     color: Color | Color[];
-    colors?: Color[];
-    colorscale?: ColorScale;
-    cauto?: boolean;
-    cmax?: number;
-    cmin?: number;
-    autocolorscale?: boolean;
-    reversescale?: boolean;
+    colors: Color[];
+    colorscale: ColorScale;
+    cauto: boolean;
+    cmax: number;
+    cmin: number;
+    autocolorscale: boolean;
+    reversescale: boolean;
     opacity: number | number[];
     size: number | number[];
-    maxdisplayed?: number;
-    sizeref?: number;
-    sizemax?: number;
-    sizemin?: number;
-    sizemode?: 'diameter' | 'area';
-    showscale?: boolean;
+    maxdisplayed: number;
+    sizeref: number;
+    sizemax: number;
+    sizemin: number;
+    sizemode: 'diameter' | 'area';
+    showscale: boolean;
     line: Partial<ScatterMarkerLine>;
-    pad?: Partial<Padding>;
-    width?: number;
-    colorbar?: Partial<ColorBar>;
-    gradient?: {
+    pad: Partial<Padding>;
+    width: number;
+    colorbar: Partial<ColorBar>;
+    gradient: {
         type: 'radial' | 'horizontal' | 'vertical' | 'none';
         color: Color;
         typesrc: any;
@@ -1390,14 +1398,12 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
     width: number | number[];
     color: Color;
-    cauto?: boolean;
-    cmax?: number;
-    cmin?: number;
-    cmid?: number;
-    colorscale?: ColorScale;
-    autocolorscale?: boolean;
-    reversescale?: boolean;
-    coloraxis?: string;
+    colorscale: ColorScale;
+    cauto: boolean;
+    cmax: number;
+    cmin: number;
+    autocolorscale: boolean;
+    reversescale: boolean;
 }
 
 export interface ScatterLine {
@@ -1540,7 +1546,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
