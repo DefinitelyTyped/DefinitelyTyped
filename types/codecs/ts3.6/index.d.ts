@@ -1,8 +1,3 @@
-// Type definitions for codecs 2.2
-// Project: https://github.com/mafintosh/codecs
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 type ArgsType<T> = T extends (...args: infer U) => any ? U : never;
 
