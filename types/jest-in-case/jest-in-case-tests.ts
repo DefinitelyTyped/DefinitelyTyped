@@ -48,9 +48,9 @@ test('array', () => {
     expect(global.test.mock.calls[0][1]).toHaveLength(0);
     expect(global.test.mock.calls[1][1]).toHaveLength(0);
     expect(global.test.mock.calls[2][1]).toHaveLength(0);
-    expect(tester).toHaveBeenCalledWith(testCases[0]);
-    expect(tester).toHaveBeenCalledWith(testCases[1]);
-    expect(tester).toHaveBeenCalledWith(testCases[2]);
+    expect(tester).toHaveBeenCalledWith(testCases[0], expect.anything());
+    expect(tester).toHaveBeenCalledWith(testCases[1], expect.anything());
+    expect(tester).toHaveBeenCalledWith(testCases[2], expect.anything());
 });
 
 test('object', () => {

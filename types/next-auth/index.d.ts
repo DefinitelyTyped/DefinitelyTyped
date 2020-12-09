@@ -16,7 +16,7 @@ import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 interface InitOptions {
-    providers: Array<ReturnType<PossibleProviders>>;
+    providers: ReadonlyArray<ReturnType<PossibleProviders>>;
     database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;

@@ -1,5 +1,5 @@
-import express = require('express');
-import favicon = require('serve-favicon');
+import * as express from 'express';
+import * as favicon from 'serve-favicon';
 
 const app = express();
 

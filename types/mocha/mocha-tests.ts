@@ -5,7 +5,7 @@ import {
     beforeEach as importedBeforeEach,
     describe as importedDescribe,
     it as importedIt,
-    xit as importedXit
+    xit as importedXit,
 } from 'mocha';
 
 import LocalMocha = require('mocha');
@@ -1350,6 +1350,18 @@ function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGloba
     funcs.test.only(mocha, test);
     funcs.test.skip(string);
     funcs.test.retries(number);
+}
+
+function test_global_setup(m: Mocha, fn: LocalMocha.HookFunction): boolean {
+    m.globalSetup(fn);
+    m.globalTeardown(fn);
+    m.enableGlobalSetup(true);
+    m.enableGlobalTeardown(true);
+
+    let x: boolean;
+    x = m.hasGlobalSetupFixtures();
+    x = m.hasGlobalTeardownFixtures();
+    return x;
 }
 
 // mocha-typescript (https://www.npmjs.com/package/mocha-typescript/) augments

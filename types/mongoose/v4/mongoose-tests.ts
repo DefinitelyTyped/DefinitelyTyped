@@ -373,6 +373,7 @@ new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
   { validator: () => {return true}, msg: 'failed' }
 ]}});
+new mongoose.Schema({ status: String, photos: [String] }, { optimisticConcurrency: true });
 animalSchema.statics.findByName = function(name: any, cb: any) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };

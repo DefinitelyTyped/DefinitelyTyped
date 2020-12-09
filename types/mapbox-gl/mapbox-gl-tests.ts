@@ -394,6 +394,7 @@ const popupOptions: mapboxgl.PopupOptions = {
     closeOnClick: false,
     closeOnMove: true,
     closeButton: true,
+    focusAfterOpen: true,
     anchor: 'top-right',
     offset: {
         top: [0, 0] as [number, number],
@@ -414,6 +415,8 @@ popup.getElement(); // $ExpectType HTMLElement
 popup.addClassName('class1');
 popup.removeClassName('class2');
 popup.toggleClassName('class3');
+// $ExpectType Popup
+popup.setOffset([10, 20]);
 
 /**
  * Add an image
@@ -621,6 +624,7 @@ let marker = new mapboxgl.Marker(undefined, {
     anchor: 'bottom-right',
     color: 'green',
     draggable: false,
+    clickTolerance: 10,
     rotation: 15,
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
@@ -689,6 +693,9 @@ new mapboxgl.FullscreenControl();
 new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
+
+// $expectType boolean
+map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
@@ -1651,29 +1658,29 @@ expectType<mapboxgl.AnyPaint>(
  * Make sure layer gets proper Paint, corresponding to layer's type
  */
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'background-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "background", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'fill-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "fill", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
 
-expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
 // $ExpectError
-expectType<mapboxgl.Layer>({ id: "unique", type: "line", paint: { 'fill-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
 
 /**
  * Test map.addImage()
  */
 
 // HTMLImageElement
-const fooHTMLImageElement = document.createElement("img");
-map.addImage("foo", fooHTMLImageElement);
+const fooHTMLImageElement = document.createElement('img');
+map.addImage('foo', fooHTMLImageElement);
 
 // ImageData
 const fooImageData = new ImageData(8, 8);
-map.addImage("foo", fooImageData);
+map.addImage('foo', fooImageData);
 
 // ImageData like
 const fooImageDataLike1 = {
@@ -1681,20 +1688,27 @@ const fooImageDataLike1 = {
     height: 10,
     data: new Uint8ClampedArray(8),
 };
-map.addImage("foo", fooImageDataLike1);
+map.addImage('foo', fooImageDataLike1);
 
 const fooImageDataLike2 = {
     width: 10,
     height: 10,
     data: new Uint8Array(8),
 };
-map.addImage("foo", fooImageDataLike2);
+map.addImage('foo', fooImageDataLike2);
 
 // ArrayBufferView
 const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
-map.addImage("foo", fooArrayBufferView);
+map.addImage('foo', fooArrayBufferView);
 
 // ImageBitmap
-createImageBitmap(fooHTMLImageElement).then((fooImageBitmap) => {
-    map.addImage("foo", fooImageBitmap);
+createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
+    map.addImage('foo', fooImageBitmap);
 });
+
+// KeyboardHandler
+var keyboardHandler = new mapboxgl.KeyboardHandler(map);
+// $ExpectType void
+keyboardHandler.enableRotation();
+// $ExpectType void
+keyboardHandler.disableRotation();
