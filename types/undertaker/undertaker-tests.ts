@@ -45,7 +45,7 @@ taker.task("task5", () => {
 taker.task("task6", () => exec("ls"));
 
 declare const task7: () => {
-    subscribe(next?: (v: any) => void, error?: (e: any) => void, complete?: () => void);
+    subscribe(next?: (v: any) => void, error?: (e: any) => void, complete?: () => void): any;
 };
 taker.task("task7", task7);
 taker.task("combined", taker.series("task1", "task2"));
