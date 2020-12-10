@@ -12,6 +12,7 @@
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
+//                 geewoo94 <https://github.com/geewoo94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -5361,9 +5362,11 @@ declare namespace chrome.proxy {
  */
 
 declare namespace chrome.search {
+    export type Disposition = "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
+
     export interface QueryInfo {
         /** Location where search results should be displayed. CURRENT_TAB is the default.  */
-        disposition?: "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
+        disposition?: Disposition;
         /** Location where search results should be displayed. tabIdcannot be used with disposition. */
         tabId?: number;
         /** String to query with the default search provider. */
