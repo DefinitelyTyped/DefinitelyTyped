@@ -12,7 +12,6 @@
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
-//                 geewoo94 <https://github.com/geewoo94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
