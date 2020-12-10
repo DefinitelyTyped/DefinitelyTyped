@@ -38,7 +38,7 @@ export interface SourceAndMapMixin {
 }
 
 export interface SourceAndMapResult {
-    source: string;
+    source: string | Buffer;
     map: RawSourceMap | null;
 }
 

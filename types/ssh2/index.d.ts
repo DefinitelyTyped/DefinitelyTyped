@@ -5,6 +5,7 @@
 //                 Will Boyce <https://github.com/wrboyce>
 //                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
+//                 Leo Toneff <https://github.com/bragle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -24,6 +25,7 @@ import {
     Stats,
     TransferOptions,
     ReadFileOptions,
+    WriteFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
     FileEntry
@@ -1307,6 +1309,24 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns a new readable stream for `path`.
      */
     createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
 
     /**
      * (Client-only)

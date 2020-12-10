@@ -776,7 +776,7 @@ declare namespace H {
          */
         enum AltitudeContext {
             /** Ground level */
-                undefined,
+            undefined,
             /** Ground level */
             GL,
             /** Obstruction level */
@@ -1417,7 +1417,7 @@ declare namespace H {
              * @returns {H.geo.Rect} - either the opt_out rect or a new rect
              */
             static merge(topA: H.geo.Latitude, leftA: H.geo.Longitude, bottomA: H.geo.Latitude, rightA: H.geo.Longitude, topB: H.geo.Latitude, leftB: H.geo.Longitude, bottomB: H.geo.Latitude,
-                         rightB: H.geo.Longitude, opt_out?: H.geo.Rect): H.geo.Rect;
+                rightB: H.geo.Longitude, opt_out?: H.geo.Rect): H.geo.Rect;
 
             /**
              * This method creates a rectangular area from a top-left and bottom-right point pair.
@@ -1522,9 +1522,9 @@ declare namespace H {
             }
         }
 
-        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> {}
+        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> { }
 
-        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> {}
+        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> { }
     }
 
     /***** lang *****/
@@ -3833,6 +3833,22 @@ declare namespace H {
             }
 
             /**
+             * A LocalObjectProvider acts as a database for map objects. It provides functionality to fetch visible objects for specific geographical bounding box and zoom levels.
+             * All objects are organized in a hierarchical group structure.
+             * An object can be added to the provider by adding it to a group within this structure.
+             * The root group of the provider can be fetched via the method H.map.provider.LocalObjectProvider#getRootGroup.
+             * A H.Map has its own LocalObjectProvider and offer a means to add and remove objects.
+             * Only in advanced use cases, is there a need to create an additional LocalObjectProvider.
+             */
+            class LocalObjectProvider extends ObjectProvider {
+                /**
+                 * This method retrieves the root group for the given provider.
+                 * @returns {H.map.Group} - an object representing the root group for the given provider.
+                 */
+                getRootGroup(): H.map.Group;
+            }
+
+            /**
              * A Provider defines an object which works as a database for the map. Providers can exists in different forms they can implement client side object storage or they can request data from
              * the remote service.
              * @property uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
@@ -4402,7 +4418,7 @@ declare namespace H {
              * @param originalEvent {Event} - original dom event
              */
             constructor(type: string, pointers: H.mapevents.Pointer[], changedPointers: H.mapevents.Pointer[], targetPointers: H.mapevents.Pointer[], currentPointer: H.mapevents.Pointer,
-                        target: (H.Map | H.map.Object), originalEvent: Event);
+                target: (H.Map | H.map.Object), originalEvent: Event);
 
             /**
              * Sets defaultPrevented to true. Which can be used to prevent some default behavior.
@@ -4983,7 +4999,7 @@ declare namespace H {
              * @returns {H.map.layer.TileLayer} - the tile layer
              */
             createTileLayer(tileType: string, scheme: string, tileSize: number, format: string, opt_additionalParameters?: H.service.ServiceParameters, opt_opacity?: number, opt_dark?: boolean,
-                            opt_options?: H.service.TileProviderOptions): H.map.layer.TileLayer;
+                opt_options?: H.service.TileProviderOptions): H.map.layer.TileLayer;
 
             /**
              * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.
@@ -5251,8 +5267,8 @@ declare namespace H {
              * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
             createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
-                                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                                opt_pois?: (string | boolean)): H.service.DefaultLayers;
+                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
+                opt_pois?: (string | boolean)): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
@@ -5552,7 +5568,7 @@ declare namespace H {
                  * @returns {H.service.JsonpRequestHandle}
                  */
                 requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
-                                       opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
+                    opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
             }
 
             namespace Service {
@@ -5735,7 +5751,7 @@ declare namespace H {
                  * @returns {H.map.provider.TileProvider} - the tile provider
                  */
                 createTileProvider(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                                   opt_scheme?: string): H.map.provider.TileProvider;
+                    opt_scheme?: string): H.map.provider.TileProvider;
 
                 /**
                  * This method creates a tile layer. This layer can be used as a layer on a map's data model.
@@ -5748,7 +5764,7 @@ declare namespace H {
                  * @returns {H.map.layer.TileLayer} - the tile layer
                  */
                 createTileLayer(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                                opt_scheme?: string): H.map.layer.TileLayer;
+                    opt_scheme?: string): H.map.layer.TileLayer;
 
                 /**
                  * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.

@@ -1,7 +1,8 @@
-// Type definitions for pvutils
+// Type definitions for pvutils 1.0
 // Project: https://github.com/PeculiarVentures/pvutils
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Minimum TypeScript Version: 3.2
 
 export = PvUtils
 
@@ -112,7 +113,7 @@ declare namespace PvUtils {
      */
     function fromBase64(input: string, useUrlTemplate?: boolean, cutTailZeros?: boolean): string;
 
-    function arrayBufferToString(buffer: BufferSource): string;
+    function arrayBufferToString(buffer: ArrayBuffer | ArrayBufferView): string;
     function stringToArrayBuffer(str: string): ArrayBuffer;
 
     /**

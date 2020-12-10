@@ -133,6 +133,8 @@ const buttons = (
         <Button type="positive">Positive Button</Button>
         <Button type="medium">Medium Button</Button>
         <Button type="negative">Negative Button</Button>
+        <Button type="ghost">Ghost Button</Button>
+        <Button type="attention">Attention Button</Button>
         <Button glyph="cart" option="emphasized">
             Add to Cart
         </Button>
@@ -2148,6 +2150,7 @@ const stepInputs = (
         <StepInput disabled value={10} />
         <StepInput readOnly value={10} />
         <StepInput
+            onChange={(stepValue) => {}}
             placeholder='Error'
             validationState={{
                 state: 'error',

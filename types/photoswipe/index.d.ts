@@ -2,6 +2,7 @@
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
 //                 PikachuEXE <https://github.com/PikachuEXE>
+//                 RazDva122 <https://github.com/Razdva122>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PhotoSwipe {
@@ -61,6 +62,11 @@ declare namespace PhotoSwipe {
          * Internal property added by PhotoSwipe.
          */
         initialPosition?: any;
+
+        /**
+         * Custom IDs for each slide object that are used when forming URL
+         */
+        pid?: string | number;
     }
 
     /**
@@ -140,7 +146,7 @@ declare namespace PhotoSwipe {
          *
          * Default true.
          */
-        allowNoPanText?: boolean;
+        allowPanToNext?: boolean;
 
         /**
          * Maximum zoom level when performing spread (zoom) gesture. 2 means that image can be zoomed 2x from original size.
@@ -256,6 +262,14 @@ declare namespace PhotoSwipe {
         galleryUID?: number;
 
         /**
+         * Enables custom IDs for each slide object that are used when forming URL.
+         * If option set set to true, slide objects must have pid (picture identifier) property that can be a string or an integer.
+         *
+         * Default false.
+         */
+        galleryPIDs?: boolean;
+
+        /**
          * Error message when image was not loaded. %url% will be replaced by URL of image.
          *
          * Default is:
@@ -277,20 +291,6 @@ declare namespace PhotoSwipe {
          * String with name of class that will be added to root element of PhotoSwipe (.pswp). Can contain multiple classes separated by space.
          */
         mainClass?: string;
-
-        /**
-         * NOTE: this property will be ignored in future versions of PhotoSwipe.
-         *
-         * @deprecated
-         */
-        mainScrollEndFriction?: number;
-
-        /**
-         * NOTE: this property will be ignored in future versions of PhotoSwipe.
-         *
-         * @deprecated
-         */
-        panEndFriction?: number;
 
         /**
          * Function that should return total number of items in gallery. Don't put very complex code here, function is executed very often.

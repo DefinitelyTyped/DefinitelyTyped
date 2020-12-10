@@ -1,4 +1,4 @@
-// Type definitions for headroom.js v0.11.0
+// Type definitions for headroom.js v0.12.0
 // Project: http://wicky.nillia.ms/headroom.js/
 // Definitions by: Jakub Olek <https://github.com/hakubo>
 //                 Juninho Cruz <https://github.com/juninhocruzg3>
@@ -6,7 +6,7 @@
 
 interface HeadroomOptions {
     /** vertical offset in px before element is first unpinned */
-    offset?: number;
+    offset?: { up?: number; down?: number } | number;
     /** scroll tolerance in px before state changes or you can specify tolerance individually for up/down scroll */
     tolerance?: { up?: number; down?: number } | number;
     /** css classes to apply multiple classes are also supported with a space-separated list */

@@ -15,14 +15,14 @@ import * as http from "http";
  * The file to serve will be determined by combining req.url with the provided root directory.
  * When a file is not found, instead of sending a 404 response, this module will instead call next() to move on to the next middleware, allowing for stacking and fall-backs.
  */
-declare function serveStatic<R extends http.OutgoingMessage>(
+declare function serveStatic<R extends http.ServerResponse>(
     root: string,
     options?: serveStatic.ServeStaticOptions<R>
 ): serveStatic.RequestHandler<R>;
 
 declare namespace serveStatic {
     var mime: typeof m;
-    interface ServeStaticOptions<R extends http.OutgoingMessage = http.OutgoingMessage> {
+    interface ServeStaticOptions<R extends http.ServerResponse = http.ServerResponse> {
         /**
          * Enable or disable setting Cache-Control response header, defaults to true.
          * Disabling this will ignore the immutable and maxAge options.
@@ -95,8 +95,13 @@ declare namespace serveStatic {
         setHeaders?: (res: R, path: string, stat: any) => any;
     }
 
-    interface RequestHandler<R extends http.OutgoingMessage> {
+    interface RequestHandler<R extends http.ServerResponse> {
         (request: http.IncomingMessage, response: R, next: () => void): any;
+    }
+
+    interface RequestHandlerConstructor<R extends http.ServerResponse> {
+        (root: string, options?: ServeStaticOptions<R>): RequestHandler<R>;
+        mime: typeof m;
     }
 }
 

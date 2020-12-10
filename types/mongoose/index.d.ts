@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7.13
+// Type definitions for Mongoose 5.10.9
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -42,6 +42,7 @@
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Guillem Gelabert Sunyer <https://github.com/guillem-gelabert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -88,7 +89,7 @@ declare module "mongoose" {
   type NonFunctionPropertyNames<T> = {
     [K in keyof T]: T[K] extends Function ? never : K;
   }[keyof T];
-  
+
   type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
   type IfEquals<X, Y, A, B> =
@@ -103,10 +104,10 @@ declare module "mongoose" {
 
   type MongooseBuiltIns = mongodb.ObjectID | mongodb.Decimal128 | Date | number | boolean;
 
-  type ImplicitMongooseConversions<T> = 
-    T extends MongooseBuiltIns 
+  type ImplicitMongooseConversions<T> =
+    T extends MongooseBuiltIns
       ? T extends (boolean | mongodb.Decimal128 | Date) ? T | string | number // accept numbers for these
-      : T | string 
+      : T | string
     : T;
 
   type DeepCreateObjectTransformer<T> =
@@ -121,15 +122,15 @@ declare module "mongoose" {
 
   // removes functions from schema from all levels
   type DeepCreateTransformer<T> =
-    T extends Map<infer KM, infer KV> 
+    T extends Map<infer KM, infer KV>
       // handle map values
       // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
       // ? Map<KM, DeepNonFunctionProperties<KV>>
       ? { [key: string]: DeepCreateTransformer<KV> } | [KM, KV][] | Map<KM, KV>
-      : 
+      :
     T extends Array<infer U>
       ? Array<DeepCreateObjectTransformer<U>>
-      : 
+      :
     DeepCreateObjectTransformer<T>;
 
   // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
@@ -194,9 +195,9 @@ declare module "mongoose" {
 
   // ensure that if an empty document type is passed, we allow any properties
   // for backwards compatibility
-  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true 
-    ? { _id?: any } & Record<string, any> 
-    : D extends { _id: infer TId } 
+  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true
+    ? { _id?: any } & Record<string, any>
+    : D extends { _id: infer TId }
       ? mongodb.OptionalId<CreateDocumentDefinition<D> & { _id: TId }>
       : CreateDocumentDefinition<D>
 
@@ -804,6 +805,8 @@ declare module "mongoose" {
    *   expose its interface to enable type-checking.
    */
   class QueryCursor<T extends Document> extends stream.Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
+
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -1192,6 +1195,8 @@ declare module "mongoose" {
     _id?: boolean;
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
+    /** When true, mongoose will throw a Version Error if a document has changed before saving - defaults to false */
+    optimisticConcurrency?: boolean;
     read?: string;
     writeConcern?: WriteConcern;
     /** defaults to true. */
@@ -1959,6 +1964,8 @@ declare module "mongoose" {
    */
   class Query<T> extends DocumentQuery<T, any> { }
   class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
+    [Symbol.asyncIterator](): AsyncIterableIterator<DocType>;
+
     /**
      * Specifies a javascript function or expression to pass to MongoDBs query system.
      * Only use $where when you have a condition that cannot be met using other MongoDB
@@ -2608,6 +2615,11 @@ declare module "mongoose" {
      * True by default. Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
      */
     useFindAndModify?:boolean;
+    /**
+     * False by default. Setting this to true allows the update to overwrite the existing document if no update
+     * operators are included in the update. When set to false, mongoose will wrap the update in a $set.
+     */
+    overwrite?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

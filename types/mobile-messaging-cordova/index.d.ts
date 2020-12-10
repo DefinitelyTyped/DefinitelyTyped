@@ -1,4 +1,4 @@
-// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.3
+// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.7
 // Project: https://github.com/infobip/mobile-messaging-cordova-plugin
 // Definitions by: kostap13 <https://github.com/kostap13>,
 //                 tjuric <https://github.com/tjuric>
@@ -18,7 +18,8 @@ declare namespace MobileMessagingCordova {
         'installationUpdated' |
         'userUpdated' |
         'personalized' |
-        'depersonalized';
+        'depersonalized'|
+        'deeplink';
 
     interface Configuration {
         /**
@@ -26,6 +27,7 @@ declare namespace MobileMessagingCordova {
          */
         applicationCode: string;
         geofencingEnabled?: boolean;
+        inAppChatEnabled?: boolean;
         /**
          * Message storage save callback
          */
@@ -71,11 +73,11 @@ declare namespace MobileMessagingCordova {
         lastName?: string;
         middleName?: string;
         gender?: Gender;
-        birthday?: Date;
+        birthday?: string;
         phones?: string[];
         emails?: string[];
         tags?: string[];
-        customAttributes?: Record<string, string>;
+        customAttributes?: Record<string, string | number | boolean | object[]>;
     }
 
     interface Installation {
@@ -94,7 +96,7 @@ declare namespace MobileMessagingCordova {
         deviceTimezoneId?: string;
         applicationUserId?: string;
         deviceName?: string;
-        customAttributes?: Record<string, string>;
+        customAttributes?: Record<string, string | number | boolean>;
     }
 
     interface UserIdentity {
@@ -105,7 +107,7 @@ declare namespace MobileMessagingCordova {
 
     interface PersonalizeContext {
         userIdentity: UserIdentity;
-        userAttributes?: Record<string, string>;
+        userAttributes?: Record<string, string | number | boolean | object[]>;
         forceDepersonalize?: boolean;
     }
 
@@ -114,16 +116,34 @@ declare namespace MobileMessagingCordova {
         title?: string;
         body?: string;
         sound?: string;
-        vibrate?: string;
         silent?: string;
-        category?: string;
         customPayload?: Record<string, string>;
         internalData?: string;
+        receivedTimestamp?: number;
+        seenDate?: number;
+        contentUrl?: string;
+        seen?: boolean;
+        geo?: boolean;
+        originalPayload?: Record<string, string>; // iOS only
+        vibrate?: boolean; // Android only
+        icon?: string; // Android only
+        category?: string; // Android only
+        chat?: string;
+        browserUrl?: string;
+        deeplink?: string;
+        webViewUrl?: string;
+        inAppDismissTitle?: string;
     }
 
     interface MobileMessagingError {
         code: string;
         message: string;
+    }
+
+    interface ChatConfig {
+        ios?: {
+            showModally: boolean;
+        };
     }
 
     interface DefaultMessageStorage {
@@ -324,6 +344,12 @@ declare namespace MobileMessagingCordova {
                            errorCallback: (error: MobileMessagingError) => void): void;
 
         defaultMessageStorage(): DefaultMessageStorage | undefined;
+
+        /**
+         * Displays chat view
+         * @param config
+         */
+        showChat(config?: ChatConfig): void;
     }
 }
 

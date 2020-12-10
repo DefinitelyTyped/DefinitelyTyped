@@ -11,23 +11,23 @@ export interface BoxPlotData extends PlotData {
     boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
     jitter: number;
     pointpos: number;
-    marker: Partial<{
-        outliercolor: Color;
-        symbol: MarkerSymbol;
-        opacity: number;
-        size: number;
-        color: Color;
-        line: Partial<{
-            color: Color;
-            width: number;
-            outliercolor: Color;
-            outlierwidth: number;
-        }>;
-    }>;
-
+    marker: Partial<BoxPlotMarker>;
     offsetgroup: string;
     alignmentgroup: string;
-
     selected: ScatterSelectedMarker;
     unselected: ScatterSelectedMarker;
+}
+
+export interface BoxPlotMarker {
+    outliercolor: Color;
+    symbol: MarkerSymbol;
+    opacity: number;
+    size: number;
+    color: Color;
+    line: Partial<{
+        color: Color;
+        width: number;
+        outliercolor: Color;
+        outlierwidth: number;
+    }>;
 }

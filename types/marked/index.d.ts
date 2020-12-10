@@ -1,4 +1,4 @@
-// Type definitions for Marked 1.1
+// Type definitions for Marked 1.2
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -7,6 +7,7 @@
 //                 Hitomi Hatsukaze <https://github.com/htkzhtm>
 //                 Ezra Celli <https://github.com/ezracelli>
 //                 Romain LE BARO <https://github.com/scandinave>
+//                 Sarun Intaralawan <https://github.com/sarunint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -80,6 +81,15 @@ declare namespace marked {
      * @param options Hash of options
      */
     function parser(src: TokensList, options?: MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML without enclosing `p` tag.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+    function parseInline(src: string, options?: MarkedOptions): string;
 
     /**
      * Sets the default options.
@@ -223,7 +233,11 @@ declare namespace marked {
 
     class Slugger {
         seen: {[slugValue: string]: number};
-        slug(value: string): string;
+        slug(value: string, options?: SluggerOptions): string;
+    }
+
+    interface SluggerOptions {
+        dryrun: boolean;
     }
 
     interface Rules {
@@ -508,7 +522,7 @@ declare namespace marked {
          * Each token is passed by reference so updates are persisted when passed to the parser.
          * The return value of the function is ignored.
          */
-        walkTokens?: (tokens: TokensList, callback: (token: Token) => void) => any;
+        walkTokens?: (callback: (token: Token) => void) => any;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */

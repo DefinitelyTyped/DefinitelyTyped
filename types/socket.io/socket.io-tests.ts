@@ -67,7 +67,13 @@ function testUsingWithExpress() {
 function testUsingWithOptions() {
     var app = require('express')();
     var server = require('http').Server(app);
-    var io = socketIO(server, { wsEngine: 'ws' });
+    var io = socketIO(server, {
+        path: "/hello",
+        serveClient: false,
+        origins: "*/*",
+        wsEngine: 'ws',
+        parser: require("socket.io-parser"),
+    });
 }
 
 function testUsingWithTheExpressFramework() {
