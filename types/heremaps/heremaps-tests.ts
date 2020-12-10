@@ -221,3 +221,8 @@ localProvider.getRootGroup().addObjects([
     new H.map.Marker(position)
 ]);
 map.setCenter(position).setZoom(18);
+
+
+//Test GeoJSON
+const geoJSON = map.screenToGeo(0,0).toGeoJSON();
+
