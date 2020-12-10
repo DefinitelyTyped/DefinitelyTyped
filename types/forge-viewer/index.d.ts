@@ -1116,7 +1116,7 @@ declare namespace Autodesk {
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
 
-            class FragmentList {
+            interface FragmentList {
               allVisible: boolean;
               allVisibleDirty: boolean;
               animxforms: any;
@@ -1146,7 +1146,7 @@ declare namespace Autodesk {
               vizmeshes: THREE.Mesh[];
             }
 
-            class GeometryList {
+            interface GeometryList {
               disableStreaming: boolean;
               geomBoxes: Float32Array;
               geomMemory: number;
