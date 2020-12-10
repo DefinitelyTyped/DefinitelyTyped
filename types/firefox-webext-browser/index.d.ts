@@ -5,6 +5,8 @@
 // TypeScript Version: 3.4
 // Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
 
+/// <reference path="har-format.d.ts" />
+
 interface WebExtEvent<TCallback extends (...args: any[]) => any> {
     addListener(cb: TCallback): void;
     removeListener(cb: TCallback): void;
@@ -5887,14 +5889,14 @@ declare namespace browser.devtools.network {
     /**
      * Represents a network request for a document resource (script, image and so on). See HAR Specification for reference.
      */
-    interface Request {
-        /** Returns content of the response body. */
-        getContent(): Promise<object>;
+    interface Request extends HAREntry {
+        /** Returns content of the response body. The first value is the body of the HTTP response, while the second is the encoding of body (Chrome) or the MIME type of the response (Firefox). */
+        getContent(): Promise<[string /* content */, string /* encodingOrMimeType */]>;
     }
 
     /* devtools.network functions */
     /** Returns HAR log that contains all known network requests. */
-    function getHAR(): Promise<{ [key: string]: any }>;
+    function getHAR(): Promise<HARLog>;
 
     /* devtools.network events */
     /**

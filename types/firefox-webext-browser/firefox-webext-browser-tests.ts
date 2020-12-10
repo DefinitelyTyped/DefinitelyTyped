@@ -98,3 +98,15 @@ filter.write(new Uint8Array(32));
 filter.close();
 filter.disconnect();
 console.log(filter.status);
+
+/* Test Request */
+browser.devtools.network.onRequestFinished.addListener(async (request) => {
+  request; // $ExpectType Request
+  const har: HAREntry = request; // Extends HAR entry.
+  const [content, encodingOrMimeType] = await request.getContent();
+  content; // $ExpectType string
+  encodingOrMimeType; // $ExpectType string
+});
+
+/* Test getHAR() */
+browser.devtools.network.getHAR(); // $ExpectType Promise<Log>
