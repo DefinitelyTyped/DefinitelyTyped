@@ -6,16 +6,29 @@ type UploadedFile = fileUpload.UploadedFile;
 
 const app: express.Express = express();
 
-function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
+function isSingleFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
     return typeof file === 'object' && (file as UploadedFile).name !== undefined;
+}
+
+function isFileArray(file: UploadedFile | UploadedFile[]): file is UploadedFile[] {
+    return Array.isArray(file);
 }
 
 const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     if (typeof req.files === 'object') {
         const fileField = req.files.field;
-        if (isUploadedFile(fileField)) {
+        if (isSingleFile(fileField)) {
             console.log(fileField.name);
             fileField.mv('/tmp/test', err => {
+                if (err) {
+                    console.log('Error while copying file to target location');
+                }
+            });
+        }
+
+        if (isFileArray(fileField)) {
+            console.log(fileField[0].name);
+            fileField[0].mv('/tmp/test', err => {
                 if (err) {
                     console.log('Error while copying file to target location');
                 }
@@ -62,8 +75,11 @@ app.use(
     fileUpload({
         limitHandler: (req, res, next) => {
             if (req.files) {
-                if (isUploadedFile(req.files.field)) {
+                if (isSingleFile(req.files.field)) {
                     console.log(req.files.field.name);
+                }
+                if (isFileArray(req.files.field)) {
+                    console.log(req.files.field[0].name);
                 }
             }
             next();
