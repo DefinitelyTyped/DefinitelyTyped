@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "async-done": "^1.3.2"
+        "async-done": "~1.3.2"
     }
 }
