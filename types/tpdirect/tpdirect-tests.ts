@@ -77,6 +77,29 @@ TPDirect.card.setup({
 TPDirect.paymentRequestApi.checkAvailability();
 
 // $ExpectType void
+TPDirect.paymentRequestApi.setupPaymentRequest({
+    supportedNetworks: ['AMEX', "JCB", "MASTERCARD", "VISA"],
+    supportedMethods: ["apple_pay"],
+    displayItems: [{
+        amount: {
+            currency: "TWD",
+            value: "1.00"
+        },
+        label: "hi"
+    }],
+    total: {
+        amount: {
+            currency: "TWD",
+            value: '1.00'
+        },
+        label: "total"
+    }
+}, (result) => {
+    result.browserSupportPaymentRequest; // $ExpectType boolean
+    result.canMakePaymentWithActiveCard; // $ExpectType boolean
+});
+
+// $ExpectType void
 TPDirect.paymentRequestApi.setupApplePay({
     countryCode: "TW",
     merchantIdentifier: "merchantid"

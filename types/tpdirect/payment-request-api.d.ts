@@ -1,5 +1,16 @@
 /// <reference path="common.d.ts" />
 
+interface DeferredPaymentRequest {
+    /**
+     * default is false
+     */
+    isAmountPending?: boolean;
+    /**
+     * default is true
+     */
+    isShowTotalAmount?: boolean;
+}
+
 interface PaymentRequestData {
     supportedNetworks: AllowedNetworks[];
     supportedMethods: string[];
@@ -10,12 +21,12 @@ interface PaymentRequestData {
         requestShipping: boolean;
         shippingType: 'shipping' | 'delivery' | 'pickup';
     };
-    shippingOptions: Array<PaymentRequestAmount & {
+    shippingOptions?: Array<PaymentRequestAmount & {
         id: string;
         detail: string;
     }>;
     displayItems: PaymentRequestAmount[];
-    total: PaymentRequestAmount;
+    total: PaymentRequestAmount & DeferredPaymentRequest;
 }
 
 interface PaymentRequestApi {

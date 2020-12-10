@@ -71,11 +71,7 @@ interface DirectPay {
     getTappayFieldsStatus(): UpdateResult;
 
     getPrime(callback: (
-        result: {
-            /**
-             * 0 is successful.
-             */
-            status: Pick<BaseResult, "status">;
+        result: Pick<BaseResult, "status" | "msg"> & {
             clientip: Pick<BaseResult, "client_ip">;
             card_identifier: string;
             card: CardInfoV1 & Pick<BaseResult, "prime">;
