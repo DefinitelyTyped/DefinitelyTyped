@@ -1,6 +1,6 @@
 import { Configuration } from 'webpack';
 import path = require('path');
-import WebpackManifestPlugin = require('webpack-manifest-plugin');
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 
 const options: WebpackManifestPlugin.Options = {
     fileName: 'manifest.json',
@@ -21,6 +21,8 @@ const options: WebpackManifestPlugin.Options = {
     generate: (seed, files) =>
         files.reduce((manifest, { name, path }) => (name ? { ...manifest, [name]: path } : manifest), seed),
     serialize: manifest => JSON.stringify(manifest, null, 2),
+    removeKeyHash: false,
+    useEntryKeys: true,
 };
 
 const c: Configuration = {

@@ -1,18 +1,18 @@
-// Type definitions for webpack-manifest-plugin 2.1
+// Type definitions for webpack-manifest-plugin 3.0
 // Project: https://github.com/danethurber/webpack-manifest-plugin
 // Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { SyncWaterfallHook } from 'tapable';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
-export = WebpackManifestPlugin;
-
-declare class WebpackManifestPlugin extends Plugin {
+export class WebpackManifestPlugin implements WebpackPluginInstance {
     constructor(options?: WebpackManifestPlugin.Options);
+    apply(compiler: Compiler): void;
 }
 
-declare namespace WebpackManifestPlugin {
+export namespace WebpackManifestPlugin {
     interface Chunk {
         id: string;
         parents: string[];
@@ -88,5 +88,24 @@ declare namespace WebpackManifestPlugin {
          * Output manifest file in different format then json (i.e. yaml).
          */
         serialize?: (manifest: object) => string;
+
+        /**
+         * Remove hashes from manifest keys.
+         * Default: /([a-f0-9]{32}\.?)/gi
+         */
+        removeKeyHash?: RegExp | false;
+
+        /**
+         * Use the keys specified in the entry property as keys in the manifest.
+         * Default: false
+         */
+        useEntryKeys?: boolean;
     }
 }
+
+export function getCompilerHooks(
+    compiler: Compiler,
+): {
+    afterEmit: SyncWaterfallHook;
+    beforeEmit: SyncWaterfallHook;
+};
