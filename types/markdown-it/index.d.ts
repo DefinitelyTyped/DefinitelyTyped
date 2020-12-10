@@ -1,4 +1,4 @@
-// Type definitions for markdown-it v10.0.0
+// Type definitions for markdown-it v12.0.0
 // Project: https://github.com/markdown-it/markdown-it
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Robert Coie <https://github.com/rapropos>
