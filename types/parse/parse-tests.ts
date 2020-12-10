@@ -241,7 +241,7 @@ function return_a_generic_query(): Parse.Query<Game> {
 }
 
 function test_anonymous_utils(): Promise<Parse.User> {
-    return Parse.AnonymousUtils.logIn({})
+    return Parse.AnonymousUtils.logIn({});
 }
 
 function return_a_query(): Parse.Query {
