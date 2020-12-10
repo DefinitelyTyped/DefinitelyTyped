@@ -108,20 +108,7 @@ export interface ClientBase {
     listenerCount(event: keyof Events): number;
 }
 
-export interface Badges {
-    admin?: string;
-    bits?: string;
-    broadcaster?: string;
-    partner?: string;
-    global_mod?: string;
-    moderator?: string;
-    vip?: string;
-    subscriber?: string;
-    staff?: string;
-    turbo?: string;
-    premium?: string;
-    founder?: string;
-}
+export type Badges = Record<string, string>;
 
 export interface SubMethods {
     prime?: boolean;
