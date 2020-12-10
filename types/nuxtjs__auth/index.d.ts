@@ -83,4 +83,3 @@ declare module 'vuex/types/index' {
         $auth: Auth;
     }
 }
-
