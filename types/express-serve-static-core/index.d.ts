@@ -71,10 +71,12 @@ export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put'
 }
 
 export interface IRouterHandler<T> {
-  // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-  <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
-  // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-  <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
+    (...handlers: RequestHandler[]): T;
+    (...handlers: RequestHandlerParams[]): T;
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
 }
 
 export interface IRouter extends RequestHandler {
