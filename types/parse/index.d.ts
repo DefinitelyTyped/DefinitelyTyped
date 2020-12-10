@@ -99,6 +99,7 @@ namespace Parse {
     let serverAuthType: string | undefined;
     let serverURL: string;
     let secret: string;
+    let idempotency: boolean;
     let encryptedUser: boolean;
 
     interface BatchSizeOption {
