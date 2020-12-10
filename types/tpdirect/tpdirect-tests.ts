@@ -27,6 +27,10 @@ TPDirect.card.getTappayFieldsStatus();
 // $ExpectType void
 TPDirect.card.onUpdate((update) => {
     update.cardType; // $ExpectType "mastercard" | "visa" | "jcb" | "amex" | "unionpay" | "unknown"
+    update.hasError; // $ExpectType boolean
+    update.status.ccv; // $ExpectType 0 | 1 | 2 | 3
+    update.status.number; // $ExpectType 0 | 1 | 2 | 3
+    update.status.expiry; // $ExpectType 0 | 1 | 2 | 3
 });
 
 // $ExpectType void
