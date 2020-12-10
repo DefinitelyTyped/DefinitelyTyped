@@ -571,7 +571,7 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the `onVisbilityModeChanged` event.
+         * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
@@ -580,12 +580,24 @@ declare namespace Office {
         ): Promise<RemoveEventListener>;
     }
     /**
-     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
      */
     interface Ribbon {
         /**
+         * Registers a custom contextual tab with Office and defines the tab's controls.
+         * This method only requests that the tab be registered. The actual registration is controlled by the Office application and may not be complete when the returned `Promise` object is resolved.
+         * For more information and code examples, see {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+         * 
+         * @beta
+         * 
+         * @param tabDefinition - Specifies the tab's properties and child controls and their properties. Pass a JSON string that conforms to the Office dynamic-ribbon JSON schema to `JSON.parse`, and then pass the returned object to this method.
+         */
+        requestCreateControls(tabDefinition: Object): Promise<void>;
+        /**
          * Sends a request to Office to update the ribbon.
          * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+         * For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+         * 
          * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
@@ -600,7 +612,7 @@ declare namespace Office {
         tabs: Tab[];
     }
     /**
-     * Represents an individual tab and the state it should have.
+     * Represents an individual tab and the state it should have. For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
      */
     interface Tab {
         /**
@@ -610,7 +622,13 @@ declare namespace Office {
         /**
          * Specifies the controls in the tab, such as menu items, buttons, etc.
          */
-        controls: Control[];
+        controls?: Control[];
+        /**
+         * Specifies whether the tab is visible on the ribbon. Used only with contextual tabs.
+         *
+         * @beta 
+         */
+        visible?: boolean;
     }
     /**
      * Represents an individual control or command and the state it should have.
@@ -620,10 +638,6 @@ declare namespace Office {
          * Identifier of the control as specified in the manifest.
          */
         id: string;
-        /**
-         * Indicates whether the control should be visible or hidden. The default is true.
-         */
-        visible?: boolean;
         /**
          * Indicates whether the control should be enabled or disabled. The default is true.
          */
@@ -726,6 +740,9 @@ declare namespace Office {
         document: Office.Document;
         /**
         * Contains the Office application host in which the add-in is running.
+        *
+        * **Important**: In Outlook, this property is available from requirement set 1.5.
+        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get the host.
         */
         host: HostType;
         /**
@@ -756,6 +773,9 @@ declare namespace Office {
         officeTheme: OfficeTheme;
         /**
         * Provides the platform on which the add-in is running.
+        *
+        * **Important**: In Outlook, this property is available from requirement set 1.5.
+        * For all Mailbox requirement sets, you can use the `Office.context.diagnostics` property to get the platform.
         */
         platform: PlatformType;
         /**
@@ -871,7 +891,7 @@ declare namespace Office {
         interface EventCompletedOptions {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler,
-             * this value indicates of the handled event should continue execution or be canceled.
+             * this value indicates if the handled event should continue execution or be canceled.
              * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
@@ -9739,7 +9759,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000)
-         * and Outlook on the web for Office 365.
+         * and Outlook on the web for Microsoft 365.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9755,7 +9775,7 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`.
-         *                 On success, the initialization data is provided in the `asyncResult.value` property as a string.
+         *                 On success, the initialization context data is provided in the `asyncResult.value` property as a string.
          *                 If there is no initialization context, the `asyncResult` object will contain
          *                 an `Error` object with its `code` property set to 9020 and its `name` property set to `GenericResponseError`.
          *
@@ -10824,7 +10844,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          *
          * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000)
-         * and Outlook on the web for Office 365.
+         * and Outlook on the web for Microsoft 365.
          *
          * [Api set: Mailbox Preview]
          *
@@ -10836,11 +10856,11 @@ declare namespace Office {
          *
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *                 On success, the initialization data is provided in the `asyncResult.value` property as a string.
-         *                 If there is no initialization context, the `asyncResult` object will contain an `Error` object with its `code` property
-         *                 set to 9020 and its `name` property set to `GenericResponseError`.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         *                 On success, the initialization context data is provided in the `asyncResult.value` property as a string.
+         *                 If there is no initialization context, the `asyncResult` object will contain
+         *                 an `Error` object with its `code` property set to 9020 and its `name` property set to `GenericResponseError`.
          *
          * @beta
          */
@@ -11393,6 +11413,10 @@ declare namespace Office {
          *
          * The `prependAsync` method inserts the specified string at the beginning of the item body.
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
+         *
+         * When working with HTML-formatted bodies, it's important to note that the client may modify the value passed to `prependAsync` in order to
+         * make it render efficiently with its rendering engine. This means that the value returned from a subsequent call to `Body.getAsync` method
+         * will not necessarily exactly contain the value that was passed in the `prependAsync` method previously.
          *
          * When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
          * (see the **Examples** section for a sample).
@@ -13742,7 +13766,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000)
-         * and Outlook on the web for Office 365.
+         * and Outlook on the web for Microsoft 365.
          *
          * [Api set: Mailbox Preview]
          *
@@ -13756,10 +13780,11 @@ declare namespace Office {
          *
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
-         *                 type `Office.AsyncResult`. On success, the initialization data is provided in the `asyncResult.value` property as a string.
-         *                 If there is no initialization context, the `asyncResult` object will contain an `Error` object with its `code` property
-         *                 set to 9020 and its `name` property set to `GenericResponseError`.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         *                 On success, the initialization context data is provided in the `asyncResult.value` property as a string.
+         *                 If there is no initialization context, the `asyncResult` object will contain
+         *                 an `Error` object with its `code` property set to 9020 and its `name` property set to `GenericResponseError`.
          *
          * @beta
          */
@@ -14702,7 +14727,7 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          *
          * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000)
-         * and Outlook on the web for Office 365.
+         * and Outlook on the web for Microsoft 365.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14714,11 +14739,11 @@ declare namespace Office {
          *
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *                 On success, the initialization data is provided in the `asyncResult.value` property as a string.
-         *                 If there is no initialization context, the `asyncResult` object will contain an `Error` object with its `code` property
-         *                 set to 9020 and its `name` property set to `GenericResponseError`.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         *                 On success, the initialization context data is provided in the `asyncResult.value` property as a string.
+         *                 If there is no initialization context, the `asyncResult` object will contain
+         *                 an `Error` object with its `code` property set to 9020 and its `name` property set to `GenericResponseError`.
          *
          * @beta
          */
@@ -15079,13 +15104,15 @@ declare namespace Office {
     /**
      * The definition of the action for a notification message.
      *
+     * **Important**: In modern Outlook on the web, the `NotificationMessageAction` object is available in Compose mode only.
+     *
      * [Api set: Mailbox Preview]
      *
      * @remarks
      *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
      *
-     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
      *
      * @beta
      */
@@ -15105,6 +15132,7 @@ declare namespace Office {
         commandId: string;
         /**
          * Any JSON data the button needs to pass on.
+         * This data can be retrieved by calling `item.getInitializationContextAsync`.
          */
         contextData: any;
     }
@@ -15159,11 +15187,13 @@ declare namespace Office {
          * Only applicable when the type is `InsightMessage`.
          * Specifying this property for an unsupported type or including too many actions throws an error.
          *
+         * **Important**: In modern Outlook on the web, the `actions` property is available in Compose mode only.
+         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * @beta
          */
@@ -15186,8 +15216,12 @@ declare namespace Office {
          *
          * There are a maximum of 5 notifications per message. Setting more will return a `NumberOfNotificationMessagesExceeded` error.
          *
-         * **Important**: Only one notification of type `InsightMessage` is allowed per add-in.
+         * **Important**:
+         *
+         * - Only one notification of type `InsightMessage` is allowed per add-in.
          * (The `InsightMessage` type is currently in preview.) Attempting to add more will throw an error.
+         *
+         * - In modern Outlook on the web, you can add an `InsightMessage` notification only in Compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -15865,9 +15899,9 @@ declare namespace Office {
     }
     /**
      * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user.
-     * That is, they are available only to the add-in that created them, and only from the user's mail box in which they are saved.
+     * That is, they are available only to the add-in that created them, and only from the user's mailbox in which they are saved.
      *
-     * While the Outlook Add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
+     * While the Outlook add-in API limits access to these settings to only the add-in that created them, these settings should not be considered
      * secure storage. They can be accessed by Exchange Web Services or Extended MAPI.
      * They should not be used to store sensitive information such as user credentials or security tokens.
      *
@@ -15875,11 +15909,15 @@ declare namespace Office {
      *
      * The `RoamingSettings` object is accessible via the `roamingSettings` property in the `Office.context` namespace.
      *
-     * **Important**: The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
+     * **Important**:
+     *
+     * - The `RoamingSettings` object is initialized from the persisted storage only when the add-in is first loaded.
      * For task panes, this means that it is only initialized when the task pane first opens.
      * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if
      * your add-in has persisted changes.
      * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
+     *
+     * - When set and saved through Outlook on Windows or Mac, these settings are reflected in Outlook on the web only after a browser refresh.
      *
      * @remarks
      *
@@ -16575,7 +16613,7 @@ declare namespace Office {
          *   </tr>
          *   <tr>
          *     <td>office365</td>
-         *     <td>The mailbox is associated with an Office 365 work or school account.</td>
+         *     <td>The mailbox is associated with a Microsoft 365 work or school account.</td>
          *   </tr>
          *   <tr>
          *     <td>outlookCom</td>
@@ -17012,6 +17050,7 @@ declare namespace OfficeCore {
 ////////////////////////////////////////////////////////////////
 /////////////////////// Begin Excel APIs ///////////////////////
 ////////////////////////////////////////////////////////////////
+
 
 declare namespace Excel {
     /**
@@ -17669,10 +17708,8 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
-    
     interface Session {
     }
-
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -17726,6 +17763,628 @@ declare namespace Excel {
     function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     function postprocessBindingDescriptor(response: any): any;
     function getDataCommonPostprocess(response: any, callArgs: any): any;
+    /**
+     *
+     * Represents a recorded change to the task.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TaskHistoryRecord extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Represents the ID of the object to which the task is anchored (e.g., commentId for tasks attached to comments).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        anchorId: string;
+        /**
+         *
+         * Represents the user assigned to the task for an "Assign" history record type, or the user to unassign from the task for an "Unassign" history record type.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        assignee: Excel.User;
+        /**
+         *
+         * Represents the user who created or changed the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        attributionUser: Excel.User;
+        /**
+         *
+         * Represents the task's due date. It is used for "Schedule" history record type.
+                    It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        dueDate: Date;
+        /**
+         *
+         * Represents creation date of the task history record. All dates are in UTC.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        historyRecordCreatedDate: Date;
+        /**
+         *
+         * ID for the history record.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        id: string;
+        /**
+         *
+         * Represents the task's completion percentage. It is used for the "Progress" history record type.
+                    This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        percentComplete: number;
+        /**
+         *
+         * Represents the task's priority. It is used for the "Priority" history record type.
+                    This is a value between 0 and 10 with 5 being the default priority if not set, where 0 represents the highest priority.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        priority: number;
+        /**
+         *
+         * Represents the task's start date. It is used for the "Schedule" history record type.
+                    It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        startDate: Date;
+        /**
+         *
+         * Represents the task's title. It is used for "Title" history record type.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        title: string;
+        /**
+         *
+         * Represents task history record's type.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: Excel.TaskHistoryRecordType | "Unknown" | "Create" | "Assign" | "Unassign" | "UnassignAll" | "Schedule" | "Progress" | "Priority" | "Delete" | "Undelete" | "SetTitle" | "Undo";
+        /**
+         *
+         * Represents the TaskHistoryRecord.id property that was undone for the "Undo" history record type.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        undoHistoryId: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.TaskHistoryRecordLoadOptions): Excel.TaskHistoryRecord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.TaskHistoryRecord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.TaskHistoryRecord;
+        /**
+         * Create a new instance of Excel.TaskHistoryRecord object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): Excel.TaskHistoryRecord;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.TaskHistoryRecord object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TaskHistoryRecordData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.TaskHistoryRecordData;
+    }
+    /**
+     *
+     * Represents a collection of history records for a task.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TaskHistoryRecordCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.TaskHistoryRecord[];
+        /**
+         * Gets the number of history records in the collection for the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a task history record by using its index in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index The records are stored in chronological order of when the changes were recorded by Excel (not necessarily ordered by historyRecordCreatedDate). The "Create" record is always at index 0.
+         * @returns The history record with the given index.
+         */
+        getItemAt(index: number): Excel.TaskHistoryRecord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.TaskHistoryRecordCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.TaskHistoryRecordCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.TaskHistoryRecordCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.TaskHistoryRecordCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.TaskHistoryRecordCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TaskHistoryRecordCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.TaskHistoryRecordCollectionData;
+    }
+    /**
+     *
+     * Represents the type of change recorded in the task history record.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum TaskHistoryRecordType {
+        /**
+         * Represents unknown history type. This value will be returned when the version of Excel running doesn't understand the type of the history record that is in the loaded file.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Represents the creation of a new task.
+         *
+         */
+        create = "Create",
+        /**
+         * Represents a user being assigned to a task.
+         *
+         */
+        assign = "Assign",
+        /**
+         * Represents a user being unassigned from a task.
+         *
+         */
+        unassign = "Unassign",
+        /**
+         * Represents all users being unassigned from a task.
+         *
+         */
+        unassignAll = "UnassignAll",
+        /**
+         * Represents an update to a task's start date or due date.
+         *
+         */
+        schedule = "Schedule",
+        /**
+         * Represents an update to a task's progress.
+         *
+         */
+        progress = "Progress",
+        /**
+         * Represents an update to a task's priority.
+         *
+         */
+        priority = "Priority",
+        /**
+         * Represents the deletion of a task history record.
+         *
+         */
+        delete = "Delete",
+        /**
+         * Represents the restoration of a history record after being deleted.
+         *
+         */
+        undelete = "Undelete",
+        /**
+         * Represents a change in the title of a task.
+         *
+         */
+        setTitle = "SetTitle",
+        /**
+         * Represents a previous task action being undone.
+         *
+         */
+        undo = "Undo"
+    }
+    /**
+     *
+     * Represents information about an Excel user.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface User {
+        /**
+         *
+         * Represents the user's display name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        displayName?: string;
+        /**
+         *
+         * Represents the user's email address.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        email?: string;
+        /**
+         *
+         * Represents the user's unique ID.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        uid?: string;
+    }
+    /**
+     *
+     * Represents a task.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class Task extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the comment associated with the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly comment: Excel.Comment;
+        /**
+         *
+         * Gets the history records of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly historyRecords: Excel.TaskHistoryRecordCollection;
+        /**
+         *
+         * Gets the users to whom the task is assigned.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly assignees: Excel.User[];
+        /**
+         *
+         * Gets the date and time the task is due. All dates are in UTC.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly dueDate: Date;
+        /**
+         *
+         * Gets the id of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         *
+         * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly percentComplete: number;
+        /**
+         *
+         * Gets the priority of the task. This is a value between 0 and 10, where 0 represents the highest priority.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly priority: number;
+        /**
+         *
+         * Gets the date and time the task should start. All dates are in UTC.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly startDate: Date;
+        /**
+         *
+         * Gets title of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly title: string;
+        /**
+         * Adds an assignee to the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param email Email address of the assignee.
+         */
+        addAssignee(email: string): void;
+        /**
+         * Applies the given changes to the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param taskChanges A set of changes to apply to the task as a single action.
+         */
+        applyChanges(taskChanges: Excel.TaskChanges): void;
+        /**
+         * Removes all assignees from the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        removeAllAssignees(): void;
+        /**
+         * Removes an assignee from the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param email Email address of the assignee.
+         */
+        removeAssignee(email: string): void;
+        /**
+         * Changes the completion of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param percentComplete New percentage completion of the task. This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 will also complete the associated comment, and changing to another value will reactivate the associated comment.
+         */
+        setPercentComplete(percentComplete: number): void;
+        /**
+         * Changes the priority of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param priority New priority of the task. This is a value between 0 and 10, where 0 represents the highest priority.
+         */
+        setPriority(priority: number): void;
+        /**
+         * Changes the start and the due dates of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param startDate Represents the start date of the task in UTC time zone. Can be set to null to remove the start date.
+         * @param dueDate Represents the due date of the task in UTC time zone. Can be set to null to remove the due date.
+         */
+        setStartDateAndDueDate(startDate: Date, dueDate: Date): void;
+        /**
+         * Changes the title of the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param title New title of the task.
+         */
+        setTitle(title: string): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.TaskLoadOptions): Excel.Task;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.Task;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.Task;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.Task object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TaskData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.TaskData;
+    }
+    /**
+     *
+     * Represents a set of intended changes for a task.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface TaskChanges {
+        /**
+         *
+         * Sets a new due date for the task, in UTC time zone. Can be set to `null` to remove the due date. Should be set together with `startDate` to avoid conflicts.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        dueDate?: Date;
+        /**
+         *
+         * Sets email addresses of the users to assign to the task. The specified emails will be added to the existing assignees of the task unless `removeAllPreviousAssignees` property is set to `true`.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        emailsToAssign?: string[];
+        /**
+         *
+         * Sets email addresses of the users to unassign from the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        emailsToUnassign?: string[];
+        /**
+         *
+         * Sets a new completion percentage for the task. This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        percentComplete?: number;
+        /**
+         *
+         * Sets a new priority for the task. This is a value between 0 and 10, where 0 represents the highest priority.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        priority?: number;
+        /**
+         *
+         * Sets if the change should remove all previous assignees from the task. When this property is set to true, `emailsToUnassign` property will have no effect and emails specified in `emailsToAssign` property will become the only assignees.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        removeAllPreviousAssignees?: boolean;
+        /**
+         *
+         * Sets a new start date for the task, in UTC time zone. Can be set to `null` to remove the start date. Should be set together with `dueDate` to avoid conflicts.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        startDate?: Date;
+        /**
+         *
+         * Sets a new title for the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        title?: string;
+    }
+    /**
+     *
+     * Represents a collection of tasks.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TaskCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.Task[];
+        /**
+         * Gets the number of tasks in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a task using its id.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The id of the task.
+         * @returns The task with the given id. If there is no task with the given id, then an error is thrown.
+         */
+        getItem(key: string): Excel.Task;
+        /**
+         * Gets a task by its index in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index The index of the task in the collection.
+         * @returns The task with the given index.
+         */
+        getItemAt(index: number): Excel.Task;
+        /**
+         * Gets a task using its id.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The id of the task.
+         * @returns The task with the given id. If there is no task with the given id, an object with its `isNullObject` property set to `true`. For further information, see {@link https://docs.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
+         */
+        getItemOrNullObject(key: string): Excel.Task;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.TaskCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.TaskCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.TaskCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.TaskCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.TaskCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TaskCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.TaskCollectionData;
+    }
     /**
      *
      * Enum representing all accepted conditions by which a date filter can be applied.
@@ -19251,8 +19910,7 @@ declare namespace Excel {
     interface BindingSelectionChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event.
-         * Use that ID with `BindingCollection.getItem(id)` to get the binding.
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -19295,8 +19953,7 @@ declare namespace Excel {
     interface BindingDataChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event.
-         * Use that ID with `BindingCollection.getItem(id)` to get the binding.
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -20798,6 +21455,14 @@ declare namespace Excel {
         readonly tables: Excel.TableCollection;
         /**
          *
+         * Returns a collection of tasks that are present in the workbook.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly tasks: Excel.TaskCollection;
+        /**
+         *
          * Represents a collection of TimelineStyles associated with the workbook.
          *
          * [Api set: ExcelApi 1.10]
@@ -21225,6 +21890,14 @@ declare namespace Excel {
         readonly tables: Excel.TableCollection;
         /**
          *
+         * Returns a collection of tasks that are present in the worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly tasks: Excel.TaskCollection;
+        /**
+         *
          * Gets the vertical page break collection for the worksheet. This collection only contains manual page breaks.
          *
          * [Api set: ExcelApi 1.9]
@@ -21527,7 +22200,7 @@ declare namespace Excel {
         readonly onCalculated: OfficeExtension.EventHandlers<Excel.WorksheetCalculatedEventArgs>;
         /**
          *
-         * Occurs when data changed on a specific worksheet.
+         * Occurs when data changes in a specific worksheet.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -22044,7 +22717,7 @@ declare namespace Excel {
          */
         freezeAt(frozenRange: Range | string): void;
         /**
-         * Freeze the first column or columns of the worksheet in place.
+         * Freeze the first column or columns of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -22052,7 +22725,7 @@ declare namespace Excel {
          */
         freezeColumns(count?: number): void;
         /**
-         * Freeze the top row or rows of the worksheet in place.
+         * Freeze the top row or rows of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -22185,7 +22858,7 @@ declare namespace Excel {
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -22585,9 +23258,7 @@ declare namespace Excel {
          */
         getEntireRow(): Excel.Range;
         /**
-         * Renders the range as a base64-encoded png image.
-         *
-         * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
+         * Renders the range as a base64-encoded png image. **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -23381,14 +24052,14 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns the `RangeAreasCollection` object. Each `RangeAreas` object in the collection represents one or more rectangle ranges in one worksheet.
+         * Returns the `RangeAreasCollection` object. Each `RangeAreas` in the collection represent one or more rectangle ranges in one worksheet.
          *
          * [Api set: ExcelApi 1.12]
          */
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns ranges that comprise this object in a `RangeCollection` object.
+         * Returns ranges that comprise this object in a `RangeCollection` object.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -23409,7 +24080,7 @@ declare namespace Excel {
          */
         getRangeAreasBySheet(key: string): Excel.RangeAreas;
         /**
-         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         * Returns the RangeAreas object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.12]
          *
@@ -23969,7 +24640,7 @@ declare namespace Excel {
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
@@ -26242,7 +26913,7 @@ declare namespace Excel {
         patternTintAndShade: number;
         /**
          *
-         * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+         * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                     If the tintAndShades are not uniform, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
@@ -32204,6 +32875,23 @@ declare namespace Excel {
     }
     /**
      *
+     * Represents the DateTime Grouping condition.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum PivotTableDateGroupBy {
+        invalid = "Invalid",
+        bySeconds = "BySeconds",
+        byMinutes = "ByMinutes",
+        byHours = "ByHours",
+        byDays = "ByDays",
+        byMonths = "ByMonths",
+        byQuarters = "ByQuarters",
+        byYears = "ByYears"
+    }
+    /**
+     *
      * Represents an Excel PivotTable.
                 To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
      *
@@ -35287,7 +35975,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+         * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -35452,7 +36140,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+         * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -37985,6 +38673,15 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Comment): void;
         /**
+         * Assigns the task attached to the comment to the given user as the sole assignee. If there is no task, one will be created.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param email The email address of the user to assign the task to.
+         */
+        assignTask(email: string): Excel.Task;
+        /**
          * Deletes the comment and all the connected replies.
          *
          * [Api set: ExcelApi 1.10]
@@ -37996,6 +38693,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
+        /**
+         * Gets the task associated with this comment. If there is no task for the comment thread, an ItemNotFound exception is thrown.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getTask(): Excel.Task;
+        /**
+         * Gets the task associated with this comment. If there is no task for the comment thread, a null object is returned.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getTaskOrNullObject(): Excel.Task;
         /**
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
@@ -38193,6 +38904,15 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.CommentReply): void;
         /**
+         * Assigns the task attached to the comment to the given user as the sole assignee. If there is no task, one will be created.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param email The email address of the user to assign the task.
+         */
+        assignTask(email: string): Excel.Task;
+        /**
          * Deletes the comment reply.
          *
          * [Api set: ExcelApi 1.10]
@@ -38210,6 +38930,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         getParentComment(): Excel.Comment;
+        /**
+         * Gets the task associated with this comment. If there is no task for the comment thread, an ItemNotFound exception is thrown.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getTask(): Excel.Task;
+        /**
+         * Gets the task associated with this comment. If there is no task for the comment thread, a null object is returned.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getTaskOrNullObject(): Excel.Task;
         /**
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
@@ -42102,7 +42836,6 @@ declare namespace Excel {
          *
          */
         worksheetFormatChanged = "WorksheetFormatChanged",
-        wacoperationEvent = "WACOperationEvent",
         /**
          * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
          *
@@ -42128,11 +42861,6 @@ declare namespace Excel {
          *
          */
         worksheetRowHiddenChanged = "WorksheetRowHiddenChanged",
-        /**
-         * RecordingStateChangedEvent represents the event fired when macro recording starts or stops.
-         *
-         */
-        recordingStateChangedEvent = "RecordingStateChangedEvent",
         /**
          * CommentAdded represents the type of event that is registered on commentCollection, and occurs when comments are added.
          *
@@ -42162,7 +42890,12 @@ declare namespace Excel {
          * LinkedDataTypeAdded represents the type of event registered on LinkedDataType, and occurs when a new linked data type is added to the workbook.
          *
          */
-        linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded"
+        linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded",
+        /**
+         * WorksheetFormulaChanged represents the type of event registered on a worksheet, and occurs when a formula is changed.
+         *
+         */
+        worksheetFormulaChanged = "WorksheetFormulaChanged"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -46834,6 +47567,7 @@ declare namespace Excel {
         conflict = "Conflict",
         filteredRangeConflict = "FilteredRangeConflict",
         generalException = "GeneralException",
+        inactiveWorkbook = "InactiveWorkbook",
         insertDeleteConflict = "InsertDeleteConflict",
         invalidArgument = "InvalidArgument",
         invalidBinding = "InvalidBinding",
@@ -46864,6 +47598,117 @@ declare namespace Excel {
             * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
+        }
+        /** An interface for updating data on the TaskHistoryRecord object, for use in `taskHistoryRecord.set({ ... })`. */
+        interface TaskHistoryRecordUpdateData {
+            /**
+             *
+             * Represents the ID of the object to which the task is anchored (e.g., commentId for tasks attached to comments).
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            anchorId?: string;
+            /**
+             *
+             * Represents the user assigned to the task for an "Assign" history record type, or the user to unassign from the task for an "Unassign" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignee?: Excel.User;
+            /**
+             *
+             * Represents the user who created or changed the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            attributionUser?: Excel.User;
+            /**
+             *
+             * Represents the task's due date. It is used for "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: Date;
+            /**
+             *
+             * Represents creation date of the task history record. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            historyRecordCreatedDate?: Date;
+            /**
+             *
+             * ID for the history record.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             *
+             * Represents the task's completion percentage. It is used for the "Progress" history record type.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: number;
+            /**
+             *
+             * Represents the task's priority. It is used for the "Priority" history record type.
+                        This is a value between 0 and 10 with 5 being the default priority if not set, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: number;
+            /**
+             *
+             * Represents the task's start date. It is used for the "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: Date;
+            /**
+             *
+             * Represents the task's title. It is used for "Title" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: string;
+            /**
+             *
+             * Represents task history record's type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            type?: Excel.TaskHistoryRecordType | "Unknown" | "Create" | "Assign" | "Unassign" | "UnassignAll" | "Schedule" | "Progress" | "Priority" | "Delete" | "Undelete" | "SetTitle" | "Undo";
+            /**
+             *
+             * Represents the TaskHistoryRecord.id property that was undone for the "Undo" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            undoHistoryId?: string;
+        }
+        /** An interface for updating data on the TaskHistoryRecordCollection object, for use in `taskHistoryRecordCollection.set({ ... })`. */
+        interface TaskHistoryRecordCollectionUpdateData {
+            items?: Excel.Interfaces.TaskHistoryRecordData[];
+        }
+        /** An interface for updating data on the TaskCollection object, for use in `taskCollection.set({ ... })`. */
+        interface TaskCollectionUpdateData {
+            items?: Excel.Interfaces.TaskData[];
         }
         /** An interface for updating data on the Runtime object, for use in `runtime.set({ ... })`. */
         interface RuntimeUpdateData {
@@ -47067,21 +47912,21 @@ declare namespace Excel {
             columnHidden?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: any[][];
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: any[][];
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -47571,7 +48416,7 @@ declare namespace Excel {
             patternTintAndShade?: number;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -50428,7 +51273,7 @@ declare namespace Excel {
         interface TopBottomConditionalFormatUpdateData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -50462,7 +51307,7 @@ declare namespace Excel {
         interface TextConditionalFormatUpdateData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -51619,6 +52464,176 @@ declare namespace Excel {
         interface NamedSheetViewCollectionUpdateData {
             items?: Excel.Interfaces.NamedSheetViewData[];
         }
+        /** An interface describing the data returned by calling `taskHistoryRecord.toJSON()`. */
+        interface TaskHistoryRecordData {
+            /**
+             *
+             * Represents the ID of the object to which the task is anchored (e.g., commentId for tasks attached to comments).
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            anchorId?: string;
+            /**
+             *
+             * Represents the user assigned to the task for an "Assign" history record type, or the user to unassign from the task for an "Unassign" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignee?: Excel.User;
+            /**
+             *
+             * Represents the user who created or changed the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            attributionUser?: Excel.User;
+            /**
+             *
+             * Represents the task's due date. It is used for "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: Date;
+            /**
+             *
+             * Represents creation date of the task history record. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            historyRecordCreatedDate?: Date;
+            /**
+             *
+             * ID for the history record.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             *
+             * Represents the task's completion percentage. It is used for the "Progress" history record type.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: number;
+            /**
+             *
+             * Represents the task's priority. It is used for the "Priority" history record type.
+                        This is a value between 0 and 10 with 5 being the default priority if not set, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: number;
+            /**
+             *
+             * Represents the task's start date. It is used for the "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: Date;
+            /**
+             *
+             * Represents the task's title. It is used for "Title" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: string;
+            /**
+             *
+             * Represents task history record's type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            type?: Excel.TaskHistoryRecordType | "Unknown" | "Create" | "Assign" | "Unassign" | "UnassignAll" | "Schedule" | "Progress" | "Priority" | "Delete" | "Undelete" | "SetTitle" | "Undo";
+            /**
+             *
+             * Represents the TaskHistoryRecord.id property that was undone for the "Undo" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            undoHistoryId?: string;
+        }
+        /** An interface describing the data returned by calling `taskHistoryRecordCollection.toJSON()`. */
+        interface TaskHistoryRecordCollectionData {
+            items?: Excel.Interfaces.TaskHistoryRecordData[];
+        }
+        /** An interface describing the data returned by calling `task.toJSON()`. */
+        interface TaskData {
+            /**
+             *
+             * Gets the users to which the task is assigned.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignees?: Excel.User[];
+            /**
+             *
+             * Gets the date and time the task is due. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: Date;
+            /**
+             *
+             * Gets the id of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             *
+             * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: number;
+            /**
+             *
+             * Gets the priority of the task. This is a value between 0 and 10, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: number;
+            /**
+             *
+             * Gets the date and time the task should start. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: Date;
+            /**
+             *
+             * Gets title of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: string;
+        }
+        /** An interface describing the data returned by calling `taskCollection.toJSON()`. */
+        interface TaskCollectionData {
+            items?: Excel.Interfaces.TaskData[];
+        }
         /** An interface describing the data returned by calling `runtime.toJSON()`. */
         interface RuntimeData {
             /**
@@ -52174,21 +53189,21 @@ declare namespace Excel {
             columnIndex?: number;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: any[][];
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: any[][];
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -52442,7 +53457,7 @@ declare namespace Excel {
             areas?: Excel.Interfaces.RangeAreasData[];
             /**
             *
-            * Returns ranges that comprise this object in a RangeCollection object.
+            * Returns ranges that comprise this object in a RangeCollection object.
             *
             * [Api set: ExcelApi 1.12]
             */
@@ -53095,7 +54110,7 @@ declare namespace Excel {
             patternTintAndShade?: number;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -56455,7 +57470,7 @@ declare namespace Excel {
         interface TopBottomConditionalFormatData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -56489,7 +57504,7 @@ declare namespace Excel {
         interface TextConditionalFormatData {
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -58045,6 +59060,386 @@ declare namespace Excel {
         }
         /**
          *
+         * Represents a recorded change to the task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TaskHistoryRecordLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Represents the ID of the object to which the task is anchored (e.g., commentId for tasks attached to comments).
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            anchorId?: boolean;
+            /**
+             *
+             * Represents the user assigned to the task for an "Assign" history record type, or the user to unassign from the task for an "Unassign" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignee?: boolean;
+            /**
+             *
+             * Represents the user who created or changed the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            attributionUser?: boolean;
+            /**
+             *
+             * Represents the task's due date. It is used for "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: boolean;
+            /**
+             *
+             * Represents creation date of the task history record. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            historyRecordCreatedDate?: boolean;
+            /**
+             *
+             * ID for the history record.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             *
+             * Represents the task's completion percentage. It is used for the "Progress" history record type.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: boolean;
+            /**
+             *
+             * Represents the task's priority. It is used for the "Priority" history record type.
+                        This is a value between 0 and 10 with 5 being the default priority if not set, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: boolean;
+            /**
+             *
+             * Represents the task's start date. It is used for the "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: boolean;
+            /**
+             *
+             * Represents the task's title. It is used for "Title" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: boolean;
+            /**
+             *
+             * Represents task history record's type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            type?: boolean;
+            /**
+             *
+             * Represents the TaskHistoryRecord.id property that was undone for the "Undo" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            undoHistoryId?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of history records for a task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TaskHistoryRecordCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the ID of the object to which the task is anchored (e.g., commentId for tasks attached to comments).
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            anchorId?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the user assigned to the task for an "Assign" history record type, or the user to unassign from the task for an "Unassign" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignee?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the user who created or changed the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            attributionUser?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the task's due date. It is used for "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the due date. It should be set together with `startDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents creation date of the task history record. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            historyRecordCreatedDate?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: ID for the history record.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the task's completion percentage. It is used for the "Progress" history record type.
+                        This is a value between 0 and 100, where 100 represents a completed task. Changing this value to 100 also completes the associated comment. Changing the completion from 100 to a lower value reactivates the associated comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the task's priority. It is used for the "Priority" history record type.
+                        This is a value between 0 and 10 with 5 being the default priority if not set, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the task's start date. It is used for the "Schedule" history record type.
+                        It is in UTC time zone. Can be set to `null` to remove the start date. It should be set together with `dueDate` to avoid conflicts.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the task's title. It is used for "Title" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents task history record's type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            type?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the TaskHistoryRecord.id property that was undone for the "Undo" history record type.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            undoHistoryId?: boolean;
+        }
+        /**
+         *
+         * Represents a task.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TaskLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * Gets the comment associated with the task.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            comment?: Excel.Interfaces.CommentLoadOptions;
+            /**
+             *
+             * Gets the users to which the task is assigned.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignees?: boolean;
+            /**
+             *
+             * Gets the date and time the task is due. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: boolean;
+            /**
+             *
+             * Gets the id of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             *
+             * Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: boolean;
+            /**
+             *
+             * Gets the priority of the task. This is a value between 0 and 10, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: boolean;
+            /**
+             *
+             * Gets the date and time the task should start. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: boolean;
+            /**
+             *
+             * Gets title of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of tasks.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TaskCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Gets the comment associated with the task.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            comment?: Excel.Interfaces.CommentLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the users to which the task is assigned.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            assignees?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the date and time the task is due. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dueDate?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the id of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the completion percentage of the task. This is a value between 0 and 100, where 100 represents a completed task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            percentComplete?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the priority of the task. This is a value between 0 and 10, where 0 represents the highest priority.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            priority?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the date and time the task should start. All dates are in UTC.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            startDate?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets title of the task.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            title?: boolean;
+        }
+        /**
+         *
          * Represents the Excel Runtime class.
          *
          * [Api set: ExcelApi 1.5]
@@ -58663,21 +60058,21 @@ declare namespace Excel {
             columnIndex?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation.
+             * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: boolean;
             /**
              *
-             * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: boolean;
             /**
              *
-             * Represents the formula in R1C1-style notation.
+             * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -60257,7 +61652,7 @@ declare namespace Excel {
             patternTintAndShade?: boolean;
             /**
              *
-             * Specifies a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
+             * Specifies a double that lightens or darkens a color for Range Fill. The value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
                         If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
@@ -65516,7 +66911,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -65568,7 +66963,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns a format object, encapsulating the conditional formats font, fill, borders, and other properties.
+            * Returns a format object, encapsulating the conditional format's font, fill, borders, and other properties.
             *
             * [Api set: ExcelApi 1.6]
             */
@@ -66720,21 +68115,21 @@ declare namespace Excel {
             columnIndex?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in A1-style notation.
+             * For EACH ITEM in the collection: Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulas?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+             * For EACH ITEM in the collection: Represents the formula in A1-style notation, in the user's language and number-formatting locale. For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.1]
              */
             formulasLocal?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the formula in R1C1-style notation.
+             * For EACH ITEM in the collection: Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -69067,7 +70462,7 @@ declare namespace Word {
          */
         clear(): void;
         /**
-         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -69454,6 +70849,8 @@ declare namespace Word {
         /**
          *
          * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+         * 
+         * **Note**: The set operation for this property is not supported in Word on the web.
          *
          * [Api set: WordApi 1.1]
          */
@@ -69543,7 +70940,7 @@ declare namespace Word {
          */
         delete(keepContent: boolean): void;
         /**
-         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -69964,7 +71361,7 @@ declare namespace Word {
         readonly type: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
         /**
          *
-         * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+         * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
          *
          * [Api set: WordApi 1.3]
          */
@@ -72129,7 +73526,7 @@ declare namespace Word {
          */
         detachFromList(): void;
         /**
-         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -72690,7 +74087,7 @@ declare namespace Word {
          */
         getBookmarks(includeHidden?: boolean, includeAdjacent?: boolean): OfficeExtension.ClientResult<string[]>;
         /**
-         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word for the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -75721,6 +77118,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: The set operation for this property is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -75769,7 +77168,7 @@ declare namespace Word {
         interface CustomPropertyUpdateData {
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -76648,6 +78047,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: The set operation for this property is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -76731,7 +78132,7 @@ declare namespace Word {
             type?: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -78006,6 +79407,8 @@ declare namespace Word {
             /**
              *
              * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: The set operation for this property is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -78172,6 +79575,8 @@ declare namespace Word {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             * 
+             * **Note**: The set operation for this property is not supported in Word on the web.
              *
              * [Api set: WordApi 1.1]
              */
@@ -78260,7 +79665,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -78293,7 +79698,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word for the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -83256,7 +84661,7 @@ declare namespace OneNote {
         context: RequestContext;
         /**
          *
-         * Gets the Id of the NoteTag object. Read-only.
+         * Gets the ID of the NoteTag object. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */

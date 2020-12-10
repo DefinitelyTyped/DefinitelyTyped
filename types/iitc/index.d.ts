@@ -1,4 +1,4 @@
-// Type definitions for non-npm package IITC (Ingress Intel Total Conversation) 0.30
+// Type definitions for IITC (Ingress Intel Total Conversation) 0.30
 // Project: https://github.com/IITC-CE/ingress-intel-total-conversion
 // Definitions by: McBen <https://github.com/McBen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

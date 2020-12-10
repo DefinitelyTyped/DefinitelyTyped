@@ -55,7 +55,7 @@ declare module 'codemirror' {
 
     interface ShowHintOptions {
         completeSingle?: boolean;
-        hint: HintFunction | AsyncHintFunction;
+        hint?: HintFunction | AsyncHintFunction;
         alignWithWord?: boolean;
         closeCharacters?: RegExp;
         closeOnUnfocus?: boolean;

@@ -10,7 +10,7 @@ import session = require('express-session');
 
 declare module "socket.io" {
     interface Handshake {
-        session?: session.Session | session.InitializedSession;
+        session?: session.Session & Partial<session.SessionData>;
         sessionID?: string;
     }
 }

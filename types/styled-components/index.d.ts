@@ -158,7 +158,7 @@ export type AnyStyledComponent =
     | StyledComponent<any, any, any>;
 
 export type StyledComponent<
-    C extends string | React.ComponentType<any>,
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never

@@ -63,6 +63,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
@@ -457,6 +458,35 @@ type LogEvent =
           transactionID: number;
       }>
     | Readonly<{
+        name: 'network.info',
+        transactionID: number,
+        info: unknown,
+    }>
+    | Readonly<{
+        name: 'network.start',
+        transactionID: number,
+        params: RequestParameters,
+        variables: Variables,
+    }>
+    | Readonly<{
+        name: 'network.next',
+        transactionID: number,
+        response: GraphQLResponse,
+    }>
+    | Readonly<{
+        name: 'network.error',
+        transactionID: number,
+        error: Error,
+    }>
+    | Readonly<{
+        name: 'network.complete',
+        transactionID: number,
+    }>
+    | Readonly<{
+        name: 'network.unsubscribe',
+        transactionID: number,
+    }>
+    | Readonly<{
           name: 'store.publish';
           source: RecordSource;
           optimistic: boolean;
@@ -580,7 +610,6 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
@@ -832,17 +861,17 @@ export type MissingFieldHandler =
  */
 export type RequiredFieldLogger = (
     arg:
-      | Readonly<{
-          kind: "missing_field.log",
-          owner: string,
-          fieldPath: string,
-        }>
-      | Readonly<{
-          kind: "missing_field.throw",
-          owner: string,
-          fieldPath: string,
-        }>
-  ) => void;
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
 
 /**
  * The results of normalizing a query.

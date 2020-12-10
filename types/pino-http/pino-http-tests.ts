@@ -13,6 +13,13 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
     res[pinoHttp.startTime] = Date.now();
 }
 
+function handle_with_next(req: http.IncomingMessage, res: http.ServerResponse, next: () => void) {
+    pinoHttp()(req, res, () => {
+        // Do a thing.
+        next();
+    });
+}
+
 pinoHttp({ logger });
 pinoHttp({ genReqId: req => req.statusCode || 200 });
 pinoHttp({ genReqId: req => 'foo' });

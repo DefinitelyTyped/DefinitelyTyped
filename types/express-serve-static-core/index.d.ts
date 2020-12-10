@@ -48,11 +48,11 @@ export type Params = ParamsDictionary | ParamsArray;
 
 export interface RequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
+    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): void;
 }
 
 export type ErrorRequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> =
-    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
+    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => void;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -71,8 +71,10 @@ export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put'
 }
 
 export interface IRouterHandler<T> {
-    (...handlers: RequestHandler[]): T;
-    (...handlers: RequestHandlerParams[]): T;
+  // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+  <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
+  // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+  <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
 }
 
 export interface IRouter extends RequestHandler {
