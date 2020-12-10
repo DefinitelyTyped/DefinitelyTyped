@@ -769,7 +769,7 @@ declare namespace H {
              * To obtain a GeoJSON representation of the given geometry.
              * @return {object} - A GeoJSON Geometry object representing the given geometry.
              */
-            toGeoJSON(): Object;
+            toGeoJSON(): object;
         }
 
         /**
