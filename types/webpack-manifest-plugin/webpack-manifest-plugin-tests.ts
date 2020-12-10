@@ -1,8 +1,8 @@
 import { Configuration } from 'webpack';
 import path = require('path');
-import WebpackManifestPlugin = require('webpack-manifest-plugin');
+import { WebpackManifestPlugin, Options } from 'webpack-manifest-plugin';
 
-const options: WebpackManifestPlugin.Options = {
+const options: Options = {
     fileName: 'manifest.json',
     basePath: '/src/',
     seed: {
