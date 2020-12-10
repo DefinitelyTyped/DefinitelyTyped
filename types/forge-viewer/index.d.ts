@@ -1076,8 +1076,8 @@ declare namespace Autodesk {
         }
 
         class ModelBuilder {
-          fragList: any;
-          geomList: any;
+          fragList: Private.FragmentList;
+          geomList: Private.GeometryList;
           instanceTree: any;
           model: Model;
 
