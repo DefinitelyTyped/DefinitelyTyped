@@ -47,7 +47,7 @@ declare namespace sade {
         help(str: string): void;
 
         parse(arr: string[], opts: { lazy: true } & ParseOptions): LazyOutput;
-        parse(arr: string[], opts?: ParseOptions): void;
+        parse(arr: string[], opts?: ParseOptions): any | Promise<any>;
     }
 }
 
