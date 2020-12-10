@@ -1118,8 +1118,8 @@ namespace Parse {
     namespace AnonymousUtils  {
         function init(): void;
         function isLinked(user: User): boolean;
-        function link(user: User, options?: SuccessFailureOptions): void;
-        function logIn(options?: FullOptions): void;
+        function link(user: User, options?: SuccessFailureOptions): Promise<User>;
+        function logIn(options?: FullOptions): Promise<User>;
     }
 
     /**
