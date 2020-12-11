@@ -3,12 +3,12 @@
 // Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, compilation, Compiler } from 'webpack';
+import { WebpackPluginInstance, compilation, Compiler } from 'webpack';
 import { SyncWaterfallHook } from 'tapable';
 
-export class WebpackManifestPlugin extends Plugin {
-    constructor(options?: Options);
-}
+export const WebpackManifestPlugin: {
+    new (options?: Options): WebpackPluginInstance;
+};
 
 export interface FileDescriptor {
     /** Only available if isChunk is true. */
