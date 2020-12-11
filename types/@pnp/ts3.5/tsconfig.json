@@ -28,6 +28,6 @@
     },
     "files": [
         "index.d.ts",
-        "pnpjs-tests.ts"
+        "@pnp-tests.ts"
     ]
 }
