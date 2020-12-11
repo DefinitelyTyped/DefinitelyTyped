@@ -1,6 +1,7 @@
 // Type definitions for Elm 0.19
 // Project: http://elm-lang.org
 // Definitions by: Dénes Harmath <https://github.com/thSoft>
+//                 Renan Vaz  <https://github.com/renanpvaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Elm: ElmInstance<any>;
