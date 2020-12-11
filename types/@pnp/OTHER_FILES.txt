@@ -5,3 +5,4 @@ graph/utils/type.d.ts
 nodejs/net/fetch.d.ts
 nodejs/sptokenutils.d.ts
 odata/debug.d.ts
+sp/clientside-pages/funcs.d.ts
