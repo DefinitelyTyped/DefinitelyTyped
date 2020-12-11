@@ -9,8 +9,11 @@ import { IEmailProperties } from '@pnp/sp/sputilities';
 import "@pnp/sp/presets/all";
 import '@pnp/sp/comments/clientside-page';
 
-import { graph, IAttachment } from '@pnp/graph/presets/all';
-import "@pnp/graph/presets/all";
+import { graph } from '@pnp/graph/';
+
+import '@pnp/graph/presets/all';
+import '@pnp/graph/attachments';
+import '@pnp/graph/calendars';
 
 sp.setup({
     spfxContext: undefined,
