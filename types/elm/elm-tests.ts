@@ -1,10 +1,4 @@
-
-
-// Based on https://gist.github.com/evancz/8521339
-
-interface Elm {
-    Shanghai: ElmModule<ShanghaiPorts>;
-}
+interface Elm extends ElmInstance<ShanghaiPorts> {}
 
 interface ShanghaiPorts {
     coordinates: PortToElm<Array<number>>;
@@ -20,10 +14,12 @@ interface Ship {
 
 // initialize the Shanghai component which keeps track of
 // shipping data in and out of the Port of Shanghai.
-var shanghai = Elm.worker(Elm.Shanghai, {
-    coordinates: [0, 0],
-    incomingShip: { name: "", capacity: 0 },
-    outgoingShip: ""
+var shanghai = Elm.Main.init({
+    flags: {
+        coordinates: [0, 0],
+        incomingShip: { name: "", capacity: 0 },
+        outgoingShip: ""
+    }
 });
 
 function logger(x: any) { console.log(x) }
