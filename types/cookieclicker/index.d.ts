@@ -2129,9 +2129,9 @@ declare namespace Game {
 
         synergies: Array<SynergyUpgradeClass<string>>;
 
-        tieredAchievs: Array<TieredAchievementClass<number>>;
+        tieredAchievs: Record<string | number, TieredAchievementClass>;
 
-        tieredUpgrades: Array<TieredUpgradeClass<number>>;
+        tieredUpgrades: Record<string | number, TieredUpgradeClass>;
         /**
          * Generates a tooltip to show on the shop listing.
          * @return A string with the html elements
@@ -2763,7 +2763,7 @@ declare namespace Game {
      * @param what The name of the achievement
      */
     export function HasAchiev(what: string): PseudoBoolean;
-    export interface TieredAchievementClass<Tier extends string | number> extends Achievement {
+    export interface TieredAchievementClass<Tier extends string | number = string | number> extends Achievement {
         tier: Tier;
         buildingTie: GameObject;
     }
