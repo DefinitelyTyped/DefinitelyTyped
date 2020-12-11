@@ -3,3 +3,4 @@ graph/presets/all.d.ts
 graph/utils/toabsoluteurl.d.ts
 graph/utils/type.d.ts
 nodejs/net/fetch.d.ts
+nodejs/sptokenutils.d.ts
