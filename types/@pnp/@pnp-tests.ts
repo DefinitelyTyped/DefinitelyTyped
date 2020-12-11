@@ -81,3 +81,4 @@ const newValues: ITypedHash<string> = {
 };
 const action = sp.web.userCustomActions.add(newValues);
 const driveItem = graph.me.drive.getItemById('00000000-0000-0000-0000-000000000000').get();
+const calenderView = graph.me.calendars.getById('00000000-0000-0000-0000-000000000000').calendarView;
