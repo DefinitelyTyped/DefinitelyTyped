@@ -9,7 +9,8 @@ import { IEmailProperties } from '@pnp/sp/sputilities';
 import "@pnp/sp/presets/all";
 import '@pnp/sp/comments/clientside-page';
 
-import { graph } from '@pnp/graph/';
+import { graph } from '@pnp/graph';
+import { graphGet } from '@pnp/graph/operations';
 
 import '@pnp/graph/presets/all';
 import '@pnp/graph/attachments';
@@ -82,3 +83,6 @@ const newValues: ITypedHash<string> = {
 const action = sp.web.userCustomActions.add(newValues);
 const driveItem = graph.me.drive.getItemById('00000000-0000-0000-0000-000000000000').get();
 const calenderView = graph.me.calendars.getById('00000000-0000-0000-0000-000000000000').calendarView;
+graphGet(graph.me).then(val => {
+    console.log(val);
+});
