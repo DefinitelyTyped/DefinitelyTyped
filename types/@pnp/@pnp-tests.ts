@@ -6,29 +6,11 @@ import { IAttachments } from '@pnp/sp/attachments';
 import { SearchQueryBuilder } from '@pnp/sp/search';
 import { IEmailProperties } from '@pnp/sp/sputilities';
 
-import '@pnp/sp/webs';
-import '@pnp/sp/content-types';
-import '@pnp/sp/lists/web';
-import '@pnp/sp/items/list';
-import '@pnp/sp/attachments';
-import '@pnp/sp/column-defaults';
+import "@pnp/sp/presets/all";
 import '@pnp/sp/comments/clientside-page';
-import '@pnp/sp/features';
-import '@pnp/sp/fields';
-import '@pnp/sp/folders';
-import '@pnp/sp/forms';
-import '@pnp/sp/hubsites';
-import '@pnp/sp/navigation';
-import '@pnp/sp/security';
-import '@pnp/sp/profiles';
-import '@pnp/sp/search';
-import '@pnp/sp/security/web';
-import '@pnp/sp/sharing';
-import '@pnp/sp/site-users/web';
-import '@pnp/sp/social';
-import '@pnp/sp/sputilities';
-import '@pnp/sp/taxonomy';
-import '@pnp/sp/user-custom-actions';
+
+import { graph } from '@pnp/graph/presets/all';
+import "@pnp/graph/presets/all";
 
 sp.setup({
     spfxContext: undefined,
@@ -95,3 +77,4 @@ const newValues: ITypedHash<string> = {
     ScriptSrc: 'https://...'
 };
 const action = sp.web.userCustomActions.add(newValues);
+const driveItem = graph.me.drive.getItemById('00000000-0000-0000-0000-000000000000').get();
