@@ -1302,3 +1302,8 @@ function Argv$strictOptions() {
     .strictOptions()
     .argv;
 }
+
+function Argv$strictCommands() {
+    const argv1 = yargs.strictCommands().command('foo', 'foo command').argv;
+    const argv2 = yargs.strictCommands(true).command('foo', 'foo command').argv;
+}
