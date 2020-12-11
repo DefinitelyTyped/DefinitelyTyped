@@ -9,7 +9,7 @@ import { IEmailProperties } from '@pnp/sp/sputilities';
 import "@pnp/sp/presets/all";
 import '@pnp/sp/comments/clientside-page';
 
-import { graph } from '@pnp/graph/presets/all';
+import { graph, IAttachment } from '@pnp/graph/presets/all';
 import "@pnp/graph/presets/all";
 
 sp.setup({
