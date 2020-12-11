@@ -3,6 +3,8 @@
 // Definitions by: pnp <https://github.com/pnp>, s1nce <https://github.com/s1nce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 /// <reference path="adaljsclient/index.d.ts" />
 /// <reference path="common/index.d.ts" />
 /// <reference path="config-store/index.d.ts" />

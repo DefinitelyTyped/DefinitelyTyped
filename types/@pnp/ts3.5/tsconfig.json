@@ -10,20 +10,19 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
         "paths": {
-            "@pnp/*": [
-                "pnpjs/v2/*"
-            ],
             "@pnp": [
-                "pnpjs/v2/pnpjs"
+                "@pnp/ts3.5"
+            ],
+            "@pnp/*": [
+                "@pnp/ts3.5/*"
             ]
         }
     },

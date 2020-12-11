@@ -10,21 +10,14 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@pnp/*": [
-                "pnpjs/ts3.5/*"
-            ],
-            "@pnp": [
-                "pnpjs/ts3.5/pnpjs"
-            ]
-        }
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
