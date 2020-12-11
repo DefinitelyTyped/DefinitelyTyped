@@ -4278,7 +4278,7 @@ declare namespace Java {
 
     /**
      * Similar to deoptimizeEverything but only deoptimizes boot image code.
-     * Use with dalvik.vm.dex2oat-flags --inline-max-code-units=0 for best
+     * Use with `dalvik.vm.dex2oat-flags --inline-max-code-units=0` for best
      * results.
      */
     function deoptimizeBootImage(): void;
