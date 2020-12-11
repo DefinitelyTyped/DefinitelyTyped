@@ -2423,7 +2423,7 @@ declare namespace Game {
          * If true, Upgrades with this tier won't count towards tiered CpS multiplier
          */
         special: PseudoBoolean | boolean;
-        upgrades: Array<GenericTieredUpgrade>;
+        upgrades: GenericTieredUpgrade[];
     }
     export let Tiers: Record<string | number, Tier>;
     export function GetIcon(type: string, tier: string | number): Icon;
