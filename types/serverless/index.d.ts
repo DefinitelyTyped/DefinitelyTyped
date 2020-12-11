@@ -34,12 +34,19 @@ declare namespace Serverless {
         name: string;
         package: Package;
         runtime?: string;
-        handler: string;
         timeout?: number;
         memorySize?: number;
         environment?: { [name: string]: string };
         events: Event[];
         tags?: { [key: string]: string };
+    }
+
+    interface FunctionDefinitionHandler extends FunctionDefinition {
+        handler: string;
+    }
+
+    interface FunctionDefinitionImage extends FunctionDefinition {
+        image: string;
     }
 
     // Other events than ApiGatewayEvent are available
