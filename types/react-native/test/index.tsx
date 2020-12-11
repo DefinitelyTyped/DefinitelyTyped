@@ -372,11 +372,28 @@ export class TouchableNativeFeedbackTest extends React.Component {
 
     render() {
         return (
-            <TouchableNativeFeedback onPress={this.onPressButton}>
-                <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
-                    <Text style={{ margin: 30 }}>Button</Text>
-                </View>
-            </TouchableNativeFeedback>
+            <>
+                <TouchableNativeFeedback onPress={this.onPressButton}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true, 30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </>
         );
     }
 }
