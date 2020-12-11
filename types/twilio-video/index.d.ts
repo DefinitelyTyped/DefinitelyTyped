@@ -587,7 +587,9 @@ export interface LogLevels {
 export interface LocalTrackPublishOptions {
     priority?: Track.Priority;
 }
-export interface MediaStreamTrackPublishOptions extends LocalTrackPublishOptions {}
+export interface MediaStreamTrackPublishOptions extends LocalTrackOptions {
+    priority?: Track.Priority;
+}
 export type NetworkQualityLevel = number;
 export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
 export interface NetworkQualityConfiguration {
