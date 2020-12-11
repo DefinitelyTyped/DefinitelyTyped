@@ -1,4 +1,4 @@
-// Type definitions for ipaiva
+// Type definitions for ipaiva 0.1
 // Project: https://github.com/ipaiva-studio
 // Definitions by: ipaiva <https://github.com/ipaiva-studio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
