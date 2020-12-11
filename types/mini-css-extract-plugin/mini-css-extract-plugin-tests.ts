@@ -3,7 +3,7 @@ import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let configuration: webpack.Configuration;
 
-let loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
+const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
     publicPath: '/',
     esModule: true,
     modules: {
