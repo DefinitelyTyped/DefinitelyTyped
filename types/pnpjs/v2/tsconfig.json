@@ -21,6 +21,9 @@
         "paths": {
             "@pnp/*": [
                 "pnpjs/v2/*"
+            ],
+            "@pnp": [
+                "pnpjs/v2/pnpjs"
             ]
         }
     },

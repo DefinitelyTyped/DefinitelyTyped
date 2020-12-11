@@ -20,6 +20,9 @@
         "paths": {
             "@pnp/*": [
                 "pnpjs/ts3.5/*"
+            ],
+            "@pnp": [
+                "pnpjs/ts3.5/pnpjs"
             ]
         }
     },
