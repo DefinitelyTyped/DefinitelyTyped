@@ -11,7 +11,7 @@ interface ElmInstance<P> {
 }
 
 interface ElmMain<P> {
-    init(options: { node?: Node, flags?: any }): ElmApp<P>;
+    init(options: { node?: Node; flags?: any }): ElmApp<P>;
 }
 
 interface ElmApp<P> {
