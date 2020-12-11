@@ -44,17 +44,16 @@ declare namespace JsReportPdfUtils {
     }
 
     interface PdfTemplate extends Template {
-        pdfOperations?: JsReportPdfUtils.PdfOperation[];
-        pdfMeta?: JsReportPdfUtils.PdfMeta;
-        pdfSign?: JsReportPdfUtils.PdfSign;
-        pdfPassword?: JsReportPdfUtils.PdfPassword;
+        pdfOperations?: PdfOperation[];
+        pdfMeta?: PdfMeta;
+        pdfSign?: PdfSign;
+        pdfPassword?: PdfPassword;
     }
 }
 
-
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        PdfTemplate: JsReportPdfUtils.PdfTemplate,
+        PdfTemplate: JsReportPdfUtils.PdfTemplate;
     }
 }
 

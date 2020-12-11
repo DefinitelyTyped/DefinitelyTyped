@@ -22,7 +22,7 @@ declare namespace JsReportHtml2Xlsx {
 
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        Html2XlsxTemplate: JsReportHtml2Xlsx.Html2XlsxTemplate,
+        Html2XlsxTemplate: JsReportHtml2Xlsx.Html2XlsxTemplate;
     }
 }
 

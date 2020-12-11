@@ -103,15 +103,15 @@ declare namespace JsReportChromePdf {
         launchOptions: Partial<LaunchOptions>;
     }
     interface ChromeTemplate {
-        chrome?: Partial<JsReportChromePdf.Chrome>;
-        chromeImage?: Partial<JsReportChromePdf.ChromeImage>;
+        chrome?: Partial<Chrome>;
+        chromeImage?: Partial<ChromeImage>;
         recipe: 'chrome-pdf' | 'chrome-image' | string;
     }
 }
 
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        ChromeTemplate: JsReportChromePdf.ChromeTemplate
+        ChromeTemplate: JsReportChromePdf.ChromeTemplate;
     }
 }
 

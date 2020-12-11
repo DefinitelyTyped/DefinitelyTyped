@@ -23,10 +23,9 @@ declare namespace JsReportXlsx {
 
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        XlsxTemplate: JsReportXlsx.XlsxTemplate
+        XlsxTemplate: JsReportXlsx.XlsxTemplate;
     }
 }
-
 
 declare function JsReportXlsx(options?: Partial<JsReportXlsx.Options>): ExtensionDefinition;
 

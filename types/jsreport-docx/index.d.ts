@@ -7,7 +7,7 @@ import { ExtensionDefinition } from 'jsreport-core';
 
 declare namespace JsReportDocx {
     interface DocxTemplateModifier {
-        docx?: JsReportDocx.DocxTemplate;
+        docx?: DocxTemplate;
     }
 
     interface Configuration {
@@ -29,7 +29,7 @@ declare namespace JsReportDocx {
 
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        DocxTemplateModifier: JsReportDocx.DocxTemplateModifier
+        DocxTemplateModifier: JsReportDocx.DocxTemplateModifier;
     }
 }
 

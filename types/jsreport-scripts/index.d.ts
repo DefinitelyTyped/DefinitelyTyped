@@ -17,13 +17,13 @@ declare namespace JsReportScripts {
     }
 
     interface ScriptsTemplate extends Template {
-        scripts?: JsReportScripts.TemplateScript[];
+        scripts?: TemplateScript[];
     }
 }
 
 declare module 'jsreport-core' {
     interface TemplateRegistry {
-        ScriptsTemplate: JsReportScripts.ScriptsTemplate
+        ScriptsTemplate: JsReportScripts.ScriptsTemplate;
     }
 }
 
