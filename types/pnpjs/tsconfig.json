@@ -26,6 +26,6 @@
     },
     "files": [
         "index.d.ts",
-        "pnp-tests.ts"
+        "pnpjs-tests.ts"
     ]
 }
