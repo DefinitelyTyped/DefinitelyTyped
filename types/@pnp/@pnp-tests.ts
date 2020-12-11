@@ -13,7 +13,7 @@ import { graph } from '@pnp/graph/';
 
 import '@pnp/graph/presets/all';
 import '@pnp/graph/attachments';
-import '@pnp/graph/calendars';
+import '@pnp/graph/calendars/funcs';
 
 sp.setup({
     spfxContext: undefined,
