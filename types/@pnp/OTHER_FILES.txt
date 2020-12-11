@@ -8,3 +8,9 @@ odata/debug.d.ts
 sp/clientside-pages/funcs.d.ts
 sp/comments/clientside-page.d.ts
 sp/odata.d.ts
+sp/related-items/web.d.ts
+sp/security/funcs.d.ts
+sp/sharing/funcs.d.ts
+sp/telemetry.d.ts
+sp/utils/escapeQueryStrValue.d.ts
+sp/utils/metadata.d.ts
