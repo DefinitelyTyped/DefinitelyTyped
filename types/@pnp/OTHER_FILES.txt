@@ -1,1 +1,2 @@
 graph/attachments/conversations.d.ts
+graph/attachments/index.d.ts
