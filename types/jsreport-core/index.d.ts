@@ -27,8 +27,13 @@ declare namespace JsReport {
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string;
-        name?: string;
     }
+
+    interface TemplateRegistry {
+        Template: Template;
+    }
+
+    type TemplateLike = TemplateRegistry[keyof TemplateRegistry]; // Template | NamedTemplate
 
     interface RequestOptions {
         preview?: boolean;
@@ -45,7 +50,7 @@ declare namespace JsReport {
         configurable?: boolean;
         /** @default false */
         enumerable?: boolean;
-        template: Partial<Template>;
+        template: TemplateLike;
         options?: Partial<RequestOptions>;
         context?: Context;
         data?: any;
@@ -199,13 +204,13 @@ declare namespace JsReport {
             numberOfWorkers?: number;
             forkOptions?: {
                 execArgv?: string | string[];
-            },
+            };
             allowedModules?: string | string[];
             timeout?: number;
             templateCache?: {
                 max: number;
                 enabled: boolean;
-            }
+            };
         };
         store?: {
             provider?: ReporterOptionsStoreProvider;
