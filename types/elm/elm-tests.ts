@@ -1,4 +1,4 @@
-interface Elm extends ElmInstance<ShanghaiPorts> {}
+declare var Elm: ElmInstance<ShanghaiPorts>;
 
 interface ShanghaiPorts {
     coordinates: PortToElm<Array<number>>;

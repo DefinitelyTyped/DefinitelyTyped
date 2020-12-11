@@ -3,10 +3,7 @@
 // Definitions by: Dénes Harmath <https://github.com/thSoft>
 //                 Renan Vaz  <https://github.com/renanpvaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare var Elm: ElmInstance<any>;
-
-interface ElmInstance<P> {
+interface ElmInstance<P = {}> {
     Main: ElmMain<P>;
 }
 
