@@ -8688,12 +8688,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): EventSubscription;
+    export function addChangeListener(listener: AppearanceListener): void;
 
     /**
      * Remove an event handler.
      */
-    export function removeChangeListener(listener: AppearanceListener): EventSubscription;
+    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
