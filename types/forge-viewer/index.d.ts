@@ -564,9 +564,16 @@ declare namespace Autodesk {
             is2d(): boolean;
             is3d(): boolean;
             isAEC(): boolean;
+            isConsolidated(): boolean;
+            isLeaflet(): boolean;
             isLoadDone(): boolean;
             isObjectTreeCreated(): boolean;
             isObjectTreeLoaded(): boolean;
+            isOTG(): boolean;
+            isPageCoordinates(): boolean;
+            isPdf(onlyPdfSource?: boolean): boolean;
+            isSceneBuilder(): boolean;
+            isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
