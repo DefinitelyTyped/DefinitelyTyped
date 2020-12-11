@@ -106,7 +106,7 @@ export class LocalParticipant extends Participant {
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
     signalingRegion: string;
 
-    publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
+    publishTrack(track: LocalTrack, options?: LocalTrackPublishOptions): Promise<LocalTrackPublication>;
     publishTrack(mediaStreamTrack: MediaStreamTrack, options?: MediaStreamTrackPublishOptions): Promise<LocalTrackPublication>;
     publishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
@@ -584,9 +584,10 @@ export interface LogLevels {
     signaling: LogLevel;
     webrtc: LogLevel;
 }
-export interface MediaStreamTrackPublishOptions extends LocalTrackOptions {
+export interface LocalTrackPublishOptions {
     priority?: Track.Priority;
 }
+export interface MediaStreamTrackPublishOptions extends LocalTrackPublishOptions {}
 export type NetworkQualityLevel = number;
 export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
 export interface NetworkQualityConfiguration {
