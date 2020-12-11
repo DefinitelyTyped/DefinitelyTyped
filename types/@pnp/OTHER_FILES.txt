@@ -7,3 +7,4 @@ nodejs/sptokenutils.d.ts
 odata/debug.d.ts
 sp/clientside-pages/funcs.d.ts
 sp/comments/clientside-page.d.ts
+sp/odata.d.ts
