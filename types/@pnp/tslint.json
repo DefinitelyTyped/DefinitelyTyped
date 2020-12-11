@@ -11,6 +11,7 @@
         "no-unnecessary-class": false,
         "no-useless-files": false,
         "no-redundant-jsdoc-2": false,
+        "no-var-keyword": false,
         "comment-format": false,
         "interface-name": false,
         "interface-over-type-literal": false,

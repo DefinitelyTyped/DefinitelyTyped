@@ -22,5 +22,8 @@
     "files": [
         "index.d.ts",
         "@pnp-tests.ts"
+    ],
+    "include": [
+        "**/*.d.ts"
     ]
 }
