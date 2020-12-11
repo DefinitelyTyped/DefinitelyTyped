@@ -1,1 +1,1 @@
-\**\conversations.d.ts
+./graph/attachments/conversations.d.ts
