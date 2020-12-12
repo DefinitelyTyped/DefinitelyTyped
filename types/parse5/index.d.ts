@@ -632,8 +632,6 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
     ): void;
 }
 
-type DefaultTreeAdapter = typeof import('./lib/tree-adapters/default');
-
 /**
  * Parses an HTML string.
  *
@@ -650,7 +648,7 @@ type DefaultTreeAdapter = typeof import('./lib/tree-adapters/default');
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse<T extends TreeAdapter = DefaultTreeAdapter>(
+export function parse<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     html: string,
     options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['document'] : Document;
 
@@ -676,11 +674,11 @@ export function parse<T extends TreeAdapter = DefaultTreeAdapter>(
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment<T extends TreeAdapter = DefaultTreeAdapter>(
+export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     html: string,
     options?: ParserOptions<T>
 ): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
-export function parseFragment<T extends TreeAdapter = DefaultTreeAdapter>(
+export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
