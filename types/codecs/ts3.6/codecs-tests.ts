@@ -1,4 +1,3 @@
-/* tslint:disable:prefer-const */
 import { CodecName, InType, OutType, Codec, JsonCodec, NamedCodec } from 'codecs/ts3.6';
 import codecs = require('codecs/ts3.6');
 
