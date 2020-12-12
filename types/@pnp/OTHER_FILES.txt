@@ -14,3 +14,6 @@ sp/sharing/funcs.d.ts
 sp/telemetry.d.ts
 sp/utils/escapeQueryStrValue.d.ts
 sp/utils/metadata.d.ts
+sp/presets/all.d.ts
+sp/presets/core.d.ts
+sp/regional-settings/funcs.d.ts
