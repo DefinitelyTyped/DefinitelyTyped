@@ -15,12 +15,12 @@
   - [Make a pull request](#make-a-pull-request)<details><summary></summary>
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
-    - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
     - [Running Tests](#running-tests)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
+    - [Linter: `tslint.json`](#linter-tslintjson)
     - [package.json](#packagejson)
+    - [Common mistakes](#common-mistakes)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -178,7 +178,7 @@ Your package should have this structure:
 | index.d.ts    | This contains the typings for the package. |
 | [\<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
-| tslint.json   | Enables linting. |
+| [tslint.json](#linter-tslintjson)   | Enables linting. |
 
 Generate these by running `npx dts-gen --dt --name <my package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -190,30 +190,6 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
-#### Common mistakes
-
-* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
-  ```tsx
-  // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-  ```
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
-* `interface Foo { new(): Foo; }`:
-  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `getMeAT<T>(): T`:
-  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
-  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
-  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
-  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
-  Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
-* `var foo: string | any`:
-  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
-  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 #### Removing a package
 
@@ -297,29 +273,11 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Linter
+#### Linter: `tslint.json`
 
-All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
-
-This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
-
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // This package uses the Function type, and it will take effort to fix.
-    "ban-types": false
-  }
-}
-```
-
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `// tslint:disable-next-line rule-name`.)
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
 #### package.json
 
@@ -333,6 +291,30 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
+
+#### Common mistakes
+
+* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
+* `interface Foo { new(): Foo; }`:
+  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
+* `getMeAT<T>(): T`:
+  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
+  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
+  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
+  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
+  Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`:
+  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 ### Definition Owners
 

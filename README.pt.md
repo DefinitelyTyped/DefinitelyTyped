@@ -16,12 +16,12 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
   - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
     - [Edite um pacote existente](#edite-um-pacote-existente)
     - [Crie um novo pacote](#crie-um-novo-pacote)
-    - [Erros comuns](#erros-comuns)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Verificando](#verificando)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
+    - [Linter: `tslint.json`](#linter-tslintjson)
     - [package.json](#package.json)
+    - [Erros comuns](#erros-comuns)
     </details>
   - [Donos de definição](#donos-de-definição)
 * [FAQ](#faq)
@@ -179,7 +179,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | index.d.ts | Contém os tipos para o pacote. |
 | [\<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
 | tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
-| tslint.json | Habilita a análise do código pelo linter. |
+| [tslint.json](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -191,31 +191,6 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
-#### Erros comuns
-
-* Primeiro, siga as instruções do [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
-    ```tsx
-    // prettier-ignore
-    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-    ```
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
-* `interface Foo { new(): Foo; }`:
-    Isto define um tipo de objeto que pode ser instanciado utlizando o operador `new`. Você provavelmente deveria escrever `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-    Prefira usar a declaração de classe `class Class { constructor(); }` em vez de uma constante que pode ser instanciada utlizando o operador `new`.
-* `getMeAT<T>(): T`:
-    Se um parâmetro de tipo não estiver no tipo de nenhum dos parâmetros, então você não tem realmente uma função genérica, você só tem uma asserção de tipos disfarçada.
-    Prefira usar uma asserção de tipos real, por exemplo `getMeAT() as number`.
-    Um exemplo onde um parâmetro de tipo é aceitável: `function id<T>(value: T): T;`.
-    Um exemplo onde não é aceitável: `function parseJson<T>(json: string): T;`.
-    Exceção: `new Map<string, number>()` é aceitável.
-* Usar os tipos `Function` e `Object` quase nunca é uma boa ideia. Em 99% dos casos é possível especificar um tipo mais específico. Por exemplo `(x: number) => number` para [funções](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` para objetos. Se você não tem nenhuma certeza sobre o tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) é a escolha correta, não `Object`. Se a única certeza sobre o tipo é que ele é algum objeto, use o tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), não `Object` ou `{ [key: string]: any }`.
-* `var foo: string | any`:
-    Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então, enquanto a parte da anotação de tipo `string` pode _parecer_ útil, na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
-    Dependendo da intenção, alternativas aceitáveis podem ser `any`, `string`, ou `string | object`.
-
 
 #### Removendo um pacote
 
@@ -298,29 +273,11 @@ f("um");
 
 Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
 
-#### Linter
+#### Linter: `tslint.json`
 
-Todos os novos pacotes devem passar pelo linter. Para habilitar o linter num pacote, adicione um `tslint.json` para aquele pacote, contendo:
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finalizado. Se um `tslint.json` desabilitar certas regras, é porque elas ainda não foram corrigidas. Por exemplo:
-
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // Este pacote usa o tipo Function, e vai dar trabalho para arrumar.
-        "ban-types": false
-    }
-}
-```
-
-(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `// tslint:disable-next-line nome-da-regra`.)
-
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
 #### package.json
 
@@ -334,6 +291,30 @@ Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar
 
 Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
 Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
+
+#### Erros comuns
+
+* Primeiro, siga as instruções do [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
+* `interface Foo { new(): Foo; }`:
+  Isto define um tipo de objeto que pode ser instanciado utlizando o operador `new`. Você provavelmente deveria escrever `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  Prefira usar a declaração de classe `class Class { constructor(); }` em vez de uma constante que pode ser instanciada utlizando o operador `new`.
+* `getMeAT<T>(): T`:
+  Se um parâmetro de tipo não estiver no tipo de nenhum dos parâmetros, então você não tem realmente uma função genérica, você só tem uma asserção de tipos disfarçada.
+  Prefira usar uma asserção de tipos real, por exemplo `getMeAT() as number`.
+  Um exemplo onde um parâmetro de tipo é aceitável: `function id<T>(value: T): T;`.
+  Um exemplo onde não é aceitável: `function parseJson<T>(json: string): T;`.
+  Exceção: `new Map<string, number>()` é aceitável.
+* Usar os tipos `Function` e `Object` quase nunca é uma boa ideia. Em 99% dos casos é possível especificar um tipo mais específico. Por exemplo `(x: number) => number` para [funções](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` para objetos. Se você não tem nenhuma certeza sobre o tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) é a escolha correta, não `Object`. Se a única certeza sobre o tipo é que ele é algum objeto, use o tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), não `Object` ou `{ [key: string]: any }`.
+* `var foo: string | any`:
+  Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então, enquanto a parte da anotação de tipo `string` pode _parecer_ útil, na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
+  Dependendo da intenção, alternativas aceitáveis podem ser `any`, `string`, ou `string | object`.
 
 ### Donos de definição
 

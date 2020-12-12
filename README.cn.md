@@ -18,12 +18,12 @@
   - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
     - [编辑一个现有包](#编辑一个现有包)
     - [创建一个新的包](#创建一个新的包)
-    - [常见错误](#常见错误)
     - [删除一个包](#删除一个包)
     - [验证](#验证)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
+    - [Linter: `tslint.json`](#linter-tslintjson)
     - [package.json](#packagejson)
+    - [常见错误](#常见错误)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -178,7 +178,7 @@ Version | Released | End of Support
 | index.d.ts | 这里包含了包的类型声明。 |
 | [\<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | tsconfig.json | 这里允许你在包里运行 `tsc`. |
-| tslint.json | 启用 linting. |
+| [tslint.json](#linter-tslintjson) | 启用 linting. |
 
 如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
@@ -188,29 +188,6 @@ Version | Released | End of Support
 Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许多其他 PRs 的时候，检查会变慢。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 是个很好的示例。
-
-#### 常见错误
-
-* 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
-* 格式化：使用4个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
-    ```tsx
-    // prettier-ignore
-    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-    ```
-* `function sum(nums: number[]): number`: 如果函数没有写入的参数，请使用 `ReadonlyArray`.
-* `interface Foo { new(): Foo; }`:
-    这定义了一个可实例化的类型，你可能需要的是 `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-    更推荐使用类声明 `class Class { constructor(); }`，而不是生成一个可实例化的类型。
-* `getMeAT<T>(): T`:
-    如果类型参数没有出现在函数的参数中，那么实际上你不需要这个泛型函数，你只是用了一个伪装的类型断言。
-    这种情况下最好使用真实的类型断言，类似这样，`getMeAT() as number`.
-    类型参数可接受的示例：`function id<T>(value: T): T;`.
-    类型参数不可接受的示例：`function parseJson<T>(json: string): T;`.
-    有一个例外：`new Map<string, number>()` 是 OK 的。
-* 使用 `Function` 和 `Object` 的类型基本上不是一个好方法。在 99% 的情况你可以去指定一个更具体的类型。比如，对于 [Function](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)，可以使用 `(x: number) => number`，对于 `Object` 可以使用 `{ x: number, y: number }`. 对于不确定的类型，你需要使用 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`. 只有当它类型确定且是某个对象的时候，使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), 而不是 `Object` 或 `{ [key: string]: any }`.
-* `var foo: string | any`:
-    如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
 #### 删除一个包
 
@@ -293,27 +270,11 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-#### Linter
+#### Linter: `tslint.json`
 
-所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
-```js
-{
-    "extends": "dtslint/dt.json"
-}
-```
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-这应该是一个已完成项目里 `tslint.json` 文件的唯一内容。如果这个文件关闭了某些规则，是因为它还未完全修复。例如：
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
-
-(若要使某个 lint 规则不生效，可以使用 `// tslint:disable rule-name`，当然使用 `// tslint:disable-next-line rule-name` 更好。)
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
 #### package.json
 
@@ -328,6 +289,29 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
 在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
 再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
+
+#### 常见错误
+
+* 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
+* 格式化：使用 4 个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: 如果函数没有写入的参数，请使用 `ReadonlyArray`.
+* `interface Foo { new(): Foo; }`:
+  这定义了一个可实例化的类型，你可能需要的是 `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  更推荐使用类声明 `class Class { constructor(); }`，而不是生成一个可实例化的类型。
+* `getMeAT<T>(): T`:
+  如果类型参数没有出现在函数的参数中，那么实际上你不需要这个泛型函数，你只是用了一个伪装的类型断言。
+  这种情况下最好使用真实的类型断言，类似这样，`getMeAT() as number`.
+  类型参数可接受的示例：`function id<T>(value: T): T;`.
+  类型参数不可接受的示例：`function parseJson<T>(json: string): T;`.
+  有一个例外：`new Map<string, number>()` 是 OK 的。
+* 使用 `Function` 和 `Object` 的类型基本上不是一个好方法。在 99% 的情况你可以去指定一个更具体的类型。比如，对于 [Function](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)，可以使用 `(x: number) => number`，对于 `Object` 可以使用 `{ x: number, y: number }`. 对于不确定的类型，你需要使用 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`. 只有当它类型确定且是某个对象的时候，使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), 而不是 `Object` 或 `{ [key: string]: any }`.
+* `var foo: string | any`:
+  如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
 ### Definition Owners
 
