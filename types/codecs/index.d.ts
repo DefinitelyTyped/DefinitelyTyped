@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-type ArgsType<T> = T extends (...args: infer U) => any ? U : never;
-
 declare namespace codecs {
     type JsonObject = { [Key in string]?: JsonValue };
     interface JsonArray extends Array<JsonValue> {}
