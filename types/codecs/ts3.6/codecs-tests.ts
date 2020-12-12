@@ -1,26 +1,26 @@
-import { CodecName, InType, OutType, Codec, JsonCodec, NamedCodec } from 'codecs';
-import codecs = require('codecs');
+import { CodecName, InType, OutType, Codec, JsonCodec, NamedCodec } from 'codecs/ts3.6';
+import codecs = require('codecs/ts3.6');
 
 {
   codecs().name; // $ExpectType "binary"
   codecs(undefined).name; // $ExpectType "binary"
   const set: [Codec<undefined>, InType<undefined>, OutType<undefined>, CodecName<undefined>] = [] as any;
-  set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+  set; // $ExpectType [NamedCodec<"binary", string | Uint8Array, Buffer>, string | Uint8Array, Buffer, "binary"]
 }
 {
   codecs(null).name; // $ExpectType "binary"
   const set: [Codec<null>, InType<null>, OutType<null>, CodecName<null>] = [] as any;
-  set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+  set; // $ExpectType [NamedCodec<"binary", string | Uint8Array, Buffer>, string | Uint8Array, Buffer, "binary"]
 }
 {
   codecs('any').name; // $ExpectType "binary"
   const set: [Codec<'any'>, InType<'any'>, OutType<'any'>, CodecName<'any'>] = [] as any;
-  set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+  set; // $ExpectType [NamedCodec<"binary", string | Uint8Array, Buffer>, string | Uint8Array, Buffer, "binary"]
 }
 {
   codecs('any', codecs.json).name; // $ExpectType "json"
   const set: [Codec<'any', JsonCodec>, InType<'any', JsonCodec>, OutType<'any', JsonCodec>, CodecName<'any', JsonCodec>] = [] as any;
-  set; // $ExpectType [JsonCodec, any, JsonValue, "json"]
+  set; // $ExpectType [NamedCodec<"json", any, JsonValue>, any, JsonValue, "json"]
 }
 {
   interface custom {
@@ -37,7 +37,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'ascii'>, InType<'ascii'>, OutType<'ascii'>, CodecName<'ascii'>] = [] as any;
-  set; // $ExpectType [AsciiCodec, string, string, "ascii"]
+  set; // $ExpectType [NamedCodec<"ascii", string, string>, string, string, "ascii"]
 }
 {
   const codec = 'base64';
@@ -46,7 +46,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'base64'>, InType<'base64'>, OutType<'base64'>, CodecName<'base64'>] = [] as any;
-  set; // $ExpectType [Base64Codec, string, string, "base64"]
+  set; // $ExpectType [NamedCodec<"base64", string, string>, string, string, "base64"]
 }
 {
   const codec = 'binary';
@@ -55,7 +55,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType Buffer
   const set: [Codec<'binary'>, InType<'binary'>, OutType<'binary'>, CodecName<'binary'>] = [] as any;
-  set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+  set; // $ExpectType [NamedCodec<"binary", string | Uint8Array, Buffer>, string | Uint8Array, Buffer, "binary"]
 }
 {
   const codec = 'hex';
@@ -64,7 +64,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'hex'>, InType<'hex'>, OutType<'hex'>, CodecName<'hex'>] = [] as any;
-  set; // $ExpectType [HexCodec, string, string, "hex"]
+  set; // $ExpectType [NamedCodec<"hex", string, string>, string, string, "hex"]
 }
 {
   const codec = 'json';
@@ -73,7 +73,7 @@ import codecs = require('codecs');
   codecs[codec].encode({ hello: 'world' }); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType JsonValue
   const set: [Codec<'json'>, InType<'json'>, OutType<'json'>, CodecName<'json'>] = [] as any;
-  set; // $ExpectType [JsonCodec, any, JsonValue, "json"]
+  set; // $ExpectType [NamedCodec<"json", any, JsonValue>, any, JsonValue, "json"]
 }
 {
   const codec = 'ndjson';
@@ -82,7 +82,7 @@ import codecs = require('codecs');
   codecs[codec].encode({ hello: 'world' }); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType JsonValue
   const set: [Codec<'ndjson'>, InType<'ndjson'>, OutType<'ndjson'>, CodecName<'ndjson'>] = [] as any;
-  set; // $ExpectType [NDJsonCodec, any, JsonValue, "ndjson"]
+  set; // $ExpectType [NamedCodec<"ndjson", any, JsonValue>, any, JsonValue, "ndjson"]
 }
 {
   const codec = 'ucs-2';
@@ -91,7 +91,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'ucs-2'>, InType<'ucs-2'>, OutType<'ucs-2'>, CodecName<'ucs-2'>] = [] as any;
-  set; // $ExpectType [Ucs2Codec, string, string, "ucs2"]
+  set; // $ExpectType [NamedCodec<"ucs2", string, string>, string, string, "ucs2"]
 }
 {
   const codec = 'ucs2';
@@ -100,7 +100,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'ucs2'>, InType<'ucs2'>, OutType<'ucs2'>, CodecName<'ucs2'>] = [] as any;
-  set; // $ExpectType [Ucs2Codec, string, string, "ucs2"]
+  set; // $ExpectType [NamedCodec<"ucs2", string, string>, string, string, "ucs2"]
 }
 {
   const codec = 'utf-8';
@@ -109,7 +109,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf-8'>, InType<'utf-8'>, OutType<'utf-8'>, CodecName<'utf-8'>] = [] as any;
-  set; // $ExpectType [Utf8Codec, string, string, "utf-8"]
+  set; // $ExpectType [NamedCodec<"utf-8", string, string>, string, string, "utf-8"]
 }
 {
   const codec = 'utf8';
@@ -118,7 +118,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf8'>, InType<'utf8'>, OutType<'utf8'>, CodecName<'utf8'>] = [] as any;
-  set; // $ExpectType [Utf8Codec, string, string, "utf-8"]
+  set; // $ExpectType [NamedCodec<"utf-8", string, string>, string, string, "utf-8"]
 }
 {
   const codec = 'utf16-le';
@@ -127,7 +127,7 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf16-le'>, InType<'utf16-le'>, OutType<'utf16-le'>, CodecName<'utf16-le'>] = [] as any;
-  set; // $ExpectType [Utf16leCodec, string, string, "utf16le"]
+  set; // $ExpectType [NamedCodec<"utf16le", string, string>, string, string, "utf16le"]
 }
 {
   const codec = 'utf16le';
@@ -136,5 +136,5 @@ import codecs = require('codecs');
   codecs[codec].encode('hello'); // $ExpectType Buffer
   codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf16le'>, InType<'utf16le'>, OutType<'utf16le'>, CodecName<'utf16le'>] = [] as any;
-  set; // $ExpectType [Utf16leCodec, string, string, "utf16le"]
+  set; // $ExpectType [NamedCodec<"utf16le", string, string>, string, string, "utf16le"]
 }
