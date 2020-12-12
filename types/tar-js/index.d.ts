@@ -1,6 +1,6 @@
 // Type definitions for tar-js 0.3
 // Project: http://github.com/beatgammit/tar-js
-// Definitions by: Narazaka <https://github.com/me>
+// Definitions by: Narazaka <https://github.com/Narazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Tar {
