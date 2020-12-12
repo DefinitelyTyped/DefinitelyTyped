@@ -15,11 +15,16 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "akumina-core": [
+                "akumina-core/v4"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "tests/akumina-core-tests.ts"
+        "akumina-core-tests.ts"
     ]
 }
