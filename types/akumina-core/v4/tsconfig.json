@@ -12,7 +12,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "paths": {
