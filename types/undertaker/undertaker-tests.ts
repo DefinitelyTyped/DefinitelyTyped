@@ -67,12 +67,12 @@ taker.task("checkVersion", (cb: Parameters<Undertaker.TaskFunction>[0]) => {
     }
 });
 
-taker.task("mixed", async (cb: Undertaker.TaskCallback, args?: number) => {
+taker.task("mixed", (cb: Undertaker.TaskCallback, args?: number) => {
     if (!args) {
         cb(new Error("Undefined args!"));
         return;
     }
-    return args + 2;
+    return Promise.resolve(args + 2);
 });
 
 const registry = new Registry();
