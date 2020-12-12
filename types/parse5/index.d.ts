@@ -131,28 +131,28 @@ export interface Attribute {
 }
 
 /**
- * Default tree adapter CommentNode interface.
+ * Default tree adapter DocumentType interface.
  */
-export interface CommentNode {
+export interface DocumentType {
     /**
      * The name of the node.
      */
-    nodeName: "#comment";
+    nodeName: "#documentType";
 
     /**
-     * Comment text.
+     * Document type name.
      */
-    data: string;
+    name: string;
 
     /**
-     * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
+     * Document type public identifier.
      */
-    sourceCodeLocation?: Location;
+    publicId: string;
 
     /**
-     * Parent node.
+     * Document type system identifier.
      */
-    parentNode: ParentNode;
+    systemId: string;
 }
 
 /**
@@ -188,31 +188,6 @@ export interface DocumentFragment {
      * Child nodes.
      */
     childNodes: ChildNode[];
-}
-
-/**
- * Default tree adapter DocumentType interface.
- */
-export interface DocumentType {
-    /**
-     * The name of the node.
-     */
-    nodeName: "#documentType";
-
-    /**
-     * Document type name.
-     */
-    name: string;
-
-    /**
-     * Document type public identifier.
-     */
-    publicId: string;
-
-    /**
-     * Document type system identifier.
-     */
-    systemId: string;
 }
 
 /**
@@ -256,6 +231,31 @@ export interface Element {
 }
 
 /**
+ * Default tree adapter CommentNode interface.
+ */
+export interface CommentNode {
+    /**
+     * The name of the node.
+     */
+    nodeName: "#comment";
+
+    /**
+     * Comment text.
+     */
+    data: string;
+
+    /**
+     * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
+     */
+    sourceCodeLocation?: Location;
+
+    /**
+     * Parent node.
+     */
+    parentNode: ParentNode;
+}
+
+/**
  * Default tree adapter TextNode interface.
  */
 export interface TextNode {
@@ -281,6 +281,11 @@ export interface TextNode {
 }
 
 /**
+ * Default tree adapter Node interface.
+ */
+export type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
+
+/**
  * Default tree adapter ChildNode type.
  */
 export type ChildNode = TextNode | Element | CommentNode;
@@ -289,11 +294,6 @@ export type ChildNode = TextNode | Element | CommentNode;
  * Default tree adapter ParentNode type.
  */
 export type ParentNode = Document | DocumentFragment | Element;
-
-/**
- * Default tree adapter Node interface.
- */
-export type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
 
 export interface TreeAdapterTypeMap {
     attribute: any;
@@ -632,6 +632,8 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
     ): void;
 }
 
+type DefaultTreeAdapter = typeof import('./lib/tree-adapters/default');
+
 /**
  * Parses an HTML string.
  *
@@ -648,7 +650,7 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse<T extends TreeAdapter = TreeAdapter>(
+export function parse<T extends TreeAdapter = DefaultTreeAdapter>(
     html: string,
     options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['document'] : Document;
 
@@ -674,11 +676,11 @@ export function parse<T extends TreeAdapter = TreeAdapter>(
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment<T extends TreeAdapter = TreeAdapter>(
+export function parseFragment<T extends TreeAdapter = DefaultTreeAdapter>(
     html: string,
     options?: ParserOptions<T>
 ): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
-export function parseFragment<T extends TreeAdapter = TreeAdapter>(
+export function parseFragment<T extends TreeAdapter = DefaultTreeAdapter>(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
