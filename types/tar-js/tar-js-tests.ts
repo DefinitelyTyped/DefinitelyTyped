@@ -16,3 +16,6 @@ tar.append("hoge.txt", "hoge", {mode: 0o755, mtime: 123, uid: 0, gid: 0, owner: 
     console.log(out2);
 });
 tar.append("fuga.txt", new Uint8Array(Buffer.from("fuga")));
+tar.clear();
+const tar2 = new Tar(1024);
+console.log(tar2);
