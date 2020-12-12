@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="./../jquery" />
+/// <reference types="jquery" />
 
 import IGetListRequest from "./interfaces/IGetListRequest";
 import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
