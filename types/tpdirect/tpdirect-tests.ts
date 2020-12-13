@@ -172,6 +172,18 @@ TPDirect.googlePay.setupPaymentRequest({
     price: "1.00"
 });
 
+// $ExpectType void
+TPDirect.googlePay.getPrime((error, prime, result) => {
+    error.originalError; // // $ExpectType string | Error
+    prime; // $ExpectType Pick<BaseResult, "prime">
+    /**
+     * Only test different field with other payment response
+     */
+    result.client_ip; // $ExpectType string
+    result.card_info.country_code; // $ExpectType string
+    result.card_info.last_four; // $ExpectType string
+});
+
 /**
  * Test Samsung Pay
  */
