@@ -2,6 +2,7 @@
 // Project: https://pnp.github.io/pnpjs
 // Definitions by: pnp <https://github.com/pnp>, s1nce <https://github.com/s1nce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 /// <reference types="node" />
 
