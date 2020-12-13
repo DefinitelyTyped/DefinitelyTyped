@@ -250,3 +250,63 @@ export interface SupportTicketResponse {
     error?: string;
     statusCode: number;
 }
+
+// sell/voucher types
+
+export type SellTradeStatus =
+    | 'REQUESTING' // sending request to the partner
+    | 'SEND_CRYPTO' // request to send crypto
+    | 'IN_TX' // waiting for completion of transaction on Trezor
+    | 'PENDING' // pending exchange to fiat
+    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
+    | 'ERROR' // something went wrong during or after confirmTrade
+    | 'CANCELLED' // user cancelled the transaction
+    | 'REFUNDED'; // transaction has been refunded
+
+export type SellProviderType = 'Fiat' | 'Voucher';
+
+export interface SellProviderInfo {
+    name: string; // simplex
+    companyName: string; // Simplex
+    logo: string; // simplex-icon.jpg
+    type: SellProviderType;
+    isActive: boolean;
+    tradedCoins: string[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
+    tradedFiatCurrencies?: string[]; // ['EUR', 'USD']
+    supportedCountries: string[]; // ['AT', 'BE']
+    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
+    supportUrl?: string; // https://www.simplex.com/support/
+    quoteInfo?: string; // some info text shown on quote
+    voucherSiteOrigin?: string;
+}
+
+export interface SellListResponse {
+    country: string;
+    providers: SellProviderInfo[];
+}
+
+export interface SellVoucherTradeQuoteRequest {
+    cryptoCurrency?: string; // BTC
+    language?: string; // en
+    country?: string; // cz
+    refundAddress?: string; // crypto address to which sent crypto currency to sell
+}
+
+export interface SellVoucherTrade {
+    siteUrl?: string;
+    error?: string; // something went wrong
+    exchange?: string; // which exchange this trade belongs to, used for discrimination in ExchangeService
+    status?: SellTradeStatus; // state of trade after request trade
+    cryptoCurrency?: string; // BTC
+    cryptoAmount?: number; // 0.12345
+    destinationAddress?: string; // crypto address to which sent crypto currency to sell
+    paymentId?: string; // ID of the order assigned by us
+}
+
+export interface SellVoucherTradeRequest {
+    exchange: string; // which exchange this trade belongs to, used for discrimination in ExchangeService
+    cryptoCurrency: string;
+    data: any; // data returned by post message
+}
+
+export type SellVoucherTradeQuoteResponse = SellVoucherTrade[];
