@@ -1952,9 +1952,8 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T, catcher: (...args: readonly A[]) => T): (...args: readonly A[]) => T;
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catcher: (...args: readonly A[]) => T) => (...args: readonly A[]) => T;
-
+export function tryCatch<F extends (...args: readonly any[]) => any, RE = ReturnType<F>, E = unknown>(tryer: F, catcher: (error: E, ...args: _.F.Parameters<F>) => RE): (F | (() => RE));
+export function tryCatch<F extends (...args: readonly any[]) => any>(tryer: F): <RE = ReturnType<F>, E = unknown>(catcher: (error: E, ...args: _.F.Parameters<F>) => RE) => (F | (() => RE));
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
