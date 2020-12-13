@@ -1,0 +1,8 @@
+graph/src/net/graphhttpclient.d.ts
+nodejs/src/net/fetch.d.ts
+nodejs/src/sptokenutils.d.ts
+pnpjs/index.d.ts
+pnpjs/src/config/pnplibconfig.d.ts
+pnpjs/src/pnpjs.d.ts
+sp/src/net/digestcache.d.ts
+sp/src/utils/metadata.d.ts
