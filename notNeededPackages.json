@@ -1211,6 +1211,11 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "feedsub",
+            "typingsPackageName": "feedsub",
+            "asOfVersion": "0.7.5"
+        },
+        {
             "libraryName": "figures",
             "typingsPackageName": "figures",
             "asOfVersion": "3.0.0"
