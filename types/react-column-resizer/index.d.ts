@@ -5,11 +5,10 @@
 
 import { Component } from 'react';
 
-interface ResizerProps {
+export interface ResizerProps {
     className?: string;
     disabled?: boolean;
     minWidth?: number;
 }
 
 export default class ColumnResizer extends Component<ResizerProps> {}
-export {};
