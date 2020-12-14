@@ -1,9 +1,9 @@
-import SitemapGenerator from 'sitemap-generator';
+import SitemapGenerator = require('sitemap-generator');
 
 // $ExpectError
 SitemapGenerator();
 
-SitemapGenerator('https://example.com/');
+SitemapGenerator('https://example.com/', {});
 
 const generator = SitemapGenerator('https://example.com/', {
     changeFreq: 'always',

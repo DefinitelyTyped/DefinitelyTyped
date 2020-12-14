@@ -2,7 +2,6 @@
 // Project: https://github.com/lgraubner/sitemap-generator
 // Definitions by: grgr-dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.8
 
 import Crawler = require('simplecrawler');
 
