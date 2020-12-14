@@ -563,6 +563,8 @@ declare module "fs" {
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
+    export function fstat(fd: number, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function fstat(fd: number, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
@@ -571,6 +573,8 @@ declare module "fs" {
          * Asynchronous fstat(2) - Get file status.
          * @param fd A file descriptor.
          */
+        function __promisify__(fd: number, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(fd: number, options: StatOptions): Promise<Stats | BigIntStats>;
         function __promisify__(fd: number): Promise<Stats>;
     }
 
@@ -578,12 +582,16 @@ declare module "fs" {
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
+    export function fstatSync(fd: number, options: BigIntOptions): BigIntStats;
+    export function fstatSync(fd: number, options: StatOptions): Stats | BigIntStats;
     export function fstatSync(fd: number): Stats;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    export function lstat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
@@ -592,6 +600,8 @@ declare module "fs" {
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
         function __promisify__(path: PathLike): Promise<Stats>;
     }
 
@@ -599,6 +609,8 @@ declare module "fs" {
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    export function lstatSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    export function lstatSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     export function lstatSync(path: PathLike): Stats;
 
     /**
