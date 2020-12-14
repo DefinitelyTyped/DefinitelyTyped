@@ -148,7 +148,7 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
+First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
