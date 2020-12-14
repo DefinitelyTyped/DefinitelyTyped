@@ -4,6 +4,8 @@
 
 *이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)로도 읽으실 수 있습니다!*
 
+<!-- For translators: add link to README.ja.md above! -->
+
 *[관리자 설명서](./docs/admin.md) 링크*
 
 ## 목차
