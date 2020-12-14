@@ -3,7 +3,7 @@ import SitemapGenerator = require('sitemap-generator');
 // $ExpectError
 SitemapGenerator();
 
-SitemapGenerator('https://example.com/', {});
+SitemapGenerator('https://example.com/');
 
 SitemapGenerator('https://example.com/', {});
 
