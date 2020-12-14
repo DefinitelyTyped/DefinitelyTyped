@@ -5,6 +5,8 @@ SitemapGenerator();
 
 SitemapGenerator('https://example.com/', {});
 
+SitemapGenerator('https://example.com/', {});
+
 const generator = SitemapGenerator('https://example.com/', {
     changeFreq: 'always',
     filepath: './sitemap.xml',
