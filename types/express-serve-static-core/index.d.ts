@@ -47,7 +47,7 @@ export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
 export interface RequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
-    // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
+    // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): void;
 }
 
