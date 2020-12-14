@@ -20,6 +20,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Verificando](#verificando)
     - [\<my package>-tests.ts](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
+    - [tsconfig.json](#tsconfigjson)
     - [package.json](#package.json)
     - [Erros comuns](#erros-comuns)
     </details>
@@ -178,15 +179,13 @@ Seu pacote deve possuir a seguinte estrutura:
 | --- | --- |
 | index.d.ts | Contém os tipos para o pacote. |
 | [\<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
-| tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
+| [tsconfig.json](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
 | [tslint.json](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
 
-Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador. Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
-
-Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
+Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes. Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
 
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
@@ -278,6 +277,12 @@ Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Micros
 The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+
+#### tsconfig.json
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador.
 
 #### package.json
 

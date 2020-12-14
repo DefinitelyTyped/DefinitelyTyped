@@ -17,6 +17,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Running Tests](#running-tests)
     - [\<my package>-tests.ts](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
+    - [tsconfig.json](#tsconfigjson)
     - [package.json](#packagejson)
     - [Errores comunes](#errores-comunes)
     </details>
@@ -167,13 +168,11 @@ Tu paquete debería tener esta estructura:
 | --- | --- |
 | index.d.ts | Este contiene los typings del paquete. |
 | [\<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
-| tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
+| [tsconfig.json](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
 | [tslint.json](#linter-tslintjson) | Permite linting. |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
-
-También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
 Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
 
@@ -251,6 +250,12 @@ Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-
 The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+
+#### tsconfig.json
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
 #### package.json
 

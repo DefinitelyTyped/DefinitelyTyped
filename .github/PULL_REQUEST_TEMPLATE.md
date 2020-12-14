@@ -14,8 +14,8 @@ If adding a new definition:
 - [ ] If this is for an NPM package, match the name. If not, do not conflict with the name of an NPM package.
 - [ ] Create it with `dts-gen --dt`, not by basing it on an existing project.
 - [ ] Represents shape of module/library [correctly](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html)
-- [ ] `tslint.json` [should contain `{ "extends": "dtslint/dt.json" }`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#linter-tslintjson), and no additional rules.
-- [ ] `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+- [ ] `tslint.json` [should contain](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#linter-tslintjson) `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+- [ ] `tsconfig.json` [should have](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#tsconfigjson) `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>

@@ -19,6 +19,7 @@
     - [Running Tests](#running-tests)
     - [\<my package>-tests.ts](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
+    - [tsconfig.json](#tsconfigjson)
     - [package.json](#packagejson)
     - [Common mistakes](#common-mistakes)
     </details>
@@ -177,15 +178,13 @@ Your package should have this structure:
 | ------------- | ------- |
 | index.d.ts    | This contains the typings for the package. |
 | [\<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
-| tsconfig.json | This allows you to run `tsc` within the package. |
+| [tsconfig.json](#tsconfigjson) | This allows you to run `tsc` within the package. |
 | [tslint.json](#linter-tslintjson)   | Enables linting. |
 
 Generate these by running `npx dts-gen --dt --name <my package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
-You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option. If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
-
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests. If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
@@ -278,6 +277,12 @@ For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests
 The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+
+#### tsconfig.json
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 #### package.json
 
