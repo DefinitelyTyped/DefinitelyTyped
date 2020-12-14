@@ -91,12 +91,12 @@ gulp.task('connect', () => {
 // Validate gulp-connect typings allow express apps to be passed in as middleware
 import express = require("express");
 
-gulp.task('connect', async () => {
+gulp.task('connect', () => {
     const middleware = [
         express()
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,
@@ -106,13 +106,13 @@ gulp.task('connect', async () => {
 });
 
 // Validate using paths to restrict handler functions works
-gulp.task('connect', async () => {
+gulp.task('connect', () => {
     const middleware: connect.ConnectRouteHandler[] = [
         ["/path", express()],
         ["/path2", express()],
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,
