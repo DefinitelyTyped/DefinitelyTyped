@@ -253,36 +253,6 @@ map.on('load', function () {
     });
 });
 
-//
-// setTerrain
-//
-
-// $ExpectType Map
-map.setTerrain();
-// $ExpectType Map
-map.setTerrain(null);
-// $ExpectType Map
-map.setTerrain(undefined);
-// $ExpectType Map
-map.setTerrain({
-    source: 'something',
-    exaggeration: 10,
-});
-
-//
-// getFreeCameraOptions
-//
-
-// $ExpectType FreeCameraOptions
-map.getFreeCameraOptions();
-
-//
-// setFreeCameraOptions
-//
-
-// $ExpectType Map
-map.setFreeCameraOptions(new mapboxgl.FreeCameraOptions());
-
 // FlyTo
 map.flyTo({
     center: [0, 0],
