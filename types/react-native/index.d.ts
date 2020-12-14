@@ -5435,8 +5435,9 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      *
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
+     * @param radius The radius of ripple effect
      */
-    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless: boolean, radius?: number | null): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
