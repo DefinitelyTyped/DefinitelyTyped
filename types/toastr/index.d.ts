@@ -362,7 +362,7 @@ interface Toastr {
     subscribe: (callback: (response: ToastrResponse) => void) => void;
 }
 
-declare var toastr: Toastr;
 declare module "toastr" {
+    declare var toastr: Toastr;
     export = toastr;
 }
