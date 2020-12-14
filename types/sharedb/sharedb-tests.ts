@@ -191,6 +191,8 @@ function startServer() {
     wss.on('connection', (ws, req) => {
       const stream = new WebSocketJSONStream(ws);
       backend.listen(stream);
+      // Test type definition for 2-argument version
+      backend.listen(stream, req);
     });
 
     server.listen(8080);
@@ -245,4 +247,6 @@ function startClient(callback) {
     if (anotherDoc.version !== null) {
       Math.round(anotherDoc.version);
     }
+
+    connection.close();
 }

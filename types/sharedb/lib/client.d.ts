@@ -10,6 +10,7 @@ export class Connection {
     // ShareDB, but it is handy for server-side only user code that may cache
     // state on the agent and read it in middleware
     agent: Agent | null;
+    close(): void;
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
