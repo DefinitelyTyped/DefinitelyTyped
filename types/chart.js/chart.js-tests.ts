@@ -553,3 +553,16 @@ const categoryXAxe: Chart.ChartXAxe = {
     type: 'category',
     labels: ['label1', 'label2'],
 };
+
+// Testing plugin service static methods
+const plugins = Chart.plugins.getAll();
+console.log(plugins);
+const foo = plugins.find(plugin => plugin.id === 'foo');
+console.log(foo);
+const pluginCount = Chart.plugins.count();
+console.log(pluginCount);
+const notify = Chart.plugins.notify(chart, 'beforeInit', []);
+console.log(notify);
+
+Chart.plugins.clear();
+console.log(Chart.plugins.getAll());

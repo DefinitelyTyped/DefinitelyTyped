@@ -100,6 +100,10 @@ declare class Chart {
 declare class PluginServiceStatic {
     register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
     unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    clear(): void;
+    count(): number;
+    getAll(): Array<Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions>;
+    notify(chart: Chart, hook: keyof Chart.PluginServiceRegistrationOptions, args: any): boolean;
 }
 
 interface Meta {
