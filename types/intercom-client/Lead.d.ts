@@ -1,7 +1,10 @@
 import { Company } from "./Company";
 import { Avatar, LocationData, Segment, SocialProfile, Tag } from './User';
 
-export type LeadIdentifier = { "id": string } | { "user_id": string };
+export interface LeadIdIdentifier {
+  id: string,
+}
+export type LeadIdentifier = LeadIdIdentifier | { "user_id": string };
 
 export interface Lead {
   "type": "contact",
