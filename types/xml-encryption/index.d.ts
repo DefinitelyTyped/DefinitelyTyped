@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Utf8AsciiBinaryEncoding } from 'crypto';
+export type Utf8AsciiBinaryEncoding = "utf8" | "ascii" | "binary";
 
 export type KeyEncryptionAlgorithm =
     | 'http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p'
