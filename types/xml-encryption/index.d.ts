@@ -15,14 +15,17 @@ export type EncryptionAlgorithm =
     | 'http://www.w3.org/2009/xmlenc11#aes256-gcm'
     | 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc';
 
-export interface EncryptOptions {
+export interface EncryptOptions extends EncryptKeyOptions {
+    encryptionAlgorithm: EncryptionAlgorithm;
+    warnInsecureAlgorithm?: boolean;
+    input_encoding?: string;
+}
+
+export interface EncryptKeyOptions {
     rsa_pub: string | Buffer;
     pem: string | Buffer;
     keyEncryptionAlgorithm: KeyEncryptionAlgorithm;
-    encryptionAlgorithm?: EncryptionAlgorithm;
     disallowEncryptionWithInsecureAlgorithm?: boolean;
-    warnInsecureAlgorithm?: boolean;
-    input_encoding?: string;
 }
 
 export interface DecryptOptions {
@@ -44,6 +47,6 @@ export function encrypt(
 ): void;
 export function encryptKeyInfo(
     symmetricKey: string | Buffer,
-    options: EncryptOptions,
+    options: EncryptKeyOptions,
     callback: (error: Error | null, result: string) => void,
 ): void;
