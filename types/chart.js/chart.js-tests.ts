@@ -563,6 +563,8 @@ const pluginCount = Chart.plugins.count();
 console.log(pluginCount);
 const notify = Chart.plugins.notify(chart, 'beforeInit', []);
 console.log(notify);
+const pluginDescriptors = Chart.plugins.descriptors(chart);
+console.log(pluginDescriptors);
 
 Chart.plugins.clear();
 console.log(Chart.plugins.getAll());
