@@ -99,7 +99,7 @@ declare class Chart {
 }
 type Plugin = Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
 interface PluginDescriptor {
-    plugins: Plugin;
+    plugin: Plugin;
     options: Chart.ChartPluginsOptions;
 }
 
