@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Select, { OptionTypeBase, ValueContainerProps } from "react-select";
+import { ColourOption, colourOptions } from './data';
 
-const ValueContainer = (props: ValueContainerProps<OptionTypeBase, false>) => {
+const ValueContainer = (props: ValueContainerProps<ColourOption, false>) => {
     console.log(props.getValue());
 
     return <div>{props.children}</div>;
@@ -12,7 +13,7 @@ const SelectWithCustomValueContainer = (
         className="basic-single"
         classNamePrefix="select"
         name="color"
-        options={[]}
+        options={colourOptions}
         components={{
             ValueContainer
         }}
