@@ -4,11 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+export type KeyEncryptionAlgorithm =
+    | 'http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p'
+    | 'http://www.w3.org/2001/04/xmlenc#rsa-1_5';
+
+export type EncryptionAlgorithm =
+    | 'http://www.w3.org/2001/04/xmlenc#aes128-cbc'
+    | 'http://www.w3.org/2001/04/xmlenc#aes256-cbc'
+    | 'http://www.w3.org/2009/xmlenc11#aes128-gcm'
+    | 'http://www.w3.org/2009/xmlenc11#aes256-gcm'
+    | 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc';
+
 export interface EncryptOptions {
     rsa_pub: string | Buffer;
     pem: string | Buffer;
-    keyEncryptionAlgorithm: string;
-    encryptionAlgorithm?: string;
+    keyEncryptionAlgorithm: KeyEncryptionAlgorithm;
+    encryptionAlgorithm?: EncryptionAlgorithm;
     disallowEncryptionWithInsecureAlgorithm?: boolean;
     warnInsecureAlgorithm?: boolean;
     input_encoding?: string;
