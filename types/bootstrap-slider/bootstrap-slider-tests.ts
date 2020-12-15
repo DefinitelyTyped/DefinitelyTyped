@@ -239,6 +239,16 @@ $(() => {
         step: 0.01
     });
 
+    $("#ex25").slider({
+        value: [1, 100],
+        ticks: [1, 50, 100],
+        lock_to_ticks: true
+    });
+
+    $('#ex26').slider('refresh', { useCurrentValue: true });
+    slider = new Slider('#ex26');
+    slider.refresh({ useCurrentValue: true });
+
     // examples from https://github.com/seiyria/bootstrap-slider/blob/master/README.md
 
     {
