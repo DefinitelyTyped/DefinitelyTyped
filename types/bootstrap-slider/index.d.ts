@@ -166,11 +166,13 @@ interface SliderOptions {
     rangeHighlights?: RangeHighlight[];
 }
 
-interface JQuery {
-    slider: SliderPlugin<this>;
-    bootstrapSlider: SliderPlugin<this>;
+declare global {
+    interface JQuery {
+        slider: SliderPlugin<this>;
+        bootstrapSlider: SliderPlugin<this>;
 
-    on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
+        on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
+    }
 }
 
 interface SliderPlugin<TJQuery> {
@@ -196,7 +198,7 @@ interface SliderEvent extends JQuery.Event {
  * When using jQuery, slider methods like setValue(3, true) have to be called like $slider.slider('setValue', 3, true)
  */
 declare class Slider {
-    constructor(selector: string, opts: SliderOptions);
+    constructor(selector: string, opts?: SliderOptions);
 
     /**
      * Get the current value from the slider
@@ -256,3 +258,5 @@ declare class Slider {
      */
     relayout(): this;
 }
+
+export = Slider;
