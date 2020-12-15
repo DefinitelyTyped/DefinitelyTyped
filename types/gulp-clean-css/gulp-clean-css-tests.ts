@@ -1,4 +1,4 @@
-import * as gulpCleanCSS from './index';
+import * as gulpCleanCSS from 'gulp-clean-css';
 import * as gulp from 'gulp';
 
 // gulp
