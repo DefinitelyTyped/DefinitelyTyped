@@ -579,12 +579,17 @@ declare module "fs" {
      * @param fd A file descriptor.
      */
     export function fstatSync(fd: number): Stats;
+        
+    export type lstatOptions = {
+        bigint?: boolean;
+    };
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, options: lstatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace lstat {
@@ -599,7 +604,9 @@ declare module "fs" {
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstatSync(path: PathLike): Stats;
+    export function lstatSync(path: PathLike, options?: lstatOptions & {
+      throwIfNoEntry?: boolean
+    }): Stats;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
