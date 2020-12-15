@@ -18,6 +18,7 @@ export interface HostedFieldsFieldMaskInput {
  */
 export interface HostedFieldsField {
     selector: string;
+    container?: HTMLElement;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
