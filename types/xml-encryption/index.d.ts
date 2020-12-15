@@ -20,7 +20,11 @@ export interface DecryptOptions {
     warnInsecureAlgorithm?: boolean;
 }
 
-export function decrypt(xml: string, options: DecryptOptions, callback: (error: Error, result: string) => void): void;
+export function decrypt(
+    xml: string,
+    options: DecryptOptions,
+    callback: (error: Error | null, result: string) => void,
+): void;
 export function decryptKeyInfo(doc: string, options: DecryptOptions): Buffer;
 export function encrypt(
     content: string,
@@ -30,5 +34,5 @@ export function encrypt(
 export function encryptKeyInfo(
     symmetricKey: string | Buffer,
     options: EncryptOptions,
-    callback: (error: Error, result: string) => void,
+    callback: (error: Error | null, result: string) => void,
 ): void;
