@@ -536,7 +536,8 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function stat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function stat(path: PathLike, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
@@ -546,16 +547,17 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
-        function __promisify__(path: PathLike): Promise<Stats>;
     }
 
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    export function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    export function statSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
     export function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     export function statSync(path: PathLike): Stats;
 
@@ -563,7 +565,8 @@ declare module "fs" {
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export function fstat(fd: number, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function fstat(fd: number, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function fstat(fd: number, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function fstat(fd: number, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
@@ -573,16 +576,17 @@ declare module "fs" {
          * Asynchronous fstat(2) - Get file status.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(fd: number, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(fd: number, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
         function __promisify__(fd: number, options: StatOptions): Promise<Stats | BigIntStats>;
-        function __promisify__(fd: number): Promise<Stats>;
     }
 
     /**
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export function fstatSync(fd: number, options: BigIntOptions): BigIntStats;
+    export function fstatSync(fd: number, options: StatOptions & { bigint: true }): BigIntStats;
+    export function fstatSync(fd: number, options?: StatOptions & { bigint?: false }): Stats;
     export function fstatSync(fd: number, options: StatOptions): Stats | BigIntStats;
     export function fstatSync(fd: number): Stats;
 
@@ -590,7 +594,8 @@ declare module "fs" {
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function lstat(path: PathLike, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function lstat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
@@ -600,16 +605,17 @@ declare module "fs" {
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
-        function __promisify__(path: PathLike): Promise<Stats>;
     }
 
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstatSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    export function lstatSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    export function lstatSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
     export function lstatSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     export function lstatSync(path: PathLike): Stats;
 
@@ -2246,6 +2252,6 @@ declare module "fs" {
     }
 
     export interface StatOptions {
-        bigint: boolean;
+        bigint?: boolean;
     }
 }
