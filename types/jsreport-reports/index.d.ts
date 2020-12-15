@@ -6,7 +6,7 @@
 import { ExtensionDefinition } from 'jsreport-core';
 
 declare module 'jsreport-core' {
-    interface Options {
+    interface RequestOptions {
         reports?: JsReportReports.ReportsOptions;
     }
 }

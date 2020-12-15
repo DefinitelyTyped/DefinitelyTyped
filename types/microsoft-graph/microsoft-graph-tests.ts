@@ -130,3 +130,5 @@ const todoTask: MicrosoftGraph.TodoTask = {
 };
 
 const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
+
+const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole  = "Owner";

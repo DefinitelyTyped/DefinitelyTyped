@@ -5435,8 +5435,9 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      *
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
+     * @param radius The radius of ripple effect
      */
-    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless: boolean, radius?: number | null): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
@@ -8200,20 +8201,19 @@ export type StatusBarAnimation = 'none' | 'fade' | 'slide';
 
 export interface StatusBarPropsIOS {
     /**
-     * Sets the color of the status bar text.
-     */
-    barStyle?: StatusBarStyle;
-
-    /**
      * If the network activity indicator should be visible.
+     *
+     * @platform ios
      */
     networkActivityIndicatorVisible?: boolean;
 
     /**
      * The transition effect when showing and hiding the status bar using
      * the hidden prop. Defaults to 'fade'.
+     *
+     * @platform ios
      */
-    showHideTransition?: 'fade' | 'slide';
+    showHideTransition?: null | 'fade' | 'slide' | 'none';
 }
 
 export interface StatusBarPropsAndroid {
@@ -8228,6 +8228,8 @@ export interface StatusBarPropsAndroid {
      * If the status bar is translucent. When translucent is set to true,
      * the app will draw under the status bar. This is useful when using a
      * semi transparent status bar color.
+     *
+     * @platform android
      */
     translucent?: boolean;
 }
@@ -8238,6 +8240,11 @@ export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid
      * animated. Supported for backgroundColor, barStyle and hidden.
      */
     animated?: boolean;
+
+    /**
+     * Sets the color of the status bar text.
+     */
+    barStyle?: null | StatusBarStyle;
 
     /**
      * If the status bar is hidden.
@@ -8688,12 +8695,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): EventSubscription;
+    export function addChangeListener(listener: AppearanceListener): void;
 
     /**
      * Remove an event handler.
      */
-    export function removeChangeListener(listener: AppearanceListener): EventSubscription;
+    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**

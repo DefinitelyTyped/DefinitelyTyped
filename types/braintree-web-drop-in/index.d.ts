@@ -121,11 +121,23 @@ export interface Dropin {
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
-    requestPaymentMethod(options: object, callback: RequestPaymentMethodCallback): void;
+    requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
-    requestPaymentMethod(): Promise<PaymentMethodPayload>;
+    requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
     teardown(callback: (error: object | null | undefined) => void): void;
     teardown(): Promise<void>;
+}
+
+export interface PaymentMethodOptions {
+    threeDSecure: {
+        amount: string;
+        challengeRequested?: boolean;
+        exemptionRequested?: boolean;
+        email?: string;
+        mobilePhoneNumber?: string;
+        billingAddress?: object;
+        additionalInformation?: object;
+    };
 }
 
 export type RequestPaymentMethodCallback = (error: object | null, payload: PaymentMethodPayload) => void;

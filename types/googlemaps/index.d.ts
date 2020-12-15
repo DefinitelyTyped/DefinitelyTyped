@@ -16,6 +16,7 @@
 //                 Gavin Nitta <https://github.com/gshigeto>
 //                 Bat-Orshikh Baavgaikhuu <https://github.com/Bat-Orshikh>
 //                 Justin Poehnelt <https://github.com/jpoehnelt>
+//                 Dmitriy Skrylnikov <https://github.com/skrylnikov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 3.5

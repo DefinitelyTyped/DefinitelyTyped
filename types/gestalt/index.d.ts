@@ -1,4 +1,4 @@
-// Type definitions for gestalt 14.28
+// Type definitions for gestalt 15.8
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -1051,6 +1051,38 @@ export interface TabsProps {
 }
 
 /**
+ * Tag Props Interface
+ * https://gestalt.netlify.app/Tag
+ */
+export interface TagProps {
+    /**
+     * Short text to render inside the tag.
+     */
+    text: string;
+    /**
+     * Set a disabled state so the tag looks inactive and cannot be interacted with.
+     *
+     * @default false
+     */
+    disabled?: boolean;
+    /**
+     * Set an error state on the tag. The message is used as an accessibility label for the error icon.
+     * Keep it short so it doesn't overwhelm the user.
+     */
+    errorMessage?: string;
+    /**
+     * Callback fired when the tag is removed. Should handle state updates to stop rendering the component.
+     * Required unless the tag is in a disabled state.
+     */
+    onRemove?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    /**
+     * Accessibility label for the icon button to remove the tag, ideally something like "Remove [Tag Name] Tag".
+     * Required unless the tag is in a disabled state.
+     */
+    removeIconAccessibilityLabel?: string;
+}
+
+/**
  * TabArea Props Interface
  * https://gestalt.netlify.app/TapArea
  */
@@ -1144,8 +1176,14 @@ export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password';
+    /**
+     * @default false
+     */
     disabled?: boolean;
     errorMessage?: string;
+    /**
+     * More information about how to complete the form field
+     */
     helperText?: string;
     label?: string;
     name?: string;
@@ -1153,7 +1191,19 @@ export interface TextFieldProps {
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
+    /**
+     * md: 40px, lg: 48px
+     *
+     * @default "md"
+     */
     size?: 'md' | 'lg';
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
+    /**
+     * @default "text"
+     */
     type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
 }
@@ -1221,11 +1271,19 @@ export interface TypeaheadProps {
  * https://gestalt.netlify.app/Upsell
  */
 export interface UpsellProps {
+    message: string;
     dismissButton?: {
         accessibilityLabel: string;
         onDismiss: () => void;
     };
-    message: string;
+    imageData?: {
+        component: React.ReactElement<any, typeof Image | typeof Icon>;
+        width?: number;
+        mask?: {
+            rounding: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+            wash: boolean;
+        };
+    };
     primaryLink?: LinkData;
     secondaryLink?: LinkData;
     title?: string;
@@ -1351,6 +1409,7 @@ export class Table extends React.Component<TableProps, any> {
     static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
 }
 export class Tabs extends React.Component<TabsProps, any> {}
+export class Tag extends React.Component<TagProps, any> {}
 export const TapArea: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, TapAreaProps>;
 export class Text extends React.Component<TextProps, any> {}
 export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
