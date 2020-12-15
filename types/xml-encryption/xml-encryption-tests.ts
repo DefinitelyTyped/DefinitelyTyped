@@ -29,7 +29,7 @@ const encryptOptions: EncryptOptions = {
     keyEncryptionAlgorithm: 'http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p',
     disallowEncryptionWithInsecureAlgorithm: true,
     warnInsecureAlgorithm: true,
-    input_encoding: 'utf-8',
+    input_encoding: 'utf8',
 };
 
 encrypt('dec', encryptOptions, (err, res) => {

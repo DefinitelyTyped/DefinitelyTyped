@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import { Utf8AsciiBinaryEncoding } from 'crypto';
+
 export type KeyEncryptionAlgorithm =
     | 'http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p'
     | 'http://www.w3.org/2001/04/xmlenc#rsa-1_5';
@@ -18,7 +20,7 @@ export type EncryptionAlgorithm =
 export interface EncryptOptions extends EncryptKeyOptions {
     encryptionAlgorithm: EncryptionAlgorithm;
     warnInsecureAlgorithm?: boolean;
-    input_encoding?: string;
+    input_encoding?: Utf8AsciiBinaryEncoding;
 }
 
 export interface EncryptKeyOptions {
