@@ -1691,6 +1691,11 @@
             "asOfVersion": "1.4.2"
         },
         {
+            "libraryName": "icon-gen",
+            "typingsPackageName": "icon-gen",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "iconv-lite",
             "typingsPackageName": "iconv-lite",
             "asOfVersion": "0.4.14"
@@ -4724,6 +4729,11 @@
             "libraryName": "unist-util-is",
             "typingsPackageName": "unist-util-is",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "universal-cookie",
+            "typingsPackageName": "universal-cookie",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "universal-router",

@@ -1,4 +1,4 @@
-// Type definitions for mocha 8.0
+// Type definitions for mocha 8.2
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -242,6 +242,50 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#rootHooks
      */
     rootHooks(hooks: Mocha.RootHookObject): this;
+
+    /**
+     * Configures one or more global setup fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalSetup
+     */
+    globalSetup: Mocha.HookFunction;
+
+    /**
+     * Configures one or more global teardown fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalTeardown
+     */
+    globalTeardown: Mocha.HookFunction;
+
+    /**
+     * Returns `true` if one or more global setup fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalSetupFixtures
+     */
+    hasGlobalSetupFixtures(): boolean;
+
+    /**
+     * Returns `true` if one or more global teardown fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalTeardownFixtures
+     */
+    hasGlobalTeardownFixtures(): boolean;
+
+    /**
+     * Toggle execution of any global setup fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalSetup
+     */
+    enableGlobalSetup(enabled: boolean): this;
+
+    /**
+     * Toggle execution of any global teardown fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalTeardown
+     */
+    enableGlobalTeardown(enabled: boolean): this;
 }
 
 declare namespace Mocha {

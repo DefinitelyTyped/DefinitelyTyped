@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Admin SDK reports_v1 1.0
+// Type definitions for non-npm package Admin SDK API reports_v1 1.0
 // Project: http://developers.google.com/admin-sdk/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

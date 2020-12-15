@@ -45,6 +45,7 @@ import {
     Switch,
     Table,
     Tabs,
+    Tag,
     TapArea,
     Text,
     TextArea,
@@ -253,9 +254,10 @@ const CheckUseReducedMotion = () => {
     activeTabIndex={1}
     onChange={() => {}}
 />;
+<Tag disabled text="New" />;
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
-<TextField id="email" onChange={({ value }) => value} />;
+<TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 <GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
 <Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
@@ -268,7 +270,12 @@ const CheckUseReducedMotion = () => {
     options={[{ value: 'Hello', label: 'World' }]}
     placeholder="Select a Label"
 />;
-<Upsell message="Hello world" />;
+<Upsell
+    message="Hello world"
+    imageData={{
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+    }}
+/>;
 <Video
     aspectRatio={853 / 480}
     captions=""

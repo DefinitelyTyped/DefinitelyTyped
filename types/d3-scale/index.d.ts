@@ -1940,11 +1940,6 @@ export interface ScaleQuantize<Range, Unknown = never> {
     nice(count?: number): this;
 
     /**
-     * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
-     */
-    copy(): this;
-
-    /**
      * Returns the current unknown value, which defaults to undefined.
      */
     unknown(): UnknownReturnType<Unknown, undefined>;
@@ -1954,6 +1949,16 @@ export interface ScaleQuantize<Range, Unknown = never> {
      * @param value The output value of the scale for undefined (or NaN) input values.
      */
     unknown<NewUnknown>(value: NewUnknown): ScaleQuantize<Range, NewUnknown>;
+
+    /**
+     * Returns the array of computed thresholds within the domain.
+     */
+    thresholds(): number[];
+
+    /**
+     * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+     */
+    copy(): this;
 }
 
 /**

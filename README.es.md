@@ -13,12 +13,13 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
   - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
     - [Editar un paquete existente](#editar-un-paquete-existente)
     - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
-    - [Errores comunes](#errores-comunes)
     - [Remover un paquete](#remover-un-paquete)
     - [Running Tests](#running-tests)
     - [\<my package>-tests.ts](#my-package-teststs)
-    - [Lint](#lint)
+    - [Linter: `tslint.json`](#linter-tslintjson)
+    - [tsconfig.json](#tsconfigjson)
     - [package.json](#packagejson)
+    - [Errores comunes](#errores-comunes)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -167,39 +168,15 @@ Tu paquete debería tener esta estructura:
 | --- | --- |
 | index.d.ts | Este contiene los typings del paquete. |
 | [\<my package>-tests.ts](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
-| tsconfig.json | Este permite ejecutar `tsc` dentro del paquete. |
-| tslint.json | Permite linting. |
+| [tsconfig.json](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
+| [tslint.json](#linter-tslintjson) | Permite linting. |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
 
-También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
-
 Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
 
 Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
-
-#### Errores comunes
-
-* Primero, sigue el consejo del [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatear: Utiliza 4 espacios.
-* `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
-* `interface Foo { new(): Foo; }`:
-    Este define el tipo de objeto que esten nuevos. Probablemente quieras `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-    Prefiere usar una declaración de clase `class Class { constructor(); }` En vez de una nueva constante.
-* `getMeAT<T>(): T`:
-    Si un tipo de parámetro no aparece en los tipos de ningún parámetro, no tienes una función genérica, solo tienes un afirmación del tipo disfrazado.
-     Prefiera utilizar una afirmación de tipo real, p.ej. `getMeAT() as number`.
-    Un ejemplo donde un tipo de parámetro es aceptable: `function id<T>(value: T): T;`.
-    Un ejemplo donde no es aceptable: `function parseJson<T>(json: string): T;`.
-    Una excepción: `new Map<string, number>()` está bien.
-* Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
-* `var foo: string | any`:
-    Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
-    Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
-
 
 #### Remover un paquete
 
@@ -268,22 +245,17 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Lint
+#### Linter: `tslint.json`
 
-Para realizar el lint a un paquete, solo añade `tslint.json` al paquete que contiene `{ "extends": "dtslint/dt.json" }`. Todos los paquetes nuevos deberán pasar por el proceso de linted.
-Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha acomodado. Por ejemplo:
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
-}
-```
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-(Para indicar que la regla lint realmente no es utilizada, usa `// tslint:disable rule-name` o mejor, `// tslint:disable-next-line rule-name`.)
+#### tsconfig.json
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
 #### package.json
 
@@ -291,6 +263,26 @@ Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros 
 Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
 Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al package.json.
+
+#### Errores comunes
+
+* Primero, sigue el consejo del [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Formatear: Utiliza 4 espacios.
+* `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
+* `interface Foo { new(): Foo; }`:
+  Este define el tipo de objeto que esten nuevos. Probablemente quieras `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  Prefiere usar una declaración de clase `class Class { constructor(); }` En vez de una nueva constante.
+* `getMeAT<T>(): T`:
+  Si un tipo de parámetro no aparece en los tipos de ningún parámetro, no tienes una función genérica, solo tienes un afirmación del tipo disfrazado.
+  Prefiera utilizar una afirmación de tipo real, p.ej. `getMeAT() as number`.
+  Un ejemplo donde un tipo de parámetro es aceptable: `function id<T>(value: T): T;`.
+  Un ejemplo donde no es aceptable: `function parseJson<T>(json: string): T;`.
+  Una excepción: `new Map<string, number>()` está bien.
+* Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
+* `var foo: string | any`:
+  Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
+  Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
 ### Definition Owners
 
