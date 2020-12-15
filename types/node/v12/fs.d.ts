@@ -455,10 +455,10 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    function stat(path: PathLike, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
-    function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    function stat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    function stat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    function stat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace stat {
@@ -468,26 +468,24 @@ declare module "fs" {
          */
         function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
         function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
     function statSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
-    function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
-    function statSync(path: PathLike): Stats;
+    function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    function fstat(fd: number, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    function fstat(fd: number, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
-    function fstat(fd: number, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
-    function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fstat {
@@ -497,46 +495,44 @@ declare module "fs" {
          */
         function __promisify__(fd: number, options?: StatOptions & { bigint?: false }): Promise<Stats>;
         function __promisify__(fd: number, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        function __promisify__(fd: number, options: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(fd: number, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    function fstatSync(fd: number, options: StatOptions & { bigint: true }): BigIntStats;
     function fstatSync(fd: number, options?: StatOptions & { bigint?: false }): Stats;
-    function fstatSync(fd: number, options: StatOptions): Stats | BigIntStats;
-    function fstatSync(fd: number): Stats;
+    function fstatSync(fd: number, options: StatOptions & { bigint: true }): BigIntStats;
+    function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    function lstat(path: PathLike, options: undefined | (StatOptions & { bigint?: false }), callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
-    function lstat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    function lstat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    function lstat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    function lstat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lstat {
         /**
-         * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+        * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
         function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
         function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstatSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
     function lstatSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
-    function lstatSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
-    function lstatSync(path: PathLike): Stats;
+    function lstatSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    function lstatSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -2325,7 +2321,7 @@ declare module "fs" {
          */
         function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
         function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        function lstat(path: PathLike, opts: StatOptions): Promise<Stats | BigIntStats>;
+        function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous stat(2) - Get file status.
@@ -2333,7 +2329,7 @@ declare module "fs" {
          */
         function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
         function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        function stat(path: PathLike, opts: StatOptions): Promise<Stats | BigIntStats>;
+        function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.

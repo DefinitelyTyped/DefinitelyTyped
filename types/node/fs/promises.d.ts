@@ -96,7 +96,7 @@ declare module 'fs/promises' {
          */
         stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
         stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-        stat(opts: StatOptions): Promise<Stats | BigIntStats>;
+        stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -367,7 +367,7 @@ declare module 'fs/promises' {
      */
     function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
     function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-    function lstat(path: PathLike, opts: StatOptions): Promise<Stats | BigIntStats>;
+    function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous stat(2) - Get file status.
@@ -375,7 +375,7 @@ declare module 'fs/promises' {
      */
     function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
     function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-    function stat(path: PathLike, opts: StatOptions): Promise<Stats | BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.

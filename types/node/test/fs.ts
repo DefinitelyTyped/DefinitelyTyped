@@ -358,7 +358,14 @@ async function testPromisify() {
     });
 }
 
-async function testStat(path: string, fd: number, opts: fs.StatOptions) {
+async function testStat(
+  path: string,
+  fd: number,
+  opts: fs.StatOptions,
+  maybeFalse: fs.StatOptions & { bigint: false } | undefined,
+  maybeTrue: fs.StatOptions & { bigint: true } | undefined,
+  maybe?: fs.StatOptions,
+) {
     /* Need to test these variants:
      * - stat
      * - lstat
@@ -374,11 +381,12 @@ async function testStat(path: string, fd: number, opts: fs.StatOptions) {
      * - None => Stats
      * - Undefined => Stats
      * - { } => Stats
-     * - { bigint: false } => Stats
+     * - { bigint: false } | undefined => Stats
      / - { bigint: true } => BigIntStats
-     * - opts (can't infer) => Stats | BigIntStats
+     / - { bigint: true } | undefined => Stats | BigIntStats
+     * - { bigint: boolean } (can't infer) | undefined => Stats | BigIntStats
      *
-     * Which is 3 x 4 x 6 = 72 call signatures
+     * Which is 3 x 4 x 7 = 84 tests
      *
      * (fs.promises.fstat doesn't exist, but those 6 cases are in FileHandle.fstat)
      */
@@ -396,13 +404,23 @@ async function testStat(path: string, fd: number, opts: fs.StatOptions) {
     fs.lstat(path, {}, (err, st: fs.Stats) => {});
     fs.fstat(fd, {}, (err, st: fs.Stats) => {});
 
-    fs.stat(path, { bigint: false }, (err, st: fs.Stats) => {});
-    fs.lstat(path, { bigint: false }, (err, st: fs.Stats) => {});
-    fs.fstat(fd, { bigint: false }, (err, st: fs.Stats) => {});
+    fs.stat(path, maybeFalse, (err, st: fs.Stats) => {});
+    fs.lstat(path, maybeFalse, (err, st: fs.Stats) => {});
+    fs.fstat(fd, maybeFalse, (err, st: fs.Stats) => {});
 
     fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
     fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
     fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
+
+    fs.stat(path, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+    fs.lstat(path, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+    fs.fstat(fd, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
 
     fs.stat(path, opts, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -429,13 +447,17 @@ async function testStat(path: string, fd: number, opts: fs.StatOptions) {
     fs.lstatSync(path, {}); // $ExpectType Stats
     fs.fstatSync(fd, {}); // $ExpectType Stats
 
-    fs.statSync(path, { bigint: false }); // $ExpectType Stats
-    fs.lstatSync(path, { bigint: false }); // $ExpectType Stats
-    fs.fstatSync(fd, { bigint: false }); // $ExpectType Stats
+    fs.statSync(path, maybeFalse); // $ExpectType Stats
+    fs.lstatSync(path, maybeFalse); // $ExpectType Stats
+    fs.fstatSync(fd, maybeFalse); // $ExpectType Stats
 
     fs.statSync(path, { bigint: true }); // $ExpectType BigIntStats
     fs.lstatSync(path, { bigint: true }); // $ExpectType BigIntStats
     fs.fstatSync(fd, { bigint: true }); // $ExpectType BigIntStats
+
+    fs.statSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
+    fs.lstatSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
+    fs.fstatSync(fd, maybeTrue); // $ExpectType Stats | BigIntStats
 
     fs.statSync(path, opts); // $ExpectType Stats | BigIntStats
     fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats
@@ -454,13 +476,17 @@ async function testStat(path: string, fd: number, opts: fs.StatOptions) {
     util.promisify(fs.lstat)(path, {}); // $ExpectType Promise<Stats>
     util.promisify(fs.fstat)(fd, {}); // $ExpectType Promise<Stats>
 
-    util.promisify(fs.stat)(path, { bigint: false }); // $ExpectType Promise<Stats>
-    util.promisify(fs.lstat)(path, { bigint: false }); // $ExpectType Promise<Stats>
-    util.promisify(fs.fstat)(fd, { bigint: false }); // $ExpectType Promise<Stats>
+    util.promisify(fs.stat)(path, maybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path, maybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd, maybeFalse); // $ExpectType Promise<Stats>
 
     util.promisify(fs.stat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
+
+    util.promisify(fs.stat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.lstat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.fstat)(fd, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
     util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
@@ -480,13 +506,17 @@ async function testStat(path: string, fd: number, opts: fs.StatOptions) {
     fs.promises.lstat(path, {}); // $ExpectType Promise<Stats>
     fh.stat({}); // $ExpectType Promise<Stats>
 
-    fs.promises.stat(path, { bigint: false }); // $ExpectType Promise<Stats>
-    fs.promises.lstat(path, { bigint: false }); // $ExpectType Promise<Stats>
-    fh.stat({ bigint: false }); // $ExpectType Promise<Stats>
+    fs.promises.stat(path, maybeFalse); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, maybeFalse); // $ExpectType Promise<Stats>
+    fh.stat(maybeFalse); // $ExpectType Promise<Stats>
 
     fs.promises.stat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     fs.promises.lstat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     fh.stat({ bigint: true }); // $ExpectType Promise<BigIntStats>
+
+    fs.promises.stat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.lstat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
     fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
