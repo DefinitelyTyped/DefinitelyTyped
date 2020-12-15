@@ -150,7 +150,7 @@ Java.enumerateClassLoadersSync()
 
 Java.perform(() => {
     // $ExpectType void
-    Java.deoptimizeBootImage()
+    Java.deoptimizeBootImage();
 
     Java.enumerateMethods("*!*game*/i").forEach(group => {
         const factory = Java.ClassFactory.get(group.loader);
