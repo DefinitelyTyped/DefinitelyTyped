@@ -12,8 +12,8 @@ export class Connection {
     agent: Agent | null;
     close(): void;
     get(collectionName: string, documentID: string): Doc;
-    createFetchQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
-    createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
+    createFetchQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
+    createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
 }
 export type Doc = ShareDB.Doc;
 export type Query = ShareDB.Query;
