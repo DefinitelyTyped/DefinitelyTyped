@@ -1659,10 +1659,10 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     style?: StyleProp<TextStyle>;
 
     /**
-    * Align the input text to the left, center, or right sides of the input field.
-    */
+     * Align the input text to the left, center, or right sides of the input field.
+     */
     textAlign?: 'left' | 'center' | 'right';
-    
+
     /**
      * Used to locate this view in end-to-end tests
      */
@@ -9393,18 +9393,18 @@ type ScreenRect = {
 type BaseKeyboardEvent = {
     duration: number;
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect
-}
+    endCoordinates: ScreenRect;
+};
 
 type AndroidKeyboardEvent = BaseKeyboardEvent & {
-    duration: 0,
-    easing: 'keyboard'
-}
+    duration: 0;
+    easing: 'keyboard';
+};
 
 type IOSKeyboardEvent = BaseKeyboardEvent & {
-  startCoordinates: ScreenRect,
-  isEventFromThisApp: boolean
-}
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+};
 
 export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
@@ -9443,7 +9443,7 @@ export interface KeyboardStatic extends NativeEventEmitter {
      * Useful for syncing TextInput (or other keyboard accessory view) size of
      * position changes with keyboard movements.
      */
-    scheduleLayoutAnimation: (event: KeyboardEvent) => void
+    scheduleLayoutAnimation: (event: KeyboardEvent) => void;
 }
 
 /**
