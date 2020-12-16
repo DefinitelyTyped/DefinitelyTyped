@@ -15,11 +15,13 @@
   - [PR を作成する](#pr-を作成する)<details><summary></summary>
     - [既存のパッケージを編集する](#既存のパッケージを編集する)
     - [新しくパッケージを作成する](#新しくパッケージを作成する)
-    - [よくあるミス](#よくあるミス)
     - [パッケージを削除する](#パッケージを削除する)
-    - [Linter](#linter)
-    - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
     - [テストの実行](#テストの実行)
+    - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
+    - [Linter: `tslint.json`](#linter-tslintjson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
+    - [よくあるミス](#よくあるミス)
     </details>
   - [型定義のオーナー](#型定義のオーナー)
 * [よくある質問](#よくある質問)
@@ -150,7 +152,7 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 
 DefinitelyTyped への大量の PR を全てセルフサービス方式で処理するために bot を導入しています。詳しい方法と理由については[こちら](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)<small>（英語）</small>で確認できます。下図は DefinitelyTyped への PR のライフサイクルを簡単に示したものです。
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.png?raw=true">
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
 
 #### 既存のパッケージを編集する
 
@@ -174,45 +176,21 @@ NPM 上にないパッケージの型定義を追加したい場合は、その�
 
 | ファイル      | 用途 |
 | ------------- | ---- |
-| `index.d.ts`  | 型定義が含まれる。 |
+| `index.d.ts` | 型定義が含まれる。 |
 | [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
-| `tsconfig.json` | パッケージ内で `tsc` を実行するのに必要。 |
-| `tslint.json`   | Lint を有効にする。 |
+| [`tsconfig.json`](#tsconfigjson) | パッケージ内で `tsc` を実行するのに必要。 |
+| [`tslint.json`](#linter-tslintjson) | Lint を有効にする。 |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
 
-`tsconfig.json` を編集して、テストコードファイルや `"target": "es6"` の指定（ async 関数に必要）、 `"jsx"` コンパイラオプションを追加したり、 `"lib"` フィールドに設定を追加したりしてください。 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
+`index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
 
 もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
 
 Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によっては対応が遅れる場合があることをご了承ください。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) を、パッケージのサンプルとして参考にするのがよいでしょう。
-
-#### よくあるミス
-
-* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
-* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
-  ```tsx
-  // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-  ```
-* `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
-* `interface Foo { new(): Foo; }`:
-  これは new 可能な object の型定義です。書きたかったのは `declare class Foo { constructor(); }` ではありませんか？
-* `const Class: { new(): IClass; }`:
-  new 可能な定数ではなく、クラス定義 `class Class { constructor(); }` を使ってください。
-* `getMeAT<T>(): T`:
-  型パラメーターが関数の引数の型で全く使用されない場合、その関数は本当のジェネリック関数にはなっていません。型注釈みたいに誤魔化された何かを書いているだけです。
-  実際の型を型注釈として使用してください（例: `getMeAT() as number`）。
-  型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
-  使用してはいけない例: `function parseJson<T>(json: string): T;`。
-  例外: `new Map<string, number>()` はOKです。
-* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
-* `var foo: string | any`:
-  `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
-  シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
 
 #### パッケージを削除する
 
@@ -225,7 +203,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
 `npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
-エラーを修正するには、 `package.json` を追加し、 `"dependencies": { "foo": "x.y.z" }` と記述します。
+エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "foo": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
 ```json
@@ -241,29 +219,11 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 パッケージが Definitely Typed に存在しなかった場合は、 `notNeededPackages.json` に追加する必要はありません。
 
-#### Linter
+#### テストの実行
 
-新しいパッケージはすべて Lint される必要があります。パッケージを Lint するには、パッケージに `tslint.json` を追加し、下記のコードを記述します。
+`npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
-
-完成したパッケージの `tslint.json` ファイルには上記のコードのみが含まれているようにすべきです。もし `tslint.json` で何かのルールがオフになっていれば、パッケージに修正が必要であるとみなされます。 例:
-
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // このパッケージは Function 型を使用しているが、その修正には労力を要する。
-    "ban-types": false
-  }
-}
-```
-
-（本当に適用させたくないルールがある場合は、 `// tslint:disable ルール名` か `//tslint:disable-next-line ルール名` （より良い）を使用してください。）
+このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
 
 #### `<パッケージ名>-tests.ts`
 
@@ -313,11 +273,50 @@ f("one");
 
 詳しくは、 [dtslint](https://github.com/Microsoft/dtslint#write-tests) の README を参照してください。
 
-#### テストの実行
+#### Linter: `tslint.json`
 
-`npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
+#### tsconfig.json
+
+`tsconfig.json` を編集して、テストコードファイルや `"target": "es6"` の指定（ async 関数に必要）、 `"jsx"` コンパイラオプションを追加したり、 `"lib"` フィールドに設定を追加したりしてください。
+
+#### package.json
+
+基本的にはこのファイルは不要です。
+DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
+`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
+[Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
+また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
+`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
+
+ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
+依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
+
+#### よくあるミス
+
+* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
+* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
+* `interface Foo { new(): Foo; }`:
+  これは new 可能な object の型定義です。書きたかったのは `declare class Foo { constructor(); }` ではありませんか？
+* `const Class: { new(): IClass; }`:
+  new 可能な定数ではなく、クラス定義 `class Class { constructor(); }` を使ってください。
+* `getMeAT<T>(): T`:
+  型パラメーターが関数の引数の型で全く使用されない場合、その関数は本当のジェネリック関数にはなっていません。型注釈みたいに誤魔化された何かを書いているだけです。
+  実際の型を型注釈として使用してください（例: `getMeAT() as number`）。
+  型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
+  使用してはいけない例: `function parseJson<T>(json: string): T;`。
+  例外: `new Map<string, number>()` はOKです。
+* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
+* `var foo: string | any`:
+  `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
+  シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
 
 ### 型定義のオーナー
 
@@ -364,19 +363,6 @@ NPM パッケージは数分で更新されます。もし1時間以上かかっ
 
 参照しているモジュールが外部モジュールの場合（`export` を使っている場合）は、インポートしてください。
 参照しているモジュールがアンビエント モジュールの場合（`declare module` を使っているか、グローバルに宣言している場合）は、 `<reference types="" />` を使用してください。
-
-#### `package.json` が存在するパッケージがありました。
-
-基本的にはこのファイルは不要です。
-DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
-`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
-[Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
-また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
-`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
-
-ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
-依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
 
 #### `tslint.json` が無かったり、 `tsconfig.json` から `"noImplicitAny": true` や `"noImplicitThis": true` 、 `"strictNullChecks": true` が抜けたりしているパッケージがあります。
 
