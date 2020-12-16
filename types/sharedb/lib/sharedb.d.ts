@@ -101,15 +101,15 @@ export class Doc extends EventEmitter {
     subscribe: (callback: (err: Error) => void) => void;
 
     on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    on(event: 'create', callback: (source: boolean) => void): this;
-    on(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
-    on(event: 'del', callback: (data: any, source: boolean) => void): this;
+    on(event: 'create', callback: (source: any) => void): this;
+    on(event: 'op' | 'before op', callback: (ops: Op[], source: any) => void): this;
+    on(event: 'del', callback: (data: any, source: any) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
 
     addListener(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    addListener(event: 'create', callback: (source: boolean) => void): this;
-    addListener(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
-    addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
+    addListener(event: 'create', callback: (source: any) => void): this;
+    addListener(event: 'op' | 'before op', callback: (ops: Op[], source: any) => void): this;
+    addListener(event: 'del', callback: (data: any, source: any) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
