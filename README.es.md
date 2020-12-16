@@ -19,6 +19,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [Errores comunes](#errores-comunes)
     </details>
   - [Definition Owners](#definition-owners)
@@ -263,6 +264,10 @@ Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros 
 Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
 Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al `package.json`.
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 #### Errores comunes
 

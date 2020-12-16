@@ -21,6 +21,7 @@
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [Common mistakes](#common-mistakes)
     </details>
   - [Definition Owners](#definition-owners)
@@ -184,7 +185,7 @@ Your package should have this structure:
 Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
-If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests. If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
@@ -296,6 +297,10 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 #### Common mistakes
 

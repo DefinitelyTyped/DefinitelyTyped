@@ -22,6 +22,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#package.json)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [Erros comuns](#erros-comuns)
     </details>
   - [Donos de definição](#donos-de-definição)
@@ -185,7 +186,7 @@ Seu pacote deve possuir a seguinte estrutura:
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
 
-Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes. Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
+Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
 
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
@@ -296,6 +297,10 @@ Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar
 
 Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
 Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
+
+#### `OTHER_FILES.txt`
+
+Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
 
 #### Erros comuns
 
