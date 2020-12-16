@@ -1659,6 +1659,11 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     style?: StyleProp<TextStyle>;
 
     /**
+    * Align the input text to the left, center, or right sides of the input field.
+    */
+    textAlign?: 'left' | 'center' | 'right';
+    
+    /**
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
