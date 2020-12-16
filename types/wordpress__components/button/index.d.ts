@@ -39,6 +39,8 @@ declare namespace Button {
          * Renders a toggled button style.
          */
         isPressed?: boolean;
+        /** @deprecated Use `isPressed` instead. */
+        isToggled?: never;
         /**
          * Indicates activity while a action is being performed.
          */
