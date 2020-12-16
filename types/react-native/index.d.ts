@@ -2364,15 +2364,6 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
-     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
-     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
-     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
-     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
-     * @platform android
-     */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
-
-    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2401,13 +2392,6 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean;
-
-    /**
-     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
-     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
-     * @platform ios
-     */
-    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
@@ -2439,25 +2423,6 @@ export interface AccessibilityPropsIOS {
      */
     accessibilityIgnoresInvertColors?: boolean;
 }
-
-type AccessibilityTrait =
-    | 'none'
-    | 'button'
-    | 'link'
-    | 'header'
-    | 'search'
-    | 'image'
-    | 'selected'
-    | 'plays'
-    | 'key'
-    | 'text'
-    | 'summary'
-    | 'disabled'
-    | 'frequentUpdates'
-    | 'startsMedia'
-    | 'adjustable'
-    | 'allowsDirectInteraction'
-    | 'pageTurn';
 
 /**
  * @see https://reactnative.dev/docs/view#props
