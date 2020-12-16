@@ -113,6 +113,7 @@ describe('Test', () => {
                 language: 'es-MX',
                 locale: 'es-MX',
             },
+            sourceApp: 'com.apple.mobilesafari',
         });
         await device.terminateApp();
         await device.sendToHome();

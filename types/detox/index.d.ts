@@ -746,6 +746,10 @@ declare global {
              * Launches the app with a URL blacklist to disable network synchronization on certain endpoints. Useful if the app makes frequent network calls to blacklisted endpoints upon startup.
              */
             detoxURLBlacklistRegex?: number;
+            /**
+             * Mock opening the app from URL. sourceApp is an optional iOS-only parameter to specify source application bundle id. (iOS only)
+             */
+            sourceApp?: string;
         }
 
         interface StatusBarOptionsOfIOS {
