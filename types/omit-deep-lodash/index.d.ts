@@ -1,4 +1,4 @@
-// Type definitions for omit-deep-lodash 1.1.5
+// Type definitions for omit-deep-lodash 1.1
 // Project: https://github.com/odynvolk/omit-deep-lodash
 // Definitions by: Daniel Chong <https://github.com/dZefa>
 //                 Bartosz Kopciuch <https://github.com/ideffix>
