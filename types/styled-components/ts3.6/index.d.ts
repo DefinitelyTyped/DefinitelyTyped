@@ -8,7 +8,30 @@ declare global {
 
 import * as CSS from "csstype";
 import * as React from "react";
-import * as hoistNonReactStatics from 'hoist-non-react-statics';
+
+type MEMO_STATICS_KEY = '$$typeof' | 'compare' | 'defaultProps' | 'displayName' | 'propTypes' | 'type';
+
+type FORWARD_REF_STATICS_KEY = '$$typeof' | "render" | "defaultProps" | "displayName" | "propTypes";
+
+type REACT_STATICS_KEY = "childContextTypes" | "contextType" | "contextTypes" | "defaultProps" | "displayName" | "getDefaultProps" | "getDerivedStateFromError" | "getDerivedStateFromProps" | "mixins" | "propTypes" | "type";
+
+type KNOWN_STATICS_KEY = 'name' | 'length' | 'prototype' | 'caller' | 'callee' | 'arguments' | 'arity';
+
+type NonReactStatics<
+    S extends React.ComponentType<any>,
+    C extends {
+        [key: string]: true
+    } = {}
+> = {
+    [key in Exclude<
+        keyof S,
+        S extends React.MemoExoticComponent<any>
+            ? MEMO_STATICS_KEY | keyof C
+            : S extends React.ForwardRefExoticComponent<any>
+            ? FORWARD_REF_STATICS_KEY | keyof C
+            : REACT_STATICS_KEY | KNOWN_STATICS_KEY | keyof C
+    >]: S[key]
+};
 
 export type CSSProperties = CSS.Properties<string | number>;
 
@@ -150,7 +173,7 @@ export type StyledComponent<
     A extends keyof any = never
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
+    string & StyledComponentBase<C, T, O, A> & NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
