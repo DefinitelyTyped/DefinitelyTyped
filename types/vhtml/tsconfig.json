@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "jsx-tests.tsx",
-        "vhtml-tests.ts"
+        "test/jsx-tests.tsx",
+        "test/vhtml-tests.ts"
     ]
 }
