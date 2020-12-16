@@ -62,7 +62,7 @@ npm install --save-dev @types/node
 编译器中会自动包含这些类型。
 可以在 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) 中查看更多信息。
 
-对于 NPM 包 "foo"，它的类型将是 "@types/foo"。
+对于 npm 包 "foo"，它的类型将是 "@types/foo"。
 如果没有找到你的包，请在 [TypeSearch](https://microsoft.github.io/TypeSearch/) 查询。
 
 如果你仍然没有找到它，请检查它是否 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型。
@@ -171,8 +171,8 @@ Version | Released | End of Support
 
 如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
 
-如果你要为 NPM 包添加类型，请创建具有相同名字的目录。
-如果你要添加类型的包不再 NPM 上，请确保为它选择的名字不会与 NPM 上面的包名冲突。
+如果你要为 npm 包添加类型，请创建具有相同名字的目录。
+如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
 (你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
 
 你的包应该具有这样的结构：
@@ -348,17 +348,17 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## FAQ
 
-#### 这个仓库和 NPM 上的 `@types` 包究竟有什么关系？
+#### 这个仓库和 npm 上的 `@types` 包究竟有什么关系？
 
-`master` 分支会通过 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) 自动发布到 NPM 上的 `@types`.
+`master` 分支会通过 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) 自动发布到 npm 上的 `@types`.
 
 #### 我已经发起了 PR, 它多久会被合并？
 
 这得看情况，但是大多数的 PR 会在一周内被合并。已经由定义包头部中的作者同意的 PR 通常会更快被合并。新定义类型的 PR 需要更多时间，因为它们需要维护人员花更多的时间去审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待这些因为人为因素导致的延迟。通过查看 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)，可以看到维护人员在开放 PRs 的工作进度。
 
-#### 我的 PR 被合并了，什么时候 `@types` 的 NPM 包会被更新？
+#### 我的 PR 被合并了，什么时候 `@types` 的 npm 包会被更新？
 
-NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 上提及 PR 的编号，当前维护者会让团队成员去调查。
+npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 上提及 PR 的编号，当前维护者会让团队成员去调查。
 
 #### 我正在编写一个依赖其他类型定义的类型定义。我应该使用 `<reference types="" />` 还是导入？
 
@@ -400,7 +400,7 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 的编译器选项。
 
 请不要更改准确的类型定义。
-对于一个 NPM 包，如果使用 `node -p 'require("foo")'` 去导入模块，那么 `export =` 是准确的。如果使用 `node -p 'require("foo").default'` 去导入模块，那么 `export default` 是准确的。
+对于一个 npm 包，如果使用 `node -p 'require("foo")'` 去导入模块，那么 `export =` 是准确的。如果使用 `node -p 'require("foo").default'` 去导入模块，那么 `export default` 是准确的。
 
 #### 我想使用 TypeScript 3.3 或更高版本的功能。
 
@@ -447,7 +447,7 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.org/)_
 
-每个 Definitely Typed 包在发布到 NPM 时都会进行版本控制。
+每个 Definitely Typed 包在发布到 npm 时都会进行版本控制。
 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (将 `@types` 包发布到 npm 的工具) 会通过将 `major.minor` 版本号写在 `index.d.ts` 文件的第一行来设置定义包的版本号。
 例如，以下是 `10.12.x` 版本的 [Node 的类型声明](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) 的前几行：
 
@@ -462,7 +462,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 因为 `10.12` 在第一行的末尾，所以 `@types/node` 包的版本号也是 `10.12.x`.
 注意在 `index.d.ts` 文件的第一行注释中应该只包含 `major.minor` 的版本号（比如 `10.12`），不应该包含补丁版本（例如 `10.12.4`）。
 这是因为只有主要版本号和次要版本号在库包和类型声明包之间相对齐。
-类型声明包的补丁版本号（比如 `10.12.0` 中的 `.0`）是由 Definitely Typed 初始化为 0，每次将新的 `@types/node` 包发布到对应库的同一主/次版本的 NPM 是，他都会递增。
+类型声明包的补丁版本号（比如 `10.12.0` 中的 `.0`）是由 Definitely Typed 初始化为 0，每次将新的 `@types/node` 包发布到对应库的同一主/次版本的 npm 是，他都会递增。
 
 有时候，类型声明包的版本号和库包的版本号可能会不同步。
 以下是一些常见的原因，是按照给库的用户带来不便的顺序排序的。

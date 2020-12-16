@@ -11,7 +11,7 @@ Select one of these and delete the others:
 
 If adding a new definition:
 - [ ] The package does not already provide its own types, or cannot have its `.d.ts` files generated via `--declaration`
-- [ ] If this is for an NPM package, match the name. If not, do not conflict with the name of an NPM package.
+- [ ] If this is for an npm package, match the name. If not, do not conflict with the name of an npm package.
 - [ ] Create it with `dts-gen --dt`, not by basing it on an existing project.
 - [ ] Represents shape of module/library [correctly](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html)
 - [ ] `tslint.json` [should contain](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#linter-tslintjson) `{ "extends": "dtslint/dt.json" }`, and no additional rules.

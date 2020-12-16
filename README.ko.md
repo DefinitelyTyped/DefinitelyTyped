@@ -66,7 +66,7 @@ npm install --save-dev @types/node
 
 더 자세한 내용은 [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)에서 확인해보실 수 있습니다.
 
-NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입니다.
+npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입니다.
 원하시는 패키지를 찾을 수 없는 경우, [타입서치(TypeSearch)](https://microsoft.github.io/TypeSearch/) 사이트에서 한 번 찾아보세요.
 
 그래도 찾을 수 없는 경우, 찾고 있는 패키지가 자료형(Typing)을
@@ -183,9 +183,9 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 만약 라이브러리를 만드는 중이고 라이브러리가 타입스크립트(TypeScript)로 쓰여있다면, Definitely Typed 에 선언(Declaration)을 올리는 대신 패키지에 [자동생성된 선언(Declaration) 파일을 포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)시킬 수 있습니다.
 
-NPM 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
-NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 NPM 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
-(`npm info foo` 명령어를 사용하여 `foo` 패키지가 NPM 에 있는지 확인할 수 있습니다.)
+npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
+npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
+(`npm info foo` 명령어를 사용하여 `foo` 패키지가 npm 에 있는지 확인할 수 있습니다.)
 
 새 자료형 패키지는 다음과 같은 구조로 구성되어있어야만 합니다.
 
@@ -211,7 +211,7 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
-- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
+- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `typingsPackageName` 와 같은 것으로 취급됩니다.)
 
 Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
@@ -347,9 +347,9 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or Definitely Typed 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(New Pull Request Status Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
 
-#### 내 풀 리퀘스트(Pull request)는 합쳐졌습니다. 언제 NPM 에 `@types` 패키지가 갱신되나요?
+#### 내 풀 리퀘스트(Pull request)는 합쳐졌습니다. 언제 npm 에 `@types` 패키지가 갱신되나요?
 
-NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간이 지나도 갱신되지 않으면, 문제를 파악하기 위해 @RyanCavanaugh 나 @andy-ms 를 풀 리퀘스트(Pull request)에서 호출해주세요.
+npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간이 지나도 갱신되지 않으면, 문제를 파악하기 위해 @RyanCavanaugh 나 @andy-ms 를 풀 리퀘스트(Pull request)에서 호출해주세요.
 
 #### 다른 자료형 정의(Type definition)에 의존하는 자료형 정의(Type definition)을 만들고 있습니다. `<reference types="" />` 와 임포트(import) 중 무엇을 사용해야하나요?
 
@@ -373,7 +373,7 @@ NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 타입스크립트(TypeScript) 2.7 이상을 사용하고 계시면 프로젝트 안에서 `--esModuleInterop` 를 사용해주세요.
 그 이하의 경우, 디폴트 임포트(Default import)가 동작하는 환경(Webpack, SystemJS, esm)에서 작업 중이시면 [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) 를 사용하는 걸 고려해보세요.
 자료형 정의(Type definition)가 맞는 경우에는 자료형 정의(Type definition)을 수정하지 마세요.
-NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
+npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
 
 #### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 3.3 이상의 기능을 사용하고 싶습니다.
 

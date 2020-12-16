@@ -44,7 +44,7 @@ npm install --save-dev @types/node
 Los types deberían ser incluidos automáticamente por el compilador.
 Vea más en el [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
-Para un paquete NPM "foo", estos `typings` estarán en "@types/foo".
+Para un paquete npm "foo", estos `typings` estarán en "@types/foo".
 Si no puedes encontrar tu paquete, búscalo en [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
 Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) los typings.
@@ -159,8 +159,8 @@ Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
 
 Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
 
-Si estás agregando typings para un paquete NPM, crea un directorio con el mismo nombre.
-Si el paquete al que le estás agregando typings no es para NPM, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en NPM.
+Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
+Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
 (Puedes usar `npm info foo` para verificar la existencia del paquete `foo`.)
 
 Tu paquete debería tener esta estructura:
@@ -312,17 +312,17 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## FAQ
 
-#### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en NPM?
+#### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en npm?
 
-La `master` branch es automáticamente publicada en el alcance de los  `@types` en NPM gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
+La `master` branch es automáticamente publicada en el alcance de los  `@types` en npm gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
 Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o Definitely Typed antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
 
-#### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@types` NPM?
+#### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@types` npm?
 
-Los paquetes NPM deberán ser actualizados en unas cuantas horas. Si ha pasado más de 24 horas, menciona a @RyanCavanaugh y/o a @andy-ms en el PR para investigar.
+Los paquetes npm deberán ser actualizados en unas cuantas horas. Si ha pasado más de 24 horas, menciona a @RyanCavanaugh y/o a @andy-ms en el PR para investigar.
 
 #### Estoy escribiendo una definición que depende de otra definición. Debería utilizar `<reference types="" />` o una import?
 
@@ -345,7 +345,7 @@ Si las types son parte de los estándares web, estas deberán ser contribuidas a
 
 Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
 No cambies la type definition si es preciso.
-Para un paquete NPM, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
+Para un paquete npm, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
 #### Quiero usar las características de TypeScript 3.3 o superior.
 
