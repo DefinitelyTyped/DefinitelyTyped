@@ -1172,7 +1172,7 @@ class AccessibilityTest extends React.Component {
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
             >
-                <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
+                <Text accessibilityIgnoresInvertColors>
                     Text
                 </Text>
                 <View />
