@@ -1,13 +1,5 @@
 {
     "compilerOptions": {
-        "paths": {
-            "puppeteer": [
-                "puppeteer/v2"
-            ],
-            "puppeteer/*": [
-                "puppeteer/v2/*"
-            ]
-        },
         "module": "commonjs",
         "lib": [
             "es6",
@@ -23,6 +15,14 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "puppeteer": [
+                "puppeteer/v1"
+            ],
+            "puppeteer/*": [
+                "puppeteer/v1/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
