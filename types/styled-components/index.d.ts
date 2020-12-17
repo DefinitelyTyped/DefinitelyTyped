@@ -106,10 +106,10 @@ type WithChildrenIfReactComponentClass<C extends string | React.ComponentType<an
 
 type StyledComponentPropsWithAs<
     C extends string | React.ComponentType<any>,
-    F extends string | React.ComponentType<any>,
     T extends object,
     O extends object,
-    A extends keyof any
+    A extends keyof any,
+    F extends string | React.ComponentType<any> = C
 > = StyledComponentProps<C, T, O, A> & { as?: C; forwardedAs?: F };
 
 export type FalseyValue = undefined | null | false;
@@ -173,8 +173,8 @@ export interface StyledComponentBase<
         StyledComponentProps<C, T, O, A>
     >;
     <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
-        props: StyledComponentPropsWithAs<AsC, FAsC, T, O, A>,
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, FAsC, T, O, A>>;
+        props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,
