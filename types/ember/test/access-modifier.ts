@@ -6,9 +6,15 @@ import Ember from 'ember';
 import { assertType } from './lib/assert';
 
 class Foo extends Ember.Object {
-    hello() { return 'world'; }
-    protected bar() { return 'bar'; }
-    private baz() { return 'baz'; }
+    hello() {
+        return 'world';
+    }
+    protected bar() {
+        return 'bar';
+    }
+    private baz() {
+        return 'baz';
+    }
 }
 const f = new Foo();
 assertType<string>(f.hello());
@@ -18,10 +24,17 @@ assertType<string>(f.bar()); // $ExpectError
 assertType<string>(f.baz()); // $ExpectError
 
 class Foo2 extends Ember.Object.extend({
-    bar: ''
+    bar: '',
 }) {
-    hello() { return 'world'; }
+    hello() {
+        return 'world';
+    }
     // Cannot override with a mis-matched property type
-    protected bar() { return 'bar'; } // $ExpectError
-    private baz() { return 'baz'; }
+    // $ExpectError
+    protected bar() {
+        return 'bar';
+    }
+    private baz() {
+        return 'baz';
+    }
 }

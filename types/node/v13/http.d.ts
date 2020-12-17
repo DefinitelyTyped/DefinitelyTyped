@@ -198,7 +198,7 @@ declare module "http" {
         rawHeaders: string[];
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v13.14.0/lib/_http_client.js#L86
     class ClientRequest extends OutgoingMessage {
         /**
          * @deprecate Use `socket` instead.

@@ -13,8 +13,22 @@ const geojsonPoint: GeoJSON.Point = {
     coordinates: [45.5165, -122.6764],
 };
 
+const geojsonFeatureCollection: GeoJSON.FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [
+        {
+            type: 'Feature',
+            geometry: geojsonPoint,
+            properties: {},
+        },
+    ],
+};
+
 // parse ArcGIS JSON, convert it to GeoJSON
 Terraformer.arcgisToGeoJSON(arcgisPoint);
 
-// take GeoJSON and convert it to ArcGIS JSON
+// take a GeoJSON Point and convert it to ArcGIS JSON
 Terraformer.geojsonToArcGIS(geojsonPoint);
+
+// take a GeoJSON FeatureCollection and convert it to ArcGIS JSON
+Terraformer.geojsonToArcGIS(geojsonFeatureCollection);

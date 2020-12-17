@@ -672,6 +672,48 @@ declare namespace IORedis {
         hexists(key: KeyType, field: string, callback: Callback<BooleanResponse>): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
 
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback: Callback<number>): void;
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string): Promise<number>;
+
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string | null>): void;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi'): Promise<string | null>;
+
+        geohash: OverloadedKeyCommand<string, string[]>;
+
+        geopos: OverloadedKeyCommand<string, string[]>;
+
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            callback: Callback<string[]>,
+        ): void;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            sort?: 'ASC' | 'DESC'
+        ): Promise<string[]>;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC'
+        ): Promise<string[]>;
+
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi'): Promise<string[]>;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number): Promise<string[]>;
+
         incrby(key: KeyType, increment: number, callback: Callback<number>): void;
         incrby(key: KeyType, increment: number): Promise<number>;
 
@@ -686,6 +728,8 @@ declare namespace IORedis {
 
         mset: OverloadedHashCommand<ValueType, Ok>;
         msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
+
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Promise<number>;
 
         randomkey(callback: Callback<string>): void;
         randomkey(): Promise<string>;
@@ -1228,6 +1272,20 @@ declare namespace IORedis {
 
         hexists(key: KeyType, field: string, callback?: Callback<BooleanResponse>): Pipeline;
 
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback?: Callback<number>): Pipeline;
+
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string | null>): Pipeline;
+
+        geohash(key: KeyType, ...fields: string[]): Pipeline;
+
+        geopos(key: KeyType, ...fields: string[]): Pipeline;
+
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+
         incrby(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
 
         incrbyfloat(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
@@ -1241,6 +1299,8 @@ declare namespace IORedis {
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
+
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Pipeline;
 
         randomkey(callback?: Callback<string>): Pipeline;
 
@@ -1573,6 +1633,12 @@ declare namespace IORedis {
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
         showFriendlyErrorStack?: boolean;
+        /**
+         * When enabled, all commands issued during an event loop iteration are automatically wrapped in a
+         * pipeline and sent to the server at the same time. This can improve performance by 30-50%.
+         * default: false.
+         */
+        enableAutoPipelining?: boolean;
     }
 
     interface AddressFromResponse {

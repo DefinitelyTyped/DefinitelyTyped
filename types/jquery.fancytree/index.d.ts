@@ -232,6 +232,8 @@ declare namespace Fancytree {
         extraClasses: string;
         /** Folder nodes have different default icons and click behavior. Note: Also non-folders may have children. */
         folder: boolean;
+        /** Icon of the tree node. */
+        icon: string;
         /** null or type of temporarily generated system node like 'loading', or 'error'. */
         statusNodeType: string;
         /** True if this node is loaded on demand, i.e. on first expansion. */

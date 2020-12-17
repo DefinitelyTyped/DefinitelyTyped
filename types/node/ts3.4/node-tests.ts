@@ -142,7 +142,7 @@ import * as trace_events from "trace_events";
         let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
+        v = await setImmediate();
         s = await setImmediate("");
 
         // $ExpectType (foo: any) => Promise<string>

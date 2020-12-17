@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v1.1.1
+// Type definitions for bookshelfjs v1.2.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -164,7 +164,7 @@ declare namespace Bookshelf {
          */
         save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
         save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
+        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string, throughForeignKeyTarget?: string, otherKeyTarget?: string): R;
         where(properties: { [key: string]: any }): T;
         where(
             key: string,
@@ -339,6 +339,8 @@ declare namespace Bookshelf {
         patch?: boolean;
         /** @default true */
         require?: boolean;
+        /** @default true */
+        autoRefresh?: boolean;
     }
 
     interface DestroyOptions extends SyncOptions {

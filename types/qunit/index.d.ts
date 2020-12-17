@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.9.2
+// Type definitions for QUnit v2.11.3
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
@@ -71,6 +71,18 @@ declare global {
          * @param {number} amount Number of assertions in this test.
          */
         expect(amount: number): void;
+
+        /**
+         * A strict comparison that passes if the first argument is boolean `false`.
+         *
+         * `false()` requires just one argument.
+         * If the first argument evaluates to false, the assertion passes; otherwise, it fails.
+         * If a second message argument is provided, it will be displayed in place of the result.
+         *
+         * @param state Expression being tested
+         * @param {string} message A short description of the assertion
+         */
+        false(state: any, message?: string): void;
 
         /**
          * An inverted deep recursive comparison, working on primitive types,
@@ -202,12 +214,7 @@ declare global {
          *
          * @param assertionResult The assertion result
          */
-        pushResult(assertResult: {
-            result: boolean;
-            actual: any;
-            expected: any;
-            message: string;
-        }): void;
+        pushResult(assertResult: { result: boolean; actual: any; expected: any; message: string }): void;
 
         /**
          * A strict type and value comparison.
@@ -224,6 +231,18 @@ declare global {
          * @param {string} [message] A short description of the assertion
          */
         strictEqual<T>(actual: T, expected: T, message?: string): void;
+
+        /**
+         * A strict comparison that passes if the first argument is boolean `true`.
+         *
+         * `true()` requires just one argument.
+         * If the first argument evaluates to true, the assertion passes; otherwise, it fails.
+         * If a second message argument is provided, it will be displayed in place of the result.
+         *
+         * @param state Expression being tested
+         * @param {string} message A short description of the assertion
+         */
+        true(state: any, message?: string): void;
 
         /**
          * Test if a callback throws an exception, and optionally compare the thrown
@@ -263,11 +282,7 @@ declare global {
          * @param message A short description of the assertion
          */
         rejects(promise: Promise<any>, message?: string): Promise<void>;
-        rejects(
-            promise: Promise<any>,
-            expectedMatcher?: any,
-            message?: string,
-        ): Promise<void>;
+        rejects(promise: Promise<any>, expectedMatcher?: any, message?: string): Promise<void>;
 
         /**
          * A marker for progress in a given test.
@@ -294,7 +309,6 @@ declare global {
          * @param message A short description of the assertion
          */
         verifySteps(steps: string[], message?: string): void;
-
     }
 
     interface Config {
@@ -302,7 +316,7 @@ declare global {
         autostart: boolean;
         collapse: boolean;
         current: any;
-        filter: string | RegExp
+        filter: string | RegExp;
         fixture: string;
         hidepassed: boolean;
         maxDepth: number;
@@ -320,12 +334,11 @@ declare global {
             id?: string;
             label?: string;
             tooltip?: string;
-            value?: string | string[] | { [key: string]: string }
+            value?: string | string[] | { [key: string]: string };
         }[];
     }
 
     interface Hooks {
-
         /**
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
@@ -346,7 +359,6 @@ declare global {
          * Runs before each test.
          */
         beforeEach?: (assert: Assert) => void | Promise<void>;
-
     }
 
     interface NestedHooks {
@@ -354,34 +366,42 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after: (fn: (assert: Assert) => void | Promise<void>) => void;
+        after(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
-        afterEach: (fn: (assert: Assert) => void | Promise<void>) => void;
+        afterEach(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
-        before: (fn: (assert: Assert) => void | Promise<void>) => void;
+        before(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
-        beforeEach: (fn: (assert: Assert) => void | Promise<void>) => void;
-
+        beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
     }
 
     type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
     type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
-    type ModuleOnly = { only: moduleFunc1 & moduleFunc2 }
+    type ModuleOnly = { only: moduleFunc1 & moduleFunc2 };
+    type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
+    type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
 
     namespace QUnit {
-        interface BeginDetails { totalTests: number }
-        interface DoneDetails { failed: number, passed: number, total: number, runtime: number }
+        interface BeginDetails {
+            totalTests: number;
+        }
+        interface DoneDetails {
+            failed: number;
+            passed: number;
+            total: number;
+            runtime: number;
+        }
         interface LogDetails {
-            result: boolean,
+            result: boolean;
             actual: any;
             expected: any;
             message: string;
@@ -397,7 +417,9 @@ declare global {
             total: number;
             runtime: number;
         }
-        interface ModuleStartDetails { name: string }
+        interface ModuleStartDetails {
+            name: string;
+        }
         interface TestDoneDetails {
             name: string;
             module: string;
@@ -406,11 +428,13 @@ declare global {
             total: number;
             runtime: number;
         }
-        interface TestStartDetails { name: string; module: string; }
+        interface TestStartDetails {
+            name: string;
+            module: string;
+        }
     }
 
     interface QUnit {
-
         /**
          * Namespace for QUnit assertions
          *
@@ -437,7 +461,7 @@ declare global {
          * QUnit has a bunch of internal configuration defaults, some of which are
          * useful to override. Check the description for each option for details.
          */
-        config: Config
+        config: Config;
 
         /**
          * Register a callback to fire whenever the test suite ends.
@@ -463,7 +487,7 @@ declare global {
          */
         dump: {
             maxDepth: number;
-            parse(data: any): string
+            parse(data: any): string;
         };
 
         /**
@@ -528,7 +552,7 @@ declare global {
          * @param hookds Callbacks to run during test execution
          * @param nested A callback with grouped tests and nested modules to run under the current module label
          */
-        module: moduleFunc1 & moduleFunc2 & ModuleOnly;
+        module: moduleFunc1 & moduleFunc2 & ModuleOnly & ModuleSkip & ModuleTodo;
 
         /**
          * Register a callback to fire whenever a module ends.
@@ -644,14 +668,16 @@ declare global {
          *
          * @param callback Callback to execute
          */
-        testDone(callback: (details: {
-            name: string;
-            module: string;
-            failed: number;
-            passed: number;
-            total: number;
-            runtime: number;
-        }) => void | Promise<void>): void;
+        testDone(
+            callback: (details: {
+                name: string;
+                module: string;
+                failed: number;
+                passed: number;
+                total: number;
+                runtime: number;
+            }) => void | Promise<void>,
+        ): void;
 
         /**
          * Register a callback to fire whenever a test begins.
@@ -689,10 +715,9 @@ declare global {
         isLocal: boolean;
 
         /**
-        * QUnit version
-        */
+         * QUnit version
+         */
         version: string;
-
     }
 
     /* QUnit */

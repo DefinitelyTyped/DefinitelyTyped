@@ -1044,8 +1044,6 @@ declare namespace jest {
     T['length'] extends 0 ? [] :
         (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
 
-    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
-
     interface AsymmetricMatcher {
         asymmetricMatch(other: unknown): boolean;
     }
@@ -1078,7 +1076,7 @@ declare namespace jest {
      * Construct a type with the properties of T except for those in type K.
      */
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-    type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, 'resolves' | 'rejects' | 'not'>;
+    type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
     type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
 
     interface Constructable {

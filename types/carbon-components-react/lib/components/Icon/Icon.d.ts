@@ -6,8 +6,6 @@ export function getSvgData<R = unknown>(iconName: string): R;
 export function svgShapes<D = unknown>(svgData: D): Array<React.ReactNode | React.ReactNodeArray>;
 export function isPrefixed(name: string): boolean;
 
-interface InheritedProps extends React.SVGAttributes<SVGSVGElement> { }
-
 export interface IconData {
     width?: string;
     height?: string;
@@ -15,7 +13,7 @@ export interface IconData {
     svgData: any;
 }
 
-export interface IconProps extends InheritedProps {
+export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
     description: string,
     icon?: IconData,
     iconRef?: React.Ref<HTMLElement>,
@@ -24,6 +22,6 @@ export interface IconProps extends InheritedProps {
 
 declare const Icon: React.FC<IconProps>;
 
-// TODO: icons
+export declare const icons: any;
 
 export default Icon;

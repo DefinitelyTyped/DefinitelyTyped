@@ -138,7 +138,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
     'capitalized-comments': Linter.RuleEntry<[
         'always' | 'never',
         Partial<{
-            ignorePattern: string[];
+            ignorePattern: string;
             /**
              * @default false
              */

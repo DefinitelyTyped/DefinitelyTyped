@@ -62,7 +62,7 @@ export class GUI {
     constructor(option?: GUIParams);
 
     __controllers: GUIController[];
-    __folders: GUI[];
+    __folders: {[folderName: string]: GUI};
     domElement: HTMLElement;
 
     add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;

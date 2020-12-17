@@ -1,6 +1,21 @@
 import pa11y = require('pa11y');
+import puppeteer = require('puppeteer');
 
 pa11y('http://example.com/');
+
+(async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://google.com');
+
+    pa11y('', {
+        browser,
+        ignoreUrl: true,
+        page,
+    });
+
+    await browser.close();
+})();
 
 pa11y('http://example.com/', {
     log: {

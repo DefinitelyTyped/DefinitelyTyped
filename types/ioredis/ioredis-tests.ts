@@ -194,6 +194,19 @@ redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
 redis.msetnx(new Map<string, number>(), cbNumber);
 
+// Test for GEO commands
+redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
+redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
+redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
+redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+
+// Test for memory usage
+redis.memory('USAGE', 'foo').then(console.log);
+
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
 redis.eval('script', 2, 'foo', 'bar', cb);
@@ -310,6 +323,7 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
+    enableAutoPipelining: true
 });
 
 const pub = new Redis();

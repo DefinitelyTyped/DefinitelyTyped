@@ -77,6 +77,7 @@ export namespace DS {
         async?: true;
     }
 
+    type AsyncBelongsTo<T extends Model> = T & PromiseObject<T>;
     /**
      * `DS.belongsTo` is used to define One-To-One and One-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -89,9 +90,11 @@ export namespace DS {
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        ModelRegistry[K] & PromiseObject<ModelRegistry[K]>,
+        AsyncBelongsTo<ModelRegistry[K]>,
         ModelRegistry[K]
     >;
+    type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
+    type SyncHasMany<T extends Model> = ManyArray<T>;
     /**
      * `DS.hasMany` is used to define One-To-Many and Many-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -99,12 +102,12 @@ export namespace DS {
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
-    ): Ember.ComputedProperty<ManyArray<ModelRegistry[K]>>;
+    ): Ember.ComputedProperty<SyncHasMany<ModelRegistry[K]>>;
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        PromiseManyArray<ModelRegistry[K]>,
+        AsyncHasMany<ModelRegistry[K]>,
         Ember.Array<ModelRegistry[K]>
     >;
     /**

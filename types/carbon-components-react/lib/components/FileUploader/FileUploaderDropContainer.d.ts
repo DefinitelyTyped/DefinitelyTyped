@@ -1,10 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface FileUploaderDropContainerInheritedProps extends ReactAttr<HTMLLabelElement> {
-}
-
-export interface FileUploaderDropContainerProps extends FileUploaderDropContainerInheritedProps {
+export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelElement> {
     /**
      * Provide a custom className to be applied to the container node
      */
