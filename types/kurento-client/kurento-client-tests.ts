@@ -57,6 +57,15 @@ async () => {
 };
 
 async () => {
+    const endpointId = 'endpointId';
+
+    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const endpoint = await client.getMediaobjectById<WebRtcEndpoint>(endpointId);
+
+    await endpoint.release();
+};
+
+async () => {
     const kurentoClient = await kurento('//server');
     const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
     const webRtcEp = await pipeline.create('WebRtcEndpoint'); // $ExpectType WebRtcEndpoint
