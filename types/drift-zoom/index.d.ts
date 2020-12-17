@@ -1,6 +1,6 @@
 // Type definitions for drift-zoom 1.4
 // Project: https://github.com/imgix/drift
-// Definitions by: Piotr Błażejewicz <https://github.com/me>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Drift;
