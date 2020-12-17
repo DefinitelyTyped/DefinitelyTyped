@@ -37,7 +37,7 @@ class CustomPlugin implements Plugin {
             'command:start': () => {},
         };
         this.variableResolvers = {
-            echo: async (source) => source.slice(5)
+            echo: async source => source.slice(5),
         };
     }
 }
@@ -118,7 +118,7 @@ getHttp(
 const awsServerless: Aws.Serverless = {
     service: {
         name: 'testName1',
-        awsKmsKeyArn: 'testAwsKmsKeyArn'
+        awsKmsKeyArn: 'testAwsKmsKeyArn',
     },
     frameworkVersion: 'testFrameworkVersion',
     configValidationMode: 'error',
@@ -146,8 +146,8 @@ const awsServerless: Aws.Serverless = {
             sseCustomerKey: 'testsseCustomerKey',
             sseCustomerKeyMD5: 'testsseCustomerKeyMD5',
             tags: {
-                testtagkey: 'testtagvalue'
-            }
+                testtagkey: 'testtagvalue',
+            },
         },
         deploymentPrefix: 'testdeploymentPrefix',
         role: 'testrole',
@@ -155,7 +155,7 @@ const awsServerless: Aws.Serverless = {
         cfnRole: 'testcfnRole',
         versionFunctions: true,
         environment: {
-            testenvironmentkey: 'testenvironmentvalue'
+            testenvironmentkey: 'testenvironmentvalue',
         },
         endpointType: 'regional',
         apiKeys: ['testApiKeys'],
@@ -163,13 +163,13 @@ const awsServerless: Aws.Serverless = {
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
-                testrestapiresource: 'testrestapiresource'
+                testrestapiresource: 'testrestapiresource',
             },
             websocketApiId: 'testwebsocketApiId',
             apiKeySourceType: 'testapiKeySourceType',
             minimumCompressionSize: 1,
             description: 'testdescription',
-            binaryMediaTypes: ['testbinaryMediaTypes']
+            binaryMediaTypes: ['testbinaryMediaTypes'],
         },
         alb: {
             targetGroupPrefix: 'testtargetGroupPrefix',
@@ -182,11 +182,11 @@ const awsServerless: Aws.Serverless = {
                     allowUnauthenticated: false,
                     requestExtraParams: {
                         prompt: 'testprompt',
-                        redirect: false
+                        redirect: false,
                     },
                     scope: 'testscope',
                     sessionCookieName: 'testsessionCookieName',
-                    sessionTimeout: 1
+                    sessionTimeout: 1,
                 },
                 testOidcAuthorizer: {
                     type: 'oidc',
@@ -200,18 +200,18 @@ const awsServerless: Aws.Serverless = {
                     allowUnauthenticated: false,
                     requestExtraParams: {
                         prompt: 'testprompt',
-                        redirect: false
+                        redirect: false,
                     },
                     scope: 'testscope',
                     sessionCookieName: 'testsessionCookieName',
-                    sessionTimeout: 1
+                    sessionTimeout: 1,
                 },
                 testJwtAuthorizer: {
                     identitySource: 'testidentitySource',
                     issuerUrl: 'testissuerUrl',
-                    audience: ['testaudience']
-                }
-            }
+                    audience: ['testaudience'],
+                },
+            },
         },
         httpApi: {
             id: 'testid',
@@ -222,23 +222,23 @@ const awsServerless: Aws.Serverless = {
                 testJwtAuthorizer: {
                     identitySource: 'testidentitySource',
                     issuerUrl: 'testissuerUrl',
-                    audience: ['testaudience']
-                }
-            }
+                    audience: ['testaudience'],
+                },
+            },
         },
         usagePlan: {
             quota: {
                 limit: 1,
                 offset: 1,
-                period: '20'
+                period: '20',
             },
             throttle: {
                 burstLimit: 1,
-                rateLimit: 1
-            }
+                rateLimit: 1,
+            },
         },
         stackTags: {
-            testtagkey: 'testtagvalue'
+            testtagkey: 'testtagvalue',
         },
         iamManagedPolicies: ['testiamManagedPolicies'],
         iamRoleStatements: [
@@ -246,13 +246,13 @@ const awsServerless: Aws.Serverless = {
                 Effect: 'Allow',
                 Sid: 'testSid',
                 Condition: {
-                    testcondition: 'testconditionvalue'
+                    testcondition: 'testconditionvalue',
                 },
                 Action: 'testAction',
                 NotAction: 'testNotAction',
                 Resource: 'testResource',
-                NotResource: 'testNotResource'
-            }
+                NotResource: 'testNotResource',
+            },
         ],
         stackPolicy: [
             {
@@ -261,20 +261,20 @@ const awsServerless: Aws.Serverless = {
                 Action: 'testAction',
                 Resource: 'testResource',
                 Condition: {
-                    testcondition: 'testconditionvalue'
-                }
-            }
+                    testcondition: 'testconditionvalue',
+                },
+            },
         ],
         vpc: {
             securityGroupIds: ['testsecurityGroupIds'],
-            subnetIds: ['testsubnetIds']
+            subnetIds: ['testsubnetIds'],
         },
         notificationArns: ['testnotificationArns'],
         stackParameters: [
             {
                 ParameterKey: 'testParameterKey',
                 ParameterValue: 'testParameterValue',
-            }
+            },
         ],
         resourcePolicy: [
             {
@@ -283,9 +283,9 @@ const awsServerless: Aws.Serverless = {
                 Action: 'testAction',
                 Resource: 'testResource',
                 Condition: {
-                    testcondition: 'testconditionvalue'
-                }
-            }
+                    testcondition: 'testconditionvalue',
+                },
+            },
         ],
         rollbackConfiguration: {
             MonitoringTimeInMinutes: 1,
@@ -293,15 +293,15 @@ const awsServerless: Aws.Serverless = {
                 {
                     Arn: 'testArn',
                     Type: 'testType',
-                }
-            ]
+                },
+            ],
         },
         tags: {
-            testtagkey: 'testtagvalue'
+            testtagkey: 'testtagvalue',
         },
         tracing: {
             apiGateway: false,
-            lambda: false
+            lambda: false,
         },
         logs: {
             restApi: {
@@ -314,20 +314,20 @@ const awsServerless: Aws.Serverless = {
                 roleManagedExternally: false,
             },
             websocket: {
-                level: 'testlevel'
+                level: 'testlevel',
             },
             httpApi: {
-                format: 'testformat'
+                format: 'testformat',
             },
-            frameworkLambda: false
-        }
+            frameworkLambda: false,
+        },
     },
     package: {
         include: ['testinclude'],
         exclude: ['testexclude'],
         excludeDevDependencies: false,
         artifact: 'testartifact',
-        individually: true
+        individually: true,
     },
     functions: {
         testFunction: {
@@ -346,21 +346,21 @@ const awsServerless: Aws.Serverless = {
                 testenvironment: 'testenvironmentvalue',
                 testRefEnvironment: {
                     Ref: 'MyRessource',
-                }
+                },
             },
             tags: {
-                testtagkey: 'testtagvalue'
+                testtagkey: 'testtagvalue',
             },
             vpc: {
                 securityGroupIds: ['testsecurityGroupIds'],
-                subnetIds: ['testsubnetIds']
+                subnetIds: ['testsubnetIds'],
             },
             package: {
                 include: ['testinclude'],
                 exclude: ['testexclude'],
                 excludeDevDependencies: false,
                 artifact: 'testartifact',
-                individually: true
+                individually: true,
             },
             layers: ['testlayers'],
             tracing: 'testtracing',
@@ -376,11 +376,11 @@ const awsServerless: Aws.Serverless = {
                         path: 'testpath',
                         method: 'testmethod',
                         cors: {
-                          allowCredentials: true,
-                          cacheControl: 'cacheControl',
-                          headers: ['header1', 'header2'],
-                          origins: ['origin1', 'origin2'],
-                          maxAge: 1000,
+                            allowCredentials: true,
+                            cacheControl: 'cacheControl',
+                            headers: ['header1', 'header2'],
+                            origins: ['origin1', 'origin2'],
+                            maxAge: 1000,
                         },
                         async: false,
                         private: false,
@@ -412,22 +412,23 @@ const awsServerless: Aws.Serverless = {
                                     type: 'object',
                                     properties: {
                                         productId: {
-                                            type: 'integer'
-                                        }
-                                    }
-                                }
+                                            type: 'integer',
+                                        },
+                                    },
+                                },
                             },
-                        }
+                        },
                     },
-                }, {
+                },
+                {
                     httpApi: {
                         method: 'testmethod',
                         path: 'testpath',
                         authorizer: {
                             name: 'testname',
-                            scopes: ['testscopes']
-                        }
-                    }
+                            scopes: ['testscopes'],
+                        },
+                    },
                 },
                 {
                     httpApi: {
@@ -438,17 +439,19 @@ const awsServerless: Aws.Serverless = {
                             scopes: ['testscopes'],
                         },
                     },
-                }, {
+                },
+                {
                     websocket: {
                         route: 'testroute',
                         routeResponseSelectionExpression: 'testrouteResponseSelectionExpression',
                         authorizer: {
                             name: 'testname',
                             arn: 'testarn',
-                            identitySource: ['testidentitysource']
-                        }
-                    }
-                }, {
+                            identitySource: ['testidentitysource'],
+                        },
+                    },
+                },
+                {
                     s3: {
                         bucket: 'testbucket',
                         event: 'testevent',
@@ -456,13 +459,15 @@ const awsServerless: Aws.Serverless = {
                             {
                                 prefix: 'testprefix',
                                 suffix: 'testsuffix',
-                            }
+                            },
                         ],
-                        existing: false
-                    }
-                }, {
+                        existing: false,
+                    },
+                },
+                {
                     schedule: '1',
-                }, {
+                },
+                {
                     sns: {
                         arn: 'testarn',
                         topicName: 'testtopicName',
@@ -474,87 +479,98 @@ const awsServerless: Aws.Serverless = {
                             deadLetterTargetImport: {
                                 arn: 'testarn',
                                 url: 'testurl',
-                            }
-                        }
-                    }
-                }, {
+                            },
+                        },
+                    },
+                },
+                {
                     sqs: {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
-                    }
-                }, {
+                        enabled: true,
+                    },
+                },
+                {
                     stream: {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
-                        enabled: true
-                    }
-                }, {
+                        enabled: true,
+                    },
+                },
+                {
                     msk: {
                         arn: 'testarn',
                         topic: 'testTopic',
                         batchSize: 1,
                         startingPosition: 'LATEST',
-                        enabled: true
-                    }
-                }, {
+                        enabled: true,
+                    },
+                },
+                {
                     alexaSkill: {
                         appId: 'testappId',
-                        enabled: true
-                    }
-                }, {
+                        enabled: true,
+                    },
+                },
+                {
                     alexaSmartHome: {
                         appId: 'testappId',
-                        enabled: true
-                    }
-                }, {
+                        enabled: true,
+                    },
+                },
+                {
                     iot: {
                         name: 'testname',
                         description: 'testdescription',
                         enabled: true,
                         sql: 'testsql',
                         sqlVersion: 'testsqlVersion',
-                    }
-                }, {
+                    },
+                },
+                {
                     cloudwatchEvent: {
                         event: 'testevent',
                         name: 'testname',
                         description: 'testdescription',
                         enabled: true,
                         input: {
-                            testinputkey: 'testinputvalue'
+                            testinputkey: 'testinputvalue',
                         },
                         inputPath: 'testinputPath',
                         inputTransformer: {
                             inputPathsMap: {
-                                testinputpathsmap: 'testinputpathsmapvalue'
+                                testinputpathsmap: 'testinputpathsmapvalue',
                             },
                             inputTemplate: 'testinputTemplate',
-                        }
-                    }
-                }, {
+                        },
+                    },
+                },
+                {
                     cloudwatchLog: {
                         logGroup: 'testlogGroup',
                         filter: 'testfilter',
-                    }
-                }, {
+                    },
+                },
+                {
                     cognitoUserPool: {
                         pool: 'testpool',
                         trigger: 'testtrigger',
-                        existing: false
-                    }
-                }, {
+                        existing: false,
+                    },
+                },
+                {
                     alb: {
                         listenerArn: 'testlistenerArn',
                         priority: 1,
                         conditions: {
                             host: 'testhost',
                             path: 'testpath',
-                        }
-                    }
-                }, {
+                        },
+                    },
+                },
+                {
                     eventBridge: {
                         schedule: 'testschedule',
                         eventBus: 'testeventBus',
@@ -562,21 +578,22 @@ const awsServerless: Aws.Serverless = {
                             source: ['testsource'],
                             'detail-type': ['testdetailtype'],
                             detail: {
-                                testdetailkey: ['testdetailvalue']
-                            }
+                                testdetailkey: ['testdetailvalue'],
+                            },
                         },
                         input: {
-                            testinputkey: 'testinputvalue'
+                            testinputkey: 'testinputvalue',
                         },
                         inputPath: 'testinputPath',
                         inputTransformer: {
                             inputPathsMap: {
-                                testinputpathsmap: 'testinputpathsmapvalue'
+                                testinputpathsmap: 'testinputpathsmapvalue',
                             },
                             inputTemplate: 'testinputTemplate',
-                        }
-                    }
-                }, {
+                        },
+                    },
+                },
+                {
                     cloudFront: {
                         eventType: 'testeventType',
                         includeBody: false,
@@ -586,12 +603,16 @@ const awsServerless: Aws.Serverless = {
                             OriginPath: 'testOriginPath',
                             CustomOriginConfig: {
                                 OriginProtocolPolicy: 'testOriginProtocolPolicy',
-                            }
-                        }
-                    }
-                }
-            ]
-        }
+                            },
+                        },
+                    },
+                },
+            ],
+            simpleCustomPluginProperty: 'testproperty',
+            complexCustomPluginProperty: {
+                testProperty: 'testproperty',
+            },
+        },
     },
     layers: {
         testLayer: {
@@ -602,7 +623,7 @@ const awsServerless: Aws.Serverless = {
             licenseInfo: 'testlicenseInfo',
             allowedAccounts: ['testallowedaccounts'],
             retain: false,
-        }
+        },
     },
     resources: {
         Description: 'testStackDescription',
@@ -610,21 +631,21 @@ const awsServerless: Aws.Serverless = {
             testcloudformationresource: {
                 Type: 'testType',
                 Properties: {
-                    testpropertykey: 'testpropertyvalue'
+                    testpropertykey: 'testpropertyvalue',
                 },
                 DependsOn: 'testdependson',
                 DeletionPolicy: 'testDeletionPolicy',
-            }
+            },
         },
-        extensions:  {
+        extensions: {
             testcloudformationresource: {
                 Type: 'testType',
                 Properties: {
-                    testpropertykey: 'testpropertyvalue'
+                    testpropertykey: 'testpropertyvalue',
                 },
                 DependsOn: 'testdependson',
                 DeletionPolicy: 'testDeletionPolicy',
-            }
+            },
         },
         Outputs: {
             testoutput: {
@@ -633,10 +654,10 @@ const awsServerless: Aws.Serverless = {
                 Export: {
                     Name: 'testname',
                 },
-                Condition: 'testcondition'
-            }
-        }
-    }
+                Condition: 'testcondition',
+            },
+        },
+    },
 };
 
 // Test Aws Class
