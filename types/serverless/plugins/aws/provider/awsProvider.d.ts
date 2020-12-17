@@ -532,6 +532,7 @@ declare namespace Aws {
         dependsOn?: string[];
         destinations?: Destinations;
         events?: Event[];
+        [key: string]: any;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
