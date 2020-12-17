@@ -650,13 +650,12 @@ const ForwardedAsWithWrappedExternalTest = (
         <WrappedExternalAsComponent forwardedAs={WithComponentH2} type="complex" />
     </>
 );
-// TODO: Needs corresponding fix in StyledComponentBase
-// const ForwardedAsWithNestedAsExternalTest = (
-//     <>
-//         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs="h2" type="primitive" />
-//         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs={WithComponentH2} type="complex" />
-//     </>
-// );
+const ForwardedAsWithNestedAsExternalTest = (
+    <>
+        <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs="h2" type="primitive" />
+        <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs={WithComponentH2} type="complex" />
+    </>
+);
 
 interface TestContainerProps {
     size: 'big' | 'small';

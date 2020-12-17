@@ -133,30 +133,13 @@ export interface StyledComponentBase<
     O extends object = {},
     A extends keyof any = never
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
-    // add our own fake call signature to implement the polymorphic 'as' prop
-    // NOTE: TS <3.2 will refuse to infer the generic and this component becomes impossible to use in JSX
-    // just the presence of the overload is enough to break JSX
-    //
-    // TODO (TypeScript 3.2): actually makes the 'as' prop polymorphic
-    // (
-    //     props: StyledComponentProps<C, T, O, A> & { as?: never }
-    //   ): React.ReactElement<StyledComponentProps<C, T, O, A>>
-    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C, FAsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = AsC>(
-    //   props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>
-    // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>
-
-    // TODO (TypeScript 3.2): delete this overload
-    (
-        props: StyledComponentProps<C, T, O, A> & {
-            /**
-             * Typing Note: prefer using .withComponent for now as it is actually type-safe.
-             *
-             * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
-             */
-            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-            forwardedAs?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-        },
-    ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+    (props: StyledComponentProps<C, T, O, A> & { as?: never }): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+    <
+        AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C,
+        FAsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = AsC
+    >(
+        props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,
