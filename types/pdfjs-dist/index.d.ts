@@ -1,4 +1,4 @@
-// Type definitions for PDF.js v2.1
+// Type definitions for PDF.js v2.2
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 //                 Dmitrii Sorin <https://github.com/1999>
@@ -7,6 +7,7 @@
 // TypeScript Version: 3.0
 
 /// <reference lib="dom"/>
+/// <reference path="web/pdf_viewer.d.ts" />
 
 declare const version: string;
 
