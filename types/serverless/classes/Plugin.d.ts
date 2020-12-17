@@ -23,11 +23,13 @@ declare namespace Plugin {
     type VariableResolver = (variableSource: string) => Promise<any>;
 
     interface VariableResolvers {
-        [variablePrefix: string]: VariableResolver | {
-            resolver: VariableResolver,
-            isDisabledAtPrepopulation?: boolean,
-            serviceName?: string
-        };
+        [variablePrefix: string]:
+            | VariableResolver
+            | {
+                  resolver: VariableResolver;
+                  isDisabledAtPrepopulation?: boolean;
+                  serviceName?: string;
+              };
     }
 
     interface PluginStatic {
