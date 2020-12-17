@@ -34,7 +34,10 @@ export type TypeaheadLabelKey<T extends TypeaheadModel> = T extends object
 export type InputProps = Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown'
->;
+> {
+    /* Callback function that determines whether the hint should be selected. */
+    shouldSelectHint?: ShouldSelect;
+};
 
 /* ---------------------------------------------------------------------------
                             Typeahead Contexts
