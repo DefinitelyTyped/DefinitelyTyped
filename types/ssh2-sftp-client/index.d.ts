@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 5.4
+// Type definitions for ssh2-sftp-client 5.3
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
