@@ -637,10 +637,10 @@ const forwardedAsTest = (
     </>
 );
 
-type ExternalAsComponentProps = {
+interface ExternalAsComponentProps {
     as?: string | React.ComponentType<any>;
     type: 'primitive' | 'complex';
-};
+}
 
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
