@@ -73,8 +73,9 @@ type StyledComponentPropsWithAs<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object,
-    A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C; forwardedAs?: C };
+    A extends keyof any,
+    F extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C
+> = StyledComponentProps<C, T, O, A> & { as?: C; forwardedAs?: F };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> = InterpolationValue | FlattenInterpolation<P> | InterpolationFunction<P>;
@@ -140,9 +141,9 @@ export interface StyledComponentBase<
     // (
     //     props: StyledComponentProps<C, T, O, A> & { as?: never }
     //   ): React.ReactElement<StyledComponentProps<C, T, O, A>>
-    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
-    //   props: StyledComponentPropsWithAs<AsC, T, O, A>
-    // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
+    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C, FAsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = AsC>(
+    //   props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>
+    // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>
 
     // TODO (TypeScript 3.2): delete this overload
     (
