@@ -17,10 +17,10 @@
         "types": [],
         "paths": {
             "puppeteer": [
-                "puppeteer/v1"
+                "puppeteer/v2"
             ],
             "puppeteer/*": [
-                "puppeteer/v1/*"
+                "puppeteer/v2/*"
             ]
         },
         "noEmit": true,
