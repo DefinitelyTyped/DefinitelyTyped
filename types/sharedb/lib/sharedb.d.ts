@@ -109,8 +109,7 @@ export class Doc extends EventEmitter {
     addListener(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
     addListener(event: 'create', callback: (source: any) => void): this;
     addListener(event: 'op' | 'before op', callback: (ops: Op[], source: any) => void): this;
-    addListener(event: 'del', callback: (data: any, 
-                 : any) => void): this;
+    addListener(event: 'del', callback: (data: any,source: any) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
