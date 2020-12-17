@@ -434,30 +434,6 @@ type LogEvent =
           info: any;
       }>
     | Readonly<{
-          name: 'execute.start';
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }>
-    | Readonly<{
-          name: 'execute.next';
-          transactionID: number;
-          response: GraphQLResponse;
-      }>
-    | Readonly<{
-          name: 'execute.error';
-          transactionID: number;
-          error: Error;
-      }>
-    | Readonly<{
-          name: 'execute.complete';
-          transactionID: number;
-      }>
-    | Readonly<{
-          name: 'execute.unsubscribe';
-          transactionID: number;
-      }>
-    | Readonly<{
         name: 'network.info',
         transactionID: number,
         info: unknown,

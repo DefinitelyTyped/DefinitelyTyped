@@ -1161,7 +1161,6 @@ class AccessibilityTest extends React.Component {
             <View
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
-                accessibilityTraits={'none'}
                 onAccessibilityTap={() => { }}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
@@ -1170,7 +1169,7 @@ class AccessibilityTest extends React.Component {
                 onMagicTap={() => { }}
                 onAccessibilityEscape={() => { }}
             >
-                <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
+                <Text accessibilityIgnoresInvertColors>
                     Text
                 </Text>
                 <View />
