@@ -1,7 +1,6 @@
 // Type definitions for oracledb 5.1
 // Project: https://github.com/oracle/node-oracledb
-// Definitions by: Richard Natal <https://github.com/Bigous>
-//                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
+// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
