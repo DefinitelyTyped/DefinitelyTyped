@@ -470,7 +470,7 @@ declare global {
              * await element(by.id('scrollView')).swipe('down', 'fast');
              * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
              */
-            swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
+            swipe(direction: Direction, speed?: Speed, percentage?: number, normalizedStartingPointX?: number, normalizedStartingPointY?: number): Promise<Actions<R>>;
             /**
              * Sets a picker view’s column to the given value. This function supports both date pickers and general picker views. (iOS Only)
              * @param column number of datepicker column (starts from 0)
