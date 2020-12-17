@@ -91,6 +91,7 @@ declare namespace kurento {
         ): Promise<PlayerEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
         getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        // tslint:disable-next-line
         getMediaobjectById<T extends MediaPipeline | WebRtcEndpoint | RecorderEndpoint>(objectId: string): Promise<T>;
         getServerManager: (callback?: Callback<ServerManager>) => Promise<ServerManager>;
         close(): void;
