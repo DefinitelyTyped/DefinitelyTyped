@@ -678,11 +678,7 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = (
-    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
-    // <StyledTestContainer as={Test2Container} type='foo' />
-    <StyledTestContainer as={Test2Container} size="small" />
-);
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
 
 // 4.0 refs
 
