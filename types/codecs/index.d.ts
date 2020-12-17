@@ -17,17 +17,32 @@ declare namespace codecs {
         name: TName;
     }
 
+    type AsciiCodec = NamedCodec<'ascii', string>;
+    type Base64Codec = NamedCodec<'base64', string>;
     type BinaryCodec = NamedCodec<'binary', string | Uint8Array, Buffer>;
+    type HexCodec = NamedCodec<'hex', string>;
     type JsonCodec = NamedCodec<'json', any, JsonValue>;
     type NDJsonCodec = NamedCodec<'ndjson', any, JsonValue>;
-    type AsciiCodec = NamedCodec<'ascii', string>;
-    type Utf8Codec = NamedCodec<'utf-8', string>;
-    type HexCodec = NamedCodec<'hex', string>;
-    type Base64Codec = NamedCodec<'base64', string>;
     type Ucs2Codec = NamedCodec<'ucs2', string>;
+    type Utf8Codec = NamedCodec<'utf-8', string>;
     type Utf16leCodec = NamedCodec<'utf16le', string>;
 
-    type CodecNames = keyof Codecs;
+    interface CodecLookup {
+        ascii: AsciiCodec;
+        base64: Base64Codec;
+        binary: BinaryCodec;
+        hex: HexCodec;
+        json: JsonCodec;
+        ndjson: NDJsonCodec;
+        ucs2: Ucs2Codec;
+        ['ucs-2']: Ucs2Codec;
+        utf8: Utf8Codec;
+        ['utf-8']: Utf8Codec;
+        utf16le: Utf16leCodec;
+        ['utf16-le']: Utf16leCodec;
+    }
+
+    type CodecNames = keyof CodecLookup;
 
     type CodecInput = BaseCodec | CodecNames;
     type MaybeCodecInput = CodecInput | string | null | undefined;
@@ -35,7 +50,7 @@ declare namespace codecs {
     type OutType <
         TCodec extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = Codecs
+        TCodecs = CodecLookup
     > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<any, infer T>
         ? T
         : unknown;
@@ -43,7 +58,7 @@ declare namespace codecs {
     type InType <
         TCodec extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = Codecs
+        TCodecs = CodecLookup
     > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<infer T, any>
         ? T
         : unknown;
@@ -51,7 +66,7 @@ declare namespace codecs {
     type CodecName <
         TInput extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = Codecs
+        TCodecs = CodecLookup
     > = TInput extends null | undefined
         ? TFallback['name']
         : TInput extends NamedCodec
@@ -64,7 +79,7 @@ declare namespace codecs {
                         : undefined
                     : TFallback['name'];
 
-    type Codec<TInput, TFallback = BinaryCodec, TCodecs = Codecs> = TInput extends BaseCodec
+    type Codec<TInput, TFallback = BinaryCodec, TCodecs = CodecLookup> = TInput extends BaseCodec
         ? TInput
         : TInput extends null | undefined
             ? TFallback
@@ -86,13 +101,10 @@ declare namespace codecs {
         ndjson: NDJsonCodec;
         json: JsonCodec;
         ascii: AsciiCodec;
-        'utf-8': Utf8Codec;
         utf8: Utf8Codec;
         hex: HexCodec;
         base64: Base64Codec;
-        'ucs-2': Ucs2Codec;
         ucs2: Ucs2Codec;
-        'utf16-le': Utf16leCodec;
         utf16le: Utf16leCodec;
     }
 }
