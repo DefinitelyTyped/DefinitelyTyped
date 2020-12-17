@@ -36,9 +36,7 @@ newrelic.getBrowserTimingHeader(); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
 newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string
-newrelic.startSegment('foo', false, Promise.all([5, 7])).then(([a, b]: [number, number]) => {
-    console.log(a, b);
-});
+newrelic.startSegment('foo', true, async () => 'bar'); // $ExpectType Promise<string>
 
 const wrappedFn = newrelic.createTracer('foo', (x: number) => {
     return x * x;

@@ -156,7 +156,6 @@ export function getBrowserTimingHeader(): string;
  * The segment is ended when either the handler finishes executing, or callback is fired, if it is provided.
  * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
  */
-export function startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
 export function startSegment<T, C extends (...args: any[]) => any>(
     name: string,
     record: boolean,
