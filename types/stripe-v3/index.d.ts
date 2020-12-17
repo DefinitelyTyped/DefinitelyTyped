@@ -143,6 +143,7 @@ declare namespace stripe {
 
     interface StripeOptions {
         stripeAccount?: string;
+        apiVersion?: string;
         betas?: string[];
         locale?: string;
     }
@@ -639,7 +640,7 @@ declare namespace stripe {
         /**
          * Indicates that you intend to make future payments with this PaymentIntent's payment method.
          */
-        setup_future_usage?: boolean;
+        setup_future_usage?: "on_session" | "off_session";
     }
     interface ConfirmCardPaymentOptions {
         /*

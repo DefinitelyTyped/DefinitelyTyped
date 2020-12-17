@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const ErlenmeyerFlask: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default ErlenmeyerFlask;
+export { ErlenmeyerFlask as default } from "../../";

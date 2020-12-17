@@ -1,10 +1,10 @@
-// Type definitions for copy-webpack-plugin 6.2
+// Type definitions for copy-webpack-plugin 6.3
 // Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 //                 avin-kavish  <https://github.com/avin-kavish>
 //                 Piotr Błażejewicz  <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'webpack';
+import { WebpackPluginInstance as Plugin } from 'webpack';
 
 interface ObjectPattern {
     /**

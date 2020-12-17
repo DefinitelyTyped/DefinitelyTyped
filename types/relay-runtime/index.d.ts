@@ -1,8 +1,9 @@
-// Type definitions for relay-runtime 10.0
+// Type definitions for relay-runtime 10.1
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Stephen Pittman <https://github.com/Stephen2>
 //                 Marais Rossouw <https://github.com/maraisr>
+//                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -180,6 +181,7 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 export { RelayProfiler } from './lib/util/RelayProfiler';
 export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
 export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
+export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';

@@ -7,9 +7,11 @@
 
 import express = require("express");
 import i18n = require("i18n");
+import { I18n } from "i18n";
+import { Request } from "express-serve-static-core";
 
 const app = express();
-declare const req: express.Request;
+declare const req: Express.Request & Request;
 
 /**
  * Configuration
@@ -78,6 +80,11 @@ i18n.configure({
         console.log('error', msg);
     },
 
+    // Function to provide missing translations.
+    missingKeyFn: (locale, value) => {
+        return `Translation for "${value}" is missing for locale "${locale}"!`;
+    },
+
     // object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
     register: global,
 
@@ -91,7 +98,23 @@ i18n.configure({
     // Downcase locale when passed on queryParam; e.g. lang=en-US becomes
     // en-us.  When set to false, the queryParam value will be used as passed;
     // e.g. lang=en-US remains en-US.
-    preserveLegacyCase: true
+    preserveLegacyCase: true,
+
+    // Static translation catalog. Setting this option overrides `locales`
+    // tslint:disable:object-literal-key-quotes
+    staticCatalog: {
+        'en-US': {
+            'no': 'No',
+            'ok': 'Ok',
+            'yes': 'Yes'
+        },
+        'nl-NL': {
+            'no': 'Nee',
+            'ok': 'Oké',
+            'yes': 'Ja'
+        }
+    }
+    // tslint:enable:object-literal-key-quotes
 });
 
 /**
@@ -163,7 +186,7 @@ i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 
  * __mf()
  * https://github.com/mashpie/i18n-node#i18n__mf
  */
-app.get('/de', (_req: Express.Request, res: Express.Response) => {
+app.get('/de', (_req: Express.Request, res: i18n.Response) => {
     // assume res is set to german
     res.setLocale('de');
 
@@ -200,7 +223,7 @@ i18n.setLocale('de');
 i18n.setLocale(req, 'de');
 req.setLocale('de');
 
-app.get('/ar', (_req: Express.Request, res: Express.Response) => {
+app.get('/ar', (_req: Express.Request, res: i18n.Response) => {
     i18n.setLocale(req, 'ar');
     i18n.setLocale(res, 'ar');
     i18n.setLocale(res.locals, 'ar');
@@ -223,6 +246,9 @@ req.getLocale(); // --> de
  */
 i18n.getLocales(); // --> ['en', 'de', 'en-GB']
 
+i18n.addLocale('de'); // adds locale
+i18n.removeLocale('de'); // removes locale
+
 /**
  * getCatalog()
  * https://github.com/mashpie/i18n-node#getcatalog
@@ -235,3 +261,10 @@ i18n.getCatalog(req, 'de'); // returns just 'de'
 
 req.getCatalog(); // returns all locales
 req.getCatalog('de'); // returns just 'de'
+
+const i18nInstance = new I18n(); // creates new instance of i18n
+
+i18nInstance.configure({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});

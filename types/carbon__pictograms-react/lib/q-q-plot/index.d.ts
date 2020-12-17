@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const QQPlot: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default QQPlot;
+export { QQPlot as default } from "../../";

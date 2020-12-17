@@ -46,6 +46,18 @@ import LinkifyIt = require('linkify-it');
         quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
         highlight: null,
     };
+
+    // highlight
+    options = {
+        html: false,
+        xhtmlOut: false,
+        breaks: false,
+        langPrefix: 'language-',
+        linkify: false,
+        typographer: false,
+        quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
+        highlight: function(str, lang, attrs) { return ""; },
+    };
 }
 
 {

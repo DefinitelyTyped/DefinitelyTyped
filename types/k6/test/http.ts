@@ -320,13 +320,17 @@ jar.set(); // $ExpectError
 jar.set(5); // $ExpectError
 jar.set('session'); // $ExpectError
 jar.set('session', 5); // $ExpectError
-jar.set('session', 'abc123'); // $ExpectType void
-jar.set('session', 'abc123', null); // $ExpectType void
-jar.set('session', 'abc123', {}); // $ExpectType void
-jar.set('session', 'abc123', { badoption: true }); // $ExpectError
-jar.set('session', 'abc123', { domain: 'example.com' }); // $ExpectType void
+jar.set('session', 'abc123'); // $ExpectError
+jar.set('session', 'abc123', null); // $ExpectError
+jar.set('session', 'abc123', {}); // $ExpectError
+jar.set('session', 'abc123', { domain: 'example.com' }); // $ExpectError
+jar.set(address, 'session', 'abc123'); // $ExpectType void
+jar.set(address, 'session', 'abc123', null); // $ExpectType void
+jar.set(address, 'session', 'abc123', {}); // $ExpectType void
+jar.set(address, 'session', 'abc123', { badoption: true }); // $ExpectError
+jar.set(address, 'session', 'abc123', { domain: 'example.com' }); // $ExpectType void
 // $ExpectType void
-jar.set('session', 'abc123', {
+jar.set(address, 'session', 'abc123', {
     domain: address,
     path: '/index.html',
     expires: '2019-06-23T18:04:45Z',
@@ -335,3 +339,4 @@ jar.set('session', 'abc123', {
     http_only: true,
 });
 jar.set('session', 'abc123', {}, 5); // $ExpectError
+jar.set(address, 'session', 'abc123', {}, 5); // $ExpectError

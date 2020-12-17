@@ -184,7 +184,8 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
-export function mkdir(path: PathLike): Promise<void>;
+export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
+export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -237,9 +238,9 @@ export function rmdir(path: PathLike): Promise<void>;
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;
 
-export function symlink(target: PathLike, path: PathLike, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(target: PathLike, path: PathLike, type: SymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(target: PathLike, path: PathLike, type?: FsSymlinkType): Promise<void>;
+export function symlink(target: PathLike, path: PathLike, type?: SymlinkType): Promise<void>;
 
 export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: PathLike, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -300,8 +301,7 @@ export interface PathEntryStream {
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = "dir" | "file";
-export type FsSymlinkType = "dir" | "file" | "junction";
+export type SymlinkType = "dir" | "file" | "junction";
 
 export type Mode = string | number;
 

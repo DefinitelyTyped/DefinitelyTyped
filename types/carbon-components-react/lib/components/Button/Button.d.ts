@@ -19,7 +19,7 @@ export interface ButtonRenderIconRenderProps {
 }
 
 // this is split due to a typing issue with the specialized buttons (SecondaryButton, etc)
-interface ButtonKindProps {
+export interface ButtonKindProps {
     kind?: ButtonKind;  // required by has default value
 }
 

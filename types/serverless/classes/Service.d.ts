@@ -34,7 +34,7 @@ declare class Service {
     getServiceName(): string;
     getAllFunctions(): string[];
     getAllFunctionsNames(): string[];
-    getFunction(functionName: string): Serverless.FunctionDefinition;
+    getFunction(functionName: string): Serverless.FunctionDefinitionHandler | Serverless.FunctionDefinitionImage;
     getEventInFunction(eventName: string, functionName: string): Serverless.Event;
     getAllEventsInFunction(functionName: string): Serverless.Event[];
 

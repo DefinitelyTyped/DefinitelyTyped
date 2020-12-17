@@ -27,6 +27,7 @@ NetlifyIdentityWidget.init({
     container: 'body',
     logo: true,
     locale: 'en',
+    namePlaceholder: 'some-placeholder-for-Name',
 });
 
 // Open widget modal to let users login
@@ -87,3 +88,9 @@ if (logoutPromise) {
         // You can now do clean up after successful logout
     });
 }
+
+// Type 0: Refresh without option
+NetlifyIdentityWidget.refresh();
+
+// Type 1: Force refresh
+NetlifyIdentityWidget.refresh(true);

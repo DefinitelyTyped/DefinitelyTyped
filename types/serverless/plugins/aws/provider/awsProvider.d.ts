@@ -97,6 +97,8 @@ declare namespace Aws {
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
+        metrics?: boolean;
+        shouldStartNameWithService?: boolean;
     }
 
     interface CognitoAuthorizer {
@@ -196,7 +198,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[]|string;
+        subnetIds: string[] | string;
     }
 
     interface StackParameters {
@@ -238,7 +240,7 @@ declare namespace Aws {
     }
 
     interface Logs {
-        restApi?: RestApiLogs;
+        restApi?: true | RestApiLogs;
         websocket?: WebsocketLogs;
         httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
@@ -282,7 +284,7 @@ declare namespace Aws {
 
     interface HttpRequestValidation {
         parameters?: HttpRequestParametersValidation;
-        schema?: { [key: string]: string };
+        schema?: { [key: string]: Record<string, unknown> };
     }
 
     interface Http {
@@ -293,6 +295,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer;
         request?: HttpRequestValidation;
+        integration?: 'lambda' | 'mock';
     }
 
     interface NamedHttpApiEventAuthorizer {
@@ -366,7 +369,8 @@ declare namespace Aws {
     }
 
     interface Sns {
-        topicName: string;
+        arn?: string;
+        topicName?: string;
         displayName?: string;
         filterPolicy?: string[] | { [key: string]: string };
         redrivePolicy?: RedrivePolicy;
@@ -384,6 +388,14 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
+    }
+
+    interface Msk {
+        arn: string;
+        topic: string;
+        batchSize?: number;
+        enabled?: boolean;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
     }
 
     interface AlexaSkill {
@@ -487,6 +499,7 @@ declare namespace Aws {
         sns?: Sns;
         sqs?: Sqs;
         stream?: Stream;
+        msk?: Msk;
         alexaSkill?: AlexaSkill;
         alexaSmartHome?: AlexaSmartHome;
         iot?: Iot;
@@ -499,7 +512,6 @@ declare namespace Aws {
     }
 
     interface AwsFunction {
-        handler: string;
         name?: string;
         description?: string;
         memorySize?: number | string;
@@ -522,8 +534,16 @@ declare namespace Aws {
         events?: Event[];
     }
 
+    interface AwsFunctionHandler extends AwsFunction {
+        handler: string;
+    }
+
+    interface AwsFunctionImage extends AwsFunction {
+        image: string;
+    }
+
     interface Functions {
-        [key: string]: AwsFunction;
+        [key: string]: AwsFunctionHandler | AwsFunctionImage;
     }
 
     interface Layer {

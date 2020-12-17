@@ -1,4 +1,4 @@
-// Type definitions for @adeira/graphql-global-id 1.1
+// Type definitions for @adeira/graphql-global-id 1.2
 // Project: https://github.com/adeira/universe/tree/master/src/graphql-global-id
 // Definitions by: Martin Zlámal <https://github.com/mrtnzlml>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

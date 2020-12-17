@@ -5,14 +5,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require('express');
+import { IncomingHttpHeaders } from 'http';
 
-type CustomOrigin = (
-    requestOrigin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void
-) => void;
+type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => void;
 
 declare namespace e {
+    interface CorsRequest {
+        method?: string;
+        headers: IncomingHttpHeaders;
+    }
     interface CorsOptions {
         /**
          * @default '*''
@@ -35,13 +36,21 @@ declare namespace e {
          */
         optionsSuccessStatus?: number;
     }
-    type CorsOptionsDelegate = (
-        req: express.Request,
-        callback: (err: Error | null, options?: CorsOptions) => void
+    type CorsOptionsDelegate<T extends CorsRequest = CorsRequest> = (
+        req: T,
+        callback: (err: Error | null, options?: CorsOptions) => void,
     ) => void;
 }
 
-declare function e(
-    options?: e.CorsOptions | e.CorsOptionsDelegate
-): express.RequestHandler;
+declare function e<T extends e.CorsRequest = e.CorsRequest>(
+    options?: e.CorsOptions | e.CorsOptionsDelegate<T>,
+): (
+    req: T,
+    res: {
+        statusCode?: number;
+        setHeader(key: string, value: string): any;
+        end(): any;
+    },
+    next: (err?: any) => any,
+) => void;
 export = e;

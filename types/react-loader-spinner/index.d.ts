@@ -1,10 +1,11 @@
 // Type definitions for react-loader-spinner 3.1
 // Project: https://github.com/mhnpd/react-loader-spinner
-// Definitions by: Rayhan Wirjowerdojo <https://github.com/rayhanw>
+// Definitions by:  Rayhan Wirjowerdojo <https://github.com/rayhanw>
+//                  Jordan Craigen <https://github.com/jordantai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { FC } from 'react';
+import { FC, CSSProperties } from 'react';
 
 type Types =
     | 'Audio'
@@ -28,13 +29,15 @@ type Types =
 
 interface LoaderProps {
     color?: string;
-    height?: number;
+    height?: number | string;
     radius?: number;
     secondaryColor?: string;
     timeout?: number; // in milliseconds
     type?: Types;
     visible?: boolean | string;
-    width?: number;
+    width?: number | string;
+    className?: string;
+    style?: CSSProperties;
 }
 
 declare const Loader: FC<LoaderProps>;

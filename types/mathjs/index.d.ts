@@ -1224,7 +1224,7 @@ declare namespace math {
          * @param args Two or more matrices
          * @returns Concatenated matrix
          */
-        concat(...args: Array<MathArray | Matrix>): MathArray | Matrix;
+        concat(...args: Array<MathArray | Matrix | number | BigNumber>): MathArray | Matrix;
 
         /**
          * Calculate the cross product for two vectors in three dimensional
@@ -3747,7 +3747,7 @@ declare namespace math {
          * supported for square matrices x, and positive integer exponents y.
          * @param y The exponent
          */
-        pow(): MathJsChain;
+        pow(y: number | BigNumber): MathJsChain;
 
         /**
          * Round a value towards the nearest integer. For matrices, the function
@@ -3763,7 +3763,7 @@ declare namespace math {
          * @param x The number for which to determine the sign
          * @returns The sign of x
          */
-        sign(): MathJsChain;
+        sign(x: number | BigNumber): MathJsChain;
 
         /**
          * Calculate the square root of a value. For matrices, the function is

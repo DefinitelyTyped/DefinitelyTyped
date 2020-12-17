@@ -436,7 +436,7 @@ declare module "tls" {
 
     interface PSKCallbackNegotation {
         psk: DataView | NodeJS.TypedArray;
-        identitty: string;
+        identity: string;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {

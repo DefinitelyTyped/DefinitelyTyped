@@ -611,6 +611,7 @@ export interface PasswordGrantOptions {
   password: string;
   realm?: string;
   scope?: string;
+  audience?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
@@ -904,6 +905,18 @@ export interface UserBlocks {
     blocked_for: BlockedForEntry[];
 }
 
+export type EnrollmentStatus = 'pending' | 'confirmed';
+
+export type AuthMethod = 'authentication' | 'guardian' | 'sms';
+
+export interface Enrollment {
+  id: string;
+  status: EnrollmentStatus;
+  enrolled_at: string;
+  last_auth: string;
+  type: string;
+  auth_method: AuthMethod;
+}
 
 export class AuthenticationClient {
 
@@ -1277,6 +1290,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   deleteCustomDomain(params: ObjectWithId): Promise<void>;
   deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  // User enrollment
+  getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
+  getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
+
+  deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
+  deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+  //MFA invalidate remember browser
+  invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
+  invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
 }
 
 
