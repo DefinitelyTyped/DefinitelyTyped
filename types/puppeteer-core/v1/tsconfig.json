@@ -1,5 +1,13 @@
 {
     "compilerOptions": {
+        "paths": {
+            "puppeteer-core": [
+                "puppeteer/v1"
+            ],
+            "puppeteer-core/*": [
+                "puppeteer/v1/*"
+            ]
+        },
         "module": "commonjs",
         "lib": [
             "es6",
@@ -10,9 +18,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
