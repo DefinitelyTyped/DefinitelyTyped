@@ -1,4 +1,4 @@
-// Type definitions for newrelic 6.13
+// Type definitions for newrelic 7.0
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -79,17 +79,6 @@ export function addCustomAttribute(key: string, value: string | number | boolean
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
 export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
-
-/**
- * Tell the tracer whether to ignore the current transaction.
- *
- * The most common use for this will be to mark a transaction as ignored (maybe it's handling
- * a websocket polling channel, or maybe it's an external call you don't care
- * is slow), but it's also useful when you want a transaction that would
- * otherwise be ignored due to URL or transaction name normalization rules
- * to *not* be ignored.
- */
-export function setIgnoreTransaction(ignored: boolean): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -419,18 +408,6 @@ export interface TransactionHandle {
      * Check the docs for valid transport types. If an invalid type is provided, it will fall back to "Unknown".
      */
     acceptDistributedTraceHeaders(transportType: string, headers: DistributedTraceHeaders): void;
-
-    /**
-     * Creates a distributed trace payload.
-     * @deprecated - use insertDistributedTraceHeaders instead
-     */
-    createDistributedTracePayload(): DistributedTracePayload;
-
-    /**
-     * Parses incoming distributed trace header payload.
-     * @deprecated - use acceptDistributedTraceHeaders instead
-     */
-    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
 
     /**
      * Return whether this Transaction is being sampled
