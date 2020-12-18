@@ -3,6 +3,6 @@
 // Definitions by: Fumiaki Matsushima <https://github.com/mtsmfm>
 //                 Tymur Kubai <https://github.com/sirdir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 export * from 'puppeteer';
