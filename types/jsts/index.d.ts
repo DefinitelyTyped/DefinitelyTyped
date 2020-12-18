@@ -2107,20 +2107,10 @@ declare namespace jsts {
             /**
              * Computes the distance between this line segment and another segment.
              *
-             * @param {jsts.geom.LineSegment} ls
+             * @param {jsts.geom.LineSegment | jsts.geom.Coordinate}
              * @return {number} the distance to the other segment
              */
-            distance1(ls: LineSegment): number;
-
-            /**
-             * Computes the distance between this line segment and a given point.
-             *
-             * @param {jsts.geom.Coordinate}
-             *          p the coordinate.
-             * @return {number}
-             *          the distance from this segment to the given point.
-             */
-            distance2(p: Coordinate): number;
+            distance(geom: LineSegment | Coordinate): number;
 
             /**
              * Computes the {@link Coordinate} that lies a given
