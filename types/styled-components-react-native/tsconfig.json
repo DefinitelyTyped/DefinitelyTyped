@@ -1,26 +1,24 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
         "jsx": "react",
         "lib": [
-            "dom",
             "es6"
         ],
-        "module": "commonjs",
-        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": []
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "test/index.tsx",
-        "test/macro.tsx"
+        "styled-components-react-native-tests.tsx"
     ]
 }
