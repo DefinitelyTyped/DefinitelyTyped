@@ -14,7 +14,7 @@ declare module "koa" {
   }
 }
 
-declare namespace koaMongo {
+declare namespace mongo {
   interface ConnectionOptions extends Options {
     host?: string;
     port?: number;
@@ -25,6 +25,6 @@ declare namespace koaMongo {
   }
 }
 
-declare function mongo(connOptions?: koaMongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
+declare function mongo(connOptions?: mongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
 
 export = mongo;
