@@ -12108,7 +12108,8 @@ declare namespace Office {
      *
      * Internet headers are stored as key/value pairs on a per-item basis.
      *
-     * **Note**: This object is intended for you to set and get your custom headers on a message item.
+     * **Note**: This object is intended for you to set and get your custom headers on a message item. To learn more, see
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
      *
      * [Api set: Mailbox 1.8]
      *
@@ -13388,6 +13389,9 @@ declare namespace Office {
          * Gets or sets the custom internet headers of a message.
          *
          * The `internetHeaders` property returns an `InternetHeaders` object that provides methods to manage the internet headers on the message.
+         *
+         * To learn more, see
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14674,6 +14678,9 @@ declare namespace Office {
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets all the internet headers for the message as a string.
+         *
+         * To learn more, see
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
          *
          * [Api set: Mailbox 1.8]
          *
