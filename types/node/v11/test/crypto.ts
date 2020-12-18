@@ -298,16 +298,24 @@ import { promisify } from 'util';
     const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
     crypto.scrypt(pwd, salt, 64, (err: Error | null, derivedKey: Buffer): void => {});
     const opts: crypto.ScryptOptions = {
-        N: 16384,
-        r: 8,
-        p: 1,
+        cost: 16384,
+        blockSize: 8,
+        parallelization: 1,
         maxmem: 32 * 1024 * 1024,
     };
     crypto.scrypt(pwd, salt, 64, opts, (err: Error | null, derivedKey: Buffer): void => {});
     crypto.scrypt(pwd, salt, 64, { maxmem: 16 * 1024 * 1024 }, (err: Error | null, derivedKey: Buffer): void => {});
-    let buf: Buffer = crypto.scryptSync(pwd, salt, 64);
-    buf = crypto.scryptSync(pwd, salt, 64, opts);
-    buf = crypto.scryptSync(pwd, salt, 64, { N: 1024 });
+    crypto.scryptSync(pwd, salt, 64);
+    crypto.scryptSync(pwd, salt, 64, opts);
+    crypto.scryptSync(pwd, salt, 64, { N: 1024 });
+    const optsWithAliases: crypto.ScryptOptions = {
+        N: opts.cost,
+        r: opts.blockSize,
+        p: opts.parallelization,
+        maxmem: opts.maxmem,
+    };
+    crypto.scrypt(pwd, salt, 64, optsWithAliases, (err: Error | null, derivedKey: Buffer): void => {});
+    crypto.scryptSync(pwd, salt, 64, optsWithAliases);
 }
 
 {

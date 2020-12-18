@@ -443,6 +443,9 @@ declare module 'crypto' {
     ): void;
 
     interface ScryptOptions {
+        cost?: number;
+        blockSize?: number;
+        parallelization?: number;
         N?: number;
         r?: number;
         p?: number;
