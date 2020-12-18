@@ -5,7 +5,7 @@ import { Options } from "generic-pool";
 declare module "koa" {
   interface BaseContext {
     mongo: MongoClient;
-    db: Db
+    db: Db;
   }
 }
 
@@ -20,8 +20,6 @@ declare namespace koaMongo {
   }
 }
 
-declare module "koa-mongo" {
-  declare function mongo(connOptions?: koaMongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
-}
+declare function mongo(connOptions?: koaMongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
 
 export = mongo;
