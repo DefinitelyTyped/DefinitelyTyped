@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactNative from 'react-native';
-import * as ReactDOMServer from 'react-dom/server';
+import * as React from "react";
+import * as ReactNative from "react-native";
+import * as ReactDOMServer from "react-dom/server";
 
 import styled, {
     css,
@@ -10,10 +10,8 @@ import styled, {
     withTheme,
     ThemeConsumer,
     ReactNativeThemedStyledComponentsModule,
-    // tslint:disable-next-line:no-relative-import-in-test
-} from '../native';
-// tslint:disable-next-line:no-relative-import-in-test
-import {} from '../cssprop';
+} from "styled-components/native";
+import {} from "styled-components/cssprop";
 
 const StyledView = styled.View`
     background-color: papayawhip;
@@ -63,21 +61,17 @@ const tomatoElement = <TomatoButton name="needed" />;
 
 async function typedThemes() {
     const theme = {
-        color: 'green',
+        color: "green",
     };
 
     // abuse "await import(...)" to be able to reference the styled-components namespace
     // without actually doing a top level namespace import
-    const {
-        default: styled,
-        css,
-        ThemeProvider,
-        ThemeConsumer,
-        // tslint:disable-next-line:no-relative-import-in-test
-    } = ((await import('../native')) as any) as ReactNativeThemedStyledComponentsModule<typeof theme>;
+    const { default: styled, css, ThemeProvider, ThemeConsumer } = ((await import(
+        "styled-components/native"
+    )) as any) as ReactNativeThemedStyledComponentsModule<typeof theme>;
 
     const ThemedView = styled.View`
-        background: ${props => {
+        background: ${(props) => {
             // $ExpectType string
             props.theme.color;
             // $ExpectType string | undefined
@@ -85,7 +79,7 @@ async function typedThemes() {
             return props.theme.color;
         }};
     `;
-    const ThemedView2 = styled.View(props => {
+    const ThemedView2 = styled.View((props) => {
         // $ExpectType string
         props.theme.color;
         // $ExpectType string | undefined
@@ -95,7 +89,7 @@ async function typedThemes() {
             background: props.theme.color,
         };
     });
-    const ThemedView3 = styled.View(props => {
+    const ThemedView3 = styled.View((props) => {
         // $ExpectType string
         props.theme.color;
         // $ExpectType string | undefined
@@ -106,7 +100,7 @@ async function typedThemes() {
         `;
     });
     const themedCss = css`
-        background: ${props => {
+        background: ${(props) => {
             // $ExpectType string
             props.theme.color;
             // $ExpectType "theme"
@@ -118,10 +112,10 @@ async function typedThemes() {
     // $ExpectError
     const ThemedView4 = styled.View(themedCss);
 
-    const themedCssWithNesting = css(props => ({
+    const themedCssWithNesting = css((props) => ({
         color: props.theme.color,
         [ThemedView3]: {
-            color: 'green',
+            color: "green",
         },
     }));
 
@@ -132,7 +126,7 @@ async function typedThemes() {
                 <ThemedView2 />
                 <ThemedView3 />
                 <ThemeConsumer>
-                    {theme => {
+                    {(theme) => {
                         // $ExpectType string
                         theme.color;
                         return theme.color;
@@ -144,8 +138,7 @@ async function typedThemes() {
 }
 
 async function reexportCompatibility() {
-    // tslint:disable-next-line:no-relative-import-in-test
-    const sc = await import('../native');
+    const sc = await import("styled-components/native");
     const themed = sc as ReactNativeThemedStyledComponentsModule<any>;
 
     let { ...scExports } = sc;
@@ -166,10 +159,10 @@ async function themeAugmentation() {
         accent: string;
     }
 
-    // tslint:disable-next-line:no-relative-import-in-test
-    const base = ((await import('../native')) as any) as ReactNativeThemedStyledComponentsModule<BaseTheme>;
-    // tslint:disable-next-line:no-relative-import-in-test
-    const extra = ((await import('../native')) as any) as ReactNativeThemedStyledComponentsModule<
+    const base = ((await import(
+        "styled-components/native"
+    )) as any) as ReactNativeThemedStyledComponentsModule<BaseTheme>;
+    const extra = ((await import("styled-components/native")) as any) as ReactNativeThemedStyledComponentsModule<
         ExtraTheme,
         BaseTheme
     >;
@@ -177,19 +170,19 @@ async function themeAugmentation() {
     return (
         <base.ThemeProvider
             theme={{
-                background: 'black',
+                background: "black",
             }}
         >
             <>
                 <extra.ThemeProvider
-                    theme={base => base} // $ExpectError
+                    theme={(base) => base} // $ExpectError
                 >
                     <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
                 </extra.ThemeProvider>
                 <extra.ThemeProvider
-                    theme={base => ({
+                    theme={(base) => ({
                         ...base,
-                        accent: 'blue',
+                        accent: "blue",
                     })}
                 >
                     <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
