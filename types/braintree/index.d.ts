@@ -1105,7 +1105,7 @@ declare namespace braintree {
             startImmediately?: boolean;
         };
         paymentMethodNonce?: string;
-        paymentMethodToken: string;
+        paymentMethodToken?: string;
         planId: string;
         price?: string;
         trialDuration?: number;
