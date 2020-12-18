@@ -21,6 +21,12 @@
             ],
             "puppeteer/*": [
                 "puppeteer/v3/*"
+            ],
+            "puppeteer-core": [
+                "puppeteer-core/v3"
+            ],
+            "puppeteer-core/*": [
+                "puppeteer-core/v3/*"
             ]
         },
         "noEmit": true,
