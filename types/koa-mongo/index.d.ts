@@ -25,6 +25,4 @@ declare namespace koaMongo {
   }
 }
 
-declare function mongo(connOptions?: koaMongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
-
-export = mongo;
+export function mongo(connOptions?: koaMongo.ConnectionOptions, confOptions?: MongoClientOptions): Middleware;
