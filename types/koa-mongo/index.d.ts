@@ -1,6 +1,6 @@
 // Type definitions for koa-mongo 1.9.2
 // Project: https://github.com/nswbmw/koa-mongo
-// Definitions by: Andrea Giurgola https://github.com/Shqrp
+// Definitions by: Andrea Giurgola <https://github.com/Shqrp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Middleware } from "koa";
