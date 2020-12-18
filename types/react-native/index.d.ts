@@ -1659,6 +1659,11 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     style?: StyleProp<TextStyle>;
 
     /**
+     * Align the input text to the left, center, or right sides of the input field.
+     */
+    textAlign?: 'left' | 'center' | 'right';
+
+    /**
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
@@ -2364,15 +2369,6 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
-     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
-     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
-     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
-     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
-     * @platform android
-     */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
-
-    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2401,13 +2397,6 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean;
-
-    /**
-     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
-     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
-     * @platform ios
-     */
-    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
@@ -2439,25 +2428,6 @@ export interface AccessibilityPropsIOS {
      */
     accessibilityIgnoresInvertColors?: boolean;
 }
-
-type AccessibilityTrait =
-    | 'none'
-    | 'button'
-    | 'link'
-    | 'header'
-    | 'search'
-    | 'image'
-    | 'selected'
-    | 'plays'
-    | 'key'
-    | 'text'
-    | 'summary'
-    | 'disabled'
-    | 'frequentUpdates'
-    | 'startsMedia'
-    | 'adjustable'
-    | 'allowsDirectInteraction'
-    | 'pageTurn';
 
 /**
  * @see https://reactnative.dev/docs/view#props
@@ -9388,18 +9358,18 @@ type ScreenRect = {
 type BaseKeyboardEvent = {
     duration: number;
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect
-}
+    endCoordinates: ScreenRect;
+};
 
 type AndroidKeyboardEvent = BaseKeyboardEvent & {
-    duration: 0,
-    easing: 'keyboard'
-}
+    duration: 0;
+    easing: 'keyboard';
+};
 
 type IOSKeyboardEvent = BaseKeyboardEvent & {
-  startCoordinates: ScreenRect,
-  isEventFromThisApp: boolean
-}
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+};
 
 export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
@@ -9438,7 +9408,7 @@ export interface KeyboardStatic extends NativeEventEmitter {
      * Useful for syncing TextInput (or other keyboard accessory view) size of
      * position changes with keyboard movements.
      */
-    scheduleLayoutAnimation: (event: KeyboardEvent) => void
+    scheduleLayoutAnimation: (event: KeyboardEvent) => void;
 }
 
 /**

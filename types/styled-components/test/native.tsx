@@ -1,6 +1,6 @@
-import * as React from "react";
-import * as ReactNative from "react-native";
-import * as ReactDOMServer from "react-dom/server";
+import * as React from 'react';
+import * as ReactNative from 'react-native';
+import * as ReactDOMServer from 'react-dom/server';
 
 import styled, {
     css,
@@ -10,30 +10,30 @@ import styled, {
     withTheme,
     ThemeConsumer,
     ReactNativeThemedStyledComponentsModule,
-} from "styled-components/native";
-import {} from "styled-components/cssprop";
+} from 'styled-components/native';
+import {} from 'styled-components/cssprop';
 
 const StyledView = styled.View`
-  background-color: papayawhip;
+    background-color: papayawhip;
 `;
 
 const StyledText = styled(ReactNative.Text)`
-  color: palevioletred;
+    color: palevioletred;
 `;
 
 class MyReactNativeComponent extends React.Component {
-  render() {
-    return (
-      <StyledView>
-        <StyledText>Hello World!</StyledText>
-      </StyledView>
-    );
-  }
+    render() {
+        return (
+            <StyledView>
+                <StyledText>Hello World!</StyledText>
+            </StyledView>
+        );
+    }
 }
 
 const ValidProp = <StyledText adjustsFontSizeToFit />;
 const invalidProp = <StyledText randoName={2} />; // $ExpectError
-const invalidTag = styled.div` margin-top: 5px; `; // $ExpectError
+const invalidTag = styled.div``; // $ExpectError
 
 interface MyTheme {
     primary: string;
@@ -60,139 +60,134 @@ const TomatoButton = styled(MyButton)`
 const tomatoElement = <TomatoButton name="needed" />;
 
 async function typedThemes() {
-  const theme = {
-      color: "green"
-  };
-
-  // abuse "await import(...)" to be able to reference the styled-components namespace
-  // without actually doing a top level namespace import
-  const {
-      default: styled,
-      css,
-      ThemeProvider,
-      ThemeConsumer
-  } = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
-      typeof theme
-  >;
-
-  const ThemedView = styled.View`
-      background: ${props => {
-          // $ExpectType string
-          props.theme.color;
-          // $ExpectType string | undefined
-          props.testID;
-          return props.theme.color;
-      }};
-  `;
-  const ThemedView2 = styled.View(props => {
-    // $ExpectType string
-    props.theme.color;
-    // $ExpectType string | undefined
-    props.testID;
-
-    return {
-        background: props.theme.color
+    const theme = {
+        color: 'green',
     };
-  });
-  const ThemedView3 = styled.View(props => {
-    // $ExpectType string
-    props.theme.color;
-    // $ExpectType string | undefined
-    props.testID;
 
-    return css`
-        background: ${props.theme.color};
+    // abuse "await import(...)" to be able to reference the styled-components namespace
+    // without actually doing a top level namespace import
+    const { default: styled, css, ThemeProvider, ThemeConsumer } = ((await import(
+        'styled-components/native'
+    )) as any) as ReactNativeThemedStyledComponentsModule<typeof theme>;
+
+    const ThemedView = styled.View`
+        background: ${props => {
+            // $ExpectType string
+            props.theme.color;
+            // $ExpectType string | undefined
+            props.testID;
+            return props.theme.color;
+        }};
     `;
-});
-const themedCss = css`
-    background: ${props => {
+    const ThemedView2 = styled.View(props => {
         // $ExpectType string
         props.theme.color;
-        // $ExpectType "theme"
-        type Keys = keyof typeof props;
-        return props.theme.color;
-    }};
-`;
-//  can't use a FlattenInterpolation as the first argument, would make broken css
-// $ExpectError
-const ThemedView4 = styled.View(themedCss);
+        // $ExpectType string | undefined
+        props.testID;
 
-const themedCssWithNesting = css(props => ({
-    color: props.theme.color,
-    [ThemedView3]: {
-        color: "green"
-    }
-}));
+        return {
+            background: props.theme.color,
+        };
+    });
+    const ThemedView3 = styled.View(props => {
+        // $ExpectType string
+        props.theme.color;
+        // $ExpectType string | undefined
+        props.testID;
 
-return (
-    <ThemeProvider theme={theme}>
-        <>
-            <ThemedView />
-            <ThemedView2 />
-            <ThemedView3 />
-            <ThemeConsumer>
-                {theme => {
-                    // $ExpectType string
-                    theme.color;
-                    return theme.color;
-                }}
-            </ThemeConsumer>
-        </>
-    </ThemeProvider>
-  );
+        return css`
+            background: ${props.theme.color};
+        `;
+    });
+    const themedCss = css`
+        background: ${props => {
+            // $ExpectType string
+            props.theme.color;
+            // $ExpectType "theme"
+            type Keys = keyof typeof props;
+            return props.theme.color;
+        }};
+    `;
+    //  can't use a FlattenInterpolation as the first argument, would make broken css
+    // $ExpectError
+    const ThemedView4 = styled.View(themedCss);
+
+    const themedCssWithNesting = css(props => ({
+        color: props.theme.color,
+        [ThemedView3]: {
+            color: 'green',
+        },
+    }));
+
+    return (
+        <ThemeProvider theme={theme}>
+            <>
+                <ThemedView />
+                <ThemedView2 />
+                <ThemedView3 />
+                <ThemeConsumer>
+                    {theme => {
+                        // $ExpectType string
+                        theme.color;
+                        return theme.color;
+                    }}
+                </ThemeConsumer>
+            </>
+        </ThemeProvider>
+    );
 }
 
 async function reexportCompatibility() {
-  const sc = await import("styled-components/native");
-  const themed = sc as ReactNativeThemedStyledComponentsModule<any>;
+    const sc = await import('styled-components/native');
+    const themed = sc as ReactNativeThemedStyledComponentsModule<any>;
 
-  let { ...scExports } = sc;
-  let { ...themedExports } = themed;
-  // both branches must be assignable to each other
-  if (Math.random()) {
-      scExports = themedExports;
-  } else {
-      themedExports = scExports;
-  }
+    let { ...scExports } = sc;
+    let { ...themedExports } = themed;
+    // both branches must be assignable to each other
+    if (Math.random()) {
+        scExports = themedExports;
+    } else {
+        themedExports = scExports;
+    }
 }
 
 async function themeAugmentation() {
-  interface BaseTheme {
-      background: string;
-  }
-  interface ExtraTheme extends BaseTheme {
-      accent: string;
-  }
+    interface BaseTheme {
+        background: string;
+    }
+    interface ExtraTheme extends BaseTheme {
+        accent: string;
+    }
 
-  const base = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
-      BaseTheme
-  >;
-  const extra = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
-      ExtraTheme,
-      BaseTheme
-  >;
+    const base = ((await import('styled-components/native')) as any) as ReactNativeThemedStyledComponentsModule<
+        BaseTheme
+    >;
+    const extra = ((await import('styled-components/native')) as any) as ReactNativeThemedStyledComponentsModule<
+        ExtraTheme,
+        BaseTheme
+    >;
 
-  return (
-      <base.ThemeProvider
-          theme={{
-              background: "black"
-          }}
-      >
-          <>
-              <extra.ThemeProvider
-                  theme={base => base} // $ExpectError
-              >
-                  <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
-              </extra.ThemeProvider>
-              <extra.ThemeProvider
-                  theme={base => ({
-                      ...base,
-                      accent: "blue"
-                  })}
-              >
-                  <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
-              </extra.ThemeProvider>
-          </>
-      </base.ThemeProvider>
-  );
+    return (
+        <base.ThemeProvider
+            theme={{
+                background: 'black',
+            }}
+        >
+            <>
+                <extra.ThemeProvider
+                    theme={base => base} // $ExpectError
+                >
+                    <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
+                </extra.ThemeProvider>
+                <extra.ThemeProvider
+                    theme={base => ({
+                        ...base,
+                        accent: 'blue',
+                    })}
+                >
+                    <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
+                </extra.ThemeProvider>
+            </>
+        </base.ThemeProvider>
+    );
 }

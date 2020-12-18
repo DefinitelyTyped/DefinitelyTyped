@@ -86,10 +86,7 @@ import codecs = require('codecs/ts3.6');
 }
 {
   const codec = 'ucs-2';
-  codecs[codec].name; // $ExpectType "ucs2"
   codecs(codec).name; // $ExpectType "ucs2"
-  codecs[codec].encode('hello'); // $ExpectType Buffer
-  codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'ucs-2'>, InType<'ucs-2'>, OutType<'ucs-2'>, CodecName<'ucs-2'>] = [] as any;
   set; // $ExpectType [NamedCodec<"ucs2", string, string>, string, string, "ucs2"]
 }
@@ -104,10 +101,7 @@ import codecs = require('codecs/ts3.6');
 }
 {
   const codec = 'utf-8';
-  codecs[codec].name; // $ExpectType "utf-8"
   codecs(codec).name; // $ExpectType "utf-8"
-  codecs[codec].encode('hello'); // $ExpectType Buffer
-  codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf-8'>, InType<'utf-8'>, OutType<'utf-8'>, CodecName<'utf-8'>] = [] as any;
   set; // $ExpectType [NamedCodec<"utf-8", string, string>, string, string, "utf-8"]
 }
@@ -122,10 +116,7 @@ import codecs = require('codecs/ts3.6');
 }
 {
   const codec = 'utf16-le';
-  codecs[codec].name; // $ExpectType "utf16le"
   codecs(codec).name; // $ExpectType "utf16le"
-  codecs[codec].encode('hello'); // $ExpectType Buffer
-  codecs[codec].decode(new Uint8Array()); // $ExpectType string
   const set: [Codec<'utf16-le'>, InType<'utf16-le'>, OutType<'utf16-le'>, CodecName<'utf16-le'>] = [] as any;
   set; // $ExpectType [NamedCodec<"utf16le", string, string>, string, string, "utf16le"]
 }

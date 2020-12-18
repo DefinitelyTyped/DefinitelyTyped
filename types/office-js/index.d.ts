@@ -9762,7 +9762,8 @@ declare namespace Office {
          * 
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          *
-         * @param attachmentId - The identifier of the attachment to remove.
+         * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
+         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -13535,7 +13536,8 @@ declare namespace Office {
          * 
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          * 
-         * @param attachmentId - The identifier of the attachment to remove.
+         * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
+         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of

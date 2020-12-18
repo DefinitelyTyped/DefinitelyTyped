@@ -1512,8 +1512,8 @@ export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn0: (x0: V0)
     * Performs left-to-right function composition using transforming function.
     * With the current typings, all functions must be unary.
     */
-export function pipeWith<V0, T>(composer: (a: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
-export function pipeWith(composer: (a: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
+export function pipeWith<V0, T>(composer: (f: (value: any) => any, res: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
+export function pipeWith(composer: (f: (value: any) => any, res: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
 
 /**
  * Returns a new list by plucking the same named property off all objects in the list supplied.
