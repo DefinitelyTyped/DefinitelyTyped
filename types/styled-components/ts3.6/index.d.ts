@@ -6,14 +6,25 @@ declare global {
     }
 }
 
-import * as CSS from "csstype";
-import * as React from "react";
+import * as CSS from 'csstype';
+import * as React from 'react';
 
 type MEMO_STATICS_KEY = '$$typeof' | 'compare' | 'defaultProps' | 'displayName' | 'propTypes' | 'type';
 
-type FORWARD_REF_STATICS_KEY = '$$typeof' | "render" | "defaultProps" | "displayName" | "propTypes";
+type FORWARD_REF_STATICS_KEY = '$$typeof' | 'render' | 'defaultProps' | 'displayName' | 'propTypes';
 
-type REACT_STATICS_KEY = "childContextTypes" | "contextType" | "contextTypes" | "defaultProps" | "displayName" | "getDefaultProps" | "getDerivedStateFromError" | "getDerivedStateFromProps" | "mixins" | "propTypes" | "type";
+type REACT_STATICS_KEY =
+    'childContextTypes'
+    | 'contextType'
+    | 'contextTypes'
+    | 'defaultProps'
+    | 'displayName'
+    | 'getDefaultProps'
+    | 'getDerivedStateFromError'
+    | 'getDerivedStateFromProps'
+    | 'mixins'
+    | 'propTypes'
+    | 'type';
 
 type KNOWN_STATICS_KEY = 'name' | 'length' | 'prototype' | 'caller' | 'callee' | 'arguments' | 'arity';
 
