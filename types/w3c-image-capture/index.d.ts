@@ -9,7 +9,7 @@
 declare class ImageCapture {
     constructor(videoTrack: MediaStreamTrack);
 
-    takePhoto(photoSettings?: PhotoSettings): Promise<Blob>;
+    takePhoto(photoSettings?: PhotoSettings[]): Promise<Blob>;
 
     getPhotoCapabilities(): Promise<PhotoCapabilities>;
 
