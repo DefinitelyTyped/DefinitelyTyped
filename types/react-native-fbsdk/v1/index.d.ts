@@ -1,11 +1,10 @@
-// Type definitions for react-native-fbsdk 3.0
+// Type definitions for react-native-fbsdk 1.1
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Thibault Malbranche <https://github.com/titozzz>
 //                 Stuart Forrest <https://github.com/stuartforrest-infinity>
-//                 Un Ha Kim <https://github.com/UHKim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 2.8
 
 import { ComponentClass, Component } from 'react';
 import { ViewStyle } from 'react-native';
@@ -576,7 +575,6 @@ export class AccessToken {
      * Jan. 1, 1970, midnight GMT.
      */
     getLastRefresh(): number;
-    getDataAccessExpiration(): number;
 
     /**
      * Gets the ID of the Facebook Application associated with this access token.
@@ -605,10 +603,6 @@ export type AppEventsFlushBehavior =
 
 export interface Params {
     [key: string]: string | number;
-}
-
-export class Applink {
-    fetchDeferredAppLink(): Promise<string | null>;
 }
 
 /**
@@ -683,27 +677,6 @@ export namespace AppEventsLogger {
      * @platform Android
      */
     function setPushNotificationsRegistrationId(registrationId: string): void;
-
-    /**
-     * Returns user id or null if not set
-     */
-    function getUserID(): Promise<string | null>;
-
-    /**
-     * Returns anonymous id or null if not set
-     */
-    function getAnonymousID(): Promise<string | null>;
-
-    /**
-     * Returns advertiser id or null if not set
-     */
-    function getAdvertiserID(): Promise<string | null>;
-
-    /**
-     * Returns advertiser id or null if not set.
-     * @platform android
-     */
-    function getAttributionID(): Promise<string | null>;
 }
 
 export namespace GameRequestDialog {
@@ -832,6 +805,12 @@ export interface LoginButtonProps {
     loginBehaviorAndroid?: LoginBehaviorAndroid;
 
     /**
+     * The behavior to use when attempting a login.
+     * @platform ios
+     */
+    loginBehaviorIOS?: LoginBehaviorIOS;
+
+    /**
      * The default audience to target when attempting a login.
      */
     defaultAudience?: DefaultAudience;
@@ -956,6 +935,26 @@ export interface SendButtonProps {
 
 export class SendButton extends Component<SendButtonProps, any> {}
 
+export namespace ShareApi {
+    /**
+     * Check if the content can be shared via share api.
+     */
+    function canShare(shareContent: ShareContent): Promise<boolean>;
+
+    /**
+     * For iOS only, creates a User Owned Open Graph object without an action.
+     * NOTE: Only one share action can be performed at a time.
+     * @platform ios
+     */
+    function createOpenGraphObject(openGraphObject: ShareOpenGraphObject): Promise<any>;
+
+    /**
+     * Shares the specified content with a message.
+     * NOTE: Only one share action can be performed at a time.
+     */
+    function share(shareContent: ShareContent, graphNode: string, message: string): Promise<any>;
+}
+
 export interface ShareButtonProps {
     /**
      * Content to be shared.
@@ -1022,23 +1021,4 @@ export namespace ShareDialog {
      * Sets whether or not the native share dialog should fail when it encounters a data error.
      */
     function setShouldFailOnDataError(shouldFailOnDataError: boolean): void;
-}
-
-export namespace Settings {
-    /**
-     * For iOS only, get AdvertiserTrackingEnabled status.
-     * @platform ios
-     */
-    function getAdvertiserTrackingEnabled(): Promise<boolean>;
-
-    /**
-     * For iOS only, set AdvertiserTrackingEnabled status, only works in iOS 14 and above.
-     * @platform ios
-     */
-    function setAdvertiserTrackingEnabled(ATE: boolean): Promise<boolean>;
-
-    /**
-     * Set data processing options
-     */
-    function setDataProcessingOptions(options: Array<string | 'LDU'>, ...args: number[]): void;
 }
