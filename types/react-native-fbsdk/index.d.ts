@@ -607,8 +607,8 @@ export interface Params {
     [key: string]: string | number;
 }
 
-export class Applink {
-    fetchDeferredAppLink(): Promise<string | null>;
+export namespace Applink {
+    function fetchDeferredAppLink(): Promise<string | null>;
 }
 
 /**
