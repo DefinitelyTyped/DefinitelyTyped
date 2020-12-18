@@ -1,5 +1,5 @@
-import Koa = require('koa');
-import mongo = require('koa-mongo');
+import * as Koa from "koa";
+import { mongo } from "koa-mongo";
 
 const app = new Koa();
 
