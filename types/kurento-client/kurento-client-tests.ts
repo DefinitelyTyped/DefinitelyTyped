@@ -60,7 +60,7 @@ async () => {
     const endpointId = 'endpointId';
 
     const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
-    const endpoint = await client.getMediaobjectById<WebRtcEndpoint>(endpointId);
+    const endpoint = await client.getMediaobjectById<WebRtcEndpoint>(endpointId); // $ExpectType WebRtcEndpoint
 
     await endpoint.release();
 };
