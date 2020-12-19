@@ -22,10 +22,10 @@
     - [创建一个新的包](#创建一个新的包)
     - [删除一个包](#删除一个包)
     - [验证](#验证)
-    - [\<my package>-tests.ts](#my-package-teststs)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
-    - [tsconfig.json](#tsconfigjson)
-    - [package.json](#packagejson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
     - [常见错误](#常见错误)
     </details>
   - [Definition Owners](#definition-owners)
@@ -178,12 +178,12 @@ Version | Released | End of Support
 
 | 文件名 | 目的 |
 | --- | --- |
-| index.d.ts | 这里包含了包的类型声明。 |
-| [\<my package>-tests.ts](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
-| [tsconfig.json](#tsconfigjson) | 这里允许你在包里运行 `tsc`. |
-| [tslint.json](#linter-tslintjson) | 启用 linting. |
+| `index.d.ts` | 这里包含了包的类型声明。 |
+| [`<my-package>-tests.ts`](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
+| [`tsconfig.json`](#tsconfigjson) | 这里允许你在包里运行 `tsc`. |
+| [`tslint.json`](#linter-tslintjson) | 启用 linting. |
 
-如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my package> --template module`.
+如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my-package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
 
 Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许多其他 PRs 的时候，检查会变慢。
@@ -197,7 +197,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 你可以运行以下命令来删除它 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 - `typingsPackageName`: 这是你要删除的目录名字.
 - `asOfVersion`: 将使用此版本将存根发布到 `@types/foo`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `foo` 版本。
-- `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 "typingsPackageName" 相同，这种情况下你可以忽略它。
+- `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 `typingsPackageName` 相同，这种情况下你可以忽略它。
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
 你可以查看 `npm test` 中的错误来获得此列表。
@@ -222,14 +222,14 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
 
-#### \<my package>-tests.ts
+#### `<my-package>-tests.ts`
 
-There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
@@ -240,7 +240,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 + export function twoslash(body: string, config?: { version: string }): string
 ```
 
-`<my package>-tests.ts`:
+`<my-package>-tests.ts`:
 
 ```diff
 import {twoslash} from "./"
@@ -277,13 +277,13 @@ The linter configuration file, `tslint.json` should contain `{ "extends": "dtsli
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-#### tsconfig.json
+#### `tsconfig.json`
 
 `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 你可以编辑 `tsconfig.json` 来增加新文件，增加 `"target": "es6"` (异步函数需要)，去增加 `"lib"`，或者增加 `"jsx"` 编译选项。
 
-#### package.json
+#### `package.json`
 
 通常你不需要它。
 Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
@@ -515,9 +515,9 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 #### 如何为可以在全局使用的包和作为模块的包编写类型定义？
 
-TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), 以及 [此示例定义文件](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)，它展示了如何使用 ES6 模块语法创建定义，同时还指定了全局范围可用的对象。这个技术在 [big.js 的定义](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts) 得到了实际证明。该库可以通过网页上的脚本标记全局加载，也可以通过 require 或者 ES6 风格的风格导入。
+TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), 以及 [此示例定义文件](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)，它展示了如何使用 ES6 模块语法创建定义，同时还指定了全局范围可用的对象。这个技术在 [`big.js` 的定义](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts) 得到了实际证明。该库可以通过网页上的脚本标记全局加载，也可以通过 require 或者 ES6 风格的风格导入。
 
-要测试你的类型定义是否能全局引用或者作为模块导入，请创建一个 `test` 文件，并在其中放置两个测试文件。一个命名为 `YourLibraryName-global.test.ts`, 另一个为 `YourLibraryName-module.test.ts`. *全局* 测试文件应该根据如何在全局范围内库可用的网页上加载的脚本中使用它来执行定义，在这种情况下，你不应该制定 import 语句。*模块* 测试文件应该根据导入时的使用方式（包括 `import` 语句）来执行定义。如果在 `tsconfig.json` 文件中指定了 `files` 属性，请确保包含了两个测试文件。big.js 定义中还提供了一个 [实际例子](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)。
+要测试你的类型定义是否能全局引用或者作为模块导入，请创建一个 `test` 文件，并在其中放置两个测试文件。一个命名为 `YourLibraryName-global.test.ts`, 另一个为 `YourLibraryName-module.test.ts`. *全局* 测试文件应该根据如何在全局范围内库可用的网页上加载的脚本中使用它来执行定义，在这种情况下，你不应该制定 import 语句。*模块* 测试文件应该根据导入时的使用方式（包括 `import` 语句）来执行定义。如果在 `tsconfig.json` 文件中指定了 `files` 属性，请确保包含了两个测试文件。`big.js` 定义中还提供了一个 [实际例子](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)。
 
 请注意，不需要在每个测试文件中完全执行定义 - 只需要在全局测试文件中测试全局可访问元素并在模块测试文件中完全执行定义，反之亦然。
 

@@ -17,10 +17,10 @@
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
     - [Running Tests](#running-tests)
-    - [\<my package>-tests.ts](#my-package-teststs)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
-    - [tsconfig.json](#tsconfigjson)
-    - [package.json](#packagejson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
     - [Common mistakes](#common-mistakes)
     </details>
   - [Definition Owners](#definition-owners)
@@ -176,12 +176,12 @@ Your package should have this structure:
 
 | File          | Purpose |
 | ------------- | ------- |
-| index.d.ts    | This contains the typings for the package. |
-| [\<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
-| [tsconfig.json](#tsconfigjson) | This allows you to run `tsc` within the package. |
-| [tslint.json](#linter-tslintjson)   | Enables linting. |
+| `index.d.ts`  | This contains the typings for the package. |
+| [`<my-package>-tests.ts`](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
+| [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
+| [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 
-Generate these by running `npx dts-gen --dt --name <my package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my package> --template module` otherwise.
+Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests. If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
@@ -197,7 +197,7 @@ When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 * `typingsPackageName`: This is the name of the directory to delete.
 * `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
+* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `typingsPackageName`, in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
@@ -223,14 +223,14 @@ Test your changes by running `npm test <package to test>` where `<package to tes
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
-#### \<my package>-tests.ts
+#### `<my-package>-tests.ts`
 
-There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
@@ -241,7 +241,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 + export function twoslash(body: string, config?: { version: string }): string
 ```
 
-`<my package>-tests.ts`:
+`<my-package>-tests.ts`:
 
 ```diff
 import {twoslash} from "./"
@@ -278,13 +278,13 @@ The linter configuration file, `tslint.json` should contain `{ "extends": "dtsli
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-#### tsconfig.json
+#### `tsconfig.json`
 
 `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
-#### package.json
+#### `package.json`
 
 Usually you won't need this.
 DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
@@ -533,9 +533,9 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 
 #### How do I write definitions for packages that can be used globally and as a module?
 
-The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
 
-To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the `big.js` definition.
 
 Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
 

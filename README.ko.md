@@ -20,10 +20,10 @@
     - [새 패키지를 만들기](#새-패키지를-만들기)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [검증하기](#검증하기)
-    - [\<my package>-tests.ts](#my-package-teststs)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
-    - [tsconfig.json](#tsconfigjson)
-    - [package.json](#packagejson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
   - [Definition Owners](#definition-owners)
@@ -190,13 +190,13 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 
 | 파일 이름 | 용도 |
 | --- | --- |
-| index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
-| [\<my package>-tests.ts](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
-| [tsconfig.json](#tsconfigjson) | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
-| [tslint.json](#linter-tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
+| `index.d.ts` | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
+| [`<my-package>-tests.ts`](#my-package-teststs) | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| [`tsconfig.json`](#tsconfigjson) | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
+| [`tslint.json`](#linter-tslintjson) | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
-이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my package> --template module` 명령으로,
-그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my package> --template module` 명령으로 만들 수 있습니다.
+이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my-package> --template module` 명령으로,
+그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my-package> --template module` 명령으로 만들 수 있습니다.
 `dts-gen` 의 모든 옵션(Option)을 보고싶으시면 [dts-gen](https://github.com/Microsoft/dts-gen) 저장소를 확인해주세요.
 
 Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
@@ -211,7 +211,7 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
 - `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
-- `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
+- `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `typingsPackageName` 와 같은 것으로 취급됩니다.)
 
 Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
 
@@ -223,14 +223,14 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
 
-#### \<my package>-tests.ts
+#### `<my-package>-tests.ts`
 
-There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
@@ -241,7 +241,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 + export function twoslash(body: string, config?: { version: string }): string
 ```
 
-`<my package>-tests.ts`:
+`<my-package>-tests.ts`:
 
 ```diff
 import {twoslash} from "./"
@@ -278,13 +278,13 @@ The linter configuration file, `tslint.json` should contain `{ "extends": "dtsli
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-#### tsconfig.json
+#### `tsconfig.json`
 
 `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 자료형(Typing) 패키지에 새 파일을 추가하거나, `async` 키워드를 사용하기 위해 `"target"` 을 `"es6"` 로 설정하거나, `"lib"` 를 추가하거나, `jsx` 지원을 추가하기 위해서 `tsconfig.json` 파일을 변경해야 할 수도 있습니다.
 
-#### package.json
+#### `package.json`
 
 일반적으로는 `package.json` 파일을 사용할 필요가 없습니다. 패키지가 퍼블리시(Publish)될 때 패키지를 위한 `package.json` 파일은 자동으로 생성됩니다.
 가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
@@ -409,15 +409,15 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 수정 중인 패키지에 의존하는 Definitely Typed 의 다른 패키지들이 새 버전과 호환되지 않을 경우, 그 패키지들에도 옛날 버전으로의 경로 대응 규칙(Path mapping rule)을 추가해주어야 합니다. 수정 중인 패키지에 의존하는 패키지에 의존하는 패키지들에도 똑같은 작업을 해 주셔야 합니다.
 
 예를 들어, `react-router` 패키지는 `history@2` 패키지에 의존하고 있기 때문에, [react-router 패키지의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) 파일이 `"history": [ "history/v2" ]` 와 같은 경로 대응 규칙(Path mapping rule)을 가지고 있는 걸 볼 수 있습니다.
-이어서 (`react-router` 패키지에 의존하는 패키지인) `react-router-bootstrap` 또한 [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json) 파일 안에 경로 대응 규칙(Path mapping rule)을 가지고 있는 것을 보실 수 있습니다.
+이어서 (`react-router` 패키지에 의존하는 패키지인) `react-router-bootstrap` 또한 [`tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json) 파일 안에 경로 대응 규칙(Path mapping rule)을 가지고 있는 것을 보실 수 있습니다.
 
 `/// <reference types=".." />` 에서는 경로 대응 규칙(Path mapping rule)이 동작하지 않기 때문에, Definitely Typed 패키지로에 의존할 때에는 임포트(import) 를 사용해야 합니다.
 
 #### 전역적으로도 모듈로도 사용될 수 있는 패키지의 자료형 선언(Type declaration)은 어떻게 쓰나요?
 
-타입스크립트 안내서(TypeScript Handbook)은 [선언(Declaration)을 쓰는 방법에 대한 전반적인 정보](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)와 [예시들](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)을 포함하고 있습니다. 이 내용에는 ES6 식의 모듈 문법을 사용할 수 있는 자료형 선언(Type declaration)을 만드는 방법과 객체를 전역에서 사용할 수 있도록 하는 방법이 포함되어 있습니다. [big.js 패키지의 자료형 선언(Type declaration)](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)이 실례입니다. 이 패키지는 웹 페이지의 스크립트 태그를 사용해 불러올 수 있으며, 또한 ES6 식의 임포트(Import) 구문을 사용해서 불러올 수도 있습니다.
+타입스크립트 안내서(TypeScript Handbook)은 [선언(Declaration)을 쓰는 방법에 대한 전반적인 정보](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)와 [예시들](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)을 포함하고 있습니다. 이 내용에는 ES6 식의 모듈 문법을 사용할 수 있는 자료형 선언(Type declaration)을 만드는 방법과 객체를 전역에서 사용할 수 있도록 하는 방법이 포함되어 있습니다. [`big.js` 패키지의 자료형 선언(Type declaration)](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)이 실례입니다. 이 패키지는 웹 페이지의 스크립트 태그를 사용해 불러올 수 있으며, 또한 ES6 식의 임포트(Import) 구문을 사용해서 불러올 수도 있습니다.
 
-여러분의 패키지가 임포트(Import) 구문을 사용했을 때와 전역적으로 불렀을 때를 테스트 해보고 싶다면, `test` 디렉토리를 추가하고 `YourLibraryName-global.test.ts` 그리고 `YourLibraryName-module.test.ts` 라는 이름으로 테스트 파일 두 개를 추가해주세요. **전역(Global)** 테스트 파일은 웹 페이지에서 전역적으로 사용될 때를 테스트하는 파일입니다. 이 파일에서는 임포트(Import) 구문을 사용하지 않아야 합니다. **모듈(Module)** 테스트 파일은 임포트(Import) 구문을 사용할 때를 테스트 하는 파일입니다. 만약 여러분의 `tsconfig.json` 파일이 `files` 필드(Field)를 가지고 있다면, 이 필드(Field)는 반드시 두 테스트 파일을 모두 포함해야 합니다. [이 방식을 사용하는 실례](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) 또한 big.js 패키지의 자료형 선언(Type declaration)에서 확인해보실 수 있습니다.
+여러분의 패키지가 임포트(Import) 구문을 사용했을 때와 전역적으로 불렀을 때를 테스트 해보고 싶다면, `test` 디렉토리를 추가하고 `YourLibraryName-global.test.ts` 그리고 `YourLibraryName-module.test.ts` 라는 이름으로 테스트 파일 두 개를 추가해주세요. **전역(Global)** 테스트 파일은 웹 페이지에서 전역적으로 사용될 때를 테스트하는 파일입니다. 이 파일에서는 임포트(Import) 구문을 사용하지 않아야 합니다. **모듈(Module)** 테스트 파일은 임포트(Import) 구문을 사용할 때를 테스트 하는 파일입니다. 만약 여러분의 `tsconfig.json` 파일이 `files` 필드(Field)를 가지고 있다면, 이 필드(Field)는 반드시 두 테스트 파일을 모두 포함해야 합니다. [이 방식을 사용하는 실례](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) 또한 `big.js` 패키지의 자료형 선언(Type declaration)에서 확인해보실 수 있습니다.
 
 각각의 테스트 파일에 모든 상황을 테스트할 필요는 없다는 걸 잊지마세요. 전역 테스트 파일에서는 전역적으로 사용될 때만 테스트하고, 모듈 테스트 파일에서 나머지 상황들을 모두 테스트 할 수 있으며, 그 반대의 경우도 괜찮습니다.
 
