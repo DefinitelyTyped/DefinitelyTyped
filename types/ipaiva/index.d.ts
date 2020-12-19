@@ -13,8 +13,12 @@ declare module 'ipaiva' {
         placeholder?: string;
     }
 
+    interface TextEditor {
+        on(event: 'completed', fn: (content: string) => void): this;
+    }
+
     export namespace textEditor {
-        export function create(elem: HTMLElement, options?: TextEditorOptions): void;
+        export function create(elem: HTMLElement, options?: TextEditorOptions): TextEditor;
     }
 
     export namespace window {
@@ -27,7 +31,7 @@ declare module 'ipaiva' {
     export namespace library {
         type OnDidPickCallback = (callback: { url: string }) => void;
         interface OnDidPickOption {
-            type?: 'image' | 'video' | 'audio';
+            type: 'image' | 'video' | 'audio';
         }
 
         function onDidPick(callback: OnDidPickCallback, option?: OnDidPickOption): void;
