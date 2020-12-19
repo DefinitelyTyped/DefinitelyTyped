@@ -15,21 +15,21 @@ import { GetDataID } from './RelayResponseNormalizer';
 export type ActiveState = 'active' | 'inactive';
 
 export interface ExecuteConfig {
-    getDataID: GetDataID;
-    treatMissingFieldsAsNull: boolean;
-    operation: OperationDescriptor;
-    operationExecutions: Map<string, ActiveState>;
-    operationLoader: OperationLoader | null | undefined;
-    operationTracker?: OperationTracker | null | undefined;
-    optimisticConfig: OptimisticResponseConfig | null | undefined;
-    publishQueue: PublishQueue;
-    reactFlightPayloadDeserializer?: ReactFlightPayloadDeserializer | null;
-    scheduler?: TaskScheduler | null;
-    sink: Sink<GraphQLResponse>;
-    source: RelayObservable<GraphQLResponse>;
-    store: Store;
-    updater?: SelectorStoreUpdater | null;
-    isClientPayload?: boolean;
+    readonly getDataID: GetDataID;
+    readonly treatMissingFieldsAsNull: boolean;
+    readonly operation: OperationDescriptor;
+    readonly operationExecutions: Map<string, ActiveState>;
+    readonly operationLoader: OperationLoader | null | undefined;
+    readonly operationTracker?: OperationTracker | null | undefined;
+    readonly optimisticConfig: OptimisticResponseConfig | null | undefined;
+    readonly publishQueue: PublishQueue;
+    readonly reactFlightPayloadDeserializer?: ReactFlightPayloadDeserializer | null;
+    readonly scheduler?: TaskScheduler | null;
+    readonly sink: Sink<GraphQLResponse>;
+    readonly source: RelayObservable<GraphQLResponse>;
+    readonly store: Store;
+    readonly updater?: SelectorStoreUpdater | null;
+    readonly isClientPayload?: boolean;
 }
 
 export interface TaskScheduler {

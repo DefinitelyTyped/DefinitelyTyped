@@ -9,8 +9,8 @@ export interface NormalizationDefer {
 }
 
 export interface NormalizationClientExtension {
-    kind: string; // 'ClientExtension';
-    selections: ReadonlyArray<NormalizationSelection>;
+    readonly kind: string; // 'ClientExtension';
+    readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
 export type NormalizationField = NormalizationFlightField | NormalizationScalarField | NormalizationLinkedField;
@@ -96,25 +96,25 @@ export interface NormalizationVariable {
 }
 
 export interface NormalizationConnection {
-    kind: string;
-    label: string;
-    name: string;
-    args: ReadonlyArray<NormalizationArgument>;
-    edges: NormalizationLinkedField;
-    pageInfo: NormalizationLinkedField;
+    readonly kind: string;
+    readonly label: string;
+    readonly name: string;
+    readonly args: ReadonlyArray<NormalizationArgument>;
+    readonly edges: NormalizationLinkedField;
+    readonly pageInfo: NormalizationLinkedField;
 }
 
 export interface NormalizationLocalArgumentDefinition {
-    kind: string;
-    name: string;
-    defaultValue: any;
+    readonly kind: string;
+    readonly name: string;
+    readonly defaultValue: any;
 }
 
 export interface NormalizationModuleImport {
-    kind: string;
-    documentName: string;
-    fragmentPropName: string;
-    fragmentName: string;
+    readonly kind: string;
+    readonly documentName: string;
+    readonly fragmentPropName: string;
+    readonly fragmentName: string;
 }
 
 export interface NormalizationCondition {

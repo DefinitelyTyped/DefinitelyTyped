@@ -922,8 +922,8 @@ export interface PublishQueue {
 export type ReactFlightClientResponse = { readRoot: () => any };
 
 export type ReactFlightReachableQuery = {
-    module: any;
-    variables: Variables;
+    readonly module: any;
+    readonly variables: Variables;
 };
 
 export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;
