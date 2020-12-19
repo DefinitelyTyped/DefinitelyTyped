@@ -612,6 +612,13 @@ declare namespace google.maps {
          * occurred.
          */
         latLng: LatLng;
+        /**
+         * The corresponding native DOM event.  Developres hsould not rely on target,
+         * currentTarget, relatedTarget and path properties being defined and 
+         * consistent.  Developres should not also rely on DOM structure of hte internal
+         * implementation of Maps API.
+         */
+        domEvent: lib.dom.MouseEvent  | lib.dom.TouchEvent | lib.dom.PointerEvent | lib.dom.Event;                                                  
     }
 
     /**
