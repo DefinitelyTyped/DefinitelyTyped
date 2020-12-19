@@ -18,10 +18,10 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Crie um novo pacote](#crie-um-novo-pacote)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Verificando](#verificando)
-    - [\<my package>-tests.ts](#my-package-teststs)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
-    - [tsconfig.json](#tsconfigjson)
-    - [package.json](#package.json)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#package.json)
     - [Erros comuns](#erros-comuns)
     </details>
   - [Donos de definição](#donos-de-definição)
@@ -177,10 +177,10 @@ Seu pacote deve possuir a seguinte estrutura:
 
 | Arquivo | Propósito |
 | --- | --- |
-| index.d.ts | Contém os tipos para o pacote. |
-| [\<my package>-tests.ts](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
-| [tsconfig.json](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
-| [tslint.json](#linter-tslintjson) | Habilita a análise do código pelo linter. |
+| `index.d.ts` | Contém os tipos para o pacote. |
+| [`<my-package>-tests.ts`](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
+| [`tsconfig.json`](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
+| [`tslint.json`](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -198,7 +198,7 @@ Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaratio
 Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
 - `typingsPackageName`: O nome do diretório a ser deletado.
 - `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao "typingsPackageName", e nesse caso pode ser omitido.
+- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `typingsPackageName`, e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
 Você pode obter esta lista olhando os erros do `npm test`.
@@ -224,14 +224,14 @@ Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-d
 
 Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
-#### \<my package>-tests.ts
+#### `<my-package>-tests.ts`
 
-Deve existir um arquivo `<my package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+Deve existir um arquivo `<my-package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my-package>-tests.ts`.
 Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
 
 Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my package>-tests.ts`.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my-package>-tests.ts`.
 
 Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
 
@@ -242,7 +242,7 @@ Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adic
 + export function twoslash(body: string, config?: { version: string }): string
 ```
 
-`<my package>-tests.ts`:
+`<my-package>-tests.ts`:
 ```diff
 import {twoslash} from "./"
 
@@ -278,13 +278,13 @@ The linter configuration file, `tslint.json` should contain `{ "extends": "dtsli
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-#### tsconfig.json
+#### `tsconfig.json`
 
 `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
 Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador.
 
-#### package.json
+#### `package.json`
 
 Geralmente você não precisa disso.
 O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
@@ -526,9 +526,9 @@ Provisoriamente, o `react-router-bootstrap` (que depende do `react-router`) tamb
 
 #### Como eu crio definições para pacotes que podem ser usados globalmente e como um módulo?
 
-O manual do TypeScript contém excelentes [informações gerais sobre criar definições](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), e também [este arquivo de definição de exemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) que mostra como criar uma definição usando a sintaxe de módulo no estilo ES6, enquanto também especifica os objetos que tornaram-se disponíveis ao escopo global. Essa técnica é demonstrada de forma prática na [definição da big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), que é uma biblioteca que pode ser carregada globalmente via tags de script numa página da web, ou importada via require ou via imports no estilo do ES6.
+O manual do TypeScript contém excelentes [informações gerais sobre criar definições](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), e também [este arquivo de definição de exemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) que mostra como criar uma definição usando a sintaxe de módulo no estilo ES6, enquanto também especifica os objetos que tornaram-se disponíveis ao escopo global. Essa técnica é demonstrada de forma prática na [definição da `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), que é uma biblioteca que pode ser carregada globalmente via tags de script numa página da web, ou importada via require ou via imports no estilo do ES6.
 
-Para testar como sua definição pode ser usada tanto quando referenciada globalmente quanto como um módulo importável, crie uma pasta `test`, e coloque dois arquivos de teste nela. Chame um de `NomeDaSuaBiblioteca-global.test.ts` e o outro de `NomeDaSuaBiblioteca-module.test.ts`. O arquivo de teste *global* deve exercer a definição de acordo com como ele seria usado num script carregado numa página da web onde a biblioteca está disponível no escopo global - nesse cenário você não deve especificar uma declaração de importação. O arquivo de teste *module* deve exercer a definição de acordo com como ele seria usado quando importado (incluindo a(s) definição(ões) de `import`). Se Você especificar uma propriedade `files` no seu arquivo `tsconfig.json`, tenha certeza de incluir ambos os arquivos de teste. Um [exemplo prático de como fazer isso](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) também está disponível na definição da big.js.
+Para testar como sua definição pode ser usada tanto quando referenciada globalmente quanto como um módulo importável, crie uma pasta `test`, e coloque dois arquivos de teste nela. Chame um de `NomeDaSuaBiblioteca-global.test.ts` e o outro de `NomeDaSuaBiblioteca-module.test.ts`. O arquivo de teste *global* deve exercer a definição de acordo com como ele seria usado num script carregado numa página da web onde a biblioteca está disponível no escopo global - nesse cenário você não deve especificar uma declaração de importação. O arquivo de teste *module* deve exercer a definição de acordo com como ele seria usado quando importado (incluindo a(s) definição(ões) de `import`). Se Você especificar uma propriedade `files` no seu arquivo `tsconfig.json`, tenha certeza de incluir ambos os arquivos de teste. Um [exemplo prático de como fazer isso](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) também está disponível na definição da `big.js`.
 
 Por favor note que isso não é obrigatório para exercer completamente a definição em cada arquivo de teste - é suficiente para testar apenas os elementos accessíveis globalmente no arquivo de teste global e exercer a definição no arquivo de teste do módulo, ou vice versa.
 

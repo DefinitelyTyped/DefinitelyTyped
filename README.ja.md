@@ -18,7 +18,7 @@
     - [よくあるミス](#よくあるミス)
     - [パッケージを削除する](#パッケージを削除する)
     - [Linter](#linter)
-    - [\<パッケージ名>-tests.ts](#パッケージ名-teststs)
+    - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
     - [テストの実行](#テストの実行)
     </details>
   - [型定義のオーナー](#型定義のオーナー)
@@ -174,10 +174,10 @@ NPM 上にないパッケージの型定義を追加したい場合は、その�
 
 | ファイル      | 用途 |
 | ------------- | ---- |
-| index.d.ts    | 型定義が含まれる。 |
-| [\<パッケージ名>-tests.ts](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
-| tsconfig.json | パッケージ内で `tsc` を実行するのに必要。 |
-| tslint.json   | Lint を有効にする。 |
+| `index.d.ts`  | 型定義が含まれる。 |
+| [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
+| `tsconfig.json` | パッケージ内で `tsc` を実行するのに必要。 |
+| `tslint.json`   | Lint を有効にする。 |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
@@ -221,7 +221,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]` を実行するとパッケージを削除できます。.
 * `typingsPackageName`: 削除したいディレクトリ名。
 * `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `foo` のバージョンとあわせる必要があります。
-* `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に "typingsPackageName" と一致し、その場合は省略できます。
+* `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `typingsPackageName` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
 `npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
@@ -265,7 +265,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 （本当に適用させたくないルールがある場合は、 `// tslint:disable ルール名` か `//tslint:disable-next-line ルール名` （より良い）を使用してください。）
 
-#### \<パッケージ名>-tests.ts
+#### `<パッケージ名>-tests.ts`
 
 パッケージには `<パッケージ名>-tests.ts` が必要です。このファイルは、ファイル内でインポートしている他の `*.ts` とあわせて、テスト用のファイルになります。
 モジュールのフォルダにテスト用ファイルが見当たらない場合は、 `<パッケージ名>-tests.ts` を作成してください。
@@ -544,9 +544,9 @@ Definitely Typed の各パッケージは NPM に公開される際にバージ�
 
 #### グローバルにも使えてモジュールとしても使えるパッケージについては、どのように型定義すればよいですか？
 
-TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に [big.js の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
+TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に [`big.js` の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
 
-型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 big.js の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
+型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 `big.js` の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
 
 両方のテストファイルで、型定義に対する完全なテストを行う必要はありません &mdash; *global* テストファイルではグローバルな要素にアクセスできるかのみをテストし、 *module* テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
 
