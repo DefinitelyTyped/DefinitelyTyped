@@ -22,6 +22,7 @@
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
     - [よくあるミス](#よくあるミス)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     </details>
   - [型定義のオーナー](#型定義のオーナー)
 * [よくある質問](#よくある質問)
@@ -186,8 +187,6 @@ dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen
 
 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
 
-もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
-
 Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によっては対応が遅れる場合があることをご了承ください。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) を、パッケージのサンプルとして参考にするのがよいでしょう。
@@ -317,6 +316,10 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 * `var foo: string | any`:
   `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
   シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
+
+#### `OTHER_FILES.txt`
+
+もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
 
 ### 型定義のオーナー
 

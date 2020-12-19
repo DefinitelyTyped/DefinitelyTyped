@@ -26,6 +26,7 @@
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [常见错误](#常见错误)
     </details>
   - [Definition Owners](#definition-owners)
@@ -296,6 +297,10 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
 在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
 再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 #### 常见错误
 

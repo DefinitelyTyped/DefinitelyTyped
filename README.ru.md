@@ -24,6 +24,7 @@ _Вы также можете прочитать этот README на [англ�
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [Распространенные ошибки](#распространенные-ошибки)
     </details>
   - [Definition Owners](#definition-owners)
@@ -286,6 +287,10 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 `package.json` может быть включен для определения зависимостей. Вот [пример](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 Мы не разрешаем определять другие поля, такие как "description", вручную.
 Кроме того, если вам нужно сослаться на более старую версию типизаций, вы должны сделать это, добавив в `package.json` строки `"dependencies": { "@types/foo": "x.y.z" }`.
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 #### Распространенные ошибки
 

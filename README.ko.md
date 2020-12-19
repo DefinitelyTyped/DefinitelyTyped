@@ -24,6 +24,7 @@
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
     - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
   - [Definition Owners](#definition-owners)
@@ -290,6 +291,10 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
 의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
 옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
 
 #### 많이 저지르는 실수들
 
