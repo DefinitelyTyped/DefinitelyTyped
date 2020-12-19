@@ -9762,7 +9762,8 @@ declare namespace Office {
          * 
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          *
-         * @param attachmentId - The identifier of the attachment to remove.
+         * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
+         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -11757,7 +11758,8 @@ declare namespace Office {
      * 
      * Internet headers are stored as key/value pairs on a per-item basis.
      * 
-     * **Note**: This object is intended for you to set and get your custom headers on a message item.
+     * **Note**: This object is intended for you to set and get your custom headers on a message item. To learn more, see
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
      *
      * [Api set: Mailbox 1.8]
      *
@@ -13037,6 +13039,9 @@ declare namespace Office {
          * 
          * The `internetHeaders` property returns an `InternetHeaders` object that provides methods to manage the internet headers on the message.
          *
+         * To learn more, see
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -13535,7 +13540,8 @@ declare namespace Office {
          * 
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          * 
-         * @param attachmentId - The identifier of the attachment to remove.
+         * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
+         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -14164,7 +14170,10 @@ declare namespace Office {
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets all the internet headers for the message as a string.
-         * 
+         *
+         * To learn more, see
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/internet-headers | Get and set internet headers on a message in an Outlook add-in}.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks

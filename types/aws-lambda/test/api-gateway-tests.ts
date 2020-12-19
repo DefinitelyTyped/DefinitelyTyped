@@ -71,6 +71,7 @@ type ProbablyInvalidCustomProxyHandler = APIGatewayProxyWithLambdaAuthorizerHand
 
 let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = event.body;
+    const headers = event.headers; // $ExpectType APIGatewayProxyEventHeaders
     str = event.headers['example'];
     str = event.multiValueHeaders['example'][0];
     str = event.httpMethod;

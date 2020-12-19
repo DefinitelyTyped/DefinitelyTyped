@@ -483,6 +483,7 @@ declare namespace Autodesk {
         }
 
         class InstanceTree {
+            fragList: Private.FragmentList;
             maxDepth: number;
             nodeAccess: InstanceTreeAccess;
             numHidden: number;
@@ -528,7 +529,7 @@ declare namespace Autodesk {
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
-            getFragmentList(): any;
+            getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
@@ -1075,8 +1076,8 @@ declare namespace Autodesk {
         }
 
         class ModelBuilder {
-          fragList: any;
-          geomList: any;
+          fragList: Private.FragmentList;
+          geomList: Private.GeometryList;
           instanceTree: any;
           model: Model;
 
@@ -1114,6 +1115,50 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            interface FragmentList {
+              allVisible: boolean;
+              allVisibleDirty: boolean;
+              animxforms: any;
+              boxes: any;
+              db2ThemingColor: any[];
+              dbIdIsGhosted: any[];
+              dbIdOpacity: any[];
+              fragments: any;
+              geomids: Int32Array;
+              geoms: GeometryList;
+              is2d: boolean;
+              isFixedSize: boolean;
+              linesHidden: boolean;
+              materialIdMap: { [id: number]: any };
+              materialids: Int32Array;
+              materialmap: any;
+              matrix: any;
+              modelId: number;
+              nextAvailableFragID: number;
+              nextMaterialId: number;
+              originalColors: any[];
+              pointsHidden: boolean;
+              themingOrGhostingNeedsUpdate: any[];
+              transforms: any;
+              useThreeMesh: boolean;
+              vizflags: Uint32Array;
+              vizmeshes: THREE.Mesh[];
+            }
+
+            interface GeometryList {
+              disableStreaming: boolean;
+              geomBoxes: Float32Array;
+              geomMemory: number;
+              geomPolyCount: number;
+              geoms: any[];
+              gpuMeshMemory: number;
+              gpuNumMeshes: number;
+              instancePolyCount: number;
+              is2d: boolean;
+              numGeomsInMemory: number;
+              numObjects: number;
+            }
 
             class LocalStorageClass {
               clear(): void;
@@ -1585,9 +1630,15 @@ declare namespace Autodesk {
       }
 
       class ModelStructureInfo {
+        model: Viewing.Model;
+        rooms: Room[];
+
         constructor(model: Viewing.Model);
 
         generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+        getLevel(room: Room): string;
+        getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
+        getRoomList(): Promise<Room[]>;
       }
 
       class Room {
@@ -1614,6 +1665,7 @@ declare namespace Autodesk {
 
       class SurfaceShadingGroup {
         id: string;
+        isGroup: boolean;
         isLeaf: boolean;
 
         constructor(id?: string);
@@ -1627,6 +1679,12 @@ declare namespace Autodesk {
       }
 
       class SurfaceShadingNode {
+        dbIds: number[];
+        fragIds: number[];
+        id: string;
+        isLeaf: boolean;
+        shadingPoints: SurfaceShadingPoint[];
+
         constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
 
         addPoint(point: SurfaceShadingPoint): void;
@@ -1634,6 +1692,14 @@ declare namespace Autodesk {
       }
 
       class SurfaceShadingPoint {
+        id: string;
+        position: {
+          x: number,
+          y: number,
+          z: number
+        };
+        types: string[];
+
         constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
 
         positionFromDBId(model: Viewing.Model, dbId: number): void;

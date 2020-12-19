@@ -73,6 +73,22 @@ fs.createFile(file).then(() => {
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
+fs.mkdir(dir).then(() => {
+    // stub
+});
+fs.mkdir(dir, errorCallback);
+fs.mkdirSync(dir);
+fs.mkdir(dir, modeNum).then(() => {
+    // stub
+});
+fs.mkdir(dir, modeNum, errorCallback);
+fs.mkdirSync(dir, modeNum);
+fs.mkdir(dir, {mode: modeNum}).then(() => {
+    // stub
+});
+fs.mkdir(dir, {mode: modeNum}, errorCallback);
+fs.mkdirSync(dir, {mode: modeNum});
+
 fs.mkdirs(dir).then(() => {
     // stub
 });
