@@ -27,10 +27,22 @@ Autodesk.Viewing.Initializer(options, () => {
         const aecModelData = await Autodesk.Viewing.Document.getAecModelData(docRoot);
         const defaultModel = docRoot.getDefaultGeometry();
 
-        await viewer.loadDocumentNode(doc, defaultModel);
+        const model = await viewer.loadDocumentNode(doc, defaultModel);
+
+        modelTests(model);
     }
 
     function onDocumentLoadFailure() {
         console.error('Failed fetching Forge manifest');
     }
 });
+
+function modelTests(model: Autodesk.Viewing.Model): void {
+    model.isConsolidated();
+    model.isLeaflet();
+    model.isOTG();
+    model.isPageCoordinates();
+    model.isPdf();
+    model.isSceneBuilder();
+    model.isSVF2();
+}
