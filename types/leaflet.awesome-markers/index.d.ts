@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
+import * as Leaflet from 'leaflet';
 
-declare module "leaflet" {
+declare module 'leaflet' {
   namespace AwesomeMarkers {
     const version: string;
 
@@ -19,37 +19,37 @@ declare module "leaflet" {
       /**
        * Select de icon library. 'fa' for font-awesome or 'glyphicon' for bootstrap 3.
        */
-      prefix?: "fa" | "glyphicon";
+      prefix?: 'fa' | 'glyphicon';
 
       /**
        * Color of the marker
        */
       markerColor?:
-        | "white"
-        | "red"
-        | "darkred"
-        | "lightred"
-        | "orange"
-        | "beige"
-        | "green"
-        | "darkgreen"
-        | "lightgreen"
-        | "blue"
-        | "darkblue"
-        | "lightblue"
-        | "purple"
-        | "darkpurple"
-        | "pink"
-        | "cadetblue"
-        | "white"
-        | "gray"
-        | "lightgray"
-        | "black";
+      | 'white'
+      | 'red'
+      | 'darkred'
+      | 'lightred'
+      | 'orange'
+      | 'beige'
+      | 'green'
+      | 'darkgreen'
+      | 'lightgreen'
+      | 'blue'
+      | 'darkblue'
+      | 'lightblue'
+      | 'purple'
+      | 'darkpurple'
+      | 'pink'
+      | 'cadetblue'
+      | 'white'
+      | 'gray'
+      | 'lightgray'
+      | 'black';
 
       /**
        * Color of the icon. 'white', 'black' or css code (hex, rgba etc).
        */
-      iconColor?: "white" | "black" | string;
+      iconColor?: 'white' | 'black' | string;
 
       /**
        * Make the icon spin. true or false. Font-awesome required
