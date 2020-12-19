@@ -4,4 +4,5 @@ ipaiva.library.onDidPick(({ url }) => {
     ipaiva.window.showInformationMessage(url);
 });
 
-ipaiva.textEditor.create(document.createElement('div'));
+// $ExpectType string
+ipaiva.version;
