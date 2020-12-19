@@ -55,7 +55,7 @@ type RegisterType = 'format' | 'locale';
 interface Numeral {
     (value?: any): Numeral;
     version: string;
-    isNumeral(value?: any): boolean;
+    isNumeral(value: any): boolean;
     options: NumeralJSOptions;
 
     /**
