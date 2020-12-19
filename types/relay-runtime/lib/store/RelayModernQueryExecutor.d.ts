@@ -20,7 +20,7 @@ export interface ExecuteConfig {
     readonly operation: OperationDescriptor;
     readonly operationExecutions: Map<string, ActiveState>;
     readonly operationLoader: OperationLoader | null | undefined;
-    readonly operationTracker?: OperationTracker | null | undefined;
+    readonly operationTracker?: OperationTracker | null;
     readonly optimisticConfig: OptimisticResponseConfig | null | undefined;
     readonly publishQueue: PublishQueue;
     readonly reactFlightPayloadDeserializer?: ReactFlightPayloadDeserializer | null;

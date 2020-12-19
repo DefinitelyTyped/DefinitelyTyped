@@ -919,11 +919,13 @@ export interface PublishQueue {
  * ReactFlightDOMRelayClient processes a ReactFlightServerTree into a
  * ReactFlightClientResponse object. readRoot() can suspend.
  */
-export type ReactFlightClientResponse = { readRoot: () => any };
+export interface ReactFlightClientResponse {
+    readRoot: () => any;
+}
 
-export type ReactFlightReachableQuery = {
+export interface ReactFlightReachableQuery {
     readonly module: any;
     readonly variables: Variables;
-};
+}
 
 export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;

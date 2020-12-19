@@ -41,13 +41,13 @@ export interface NormalizationScalarField {
     readonly storageKey: string | null | undefined;
 }
 
-export type NormalizationFlightField = {
+export interface NormalizationFlightField {
     readonly kind: string; // 'FlightField';
     readonly alias: string | null | undefined;
     readonly name: string;
     readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
     readonly storageKey: string | null | undefined;
-};
+}
 
 export interface NormalizationTypeDiscriminator {
     readonly kind: string; // 'TypeDiscriminator';
