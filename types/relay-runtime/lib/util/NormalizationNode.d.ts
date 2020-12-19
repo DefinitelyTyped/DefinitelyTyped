@@ -13,7 +13,7 @@ export interface NormalizationClientExtension {
     selections: ReadonlyArray<NormalizationSelection>;
 }
 
-export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
+export type NormalizationField = NormalizationFlightField | NormalizationScalarField | NormalizationLinkedField;
 
 export interface NormalizationLinkedField {
     readonly kind: string; // 'LinkedField';
@@ -24,20 +24,6 @@ export interface NormalizationLinkedField {
     readonly concreteType: string | null | undefined;
     readonly plural: boolean;
     readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export interface NormalizationMatchField {
-    readonly kind: string; // 'MatchField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<NormalizationArgument>;
-    readonly matchesByType: {
-        readonly [key: string]: {
-            readonly fragmentPropName: string;
-            readonly fragmentName: string;
-        };
-    };
 }
 
 export interface NormalizationOperation {
@@ -55,6 +41,14 @@ export interface NormalizationScalarField {
     readonly storageKey: string | null | undefined;
 }
 
+export type NormalizationFlightField = {
+    readonly kind: string; // 'FlightField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly storageKey: string | null | undefined;
+};
+
 export interface NormalizationTypeDiscriminator {
     readonly kind: string; // 'TypeDiscriminator';
     readonly abstractKey: string;
@@ -65,6 +59,7 @@ export type NormalizationSelection =
     | NormalizationClientExtension
     | NormalizationDefer
     | NormalizationField
+    | NormalizationFlightField
     | NormalizationHandle
     | NormalizationInlineFragment
     | NormalizationModuleImport
