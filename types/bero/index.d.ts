@@ -1,4 +1,4 @@
-// Type definitions for bero 1.0
+// Type definitions for bero 0.1
 // Project: https://github.com/ZER0/bero
 // Definitions by: Alessandro Rabitti <https://github.com/silversonicaxel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
