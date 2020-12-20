@@ -11,9 +11,9 @@
 
 declare namespace kurento {
     interface Constructor {
-        (ws_uri: string, options?: Options): Promise<ClientInstance>;
+        (ws_uri: string, options?: Options, callback?: Callback<ClientInstance>): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
-        getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
+        getSingleton(ws_uri: string, options?: Options, callback?: Callback<ClientInstance>): Promise<ClientInstance>;
         register: (module: string | ReturnType<NodeRequire>) => void;
         on: undefined;
     }

@@ -37,7 +37,7 @@ async () => {
 };
 
 async () => {
-    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true }, () => {});
     const pipeline = await client.create('MediaPipeline');
 
     await pipeline.release();
@@ -47,7 +47,7 @@ async () => {
     const endpointId = 'endpointId';
     const candidate = new RTCIceCandidate();
 
-    const client = await kurento.getSingleton('//server', {});
+    const client = await kurento.getSingleton('//server', {}, () => {});
     const endpoint = ((await client.getMediaobjectById(endpointId)) as any) as WebRtcEndpoint;
     const server = await client.getServerManager();
 
