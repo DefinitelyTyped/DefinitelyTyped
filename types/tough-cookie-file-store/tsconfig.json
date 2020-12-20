@@ -13,9 +13,7 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "tough-cookie": ["tough-cookie"]
-        },
+        "paths": {},
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
