@@ -1,4 +1,4 @@
-import * as Inputmask from "inputmask";
+import Inputmask from "inputmask";
 
 Inputmask({
     mask: "(999) 999-9999",

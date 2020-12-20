@@ -739,7 +739,28 @@ declare namespace Inputmask {
     }
 }
 
+// Helper to be able to export the types globally
+declare namespace Inputmask_ {
+    export {};
+    export import Proxy = Inputmask;
+}
+
 declare global {
+    namespace Inputmask {
+        type Casing = Inputmask_.Proxy.Casing;
+        type CommandObject = Inputmask_.Proxy.CommandObject;
+        type Definition = Inputmask_.Proxy.Definition;
+        type DefinitionValidator = Inputmask_.Proxy.DefinitionValidator;
+        type InputMode = Inputmask_.Proxy.InputMode;
+        type InsertPosition = Inputmask_.Proxy.InsertPosition;
+        type Instance = Inputmask_.Proxy.Instance;
+        type Options = Inputmask_.Proxy.Options;
+        type PositionCaretOnClick = Inputmask_.Proxy.PositionCaretOnClick;
+        type Range = Inputmask_.Proxy.Range;
+        type Static = Inputmask_.Proxy.Static;
+    }
+    const Inputmask: Inputmask.Static;
+
     interface HTMLElement {
         inputmask?: Inputmask.Instance;
     }
@@ -815,5 +836,4 @@ declare global {
 }
 
 declare const Inputmask: Inputmask.Static;
-export = Inputmask;
-export as namespace Inputmask;
+export default Inputmask;
