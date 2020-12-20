@@ -1,15 +1,12 @@
 // Type definitions for mjml-core 4.7
 // Project: https://mjml.io
 // Definitions by: Ian Edington       <https://github.com/IanEdington>
-//                 aahoughton         <https://github.com/aahoughton>
-//                 marpstar           <https://github.com/marpstar>
-//                 eiskalteschatten   <https://github.com/eiskalteschatten>
-//                 emrah88            <https://github.com/emrah88>
+//                 Ryan Burr          <https://github.com/ryanburr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * The main parser for MJML.
- * This version doesn't contain any of the components registered in the 'mjml' package.
+ * This version doesn't contain any of the core components registered in the 'mjml' package.
  */
 export default function mjml2html(input: string | MJMLJsonObject, options?: MJMLParsingOptions): MJMLParseResults;
 
@@ -133,11 +130,23 @@ export interface MJMLParseError {
     formattedMessage: string;
 }
 
-export interface MJMLJsonObject {
+export type MJMLJsonObject = MJMLJsonNonEndingTag | MJMLJsonEndingTag | MJMLJsonEndingTagWithoutContent;
+
+export interface MJMLJsonNonEndingTag {
     tagName: string;
     attributes: object;
-    children?: MJMLJsonObject[];
-    content?: string;
+    children: MJMLJsonObject[];
+}
+
+export interface MJMLJsonEndingTag {
+    tagName: string;
+    attributes: object;
+    content: string;
+}
+
+export interface MJMLJsonEndingTagWithoutContent {
+    tagName: string;
+    attributes: object;
 }
 
 /**
