@@ -2,6 +2,7 @@
 // Project: https://github.com/expressjs/cors/
 // Definitions by: Alan Plum <https://github.com/pluma>
 //                 Gaurav Sharma <https://github.com/gtpan77>
+//                 Bedrock Coder <https://github.com/bedrockcoder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,7 +17,7 @@ declare namespace e {
     }
     interface CorsOptions {
         /**
-         * @default '*''
+         * @default '*'
          */
         origin?: boolean | string | RegExp | (string | RegExp)[] | CustomOrigin;
         /**
