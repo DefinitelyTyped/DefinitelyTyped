@@ -7,6 +7,10 @@ const block1 = bem('block', ['modifier1', undefined, 'modifier2']);
 const block2 = bem('block');
 const classesElement2 = join(block2('element', ['modifier']), 'extra-element-class');
 
+const classesElement3 = join(block2('element', ['modifier']), undefined);
+
+const classesElement4 = join(block2('element', undefined), undefined);
+
 const classesBlock3 = bem('block', 'element', {
     modifier1: true,
     modifier2: 1,
@@ -27,7 +31,7 @@ const classesBlock5 = bem('block', {
 });
 
 const block6 = bem('block6');
-const classesBlock6 = block6(['element1', undefined, 'Element2']);
+const classesBlock6 = block6(['element1', undefined, 'Element2', false]);
 
 const block7 = bem('block7');
 const classesBlock7 = block7({
@@ -43,3 +47,14 @@ element8({
     modifier3: undefined,
     modifier4: false,
 });
+
+const element9 = bem('block', undefined);
+
+const test1 = false;
+bem('block', { test1 });
+
+const test2 = undefined;
+bem('block', { test2 });
+
+let testClass = 'first-class';
+testClass += ` ${bem('block', { test2 })} `;
