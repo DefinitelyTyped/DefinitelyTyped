@@ -30,13 +30,14 @@ export interface LexSlotResolution {
     value: string;
 }
 
+export interface LexSlotDetail {
+    // "at least 1 but no more than 5 items"
+    resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
+    originalValue: string;
+}
+
 export interface LexSlotDetails {
-    [name: string]: {
-        // The following line only works in TypeScript Version: 3.0, The array should have at least 1 and no more than 5 items
-        // resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
-        resolutions: LexSlotResolution[];
-        originalValue: string;
-    };
+    [name: string]: LexSlotDetail;
 }
 
 export interface LexGenericAttachment {
