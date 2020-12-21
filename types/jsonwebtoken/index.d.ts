@@ -99,8 +99,7 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback = (
-    err: VerifyErrors | null,
-    decoded: object | undefined,
+    ...args: [VerifyErrors, undefined] | [null, object]
 ) => void;
 
 export type SignCallback = (
