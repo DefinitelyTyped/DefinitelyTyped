@@ -679,6 +679,7 @@ const multiSelectObjs = (
             { id: 1, name: "one" },
             { id: 2, name: "two", someBoolProp: true }
         ]}
+        itemToString={(item) => item?.name || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
