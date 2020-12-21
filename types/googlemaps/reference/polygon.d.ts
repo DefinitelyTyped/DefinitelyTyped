@@ -170,7 +170,7 @@ declare namespace google.maps {
     }
 
     /**
-     * https://developers.google.com/maps/documentation/javascript/reference/polygon?hl=en#PolyMouseEvent
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/polygon#PolyMouseEvent Maps JavaScript API}
      */
     interface PolyMouseEvent extends MapMouseEvent {
         /**
