@@ -31,6 +31,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     light?: boolean,
     locale?: string,
     onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
+    onMenuChange?(open: boolean): void;
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
     size?: ListBoxSize,
