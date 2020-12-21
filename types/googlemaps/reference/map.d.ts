@@ -614,10 +614,11 @@ declare namespace google.maps {
          */
         latLng: LatLng;
         /**
-         * The corresponding native DOM event. Developers should not rely on target,
-         * currentTarget, relatedTarget and path properties being defined and consistent.
-         *  Developers should not also rely on the DOM structure of the internal
+         * The corresponding native DOM event. Developers should not rely on `target`,
+         * `currentTarget`, `relatedTarget` and `path` properties being defined and consistent.
+         * Developers should not also rely on the DOM structure of the internal
          * implementation of the Maps API.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent.domEvent Maps JavaScript API}
          */
         domEvent: MouseEvent | TouchEvent | PointerEvent | Event;
     }
