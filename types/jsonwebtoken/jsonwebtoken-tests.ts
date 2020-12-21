@@ -77,8 +77,8 @@ jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
 
 // invalid token
 jwt.verify(token, "wrong-secret", (err, decoded) => {
-    // err
-    // decoded undefined
+    console.log(Boolean(err)); // true
+    console.log(decoded); // undefined
 });
 
 // verify with encrypted RSA SHA256 private key
