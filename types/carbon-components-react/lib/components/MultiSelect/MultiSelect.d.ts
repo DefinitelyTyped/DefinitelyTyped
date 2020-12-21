@@ -42,8 +42,8 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     warnText?: React.ReactNode,
 }
 
-interface MultiSelect<T extends ListBoxBaseItemType = string> {
-    (props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn
+interface MultiSelect {
+    <T extends ListBoxBaseItemType = string>(props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn;
     readonly Filterable: typeof FilterableMultiSelect;
 }
 

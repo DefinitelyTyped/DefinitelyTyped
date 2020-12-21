@@ -666,6 +666,25 @@ const multiSelect = (
     />
 );
 
+type MultiSelectObjType1 = {
+    id: number,
+    name: string,
+    someBoolProp?: boolean
+};
+
+const multiSelectObjs = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true },
+            // @ts-expect-error not on object type
+            { id: 3, name: "three", typeError: true }
+        ]}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
@@ -679,26 +698,26 @@ const multiSelectFilterable = (
     />
 );
 
-const multiSelectFilterableObjs = [
+const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
-        id: "1",
+        id: 1,
         name: "One"
     },
     {
-        id: "2",
+        id: 2,
         name: "Two",
-        label: "label"
+        someBoolProp: true,
     }
 ];
 const multiSelectFilterableObj = (
-    <MultiSelect.Filterable
+    <MultiSelect.Filterable<MultiSelectObjType1>
         id="clusters"
         initialSelectedItems={[multiSelectFilterableObjs[0]]}
         items={multiSelectFilterableObjs}
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item && item.label ? item.label : ""}
+        itemToString={item => item && item.name ? item.name : ""}
         onChange={({ selectedItems }) => {}}
     />
 );
