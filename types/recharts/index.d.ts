@@ -417,7 +417,9 @@ export interface LegendPayload {
     id: any;
     type: LegendType;
     color?: string;
-    payload?: Record<"strokeDasharray", string>;
+    payload?: {
+        strokeDasharray: string;
+    };
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
