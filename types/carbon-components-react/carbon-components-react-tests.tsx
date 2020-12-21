@@ -390,6 +390,10 @@ const t5 = (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
                                     <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                        onChange={(val, idOrName, evt) => console.log(val, idOrName, evt)}
+                                    />
                                     {row.cells.map(cell => (
                                         <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
