@@ -603,7 +603,7 @@ declare namespace google.maps {
     /**
      * This object is returned from various mouse events on the map and overlays,
      * and contains all the fields shown below.
-     * https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent Maps JavaScript API}
      */
     interface MapMouseEvent {
         /** Prevents this event from propagating further. */
