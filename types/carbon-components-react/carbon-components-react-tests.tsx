@@ -666,20 +666,18 @@ const multiSelect = (
     />
 );
 
-type MultiSelectObjType1 = {
+interface MultiSelectObjType1 {
     id: number,
     name: string,
     someBoolProp?: boolean
-};
+}
 
 const multiSelectObjs = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
         items={[
             { id: 1, name: "one" },
-            { id: 2, name: "two", someBoolProp: true },
-            // @ts-expect-error not on object type
-            { id: 3, name: "three", typeError: true }
+            { id: 2, name: "two", someBoolProp: true }
         ]}
         onChange={({ selectedItems }) => {}}
     />
