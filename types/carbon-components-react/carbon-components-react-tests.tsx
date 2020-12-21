@@ -27,6 +27,7 @@ import {
     TableRow,
     Tag,
     TileGroup,
+    Tooltip,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -549,6 +550,9 @@ const tileGroupA = (
         }}
     />
 );
+
+// Tooltip
+const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
 
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
