@@ -130,21 +130,21 @@ export interface MJMLParseError {
     formattedMessage: string;
 }
 
-export type MJMLJsonObject = MJMLJsonNonEndingTag | MJMLJsonEndingTag | MJMLJsonEndingTagWithoutContent;
+export type MJMLJsonObject = MJMLJsonWithChildren | MJMLJsonWithContent | MJMLJsonSelfClosingTag;
 
-export interface MJMLJsonNonEndingTag {
+export interface MJMLJsonWithChildren {
     tagName: string;
     attributes: object;
     children: MJMLJsonObject[];
 }
 
-export interface MJMLJsonEndingTag {
+export interface MJMLJsonWithContent {
     tagName: string;
     attributes: object;
     content: string;
 }
 
-export interface MJMLJsonEndingTagWithoutContent {
+export interface MJMLJsonSelfClosingTag {
     tagName: string;
     attributes: object;
 }
