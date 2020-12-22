@@ -27,6 +27,7 @@ declare class BufferBuilder {
     appendFill(value: number, count: number): BufferBuilder;
     get(): Buffer;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+    readonly length: number;
 }
 
 export = BufferBuilder;
