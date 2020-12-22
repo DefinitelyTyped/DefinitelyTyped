@@ -3,7 +3,7 @@
 // Definitions by: Devin Spikowski <https://github.com/vegeta897>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function timestring(
+export default function timestring(
     input: string,
     returnUnit?:
         | 'ms'
