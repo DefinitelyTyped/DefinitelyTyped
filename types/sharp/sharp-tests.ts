@@ -261,6 +261,19 @@ sharp('input.jpg')
         console.log(info);
     });
 
+sharp(input)
+    .avif()
+    .avif({})
+    .avif({ quality: 50, lossless: false, speed: 5 })
+    .heif()
+    .heif({})
+    .heif({ quality: 50, compression: 'hevc', lossless: false, speed: 5 })
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
 sharp('input.jpg')
     .stats()
     .then(stats => {
