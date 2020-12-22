@@ -467,7 +467,7 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
-                        filterPolicy: ['testfilterpolicy'],
+                        filterPolicy: { testFilterPolicy: 'testfilterpolicy' },
                         redrivePolicy: {
                             deadLetterTargetArn: 'testdeadLetterTargetArn',
                             deadLetterTargetRef: 'testdeadLetterTargetRef',
