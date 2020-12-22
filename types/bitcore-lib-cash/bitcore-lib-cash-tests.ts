@@ -25,8 +25,7 @@ const tx = new bitcore.Transaction()
   .from(utxo)
   .change('bitcoinAddress')
   .addData(Buffer.from(''))
-  .sign('bitcoinAddressPrivateKey')
-  .enableRBF();
+  .sign('bitcoinAddressPrivateKey');
 
 tx.verify();
 
