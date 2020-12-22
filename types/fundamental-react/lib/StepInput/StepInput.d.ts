@@ -5,6 +5,7 @@ export interface StepInputProps {
     disabled?: boolean;
     disableStyles?: boolean;
     localizedText?: any;
+    onChange?: (stepValue: number) => void;
     placeholder?: string;
     readOnly?: boolean;
     validationState?: {

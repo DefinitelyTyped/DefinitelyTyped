@@ -51,14 +51,15 @@ twig.extendTag(value);
 
 const compiled = twig.compile(str, compOpts);
 
-twig.renderFile(str, compOpts, (err, result) => {
-});
+const renderOpts: twig.RenderOptions = {
+    allowAsync: true,
+    settings: value
+};
 
-twig.renderFile(str, {}, (err, result) => {
+twig.renderFile(str, renderOpts, (err, result) => {
 });
-
 twig.renderFile(str, (err, result) => {
-}, null);
+});
 
 twig.__express(str, compOpts, (err, result) => {
 });

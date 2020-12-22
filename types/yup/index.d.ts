@@ -14,6 +14,7 @@
 //                 Elías García <https://github.com/elias-garcia>
 //                 Ian Sanders <https://github.com/iansan5653>
 //                 Jay Fong <https://github.com/fjc0k>
+//                 Lukas Elmer <https://github.com/lukaselmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -413,8 +414,9 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
 export type TestFunction<T = unknown, C = object> = (
     this: TestContext<C>,
     value: T,
+    context: TestContext<C>
 ) => boolean | ValidationError | Promise<boolean | ValidationError>;
-export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: any) => value is T;
+export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: any, context: TestContext<C>) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
@@ -442,6 +444,7 @@ export interface TestContext<C = object> {
     options: ValidateOptions<C>;
     parent: any;
     schema: Schema<any, C>;
+    originalValue: any;
     resolve: (value: any) => any;
     createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
@@ -623,6 +626,7 @@ export interface MixedLocale {
     oneOf?: TestOptionsMessage<{ values: any }>;
     notOneOf?: TestOptionsMessage<{ values: any }>;
     notType?: LocaleValue;
+    defined?: TestOptionsMessage;
 }
 
 export interface StringLocale {
@@ -643,6 +647,7 @@ export interface NumberLocale {
     max?: TestOptionsMessage<{ max: number }>;
     lessThan?: TestOptionsMessage<{ less: number }>;
     moreThan?: TestOptionsMessage<{ more: number }>;
+    notEqual?: TestOptionsMessage<{ notEqual: number }>;
     positive?: TestOptionsMessage<{ more: number }>;
     negative?: TestOptionsMessage<{ less: number }>;
     integer?: TestOptionsMessage;
@@ -654,7 +659,7 @@ export interface DateLocale {
 }
 
 export interface ObjectLocale {
-    noUnknown?: TestOptionsMessage;
+    noUnknown?: TestOptionsMessage<{ unknown: string }>;
 }
 
 export interface ArrayLocale {

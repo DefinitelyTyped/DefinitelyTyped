@@ -162,7 +162,7 @@ export interface Trigger {
 export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any> extends JQueryAjaxSettingsBase {
     delay?: number;
     url?: string | ((params: QueryOptions) => string);
-    data?: (params: QueryOptions) => PlainObject;
+    data?: (params: QueryOptions) => PlainObject | string;
     transport?: (settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void;
     processResults?: (data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>;
 }
@@ -228,14 +228,14 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     sorter?: (data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>;
     tags?: boolean;
     templateResult?: (result: LoadingData | Result) => string | JQuery | null;
-    templateSelection?: (selection: IdTextPair | LoadingData | Result) => string | JQuery;
+    templateSelection?: (selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery;
     theme?: string;
     tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Options) => string;
     tokenSeparators?: string[];
     width?: string;
 
     // Not in https://select2.org/configuration/options-api
-    createTag?: (params: SearchOptions) => IdTextPair | null;
+    createTag?: (params: SearchOptions) => (IdTextPair & Record<string, any>) | null;
     insertTag?: (data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void;
 }
 

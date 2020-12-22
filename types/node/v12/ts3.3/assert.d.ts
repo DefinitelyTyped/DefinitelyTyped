@@ -15,9 +15,30 @@ declare module 'assert' {
                 actual?: any;
                 expected?: any;
                 operator?: string;
+                // tslint:disable-next-line:ban-types
                 stackStartFn?: Function;
             });
         }
+
+        class CallTracker {
+            calls(exact?: number): () => void;
+            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            report(): CallTrackerReportInformation[];
+            verify(): void;
+        }
+        interface CallTrackerReportInformation {
+            message: string;
+            /** The actual number of times the function was called. */
+            actual: number;
+            /** The number of times the function was expected to be called. */
+            expected: number;
+            /** The name of the function that is wrapped. */
+            operator: string;
+            /** A stack trace of the function. */
+            stack: object;
+        }
+
+        type AssertPredicate = RegExp | (new () => object) | ((thrown: any) => boolean) | object | Error;
 
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
@@ -26,6 +47,7 @@ declare module 'assert' {
             expected: any,
             message?: string | Error,
             operator?: string,
+            // tslint:disable-next-line:ban-types
             stackStartFn?: Function,
         ): never;
         function ok(value: any, message?: string | Error): void;
@@ -43,22 +65,22 @@ declare module 'assert' {
         function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
         function throws(block: () => any, message?: string | Error): void;
-        function throws(block: () => any, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
         function doesNotThrow(block: () => any, message?: string | Error): void;
-        function doesNotThrow(block: () => any, error: RegExp | Function, message?: string | Error): void;
+        function doesNotThrow(block: () => any, error: AssertPredicate, message?: string | Error): void;
 
         function ifError(value: any): void;
 
         function rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function rejects(
             block: (() => Promise<any>) | Promise<any>,
-            error: RegExp | Function | Object | Error,
+            error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(
             block: (() => Promise<any>) | Promise<any>,
-            error: RegExp | Function,
+            error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
 

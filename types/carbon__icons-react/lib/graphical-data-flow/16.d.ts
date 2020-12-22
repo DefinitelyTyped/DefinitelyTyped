@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const GraphicalDataFlow16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default GraphicalDataFlow16;
+export { GraphicalDataFlow16 as default } from "../../";

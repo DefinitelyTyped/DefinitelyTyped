@@ -9,25 +9,34 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 ## Tabela de Conteúdos
 
 * [Status atual](#status-atual)
+* [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)
+* [Como eu consigo eles?](#como-eu-consigo-eles)
 * [Como eu posso contribuir?](#como-eu-posso-contribuir)
-    * [Testando](#testando)
-    * [Faça uma pull request](#faça-uma-pull-request)
-        * [Edite um pacote existente](#edite-um-pacote-existente)
-        * [Crie um novo pacote](#crie-um-novo-pacote)
-        * [Erros comuns](#erros-comuns)
-        * [Removendo um pacote](#removendo-um-pacote)
-        * [Linter](#linter)
-        * [Verificando](#verificando)
+  - [Testando](#testando)
+  - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
+    - [Edite um pacote existente](#edite-um-pacote-existente)
+    - [Crie um novo pacote](#crie-um-novo-pacote)
+    - [Removendo um pacote](#removendo-um-pacote)
+    - [Verificando](#verificando)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
+    - [Linter: `tslint.json`](#linter-tslintjson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#package.json)
+    - [`OTHER_FILES.txt`](#other_filestxt)
+    - [Erros comuns](#erros-comuns)
+    </details>
+  - [Donos de definição](#donos-de-definição)
 * [FAQ](#faq)
+* [Licença](#licença)
 
 ## Status atual
 
 Essa seção acompanha a saúde do respositório e o processo de publicação.
-Ela pode servir de ajuda para contribuidores que estejam passado por problemas com suas PRs e pacotes.
+Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
 * Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/types-publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Atualizações do status da infraestrutura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) atual
 
@@ -135,8 +144,6 @@ Crie o arquivo `types/foo/index.d.ts` contendo as declarações para o módulo "
 Você deve conseguir fazer imports de `"foo"` em seu código e ele será redirecionado para a nova definição de tipos.
 Então faça uma build *e* execute o código para ter certeza que sua definição de tipos realmente corresponde ao que acontece em tempo de execução.
 
-Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
-
 Logo após testar suas definições com um código real, faça uma [PR](#faça-uma-pull-request)
 e então siga as instruções para [editar um pacote existente](#edite-um-pacote-existente) ou
 [criar um novo pacote](#crie-um-novo-pacote).
@@ -152,47 +159,12 @@ Primeiro, [faça um fork](https://guides.github.com/activities/forking/) deste r
 #### Edite um pacote existente
 
 * `cd types/meu-pacote-para-editar`
-* Faça as mudanças. Lembre de editar os testes.
+* Faça as mudanças. Lembre de [editar os testes](#my-package-teststs).
   Se você está fazendo mudanças que podem "quebrar" o pacote, não se esqueça de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versão-major-com-mudanças-drásticas-como-eu-devo-atualizar-a-declaração-de-tipos).
-
-* Se há um `tslint.json`, execute `npm run lint nome-do-pacote`. Senão, execute `tsc` no diretório do pacote.
+* [Execute `npm test nome-do-pacote`](#verificando).
 
 Quando você fizer uma PR para editar um pacote existente, o `dt-bot` deve mencionar (usando "@") os antigos autores.
 Se ele não o fizer, você mesmo pode fazer isso no comentário associado a PR.
-
-#### Editando testes em um pacote existente
-
-Deve existir um arquivo `[nomedomódulo]-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
-
-Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
-Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
-
-Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
-
-`index.d.ts`:
-
-```diff
-- export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
-```
-
-`index-tests.ts`:
-```diff
-import {twoslash} from "./"
-
-// $ExpectType string
-const result = twoslash("//")
-
-+ // Lida com o parâmetro options
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
-+ // Quando o parâmetro está incorreto
-+ // $ExpectError
-+ const resultWithOptions = twoslash("//", {  })
-```
-
-Você pode validar suas mudanças executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
 #### Crie um novo pacote
 
@@ -206,80 +178,32 @@ Seu pacote deve possuir a seguinte estrutura:
 
 | Arquivo | Propósito |
 | --- | --- |
-| index.d.ts | Contém os tipos para o pacote. |
-| foo-tests.ts | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
-| tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
-| tslint.json | Habilita a análise do código pelo linter. |
+| `index.d.ts` | Contém os tipos para o pacote. |
+| [`<my-package>-tests.ts`](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
+| [`tsconfig.json`](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
+| [`tslint.json`](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
 
-Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador. Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
-
-Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
+Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
 
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-## Donos de definição
-
-O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
-  - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
-  - Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
-  - Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
-
- Para se adicionar como um Dono de definição:
-  
-  - Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Ou se há muitas pessoas, pode ser em várias linhas:
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
-
-Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
-
-#### Erros comuns
-
-* Primeiro, siga as instruções do [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
-    ```tsx
-    // prettier-ignore
-    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-    ```
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
-* `interface Foo { new(): Foo; }`:
-    Isto define um tipo de objeto que pode ser instanciado utlizando o operador `new`. Você provavelmente deveria escrever `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-    Prefira usar a declaração de classe `class Class { constructor(); }` em vez de uma constante que pode ser instanciada utlizando o operador `new`.
-* `getMeAT<T>(): T`:
-    Se um parâmetro de tipo não estiver no tipo de nenhum dos parâmetros, então você não tem realmente uma função genérica, você só tem uma asserção de tipos disfarçada.
-    Prefira usar uma asserção de tipos real, por exemplo `getMeAT() as number`.
-    Um exemplo onde um parâmetro de tipo é aceitável: `function id<T>(value: T): T;`.
-    Um exemplo onde não é aceitável: `function parseJson<T>(json: string): T;`.
-    Exceção: `new Map<string, number>()` é aceitável.
-* Usar os tipos `Function` e `Object` quase nunca é uma boa ideia. Em 99% dos casos é possível especificar um tipo mais específico. Por exemplo `(x: number) => number` para [funções](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` para objetos. Se você não tem nenhuma certeza sobre o tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) é a escolha correta, não `Object`. Se a única certeza sobre o tipo é que ele é algum objeto, use o tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), não `Object` ou `{ [key: string]: any }`.
-* `var foo: string | any`:
-    Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então, enquanto a parte da anotação de tipo `string` pode _parecer_ útil, na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
-    Dependendo da intenção, alternativas aceitáveis podem ser `any`, `string`, ou `string | object`.
-
-
 #### Removendo um pacote
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`
+Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
 - `typingsPackageName`: O nome do diretório a ser deletado.
 - `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `sourceRepoURL`: Essa URL deve apontar um repositório que contém os tipos.
-- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao "typingsPackageName", e nesse caso pode ser omitido.
+- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `typingsPackageName`, e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
-Você pode obter esta lista olhando os erros do `npm run test`.
-Para corrigir os erros, adicione o arquivo `package.json` com `"dependencies": { "foo": "x.y.z" }`.
+Você pode obter esta lista olhando os erros do `npm test`.
+Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "foo": "x.y.z" }`.
 Por exemplo:
 
 ```json
@@ -291,32 +215,51 @@ Por exemplo:
 }
 ```
 
-Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao dependenciesWhitelist.txt em types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
 
-#### Linter
+#### Verificando
 
-Todos os novos pacotes devem passar pelo linter. Para habilitar o linter num pacote, adicione um `tslint.json` para aquele pacote, contendo:
-```js
-{
-    "extends": "dtslint/dt.json"
-}
+Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+
+Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+
+#### `<my-package>-tests.ts`
+
+Deve existir um arquivo `<my-package>-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my-package>-tests.ts`.
+Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
+
+Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
+Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `<my-package>-tests.ts`.
+
+Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
 ```
 
-Este deve ser o único conteúdo no arquivo `tslint.json` de um projeto finalizado. Se um `tslint.json` desabilitar certas regras, é porque elas ainda não foram corrigidas. Por exemplo:
+`<my-package>-tests.ts`:
+```diff
+import {twoslash} from "./"
 
-```js
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // Este pacote usa o tipo Function, e vai dar trabalho para arrumar.
-        "ban-types": false
-    }
-}
+// $ExpectType string
+const result = twoslash("//")
+
++ // Lida com o parâmetro options
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // Quando o parâmetro está incorreto
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
 ```
 
-(Para indicar que uma regra de lint de fato não se aplica, use `// tslint:disable nome-da-regra` ou até mesmo, `//tslint:disable-next-line nome-da-regra`.)
+Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
+
+Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
 Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
 
@@ -330,18 +273,85 @@ f("um");
 
 Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
 
-## Verificando
+#### Linter: `tslint.json`
 
-Teste suas mudanças executando o comando `npm run lint nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
+#### `tsconfig.json`
+
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+
+Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador.
+
+#### `package.json`
+
+Geralmente você não precisa disso.
+O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
+Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
+[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
+Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
+
+Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
+Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
+
+#### `OTHER_FILES.txt`
+
+Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
+
+#### Erros comuns
+
+* Primeiro, siga as instruções do [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
+* `interface Foo { new(): Foo; }`:
+  Isto define um tipo de objeto que pode ser instanciado utlizando o operador `new`. Você provavelmente deveria escrever `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  Prefira usar a declaração de classe `class Class { constructor(); }` em vez de uma constante que pode ser instanciada utlizando o operador `new`.
+* `getMeAT<T>(): T`:
+  Se um parâmetro de tipo não estiver no tipo de nenhum dos parâmetros, então você não tem realmente uma função genérica, você só tem uma asserção de tipos disfarçada.
+  Prefira usar uma asserção de tipos real, por exemplo `getMeAT() as number`.
+  Um exemplo onde um parâmetro de tipo é aceitável: `function id<T>(value: T): T;`.
+  Um exemplo onde não é aceitável: `function parseJson<T>(json: string): T;`.
+  Exceção: `new Map<string, number>()` é aceitável.
+* Usar os tipos `Function` e `Object` quase nunca é uma boa ideia. Em 99% dos casos é possível especificar um tipo mais específico. Por exemplo `(x: number) => number` para [funções](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` para objetos. Se você não tem nenhuma certeza sobre o tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) é a escolha correta, não `Object`. Se a única certeza sobre o tipo é que ele é algum objeto, use o tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), não `Object` ou `{ [key: string]: any }`.
+* `var foo: string | any`:
+  Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então, enquanto a parte da anotação de tipo `string` pode _parecer_ útil, na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
+  Dependendo da intenção, alternativas aceitáveis podem ser `any`, `string`, ou `string | object`.
+
+### Donos de definição
+
+O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
+
+* Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
+* Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
+* Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
+
+Para se adicionar como um Dono de definição:
+
+* Adicione seu nome ao final da linha, por exemplo: `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Ou se há muitas pessoas, pode ser em várias linhas:
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Uma vez por semana os Donos de definição são sincronizados para o arquivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que é a nossa fonte da verdade.
 
 ## FAQ
 
 #### Qual exatamente é a relação entre este repositório e os pacotes `@types` no NPM?
 
-A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [types-publisher](https://github.com/Microsoft/types-publisher).
+A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### Eu já enviei uma pull request. Quanto tempo pode demorar até que haja um merge?
 
@@ -361,19 +371,6 @@ Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma ho
 
 Se o módulo o qual você está referenciando é um módulo externo (usa `export`), use um import.
 Se o módulo que você está referenciando é um módulo de ambiente (usa `declare module`, ou apenas declara globalmente), use `<reference types="" />`.
-
-#### Eu percebi que alguns pacotes tem um `package.json` aqui.
-
-Geralmente você não precisa disso.
-O distribuidor de pacotes do Definitely Typed cria um `package.json` para pacotes sem dependências fora do Definitely Typed.
-Um `package.json` pode ser incluído para especificar dependências que não são outros pacotes `@types`.
-[Pikaday é um bom exemplo.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-Mesmo se você criar seu próprio `package.json`, você pode apenas especificar dependências; outros campos como `"description"` não são permetidos.
-Você também precisa adicionar uma dependência à [lista de pacotes permitidos](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
-Essa lista é atualizada por um humano, o que nos dá a chance de nos certificar que os pacotes `@types` não dependem de pacotes maliciosos.
-
-Nos caso raro que um pacote `@types` é deletado e removido em favor dos tipos enviados pelo pacote-fonte e você precise depender do pacote antigo `@types`, já removido, você pode adicionar a dependência no pacote `@types`.
-Tenha certeza de explicar isso quando adicioná-lo à lista de pacotes permitidos, para que o mantenedor humano saiba o que está acontecendo.
 
 #### Alguns pacotes não têm `tslint.json`, e alguns arquivos `tsconfig.json` não têm `"noImplicitAny": true`, `"noImplicitThis": true`, ou `"strictNullChecks": true`.
 
@@ -459,7 +456,7 @@ Quando o padrão sair do papel, nós o removeremos do Definitely Typed e descont
 _NOTA: A discussão nesta sessão supõe familiaridade com [versionamento semântico](https://semver.org/)_
 
 Cada pacote do Definitely Typed é versionado ao ser publicado ao NPM.
-O [types-publisher](https://github.com/Microsoft/types-publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
+O [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
 Por exemplo, aqui estão as primeiras linhas das [declarações de tipo do Node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) para a versão `10.12.x`, no momento de escrita:
 
 ```js
@@ -534,9 +531,9 @@ Provisoriamente, o `react-router-bootstrap` (que depende do `react-router`) tamb
 
 #### Como eu crio definições para pacotes que podem ser usados globalmente e como um módulo?
 
-O manual do TypeScript contém excelentes [informações gerais sobre criar definições](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), e também [este arquivo de definição de exemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) que mostra como criar uma definição usando a sintaxe de módulo no estilo ES6, enquanto também especifica os objetos que tornaram-se disponíveis ao escopo global. Essa técnica é demonstrada de forma prática na [definição da big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), que é uma biblioteca que pode ser carregada globalmente via tags de script numa página da web, ou importada via require ou via imports no estilo do ES6.
+O manual do TypeScript contém excelentes [informações gerais sobre criar definições](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), e também [este arquivo de definição de exemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) que mostra como criar uma definição usando a sintaxe de módulo no estilo ES6, enquanto também especifica os objetos que tornaram-se disponíveis ao escopo global. Essa técnica é demonstrada de forma prática na [definição da `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), que é uma biblioteca que pode ser carregada globalmente via tags de script numa página da web, ou importada via require ou via imports no estilo do ES6.
 
-Para testar como sua definição pode ser usada tanto quando referenciada globalmente quanto como um módulo importável, crie uma pasta `test`, e coloque dois arquivos de teste nela. Chame um de `NomeDaSuaBiblioteca-global.test.ts` e o outro de `NomeDaSuaBiblioteca-module.test.ts`. O arquivo de teste *global* deve exercer a definição de acordo com como ele seria usado num script carregado numa página da web onde a biblioteca está disponível no escopo global - nesse cenário você não deve especificar uma declaração de importação. O arquivo de teste *module* deve exercer a definição de acordo com como ele seria usado quando importado (incluindo a(s) definição(ões) de `import`). Se Você especificar uma propriedade `files` no seu arquivo `tsconfig.json`, tenha certeza de incluir ambos os arquivos de teste. Um [exemplo prático de como fazer isso](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) também está disponível na definição da big.js.
+Para testar como sua definição pode ser usada tanto quando referenciada globalmente quanto como um módulo importável, crie uma pasta `test`, e coloque dois arquivos de teste nela. Chame um de `NomeDaSuaBiblioteca-global.test.ts` e o outro de `NomeDaSuaBiblioteca-module.test.ts`. O arquivo de teste *global* deve exercer a definição de acordo com como ele seria usado num script carregado numa página da web onde a biblioteca está disponível no escopo global - nesse cenário você não deve especificar uma declaração de importação. O arquivo de teste *module* deve exercer a definição de acordo com como ele seria usado quando importado (incluindo a(s) definição(ões) de `import`). Se Você especificar uma propriedade `files` no seu arquivo `tsconfig.json`, tenha certeza de incluir ambos os arquivos de teste. Um [exemplo prático de como fazer isso](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) também está disponível na definição da `big.js`.
 
 Por favor note que isso não é obrigatório para exercer completamente a definição em cada arquivo de teste - é suficiente para testar apenas os elementos accessíveis globalmente no arquivo de teste global e exercer a definição no arquivo de teste do módulo, ou vice versa.
 

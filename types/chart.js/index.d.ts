@@ -97,9 +97,20 @@ declare class Chart {
         [key: string]: Chart;
     };
 }
+type Plugin = Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
+interface PluginDescriptor {
+    plugin: Plugin;
+    options: Chart.ChartPluginsOptions;
+}
+
 declare class PluginServiceStatic {
-    register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
-    unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    register(plugin: Plugin): void;
+    unregister(plugin: Plugin): void;
+    clear(): void;
+    count(): number;
+    getAll(): Plugin[];
+    notify(chart: Chart, hook: keyof Chart.PluginServiceRegistrationOptions, args: any): boolean;
+    descriptors(chart: Chart): PluginDescriptor[];
 }
 
 interface Meta {
@@ -308,6 +319,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         plugins?: ChartPluginsOptions;
+        defaultColor?: ChartColor;
     }
 
     interface ChartFontOptions {

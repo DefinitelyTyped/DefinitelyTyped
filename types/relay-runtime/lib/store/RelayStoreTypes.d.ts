@@ -63,6 +63,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
@@ -433,29 +434,34 @@ type LogEvent =
           info: any;
       }>
     | Readonly<{
-          name: 'execute.start';
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }>
+        name: 'network.info',
+        transactionID: number,
+        info: unknown,
+    }>
     | Readonly<{
-          name: 'execute.next';
-          transactionID: number;
-          response: GraphQLResponse;
-      }>
+        name: 'network.start',
+        transactionID: number,
+        params: RequestParameters,
+        variables: Variables,
+    }>
     | Readonly<{
-          name: 'execute.error';
-          transactionID: number;
-          error: Error;
-      }>
+        name: 'network.next',
+        transactionID: number,
+        response: GraphQLResponse,
+    }>
     | Readonly<{
-          name: 'execute.complete';
-          transactionID: number;
-      }>
+        name: 'network.error',
+        transactionID: number,
+        error: Error,
+    }>
     | Readonly<{
-          name: 'execute.unsubscribe';
-          transactionID: number;
-      }>
+        name: 'network.complete',
+        transactionID: number,
+    }>
+    | Readonly<{
+        name: 'network.unsubscribe',
+        transactionID: number,
+    }>
     | Readonly<{
           name: 'store.publish';
           source: RecordSource;
@@ -580,7 +586,6 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
@@ -832,17 +837,17 @@ export type MissingFieldHandler =
  */
 export type RequiredFieldLogger = (
     arg:
-      | Readonly<{
-          kind: "missing_field.log",
-          owner: string,
-          fieldPath: string,
-        }>
-      | Readonly<{
-          kind: "missing_field.throw",
-          owner: string,
-          fieldPath: string,
-        }>
-  ) => void;
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
 
 /**
  * The results of normalizing a query.

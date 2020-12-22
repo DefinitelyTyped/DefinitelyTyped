@@ -1,7 +1,7 @@
 import * as Popper from 'popper.js';
 
 declare class Tooltip {
-    constructor(element: Element);
+    constructor(element: Element, options?: Partial<Tooltip.Options>);
 
     /**
      * Reveals an element’s tooltip. Returns to the caller before the
@@ -180,7 +180,7 @@ declare namespace Tooltip {
          *
          * @default ''
          */
-        title: string | Element | (() => void);
+        title: string | Element | ((this: HTMLElement) => string);
 
         /**
          * How tooltip is triggered - click | hover | focus | manual. You may

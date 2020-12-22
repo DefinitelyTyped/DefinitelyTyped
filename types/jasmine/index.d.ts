@@ -157,7 +157,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -213,7 +213,7 @@ declare namespace jasmine {
     // More info: https://stackoverflow.com/a/38642922/2009373
     type Constructor = Function & { prototype: any };
 
-    type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
+    type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
     type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
@@ -246,6 +246,7 @@ declare namespace jasmine {
     }
 
     function clock(): Clock;
+    function DiffBuilder(): DiffBuilder;
 
     var matchersUtil: MatchersUtil;
 
@@ -380,10 +381,10 @@ declare namespace jasmine {
     }
 
     interface CustomAsyncMatcher {
-        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        compare<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
@@ -403,8 +404,15 @@ declare namespace jasmine {
         message?: string;
     }
 
+    interface DiffBuilder {
+      setRoots(actual: any, expected: any): void;
+      recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
+      withPath(pathComponent: string, block: () => void): void;
+      getMessage(): string;
+    }
+
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 
@@ -757,44 +765,44 @@ declare namespace jasmine {
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
          * @param expectationFailOutput
          */
-        toBePending(expectationFailOutput?: any): Promise<void>;
+        toBePending(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): Promise<void>;
+        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): Promise<void>;
+        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): Promise<void>;
+        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
          * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Add some context for an expect.

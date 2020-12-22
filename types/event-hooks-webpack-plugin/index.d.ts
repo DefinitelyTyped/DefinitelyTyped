@@ -1,10 +1,9 @@
-// Type definitions for event-hooks-webpack-plugin 2.0
+// Type definitions for event-hooks-webpack-plugin 2.2
 // Project: https://github.com/cascornelissen/event-hooks-webpack-plugin
 // Definitions by: Pine Mizune <https://github.com/pine>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 export = EventHooksPlugin;
 
@@ -37,6 +36,11 @@ declare namespace EventHooksPlugin {
     }
 }
 
-declare class EventHooksPlugin extends Plugin {
+/**
+ * This webpack plugin is similar to `webpack-shell-plugin`
+ * but this allows you to execute arbitrary JavaScriptinstead of commands on any event hook that is exposed by the Webpack compile
+ */
+declare class EventHooksPlugin implements WebpackPluginInstance {
     constructor(options?: EventHooksPlugin.Options);
+    apply(compiler: Compiler): void;
 }

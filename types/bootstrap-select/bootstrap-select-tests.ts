@@ -1,4 +1,5 @@
-$('.selectpicker').selectpicker({
+const $selectpicker = $('.selectpicker');
+$selectpicker.selectpicker({
     actionsBox: true,
     container: 'body',
     countSelectedText: 'counts > #',
@@ -33,11 +34,14 @@ $('.selectpicker').selectpicker({
     virtualScroll: true,
     width: 'auto',
     windowPadding: 0,
+    sanitize: true,
+    sanitizeFn: () => {},
 });
-$('.selectpicker').selectpicker().trigger('change');
 
-$('.selectpicker').selectpicker('val', 'foo');
-$('.selectpicker').selectpicker('val', ['foo', 'bar']);
-$('.selectpicker').selectpicker('selectAll');
-$('.selectpicker').selectpicker('setStyle', 'btn-large', 'add');
-$('.selectpicker').selectpicker('val', 'foo').trigger('change');
+$selectpicker.selectpicker().trigger('change');
+
+$selectpicker.selectpicker('val', 'foo');
+$selectpicker.selectpicker('val', ['foo', 'bar']);
+$selectpicker.selectpicker('selectAll');
+$selectpicker.selectpicker('setStyle', 'btn-large', 'add');
+$selectpicker.selectpicker('val', 'foo').trigger('change');

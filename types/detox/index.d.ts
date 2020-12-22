@@ -309,6 +309,11 @@ declare global {
              */
             toBeVisible(): R;
             /**
+             * Negate the expectation.
+             * @example await expect(element(by.id('UniqueId205'))).not.toBeVisible();
+             */
+            not: Expect<Promise<void>>;
+            /**
              * Expect the view to not be visible.
              * @example await expect(element(by.id('UniqueId205'))).toBeNotVisible();
              */
@@ -460,12 +465,16 @@ declare global {
              * @param direction
              * @param speed default: `fast`
              * @param @optional percentage screen percentage to swipe; valid input: `[0.0, 1.0]`
+             * @param @optional normalizedStartingPointX X coordinate of swipe starting point, relative to the view width; valid input: `[0.0, 1.0]`
+             * @param @optional normalizedStartingPointY Y coordinate of swipe starting point, relative to the view height; valid input: `[0.0, 1.0]`
              * @example
              * await element(by.id('scrollView')).swipe('down');
              * await element(by.id('scrollView')).swipe('down', 'fast');
              * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2, 0.5);
              */
-            swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
+            swipe(direction: Direction, speed?: Speed, percentage?: number, normalizedStartingPointX?: number, normalizedStartingPointY?: number): Promise<Actions<R>>;
             /**
              * Sets a picker view’s column to the given value. This function supports both date pickers and general picker views. (iOS Only)
              * @param column number of datepicker column (starts from 0)

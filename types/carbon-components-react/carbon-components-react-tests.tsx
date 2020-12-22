@@ -27,6 +27,7 @@ import {
     TableRow,
     Tag,
     TileGroup,
+    Tooltip,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -550,6 +551,9 @@ const tileGroupA = (
     />
 );
 
+// Tooltip
+const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
+
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
@@ -615,6 +619,7 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
 
 // NumberInput
 const numberInput = <NumberInput id="my-id" value={12} />;
+const emptyNumberInput = <NumberInput id="empty-id" value="" />;
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;

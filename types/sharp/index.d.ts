@@ -516,7 +516,7 @@ declare namespace sharp {
          */
         toFormat(
             format: string | AvailableFormatInfo,
-            options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | TiffOptions,
+            options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | GifOptions | TiffOptions,
         ): Sharp;
 
         /**
@@ -634,6 +634,10 @@ declare namespace sharp {
         pages?: number;
         /** Page number to start extracting from for multi-page input (GIF, TIFF, PDF), zero based. (optional, default 0) */
         page?: number;
+        /** Level to extract from a multi-level input (OpenSlide), zero based. (optional, default 0) */
+        level?: number;
+        /** Set to `true` to read all frames/pages of an animated image (equivalent of setting `pages` to `-1`). (optional, default false) */
+        animated?: boolean;
         /** Describes raw pixel input image data. See raw() for pixel ordering. */
         raw?: Raw;
         /** Describes a new image to be created. */
@@ -791,7 +795,7 @@ declare namespace sharp {
         quantizationTable?: number;
     }
 
-    interface WebpOptions extends OutputOptions {
+    interface WebpOptions extends OutputOptions, AnimationOptions {
         /** Quality of alpha layer, number from 0-100 (optional, default 100) */
         alphaQuality?: number;
         /** Use lossless compression mode (optional, default false) */
@@ -803,6 +807,13 @@ declare namespace sharp {
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
         reductionEffort?: number;
     }
+
+    /**
+     * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
+     * The prebuilt binaries do not include this - see
+     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
+     */
+    interface GifOptions extends OutputOptions, AnimationOptions {}
 
     interface TiffOptions extends OutputOptions {
         /** Compression options: lzw, deflate, jpeg, ccittfax4 (optional, default 'jpeg') */
@@ -965,6 +976,15 @@ declare namespace sharp {
         container?: string;
         /** Filesystem layout, possible values are dz, iiif, zoomify or google. (optional, default 'dz') */
         layout?: TileLayout;
+    }
+
+    interface AnimationOptions {
+        /** Page height for animated output, a value greater than 0. (optional) */
+        pageHeight?: number;
+        /** Number of animation iterations, a value between 0 and 65535. Use 0 for infinite animation. (optional, default 0) */
+        loop?: number;
+        /** List of delays between animation frames (in milliseconds), each value between 0 and 65535. (optional) */
+        delay?: number[];
     }
 
     interface OutputInfo {
