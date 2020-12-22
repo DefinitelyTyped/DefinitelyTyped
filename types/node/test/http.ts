@@ -133,10 +133,13 @@ import * as net from 'net';
     const method: string = req.method;
 }
 
+// HTTP Methods
 {
-    // Status codes
-    let codeMessage: string = http.STATUS_CODES['400']!;
-    codeMessage = http.STATUS_CODES[400]!;
+    http.METHODS.length;
+
+    let method: typeof http.METHODS[number] = http.METHODS[7];
+    method = 'any_string'; // $ExpectError
+    method = http.METHODS[42];
 }
 
 {
