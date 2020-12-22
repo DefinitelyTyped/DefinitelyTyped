@@ -39,6 +39,17 @@ sharp('input.png')
         // sharpened, with metadata, 90% quality WebP image data. Phew!
     });
 
+sharp('input.png')
+    .avif({
+        quality: 90,
+        lossless: true,
+        speed: 8,
+    })
+    .toBuffer()
+    .then((outputBuffer: Buffer) => {
+        // outputBuffer contains the image as an AVIF image.
+    });
+
 sharp('input.jpg')
     .resize(300, 200)
     .toFile('output.jpg', (err: Error) => {

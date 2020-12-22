@@ -1,10 +1,11 @@
-// Type definitions for sharp 0.26
+// Type definitions for sharp 0.27
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
 //                 Floris de Bijl <https://github.com/Fdebijl>
+//                 Ganesh "GP" Prasannah <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -52,6 +53,7 @@ declare namespace sharp {
         svg?: string;
         tiff?: string;
         webp?: string;
+        avif?: string;
         xml?: string;
         zlib?: string;
     };
@@ -502,6 +504,14 @@ declare namespace sharp {
         tiff(options?: TiffOptions): Sharp;
 
         /**
+         * Use these AVIF options for output image.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        avif(options?: AvifOptions): Sharp;
+
+        /**
          * Force output to be raw, uncompressed uint8 pixel data.
          * @returns A sharp instance that can be used to chain operations
          */
@@ -808,6 +818,15 @@ declare namespace sharp {
         reductionEffort?: number;
     }
 
+    interface AvifOptions extends OutputOptions, AnimationOptions {
+        /** Quality, number from 0-100 (optional, default 50) */
+        quality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        speed?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    }
+
     /**
      * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
      * The prebuilt binaries do not include this - see
@@ -1092,6 +1111,7 @@ declare namespace sharp {
         jpeg: AvailableFormatInfo;
         png: AvailableFormatInfo;
         webp: AvailableFormatInfo;
+        avif: AvailableFormatInfo;
         raw: AvailableFormatInfo;
         tiff: AvailableFormatInfo;
         dz: AvailableFormatInfo;
