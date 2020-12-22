@@ -36,7 +36,7 @@ Ela pode servir de ajuda para contribuidores que estejam passando por problemas 
 
 * Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Todos os pacotes estão sendo [publicados no NPM](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Todos os pacotes estão sendo [publicados no npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Atualizações do status da infraestrutura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) atual
 
@@ -48,7 +48,7 @@ Veja o [manual do TypeScript](http://www.typescriptlang.org/docs/handbook/declar
 
 ## Como eu consigo eles?
 
-### NPM
+### npm
 
 Esse é o método aconselhável:
 
@@ -65,7 +65,7 @@ Talvez você precise adicionar a referência `types` se não estiver usando mód
 
 Veja mais no [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
-Para um pacote "foo" do NPM, suas tipagens serão "@types/foo".
+Para um pacote "foo" do npm, suas tipagens serão "@types/foo".
 Se você não conseguir achar o pacote desejado, procure no [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
 Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos.
@@ -170,8 +170,8 @@ Se ele não o fizer, você mesmo pode fazer isso no comentário associado a PR.
 
 Se você é o autor de uma biblioteca e seu pacote está escrito em TypeScript, [inclua os arquivos de declaração gerados automaticamente](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) em seu pacote, em vez de publicá-los no Definitely Typed.
 
-Se você está adicionando tipos para um pacote do NPM, crie um diretório com o mesmo nome do pacote.
-Se o pacote ao qual você está adicionando tipos não está no NPM, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no NPM.
+Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
+Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
 (Você pode executar `npm info foo` para verificar a existência do pacote `foo`.)
 
 Seu pacote deve possuir a seguinte estrutura:
@@ -183,7 +183,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | [`tsconfig.json`](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
 | [`tslint.json`](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
-Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
+Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
@@ -349,9 +349,9 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
 
 ## FAQ
 
-#### Qual exatamente é a relação entre este repositório e os pacotes `@types` no NPM?
+#### Qual exatamente é a relação entre este repositório e os pacotes `@types` no npm?
 
-A branch `master` é automaticamente publicada ao escopo `@types` no NPM graças ao [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
+A branch `master` é automaticamente publicada ao escopo `@types` no npm graças ao [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### Eu já enviei uma pull request. Quanto tempo pode demorar até que haja um merge?
 
@@ -363,9 +363,9 @@ Superficialmente:
 
 PRs que forem aprovadas por um autor listado no cabeçalho da definição geralmente sofrem merge mais rápido; PRs para novas definições levarão mais tempo para serem aprovadas, uma vez que requerem mais revisão dos mantenedores. Cada PR é revisada por um membro do time do TypeScript ou Definitely Typed antes de sofrer merge, então por favor, seja paciente, pois fatores humanos podem causar alguns atrasos. Verifique o [Painel de Status de Novas Pull Requests](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para checar o progresso enquanto os mantenedores revisam as PRs abertas.
 
-#### Minha PR já sofreu merge; Quando é que o pacote `@types` no NPM será atualizado?
+#### Minha PR já sofreu merge; Quando é que o pacote `@types` no npm será atualizado?
 
-Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Discord do Definitely Typed](https://discord.gg/typescript) e um mantenedor vai contatar o membro certo do time para investigar.
+Pacotes do npm devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Discord do Definitely Typed](https://discord.gg/typescript) e um mantenedor vai contatar o membro certo do time para investigar.
 
 #### Eu estou criando uma definição que depende de outra definição. Eu deveria usar `<reference types="" />` ou um import?
 
@@ -406,7 +406,7 @@ Como na pergunta anterior, lembre-se de que você pode usar as opções de compi
 e [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop).
 
 Não mude a definição de tipo se ela já está correta.
-Para um pacote NPM, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
+Para um pacote npm, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
 
 #### Eu quero usar features do TypeScript 3.3 ou superior.
 
@@ -455,8 +455,8 @@ Quando o padrão sair do papel, nós o removeremos do Definitely Typed e descont
 
 _NOTA: A discussão nesta sessão supõe familiaridade com [versionamento semântico](https://semver.org/)_
 
-Cada pacote do Definitely Typed é versionado ao ser publicado ao NPM.
-O [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (a ferramenta que publica pacotes `@types` ao NPM) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
+Cada pacote do Definitely Typed é versionado ao ser publicado ao npm.
+O [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (a ferramenta que publica pacotes `@types` ao npm) definirá a declaração da versão do pacote usando o número da versão `major.minor` listado na primeira linha do seu arquivo `index.d.ts`.
 Por exemplo, aqui estão as primeiras linhas das [declarações de tipo do Node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) para a versão `10.12.x`, no momento de escrita:
 
 ```js
@@ -467,10 +467,10 @@ Por exemplo, aqui estão as primeiras linhas das [declarações de tipo do Node]
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-A versão do NPM do pacote `@types/node` será `10.12.x` porque está escrito `10.12` no final da primeira linha.
+A versão do npm do pacote `@types/node` será `10.12.x` porque está escrito `10.12` no final da primeira linha.
 Note que o comentário da primeira linha no arquivo `index.d.ts` deve conter apenas a versão `major.minor` (por exemplo, `10.12`) e não deve conter uma versão de patch. (por exemplo, `10.12.4`).
 Isto acontece porque apenas os números de release "major" e "minor" estão alinhados entre os pacotes de biblioteca e os pacotes de declaração de tipo.
-O número de release do patch do pacote de declaração de tipo (`.0` em `10.12.0`) é inicializado como zero pelo Definitely Typed e é incrementado a cada vez que um novo pacote `@types/node` é publicado ao NPM para a mesma versão "major"/"minor" da biblioteca correspondente.
+O número de release do patch do pacote de declaração de tipo (`.0` em `10.12.0`) é inicializado como zero pelo Definitely Typed e é incrementado a cada vez que um novo pacote `@types/node` é publicado ao npm para a mesma versão "major"/"minor" da biblioteca correspondente.
 
 Algumas vezes as versões de pacotes de declaração de tipo e as versões de pacotes de biblioteca podem sair de sincronia.
 Abaixo estão algumas razões do porquê, por causa do quanto elas incomodam os usuários de uma biblioteca.

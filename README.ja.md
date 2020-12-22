@@ -63,7 +63,7 @@ npm install --save-dev @types/node
 
 詳しくは[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)を参照してください。
 
-「foo」という名前の NPM モジュール用の型定義は「@types/foo」になります。
+「foo」という名前の npm モジュール用の型定義は「@types/foo」になります。
 パッケージが見つからない場合は [TypeSearch](https://microsoft.github.io/TypeSearch/) で検索してください。
 
 検索しても見つからない場合は、パッケージ内に型定義が[含まれている](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)かどうか確認してください。
@@ -169,8 +169,8 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 もし、あなたがライブラリの作者で、そのライブラリが TypeScript で書かれている場合は、 Definitely Typed で型定義を公開するのではなく、ライブラリのパッケージ自体に[自動生成された型定義ファイルをバンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)してください。
 
-NPM のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
-NPM 上にないパッケージの型定義を追加したい場合は、その名前が NPM 上のパッケージを競合しないか確認してください。
+npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
 （`npm info foo` コマンドで、 `foo` パッケージが存在するかどうか確認できます。）
 
 型定義パッケージは次のような構造にする必要があります:
@@ -344,9 +344,9 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 ## よくある質問
 
-#### 厳密には、このレポジトリと NPM 上の `@types` パッケージはどう関係していますか？
+#### 厳密には、このレポジトリと npm 上の `@types` パッケージはどう関係していますか？
 
-[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 NPM の `@types` スコープに公開してくれています。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 npm の `@types` スコープに公開してくれています。
 
 #### PR を送りましたが、どれぐらいでマージされますか？
 
@@ -358,9 +358,9 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 DefinitelyTyped のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や DefinitelyTyped のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) で進捗を確認できます。
 
-#### PR はマージされましたが、 `@types` NPM パッケージはいつ更新されますか？
+#### PR はマージされましたが、 `@types` npm パッケージはいつ更新されますか？
 
-NPM パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
+npm パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
 
 #### 作成中の型定義が別の型定義に依存しています。 `<reference types="" />` を使うかインポートするか、どちらがよいですか？
 
@@ -402,7 +402,7 @@ NPM パッケージは数分で更新されます。もし1時間以上かかっ
 コンパイラー オプションを確認してください。
 
 型定義が正確に記述されているときは変更しないでください。
-NPM パッケージでは、モジュールを `node -p 'require("foo")'` でインポートできるときは `export =` が、 `node -p 'require("foo").default'` でインポートできるときは `export default` がそれぞれ正しい表記です。
+npm パッケージでは、モジュールを `node -p 'require("foo")'` でインポートできるときは `export =` が、 `node -p 'require("foo").default'` でインポートできるときは `export default` がそれぞれ正しい表記です。
 
 #### TypeScript 3.3 以上にある機能を使いたいです。
 
@@ -456,7 +456,7 @@ NPM パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 
 *注意: このセクションを読むには[セマンティック バージョニング](https://semver.org/)の知識が必要です。*
 
-Definitely Typed の各パッケージは NPM に公開される際にバージョン番号が付されます。
+Definitely Typed の各パッケージは npm に公開される際にバージョン番号が付されます。
 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) （`@types` パッケージを npm に公開するツール）は、パッケージの `index.d.ts` の1行目に載っている `メジャー.マイナー` バージョン番号を使って、型定義パッケージのバージョンを付けます。
 たとえば、下記は執筆時点<small>（訳注: 英語版執筆当時）</small>の [Node の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts)（バージョン `10.12.x` 用）の最初の数行です:
 
@@ -471,7 +471,7 @@ Definitely Typed の各パッケージは NPM に公開される際にバージ�
 1行目の終わりが `10.12` なので、 `@types/node` パッケージの npm でのバージョン番号も `10.12.x` になります。
 `index.d.ts` の1行目には `メジャー.マイナー` バージョンのみ（例: `10.12`）を含めます。パッチバージョンは含めないでください（`10.12.4` のようにはしない）。
 これは、メジャーバージョンとマイナーバージョンの番号のみを、ライブラリ本体と型定義パッケージで揃えるためです。
-型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが NPM に公開されるたびに増えていきます。
+型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが npm に公開されるたびに増えていきます。
 
 ときどき、型定義パッケージとライブラリ本体のバージョンが揃わなくなることがあります。
 考えられる原因を、ライブラリ使用者にとって不便に思う順に下記に列挙します<small>（訳注: 一番困るものが一番下）</small>。
