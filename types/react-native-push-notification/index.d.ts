@@ -63,7 +63,6 @@ export class PushNotificationObject {
     onlyAlertOnce?: boolean;
     allowWhileIdle?: boolean;
     timeoutAfter?: number;
-    
     messageId?: string;
 
     actions?: string;
