@@ -11,7 +11,11 @@ import { PlaceholderProps } from './components/Placeholder';
 import { SingleValueProps } from './components/SingleValue';
 import { OptionTypeBase } from './types';
 
+/** @deprecated - Used internally, but will not be exported in next major version */
 export interface Props { [key: string]: any; }
+
+/** @deprecated - Unused and will not be exported in next major version */
+export type StylesConfigFunction<Props = any> = (base: CSSProperties, props: Props) => CSSProperties;
 
 export interface Styles {
   clearIndicator?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
