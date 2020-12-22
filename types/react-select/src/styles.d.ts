@@ -17,7 +17,6 @@ export interface Styles {
   indicatorSeparator?: StylesConfigFunction;
   input?: StylesConfigFunction;
   loadingIndicator?: StylesConfigFunction;
-  // TODO loadingMessageCSS?: StylesConfigFunction;
   loadingMessage?: StylesConfigFunction;
   menu?: StylesConfigFunction;
   menuList?: StylesConfigFunction;
@@ -25,7 +24,6 @@ export interface Styles {
   multiValue?: StylesConfigFunction;
   multiValueLabel?: StylesConfigFunction;
   multiValueRemove?: StylesConfigFunction;
-  // TODO noOptionsMessageCSS?: StylesConfigFunction;
   noOptionsMessage?: StylesConfigFunction;
   option?: StylesConfigFunction;
   placeholder?: StylesConfigFunction<PlaceholderProps<{}, boolean>>;
