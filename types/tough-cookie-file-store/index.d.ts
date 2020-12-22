@@ -31,6 +31,11 @@ export class FileCookieStore extends tough.Store {
     findCookies(
         domain: string,
         path: string,
+        cb: (err: Error | null, cookie: tough.Cookie[]) => void
+    ): void;
+    findCookies(
+        domain: string,
+        path: string,
         allowSpecialUseDomain: boolean,
         cb: (err: Error | null, cookie: tough.Cookie[]) => void
     ): void;
