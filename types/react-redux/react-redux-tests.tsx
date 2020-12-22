@@ -1507,7 +1507,7 @@ function testRef() {
     <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
     // Should not be able to use legacy string refs
     <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
-    // ref type should agree with type of the fowarded ref
+    // ref type should agree with type of the forwarded ref
     <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
     <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
 

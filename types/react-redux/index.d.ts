@@ -483,7 +483,7 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
 
 /**
  * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
- * redux store instead of this approeach.
+ * redux store instead of this approach.
  */
 export const ReactReduxContext: Context<ReactReduxContextValue>;
 
