@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement as ElementType } from 'react';
+import { ComponentType, ReactElement as ElementType, SVGProps, ReactSVGElement } from 'react';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase } from '../types';
@@ -7,8 +7,8 @@ import { CommonProps, OptionTypeBase } from '../types';
 // Dropdown & Clear Icons
 // ==============================
 
-export function CrossIcon(props: any): any; // TODO svg type
-export function DownChevron(props: any): any; // TODO svg type
+export function CrossIcon(props?: SVGProps<SVGElement>): ReactSVGElement;
+export function DownChevron(props?: SVGProps<SVGElement>): ReactSVGElement;
 
 // ==============================
 // Dropdown & Clear Buttons
