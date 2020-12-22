@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Select, { StylesConfig } from 'react-select';
-import { PlaceholderProps } from 'react-select/src/components/Placeholder';
+import Select from 'react-select';
+import { StylesConfig } from 'react-select/src/styles';
 
-const placeholderSelectStyles: StylesConfig = {
-    placeholder: (base, { isDisabled, isFocused }) => ({
-        // TODO Do something
+const placeholderSelectStyles: StylesConfig<any, false> = {
+    placeholder: (base, { isDisabled }) => ({
+        ...base,
+        color: isDisabled ? '#222222' : '#000000',
     }),
 };
 
