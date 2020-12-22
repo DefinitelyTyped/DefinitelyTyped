@@ -54,6 +54,7 @@ export function loadingIndicatorCSS(state: {
   size: number,
 }): React.CSSProperties;
 
+/** @deprecated Use `LoadingIndicatorProps` instead. */
 export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = {
   /** Props that will be passed on to the children. */
   innerProps: any,
@@ -65,5 +66,18 @@ export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends 
   /** Set size of the container. */
   size: number,
 };
+
+export type LoadingIndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = {
+  /** Props that will be passed on to the children. */
+  innerProps: any,
+  /** The focused state of the select. */
+  isFocused: boolean,
+  /** Whether the text is right to left */
+  isRtl: boolean,
+} & CommonProps<OptionType, IsMulti> & {
+  /** Set size of the container. */
+  size: number,
+};
+
 export const LoadingIndicator: ComponentType<LoadingIconProps<any, boolean>>;
 // TODO LoadingIndicator.defaultProps: { size: number };
