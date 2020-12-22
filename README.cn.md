@@ -29,7 +29,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [常见错误](#常见错误)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [许可证](#许可证)
 
@@ -325,7 +325,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 * `var foo: string | any`:
   如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 

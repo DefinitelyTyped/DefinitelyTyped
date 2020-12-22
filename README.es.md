@@ -4,7 +4,7 @@
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
-## Table of Contents
+## Contents
 
 * [¿Qué son los `declaration files`?](#¿qué-son-los-declaration-files)
 * [¿Cómo los obtengo?](#¿cómo-los-obtengo)
@@ -14,7 +14,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Editar un paquete existente](#editar-un-paquete-existente)
     - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
     - [Remover un paquete](#remover-un-paquete)
-    - [Running Tests](#running-tests)
+    - [Running tests](#running-tests)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -22,7 +22,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Errores comunes](#errores-comunes)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [Licencia](#licencia)
 
@@ -51,7 +51,7 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de Typescript (3.1 y anteriores)
+#### Versiones más viejas de TypeScript (3.1 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
 Actualmente, las versiones 3.2 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.1, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
@@ -86,7 +86,7 @@ Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript
 |ts2.7| 16.4.7|
 | ... | ... |
 
-#### Typescript 1.*
+#### TypeScript 1.*
 
 * Descárguelo manualmente desde la `master` branch de este repositorio
 * [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
@@ -192,7 +192,7 @@ Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado d
 
 Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `notNeededPackages.json`.
 
-#### Running Tests
+#### Running tests
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
 Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
@@ -289,7 +289,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
