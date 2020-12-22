@@ -17,37 +17,40 @@ export interface Props { [key: string]: any; }
 /** @deprecated - Unused and will not be exported in next major version */
 export type StylesConfigFunction<Props = any> = (base: CSSProperties, props: Props) => CSSProperties;
 
-export interface Styles {
-  clearIndicator?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
-  container?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: ContainerProps<OptionType, IsMulti>): CSSProperties;
-  control?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: ControlProps<OptionType, IsMulti>): CSSProperties;
-  dropdownIndicator?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
-  group?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: GroupProps<OptionType, IsMulti>): CSSProperties;
-  groupHeading?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: GroupHeadingProps<OptionType, IsMulti>): CSSProperties;
-  indicatorsContainer?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: IndicatorContainerProps<OptionType, IsMulti>): CSSProperties;
-  indicatorSeparator?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
+export interface Styles<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+  clearIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
+  container?(base: CSSProperties, props: ContainerProps<OptionType, IsMulti>): CSSProperties;
+  control?(base: CSSProperties, props: ControlProps<OptionType, IsMulti>): CSSProperties;
+  dropdownIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
+  group?(base: CSSProperties, props: GroupProps<OptionType, IsMulti>): CSSProperties;
+  groupHeading?(base: CSSProperties, props: GroupHeadingProps<OptionType, IsMulti>): CSSProperties;
+  indicatorsContainer?(base: CSSProperties, props: IndicatorContainerProps<OptionType, IsMulti>): CSSProperties;
+  indicatorSeparator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti>): CSSProperties;
   input?: (base: CSSProperties, props: InputProps) => CSSProperties;
-  loadingIndicator?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: LoadingIndicatorProps<OptionType, IsMulti>): CSSProperties;
-  loadingMessage?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: NoticeProps<OptionType, IsMulti>): CSSProperties;
-  menu?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: MenuProps<OptionType, IsMulti>): CSSProperties;
-  menuList?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: MenuListComponentProps<OptionType, IsMulti>): CSSProperties;
-  menuPortal?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: MenuPortalProps<OptionType, IsMulti>): CSSProperties;
-  multiValue?<OptionType extends OptionTypeBase>(base: CSSProperties, props: MultiValueProps<OptionType>): CSSProperties;
-  multiValueLabel?<OptionType extends OptionTypeBase>(base: CSSProperties, props: MultiValueProps<OptionType>): CSSProperties;
-  multiValueRemove?<OptionType extends OptionTypeBase>(base: CSSProperties, props: MultiValueRemoveProps<OptionType>): CSSProperties;
-  noOptionsMessage?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: NoticeProps<OptionType, IsMulti>): CSSProperties;
-  option?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: OptionProps<OptionType, IsMulti>): CSSProperties;
-  placeholder?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: PlaceholderProps<OptionType, IsMulti>): CSSProperties;
-  singleValue?<OptionType extends OptionTypeBase>(base: CSSProperties, props: SingleValueProps<OptionType>): CSSProperties;
-  valueContainer?<OptionType extends OptionTypeBase, IsMulti extends boolean>(base: CSSProperties, props: ValueContainerProps<OptionType, IsMulti>): CSSProperties;
+  loadingIndicator?(base: CSSProperties, props: LoadingIndicatorProps<OptionType, IsMulti>): CSSProperties;
+  loadingMessage?(base: CSSProperties, props: NoticeProps<OptionType, IsMulti>): CSSProperties;
+  menu?(base: CSSProperties, props: MenuProps<OptionType, IsMulti>): CSSProperties;
+  menuList?(base: CSSProperties, props: MenuListComponentProps<OptionType, IsMulti>): CSSProperties;
+  menuPortal?(base: CSSProperties, props: MenuPortalProps<OptionType, IsMulti>): CSSProperties;
+  multiValue?(base: CSSProperties, props: MultiValueProps<OptionType>): CSSProperties;
+  multiValueLabel?(base: CSSProperties, props: MultiValueProps<OptionType>): CSSProperties;
+  multiValueRemove?(base: CSSProperties, props: MultiValueRemoveProps<OptionType>): CSSProperties;
+  noOptionsMessage?(base: CSSProperties, props: NoticeProps<OptionType, IsMulti>): CSSProperties;
+  option?(base: CSSProperties, props: OptionProps<OptionType, IsMulti>): CSSProperties;
+  placeholder?(base: CSSProperties, props: PlaceholderProps<OptionType, IsMulti>): CSSProperties;
+  singleValue?(base: CSSProperties, props: SingleValueProps<OptionType>): CSSProperties;
+  valueContainer?(base: CSSProperties, props: ValueContainerProps<OptionType, IsMulti>): CSSProperties;
 }
 
-export type StylesConfig = Partial<Styles>;
+export type StylesConfig<OptionType extends OptionTypeBase, IsMulti extends boolean> = Partial<Styles<OptionType, IsMulti>>;
 export type GetStyles = (a: string, b: Props) => CSSProperties;
 
-export const defaultStyles: Styles;
+export const defaultStyles: Styles<any, false>;
 
 /**
  * Merge Utility - Allows consumers to extend a base Select with additional styles
  */
-export function mergeStyles(source: StylesConfig, target: StylesConfig): StylesConfig;
+export function mergeStyles<
+  OptionType extends OptionTypeBase,
+  IsMulti extends boolean
+>(source: StylesConfig<OptionType, IsMulti>, target: StylesConfig<OptionType, IsMulti>): StylesConfig<OptionType, IsMulti>;
