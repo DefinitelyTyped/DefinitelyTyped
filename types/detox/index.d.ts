@@ -552,16 +552,16 @@ declare global {
             /**
              * Swipes in the provided direction at the provided speed, started from percentage.
              * @param direction
-             * @param @optional speed default: `fast`
-             * @param @optional normalizedOffset default: NaN; valid input: `[0.0, 1.0]`
-             * @param @optional normalizedStartingPointX default: NaN; valid input: `[0.0, 1.0]`
-             * @param @optional normalizedStartingPointY default: NaN; valid input: `[0.0, 1.0]`
+             * @param speed default: `fast`
+             * @param @optional normalizedOffset swipe amount relative to the screen width/height (a number between 0.0 and 1.0, default is NaN — choose an optimal value automatically)
+             * @param @optional normalizedStartingPointX X coordinate of swipe starting point, relative to the view width; valid input: `[0.0, 1.0]`
+             * @param @optional normalizedStartingPointY Y coordinate of swipe starting point, relative to the view height; valid input: `[0.0, 1.0]`
              * @example
              * await element(by.id('scrollView')).swipe('down');
-             * await element(by.id('scrollView')).swipe('down', 'slow'); // set swipe speed
-             * await element(by.id('scrollView')).swipe('down', 'fast', 0.75); // set swipe amount
-             * await element(by.id('scrollView')).swipe('down', 'fast', NaN, 0.8); // set starting point X
-             * await element(by.id('scrollView')).swipe('down', 'fast', NaN, NaN, 0.25); // set starting point Y
+             * await element(by.id('scrollView')).swipe('down', 'fast');
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2, 0.5);
              */
             swipe(
                 direction: Direction,

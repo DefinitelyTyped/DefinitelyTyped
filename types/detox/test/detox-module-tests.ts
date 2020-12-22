@@ -39,7 +39,7 @@ describe('Test', () => {
         await element(by.id('element')).scroll(50, 'down');
         await element(by.id('element')).scroll(50, 'down', 0.5, 0.5);
         await element(by.id('scrollView')).scrollTo('bottom');
-        await element(by.id('scrollView')).swipe('down', 'fast');
+        await element(by.id('scrollView')).swipe('down', 'fast', 0.2, 0.5, 0.5);
         await element(by.id('element')).pinch(1.1, 'fast', 0.0);
         await element(by.id('textField')).replaceText('text');
         await element(by.id('textField')).tapReturnKey();

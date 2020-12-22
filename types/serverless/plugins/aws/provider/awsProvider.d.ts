@@ -198,7 +198,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[]|string;
+        subnetIds: string[] | string;
     }
 
     interface StackParameters {
@@ -240,7 +240,7 @@ declare namespace Aws {
     }
 
     interface Logs {
-        restApi?: RestApiLogs;
+        restApi?: true | RestApiLogs;
         websocket?: WebsocketLogs;
         httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
@@ -295,7 +295,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer;
         request?: HttpRequestValidation;
-        integration?: "lambda" | "mock";
+        integration?: 'lambda' | 'mock';
     }
 
     interface NamedHttpApiEventAuthorizer {
@@ -512,7 +512,6 @@ declare namespace Aws {
     }
 
     interface AwsFunction {
-        handler: string;
         name?: string;
         description?: string;
         memorySize?: number | string;
@@ -535,8 +534,16 @@ declare namespace Aws {
         events?: Event[];
     }
 
+    interface AwsFunctionHandler extends AwsFunction {
+        handler: string;
+    }
+
+    interface AwsFunctionImage extends AwsFunction {
+        image: string;
+    }
+
     interface Functions {
-        [key: string]: AwsFunction;
+        [key: string]: AwsFunctionHandler | AwsFunctionImage;
     }
 
     interface Layer {

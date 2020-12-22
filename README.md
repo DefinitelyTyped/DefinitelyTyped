@@ -2,7 +2,7 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md) and [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -15,12 +15,14 @@
   - [Make a pull request](#make-a-pull-request)<details><summary></summary>
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
-    - [Common mistakes](#common-mistakes)
     - [Removing a package](#removing-a-package)
     - [Running Tests](#running-tests)
-    - [\<my package>-tests.ts](#my-package-teststs)
-    - [Linter](#linter)
-    - [package.json](#packagejson)
+    - [`<my-package>-tests.ts`](#my-package-teststs)
+    - [Linter: `tslint.json`](#linter-tslintjson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
+    - [`OTHER_FILES.txt`](#other_filestxt)
+    - [Common mistakes](#common-mistakes)
     </details>
   - [Definition Owners](#definition-owners)
 * [FAQ](#faq)
@@ -147,7 +149,7 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
+First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
@@ -175,45 +177,19 @@ Your package should have this structure:
 
 | File          | Purpose |
 | ------------- | ------- |
-| index.d.ts    | This contains the typings for the package. |
-| [\<my package>-tests.ts](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
-| tsconfig.json | This allows you to run `tsc` within the package. |
-| tslint.json   | Enables linting. |
+| `index.d.ts`  | This contains the typings for the package. |
+| [`<my-package>-tests.ts`](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
+| [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
+| [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 
-Generate these by running `npx dts-gen --dt --name <my package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my package> --template module` otherwise.
+Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
-You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option. If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
-
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
-#### Common mistakes
-
-* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
-  ```tsx
-  // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-  ```
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
-* `interface Foo { new(): Foo; }`:
-  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `getMeAT<T>(): T`:
-  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
-  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
-  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
-  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
-  Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
-* `var foo: string | any`:
-  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
-  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 #### Removing a package
 
@@ -222,7 +198,7 @@ When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
 * `typingsPackageName`: This is the name of the directory to delete.
 * `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
+* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `typingsPackageName`, in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
@@ -248,14 +224,14 @@ Test your changes by running `npm test <package to test>` where `<package to tes
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
-#### \<my package>-tests.ts
+#### `<my-package>-tests.ts`
 
-There should be a `<my package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my package>`.
+There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my package>-tests.ts`
+If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
@@ -266,7 +242,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 + export function twoslash(body: string, config?: { version: string }): string
 ```
 
-`<my package>-tests.ts`:
+`<my-package>-tests.ts`:
 
 ```diff
 import {twoslash} from "./"
@@ -297,31 +273,19 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-#### Linter
+#### Linter: `tslint.json`
 
-All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+#### `tsconfig.json`
 
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // This package uses the Function type, and it will take effort to fix.
-    "ban-types": false
-  }
-}
-```
+`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `// tslint:disable-next-line rule-name`.)
+You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
-#### package.json
+#### `package.json`
 
 Usually you won't need this.
 DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
@@ -333,6 +297,34 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
+
+#### `OTHER_FILES.txt`
+
+If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+
+#### Common mistakes
+
+* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
+* `interface Foo { new(): Foo; }`:
+  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+* `const Class: { new(): IClass; }`:
+  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
+* `getMeAT<T>(): T`:
+  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
+  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
+  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
+  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
+  Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`:
+  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 ### Definition Owners
 
@@ -546,9 +538,9 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 
 #### How do I write definitions for packages that can be used globally and as a module?
 
-The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
 
-To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the `big.js` definition.
 
 Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
 
