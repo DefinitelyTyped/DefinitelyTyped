@@ -334,7 +334,7 @@ declare namespace Aws {
     interface S3 {
         bucket: string;
         event: string;
-        rules: S3Rule[];
+        rules?: S3Rule[];
         existing?: boolean;
     }
 
