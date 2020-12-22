@@ -17,6 +17,7 @@
     - [新しくパッケージを作成する](#新しくパッケージを作成する)
     - [パッケージを削除する](#パッケージを削除する)
     - [テストの実行](#テストの実行)
+    - [Naming](#naming)
     - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -223,6 +224,14 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 `npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
 このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
+
+#### Naming
+
+npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
+（`npm info foo` コマンドで、 `foo` パッケージが存在するかどうか確認できます。）
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<パッケージ名>-tests.ts`
 
