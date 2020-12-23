@@ -3,7 +3,7 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition } from 'jsreport-core';
+import { ExtensionDefinition, Template } from 'jsreport-core';
 
 declare namespace JsReportChromePdf {
     // https://jsreport.net/learn/chrome-pdf
@@ -102,10 +102,11 @@ declare namespace JsReportChromePdf {
         allowedModules: string[];
         launchOptions: Partial<LaunchOptions>;
     }
-    interface ChromeTemplate {
+    interface ChromeTemplate extends Template {
         chrome?: Partial<Chrome>;
         chromeImage?: Partial<ChromeImage>;
         recipe: 'chrome-pdf' | 'chrome-image' | string;
+        content: string;
     }
 }
 

@@ -4,7 +4,7 @@ import fs = require('fs');
 const jsreport = JsReport();
 
 jsreport.beforeRenderListeners.add('test', (req, res) => {
-    console.log('input', (req.template as JsReport.Template).content);
+    console.log('input', req.template.content);
 });
 
 (async () => {
