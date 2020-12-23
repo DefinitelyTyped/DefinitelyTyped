@@ -11,6 +11,11 @@
 // tslint:disable:interface-name that is generic name
 interface IBANStatic {
     /**
+     * An object containing all the known IBAN specifications
+     */
+    countries: Record<IBAN.Specification['countryCode'], IBAN.Specification>;
+
+    /**
      * @summary Returns the IBAN in a electronic format.
      * @param iban The IBAN to convert.
      * @param The IBAN in electronic format.
@@ -57,6 +62,37 @@ interface IBANStatic {
 }
 
 declare var IBAN: IBANStatic;
+
+declare namespace IBAN {
+    interface Specification {
+        /** the code of the country */
+        readonly countryCode: string;
+        /** the length of the IBAN */
+        readonly length: number;
+        /*& the structure of the underlying BBAN (for validation and formatting) */
+        readonly structure: string;
+        /** an example valid IBAN */
+        readonly example: string;
+        /** Check if the passed iban is valid according to this specification. */
+        isValid(iban: string): boolean;
+        /**
+         * Convert the passed IBAN to a country-specific BBAN.
+         */
+        toBBAN(iban: string, separator: string): string;
+        /**
+         * Convert the passed BBAN to an IBAN for this country specification.
+         * Please note that <i>"generation of the IBAN shall be the exclusive responsibility of the bank/branch servicing the account"</i>.
+         * This method implements the preferred algorithm described in http://en.wikipedia.org/wiki/International_Bank_Account_Number#Generating_IBAN_check_digits
+         */
+        fromBBAN(bban: string): string;
+        /**
+         * Check of the passed BBAN is valid.
+         * This function only checks the format of the BBAN (length and matching the letetr/number specs) but does not
+         * verify the check digit.
+         */
+        isValidBBAN(bban: string): boolean;
+    }
+}
 
 export = IBAN;
 export as namespace IBAN;
