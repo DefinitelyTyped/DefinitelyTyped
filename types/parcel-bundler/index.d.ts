@@ -150,6 +150,13 @@ declare namespace ParcelBundler {
          * @default false
          */
         hmr?: true | false;
+
+        /**
+         * Enable or disable auto install of missing dependencies found during bundling
+         *
+         * @default true
+         */
+        autoInstall?: boolean;
     }
 
     type ParcelAsset = any;
