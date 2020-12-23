@@ -82,6 +82,14 @@ Observable.of(1, 2, 3).filter(
     ) => false,
 );
 
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3, null).filter(
+    (
+        // $ExpectType number | null
+        val,
+    ): val is number => false,
+);
+
 /**
  * observable.reduce
  */
