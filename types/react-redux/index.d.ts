@@ -18,6 +18,7 @@
 //                 Kazuma Ebina <https://github.com/kazuma1989>
 //                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
+//                 Lenz Weber <https://github.com/phryneas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -577,8 +578,6 @@ export function useSelector<TState = DefaultRootState, TSelected = unknown>(
  * }
  *
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
- *
- * @deprecated Use `createSelectorHook<State, Action>()`
  */
 export interface TypedUseSelectorHook<TState> {
     <TSelected>(
