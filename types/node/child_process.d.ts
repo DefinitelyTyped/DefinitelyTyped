@@ -44,42 +44,42 @@ declare module "child_process" {
          */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
+        addListener(event: "close", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         addListener(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close", code: number, signal: NodeJS.Signals): boolean;
+        emit(event: "close", code: number | null, signal: NodeJS.Signals | null): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "exit", code: number | null, signal: NodeJS.Signals | null): boolean;
         emit(event: "message", message: Serializable, sendHandle: SendHandle): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
+        on(event: "close", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         on(event: "disconnect", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         on(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
+        once(event: "close", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         once(event: "disconnect", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         once(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
+        prependListener(event: "close", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         prependListener(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
+        prependOnceListener(event: "close", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
