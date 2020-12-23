@@ -11,7 +11,7 @@
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN { }
+    class BN {}
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
@@ -31,7 +31,7 @@ export namespace crypto {
     }
 
     namespace Random {
-       function getRandomBuffer(size: number): Buffer;
+        function getRandomBuffer(size: number): Buffer;
     }
 
     namespace Point {}
@@ -127,10 +127,23 @@ export namespace Transaction {
 
     namespace Input {
         class Multisig extends Input {
-            constructor(input: Input, pubkeys?: PublicKey[], threshold?: number, signatures?: crypto.Signature[], opts?: object);
+            constructor(
+                input: Input,
+                pubkeys?: PublicKey[],
+                threshold?: number,
+                signatures?: crypto.Signature[],
+                opts?: object,
+            );
 
             toObject(): object;
-            getSignatures(transaction: Transaction, privateKey: PrivateKey, index: number, sigtype?: number, hashData?: any, signingMethod?: string): crypto.TransactionSignature[];
+            getSignatures(
+                transaction: Transaction,
+                privateKey: PrivateKey,
+                index: number,
+                sigtype?: number,
+                hashData?: any,
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
             addSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): this;
             clearSignatures(): this;
             isFullySigned(): boolean;
@@ -138,14 +151,34 @@ export namespace Transaction {
             countSignatures(): number;
             publicKeysWithoutSignature(): number;
             isValidSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): boolean;
-            normalizeSignatures(transaction: Transaction, input: Input, inputIndex: number, signatures: Buffer[], publicKeys: PublicKey[], signingMethod?: string): crypto.TransactionSignature[];
+            normalizeSignatures(
+                transaction: Transaction,
+                input: Input,
+                inputIndex: number,
+                signatures: Buffer[],
+                publicKeys: PublicKey[],
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
         }
 
         class MultisigScriptHash extends Input {
-            constructor(input: Input, pubkeys?: PublicKey[], threshold?: number, signatures?: crypto.Signature[], opts?: object);
+            constructor(
+                input: Input,
+                pubkeys?: PublicKey[],
+                threshold?: number,
+                signatures?: crypto.Signature[],
+                opts?: object,
+            );
 
             toObject(): object;
-            getSignatures(transaction: Transaction, privateKey: PrivateKey, index: number, sigtype?: number, hashData?: any, signingMethod?: string): crypto.TransactionSignature[];
+            getSignatures(
+                transaction: Transaction,
+                privateKey: PrivateKey,
+                index: number,
+                sigtype?: number,
+                hashData?: any,
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
             addSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): this;
             clearSignatures(): this;
             isFullySigned(): boolean;
@@ -153,18 +186,39 @@ export namespace Transaction {
             countSignatures(): number;
             publicKeysWithoutSignature(): number;
             isValidSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): boolean;
-            normalizeSignatures(transaction: Transaction, input: Input, inputIndex: number, signatures: Buffer[], publicKeys: PublicKey[], signingMethod?: string): crypto.TransactionSignature[];
+            normalizeSignatures(
+                transaction: Transaction,
+                input: Input,
+                inputIndex: number,
+                signatures: Buffer[],
+                publicKeys: PublicKey[],
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
         }
 
         class PublicKey extends Input {
-            getSignatures(transaction: Transaction, privateKey: PrivateKey, index: number, sigtype?: number, hashData?: any, signingMethod?: string): crypto.TransactionSignature[];
+            getSignatures(
+                transaction: Transaction,
+                privateKey: PrivateKey,
+                index: number,
+                sigtype?: number,
+                hashData?: any,
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
             addSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): this;
             clearSignatures(): this;
             isFullySigned(): boolean;
         }
 
         class PublicKeyHash extends Input {
-            getSignatures(transaction: Transaction, privateKey: PrivateKey, index: number, sigtype?: number, hashData?: any, signingMethod?: string): crypto.TransactionSignature[];
+            getSignatures(
+                transaction: Transaction,
+                privateKey: PrivateKey,
+                index: number,
+                sigtype?: number,
+                hashData?: any,
+                signingMethod?: string,
+            ): crypto.TransactionSignature[];
             addSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): this;
             clearSignatures(): this;
             isFullySigned(): boolean;
@@ -187,7 +241,14 @@ export namespace Transaction {
         toBufferWriter(writer: encoding.BufferWriter): encoding.BufferWriter;
 
         setScript(script: Script): this;
-        getSignatures(transaction: Transaction, privateKey: PrivateKey, index: number, sigtype?: number, hashData?: any, signingMethod?: string): crypto.TransactionSignature[];
+        getSignatures(
+            transaction: Transaction,
+            privateKey: PrivateKey,
+            index: number,
+            sigtype?: number,
+            hashData?: any,
+            signingMethod?: string,
+        ): crypto.TransactionSignature[];
         isFullySigned(): boolean;
         isFinal(): boolean;
         addSignature(transaction: Transaction, signature: crypto.Signature, signingMethod?: string): this;
@@ -233,11 +294,23 @@ export class Transaction {
     feePerKb(amount: number): this;
     feePerByte(amount: number): this;
     sign(privateKey: PrivateKey | string, sigtype?: number, signingMethod?: string): this;
-    getSignatures(privKey: PrivateKey | string, sigtype?: number, signingMethod?: string): crypto.TransactionSignature[];
+    getSignatures(
+        privKey: PrivateKey | string,
+        sigtype?: number,
+        signingMethod?: string,
+    ): crypto.TransactionSignature[];
     applySignature(sig: crypto.Signature, signingMethod?: string): this;
     isFullySigned(): boolean;
     isValidSignature(sig: crypto.TransactionSignature): boolean;
-    verifySignature(sig: crypto.Signature, pubkey: PublicKey, nin: number, subscript: Script, satoshisBN: crypto.BN, flags?: number, signingMethod?: string): boolean;
+    verifySignature(
+        sig: crypto.Signature,
+        pubkey: PublicKey,
+        nin: number,
+        subscript: Script,
+        satoshisBN: crypto.BN,
+        flags?: number,
+        signingMethod?: string,
+    ): boolean;
     addInput(input: Transaction.Input, outputScript?: string | Script, satoshis?: number): this;
     uncheckedAddInput(input: Transaction.Input): this;
     hasAllUtxoInfo(): boolean;
@@ -480,7 +553,7 @@ export class Address {
     static fromPublicKeyHash(hash: Buffer, network: string | Networks.Network): Address;
     static fromScriptHash(hash: Buffer, network: string | Networks.Network): Address;
     static fromScript(script: Script, network: string | Networks.Network): Address;
-    static fromBuffer(buffer: Buffer, network?: string| Networks.Network, type?: string): Address;
+    static fromBuffer(buffer: Buffer, network?: string | Networks.Network, type?: string): Address;
     static fromString(str: string, network?: string | Networks.Network, type?: string): Address;
     static fromObject(obj: object): Address;
 
