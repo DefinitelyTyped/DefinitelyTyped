@@ -21,7 +21,7 @@ describe("Test", () => {
         await element(by.id("element")).scroll(50, "down", 0.5, 0.5);
         await element(by.id("scrollView")).scrollTo("bottom");
         await expect(element(by.id("element")).atIndex(0)).toNotExist();
-        await element(by.id("scrollView")).swipe("down", "fast");
+        await element(by.id("scrollView")).swipe("down", "fast", 0.2, 0.5, 0.5);
         await element(by.type("UIPickerView")).setColumnToValue(1, "6");
 
         await expect(

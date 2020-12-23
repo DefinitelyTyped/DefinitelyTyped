@@ -434,29 +434,34 @@ type LogEvent =
           info: any;
       }>
     | Readonly<{
-          name: 'execute.start';
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }>
+        name: 'network.info',
+        transactionID: number,
+        info: unknown,
+    }>
     | Readonly<{
-          name: 'execute.next';
-          transactionID: number;
-          response: GraphQLResponse;
-      }>
+        name: 'network.start',
+        transactionID: number,
+        params: RequestParameters,
+        variables: Variables,
+    }>
     | Readonly<{
-          name: 'execute.error';
-          transactionID: number;
-          error: Error;
-      }>
+        name: 'network.next',
+        transactionID: number,
+        response: GraphQLResponse,
+    }>
     | Readonly<{
-          name: 'execute.complete';
-          transactionID: number;
-      }>
+        name: 'network.error',
+        transactionID: number,
+        error: Error,
+    }>
     | Readonly<{
-          name: 'execute.unsubscribe';
-          transactionID: number;
-      }>
+        name: 'network.complete',
+        transactionID: number,
+    }>
+    | Readonly<{
+        name: 'network.unsubscribe',
+        transactionID: number,
+    }>
     | Readonly<{
           name: 'store.publish';
           source: RecordSource;

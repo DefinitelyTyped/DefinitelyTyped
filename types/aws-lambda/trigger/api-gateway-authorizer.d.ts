@@ -31,6 +31,30 @@ export interface APIGatewayTokenAuthorizerEvent {
     authorizationToken: string;
 }
 
+export interface APIGatewayRequestAuthorizerEventHeaders {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventMultiValueHeaders {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventPathParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventQueryStringParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventMultiValueQueryStringParameters {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventStageVariables {
+    [name: string]: string | undefined;
+}
+
 // Note, when invoked by the tester in the AWS web console, the map values can be null,
 // but they will be empty objects in the real object.
 // Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
@@ -42,12 +66,12 @@ export interface APIGatewayRequestAuthorizerEvent {
     resource: string;
     path: string;
     httpMethod: string;
-    headers: { [name: string]: string } | null;
-    multiValueHeaders: { [name: string]: string[] } | null;
-    pathParameters: { [name: string]: string } | null;
-    queryStringParameters: { [name: string]: string } | null;
-    multiValueQueryStringParameters: { [name: string]: string[] } | null;
-    stageVariables: { [name: string]: string } | null;
+    headers: APIGatewayRequestAuthorizerEventHeaders | null;
+    multiValueHeaders: APIGatewayRequestAuthorizerEventMultiValueHeaders | null;
+    pathParameters: APIGatewayRequestAuthorizerEventPathParameters | null;
+    queryStringParameters: APIGatewayRequestAuthorizerEventQueryStringParameters | null;
+    multiValueQueryStringParameters: APIGatewayRequestAuthorizerEventMultiValueQueryStringParameters | null;
+    stageVariables: APIGatewayRequestAuthorizerEventStageVariables | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<undefined>;
 }
 

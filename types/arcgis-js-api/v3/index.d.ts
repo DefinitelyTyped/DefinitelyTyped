@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.34
+// Type definitions for ArcGIS API for JavaScript 3.35
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -11902,8 +11902,9 @@ declare module "esri/layers/WFSLayer" {
     /**
      * Creates a WFSLayer using the provided JSON object.
      * @param json The input JSON.
+     * @param callback The function to call when the method has completed.
      */
-    fromJson(json: Object): void;
+    fromJson(json: Object, callback?: Function): void;
     /** Redraws all the graphics in the layer. */
     redraw(): void;
     /** Refreshes the features in the WFS layer. */

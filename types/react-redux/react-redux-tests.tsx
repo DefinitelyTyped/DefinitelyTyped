@@ -1536,3 +1536,27 @@ function testConnectDefaultState() {
         return state;
     });
 }
+
+function testPreserveDiscriminatedUnions() {
+    type OwnPropsT = {
+        color: string
+    } & (
+        | {
+            type: 'plain'
+        }
+        | {
+            type: 'localized'
+            params: Record<string, string> | undefined
+        }
+    );
+
+    class MyText extends React.Component<OwnPropsT> {}
+
+    const ConnectedMyText = connect()(MyText);
+    const someParams = { key: 'value', foo: 'bar' };
+
+    <ConnectedMyText type="plain" color="red" />;
+    <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
+    <ConnectedMyText type="localized" color="red" />; // $ExpectError
+    <ConnectedMyText type="localized" color="red" params={someParams} />;
+}

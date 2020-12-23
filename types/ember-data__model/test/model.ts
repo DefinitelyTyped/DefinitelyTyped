@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import Model, { attr, belongsTo, AsyncBelongsTo, hasMany, AsyncHasMany, SyncHasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
 import RSVP from 'rsvp';
 
@@ -39,10 +39,10 @@ const User = Model.extend({
 
 class Human extends Model {
     @attr age: number;
-    @belongsTo('human') mother: Human;
-    // We should remove the direct use of `DS.PromiseManyArray` by creating and
-    // exporting a type which represents `HasMany<Person>`.
-    @hasMany('person') children: DS.PromiseManyArray<Person>;
+    @belongsTo('human') mother: AsyncBelongsTo<Human>;
+    @belongsTo('human', { async: false }) motherSync: Human;
+    @hasMany('person') children: AsyncHasMany<Person>;
+    @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
 }
 
 const user = User.create({ username: 'dwickern' });

@@ -250,9 +250,9 @@ declare namespace Parsimmon {
         /**
          * Equivalent to Parsimmon.sepBy(parser, separator).
          *
-         * Expects one or more matches for parser, separated by the parser separator, yielding an array.
+         * Expects one or more matches for parser, separated by the parser separator, yielding a non-empty array.
          */
-        sepBy1<U>(separator: Parser<U>): Parser<T[]>;
+        sepBy1<U>(separator: Parser<U>): Parser<[T, ...T[]]>;
         /**
          * Equivalent to Parsimmon.of(result).
          */
@@ -472,7 +472,7 @@ declare namespace Parsimmon {
     /**
      * This is the same as Parsimmon.sepBy, but matches the content parser at least once.
      */
-    function sepBy1<T, U>(content: Parser<T>, separator: Parser<U>): Parser<T[]>;
+    function sepBy1<T, U>(content: Parser<T>, separator: Parser<U>): Parser<[T, ...T[]]>;
 
     /**
      * accepts a function that returns a parser, which is evaluated the first time the parser is used.

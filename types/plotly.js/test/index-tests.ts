@@ -284,6 +284,37 @@ const graphDiv = '#test';
     };
     Plotly.newPlot('myDiv', data, layout, config);
 })();
+(() => {
+    // should create a boxplot with boxmode 'group'
+    const y: number[] = [];
+    const x: string[] = [];
+    for (let i = 0; i < 50; i++) {
+        y.push(Math.random());
+        x.push('category 1');
+        y.push(Math.random() + 1);
+        x.push('category 2');
+    }
+    const data: Array<Partial<Plotly.BoxPlotData>> = [
+        {
+            y,
+            x,
+            type: 'box',
+            name: 'group A',
+        },
+        {
+            y: y.map(e => e + 1),
+            x,
+            type: 'box',
+            name: 'group B',
+        },
+    ];
+    const layout: Partial<Layout> = {
+        title: 'Grouped Box Plot',
+        boxmode: 'overlay',
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
+})();
 
 //////////////////////////////////////////////////////////////////////
 
@@ -753,15 +784,15 @@ function rand() {
 (async () => {
     const sunburst = await newPlot(graphDiv, [
         {
-            type: "sunburst",
-            ids: ["root", "child1", "child2"],
-            branchvalues: "total",
-            level: "child1",
-            parents: ["", "root", "root"],
+            type: 'sunburst',
+            ids: ['root', 'child1', 'child2'],
+            branchvalues: 'total',
+            level: 'child1',
+            parents: ['', 'root', 'root'],
         },
     ]);
 
-    sunburst.on('plotly_sunburstclick', (event) => {
+    sunburst.on('plotly_sunburstclick', event => {
         console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
 
         const point = event.points[0];
@@ -769,7 +800,9 @@ function rand() {
         console.log(`Point is number ${point.pointNumber} on trace ${point.curveNumber}`);
         console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
         console.log(`Point has value ${point.value}`);
-        console.log(`Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`);
+        console.log(
+            `Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`,
+        );
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });

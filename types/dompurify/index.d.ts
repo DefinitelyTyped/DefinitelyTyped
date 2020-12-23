@@ -63,7 +63,6 @@ declare namespace DOMPurify {
          */
         RETURN_DOM_IMPORT?: boolean;
         RETURN_TRUSTED_TYPE?: boolean;
-        SAFE_FOR_JQUERY?: boolean;
         SANITIZE_DOM?: boolean;
         WHOLE_DOCUMENT?: boolean;
         ALLOWED_URI_REGEXP?: RegExp;
