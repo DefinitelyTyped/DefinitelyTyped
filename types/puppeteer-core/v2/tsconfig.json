@@ -10,11 +10,25 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "puppeteer": [
+                "puppeteer/v2"
+            ],
+            "puppeteer/*": [
+                "puppeteer/v2/*"
+            ],
+            "puppeteer-core": [
+                "puppeteer-core/v2"
+            ],
+            "puppeteer-core/*": [
+                "puppeteer-core/v2/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
