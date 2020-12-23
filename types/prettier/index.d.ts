@@ -344,7 +344,7 @@ export interface SupportOptionRange {
 export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
 
 export interface BaseSupportOption<Type extends SupportOptionType> {
-    name: string;
+    readonly name?: string;
     since: string;
     category: string;
     /**
