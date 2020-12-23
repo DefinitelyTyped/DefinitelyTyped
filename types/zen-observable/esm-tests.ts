@@ -1,7 +1,7 @@
-import Observable, { Subscription, SubscriptionObserver, zip, combineLatest, merge } from 'zen-observable/esm';
+import Observable, { zip, combineLatest, merge } from 'zen-observable/esm';
 
 // $ExpectType Subscription
-let subscription = new Observable<number>(
+new Observable<number>(
     (
         // $ExpectType SubscriptionObserver<number>
         observer,
