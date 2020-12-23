@@ -2722,6 +2722,11 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "murmurhash",
+            "typingsPackageName": "murmurhash",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "naja",
             "typingsPackageName": "naja",
             "asOfVersion": "2.0.0"
