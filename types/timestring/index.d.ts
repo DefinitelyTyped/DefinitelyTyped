@@ -3,7 +3,7 @@
 // Definitions by: Devin Spikowski <https://github.com/vegeta897>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function timestring(
+declare function timestring(
     input: string,
     returnUnit?:
         | 'ms'
@@ -49,3 +49,5 @@ export default function timestring(
         daysPerYear?: number;
     },
 ): number;
+
+export = timestring;

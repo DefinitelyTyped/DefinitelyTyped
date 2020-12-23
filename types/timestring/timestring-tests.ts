@@ -1,4 +1,4 @@
-import timestring from 'timestring';
+import timestring = require('timestring');
 
 timestring(); // $ExpectError
 timestring(1); // $ExpectError
