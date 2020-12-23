@@ -587,6 +587,7 @@ declare namespace GoogleAppsScript {
         shared?: boolean;
         sharedWithMeDate?: string;
         sharingUser?: Drive.Schema.User;
+        shortcutDetails?: Drive.Schema.ShortcutDetails;
         spaces?: string[];
         teamDriveId?: string;
         thumbnail?: Drive.Schema.FileThumbnail;
@@ -793,6 +794,10 @@ declare namespace GoogleAppsScript {
         kind?: string;
         nextPageToken?: string;
         selfLink?: string;
+      }
+      interface ShortcutDetails {
+        targetId?: string;
+        targetMimeType?: string;
       }
       interface StartPageToken {
         kind?: string;
