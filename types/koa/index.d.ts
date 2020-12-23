@@ -1,4 +1,4 @@
-// Type definitions for Koa 2.11.0
+// Type definitions for Koa 2.13.0
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
@@ -7,7 +7,7 @@
 //                 Wooram Jun <https://github.com/chatoo2412>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
