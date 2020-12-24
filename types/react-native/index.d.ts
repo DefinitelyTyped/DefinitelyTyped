@@ -9355,7 +9355,7 @@ type ScreenRect = {
     height: number;
 };
 
-interface IOSKeyboardEvent {
+interface KeyboardEventIOS {
     /**
      * @platform ios
      */
@@ -9366,7 +9366,7 @@ interface IOSKeyboardEvent {
     isEventFromThisApp: boolean;
 }
 
-export interface KeyboardEvent extends IOSKeyboardEvent {
+export interface KeyboardEvent extends Partial<KeyboardEventIOS> {
     /**
      * Always set to 0 on Android.
      */
