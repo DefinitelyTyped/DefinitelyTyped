@@ -19,6 +19,7 @@
 //                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 //                 Lenz Weber <https://github.com/phryneas>
+//                 Mark Erikson <https://github.com/markerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
