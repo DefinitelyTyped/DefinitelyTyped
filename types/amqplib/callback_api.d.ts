@@ -2,14 +2,13 @@ import events = require('events');
 import { Replies, Options, Message, ServerProperties } from './properties';
 export * from './properties';
 
-export interface Connection {
-    serverProperties: ServerProperties;
-}
-export interface CallbackModel extends events.EventEmitter {
+export interface Connection extends events.EventEmitter {
     close(callback?: (err: any) => void): void;
     createChannel(callback: (err: any, channel: Channel) => void): void;
     createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void): void;
-    connection: Connection;
+    connection: {
+        serverProperties: ServerProperties;
+    };
 }
 
 export interface Channel extends events.EventEmitter {
@@ -71,6 +70,6 @@ export const credentials: {
     };
 };
 
-export function connect(callback: (err: any, connection: CallbackModel) => void): void;
-export function connect(url: string | Options.Connect, callback: (err: any, connection: CallbackModel) => void): void;
-export function connect(url: string | Options.Connect, socketOptions: any, callback: (err: any, connection: CallbackModel) => void): void;
+export function connect(callback: (err: any, connection: Connection) => void): void;
+export function connect(url: string | Options.Connect, callback: (err: any, connection: Connection) => void): void;
+export function connect(url: string | Options.Connect, socketOptions: any, callback: (err: any, connection: Connection) => void): void;
