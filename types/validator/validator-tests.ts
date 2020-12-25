@@ -67,6 +67,7 @@ import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
+import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -274,6 +275,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isSemVer = validator.isSemVer;
     _isSemVer = isSemVerFunc;
 
+    let _isStrongPassword = validator.isStrongPassword;
+    _isStrongPassword = isStrongPasswordFunc;
+
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
 
@@ -399,6 +403,7 @@ import isPassportNumberFuncEs from 'validator/es/lib/isPassportNumber';
 import isPortFuncEs from 'validator/es/lib/isPort';
 import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
+import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
@@ -794,6 +799,8 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
+
+    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 
