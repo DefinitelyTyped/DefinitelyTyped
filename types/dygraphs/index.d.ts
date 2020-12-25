@@ -1235,7 +1235,7 @@ declare class Dygraph {
      * @param {number} width Width (in pixels)
      * @param {number} height Height (in pixels)
      */
-    resize(width: number, height: number): void;
+    resize(width?: number, height?: number): void;
 
     /**
      * Adjusts the number of points in the rolling average. Updates the graph to
