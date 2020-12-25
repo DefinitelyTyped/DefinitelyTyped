@@ -5888,6 +5888,16 @@ fp.now(); // $ExpectType number
     }
 
     {
+        const abcObjectRecord: Record<'a' | 'b' | 'c', number> = anything;
+        const iterator = (acc: _.Dictionary<AbcObject>, curr: number, index: 'a' | 'b' | 'c', arr: typeof abcObjectRecord) => {};
+        const accumulator: _.Dictionary<AbcObject> = {};
+
+        _.transform<typeof abcObjectRecord, _.Dictionary<AbcObject>>(abcObjectRecord, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
+        _(abcObjectRecord).transform(iterator, accumulator); // $ExpectType Object<Dictionary<AbcObject>>
+        _.chain(abcObjectRecord).transform(iterator, accumulator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
+    }
+
+    {
         const iterator = (acc: _.Dictionary<AbcObject>, curr: number, key?: string, dict?: _.Dictionary<number>) => {};
         const accumulator: _.Dictionary<AbcObject> = {};
 

@@ -444,6 +444,10 @@ declare namespace IORedis {
         zrange(key: KeyType, start: number, stop: number, withScores: 'WITHSCORES', callback: Callback<string[]>): void;
         zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
+        zrangeBuffer(key: KeyType, start: number, stop: number, callback: Callback<Buffer[]>): void;
+        zrangeBuffer(key: KeyType, start: number, stop: number, withScores: 'WITHSCORES', callback: Callback<Buffer[]>): void;
+        zrangeBuffer(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<Buffer[]>;
+
         zrevrange(key: KeyType, start: number, stop: number, callback: Callback<string[]>): void;
         zrevrange(
             key: KeyType,
@@ -453,6 +457,16 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
         zrevrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
+
+        zrevrangeBuffer(key: KeyType, start: number, stop: number, callback: Callback<Buffer[]>): void;
+        zrevrangeBuffer(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangeBuffer(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<Buffer[]>;
 
         zrangebyscore(
             key: KeyType,
@@ -503,6 +517,57 @@ declare namespace IORedis {
             offset: number,
             count: number,
             callback: Callback<string[]>,
+        ): void;
+
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(key: KeyType, min: number | string, max: number | string, callback: Callback<Buffer[]>): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
         ): void;
 
         zrevrangebyscore(
@@ -556,6 +621,57 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(key: KeyType, max: number | string, min: number | string, callback: Callback<Buffer[]>): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+
         zrangebylex(
             key: KeyType,
             min: string,
@@ -585,6 +701,35 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<Buffer[]>;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -612,6 +757,35 @@ declare namespace IORedis {
             offset: number,
             count: number,
             callback: Callback<string[]>,
+        ): void;
+
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<Buffer[]>;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
         ): void;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback: Callback<number>): void;
