@@ -51,14 +51,14 @@ sql.connect(config, (err, pool) => {
         console.error(err);
         return;
     }
-    pool.close();
 });
 
-sql.connect('mssql://username:password@localhost/database').then((pool) => {
+sql.connect('mssql://username:password@localhost/database').then(async (pool) => {
+    await sql.connect();
     pool.close();
 }).catch((err) => {
     console.log(err);
-})
+});
 
 var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (err: any) {
     if (err != null) {
