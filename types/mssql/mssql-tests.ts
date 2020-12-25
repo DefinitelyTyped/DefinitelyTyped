@@ -34,7 +34,8 @@ var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectio
 
 sql.connect(config, (err, pool) => {
     if (err) {
-        return console.error(err);
+        console.error(err);
+        return;
     }
     pool.close();
 });
@@ -47,7 +48,8 @@ sql.connect(config).then((pool) => {
 
 sql.connect(config, (err, pool) => {
     if (err) {
-        return console.error(err);
+        console.error(err);
+        return;
     }
     pool.close();
 });
