@@ -63,7 +63,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
 
     const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
 
-    assert.deepStrictEqual(
+    assert.deepStrictEqual<any>(
         info.metaData[0],
         {
             name: '1',
