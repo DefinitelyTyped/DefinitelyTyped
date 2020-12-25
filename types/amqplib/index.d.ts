@@ -15,11 +15,14 @@ import * as events from 'events';
 import { Replies, Options, Message, GetMessage, ConsumeMessage, ServerProperties } from './properties';
 export * from './properties';
 
-export interface Connection extends events.EventEmitter {
+export interface Connection {
+    serverProperties: ServerProperties;
+}
+export interface ChannelModel extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
-    serverProperties: ServerProperties;
+    connection: Connection;
 }
 
 export interface Channel extends events.EventEmitter {
@@ -70,15 +73,15 @@ export interface ConfirmChannel extends Channel {
 
 export const credentials: {
     external(): {
-      mechanism: string;
-      response(): Buffer;
+        mechanism: string;
+        response(): Buffer;
     };
     plain(username: string, password: string): {
-      mechanism: string;
-      response(): Buffer;
-      username: string;
-      password: string;
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
     };
 };
 
-export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<ChannelModel>;
