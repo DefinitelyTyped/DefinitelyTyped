@@ -32,6 +32,32 @@ var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectio
     }
 });
 
+sql.connect(config, (err, pool) => {
+    if (err) {
+        return console.error(err);
+    }
+    pool.close();
+});
+
+sql.connect(config).then((pool) => {
+    pool.close();
+}).catch((err) => {
+    console.log(err);
+});
+
+sql.connect(config, (err, pool) => {
+    if (err) {
+        return console.error(err);
+    }
+    pool.close();
+});
+
+sql.connect('mssql://username:password@localhost/database').then((pool) => {
+    pool.close();
+}).catch((err) => {
+    console.log(err);
+})
+
 var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (err: any) {
     if (err != null) {
         console.warn("Issue with connecting to SQL Server!");
