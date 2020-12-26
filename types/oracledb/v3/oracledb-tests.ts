@@ -63,7 +63,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
 
     const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
 
-    assert.deepStrictEqual<any>(
+    assert.deepStrictEqual(
         info.metaData[0],
         {
             name: '1',
@@ -72,7 +72,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
             nullable: true,
             precision: 0,
             scale: -127,
-        },
+        } as any,
         'connection.getStatementInfo() has invalid metaData field in its response',
     );
 
@@ -149,7 +149,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assert.deepStrictEqual<any>(result.metaData[0], { name: '1' });
+    assert.deepStrictEqual(result.metaData[0], { name: '1' } as any);
 
     const { resultSet } = result;
 
