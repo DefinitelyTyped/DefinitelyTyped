@@ -19,8 +19,11 @@ declare namespace gitDiff {
          */
         color?: boolean;
         /**
-         * A space separated string of git diff flags from https://git-scm.com/docs/git-diff#_options
+         * A space separated string of git diff flags.
+         * 
+         * This only applies to real git diffs and will not effect the output if it is fake.
          * @default null
+         * @see @link https://git-scm.com/docs/git-diff#_options
          */
         flags?: string | null;
         /**
@@ -32,7 +35,7 @@ declare namespace gitDiff {
          * Remove the ugly @@ -1,3 +1,3 @@ header?
          * @default false
          */
-        noHeaders?: false;
+        noHeaders?: boolean;
         /**
          * Remember the options for next time?
          * @default false
