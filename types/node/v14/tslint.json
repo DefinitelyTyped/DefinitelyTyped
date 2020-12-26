@@ -1,0 +1,11 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "ban-types": false,
+    "no-empty-interface": false,
+    "no-outside-dependencies": false,
+    "no-single-declare-module": false,
+    "no-unnecessary-class": false,
+    "unified-signatures": false
+  }
+}
