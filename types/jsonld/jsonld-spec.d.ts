@@ -3,7 +3,11 @@
  * https://www.w3.org/TR/json-ld-api/
  *
  */
-import { NodeObject } from './jsonld.d';
+import {
+    JsonLdDocument,
+    NodeObject,
+    ContextDefinition,
+} from './jsonld.d';
 
 // Some aliases and placeholders for better readability
 export type JsonLdObj = NodeObject;
@@ -15,22 +19,20 @@ type LoadDocumentCallback = (url: Url) => Promise<RemoteDocument>;
 
 export type Url = DOMString;
 export type Iri = Url;
-export type Document = JsonLd|Url;
-export type Context = Document;
 export type Frame = JsonLdObj|Url;
 
 export interface Options {
     base?: DOMString|null;
     compactArrays?: boolean;
     documentLoader?: LoadDocumentCallback|null;
-    expandContext?: Context|null;
+    expandContext?: ContextDefinition|null;
     processingMode?: DOMString;
 }
 
 export interface JsonLdProcessor {
-    compact(input: Document, context: Context,  options?: Options): Promise<JsonLdObj>;
-    expand(input: Document, options?: Options): Promise<JsonLdArray>;
-    flatten(input: Document, context?: Context|null, options?: Options): Promise<JsonLdObj>;
+    compact(input: JsonLdDocument, context: ContextDefinition,  options?: Options): Promise<JsonLdObj>;
+    expand(input: JsonLdDocument, options?: Options): Promise<JsonLdArray>;
+    flatten(input: JsonLdDocument, context?: ContextDefinition|null, options?: Options): Promise<JsonLdObj>;
 }
 
 export interface RemoteDocument {
