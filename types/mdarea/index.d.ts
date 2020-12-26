@@ -3,7 +3,7 @@
 // Definitions by: Antoine Laffargue <https://github.com/toniopelo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface MarkdownEditorOptions {
+interface MarkdownEditorOptions {
     /**
      * @remarks
      * How many spaces to use for indentation.
@@ -77,7 +77,7 @@ export interface MarkdownEditorOptions {
     };
 }
 
-export interface MarkdownAreaEditor {
+interface MarkdownAreaEditor {
     /**
      * @returns the DOM element the editor instance is attached to
      */
