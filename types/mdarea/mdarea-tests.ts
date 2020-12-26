@@ -1,4 +1,4 @@
-import MarkdownArea from 'mdarea';
+import * as MarkdownArea from 'mdarea';
 
 const elem = new HTMLTextAreaElement();
 
