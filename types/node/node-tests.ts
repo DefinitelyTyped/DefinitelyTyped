@@ -52,12 +52,12 @@ assert['fail'](true, true, 'works like a charm');
 
 {
     const a = 'test' as any;
-    assert.strictEqual<any>(a, 'test');
+    assert.strictEqual<string>(a, 'test');
     a; // $ExpectType string
 }
 
 {
     const a = { b: 2 } as any;
-    assert.deepStrictEqual<any>(a, { b: 2 });
+    assert.deepStrictEqual<{ b: number; }>(a, { b: 2 });
     a; // $ExpectType { b: number; }
 }
