@@ -218,8 +218,27 @@ declare module "net" {
         unref(): this;
     }
 
-    // TODO:
-    interface OpenStreamOptions {}
+    interface OpenStreamOptions {
+        /**
+         * Set to `true` to open a unidirectional stream, `false` to open a bidirectional stream.
+         *
+         * @default true
+         *
+         */
+        halfOpen?: boolean;
+        /**
+         * Total number of bytes that the `QuicStream` may buffer internally before the `quicstream.write()` function starts returning `false`.
+         *
+         * @default 16384
+         */
+        highWaterMark?: number;
+        /**
+         * The default encoding that is used when no encoding is specified as an argument to `quicstream.write()`.
+         *
+         * @default 'utf8'
+         */
+        defaultEncoding?: string;
+    }
 
     interface EmptyAddress {
         address: undefined;
@@ -263,12 +282,123 @@ declare module "net" {
         family: QuicSessionCloseCodeType;
     }
 
-    // TODO:
+    // TODO: TBD in node core
     interface Histogram {
     }
 
-    class QuicSession extends EventEmitter {
-        // TODO: events
+    interface QuicSession extends EventEmitter {
+        /**
+         * events
+         */
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "keylog", listener: (line: Buffer) => void): this;
+        addListener(event: "pathValidation", listener: (result: string, local: object, remote: object) => void): this;
+        addListener(
+            event: "secure",
+            listener: (
+                servername: string,
+                alpnProtocol: string,
+                cipher: {
+                    name: string,
+                    version: string
+                }
+            ) => void
+        ): this;
+        addListener(event: "stream", listener: (stream: QuicStream) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "close"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "keylog", line: Buffer): boolean;
+        emit(event: "pathValidation", result: string, local: object, remote: object): boolean;
+        emit(
+            event: "secure",
+            servername: string,
+            alpnProtocol: string,
+            cipher: {
+                name: string,
+                version: string
+            }
+        ): boolean;
+        emit(event: "stream", stream: QuicStream): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on(event: "close", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "keylog", listener: (line: Buffer) => void): this;
+        on(event: "pathValidation", listener: (result: string, local: object, remote: object) => void): this;
+        on(event: "secure", listener: () => void): this;
+        on(
+            event: "secure",
+            listener: (
+                servername: string,
+                alpnProtocol: string,
+                cipher: {
+                    name: string,
+                    version: string
+                }
+            ) => void
+        ): this;
+        on(event: "stream", listener: (stream: QuicStream) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: "close", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "keylog", listener: (line: Buffer) => void): this;
+        once(event: "pathValidation", listener: (result: string, local: object, remote: object) => void): this;
+        once(event: "secure", listener: () => void): this;
+        once(
+            event: "secure",
+            listener: (
+                servername: string,
+                alpnProtocol: string,
+                cipher: {
+                    name: string,
+                    version: string
+                }
+            ) => void
+        ): this;
+        once(event: "stream", listener: (stream: QuicStream) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "keylog", listener: (line: Buffer) => void): this;
+        prependListener(event: "pathValidation", listener: (result: string, local: object, remote: object) => void): this;
+        prependListener(event: "secure", listener: () => void): this;
+        prependListener(
+            event: "secure",
+            listener: (
+                servername: string,
+                alpnProtocol: string,
+                cipher: {
+                    name: string,
+                    version: string
+                }
+            ) => void
+        ): this;
+        prependListener(event: "stream", listener: (stream: QuicStream) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "keylog", listener: (line: Buffer) => void): this;
+        prependOnceListener(event: "pathValidation", listener: (result: string, local: object, remote: object) => void): this;
+        prependOnceListener(event: "secure", listener: () => void): this;
+        prependOnceListener(
+            event: "secure",
+            listener: (
+                servername: string,
+                alpnProtocol: string,
+                cipher: {
+                    name: string,
+                    version: string
+                }
+            ) => void
+        ): this;
+        prependOnceListener(event: "stream", listener: (stream: QuicStream) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         /**
          * The number of retransmissions caused by delayed acknowledgments.
@@ -507,11 +637,64 @@ declare module "net" {
         readonly usingEarlyData: boolean;
     }
 
-    // TODO:
-    class QuicClientSession extends QuicSession {}
+    interface QuicClientSession extends QuicSession {
+        addListener(event: "sessionTicket", listener: (sessionTicket: Buffer, remoteTransportParams: Buffer) => void): this;
+        addListener(event: "qlog", listener: (qlog: Readable) => void): this;
+        addListener(event: "usePreferredAddress", listener: (address: object) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    // TODO:
-    class QuicServerSession extends QuicSession {}
+        emit(event: "sessionTicket", sessionTicket: Buffer, remoteTransportParams: Buffer): boolean;
+        emit(event: "qlog", qlog: Readable): boolean;
+        emit(event: "usePreferredAddress", address: object): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on(event: "sessionTicket", listener: (sessionTicket: Buffer, remoteTransportParams: Buffer) => void): this;
+        on(event: "qlog", listener: (qlog: Readable) => void): this;
+        on(event: "usePreferredAddress", listener: (address: object) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: "sessionTicket", listener: (sessionTicket: Buffer, remoteTransportParams: Buffer) => void): this;
+        once(event: "qlog", listener: (qlog: Readable) => void): this;
+        once(event: "usePreferredAddress", listener: (address: object) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: "sessionTicket", listener: (sessionTicket: Buffer, remoteTransportParams: Buffer) => void): this;
+        prependListener(event: "qlog", listener: (qlog: Readable) => void): this;
+        prependListener(event: "usePreferredAddress", listener: (address: object) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: "sessionTicket", listener: (sessionTicket: Buffer, remoteTransportParams: Buffer) => void): this;
+        prependOnceListener(event: "qlog", listener: (qlog: Readable) => void): this;
+        prependOnceListener(event: "usePreferredAddress", listener: (address: object) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        /**
+         * An object representing the type, name, and size of parameter of an ephemeral
+         * key exchange in Perfect Forward Secrecy on a client connection. It is an
+         * empty object when the key exchange is not ephemeral. The supported types are
+         * `'DH'` and `'ECDH'`. The `name` property is available only when type is
+         * `'ECDH'`.
+         *
+         * For example: `{ type: 'ECDH', name: 'prime256v1', size: 256 }`.
+         *
+         */
+        readonly ephemeralKeyInfo: object;
+
+        /**
+         * Migrates the `QuicClientSession` to the given `QuicSocket` instance. If the new
+         * `QuicSocket` has not yet been bound to a local UDP port, it will be bound prior
+         * to attempting the migration.
+         *
+         * @param socket A `QuicSocket` instance to move this session to.
+         * @param natRebinding When `true`, indicates that the local address is to
+         * be changed without triggering address validation. This will be rare and will
+         * typically be used only to test resiliency in NAT rebind scenarios.
+         * **Default**: `false`.
+         */
+        setSocket(socket: QuicSocket, natRebinding?: boolean): Promise<void>;
+    }
+
+    interface QuicServerSession extends QuicSession {}
 
     interface NewQuicEndpointOptions extends Endpoint {
         /**
@@ -522,12 +705,249 @@ declare module "net" {
         lookup?: CustomLookupFunction;
     }
 
-    // TODO:
-    interface QuicSocketConnectOptions {
+    interface QuicSocketCommonOptions {
+        /**
+         * An ALPN protocol identifier.
+         */
+        alpn?: string;
+        /**
+         * Optionally override the trusted CA
+         * certificates. Default is to trust the well-known CAs curated by Mozilla.
+         * Mozilla's CAs are completely replaced when CAs are explicitly specified
+         * using this option. The value can be a string or `Buffer`, or an `Array` of
+         * strings and/or `Buffer`s. Any string or `Buffer` can contain multiple PEM
+         * CAs concatenated together. The peer's certificate must be chainable to a CA
+         * trusted by the server for the connection to be authenticated. When using
+         * certificates that are not chainable to a well-known CA, the certificate's CA
+         * must be explicitly specified as a trusted or the connection will fail to
+         * authenticate.
+         * If the peer uses a certificate that doesn't match or chain to one of the
+         * default CAs, use the `ca` option to provide a CA certificate that the peer's
+         * certificate can match or chain to.
+         * For self-signed certificates, the certificate is its own CA, and must be
+         * provided.
+         * For PEM encoded certificates, supported types are "TRUSTED CERTIFICATE",
+         * "X509 CERTIFICATE", and "CERTIFICATE".
+         */
+        ca?: string | string[] | Buffer | Buffer[];
+        /**
+         * Cert chains in PEM format. One cert
+         * chain should be provided per private key. Each cert chain should consist of
+         * the PEM formatted certificate for a provided private `key`, followed by the
+         * PEM formatted intermediate certificates (if any), in order, and not
+         * including the root CA (the root CA must be pre-known to the peer, see `ca`).
+         * When providing multiple cert chains, they do not have to be in the same
+         * order as their private keys in `key`. If the intermediate certificates are
+         * not provided, the peer will not be able to validate the certificate, and the
+         * handshake will fail.
+         */
+        cert?: string | string[] | Buffer | Buffer[];
+        /**
+         * Cipher suite specification, replacing the default. For
+         * more information, see [modifying the default cipher suite][]. Permitted
+         * ciphers can be obtained via [`tls.getCiphers()`][]. Cipher names must be
+         * uppercased in order for OpenSSL to accept them.
+         */
+        ciphers?: string;
+        /**
+         * Name of an OpenSSL engine which can provide the client certificate.
+         */
+        clientCertEngine?: string;
+        /**
+         * PEM formatted CRLs (Certificate Revocation Lists).
+         */
+        crl?: string | string[] | Buffer | Buffer[];
+        /**
+         * The default encoding that is used when no encoding is specified as an argument to `quicstream.write()`.
+         * @default `'utf8'`
+         */
+        defaultEncoding?: string;
+        /**
+         * Diffie Hellman parameters, required for
+         * [Perfect Forward Secrecy][]. Use `openssl dhparam` to create the parameters.
+         * The key length must be greater than or equal to 1024 bits, otherwise an
+         * error will be thrown. It is strongly recommended to use 2048 bits or larger
+         * for stronger security. If omitted or invalid, the parameters are silently
+         * discarded and DHE ciphers will not be available.
+         */
+        dhparam?: string | Buffer;
+        /**
+         * A string describing a named curve or a colon separated
+         * list of curve NIDs or names, for example `P-521:P-384:P-256`, to use for
+         * ECDH key agreement. Set to `auto` to select the
+         * curve automatically. Use [`crypto.getCurves()`][] to obtain a list of
+         * available curve names. On recent releases, `openssl ecparam -list_curves`
+         * will also display the name and description of each available elliptic curve.
+         * @default tls.DEFAULT_ECDH_CURVE.
+         */
+        ecdhCurve?: string;
+        /**
+         * Total number of bytes that the `QuicStream` may
+         * buffer internally before the `quicstream.write()` function starts returning
+         * `false`.
+         *
+         * @default 16384
+         */
+        highWaterMark?: number;
+        /**
+         * Attempt to use the server's cipher suite
+         * preferences instead of the client's. When `true`, causes
+         * `SSL_OP_CIPHER_SERVER_PREFERENCE` to be set in `secureOptions`, see
+         * [OpenSSL Options][] for more information.
+         */
+        honorCipherOrder?: boolean;
+        idleTimeout?: number;
+        /**
+         * Private keys in PEM format.
+         * PEM allows the option of private keys being encrypted. Encrypted keys will
+         * be decrypted with `options.passphrase`. Multiple keys using different
+         * algorithms can be provided either as an array of unencrypted key strings or
+         * buffers, or an array of objects in the form `{pem: <string|buffer>[,
+         * passphrase: <string>]}`. The object form can only occur in an array.
+         * `object.passphrase` is optional. Encrypted keys will be decrypted with
+         * `object.passphrase` if provided, or `options.passphrase` if it is not.
+         */
+        key?: string | string[] | Buffer | Buffer[] | object[];
+        /**
+         * A custom DNS lookup function.
+         * @default undefined
+         */
+        lookup?: Function;
+        /**
+         * Must be a value between `2` and `8` (inclusive).
+         * @default 2
+         */
+        activeConnectionIdLimit?: number;
+        /**
+         * Must be either `'reno'` or `'cubic'`.
+         * @default 'reno'
+         */
+        congestionAlgorithm?: string;
+        maxAckDelay?: number;
+        maxData?: number;
+        maxUdpPayloadSize?: number;
+        maxStreamDataBidiLocal?: number;
+        maxStreamDataBidiRemote?: number;
+        maxStreamDataUni?: number;
+        maxStreamsBidi?: number;
+        maxStreamsUni?: number;
+        /**
+         * function for handling OCSP responses.
+         */
+        ocspHandler?: Function;
+        /**
+         * Shared passphrase used for a single private key and/or a PFX.
+         */
+        passphrase?: string;
+        /**
+         * ternative to providing
+         * `key` and `cert` individually. PFX is usually encrypted, if it is,
+         * `passphrase` will be used to decrypt it. Multiple PFX can be provided either
+         * as an array of unencrypted PFX buffers, or an array of objects in the form
+         * `{buf: <string|buffer>[, passphrase: <string>]}`. The object form can only
+         * occur in an array. `object.passphrase` is optional. Encrypted PFX will be
+         * decrypted with `object.passphrase` if provided, or `options.passphrase` if
+         * it is not.
+         */
+        pfx?: string | string[] | Buffer | Buffer[] | object[];
+        /**
+         * Optionally affect the OpenSSL protocol behavior,
+         * which is not usually necessary. This should be used carefully if at all!
+         * Value is a numeric bitmask of the `SSL_OP_*` options from
+         * [OpenSSL Options][].
+         */
+        secureOptions?: number;
     }
 
-    // TODO:
-    interface QuicSocketListenOptions {
+    interface QuicSocketConnectOptions extends QuicSocketCommonOptions {
+        /**
+         * The domain name or IP address of the QUIC server endpoint.
+         */
+        address?: string;
+        /**
+         * HTTP/3 Specific Configuration Options
+         */
+        h3?: {
+            qpackMaxTableCapacity?: number;
+            qpackBlockedStreams?: number;
+            maxHeaderListSize?: number;
+            maxPushes?: number;
+        };
+        /**
+         * The IP port of the remote QUIC server.
+         */
+        port?: number;
+        /**
+         * `'accept'` or `'reject'`. When `'accept'`,
+         * indicates that the client will automatically use the preferred address
+         * advertised by the server.
+         */
+        preferredAddressPolicy?: string;
+        /**
+         * The serialized remote
+         * transport parameters from a previously established session. These would
+         * have been provided as part of the `'sessionTicket'` event on a previous
+         * `QuicClientSession` object.
+         */
+        remoteTransportParams?: Buffer | NodeJS.TypedArray | DataView;
+        /**
+         * Whether to enable qlog for this session.
+         * @default false
+         */
+        qlog?: boolean;
+        /**
+         * The SNI servername.
+         */
+        servername?: string;
+        /**
+         * The serialized TLS Session
+         * Ticket from a previously established session. These would have been
+         * provided as part of the `'sessionTicket`' event on a previous
+         * `QuicClientSession` object.
+         */
+        sessionTicket?: Buffer | NodeJS.TypedArray | DataView;
+        /**
+         * Identifies the type of UDP socket. The value must either
+         * be `'udp4'`, indicating UDP over IPv4, or `'udp6'`, indicating UDP over
+         * IPv6.
+         * @default udp4
+         */
+        type?: string;
+    }
+
+    interface QuicSocketListenOptions extends QuicSocketCommonOptions {
+        /**
+         * An async function that may be used to
+         * set a {tls.SecureContext} for the given server name at the start of the
+         * TLS handshake. See [Handling client hello][] for details.
+         */
+        clientHelloHandler?: Function;
+        /**
+         * Set to `false` to disable 0RTT early data.
+         * @default true
+         */
+        earlyData?: boolean;
+        preferredAddress?: {
+            address?: string;
+            port?: number;
+            type?: string;
+        }
+        /**
+         * Request a certificate used to authenticate the client.
+         */
+        requestCert?: boolean;
+        /**
+         * If not `false` the server will reject any
+         * connection which is not authorized with the list of supplied CAs. This
+         * option only has an effect if `requestCert` is `true`.
+         * @default true
+         */
+        rejectUnauthorized?: boolean;
+        /**
+         * Opaque identifier used by servers to ensure
+         * session state is not shared between applications. Unused by clients.
+         */
+        sessionIdContext?: string;
     }
 
     interface DiagnosticPacketLossOptions {
@@ -542,7 +962,24 @@ declare module "net" {
     }
 
     class QuicSocket extends EventEmitter {
-        // TODO: add 'addListener', 'once', 'off', etc...
+        addListener(event: 'busy', listener: () => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'endpointClose', listener: (endpoint: QuicEndpoint, error: Error) => void): this;
+        addListener(event: 'error', listener: () => void): this;
+        addListener(event: 'listening', listener: () => void): this;
+        addListener(event: 'ready', listener: () => void): this;
+        addListener(event: 'session', listener: (session: QuicServerSession) => void): this;
+        addListener(event: 'sessionError', listener: (error: Error, session: QuicSession) => void): this;
+
+        emit(event: 'busy'): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'endpointClose', endpoint: QuicEndpoint, error: Error): boolean;
+        emit(event: 'error'): boolean;
+        emit(event: 'listening'): boolean;
+        emit(event: 'ready'): boolean;
+        emit(event: 'session', session: QuicServerSession): boolean;
+        emit(event: 'sessionError', error: Error, session: QuicSession): boolean;
+
         on(event: 'busy', listener: () => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'endpointClose', listener: (endpoint: QuicEndpoint, error: Error) => void): this;
@@ -551,6 +988,33 @@ declare module "net" {
         on(event: 'ready', listener: () => void): this;
         on(event: 'session', listener: (session: QuicServerSession) => void): this;
         on(event: 'sessionError', listener: (error: Error, session: QuicSession) => void): this;
+
+        once(event: 'busy', listener: () => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'endpointClose', listener: (endpoint: QuicEndpoint, error: Error) => void): this;
+        once(event: 'error', listener: () => void): this;
+        once(event: 'listening', listener: () => void): this;
+        once(event: 'ready', listener: () => void): this;
+        once(event: 'session', listener: (session: QuicServerSession) => void): this;
+        once(event: 'sessionError', listener: (error: Error, session: QuicSession) => void): this;
+
+        prependListener(event: 'busy', listener: () => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'endpointClose', listener: (endpoint: QuicEndpoint, error: Error) => void): this;
+        prependListener(event: 'error', listener: () => void): this;
+        prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: 'ready', listener: () => void): this;
+        prependListener(event: 'session', listener: (session: QuicServerSession) => void): this;
+        prependListener(event: 'sessionError', listener: (error: Error, session: QuicSession) => void): this;
+
+        prependOnceListener(event: 'busy', listener: () => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'endpointClose', listener: (endpoint: QuicEndpoint, error: Error) => void): this;
+        prependOnceListener(event: 'error', listener: () => void): this;
+        prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: 'ready', listener: () => void): this;
+        prependOnceListener(event: 'session', listener: (session: QuicServerSession) => void): this;
+        prependOnceListener(event: 'sessionError', listener: (error: Error, session: QuicSession) => void): this;
 
         /**
          * Creates and adds a new `QuicEndpoint` to the `QuicSocket` instance.
@@ -736,7 +1200,71 @@ declare module "net" {
     }
 
     class QuicStream extends Duplex {
-        // TODO: add events
+        addListener(event: "blocked", listener: () => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "data", listener: (data: any) => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "informationalHeaders", listener: (headers: object) => void): this;
+        addListener(event: "initialHeaders", listener: (headers: object) => void): this;
+        addListener(event: "trailingHeaders", listener: (headers: object) => void): this;
+        addListener(event: "readable", listener: () => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "blocked"): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "data", data: any): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "informationalHeaders", headers: object): boolean;
+        emit(event: "initialHeaders", headers: object): boolean;
+        emit(event: "trailingHeaders", headers: object): boolean;
+        emit(event: "readable"): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on(event: "blocked", listener: () => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "data", listener: (data: any) => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "informationalHeaders", listener: (headers: object) => void): this;
+        on(event: "initialHeaders", listener: (headers: object) => void): this;
+        on(event: "trailingHeaders", listener: (headers: object) => void): this;
+        on(event: "readable", listener: () => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: "blocked", listener: () => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "data", listener: (data: any) => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "informationalHeaders", listener: (headers: object) => void): this;
+        once(event: "initialHeaders", listener: (headers: object) => void): this;
+        once(event: "trailingHeaders", listener: (headers: object) => void): this;
+        once(event: "readable", listener: () => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: "blocked", listener: () => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "data", listener: (data: any) => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "informationalHeaders", listener: (headers: object) => void): this;
+        prependListener(event: "initialHeaders", listener: (headers: object) => void): this;
+        prependListener(event: "trailingHeaders", listener: (headers: object) => void): this;
+        prependListener(event: "readable", listener: () => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: "blocked", listener: () => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "data", listener: (data: any) => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "informationalHeaders", listener: (headers: object) => void): this;
+        prependOnceListener(event: "initialHeaders", listener: (headers: object) => void): this;
+        prependOnceListener(event: "trailingHeaders", listener: (headers: object) => void): this;
+        prependOnceListener(event: "readable", listener: () => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         /**
          * When `true`, the `QuicStream` is bidirectional.
