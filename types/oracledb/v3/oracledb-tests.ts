@@ -149,7 +149,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assert.deepStrictEqual(result.metaData[0], { name: '1' });
+    assert.deepStrictEqual<any>(result.metaData[0], { name: '1' });
 
     const { resultSet } = result;
 
