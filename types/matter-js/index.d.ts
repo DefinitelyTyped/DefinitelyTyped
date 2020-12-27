@@ -1298,7 +1298,7 @@ declare namespace Matter {
          * @param {composite} composite
          * @return {constraint[]} All the constraints
          */
-        static allConstraints(composite: Composite): Array<Composite>;
+        static allConstraints(composite: Composite): Array<Constraint>;
 
         /**
          * Removes all bodies, constraints and composites from the given composite.
