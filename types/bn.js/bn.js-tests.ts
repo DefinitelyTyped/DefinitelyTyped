@@ -2,6 +2,7 @@
 import BN_require = require('bn.js');
 // test that it works as module import
 import * as BN_esm from 'bn.js';
+// tslint:disable-next-line:no-duplicate-imports
 import { Endianness, IPrimeName } from 'bn.js';
 
 function runTests(BN: typeof BN_esm) {
@@ -27,6 +28,10 @@ function runTests(BN: typeof BN_esm) {
     const actualArray = new BN([0x40, 0x20]);
     const actualUint8Array =  new BN(new Uint8Array([0x40, 0x20]));
     const actualString = new BN('0x4020');
+
+    new BN('10', 16).modrn(256); // $ExpectType number
+    BN.BN; // $ExpectType typeof BN
+    BN.wordSize; // $ExpectType 26
 }
 
 runTests(BN_esm);
