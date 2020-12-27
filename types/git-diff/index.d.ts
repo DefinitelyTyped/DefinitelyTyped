@@ -20,7 +20,7 @@ declare namespace gitDiff {
         color?: boolean;
         /**
          * A space separated string of git diff flags.
-         * 
+         *
          * This only applies to real git diffs and will not effect the output if it is fake.
          * @default null
          * @see @link https://git-scm.com/docs/git-diff#_options
