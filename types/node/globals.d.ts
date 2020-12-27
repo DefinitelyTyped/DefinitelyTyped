@@ -465,9 +465,40 @@ declare namespace NodeJS {
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
 
+    /**
+     * A utility class used to signal cancelation in selected `Promise`-based APIs.
+     * The API is based on the Web API `AbortController`.
+     */
+    class AbortController {
+        /**
+         * Returns the AbortSignal object associated with this object.
+         */
+        readonly signal: AbortSignal;
+        /**
+         * Triggers the abort signal, causing the `abortController.signal` to emit the `'abort'` event.
+         */
+        abort(): void;
+    }
+
+    /**
+     * The `AbortSignal` is used to notify observers when
+     * the `abortController.abort()` method is called.
+     */
+    class AbortSignal extends EventTarget {
+        /**
+         * True after the `AbortController` has been aborted.
+         */
+        readonly aborted: boolean;
+        /**
+         * An optional callback function that may be set by user code
+         * to be notified when the `abortController.abort()` function has been called.
+         */
+        onabort: ((event: Event) => void) | null;
+    }
+
     interface Global {
-        AbortController: typeof AbortController;
-        AbortSignal: typeof AbortSignal;
+        AbortController: AbortController;
+        AbortSignal: AbortSignal;
         Array: typeof Array;
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
