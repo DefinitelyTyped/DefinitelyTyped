@@ -21,6 +21,7 @@
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Pawel Fajfer <https://github.com/pawfa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as H from 'history';
