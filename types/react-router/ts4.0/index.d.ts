@@ -1,27 +1,3 @@
-// Type definitions for React Router 5.1
-// Project: https://github.com/ReactTraining/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
-//                 Yuichi Murata <https://github.com/mrk21>
-//                 Václav Ostrožlík <https://github.com/vasek17>
-//                 Nathan Brown <https://github.com/ngbrown>
-//                 Alex Wendland <https://github.com/awendland>
-//                 Kostya Esmukov <https://github.com/KostyaEsmukov>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Karol Janyst <https://github.com/LKay>
-//                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Huy Nguyen <https://github.com/huy-nguyen>
-//                 Jérémy Fauvel <https://github.com/grmiade>
-//                 Daniel Roth <https://github.com/DaIgeb>
-//                 Egor Shulga <https://github.com/egorshulga>
-//                 Rahul Raina <https://github.com/rraina>
-//                 Duong Tran <https://github.com/t49tran>
-//                 Ben Smith <https://github.com/8enSmith>
-//                 Wesley Tsai <https://github.com/wezleytsai>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Pawel Fajfer <https://github.com/pawfa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from 'react';
 import * as H from 'history';
 
@@ -133,15 +109,10 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-export type ExtractRouteParams<T extends string> = string extends T
-    ? Record<string, string>
-    : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? { [k in Param | keyof ExtractRouteParams<Rest>]: string }
-    : T extends `${infer _Start}:${infer Param}`
-    ? { [k in Param]: string }
-    : {};
-
-export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
+export function generatePath(
+    pattern: string,
+    params?: { [paramName: string]: string | number | boolean | undefined },
+): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
     ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
