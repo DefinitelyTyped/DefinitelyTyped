@@ -6,7 +6,9 @@ export interface Connection extends events.EventEmitter {
     close(callback?: (err: any) => void): void;
     createChannel(callback: (err: any, channel: Channel) => void): void;
     createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void): void;
-    serverProperties: ServerProperties;
+    connection: {
+        serverProperties: ServerProperties;
+    };
 }
 
 export interface Channel extends events.EventEmitter {
@@ -57,14 +59,14 @@ export interface ConfirmChannel extends Channel {
 
 export const credentials: {
     external(): {
-      mechanism: string;
-      response(): Buffer;
+        mechanism: string;
+        response(): Buffer;
     };
     plain(username: string, password: string): {
-      mechanism: string;
-      response(): Buffer;
-      username: string;
-      password: string;
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
     };
 };
 
