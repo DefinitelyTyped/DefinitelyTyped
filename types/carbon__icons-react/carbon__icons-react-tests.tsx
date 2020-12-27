@@ -1,5 +1,8 @@
 import * as React from 'react';
 import {
+    AccumulationIce16,
+    Layers16,
+    BorderLeft20,
     AnalyticsReference16,
     Add16,
     Add24,
@@ -14,8 +17,11 @@ import {
     LogoKeybase16,
 } from '@carbon/icons-react';
 
+<AccumulationIce16 />; // $ExpectType Element
+<Layers16 />; // $ExpectType Element
+<BorderLeft20 />; // $ExpectType Element
 <AccessibilityAlt16 />; // $ExpectType Element
-<Add16 />; // $ExpectType Element
+<Add16><title>Icon title</title></Add16>; // $ExpectType Element
 <Add24 aria-label="Add" />; // $ExpectType Element
 <Add32 title="Add" aria-label="Add" tabIndex="0" className="add-32" />; // $ExpectType Element
 <DataBaseAlt16 />; // $ExpectType Element

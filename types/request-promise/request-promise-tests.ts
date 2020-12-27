@@ -40,7 +40,15 @@ rp('http://google.com').promise().then(console.dir);
 //rp('http://google.com').promise().bind(this).then(console.dir);
 
 rp({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => {});
-rp({ uri: 'http://google.com', simple: false }).catch((reason) => {});
+
+rp({ uri: 'http://google.com', simple: false }
+).catch((reason: errors.StatusCodeError) => {
+  reason.name; // $ExpectType "StatusCodeError"
+}).catch((reason: errors.RequestError) => {
+  reason.name; // $ExpectType "RequestError"
+}).catch((reason: errors.TransformError) => {
+  reason.name; // $ExpectType "TransformError"
+});
 
 // todo: fix to make sure this works with BlueBird 3.0
 /* rp({

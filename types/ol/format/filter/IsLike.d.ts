@@ -1,5 +1,8 @@
 import Comparison from './Comparison';
 
+/**
+ * [constructor description]
+ */
 export default class IsLike extends Comparison {
     constructor(
         propertyName: string,

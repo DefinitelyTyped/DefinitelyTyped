@@ -62,17 +62,41 @@ export interface APIGatewayProxyCognitoAuthorizer {
     };
 }
 
+export interface APIGatewayProxyEventHeaders {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventMultiValueHeaders {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayProxyEventPathParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventQueryStringParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventMultiValueQueryStringParameters {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayProxyEventStageVariables {
+    [name: string]: string | undefined;
+}
+
 export interface APIGatewayProxyEventBase<TAuthorizerContext> {
     body: string | null;
-    headers: { [name: string]: string };
-    multiValueHeaders: { [name: string]: string[] };
+    headers: APIGatewayProxyEventHeaders;
+    multiValueHeaders: APIGatewayProxyEventMultiValueHeaders;
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
-    pathParameters: { [name: string]: string } | null;
-    queryStringParameters: { [name: string]: string } | null;
-    multiValueQueryStringParameters: { [name: string]: string[] } | null;
-    stageVariables: { [name: string]: string } | null;
+    pathParameters: APIGatewayProxyEventPathParameters | null;
+    queryStringParameters: APIGatewayProxyEventQueryStringParameters | null;
+    multiValueQueryStringParameters: APIGatewayProxyEventMultiValueQueryStringParameters | null;
+    stageVariables: APIGatewayProxyEventStageVariables | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>;
     resource: string;
 }
@@ -103,8 +127,8 @@ export interface APIGatewayProxyEventV2 {
     rawPath: string;
     rawQueryString: string;
     cookies?: string[];
-    headers: { [name: string]: string };
-    queryStringParameters?: { [name: string]: string };
+    headers: APIGatewayProxyEventHeaders;
+    queryStringParameters?: APIGatewayProxyEventQueryStringParameters;
     requestContext: {
         accountId: string;
         apiId: string;
@@ -130,9 +154,9 @@ export interface APIGatewayProxyEventV2 {
         timeEpoch: number;
     };
     body?: string;
-    pathParameters?: { [name: string]: string };
+    pathParameters?: APIGatewayProxyEventPathParameters;
     isBase64Encoded: boolean;
-    stageVariables?: { [name: string]: string };
+    stageVariables?: APIGatewayProxyEventStageVariables;
 }
 
 /**

@@ -1,6 +1,7 @@
-// Type definitions for non-npm package scriptable-ios 1.5
+// Type definitions for non-npm package scriptable-ios 1.6
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
+//                 FuJuntao <https://github.com/FuJuntao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -58,8 +59,8 @@ declare class Alert {
     /**
      * _Adds a text field prompting for user input._
      *
-     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices for
-     * text fields are assigned in the same order as they are added to the alert starting at 0.
+     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices
+     * for text fields are assigned in the same order as they are added to the alert starting at 0.
      *
      * Text fields are not supported when using the sheet presentation.
      * @param placeholder - Optional placeholder that will be displayed when the text field is empty.
@@ -739,6 +740,18 @@ declare class Color {
      * @see https://docs.scriptable.app/color/#clear
      */
     static clear(): Color;
+
+    /**
+     * _Creates a dynamic color._
+     *
+     * The dynamic color will use either its light or dark variant depending on the appearance of the system.
+     *
+     * Dynamic colors are not supported when used with `DrawContext`.
+     * @param lightColor - Color used in light appearance.
+     * @param darkColor - Color used in dark appearance.
+     * @see https://docs.scriptable.app/color/#dynamic
+     */
+    static dynamic(lightColor: Color, darkColor: Color): Color;
 }
 
 /**
@@ -2308,6 +2321,8 @@ declare class FileManager {
      */
     static iCloud(): FileManager;
 
+    private constructor();
+
     /**
      * _Read contents of a file as data._
      *
@@ -2431,11 +2446,26 @@ declare class FileManager {
     /**
      * _Path of temporary directory._
      *
-     * Used to retrieve the path of a temporary directory on disk. The operating system may at any time delete files stored in this directory and therefore you should not rely on it for
-     * long time storage. If you need long time storage, see documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
+     * Used to retrieve the path of a temporary directory on disk. Data persisted in a temporary directory will generally live shorter than data persisted in the cache directory.
+     *
+     * The operating system may at any time delete files stored in this directory and therefore you should not rely on it for long time storage. If you need long time storage, see
+     * documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
      * @see https://docs.scriptable.app/filemanager/#-temporarydirectory
      */
     temporaryDirectory(): string;
+
+    /**
+     * _Path of cache directory._
+     *
+     * Used to retrieve the path of a cache directory on disk. The operating system may at any time delete files stored in this directory and therefore you should not rely on it for long
+     * time storage.
+     *
+     * Data persisted in the cache directory will generally live longer than data persisted in a temporary directory.
+     *
+     * If you need long time storage, see documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
+     * @see https://docs.scriptable.app/filemanager/#-cachedirectory
+     */
+    cacheDirectory(): string;
 
     /**
      * _Path of documents directory._
@@ -3082,6 +3112,24 @@ declare class LinearGradient {
     locations: number[];
 
     /**
+     * _Point to start the gradient._
+     *
+     * The normalized starting point of the gradient. The `endPoint` and `startPoint` together controls the direction of the gradient. The X and Y component should each range from 0 to 1.
+     * Defaults to (0, 1).
+     * @see https://docs.scriptable.app/lineargradient/#startpoint
+     */
+    startPoint: Point;
+
+    /**
+     * _Point to end the gradient._
+     *
+     * The normalized ending point of the gradient. The `endPoint` and `startPoint` together controls the direction of the gradient. The X and Y component should each range from 0 to 1.
+     * Defaults to (0, 1).
+     * @see https://docs.scriptable.app/lineargradient/#endpoint
+     */
+    endPoint: Point;
+
+    /**
      * _Linear gradient._
      * @see https://docs.scriptable.app/lineargradient/#-new-lineargradient
      */
@@ -3182,7 +3230,7 @@ declare class ListWidget {
      * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
      * @see https://docs.scriptable.app/listwidget/#-addspacer
      */
-    addSpacer(length: number): WidgetSpacer;
+    addSpacer(length?: number): WidgetSpacer;
 
     /**
      * _Add stack._
@@ -4620,6 +4668,12 @@ declare class Reminder {
     isCompleted: boolean;
 
     /**
+     * _Whether the reminder is overdue._
+     * @see https://docs.scriptable.app/reminder/#isoverdue
+     */
+    isOverdue: boolean;
+
+    /**
      * _Priority of reminder._
      *
      * Specifies the prirority of the reminder with 0 representing an undefined priority, 1 the highest priority, and 9 the lowest priority.
@@ -4962,6 +5016,16 @@ declare class Request {
      * @see https://docs.scriptable.app/request/#body
      */
     body: any;
+
+    /**
+     * _Timeout interval of the request._
+     *
+     * If a request remains idle for longer than the timeout interval, the request is considered timed out.
+     *
+     * The timeout interval is measured in seconds and defaults to 60 seconds.
+     * @see https://docs.scriptable.app/request/#timeoutinterval
+     */
+    timeoutInterval: number;
 
     /**
      * _Response of the request._
@@ -6282,7 +6346,7 @@ declare class WidgetStack {
      * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
      * @see https://docs.scriptable.app/widgetstack/#-addspacer
      */
-    addSpacer(length: number): WidgetSpacer;
+    addSpacer(length?: number): WidgetSpacer;
 
     /**
      * _Add stack._

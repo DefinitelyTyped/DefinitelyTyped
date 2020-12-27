@@ -63,8 +63,6 @@ export interface ojComboboxEventMap<V, SP extends ojComboboxSettableProperties<V
     'ojAnimateEnd': ojCombobox.ojAnimateEnd;
     'ojAnimateStart': ojCombobox.ojAnimateStart;
 }
-// These interfaces are empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
 export interface ojComboboxSettableProperties<V, SV = V, RV = V> extends editableValueSettableProperties<V, SV, RV> {
 }
 export interface ojComboboxSettablePropertiesLenient<V, SV, RV> extends Partial<ojComboboxSettableProperties<V, SV, RV>> {
@@ -425,8 +423,6 @@ export interface ojSelectEventMap<V, SP extends ojSelectSettableProperties<V, SV
     'ojAnimateEnd': ojSelect.ojAnimateEnd;
     'ojAnimateStart': ojSelect.ojAnimateStart;
 }
-// These interfaces are empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
 export interface ojSelectSettableProperties<V, SV = V> extends editableValueSettableProperties<V, SV> {
 }
 export interface ojSelectSettablePropertiesLenient<V, SV> extends Partial<ojSelectSettableProperties<V, SV>> {

@@ -564,6 +564,22 @@ declare namespace yargs {
         strict(enabled: boolean): Argv<T>;
 
         /**
+         * Similar to .strict(), except that it only applies to unrecognized commands.
+         * A user can still provide arbitrary options, but unknown positional commands
+         * will raise an error.
+         */
+        strictCommands(): Argv<T>;
+        strictCommands(enabled: boolean): Argv<T>;
+
+        /**
+         * Similar to `.strict()`, except that it only applies to unrecognized options. A
+         * user can still provide arbitrary positional options, but unknown options
+         * will raise an error.
+         */
+        strictOptions(): Argv<T>;
+        strictOptions(enabled: boolean): Argv<T>;
+
+        /**
          * Tell the parser logic not to interpret `key` as a number or boolean. This can be useful if you need to preserve leading zeros in an input.
          *
          * If `key` is an array, interpret all the elements as strings.
@@ -624,7 +640,7 @@ declare namespace yargs {
 
     type Arguments<T = {}> = T & {
         /** Non-option arguments */
-        _: string[];
+        _: Array<string | number>;
         /** The script name or node command */
         $0: string;
         /** All remaining options */
@@ -765,6 +781,7 @@ declare namespace yargs {
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
     type InferredOptionType<O extends Options | PositionalOptions> =
+        O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :

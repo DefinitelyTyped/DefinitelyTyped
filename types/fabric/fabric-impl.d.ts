@@ -52,7 +52,7 @@ export function loadSVGFromURL(
     url: string,
     callback: (results: Object[], options: any) => void,
     reviver?: Function,
-    options?: { crossOrigin?: string }
+    options?: { crossOrigin?: string },
 ): void;
 /**
  * Returns CSS rules for a given SVG document
@@ -322,23 +322,22 @@ interface IObservable<T> {
     on(eventName: string, handler: (e: IEvent) => void): T;
 
     /**
-     * Observes specified event
-     * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
-     */
-    on(events: { [eventName: string]: (e: IEvent) => void }): T;
-    /**
-     * Fires event with an optional options object
-     * @param eventName Event name to fire
-     * @param [options] Options object
-     */
-    trigger(eventName: string, options?: any): T;
-    /**
      * Stops event observing for a particular event handler. Calling this method
      * without arguments removes all handlers for all events
      * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
      * @param handler Function to be deleted from EventListeners
      */
     off(eventName?: string | any, handler?: (e: IEvent) => void): T;
+
+    /**
+     * Fires event with an optional options object
+     * @memberOf fabric.Observable
+     * @param {String} eventName Event name to fire
+     * @param {Object} [options] Options object
+     * @return {Self} thisArg
+     * @chainable
+     */
+    fire(eventName: string, options?: any): T;
 }
 
 interface Callbacks {
@@ -675,14 +674,6 @@ export class Gradient {
      * @see http://www.w3.org/TR/SVG/pservers.html#RadialGradientElement
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
-    /**
-     * Returns {@link fabric.Gradient} instance from its object representation
-     * @static
-     * @memberOf fabric.Gradient
-     * @param {Object} obj
-     * @param {Object} [options] Options object
-     */
-    static forObject(obj: any, options?: IGradientOptions): Gradient;
 }
 export class Intersection {
     constructor(status?: string);
@@ -1102,16 +1093,6 @@ interface IStaticCanvasOptions {
      * @type Boolean
      */
     renderOnAddRemove?: boolean;
-    /**
-     * Function that determines clipping of entire canvas area
-     * Being passed context as first argument.
-     * If you are using code minification, ctx argument can be minified/manglied you should use
-     * as a workaround `var ctx = arguments[0];` in the function;
-     * See clipping canvas area in {@link https://github.com/kangax/fabric.js/wiki/FAQ}
-     * @deprecated since 2.0.0
-     * @type Function
-     */
-    clipTo?(context: CanvasRenderingContext2D): void;
     /**
      * Indicates whether object controls (borders/controls) are rendered above overlay image
      * @type Boolean
@@ -1634,20 +1615,6 @@ export class StaticCanvas {
     cloneWithoutData(callback?: any): void;
 
     /**
-     * Populates canvas with data from the specified dataless JSON.
-     * JSON format must conform to the one of {@link fabric.Canvas#toDatalessJSON}
-     * @deprecated since 1.2.2
-     * @param {String|Object} json JSON string or object
-     * @param {Function} callback Callback, invoked when json is parsed
-     *                            and corresponding objects (e.g: {@link fabric.Image})
-     *                            are initialized
-     * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
-     * @return {fabric.Canvas} instance
-     * @chainable
-     * @tutorial {@link http://fabricjs.com/fabric-intro-part-3#deserialization}
-     */
-    loadFromDatalessJSON(json: any, callback: Function, reviver?: Function): Canvas;
-    /**
      * Populates canvas with data from the specified JSON.
      * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
      * @param {String|Object} json JSON string or object
@@ -1658,6 +1625,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      */
     loadFromJSON(json: any, callback: Function, reviver?: Function): Canvas;
+
     /**
      * Creates markup containing SVG font faces,
      * font URLs for font faces must be collected by developers
@@ -1665,11 +1633,13 @@ export class StaticCanvas {
      * @param {Array} objects Array of fabric objects
      * @return {String}
      */
+
     createSVGFontFacesMarkup(objects: any[]): string;
     /**
      * Creates markup containing SVG referenced elements like patterns, gradients etc.
      * @return {String}
      */
+
     createSVGRefElementsMarkup(): string;
     /**
      * Straightens object, then rerenders canvas
@@ -1677,6 +1647,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
+
     straightenObject(object: Object): Canvas;
 }
 
@@ -1962,7 +1933,6 @@ export class Canvas {
      */
     altSelectionKey?: string;
 
-    fire(eventName: string, options: any): void;
     /**
      * Renders both the top canvas and the secondary container canvas.
      * @return {fabric.Canvas} instance
@@ -2546,10 +2516,6 @@ export class Image {
      */
     dispose(): void;
     /**
-     * Sets crossOrigin value (on an instance and corresponding image element)
-     */
-    setCrossOrigin(value: string): Image;
-    /**
      * Returns original size of an image
      * @return Object with "width" and "height" properties
      */
@@ -2906,11 +2872,6 @@ interface IObjectOptions {
     borderScaleFactor?: number;
 
     /**
-     * Transform matrix (similar to SVG's transform matrix)
-     */
-    transformMatrix?: any[];
-
-    /**
      * Minimum allowed scale value of an object
      */
     minScaleLimit?: number;
@@ -2960,12 +2921,6 @@ interface IObjectOptions {
      * When `false`, default object's values are not included in its serialization
      */
     includeDefaultValues?: boolean;
-
-    /**
-     * Function that determines clipping of an object (context is passed as a first argument)
-     * Note that context origin is at the object's center point (not left/top corner)
-     */
-    clipTo?: Function;
 
     /**
      * When `true`, object horizontal movement is locked
@@ -3336,9 +3291,9 @@ export class Object {
      * @param {Boolean} [options.enableRetinaScaling] Enable retina scaling for clone image. Introduce in 1.6.4
      * @param {Boolean} [options.withoutTransform] Remove current object transform ( no scale , no angle, no flip, no skew ). Introduced in 2.3.4
      * @param {Boolean} [options.withoutShadow] Remove current object shadow. Introduced in 2.4.2
-     * @return {String} Returns a data: URL containing a representation of the object in the format specified by options.format
+     * @return {HTMLCanvasElement} Returns a new HTMLCanvasElement painted with the current canvas object
      */
-    toCanvasElement(options?: IDataURLOptions): string;
+    toCanvasElement(options?: IDataURLOptions): HTMLCanvasElement;
 
     /**
      * Converts an object into a data-url-like string
@@ -3362,32 +3317,6 @@ export class Object {
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
     toJSON(propertiesToInclude?: string[]): any;
-
-    /**
-     * Sets gradient (fill or stroke) of an object
-     * **Backwards incompatibility note:** This method was named "setGradientFill" until v1.1.0
-     * @param property Property name 'stroke' or 'fill'
-     * @param [options] Options object
-     */
-    setGradient(property: 'stroke' | 'fill', options?: OGradientOptions): Object;
-
-    /**
-     * Sets pattern fill of an object
-     * @param options Options object
-     */
-    setPatternFill(options: IFillOptions, callback: Function): Object;
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options?: string | Shadow): Object;
-
-    /**
-     * Sets "color" of an instance (alias of `set('fill', …)`)
-     * @param color Color value
-     */
-    setColor(color: string): Object;
 
     /**
      * Sets "angle" of an instance
@@ -3709,13 +3638,15 @@ export class Object {
     // -------------------------------------------------------------------------------------------------------------------------------
     /**
      * Sets corner position coordinates based on current angle, width and height.
+     * oCoords are used to find the corners
+     * aCoords are used to quickly find an object on the canvas
+     * lineCoords are used to quickly find object during pointer events.
      * See {@link https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords|When-to-call-setCoords}
-     * @param {Boolean} [ignoreZoom] set oCoords with or without the viewport transform.
-     * @param {Boolean} [skipAbsolute] skip calculation of aCoords, usefull in setViewportTransform
+     * @param {Boolean} [skipCorners] skip calculation of oCoords.
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): Object;
+    setCoords(skipCorners?: boolean): Object;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3783,8 +3714,6 @@ export class Object {
      * @return {Boolean} true if object intersects with an area formed by 2 points
      */
     intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
-
-    fire(eventName: string, options?: any): void;
 
     /**
      * Animates object's properties
@@ -5839,12 +5768,6 @@ export class BaseBrush {
      * Stroke Dash Array.
      */
     strokeDashArray: any[];
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options: string | any): BaseBrush;
 }
 
 export class CircleBrush extends BaseBrush {
@@ -6001,6 +5924,10 @@ interface IUtilAnimEase {
     easeOutQuart: IUtilAminEaseFunction;
     easeOutQuint: IUtilAminEaseFunction;
     easeOutSine: IUtilAminEaseFunction;
+}
+
+interface IUtilImage {
+    setImageSmoothing(ctx: CanvasRenderingContext2D, value: any): void;
 }
 
 interface IUtilArc {
@@ -6446,9 +6373,34 @@ interface IUtilMisc {
     };
 
     /**
-     * Creates a transform matrix with the specified scale and skew
+     * Returns a transform matrix starting from an object of the same kind of
+     * the one returned from qrDecompose, useful also if you want to calculate some
+     * transformations from an object that is not enlived yet
+     * @static
+     * @memberOf fabric.util
+     * @param  {Object} options
+     * @param  {Number} [options.angle]
+     * @param  {Number} [options.scaleX]
+     * @param  {Number} [options.scaleY]
+     * @param  {Boolean} [options.flipX]
+     * @param  {Boolean} [options.flipY]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.translateX]
+     * @param  {Number} [options.translateY]
+     * @return {Number[]} transform matrix
      */
-    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
+    composeMatrix(options: {
+        angle: number;
+        scaleX: number;
+        scaleY: number;
+        flipX: boolean;
+        flipY: boolean;
+        skewX: number;
+        skewY: number;
+        translateX: number;
+        translateY: number;
+    }): number[];
 
     /**
      * Returns string representation of function body
@@ -6477,7 +6429,8 @@ interface IUtilMisc {
 
 export const util: IUtil;
 interface IUtil
-    extends IUtilAnimation,
+    extends IUtilImage,
+        IUtilAnimation,
         IUtilArc,
         IObservable<IUtil>,
         IUtilDomEvent,

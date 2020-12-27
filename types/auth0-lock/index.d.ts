@@ -4,6 +4,7 @@
 //                 Dan Caddigan <https://github.com/goldcaddy77>
 //                 Larry Faudree <https://github.com/lfaudreejr>
 //                 Will Caulfield <https://github.com/willcaul>
+//                 Thomas Pearson <https://github.com/xsv24>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -93,6 +94,7 @@ interface Auth0LockAuthParamsOptions {
     request_id?: any;
     scope?: string;
     state?: string;
+    [key: string]: any; // Auth0 rules can use custom params.
 }
 
 interface Auth0LockAuthOptions {
@@ -174,23 +176,33 @@ interface Auth0LockShowOptions {
     languageDictionary?: any;
 }
 
+interface Auth0IdTokenPayload {
+    name?: string;
+    nickname?: string;
+    picture?: string;
+    email?: string;
+    email_verified?: boolean;
+    aud: string;
+    exp: number;
+    iat: number;
+    iss: string;
+    sub: string;
+    acr?: string;
+    amr?: string[];
+    [key: string]: any;
+}
+
 interface AuthResult {
     accessToken: string;
     appState?: any;
     expiresIn: number;
     idToken: string;
-    idTokenPayload: {
-        aud: string;
-        exp: number;
-        iat: number;
-        iss: string;
-        sub: string;
-    };
+    idTokenPayload: Auth0IdTokenPayload;
     refreshToken?: string;
     scope?: string;
     state: string;
     tokenType: string;
-  }
+}
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
@@ -198,7 +210,7 @@ interface Auth0LockStatic {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
-    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
+    checkSession(options: Auth0LockAuthParamsOptions, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;

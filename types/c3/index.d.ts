@@ -8,7 +8,7 @@
 //                 Nate Mara <https://github.com/natemara>
 //                 Ian Sanders <https://github.com/iansan5653>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import * as d3 from 'd3';
 
@@ -36,9 +36,12 @@ export type Domain = [number, number];
  */
 export type FormatFunction = (v: number | {valueOf(): number}, id: string, i: number, j: number) => string;
 
+export type XAxisName = "x";
 export type YAxisName = "y" | "y2";
-export type AxisName = "x" | YAxisName;
+export type AxisName = XAxisName | YAxisName;
 export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
+export type XAxisType = "timeseries" | "category" | "indexed";
+export type YAxisType = "linear" | "time" | "timeseries" | "log";
 
 export interface SidePadding {
     /** Right padding. */
@@ -220,6 +223,10 @@ export interface ChartConfiguration {
          * Enable or disable expanding pie pieces.
          */
         expand?: ExpandOptions;
+        /**
+         * Sets the angular separation between each adjacent arc.
+         */
+        padAngle?: number;
     };
 
     donut?: {
@@ -228,6 +235,10 @@ export interface ChartConfiguration {
          * Enable or disable expanding pie pieces.
          */
         expand?: ExpandOptions;
+        /**
+         * Sets the angular separation between each adjacent arc.
+         */
+        padAngle?: number;
         /**
          * Set width of donut chart.
          */
@@ -285,7 +296,9 @@ export interface ChartConfiguration {
             /**
              * Set custom spline interpolation
              */
-            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' |
+                   'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone' |
+                   'step' | 'step-before' | 'step-after';
         };
     };
 
@@ -306,7 +319,7 @@ export interface ChartConfiguration {
                 x: number;
                 y: number;
             }>;
-            text?: string;
+            text?: (value: number, percentage: number) => string;
             opacity?: number;
             /** Class to apply to the region. */
             class?: string;
@@ -330,7 +343,7 @@ export interface ChartConfiguration {
          * Change the width of the stanford color scale.
          * Defaults to `20`.
          */
-        scaleWidth?: undefined;
+        scaleWidth?: number;
         /**
          * Set formatter for stanford color scale axis tick text.
          * This option accepts the string 'pow10', a d3.format object and any function you define.
@@ -572,6 +585,14 @@ export interface Data {
          */
         isselectable?(this: Record<string, any>, d: DataSeries): boolean;
     };
+    stack?: {
+        /**
+         * Set the stacking to be normalized. Default is false.
+         *
+         * **Note**: For stacking, the `data.groups` option should be set and have positive values. The yAxis will be set in percentage value (0 ~ 100%).
+         */
+        normalize?: boolean
+    };
     /**
      * Set a callback for click event on each data point.
      * @param d The data point that was clicked.
@@ -641,31 +662,6 @@ export interface AxisConfiguration {
      */
     padding?: Padding;
     /**
-     * Set label on axis.
-     * Valid horizontal axis positions: inner-right (default), inner-center, inner-left, outer-right, outer-center, outer-left
-     * Valid vertical axis positions: inner-top, inner-middle, inner-bottom, outer-top, outer-middle, outer-bottom
-     */
-    label?:
-        | string
-        | {
-              /** The label text to show. */
-              text: string;
-              /** The position of the label. */
-              position:
-                  | 'inner-right'
-                  | 'inner-center'
-                  | 'inner-left'
-                  | 'outer-right'
-                  | 'outer-center'
-                  | 'outer-left'
-                  | 'inner-top'
-                  | 'inner-middle'
-                  | 'inner-bottom'
-                  | 'outer-top'
-                  | 'outer-middle'
-                  | 'outer-bottom';
-          };
-    /**
      * Set max value of the axis.
      */
     max?: string | number | Date;
@@ -684,7 +680,7 @@ export interface XAxisConfiguration extends AxisConfiguration {
      * Set type of x axis.
      * Defaults to `"indexed"`.
      */
-    type?: "timeseries" | "category" | "indexed";
+    type?: XAxisType;
     /**
      * Set how to treat the timezone of x values.
      * If `true` (default), treat x value as localtime. If `false`, convert to UTC internally.
@@ -697,6 +693,24 @@ export interface XAxisConfiguration extends AxisConfiguration {
     categories?: string[];
 
     tick?: XTickConfiguration;
+
+    /**
+     * Set label on X axis.
+     */
+    label?:
+        | string
+        | {
+              /** The label text to show. */
+              text: string;
+              /** The position of the label. */
+              position:
+                  | 'inner-right'
+                  | 'inner-center'
+                  | 'inner-left'
+                  | 'outer-right'
+                  | 'outer-center'
+                  | 'outer-left';
+          };
 
     /**
      * Set height of x axis.
@@ -723,6 +737,26 @@ export interface YAxisConfiguration extends AxisConfiguration {
 
     tick?: YTickConfiguration;
 
+    type?: YAxisType;
+
+    /**
+     * Set label on Y axis.
+     */
+    label?:
+        | string
+        | {
+              /** The label text to show. */
+              text: string;
+              /** The position of the label. */
+              position:
+                  | 'inner-top'
+                  | 'inner-middle'
+                  | 'inner-bottom'
+                  | 'outer-top'
+                  | 'outer-middle'
+                  | 'outer-bottom';
+          };
+
     /**
      * Set default range of y axis. This option set the default value for y axis when there is no data on init.
      */
@@ -734,7 +768,6 @@ export interface YAxisConfiguration extends AxisConfiguration {
 
 export interface YAxisConfigurationWithTime extends YAxisConfiguration {
     tick?: YTickConfigurationWithTime;
-    type?: unknown;
 }
 
 export interface TickConfiguration {
@@ -877,6 +910,22 @@ export interface RegionOptions {
      * If `'dashed'`, renders the line as dashed in this range instead of showing a region block.
      */
     style?: "dashed";
+    /**
+     * An optional label property can be provided to display a label for the region.
+     */
+    label?: string;
+    /**
+     * Control the position of the label vertically.
+     */
+    paddingY?: number;
+    /**
+     * Control the position of the label horizontally.
+     */
+    paddingX?: number;
+    /**
+     * Used to identify whether or not the label text should be rotated 90 degrees
+     */
+    vertical?: boolean;
 }
 
 export interface LegendOptions {
@@ -1242,13 +1291,13 @@ export interface ChartAPI {
         /** Match data IDs to the colors to render that data as. */
         colors?: Record<string, string | d3.RGBColor | d3.HSLColor>;
         /** Select the plot type for the loaded data. */
-        type?: string;
+        type?: ChartType;
         /** Select the plot types for each individual data by ID. */
-        types?: Record<string, string>;
+        types?: Record<string, ChartType>;
         /** ID of data to remove, or list of IDs of data to remove, or `true` to remove all data. */
         unload?: true | ArrayOrString;
         /** Called when loading completes. */
-        done?(): void;
+        done?: () => void;
     }): void;
     /**
      * Unload data from the chart.
@@ -1418,7 +1467,7 @@ export interface ChartAPI {
      * @param x If given, x values of every target will be updated.
      * @returns A map of data IDs to their x IDs after running this function.
      */
-    x(x?: {
+    x(x?: PrimitiveArray | {
         [key: string]: PrimitiveArray;
     }): { [key: string]: PrimitiveArray };
 
@@ -1469,6 +1518,8 @@ export interface ChartAPI {
             min?: number | { [key in AxisName]?: number };
             max?: number | { [key in AxisName]?: number };
         }): void;
+
+        types(types: { [key in AxisName]?: XAxisType | YAxisType }): void;
     };
 
     legend: {
@@ -1485,6 +1536,21 @@ export interface ChartAPI {
          * legend will be hidden.
          */
         hide(targetIds?: ArrayOrString): void;
+    };
+
+    subchart: {
+        /**
+         * Returns true if the sub chart is shown.
+         */
+        isShown(): boolean;
+        /**
+         * Shows sub chart at the bottom of the chart.
+         */
+        show(): void;
+        /**
+         * Hides sub chart.
+         */
+        hide(): void;
     };
 
     zoom: {

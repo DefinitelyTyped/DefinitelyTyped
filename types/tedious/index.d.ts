@@ -12,6 +12,7 @@
 
 
 import events = require("events");
+import { SecureContextOptions } from 'tls';
 
 export interface ColumnType {
     /**
@@ -239,7 +240,7 @@ export interface ConnectionOptions {
     /**
      * When encryption is used, an object may be supplied that will be used for the first argument when calling tls.createSecurePair (default: {}).
      */
-    cryptoCredentialsDetails?: Object;
+    cryptoCredentialsDetails?: SecureContextOptions;
 
     /**
      * A boolean, that when true will expose received rows in Requests' done* events. See done, doneInProc and doneProc. (default: false)
@@ -655,6 +656,12 @@ export interface Connection {
 export class Connection extends events.EventEmitter {
 
     constructor(config: ConnectionConfig);
+
+    /**
+     * Establish a connection to the server.
+     * @param callback The callback is called when the connection was established or an error occured. If an error occured then err will describe the error.
+     */
+    connect(callback?: (err?: Error) => void): void;
 
     /**
      * Start a transaction. As only one request at a time may be executed on

@@ -229,8 +229,8 @@ declare namespace facebook {
     }
 
     interface InitParams {
-        appId: string;
-        version?: string;
+        appId?: string;
+        version: string;
         cookie?: boolean;
         status?: boolean;
         xfbml?: boolean;

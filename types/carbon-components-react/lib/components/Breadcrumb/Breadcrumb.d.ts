@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr { }
-
-export interface BreadcrumbProps extends InheritedProps {
+export interface BreadcrumbProps extends ReactAttr {
     noTrailingSlash?: boolean,
 }
 

@@ -4,18 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="express" />
+import express = require('express');
+import expressSession = require('express-session');
 
-declare namespace Express {
-    interface ErrorCallback {
-        (err?: any): void;
-    }
-    export interface Session {
+declare module 'express-session' {
+    interface Session {
         login(callback: Function): void;
-        login(extend: Object, callback: ErrorCallback): void;
-        login(role: string, callback: ErrorCallback): void;
-        login(role: string, extend: Object, callback: ErrorCallback): void;
-        logout(callback: ErrorCallback): void;
+        login(extend: Object, callback: (err?: any) => void): void;
+        login(role: string, callback: (err?: any) => void): void;
+        login(role: string, extend: Object, callback: (err?: any) => void): void;
+        logout(callback: (err?: any) => void): void;
         isLoggedIn(role?: string): boolean;
         isGuest(): boolean;
         isFresh(): boolean;
@@ -25,18 +23,14 @@ declare namespace Express {
     }
 }
 
-declare module "easy-session" {
-    import express = require('express');
-
-    interface SessionOptions {
-        ipCheck?: boolean;
-        uaCheck?: boolean;
-        freshTimeout?: number;
-        maxFreshTimeout?: number;
-    }
-
-    export function main(session: any, options?: SessionOptions): express.RequestHandler;
-    export function isLoggedIn(errorCallback?: Function): express.RequestHandler;
-    export function isFresh(errorCallback?: Function): express.RequestHandler;
-    export function checkRole(role: string, errorCallback?: Function): express.RequestHandler;
+export interface SessionOptions {
+    ipCheck?: boolean;
+    uaCheck?: boolean;
+    freshTimeout?: number;
+    maxFreshTimeout?: number;
 }
+
+export function main(session: typeof expressSession, options?: SessionOptions): express.RequestHandler;
+export function isLoggedIn(errorCallback?: (err?: any) => void): express.RequestHandler;
+export function isFresh(errorCallback?: (err?: any) => void): express.RequestHandler;
+export function checkRole(role: string, errorCallback?: (err?: any) => void): express.RequestHandler;

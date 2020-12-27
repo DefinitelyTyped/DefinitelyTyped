@@ -5353,6 +5353,35 @@ declare namespace chrome.proxy {
 }
 
 ////////////////////
+// Search
+////////////////////
+/**
+ * Use the chrome.search API to search via the default provider.
+ * Permissions:  "search"
+ */
+
+declare namespace chrome.search {
+    export type Disposition = "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
+
+    export interface QueryInfo {
+        /** Location where search results should be displayed. CURRENT_TAB is the default.  */
+        disposition?: Disposition;
+        /** Location where search results should be displayed. tabIdcannot be used with disposition. */
+        tabId?: number;
+        /** String to query with the default search provider. */
+        text?: string;
+    }
+
+    /**
+     * Used to query the default search provider. In case of an error, runtime.lastError will be set.
+     * @param options search configuration options.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function() => {...}
+     */
+    export function query(options: QueryInfo, callback: () => void): void;
+}
+
+////////////////////
 // Serial
 ////////////////////
 /**
@@ -6310,7 +6339,7 @@ declare namespace chrome.storage {
         set(items: Object, callback?: () => void): void;
         /**
          * Removes one or more items from storage.
-         * @param A single key or a list of keys for items to remove.
+         * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
@@ -6365,7 +6394,8 @@ declare namespace chrome.storage {
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
-    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
+    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
+    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
     /** Items in the local storage area are local to each machine. */
     export var local: LocalStorageArea;

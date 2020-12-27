@@ -48,3 +48,8 @@ cm.showHint({
 });
 
 cm.showHint();
+
+cm.showHint({
+    completeSingle: false,
+    container: document.body,
+});

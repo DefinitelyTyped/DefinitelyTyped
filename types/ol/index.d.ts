@@ -2,7 +2,8 @@
 // Project: https://github.com/openlayers/openlayers, https://openlayers.org
 // Definitions by: Rifa'i M. Hanif <https://github.com/hanreev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.1
 
 // These definitions is generated using jsdoc. See https://github.com/hanreev/types-ol
 

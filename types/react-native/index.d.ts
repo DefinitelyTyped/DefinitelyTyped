@@ -42,6 +42,7 @@
 //                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
+//                 Arafat Zahan <https://github.com/kuasha420>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -294,8 +295,8 @@ declare class EventEmitter {
  * The methods described here are available on most of the default components provided by React Native.
  * Note, however, that they are not available on composite components that aren't directly backed by a
  * native view. This will generally include most components that you define in your own app.
- * For more information, see [Direct Manipulation](http://facebook.github.io/react-native/docs/direct-manipulation.html).
- * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
+ * For more information, see [Direct Manipulation](https://reactnative.dev/docs/direct-manipulation).
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Renderer/shims/ReactNativeTypes.js#L87
  */
 export interface NativeMethods {
     /**
@@ -457,7 +458,7 @@ export interface NativeTouchEvent {
 
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
-// See https://facebook.github.io/react-native/docs/scrollview.html#contentoffset
+// See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointPropType {
     x: number;
     y: number;
@@ -470,9 +471,9 @@ export interface Insets {
     right?: number;
 }
 
-export type PressableStateCallbackType = Readonly<{
-    pressed: boolean;
-}>;
+export interface PressableStateCallbackType {
+    readonly pressed: boolean;
+}
 
 export interface PressableAndroidRippleConfig {
     color?: null | ColorValue;
@@ -551,7 +552,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
 }
 
 // TODO use React.AbstractComponent when available
-export const Pressable: React.FunctionComponent<PressableProps>;
+export const Pressable: React.ForwardRefExoticComponent<PressableProps & React.RefAttributes<View>>;
 
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
@@ -668,8 +669,8 @@ type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baselin
 
 /**
  * Flex Prop Types
- * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
- * @see https://facebook.github.io/react-native/docs/layout-props.html
+ * @see https://reactnative.dev/docs/flexbox#proptypes
+ * @see https://reactnative.dev/docs/layout-props
  * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
@@ -903,7 +904,7 @@ export interface TextStyleAndroid extends ViewStyle {
     includeFontPadding?: boolean;
 }
 
-// @see https://facebook.github.io/react-native/docs/text.html#style
+// @see https://reactnative.dev/docs/text#style
 export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     color?: ColorValue;
     fontFamily?: string;
@@ -967,10 +968,10 @@ export interface TextPropsAndroid {
      * Determines the types of data converted to clickable URLs in the text element.
      * By default no data types are detected.
      */
-    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
+    dataDetectorType?: null | 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
-// https://facebook.github.io/react-native/docs/text.html#props
+// https://reactnative.dev/docs/text#props
 export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility settings.
@@ -1037,7 +1038,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
     onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
-     * @see https://facebook.github.io/react-native/docs/text.html#style
+     * @see https://reactnative.dev/docs/text#style
      */
     style?: StyleProp<TextStyle>;
 
@@ -1064,7 +1065,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
 declare class TextComponent extends React.Component<TextProps> {}
-declare const TextBase: Constructor<NativeMethodsMixinType> & typeof TextComponent;
+declare const TextBase: Constructor<NativeMethods> & typeof TextComponent;
 export class Text extends TextBase {}
 
 type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 'none' | 'all';
@@ -1110,7 +1111,7 @@ export interface DocumentSelectionState extends EventEmitter {
 
 /**
  * IOS Specific properties for TextInput
- * @see https://facebook.github.io/react-native/docs/textinput.html#props
+ * @see https://reactnative.dev/docs/textinput#props
  */
 export interface TextInputIOSProps {
     /**
@@ -1261,7 +1262,7 @@ export interface TextInputIOSProps {
 
 /**
  * Android Specific properties for TextInput
- * @see https://facebook.github.io/react-native/docs/textinput.html#props
+ * @see https://reactnative.dev/docs/textinput#props
  */
 export interface TextInputAndroidProps {
     /**
@@ -1461,7 +1462,7 @@ export interface TextInputTextInputEventData {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/textinput.html#props
+ * @see https://reactnative.dev/docs/textinput#props
  */
 export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
     /**
@@ -1477,7 +1478,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      *      sentences: first letter of each sentence (default)
      *      none: don't auto capitalize anything
      *
-     * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
+     * https://reactnative.dev/docs/textinput#autocapitalize
      */
     autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 
@@ -1658,6 +1659,11 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     style?: StyleProp<TextStyle>;
 
     /**
+     * Align the input text to the left, center, or right sides of the input field.
+     */
+    textAlign?: 'left' | 'center' | 'right';
+
+    /**
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
@@ -1665,7 +1671,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     /**
      * Used to connect to an InputAccessoryView. Not part of react-natives documentation, but present in examples and
      * code.
-     * See https://facebook.github.io/react-native/docs/inputaccessoryview.html for more information.
+     * See https://reactnative.dev/docs/inputaccessoryview for more information.
      */
     inputAccessoryViewID?: string;
 
@@ -1722,10 +1728,10 @@ interface TextInputState {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/textinput.html#methods
+ * @see https://reactnative.dev/docs/textinput#methods
  */
 declare class TextInputComponent extends React.Component<TextInputProps> {}
-declare const TextInputBase: Constructor<NativeMethodsMixinType> & Constructor<TimerMixin> & typeof TextInputComponent;
+declare const TextInputBase: Constructor<NativeMethods> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
     /**
      * Access the current focus state.
@@ -1879,7 +1885,7 @@ export interface ToolbarAndroidProps extends ViewProps {
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
 declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
-declare const ToolbarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ToolbarAndroidComponent;
+declare const ToolbarAndroidBase: Constructor<NativeMethods> & typeof ToolbarAndroidComponent;
 
 /**
  * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
@@ -2008,7 +2014,7 @@ export interface GestureResponderHandlers {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/view.html#style
+ * @see https://reactnative.dev/docs/view#style
  * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
@@ -2203,7 +2209,7 @@ type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
 
 /**
- * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
+ * @see https://reactnative.dev/docs/accessibility#accessibility-properties
  */
 export interface AccessibilityProps extends AccessibilityPropsAndroid, AccessibilityPropsIOS {
     /**
@@ -2363,15 +2369,6 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
-     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
-     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
-     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
-     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
-     * @platform android
-     */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
-
-    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2402,13 +2399,6 @@ export interface AccessibilityPropsIOS {
     accessibilityElementsHidden?: boolean;
 
     /**
-     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
-     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
-     * @platform ios
-     */
-    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
-
-    /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
      * @platform ios
      */
@@ -2433,33 +2423,14 @@ export interface AccessibilityPropsIOS {
     onMagicTap?: () => void;
 
     /**
-     * https://facebook.github.io/react-native/docs/accessibility#accessibilityignoresinvertcolorsios
+     * https://reactnative.dev/docs/accessibility#accessibilityignoresinvertcolorsios
      * @platform ios
      */
     accessibilityIgnoresInvertColors?: boolean;
 }
 
-type AccessibilityTrait =
-    | 'none'
-    | 'button'
-    | 'link'
-    | 'header'
-    | 'search'
-    | 'image'
-    | 'selected'
-    | 'plays'
-    | 'key'
-    | 'text'
-    | 'summary'
-    | 'disabled'
-    | 'frequentUpdates'
-    | 'startsMedia'
-    | 'adjustable'
-    | 'allowsDirectInteraction'
-    | 'pageTurn';
-
 /**
- * @see https://facebook.github.io/react-native/docs/view.html#props
+ * @see https://reactnative.dev/docs/view#props
  */
 export interface ViewProps
     extends ViewPropsAndroid,
@@ -2539,7 +2510,7 @@ export interface ViewProps
  * whether that is a UIView, <div>, android.view, etc.
  */
 declare class ViewComponent extends React.Component<ViewProps> {}
-declare const ViewBase: Constructor<NativeMethodsMixinType> & typeof ViewComponent;
+declare const ViewBase: Constructor<NativeMethods> & typeof ViewComponent;
 export class View extends ViewBase {
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
@@ -2549,7 +2520,7 @@ export class View extends ViewBase {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
+ * @see https://reactnative.dev/docs/viewpagerandroid#props
  */
 
 export interface ViewPagerAndroidOnPageScrollEventData {
@@ -2618,7 +2589,7 @@ export interface ViewPagerAndroidProps extends ViewProps {
 }
 
 declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
-declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixinType> & typeof ViewPagerAndroidComponent;
+declare const ViewPagerAndroidBase: Constructor<NativeMethods> & typeof ViewPagerAndroidComponent;
 
 /**
  * ViewPagerAndroid has been removed from React Native.
@@ -2671,7 +2642,7 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
+ * @see https://reactnative.dev/docs/segmentedcontrolios
  * @see SegmentedControlIOS.ios.js
  */
 export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
@@ -2725,7 +2696,7 @@ export interface SegmentedControlIOSProps extends ViewProps {
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
-declare const SafeAreaViewBase: Constructor<NativeMethodsMixinType> & typeof SafeAreaViewComponent;
+declare const SafeAreaViewBase: Constructor<NativeMethods> & typeof SafeAreaViewComponent;
 export class SafeAreaView extends SafeAreaViewBase {}
 
 /**
@@ -2769,7 +2740,7 @@ export interface InputAccessoryViewProps {
  * ````
  */
 declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
-declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixinType> & typeof SegmentedControlIOSComponent;
+declare const SegmentedControlIOSBase: Constructor<NativeMethods> & typeof SegmentedControlIOSComponent;
 
 /**
  * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
@@ -2847,7 +2818,7 @@ export interface NavigatorIOSProps {
  *
  * Navigator functions are also available on the NavigatorIOS component:
  *
- * @see https://facebook.github.io/react-native/docs/navigatorios.html#navigator
+ * @see https://reactnative.dev/docs/navigatorios#navigator
  */
 export class NavigatorIOS extends React.Component<NavigatorIOSProps> {
     /**
@@ -2897,7 +2868,7 @@ export class NavigatorIOS extends React.Component<NavigatorIOSProps> {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
+ * @see https://reactnative.dev/docs/activityindicator#props
  */
 export interface ActivityIndicatorProps extends ViewProps {
     /**
@@ -2927,11 +2898,11 @@ export interface ActivityIndicatorProps extends ViewProps {
 }
 
 declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProps> {}
-declare const ActivityIndicatorBase: Constructor<NativeMethodsMixinType> & typeof ActivityIndicatorComponent;
+declare const ActivityIndicatorBase: Constructor<NativeMethods> & typeof ActivityIndicatorComponent;
 export class ActivityIndicator extends ActivityIndicatorBase {}
 
 /**
- * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
+ * @see https://reactnative.dev/docs/activityindicatorios#props
  */
 export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
@@ -3026,7 +2997,7 @@ export interface DatePickerIOSProps extends ViewProps {
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
-declare const DatePickerIOSBase: Constructor<NativeMethodsMixinType> & typeof DatePickerIOSComponent;
+declare const DatePickerIOSBase: Constructor<NativeMethods> & typeof DatePickerIOSComponent;
 
 /**
  * DatePickerIOS has been merged with DatePickerAndroid and will be removed in a future release.
@@ -3137,7 +3108,7 @@ interface DrawerPosition {
 }
 
 declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProps> {}
-declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixinType> & typeof DrawerLayoutAndroidComponent;
+declare const DrawerLayoutAndroidBase: Constructor<NativeMethods> & typeof DrawerLayoutAndroidComponent;
 export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
     /**
      * drawer's positions.
@@ -3213,7 +3184,7 @@ export interface PickerPropsAndroid extends ViewProps {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/picker.html
+ * @see https://reactnative.dev/docs/picker
  * @see Picker.js
  */
 export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
@@ -3260,7 +3231,7 @@ export class Picker extends React.Component<PickerProps> {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/pickerios.html
+ * @see https://reactnative.dev/docs/pickerios
  * @see PickerIOS.ios.js
  */
 export interface PickerIOSProps extends ViewProps {
@@ -3270,11 +3241,11 @@ export interface PickerIOSProps extends ViewProps {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/pickerios.html
+ * @see https://reactnative.dev/docs/pickerios
  * @see PickerIOS.ios.js
  */
 declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
-declare const PickerIOSBase: Constructor<NativeMethodsMixinType> & typeof PickerIOSComponent;
+declare const PickerIOSBase: Constructor<NativeMethods> & typeof PickerIOSComponent;
 /**
  * PickerIOS has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
@@ -3335,11 +3306,17 @@ export interface ProgressBarAndroidProps extends ViewProps {
  * that the app is loading or there is some activity in the app.
  */
 declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
-declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ProgressBarAndroidComponent;
+declare const ProgressBarAndroidBase: Constructor<NativeMethods> & typeof ProgressBarAndroidComponent;
+/**
+ * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
+ * @see https://github.com/react-native-progress-view/progress-bar-android
+ * @deprecated
+ */
 export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
- * @see https://facebook.github.io/react-native/docs/progressviewios.html
+ * @see https://reactnative.dev/docs/progressviewios
  * @see ProgressViewIOS.ios.js
  */
 export interface ProgressViewIOSProps extends ViewProps {
@@ -3374,7 +3351,7 @@ export interface ProgressViewIOSProps extends ViewProps {
     trackImage?: ImageURISource | ImageURISource[];
 }
 declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> {}
-declare const ProgressViewIOSBase: Constructor<NativeMethodsMixinType> & typeof ProgressViewIOSComponent;
+declare const ProgressViewIOSBase: Constructor<NativeMethods> & typeof ProgressViewIOSComponent;
 /**
  * ProgressViewIOS has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/progress-view` instead of 'react-native'.
@@ -3449,7 +3426,7 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
 declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
-declare const RefreshControlBase: Constructor<NativeMethodsMixinType> & typeof RefreshControlComponent;
+declare const RefreshControlBase: Constructor<NativeMethods> & typeof RefreshControlComponent;
 export class RefreshControl extends RefreshControlBase {
     static SIZE: Object; // Undocumented
 }
@@ -3597,18 +3574,25 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  * A component used to select a single value from a range of values.
  */
 declare class SliderComponent extends React.Component<SliderProps> {}
-declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderComponent;
+declare const SliderBase: Constructor<NativeMethods> & typeof SliderComponent;
 /**
  * Slider has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-slider
+ * @see https://github.com/callstack/react-native-slider
  * @deprecated
  */
 export class Slider extends SliderBase {}
+/**  SliderIOS has been removed from react-native.
+ * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
+ * @see https://github.com/callstack/react-native-slider
+ * @deprecated
+ */
 export type SliderIOS = Slider;
 
 /**
- * https://facebook.github.io/react-native/docs/switchios.html#props
+ * SwitchIOS Component has been removed from react-native in favor of Switch Component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see SwitchProps
  */
 export interface SwitchIOSProps extends ViewProps {
     /**
@@ -3643,13 +3627,9 @@ export interface SwitchIOSProps extends ViewProps {
 }
 
 /**
- *
- * Use SwitchIOS to render a boolean input on iOS.
- *
- * This is a controlled component, so you must hook in to the onValueChange callback and update the value prop in order for the component to update,
- * otherwise the user's change will be reverted immediately to reflect props.value as the source of truth.
- *
- * @see https://facebook.github.io/react-native/docs/switchios.html
+ * SwitchIOS component has been removed from react-native in favor of Switch component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see Switch
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
@@ -3698,7 +3678,7 @@ export interface ShadowStyleIOS {
 
 /**
  * Image style
- * @see https://facebook.github.io/react-native/docs/image.html#style
+ * @see https://reactnative.dev/docs/image#style
  * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
 export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
@@ -3860,7 +3840,7 @@ interface ImagePropsAndroid {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/image.html#source
+ * @see https://reactnative.dev/docs/image#source
  */
 export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
 
@@ -3884,7 +3864,7 @@ export interface ImageErrorEventData {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+ * @see https://reactnative.dev/docs/image#resolveassetsource
  */
 export interface ImageResolvedAssetSource {
     height: number;
@@ -3894,7 +3874,7 @@ export interface ImageResolvedAssetSource {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/image.html
+ * @see https://reactnative.dev/docs/image
  */
 export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
@@ -4022,7 +4002,7 @@ export interface ImageProps extends ImagePropsBase {
 }
 
 declare class ImageComponent extends React.Component<ImageProps> {}
-declare const ImageBase: Constructor<NativeMethodsMixinType> & typeof ImageComponent;
+declare const ImageBase: Constructor<NativeMethods> & typeof ImageComponent;
 export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure?: (error: any) => void): any;
     static getSizeWithHeaders(
@@ -4031,12 +4011,12 @@ export class Image extends ImageBase {
         success: (width: number, height: number) => void,
         failure?: (error: any) => void,
     ): any;
-    static prefetch(url: string): any;
+    static prefetch(url: string): Promise<boolean>;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 
     /**
-     * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+     * @see https://reactnative.dev/docs/image#resolveassetsource
      */
     static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
 }
@@ -4048,7 +4028,7 @@ export interface ImageBackgroundProps extends ImagePropsBase {
 }
 
 declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}
-declare const ImageBackgroundBase: Constructor<NativeMethodsMixinType> & typeof ImageBackgroundComponent;
+declare const ImageBackgroundBase: Constructor<NativeMethods> & typeof ImageBackgroundComponent;
 export class ImageBackground extends ImageBackgroundBase {
     resizeMode: ImageResizeMode;
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
@@ -4102,7 +4082,7 @@ export interface ViewabilityConfigCallbackPair {
 export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
 
 /**
- * @see https://facebook.github.io/react-native/docs/flatlist.html#props
+ * @see https://reactnative.dev/docs/flatlist#props
  */
 
 export interface ListRenderItemInfo<ItemT> {
@@ -4355,35 +4335,41 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ * @see https://reactnative.dev/docs/sectionlist
  */
-export interface SectionBase<ItemT> {
+
+type DefaultSectionT = {
+    [key: string]: any;
+};
+
+export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
     data: ReadonlyArray<ItemT>;
 
     key?: string;
 
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     ItemSeparatorComponent?: React.ComponentType<any> | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 }
 
-export interface SectionListData<ItemT> extends SectionBase<ItemT> {
-    [key: string]: any;
-}
+export type SectionListData<ItemT, SectionT = DefaultSectionT> = SectionBase<ItemT, SectionT> & SectionT;
 
 /**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ * @see https://reactnative.dev/docs/sectionlist.html#props
  */
 
-export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
-    section: SectionListData<ItemT>;
+export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> extends ListRenderItemInfo<ItemT> {
+    section: SectionListData<ItemT, SectionT>;
 }
 
-export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement | null;
+export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> = (
+    info: SectionListRenderItemInfo<ItemT, SectionT>,
+) => React.ReactElement | null;
 
-export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
+    extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4427,7 +4413,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * ```
      */
     getItemLayout?: (
-        data: SectionListData<ItemT>[] | null,
+        data: SectionListData<ItemT, SectionT>[] | null,
         index: number,
     ) => { length: number; offset: number; index: number };
 
@@ -4486,22 +4472,22 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionHeader?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionFooter?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * An array of objects with data for each section.
      */
-    sections: ReadonlyArray<SectionListData<ItemT>>;
+    sections: ReadonlyArray<SectionListData<ItemT, SectionT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -4535,7 +4521,9 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<
+    SectionListProps<ItemT, SectionT>
+> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4569,7 +4557,8 @@ export class SectionList<SectionT = any> extends React.Component<SectionListProp
 }
 
 /* This definition is deprecated because it extends the wrong base type */
-export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
+export interface SectionListStatic<ItemT, SectionT = DefaultSectionT>
+    extends React.ComponentClass<SectionListProps<ItemT, SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4579,7 +4568,7 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/virtualizedlist.html
+ * @see https://reactnative.dev/docs/virtualizedlist
  */
 
 export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps<ItemT>> {
@@ -4599,7 +4588,7 @@ export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
+ * @see https://reactnative.dev/docs/virtualizedlist#props
  */
 
 export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
@@ -4778,7 +4767,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/listview.html#props
+ * @see https://reactnative.dev/docs/listview#props
  */
 export interface ListViewProps extends ScrollViewProps {
     /**
@@ -4978,10 +4967,10 @@ interface MaskedViewIOSProps extends ViewProps {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/maskedviewios.html
+ * @see https://reactnative.dev/docs/maskedviewios
  */
 declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
-declare const MaskedViewBase: Constructor<NativeMethodsMixinType> & typeof MaskedViewComponent;
+declare const MaskedViewBase: Constructor<NativeMethods> & typeof MaskedViewComponent;
 /**
  * MaskedViewIOS has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/masked-view` instead of 'react-native'.
@@ -5158,7 +5147,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
+ * @see https://reactnative.dev/docs/touchablewithoutfeedback#props
  */
 export interface TouchableWithoutFeedbackProps
     extends TouchableWithoutFeedbackPropsIOS,
@@ -5251,7 +5240,7 @@ export interface TouchableWithoutFeedbackProps
  * All the elements that respond to press should have a visual feedback when touched.
  * This is one of the primary reason a "web" app doesn't feel "native".
  *
- * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
+ * @see https://reactnative.dev/docs/touchablewithoutfeedback
  */
 declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> {}
 declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> &
@@ -5260,7 +5249,7 @@ declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> &
 export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase {}
 
 /**
- * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
+ * @see https://reactnative.dev/docs/touchablehighlight#props
  */
 export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
     /**
@@ -5280,7 +5269,7 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
     onShowUnderlay?: () => void;
 
     /**
-     * @see https://facebook.github.io/react-native/docs/view.html#style
+     * @see https://reactnative.dev/docs/view#style
      */
     style?: StyleProp<ViewStyle>;
 
@@ -5301,17 +5290,17 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
  * NOTE: TouchableHighlight supports only one child
  * If you wish to have several child components, wrap them in a View.
  *
- * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
+ * @see https://reactnative.dev/docs/touchablehighlight
  */
 declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> {}
-declare const TouchableHighlightBase: Constructor<NativeMethodsMixinType> &
+declare const TouchableHighlightBase: Constructor<NativeMethods> &
     Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
     typeof TouchableHighlightComponent;
 export class TouchableHighlight extends TouchableHighlightBase {}
 
 /**
- * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
+ * @see https://reactnative.dev/docs/touchableopacity#props
  */
 export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
     /**
@@ -5327,12 +5316,12 @@ export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
  * This is done without actually changing the view hierarchy,
  * and in general is easy to add to an app without weird side-effects.
  *
- * @see https://facebook.github.io/react-native/docs/touchableopacity.html
+ * @see https://reactnative.dev/docs/touchableopacity
  */
 declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> {}
 declare const TouchableOpacityBase: Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
-    Constructor<NativeMethodsMixinType> &
+    Constructor<NativeMethods> &
     typeof TouchableOpacityComponent;
 export class TouchableOpacity extends TouchableOpacityBase {
     /**
@@ -5360,7 +5349,7 @@ interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
 type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType;
 
 /**
- * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
+ * @see https://reactnative.dev/docs/touchableopacity#props
  */
 export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps {
     /**
@@ -5389,7 +5378,7 @@ export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackPr
  *
  * Background drawable of native feedback touchable can be customized with background property.
  *
- * @see https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content
+ * @see https://reactnative.dev/docs/touchablenativefeedback#content
  */
 declare class TouchableNativeFeedbackComponent extends React.Component<TouchableNativeFeedbackProps> {}
 declare const TouchableNativeFeedbackBase: Constructor<TouchableMixin> & typeof TouchableNativeFeedbackComponent;
@@ -5416,8 +5405,9 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      *
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
+     * @param radius The radius of ripple effect
      */
-    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless: boolean, radius?: number | null): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
@@ -5774,7 +5764,7 @@ export interface ListViewDataSource {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
+ * @see https://reactnative.dev/docs/tabbarios-item#props
  */
 export interface TabBarIOSItemProps extends ViewProps {
     /**
@@ -5849,7 +5839,7 @@ export interface TabBarIOSItemProps extends ViewProps {
 export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> {}
 
 /**
- * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
+ * @see https://reactnative.dev/docs/tabbarios#props
  */
 export interface TabBarIOSProps extends ViewProps {
     /**
@@ -5889,6 +5879,10 @@ export interface TabBarIOSProps extends ViewProps {
     unselectedItemTintColor?: ColorValue;
 }
 
+/**
+ * TabBarIOS has been removed from react-native
+ * @deprecated
+ */
 export class TabBarIOS extends React.Component<TabBarIOSProps> {
     static Item: typeof TabBarIOSItem;
 }
@@ -5948,7 +5942,7 @@ export interface PixelRatioStatic {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+ * @see https://reactnative.dev/docs/platform-specific-code#content
  */
 export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
@@ -5957,7 +5951,7 @@ interface PlatformStatic {
     Version: number | string;
 
     /**
-     * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+     * @see https://reactnative.dev/docs/platform-specific-code#content
      */
     select<T>(
         specifics: ({ [platform in PlatformOSType]?: T } & { default: T }) | { [platform in PlatformOSType]: T },
@@ -6047,7 +6041,7 @@ export interface ScaledSize {
  *
  * @param dim Name of dimension as defined when calling `set`.
  * @returns Value for the dimension.
- * @see https://facebook.github.io/react-native/docs/dimensions.html#content
+ * @see https://reactnative.dev/docs/dimensions#content
  */
 export interface Dimensions {
     /**
@@ -6677,7 +6671,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number,
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6868,6 +6862,11 @@ export class ScrollView extends ScrollViewBase {
     scrollToEnd(options?: { animated: boolean }): void;
 
     /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators(): void;
+
+    /**
      * Returns a reference to the underlying scroll responder, which supports
      * operations like `scrollTo`. All ScrollView-like components should
      * implement this method so that they can be composed while providing access
@@ -6934,7 +6933,7 @@ export interface SnapshotViewIOSProps extends ViewProps {
 }
 
 declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProps> {}
-declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixinType> & typeof SnapshotViewIOSComponent;
+declare const SnapshotViewIOSBase: Constructor<NativeMethods> & typeof SnapshotViewIOSComponent;
 export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 
 // Deduced from
@@ -7004,7 +7003,7 @@ export class SwipeableListView extends React.Component<SwipeableListViewProps> {
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * @see: http://facebook.github.io/react-native/docs/actionsheetios.html#content
+ * @see: https://reactnative.dev/docs/actionsheetios#content
  */
 export interface ActionSheetIOSOptions {
     title?: string;
@@ -7027,7 +7026,7 @@ export interface ShareActionSheetIOSOptions {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/actionsheetios.html#content
+ * @see https://reactnative.dev/docs/actionsheetios#content
  */
 export interface ActionSheetIOSStatic {
     /**
@@ -7151,7 +7150,7 @@ type AccessibilityAnnouncementFinishedEvent = {
 type AccessibilityAnnouncementFinishedEventHandler = (event: AccessibilityAnnouncementFinishedEvent) => void;
 
 /**
- * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
+ * @see https://reactnative.dev/docs/accessibilityinfo
  */
 export interface AccessibilityInfoStatic {
     /**
@@ -7237,7 +7236,7 @@ export interface AccessibilityInfoStatic {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/alert.html#content
+ * @see https://reactnative.dev/docs/alert#content
  */
 export interface AlertButton {
     text?: string;
@@ -7325,7 +7324,7 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
- * @see https://facebook.github.io/react-native/docs/appstate#app-states
+ * @see https://reactnative.dev/docs/appstate#app-states
  */
 export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
 export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 'extension';
@@ -7358,7 +7357,7 @@ export interface AppStateStatic {
  * `AsyncStorage` will use either [RocksDB](http://rocksdb.org/) or SQLite
  * based on what is available.
  *
- * @see https://facebook.github.io/react-native/docs/asyncstorage.html#content
+ * @see https://reactnative.dev/docs/asyncstorage#content
  */
 export interface AsyncStorageStatic {
     /**
@@ -7525,7 +7524,7 @@ export interface GetPhotosReturnType {
 /**
  * CameraRoll provides access to the local camera roll / gallery.
  * Before using this you must link the RCTCameraRoll library.
- * You can refer to (Linking)[https://facebook.github.io/react-native/docs/linking-libraries-ios.html] for help.
+ * You can refer to (Linking)[https://reactnative.dev/docs/linking-libraries-ios] for help.
  */
 export interface CameraRollStatic {
     GroupTypesOptions: CameraRollGroupType[]; //'Album','All','Event','Faces','Library','PhotoStream','SavedPhotos'
@@ -7568,7 +7567,7 @@ export interface CameraRollStatic {
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
 
-// https://facebook.github.io/react-native/docs/checkbox.html
+// https://reactnative.dev/docs/checkbox
 export interface CheckBoxProps extends ViewProps {
     /**
      * If true the user won't be able to toggle the checkbox. Default value is false.
@@ -8009,7 +8008,7 @@ type FetchResult = {
 
 /**
  * Handle push notifications for your app, including permission handling and icon badge number.
- * @see https://facebook.github.io/react-native/docs/pushnotificationios.html#content
+ * @see https://reactnative.dev/docs/pushnotificationios#content
  *
  * //FIXME: BGR: The documentation seems completely off compared to the actual js implementation. I could never get the example to run
  */
@@ -8172,20 +8171,19 @@ export type StatusBarAnimation = 'none' | 'fade' | 'slide';
 
 export interface StatusBarPropsIOS {
     /**
-     * Sets the color of the status bar text.
-     */
-    barStyle?: StatusBarStyle;
-
-    /**
      * If the network activity indicator should be visible.
+     *
+     * @platform ios
      */
     networkActivityIndicatorVisible?: boolean;
 
     /**
      * The transition effect when showing and hiding the status bar using
      * the hidden prop. Defaults to 'fade'.
+     *
+     * @platform ios
      */
-    showHideTransition?: 'fade' | 'slide';
+    showHideTransition?: null | 'fade' | 'slide' | 'none';
 }
 
 export interface StatusBarPropsAndroid {
@@ -8200,6 +8198,8 @@ export interface StatusBarPropsAndroid {
      * If the status bar is translucent. When translucent is set to true,
      * the app will draw under the status bar. This is useful when using a
      * semi transparent status bar color.
+     *
+     * @platform android
      */
     translucent?: boolean;
 }
@@ -8210,6 +8210,11 @@ export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid
      * animated. Supported for backgroundColor, barStyle and hidden.
      */
     animated?: boolean;
+
+    /**
+     * Sets the color of the status bar text.
+     */
+    barStyle?: null | StatusBarStyle;
 
     /**
      * If the status bar is hidden.
@@ -8378,6 +8383,14 @@ export interface ToastAndroidStatic {
     show(message: string, duration: number): void;
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
+
+    showWithGravityAndOffset(
+        message: string,
+        duration: number,
+        gravity: number,
+        xOffset: number,
+        yOffset: number,
+    ): void;
     // Toast duration constants
     SHORT: number;
     LONG: number;
@@ -8595,7 +8608,7 @@ export interface SwitchProps extends SwitchPropsIOS {
  * the supplied `value` prop instead of the expected result of any user actions.
  */
 declare class SwitchComponent extends React.Component<SwitchProps> {}
-declare const SwitchBase: Constructor<NativeMethodsMixinType> & typeof SwitchComponent;
+declare const SwitchBase: Constructor<NativeMethods> & typeof SwitchComponent;
 export class Switch extends SwitchBase {}
 
 /**
@@ -8652,12 +8665,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): EventSubscription;
+    export function addChangeListener(listener: AppearanceListener): void;
 
     /**
      * Remove an event handler.
      */
-    export function removeChangeListener(listener: AppearanceListener): EventSubscription;
+    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
@@ -9095,14 +9108,22 @@ export namespace Animated {
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
     export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<SectionT = any> extends React.Component<AnimatedProps<SectionListProps<SectionT>>> {}
+    export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<
+        AnimatedProps<SectionListProps<ItemT, SectionT>>
+    > {}
 }
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
+    getConstants: () => {
+        isRTL: boolean;
+        doLeftAndRightSwapInRTL: boolean;
+    };
+    allowRTL: (allowRTL: boolean) => void;
+    forceRTL: (forceRTL: boolean) => void;
+    swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => void;
     isRTL: boolean;
-    allowRTL: (allowRTL: boolean) => {};
-    forceRTL: (forceRTL: boolean) => {};
+    doLeftAndRightSwapInRTL: boolean;
 }
 
 export interface OpenCameraDialogOptions {
@@ -9181,7 +9202,7 @@ export interface ImageStoreStatic {
 
 //
 // Interfacing with Native Modules
-// https://facebook.github.io/react-native/docs/native-modules-ios.html
+// https://reactnative.dev/docs/native-modules-ios
 //
 
 export interface NativeEventSubscription {
@@ -9196,7 +9217,7 @@ export interface NativeEventSubscription {
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  * @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\EventEmitter\RCTNativeAppEventEmitter.js
- * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+ * @see https://reactnative.dev/docs/native-modules-ios#sending-events-to-javascript
  */
 type RCTNativeAppEventEmitter = DeviceEventEmitterStatic;
 
@@ -9334,19 +9355,60 @@ type ScreenRect = {
     height: number;
 };
 
-export interface KeyboardEvent {
+type BaseKeyboardEvent = {
     duration: number;
     easing: KeyboardEventEasing;
     endCoordinates: ScreenRect;
+};
+
+type AndroidKeyboardEvent = BaseKeyboardEvent & {
+    duration: 0;
+    easing: 'keyboard';
+};
+
+type IOSKeyboardEvent = BaseKeyboardEvent & {
     startCoordinates: ScreenRect;
     isEventFromThisApp: boolean;
-}
+};
+
+export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
 export interface KeyboardStatic extends NativeEventEmitter {
+    /**
+     * Dismisses the active keyboard and removes focus.
+     */
     dismiss: () => void;
-    addListener(eventType: KeyboardEventName, listener: KeyboardEventListener): EmitterSubscription;
+    /**
+     * The `addListener` function connects a JavaScript function to an identified native
+     * keyboard notification event.
+     *
+     * This function then returns the reference to the listener.
+     *
+     * {string} eventName The `nativeEvent` is the string that identifies the event you're listening for.  This
+     *can be any of the following:
+     *
+     * - `keyboardWillShow`
+     * - `keyboardDidShow`
+     * - `keyboardWillHide`
+     * - `keyboardDidHide`
+     * - `keyboardWillChangeFrame`
+     * - `keyboardDidChangeFrame`
+     *
+     * Note that if you set `android:windowSoftInputMode` to `adjustResize`  or `adjustNothing`,
+     * only `keyboardDidShow` and `keyboardDidHide` events will be available on Android.
+     * `keyboardWillShow` as well as `keyboardWillHide` are generally not available on Android
+     * since there is no native corresponding event.
+     *
+     * {function} callback function to be called when the event fires.
+     */
+    addListener: (eventType: KeyboardEventName, listener: KeyboardEventListener) => EmitterSubscription;
+    /**
+     * Useful for syncing TextInput (or other keyboard accessory view) size of
+     * position changes with keyboard movements.
+     */
+    scheduleLayoutAnimation: (event: KeyboardEvent) => void;
 }
 
 /**
@@ -9384,6 +9446,12 @@ export const DevSettings: DevSettingsStatic;
  * @deprecated
  */
 export const ART: ARTStatic;
+/**
+ * ART has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
+ * @see https://github.com/react-native-community/art
+ * @deprecated
+ */
 export type ART = ARTStatic;
 
 //////////// APIS //////////////
@@ -9406,6 +9474,12 @@ export type AppState = AppStateStatic;
  * @deprecated
  */
 export const AsyncStorage: AsyncStorageStatic;
+/**
+ * AsyncStorage has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/async-storage` instead of 'react-native'.
+ * @see https://github.com/react-native-community/async-storage
+ * @deprecated
+ */
 export type AsyncStorage = AsyncStorageStatic;
 
 export const BackHandler: BackHandlerStatic;
@@ -9418,6 +9492,12 @@ export type BackHandler = BackHandlerStatic;
  * @deprecated
  */
 export const CameraRoll: CameraRollStatic;
+/**
+ * CameraRoll has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/cameraroll` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-cameraroll
+ * @deprecated
+ */
 export type CameraRoll = CameraRollStatic;
 
 /**
@@ -9427,6 +9507,12 @@ export type CameraRoll = CameraRollStatic;
  * @deprecated
  */
 export const Clipboard: ClipboardStatic;
+/**
+ * Clipboard has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/clipboard` instead of 'react-native'.
+ * @see https://github.com/react-native-community/clipboard
+ * @deprecated
+ */
 export type Clipboard = ClipboardStatic;
 
 /**
@@ -9436,6 +9522,12 @@ export type Clipboard = ClipboardStatic;
  * @deprecated
  */
 export const DatePickerAndroid: DatePickerAndroidStatic;
+/**
+ * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
 export const Dimensions: Dimensions;
@@ -9443,7 +9535,7 @@ export const Dimensions: Dimensions;
 export type Easing = EasingStatic;
 export const Easing: EasingStatic;
 
-/** http://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html */
+/** https://reactnative.dev/blog/2016/08/19/right-to-left-support-for-react-native-apps */
 export const I18nManager: I18nManagerStatic;
 export type I18nManager = I18nManagerStatic;
 
@@ -9502,6 +9594,12 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
+/**
+ * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/push-notification-ios` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-push-notification-ios
+ * @deprecated
+ */
 export type PushNotificationIOS = PushNotificationIOSStatic;
 
 export const Settings: SettingsStatic;
@@ -9526,6 +9624,12 @@ export type Systrace = SystraceStatic;
  * @deprecated
  */
 export const TimePickerAndroid: TimePickerAndroidStatic;
+/**
+ * TimePickerAndroid has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type TimePickerAndroid = TimePickerAndroidStatic;
 
 export const ToastAndroid: ToastAndroidStatic;
@@ -9544,14 +9648,56 @@ export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 export const DeviceEventEmitter: DeviceEventEmitterStatic;
 
 /**
+ * The React Native implementation of the IOS RCTEventEmitter which is required when creating
+ * a module that communicates with IOS
+ */
+type NativeModule = {
+    /**
+     * Add the provided eventType as an active listener
+     * @param eventType name of the event for which we are registering listener
+     */
+    addListener: (eventType: string) => void;
+
+    /**
+     * Remove a specified number of events.  There are no eventTypes in this case, as
+     * the native side doesn't remove the name, but only manages a counter of total
+     * listeners
+     * @param count number of listeners to remove (of any type)
+     */
+    removeListeners: (count: number) => void;
+};
+
+/**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export class NativeEventEmitter extends EventEmitter {
+declare class NativeEventEmitter extends EventEmitter {
+    /**
+     * @param nativeModule the NativeModule implementation.  This is required on IOS and will throw
+     *      an invariant error if undefined.
+     */
+    constructor(nativeModule?: NativeModule);
+
+    /**
+     * Add the specified listener, this call passes through to the NativeModule
+     * addListener
+     *
+     * @param eventType name of the event for which we are registering listener
+     * @param listener the listener function
+     * @param context context of the listener
+     */
+    addListener(eventType: string, listener: (event: any) => void, context?: Object): EmitterSubscription;
+
     /**
      * @param eventType  name of the event whose registered listeners to remove
      */
     removeAllListeners(eventType: string): void;
+
+    /**
+     * Removes a subscription created by the addListener, the EventSubscription#remove()
+     * function actually calls through to this.
+     */
+    removeSubscription(subscription: EmitterSubscription): void;
 }
 
 /**
@@ -9571,7 +9717,7 @@ interface NativeModulesStatic {
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
- * See https://facebook.github.io/react-native/docs/native-modules-ios.html
+ * See https://reactnative.dev/docs/native-modules-ios
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
@@ -9603,6 +9749,11 @@ export function findNodeHandle(
 
 export function processColor(color?: number | ColorValue): ProcessedColorValue | null | undefined;
 
+/**
+ * YellowBox has been replaced with LogBox.
+ * @see LogBox
+ * @deprecated
+ */
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 /**
@@ -9610,6 +9761,13 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
  * @deprecated
  */
 export function unstable_enableLogBox(): void;
+
+/**
+ * React Native also implements unstable_batchedUpdates
+ */
+export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+export function unstable_batchedUpdates(callback: () => any): void;
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -9660,7 +9818,7 @@ declare global {
 
     /**
      * Console polyfill
-     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
+     * @see https://reactnative.dev/docs/javascript-environment#polyfills
      */
     interface Console {
         error(message?: any, ...optionalParams: any[]): void;

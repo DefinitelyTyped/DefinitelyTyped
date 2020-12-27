@@ -5,12 +5,7 @@ declare class Tooltip extends Tooltip_base {
     createdByEvent(event: any): void;
     changeState(state: any, detail: any, callback: any): void;
     _hookOn(element: any): void;
-    _handleClick({ relatedTarget, type, hadContextMenu, details }: {
-        relatedTarget: any;
-        type: any;
-        hadContextMenu: any;
-        details: any;
-    }): void;
+    _handleClick({ relatedTarget, type, hadContextMenu, details }: any): void;
     static components: WeakMap<object, any>;
     static get options(): {
         selectorInit: string;

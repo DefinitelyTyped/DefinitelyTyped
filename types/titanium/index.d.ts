@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Titanium 9.1
+// Type definitions for non-npm package Titanium 9.2
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
@@ -363,6 +363,26 @@ interface CameraMediaItemType extends SuccessResponse {
 
 }
 /**
+ * A media object from photo gallery when <Titanium.Media.allowMultiple> is `true`.
+ */
+interface CameraMediaMultipleItemsType extends SuccessResponse {
+    /**
+     * The list of selected images.
+     */
+    images?: CameraMediaItemType[];
+
+    /**
+     * The list of selected live photo objects.
+     */
+    livePhotos?: Titanium.UI.iOS.LivePhoto[];
+
+    /**
+     * The list of selected videos.
+     */
+    videos?: CameraMediaItemType[];
+
+}
+/**
  * Simple object for specifying options to [showCamera](Titanium.Media.showCamera).
  */
 interface CameraOptionsType {
@@ -483,66 +503,6 @@ interface ClipboardItemsType {
 
 }
 /**
- * Immutable object used to perform language sensitive string comparisons.
- */
-interface Collator {
-    /**
-     * Creates a new `Intl.Collator` object with the given locale and comparison options.
-     */
-    readonly constructor?: Collator;
-
-    /**
-     * Determines the sort order of the given strings or if they match.
-     */
-    compare(string1: string, string2: string): number;
-
-    /**
-     * Gets the object's collation options.
-     */
-    resolvedOptions(): any;
-
-    /**
-     * Static method indicating what locales are supported by collators from the given locale(s).
-     */
-    supportedLocalesOf(locales: string | string[]): string[];
-
-}
-/**
- * Options to be passed into the <Collator.constructor> method.
- */
-interface CollatorOptions {
-    /**
-     * Indicates if upper case or lower case characters should sort first.
-     */
-    caseFirst?: string;
-
-    /**
-     * Indicates if punctuation characters should be ignored during the compare.
-     */
-    ignorePunctuation?: boolean;
-
-    /**
-     * The locale matching algorithm to use.
-     */
-    localeMatcher?: string;
-
-    /**
-     * Indicates if numbers in string should be compared as integers.
-     */
-    numeric?: boolean;
-
-    /**
-     * Indicates how characters should be compared.
-     */
-    sensitivity?: string;
-
-    /**
-     * Indicates if the comparison is for sorting or searching when matching strings.
-     */
-    usage?: string;
-
-}
-/**
  * Argument object passed to the [connected](Titanium.Network.Socket.TCP.connected) callback when the socket connects.
  */
 interface ConnectedCallbackArgs {
@@ -618,128 +578,23 @@ interface CreateStreamArgs {
 
 }
 /**
- * Immutable object used to generate localized date and time formatted strings.
+ * The parameter passed to the <Titanium.UI.WebView.createPDF> or <Titanium.UI.WebView.createWebArchive>callback.
  */
-interface DateTimeFormat {
+interface DataCreationResult {
     /**
-     * Creates a new `Intl.DateTimeFormat` object with the given locale and formatting options.
+     * The created data.
      */
-    readonly constructor?: DateTimeFormat;
+    data?: Titanium.Blob;
 
     /**
-     * Formats the given date object to a localized date and/or time string.
+     * Error message, if any returned.
      */
-    format(date: Date): string;
+    error?: string;
 
     /**
-     * Formats given date to an array of components describing what the formmated string would produce.
+     * Indicates if the data creation successful or not.
      */
-    formatToParts(date: Date): any[];
-
-    /**
-     * Gets the object's formatting options.
-     */
-    resolvedOptions(): any;
-
-    /**
-     * Static method indicating what locales are supported by `DateTimeFormat` from the given locale(s).
-     */
-    supportedLocalesOf(locales: string | string[]): string[];
-
-}
-/**
- * Options to be passed into the <DateTimeFormat.constructor> method.
- */
-interface DateTimeFormatOptions {
-    /**
-     * Specifies the locale's built-in month, day, and year formatting styles.
-     */
-    dateStyle?: string;
-
-    /**
-     * Indicates how the numeric day should be formatted.
-     */
-    day?: string;
-
-    /**
-     * Indicates how the AM/PM time component should be shown.
-     */
-    dayPeriod?: string;
-
-    /**
-     * Indicates how the era name, such as AD or BC, should be shown.
-     */
-    era?: string;
-
-    /**
-     * The format matching algorithm to use.
-     */
-    formatMatcher?: string;
-
-    /**
-     * Number of millisecond digits to show. Valid values are 0-3.
-     */
-    fractionalSecondDigits?: number;
-
-    /**
-     * Indicates how the hour should be formatted.
-     */
-    hour?: string;
-
-    /**
-     * Indicates if formatter should output to either 12-hour or 24-hour time.
-     */
-    hour12?: boolean;
-
-    /**
-     * Indicates how the hour should be formatted.
-     */
-    hourCycle?: string;
-
-    /**
-     * The locale matching algorithm to use.
-     */
-    localeMatcher?: string;
-
-    /**
-     * Indicates how minutes should be formatted.
-     */
-    minute?: string;
-
-    /**
-     * Indicates how the month should be formatted.
-     */
-    month?: string;
-
-    /**
-     * Indicates how seconds should be formatted.
-     */
-    second?: string;
-
-    /**
-     * Specifies the locale's built-in hour, month, and second formatting styles.
-     */
-    timeStyle?: string;
-
-    /**
-     * The time zone the `Date` object's value should be converted to when formatted.
-     */
-    timeZone?: string;
-
-    /**
-     * Indicates how the time zone should be shown.
-     */
-    timeZoneName?: string;
-
-    /**
-     * Indicates how a weekday name should be shown.
-     */
-    weekday?: string;
-
-    /**
-     * Indicates how the year should be formatted.
-     */
-    year?: string;
+    success?: boolean;
 
 }
 /**
@@ -1399,16 +1254,6 @@ interface HorizontalInsets {
 
 }
 /**
- * Namespace providing JavaScript's standard internationalization APIs.
- */
-interface Intl {
-    /**
-     * Gets canonical locale identifiers matching given BCP 47 locale identifiers.
-     */
-    getCanonicalLocales(locales?: string | string[]): string[];
-
-}
-/**
  * Template that represents the basic appearance of a list item.
  */
 interface ItemTemplate {
@@ -1551,6 +1396,16 @@ interface ListViewMarkerProps {
      * The sectionIndex of the reference item.
      */
     sectionIndex?: number;
+
+}
+/**
+ * Argument passed to the callback when a request finishes successfully or erroneously.
+ */
+interface LocationAccuracyAuthorizationResponse extends ErrorResponse {
+    /**
+     * The level of location accuracy the app has granted.
+     */
+    accuracyAuthorization?: number;
 
 }
 /**
@@ -2088,91 +1943,6 @@ interface NotificationParams {
 
 }
 /**
- * Immutable object used to convert numbers to localized numeric strings.
- */
-interface NumberFormat {
-    /**
-     * Creates a new `Intl.NumberFormat` object with the given locale and formatting options.
-     */
-    readonly constructor?: NumberFormat;
-
-    /**
-     * Formats the given number to a localized numeric string.
-     */
-    format(value: number): string;
-
-    /**
-     * Formats given number to an array of components describing what the formmated string would produce.
-     */
-    formatToParts(value: number): any[];
-
-    /**
-     * Gets the object's formatting options.
-     */
-    resolvedOptions(): any;
-
-    /**
-     * Static method indicating what locales are supported by `NumberFormat` from the given locale(s).
-     */
-    supportedLocalesOf(locales: string | string[]): string[];
-
-}
-/**
- * Options to be passed into the <NumberFormat.constructor> method.
- */
-interface NumberFormatOptions {
-    /**
-     * Set to the ISO 4217 currency code to use when formatting with the currency style.
-     */
-    currency?: string;
-
-    /**
-     * Indicates how the currency symbol or name should be shown.
-     */
-    currencyDisplay?: string;
-
-    /**
-     * The locale matching algorithm to use.
-     */
-    localeMatcher?: string;
-
-    /**
-     * Max number of fractional digits to be shown. Will round at this max digit.
-     */
-    maximumFractionDigits?: number;
-
-    /**
-     * Max number of significant digits to be shown. Will round at this max digit.
-     */
-    maximumSignificantDigits?: number;
-
-    /**
-     * Applies trailing zeros in fractional portion of the formatted number.
-     */
-    minimumFractionDigits?: number;
-
-    /**
-     * Applies leading zeros to the integer portion of the formatted number.
-     */
-    minimumIntegerDigits?: number;
-
-    /**
-     * Indicates if number should be formatted to scientific or engineering notation.
-     */
-    notation?: string;
-
-    /**
-     * Specifies the format style such as decimal, currency, or percentage.
-     */
-    style?: string;
-
-    /**
-     * Indicates if grouping separators should be displayed.
-     */
-    useGrouping?: boolean;
-
-}
-/**
  * An object returned when the <Titanium.UI.WebView.onlink> callback is fired.
  */
 interface OnLinkURLResponse {
@@ -2372,9 +2142,14 @@ interface PhotoGalleryOptionsType {
     popoverView?: Titanium.UI.View;
 
     /**
+     * Specifies number of media item that can be selected.
+     */
+    selectionLimit?: boolean;
+
+    /**
      * Function to call when the photo gallery is closed after a successful selection.
      */
-    success?: (param0: CameraMediaItemType) => void;
+    success?: ((param0: CameraMediaItemType) => void) | ((param0: CameraMediaMultipleItemsType) => void);
 
 }
 /**
@@ -2770,6 +2545,21 @@ interface SearchBarToken {
 
 }
 /**
+ * The parameter passed to the <Titanium.UI.WebView.findString>.
+ */
+interface SearchResult {
+    /**
+     * Error message, if any returned.
+     */
+    error?: string;
+
+    /**
+     * Indicates if string found or not.
+     */
+    success?: boolean;
+
+}
+/**
  * The protocol that the <Titanium.Network.HTTPClient.securityManager> must implement.
  */
 interface SecurityManagerProtocol {
@@ -2940,6 +2730,30 @@ interface SnapshotResult {
      * Indicates if the snapshot taken.
      */
     success?: boolean;
+
+}
+/**
+ * The optional options to pass to the <Titanium.UI.WebView.findString>. Pass a
+ * dictionary with one or more of the following string-keys:
+ *     * `caseSensitive` (Boolean value)
+ *     * `backward` (Boolean value)
+ *     * `wraps` (Boolean value)
+ */
+interface StringSearchOptions {
+    /**
+     * The direction to search from the current selection. The search will respect the writing direction of the document
+     */
+    backward?: boolean;
+
+    /**
+     * Whether or not the search should be case sensitive.
+     */
+    caseSensitive?: boolean;
+
+    /**
+     * Whether the search should start at the beginning of the document once it reaches the end.
+     */
+    wraps?: boolean;
 
 }
 /**
@@ -13736,6 +13550,16 @@ declare namespace Titanium {
      */
     namespace Geolocation {
         /**
+         * The user authorized the app to access location data with full accuracy.
+         */
+        const ACCURACY_AUTHORIZATION_FULL: number;
+
+        /**
+         * The user authorized the app to access location data with reduced accuracy.
+         */
+        const ACCURACY_AUTHORIZATION_REDUCED: number;
+
+        /**
          * Use with [accuracy](Titanium.Geolocation.accuracy) to request the best
          * accuracy available.
          */
@@ -13776,6 +13600,11 @@ declare namespace Titanium {
          * updates accurate to the nearest 10 meters.
          */
         const ACCURACY_NEAREST_TEN_METERS: number;
+
+        /**
+         * The level of accuracy used when an app isn’t authorized for full accuracy location data.
+         */
+        const ACCURACY_REDUCED: number;
 
         /**
          * Use with [accuracy](Titanium.Geolocation.accuracy) to request location
@@ -18770,6 +18599,11 @@ declare namespace Titanium {
             timeout: number;
 
             /**
+             * The maximum amount of time (in milliseconds) that a resource request should be allowed to take.
+             */
+            timeoutForResource: number;
+
+            /**
              * Sets the TLS version to use for handshakes.
              */
             tlsVersion: number;
@@ -18783,6 +18617,11 @@ declare namespace Titanium {
              * Determines how SSL certification validation is performed on connection.
              */
             validatesSecureCertificate: boolean;
+
+            /**
+             * A Boolean value that indicates whether the session should wait for connectivity to become available, or fail immediately.
+             */
+            waitsForConnectivity: boolean;
 
             /**
              * Cancels a pending request.
@@ -18978,6 +18817,12 @@ declare namespace Titanium {
             getTimeout(): number;
 
             /**
+             * Gets the value of the <Titanium.Network.HTTPClient.timeoutForResource> property.
+             * @deprecated Access <Titanium.Network.HTTPClient.timeoutForResource> instead.
+             */
+            getTimeoutForResource(): number;
+
+            /**
              * Gets the value of the <Titanium.Network.HTTPClient.tlsVersion> property.
              * @deprecated Access <Titanium.Network.HTTPClient.tlsVersion> instead.
              */
@@ -18994,6 +18839,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.Network.HTTPClient.validatesSecureCertificate> instead.
              */
             getValidatesSecureCertificate(): boolean;
+
+            /**
+             * Gets the value of the <Titanium.Network.HTTPClient.waitsForConnectivity> property.
+             * @deprecated Access <Titanium.Network.HTTPClient.waitsForConnectivity> instead.
+             */
+            getWaitsForConnectivity(): boolean;
 
             /**
              * Opens the request and prepares the connection.
@@ -19099,6 +18950,12 @@ declare namespace Titanium {
             setTimeout(timeout: number): void;
 
             /**
+             * Sets the value of the <Titanium.Network.HTTPClient.timeoutForResource> property.
+             * @deprecated Set the value using <Titanium.Network.HTTPClient.timeoutForResource> instead.
+             */
+            setTimeoutForResource(timeoutForResource: number): void;
+
+            /**
              * Sets the value of the <Titanium.Network.HTTPClient.tlsVersion> property.
              * @deprecated Set the value using <Titanium.Network.HTTPClient.tlsVersion> instead.
              */
@@ -19115,6 +18972,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.Network.HTTPClient.validatesSecureCertificate> instead.
              */
             setValidatesSecureCertificate(validatesSecureCertificate: boolean): void;
+
+            /**
+             * Sets the value of the <Titanium.Network.HTTPClient.waitsForConnectivity> property.
+             * @deprecated Set the value using <Titanium.Network.HTTPClient.waitsForConnectivity> instead.
+             */
+            setWaitsForConnectivity(waitsForConnectivity: boolean): void;
 
         }
         /**
@@ -25771,6 +25634,27 @@ declare namespace Titanium {
              * distributed to other devices based on the owning AppleID.
              */
             const CREDENTIAL_PERSISTENCE_SYNCHRONIZABLE: number;
+
+            /**
+             * Use with <Titanium.UI.Picker.datePickerStyle> to automatically pick the best style
+             * available for the current platform & mode.
+             */
+            const DATE_PICKER_STYLE_AUTOMATIC: number;
+
+            /**
+             * Use with <Titanium.UI.Picker.datePickerStyle> to show the picker with a compact style. Editing occurs in an overlay.
+             */
+            const DATE_PICKER_STYLE_COMPACT: number;
+
+            /**
+             * Use with <Titanium.UI.Picker.datePickerStyle> to allow editing in place (as a calendar).
+             */
+            const DATE_PICKER_STYLE_INLINE: number;
+
+            /**
+             * Use with <Titanium.UI.Picker.datePickerStyle> to show the picker the wheels. Editing occurs inline.
+             */
+            const DATE_PICKER_STYLE_WHEELS: number;
 
             /**
              * The heavy impact style used as the `style` argument when creating a <Titanium.UI.iOS.FeedbackGenerator> with the
@@ -41499,11 +41383,6 @@ declare namespace Titanium {
             static bubbleParent: boolean;
 
             /**
-             * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
-             */
-            static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
-
-            /**
              * Create a new named clipboard.
              */
             static name: string;
@@ -41566,12 +41445,6 @@ declare namespace Titanium {
              * Gets the items that have been specified earlier using <Titanium.UI.Clipboard.setItems>.
              */
             static getItems(): any[];
-
-            /**
-             * Gets the value of the <Titanium.UI.Clipboard.lifecycleContainer> property.
-             * @deprecated Access <Titanium.UI.Clipboard.lifecycleContainer> instead.
-             */
-            static getLifecycleContainer(): Titanium.UI.Window | Titanium.UI.TabGroup;
 
             /**
              * Gets the value of the <Titanium.UI.Clipboard.name> property.
@@ -41646,12 +41519,6 @@ declare namespace Titanium {
              * Adds an array of items to a clipboard, and sets privacy options for all included items.
              */
             static setItems(items: ClipboardItemsType): void;
-
-            /**
-             * Sets the value of the <Titanium.UI.Clipboard.lifecycleContainer> property.
-             * @deprecated Set the value using <Titanium.UI.Clipboard.lifecycleContainer> instead.
-             */
-            static setLifecycleContainer(lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup): void;
 
             /**
              * Sets the value of the <Titanium.UI.Clipboard.name> property.
@@ -52566,6 +52433,11 @@ declare namespace Titanium {
             countDownDuration: number;
 
             /**
+             * Request a style if the picker is a date picker (`PICKER_TYPE_DATE`).
+             */
+            datePickerStyle: number;
+
+            /**
              * Sets the text color of date- and time-pickers.
              */
             dateTimeColor: string | Titanium.UI.Color;
@@ -52787,6 +52659,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.Picker.countDownDuration> instead.
              */
             getCountDownDuration(): number;
+
+            /**
+             * Gets the value of the <Titanium.UI.Picker.datePickerStyle> property.
+             * @deprecated Access <Titanium.UI.Picker.datePickerStyle> instead.
+             */
+            getDatePickerStyle(): number;
 
             /**
              * Gets the value of the <Titanium.UI.Picker.dateTimeColor> property.
@@ -53026,6 +52904,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.UI.Picker.countDownDuration> instead.
              */
             setCountDownDuration(countDownDuration: number): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.Picker.datePickerStyle> property.
+             * @deprecated Set the value using <Titanium.UI.Picker.datePickerStyle> instead.
+             */
+            setDatePickerStyle(datePickerStyle: number): void;
 
             /**
              * Sets the value of the <Titanium.UI.Picker.dateTimeColor> property.
@@ -57773,6 +57657,11 @@ declare namespace Titanium {
             pagingControlTimeout: number;
 
             /**
+             * The preferred image for indicators, defined using a local filesystem path, or a `Blob` object containing image data.
+             */
+            preferredIndicatorImage: string | Titanium.Blob;
+
+            /**
              * Determines whether scrolling is enabled for the view.
              */
             scrollingEnabled: boolean;
@@ -57914,6 +57803,12 @@ declare namespace Titanium {
             getPagingControlTimeout(): number;
 
             /**
+             * Gets the value of the <Titanium.UI.ScrollableView.preferredIndicatorImage> property.
+             * @deprecated Access <Titanium.UI.ScrollableView.preferredIndicatorImage> instead.
+             */
+            getPreferredIndicatorImage(): string | Titanium.Blob;
+
+            /**
              * Gets the value of the <Titanium.UI.ScrollableView.scrollingEnabled> property.
              * @deprecated Access <Titanium.UI.ScrollableView.scrollingEnabled> instead.
              */
@@ -58018,6 +57913,11 @@ declare namespace Titanium {
             setHitRect(hitRect: Dimension): void;
 
             /**
+             * Sets the indicator image for the specified page.
+             */
+            setIndicatorImageForPage(image: string | Titanium.Blob, pageNo: number): void;
+
+            /**
              * Sets the value of the <Titanium.UI.ScrollableView.overScrollMode> property.
              * @deprecated Set the value using <Titanium.UI.ScrollableView.overScrollMode> instead.
              */
@@ -58070,6 +57970,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.UI.ScrollableView.pagingControlTimeout> instead.
              */
             setPagingControlTimeout(pagingControlTimeout: number): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.ScrollableView.preferredIndicatorImage> property.
+             * @deprecated Set the value using <Titanium.UI.ScrollableView.preferredIndicatorImage> instead.
+             */
+            setPreferredIndicatorImage(preferredIndicatorImage: string | Titanium.Blob): void;
 
             /**
              * Sets the value of the <Titanium.UI.ScrollableView.scrollingEnabled> property.
@@ -73547,6 +73453,16 @@ declare namespace Titanium {
 
         }
         /**
+         * Fired when a URL has been blocked from loading.
+         */
+        interface WebView_blockedurl_Event extends WebViewBaseEvent {
+            /**
+             * The URL of the web document that has been blocked from loading.
+             */
+            url: string;
+
+        }
+        /**
          * Fired when a script message is received from a webpage.
          */
         interface WebView_message_Event extends WebViewBaseEvent {
@@ -73620,6 +73536,8 @@ declare namespace Titanium {
             beforeload: WebView_beforeload_Event;
 
             blacklisturl: WebView_blacklisturl_Event;
+
+            blockedurl: WebView_blockedurl_Event;
 
             click: WebView_click_Event;
 
@@ -73697,8 +73615,14 @@ declare namespace Titanium {
 
             /**
              * An array of url strings to blacklist.
+             * @deprecated Use the <Titanium.UI.WebView.blockedURLs> property instead.
              */
             blacklistedURLs: string[];
+
+            /**
+             * An array of url strings to be blocked.
+             */
+            blockedURLs: string[];
 
             /**
              * Determines how a cache is used in this web view.
@@ -73912,11 +73836,26 @@ declare namespace Titanium {
             canGoForward(): boolean;
 
             /**
+             * Create a PDF document representation from the web page currently displayed in the WebView.
+             */
+            createPDF(callback: (param0: DataCreationResult) => void): void;
+
+            /**
+             * Create WebKit web archive data representing the current web content of the WebView.
+             */
+            createWebArchive(callback: (param0: DataCreationResult) => void): void;
+
+            /**
              * Evaluates a JavaScript expression inside the context of the web view and
              * optionally, returns a result. If a callback function is passed in as second argument,
              * the evaluation will take place asynchronously and the the callback function will be called with the result.
              */
             evalJS(code: string, callback?: (param0: string) => void): string;
+
+            /**
+             * Searches the page contents for the given string.
+             */
+            findString(searchString: string, options?: StringSearchOptions, callback?: (param0: SearchResult) => void): void;
 
             /**
              * Fires a synthesized event to any registered listeners.
@@ -73954,9 +73893,15 @@ declare namespace Titanium {
 
             /**
              * Gets the value of the <Titanium.UI.WebView.blacklistedURLs> property.
-             * @deprecated Access <Titanium.UI.WebView.blacklistedURLs> instead.
+             * @deprecated Use the <Titanium.UI.WebView.blockedURLs> property instead.
              */
             getBlacklistedURLs(): string[];
+
+            /**
+             * Gets the value of the <Titanium.UI.WebView.blockedURLs> property.
+             * @deprecated Access <Titanium.UI.WebView.blockedURLs> instead.
+             */
+            getBlockedURLs(): string[];
 
             /**
              * Gets the value of the <Titanium.UI.WebView.cacheMode> property.
@@ -74260,9 +74205,15 @@ declare namespace Titanium {
 
             /**
              * Sets the value of the <Titanium.UI.WebView.blacklistedURLs> property.
-             * @deprecated Set the value using <Titanium.UI.WebView.blacklistedURLs> instead.
+             * @deprecated Use the <Titanium.UI.WebView.blockedURLs> property instead.
              */
             setBlacklistedURLs(blacklistedURLs: ReadonlyArray<string>): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.WebView.blockedURLs> property.
+             * @deprecated Set the value using <Titanium.UI.WebView.blockedURLs> instead.
+             */
+            setBlockedURLs(blockedURLs: ReadonlyArray<string>): void;
 
             /**
              * Sets the value of the <Titanium.UI.WebView.cacheMode> property.
@@ -78097,7 +78048,8 @@ declare namespace Titanium {
         static timedEvent: never;
 
         /**
-         * Sends a user event for this application session. **Not displayed in Analytics UI**.
+         * Sends a user event for this application session.
+         * **Not displayed in Analytics UI**.
          * @deprecated
          */
         static userEvent: never;
@@ -78901,6 +78853,16 @@ declare namespace Titanium {
         readonly text: string;
 
         /**
+         * If the blob references an image, this provides the height in pixels after factoring in EXIF orientation.
+         */
+        readonly uprightHeight: number;
+
+        /**
+         * If the blob references an image, this provides the width in pixels after factoring in EXIF orientation.
+         */
+        readonly uprightWidth: number;
+
+        /**
          * If this blob represents an image, this is the width of the image in pixels.
          */
         readonly width: number;
@@ -78914,6 +78876,11 @@ declare namespace Titanium {
          * Appends the data from another blob to this blob.
          */
         append(blob: Titanium.Blob): void;
+
+        /**
+         * Returns a `Promise` that resolves with the contents of the blob as binary data contained in an `ArrayBuffer`.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
 
         /**
          * Fires a synthesized event to any registered listeners.
@@ -78963,6 +78930,18 @@ declare namespace Titanium {
         getText(): string;
 
         /**
+         * Gets the value of the <Titanium.Blob.uprightHeight> property.
+         * @deprecated Access <Titanium.Blob.uprightHeight> instead.
+         */
+        getUprightHeight(): number;
+
+        /**
+         * Gets the value of the <Titanium.Blob.uprightWidth> property.
+         * @deprecated Access <Titanium.Blob.uprightWidth> instead.
+         */
+        getUprightWidth(): number;
+
+        /**
          * Gets the value of the <Titanium.Blob.width> property.
          * @deprecated Access <Titanium.Blob.width> instead.
          */
@@ -79007,6 +78986,11 @@ declare namespace Titanium {
          * Removes the specified callback as an event listener for the named event.
          */
         removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+        /**
+         * Returns an `ArrayBuffer` representation of this blob.
+         */
+        toArrayBuffer(): ArrayBuffer;
 
         /**
          * Returns a string representation of this blob.
@@ -80283,6 +80267,11 @@ declare namespace Titanium {
         static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
 
         /**
+         * A value that indicates the level of location accuracy the app has permission to use.
+         */
+        static readonly locationAccuracyAuthorization: number;
+
+        /**
          * Returns an authorization constant indicating if the application has access to location services.
          */
         static readonly locationServicesAuthorization: number;
@@ -80433,6 +80422,12 @@ declare namespace Titanium {
         static getLifecycleContainer(): Titanium.UI.Window | Titanium.UI.TabGroup;
 
         /**
+         * Gets the value of the <Titanium.Geolocation.locationAccuracyAuthorization> property.
+         * @deprecated Access <Titanium.Geolocation.locationAccuracyAuthorization> instead.
+         */
+        static getLocationAccuracyAuthorization(): number;
+
+        /**
          * Gets the value of the <Titanium.Geolocation.locationServicesAuthorization> property.
          * @deprecated Access <Titanium.Geolocation.locationServicesAuthorization> instead.
          */
@@ -80496,6 +80491,11 @@ declare namespace Titanium {
          * Requests for location access.
          */
         static requestLocationPermissions(authorizationType: number, callback: (param0: LocationAuthorizationResponse) => void): void;
+
+        /**
+         * Requests the user's permission to temporarily use location services with full accuracy.
+         */
+        static requestTemporaryFullAccuracyAuthorization(purposeKey: string, callback: (param0: LocationAccuracyAuthorizationResponse) => void): void;
 
         /**
          * Tries to resolve a location to an address.
@@ -80761,7 +80761,6 @@ declare namespace Titanium {
     /**
      * IOStream is the interface that all stream types implement.
      */
-    // tslint:disable-next-line:interface-name
     class IOStream extends Titanium.Proxy {
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -82138,9 +82137,24 @@ declare namespace Titanium {
         static readonly username: string;
 
         /**
-         * System's OS version.
+         * The operating system's version string.
          */
         static readonly version: string;
+
+        /**
+         * The operating system's major version number.
+         */
+        static readonly versionMajor: number;
+
+        /**
+         * The operating system's minor version number.
+         */
+        static readonly versionMinor: number;
+
+        /**
+         * The operating system's patch version number.
+         */
+        static readonly versionPatch: number;
 
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -82349,6 +82363,24 @@ declare namespace Titanium {
          * @deprecated Access <Titanium.Platform.version> instead.
          */
         static getVersion(): string;
+
+        /**
+         * Gets the value of the <Titanium.Platform.versionMajor> property.
+         * @deprecated Access <Titanium.Platform.versionMajor> instead.
+         */
+        static getVersionMajor(): number;
+
+        /**
+         * Gets the value of the <Titanium.Platform.versionMinor> property.
+         * @deprecated Access <Titanium.Platform.versionMinor> instead.
+         */
+        static getVersionMinor(): number;
+
+        /**
+         * Gets the value of the <Titanium.Platform.versionPatch> property.
+         * @deprecated Access <Titanium.Platform.versionPatch> instead.
+         */
+        static getVersionPatch(): number;
 
         /**
          * Returns whether the system settings are configured to show times in 24-hour format.

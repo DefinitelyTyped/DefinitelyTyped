@@ -1,4 +1,11 @@
-import { RequestData, MediaInformation, Track, MediaStatus, LiveSeekableRange } from './cast.framework.messages';
+import {
+    ErrorReason,
+    RequestData,
+    MediaInformation,
+    Track,
+    MediaStatus,
+    LiveSeekableRange,
+} from './cast.framework.messages';
 import * as category from './cast.framework.events.category';
 
 export import category = category;
@@ -81,6 +88,9 @@ export enum EventType {
     REQUEST_QUEUE_GET_ITEMS = 'REQUEST_QUEUE_GET_ITEMS',
     REQUEST_QUEUE_GET_ITEM_IDS = 'REQUEST_QUEUE_GET_ITEM_IDS',
     REQUEST_PRECACHE = 'REQUEST_PRECACHE',
+    TIMED_METADATA_CHANGED = 'TIMED_METADATA_CHANGED',
+    TIMED_METADATA_ENTER = 'TIMED_METADATA_ENTER',
+    TIMED_METADATA_EXIT = 'TIMED_METADATA_EXIT',
     LIVE_IS_MOVING_WINDOW_CHANGED = 'LIVE_IS_MOVING_WINDOW_CHANGED',
     LIVE_ENDED = 'LIVE_ENDED',
 }
@@ -426,7 +436,7 @@ export class BitrateChangedEvent extends Event {
  * Event data for @see{@link EventType.ERROR} event.
  */
 export class ErrorEvent extends Event {
-    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: cast.framework.messages.ErrorReason);
+    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason);
 
     /**
      * An error code representing the cause of the error.
@@ -441,7 +451,7 @@ export class ErrorEvent extends Event {
     /**
      * Optional error reason.
      */
-    reason?: cast.framework.messages.ErrorReason;
+    reason?: ErrorReason;
 }
 
 /**

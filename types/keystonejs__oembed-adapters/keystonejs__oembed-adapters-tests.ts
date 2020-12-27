@@ -4,7 +4,6 @@ import { OEmbed } from '@keystonejs/fields';
 import { IframelyOEmbedAdapter } from '@keystonejs/oembed-adapters';
 
 const keystone = new Keystone({
-    name: 'Typescript Test',
     adapter: new KnexAdapter(),
 });
 

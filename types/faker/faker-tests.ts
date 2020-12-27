@@ -41,8 +41,8 @@ resultStr = faker.address.cardinalDirection();
 resultStr = faker.address.cardinalDirection(true);
 resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
-resultStr = faker.address.nearbyGPSCoordinate();
-resultStr = faker.address.nearbyGPSCoordinate('foo', 0, true);
+resultStrArr = faker.address.nearbyGPSCoordinate();
+resultStrArr = faker.address.nearbyGPSCoordinate(['0', '0'], 0, true);
 resultStr = faker.address.timeZone();
 
 resultStr = faker.commerce.color();
@@ -289,8 +289,10 @@ resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
 
-resultDate = faker.time.recent();
-resultDate = faker.time.recent('foo');
+resultNum = faker.time.recent();
+resultNum = faker.time.recent('unix');
+resultStr = faker.time.recent('abbr');
+resultStr = faker.time.recent('wide');
 
 resultStr = faker.vehicle.vehicle();
 resultStr = faker.vehicle.manufacturer();

@@ -23,7 +23,15 @@ export default class DragAndDrop extends Interaction {
     constructor(opt_options?: Options);
     handleDrop(event: DragEvent): void;
     handleStop(event: DragEvent): void;
+    /**
+     * Activate or deactivate the interaction.
+     */
     setActive(active: boolean): void;
+    /**
+     * Remove the interaction from its current map and attach it to the new map.
+     * Subclasses may set up event handlers to get notified about changes to
+     * the map here.
+     */
     setMap(map: PluggableMap): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -51,7 +59,16 @@ declare class DragAndDropEvent extends BaseEvent {
         opt_features?: Feature<Geometry>[],
         opt_projection?: Projection,
     );
+    /**
+     * The features parsed from dropped data.
+     */
     features: FeatureLike[];
+    /**
+     * The dropped file.
+     */
     file: File;
+    /**
+     * The feature projection.
+     */
     projection: Projection;
 }

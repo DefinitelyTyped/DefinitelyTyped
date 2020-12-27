@@ -285,7 +285,7 @@ export interface Client {
    */
   cross_origin_auth?: boolean;
   /**
-   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
    */
   cross_origin_loc?: string;
   /**
@@ -611,11 +611,21 @@ export interface PasswordGrantOptions {
   password: string;
   realm?: string;
   scope?: string;
+  audience?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
   code: string;
   redirect_uri: string;
+}
+
+export interface AuthenticationClientRefreshTokenOptions {
+  refresh_token:string;
+  client_id?: string;
+}
+
+export interface RefreshTokenOptions {
+  refresh_token:string;
 }
 
 export interface TokenResponse {
@@ -904,6 +914,18 @@ export interface UserBlocks {
     blocked_for: BlockedForEntry[];
 }
 
+export type EnrollmentStatus = 'pending' | 'confirmed';
+
+export type AuthMethod = 'authentication' | 'guardian' | 'sms';
+
+export interface Enrollment {
+  id: string;
+  status: EnrollmentStatus;
+  enrolled_at: string;
+  last_auth: string;
+  type: string;
+  auth_method: AuthMethod;
+}
 
 export class AuthenticationClient {
 
@@ -950,6 +972,11 @@ export class AuthenticationClient {
   passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
   passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
+  refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: AuthenticationClientRefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 
@@ -1277,6 +1304,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   deleteCustomDomain(params: ObjectWithId): Promise<void>;
   deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  // User enrollment
+  getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
+  getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
+
+  deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
+  deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+  //MFA invalidate remember browser
+  invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
+  invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
 }
 
 
@@ -1312,6 +1350,12 @@ export class OAuthAuthenticator {
 
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  refreshToken(options: RefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: RefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 export class PasswordlessAuthenticator {

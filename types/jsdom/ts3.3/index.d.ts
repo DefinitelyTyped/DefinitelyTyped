@@ -5,9 +5,6 @@ import { ElementLocation } from 'parse5';
 import { Context } from 'vm';
 import * as tough from 'tough-cookie';
 
-// Needed to allow adding properties to `DOMWindow` that are only supported
-// in newer TypeScript versions:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'jsdom' {
     const toughCookie: typeof tough;
     class CookieJar extends tough.CookieJar {}

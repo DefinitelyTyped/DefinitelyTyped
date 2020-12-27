@@ -5861,6 +5861,7 @@ fp.now(); // $ExpectType number
 // _.transform
 {
     const array: number[] = [];
+    const readonlyArray: ReadonlyArray<number> = [];
     const dictionary: _.Dictionary<number> = {};
 
     {
@@ -5870,6 +5871,7 @@ fp.now(); // $ExpectType number
         _.transform(array); // $ExpectType any[]
         _.transform<number, AbcObject[]>(array, iterator); // $ExpectType AbcObject[]
         _.transform<number, AbcObject[]>(array, iterator, accumulator); // $ExpectType AbcObject[]
+        _.transform<number, AbcObject[]>(readonlyArray, iterator, accumulator); // $ExpectType AbcObject[]
         _(array).transform(); // $ExpectType Collection<any>
         _(array).transform(iterator); // $ExpectType Collection<AbcObject>
         _(array).transform(iterator, accumulator); // $ExpectType Collection<AbcObject>
@@ -5883,6 +5885,16 @@ fp.now(); // $ExpectType number
         _.transform<number, _.Dictionary<AbcObject>>(array, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
         _(array).transform(iterator, accumulator); // $ExpectType Object<Dictionary<AbcObject>>
         _.chain(array).transform(iterator, accumulator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
+    }
+
+    {
+        const abcObjectRecord: Record<'a' | 'b' | 'c', number> = anything;
+        const iterator = (acc: _.Dictionary<AbcObject>, curr: number, index: 'a' | 'b' | 'c', arr: typeof abcObjectRecord) => {};
+        const accumulator: _.Dictionary<AbcObject> = {};
+
+        _.transform<typeof abcObjectRecord, _.Dictionary<AbcObject>>(abcObjectRecord, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
+        _(abcObjectRecord).transform(iterator, accumulator); // $ExpectType Object<Dictionary<AbcObject>>
+        _.chain(abcObjectRecord).transform(iterator, accumulator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     }
 
     {

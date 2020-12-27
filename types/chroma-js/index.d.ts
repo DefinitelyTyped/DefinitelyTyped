@@ -30,7 +30,7 @@ declare namespace chroma {
          * @param color The string to convert to a color.
          * @return the color object.
          */
-        (color: string | number): Color;
+        (color: string | number | Color): Color;
 
         /**
          * Create a color in the specified color space using a, b and c as values.
@@ -88,22 +88,22 @@ declare namespace chroma {
 
         /**
          * Mixes two colors. The mix ratio is a value between 0 and 1.
-         * The color mixing produces different results based the color space used for interpolation.
+         * The color mixing produces different results based the color space used for interpolation. Defaults to LRGB.
          * @example chroma.mix('red', 'blue', 0.25) // => #bf0040
          * @example chroma.mix('red', 'blue', 0.5, 'hsl') // => #ff00ff
          */
-        mix(color1: string | Color, color2: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
+        mix(color1: string | Color, color2: string | Color, f?: number, colorSpace?: InterpolationMode): Color;
 
         /**
          * Alias for {@see mix}.
          */
-        interpolate(color1: string | Color, color2: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
+        interpolate(color1: string | Color, color2: string | Color, f?: number, colorSpace?: InterpolationMode): Color;
 
         /**
          * Similar to {@link mix}, but accepts more than two colors. Simple averaging of R,G,B components and the alpha
          * channel.
          */
-        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces, weights?: number[]): Color;
+        average(colors: Array<string | Color>, colorSpace?: InterpolationMode, weights?: number[]): Color;
 
         /**
          * Blends two colors using RGB channel-wise blend functions.
@@ -221,6 +221,8 @@ declare namespace chroma {
 
         darken(f?: number): Color;
 
+        mix(targetColor: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
+
         brighten(f?: number): Color;
 
         /**
@@ -261,7 +263,7 @@ declare namespace chroma {
          * Set luminance of color. The source color will be interpolated with black or white until the correct luminance is found.
          * The color space used defaults to RGB.
          */
-        luminance(l: number, colorSpace?: keyof ColorSpaces): Color;
+        luminance(l: number, colorSpace?: InterpolationMode): Color;
 
         /**
          * Get color as hexadecimal string.

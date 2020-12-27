@@ -220,29 +220,29 @@ declare namespace Xrm {
      * Interface for UserSettings.dateFormattingInfo response
      */
     interface DateFormattingInfo {
-        amDesignator: string;
-        abbreviatedDayNames: string[];
-        abbreviatedMonthGenitiveNames: string[];
-        abbreviatedMonthNames: string[];
-        calendarWeekRule: number;
-        calendar: Calendar;
-        dateSeparator: string;
-        dayNames: string[];
-        firstDayOfWeek: number;
-        fullDateTimePattern: string;
-        longDatePattern: string;
-        longTimePattern: string;
-        monthDayPattern: string;
-        monthGenitiveNames: string[];
-        monthNames: string[];
-        pmDesignator: string;
-        shortDatePattern: string;
-        shortTimePattern: string;
-        shortestDayNames: string[];
-        sortableDateTimePattern: string;
-        timeSeparator: string;
-        universalSortableDateTimePattern: string;
-        yearMonthPattern: string;
+        AmDesignator: string;
+        AbbreviatedDayNames: string[];
+        AbbreviatedMonthGenitiveNames: string[];
+        AbbreviatedMonthNames: string[];
+        CalendarWeekRule: number;
+        Calendar: Calendar;
+        DateSeparator: string;
+        DayNames: string[];
+        FirstDayOfWeek: number;
+        FullDateTimePattern: string;
+        LongDatePattern: string;
+        LongTimePattern: string;
+        MonthDayPattern: string;
+        MonthGenitiveNames: string[];
+        MonthNames: string[];
+        PmDesignator: string;
+        ShortDatePattern: string;
+        ShortTimePattern: string;
+        ShortestDayNames: string[];
+        SortableDateTimePattern: string;
+        TimeSeparator: string;
+        UniversalSortableDateTimePattern: string;
+        YearMonthPattern: string;
     }
 
     /**
@@ -252,7 +252,7 @@ declare namespace Xrm {
         /**
          * Returns the date formatting information for the current user.
          */
-        dateFormattingInfo(): DateFormattingInfo;
+        dateFormattingInfo: DateFormattingInfo;
         /**
          * Returns the ID of the default dashboard for the current user.
          */
@@ -2082,7 +2082,7 @@ declare namespace Xrm {
          * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
-            "lookup" | "memo" | "money" | "multioptionset" | "optionset" | "string";
+            "lookup" | "memo" | "money" | "multiselectoptionset" | "optionset" | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.
@@ -4472,7 +4472,7 @@ declare namespace Xrm {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: boolean;
+            createFromEntity?: LookupValue;
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
@@ -4556,6 +4556,10 @@ declare namespace Xrm {
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
             position?: 1 | 2;
+            /*
+             * The dialog title on top of the center or side dialog.
+             */
+            title?: string;
         }
 
         namespace NavigationOptions {

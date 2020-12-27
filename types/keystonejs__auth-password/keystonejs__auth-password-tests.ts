@@ -5,7 +5,6 @@ import { KnexAdapter } from '@keystonejs/adapter-knex';
 const adapter = new KnexAdapter();
 
 const keystone = new Keystone({
-    name: 'Typescript Test',
     adapter,
 });
 

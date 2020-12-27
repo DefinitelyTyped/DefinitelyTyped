@@ -289,7 +289,7 @@ declare namespace echarts {
                      * "#eee"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.splitLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -337,7 +337,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.splitLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -427,7 +427,7 @@ declare namespace echarts {
                      * "#eee"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.axisTick.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -475,7 +475,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.axisTick.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -521,6 +521,16 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-gauge.axisLabel.show
                  */
                 show?: boolean;
+
+                /**
+                 * The distance between the label and tick line.
+                 *
+                 *
+                 * @default
+                 * "true"
+                 * @see https://echarts.apache.org/en/option.html#series-gauge.axisLabel.distance
+                 */
+                distance?: number;
 
                 /**
                  * The content formatter of scale label, which supports both
@@ -1291,7 +1301,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1301,7 +1311,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1342,7 +1352,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2076,7 +2086,7 @@ declare namespace echarts {
                 backgroundColor?: object | string;
 
                 /**
-                 * Border width of the text fregment.
+                 * Border width of the text fragment.
                  *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-gauge.detail.borderWidth
@@ -2084,7 +2094,15 @@ declare namespace echarts {
                 borderWidth?: number;
 
                 /**
-                 * Border color of the text fregment.
+                 * Formatter is used to format detail, which supports string template and callback function.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-gauge.detail.formatter
+                 */
+                formatter?: string | Function;
+
+                /**
+                 * Border color of the text fragment.
                  *
                  *
                  * @default
@@ -4398,7 +4416,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4408,7 +4426,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4449,7 +4467,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4498,7 +4516,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4509,7 +4527,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4550,7 +4568,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4754,7 +4772,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4765,7 +4783,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4806,7 +4824,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4855,7 +4873,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -4866,7 +4884,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -4908,7 +4926,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6811,7 +6829,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -6857,7 +6875,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6917,7 +6935,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -6963,7 +6981,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -7181,7 +7199,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -7227,7 +7245,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7290,7 +7308,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7338,7 +7356,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -7702,7 +7720,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -7748,7 +7766,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7811,7 +7829,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7859,7 +7877,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -9722,7 +9740,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -9732,7 +9750,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -9773,7 +9791,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -9822,7 +9840,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -9833,7 +9851,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -9874,7 +9892,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -9995,7 +10013,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -10006,7 +10024,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -10048,7 +10066,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -10099,7 +10117,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10110,7 +10128,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -10154,7 +10172,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -11815,7 +11833,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -11826,7 +11844,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -11868,7 +11886,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -11919,7 +11937,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -11930,7 +11948,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -11974,7 +11992,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-gauge.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction

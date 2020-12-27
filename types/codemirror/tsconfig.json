@@ -32,6 +32,7 @@
         "test/addon/hint/show-hint.ts",
         "test/addon/merge/merge.ts",
         "test/addon/runmode/runmode.ts",
+        "test/addon/simple/simple.ts",
         "test/addon/scroll/scrollpastend.ts",
         "test/addon/search/match-highlighter.ts",
         "test/addon/search/searchcursor.ts",

@@ -1,8 +1,11 @@
-// Type definitions for non-npm package Forge Viewer 7.5
+// Type definitions for non-npm package Forge Viewer 7.32
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>, Jan Liska <https://github.com/liskaj>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
+//                 Alan Smith <https://github.com/alansmithnbs>
+//                 Jan Liska <https://github.com/liskaj>
+//                 Petr Broz <https://github.com/petrbroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.6
 
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
@@ -480,6 +483,7 @@ declare namespace Autodesk {
         }
 
         class InstanceTree {
+            fragList: Private.FragmentList;
             maxDepth: number;
             nodeAccess: InstanceTreeAccess;
             numHidden: number;
@@ -525,10 +529,14 @@ declare namespace Autodesk {
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
-            getFragmentList(): any;
+            getFragmentList(): Private.FragmentList;
+            getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getModelKey(): string;
+            getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
+            getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
@@ -540,6 +548,7 @@ declare namespace Autodesk {
             getFragmentMap(): any;
             getInstanceTree(): InstanceTree;
             getLayersRoot(): object;
+            getLayerToNodeIdMapping(onSuccessCallback: (mapping: { [key: string]: number[]; }) => void, onErrorCallback: () => void): void;
             getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
             getRoot(): object;
             getRootId(): number;
@@ -549,6 +558,7 @@ declare namespace Autodesk {
             getUnitScale(): number;
             getUnitString(): string;
             getUpVector(): number[];
+            getVisibleBounds(includeGhosted?: boolean, excludeShadow?: boolean): THREE.Box3;
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
@@ -563,6 +573,40 @@ declare namespace Autodesk {
             setData(data: object): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
+        }
+
+        namespace MeasureCommon {
+          function getSnapResultPosition(pick: SnapResult, viewer: Viewer3D): THREE.Vector3;
+
+          class SnapResult {
+            circularArcCenter: THREE.Vector3;
+            circularArcRadius: number;
+            faceNormal: THREE.Vector3;
+            fromTopology: boolean;
+            geomEdge: THREE.Geometry;
+            geomFace: THREE.Geometry;
+            geomType: number;
+            geomVertex: THREE.Vector3;
+            hasTopology: boolean;
+            intersectPoint: THREE.Vector3;
+            isMidpoint: boolean;
+            isPerpendicular: boolean;
+            modelId: number;
+            radius: number;
+            snapNode: number;
+            snapPoint: THREE.Vector3;
+            viewportIndex2d: number;
+
+            applyMatrix4(matrix: THREE.Matrix4): void;
+            clear(): void;
+            clone(): SnapResult;
+            copyTo(destiny: SnapResult): void;
+            getEdge(): THREE.Geometry;
+            getFace(): THREE.Geometry;
+            getGeometry(): THREE.Geometry;
+            getVertex(): THREE.Vector3;
+            isEmpty(): boolean;
+          }
         }
 
         interface PropertyResult {
@@ -631,7 +675,10 @@ declare namespace Autodesk {
             getActiveTool(): ToolInterface;
             getActiveToolName(): string;
             getDefaultTool(): ToolInterface;
+            getIsLocked(): boolean;
+            getTool(name: string): ToolInterface;
             getToolNames(): string[];
+            setIsLocked(state: boolean): boolean;
         }
 
         interface ToolInterface {
@@ -984,17 +1031,143 @@ declare namespace Autodesk {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
           }
+
+          namespace Snapping {
+            class Snapper {
+              constructor(viewer: Viewer3D, options?: {
+                forceSnapEdges?: boolean;
+                forceSnapVertices?: boolean;
+                markupMode?: boolean;
+                renderSnappedGeometry?: boolean;
+                renderSnappedTopology?: boolean;
+                toolName?: string;
+              });
+
+              indicator: SnapperIndicator;
+
+              activate(): void;
+              deactivate(): void;
+              isActive(): boolean;
+              isSnapped(): boolean;
+              clearSnapped(): void;
+              copyResults(destiny: any): void;
+              getGeometry(): any;
+              getEdge(): any;
+              getSnapResult(): MeasureCommon.SnapResult;
+              getVertex(): any;
+              onMouseMove(mousePosition: { x: number, y: number }): boolean;
+            }
+
+            class SnapperIndicator {
+              constructor(viewer: Viewer3D, snapper: Snapper);
+
+              clearOverlays(): void;
+              onCameraChange(): void;
+              render(): void;
+            }
+          }
+        }
+
+        class SceneBuilder extends Extension {
+          addNewModel(options: {
+            conserveMemory?: boolean,
+            createWireFrame?: boolean
+          }): Promise<ModelBuilder>;
+        }
+
+        class ModelBuilder {
+          fragList: Private.FragmentList;
+          geomList: Private.GeometryList;
+          instanceTree: any;
+          model: Model;
+
+          constructor(model: Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
+          addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
+          addMaterial(name: string, material: THREE.Material): boolean;
+          addMesh(mesh: THREE.Mesh): boolean;
+          changeFragmentsDbId(fragments: number|number[]|THREE.Mesh|THREE.Mesh[], dbId: number): boolean;
+          changeFragmentGeometry(fragment: number|THREE.Mesh, geometry: number|THREE.BufferGeometry, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeFragmentMaterial(fragment: number|THREE.Mesh, material: string|THREE.Material): boolean;
+          changeFragmentTransform(fragment: number|THREE.Mesh, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeGeometry(existingGeom: number|THREE.BufferGeometry, geometry: THREE.BufferGeometry, numFragments?: number): boolean;
+          changeMaterial(existingMaterial: string, material: THREE.Material): boolean;
+          findGeometryFragments(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): number[];
+          findMaterial(name: string): THREE.Material;
+          findMaterialFragments(materials: string|string[]|THREE.Material|THREE.Material[]): number[];
+          isConservingMemory(): boolean;
+          packNormals(geometry: THREE.BufferGeometry): THREE.BufferGeometry;
+          removeFragment(fragments: number|number[]|THREE.Mesh|THREE.Mesh[]): boolean;
+          removeGeometry(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): boolean;
+          removeMaterial(materials: string|string[]|THREE.Material|THREE.Material[]): boolean;
+          removeMesh(meshes: THREE.Mesh|THREE.Mesh[]): boolean;
+          sceneUpdated(objectsMoved: boolean, skipRepaint: boolean): void;
+          updateMesh(meshes: THREE.Mesh|THREE.Mesh[], skipGeom: boolean, skipTransform: boolean): boolean;
         }
 
         namespace Private {
-            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
-
             const env: string;
+            const LocalStorage: LocalStorageClass;
 
-            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
-            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number,
-                                  d: number, type: string): number;
             function calculatePrecision(value: string|number): number;
+            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
+            function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
+            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
+            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function lerp(x: number, y: number, t: number): number;
+
+            interface FragmentList {
+              allVisible: boolean;
+              allVisibleDirty: boolean;
+              animxforms: any;
+              boxes: any;
+              db2ThemingColor: any[];
+              dbIdIsGhosted: any[];
+              dbIdOpacity: any[];
+              fragments: any;
+              geomids: Int32Array;
+              geoms: GeometryList;
+              is2d: boolean;
+              isFixedSize: boolean;
+              linesHidden: boolean;
+              materialIdMap: { [id: number]: any };
+              materialids: Int32Array;
+              materialmap: any;
+              matrix: any;
+              modelId: number;
+              nextAvailableFragID: number;
+              nextMaterialId: number;
+              originalColors: any[];
+              pointsHidden: boolean;
+              themingOrGhostingNeedsUpdate: any[];
+              transforms: any;
+              useThreeMesh: boolean;
+              vizflags: Uint32Array;
+              vizmeshes: THREE.Mesh[];
+            }
+
+            interface GeometryList {
+              disableStreaming: boolean;
+              geomBoxes: Float32Array;
+              geomMemory: number;
+              geomPolyCount: number;
+              geoms: any[];
+              gpuMeshMemory: number;
+              gpuNumMeshes: number;
+              instancePolyCount: number;
+              is2d: boolean;
+              numGeomsInMemory: number;
+              numObjects: number;
+            }
+
+            class LocalStorageClass {
+              clear(): void;
+              getAllKeys(): string[];
+              getItem(key: string): string;
+              isSupported(): boolean;
+              removeItem(key: string): void;
+              setItem(key: string, value: string): void;
+            }
 
             interface PreferencesOptions {
               localStorage?: boolean;
@@ -1017,12 +1190,32 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
+            class BoundsCallback {
+              constructor(bounds: THREE.Box3);
+
+              onCircularArc(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
+              onEllipticalArc(cx: number, cy: number, start: number, end: number, major: number, minor: number, tilt: number, vpId: number): void;
+              onLineSegment(x1: number, y1: number, x2: number, y2: number, vpId: number): void;
+              onOneTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, vpId: number): void;
+              onTexQuad(centerX: number, centerY: number, width: number, height: number, rotation: number, vpId: number): void;
+              onVertex(cx: number, cy: number, vpId: number): void;
+            }
+
             class VertexBufferReader {
               constructor(geometry: any, use2dInstancing?: boolean);
 
               enumGeoms(filter: any, callback: any): void;
               enumGeomsForObject(dbId: number, callback: any): void;
               enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+            }
+
+            namespace VertexEnumerator {
+              function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
+              function getVertexCount(geom: THREE.Geometry): number;
             }
 
             class ViewerState {
@@ -1036,10 +1229,14 @@ declare namespace Autodesk {
 
             interface HitTestResult {
                 dbId: number;
+                distance: number;
                 face: THREE.Face3;
+                faceIndex: number;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
                 model: Model;
+                object: any;
+                point: THREE.Vector3;
             }
 
             interface Dimensions {
@@ -1065,7 +1262,7 @@ declare namespace Autodesk {
 
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
-                model: any;
+                model: Model;
                 overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
@@ -1074,11 +1271,15 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                clearHighlight(): void;
+                clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                disableHighlight(disable: boolean): void;
+                disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
-                hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
+                hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
                 intersectGround(clientX: number, clientY: number): THREE.Vector3;
@@ -1089,6 +1290,7 @@ declare namespace Autodesk {
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+                pauseHighlight(disable: boolean): void;
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
@@ -1098,8 +1300,9 @@ declare namespace Autodesk {
                 setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 syncCamera(syncWorldUp?: boolean): void;
-                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
+                viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
+                worldUp(): THREE.Vector3;
                 worldUpName(): string;
             }
 
@@ -1392,5 +1595,158 @@ declare namespace Autodesk {
             saveAsDefault(): void;
           }
         }
+    }
+
+    namespace DataVisualization {
+      const MOUSE_CLICK = 'HYPERION_OBJECT_CLICK';
+      const MOUSE_HOVERING = 'HYPERION_OBJECT_HOVERING';
+
+      enum ViewableType {
+        SPRITE = 1,
+        GEOMETRY = 2
+      }
+
+      class CustomViewable {
+        constructor(position: THREE.Vector3, style: ViewableStyle, dbId: number);
+
+        get dbId(): number;
+        get position(): THREE.Vector3;
+        get style(): ViewableStyle;
+      }
+
+      class Device {
+        id: string|number;
+        x: number;
+        y: number;
+        z: number;
+        sensorTypes: string[];
+
+        constructor(id: string|number, x: number, y: number, z: number, sensorTypes: string[]);
+      }
+
+      class LevelRoomsMap {
+        addRoomToLevel(levelName: string, room: Room): void;
+        getRoomsOnLevel(levelName: string, onlyRoomsWithDevices: boolean): Room[];
+      }
+
+      class ModelStructureInfo {
+        model: Viewing.Model;
+        rooms: Room[];
+
+        constructor(model: Viewing.Model);
+
+        generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+        getLevel(room: Room): string;
+        getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
+        getRoomList(): Promise<Room[]>;
+      }
+
+      class Room {
+        constructor(id: number, name: string, bounds: THREE.Box3);
+
+        get bounds(): THREE.Box3;
+        get devices(): Device[];
+        get id(): number;
+        get info(): { properties: any[] };
+        set info(value: { properties: any[] });
+        get name(): string;
+
+        addDevice(device: Device): void;
+      }
+
+      class SpriteViewable extends CustomViewable {
+        get color(): THREE.Color;
+        get type(): ViewableType;
+      }
+
+      class SurfaceShadingData extends SurfaceShadingGroup {
+        initialize(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingGroup {
+        id: string;
+        isGroup: boolean;
+        isLeaf: boolean;
+
+        constructor(id?: string);
+
+        get children(): SurfaceShadingGroup[];
+
+        addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
+        getChildLeafs(results: SurfaceShadingNode[]): void;
+        getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingNode {
+        dbIds: number[];
+        fragIds: number[];
+        id: string;
+        isLeaf: boolean;
+        shadingPoints: SurfaceShadingPoint[];
+
+        constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
+
+        addPoint(point: SurfaceShadingPoint): void;
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingPoint {
+        id: string;
+        position: {
+          x: number,
+          y: number,
+          z: number
+        };
+        types: string[];
+
+        constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
+
+        positionFromDBId(model: Viewing.Model, dbId: number): void;
+      }
+
+      class ViewableData {
+        spriteSize: number;
+
+        constructor(options?: { atlasWidth: number, atlasHeight: number });
+
+        get spriteAtlas(): any;
+        get viewables(): CustomViewable[];
+
+        addViewable(viewable: CustomViewable): void;
+        finish(): Promise<void>;
+      }
+
+      class ViewableStyle {
+        color: THREE.Color;
+        id: string;
+        type: ViewableType;
+        url: string;
+
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
+      }
+    }
+
+    namespace Extensions {
+      class DataVisualization extends Viewing.Extension {
+        sceneModel: Viewing.Model;
+
+        addViewables(data: DataVisualization.ViewableData): void;
+        clearHighlightedViewables(): void;
+        changeOcclusion(enable: boolean): void;
+        hideTextures(): void;
+        highlightViewables(dbIds: number|number[]): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[]): void;
+        removeAllViewables(): void;
+        removeSurfaceShading(): void;
+        renderSurfaceShading(nodeIds: string|string[],
+          sensorType: string,
+          valueCallback: (device: DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.SurfaceShadingData): void;
+        showHideViewables(visible: boolean, occlusion: boolean): void;
+        showTextures(): void;
+        updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
+          sensorType: string) => number): void;
+      }
     }
 }

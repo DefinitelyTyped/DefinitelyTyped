@@ -39,7 +39,9 @@ let fooOrBarPar: Parser<Foo | Bar>;
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 let strArrPar: Parser<string[]>;
+let str1ArrPar: Parser<[string, ...string[]]>;
 let fooArrPar: Parser<Foo[]>;
+let foo1ArrPar: Parser<[Foo, ...Foo[]]>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -114,6 +116,13 @@ barPar = strPar.promap((f) => {
     f; // $ExpectType number
     return bar;
 });
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+let constStrPar: P.Parser<"foo">;
+
+constStrPar = P.string("foo");
+constStrPar = P.string("bar"); // $ExpectError
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -277,6 +286,9 @@ strPar = P.seqMap(
 
 strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
 strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
+str1ArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
+function flattenMultiple(first: string, ...rest: string[]): number { return rest.length; }
+numPar = str1ArrPar.map(arr => flattenMultiple(...arr));
 
 strPar = P.test((a: string) => false);
 
@@ -317,6 +329,7 @@ numPar = P.digit
 
 fooArrPar = fooPar.sepBy(barPar);
 fooArrPar = fooPar.sepBy1(barPar);
+foo1ArrPar = fooPar.sepBy1(barPar);
 
 fooPar = barPar.of(foo);
 

@@ -1,4 +1,4 @@
-// Type definitions for square-connect 3.20200325
+// Type definitions for square-connect 4.20201028
 // Project: https://docs.connect.squareup.com/
 // Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
 //                 Richard Moot <https://github.com/mootrichard>
@@ -699,6 +699,59 @@ export class AcceptDisputeResponse {
 }
 
 /**
+ * A request to accumulate points for a purchase.
+ */
+export class AccumulateLoyaltyPointsRequest {
+    /**
+     * The points to add to the account. If you are using the Orders API to manage orders, you specify the order ID.
+     * Otherwise, specify the  points to add.
+     */
+    accumulate_points: LoyaltyEventAccumulatePoints;
+    /**
+     * A unique string that identifies the `AccumulateLoyaltyPoints` request.
+     * Keys can be any valid string but must be unique for every request.
+     */
+    idempotency_key: string;
+    /**
+     * The `location` where the purchase was made.
+     */
+    location_id: string;
+}
+
+/**
+ * A response containing the resulting loyalty event.
+ */
+export class AccumulateLoyaltyPointsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The resulting loyalty event.
+     */
+    event?: LoyaltyEvent;
+}
+
+export class ActionCancelReason {}
+
+/**
+ * Defines the fields that are included in the request body of a request
+ * to the [AddGroupToCustomer](#endpoint-addgrouptocustomer) endpoint.
+ */
+export class AddGroupToCustomerRequest {}
+
+/**
+ * Defines the fields that are included in the response body of a request
+ * to the [AddGroupToCustomer](#endpoint-addgrouptocustomer) endpoint.
+ */
+export class AddGroupToCustomerResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  * Represents an additional recipient (other than the merchant) receiving a portion of this tender.
  */
 export class AdditionalRecipient {
@@ -718,70 +771,6 @@ export class AdditionalRecipient {
      * The unique ID for this `AdditionalRecipientReceivable`, assigned by the server.
      */
     receivable_id?: string;
-}
-
-/**
- * Represents a monetary distribution of part of a [Transaction](#type-transaction)'s amount for Transactions which
- * included additional recipients. The location of this receivable is that same as the one specified in the
- * [AdditionalRecipient](#type-additionalrecipient).
- */
-export class AdditionalRecipientReceivable {
-    /**
-     * The additional recipient receivable's unique ID, issued by Square payments servers.
-     */
-    id: string;
-    /**
-     * The ID of the transaction that the additional recipient receivable was applied to.
-     */
-    transaction_id: string;
-    /**
-     * The ID of the location that created the receivable. This is the location ID on the associated transaction.
-     */
-    transaction_location_id: string;
-    /**
-     * The amount of the receivable. This will always be non-negative.
-     */
-    amount_money: Money;
-    /**
-     * The time when the additional recipient receivable was created, in RFC 3339 format.
-     */
-    created_at?: string;
-    /**
-     * Any refunds of the receivable that have been applied.
-     */
-    refunds?: Array<AdditionalRecipientReceivableRefund>;
-}
-
-/**
- * A refund of an [AdditionalRecipientReceivable](#type-additionalrecipientreceivable). This includes the ID of the
- * additional recipient receivable associated to this object, as well as a reference to the [Refund](#type-refund) that
- * created this receivable refund.
- */
-export class AdditionalRecipientReceivableRefund {
-    /**
-     * The receivable refund's unique ID, issued by Square payments servers.
-     */
-    id: string;
-    /**
-     * The ID of the receivable that the refund was applied to.
-     */
-    receivable_id: string;
-    /**
-     * The ID of the refund that is associated to this receivable refund.
-     */
-    refund_id: string;
-    /**
-     * The ID of the location that created the receivable. This is the location ID on the associated transaction.
-     */
-    transaction_location_id: string;
-    /**
-     * The amount of the refund. This will always be non-negative.
-     */
-    amount_money: Money;
-    /**
-     * The time when the refund was created, in RFC 3339 format.
-     */
-    created_at?: string;
 }
 
 /**
@@ -850,6 +839,35 @@ export class Address {
      * Optional organization name when it's representing recipient.
      */
     organization?: string;
+}
+
+/**
+ * A request to adjust (add or subtract) points manually.
+ */
+export class AdjustLoyaltyPointsRequest {
+    /**
+     * A unique string that identifies this `AdjustLoyaltyPoints` request.
+     * Keys can be any valid string, but must be unique for every request.
+     */
+    idempotency_key: string;
+    /**
+     * The points to adjust (add or subtract) and the reason for the adjustment.
+     */
+    adjust_points: LoyaltyEventAdjustPoints;
+}
+
+/**
+ * A response that includes the loyalty event that resulted from the successful API call.
+ */
+export class AdjustLoyaltyPointsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The resulting event data for adjusting points.
+     */
+    event?: LoyaltyEvent;
 }
 
 /**
@@ -962,7 +980,7 @@ export class BatchChangeInventoryRequest {
     idempotency_key?: string;
     /**
      * The set of physical counts and inventory adjustments to be made.
-     * Changes are applied based on the client-supplied timestamp and may be sent out of order. Max size is 100 changes.
+     * Changes are applied based on the client-supplied timestamp and may be sent out of order.
      */
     changes?: Array<InventoryChange>;
     /**
@@ -993,7 +1011,7 @@ export class BatchDeleteCatalogObjectsRequest {
 
 export class BatchDeleteCatalogObjectsResponse {
     /**
-     * The set of Errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -1024,7 +1042,7 @@ export class BatchRetrieveCatalogObjectsRequest {
 
 export class BatchRetrieveCatalogObjectsResponse {
     /**
-     * The set of `Error`s encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -1039,31 +1057,31 @@ export class BatchRetrieveCatalogObjectsResponse {
 
 export class BatchRetrieveInventoryChangesRequest {
     /**
-     * Filters results by `CatalogObject` ID. Only applied when set. Default: unset.
+     * The filter to return results by `CatalogObject` ID. The filter is only applicable when set. The default value is null.
      */
     catalog_object_ids?: Array<string>;
     /**
-     * Filters results by `Location` ID. Only applied when set. Default: unset.
+     * The filter to return results by `Location` ID. The filter is only applicable when set. The default value is null.
      */
     location_ids?: Array<string>;
     /**
-     * Filters results by `InventoryChangeType`. Default: [`PHYSICAL_COUNT`, `ADJUSTMENT`].
-     * `TRANSFER` is not supported as a filter. See [InventoryChangeType](#type-inventorychangetype) for possible values.
+     * The filter to return results by `InventoryChangeType` values other than `TRANSFER`.
+     * The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`. See [InventoryChangeType](#type-inventorychangetype) for possible values.
      */
     types?: Array<InventoryType>;
     /**
-     * Filters `ADJUSTMENT` query results by `InventoryState`. Only applied when set. Default: unset.
-     * See [InventoryState](#type-inventorystate) for possible values
+     * The filter to return `ADJUSTMENT` query results by `InventoryState`. This filter is only applied when set.
+     * The default value is null. See [InventoryState](#type-inventorystate) for possible values.
      */
     states?: Array<InventoryStateType>;
     /**
-     * Provided as an RFC 3339 timestamp. Returns results whose `created_at` or `calculated_at` value is after the given time.
-     * Default: UNIX epoch (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `calculated_at` value after the given time as specified in an RFC 3339 timestamp.
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     updated_after?: string;
     /**
-     * Provided as an RFC 3339 timestamp. Returns results whose `created_at` or `calculated_at` value is strictly before
-     * the given time. Default: UNIX epoch (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `created_at` or `calculated_at` value strictly before the given time as specified in an RFC 3339 timestamp.
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     updated_before?: string;
     /**
@@ -1092,16 +1110,16 @@ export class BatchRetrieveInventoryChangesResponse {
 
 export class BatchRetrieveInventoryCountsRequest {
     /**
-     * Filters results by `CatalogObject` ID. Only applied when set. Default: unset.
+     * The filter to return results by `CatalogObject` ID. The filter is applicable only when set. The default is null.
      */
     catalog_object_ids?: Array<string>;
     /**
-     * Filters results by `Location` ID. Only applied when set. Default: unset.
+     * The filter to return results by `Location` ID. This filter is applicable only when set. The default is null.
      */
     location_ids?: Array<string>;
     /**
-     * Provided as an RFC 3339 timestamp. Returns results whose `calculated_at` value is after the given time.
-     * Default: UNIX epoch (`1970-01-01T00:00:00Z`).
+     * The filter to return results with their `calculated_at` value  after the given time as specified in an RFC 3339 timestamp.
+     * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
     updated_after?: string;
     /**
@@ -1110,6 +1128,12 @@ export class BatchRetrieveInventoryCountsRequest {
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
     cursor?: string;
+    /**
+     * The filter to return results by `InventoryState`. The filter is only applicable when set.
+     * Ignored are untracked states of `NONE`, `SOLD`, and `UNLINKED_RETURN`. The default is null.
+     * See [InventoryState](#type-inventorystate) for possible values.
+     */
+    states?: Array<string>;
 }
 
 export class BatchRetrieveInventoryCountsResponse {
@@ -1129,6 +1153,11 @@ export class BatchRetrieveInventoryCountsResponse {
 }
 
 export class BatchRetrieveOrdersRequest {
+    /**
+     * The ID of the location for these orders.
+     * This field is optional: omit it to retrieve orders within the scope of the current authorization's merchant ID.
+     */
+    location_id?: string;
     /**
      * The IDs of the orders to retrieve. A maximum of 100 orders can be retrieved per request.
      */
@@ -1177,7 +1206,7 @@ export class BatchUpsertCatalogObjectsRequest {
 
 export class BatchUpsertCatalogObjectsResponse {
     /**
-     * Information on any errors that encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -1235,6 +1264,57 @@ export class BreakType {
 }
 
 /**
+ * Represents a bulk create request for `TeamMember` objects.
+ */
+export class BulkCreateTeamMembersRequest {
+    /**
+     * The data which will be used to create the `TeamMember` objects.
+     * Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     */
+    team_members: Record<string, CreateTeamMemberRequest>;
+}
+
+/**
+ * Represents a response from a bulk create request, containing the created `TeamMember` objects or error messages.
+ */
+export class BulkCreateTeamMembersResponse {
+    /**
+     * The successfully created `TeamMember` objects. Each key is the `idempotency_key` that maps to the `CreateTeamMemberRequest`.
+     */
+    team_members: Record<string, CreateTeamMemberResponse>;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Represents a bulk update request for `TeamMember` objects.
+ */
+export class BulkUpdateTeamMembersRequest {
+    /**
+     * The data which will be used to update the `TeamMember` objects.
+     * Each key is the `team_member_id` that maps to the `UpdateTeamMemberRequest`.
+     */
+    team_members: Record<string, UpdateTeamMemberRequest>;
+}
+
+/**
+ * Represents a response from a bulk update request, containing the updated `TeamMember` objects or error messages.
+ */
+export class BulkUpdateTeamMembersResponse {
+    /**
+     * The successfully updated `TeamMember` objects.
+     * Each key is the `team_member_id` that maps to the `UpdateTeamMemberRequest`.
+     */
+    team_members: Record<string, UpdateTeamMemberResponse>;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  *  Represents the hours of operation for a business location.
  */
 export class BusinessHours {
@@ -1263,18 +1343,100 @@ export class BusinessHoursPeriod {
 }
 
 /**
- * Specifies idempotency key of a payment to cancel.
+ * A request to calculate the points that a buyer can earn from a specified purchase.
+ */
+export class CalculateLoyaltyPointsRequest {
+    /**
+     * The `order` ID for which to calculate the points.
+     * Specify this field if your application uses the Orders API to process orders.
+     * Otherwise, specify the `transaction_amount`.
+     */
+    order_id?: string;
+    /**
+     * The purchase amount for which to calculate the points.
+     * Specify this field if your application does not use the Orders API to process orders.
+     * Otherwise, specify the `order_id`.
+     */
+    transaction_amount_money?: Money;
+}
+
+/**
+ * A response that includes the points that the buyer can earn from a specified purchase.
+ */
+export class CalculateLoyaltyPointsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The points that the buyer can earn from a specified purchase.
+     */
+    points?: number;
+}
+
+export class CalculateOrderRequest {
+    /**
+     * The order to be calculated. Expects the entire order, not a sparse update.
+     */
+    order: Order;
+    /**
+     * Identifies one or more loyalty reward tiers to apply during order calculation.
+     * The discounts defined by the reward tiers are added to the order only to preview the effect of applying the specified reward(s).
+     * The reward(s) do not correspond to actual redemptions, that is, no `reward`s are created.
+     * Therefore, the reward `id`s are random strings used only to reference the reward tier.
+     */
+    proposed_rewards?: Array<OrderReward>;
+}
+
+export class CalculateOrderResponse {
+    /**
+     * The calculated version of the order provided in the request.
+     */
+    order?: Order;
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Describes a `CancelInvoice` request.
+ */
+export class CancelInvoiceRequest {
+    /**
+     * The version of the `invoice` to cancel.
+     * If you do not know the version, you can call `GetInvoice](#endpoint-Invoices-GetInvoice) or [ListInvoices`.
+     */
+    version: number;
+}
+
+/**
+ * The response returned by the `CancelInvoice` request.
+ */
+export class CancelInvoiceResponse {
+    /**
+     * The canceled invoice.
+     */
+    invoice?: Invoice;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Specifies the idempotency key of a payment to cancel.
  */
 export class CancelPaymentByIdempotencyKeyRequest {
     /**
-     * `idempotency_key` identifying the payment to be canceled.
+     * The `idempotency_key` identifying the payment to be canceled.
      */
     idempotency_key: string;
 }
 
 /**
- * Return value from the [CancelPaymentByIdempotencyKey](#endpoint-payments-cancelpaymentbyidempotencykey) endpoint.
- * On success, `errors` will be empty.
+ * The return value from the [CancelPaymentByIdempotencyKey](#endpoint-payments-cancelpaymentbyidempotencykey) endpoint.
+ * On success, `errors` is empty.
  */
 export class CancelPaymentByIdempotencyKeyResponse {
     /**
@@ -1285,22 +1447,67 @@ export class CancelPaymentByIdempotencyKeyResponse {
 
 /**
  * Cancels (voids) a payment before it has been completed.
- * @note only payments created with `autocomplete` set to false can be canceled.
+ * @note Only payments created with `autocomplete` set to `false` can be canceled.
  */
 export class CancelPaymentRequest {}
 
 /**
- * Return value from the [CancelPayment](#endpoint-payments-cancelpayment) endpoint.
+ * The return value from the [CancelPayment](#endpoint-payments-cancelpayment) endpoint.
  */
 export class CancelPaymentResponse {
     /**
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
     /**
      * The successfully canceled `Payment` object.
      */
     payment?: Payment;
+}
+
+/**
+ * Defines parameters in a [CancelSubscription](#endpoint-subscriptions-cancelsubscription) endpoint request.
+ */
+export class CancelSubscriptionRequest {}
+
+/**
+ * Defines fields that are included in a [CancelSubscription](#endpoint-subscriptions-cancelsubscription) response.
+ */
+export class CancelSubscriptionResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The canceled subscription.
+     */
+    subscription?: Subscription;
+}
+
+export class CancelTerminalCheckoutRequest {}
+
+export class CancelTerminalCheckoutResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The canceled `TerminalCheckout`
+     */
+    checkout?: TerminalCheckout;
+}
+
+export class CancelTerminalRefundRequest {}
+
+export class CancelTerminalRefundResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The updated `TerminalRefund`
+     */
+    refund?: TerminalRefund;
 }
 
 /**
@@ -1437,6 +1644,11 @@ export class CardPaymentDetails {
      */
     device_details?: DeviceDetails;
     /**
+     * Whether or not the card is required to be physically present in order for the payment to be refunded.
+     * If true, the card is required to be present.
+     */
+    refund_requires_card_presence: boolean;
+    /**
      * Information on errors encountered during the request.
      */
     errors?: Array<Error>;
@@ -1446,6 +1658,8 @@ export class CardPaymentDetails {
  * Indicates a card's prepaid type, such as `NOT_PREPAID` or `PREPAID`.
  */
 export class CardPrepaidType {}
+
+export class CardSquareProduct {}
 
 /**
  * Indicates a card's type, such as `CREDIT` or `DEBIT`.
@@ -1637,11 +1851,12 @@ export class CashDrawerShiftSummary {
 }
 
 /**
- * A category to which a `CatalogItem` belongs in the `Catalog` object model.
+ * A category to which a `CatalogItem` instance belongs.
  */
 export class CatalogCategory {
     /**
-     * The category name. Searchable. This field has max length of 255 Unicode code points.
+     * The category name.
+     * This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
 }
@@ -1659,9 +1874,9 @@ export class CatalogCustomAttributeDefinition {
      */
     type: string;
     /**
-     *  The name of this definition for API and seller-facing UI purposes.
-     *  The name must be unique within the (merchant, application_id) pair. Required.
-     *  May not be empty and may not exceed 255 characters. Can be modified after creation.
+     * The name of this definition for API and seller-facing UI purposes.
+     * The name must be unique within the (merchant, application) pair. Required.
+     * May not be empty and may not exceed 255 characters. Can be modified after creation.
      */
     name: string;
     /**
@@ -1675,9 +1890,10 @@ export class CatalogCustomAttributeDefinition {
     readonly source_application?: SourceApplication;
     /**
      * The set of Catalog Object Types that this Custom Attribute may be applied to.
-     * Only `ITEM` and `ITEM_VARIATION` are allowed. See [CatalogObjectType](#type-catalogobjecttype) for possible values.
+     * Currently, only `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included.
+     * See [CatalogObjectType](#type-catalogobjecttype) for possible values.
      */
-    allowed_object_types?: Array<string>;
+    allowed_object_types: Array<string>;
     /**
      * The visibility of a custom attribute in seller-facing UIs (including Square Point of Sale applications and
      * Square Dashboard). May be modified.
@@ -1694,18 +1910,23 @@ export class CatalogCustomAttributeDefinition {
      */
     string_config?: CatalogCustomAttributeDefinitionStringConfig;
     /**
+     * Optionally, populated when `type` = `NUMBER`, unset otherwise.
+     */
+    number_config?: CatalogCustomAttributeDefinitionNumberConfig;
+    /**
      * Populated when `type` is set to `SELECTION`, unset otherwise.
      */
     selection_config?: CatalogCustomAttributeDefinitionSelectionConfig;
     /**
-     * __Read-only.__ The number of custom attributes that reference this custom attribute definition.
+     * The number of custom attributes that reference this custom attribute definition.
      * Set by the server in response to a ListCatalog request with `include_counts` set to `true`.
      * If the actual count is greater than 100, `custom_attribute_usage_count` will be set to `100`.
      */
-    custom_attribute_usage_count?: number;
+    readonly custom_attribute_usage_count?: number;
     /**
      * The name of the desired custom attribute key that can be used to access the custom attribute value on catalog objects.
      * Cannot be modified after the custom attribute definition has been created.
+     * Must be between 1 and 60 characters, and may only contain the characters `[a-zA-Z0-9_-]`.
      */
     key?: string;
 }
@@ -1715,14 +1936,25 @@ export class CatalogCustomAttributeDefinition {
  */
 export class CatalogCustomAttributeDefinitionAppVisibility {}
 
+export class CatalogCustomAttributeDefinitionNumberConfig {
+    /**
+     * An integer between 0 and 5 that represents the maximum number of positions allowed after the decimal in number custom attribute values For example:
+     *  - if the precision is 0, the quantity can be 1, 2, 3, etc.
+     *  - if the precision is 1, the quantity can be 0.1, 0.2, etc.
+     *  - if the precision is 2, the quantity can be 0.01, 0.12, etc.
+     *  Default: 5
+     */
+    precision?: number;
+}
+
 /**
  * Configuration associated with `SELECTION`-type custom attribute definitions.
  */
 export class CatalogCustomAttributeDefinitionSelectionConfig {
     /**
-     * The maximum number of selections that can be set. The maximum value for this attribute is 100.
-     * May be modified, but changing the value will not affect existing custom attribute values on objects.
-     * Clients need to handle Custom Attributes with more selected values than allowed by this limit.
+     * The maximum number of selections that can be set. The maximum value for this attribute is 100. The default value is 1.
+     * The value can be modified, but changing the value will not affect existing custom attribute values on objects.
+     * Clients need to handle custom attributes with more selected values than allowed by this limit.
      */
     max_allowed_selections?: number;
     /**
@@ -1740,7 +1972,7 @@ export class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      */
     uid?: string;
     /**
-     * Selection name, unique within `allowed_selections`. Required. Min length of 1, max length of 255.
+     * Selection name, unique within `allowed_selections`.
      */
     name: string;
 }
@@ -1782,11 +2014,11 @@ export class CatalogCustomAttributeValue {
      */
     string_value?: string;
     /**
-     * The custom attribute definition this value belongs to.
+     * The id of the `CatalogCustomAttributeDefinition` this value belongs to.
      */
     readonly custom_attribute_definition_id?: string;
     /**
-     * A copy of type from the associated custom attribute definition.
+     * A copy of type from the associated `CatalogCustomAttributeDefinition`.
      * See [CatalogCustomAttributeDefinitionType](#type-catalogcustomattributedefinitiontype) for possible values.
      */
     readonly type?: string;
@@ -1803,17 +2035,17 @@ export class CatalogCustomAttributeValue {
      */
     selection_uid_values?: Array<string>;
     /**
-     * A copy of key from the associated custom attribute definition.
+     * A copy of key from the associated `CatalogCustomAttributeDefinition`.
      */
     readonly key?: string;
 }
 
 /**
- * A discount in the Catalog object model.
+ * A discount applicable to items.
  */
 export class CatalogDiscount {
     /**
-     * The discount name. Searchable. This field has max length of 255 Unicode code points.
+     * The discount name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
     /**
@@ -1822,14 +2054,14 @@ export class CatalogDiscount {
      */
     discount_type?: DiscountType;
     /**
-     * The percentage of the discount as a string representation of a decimal number, using a `.` as the decimal
-     * separator and without a `%` sign. A value of `7.5` corresponds to `7.5%`. Specify a percentage of `0` if
-     * `discount_type` is `VARIABLE_PERCENTAGE`. Do not include this field for amount-based or variable discounts.
+     * The percentage of the discount as a string representation of a decimal number, using a `.` as the decimal separator and without a `%` sign.
+     * A value of `7.5` corresponds to `7.5%`. Specify a percentage of `0` if `discount_type` is `VARIABLE_PERCENTAGE`.
+     * Do not use this field for amount-based or variable discounts.
      */
     percentage?: string;
     /**
      * The amount of the discount. Specify an amount of `0` if `discount_type` is `VARIABLE_AMOUNT`.
-     * Do not include this field for percentage-based or variable discounts.
+     * Do not use this field for percentage-based or variable discounts.
      */
     amount_money?: Money;
     /**
@@ -1861,11 +2093,17 @@ export class CatalogDiscountModifyTaxBasis {}
 export class CatalogDiscountType {}
 
 /**
- * A mapping between a client-supplied temporary ID and a permanent server ID.
+ * A mapping between a temporary client-supplied ID and a permanent server-generated ID.
+ * When calling [UpsertCatalogObject](#endpoint-Catalog-UpsertCatalogObject) or [BatchUpsertCatalogObjects](#endpoint-Catalog-BatchUpsertCatalogObjects)
+ * to create a [CatalogObject](#type-CatalogObject) instance, you can supply a temporary ID for the to-be-created object,
+ * especially when the object is to be referenced elsewhere in the same request body.
+ * This temporary ID can be any string unique within the call, but must be prefixed by \"#\".
+ * After the request is sumbitted and the object created, a permanent server-generated ID is assigned to the new object.
+ * The permanent ID is unique across the Square catalog.
  */
 export class CatalogIdMapping {
     /**
-     * The client-supplied, temporary `#`-prefixed ID for a new `CatalogObject`.
+     * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
      */
     client_object_id?: string;
     /**
@@ -1875,19 +2113,20 @@ export class CatalogIdMapping {
 }
 
 /**
- * An image file to use in Square catalogs. Can be associated with catalog items, item variations, and categories.
+ * An image file to use in Square catalogs. It can be associated with catalog items, item variations, and categories.
  */
 export class CatalogImage {
     /**
-     * The internal name of this image. Identifies this image in calls to the Connect APIs.
+     * The internal name to identify this image in calls to the Square API.
      */
     name?: string;
     /**
-     * The URL of this image. Generated by Square after an image is uploaded to the CreateCatalogImage endpoint.
+     * The URL of this image, generated by Square after an image is uploaded using the `CreateCatalogImage` endpoint.
      */
     url?: string;
     /**
      * A caption that describes what is shown in the image. Displayed in the Square Online Store.
+     * This is a searchable attribute for use in applicable query filters.
      */
     caption?: string;
 }
@@ -1896,11 +2135,11 @@ export class CatalogInfoRequest {}
 
 export class CatalogInfoResponse {
     /**
-     * The set of errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
-     * Response limit
+     * Limits that apply to this API.
      */
     limits?: CatalogInfoResponseLimits;
     /**
@@ -1959,20 +2198,20 @@ export class CatalogInfoResponseLimits {
 }
 
 /**
- * An item (i.e., product family) in the Catalog object model.
+ * An [CatalogObject](#type-CatalogObject) instance of the `ITEM` type, also referred to as an item, in the catalog.
  */
 export class CatalogItem {
     /**
-     * The item's name. Searchable. This field must not be empty. This field has max length of 512 Unicode code points.
+     * The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points.
      */
     name?: string;
     /**
-     * The item's description. Searchable. This field has max length of 4096 Unicode code points.
+     * The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     description?: string;
     /**
-     * The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the
-     * string are used. Searchable. This field has max length of 24 Unicode code points.
+     * The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.
+     * This attribute is searchable, and its value length is of Unicode code points.
      */
     abbreviation?: string;
     /**
@@ -2032,7 +2271,7 @@ export class CatalogItem {
 }
 
 /**
- * Controls the properties of a `CatalogModifierList` as it applies to this `CatalogItem`.
+ * Options to control the properties of a `CatalogModifierList` applied to a `CatalogItem` instance.
  */
 export class CatalogItemModifierListInfo {
     /**
@@ -2062,16 +2301,17 @@ export class CatalogItemModifierListInfo {
  */
 export class CatalogItemOption {
     /**
-     * The item option's display name for the seller. Must be unique across all item options. Searchable.
+     * The item option's display name for the seller. Must be unique across all item options.
+     * This is a searchable attribute for use in applicable query filters.
      */
     name?: string;
     /**
-     * The item option's display name for the customer. Searchable.
+     * The item option's display name for the customer. This is a searchable attribute for use in applicable query filters.
      */
     display_name?: string;
     /**
-     * The item option's human-readable description.
-     * Displayed in the Square Point of Sale app for the seller and in the Online Store or on receipts for the buyer.
+     * TThe item option's human-readable description. Displayed in the Square Point of Sale app for the seller and in the
+     * Online Store or on receipts for the buyer. This is a searchable attribute for use in applicable query filters.
      */
     description?: string;
     /**
@@ -2082,16 +2322,10 @@ export class CatalogItemOption {
      * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
      */
     values?: Array<CatalogObject>;
-    /**
-     * The number of `CatalogItem`s currently associated with this item option.
-     * Present only if the `include_counts` was specified in the request. Any count over 100 will be returned as `100`.
-     */
-    item_count?: number;
 }
 
 /**
- *  A list of item option values that can be assigned to item variations.
- *  For example, a t-shirt item may offer a color option or a size option.
+ * An option that can be assigned to an item. For example, a t-shirt item may offer a color option or a size option.
  */
 export class CatalogItemOptionForItem {
     /**
@@ -2109,11 +2343,11 @@ export class CatalogItemOptionValue {
      */
     item_option_id?: string;
     /**
-     * Name of this item option value. Searchable.
+     * Name of this item option value. This is a searchable attribute for use in applicable query filters.
      */
     name?: string;
     /**
-     * A human-readable description for the option value.
+     * A human-readable description for the option value. This is a searchable attribute for use in applicable query filters.
      */
     description?: string;
     /**
@@ -2126,12 +2360,6 @@ export class CatalogItemOptionValue {
      * Determines where this option value appears in a list of option values.
      */
     ordinal?: number;
-    /**
-     * The number of `CatalogItemVariation`s that currently make use of this Item Option value.
-     * Present only if `retrieve_counts` was specified on the request used to retrieve the parent Item Option of this value.
-     * Maximum: 100 counts.
-     */
-    item_variation_count?: number;
 }
 
 /**
@@ -2160,20 +2388,20 @@ export class CatalogItemProductType {}
  */
 export class CatalogItemVariation {
     /**
-     * The ID of the `CatalogItem` associated with this item variation. Searchable.
+     * The ID of the `CatalogItem` associated with this item variation.
      */
     item_id?: string;
     /**
-     * The item variation's name. Searchable. This field has max length of 255 Unicode code points.
+     * The item variation's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
     /**
-     * The item variation's SKU, if any. Searchable.
+     * The item variation's SKU, if any. This is a searchable attribute for use in applicable query filters.
      */
     sku?: string;
     /**
-     * The item variation's UPC, if any. Searchable in the Connect API. This field is only exposed in the Connect API.
-     * It is not exposed in Square's Dashboard, Square Point of Sale app or Retail Point of Sale app.
+     * The item variation's UPC, if any. This is a searchable attribute for use in applicable query filters.
+     * It is only accessible through the Square API, and not exposed in the Square Seller Dashboard, Square Point of Sale or Retail Point of Sale apps.
      */
     upc?: string;
     /**
@@ -2210,8 +2438,7 @@ export class CatalogItemVariation {
      */
     inventory_alert_threshold?: number;
     /**
-     * Arbitrary user metadata to associate with the item variation. Searchable.
-     * This field has max length of 255 Unicode code points.
+     * Arbitrary user metadata to associate with the item variation. This attribute value length is of Unicode code points.
      */
     user_data?: string;
     /**
@@ -2251,11 +2478,11 @@ export class CatalogMeasurementUnit {
 }
 
 /**
- * A modifier in the Catalog object model.
+ * A modifier applicable to items at the time of sale.
  */
 export class CatalogModifier {
     /**
-     * The modifier name. Searchable. This field has max length of 255 Unicode code points.
+     * The modifier name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
     /**
@@ -2267,31 +2494,31 @@ export class CatalogModifier {
      */
     ordinal?: number;
     /**
-     * The ID of the `CatalogModifierList` associated with this modifier. Searchable.
+     * The ID of the `CatalogModifierList` associated with this modifier.
      */
     modifier_list_id?: string;
 }
 
 /**
- * A modifier list in the Catalog object model. A `CatalogModifierList` contains `CatalogModifier` objects that can
- * be applied to a `CatalogItem` at the time of sale. For example, a modifier list "Condiments" that would apply to
- * a "Hot Dog" `CatalogItem` might contain `CatalogModifier`s "Ketchup", "Mustard", and "Relish".
- * The `selection_type` field specifies whether or not multiple selections from the modifier list are allowed.
+ * A list of modifiers applicable to items at the time of sale.
+ * For example, a \"Condiments\" modifier list applicable to a \"Hot Dog\" item may contain \"Ketchup\", \"Mustard\", and \"Relish\" modifiers.
+ * Use the `selection_type` field to specify whether or not multiple selections from the modifier list are allowed.
  */
 export class CatalogModifierList {
     /**
-     * A searchable name for the `CatalogModifierList`. This field has max length of 255 Unicode code points.
+     * The name for the `CatalogModifierList` instance.
+     * This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
     /**
-     * Determines where this `CatalogModifierList` appears in a list of `CatalogModifierList` values.
+     * Determines where this modifier list appears in a list of `CatalogModifierList` values.
      */
     ordinal?: number;
     /**
-     * Indicates whether multiple options from the `CatalogModifierList` can be applied to a single `CatalogItem`.
-     * See [CatalogModifierListSelectionType](#type-catalogmodifierlistselectiontype) for possible values.
+     * Indicates whether multiple options from the modifier list can be applied to a single `CatalogItem`.
+     * See [CatalogModifierListSelectionType](#type-catalogmodifierlistselectiontype) for possible values
      */
-    selection_type?: 'SINGLE' | 'MULTIPLE';
+    selection_type?: string;
     /**
      * The options included in the `CatalogModifierList`. You must include at least one `CatalogModifier`.
      * Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier` data.
@@ -2304,6 +2531,9 @@ export class CatalogModifierList {
  */
 export class CatalogModifierListSelectionType {}
 
+/**
+ * Options to control how to override the default behavior of the specified modifier.
+ */
 export class CatalogModifierOverride {
     /**
      * The ID of the `CatalogModifier` whose default behavior is being overridden.
@@ -2316,16 +2546,23 @@ export class CatalogModifierOverride {
 }
 
 /**
- * The wrapper object for object types in the Catalog data model.
- * The type of a particular `CatalogObject` is determined by the value of `type` and only the corresponding data field may be set.
- *  - if type = `ITEM`, only `item_data` will be populated and it will contain a valid `CatalogItem` object.
- *  - if type = `ITEM_VARIATION`, only `item_variation_data` will be populated and it will contain a valid `CatalogItemVariation` object.
- *  - if type = `MODIFIER`, only `modifier_data` will be populated and it will contain a valid `CatalogModifier` object.
- *  - if type = `MODIFIER_LIST`, only `modifier_list_data` will be populated and it will contain a valid `CatalogModifierList` object.
- *  - if type = `CATEGORY`, only `category_data` will be populated and it will contain a valid `CatalogCategory` object.
- *  - if type = `DISCOUNT`, only `discount_data` will be populated and it will contain a valid `CatalogDiscount` object.
- *  - if type = `TAX`, only `tax_data` will be populated and it will contain a valid `CatalogTax` object.
- *  - if type = `IMAGE`, only `image_data` will be populated and it will contain a valid `CatalogImage` object.
+ * The wrapper object for the Catalog entries of a given object type.
+ * The type of a particular `CatalogObject` is determined by the value of the `type` attribute and only the corresponding
+ * data attribute can be set on the `CatalogObject` instance.For example, the following list shows some instances of `CatalogObject`
+ * of a given `type` and their corresponding data atrribute that can be set:
+ *  - For a `CatalogObject` of the `ITEM` type, set the `item_data` attribute to yield the `CatalogItem` object.
+ *  - For a `CatalogObject` of the `ITEM_VARIATION` type, set the `item_variation_data` attribute to yield the `CatalogItemVariation` object.
+ *  - For a `CatalogObject` of the `MODIFIER` type, set the `modifier_data` attribute to yield the `CatalogModifier` object.
+ *  - For a `CatalogObject` of the `MODIFIER_LIST` type, set the `modifier_list_data` attribute to yield the `CatalogModifierList` object.
+ *  - For a `CatalogObject` of the `CATEGORY` type, set the `category_data` attribute to yield the `CatalogCategory` object.
+ *  - For a `CatalogObject` of the `DISCOUNT` type, set the `discount_data` attribute to yield the `CatalogDiscount` object.
+ *  - For a `CatalogObject` of the `TAX` type, set the `tax_data` attribute to yield the `CatalogTax` object.
+ *  - For a `CatalogObject` of the `IMAGE` type, set the `image_data` attribute to yield the `CatalogImageData` object.
+ *  - For a `CatalogObject` of the `QUICK_AMOUNTS_SETTINGS` type, set the `quick_amounts_settings_data` attribute to yield the `CatalogQuickAmountsSettings` object.
+ *  - For a `CatalogObject` of the `PRICING_RULE` type, set the `pricing_rule_data` attribute to yield the `CatalogPricingRule` object.
+ *  - For a `CatalogObject` of the `TIME_PERIOD` type, set the `time_period_data` attribute to yield the `CatalogTimePeriod` object.
+ *  - For a `CatalogObject` of the `PRODUCT_SET` type, set the `product_set_data` attribute to yield the `CatalogProductSet` object.
+ *  - For a `CatalogObject` of the `SUBSCRIPTION_PLAN` type, set the `subscription_plan_data` attribute to yield the `CatalogSubscriptionPlan` object.
  * For a more detailed discussion of the Catalog data model, please see the [Design a Catalog](/catalog-api/design-a-catalog) guide.
  */
 export class CatalogObject {
@@ -2357,15 +2594,18 @@ export class CatalogObject {
      */
     is_deleted?: boolean;
     /**
-     * Application-defined key/value attributes that are set at a global (location-independent) level.
-     * Values from the `*_data` fields may not be duplicated. Custom Attribute fields are intended to store additional
-     * information about a Catalog Object or associations with an entity in another system. Do not use custom attributes
-     * to store any sensitive information (personally identifiable information, card details, etc.).
-     * For CustomAttributesDefinitions defined by the app making the request, the map key is the key defined in
-     * CustomAttributeDefinition (eg. `reference_id`). For CustomAttributesDefinitions by other apps, the map key is the key
-     * defined in CustomAttributeDefinition prefixed with the application ID and a colon (eg. "abcd1234:reference_id").
+     * A map (key-value pairs) of application-defined custom attribute values.
+     * The value of a key-value pair is a `CatalogCustomAttributeValue` object.
+     * The key is the `key` attribute value defined in the associated `CatalogCustomAttributeDefinition` object defined by the application making the request.
+     * If the `CatalogCustomAttributeDefinition` object is defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is prefixed by the defining application ID.
+     * For example, if the `CatalogCustomAttributeDefinition` has a `key` attribute of `\"cocoa_brand\"` and the defining
+     * application ID is `\"abcd1234\"`, the key in the map is `\"abcd1234:cocoa_brand\"` if the application making the
+     * request is different from the application defining the custom attribute definition.
+     * Otherwise, the key used in the map is simply `\"cocoa_brand\"`. Application-defined custom attributes that are set at a global (location-independent) level.
+     * Custom attribute values are intended to store additional information about a catalog object or associations with
+     * an entity in another system. Do not use custom attributes to store any sensitive information (personally identifiable information, card details, etc.).
      */
-    custom_attribute_values?: { [key: string]: CatalogCustomAttributeValue; };
+    custom_attribute_values?: Record<string, CatalogCustomAttributeValue>;
     /**
      * The Connect v1 IDs for this object at each location where it is present, where they differ from the object's Connect V2 ID.
      * The field will only be present for objects that have been created or modified by legacy APIs.
@@ -2427,6 +2667,7 @@ export class CatalogObject {
     product_set_data?: CatalogProductSet;
     /**
      * Structured data for a `CatalogPricingRule`, set for CatalogObjects of type `PRICING_RULE`.
+     * A `CatalogPricingRule` object often works with a `CatalogProductSet` object or a `CatalogTimePeriod` object.
      */
     pricing_rule_data?: CatalogPricingRule;
     /**
@@ -2437,6 +2678,10 @@ export class CatalogObject {
      * Structured data for a `CatalogMeasurementUnit`, set for CatalogObjects of type `MEASUREMENT_UNIT`.
      */
     measurement_unit_data?: CatalogMeasurementUnit;
+    /**
+     * Structured data for a `CatalogSubscriptionPlan`, set for CatalogObjects of type `SUBSCRIPTION_PLAN`.
+     */
+    subscription_plan_data?: CatalogSubscriptionPlan;
     /**
      * Structured data for a `CatalogItemOption`, set for CatalogObjects of type `ITEM_OPTION`.
      */
@@ -2449,6 +2694,10 @@ export class CatalogObject {
      * Structured data for a `CatalogCustomAttributeDefinition`, set for CatalogObjects of type `CUSTOM_ATTRIBUTE_DEFINITION`.
      */
     custom_attribute_definition_data?: CatalogCustomAttributeDefinition;
+    /**
+     * Structured data for a `CatalogQuickAmountsSettings`, set for CatalogObjects of type `QUICK_AMOUNTS_SETTINGS`.
+     */
+    quick_amounts_settings_data?: CatalogQuickAmountsSettings;
 }
 
 /**
@@ -2468,7 +2717,7 @@ export class CatalogObjectBatch {
 export class CatalogObjectType {}
 
 /**
- * Defines how prices are modified or set for items that match the pricing rule during the active time period.
+ * Defines how discounts are automatically applied to a set of items that match the pricing rule during the active time period.
  */
 export class CatalogPricingRule {
     /**
@@ -2485,8 +2734,8 @@ export class CatalogPricingRule {
      */
     discount_id?: string;
     /**
-     * Unique ID for the `CatalogProductSet` that will be matched by this rule. A match rule matches within the entire cart.
-     * A match rule can match multiple times in the cart. If no `ProductSet` is present, the rule will match all products.
+     * Unique ID for the `CatalogProductSet` that will be matched by this rule.
+     * A match rule matches within the entire cart, and can match multiple times. This field will always be set.
      */
     match_products_id?: string;
     /**
@@ -2579,52 +2828,66 @@ export class CatalogProductSet {
 }
 
 /**
- *  A query to be applied to a `SearchCatalogObjectsRequest`. Only one query field may be present. Where an attribute
- *  name is required, it should be specified as the name of any field marked "searchable" from the structured data types
- *  for the desired result object type(s) (`CatalogItem`, `CatalogItemVariation`, `CatalogCategory`, `CatalogTax`,
- *  `CatalogDiscount`, `CatalogModifierList`, `CatalogModifier`).
- *  For example, a query that should return Items may specify attribute names from any of the searchable fields of the
- *  `CatalogItem` data type, namely `name`, `description`, and `abbreviation`.
+ * A query composed of one or more different types of filters to narrow the scope of targeted objects when calling the `SearchCatalogObjects` endpoint.
+ * Although a query can have multiple filters, only one query is allowed per call to [SearchCatalogObjects](#endpoint-Catalog-SearchCatalogObjects).
+ * When a query filter is based on an attribute, the attribute must be searchable.
+ * Searchable attributes are listed as follows, along their parent types that can be searched for with applicable query filters.
+ *  * Searchable attribute and objects queryable by searchable attributes
+ *  **  - `name`:  `CatalogItem`, `CatalogItemVariation`, `CatelogCatogry`, `CatalogTax`, `CatalogDiscount`, `CatalogModifier`, 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue`
+ *      - `description`: `CatalogItem`, `CatalogItemOptionValue`
+ *      - `abbreviation`: `CatalogItem`
+ *      - `upc`: `CatalogItemVariation`
+ *      - `sku`: `CatalogItemVariation`
+ *      - `caption`: `CatalogImage`
+ *      - `display_name`: `CatalogItemOption`
+ * For example, to search for [CatalogItem](#type-CatalogItem) objects by searchable attributes,
+ * you can use the `\"name\"`, `\"description\"`, or `\"abbreviation\"` attribute in an applicable query filter.
  */
 export class CatalogQuery {
     /**
-     * A query that returns all objects, sorted by the given attribute.
+     * A query expression to sort returned query result by the given attribute.
      */
     sorted_attribute_query?: CatalogQuerySortedAttribute;
     /**
-     * A query that returns only objects for which the given (string-valued) attribute has the given case-insensitive
-     * value.
+     * An exact query expression to return objects with attribute name and value matching the specified attribute name and value exactly.
+     * Value matching is case insensitive.
      */
     exact_query?: CatalogQueryExact;
     /**
-     * A query that returns only objects for which the given (string-valued) attribute has the given case-insensitive
-     * prefix.
+     * A set query expression to return objects with attribute name and value matching the specified attribute name
+     * and any of the specified attribute values exactly. Value matching is case insensitive.
+     */
+    set_query?: CatalogQuerySet;
+    /**
+     * A prefix query expression to return objects with attribute values that have a prefix matching the specified string value.
+     * Value matching is case insensitive.
      */
     prefix_query?: CatalogQueryPrefix;
     /**
-     * A query that returns only objects for which the given (integer-valued) attribute lies in the given range.
+     * A range query expression to return objects with numeric values that lie in the specified range.
      */
     range_query?: CatalogQueryRange;
     /**
-     * A query that returns only objects whose searchable attributes contain all of the given keywords as prefixes.
-     * For example, if a `CatalogItem` contains attributes `{\"name\": \"t-shirt\"}` and `{\"description\": \"Small, Purple\"}`,
-     * it will be matched by the query `{\"keywords\": [\"shirt\", \"sma\", \"purp\"]}`.
+     * A text query expression to return object whose searchable attributes contain all of the given keywords,
+     * irrespective of their order. For example, if a `CatalogItem` contains custom attribute values of
+     * `{\"name\": \"t-shirt\"}` and `{\"description\": \"Small, Purple\"}`, the query filter of
+     * `{\"keywords\": [\"shirt\", \"sma\", \"purp\"]}` returns this item.
      */
     text_query?: CatalogQueryText;
     /**
-     * A query that returns all `CatalogItem`s that have any of the given `CatalogTax`es enabled.
+     * A query expression to return items that have any of the specified taxes (as identified by the corresponding `CatalogTax` object IDs) enabled.
      */
     items_for_tax_query?: CatalogQueryItemsForTax;
     /**
-     * A query that returns all `CatalogItem`s that have any of the given `CatalogModifierList`s enabled.
+     * A query expression to return items that have any of the given modifier list (as identified by the corresponding `CatalogModifierList`s IDs) enabled.
      */
     items_for_modifier_list_query?: CatalogQueryItemsForModifierList;
     /**
-     * A query that returns all `CatalogItem`s that have all of the given `CatalogItemOption`s.
+     * A query expression to return items that contains the specified item options (as identified the corresponding `CatalogItemOption` IDs).
      */
     items_for_item_options_query?: CatalogQueryItemsForItemOptions;
     /**
-     * A query that returns all `CatalogItemVariation`s that have all of the given `CatalogItemOption` values.
+     * A query expression to return item variations (of the `CatalogItemVariation` that contain all of the specified `CatalogItemOption` IDs.
      */
     item_variations_for_item_option_values_query?: CatalogQueryItemVariationsForItemOptionValues;
 }
@@ -2634,60 +2897,24 @@ export class CatalogQueryCustomAttributeUsage {
     has_value?: boolean;
 }
 
+/**
+ * The query filter to return the search result by exact match of the specified attribute name and value.
+ */
 export class CatalogQueryExact {
     /**
-     * The name of the attribute to be searched.
+     * The name of the attribute to be searched. Matching of the attribute name is exact.
      */
     attribute_name: string;
     /**
-     * The desired value of the search attribute.
+     * The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial.
+     * For example, if a specified value of \"sma\", objects with the named attribute value of \"Small\", \"small\" are both matched.
      */
     attribute_value: string;
 }
 
-export class CatalogQueryFilteredItems {
-    text_filter?: string;
-    search_vendor_code?: boolean;
-    category_ids?: Array<string>;
-    /**
-     * See [CatalogQueryFilteredItemsStockLevel](#type-catalogqueryfiltereditemsstocklevel) for possible values
-     */
-    stock_levels?: Array<string>;
-    enabled_location_ids?: Array<string>;
-    vendor_ids?: Array<string>;
-    /**
-     * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
-     */
-    product_types?: Array<string>;
-    custom_attribute_filters?: Array<CatalogQueryFilteredItemsCustomAttributeFilter>;
-    /**
-     * See [CatalogQueryFilteredItemsNullableAttribute](#type-catalogqueryfiltereditemsnullableattribute) for possible values
-     */
-    does_not_exist?: Array<string>;
-    /**
-     * See [SortOrder](#type-sortorder) for possible values
-     */
-    sort_order?: string;
-}
-
-export class CatalogQueryFilteredItemsCustomAttributeFilter {
-    /**
-     * See [CatalogQueryFilteredItemsCustomAttributeFilterFilterType](#type-catalogqueryfiltereditemscustomattributefilterfiltertype) for possible values
-     */
-    filter_type?: string;
-    custom_attribute_definition_ids?: Array<string>;
-    custom_attribute_value_exact?: string;
-    custom_attribute_value_prefix?: string;
-    custom_attribute_min_value?: string;
-    custom_attribute_max_value?: string;
-}
-
-export class CatalogQueryFilteredItemsCustomAttributeFilterFilterType {}
-
-export class CatalogQueryFilteredItemsNullableAttribute {}
-
-export class CatalogQueryFilteredItemsStockLevel {}
-
+/**
+ * The query filter to return the item variations containing the specified item option value IDs.
+ */
 export class CatalogQueryItemVariationsForItemOptionValues {
     /**
      * A set of `CatalogItemOptionValue` IDs to be used to find associated `CatalogItemVariation`s.
@@ -2696,6 +2923,9 @@ export class CatalogQueryItemVariationsForItemOptionValues {
     item_option_value_ids?: Array<string>;
 }
 
+/**
+ * The query filter to return the items containing the specified item option IDs.
+ */
 export class CatalogQueryItemsForItemOptions {
     /**
      * A set of `CatalogItemOption` IDs to be used to find associated `CatalogItem`s.
@@ -2704,6 +2934,9 @@ export class CatalogQueryItemsForItemOptions {
     item_option_ids?: Array<string>;
 }
 
+/**
+ * The query filter to return the items containing the specified modifier list IDs.
+ */
 export class CatalogQueryItemsForModifierList {
     /**
      * A set of `CatalogModifierList` IDs to be used to find associated `CatalogItem`s.
@@ -2711,6 +2944,9 @@ export class CatalogQueryItemsForModifierList {
     modifier_list_ids: Array<string>;
 }
 
+/**
+ * The query filter to return the items containing the specified tax IDs.
+ */
 export class CatalogQueryItemsForTax {
     /**
      * A set of `CatalogTax` IDs to be used to find associated `CatalogItem`s.
@@ -2718,6 +2954,9 @@ export class CatalogQueryItemsForTax {
     tax_ids: Array<string>;
 }
 
+/**
+ * The query filter to return the search result whose named attribute values are prefixed by the specified attribute value.
+ */
 export class CatalogQueryPrefix {
     /**
      * The name of the attribute to be searched.
@@ -2729,6 +2968,9 @@ export class CatalogQueryPrefix {
     attribute_prefix: string;
 }
 
+/**
+ * The query filter to return the search result whose named attribute values fall between the specified range.
+ */
 export class CatalogQueryRange {
     /**
      * The name of the attribute to be searched.
@@ -2744,9 +2986,27 @@ export class CatalogQueryRange {
     attribute_max_value?: number;
 }
 
+/**
+ * The query filter to return the search result(s) by exact match of the specified `attribute_name` and any of the `attribute_values`.
+ */
+export class CatalogQuerySet {
+    /**
+     * The name of the attribute to be searched. Matching of the attribute name is exact.
+     */
+    attribute_name: string;
+    /**
+     * The desired values of the search attribute. Matching of the attribute values is exact and case insensitive.
+     * A maximum of 250 values may be searched in a request.
+     */
+    attribute_values: Array<string>;
+}
+
+/**
+ * The query expression to specify the key to sort search results.
+ */
 export class CatalogQuerySortedAttribute {
     /**
-     * The attribute whose value should be used as the sort key.
+     * The attribute whose value is used as the sort key.
      */
     attribute_name: string;
     /**
@@ -2761,6 +3021,10 @@ export class CatalogQuerySortedAttribute {
     sort_order?: SortOrderType;
 }
 
+/**
+ * The query filter to return the search result whose searchable attribute values contain all of the
+ * specified keywords or tokens, independent of the token order or case.
+ */
 export class CatalogQueryText {
     /**
      * A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 characters are ignored.
@@ -2769,11 +3033,77 @@ export class CatalogQueryText {
 }
 
 /**
- * A tax in the Catalog object model.
+ * Represents a Quick Amount in the Catalog.
+ */
+export class CatalogQuickAmount {
+    /**
+     * Represents the type of the Quick Amount. See [CatalogQuickAmountType](#type-catalogquickamounttype) for possible values.
+     */
+    type: string;
+    /**
+     * Represents the actual amount of the Quick Amount with Money type.
+     */
+    amount: Money;
+    /**
+     * Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].
+     * MANUAL type amount will always have score = 100.
+     */
+    score?: number;
+    /**
+     * The order in which this Quick Amount should be displayed.
+     */
+    ordinal?: number;
+}
+
+/**
+ * Determines the type of a specific Quick Amount.
+ */
+export class CatalogQuickAmountType {}
+
+/**
+ * A parent Catalog Object model represents a set of Quick Amounts and the settings control the amounts.
+ */
+export class CatalogQuickAmountsSettings {
+    /**
+     * Represents the option seller currently uses on Quick Amounts.
+     * See [CatalogQuickAmountsSettingsOption](#type-catalogquickamountssettingsoption) for possible values
+     */
+    option: string;
+    /**
+     * Represents location's eligibility for auto amounts The boolean should be consistent with whether there are AUTO amounts in the `amounts`.
+     */
+    eligible_for_auto_amounts?: boolean;
+    /**
+     * Represents a set of Quick Amounts at this location.
+     */
+    amounts?: Array<CatalogQuickAmount>;
+}
+
+/**
+ * Determines a seller's option on Quick Amounts feature.
+ */
+export class CatalogQuickAmountsSettingsOption {}
+
+/**
+ * Describes a subscription plan. For more information, see [Set Up and Manage a Subscription Plan](/docs/subscriptions-api/setup-plan).
+ */
+export class CatalogSubscriptionPlan {
+    /**
+     * The name of the plan.
+     */
+    name?: string;
+    /**
+     * A list of SubscriptionPhase containing the `SubscriptionPhase` for this plan.
+     */
+    phases?: Array<SubscriptionPhase>;
+}
+
+/**
+ * A tax applicable to an item.
  */
 export class CatalogTax {
     /**
-     * The tax's name. Searchable. This field has max length of 255 Unicode code points.
+     * The tax's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
     name?: string;
     /**
@@ -2796,7 +3126,7 @@ export class CatalogTax {
      */
     applies_to_custom_amounts?: boolean;
     /**
-     * If `true`, the tax will be shown as enabled in the Square Point of Sale app.
+     * A Boolean flag to indicate whether the tax is displayed as enabled (`true`) in the Square Point of Sale app or not (`false`).
      */
     enabled?: boolean;
 }
@@ -2992,21 +3322,21 @@ export class Checkout {
 }
 
 /**
- * Completes (captures) a payment. By default, payments are set to autocomplete immediately after they are created.
- * To complete payments manually, set `autocomplete` to false.
+ * Completes (captures) a payment. By default, payments are set to `autocomplete` immediately after they are created.
+ * To complete payments manually, set `autocomplete` to `false`.
  */
 export class CompletePaymentRequest {}
 
 /**
- * Return value from a [CompletePayment](#endpoint-payments-completepayment) call.
+ * The return value from a [CompletePayment](#endpoint-payments-completepayment) call.
  */
 export class CompletePaymentResponse {
     /**
-     * Information on errors encountered during the request
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
     /**
-     * The successfully completed `Payment`.
+     * The successfully completed payment.
      */
     payment?: Payment;
 }
@@ -3081,7 +3411,7 @@ export class CreateCatalogImageRequest {
 
 export class CreateCatalogImageResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -3211,6 +3541,36 @@ export class CreateCustomerCardResponse {
 }
 
 /**
+ * Defines the body parameters that can be provided in a request to the [CreateCustomerGroup](#endpoint-createcustomegroup) endpoint.
+ */
+export class CreateCustomerGroupRequest {
+    /**
+     * The idempotency key for the request.
+     * See the [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) guide for more information.
+     */
+    idempotency_key?: string;
+    /**
+     * The customer group to create.
+     */
+    group: CustomerGroup;
+}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [CreateCustomerGroup](#endpoint-createcustomergroup) endpoint.
+ * One of `errors` or `group` is present in a given response (never both).
+ */
+export class CreateCustomerGroupResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The successfully created customer group.
+     */
+    group?: CustomerGroup;
+}
+
+/**
  * Defines the body parameters that can be provided in a request to the CreateCustomer endpoint.
  */
 export class CreateCustomerRequest {
@@ -3256,9 +3616,9 @@ export class CreateCustomerRequest {
      */
     note?: string;
     /**
-     * The birthday associated with the customer profile, in RFC-3339 format. Year is optional, timezone and times are not allowed.
-     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st. `1998-09-01T00:00:00-00:00`
-     * indications a birthday on September 1st 1998.
+     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
+     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
+     * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
     birthday?: string;
 }
@@ -3276,6 +3636,29 @@ export class CreateCustomerResponse {
      * The created customer.
      */
     customer?: Customer;
+}
+
+export class CreateDeviceCodeRequest {
+    /**
+     * A unique string that identifies this CreateCheckout request. Keys can be any valid string but must be unique for every CreateCheckout request.
+     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     */
+    idempotency_key: string;
+    /**
+     * The device code to create.
+     */
+    device_code: DeviceCode;
+}
+
+export class CreateDeviceCodeResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The created DeviceCode object containing the device code string.
+     */
+    device_code?: DeviceCode;
 }
 
 /**
@@ -3343,6 +3726,36 @@ export class CreateDisputeEvidenceTextResponse {
 }
 
 /**
+ * Describes a `CreateInvoice` request.
+ */
+export class CreateInvoiceRequest {
+    /**
+     * The invoice to create.
+     */
+    invoice: Invoice;
+    /**
+     * A unique string that identifies the `CreateInvoice` request.
+     * If you do not provide `idempotency_key` (or provide an empty string as the value), the endpoint treats each request as independent.
+     * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     */
+    idempotency_key?: string;
+}
+
+/**
+ * The response returned by the `CreateInvoice` request.
+ */
+export class CreateInvoiceResponse {
+    /**
+     * The newly created invoice.
+     */
+    invoice?: Invoice;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  * Request object for the [CreateLocation](#endpoint-createlocation) endpoint.
  */
 export class CreateLocationRequest {
@@ -3365,6 +3778,62 @@ export class CreateLocationResponse {
      * The newly created `Location`.
      */
     location?: Location;
+}
+
+/**
+ * A request to create a new loyalty account.
+ */
+export class CreateLoyaltyAccountRequest {
+    /**
+     * The loyalty account to create.
+     */
+    loyalty_account: LoyaltyAccount;
+    /**
+     * A unique string that identifies this `CreateLoyaltyAccount` request. Keys can be any valid string, but must be unique for every request.
+     */
+    idempotency_key: string;
+}
+
+/**
+ * A response that includes loyalty account created.
+ */
+export class CreateLoyaltyAccountResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The newly created loyalty account.
+     */
+    loyalty_account?: LoyaltyAccount;
+}
+
+/**
+ * A request to create a loyalty reward.
+ */
+export class CreateLoyaltyRewardRequest {
+    /**
+     * The reward to create.
+     */
+    reward: LoyaltyReward;
+    /**
+     * A unique string that identifies this `CreateLoyaltyReward` request. Keys can be any valid string, but must be unique for every request.
+     */
+    idempotency_key: string;
+}
+
+/**
+ * A response that includes the loyalty reward created.
+ */
+export class CreateLoyaltyRewardResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty reward created.
+     */
+    reward?: LoyaltyReward;
 }
 
 /**
@@ -3402,6 +3871,10 @@ export class CreateOrderRequest {
      */
     order?: Order;
     /**
+     * The ID of the business location to associate the order with.
+     */
+    location_id?: string;
+    /**
      * A value you specify that uniquely identifies this order among orders you've created.
      * If you're unsure whether a particular order was created successfully, you can reattempt it with the same idempotency
      * key without worrying about creating duplicate orders.
@@ -3426,73 +3899,72 @@ export class CreateOrderResponse {
 }
 
 /**
- * Creates a payment from the source (nonce, card on file, etc.).
+ * Creates a payment from a provided source (such as a nonce or a card on file).
  * The `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission is required to enable application fees.
- * For more information, see [Payments and Refunds Overview](/payments-api/overview).
- * For information about application fees in a payment, see [Collect Fees](/payments-api/take-payments-and-collect-fees).
+ * For more information, see [Payments and Refunds APIs Overview](/payments-api/overview).
+ * For information about application fees in a payment, see [Take Payments and Collect Fees](/payments-api/take-payments-and-collect-fees).
  */
 export class CreatePaymentRequest {
     /**
      * The ID for the source of funds for this payment.
-     * This can be a nonce generated by the Payment Form or a card on file made with the Customers API.
+     * This can be a nonce generated by the Square payment form or a card on file made with the Customers API.
      */
     source_id: string;
     /**
-     * A unique string that identifies this CreatePayment request. Keys can be any valid string but must be unique
-     * for every CreatePayment request. Max: 45 characters.
-     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * A unique string that identifies this `CreatePayment` request.
+     * Keys can be any valid string but must be unique for every `CreatePayment` request.
+     * Max: 45 characters  Note: The number of allowed characters might be less than the stated maximum, if multi-byte characters are used.
+     * For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      */
     idempotency_key: string;
     /**
      * The amount of money to accept for this payment, not including `tip_money`.
-     * Must be specified in the smallest denomination of the applicable currency. For example, US dollar amounts are specified in cents.
-     * See [Working with monetary amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for details.
+     * The amount must be specified in the smallest denomination of the applicable currency (for example, US dollar amounts are specified in cents).
+     * For more information, see [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts).
      * The currency code must match the currency associated with the business that is accepting the payment.
      */
     amount_money: Money;
     /**
-     * The amount designated as a tip, in addition to `amount_money`. Must be specified in the smallest denomination of
-     * the applicable currency. For example, US dollar amounts are specified in cents.
-     * See [Working with monetary amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for details.
+     * The amount designated as a tip, in addition to `amount_money`.
+     * The amount must be specified in the smallest denomination of the applicable currency (for example, US dollar amounts are specified in cents).
+     * For more information, see [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts).
      * The currency code must match the currency associated with the business that is accepting the payment.
      */
     tip_money?: Money;
     /**
-     * The amount of money the developer is taking as a fee for facilitating the payment on behalf of the seller.
-     * Cannot be more than 90% of the total amount of the Payment. Must be specified in the smallest denomination of
-     * the applicable currency. For example, US dollar amounts are specified in cents.
-     * See [Working with monetary amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for details.
-     * The fee currency code must match the currency associated with the merchant that is accepting the payment.
-     * The application must be from a developer account in the same country, and using the same currency code, as the merchant.
-     * For more information about the application fee scenario,
-     * see [Collect Fees](https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees).
+     * The amount of money that the developer is taking as a fee for facilitating the payment on behalf of the seller.
+     * The amount cannot be more than 90% of the total amount of the payment.
+     * The amount must be specified in the smallest denomination of the applicable currency (for example, US dollar amounts are specified in cents).
+     * For more information, see [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts).
+     * The fee currency code must match the currency associated with the seller that is accepting the payment.
+     * The application must be from a developer account in the same country and using the same currency code as the seller.
+     * For more information about the application fee scenario, see [Take Payments and Collect Fees](https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees).
      */
     app_fee_money?: Money;
     /**
      * The duration of time after the payment's creation when Square automatically cancels the payment.
-     * This automatic cancellation applies only to payments that don't reach a terminal state (COMPLETED, CANCELED, or FAILED)
+     * This automatic cancellation applies only to payments that do not reach a terminal state (COMPLETED, CANCELED, or FAILED)
      * before the `delay_duration` time period. This parameter should be specified as a time duration, in RFC 3339 format,
-     * with a minimum value of 1 minute. Notes: This feature is only supported for card payments.
-     * This parameter can only be set for a delayed capture payment (`autocomplete=false`).
-     * Default:
-     *  - Card Present payments: "PT36H" (36 hours) from the creation time.
-     *  - Card Not Present payments: "P7D" (7 days) from the creation time.
+     * with a minimum value of 1 minute.
+     * @note This feature is only supported for card payments. This parameter can only be set for a delayed capture payment (`autocomplete=false`). Default:
+     *  - Card-present payments: \"PT36H\" (36 hours) from the creation time.
+     *  - Card-not-present payments: \"P7D\" (7 days) from the creation time.
      */
     delay_duration?: string;
     /**
      * If set to `true`, this payment will be completed when possible.
-     * If set to `false`, this payment will be held in an approved state until either explicitly completed (captured) or canceled (voided).
-     * For more information, see [Delayed Payments](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
+     * If set to `false`, this payment is held in an approved state until either explicitly completed (captured) or canceled (voided).
+     * For more information, see [Delayed capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * Default: true.
      */
     autocomplete?: boolean;
     /**
-     * Associate a previously created order with this payment.
+     * Associates a previously created order with this payment.
      */
     order_id?: string;
     /**
-     * The ID of the customer associated with the payment.
-     * Required if the `source_id` refers to a card on file created using the Customers API.
+     * The `Customer` ID of the customer associated with the payment.
+     * This is required if the `source_id` refers to a card on file created using the Customers API.
      */
     customer_id?: string;
     /**
@@ -3500,27 +3972,28 @@ export class CreatePaymentRequest {
      */
     location_id?: string;
     /**
-     * A user-defined ID to associate with the payment. You can use this field to associate the payment to an entity
-     * in an external system. For example, you might specify an order ID that is generated by a third-party shopping cart.
-     * Limit 40 characters.
+     * A user-defined ID to associate with the payment.
+     * You can use this field to associate the payment to an entity in an external system
+     * (for example, you might specify an order ID that is generated by a third-party shopping cart). Limit 40 characters.
      */
     reference_id?: string;
     /**
-     * An identifying token generated by `SqPaymentForm.verifyBuyer()`. Verification tokens encapsulate customer device
-     * information and 3-D Secure challenge results to indicate that Square has verified the buyer identity.
-     * See the [SCA Overview](https://developer.squareup.com/docs/sca-overview).
+     * An identifying token generated by `SqPaymentForm.verifyBuyer()`.
+     * Verification tokens encapsulate customer device information and 3-D Secure challenge results to indicate
+     * that Square has verified the buyer identity. For more information, see [SCA Overview](https://developer.squareup.com/docs/sca-overview).
      */
     verification_token?: string;
     /**
-     * If set to true and charging a Square Gift Card, a payment may be returned with amount_money equal to less than what was requested.
-     * Example, a request for $20 when charging a Square Gift Card with balance of $5 wil result in an APPROVED payment of $5.
-     * You may choose to prompt the buyer for an additional payment to cover the remainder, or cancel the gift card payment.
-     * Cannot be `true` when `autocomplete = true`. For more information, see [Partial amount with Square gift cards]
-     * (https://developer.squareup.com/docs/payments-api/take-payments#partial-payment-gift-card). Default: false.
+     * If set to `true` and charging a Square Gift Card, a payment might be returned with `amount_money` equal to less than what was requested.
+     * For example, a request for $20 when charging a Square Gift Card with a balance of $5 results in an APPROVED payment of $5.
+     * You might choose to prompt the buyer for an additional payment to cover the remainder or cancel the Gift Card payment.
+     * This field cannot be `true` when `autocomplete = true`.
+     * For more information, see [Partial amount with Square Gift Cards](https://developer.squareup.com/docs/payments-api/take-payments#partial-payment-gift-card).
+     * Default: false.
      */
     accept_partial_authorization?: boolean;
     /**
-     * The buyer's e-mail address
+     * The buyer's email address.
      */
     buyer_email_address?: string;
     /**
@@ -3536,22 +4009,21 @@ export class CreatePaymentRequest {
      */
     note?: string;
     /**
-     * Optional additional payment information to include on the customer's card statement as part of statement description.
+     * Optional additional payment information to include on the customer's card statement as part of the statement description.
      * This can be, for example, an invoice number, ticket number, or short description that uniquely identifies the purchase.
-     * Limit 20 characters. Note that the statement_description_identifier may get truncated on the statement description
-     * to fit the required information including the Square identifier (SQ *) and name of the merchant taking the payment.
+     * Note that the `statement_description_identifier` might get truncated on the statement description to fit the required
+     * information including the Square identifier (SQ *) and name of the seller taking the payment.
      */
     statement_description_identifier?: string;
 }
 
 /**
- * Defines the fields that are included in the response body of a request to the
- * [CreatePayment](#endpoint-payments-createpayment) endpoint.
- * @note if there are errors processing the request, the payment field may not be present, or it may be present with a status of `FAILED`.
+ * Defines the fields that are included in the response body of a request to the [CreatePayment](#endpoint-payments-createpayment) endpoint.
+ * @note If there are errors processing the request, the payment field might not be present, or it might be present with a status of `FAILED`.
  */
 export class CreatePaymentResponse {
     /**
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
     /**
@@ -3619,8 +4091,8 @@ export class CreateShiftRequest {
 }
 
 /**
- * The response to the request to create a `Shift`. Contains the created `Shift` object. May contain a set of `Error`
- * objects if the request resulted in errors.
+ * The response to the request to create a `Shift`.
+ * Contains the created `Shift` object. May contain a set of `Error` objects if the request resulted in errors.
  */
 export class CreateShiftResponse {
     /**
@@ -3634,21 +4106,213 @@ export class CreateShiftResponse {
 }
 
 /**
+ * Defines parameters in a [CreateSubscription](#endpoint-subscriptions-createsubscription) endpoint request.
+ */
+export class CreateSubscriptionRequest {
+    /**
+     * A unique string that identifies this `CreateSubscription` request.
+     * If you do not provide a unique string (or provide an empty string as the value), the endpoint treats each request as independent.
+     * For more information, see [Idempotency keys](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     */
+    idempotency_key: string;
+    /**
+     * The ID of the location the subscription is associated with.
+     */
+    location_id: string;
+    /**
+     * The ID of the subscription plan.
+     * For more information, see [Subscription Plan Overview](https://developer.squareup.com/docs/docs/subscriptions/overview).
+     */
+    plan_id: string;
+    /**
+     * The ID of the `customer` profile.
+     */
+    customer_id: string;
+    /**
+     * The start date of the subscription, in YYYY-MM-DD format. For example, 2013-01-15.
+     * If the start date is left empty, the subscription begins immediately.
+     */
+    start_date?: string;
+    /**
+     * The date when the subscription should be canceled, in YYYY-MM-DD format (for example, 2025-02-29).
+     * This overrides the plan configuration if it comes before the date the subscription would otherwise end.
+     */
+    canceled_date?: string;
+    /**
+     * The tax to add when billing the subscription.
+     * The percentage is expressed in decimal form, using a `'.'` as the decimal separator and without a `'%'` sign.
+     * For example, a value of 7.5 corresponds to 7.5%.
+     */
+    tax_percentage?: string;
+    /**
+     * A custom price to apply for the subscription. If specified, it overrides the price configured by the subscription plan.
+     */
+    price_override_money?: Money;
+    /**
+     * The ID of the `customer](#type-customer) [card` to charge. If not specified, Square sends an invoice via email.
+     * For an example to create a customer and add a card on file, see [Subscriptions Walkthrough](https://developer.squareup.com/docs/docs/subscriptions-api/walkthrough).
+     */
+    card_id?: string;
+    /**
+     * The timezone that is used in date calculations for the subscription. If unset, defaults to the location timezone.
+     * If a timezone is not configured for the location, defaults to \"America/New_York\".
+     * Format: the IANA Timezone Database identifier for the location timezone.
+     * For a list of time zones, see [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+     */
+    timezone?: string;
+}
+
+/**
+ * Defines the fields that are included in the response from the [CreateSubscription](#endpoint-subscriptions-createsubscription) endpoint.
+ */
+export class CreateSubscriptionResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The newly created subscription.
+     * For more information, see [Subscription object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object).
+     */
+    subscription?: Subscription;
+}
+
+/**
+ * Represents a create request for a `TeamMember` object.
+ */
+export class CreateTeamMemberRequest {
+    /**
+     * A unique string that identifies this CreateTeamMember request.
+     * Keys can be any valid string but must be unique for every request.
+     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * <br> <b>Min Length 1 Max Length 45</b>
+     */
+    idempotency_key?: string;
+    /**
+     * The data which will be used to create the `TeamMember` object.
+     */
+    team_member: TeamMember;
+}
+
+/**
+ * Represents a response from a create request, containing the created `TeamMember` object or error messages.
+ */
+export class CreateTeamMemberResponse {
+    /**
+     * The successfully created `TeamMember` object.
+     */
+    team_member?: TeamMember;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+export class CreateTerminalCheckoutRequest {
+    /**
+     * A unique string that identifies this `CreateCheckout` request.
+     * Keys can be any valid string but must be unique for every `CreateCheckout` request.
+     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     */
+    idempotency_key: string;
+    /**
+     * The checkout to create.
+     */
+    checkout: TerminalCheckout;
+}
+
+export class CreateTerminalCheckoutResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The created `TerminalCheckout`
+     */
+    checkout?: TerminalCheckout;
+}
+
+export class CreateTerminalRefundRequest {
+    /**
+     * A unique string that identifies this `CreateRefund` request.
+     * Keys can be any valid string but must be unique for every `CreateRefund` request.
+     * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     */
+    idempotency_key: string;
+    /**
+     * The refund to create.
+     */
+    refund?: TerminalRefund;
+}
+
+export class CreateTerminalRefundResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The created `TerminalRefund`
+     */
+    refund?: TerminalRefund;
+}
+
+/**
+ * Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://wikipedia.org/wiki/ISO_4217).
+ */
+export class Currency {}
+
+/**
+ * Supported custom attribute query expressions for calling the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint
+ * to search for items or item variations.
+ */
+export class CustomAttributeFilter {
+    /**
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `custom_attribute_definition_id` property value against the the specified id.
+     */
+    custom_attribute_definition_id?: string;
+    /**
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `key` property value against the specified key.
+     */
+    key?: string;
+    /**
+     * A query expression to filter items or item variations by matching their custom attributes' `string_value`
+     * property value against the specified text.
+     */
+    string_filter?: string;
+    /**
+     * A query expression to filter items or item variations with their custom attributes containing a number value within the specified range.
+     */
+    number_filter?: Range;
+    /**
+     * A query expression to filter items or item variations by matching  their custom attributes'
+     * `selection_uid_values` values against the specified selection uids.
+     */
+    selection_uids_filter?: Array<string>;
+    /**
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `boolean_value` property values against the specified Boolean expression.
+     */
+    bool_filter?: boolean;
+}
+
+/**
  * Represents a Square customer profile, which can have one or more cards on file associated with it.
  */
 export class Customer {
     /**
-     * A unique, Square-assigned object ID.
+     * A unique Square-assigned ID for the customer profile.
      */
-    id: string;
+    id?: string;
     /**
-     * The time when the customer profile was created, in RFC 3339 format.
+     * The timestamp when the customer profile was created, in RFC 3339 format.
      */
-    created_at: string;
+    created_at?: string;
     /**
-     * The time when the customer profile was last updated, in RFC 3339 format.
+     * The timestamp when the customer profile was last updated, in RFC 3339 format.
      */
-    updated_at: string;
+    updated_at?: string;
     /**
      * Payment details of cards stored on file for the customer profile.
      */
@@ -3682,9 +4346,10 @@ export class Customer {
      */
     phone_number?: string;
     /**
-     * The birthday associated with the customer profile, in RFC-3339 format. Year is optional, timezone and times are not allowed.
-     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st. `1998-09-01T00:00:00-00:00`
-     * indications a birthday on September 1st 1998.
+     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
+     * For example:
+     *  * `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
+     *  * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
     birthday?: string;
     /**
@@ -3700,7 +4365,10 @@ export class Customer {
      */
     preferences?: CustomerPreferences;
     /**
-     * The groups the customer belongs to.
+     * The customer groups and segments the customer belongs to.
+     * This deprecated field has been replaced with the dedicated `group_ids` for customer groups and the dedicated
+     * `segment_ids` field for customer segments. You can retrieve information about a given customer group and segment
+     * respectively using the Customer Groups API and Customer Segments API.
      */
     groups?: Array<CustomerGroupInfo>;
     /**
@@ -3708,6 +4376,14 @@ export class Customer {
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
     creation_source?: CustomerSourceType;
+    /**
+     * The IDs of customer groups the customer belongs to.
+     */
+    group_ids?: Array<string>;
+    /**
+     * The IDs of segments the customer belongs to.
+     */
+    segment_ids?: Array<string>;
 }
 
 /**
@@ -3734,7 +4410,7 @@ export class CustomerCreationSourceFilter {
 }
 
 /**
- * Represents a set of `CustomerQuery` filters used to limit the set of `Customers` returned by SearchCustomers.
+ * Represents a set of `CustomerQuery` filters used to limit the set of `Customers` returned by `SearchCustomers`.
  */
 export class CustomerFilter {
     /**
@@ -3749,18 +4425,94 @@ export class CustomerFilter {
      * A filter to select customers based on when they were updated.
      */
     updated_at?: TimeRange;
+    /**
+     * A filter to [select customers by email address](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-email-address) visible to the seller.
+     * This filter is case insensitive. For [exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-email-address),
+     * this filter causes the search to return customer profiles whose `email_address` field value are identical to the email address provided in the query.
+     * For [fuzzy matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#fuzzy-search-by-email-address),
+     * this filter causes the search to return customer profiles  whose `email_address` field value has a token-wise partial
+     * match against the filtering  expression in the query. For example, with `Steven gmail` provided in a search query,
+     * the search returns customers whose email address can be `steven.johnson&#64;gmail.com`  or `mygmail&#64;stevensbakery.com`.
+     * Email addresses are tokenized by replacing, by spaces,  punctuations including periods (`.`), underscores (`_`),
+     * and the `&#64;` symbols. A match is found if a tokenized email address contains all the tokens in the search query,irrespective of the token order.
+     */
+    email_address?: CustomerTextFilter;
+    /**
+     * A filter to [select customers by their phone numbers](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-phone-number) visible to the seller.
+     * This filter is case insensitive. For [exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-phone-number),
+     * this filter causes the search to return customers whose phone number matches the specified query expression.
+     * The number in the query must be of an E.164-compliant form. In particular, it must include the leading `+`
+     * sign followed by a contry code and then a subscriber number. The standard E.614 form of a US phone number is
+     * `+12061112222` of the domestic version or `+0012061112222` of the international version. The E.164-compliant variations
+     * include `+1 (206) 111-2222` or `+001 (206) 111-2222`, respectively. To match the query expression, stored customers'
+     * phone numbers are converted to the standard E.164 form of the national and internationalized versions.
+     * For [fuzzy matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#fuzzy-search-by-phone-number),
+     * this filter causes the search to return customers whose phone number matches partially the token or tokens
+     * provided in the query expression. For example, if the search query contains `415-123-45`, the filter selects those
+     * customers with phone numbers of `415-123-4567` or `234-151-2345`. The search does not return customers with the
+     * phone number of `415-123-4678`. Similarly, if the search query contains `415` as part of the phone number, the
+     * search returns those customers with phone numbers of `(415)-123-4567`, `(123) 415-1567`, and `1 (415) 123-4567`.
+     */
+    phone_number?: CustomerTextFilter;
+    /**
+     * A filter to [select customers by their reference IDs](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-reference-id).
+     * This filter is case insensitive. [Exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-reference-id)
+     * of a customer's reference ID against a query's reference ID is evaluated as exact match between two strings,
+     * character by character in the given order. [Fuzzy matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#fuzzy-search-by-reference-id)
+     * of stored reference IDs against queried reference IDs works  exactly the same as fuzzy matching on email addresses.
+     * Non-alphanumeric characters  are replaced by spaces to tokenize stored and queried reference IDs.
+     * A match is found if a tokenized stored reference ID contains all tokens specified in any order in the query.
+     * For example, a query of `NYC M` will match customer profiles with the `reference_id` value of `NYC_M_35_JOHNSON` and `NYC_27_MURRAY`.
+     */
+    reference_id?: CustomerTextFilter;
+    /**
+     * A filter to select customers based on their group membership.
+     * The `group_ids` is a JSON object of the following general format:
+     * ``` \"group_ids\": { \"any\":  [\"{group_a_id}\", \"{group_b_id}\", ...], \"all\":  [\"{group_1_id}\", \"{group_2_id}\", ...], 'none\": [\"{group_i_id}\", \"{group_ii_id}\", ...] } ```
+     * You can use any combination of the above `group_ids` fields (also known as `FilterValue` properties)
+     * to specify how customers are selected based on their group membership. With the `any` option, the search returns
+     * customers in Groups `A` or `B` or ... of the list. With the `all` option, the search returns customers in Groups
+     * `1` and `2` and ... of the list. With the `none` option, the search returns customers not in Groups `i` and not
+     * in `ii` and not in ... of the list. If any of the search conditions are not met, including when an invalid or
+     * non-existent group ID is provided, the result is an empty list. You can use the `group_ids` search filter with
+     * other available filters. You cannot use the `group_ids` filter to select customers based on segment membership.
+     */
+    group_ids?: FilterValue;
 }
 
 /**
- * Contains some brief information about a customer group with its identifier included.
+ * Represents a group of customer profiles. Customer groups can be created, modified, and have their membership defined either via
+ * the Customers API or within Customer Directory in the Square Dashboard or Point of Sale.
+ */
+export class CustomerGroup {
+    /**
+     * Unique Square-generated ID for the customer group.
+     */
+    id?: string;
+    /**
+     * Name of the customer group.
+     */
+    name: string;
+    /**
+     * The timestamp when the customer group was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The timestamp when the customer group was last updated, in RFC 3339 format.
+     */
+    updated_at?: string;
+}
+
+/**
+ * Contains some brief information about a Customer Group with its identifier included.
  */
 export class CustomerGroupInfo {
     /**
-     * The ID of the customer group.
+     * The ID of the Customer Group.
      */
     id: string;
     /**
-     * The name of the customer group.
+     * The name of the Customer Group.
      */
     name: string;
 }
@@ -3781,41 +4533,81 @@ export class CustomerPreferences {
 }
 
 /**
- * Represents a query (filtering and sorting criteria) used to search for customer profiles.
+ * Represents a query (including filtering criteria, sorting criteria, or both) used to search for customer profiles.
  */
 export class CustomerQuery {
     /**
-     * A list of filter criteria.
+     * A list of filtering criteria.
      */
     filter?: CustomerFilter;
     /**
-     * Sort criteria for query results. The default sort behavior is to order customers alphabetically by `given_name`
-     * and `last_name`.
+     * Sorting criteria for query results. The default behavior is to sort  customers alphabetically by `given_name` and `family_name`.
      */
     sort?: CustomerSort;
 }
 
 /**
- * Indicates the field to use for sorting customer profiles.
+ * Represents a group of customer profiles that match one or more predefined filter criteria.
+ * Segments (also known as Smart Groups) are defined and created within Customer Directory in the Square Dashboard or Point of Sale.
+ */
+export class CustomerSegment {
+    /**
+     * Unique Square-generated ID for the segment.
+     */
+    id?: string;
+    /**
+     * Name of the segment.
+     */
+    name: string;
+    /**
+     * The timestamp when the segment was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The timestamp when the segment was last updated, in RFC 3339 format.
+     */
+    updated_at?: string;
+}
+
+/**
+ * Specifies how searched customers profiles are sorted, including the sort key and sort order.
  */
 export class CustomerSort {
     /**
-     * Indicates the information used to sort the results. For example, by creation date. Default: `DEFAULT`.
-     * See [CustomerSortField](#type-customersortfield) for possible values.
+     * Use one or more customer attributes as the sort key to sort searched customer profiles.
+     * For example, use creation date (`created_at`) of customers or default attributes as the sort key.
+     * Default: `DEFAULT`. See [CustomerSortField](#type-customersortfield) for possible values.
      */
     field?: string;
     /**
-     * Indicates the order in which results should be displayed based on the value of the sort field. String comparisons
-     * use standard alphabetic comparison to determine order. Strings representing numbers are sorted as strings. Default: `ASC`.
-     * See [SortOrder](#type-sortorder) for possible values.
+     * Indicates the order in which results should be sorted based on the sort field value.
+     * Strings use standard alphabetic comparison to determine order. Strings representing numbers are sorted as strings.
+     * Default: `ASC`. See [SortOrder](#type-sortorder) for possible values.
      */
     order?: SortOrderType;
 }
 
 /**
- * Indicates the sort criteria for a list of Customers.
+ * Specifies customer attributes as the sort key to customer profiles returned from a search.
  */
 export class CustomerSortField {}
+
+/**
+ * A filter to select customers based on exact or fuzzy matching of customer attributes against a specified query.
+ * Depending on customer attributes, the filter can be case sensitive. This filter can be either exact or fuzzy. It cannot be both.
+ */
+export class CustomerTextFilter {
+    /**
+     * Use the exact filter to select customers whose attributes match exactly the specified query.
+     */
+    exact?: string;
+    /**
+     * Use the fuzzy filter to select customers whose attributes match the specified query in a fuzzy manner.
+     * When the fuzzy option is used, search queries are tokenized, and then each query token must be matched somewhere in the searched attribute.
+     * For single token queries, this is effectively the same behavior as a partial match operation.
+     */
+    fuzzy?: string;
+}
 
 /**
  * A range defined by two dates. Used for filtering a query for Connect v2 objects that have date properties.
@@ -3857,7 +4649,7 @@ export class DeleteCatalogObjectRequest {}
 
 export class DeleteCatalogObjectResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -3889,6 +4681,21 @@ export class DeleteCustomerCardResponse {
 }
 
 /**
+ * Defines the fields that can be provided in a request to the [DeleteCustomerGroup](#endpoint-deletecustomergroup) endpoint.
+ */
+export class DeleteCustomerGroupRequest {}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [DeleteCustomerGroup](#endpoint-deletecustomergroup) endpoint.
+ */
+export class DeleteCustomerGroupResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  * Defines the fields that are included in a request to the DeleteCustomer endpoint.
  */
 export class DeleteCustomerRequest {}
@@ -3897,6 +4704,41 @@ export class DeleteCustomerRequest {}
  * Defines the fields that are included in the response body of a request to the DeleteCustomer endpoint.
  */
 export class DeleteCustomerResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Describes a `DeleteInvoice` request.
+ */
+export class DeleteInvoiceRequest {
+    /**
+     * The version of the `invoice` to delete. If you do not know the version, you can call `GetInvoice` or `ListInvoices`.
+     */
+    version?: number;
+}
+
+/**
+ * Describes a `DeleteInvoice` response.
+ */
+export class DeleteInvoiceResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * A request to delete a loyalty reward.
+ */
+export class DeleteLoyaltyRewardRequest {}
+
+/**
+ * A response returned by the API call.
+ */
+export class DeleteLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
@@ -3929,6 +4771,75 @@ export class Device {
     name?: string;
 }
 
+export class DeviceCheckoutOptions {
+    /**
+     * The unique ID of the device intended for this `TerminalCheckout`.
+     * A list of `DeviceCode` objects can be retrieved from the /v2/devices/codes endpoint.
+     * Match a `DeviceCode.device_id` value with `device_id` to get the associated device code.
+     */
+    device_id: string;
+    /**
+     * Instruct the device to skip the receipt screen. Defaults to false.
+     */
+    skip_receipt_screen?: boolean;
+    /**
+     * Tip specific settings
+     */
+    tip_settings?: TipSettings;
+}
+
+export class DeviceCode {
+    /**
+     * The unique id for this device code.
+     */
+    id?: string;
+    /**
+     * An optional user-defined name for the device code.
+     */
+    name?: string;
+    /**
+     * The unique code that can be used to login.
+     */
+    code?: string;
+    /**
+     * The unique id of the device that used this code. Populated when the device is paired up.
+     */
+    device_id?: string;
+    /**
+     * The targeting product type of the device code. See [ProductType](#type-producttype) for possible values.
+     */
+    product_type: string;
+    /**
+     * The location assigned to this code.
+     */
+    location_id?: string;
+    /**
+     * The pairing status of the device code. See [DeviceCodeStatus](#type-devicecodestatus) for possible values.
+     */
+    status?: string;
+    /**
+     * When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format.
+     */
+    pair_by?: string;
+    /**
+     * When this DeviceCode was created. Timestamp in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * When this DeviceCode's status was last changed. Timestamp in RFC 3339 format.
+     */
+    status_changed_at?: string;
+    /**
+     * When this DeviceCode was paired. Timestamp in RFC 3339 format.
+     */
+    paired_at?: string;
+}
+
+/**
+ * DeviceCode.Status enum.
+ */
+export class DeviceCodeStatus {}
+
 /**
  * Details about the device that took the payment.
  */
@@ -3937,6 +4848,10 @@ export class DeviceDetails {
      * Square-issued ID of the device.
      */
     device_id?: string;
+    /**
+     * Square-issued installation ID for the device.
+     */
+    device_installation_id?: string;
     /**
      * The name of the device set by the merchant.
      */
@@ -4122,6 +5037,7 @@ export class EmployeeStatus {}
 
 /**
  * The hourly wage rate that an employee will earn on a `Shift` for doing the job specified by the `title` property of this object.
+ * Deprecated at version 2020-08-26. Use `TeamMemberWage` instead.
  */
 export class EmployeeWage {
     /**
@@ -4131,7 +5047,7 @@ export class EmployeeWage {
     /**
      * The `Employee` that this wage is assigned to.
      */
-    employee_id: string;
+    employee_id?: string;
     /**
      * The job title that this wage relates to.
      */
@@ -4157,6 +5073,25 @@ export class ErrorCode {}
  * Indicates which products matched by a CatalogPricingRule will be excluded if the pricing rule uses an exclude set.
  */
 export class ExcludeStrategy {}
+
+/**
+ * A filter to select resources based on an exact field value. For any given value, the value can only be in one property.
+ * Depending on the field, either all properties can be set or only a subset will be available. Refer to the documentation of the field.
+ */
+export class FilterValue {
+    /**
+     * A list of terms that must be present on the field of the resource.
+     */
+    all?: Array<string>;
+    /**
+     * A list of terms where at least one of them must be present on the field of the resource.
+     */
+    any?: Array<string>;
+    /**
+     * A list of terms that must not be present on the field the resource
+     */
+    none?: Array<string>;
+}
 
 /**
  * Request object for fetching a specific `BankAccount` by the object ID.
@@ -4202,6 +5137,19 @@ export class GetBreakTypeResponse {
     errors?: Array<Error>;
 }
 
+export class GetDeviceCodeRequest {}
+
+export class GetDeviceCodeResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The queried DeviceCode.
+     */
+    device_code?: DeviceCode;
+}
+
 /**
  * A request to get an `EmployeeWage`
  */
@@ -4218,6 +5166,25 @@ export class GetEmployeeWageResponse {
     employee_wage?: EmployeeWage;
     /**
      * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Describes a `GetInvoice` request.
+ */
+export class GetInvoiceRequest {}
+
+/**
+ * Describes a `GetInvoice` response.
+ */
+export class GetInvoiceResponse {
+    /**
+     * The invoice requested.
+     */
+    invoice?: Invoice;
+    /**
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
 }
@@ -4244,17 +5211,16 @@ export class GetPaymentRefundResponse {
 }
 
 /**
- * Retrieve details for a specific Payment.
+ * Retrieve details for a specific payment.
  */
 export class GetPaymentRequest {}
 
 /**
- * Defines the fields that are included in the response body of a request to the
- * [GetPayment](#endpoint-payments-getpayment) endpoint.
+ * Defines the fields that are included in the response body of a request to the [GetPayment](#endpoint-payments-getpayment) endpoint.
  */
 export class GetPaymentResponse {
     /**
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
     /**
@@ -4282,6 +5248,57 @@ export class GetShiftResponse {
      */
     errors?: Array<Error>;
 }
+
+/**
+ * A request to get an `TeamMemberWage`
+ */
+export class GetTeamMemberWageRequest {}
+
+/**
+ * A response to a request to get a `TeamMemberWage`. Contains the requested `TeamMemberWage` objects.
+ * May contain a set of `Error` objects if the request resulted in errors.
+ */
+export class GetTeamMemberWageResponse {
+    /**
+     * The requested `TeamMemberWage` object.
+     */
+    team_member_wage?: TeamMemberWage;
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+export class GetTerminalCheckoutRequest {}
+
+export class GetTerminalCheckoutResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The requested `TerminalCheckout`
+     */
+    checkout?: TerminalCheckout;
+}
+
+export class GetTerminalRefundRequest {}
+
+export class GetTerminalRefundResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The requested `Refund`
+     */
+    refund?: TerminalRefund;
+}
+
+/**
+ * Object types to inline under their respective parent object in certain connect v2 responses.
+ */
+export class InlineTypes {}
 
 /**
  * Represents a change in state or quantity of product inventory at a particular time and location.
@@ -4317,10 +5334,6 @@ export class InventoryAdjustment {
     catalog_object_type?: string;
     /**
      * The number of items affected by the adjustment as a decimal string. Can support up to 5 digits after the decimal point.
-     * @note The Point of Sale app and Dashboard do not currently support decimal quantities. If a Point of Sale app or
-     * Dashboard attempts to read a decimal quantity on inventory counts or adjustments, the quantity will be rounded down to
-     * the nearest integer. For example, `2.5` will become `2`, and `-2.5` will become `-3`.
-     * Read [Decimal Quantities (BETA)](https://developer.squareup.com/docs/inventory-api/what-it-does#decimal-quantities-beta) for more information.
      */
     quantity?: string;
     /**
@@ -4392,6 +5405,8 @@ export class InventoryChange {
     adjustment?: InventoryAdjustment;
     /**
      * Contains details about the inventory transfer when `type` is `TRANSFER` and unset for all other types.
+     * @note An `InventoryTransfer` object is read-only and can only be present in a `RetrieveInventoryChangesResponse`
+     * and `BatchRetrieveInventoryChangesResponse` object.
      */
     transfer?: InventoryTransfer;
 }
@@ -4424,10 +5439,6 @@ export class InventoryCount {
     location_id?: string;
     /**
      * The number of items affected by the estimated count as a decimal string. Can support up to 5 digits after the decimal point.
-     * @note The Point of Sale app and Dashboard do not currently support decimal quantities. If a Point of Sale app or
-     * Dashboard attempts to read a decimal quantity on inventory counts or adjustments, the quantity will be rounded
-     * down to the nearest integer. For example, `2.5` will become `2`, and `-2.5` will become `-3`.
-     * Read [Decimal Quantities (BETA)](https://developer.squareup.com/docs/docs/inventory-api/what-it-does#decimal-quantities-beta) for more information.
      */
     quantity?: string;
     /**
@@ -4470,10 +5481,6 @@ export class InventoryPhysicalCount {
     location_id?: string;
     /**
      * The number of items affected by the physical count as a decimal string. Can support up to 5 digits after the decimal point.
-     * @note The Point of Sale app and Dashboard do not currently support decimal quantities. If a Point of Sale app or
-     * Dashboard attempts to read a decimal quantity on inventory counts or adjustments, the quantity will be rounded down
-     * to the nearest integer. For example, `2.5` will become `2`, and `-2.5` will become `-3`. Read [Decimal
-     * Quantities (BETA)](https://developer.squareup.com/docs/inventory-api/what-it-does#decimal-quantities-beta) for more information.
      */
     quantity?: string;
     /**
@@ -4513,8 +5520,7 @@ export class InventoryTransfer {
      */
     reference_id?: string;
     /**
-     * The `InventoryState` for the quantity of items being transfered.
-     * See [InventoryState](#type-inventorystate) for possible values.
+     * The `InventoryState` for the quantity of items being transferred. See [InventoryState](#type-inventorystate) for possible values.
      */
     state?: InventoryStateType;
     /**
@@ -4535,10 +5541,6 @@ export class InventoryTransfer {
     catalog_object_type?: string;
     /**
      * The number of items affected by the transfer as a decimal string. Can support up to 5 digits after the decimal point.
-     * @note The Point of Sale app and Dashboard do not currently support decimal quantities. If a Point of Sale app or
-     * Dashboard attempts to read a decimal quantity on inventory counts or adjustments, the quantity will be rounded down
-     * to the nearest integer. For example, `2.5` will become `2`, and `-2.5` will become `-3`. Read [Decimal
-     * Quantities (BETA)](https://developer.squareup.com/docs/docs/inventory-api/what-it-does#decimal-quantities-beta) for more information.
      */
     quantity?: string;
     /**
@@ -4559,6 +5561,294 @@ export class InventoryTransfer {
      */
     employee_id?: string;
 }
+
+/**
+ * Stores information about an invoice. You use the Invoices API to create and process invoices.
+ * For more information, see [Manage Invoices Using the Invoices API](/docs/invoices-api/overview).
+ */
+export class Invoice {
+    /**
+     * The Square-assigned ID of the invoice.
+     */
+    id?: string;
+    /**
+     * The Square-assigned version number, which is incremented each time an update is committed to the invoice.
+     */
+    version?: number;
+    /**
+     * The ID of the location that this invoice is associated with. This field is required when creating an invoice.
+     */
+    location_id?: string;
+    /**
+     * The ID of the `order` for which the invoice is created.
+     * This order must be in the `OPEN` state and must belong to the `location_id` specified for this invoice.
+     * This field is required when creating an invoice.
+     */
+    order_id?: string;
+    /**
+     * The customer who gets the invoice. Square uses the contact information to deliver the invoice.
+     * This field is required to publish an invoice.
+     */
+    primary_recipient?: InvoiceRecipient;
+    /**
+     * An array of `InvoicePaymentRequest` objects. Each object defines a payment request in an invoice payment schedule.
+     * It provides information such as when and how Square processes payments. You must specify at least one payment request.
+     * For invoices  with multiple payment requests, you can specify a maximum of 12 `INSTALLMENT` request types.
+     * All of the payment requests must specify the same `request_method`. This field is required when creating an invoice.
+     */
+    payment_requests?: Array<InvoicePaymentRequest>;
+    /**
+     * A user-friendly invoice number. The value is unique within a location.
+     * If not provided when creating an invoice, Square assigns a value.
+     * It increments from 1 and padded with zeros making it 7 characters long for example, 0000001, 0000002.
+     */
+    invoice_number?: string;
+    /**
+     * The title of the invoice.
+     */
+    title?: string;
+    /**
+     * The description of the invoice. This is visible the customer receiving the invoice.
+     */
+    description?: string;
+    /**
+     * The timestamp when the invoice is scheduled for processing, in RFC 3339 format. At the specified time, depending
+     * on the `request_method`, Square sends the invoice to the customer's email address or charge the customer's card on file.
+     * If the field is not set, Square processes the invoice immediately after publication.
+     */
+    scheduled_at?: string;
+    /**
+     * The URL of the Square-hosted invoice page. After you publish the invoice using the `PublishInvoice` endpoint,
+     * Square hosts the invoice page and returns the page URL in the response.
+     */
+    public_url?: string;
+    /**
+     * The current amount due for the invoice.
+     * In addition to the amount due on the next payment request, this also includes any overdue payment amounts.
+     */
+    next_payment_amount_money?: Money;
+    /**
+     * The status of the invoice. See [InvoiceStatus](#type-invoicestatus) for possible values
+     */
+    status?: string;
+    /**
+     * The time zone of the date values (for example, `due_date`) specified in the invoice.
+     */
+    timezone?: string;
+    /**
+     * The timestamp when the invoice was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The timestamp when the invoice was last updated, in RFC 3339 format.
+     */
+    updated_at?: string;
+}
+
+/**
+ * Describes query filters to apply.
+ */
+export class InvoiceFilter {
+    /**
+     * Limits the search to the specified locations. A location is required.
+     * In the current implementation, only one location can be specified.
+     */
+    location_ids: Array<string>;
+    /**
+     * Limits the search to the specified customers, within the specified locations.
+     * Specifying a customer is optional. In the current implementation, a maximum of one customer can be specified.
+     */
+    customer_ids?: Array<string>;
+}
+
+/**
+ * Describes a payment request reminder (automatic notification) that Square sends to the customer.
+ * You configure a reminder relative to the payment request `due_date`.
+ */
+export class InvoicePaymentReminder {
+    /**
+     * A Square-assigned ID that uniquely identifies the reminder within the `InvoicePaymentRequest`.
+     */
+    uid?: string;
+    /**
+     * The number of days before (a negative number) or after (a positive number) the payment request `due_date` when the reminder is sent.
+     * For example, -3 indicates that the reminder should be sent 3 days before the payment request `due_date`.
+     */
+    relative_scheduled_days?: number;
+    /**
+     * The reminder message.
+     */
+    message?: string;
+    /**
+     * The status of the reminder. See [InvoicePaymentReminderStatus](#type-invoicepaymentreminderstatus) for possible values.
+     */
+    status?: string;
+    /**
+     * If sent, the timestamp when the reminder was sent, in RFC 3339 format.
+     */
+    sent_at?: string;
+}
+
+/**
+ * The status of a payment request reminder.
+ */
+export class InvoicePaymentReminderStatus {}
+
+/**
+ * Describes a specific payment request in an invoice.
+ * Invoices that contain multiple payment requests can  specify a maximum of 12 `INSTALLMENT` request types.
+ * All of the payment requests must specify the same `request_method`.
+ * For more information, see [Payment requests](/docs/invoices-api/overview#payment-requests).
+ */
+export class InvoicePaymentRequest {
+    /**
+     * The Square-generated ID of the payment request in an `invoice`.
+     */
+    uid?: string;
+    /**
+     * Indicates how Square processes the payment request. See [InvoiceRequestMethod](#type-invoicerequestmethod) for possible values.
+     */
+    request_method?: string;
+    /**
+     * Identifies the payment request type. This type defines how the payment request amount is determined.
+     * See [InvoiceRequestType](#type-invoicerequesttype) for possible values.
+     */
+    request_type?: string;
+    /**
+     * The due date (in the invoice location's time zone) for the payment request. After this date, the invoice becomes overdue.
+     */
+    due_date?: string;
+    /**
+     * If the payment request specifies `DEPOSIT` or `INSTALLMENT` as the  `request_type`, this indicates the request amount.
+     * You cannot specify this when `request_type` is `BALANCE` or when the  payment request includes the `percentage_requested` field.
+     */
+    fixed_amount_requested_money?: Money;
+    /**
+     * Specifies the amount for the payment request in percentage:
+     *  - When the payment `request_type` is `DEPOSIT`, it is the percentage of the order total amount.
+     *  - When the payment `request_type` is `INSTALLMENT`, it is the percentage of the order total less  the deposit,
+     *      if requested. The sum of the `percentage_requested` in all installment  payment requests must be equal to 100.
+     *      You cannot specify this when the payment `request_type` is `BALANCE` or when the  payment request specifies the
+     *      `fixed_amount_requested_money` field.
+     */
+    percentage_requested?: string;
+    /**
+     * If set to true, the Square-hosted invoice page (the `public_url` field of the invoice) provides a place for the customer to pay a tip.
+     * This field is allowed only on the final payment request and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
+     */
+    tipping_enabled?: boolean;
+    /**
+     * If the request method is `CHARGE_CARD_ON_FILE`, this field provides the card to charge.
+     */
+    card_id?: string;
+    /**
+     * A list of one or more reminders to send for the payment request.
+     */
+    reminders?: Array<InvoicePaymentReminder>;
+    /**
+     * The payment request amount, computed using the order amount and information from the various payment
+     * request fields (`invoice_request_type`,  `fixed_amount_requested_money`, and `percentage_requested`).
+     */
+    computed_amount_money?: Money;
+    /**
+     * The amount of money already paid for the specific payment request.
+     * This amount might include a rounding adjustment if the most recent invoice payment was in cash in a currency
+     * that rounds cash payments (such as, `CAD` or `AUD`).
+     */
+    total_completed_amount_money?: Money;
+    /**
+     * If the most recent payment was a cash payment in a currency that rounds cash payments (such as, `CAD` or `AUD`)
+     * and the payment  is rounded from `computed_amount_money` in the payment request, then this field specifies the
+     * rounding adjustment applied. This amount  might be negative.
+     */
+    rounding_adjustment_included_money?: Money;
+}
+
+/**
+ * Describes query criteria for searching invoices.
+ */
+export class InvoiceQuery {
+    /**
+     * Query filters to apply in searching invoices.
+     * For more information, see [Retrieve invoices](https://developer.squareup.com/docs/docs/invoices-api/overview#retrieve-invoices).
+     */
+    filter: InvoiceFilter;
+    /**
+     * Describes the sort order for the search result.
+     */
+    sort?: InvoiceSort;
+}
+
+/**
+ * Provides customer data that Square uses to deliver an invoice.
+ */
+export class InvoiceRecipient {
+    /**
+     * The ID of the customer. This is the customer profile ID that you provide when creating a draft invoice.
+     */
+    customer_id?: string;
+    /**
+     * The recipient's given (that is, first) name.
+     */
+    given_name?: string;
+    /**
+     * The recipient's family (that is, last) name.
+     */
+    family_name?: string;
+    /**
+     * The recipient's email address.
+     */
+    email_address?: string;
+    /**
+     * The recipient's physical address.
+     */
+    address?: Address;
+    /**
+     * The recipient's phone number.
+     */
+    phone_number?: string;
+    /**
+     * The name of the recipient's company.
+     */
+    company_name?: string;
+}
+
+/**
+ * Specifies the action for Square to take for processing the invoice.
+ * For example, email the invoice, charge a customer's card on file, or do nothing.
+ */
+export class InvoiceRequestMethod {}
+
+/**
+ * Indicates the type of the payment request. An invoice supports the following payment request combinations:
+ *  - 1 balance - 1 deposit with 1 balance - 2 - 12 installments - 1 deposit with 2 - 12 installments
+ *  For more information, see [Payment requests](https://developer.squareup.com/docs/docs/invoices-api/overview#payment-requests).
+ */
+export class InvoiceRequestType {}
+
+/**
+ * Identifies the  sort field and sort order.
+ */
+export class InvoiceSort {
+    /**
+     * The field to sort on. See [InvoiceSortField](#type-invoicesortfield) for possible values.
+     */
+    field: string;
+    /**
+     * The order to use for sorting the results. See [SortOrder](#type-sortorder) for possible values.
+     */
+    order?: string;
+}
+
+/**
+ * Field to use for sorting.
+ */
+export class InvoiceSortField {}
+
+/**
+ * Indicates the status of an invoice.
+ */
+export class InvoiceStatus {}
 
 /**
  * Price and inventory alerting overrides for a `CatalogItemVariation` at a specific `Location`.
@@ -4594,102 +5884,36 @@ export class ItemVariationLocationOverrides {
 }
 
 /**
- * Defines the query parameters that can be included in a request to t
- * he [ListAdditionalRecipientReceivableRefunds](#endpoint-listadditionalrecipientreceivablerefunds) endpoint.
+ * An object describing a job that a team member is assigned to.
  */
-export class ListAdditionalRecipientReceivableRefundsRequest {
+export class JobAssignment {
     /**
-     * The beginning of the requested reporting period, in RFC 3339 format.
-     * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current time minus one year.
+     * The title of the job.
      */
-    begin_time?: string;
+    job_title: string;
     /**
-     * The end of the requested reporting period, in RFC 3339 format.
-     * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current time.
+     * The current pay type for the job assignment used to calculate the pay amount in a pay period.
+     * See [JobAssignmentPayType](#type-jobassignmentpaytype) for possible values.
      */
-    end_time?: string;
+    pay_type: string;
     /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
-     * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
+     * The hourly pay rate of the job.
      */
-    sort_order?: SortOrderType;
+    hourly_rate?: Money;
     /**
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * See [Paginating results](#paginatingresults) for more information.
+     * The total pay amount for a 12 month period on the job. Set if the job `PayType` is `SALARY`.
      */
-    cursor?: string;
+    annual_rate?: Money;
+    /**
+     * The planned hours per week for the job. Set if the job `PayType` is `SALARY`.
+     */
+    weekly_hours?: number;
 }
 
 /**
- * Defines the fields that are included in the response body of a request to
- * the [ListAdditionalRecipientReceivableRefunds](#endpoint-listadditionalrecipientreceivablerefunds) endpoint.
- * One of `errors` or `additional_recipient_receivable_refunds` is present in a given response (never both).
+ * Enumerates the possible pay types that a job can be assigned.
  */
-export class ListAdditionalRecipientReceivableRefundsResponse {
-    /**
-     * Any errors that occurred during the request.
-     */
-    errors?: Array<Error>;
-    /**
-     * An array of AdditionalRecipientReceivableRefunds that match your query.
-     */
-    receivable_refunds?: Array<AdditionalRecipientReceivableRefund>;
-    /**
-     * A pagination cursor for retrieving the next set of results, if any remain. Provide this value as the `cursor`
-     * parameter in a subsequent request to this endpoint. See [Paginating results](#paginatingresults) for more information.
-     */
-    cursor?: string;
-}
-
-/**
- * Defines the query parameters that can be included in a request to the [ListAdditionalRecipientReceivables](#endpoint-listadditionalrecipientreceivables) endpoint.
- */
-export class ListAdditionalRecipientReceivablesRequest {
-    /**
-     * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
-     * on date inclusivity/exclusivity. Default value: The current time minus one year.
-     */
-    begin_time?: string;
-    /**
-     * The end of the requested reporting period, in RFC 3339 format.
-     * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current time.
-     */
-    end_time?: string;
-    /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
-     * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
-     */
-    sort_order?: SortOrderType;
-    /**
-     * A pagination cursor returned by a previous call to this endpoint.
-     * Provide this to retrieve the next set of results for your original query.
-     * See [Paginating results](#paginatingresults) for more information.
-     */
-    cursor?: string;
-}
-
-/**
- * Defines the fields that are included in the response body of a request to
- * the [ListAdditionalRecipientReceivables](#endpoint-listadditionalrecipientreceivables) endpoint.
- * One of `errors` or `additional_recipient_receivables` is present in a given response (never both).
- */
-export class ListAdditionalRecipientReceivablesResponse {
-    /**
-     * Any errors that occurred during the request.
-     */
-    errors?: Array<Error>;
-    /**
-     * An array of AdditionalRecipientReceivables that match your query.
-     */
-    receivables?: Array<AdditionalRecipientReceivable>;
-    /**
-     * A pagination cursor for retrieving the next set of results, if any remain.
-     * Provide this value as the `cursor` parameter in a subsequent request to this endpoint.
-     * See [Paginating results](#paginatingresults) for more information.
-     */
-    cursor?: string;
-}
+export class JobAssignmentPayType {}
 
 /**
  * Request object for fetching all `BankAccount` objects linked to a account.
@@ -4856,7 +6080,7 @@ export class ListCatalogRequest {
 
 export class ListCatalogResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -4868,6 +6092,71 @@ export class ListCatalogResponse {
      * The CatalogObjects returned.
      */
     objects?: Array<CatalogObject>;
+}
+
+/**
+ * Defines the query parameters that can be provided in a request to the [ListCustomerGroups](#endpoint-listcustomergroups) endpoint.
+ */
+export class ListCustomerGroupsRequest {
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for your original query.
+     * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [ListCustomerGroups](#endpoint-listcustomergroups) endpoint.
+ * One of `errors` or `groups` is present in a given response (never both).
+ */
+export class ListCustomerGroupsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * A list of customer groups belonging to the current merchant.
+     */
+    groups?: Array<CustomerGroup>;
+    /**
+     * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
+     * This value is present only if the request succeeded and additional results are available.
+     * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+/**
+ * Defines the valid parameters for requests to __ListCustomerSegments__.
+ */
+export class ListCustomerSegmentsRequest {
+    /**
+     * A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.
+     * See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+/**
+ * Defines the fields included in the response body for requests to __ListCustomerSegments__.
+ * One of `errors` or `segments` is present in a given response (never both).
+ */
+export class ListCustomerSegmentsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The list of customer segments belonging to the associated Square account.
+     */
+    segments?: Array<CustomerSegment>;
+    /**
+     * A pagination cursor to be used in subsequent calls to __ListCustomerSegments__ to retrieve the next set of query results.
+     * Only present only if the request succeeded and additional results are available.
+     * See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
 }
 
 /**
@@ -4908,6 +6197,46 @@ export class ListCustomersResponse {
      * A pagination cursor to retrieve the next set of results for the original query.
      * Only present if the request succeeded and additional results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+export class ListDeviceCodesRequest {
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for your original query.
+     * See [Paginating results](#paginatingresults) for more information.
+     */
+    cursor?: string;
+    /**
+     * If specified, only returns DeviceCodes of the specified location. Returns DeviceCodes of all locations if empty.
+     */
+    location_id?: string;
+    /**
+     * If specified, only returns DeviceCodes targeting the specified product type.
+     * Returns DeviceCodes of all product types if empty. See [ProductType](#type-producttype) for possible values.
+     */
+    product_type?: string;
+    /**
+     * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status `PAIRED` and `UNPAIRED` if empty.
+     * See [DeviceCodeStatus](#type-devicecodestatus) for possible values
+     */
+    status?: Array<string>;
+}
+
+export class ListDeviceCodesResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The queried DeviceCode.
+     */
+    device_codes?: Array<DeviceCode>;
+    /**
+     * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
+     * This value is present only if the request succeeded and additional results are available.
+     * See [Paginating results](#paginatingresults) for more information.
      */
     cursor?: string;
 }
@@ -5051,6 +6380,46 @@ export class ListEmployeesResponse {
 }
 
 /**
+ * Describes a `ListInvoice` request.
+ */
+export class ListInvoicesRequest {
+    /**
+     * The ID of the location for which to list invoices.
+     */
+    location_id: string;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this cursor to retrieve the next set of results for your original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+    /**
+     * The maximum number of invoices to return (200 is the maximum `limit`).
+     * If not provided, the server  uses a default limit of 100 invoices.
+     */
+    limit?: number;
+}
+
+/**
+ * Describes a `ListInvoice` response.
+ */
+export class ListInvoicesResponse {
+    /**
+     * The invoices retrieved.
+     */
+    invoices?: Array<Invoice>;
+    /**
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
+     * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  * Defines the fields that are included in requests to the __ListLocations__ endpoint.
  */
 export class ListLocationsRequest {}
@@ -5068,6 +6437,25 @@ export class ListLocationsResponse {
      * The business locations.
      */
     locations?: Array<Location>;
+}
+
+/**
+ * A request to list `LoyaltyProgram`.
+ */
+export class ListLoyaltyProgramsRequest {}
+
+/**
+ * A response that contains all loyalty programs.
+ */
+export class ListLoyaltyProgramsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * A list of `LoyaltyProgram` for the merchant.
+     */
+    programs?: Array<LoyaltyProgram>;
 }
 
 /**
@@ -5121,7 +6509,7 @@ export class ListPaymentRefundsRequest {
      */
     cursor?: string;
     /**
-     * ID of location associated with payment.
+     * Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      */
     location_id?: string;
     /**
@@ -5135,6 +6523,12 @@ export class ListPaymentRefundsRequest {
      * Default: If omitted refunds are returned regardless of source type.
      */
     source_type?: string;
+    /**
+     * Maximum number of results to be returned in a single page.
+     * It is possible to receive fewer results than the specified limit on a given page.
+     * If the supplied value is greater than 100, at most 100 results will be returned. Default: `100`
+     */
+    limit?: number;
 }
 
 /**
@@ -5158,43 +6552,51 @@ export class ListPaymentRefundsResponse {
 }
 
 /**
- * Retrieves a list of refunds taken by the account making the request. Max results per page: 100.
+ * Retrieves a list of payments taken by the account making the request. The maximum results per page is 100.
  */
 export class ListPaymentsRequest {
     /**
-     * Timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive.
-     * Default: The current time minus one year.
+     * The timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
      */
     begin_time?: string;
     /**
-     * Timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The current time.
+     * The timestamp for the end of the reporting period, in RFC 3339 format. Default: The current time.
      */
     end_time?: string;
     /**
-     * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
+     * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest (default).
      */
     sort_order?: string;
     /**
-     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this cursor to retrieve the next set of results for the original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      */
     cursor?: string;
     /**
-     * Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
+     * Limit results to the location supplied.
+     * By default, results are returned for the default (main) location associated with the seller.
      */
     location_id?: string;
     /**
-     * The exact amount in the total_money for a `Payment`.
+     * The exact amount in the `total_money` for a payment.
      */
     total?: number;
     /**
-     * The last 4 digits of `Payment` card.
+     * The last four digits of a payment card.
      */
     last_4?: string;
     /**
-     * The brand of `Payment` card. For example, `VISA`.
+     * The brand of the payment card (for example, VISA).
      */
     card_brand?: CardBrandType;
+    /**
+     * The maximum number of results to be returned in a single page.
+     * It is possible to receive fewer results than the specified limit on a given page.
+     * The default value of 100 is also the maximum allowed value. If the provided value is greater than 100, it is
+     * ignored and the default value is used instead. Default: `100`
+     */
+    limit?: number;
 }
 
 /**
@@ -5202,16 +6604,16 @@ export class ListPaymentsRequest {
  */
 export class ListPaymentsResponse {
     /**
-     * Information on errors encountered during the request.
+     * Information about errors encountered during the request.
      */
     errors?: Array<Error>;
     /**
-     * The requested list of `Payment`s.
+     * The requested list of payments.
      */
     payments?: Array<Payment>;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
-     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      */
     cursor?: string;
 }
@@ -5263,6 +6665,77 @@ export class ListRefundsResponse {
      * See [Paginating results](#paginatingresults) for more information.
      */
     cursor?: string;
+}
+
+/**
+ * Defines parameters in a [ListSubscriptionEvents](#endpoint-subscriptions-listsubscriptionevents) endpoint request.
+ */
+export class ListSubscriptionEventsRequest {
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for the original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+    /**
+     * The upper limit on the number of subscription events to return in the response. Default: `200`
+     */
+    limit?: number;
+}
+
+/**
+ * Defines the fields that are included in the response from the [ListSubscriptionEvents](#endpoint-subscriptions-listsubscriptionevents) endpoint.
+ */
+export class ListSubscriptionEventsResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The `SubscriptionEvents` retrieved.
+     */
+    subscription_events?: Array<SubscriptionEvent>;
+    /**
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of events.
+     * If empty, this is the final response.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+}
+/**
+ * A request for a set of `TeamMemberWage` objects
+ */
+export class ListTeamMemberWagesRequest {
+    /**
+     * Filter wages returned to only those that are associated with the specified team member.
+     */
+    team_member_id?: string;
+    /**
+     * Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
+     */
+    limit?: number;
+    /**
+     * Pointer to the next page of Employee Wage results to fetch.
+     */
+    cursor?: string;
+}
+
+/**
+ * The response to a request for a set of `TeamMemberWage` objects. Contains a set of `TeamMemberWage`.
+ */
+export class ListTeamMemberWagesResponse {
+    /**
+     * A page of Team Member Wage results.
+     */
+    team_member_wages?: Array<TeamMemberWage>;
+    /**
+     * Value supplied in the subsequent request to fetch the next next page of Team Member Wage results.
+     */
+    cursor?: string;
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
 }
 
 /**
@@ -5444,7 +6917,9 @@ export class Location {
      */
     coordinates?: Coordinates;
     /**
-     * The URL of the logo image for the location.
+     * The URL of the logo image for the location. The Seller must choose this logo in the Seller dashboard (Receipts section)
+     * for the logo to appear on transactions (such as receipts, invoices) that Square generates on behalf of the Seller.
+     * This image should have an aspect ratio close to 1:1 and is recommended to be at least 200x200 pixels.
      */
     logo_url?: string;
     /**
@@ -5456,6 +6931,13 @@ export class Location {
      * The MCC describes the kind of goods or services sold at the location.
      */
     mcc?: string;
+    /**
+     * The URL of a full-format logo image for the location.
+     * The Seller must choose this logo in the Seller dashboard (Receipts section) for the logo to appear on
+     * transactions (such as receipts, invoices) that Square generates on behalf of the Seller.
+     * This image can have an aspect ratio of 2:1 or greater and is recommended to be at least 1280x648 pixels.
+     */
+    full_format_logo_url?: string;
 }
 
 /**
@@ -5472,6 +6954,570 @@ export class LocationStatus {}
  * A location's physical or mobile type.
  */
 export class LocationType {}
+
+/**
+ * Describes a loyalty account. For more information, see [Loyalty Overview](/docs/loyalty/overview).
+ */
+export class LoyaltyAccount {
+    /**
+     * The Square-assigned ID of the loyalty account.
+     */
+    id?: string;
+    /**
+     * The list of mappings that the account is associated with.
+     * Currently, a buyer can only be mapped to a loyalty account using a phone number.
+     * Therefore, the list can only have one mapping.
+     */
+    mappings: Array<LoyaltyAccountMapping>;
+    /**
+     * The Square-assigned ID of the `loyalty program` to which the account belongs.
+     */
+    program_id: string;
+    /**
+     * The available point balance in the loyalty account.
+     * Your application should be able to handle loyalty accounts that have a negative point balance (`balance` is less than 0).
+     * This might occur if a seller makes a manual adjustment or as a result of a refund or exchange.
+     */
+    balance?: number;
+    /**
+     * The total points accrued during the lifetime of the account.
+     */
+    lifetime_points?: number;
+    /**
+     * The Square-assigned ID of the `customer` that is associated with the account.
+     */
+    customer_id?: string;
+    /**
+     * The timestamp when enrollment occurred, in RFC 3339 format.
+     */
+    enrolled_at?: string;
+    /**
+     * The timestamp when the loyalty account was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The timestamp when the loyalty account was last updated, in RFC 3339 format.
+     */
+    updated_at?: string;
+}
+
+/**
+ * Associates a loyalty account with the buyer's phone number. For more information, see [Loyalty Overview](/docs/loyalty/overview).
+ */
+export class LoyaltyAccountMapping {
+    /**
+     * The Square-assigned ID of the mapping.
+     */
+    id?: string;
+    /**
+     * The type of mapping. See [LoyaltyAccountMappingType](#type-loyaltyaccountmappingtype) for possible values.
+     */
+    type: string;
+    /**
+     * The phone number, in E.164 format. For example, \"+14155551111\".
+     */
+    value: string;
+    /**
+     * The timestamp when the mapping was created, in RFC 3339 format.
+     */
+    created_at?: string;
+}
+
+/**
+ * The type of mapping.
+ */
+export class LoyaltyAccountMappingType {}
+
+/**
+ * Provides information about a loyalty event. For more information, see [Loyalty events](/docs/loyalty-api/overview/#loyalty-events).
+ */
+export class LoyaltyEvent {
+    /**
+     * The Square-assigned ID of the loyalty event.
+     */
+    id: string;
+    /**
+     * The type of the loyalty event. See [LoyaltyEventType](#type-loyaltyeventtype) for possible values.
+     */
+    type: string;
+    /**
+     * The timestamp when the event was created, in RFC 3339 format.
+     */
+    created_at: string;
+    /**
+     * Provides metadata when the event `type` is `ACCUMULATE_POINTS`.
+     */
+    accumulate_points?: LoyaltyEventAccumulatePoints;
+    /**
+     * Provides metadata when the event `type` is `CREATE_REWARD`.
+     */
+    create_reward?: LoyaltyEventCreateReward;
+    /**
+     * Provides metadata when the event `type` is `REDEEM_REWARD`.
+     */
+    redeem_reward?: LoyaltyEventRedeemReward;
+    /**
+     * Provides metadata when the event `type` is `DELETE_REWARD`.
+     */
+    delete_reward?: LoyaltyEventDeleteReward;
+    /**
+     * Provides metadata when the event `type` is `ADJUST_POINTS`.
+     */
+    adjust_points?: LoyaltyEventAdjustPoints;
+    /**
+     * The ID of the `loyalty account` in which the event occurred.
+     */
+    loyalty_account_id: string;
+    /**
+     * The ID of the `location` where the event occurred.
+     */
+    location_id?: string;
+    /**
+     * Defines whether the event was generated by the Square Point of Sale.
+     * See [LoyaltyEventSource](#type-loyaltyeventsource) for possible values.
+     */
+    source: string;
+    /**
+     * Provides metadata when the event `type` is `EXPIRE_POINTS`.
+     */
+    expire_points?: LoyaltyEventExpirePoints;
+    /**
+     * Provides metadata when the event `type` is `OTHER`.
+     */
+    other_event?: LoyaltyEventOther;
+}
+
+/**
+ * Provides metadata when the event `type` is `ACCUMULATE_POINTS`.
+ */
+export class LoyaltyEventAccumulatePoints {
+    /**
+     * The ID of the `loyalty program`.
+     */
+    loyalty_program_id?: string;
+    /**
+     * The number of points accumulated by the event.
+     */
+    points?: number;
+    /**
+     * The ID of the `order` for which the buyer accumulated the points.
+     * This field is returned only if the Orders API is used to process orders.
+     */
+    order_id?: string;
+}
+
+/**
+ * Provides metadata when the event `type` is `ADJUST_POINTS`.
+ */
+export class LoyaltyEventAdjustPoints {
+    /**
+     * The Square-assigned ID of the `loyalty program`.
+     */
+    loyalty_program_id?: string;
+    /**
+     * The number of points added or removed.
+     */
+    points: number;
+    /**
+     * The reason for the adjustment of points.
+     */
+    reason?: string;
+}
+
+/**
+ * Provides metadata when the event `type` is `CREATE_REWARD`.
+ */
+export class LoyaltyEventCreateReward {
+    /**
+     * The ID of the `loyalty program`.
+     */
+    loyalty_program_id: string;
+    /**
+     * The Square-assigned ID of the created `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
+     */
+    reward_id?: string;
+    /**
+     * The loyalty points used to create the reward.
+     */
+    points: number;
+}
+
+/**
+ * Filter events by date time range.
+ */
+export class LoyaltyEventDateTimeFilter {
+    /**
+     * The `created_at` date time range used to filter the result.
+     */
+    created_at: TimeRange;
+}
+
+/**
+ * Provides metadata when the event `type` is `DELETE_REWARD`.
+ */
+export class LoyaltyEventDeleteReward {
+    /**
+     * The ID of the `loyalty program`.
+     */
+    loyalty_program_id: string;
+    /**
+     * The ID of the deleted `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
+     */
+    reward_id?: string;
+    /**
+     * The number of points returned to the loyalty account.
+     */
+    points: number;
+}
+
+/**
+ * Provides metadata when the event `type` is `EXPIRE_POINTS`.
+ */
+export class LoyaltyEventExpirePoints {
+    /**
+     * The Square-assigned ID of the `loyalty program`.
+     */
+    loyalty_program_id: string;
+    /**
+     * The number of points expired.
+     */
+    points: number;
+}
+
+/**
+ * The filtering criteria. If the request specifies multiple filters, the endpoint uses a logical AND to evaluate them.
+ */
+export class LoyaltyEventFilter {
+    /**
+     * Filter events by loyalty account.
+     */
+    loyalty_account_filter?: LoyaltyEventLoyaltyAccountFilter;
+    /**
+     * Filter events by event type.
+     */
+    type_filter?: LoyaltyEventTypeFilter;
+    /**
+     * Filter events by date time range.  For each range, the start time is inclusive and the end time  is exclusive.
+     */
+    date_time_filter?: LoyaltyEventDateTimeFilter;
+    /**
+     * Filter events by location.
+     */
+    location_filter?: LoyaltyEventLocationFilter;
+    /**
+     * Filter events by the order associated with the event.
+     */
+    order_filter?: LoyaltyEventOrderFilter;
+}
+
+/**
+ * Filter events by location.
+ */
+export class LoyaltyEventLocationFilter {
+    /**
+     * The `location` IDs for loyalty events to query.
+     * If multiple values are specified, the endpoint uses a logical OR to combine them.
+     */
+    location_ids: Array<string>;
+}
+
+/**
+ * Filter events by loyalty account.
+ */
+export class LoyaltyEventLoyaltyAccountFilter {
+    /**
+     * The ID of the `loyalty account` associated with loyalty events.
+     */
+    loyalty_account_id: string;
+}
+
+/**
+ * Filter events by the order associated with the event.
+ */
+export class LoyaltyEventOrderFilter {
+    /**
+     * The ID of the `order` associated with the event.
+     */
+    order_id: string;
+}
+
+/**
+ * Provides metadata when the event `type` is `OTHER`.
+ */
+export class LoyaltyEventOther {
+    /**
+     * The Square-assigned ID of the `loyalty program`.
+     */
+    loyalty_program_id: string;
+    /**
+     * The number of points added or removed.
+     */
+    points: number;
+}
+
+/**
+ * Represents a query used to search for loyalty events.
+ */
+export class LoyaltyEventQuery {
+    /**
+     * The query filter criteria.
+     */
+    filter?: LoyaltyEventFilter;
+}
+
+/**
+ * Provides metadata when the event `type` is `REDEEM_REWARD`.
+ */
+export class LoyaltyEventRedeemReward {
+    /**
+     * The ID of the `loyalty program`.
+     */
+    loyalty_program_id: string;
+    /**
+     * The ID of the redeemed `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
+     */
+    reward_id?: string;
+    /**
+     * The ID of the `order` that redeemed the reward.
+     * This field is returned only if the Orders API is used to process orders.
+     */
+    order_id?: string;
+}
+
+/**
+ * Defines whether the event was generated by the Square Point of Sale.
+ */
+export class LoyaltyEventSource {}
+
+/**
+ * The type of the loyalty event.
+ */
+export class LoyaltyEventType {}
+
+/**
+ * Filter events by event type.
+ */
+export class LoyaltyEventTypeFilter {
+    /**
+     * The loyalty event types used to filter the result. If multiple values are specified, the endpoint uses a logical OR to combine them.
+     * See [LoyaltyEventType](#type-loyaltyeventtype) for possible values.
+     */
+    types: Array<string>;
+}
+
+export class LoyaltyProgram {
+    /**
+     * The Square-assigned ID of the loyalty program. Updates to the loyalty program do not modify the identifier.
+     */
+    id: string;
+    /**
+     * Whether the program is currently active. See [LoyaltyProgramStatus](#type-loyaltyprogramstatus) for possible values
+     */
+    status: string;
+    /**
+     * The list of rewards for buyers, sorted by ascending points.
+     */
+    reward_tiers: Array<LoyaltyProgramRewardTier>;
+    /**
+     * If present, details for how points expire.
+     */
+    expiration_policy?: LoyaltyProgramExpirationPolicy;
+    /**
+     * A cosmetic name for the “points” currency.
+     */
+    terminology: LoyaltyProgramTerminology;
+    /**
+     * The `locations` at which the program is active.
+     */
+    location_ids: Array<string>;
+    /**
+     * The timestamp when the program was created, in RFC 3339 format.
+     */
+    created_at: string;
+    /**
+     * The timestamp when the reward was last updated, in RFC 3339 format.
+     */
+    updated_at: string;
+    /**
+     * Defines how buyers can earn loyalty points.
+     */
+    accrual_rules: Array<LoyaltyProgramAccrualRule>;
+}
+
+/**
+ * Defines an accrual rule, which is how buyers can earn points.
+ */
+export class LoyaltyProgramAccrualRule {
+    /**
+     * The type of the accrual rule that defines how buyers can earn points.
+     * See [LoyaltyProgramAccrualRuleType](#type-loyaltyprogramaccrualruletype) for possible values.
+     */
+    accrual_type: string;
+    /**
+     * The number of points that  buyers earn based on the `accrual_type`.
+     */
+    points?: number;
+    /**
+     * When the accrual rule is visit-based (`accrual_type` is `VISIT`), this field indicates the minimum purchase
+     * required during the visit to  quality for the reward.
+     */
+    visit_minimum_amount_money?: Money;
+    /**
+     * When the accrual rule is spend-based (`accrual_type` is `SPEND`), this field indicates the amount that a buyer must spend
+     * to earn the points. For example, suppose the accrual rule is \"earn 1 point for every $10 you spend\".
+     * Then, buyer earns a point for every $10 they spend. If  buyer spends $105, the buyer earns 10 points.
+     */
+    spend_amount_money?: Money;
+    /**
+     * The ID of the `catalog object` to purchase to earn the number of points defined by the rule.
+     * This is either an item variation or a category, depending on the type. This is defined on `ITEM_VARIATION` rules and `CATEGORY` rules.
+     */
+    catalog_object_id?: string;
+}
+
+/**
+ * The type of the accrual rule that defines how buyers can earn points.
+ */
+export class LoyaltyProgramAccrualRuleType {}
+
+/**
+ * Describes when the loyalty program expires.
+ */
+export class LoyaltyProgramExpirationPolicy {
+    /**
+     * The duration of time before points expire, in RFC 3339 format.
+     */
+    expiration_duration: string;
+}
+
+/**
+ * Provides details about the loyalty program reward tier definition.
+ */
+export class LoyaltyProgramRewardDefinition {
+    /**
+     * Indicates the scope of the reward tier.
+     * See [LoyaltyProgramRewardDefinitionScope](#type-loyaltyprogramrewarddefinitionscope) for possible values.
+     */
+    scope: string;
+    /**
+     * The type of discount the reward tier offers.
+     * See [LoyaltyProgramRewardDefinitionType](#type-loyaltyprogramrewarddefinitiontype) for possible values.
+     */
+    discount_type: string;
+    /**
+     * Present if `discount_type` is `FIXED_PERCENTAGE`. For example, a 7.25% off discount will be represented as \"7.25\".
+     */
+    percentage_discount?: string;
+    /**
+     * A list of `catalog object` ids to which this reward can be applied.
+     * They are either all item-variation ids or category ids, depending on the `type` field.
+     */
+    catalog_object_ids?: Array<string>;
+    /**
+     * Present if `discount_type` is `FIXED_AMOUNT`. For example, $5 off.
+     */
+    fixed_discount_money?: Money;
+    /**
+     * When `discount_type` is `FIXED_PERCENTAGE`, the maximum discount amount that can be applied.
+     */
+    max_discount_money?: Money;
+}
+
+/**
+ * Indicates the scope of the reward tier.
+ */
+export class LoyaltyProgramRewardDefinitionScope {}
+
+/**
+ * The type of discount the reward tier offers.
+ */
+export class LoyaltyProgramRewardDefinitionType {}
+
+/**
+ * Describes a loyalty program reward tier.
+ */
+export class LoyaltyProgramRewardTier {
+    /**
+     * The Square-assigned ID of the reward tier.
+     */
+    id: string;
+    /**
+     * The points exchanged for the reward tier.
+     */
+    points: number;
+    /**
+     * The name of the reward tier.
+     */
+    name: string;
+    /**
+     * Provides details about the reward tier definition.
+     */
+    definition: LoyaltyProgramRewardDefinition;
+    /**
+     * The timestamp when the reward tier was created, in RFC 3339 format.
+     */
+    created_at: string;
+}
+
+/**
+ * Whether the program is currently active.
+ */
+export class LoyaltyProgramStatus {}
+
+export class LoyaltyProgramTerminology {
+    /**
+     * A singular unit for a point (for example, 1 point is called 1 star).
+     */
+    one: string;
+    /**
+     * A plural unit for point (for example, 10 points is called 10 stars).
+     */
+    other: string;
+}
+
+export class LoyaltyReward {
+    /**
+     * The Square-assigned ID of the loyalty reward.
+     */
+    id?: string;
+    /**
+     * The status of a loyalty reward. See [LoyaltyRewardStatus](#type-loyaltyrewardstatus) for possible values.
+     */
+    status?: string;
+    /**
+     * The Square-assigned ID of the `loyalty account` to which the reward belongs.
+     */
+    loyalty_account_id: string;
+    /**
+     * The Square-assigned ID of the `reward tier` used to create the reward.
+     */
+    reward_tier_id: string;
+    /**
+     * The number of loyalty points used for the reward.
+     */
+    points?: number;
+    /**
+     * The Square-assigned ID of the `order` to which the reward is attached.
+     */
+    order_id?: string;
+    /**
+     * The timestamp when the reward was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The timestamp when the reward was last updated, in RFC 3339 format.
+     */
+    updated_at?: string;
+    /**
+     * The timestamp when the reward was redeemed, in RFC 3339 format.
+     */
+    redeemed_at?: string;
+}
+
+/**
+ * The status of the loyalty reward.
+ */
+export class LoyaltyRewardStatus {}
 
 /**
  * Represents a unit of measurement to use with a quantity, such as ounces or inches.
@@ -5577,8 +7623,7 @@ export class Merchant {
      */
     business_name?: string;
     /**
-     * The country code associated with the merchant account, in ISO 3166-1-alpha-2 format.
-     * See [Country](#type-country) for possible values.
+     * The country code associated with the merchant account, in ISO 3166 format. See [Country](#type-country) for possible values.
      */
     country: string;
     /**
@@ -5593,16 +7638,13 @@ export class Merchant {
      * The merchant status, active or inactive. See [MerchantStatus](#type-merchantstatus) for possible values
      */
     status?: string;
+    /**
+     * The ID of the main `Location` for this merchant.
+     */
+    main_location_id?: string;
 }
 
 export class MerchantStatus {}
-
-export class MethodErrorCodes {
-    /**
-     * See [ErrorCode](#type-errorcode) for possible values.
-     */
-    value?: Array<string>;
-}
 
 /**
  * A record of an employee's break during a shift.
@@ -5618,8 +7660,6 @@ export class ModelBreak {
     start_at: string;
     /**
      * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected; seconds are truncated.
-     * The `end_at` minute is not counted when the break length is calculated. For example, a break from `00:00` to
-     * `00:11` is considered a 10 minute break (midnight to 10 minutes after midnight).
      */
     end_at?: string;
     /**
@@ -5756,8 +7796,8 @@ export class ObtainTokenResponse {
      */
     id_token?: string;
     /**
-     * A refresh token. For more information, see [OAuth access token management]
-     * @link https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management
+     * A refresh token. OAuth refresh tokens are 64 bytes long.
+     * For more information, see [OAuth access token management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
      */
     refresh_token?: string;
 }
@@ -5866,7 +7906,7 @@ export class Order {
      */
     updated_at?: string;
     /**
-     * Timestamp for when the order was closed. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     * Timestamp for when the order reached a terminal [state](#property-state). In RFC 3339 format, e.g., \"2016-09-04T23:59:33.123Z\".
      */
     closed_at?: string;
     /**
@@ -5892,11 +7932,57 @@ export class Order {
      */
     total_discount_money?: Money;
     /**
+     * The total tip amount of money to collect for the order.
+     */
+    total_tip_money?: Money;
+    /**
      * The total amount of money collected in service charges for the order.
      * @note `total_service_charge_money` is the sum of `applied_money` fields for each individual service charge.
-     * Therefore, `total_service_charge_money` will only include inclusive tax amounts, not additive tax amounts.
+     *  Therefore, `total_service_charge_money` will only include inclusive tax amounts, not additive tax amounts.
      */
     total_service_charge_money?: Money;
+    /**
+     * Pricing options for an order. The options affect how the order's price is calculated.
+     * They can be used, for example, to apply automatic price adjustments that are based on pre-configured
+     * [pricing rules](https://developer.squareup.com/docs/reference/square/objects/CatalogPricingRule).
+     */
+    pricing_options?: OrderPricingOptions;
+    /**
+     * A set-like list of rewards that have been added to the order.
+     */
+    rewards?: Array<OrderReward>;
+}
+
+export class OrderCreated {
+    /**
+     * The order's unique ID.
+     */
+    order_id?: string;
+    /**
+     * Version number which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API will not include a version and thus cannot be updated.
+     * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders).
+     */
+    version?: number;
+    /**
+     * The ID of the merchant location this order is associated with.
+     */
+    location_id?: string;
+    /**
+     * The state of the order. See [OrderState](#type-orderstate) for possible values.
+     */
+    state?: string;
+    /**
+     * Timestamp for when the order was created in RFC 3339 format.
+     */
+    created_at?: string;
+}
+
+export class OrderCreatedObject {
+    /**
+     * Information about the created order.
+     */
+    order_created?: OrderCreated;
 }
 
 /**
@@ -6048,6 +8134,29 @@ export class OrderFulfillmentPickupDetails {
      * A description of why the pickup was canceled. Max length: 100 characters.
      */
     cancel_reason?: string;
+    /**
+     * If true, indicates this pickup order is for curbside pickup, not in-store pickup.
+     */
+    is_curbside_pickup?: boolean;
+    /**
+     * Specific details for curbside pickup. Can only be populated if `is_curbside_pickup` is true.
+     */
+    curbside_pickup_details?: OrderFulfillmentPickupDetailsCurbsidePickupDetails;
+}
+
+/**
+ * Specific details for curbside pickup.
+ */
+export class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
+    /**
+     * Specific details for curbside pickup, such as parking number, vehicle model, etc.
+     */
+    curbside_details?: string;
+    /**
+     * The [timestamp](#workingwithdates) in RFC 3339 timestamp format, e.g., \"2016-09-04T23:59:33.123Z\",
+     * indicating when the buyer arrived and is waiting for pickup.
+     */
+    buyer_arrived_at?: string;
 }
 
 /**
@@ -6168,6 +8277,68 @@ export class OrderFulfillmentState {}
  */
 export class OrderFulfillmentType {}
 
+export class OrderFulfillmentUpdated {
+    /**
+     * The order's unique ID.
+     */
+    order_id?: string;
+    /**
+     * Version number which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API will not include a version and thus cannot be updated.
+     * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders)
+     */
+    version?: number;
+    /**
+     * The ID of the merchant location this order is associated with.
+     */
+    location_id?: string;
+    /**
+     * The state of the order. See [OrderState](#type-orderstate) for possible values
+     */
+    state?: string;
+    /**
+     * Timestamp for when the order was created in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * Timestamp for when the order was last updated in RFC 3339 format.
+     */
+    updated_at?: string;
+    /**
+     * The fulfillment that were updated with this version change.
+     */
+    fulfillment_update?: Array<OrderFulfillmentUpdatedUpdate>;
+}
+
+export class OrderFulfillmentUpdatedObject {
+    /**
+     * Information about the updated order fulfillment.
+     */
+    order_fulfillment_updated?: OrderFulfillmentUpdated;
+}
+
+/**
+ * Information about fulfillment updates.
+ */
+export class OrderFulfillmentUpdatedUpdate {
+    /**
+     * Unique ID that identifies the fulfillment only within this order.
+     */
+    fulfillment_uid?: string;
+    /**
+     * The state of the fulfillment before the change.
+     * Will not be populated if the fulfillment is created with this new Order version.
+     * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
+     */
+    old_state?: string;
+    /**
+     * The state of the fulfillment after the change.
+     * May be equal to old_state if a non-state field was changed on the fulfillment (e.g. tracking number).
+     * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
+     */
+    new_state?: string;
+}
+
 /**
  * Represents a line item in an order.
  * Each line item describes a different product to purchase, with its own quantity and price details.
@@ -6182,8 +8353,9 @@ export class OrderLineItem {
      */
     name?: string;
     /**
-     * The quantity purchased, formatted as a decimal number. For example: "3".
-     * Line items with a `quantity_unit` can have non-integer quantities. For example: "1.70000".
+     * The quantity purchased, formatted as a decimal number. For example: `\"3\"`.
+     * Line items with a quantity of `\"0\"` will be automatically removed upon paying for or otherwise completing the order.
+     * Line items with a `quantity_unit` can have non-integer quantities. For example: `\"1.70000\"`.
      */
     quantity: string;
     /**
@@ -6367,6 +8539,19 @@ export class OrderLineItemDiscount {
      * See [OrderLineItemDiscountScope](#type-orderlineitemdiscountscope) for possible values.
      */
     scope?: DiscountApplicationScopeType;
+    /**
+     * The reward identifiers corresponding to this discount.
+     * The application and specification of discounts that have `reward_ids` are completely controlled by the backing
+     * criteria corresponding to the reward tiers of the rewards that are added to the order through the Loyalty API.
+     * To manually unapply discounts that are the result of added rewards, the rewards must be removed from the order through the Loyalty API.
+     */
+    reward_ids?: Array<string>;
+    /**
+     * The object identifier of a `pricing rule` to be applied automatically to this discount.
+     * The specification and application of the discounts, to which a `pricing_rule_id` is assigned,
+     * are completely controlled by the corresponding pricing rule.
+     */
+    pricing_rule_id?: string;
 }
 
 /**
@@ -6495,6 +8680,18 @@ export class OrderMoneyAmounts {
      * Money associated with service charges.
      */
     service_charge_money?: Money;
+}
+
+/**
+ * Pricing options for an order. The options affect how the order's price is calculated.
+ * They can be used, for example, to apply automatic price adjustments that are based on
+ * pre-configured [pricing rules](/reference/square/objects/CatalogPricingRule).
+ */
+export class OrderPricingOptions {
+    /**
+     * The option to determine whether or not pricing rule-based discounts are automatically applied to an order.
+     */
+    auto_apply_discounts?: boolean;
 }
 
 /**
@@ -6827,6 +9024,21 @@ export class OrderReturnTax {
 }
 
 /**
+ * Represents a reward that may be applied to an order if the necessary reward tier criteria are met.
+ * Rewards are created through the Loyalty API.
+ */
+export class OrderReward {
+    /**
+     * The identifier of the reward.
+     */
+    id: string;
+    /**
+     * The identifier of the reward tier corresponding to this reward.
+     */
+    reward_tier_id: string;
+}
+
+/**
  * A rounding adjustment of the money being returned. Commonly used to apply Cash Rounding when the minimum unit
  * of account is smaller than the lowest physical denomination of currency.
  */
@@ -6942,6 +9154,42 @@ export class OrderSource {
  */
 export class OrderState {}
 
+export class OrderUpdated {
+    /**
+     * The order's unique ID.
+     */
+    order_id?: string;
+    /**
+     * Version number which is incremented each time an update is committed to the order.
+     * Orders that were not created through the API will not include a version and thus cannot be updated.
+     * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders).
+     */
+    version?: number;
+    /**
+     * The ID of the merchant location this order is associated with.
+     */
+    location_id?: string;
+    /**
+     * The state of the order. See [OrderState](#type-orderstate) for possible values
+     */
+    state?: string;
+    /**
+     * Timestamp for when the order was created in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * Timestamp for when the order was last updated in RFC 3339 format.
+     */
+    updated_at?: string;
+}
+
+export class OrderUpdatedObject {
+    /**
+     * Information about the updated order.
+     */
+    order_updated?: OrderUpdated;
+}
+
 /**
  * Defines the fields that are included in requests to the [PayOrder](#endpoint-payorder) endpoint.
  */
@@ -6957,7 +9205,9 @@ export class PayOrderRequest {
      * The version of the order being paid. If not supplied, the latest version will be paid.
      */
     order_version?: number;
-
+    /**
+     * The IDs of the `payments` to collect. The payment total must match the order total.
+     */
     payment_ids?: Array<string>;
 }
 
@@ -7049,7 +9299,7 @@ export class Payment {
      */
     delayed_until?: string;
     /**
-     * The source type for this payment.
+     * The source type for this payment. Current values include: `CARD`.
      */
     source_type?: string;
     /**
@@ -7069,7 +9319,7 @@ export class Payment {
      */
     reference_id?: string;
     /**
-     * An optional customer_id to be entered by the developer when creating a payment.
+     * The `Customer` ID of the customer associated with the payment.
      */
     customer_id?: string;
     /**
@@ -7098,8 +9348,8 @@ export class Payment {
     note?: string;
     /**
      * Additional payment information that gets added on the customer's card statement as part of the statement description.
-     * Note that the statement_description_identifier may get truncated on the statement description to fit the
-     * required information including the Square identifier (SQ *) and name of the merchant taking the payment.
+     * Note that the `statement_description_identifier` may get truncated on the statement description to fit the required
+     * information including the Square identifier (SQ *) and name of the merchant taking the payment.
      */
     statement_description_identifier?: string;
     /**
@@ -7110,6 +9360,14 @@ export class Payment {
      * The URL for the payment's receipt. The field will only be populated for COMPLETED payments.
      */
     receipt_url?: string;
+}
+
+export class PaymentOptions {
+    /**
+     * Indicates whether the Payment objects created from this `TerminalCheckout` will automatically be `COMPLETED`
+     * or left in an `APPROVED` state for later modification.
+     */
+    autocomplete?: boolean;
 }
 
 /**
@@ -7193,6 +9451,80 @@ export class ProcessingFee {
  */
 export class Product {}
 
+export class ProductType {}
+
+/**
+ * Describes a `PublishInvoice` request.
+ */
+export class PublishInvoiceRequest {
+    /**
+     * The version of the `Invoice` to publish. This must match the current version of the invoice, otherwise the request is rejected.
+     */
+    version: number;
+    /**
+     * A unique string that identifies the `PublishInvoice` request.
+     * If you do not provide `idempotency_key` (or provide an empty string as the value), the endpoint  treats each request as independent.
+     * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     */
+    idempotency_key?: string;
+}
+
+/**
+ * Describes a `PublishInvoice` response.
+ */
+export class PublishInvoiceResponse {
+    /**
+     * The published invoice.
+     */
+    invoice?: Invoice;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * The range of a number value between the specified lower and upper bounds.
+ */
+export class Range {
+    /**
+     * The lower bound of the number range.
+     */
+    min?: string;
+    /**
+     * The upper bound of the number range.
+     */
+    max?: string;
+}
+
+/**
+ * A request to redeem a loyalty reward.
+ */
+export class RedeemLoyaltyRewardRequest {
+    /**
+     * A unique string that identifies this `RedeemLoyaltyReward` request. Keys can be any valid string, but must be unique for every request.
+     */
+    idempotency_key: string;
+    /**
+     * The ID of the `location` where the reward is redeemed.
+     */
+    location_id: string;
+}
+
+/**
+ * A response that includes the `LoyaltyEvent` published for redeeming the reward.
+ */
+export class RedeemLoyaltyRewardResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The `LoyaltyEvent` for redeeming the reward.
+     */
+    event?: LoyaltyEvent;
+}
+
 /**
  * Represents a refund processed for a Square transaction.
  */
@@ -7214,7 +9546,7 @@ export class Refund {
      */
     tender_id: string;
     /**
-     * The time when the refund was created, in RFC 3339 format.
+     * The timestamp for when the refund was created, in RFC 3339 format.
      */
     created_at?: string;
     /**
@@ -7298,7 +9630,7 @@ export class RefundPaymentResponse {
 export class RefundStatus {}
 
 /**
- * Defines the parameters that can be included in the body of a request to the __RegisterDomain__ endpoint.
+ * Defines the parameters that can be included in the body of a request to the [RegisterDomain](#endpoint-registerdomain) endpoint.
  */
 export class RegisterDomainRequest {
     /**
@@ -7308,7 +9640,7 @@ export class RegisterDomainRequest {
 }
 
 /**
- * Defines the fields that are included in the response body of a request to the __RegisterDomain__ endpoint.
+ * Defines the fields that are included in the response body of a request to the [RegisterDomain](#endpoint-registerdomain) endpoint.
  * Either `errors` or `status` will be present in a given response (never both).
  */
 export class RegisterDomainResponse {
@@ -7338,6 +9670,21 @@ export class RemoveDisputeEvidenceRequest {}
 export class RemoveDisputeEvidenceResponse {
     /**
      * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Defines the fields that are included in the request body of a request to the [RemoveGroupFromCustomer](#endpoint-removegroupfromcustomer) endpoint.
+ */
+export class RemoveGroupFromCustomerRequest {}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [RemoveGroupFromCustomer](#endpoint-removegroupfromcustomer) endpoint.
+ */
+export class RemoveGroupFromCustomerResponse {
+    /**
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
 }
@@ -7403,28 +9750,47 @@ export class RetrieveCashDrawerShiftResponse {
 export class RetrieveCatalogObjectRequest {
     /**
      * If `true`, the response will include additional objects that are related to the requested object, as follows:
-     *  - If the `object` field of the response contains a CatalogItem, its associated CatalogCategory, CatalogTax objects,
-     *  CatalogImages and CatalogModifierLists will be returned in the `related_objects` field of the response.
-     *  - If the `object` field of the response contains a CatalogItemVariation, its parent CatalogItem will be returned
-     *  in the `related_objects` field of the response.
-     *  Default value: `false`
+     *  - If the `object` field of the response contains a `CatalogItem`, its associated `CatalogCategory`, `CatalogTax`,
+     *      `CatalogImage` and `CatalogModifierList` objects will be returned in the `related_objects` field of the response.
+     *  - If the `object` field of the response contains a `CatalogItemVariation`, its parent `CatalogItem` will be returned
+     *     in the `related_objects` field of the response.  Default value: `false`
      */
     include_related_objects?: boolean;
 }
 
 export class RetrieveCatalogObjectResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
-     * The CatalogObjects returned.
+     * The `CatalogObject`s returned.
      */
     object?: CatalogObject;
     /**
-     * A list of CatalogObjects referenced by the object in the `object` field.
+     * A list of `CatalogObject`s referenced by the object in the `object` field.
      */
     related_objects?: Array<CatalogObject>;
+}
+
+/**
+ * Defines the fields that can be provided in a request to the [RetrieveCustomerGroup](#endpoint-retrievecustomergroup) endpoint.
+ */
+export class RetrieveCustomerGroupRequest {}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [RetrieveCustomerGroup](#endpoint-retrievecustomergroup) endpoint.
+ * One of `errors` or `group` is present in a given response (never both).
+ */
+export class RetrieveCustomerGroupResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The retrieved customer group.
+     */
+    group?: CustomerGroup;
 }
 
 /**
@@ -7445,6 +9811,26 @@ export class RetrieveCustomerResponse {
      * The requested customer.
      */
     customer?: Customer;
+}
+
+/**
+ * Defines the valid parameters for requests to __RetrieveCustomerSegmentRequest__.
+ */
+export class RetrieveCustomerSegmentRequest {}
+
+/**
+ * Defines the fields included in the response body for requests to __RetrieveCustomerSegment__.
+ * One of `errors` or `segment` is present in a given response (never both).
+ */
+export class RetrieveCustomerSegmentResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The retrieved customer segment.
+     */
+    segment?: CustomerSegment;
 }
 
 /**
@@ -7526,7 +9912,7 @@ export class RetrieveInventoryChangesRequest {
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
-     * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
     cursor?: string;
 }
@@ -7542,7 +9928,7 @@ export class RetrieveInventoryChangesResponse {
     changes?: Array<InventoryChange>;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
-     * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
+     * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
     cursor?: string;
 }
@@ -7609,6 +9995,44 @@ export class RetrieveLocationResponse {
 }
 
 /**
+ * A request to retrieve a loyalty account.
+ */
+export class RetrieveLoyaltyAccountRequest {}
+
+/**
+ * A response that includes the loyalty account.
+ */
+export class RetrieveLoyaltyAccountResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty account.
+     */
+    loyalty_account?: LoyaltyAccount;
+}
+
+/**
+ * A request to retrieve a loyalty reward.
+ */
+export class RetrieveLoyaltyRewardRequest {}
+
+/**
+ * A response that includes the loyalty reward.
+ */
+export class RetrieveLoyaltyRewardResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty reward retrieved.
+     */
+    reward?: LoyaltyReward;
+}
+
+/**
  * Request object for the [RetrieveMerchant](#endpoint-retrievemerchant) endpoint.
  */
 export class RetrieveMerchantRequest {}
@@ -7625,6 +10049,57 @@ export class RetrieveMerchantResponse {
      * The requested `Merchant` object.
      */
     merchant?: Merchant;
+}
+
+export class RetrieveOrderRequest {}
+
+export class RetrieveOrderResponse {
+    /**
+     * The requested order.
+     */
+    order?: Order;
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Defines parameters in a [RetrieveSubscription](#endpoint-subscriptions-retrievesubscription) endpoint request.
+ */
+export class RetrieveSubscriptionRequest {}
+
+/**
+ * Defines the fields that are included in the response from the [RetrieveSubscription](#endpoint-subscriptions-retrievesubscription) endpoint.
+ */
+export class RetrieveSubscriptionResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The subscription retrieved.
+     */
+    subscription?: Subscription;
+}
+
+/**
+ * Represents a retrieve request for a `TeamMember` object.
+ */
+export class RetrieveTeamMemberRequest {}
+
+/**
+ * Represents a response from a retrieve request, containing a `TeamMember` object or error messages.
+ */
+export class RetrieveTeamMemberResponse {
+    /**
+     * The successfully retrieved `TeamMember` object.
+     */
+    team_member?: TeamMember;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
 }
 
 /**
@@ -7647,6 +10122,25 @@ export class RetrieveTransactionResponse {
     transaction?: Transaction;
 }
 
+/**
+ * Represents a retrieve request for the wage setting of a team member
+ */
+export class RetrieveWageSettingRequest {}
+
+/**
+ * Represents a response from a retrieve request, containing the specified `WageSetting` object or error messages.
+ */
+export class RetrieveWageSettingResponse {
+    /**
+     * The successfully retrieved `WageSetting` object.
+     */
+    wage_setting?: WageSetting;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
 export class RevokeTokenRequest {
     /**
      * The Square issued ID for your application, available from the [application dashboard](https://connect.squareup.com/apps).
@@ -7662,6 +10156,10 @@ export class RevokeTokenRequest {
      * Do not provide a value for access_token if you provide this parameter.
      */
     merchant_id?: string;
+    /**
+     * If `true`, terminate the given single access token, but do not terminate the entire authorization. Default: `false`
+     */
+    revoke_only_access_token?: boolean;
 }
 
 export class RevokeTokenResponse {
@@ -7669,6 +10167,80 @@ export class RevokeTokenResponse {
      * If the request is successful, this is true.
      */
     success?: boolean;
+}
+
+/**
+ * Defines the request body for the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint.
+ */
+export class SearchCatalogItemsRequest {
+    /**
+     * The text filter expression to return items or item variations containing specified text in the `name`, `description`,
+     * or `abbreviation` attribute value of an item, or in the `name`, `sku`, or `upc` attribute value of an item variation.
+     */
+    text_filter?: string;
+    /**
+     * The category id query expression to return items containing the specified category IDs.
+     */
+    category_ids?: Array<string>;
+    /**
+     * The stock-level query expression to return item variations with the specified stock levels.
+     * See [SearchCatalogItemsRequestStockLevel](#type-searchcatalogitemsrequeststocklevel) for possible values.
+     */
+    stock_levels?: Array<string>;
+    /**
+     * The enabled-location query expression to return items and item variations having specified enabled locations.
+     */
+    enabled_location_ids?: Array<string>;
+    /**
+     * The pagination token, returned in the previous response, used to fetch the next batch of pending results.
+     */
+    cursor?: string;
+    /**
+     * The maximum number of results to return per page. The default value is 100.
+     */
+    limit?: number;
+    /**
+     * The order to sort the results by item names. The default sort order is ascending (`ASC`).
+     * See [SortOrder](#type-sortorder) for possible values.
+     */
+    sort_order?: string;
+    /**
+     * The product types query expression to return items or item variations having the specified product types.
+     * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values.
+     */
+    product_types?: Array<string>;
+    /**
+     * The customer-attribute filter to return items or item variations matching the specified custom attribute expressions.
+     * A maximum number of 10 custom attribute expressions are supported in a single call to the `SearchCatalogItems` endpoint.
+     */
+    custom_attribute_filters?: Array<CustomAttributeFilter>;
+}
+
+/**
+ * Defines supported stock levels of the item inventory.
+ */
+export class SearchCatalogItemsRequestStockLevel {}
+
+/**
+ * Defines the response body returned from the [SearchCatalogItems](#endpoint-Catalog-SearchCatalogItems) endpoint.
+ */
+export class SearchCatalogItemsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * Returned items matching the specified query expressions.
+     */
+    items?: Array<CatalogObject>;
+    /**
+     * Pagination token used in the next request to return more of the search result.
+     */
+    cursor?: string;
+    /**
+     * Ids of returned item variations matching the specified query expression.
+     */
+    matched_variation_ids?: Array<string>;
 }
 
 export class SearchCatalogObjectsRequest {
@@ -7715,7 +10287,7 @@ export class SearchCatalogObjectsRequest {
 
 export class SearchCatalogObjectsResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -7778,6 +10350,190 @@ export class SearchCustomersResponse {
      * associated with the original query. Pagination cursors are only present when a request succeeds and additional
      * results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+/**
+ * Describes a `SearchInvoices` request.
+ */
+export class SearchInvoicesRequest {
+    /**
+     * Describes the query criteria for searching invoices.
+     */
+    query: InvoiceQuery;
+    /**
+     * The maximum number of invoices to return (200 is the maximum `limit`).
+     * If not provided, the server uses a default limit of 100 invoices.
+     */
+    limit?: number;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this cursor to retrieve the next set of results for your original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * Describes a `SearchInvoices` response.
+ */
+export class SearchInvoicesResponse {
+    /**
+     * The list of invoices returned by the search.
+     */
+    invoices?: Array<Invoice>;
+    /**
+     * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
+     * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * A request to search for loyalty accounts.
+ */
+export class SearchLoyaltyAccountsRequest {
+    /**
+     * The search criteria for the request.
+     */
+    query?: SearchLoyaltyAccountsRequestLoyaltyAccountQuery;
+    /**
+     * The maximum number of results to include in the response.
+     */
+    limit?: number;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * The search criteria for the loyalty accounts.
+ */
+export class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
+    /**
+     * The set of mappings to use in the loyalty account search. This cannot be combined with `customer_ids`. Max: 30 mappings.
+     */
+    mappings?: Array<LoyaltyAccountMapping>;
+    /**
+     * The set of customer IDs to use in the loyalty account search. This cannot be combined with `mappings`. Max: 30 customer IDs.
+     */
+    customer_ids?: Array<string>;
+}
+
+/**
+ * A response that includes loyalty accounts that satisfy the search criteria.
+ */
+export class SearchLoyaltyAccountsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty accounts that met the search criteria, in order of creation date.
+     */
+    loyalty_accounts?: Array<LoyaltyAccount>;
+    /**
+     * The pagination cursor to use in a subsequent request. If empty, this is the final response.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * A request to search for loyalty events.
+ */
+export class SearchLoyaltyEventsRequest {
+    /**
+     * A set of one or more predefined query filters to apply when  searching for loyalty events.
+     * The endpoint performs a logical AND to evaluate multiple filters and performs a logical OR on arrays that specifies multiple field values.
+     */
+    query?: LoyaltyEventQuery;
+    /**
+     * The maximum number of results to include in the response. The last page might contain fewer events. The default is 30 events.
+     */
+    limit?: number;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for your original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * A response that contains loyalty events that satisfy the search  criteria, in order by the `created_at` date.
+ */
+export class SearchLoyaltyEventsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty events that satisfy the search criteria.
+     */
+    events?: Array<LoyaltyEvent>;
+    /**
+     * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * A request to search for loyalty rewards.
+ */
+export class SearchLoyaltyRewardsRequest {
+    /**
+     * The search criteria for the request. If empty, the endpoint retrieves all loyalty rewards in the loyalty program.
+     */
+    query?: SearchLoyaltyRewardsRequestLoyaltyRewardQuery;
+    /**
+     * The maximum number of results to return in the response.
+     */
+    limit?: number;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for the original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * The set of search requirements.
+ */
+export class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
+    /**
+     * The ID of the `loyalty account` to which the loyalty reward belongs.
+     */
+    loyalty_account_id: string;
+    /**
+     * The status of the loyalty reward. See [LoyaltyRewardStatus](#type-loyaltyrewardstatus) for possible values.
+     */
+    status?: string;
+}
+
+/**
+ * A response that includes the loyalty rewards satisfying the search criteria.
+ */
+export class SearchLoyaltyRewardsResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The loyalty rewards that satisfy the search criteria. These are returned in descending order by `updated_at`.
+     */
+    rewards?: Array<LoyaltyReward>;
+    /**
+     * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      */
     cursor?: string;
 }
@@ -7858,7 +10614,7 @@ export class SearchOrdersFulfillmentFilter {
      * List of `fulfillment types` to filter for. Will return orders if any of its fulfillments match any of the fulfillment
      * types listed in this field. See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    fulfillment_types: Array<FulfillmentType>;
+    fulfillment_types?: Array<FulfillmentType>;
     /**
      * List of `fulfillment states` to filter for. Will return orders if any of its fulfillments match any of the
      * fulfillment states listed in this field. See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
@@ -8024,6 +10780,203 @@ export class SearchShiftsResponse {
 }
 
 /**
+ * Represents a set of SearchSubscriptionsQuery filters used to limit the set of Subscriptions returned by SearchSubscriptions.
+ */
+export class SearchSubscriptionsFilter {
+    /**
+     * A filter to select subscriptions based on the customer.
+     */
+    customer_ids?: Array<string>;
+    /**
+     * A filter to select subscriptions based the location.
+     */
+    location_ids?: Array<string>;
+}
+
+/**
+ * Represents a query (including filtering criteria) used to search for subscriptions.
+ */
+export class SearchSubscriptionsQuery {
+    /**
+     * A list of filtering criteria.
+     */
+    filter?: SearchSubscriptionsFilter;
+}
+
+/**
+ * Defines parameters in a [SearchSubscriptions](#endpoint-subscriptions-searchsubscriptions) endpoint request.
+ */
+export class SearchSubscriptionsRequest {
+    /**
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+    /**
+     * The upper limit on the number of subscriptions to return in the response. Default: `200`.
+     */
+    limit?: number;
+    /**
+     * Query subscriptions based on the given conditions and sort order.
+     * Calling SearchSubscriptions without an explicit query parameter will return all subscriptions.
+     */
+    query?: SearchSubscriptionsQuery;
+}
+
+/**
+ * Defines the fields that are included in the response from the [SearchSubscriptions](#endpoint-subscriptions-searchsubscriptions) endpoint.
+ */
+export class SearchSubscriptionsResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The search result.
+     */
+    subscriptions?: Array<Subscription>;
+    /**
+     * When a response is truncated, it includes a cursor that you can  use in a subsequent request to fetch the next
+     * set of subscriptions. If empty, this is the final response.
+     * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
+     */
+    cursor?: string;
+}
+
+/**
+ * Represents a filter used in a search for `TeamMember` objects. `AND` logic is applied between the individual fields,
+ * and `OR` logic is applied within list-based fields. For example, setting this filter value,
+ * ``` filter = (locations_ids = [\"A\", \"B\"], status = ACTIVE) ```
+ * returns only active team members assigned to either location \"A\" or \"B\".
+ */
+export class SearchTeamMembersFilter {
+    /**
+     * When present, filter by team members assigned to the specified locations. When empty, include team members assigned to any location.
+     */
+    'locationIds'?: Array<string>;
+    /**
+     * When present, filter by team members who match the given status. When empty, include team members of all statuses.
+     * See [TeamMemberStatus](#type-teammemberstatus) for possible values.
+     */
+    status?: string;
+}
+
+/**
+ * Represents the parameters in a search for `TeamMember` objects.
+ */
+export class SearchTeamMembersQuery {
+    /**
+     * The options to filter by.
+     */
+    filter?: SearchTeamMembersFilter;
+}
+
+/**
+ * Represents a search request for a filtered list of `TeamMember` objects.
+ */
+export class SearchTeamMembersRequest {
+    /**
+     * The query parameters.
+     */
+    query?: SearchTeamMembersQuery;
+    /**
+     * The maximum number of `TeamMember` objects in a page (25 by default).
+     */
+    limit?: number;
+    /**
+     * The opaque cursor for fetching the next page.
+     * Read about [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with Square APIs for more information.
+     */
+    cursor?: string;
+}
+
+/**
+ * Represents a response from a search request, containing a filtered list of `TeamMember` objects.
+ */
+export class SearchTeamMembersResponse {
+    /**
+     * The filtered list of `TeamMember` objects.
+     */
+    team_members?: Array<TeamMember>;
+    /**
+     * The opaque cursor for fetching the next page.
+     * Read about [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with Square APIs for more information.
+     */
+    cursor?: string;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+export class SearchTerminalCheckoutsRequest {
+    /**
+     * Queries terminal checkouts based on given conditions and sort order.
+     * Leaving this unset will return all checkouts with the default sort order.
+     */
+    query?: TerminalCheckoutQuery;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for the original query.
+     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     */
+    cursor?: string;
+    /**
+     * Limit the number of results returned for a single request.
+     */
+    limit?: number;
+}
+
+export class SearchTerminalCheckoutsResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The requested search result of `TerminalCheckout`s.
+     */
+    checkouts?: Array<TerminalCheckout>;
+    /**
+     * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
+     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+export class SearchTerminalRefundsRequest {
+    /**
+     * Query the terminal refunds based on given conditions and sort order. Calling `SearchTerminalRefunds` without
+     * an explicitly query parameter will return all available refunds with the default sort order.
+     */
+    query?: TerminalRefundQuery;
+    /**
+     * A pagination cursor returned by a previous call to this endpoint.
+     * Provide this to retrieve the next set of results for the original query.
+     */
+    cursor?: string;
+    /**
+     * Limit the number of results returned for a single request.
+     */
+    limit?: number;
+}
+
+export class SearchTerminalRefundsResponse {
+    /**
+     * Information on errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The requested search result of `TerminalRefund`s.
+     */
+    refunds?: Array<TerminalRefund>;
+    /**
+     * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
+     * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
+     */
+    cursor?: string;
+}
+
+/**
  * A record of the hourly rate, start, and end times for a single work shift for an employee.
  * May include a record of the start and end times for breaks taken during the shift.
  */
@@ -8033,9 +10986,9 @@ export class Shift {
      */
     id?: string;
     /**
-     * The ID of the employee this shift belongs to.
+     * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use `team_member_id` instead
      */
-    employee_id: string;
+    employee_id?: string;
     /**
      * The ID of the location this shift occurred at. Should be based on where the employee clocked in.
      */
@@ -8050,9 +11003,7 @@ export class Shift {
      */
     start_at: string;
     /**
-     * RFC 3339; shifted to timezone + offset. Precision up to the minute is respected; seconds are truncated. The
-     * `end_at` minute is not counted when the shift length is calculated. For example, a shift from `00:00` to `08:01`
-     * is considered an 8 hour shift (midnight to 8am).
+     * RFC 3339; shifted to timezone + offset. Precision up to the minute is respected; seconds are truncated.
      */
     end_at?: string;
     /**
@@ -8081,6 +11032,10 @@ export class Shift {
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
     updated_at?: string;
+    /**
+     * The ID of the team member this shift belongs to. Replaced `employee_id` at version \"2020-08-26\"
+     */
+    team_member_id?: string;
 }
 
 /**
@@ -8091,9 +11046,9 @@ export class ShiftFilter {
     /**
      * Fetch shifts for the specified location.
      */
-    location_ids?: Array<string>;
+    location_ids: Array<string>;
     /**
-     * Fetch shifts for the specified employee.
+     * Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use `team_member_ids` instead.
      */
     employee_ids?: Array<string>;
     /**
@@ -8112,6 +11067,10 @@ export class ShiftFilter {
      * Fetch the `Shift`s based on workday date range.
      */
     workday?: ShiftWorkday;
+    /**
+     * Fetch shifts for the specified team members. Replaced `employee_ids` at version \"2020-08-26\"
+     */
+    team_member_ids: Array<string>;
 }
 
 /**
@@ -8203,7 +11162,7 @@ export class ShiftWorkdayMatcher {}
 export class SortOrder {}
 
 /**
- * Provides information about the application used to generate an inventory change.
+ * Provides information about the application used to generate a change.
  */
 export class SourceApplication {
     /**
@@ -8272,6 +11231,152 @@ export class SubmitEvidenceResponse {
 }
 
 /**
+ * Represents a customer subscription to a subscription plan. For an overview of the `Subscription` type,
+ * see [Subscription object](/docs/subscriptions-api/overview#subscription-object-overview).
+ */
+export class Subscription {
+    /**
+     * The Square-assigned ID of the subscription.
+     */
+    id?: string;
+    /**
+     * The ID of the location associated with the subscription.
+     */
+    location_id?: string;
+    /**
+     * The ID of the associated `subscription plan`.
+     */
+    plan_id?: string;
+    /**
+     * The ID of the associated `customer` profile.
+     */
+    customer_id?: string;
+    /**
+     * The start date of the subscription, in YYYY-MM-DD format (for example, 2013-01-15).
+     */
+    start_date?: string;
+    /**
+     * The subscription cancellation date, in YYYY-MM-DD format (for example, 2013-01-15).
+     * On this date, the subscription status changes to `CANCELED` and the subscription billing stops.
+     * If you don't set this field, the subscription plan dictates if and  when subscription ends.
+     * You cannot update this field, you can only clear it.
+     */
+    canceled_date?: string;
+    /**
+     * The current status of the subscription. See [SubscriptionStatus](#type-subscriptionstatus) for possible values.
+     */
+    status?: string;
+    /**
+     * The tax amount applied when billing the subscription.
+     * The percentage is expressed in decimal form, using a `'.'` as the decimal separator and without a `'%'` sign.
+     * For example, a value of `7.5` corresponds to 7.5%.
+     */
+    tax_percentage?: string;
+    /**
+     * The IDs of the `invoices` created for the  subscription, listed in order when the invoices were created (oldest invoices appear first).
+     */
+    invoice_ids?: Array<string>;
+    /**
+     * A custom price to apply for the subscription. If specified, it overrides the price configured by the subscription plan.
+     */
+    price_override_money?: Money;
+    /**
+     * The version of the object. When updating an object, the version supplied must match the version in the database,
+     * otherwise the write will be rejected as conflicting.
+     */
+    version?: number;
+    /**
+     * The timestamp when the subscription was created, in RFC 3339 format.
+     */
+    created_at?: string;
+    /**
+     * The ID of the `customer](#type-customer) [card` that is charged for the subscription.
+     */
+    card_id?: string;
+    /**
+     * The date up to which the customer is invoiced for the subscription, in YYYY-MM-DD format (for example, 2013-01-15).
+     * After the invoice is paid for a given billing period, this date will be the last day of the billing period.
+     * For example, suppose for the month of May a customer gets an invoice (or charged the card) on May 1.
+     * For the monthly billing scenario, this date is then set to May 31.
+     */
+    paid_until_date?: string;
+    /**
+     * Timezone that will be used in date calculations for the subscription.
+     * Defaults to the timezone of the location based on `location_id`.
+     * Format: the IANA Timezone Database identifier for the location timezone (for example, `America/Los_Angeles`).
+     */
+    timezone?: string;
+}
+
+/**
+ * Determines the billing cadence of a `Subscription`
+ */
+export class SubscriptionCadence {}
+
+/**
+ * Describes changes to subscription and billing states.
+ */
+export class SubscriptionEvent {
+    /**
+     * The ID of the subscription event.
+     */
+    id: string;
+    /**
+     * Type of the subscription event.
+     * See [SubscriptionEventSubscriptionEventType](#type-subscriptioneventsubscriptioneventtype) for possible values.
+     */
+    subscription_event_type: string;
+    /**
+     * The date, in YYYY-MM-DD format (for example, 2013-01-15), when the subscription event went into effect.
+     */
+    effective_date: string;
+    /**
+     * The ID of the subscription plan associated with the subscription.
+     */
+    plan_id: string;
+}
+
+/**
+ * The possible subscription event types.
+ */
+export class SubscriptionEventSubscriptionEventType {}
+
+/**
+ * Describes a phase in a subscription plan. For more information, see [Set Up and Manage a Subscription Plan](/docs/subscriptions-api/setup-plan).
+ */
+export class SubscriptionPhase {
+    /**
+     * The Square-assigned ID of the subscription phase. This field cannot be changed after a `SubscriptionPhase` is created.
+     */
+    uid?: string;
+    /**
+     * The billing cadence of the phase. For example, weekly or monthly.
+     * This field cannot be changed after a `SubscriptionPhase` is created.
+     * See [SubscriptionCadence](#type-subscriptioncadence) for possible values.
+     */
+    cadence: string;
+    /**
+     * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite.
+     * This field cannot be changed after a `SubscriptionPhase` is created.
+     */
+    periods?: number;
+    /**
+     * The amount to bill for each `cadence`.
+     */
+    recurring_price_money: Money;
+    /**
+     * The position this phase appears in the sequence of phases defined for the plan, indexed from 0.
+     * This field cannot be changed after a `SubscriptionPhase` is created.
+     */
+    ordinal?: number;
+}
+
+/**
+ * Possible subscription status values.
+ */
+export class SubscriptionStatus {}
+
+/**
  * When to calculate the taxes due on a cart.
  */
 export class TaxCalculationPhase {}
@@ -8280,6 +11385,106 @@ export class TaxCalculationPhase {}
  * Whether to the tax amount should be additional to or included in the CatalogItem price.
  */
 export class TaxInclusionType {}
+
+/**
+ * A record representing an individual team member for a business.
+ */
+export class TeamMember {
+    /**
+     * The unique ID for the team member.
+     */
+    id?: string;
+    /**
+     * A second ID used to associate the team member with an entity in another system.
+     */
+    reference_id?: string;
+    /**
+     * Whether the team member is the owner of the Square account.
+     */
+    is_owner?: boolean;
+    /**
+     * Describes the status of the team member. See [TeamMemberStatus](#type-teammemberstatus) for possible values.
+     */
+    status?: string;
+    /**
+     * The given (i.e., first) name associated with the team member.
+     */
+    given_name?: string;
+    /**
+     * The family (i.e., last) name associated with the team member.
+     */
+    family_name?: string;
+    /**
+     * The email address associated with the team member.
+     */
+    email_address?: string;
+    /**
+     * The team member's phone number in E.164 format.
+     * Examples: +14155552671 - the country code is 1 for US +551155256325 - the country code is 55 for BR.
+     */
+    phone_number?: string;
+    /**
+     * The timestamp in RFC 3339 format describing when the team member was created.
+     * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
+     */
+    created_at?: string;
+    /**
+     * The timestamp in RFC 3339 format describing when the team member was last updated.
+     * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
+     */
+    updated_at?: string;
+    /**
+     * Describes the team member's assigned locations.
+     */
+    assigned_locations?: TeamMemberAssignedLocations;
+}
+
+/**
+ * An object that represents a team member's assignment to locations.
+ */
+export class TeamMemberAssignedLocations {
+    /**
+     * The current assignment type of the team member.
+     * See [TeamMemberAssignedLocationsAssignmentType](#type-teammemberassignedlocationsassignmenttype) for possible values.
+     */
+    assignment_type?: string;
+    /**
+     * The locations that the team member is assigned to.
+     */
+    location_ids?: Array<string>;
+}
+
+/**
+ * Enumerates the possible assignment types the team member can have
+ */
+export class TeamMemberAssignedLocationsAssignmentType {}
+
+/**
+ * Enumerates the possible statuses the team member can have within a business.
+ */
+export class TeamMemberStatus {}
+
+/**
+ * The hourly wage rate that a team member will earn on a `Shift` for doing the job specified by the `title` property of this object.
+ */
+export class TeamMemberWage {
+    /**
+     * UUID for this object.
+     */
+    id?: string;
+    /**
+     * The `Team Member` that this wage is assigned to.
+     */
+    team_member_id?: string;
+    /**
+     * The job title that this wage relates to.
+     */
+    title?: string;
+    /**
+     * Can be a custom-set hourly wage or the calculated effective hourly wage based on annual wage and hours worked per week.
+     */
+    hourly_rate?: Money;
+}
 
 /**
  * Represents a tender (i.e., a method of payment) used in a Square transaction.
@@ -8298,7 +11503,7 @@ export class Tender {
      */
     transaction_id?: string;
     /**
-     * The time when the tender was created, in RFC 3339 format.
+     * The timestamp for when the tender was created, in RFC 3339 format.
      */
     created_at?: string;
     /**
@@ -8397,20 +11602,203 @@ export class TenderCashDetails {
  */
 export class TenderType {}
 
+export class TerminalCheckout {
+    /**
+     * A unique ID for this `TerminalCheckout`
+     */
+    id?: string;
+    /**
+     * The amount of money (including tax amount) that the Square Terminal device should try to collect.
+     */
+    amount_money: Money;
+    /**
+     * An optional user-defined reference ID which can be used to associate this `TerminalCheckout` to another entity in an external system.
+     * For example, an order ID generated by a third-party shopping cart. Will also be associated with any payments used to complete the checkout.
+     */
+    reference_id?: string;
+    /**
+     * An optional note to associate with the checkout, as well any payments used to complete the checkout.
+     */
+    note?: string;
+    /**
+     * Options to control the display and behavior of the Square Terminal device.
+     */
+    device_options: DeviceCheckoutOptions;
+    /**
+     * The duration as an RFC 3339 duration, after which the checkout will be automatically canceled.
+     * TerminalCheckouts that are `PENDING` will be automatically `CANCELED` and have a cancellation reason of `TIMED\\_OUT`.
+     * Default: 5 minutes from creation. Maximum: 5 minutes.
+     */
+    deadline_duration?: string;
+    /**
+     * The status of the `TerminalCheckout`. Options: `PENDING`, `IN\\_PROGRESS`, `CANCEL\\_REQUESTED`, `CANCELED`, `COMPLETED`
+     */
+    status?: string;
+    /**
+     * Present if the status is `CANCELED`. See [ActionCancelReason](#type-actioncancelreason) for possible values
+     */
+    cancel_reason?: string;
+    /**
+     * A list of ids for payments created by this `TerminalCheckout`.
+     */
+    payment_ids?: Array<string>;
+    /**
+     * The time when the `TerminalCheckout` was created as an RFC 3339 timestamp.
+     */
+    created_at?: string;
+    /**
+     * The time when the `TerminalCheckout` was last updated as an RFC 3339 timestamp.
+     */
+    updated_at?: string;
+}
+
+export class TerminalCheckoutQuery {
+    /**
+     * Options for filtering returned `TerminalCheckout`s
+     */
+    filter?: TerminalCheckoutQueryFilter;
+    /**
+     * Option for sorting returned `TerminalCheckout`s
+     */
+    sort?: TerminalCheckoutQuerySort;
+}
+
+export class TerminalCheckoutQueryFilter {
+    /**
+     * `TerminalCheckout`s associated with a specific device.
+     * If no device is specified then all `TerminalCheckout`s for the merchant will be displayed.
+     */
+    device_id?: string;
+    /**
+     * Time range for the beginning of the reporting period. Inclusive. Default: The current time minus one day.
+     */
+    created_at?: TimeRange;
+    /**
+     * Filtered results with the desired status of the `TerminalCheckout` Options: PENDING, IN\\_PROGRESS, CANCELED, COMPLETED
+     */
+    status?: string;
+}
+
+export class TerminalCheckoutQuerySort {
+    /**
+     * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
+     */
+    sort_order?: string;
+}
+
+export class TerminalRefund {
+    /**
+     * A unique ID for this `TerminalRefund`
+     */
+    id?: string;
+    /**
+     * The reference to the payment refund created by completing this `TerminalRefund`.
+     */
+    refund_id?: string;
+    /**
+     * Unique ID of the payment being refunded.
+     */
+    payment_id: string;
+    /**
+     * The reference to the Square order id for the payment identified by the `payment_id`.
+     */
+    order_id?: string;
+    /**
+     * The amount of money, inclusive of `tax_money`, that the `TerminalRefund` should return.
+     * This value is limited to the amount taken in the original payment minus any completed or pending refunds.
+     */
+    amount_money: Money;
+    /**
+     * A description of the reason for the refund. Note: maximum 192 characters.
+     */
+    reason?: string;
+    /**
+     * The unique Id of the device intended for this `TerminalRefund`. The Id can be retrieved from /v2/devices api.
+     */
+    device_id?: string;
+    /**
+     * The duration as an RFC 3339 duration, after which the refund will be automatically canceled.
+     * TerminalRefunds that are `PENDING` will be automatically `CANCELED` and have a cancellation reason of `TIMED_OUT`
+     * Default: 5 minutes from creation. Maximum: 5 minutes.
+     */
+    deadline_duration?: string;
+    /**
+     * The status of the `TerminalRefund`. Options: `PENDING`, `IN\\_PROGRESS`, `CANCELED`, `COMPLETED`
+     */
+    status?: string;
+    /**
+     * Present if the status is `CANCELED`. See [ActionCancelReason](#type-actioncancelreason) for possible values.
+     */
+    cancel_reason?: string;
+    /**
+     * The time when the `TerminalRefund` was created as an RFC 3339 timestamp.
+     */
+    created_at?: string;
+    /**
+     * The time when the `TerminalRefund` was last updated as an RFC 3339 timestamp.
+     */
+    updated_at?: string;
+}
+
+export class TerminalRefundQuery {
+    filter?: TerminalRefundQueryFilter;
+    sort?: TerminalRefundQuerySort;
+}
+
+export class TerminalRefundQueryFilter {
+    /**
+     * `TerminalRefund`s associated with a specific device.
+     * If no device is specified then all `TerminalRefund`s for the signed in account will be displayed.
+     */
+    device_id?: string;
+    /**
+     * Timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive. Default: The current time minus one day.
+     */
+    created_at?: TimeRange;
+    /**
+     * Filtered results with the desired status of the `TerminalRefund`
+     * Options: `PENDING`, `IN\\_PROGRESS`, `CANCEL\\_REQUESTED`, `CANCELED`, `COMPLETED`
+     */
+    status?: string;
+}
+
+export class TerminalRefundQuerySort {
+    /**
+     * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
+     */
+    sort_order?: string;
+}
+
 /**
- * Represents a generic time range. The start and end values are represented in RFC-3339 format. Time ranges are
- * customized to be inclusive or exclusive based on the needs of a particular endpoint. Refer to the relevent
- * endpoint-specific documentation to determine how time ranges are handled.
+ * Represents a generic time range. The start and end values are represented in RFC 3339 format.
+ * Time ranges are customized to be inclusive or exclusive based on the needs of a particular endpoint.
+ * Refer to the relevant endpoint-specific documentation to determine how time ranges are handled.
  */
 export class TimeRange {
     /**
-     * A datetime value in RFC-3339 format indicating when the time range starts.
+     * A datetime value in RFC 3339 format indicating when the time range starts.
      */
     start_at?: string;
     /**
-     * A datetime value in RFC-3339 format indicating when the time range ends.
+     * A datetime value in RFC 3339 format indicating when the time range ends.
      */
     end_at?: string;
+}
+
+export class TipSettings {
+    /**
+     * Indicates whether tipping is enabled for this checkout. Defaults to false.
+     */
+    allow_tipping?: boolean;
+    /**
+     * Indicates whether tip options should be presented on their own screen before presenting the signature
+     * screen during card payment. Defaults to false.
+     */
+    separate_tip_screen?: boolean;
+    /**
+     * Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.
+     */
+    custom_tip_field?: boolean;
 }
 
 /**
@@ -8427,7 +11815,7 @@ export class Transaction {
      */
     location_id?: string;
     /**
-     * The time when the transaction was created, in RFC 3339 format.
+     * The timestamp for when the transaction was created, in RFC 3339 format.
      */
     created_at?: string;
     /**
@@ -8501,6 +11889,31 @@ export class UpdateBreakTypeResponse {
 }
 
 /**
+ * Defines the body parameters that can be provided in a request to the [UpdateCustomerGroup](#endpoint-updatecustomergroup) endpoint.
+ */
+export class UpdateCustomerGroupRequest {
+    /**
+     * The `CustomerGroup` object including all the updates you want to make.
+     */
+    group: CustomerGroup;
+}
+
+/**
+ * Defines the fields that are included in the response body of a request to the [UpdateCustomerGroup](#endpoint-updatecustomergroup) endpoint.
+ * One of `errors` or `group` is present in a given response (never both).
+ */
+export class UpdateCustomerGroupResponse {
+    /**
+     * Any errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The successfully updated customer group.
+     */
+    group?: CustomerGroup;
+}
+
+/**
  * Defines the body parameters that can be provided in a request to the UpdateCustomer endpoint.
  */
 export class UpdateCustomerRequest {
@@ -8541,9 +11954,9 @@ export class UpdateCustomerRequest {
      */
     note?: string;
     /**
-     * The birthday associated with the customer profile, in RFC-3339 format. Year is optional, timezone and
-     * times are not allowed.For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
-     * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st 1998.
+     * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
+     * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
+     * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
     birthday?: string;
 }
@@ -8563,6 +11976,43 @@ export class UpdateCustomerResponse {
     customer?: Customer;
 }
 
+/**
+ * Describes a `UpdateInvoice` request.
+ */
+export class UpdateInvoiceRequest {
+    /**
+     * The invoice fields to update. You need to only specify the fields you want to change.
+     * The current invoice version must be specified in the `version` field.
+     * For more information, see [Update an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
+     */
+    invoice: Invoice;
+    /**
+     * A unique string that identifies the `UpdateInvoice` request. If you do not provide `idempotency_key`
+     * (or provide an empty string as the value), the endpoint treats each request as independent.
+     * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
+     */
+    idempotency_key?: string;
+    /**
+     * List of fields to clear.
+     * For examples, see [Update an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
+     */
+    fields_to_clear?: Array<string>;
+}
+
+/**
+ * Describes a `UpdateInvoice` response.
+ */
+export class UpdateInvoiceResponse {
+    /**
+     * The updated invoice.
+     */
+    invoice?: Invoice;
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+}
+
 export class UpdateItemModifierListsRequest {
     /**
      * The IDs of the catalog items associated with the CatalogModifierList objects being updated.
@@ -8580,11 +12030,12 @@ export class UpdateItemModifierListsRequest {
 
 export class UpdateItemModifierListsResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
-     * The database [timestamp](#workingwithdates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
+     * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-date) of this
+     * update in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
      */
     updated_at?: string;
 }
@@ -8606,7 +12057,7 @@ export class UpdateItemTaxesRequest {
 
 export class UpdateItemTaxesResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -8703,6 +12154,79 @@ export class UpdateShiftResponse {
 }
 
 /**
+ * Defines parameters in a [UpdateSubscription](#endpoint-subscriptions-updatesubscription) endpoint  request.
+ */
+export class UpdateSubscriptionRequest {
+    /**
+     * The subscription object containing the current version, and fields to update. Unset fields will be left at their
+     * current server values, and JSON `null` values will be treated as a request to clear the relevant data.
+     */
+    subscription?: Subscription;
+}
+
+/**
+ * Defines the fields that are included in the response from the [UpdateSubscription](#endpoint-subscriptions-updatesubscription) endpoint.
+ */
+export class UpdateSubscriptionResponse {
+    /**
+     * Information about errors encountered during the request.
+     */
+    errors?: Array<Error>;
+    /**
+     * The modified `Subscription` object.
+     */
+    subscription?: Subscription;
+}
+
+/**
+ * Represents an update request for a `TeamMember` object.
+ */
+export class UpdateTeamMemberRequest {
+    /**
+     * The data which will be used to update the `TeamMember` object.
+     */
+    team_member?: TeamMember;
+}
+
+/**
+ * Represents a response from an update request, containing the updated `TeamMember` object or error messages.
+ */
+export class UpdateTeamMemberResponse {
+    /**
+     * The successfully updated `TeamMember` object.
+     */
+    team_member?: TeamMember;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
+ * Represents an update request for the `WageSetting` object describing a `TeamMember`.
+ */
+export class UpdateWageSettingRequest {
+    /**
+     * The new `WageSetting` object that will completely replace the existing one.
+     */
+    wage_setting: WageSetting;
+}
+
+/**
+ * Represents a response from an update request, containing the updated `WageSetting` object or error messages.
+ */
+export class UpdateWageSettingResponse {
+    /**
+     * The successfully updated `WageSetting` object.
+     */
+    wage_setting?: WageSetting;
+    /**
+     * The errors that occurred during the request.
+     */
+    errors?: Array<Error>;
+}
+
+/**
  * A request to update a `WorkweekConfig` object
  */
 export class UpdateWorkweekConfigRequest {
@@ -8747,7 +12271,7 @@ export class UpsertCatalogObjectRequest {
 
 export class UpsertCatalogObjectResponse {
     /**
-     * Information on any errors encountered.
+     * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
     /**
@@ -8758,6 +12282,21 @@ export class UpsertCatalogObjectResponse {
      * The mapping between client and server IDs for this upsert.
      */
     id_mappings?: Array<CatalogIdMapping>;
+}
+
+/**
+ * A reference to a Catalog object at a specific version.
+ * In general this is used as an entry point into a graph of catalog objects, where the objects exist at a specific version.
+ */
+export class VersionedCatalogObject {
+    /**
+     * The ID of the referenced object.
+     */
+    object_id?: string;
+    /**
+     * The version of the object.
+     */
+    catalog_version?: number;
 }
 
 /**
@@ -8773,6 +12312,42 @@ export class VoidTransactionResponse {
      * Any errors that occurred during the request.
      */
     errors?: Array<Error>;
+}
+
+/**
+ * An object representing a team member's wage information.
+ */
+export class WageSetting {
+    /**
+     * The unique ID of the `TeamMember` whom this wage setting describes.
+     */
+    team_member_id?: string;
+    /**
+     * The ordered list of jobs that the team member is assigned to.
+     * The first job assignment is considered the team member's \"Primary Job\". <br> <b>Min Length 1 Max Length 12</b>
+     */
+    job_assignments: Array<JobAssignment>;
+    /**
+     * Whether the team member is exempt from the overtime rules of the seller country.
+     */
+    is_overtime_exempt?: boolean;
+    /**
+     * Used for resolving concurrency issues; request will fail if version provided does not match server version at time of request.
+     * If not provided, Square executes a blind write, potentially overwriting data from another write.
+     * Read about [optimistic concurrency](https://developer.squareup.com/docs/docs/working-with-apis/optimistic-concurrency)
+     * in Square APIs for more information.
+     */
+    version?: number;
+    /**
+     * The timestamp in RFC 3339 format describing when the wage setting object was created.
+     * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
+     */
+    created_at?: string;
+    /**
+     * The timestamp in RFC 3339 format describing when the wage setting object was last updated.
+     * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
+     */
+    updated_at?: string;
 }
 
 /**
@@ -8982,6 +12557,12 @@ export class CheckoutApi {
     createCheckout(locationId: string, body: CreateCheckoutRequest): Promise<CreateCheckoutResponse>;
 }
 
+// @todo describe methods
+export class CustomerGroupsApi {}
+
+// @todo describe methods
+export class CustomerSegmentsApi {}
+
 export class CustomersApi {
     /**
      * Constructs a new CustomersApi.
@@ -9033,6 +12614,9 @@ export class CustomersApi {
 }
 
 // @todo describe methods
+export class DevicesApi {}
+
+// @todo describe methods
 export class DisputesApi {}
 
 export class EmployeesApi {
@@ -9050,6 +12634,9 @@ export class EmployeesApi {
      */
     retrieveEmployee(id: string): Promise<RetrieveEmployeeResponse>;
 }
+
+// @todo describe methods
+export class InvoicesApi {}
 
 export class InventoryApi {
     /**
@@ -9206,6 +12793,9 @@ export class LocationsApi {
 }
 
 // @todo describe methods
+export class LoyaltyApi {}
+
+// @todo describe methods
 export class MerchantsApi {}
 
 export class MobileAuthorizationApi {
@@ -9272,7 +12862,11 @@ export class OrdersApi {
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
      */
-    batchRetrieveOrders(locationId: string, params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
+    batchRetrieveOrders(body: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
+    /**
+     * Calculates an [Order](#type-order).
+     */
+    calculateOrder(body: CalculateOrderRequest): Promise<CalculateOrderResponse>;
     /**
      * Creates an [Order](#type-order) that can then be referenced as `order_id` in a request to the [Charge](#endpoint-charge)
      * endpoint. Orders specify products for purchase, along with discounts, taxes, and other settings to apply to the purchase.
@@ -9280,7 +12874,7 @@ export class OrdersApi {
      * your request. You cannot modify an order after you create it. If you need to modify an order, instead create a new order
      * with modified details. To learn more about the Orders API, see the [Orders API Overview](/products/orders/overview).
      */
-    createOrder(locationId: string, params: CreateOrderRequest): Promise<CreateOrderResponse>;
+    createOrder(body: CreateOrderRequest): Promise<CreateOrderResponse>;
     /**
      * Pay for an [order](#type-order) using one or more approved [payments](#type-payment), or settle an order with a total of `0`.
      * The total of the `payment_ids` listed in the request must be equal to the order total. Orders with a total amount
@@ -9288,10 +12882,13 @@ export class OrdersApi {
      * a payment must: - Reference the order by specifying the `order_id` when [creating the payment](#endpoint-payments-createpayment).
      * Any approved payments that reference the same `order_id` not specified in the `payment_ids` will be canceled.
      * - Be approved with [delayed capture](/payments-api/take-payments#delayed-capture). Using a delayed capture payment
-     * with PayOrder will complete the approved payment. Learn how to [pay for orders with a single payment using the
-     * Payments API](/orders-api/pay-for-orders).
+     * with PayOrder will complete the approved payment.
      */
     payOrder(orderId: string, body: PayOrderRequest): Promise<PayOrderResponse>;
+    /**
+     * Retrieves an [Order](#type-order) by ID.
+     */
+    retrieveOrder(orderId: string): Promise<RetrieveOrderResponse>;
     /**
      * Search all orders for one or more locations. Orders include all sales, returns, and exchanges regardless of how
      * or when they entered the Square Ecosystem (e.g. Point of Sale, Invoices, Connect APIs, etc). SearchOrders requests
@@ -9313,7 +12910,7 @@ export class OrdersApi {
      * To pay for an order, please refer to the [Pay for Orders](/orders-api/pay-for-orders) guide.
      * To learn more about the Orders API, see the [Orders API Overview](/orders-api/what-it-does).
      */
-    updateOrder(locationId: string, orderId: string, body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
+    updateOrder(orderId: string, body: UpdateOrderRequest): Promise<UpdateOrderResponse>;
 }
 
 export class PaymentsApi {
@@ -9383,7 +12980,16 @@ export class RefundsApi {
 }
 
 // @todo describe methods
+export class SubscriptionsApi {}
+
+// @todo describe methods
 export class ReportingApi {}
+
+// @todo describe methods
+export class TeamApi {}
+
+// @todo describe methods
+export class TerminalApi {}
 
 export class TransactionsApi {
     /**

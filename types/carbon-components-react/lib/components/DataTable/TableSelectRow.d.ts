@@ -1,17 +1,23 @@
 import * as React from "react";
-import { ReactAttr, ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
+import { InlineCheckboxProps } from "../InlineCheckbox";
+import { RadioButtonProps } from "../RadioButton";
 
-interface InheritedProps extends RequiresIdProps {
-    ariaLabel?: React.AriaAttributes["aria-label"],
-    checked: NonNullable<ReactInputAttr["checked"]>,
-    className?: ReactAttr["className"],
-    disabled?: ReactInputAttr["disabled"],
-    name: NonNullable<ReactInputAttr["name"]>,
-}
+export type TableSelectRowOnChange = (
+    value: RadioButtonProps["value"] | InlineCheckboxProps["checked"],
+    idOrName: RadioButtonProps["name"] | InlineCheckboxProps["id"],
+    evt: React.ChangeEvent<HTMLInputElement>
+) => void;
 
-export interface TableSelectRowProps extends InheritedProps {
-    radio?: boolean,
+export interface TableSelectRowProps {
+    ariaLabel?: string,
+    checked: boolean,
+    className?: string,
+    disabled?: boolean,
+    id: string,
+    name: string,
+    onChange?: TableSelectRowOnChange;
     onSelect(event: React.MouseEvent<HTMLInputElement>): void,
+    radio?: boolean,
 }
 
 declare const TableSelectRow: React.FC<TableSelectRowProps>;

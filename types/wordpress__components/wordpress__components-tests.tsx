@@ -1,7 +1,7 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { MouseEvent as ReactMouseEvent } from 'react';
+import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives
@@ -96,14 +96,20 @@ let record: Value = {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
+
 <C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
+</C.Button>;
+
+<C.Button showTooltip tooltipPosition="top center" label="A test label">
+    Tooltipped button
 </C.Button>;
 
 //
 // button-group
 //
-<C.ButtonGroup>
+const buttonGroupRef = createRef<HTMLDivElement>();
+<C.ButtonGroup ref={buttonGroupRef}>
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
@@ -174,10 +180,36 @@ let record: Value = {
     onChange={color => color && console.log(color.name)}
 />;
 
+<C.ColorPalette
+    disableCustomColors
+    clearable={false}
+    colors={[
+        { name: 'red', color: '#ff0000' },
+        { name: 'green', color: '#00ff00' },
+        { name: 'blue', color: '#0000ff' },
+    ]}
+    value={{ name: 'red', color: '#ff0000' }}
+    onChange={color => color && console.log(color.name)}
+/>;
+
 //
 // color-picker
 //
-<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} oldHue={3} />;
+<C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
+
+//
+// custom-select-control
+//
+<C.CustomSelectControl
+    label="Fruit"
+    options={[
+        { key: 'apple', name: 'Apple', style: { color: 'red' } },
+        { key: 'banana', name: 'Banana', style: { backgroundColor: 'yellow' }, className: 'my-favorite-fruit' },
+        { key: 'papaya', name: 'Papaya', style: { color: 'orange', backgroundColor: 'green' } },
+    ]}
+    onChange={v => console.log(v.selectedItem && v.selectedItem.name)}
+/>;
 
 //
 // dashicon

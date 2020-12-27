@@ -1,10 +1,12 @@
 import { Configuration } from 'webpack';
 import CopyPlugin = require('copy-webpack-plugin');
 import path = require('path');
+import fs = require('fs');
 
 const _: Configuration = {
     plugins: [
         // basic
+        new CopyPlugin(),
         new CopyPlugin({
             patterns: [
                 { from: 'source', to: 'dest' },
@@ -62,6 +64,22 @@ const _: Configuration = {
                 {
                     // If absolute path is a `glob` we replace backslashes with forward slashes, because only forward slashes can be used in the `glob`
                     from: path.posix.join(path.resolve(__dirname, 'fixtures').replace(/\\/g, '/'), '*.txt'),
+                },
+            ],
+        }),
+        // filter
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'file.txt'),
+                    filter: (resourcePath) => {
+                        const data = fs.readFileSync(resourcePath);
+                        const content = data.toString();
+                        if (content === 'my-custom-content') {
+                          return false;
+                        }
+                        return true;
+                      },
                 },
             ],
         }),

@@ -408,7 +408,14 @@ const awsServerless: Aws.Serverless = {
                                 },
                             },
                             schema: {
-                                'application/json': 'schema1'
+                                'application/json': {
+                                    type: 'object',
+                                    properties: {
+                                        productId: {
+                                            type: 'integer'
+                                        }
+                                    }
+                                }
                             },
                         }
                     },
@@ -457,9 +464,10 @@ const awsServerless: Aws.Serverless = {
                     schedule: '1',
                 }, {
                     sns: {
+                        arn: 'testarn',
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
-                        filterPolicy: ['testfilterpolicy'],
+                        filterPolicy: { testFilterPolicy: 'testfilterpolicy' },
                         redrivePolicy: {
                             deadLetterTargetArn: 'testdeadLetterTargetArn',
                             deadLetterTargetRef: 'testdeadLetterTargetRef',
@@ -481,6 +489,14 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
+                        enabled: true
+                    }
+                }, {
+                    msk: {
+                        arn: 'testarn',
+                        topic: 'testTopic',
+                        batchSize: 1,
+                        startingPosition: 'LATEST',
                         enabled: true
                     }
                 }, {
@@ -589,6 +605,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     resources: {
+        Description: 'testStackDescription',
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',

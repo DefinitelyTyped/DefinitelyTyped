@@ -3,12 +3,10 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 //                 Gaurav Sharma <https://github.com/gtpan77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.0
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
-import Bull = require("bull");
-import Bee = require("bee-queue");
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
@@ -17,9 +15,22 @@ declare function Arena(
 
 declare namespace BullArena {
     interface MiddlewareOptions {
-        Bull?: typeof Bull;
-        Bee?: typeof Bee;
+        Bull?: QueueConstructor;
+        Bee?: QueueConstructor;
+        BullMQ?: QueueConstructor;
         queues: Array<QueueOptions & ConnectionOptions>;
+    }
+
+    interface QueueConstructor {
+        new (queueName: string, opts?: QueueOptions): Queue;
+    }
+
+    interface Queue {
+        // Interface of Queue is much larger and
+        // inconsistent between different packages.
+        // We are using an example method here
+        // that is consistent across all providers.
+        getJob(jobId: string): Promise<unknown>;
     }
 
     interface MiddlewareListenOptions {
@@ -33,7 +44,7 @@ declare namespace BullArena {
     interface QueueOptions {
         name: string;
         hostId?: string;
-        type?: "bull" | "bee";
+        type?: "bull" | "bee" | "bullmq" | string;
         prefix?: "bull" | "bq" | string;
     }
 

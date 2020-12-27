@@ -36,7 +36,7 @@ declare namespace Faker {
             direction(useAbbr?: boolean): string;
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
-            nearbyGPSCoordinate(coordinate?: string, radius?: number, isMetric?: boolean): string;
+            nearbyGPSCoordinate(coordinate?: ReadonlyArray<string>, radius?: number, isMetric?: boolean): string[];
             timeZone(): string;
         };
 
@@ -254,7 +254,9 @@ declare namespace Faker {
         };
 
         time: {
-            recent(outputType?: string): Date;
+            recent(): number;
+            recent(outputType: 'unix'): number;
+            recent(outputType: 'abbr' | 'wide'): string;
         };
 
         seed(value: number): void;

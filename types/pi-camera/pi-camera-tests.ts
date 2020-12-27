@@ -1,6 +1,8 @@
 import PiCamera = require('pi-camera');
 
-declare function log(msg: string | number | boolean): string;
+declare function log(msg: PiCamera.ConfigValue): string;
+
+const defaultCamera = new PiCamera();
 
 const camera = new PiCamera({
     mode: 'photo',
@@ -19,6 +21,13 @@ const camera2 = new PiCamera({
     nopreview: true,
 });
 
+const camera3 = new PiCamera({
+    mode: 'photo',
+    width: 1920,
+    height: 1080,
+    nopreview: true
+});
+
 camera.snap().then((result) => {
     log(`Your picture was captured ${result}`);
 }).catch((error: Error) => {
@@ -31,10 +40,14 @@ camera2.record().then((result) => {
     log(`error happened while taking picture, message: ${error}`);
 });
 
+camera3.snapDataUrl().then((result) => {
+    log(`Your picture was captured ${result}`);
+}).catch((error: Error) => {
+    log(`error happened while taking picture, message: ${error}`);
+});
+
 const widthValue = camera.get('width');
 log(widthValue);
 
-camera.set('fps', 25);
-
-const fpsValue = camera.get('width');
-log(fpsValue);
+// $ExpectError
+camera.get('fsp');

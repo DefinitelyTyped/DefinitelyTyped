@@ -1,6 +1,5 @@
 /// <reference types="windows-script-host" />
 
-// tslint:disable-next-line no-unnecessary-generics
 const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
