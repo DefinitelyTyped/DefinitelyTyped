@@ -17,6 +17,26 @@ declare module "worker_threads" {
         readonly port2: MessagePort;
     }
 
+    /** A message received by a target object. */
+    class MessageEvent<T = any> extends Event {
+        /**
+         * Returns the data of the message.
+         */
+        readonly data: T;
+        /**
+         * Returns the last event ID string, for server-sent events.
+         */
+        readonly lastEventId: string;
+        /**
+         * Returns the origin of the message, for server-sent events and cross-document messaging.
+         */
+        readonly origin: string;
+        /**
+         * Returns the MessagePort array sent with the message, for cross-document messaging and channel messaging.
+         */
+        readonly ports: ReadonlyArray<MessagePort>;
+    }
+
     type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
 
     class MessagePort extends EventEmitter {
