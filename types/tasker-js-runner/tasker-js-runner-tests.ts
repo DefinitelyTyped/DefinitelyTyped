@@ -1,18 +1,18 @@
-import TaskerJs, { TaskerJsRunner, TK } from 'tasker-js-runner';
+import TaskerJs, { TaskerJsRunner, tk } from 'tasker-js-runner';
 
 // $ExpectType { enter(locals: Local, tasker: TK): void; exit(locals: Local, tasker: TK): void; }
 const module1: TaskerJsRunner.Module = {
     // $ExpectType (locals: Local, tasker: TK) => void
-    enter(locals: TaskerJsRunner.Local, tasker: TK) {},
+    enter(locals: TaskerJsRunner.Local, tasker: typeof tk) {},
 
     // $ExpectType (locals: Local, tasker: TK) => void
-    exit(locals: TaskerJsRunner.Local, tasker: TK) {}
+    exit(locals: TaskerJsRunner.Local, tasker: typeof tk) {}
 };
 
 // $ExpectError
 const module2: TaskerJsRunner.Module = {
     // $ExpectError
-    enter(locals: integer, tasker: TK) {},
+    enter(locals: integer, tasker: typeof tk) {},
 };
 
 // $ExpectType TaskerJs

@@ -6,7 +6,7 @@
 
 import { TK } from 'tasker-types';
 
-export { TK, tk } from 'tasker-types';
+export { tk } from 'tasker-types';
 
 export default TaskerJs;
 
