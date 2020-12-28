@@ -1,7 +1,7 @@
 declare namespace defer {
     class Deferred<T> {
         promise: Promise<T>;
-        resolve(resolved: T): void;
+        resolve(resolved?: T): void;
         reject(error: Error): void;
     }
 }
