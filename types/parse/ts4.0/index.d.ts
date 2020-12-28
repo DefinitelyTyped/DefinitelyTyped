@@ -181,6 +181,9 @@ namespace Parse {
         createdAt: Date;
         objectId: string;
         updatedAt: Date;
+    }
+
+    interface CommonAttributes {
         ACL: ACL;
     }
 
@@ -421,7 +424,7 @@ namespace Parse {
         ): Relation<this, R>;
         remove: this['add'];
         removeAll: this['addAll'];
-        revert(...keys: Array<Extract<keyof T, string>>): void;
+        revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
         save<K extends Extract<keyof T, string>>(
             attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
                 [key in K]: T[key];
@@ -517,7 +520,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? any[]
+                                ? Array<Encode<R>>
                                 : T extends object
                                     ? ToJSON<T>
                                     : T
@@ -665,6 +668,7 @@ namespace Parse {
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
+        findAll(options?: Query.BatchOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromNetwork(): this;
         fromLocalDatastore(): this;
@@ -898,7 +902,6 @@ namespace Parse {
         getSessionToken(): string;
 
         linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
-        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
@@ -1046,7 +1049,7 @@ namespace Parse {
         type AttrType<T extends Object, V> = Extract<{ [K in keyof T['attributes']]: T['attributes'][K] extends V ? K : never }[keyof T['attributes']], string>;
 
         interface FieldOptions
-            <T extends FieldType = any> {
+            <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
             required?: boolean;
             defaultValue?: T;
         }

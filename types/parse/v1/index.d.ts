@@ -654,8 +654,8 @@ declare namespace Parse {
         startsWith(key: string, prefix: string): Query<T>;
         subscribe(): Events;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinKilometers(key: string, point: GeoPoint, maxDistance: number, sorted?: boolean): Query<T>;
+        withinMiles(key: string, point: GeoPoint, maxDistance: number, sorted?: boolean): Query<T>;
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 

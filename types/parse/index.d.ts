@@ -210,6 +210,10 @@ namespace Parse {
         updatedAt: Date;
     }
 
+    interface CommonAttributes {
+        ACL: ACL;
+    }
+
     interface JSONBaseAttributes {
         createdAt: string;
         objectId: string;
@@ -297,7 +301,7 @@ namespace Parse {
         metadata(): Record<string, any>;
         tags(): Record<string, any>;
         name(): string;
-        save(options?: SuccessFailureOptions): Promise<File>;
+        save(options?: FullOptions): Promise<File>;
         cancel(): void;
         destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
@@ -306,6 +310,7 @@ namespace Parse {
         addMetadata(key: string, value: any): void;
         setTags(tags: Record<string, any>): void;
         addTag(key: string, value: any): void;
+        readonly _url: string;
     }
 
     /**
@@ -446,7 +451,7 @@ namespace Parse {
         ): Relation<this, R>;
         remove: this['add'];
         removeAll: this['addAll'];
-        revert(...keys: Array<Extract<keyof T, string>>): void;
+        revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
         save<K extends Extract<keyof T, string>>(
             attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
                 [key in K]: T[key];
@@ -477,8 +482,8 @@ namespace Parse {
         unset(attr: Extract<keyof T, string>, options?: any): this | false;
         validate(attrs: Attributes, options?: SuccessFailureOptions): Error | false;
     }
-    interface ObjectStatic {
-        createWithoutData<T extends Object>(id: string): T;
+    interface ObjectStatic<T extends Object = Object> {
+        createWithoutData(id: string): T;
         destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
@@ -493,10 +498,10 @@ namespace Parse {
             keys: keyof T['attributes'] | Array<keyof T['attributes']>,
             options?: RequestOptions,
         ): Promise<T[]>;
-        fromJSON<T extends Object>(json: any, override?: boolean): T;
+        fromJSON(json: any, override?: boolean): T;
         pinAll(objects: Object[]): Promise<void>;
         pinAllWithName(name: string, objects: Object[]): Promise<void>;
-        registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+        registerSubclass(className: string, clazz: new (options?: any) => T): void;
         saveAll<T extends readonly Object[]>(list: T, options?: Object.SaveAllOptions): Promise<T>;
         unPinAll(objects: Object[]): Promise<void>;
         unPinAllObjects(): Promise<void>;
@@ -578,7 +583,7 @@ namespace Parse {
         parseVersion: string;
         appIdentifier: string;
     }
-    interface InstallationConstructor extends ObjectStatic {
+    interface InstallationConstructor extends ObjectStatic<Installation> {
         new <T extends Attributes>(attributes: T): Installation<T>;
         new(): Installation;
     }
@@ -646,7 +651,7 @@ namespace Parse {
         constructor(objectClass: string | (new (...args: any[]) => T | Object));
 
         static and<U extends Object>(...args: Array<Query<U>>): Query<U>;
-        static fromJSON<U extends Object>(className: string, json: any): Query<U>;
+        static fromJSON<U extends Object>(className: string | (new() => U), json: any): Query<U>;
         static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
         static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
@@ -666,7 +671,7 @@ namespace Parse {
             K extends (keyof T['attributes'] | keyof BaseAttributes),
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
-        distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
+        distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V[]>;
         eachBatch(callback: (objs: T[]) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
         each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
         hint(value: string | object): this;
@@ -701,7 +706,8 @@ namespace Parse {
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
         greaterThanOrEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
-        include<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
+        include<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...key: K[]): this;
+        include<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K[]): this;
         includeAll(): Query<T>;
         lessThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
         lessThanOrEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
@@ -724,6 +730,7 @@ namespace Parse {
         ): this;
         polygonContains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
+        select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(keys: K[]): this;
         skip(n: number): Query<T>;
         sortByTextScore(): this;
         startsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, prefix: string): this;
@@ -731,8 +738,8 @@ namespace Parse {
         toJSON(): any;
         withJSON(json: any): this;
         withinGeoBox<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, southwest: GeoPoint, northeast: GeoPoint): this;
-        withinKilometers<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
-        withinMiles<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinKilometers<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number, sorted?: boolean): this;
+        withinMiles<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number, sorted?: boolean): this;
         withinPolygon<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, points: number[][]): this;
         withinRadians<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
     }
@@ -871,7 +878,7 @@ namespace Parse {
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
-    interface RoleConstructor extends ObjectStatic {
+    interface RoleConstructor extends ObjectStatic<Role> {
         new <T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
         new(name: string, acl: ACL): Role;
     }
@@ -890,7 +897,7 @@ namespace Parse {
         getSessionToken(): string;
         isCurrentSessionRevocable(): boolean;
     }
-    interface SessionConstructor extends ObjectStatic {
+    interface SessionConstructor extends ObjectStatic<Session> {
         new <T extends Attributes>(attributes: T): Session<T>;
         new(): Session;
 
@@ -925,7 +932,7 @@ namespace Parse {
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
-    interface UserConstructor extends ObjectStatic {
+    interface UserConstructor extends ObjectStatic<User> {
         new <T extends Attributes>(attributes: T): User<T>;
         new(attributes?: Attributes): User;
 
@@ -1150,8 +1157,8 @@ namespace Parse {
             text?: string;
         }
 
-        interface JobRequest {
-            params: any;
+        interface JobRequest<T extends Params = Params> {
+            params: T;
             message: (response: any) => void;
         }
 
@@ -1172,7 +1179,7 @@ namespace Parse {
             value?: string;
         }
 
-        interface TriggerRequest {
+        interface TriggerRequest<T = Object> {
             installationId?: string;
             master?: boolean;
             user?: User;
@@ -1180,20 +1187,20 @@ namespace Parse {
             headers: any;
             triggerName: string;
             log: any;
-            object: Object;
-            original?: Object;
+            object: T;
+            original?: T;
         }
 
-        interface AfterSaveRequest extends TriggerRequest {
+        interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
             context: object;
         }
-        interface AfterDeleteRequest extends TriggerRequest { }      // tslint:disable-line no-empty-interface
-        interface BeforeDeleteRequest extends TriggerRequest { }     // tslint:disable-line no-empty-interface
-        interface BeforeSaveRequest extends TriggerRequest {
+        interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> { }      // tslint:disable-line no-empty-interface
+        interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> { }     // tslint:disable-line no-empty-interface
+        interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
             context: object;
         }
 
-        interface FileTriggerRequest extends TriggerRequest {
+        interface FileTriggerRequest extends TriggerRequest<File> {
             file: File;
             fileSize: number;
             contentLength: number;
@@ -1208,30 +1215,30 @@ namespace Parse {
             Nearest = 'NEAREST',
         }
 
-        interface BeforeFindRequest extends TriggerRequest {
-            query: Query;
+        interface BeforeFindRequest<T extends Object = Object> extends TriggerRequest<T> {
+            query: Query<T>;
             count: boolean;
             isGet: boolean;
             readPreference?: ReadPreferenceOption;
         }
 
-        interface AfterFindRequest extends TriggerRequest {
-            objects: Object[];
+        interface AfterFindRequest<T = Object> extends TriggerRequest<T> {
+            objects: T[];
         }
 
-        function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
-        function afterSave(arg1: any, func?: (request: AfterSaveRequest) => Promise<void> | void): void;
-        function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest) => Promise<void> | void): void;
-        function beforeSave(arg1: any, func?: (request: BeforeSaveRequest) => Promise<void> | void): void;
-        function beforeFind(
-            arg1: any,
-            func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
+        function afterDelete<T extends Object = Object>(arg1: { new(): T } | string, func?: (request: AfterDeleteRequest<T>) => Promise<void> | void): void;
+        function afterSave<T extends Object = Object>(arg1: { new(): T } | string, func?: (request: AfterSaveRequest<T>) => Promise<void> | void): void;
+        function beforeDelete<T extends Object = Object>(arg1: { new(): T } | string, func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void): void;
+        function beforeSave<T extends Object = Object>(arg1: { new(): T } | string, func?: (request: BeforeSaveRequest<T>) => Promise<void> | void): void;
+        function beforeFind<T extends Object = Object>(
+            arg1: { new(): T } | string,
+            func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void
         ): void;
-        function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
+        function afterFind<T extends Object = Object>(arg1: { new(): T } | string, func?: (request: AfterFindRequest<T>) => any): void;
 
-        function beforeLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
-        function afterLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
-        function afterLogout(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function beforeLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
+        function afterLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
+        function afterLogout(func?: (request: TriggerRequest<Session>) => PromiseLike<void> | void): void;
 
         function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
         function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
@@ -1299,7 +1306,7 @@ namespace Parse {
              * You can also set this to a Buffer object to send raw bytes.
              * If you use a Buffer, you should also set the Content-Type header explicitly to describe what these bytes represent.
              */
-            body?: string | Buffer | Object;
+            body?: string | Buffer | object;
             /**
              * Defaults to 'false'.
              */

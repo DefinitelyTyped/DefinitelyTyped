@@ -16,7 +16,7 @@ class GameScore extends Parse.Object {
     }
 }
 
-class Game extends Parse.Object {
+class Game extends Parse.Object<{ gameScore: GameScore, score: string }> {
     constructor(options?: any) {
         super('Game', options);
     }
@@ -1795,7 +1795,7 @@ function testQuery() {
         // $ExpectType Object<Attributes>[]
         await queryUntyped.find();
 
-        // $ExpectType string
+        // $ExpectType string[]
         await queryTyped.distinct('example');
 
         // $ExpectType Object<Attributes> | undefined
