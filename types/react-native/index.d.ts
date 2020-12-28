@@ -9359,23 +9359,28 @@ type ScreenRect = {
     height: number;
 };
 
-type BaseKeyboardEvent = {
+interface KeyboardEventIOS {
+    /**
+     * @platform ios
+     */
+    startCoordinates: ScreenRect;
+    /**
+     * @platform ios
+     */
+    isEventFromThisApp: boolean;
+}
+
+export interface KeyboardEvent extends Partial<KeyboardEventIOS> {
+    /**
+     * Always set to 0 on Android.
+     */
     duration: number;
+    /**
+     * Always set to "keyboard" on Android.
+     */
     easing: KeyboardEventEasing;
     endCoordinates: ScreenRect;
-};
-
-type AndroidKeyboardEvent = BaseKeyboardEvent & {
-    duration: 0;
-    easing: 'keyboard';
-};
-
-type IOSKeyboardEvent = BaseKeyboardEvent & {
-    startCoordinates: ScreenRect;
-    isEventFromThisApp: boolean;
-};
-
-export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
+}
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
