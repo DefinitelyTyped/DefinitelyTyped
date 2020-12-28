@@ -11,17 +11,11 @@ export { tk } from 'tasker-types';
 export default TaskerJs;
 
 declare class TaskerJs {
-    router: Router;
+    router: TaskerJsRunner.Router;
 
     constructor(routes: TaskerJsRunner.Route);
 
     hotReload(): Promise<void>;
-}
-
-declare class Router {
-    constructor(routes: TaskerJsRunner.Route, context: typeof Window);
-
-    dispatch(locals: TaskerJsRunner.Local): void;
 }
 
 export namespace TaskerJsRunner {
@@ -37,5 +31,11 @@ export namespace TaskerJsRunner {
         enter(locals: Local, tasker: TK): void;
 
         exit(locals: Local, tasker: TK): void;
+    }
+
+    class Router {
+        constructor(routes: Route, context: typeof Window);
+
+        dispatch(locals: Local): void;
     }
 }
