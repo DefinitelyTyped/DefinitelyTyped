@@ -109,8 +109,8 @@ export namespace NoteStore {
         tagCounts?: Dictionary<Types.Guid, number>;
         trashCount?: number;
         constructor(args?: {
-            notebookCounts?: Map<Types.Guid, number>;
-            tagCounts?: Map<Types.Guid, number>;
+            notebookCounts?: Dictionary<Types.Guid, number>;
+            tagCounts?: Dictionary<Types.Guid, number>;
             trashCount?: number;
         });
     }
