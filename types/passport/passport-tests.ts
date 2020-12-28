@@ -144,8 +144,11 @@ function authSetting(): void {
 }
 
 function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
-    if (req.isAuthenticated()) { return next(); }
-    if (req.isUnauthenticated()) {
+    if (req.isAuthenticated()) {
+        const user: Express.User = req.user;
+        return next();
+    } else if (req.isUnauthenticated()) {
+        const user: undefined = req.user;
         res.redirect('/login');
     }
 }
