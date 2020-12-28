@@ -17,9 +17,8 @@ declare namespace JsReport {
 
     type Recipe = "html";
 
-    interface Template {
-        /** template for the engine */
-        content: string;
+    interface TemplateBase {
+        content?: string;
         /** templating engine used to assemble document */
         engine: Engine | string;
         /** javascript helper functions used by templating engines */
@@ -27,6 +26,11 @@ declare namespace JsReport {
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string;
+    }
+
+    interface Template extends TemplateBase {
+        /** template for the engine */
+        content: string;
     }
 
     interface TemplateRegistry {
