@@ -8,6 +8,10 @@
 
 import { oauth1tokenCallback, OAuth } from 'oauth';
 
+type Dictionary<TKey extends number | string, TValue> = {
+    [key in TKey]: TValue
+};
+
 /* NoteStore: Data types and Constants */
 export namespace NoteStore {
     class CreateOrUpdateNotebookSharesResult {
@@ -100,8 +104,8 @@ export namespace NoteStore {
         });
     }
     class NoteCollectionCounts {
-        notebookCounts?: Map<Types.Guid, number>;
-        tagCounts?: Map<Types.Guid, number>;
+        notebookCounts?: Dictionary<Types.Guid, number>;
+        tagCounts?: Dictionary<Types.Guid, number>;
         trashCount?: number;
         constructor(args?: {
             notebookCounts?: Map<Types.Guid, number>;
