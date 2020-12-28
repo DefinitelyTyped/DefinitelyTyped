@@ -5332,13 +5332,13 @@ export class TouchableOpacity extends TouchableOpacityBase {
 
 interface BaseBackgroundPropType {
     type: string;
+    rippleRadius?: number | null;
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid';
-    color?: ColorValue;
-    borderless?: boolean;
-    radius?: number;
+    type: 'RippleAndroid',
+    borderless: boolean,
+    color?: number | null,
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
@@ -5386,15 +5386,19 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     /**
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
+     *
+     * @param rippleRadius The radius of ripple effect
      */
-    static SelectableBackground(): ThemeAttributeBackgroundPropType;
+    static SelectableBackground(rippleRadius?: number | null): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represent android theme's default background for borderless
      * selectable elements (?android:attr/selectableItemBackgroundBorderless).
      * Available on android API level 21+.
+     *
+     * @param rippleRadius The radius of ripple effect
      */
-    static SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
+    static SelectableBackgroundBorderless(rippleRadius?: number | null): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represents ripple drawable with specified color (as a
@@ -5405,9 +5409,9 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      *
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
-     * @param radius The radius of ripple effect
+     * @param rippleRadius The radius of ripple effect
      */
-    static Ripple(color: ColorValue, borderless: boolean, radius?: number | null): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless: boolean, rippleRadius?: number | null): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
