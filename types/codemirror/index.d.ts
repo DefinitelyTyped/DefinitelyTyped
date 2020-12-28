@@ -1092,6 +1092,13 @@ declare namespace CodeMirror {
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
         extraKeys?: string | KeyMap;
 
+        /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
+        configureMouse?: (
+            cm: CodeMirror.Editor,
+            repeat: 'single' | 'double' | 'triple',
+            event: Event,
+        ) => MouseSelectionConfiguration;
+        
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;
 
@@ -1256,13 +1263,6 @@ declare namespace CodeMirror {
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintStateOptions | Linter | AsyncLinter;
-
-        /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
-        configureMouse?: (
-            cm: CodeMirror.Editor,
-            repeat: 'single' | 'double' | 'triple',
-            event: Event,
-        ) => MouseSelectionConfiguration;
     }
 
     interface TextMarkerOptions {
@@ -1902,7 +1902,7 @@ declare namespace CodeMirror {
         that, for a custom unit. The default is to return "word" for
         double clicks, "line" for triple clicks, "rectangle" for alt-clicks
         (or, on Chrome OS, meta-shift-clicks), and "single" otherwise. */
-        unit:
+        unit?:
             | 'char'
             | 'word'
             | 'line'
@@ -1911,16 +1911,16 @@ declare namespace CodeMirror {
 
         /** Whether to extend the existing selection range or start
         a new one. By default, this is enabled when shift clicking. */
-        extend: boolean;
+        extend?: boolean;
 
         /** When enabled, this adds a new range to the existing selection,
         rather than replacing it. The default behavior is to enable this
         for command-click on Mac OS, and control-click on other platforms. */
-        addNew: boolean;
+        addNew?: boolean;
 
         /** When the mouse even drags content around inside the editor, this
         controls whether it is copied (false) or moved (true). By default, this
         is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere. */
-        moveOnDrag: boolean;
+        moveOnDrag?: boolean;
     }
 }
