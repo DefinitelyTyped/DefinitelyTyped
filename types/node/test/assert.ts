@@ -1,6 +1,10 @@
 import * as assert from 'assert';
 
 {
+    const { stack } = new assert.AssertionError({});
+}
+
+{
     const { message } = new assert.AssertionError({
         actual: 1,
         expected: 2,
