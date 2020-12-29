@@ -47,6 +47,8 @@ declare module 'ipaiva' {
             [key: string]: string | number | boolean | any;
         }
 
+        type Props = Record<string, any>
+
         interface Design {
             main?: string;
             data?: NodeData;
@@ -57,6 +59,7 @@ declare module 'ipaiva' {
             controls?: DesignControls;
             nodeEvents?: DesignNodeEvents;
             preCreate?(option: PreCreateOption): PreCreateOption;
+            overrideRenderProperties?(props: Props): Props;
         }
 
         interface Render {}
