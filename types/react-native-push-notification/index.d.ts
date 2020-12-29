@@ -62,7 +62,7 @@ export class PushNotificationObject {
     channelId?: string;
     onlyAlertOnce?: boolean;
     allowWhileIdle?: boolean;
-    timeoutAfter?: number;
+    timeoutAfter?: number | null;
     messageId?: string;
 
     actions?: string;
