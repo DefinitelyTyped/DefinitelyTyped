@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "tasker-js-runner": "^1.1.0",
         "tasker-types": "^1.0.0"
     }
 }
