@@ -1,15 +1,26 @@
-import { tk as tasker } from "tasker-types"; 
+import TaskerJs from "tasker-js-runner";
+import { TK as tasker } from "tasker-types";
 
-const testProfile = {
-    enter(locals, tasker: tasker) {
-      
+const notification = {
+    enter(locals: { [ name: string ]: string }, tasker: tasker) {
+        const content = `${locals.anapp} ${locals.antitle}`;
+
+        tasker.setClip(content, false);
+
+        tasker.flash('content');
     },
-  
-    exit(locals, tasker) {}
+
+    exit(locals: { [ name: string ]: string }, tasker: tasker) {}
   };
 
-// Construct Tasker JS and pass in mapping information as an Object
-new TaskerJs({
-    // Profile name: module
-    'Notification:All': notification,
-  });
+// $ExpectType TaskerJs
+const taskerJs = new TaskerJs({ 'Notification:All': notification });
+
+// $ExpectType { [profileName: string]: object; }
+taskerJs.router;
+
+// $ExpectType Promise<void>
+taskerJs.hotReload();
+
+// $ExpectError
+const taskerJsError = new TaskerJs({ 'Notification:All': 'test' });

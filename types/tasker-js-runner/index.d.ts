@@ -3,10 +3,10 @@
 // Definitions by: Ivan Soriano Arabia <https://github.com/ivansoriarab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class TaskerJS {
-    router: any;
+export default class TaskerJs {
+    router: { [ profileName: string ]: object };
 
-    constructor(routes: any);
+    constructor(routes: { [ profileName: string ]: object });
 
     hotReload(): Promise<void>;
 }
