@@ -44975,10 +44975,10 @@ declare namespace Excel {
             /**
              *
              * Specifies if the column width of the `Range` object equals the standard width of the sheet.
-                    Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
-                    Returns `null` if the range contains more than one column and the columns aren't all the same height.
-                    Returns `false` otherwise.
-                    Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
+                        Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `null` if the range contains more than one column and the columns aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
