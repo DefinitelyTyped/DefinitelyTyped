@@ -96,7 +96,7 @@ gulp.task('connect', () => {
         express()
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,
@@ -112,7 +112,7 @@ gulp.task('connect', () => {
         ["/path2", express()],
     ];
 
-    return connect.server({
+    connect.server({
         root: [__dirname],
         port: 8081,
         livereload: true,

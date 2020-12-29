@@ -112,7 +112,7 @@ The process of handling PRs:
 
 The process of deploying changes:
 
-- [types-publisher](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) — when a PR is merged, types-publisher moves the contents to NPM/GitHub Package Repository
+- [types-publisher](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) — when a PR is merged, types-publisher moves the contents to npm/GitHub Package Repository
 - [CI](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build) — the build pipelines on Azure which does most of the work
 
 Recommendations we make:
