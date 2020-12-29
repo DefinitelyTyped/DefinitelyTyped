@@ -119,10 +119,10 @@ export namespace DS {
     ): string;
     const VERSION: string;
 
-    interface AttrOptions<T = any> {
-      defaultValue?: T extends Transform ? (() => ReturnType<T['deserialize']>) : T | (() => T);
-      allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
-  }
+    interface AttrOptions<T extends Transform | string | number | boolean | Date = any> {
+        defaultValue?: T extends Transform ? (() => ReturnType<T['deserialize']>) : string | number | boolean | (() => T);
+        allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
+    }
 
     /**
      * `DS.attr` defines an attribute on a [DS.Model](/api/data/classes/DS.Model.html).
