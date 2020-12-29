@@ -10,7 +10,7 @@ function sample1() {
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
-    const obj = e.target.getCoords()
+    const obj = e.target.getCoords();
   });
 
   for (let i = 0; i < 15; i++) {
