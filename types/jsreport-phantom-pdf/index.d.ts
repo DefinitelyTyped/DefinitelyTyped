@@ -50,7 +50,7 @@ declare namespace JsReportPhantomPdf {
     // export enum Foo { }
 
     interface PhantomPDFTemplate extends Template {
-        phantom?: Partial<JsReportPhantomPdf.Phantom>;
+        phantom?: Partial<Phantom>;
         recipe: 'phantom-pdf' | string;
     }
 }
