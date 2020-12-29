@@ -5,9 +5,6 @@ var config: tedious.ConnectionConfig = {
     options: {
         database: "somedb",
         instanceName: "someinstance",
-        cryptoCredentialsDetails: {
-            minVersion: "TLSv1"
-        }
     },
     authentication: {
         type: "default",

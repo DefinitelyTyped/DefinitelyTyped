@@ -798,10 +798,6 @@ tickFormatNumberFn = quantizeScaleNumber.tickFormat(5, '+%');
 
 outputNumber = quantizeScaleNumber(0.51);
 
-// thresholds(...) -----------------------------------------------------------------
-
-const thresholdsFromQuantize: number[] = quantizeScaleNumber.thresholds();
-
 // copy(...) -----------------------------------------------------------------
 
 const copiedQuantizeScale: d3Scale.ScaleQuantize<number> = quantizeScaleNumber.copy();

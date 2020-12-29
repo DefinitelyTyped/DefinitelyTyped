@@ -113,7 +113,6 @@ new google.maps.Data({ map });
 let latLng = new google.maps.LatLng(52.201203, -1.72437);
 let feature = new google.maps.Data.Feature();
 let geometry = new google.maps.Data.Geometry();
-let domEvent = new MouseEvent('click');
 
 let data = map.data;
 
@@ -200,7 +199,6 @@ data.toGeoJson(feature => {});
 let dataMouseEvent: google.maps.Data.MouseEvent = {
     feature,
     latLng,
-    domEvent,
     stop: (): void => {},
 };
 

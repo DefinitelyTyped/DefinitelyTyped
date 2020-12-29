@@ -58,7 +58,7 @@ export class Strategy extends oauth2.Strategy {
         verify: (
             accessToken: string,
             refreshToken: string,
-            params: GoogleCallbackParameters,
+            params: any,
             profile: Profile,
             done: VerifyCallback
         ) => void
@@ -79,7 +79,7 @@ export class Strategy extends oauth2.Strategy {
             req: express.Request,
             accessToken: string,
             refreshToken: string,
-            params: GoogleCallbackParameters,
+            params: any,
             profile: Profile,
             done: VerifyCallback
         ) => void
@@ -97,15 +97,6 @@ export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions 
     hd?: string;
     requestVisibleActions?: any;
     openIDRealm?: any;
-}
-
-export interface GoogleCallbackParameters {
-    access_token: string;
-    refresh_token?: string;
-    id_token?: string;
-    expires_in: number;
-    scope: string;
-    token_type: string;
 }
 
 // allow Google-specific options when using "google" strategy

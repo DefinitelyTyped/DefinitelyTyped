@@ -38,7 +38,6 @@ table
     });
 
 table.setGroupBy('gender');
-table.setGroupBy(['gender', 'age']);
 table.setGroupStartOpen(true);
 
 table.setGroupHeader((value, count, data, group) => {
@@ -927,56 +926,3 @@ calcComponent.getElement();
 calcComponent.getTable();
 calcComponent.getCells();
 calcComponent.getCell(column);
-
-// 4.9
-const rowContextMenu2: Array<Tabulator.MenuObject<Tabulator.ColumnComponent>> = [
-    {
-        label: 'Hide Column',
-        action: (e, column) => {
-            column.hide();
-        },
-    },
-    {
-        label: 'Sub Menu',
-        menu: [
-            {
-                label: 'Do Something',
-                action: (e, column) => {
-                    column.delete();
-                },
-            },
-            {
-                label: 'Do Something 2',
-                action: (e, column) => {
-                    column.delete();
-                },
-            },
-            {
-                label: 'Deeper Sub Menu',
-                menu: [
-                    {
-                        label: 'Do Something 3',
-                        action: (e, column) => {
-                            column.delete();
-                        },
-                    },
-                ],
-            },
-        ],
-    },
-];
-
-colDef.formatterParams = {
-    urlPrefix: 'http://',
-    urlSuffix: '.png',
-};
-
-table = new Tabulator('#example-table', {
-    columnMaxWidth: 300,
-});
-
-table.refreshFilters();
-table.clearHistory();
-
-colDef.maxWidth = 300;
-colDef.maxWidth = false;

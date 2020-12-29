@@ -1,4 +1,4 @@
-import Email = require('email-templates');
+import EmailTemplates = require('email-templates');
 import { createTransport } from 'nodemailer';
 import path = require('path');
 
@@ -6,23 +6,21 @@ const locals = {
     locale: 'en',
     name: 'Elon',
 };
-
-let email = new Email();
-
-email = new Email({
+const email = new EmailTemplates({
     message: {
       from: 'Test@testing.com'
     },
     transport: {
         jsonTransport: true
     },
+    /** returns different template based on current locale */
     getPath: (type, template, locales) => {
         const locale = locales.locale;
         return path.join(template, locale, type);
     },
 });
 
-const emailNoTransporter = new Email({
+const emailNoTransporter = new EmailTemplates({
     message: {
       from: 'test@testing.com'
     },
@@ -43,7 +41,7 @@ interface Locals {
     firstName: string;
 }
 
-const withTransportInstance = new Email<Locals>({
+const withTransportInstance = new EmailTemplates<Locals>({
     message: {
         from: 'definitelytyped@example.org'
     },
@@ -54,7 +52,7 @@ const withTransportInstance = new Email<Locals>({
 
 withTransportInstance.render('tmpl', { firstName: 'TypeScript' });
 
-const emailOptions: Email.EmailOptions<Locals> = {
+const emailOptions: EmailTemplates.EmailOptions<Locals> = {
     template: 'tmpl',
     locals: {
         firstName: 'TypeScript'
@@ -76,20 +74,4 @@ promise.then(value => {
     const subject: string | undefined = value.subject;
     const html: string | undefined = value.html;
     const text: string | undefined = value.text;
-});
-
-email = new Email({
-    message: {
-        from: 'definitelytyped@example.org',
-    },
-    juice: true,
-    juiceSettings: {
-        tableElements: ['TABLE'],
-    },
-    juiceResources: {
-        preserveImportant: true,
-        webResources: {
-            relativeTo: path.resolve('build'),
-        },
-    },
 });

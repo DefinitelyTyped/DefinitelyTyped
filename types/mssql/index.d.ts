@@ -194,7 +194,7 @@ export interface config {
     server: string;
     port?: number;
     domain?: string;
-    database?: string;
+    database: string;
     connectionTimeout?: number;
     requestTimeout?: number;
     stream?: boolean;

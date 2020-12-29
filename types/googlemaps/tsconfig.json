@@ -27,7 +27,6 @@
         "test/reference/max-zoom-tests.ts",
         "test/reference/geocode-tests.ts",
         "test/reference/distance-matrix-tests.ts",
-        "test/reference/drawing-tests.ts",
         "googlemaps-tests.ts"
     ]
 }

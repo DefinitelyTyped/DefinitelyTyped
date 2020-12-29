@@ -1,8 +1,5 @@
 import { ComponentType, HTMLProps } from 'react';
 
-import Icon from '../icon';
-import Tooltip from '../tooltip';
-
 declare namespace Button {
     interface BaseProps {
         /**
@@ -38,9 +35,7 @@ declare namespace Button {
         /**
          * Renders a toggled button style.
          */
-        isPressed?: boolean;
-        /** @deprecated Use `isPressed` instead. */
-        isToggled?: never;
+        isToggled?: boolean;
         /**
          * Indicates activity while a action is being performed.
          */
@@ -49,37 +44,8 @@ declare namespace Button {
          * Renders a button with an anchor style.
          */
         isLink?: boolean;
-        /**
-         * Renders a disabled button.
-         */
         disabled?: boolean;
         className?: string;
-        /**
-         * The icon to render. Supported values are: Dashicons (specified as
-         * strings), functions, WPComponent instances and `null`.
-         * @defaultValue null
-         */
-        icon?: Icon.Props<any>['icon'];
-        /**
-         * The size (width and height) of the icon.
-         * @defaultValue `20` (when using Dashicon), `24` otherwise
-         */
-        iconSize?: Icon.Props<any>['size'];
-        /**
-         * Renders a with the `label` prop when `true`.
-         * @defaultValue false
-         */
-        showTooltip?: boolean;
-        /**
-         * The direction in which the tooltip should open relative to its
-         * parent node.
-         */
-        tooltipPosition?: Tooltip.Props['position'];
-        shortcut?: Tooltip.Props['shortcut'];
-        /**
-         * Used as the Tooltip text and `aria-label` if one is not provided.
-         */
-        label?: string;
     }
     interface AnchorProps extends BaseProps, HTMLProps<HTMLAnchorElement> {}
     interface ButtonProps extends BaseProps, HTMLProps<HTMLButtonElement> {

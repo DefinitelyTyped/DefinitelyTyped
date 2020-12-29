@@ -137,7 +137,7 @@ declare namespace google.maps {
         }
 
         // tslint:disable-next-line:no-unnecessary-qualifier
-        interface MouseEvent extends google.maps.MapMouseEvent {
+        interface MouseEvent extends google.maps.MouseEvent {
             feature: Feature;
         }
 

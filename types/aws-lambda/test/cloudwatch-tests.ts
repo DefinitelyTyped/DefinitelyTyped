@@ -24,7 +24,7 @@ const logsHandler: CloudWatchLogsHandler = async (event, context, callback) => {
     str = logEvent.id;
     num = logEvent.timestamp;
     str = logEvent.message;
-    strOrUndefined = logEvent.extractedFields!['example'];
+    str = logEvent.extractedFields!['example'];
 
     callback();
     callback(new Error());

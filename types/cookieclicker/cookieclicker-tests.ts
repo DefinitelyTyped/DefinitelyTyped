@@ -117,9 +117,3 @@ const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10,
 // `TickerEffect` can also be 0
 // $ExpectError
 Game.TickerEffect.type;
-
-new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]).parents.push(Game.UpgradesById[17]);
-
-Game.registerHook('reset', hard => {
-    alert(`This reset is ${hard ? '' : 'not '}hard!`);
-});

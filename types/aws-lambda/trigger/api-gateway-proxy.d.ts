@@ -63,39 +63,31 @@ export interface APIGatewayProxyCognitoAuthorizer {
 }
 
 export interface APIGatewayProxyEventHeaders {
-    [name: string]: string | undefined;
-}
-
-export interface APIGatewayProxyEventMultiValueHeaders {
-    [name: string]: string[] | undefined;
+    [name: string]: string;
 }
 
 export interface APIGatewayProxyEventPathParameters {
-    [name: string]: string | undefined;
+    [name: string]: string;
 }
 
 export interface APIGatewayProxyEventQueryStringParameters {
-    [name: string]: string | undefined;
-}
-
-export interface APIGatewayProxyEventMultiValueQueryStringParameters {
-    [name: string]: string[] | undefined;
+    [name: string]: string;
 }
 
 export interface APIGatewayProxyEventStageVariables {
-    [name: string]: string | undefined;
+    [name: string]: string;
 }
 
 export interface APIGatewayProxyEventBase<TAuthorizerContext> {
     body: string | null;
     headers: APIGatewayProxyEventHeaders;
-    multiValueHeaders: APIGatewayProxyEventMultiValueHeaders;
+    multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: APIGatewayProxyEventPathParameters | null;
     queryStringParameters: APIGatewayProxyEventQueryStringParameters | null;
-    multiValueQueryStringParameters: APIGatewayProxyEventMultiValueQueryStringParameters | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: APIGatewayProxyEventStageVariables | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>;
     resource: string;

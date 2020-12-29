@@ -173,7 +173,6 @@ fs.ensureDir(path, ensureNum).then(() => {
 });
 fs.ensureDir(path, ensureObj, errorCallback);
 fs.ensureDir(path, ensureNum, errorCallback);
-fs.ensureDir(path, errorCallback);
 fs.ensureDirSync(path);
 fs.ensureDirSync(path, ensureObj);
 fs.ensureDirSync(path, ensureNum);

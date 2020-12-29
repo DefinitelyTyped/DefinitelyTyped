@@ -10,30 +10,14 @@ export interface ALBEventRequestContext {
     };
 }
 
-export interface ALBEventQueryStringParameters {
-    [name: string]: string | undefined;
-}
-
-export interface ALBEventHeaders {
-    [name: string]: string | undefined;
-}
-
-export interface ALBEventMultiValueHeaders {
-    [name: string]: string[] | undefined;
-}
-
-export interface ALBEventMultiValueQueryStringParameters {
-    [name: string]: string[] | undefined;
-}
-
 export interface ALBEvent {
     requestContext: ALBEventRequestContext;
     httpMethod: string;
     path: string;
-    queryStringParameters?: ALBEventQueryStringParameters; // URL encoded
-    headers?: ALBEventHeaders;
-    multiValueQueryStringParameters?: ALBEventMultiValueQueryStringParameters; // URL encoded
-    multiValueHeaders?: ALBEventMultiValueHeaders;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
     body: string | null;
     isBase64Encoded: boolean;
 }

@@ -164,7 +164,7 @@ declare namespace Bookshelf {
          */
         save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
         save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string, throughForeignKeyTarget?: string, otherKeyTarget?: string): R;
+        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
         where(properties: { [key: string]: any }): T;
         where(
             key: string,

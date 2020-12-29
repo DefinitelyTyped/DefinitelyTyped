@@ -644,22 +644,3 @@ management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => consol
 //MFA invalidate remember browser
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => console.log('mfa resetter'));
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }, err => console.log('mfa resetter error'));
-
-const authentication = new auth0.AuthenticationClient({
-    domain: 'auth0.com'
-})
-
-authentication.refreshToken({
-  refresh_token:'{YOUR_REFRESH_TOKEN}',
-  client_id: '{OPTIONAL_CLIENT_ID}'
-}).then(()=> console.log('refreshed'))
-authentication.refreshToken({refresh_token:'{YOUR_REFRESH_TOKEN}', client_id: '{OPTIONAL_CLIENT_ID}'}, err => console.log('refreshed'))
-
-const oauthAuthenticator = new auth0.OAuthAuthenticator({
-  baseUrl: 'baseUrl',
-  clientId: '{OPTIONAL_CLIENT_ID}',
-  clientSecret: '{OPTIONAL_CLIENT_SECRET}'
-})
-
-oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
-oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));

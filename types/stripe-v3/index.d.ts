@@ -143,7 +143,6 @@ declare namespace stripe {
 
     interface StripeOptions {
         stripeAccount?: string;
-        apiVersion?: string;
         betas?: string[];
         locale?: string;
     }

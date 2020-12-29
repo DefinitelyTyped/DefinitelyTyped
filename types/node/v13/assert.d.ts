@@ -15,7 +15,6 @@ declare module 'assert' {
                 actual?: any;
                 expected?: any;
                 operator?: string;
-                // tslint:disable-next-line:ban-types
                 stackStartFn?: Function;
             });
         }
@@ -29,7 +28,6 @@ declare module 'assert' {
             expected: any,
             message?: string | Error,
             operator?: string,
-            // tslint:disable-next-line:ban-types
             stackStartFn?: Function,
         ): never;
         function ok(value: any, message?: string | Error): asserts value;
@@ -49,7 +47,7 @@ declare module 'assert' {
         function throws(block: () => any, message?: string | Error): void;
         function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
         function doesNotThrow(block: () => any, message?: string | Error): void;
-        function doesNotThrow(block: () => any, error: AssertPredicate, message?: string | Error): void;
+        function doesNotThrow(block: () => any, error: RegExp | Function, message?: string | Error): void;
 
         function ifError(value: any): asserts value is null | undefined;
 
@@ -62,7 +60,7 @@ declare module 'assert' {
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(
             block: (() => Promise<any>) | Promise<any>,
-            error: AssertPredicate,
+            error: RegExp | Function,
             message?: string | Error,
         ): Promise<void>;
 

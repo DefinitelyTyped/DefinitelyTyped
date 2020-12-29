@@ -182,7 +182,7 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',
+    value => value === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
@@ -224,8 +224,6 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any, object>
     this.schema;
-    // $ExpectType any
-    this.originalValue;
     // $ExpectType (value: any) => any
     this.resolve;
     // $ExpectType ValidationError

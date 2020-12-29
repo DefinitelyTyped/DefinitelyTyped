@@ -668,12 +668,11 @@ export class CookieJar {
     /**
      * Set cookie.
      * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
-     * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
      */
-    set(url: string, name: string, value: string, options?: CookieOptions | null): void;
+    set(name: string, value: string, options?: CookieOptions | null): void;
 }
 
 /**

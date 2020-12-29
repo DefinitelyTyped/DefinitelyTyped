@@ -55,8 +55,7 @@ export interface RenderersProps {
         canvas: any;
     };
 }
-
-export type ColorChangeHandler<T = HSLColor|HSVColor|RGBColor> = (color: T) => void;
+export type ColorChangeHandler = (color: ColorState) => void;
 
 export { default as AlphaPicker, AlphaPickerProps } from "./lib/components/alpha/Alpha";
 export { default as BlockPicker, BlockPickerProps } from "./lib/components/block/Block";

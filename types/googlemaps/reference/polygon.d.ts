@@ -169,25 +169,9 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
-    /**
-     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/polygon#PolyMouseEvent Maps JavaScript API}
-     */
-    interface PolyMouseEvent extends MapMouseEvent {
-        /**
-         * The index of the edge within the path beneath the cursor when the event occurred, if the
-         *  event occurred on a mid-point on an editable polygon.
-         */
+    interface PolyMouseEvent extends MouseEvent {
         edge?: number;
-        /**
-         * The index of the path beneath the cursor when the event occurred, if the event occurred on
-         *  a vertex and the polygon is editable. Otherwise undefined.
-         */
         path?: number;
-        /**
-         * The index of the vertex beneath the cursor when the event occurred, if the event occurred on
-         *  a vertex and the polyline or polygon is editable. If the event does not occur on a vertex,
-         *  the value is undefined.
-         */
         vertex?: number;
     }
 

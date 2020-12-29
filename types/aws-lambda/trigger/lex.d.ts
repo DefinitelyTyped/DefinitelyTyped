@@ -3,24 +3,12 @@ import { Callback, Handler } from "../handler";
 export type LexHandler = Handler<LexEvent, LexResult>;
 export type LexCallback = Callback<LexResult>;
 
-export interface LexEventSlots {
-    [name: string]: string | undefined | null;
-}
-
-export interface LexEventSessionAttributes {
-    [key: string]: string | undefined;
-}
-
-export interface LexEventRequestAttributes {
-    [key: string]: string | undefined;
-}
-
 // Lex
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-lex
 export interface LexEvent {
     currentIntent: {
         name: string;
-        slots: LexEventSlots;
+        slots: { [name: string]: string | null };
         slotDetails: LexSlotDetails;
         confirmationStatus: 'None' | 'Confirmed' | 'Denied';
     };
@@ -34,8 +22,8 @@ export interface LexEvent {
     invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
     outputDialogMode: 'Text' | 'Voice';
     messageVersion: '1.0';
-    sessionAttributes: LexEventSessionAttributes;
-    requestAttributes: LexEventRequestAttributes | null;
+    sessionAttributes: { [key: string]: string };
+    requestAttributes: { [key: string]: string } | null;
 }
 
 export interface LexSlotResolution {

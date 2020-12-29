@@ -42,7 +42,6 @@ export function createSymlink(src: string, dest: string, type: SymlinkType, call
 export function createSymlinkSync(src: string, dest: string, type: SymlinkType): void;
 
 export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
-export function ensureDir(path: string, callback?: (err: Error) => void): void;
 export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
 export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
 

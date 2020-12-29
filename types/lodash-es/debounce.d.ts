@@ -1,4 +1,2 @@
-import { debounce, DebouncedFunc, DebounceSettings } from "lodash";
-
-export { DebounceSettings, DebouncedFunc };
+import { debounce } from "lodash";
 export default debounce;

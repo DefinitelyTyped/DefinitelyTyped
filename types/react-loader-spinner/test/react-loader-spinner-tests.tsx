@@ -15,15 +15,6 @@ const App = () => {
                 className="some-class"
                 style={{color: "red"}}
             />
-            <Loader
-                color="#8000FF"
-                height={"2rem"}
-                secondaryColor="#ffffff"
-                timeout={3000}
-                type="Audio"
-                visible={true}
-                width={"1rem"}
-            />
         </div>
     );
 };

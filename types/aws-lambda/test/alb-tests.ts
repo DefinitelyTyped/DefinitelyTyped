@@ -3,12 +3,10 @@ import { ALBHandler, ALBResult } from "aws-lambda";
 const handler: ALBHandler = async (event, context, callback) => {
     str = event.httpMethod;
     str = event.path;
-    strOrUndefined = event.queryStringParameters![str];
-    strOrUndefined = event.headers![str];
-    strArrayOrUndefined = event.multiValueQueryStringParameters![str];
-    str = event.multiValueQueryStringParameters![str]![num];
-    strArrayOrUndefined = event.multiValueHeaders![str];
-    str = event.multiValueHeaders![str]![num];
+    str = event.queryStringParameters![str];
+    str = event.headers![str];
+    str = event.multiValueQueryStringParameters![str][num];
+    str = event.multiValueHeaders![str][num];
     strOrNull = event.body;
     bool = event.isBase64Encoded;
     str = event.requestContext.elb.targetGroupArn;

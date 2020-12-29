@@ -17,9 +17,9 @@ declare namespace JsReport {
 
     type Recipe = "html";
 
-    interface Template {
+    interface TemplateBase {
         /** template for the engine */
-        content: string;
+        content?: string;
         /** templating engine used to assemble document */
         engine: Engine | string;
         /** javascript helper functions used by templating engines */
@@ -27,12 +27,24 @@ declare namespace JsReport {
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string;
-        name?: string;
     }
+
+    interface Template extends TemplateBase {
+        /** template for the engine */
+        content: string;
+    }
+
+    interface TemplateRegistry {
+        Template: Template;
+    }
+
+    type TemplateLike = TemplateRegistry[keyof TemplateRegistry]; // Template | NamedTemplate
 
     interface RequestOptions {
         preview?: boolean;
+        /** sets the request timeout in milliseconds */
         timeout?: number;
+        /** defines the name of the report being to be generated */
         reportName?: string;
     }
 
@@ -45,7 +57,9 @@ declare namespace JsReport {
         configurable?: boolean;
         /** @default false */
         enumerable?: boolean;
-        template: Partial<Template>;
+        /** defines the template of used for report generation */
+        template: TemplateLike;
+        /** defines options such as report name and request timeout */
         options?: Partial<RequestOptions>;
         context?: Context;
         data?: any;
@@ -196,16 +210,21 @@ declare namespace JsReport {
         templatingEngines?: {
             /** @default 'dedicated-process' */
             strategy?: EngineStrategy;
+            /**
+             * defines the number of worker processes used for generating reports
+             * @default 1
+             */
             numberOfWorkers?: number;
             forkOptions?: {
                 execArgv?: string | string[];
-            },
+            };
             allowedModules?: string | string[];
+            /** sets the reporter timeout in milliseconds */
             timeout?: number;
             templateCache?: {
                 max: number;
                 enabled: boolean;
-            }
+            };
         };
         store?: {
             provider?: ReporterOptionsStoreProvider;

@@ -91,7 +91,7 @@ passport.use(
             request: express.Request,
             accessToken: string,
             refreshToken: string,
-            params: google.GoogleCallbackParameters,
+            params: any,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {
@@ -116,7 +116,7 @@ passport.use(
         (
             accessToken: string,
             refreshToken: string,
-            params: google.GoogleCallbackParameters,
+            params: any,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {

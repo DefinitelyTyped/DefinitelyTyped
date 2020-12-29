@@ -19,8 +19,3 @@ class MapController {
     this.map = new Map(this.mapDiv, mapOptions);
   }
 }
-
-import WFSLayer = require("esri/layers/WFSLayer");
-
-const wfsLayer = new WFSLayer({ url: "https://esri.com" });
-wfsLayer.fromJson({}, () => {});

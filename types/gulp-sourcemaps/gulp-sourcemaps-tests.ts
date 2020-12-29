@@ -166,30 +166,3 @@ gulp.task('javascript', function() {
         }))
         .pipe(gulp.dest('public/scripts'));
 });
-
-gulp.task('javascript', function() {
-    var stream = gulp.src('src/**/*.js')
-        .pipe(sourcemaps.init())
-        .pipe(plugin1())
-        .pipe(plugin2())
-        .pipe(sourcemaps.mapSources())
-        .pipe(gulp.dest('public/scripts'));
-});
-
-gulp.task('javascript', function() {
-    var stream = gulp.src('src/**/*.js')
-        .pipe(sourcemaps.init())
-        .pipe(plugin1())
-        .pipe(plugin2())
-        .pipe(sourcemaps.mapSources(sourcePah => sourcePah))
-        .pipe(gulp.dest('public/scripts'));
-});
-
-gulp.task('javascript', function() {
-    var stream = gulp.src('src/**/*.js')
-        .pipe(sourcemaps.init())
-        .pipe(plugin1())
-        .pipe(plugin2())
-        .pipe(sourcemaps.mapSources((sourcePah, file) => sourcePah || file.cwd))
-        .pipe(gulp.dest('public/scripts'));
-});

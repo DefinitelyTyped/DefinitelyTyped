@@ -1,5 +1,5 @@
 import { Component, CSSProperties, ComponentType } from "react";
-import { CustomPickerInjectedProps, HSVColor } from "../../..";
+import { CustomPickerInjectedProps } from "../../..";
 
 export interface SaturationStyle {
     color?: CSSProperties;
@@ -9,12 +9,7 @@ export interface SaturationStyle {
     circle?: CSSProperties;
 }
 
-export interface SaturationColorResult extends HSVColor {
-    a: number;
-    source: "hsv";
-}
-
-export interface SaturationProps extends CustomPickerInjectedProps<SaturationColorResult> {
+export interface SaturationProps extends CustomPickerInjectedProps {
     radius?: string;
     shadow?: string;
     style?: SaturationStyle;

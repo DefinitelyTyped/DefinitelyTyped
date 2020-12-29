@@ -3,14 +3,6 @@ import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let configuration: webpack.Configuration;
 
-const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
-    publicPath: '/',
-    esModule: true,
-    modules: {
-        namedExport: true,
-    }
-};
-
 configuration = {
     // The standard entry point and output config
     entry: {
@@ -33,7 +25,9 @@ configuration = {
                 test: /\.css$/,
                 use: {
                     loader: MiniCssExtractPlugin.loader,
-                    options: loaderOptions,
+                    options: {
+                        publicPath: '/',
+                    },
                 },
             },
             // Optionally extract less files
@@ -84,6 +78,15 @@ configuration = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: configuration.output!.filename,
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            esModule: true,
         }),
     ],
 };

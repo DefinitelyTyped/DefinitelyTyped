@@ -3,13 +3,7 @@
 // Definitions by: pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition } from 'jsreport-core';
-
-declare module 'jsreport-core' {
-    interface Template {
-        scripts?: JsReportScripts.TemplateScript[];
-    }
-}
+import { ExtensionDefinition, Template } from 'jsreport-core';
 
 declare namespace JsReportScripts {
     interface TemplateScript {
@@ -20,6 +14,16 @@ declare namespace JsReportScripts {
 
     interface Configuration {
         allowedModules?: string[] | "*";
+    }
+
+    interface ScriptsTemplate extends Template {
+        scripts?: TemplateScript[];
+    }
+}
+
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        ScriptsTemplate: JsReportScripts.ScriptsTemplate;
     }
 }
 

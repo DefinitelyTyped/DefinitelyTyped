@@ -24,10 +24,6 @@ import {
     Hue,
     Saturation
 } from "react-color/lib/components/common";
-import { AlphaColorResult } from "react-color/lib/components/common/Alpha";
-import { HueColorResult } from "react-color/lib/components/common/Hue";
-import { SaturationColorResult } from "react-color/lib/components/common/Saturation";
-import { EditableInputColorResult } from "react-color/lib/components/common/EditableInput";
 
 interface CustomProps extends CustomPickerInjectedProps {
     customProp: string;
@@ -35,40 +31,6 @@ interface CustomProps extends CustomPickerInjectedProps {
 
 const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) => {
     const { customProp } = props;
-
-    function onChangeAlpha(color: AlphaColorResult) {
-        console.log(color);
-        color.a; // $ExpectType number
-        color.h; // $ExpectType number
-        color.s; // $ExpectType number
-        color.l; // $ExpectType number
-        color.source; // $ExpectType "rgb"
-    }
-    function onChangeHue(color: HueColorResult) {
-        console.log(color);
-        color.a; // $ExpectType number
-        color.h; // $ExpectType number
-        color.s; // $ExpectType number
-        color.l; // $ExpectType number
-        color.source; // $ExpectType "hsl"
-    }
-    function onChangeSaturation(color: SaturationColorResult) {
-        console.log(color);
-        color.a; // $ExpectType number
-        color.h; // $ExpectType number
-        color.s; // $ExpectType number
-        color.v; // $ExpectType number
-        color.source; // $ExpectType "hsv"
-    }
-    function onChangeInput(color: EditableInputColorResult<'test'>) {
-        console.log(color);
-        color.test; // $ExpectType string
-    }
-    function onChangeInputNoLabel(color: string) {
-        console.log(color);
-        color; // $ExpectType string
-    }
-
     return (
         <div>
             {customProp}
@@ -79,7 +41,6 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
                 direction="horizontal"
                 pointer={() => <div />}
                 {...props}
-                onChange={onChangeAlpha}
             />
             <Checkboard
                 size={10}
@@ -98,7 +59,6 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
                 dragLabel
                 dragMax={10}
                 {...props}
-                onChange={onChangeInput}
             />
             <Hue
                 direction="horizontal"
@@ -106,7 +66,6 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
                 radius="25px"
                 shadow="5px 10px"
                 {...props}
-                onChange={onChangeHue}
             />
             <Saturation
                 radius="25px"
@@ -114,12 +73,7 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
                 pointer={() => <div />}
                 style={{ circle: { display: "block" } }}
                 {...props}
-                onChange={onChangeSaturation}
             />
-
-            <EditableInput onChange={onChangeInputNoLabel} />
-            // prettier-ignore
-            <EditableInput label="Fails" onChange={onChangeInput} /> // $ExpectError
         </div>
     );
 };

@@ -1,3 +1,3 @@
-declare function match(text: string, query: string): Array<[number, number]>;
+declare function match(text: string, query: string): number[] | number[][];
 
 export = match;

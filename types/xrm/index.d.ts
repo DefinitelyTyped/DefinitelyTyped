@@ -4556,10 +4556,6 @@ declare namespace Xrm {
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
             position?: 1 | 2;
-            /*
-             * The dialog title on top of the center or side dialog.
-             */
-            title?: string;
         }
 
         namespace NavigationOptions {

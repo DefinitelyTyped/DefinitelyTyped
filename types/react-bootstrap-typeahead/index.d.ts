@@ -31,13 +31,10 @@ export type TypeaheadLabelKey<T extends TypeaheadModel> = T extends object
     : never;
 // don't allow onBlur, onChange, onFocus or onKeyDown as members of inputProps
 // those props should be supplied directly to <Typeahead /> or <AsyncTypeahead />
-export interface InputProps extends Omit<
+export type InputProps = Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown'
-> {
-    /* Callback function that determines whether the hint should be selected. */
-    shouldSelectHint?: ShouldSelect;
-}
+>;
 
 /* ---------------------------------------------------------------------------
                             Typeahead Contexts

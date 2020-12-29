@@ -71,7 +71,7 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
     var job = agenda.create<{ userCount: number }>('printAnalyticsReport', { userCount: 100 });
     await job.save();
 
-    const jobs = await agenda.jobs({ name: 'printAnalyticsReport' }, { nextRunAt: 1 }, 5, 1);
+    const jobs = await agenda.jobs({ name: 'printAnalyticsReport' });
     jobs.forEach((job) => {
         job.save();
     });

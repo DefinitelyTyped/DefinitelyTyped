@@ -9,10 +9,10 @@ map.addListener('bounds_changed', (event) => {}); // $ExpectError
 map.addListener('center_changed', () => {});
 map.addListener('center_changed', (event) => {}); // $ExpectError
 map.addListener('click', event => {
-    event; // $ExpectType MapMouseEvent | IconMouseEvent
+    event; // $ExpectType MouseEvent | IconMouseEvent
 });
 map.addListener('dblclick', event => {
-    event; // $ExpectType MapMouseEvent
+    event; // $ExpectType MouseEvent
 });
 map.addListener('drag', () => {});
 map.addListener('drag', (event) => {}); // $ExpectError
@@ -27,18 +27,18 @@ map.addListener('idle', (event) => {}); // $ExpectError
 map.addListener('maptypeid_changed', () => {});
 map.addListener('maptypeid_changed', (event) => {}); // $ExpectError
 map.addListener('mousemove', event => {
-    event; // $ExpectType MapMouseEvent
+    event; // $ExpectType MouseEvent
 });
 map.addListener('mouseout', event => {
-    event; // $ExpectType MapMouseEvent
+    event; // $ExpectType MouseEvent
 });
 map.addListener('mouseover', event => {
-    event; // $ExpectType MapMouseEvent
+    event; // $ExpectType MouseEvent
 });
 map.addListener('projection_changed', () => {});
 map.addListener('projection_changed', (event) => {}); // $ExpectError
 map.addListener('rightclick', event => {
-    event; // $ExpectType MapMouseEvent
+    event; // $ExpectType MouseEvent
 });
 map.addListener('tilesloaded', () => {});
 map.addListener('tilesloaded', (event) => {}); // $ExpectError

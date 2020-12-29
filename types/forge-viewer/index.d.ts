@@ -1630,15 +1630,9 @@ declare namespace Autodesk {
       }
 
       class ModelStructureInfo {
-        model: Viewing.Model;
-        rooms: Room[];
-
         constructor(model: Viewing.Model);
 
         generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
-        getLevel(room: Room): string;
-        getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
-        getRoomList(): Promise<Room[]>;
       }
 
       class Room {
@@ -1665,7 +1659,6 @@ declare namespace Autodesk {
 
       class SurfaceShadingGroup {
         id: string;
-        isGroup: boolean;
         isLeaf: boolean;
 
         constructor(id?: string);
@@ -1679,12 +1672,6 @@ declare namespace Autodesk {
       }
 
       class SurfaceShadingNode {
-        dbIds: number[];
-        fragIds: number[];
-        id: string;
-        isLeaf: boolean;
-        shadingPoints: SurfaceShadingPoint[];
-
         constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
 
         addPoint(point: SurfaceShadingPoint): void;
@@ -1692,14 +1679,6 @@ declare namespace Autodesk {
       }
 
       class SurfaceShadingPoint {
-        id: string;
-        position: {
-          x: number,
-          y: number,
-          z: number
-        };
-        types: string[];
-
         constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
 
         positionFromDBId(model: Viewing.Model, dbId: number): void;

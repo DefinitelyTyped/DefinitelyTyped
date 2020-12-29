@@ -799,10 +799,6 @@ const deviceAttr = chrome.enterprise.deviceAttributes;
 
 if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
     if (deviceAttr.getDeviceSerialNumber && deviceAttr.getDeviceAnnotatedLocation) {
-        void deviceAttr.getDirectoryDeviceId;
-        void deviceAttr.getDeviceAssetId;
-        void deviceAttr.getDeviceSerialNumber;
-        void deviceAttr.getDeviceAnnotatedLocation;
         console.log('API OK :)');
     }
 }
@@ -1214,8 +1210,6 @@ if (chrome.platformKeys.subtleCrypto &&
     chrome.platformKeys.subtleCrypto() &&
     chrome.platformKeys.subtleCrypto().sign &&
     chrome.platformKeys.subtleCrypto().exportKey) {
-    void chrome.platformKeys.subtleCrypto().sign;
-    void chrome.platformKeys.subtleCrypto().exportKey;
     console.log('Subtle crypto working (Y)')
 }
 

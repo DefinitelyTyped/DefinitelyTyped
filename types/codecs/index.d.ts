@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
 declare namespace codecs {
     type JsonObject = { [Key in string]?: JsonValue };
     interface JsonArray extends Array<JsonValue> {}
@@ -13,99 +14,38 @@ declare namespace codecs {
         encode(input: InType): Buffer;
         decode(input: Uint8Array): OutType;
     }
-    interface NamedCodec<TName extends string = string, InType = any, OutType = InType> extends BaseCodec<InType, OutType> {
+    interface NamedCodec<TName extends string, InType = any, OutType = InType> extends BaseCodec<InType, OutType> {
         name: TName;
     }
-
-    type AsciiCodec = NamedCodec<'ascii', string>;
-    type Base64Codec = NamedCodec<'base64', string>;
     type BinaryCodec = NamedCodec<'binary', string | Uint8Array, Buffer>;
-    type HexCodec = NamedCodec<'hex', string>;
-    type JsonCodec = NamedCodec<'json', any, JsonValue>;
-    type NDJsonCodec = NamedCodec<'ndjson', any, JsonValue>;
-    type Ucs2Codec = NamedCodec<'ucs2', string>;
-    type Utf8Codec = NamedCodec<'utf-8', string>;
-    type Utf16leCodec = NamedCodec<'utf16le', string>;
-
-    interface CodecLookup {
-        ascii: AsciiCodec;
-        base64: Base64Codec;
-        binary: BinaryCodec;
-        hex: HexCodec;
-        json: JsonCodec;
-        ndjson: NDJsonCodec;
-        ucs2: Ucs2Codec;
-        ['ucs-2']: Ucs2Codec;
-        utf8: Utf8Codec;
-        ['utf-8']: Utf8Codec;
-        utf16le: Utf16leCodec;
-        ['utf16-le']: Utf16leCodec;
-    }
-
-    type CodecNames = keyof CodecLookup;
-
-    type CodecInput = BaseCodec | CodecNames;
-    type MaybeCodecInput = CodecInput | string | null | undefined;
-
-    type OutType <
-        TCodec extends MaybeCodecInput,
-        TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<any, infer T>
-        ? T
-        : unknown;
-
-    type InType <
-        TCodec extends MaybeCodecInput,
-        TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<infer T, any>
-        ? T
-        : unknown;
-
-    type CodecName <
-        TInput extends MaybeCodecInput,
-        TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = TInput extends null | undefined
-        ? TFallback['name']
-        : TInput extends NamedCodec
-            ? TInput['name']
-            : TInput extends BaseCodec
-                ? undefined
-                : TInput extends keyof TCodecs
-                    ? TCodecs[TInput] extends NamedCodec<infer Name>
-                        ? Name
-                        : undefined
-                    : TFallback['name'];
-
-    type Codec<TInput, TFallback = BinaryCodec, TCodecs = CodecLookup> = TInput extends BaseCodec
-        ? TInput
+    type Codec<TInput, TFallback = BinaryCodec> = TInput extends BaseCodec
+        ? BaseCodec
         : TInput extends null | undefined
-            ? TFallback
-            : TInput extends keyof TCodecs
-                ? TCodecs[TInput] extends BaseCodec
-                    ? TCodecs[TInput]
-                    : TFallback
-                : TFallback;
-
+        ? TFallback
+        : TInput extends keyof Codecs
+        ? Codecs[TInput]
+        : TFallback;
+    type CodecInput = BaseCodec | keyof Codecs;
     interface Codecs {
         (): BinaryCodec;
-        <TCodec extends CodecInput>(codec: TCodec): Codec<TCodec>;
-        <TCodec extends string | null | undefined, TFallback = BinaryCodec>(
+        <TCodec extends BaseCodec | keyof Codecs>(codec: TCodec): Codec<TCodec>;
+        <TCodec extends string | null, TFallback extends BaseCodec = BinaryCodec>(
             codec: TCodec,
             fallback?: TFallback,
         ): Codec<TCodec, TFallback>;
 
         binary: BinaryCodec;
-        ndjson: NDJsonCodec;
-        json: JsonCodec;
-        ascii: AsciiCodec;
-        utf8: Utf8Codec;
-        hex: HexCodec;
-        base64: Base64Codec;
-        ucs2: Ucs2Codec;
-        utf16le: Utf16leCodec;
+        ndjson: NamedCodec<'ndjson', any, JsonValue>;
+        json: NamedCodec<'json', any, JsonValue>;
+        ascii: NamedCodec<'ascii', string>;
+        'utf-8': NamedCodec<'utf-8', string>;
+        utf8: NamedCodec<'utf-8', string>;
+        hex: NamedCodec<'hex', string>;
+        base64: NamedCodec<'base64', string>;
+        'ucs-2': NamedCodec<'ucs2', string>;
+        ucs2: NamedCodec<'ucs2', string>;
+        'utf16-le': NamedCodec<'utf16le', string>;
+        utf16le: NamedCodec<'utf16le', string>;
     }
 }
 

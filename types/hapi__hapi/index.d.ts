@@ -4063,8 +4063,7 @@ export namespace Lifecycle {
         (stream.Stream) |
         (object | object[]) |
         symbol |
-        Auth |
-        ResponseObject;
+        ResponseToolkit;
 
     /**
      * Various configuration options allows defining how errors are handled. For example, when invalid payload is received or malformed cookie, instead of returning an error, the framework can be

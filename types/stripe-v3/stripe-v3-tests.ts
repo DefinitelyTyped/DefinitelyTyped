@@ -27,7 +27,6 @@ describe("Stripe object", () => {
         const stripeWithBetaOption: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { betas: ['beta-feature'] }); // This looks deprecated
         const stripeWithLocale: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { locale: 'zh' });
         const stripeWithAccount: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { stripeAccount: 'acct_24BFMpJ1svR5A89k' });
-        const stripeWithApiVersion: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { apiVersion: '2020-08-27' });
     });
 });
 

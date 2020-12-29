@@ -8,7 +8,6 @@ import { RecordReference, Record } from 'jsforce/record';
 import { SObject } from 'jsforce/salesforce-object';
 import { RecordResult } from 'jsforce/record-result';
 import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
-import { SearchResult } from 'jsforce/connection';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -468,10 +467,6 @@ const requestInfo: sf.RequestInfo = {
 interface MyFoo {
     anything: string;
 }
-interface MyBar {
-    something: string;
-}
-
 salesforceConnection.request<MyFoo>(requestInfo).then((myFoo: MyFoo) => {
     console.log(myFoo.anything)
 });
@@ -505,20 +500,6 @@ salesforceConnection.query('SELECT Id FROM Account')
         console.log('Error returned from query:', error);
     })
     .run({ autoFetch: true, maxFetch: 25 });
-
-salesforceConnection.search<MyFoo|MyBar>('FIND {my} IN ALL FIELDS RETURNING Foo__c(Id, Name), Bar__c(Id, Name)', (err: Error, result: SearchResult<MyFoo|MyBar>) => {
-    console.error(err);
-    for (const record of result.searchRecords) {
-        if (record && record.attributes && record.attributes.type === 'Foo__c') {
-            const foo = record as MyFoo;
-            console.log(foo.anything);
-        }
-        if (record && record.attributes && record.attributes.type === 'Bar__c') {
-            const bar = record as MyBar;
-            console.log(bar.something);
-        }
-    }
-});
 
 salesforceConnection.sobject<any>('Coverage__c')
     .select(['Id', 'Name']).del(() => { });

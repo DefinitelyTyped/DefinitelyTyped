@@ -14,8 +14,8 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
-import * as debugNs from './cast.debug';
-import * as frameworkNs from './cast.framework';
+import * as debug from './cast.debug';
+import * as framework from './cast.framework';
 import { PlayerDataChangedEvent } from './cast.framework.ui';
 import { Event as SystemEvent } from './cast.framework.system';
 import {
@@ -41,17 +41,13 @@ import {
     LiveStatusEvent,
 } from './cast.framework.events';
 
-export namespace cast {
-    const debug: typeof debugNs;
-    const framework: typeof frameworkNs;
-}
-
-export { debugNs as debug, frameworkNs as framework };
+export as namespace cast;
+export { debug, framework };
 
 declare global {
     const cast: {
-        debug: typeof debugNs;
-        framework: typeof frameworkNs;
+        debug: typeof debug;
+        framework: typeof framework;
     };
 
     type EventHandler = (event: Event) => void;

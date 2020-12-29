@@ -1,4 +1,2 @@
-import { throttle, ThrottleSettings } from "lodash";
-
-export { ThrottleSettings };
+import { throttle } from "lodash";
 export default throttle;

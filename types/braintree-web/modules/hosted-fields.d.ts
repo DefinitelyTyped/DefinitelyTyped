@@ -17,11 +17,7 @@ export interface HostedFieldsFieldMaskInput {
  * Fields used in {@link module:braintree-web/hosted-fields~fieldOptions fields options}
  */
 export interface HostedFieldsField {
-    /**
-     * @deprecated Now an alias for `container`.
-     */
-    selector?: string;
-    container?: string | HTMLElement;
+    selector: string;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
@@ -128,8 +124,7 @@ export interface HostedFieldsStateObject {
     fields: HostedFieldsFieldDataFields;
 }
 
-export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
-    | 'cardTypeChange' | 'validityChange' | 'inputSubmitRequest';
+export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty' | 'cardTypeChange' | 'validityChange';
 
 export interface HostedFieldsAccountDetails {
     bin: string;
