@@ -8,8 +8,11 @@ const block2 = bem('block');
 const classesElement2 = join(block2('element', ['modifier']), 'extra-element-class');
 
 const classesElement3 = join(block2('element', ['modifier']), undefined);
+const classesElement3bis = join(block2('element', ['modifier']));
 
 const classesElement4 = join(block2('element', undefined), undefined);
+const classesElement4bis = join(block2('element', undefined));
+const classesElement4tris = join(block2('element'));
 
 const classesBlock3 = bem('block', 'element', {
     modifier1: true,
