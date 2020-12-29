@@ -120,9 +120,9 @@ export namespace DS {
     const VERSION: string;
 
     interface AttrOptions<T = any> {
-        defaultValue?: T | (() => T);
-        allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
-    }
+      defaultValue?: T extends Transform ? (() => ReturnType<T['deserialize']>) : T | (() => T);
+      allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
+  }
 
     /**
      * `DS.attr` defines an attribute on a [DS.Model](/api/data/classes/DS.Model.html).
