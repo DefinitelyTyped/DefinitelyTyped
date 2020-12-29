@@ -311,6 +311,21 @@ export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string 
  */
 export type Ord = number | string | boolean | Date;
 
+/**
+ * An object with at least one of its properties beeing of type `Key`.
+ *
+ * @example
+ * ```
+ * // $ExpectType { foo: unknown } | { bar: unknown }
+ * type Foo = ObjectHavingSome<"foo" | "bar">
+ * ```
+ */
+// Implementation taken from
+// https://github.com/piotrwitek/utility-types/blob/df2502ef504c4ba8bd9de81a45baef112b7921d0/src/mapped-types.ts#L351-L362
+export type ObjectHavingSome<Key extends string> = A.Clean<{
+    [K in Key]: { [P in K]: unknown }
+}[Key]>;
+
 // ---------------------------------------------------------------------------------------
 // P
 
