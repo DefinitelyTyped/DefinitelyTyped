@@ -3,10 +3,18 @@
 // Definitions by: Ivan Soriano Arabia <https://github.com/ivansoriarab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class TaskerJs {
-    router: { [ profileName: string ]: object };
+import { TK as tasker } from "tasker-types";
 
-    constructor(routes: { [ profileName: string ]: object });
+export default class TaskerJs {
+    router: { [ profileName: string ]: TaskerJsModule };
+
+    constructor(routes: { [ profileName: string ]: TaskerJsModule });
 
     hotReload(): Promise<void>;
+}
+
+export interface TaskerJsModule {
+    enter(locals: { [ name: string ]: string }, tasker: tasker): void;
+
+    exit(locals: { [ name: string ]: string }, tasker: tasker): void;
 }

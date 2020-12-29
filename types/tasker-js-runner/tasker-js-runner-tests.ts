@@ -1,26 +1,33 @@
-import TaskerJs from "tasker-js-runner";
+import TaskerJs, { TaskerJsModule } from "tasker-js-runner";
 import { TK as tasker } from "tasker-types";
 
-const notification = {
-    enter(locals: { [ name: string ]: string }, tasker: tasker) {
-        const content = `${locals.anapp} ${locals.antitle}`;
-
-        tasker.setClip(content, false);
-
-        tasker.flash('content');
-    },
-
+// ExpectType tests
+const notification: TaskerJsModule = {
+    enter(locals: { [ name: string ]: string }, tasker: tasker) {},
     exit(locals: { [ name: string ]: string }, tasker: tasker) {}
-  };
-
+};
 // $ExpectType TaskerJs
 const taskerJs = new TaskerJs({ 'Notification:All': notification });
-
-// $ExpectType { [profileName: string]: object; }
+// $ExpectType { [profileName: string]: TaskerJsModule; }
 taskerJs.router;
-
 // $ExpectType Promise<void>
 taskerJs.hotReload();
 
+// ExpectError test
 // $ExpectError
-const taskerJsError = new TaskerJs({ 'Notification:All': 'test' });
+let notificationError: TaskerJsModule = {};
+// $ExpectError
+notificationError = {
+    enter(locals: { [ name: string ]: string }, tasker: tasker) {}
+};
+// $ExpectError
+notificationError = {
+    exit(locals: { [ name: string ]: string }, tasker: tasker) {}
+};
+notificationError = {
+    // $ExpectError
+    enter('foo') {},
+
+    // $ExpectError
+    exit('foo2') {}
+};
