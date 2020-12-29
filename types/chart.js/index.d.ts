@@ -97,20 +97,9 @@ declare class Chart {
         [key: string]: Chart;
     };
 }
-type Plugin = Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
-interface PluginDescriptor {
-    plugin: Plugin;
-    options: Chart.ChartPluginsOptions;
-}
-
 declare class PluginServiceStatic {
-    register(plugin: Plugin): void;
-    unregister(plugin: Plugin): void;
-    clear(): void;
-    count(): number;
-    getAll(): Plugin[];
-    notify(chart: Chart, hook: keyof Chart.PluginServiceRegistrationOptions, args: any): boolean;
-    descriptors(chart: Chart): PluginDescriptor[];
+    register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
 }
 
 interface Meta {

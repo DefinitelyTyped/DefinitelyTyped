@@ -21,27 +21,6 @@ lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult):
   }
 });
 
-lock.checkSession({
-  access_token: undefined,
-  connection_scope: undefined,
-  device: undefined,
-  nonce: undefined,
-  protocol: undefined,
-  request_id: undefined,
-  scope: undefined,
-  state: undefined,
-  param: undefined
-}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
-  if (error || !authResult) {
-    lock.show();
-  } else {
-    // user has an active session, so we can use the accessToken directly.
-    lock.getUserInfo(authResult.accessToken, function(error, profile) {
-      console.log(error, profile);
-    });
-  }
-});
-
 // Show supports UI arguments
 
 const showOptions : Auth0LockShowOptions = {
@@ -290,48 +269,18 @@ const avatarOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
-const authResultWithUndefined : AuthResult = {
+const authResult : AuthResult = {
     accessToken: 'fake_access_token',
     expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
-      name: undefined,
-      nickname: undefined,
-      picture: undefined,
-      email: undefined,
-      email_verified: undefined,
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
       exp: 1494393724,
       iat: 1494357724,
       iss: "https://www.foo.com",
-      sub: "auth0|aksjfkladsf",
-      acr: undefined,
-      amr: undefined
+      sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF",
-    tokenType: 'Bearer'
-};
-
-const authResultFilled : AuthResult = {
-    accessToken: 'fake_access_token',
-    expiresIn: 7200,
-    idToken: 'fake_id_token',
-    idTokenPayload: {
-      name: "fake name",
-      nickname: "fake nickname",
-      picture: "https://www.fakeavatar.com/fake.png",
-      email: "fake@fake.com",
-      email_verified: true,
-      aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
-      exp: 1494393724,
-      iat: 1494357724,
-      iss: "https://www.foo.com",
-      sub: "auth0|aksjfkladsf",
-      acr: "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
-      amr: ["mfa"]
-    },
-    refreshToken: "refresh_token",
     state: "923jf092j3.FFSDJFDSKLDF",
     tokenType: 'Bearer'
 };

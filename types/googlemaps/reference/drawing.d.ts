@@ -66,43 +66,13 @@ declare namespace google.maps.drawing {
         position?: ControlPosition;
     }
 
-    /** The properties of an overlaycomplete marker event on a DrawingManager */
-    interface OverlayCompleteMarkerEvent {
-      overlay: Marker;
-      type: OverlayType.MARKER;
-    }
-
-    /** The properties of an overlaycomplete polygon event on a DrawingManager */
-    interface OverlayCompletePolygonEvent {
-      overlay: Polygon;
-      type: OverlayType.POLYGON;
-    }
-
-    /** The properties of an overlaycomplete polyline event on a DrawingManager */
-    interface OverlayCompletePolylineEvent {
-      overlay: Polyline;
-      type: OverlayType.POLYLINE;
-    }
-
-    /** The properties of an overlaycomplete rectangle event on a DrawingManager */
-    interface OverlayCompleteRectangleEvent {
-      overlay: Rectangle;
-      type: OverlayType.RECTANGLE;
-    }
-
-    /** The properties of an overlaycomplete circle event on a DrawingManager */
-    interface OverlayCompleteCircleEvent {
-      overlay: Circle;
-      type: OverlayType.CIRCLE;
-    }
-
     /** The properties of an overlaycomplete event on a DrawingManager.. */
-    type OverlayCompleteEvent =
-        | OverlayCompleteMarkerEvent
-        | OverlayCompletePolygonEvent
-        | OverlayCompletePolylineEvent
-        | OverlayCompleteRectangleEvent
-        | OverlayCompleteCircleEvent;
+    interface OverlayCompleteEvent {
+        /** The completed overlay. */
+        overlay: Marker | Polygon | Polyline | Rectangle | Circle;
+        /** The completed overlay's type. */
+        type: OverlayType;
+    }
 
     /**
      * The types of overlay that may be created by the DrawingManager. Specify

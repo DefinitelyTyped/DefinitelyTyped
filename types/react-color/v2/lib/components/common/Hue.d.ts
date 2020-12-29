@@ -1,12 +1,7 @@
 import { Component, ComponentType } from "react";
-import { CustomPickerInjectedProps, HSLColor } from "../../..";
+import { CustomPickerInjectedProps } from "../../..";
 
-export interface HueColorResult extends HSLColor {
-    a: number;
-    source: "hsl";
-}
-
-export interface HueProps extends CustomPickerInjectedProps<HueColorResult> {
+export interface HueProps extends CustomPickerInjectedProps {
     direction?: "horizontal" | "vertical";
     pointer?: ComponentType;
     radius?: string;

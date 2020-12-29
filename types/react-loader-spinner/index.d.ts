@@ -29,13 +29,13 @@ type Types =
 
 interface LoaderProps {
     color?: string;
-    height?: number | string;
+    height?: number;
     radius?: number;
     secondaryColor?: string;
     timeout?: number; // in milliseconds
     type?: Types;
     visible?: boolean | string;
-    width?: number | string;
+    width?: number;
     className?: string;
     style?: CSSProperties;
 }

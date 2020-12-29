@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-slider.js 11.0
+// Type definitions for bootstrap-slider.js 9.9
 // Project: http://github.com/seiyria/bootstrap-slider
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
@@ -164,20 +164,13 @@ interface SliderOptions {
      * [{'start':val1, 'end': val2, 'class': 'optionalAdditionalClassName'}].
      */
     rangeHighlights?: RangeHighlight[];
-    /**
-     * Default: false
-     * Lock the selection to the values defined in the ticks array.
-     */
-    lock_to_ticks?: boolean;
 }
 
-declare global {
-    interface JQuery {
-        slider: SliderPlugin<this>;
-        bootstrapSlider: SliderPlugin<this>;
+interface JQuery {
+    slider: SliderPlugin<this>;
+    bootstrapSlider: SliderPlugin<this>;
 
-        on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
-    }
+    on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
 }
 
 interface SliderPlugin<TJQuery> {
@@ -197,17 +190,13 @@ interface SliderEvent extends JQuery.Event {
     value: number | ChangeValue;
 }
 
-interface RefreshOptions {
-    useCurrentValue?: boolean;
-}
-
 /**
  * This class is actually not used when using the jQuery version of bootstrap-slider
  * The method documentation is still here thouh.
  * When using jQuery, slider methods like setValue(3, true) have to be called like $slider.slider('setValue', 3, true)
  */
 declare class Slider {
-    constructor(element: string | HTMLElement, opts?: SliderOptions);
+    constructor(selector: string, opts: SliderOptions);
 
     /**
      * Get the current value from the slider
@@ -253,7 +242,7 @@ declare class Slider {
     /**
      * Refreshes the current slider
      */
-    refresh(options?: RefreshOptions): this;
+    refresh(): this;
     /**
      * When the slider event eventType is triggered, the callback function will be invoked
      */
@@ -267,5 +256,3 @@ declare class Slider {
      */
     relayout(): this;
 }
-
-export = Slider;

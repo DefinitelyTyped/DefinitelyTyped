@@ -16,7 +16,7 @@ export interface SESMailCommonHeaders {
     cc?: string[];
     bcc?: string[];
     sender?: string[];
-    replyTo?: string[];
+    'reply-to'?: string[];
     messageId: string;
     subject?: string;
 }

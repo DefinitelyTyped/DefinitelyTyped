@@ -398,7 +398,7 @@ declare namespace cytoscape {
         /**
          * Add elements to the graph and return them.
          */
-        add(eles: ElementDefinition | ElementDefinition[] | ElementsDefinition | CollectionArgument): CollectionReturnValue;
+        add(eles: ElementDefinition | ElementDefinition[] | CollectionArgument): CollectionReturnValue;
 
         /**
          * Remove elements in collecion or match the selector from the graph and return them.

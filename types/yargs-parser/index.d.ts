@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 20.2
+// Type definitions for yargs-parser 15.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,18 +40,12 @@ declare namespace yargsParser {
         'duplicate-arguments-array': boolean;
         /** Should array arguments be coerced into a single array when duplicated. Default is `true` */
         'flatten-duplicate-arrays': boolean;
-        /** Should arrays consume more than one positional argument following their flag. Default is `true` */
-        'greedy-arrays': boolean;
-        /** Should nargs consume dash options as well as positional arguments. Default is `false` */
-        'nargs-eats-options': boolean;
         /** Should parsing stop at the first text argument? This is similar to how e.g. ssh parses its command line. Default is `false` */
         'halt-at-non-option': boolean;
         /** The prefix to use for negated boolean variables. Default is `'no-'` */
         'negation-prefix': string;
         /** Should keys that look like numbers be treated as such? Default is `true` */
         'parse-numbers': boolean;
-        /** Should positional keys that look like numbers be treated as such? Default is `true` */
-        'parse-positional-numbers': boolean;
         /** Should unparsed flags be stored in -- or _. Default is `false` */
         'populate--': boolean;
         /** Should a placeholder be added for keys not set via the corresponding CLI argument? Default is `false` */

@@ -1,4 +1,4 @@
-// Type definitions for DOM Purify 2.1
+// Type definitions for DOM Purify 2.0
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
@@ -6,6 +6,7 @@
 //                 Exigerr <https://github.com/Exigerr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
@@ -58,6 +59,7 @@ declare namespace DOMPurify {
         RETURN_DOM_FRAGMENT?: boolean;
         RETURN_DOM_IMPORT?: boolean;
         RETURN_TRUSTED_TYPE?: boolean;
+        SAFE_FOR_JQUERY?: boolean;
         SANITIZE_DOM?: boolean;
         WHOLE_DOCUMENT?: boolean;
         ALLOWED_URI_REGEXP?: RegExp;

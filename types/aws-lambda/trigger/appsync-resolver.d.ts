@@ -2,10 +2,6 @@ import { Handler } from '../handler';
 
 export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | V[]>;
 
-export interface AppSyncResolverEventHeaders {
-    [name: string]: string | undefined;
-}
-
 /**
  * See https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
  *
@@ -16,7 +12,7 @@ export interface AppSyncResolverEvent<T> {
     identity?: AppSyncIdentityIAM | AppSyncIdentityCognito;
     source?: { [key: string]: any };
     request: {
-        headers: AppSyncResolverEventHeaders;
+        headers: { [key: string]: string };
     };
     info: {
         selectionSetList: string[];

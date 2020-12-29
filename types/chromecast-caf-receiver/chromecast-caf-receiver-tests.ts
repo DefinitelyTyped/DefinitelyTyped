@@ -1,4 +1,3 @@
-import { ApplicationData } from 'chromecast-caf-receiver/cast.framework.system';
 import {
     MediaMetadata,
     LoadRequestData,
@@ -7,8 +6,7 @@ import {
     TrackType,
     MessageType,
 } from 'chromecast-caf-receiver/cast.framework.messages';
-import { DetailedErrorCode, EventType, MediaFinishedEvent } from 'chromecast-caf-receiver/cast.framework.events';
-import { BreakManager } from 'chromecast-caf-receiver/cast.framework.breaks';
+import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -46,7 +44,7 @@ pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 pManager.addEventListener(
     EventType.MEDIA_FINISHED,
-    (event: MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
+    (event: cast.framework.events.MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
 );
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
@@ -60,7 +58,7 @@ const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
 // tslint:disable-next-line
 const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
 // tslint:disable-next-line
-const breakManager: BreakManager = {
+const breakManager: cast.framework.breaks.BreakManager = {
     getBreakById: () => adBreak,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
@@ -92,7 +90,7 @@ lrd.media = {
 lrd.queueData = {};
 
 // tslint:disable-next-line
-const appData: ApplicationData = {
+const appData: cast.framework.system.ApplicationData = {
     id: () => 'id',
     launchingSenderId: () => 'launch-id',
     name: () => 'name',
@@ -206,28 +204,3 @@ const controls = cast.framework.ui.Controls.getInstance();
 
 controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1, cast.framework.ui.ControlsButton.LIKE);
 controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.framework.ui.ControlsButton.DISLIKE);
-
-const playerManager = cast.framework.CastReceiverContext.getInstance().getPlayerManager();
-
-playerManager.setMessageInterceptor(MessageType.CLOUD_STATUS, (messageData: messages.CloudMediaStatus):
-    | messages.CloudMediaStatus
-    | messages.ErrorData => {
-    if (Math.random() > 0.5) {
-        const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
-        errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
-        return errorData;
-    }
-
-    return messageData;
-});
-playerManager.setMessageInterceptor(MessageType.DISPLAY_STATUS, (messageData: messages.DisplayStatusRequestData):
-    | messages.DisplayStatusRequestData
-    | messages.ErrorData => {
-    if (Math.random() > 0.5) {
-        const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
-        errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
-        return errorData;
-    }
-
-    return messageData;
-});

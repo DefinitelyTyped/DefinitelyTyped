@@ -24,8 +24,6 @@ var config: sql.config = {
     }
 }
 
-var minimalConfig: sql.config = { server: 'ip' };
-
 var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
     if (err) {
         return err;

@@ -17,9 +17,11 @@ import * as R from 'ramda';
       return Promise.resolve(user.followers);
     },
   };
-
   const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(
-    (f: (value: any) => any, res: any) => res.then(f),
+    R.andThen,
     [db.getUserById, db.getFollowers],
   );
+  const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(
+    R.andThen,
+  )([db.getUserById, db.getFollowers]);
 };

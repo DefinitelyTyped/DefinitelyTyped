@@ -1,7 +1,6 @@
 import AddToHomeScreen = require('a2hs.js');
 
 AddToHomeScreen();
-AddToHomeScreen({});
 
 AddToHomeScreen({
     backgroundColor: 'red',

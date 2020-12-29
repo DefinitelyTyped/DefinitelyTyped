@@ -18,7 +18,6 @@
 //                 Kazuma Ebina <https://github.com/kazuma1989>
 //                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
-//                 Lenz Weber <https://github.com/phryneas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -56,8 +55,6 @@ export type RootStateOrAny = AnyIfEmpty<DefaultRootState>;
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never;
 
 export interface DispatchProp<A extends Action = AnyAction> {
     dispatch: Dispatch<A>;
@@ -120,11 +117,10 @@ export type ConnectedComponent<
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
-// Uses distributive omit to preserve discriminated unions part of original prop type
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponent<C, DistributiveOmit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponent<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
@@ -484,7 +480,7 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
 
 /**
  * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
- * redux store instead of this approach.
+ * redux store instead of this approeach.
  */
 export const ReactReduxContext: Context<ReactReduxContextValue>;
 
@@ -578,6 +574,8 @@ export function useSelector<TState = DefaultRootState, TSelected = unknown>(
  * }
  *
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+ *
+ * @deprecated Use `createSelectorHook<State, Action>()`
  */
 export interface TypedUseSelectorHook<TState> {
     <TSelected>(

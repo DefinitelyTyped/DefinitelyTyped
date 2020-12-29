@@ -3747,7 +3747,7 @@ declare namespace math {
          * supported for square matrices x, and positive integer exponents y.
          * @param y The exponent
          */
-        pow(y: number | BigNumber): MathJsChain;
+        pow(): MathJsChain;
 
         /**
          * Round a value towards the nearest integer. For matrices, the function
@@ -3763,7 +3763,7 @@ declare namespace math {
          * @param x The number for which to determine the sign
          * @returns The sign of x
          */
-        sign(x: number | BigNumber): MathJsChain;
+        sign(): MathJsChain;
 
         /**
          * Calculate the square root of a value. For matrices, the function is

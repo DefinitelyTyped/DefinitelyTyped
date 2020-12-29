@@ -36,7 +36,7 @@ interface ImportMetaHot {
 }
 
 interface ImportMeta {
-    url: string;
+    readonly url: string;
     // TypeScript Bug: https://github.com/microsoft/TypeScript/issues/41468
     // When TS bug is fixed and ecosystem has upgraded, then it will be safe
     // to change `hot` to the more correct "possibly undefined" (hot?: ...).

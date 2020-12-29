@@ -8,14 +8,7 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import {
-    PayloadData,
-    Network,
-    UploadableMap,
-    PayloadError,
-    GraphQLResponse,
-    ReactFlightServerTree,
-} from '../network/RelayNetworkTypes';
+import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
@@ -441,34 +434,58 @@ type LogEvent =
           info: any;
       }>
     | Readonly<{
-          name: 'network.info';
-          transactionID: number;
-          info: unknown;
-      }>
-    | Readonly<{
-          name: 'network.start';
+          name: 'execute.start';
           transactionID: number;
           params: RequestParameters;
           variables: Variables;
       }>
     | Readonly<{
-          name: 'network.next';
+          name: 'execute.next';
           transactionID: number;
           response: GraphQLResponse;
       }>
     | Readonly<{
-          name: 'network.error';
+          name: 'execute.error';
           transactionID: number;
           error: Error;
       }>
     | Readonly<{
-          name: 'network.complete';
+          name: 'execute.complete';
           transactionID: number;
       }>
     | Readonly<{
-          name: 'network.unsubscribe';
+          name: 'execute.unsubscribe';
           transactionID: number;
       }>
+    | Readonly<{
+        name: 'network.info',
+        transactionID: number,
+        info: unknown,
+    }>
+    | Readonly<{
+        name: 'network.start',
+        transactionID: number,
+        params: RequestParameters,
+        variables: Variables,
+    }>
+    | Readonly<{
+        name: 'network.next',
+        transactionID: number,
+        response: GraphQLResponse,
+    }>
+    | Readonly<{
+        name: 'network.error',
+        transactionID: number,
+        error: Error,
+    }>
+    | Readonly<{
+        name: 'network.complete',
+        transactionID: number,
+    }>
+    | Readonly<{
+        name: 'network.unsubscribe',
+        transactionID: number,
+    }>
     | Readonly<{
           name: 'store.publish';
           source: RecordSource;
@@ -914,18 +931,3 @@ export interface PublishQueue {
      */
     run(): ReadonlyArray<RequestDescriptor>;
 }
-
-/**
- * ReactFlightDOMRelayClient processes a ReactFlightServerTree into a
- * ReactFlightClientResponse object. readRoot() can suspend.
- */
-export interface ReactFlightClientResponse {
-    readRoot: () => any;
-}
-
-export interface ReactFlightReachableQuery {
-    readonly module: any;
-    readonly variables: Variables;
-}
-
-export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;

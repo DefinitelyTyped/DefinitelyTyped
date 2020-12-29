@@ -27,11 +27,7 @@ const server = http.createServer((req, res) => {
             .set("tampered.sig", "bogus")
 
             // delete cookie but pass options
-            .set("removed", null, { signed: true })
-            .set("removed", "", { signed: true })
-
-            // delete cookie with no value or options
-            .set("removed")
+            .set("removed", { signed: true })
 
             // sameSite option
             .set("samesite", "same", {sameSite: 'lax'})

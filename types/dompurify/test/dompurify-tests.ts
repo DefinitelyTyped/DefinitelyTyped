@@ -58,6 +58,9 @@ trustedHtml = dompurify.sanitize(dirty, { RETURN_TRUSTED_TYPE: true });
 // return entire document including <html> tags (default is false)
 str = dompurify.sanitize(dirty, { WHOLE_DOCUMENT: true });
 
+// make output safe for usage in jQuery's $()/html() method (default is false)
+str = dompurify.sanitize(dirty, { SAFE_FOR_JQUERY: true });
+
 // disable DOM Clobbering protection on output (default is true, handle with care!)
 str = dompurify.sanitize(dirty, { SANITIZE_DOM: false });
 

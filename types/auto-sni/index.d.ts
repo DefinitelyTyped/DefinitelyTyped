@@ -8,12 +8,10 @@
 import { Server } from "https";
 
 declare namespace createServer {
-    type DomainList = Array<string | string[]>;
     interface Options {
         email: string;
         agreeTos: boolean;
-        domains: DomainList | (() => (DomainList | Promise<DomainList>));
-        dir?: string;
+        domains: Array<string | string[]>;
         ports?: {
             http?: number,
             https?: number

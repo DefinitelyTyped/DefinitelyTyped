@@ -231,7 +231,7 @@ declare module "../index" {
     type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
     type MemoIteratorCappedRight<T, TResult> = (curr: T, prev: TResult) => TResult;
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
-    type MemoVoidDictionaryIterator<T, K extends string | number | symbol, TResult> = (acc: TResult, curr: T, key: K, dict: Record<K, T>) => void;
+    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
     type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
     type ValueIteratee<T> = ((value: T) => NotVoid) | IterateeShorthand<T>;
     type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | IterateeShorthand<T>;

@@ -372,7 +372,7 @@ declare namespace Aws {
         arn?: string;
         topicName?: string;
         displayName?: string;
-        filterPolicy?: Record<string, unknown>;
+        filterPolicy?: string[] | { [key: string]: string };
         redrivePolicy?: RedrivePolicy;
     }
 
@@ -388,7 +388,6 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
-        type?: 'dynamodb' | 'kinesis';
     }
 
     interface Msk {
@@ -527,7 +526,7 @@ declare namespace Aws {
         tags?: Tags;
         vpc?: Vpc;
         package?: Package;
-        layers?: Array<string | Record<string, string>>;
+        layers?: string[];
         tracing?: string;
         condition?: string;
         dependsOn?: string[];

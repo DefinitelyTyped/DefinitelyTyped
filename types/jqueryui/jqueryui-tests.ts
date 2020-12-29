@@ -13,9 +13,7 @@ function test_draggable() {
     $("#draggable").draggable({
         start: () => { },
         drag: () => { },
-        stop: (event, ui) => {
-            var left = ui.originalPosition.left;
-        }
+        stop: () => { }
     });
     $("#draggable").draggable({ handle: "p" });
     $("#draggable2").draggable({ cancel: "p.ui-widget-header" });

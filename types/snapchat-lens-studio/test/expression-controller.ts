@@ -402,20 +402,7 @@
 //  @input bool advanced = false
 //  @input Component.RenderMeshVisual faceMesh                   {"showIf" : "advanced"}
 
-declare namespace SnapchatLensStudio {
-    interface ScriptInputs extends ExpressionInputSet<keyof Expressions> {
-        blendShapesComponent: Component.BlendShapes;
-        customizeExpressions: boolean;
-        Brows: boolean;
-        Cheeks: boolean;
-        Eyes: boolean;
-        Jaw: boolean;
-        Lips: boolean;
-        Mouth: boolean;
-        Face: boolean;
-        faceMesh: Component.RenderMeshVisual;
-    }
-}
+// import 'snapchat-lens-studio';
 
 const {
     blendShapesComponent,
@@ -429,7 +416,20 @@ const {
     Face,
     faceMesh,
     ...expressionConfig
-} = script;
+} = script as Component.ScriptComponent<
+    {
+        blendShapesComponent: Component.BlendShapes;
+        customizeExpressions: boolean;
+        Brows: boolean;
+        Cheeks: boolean;
+        Eyes: boolean;
+        Jaw: boolean;
+        Lips: boolean;
+        Mouth: boolean;
+        Face: boolean;
+        faceMesh: Component.RenderMeshVisual;
+    } & ExpressionInputSet<keyof Expressions>
+>;
 
 type ExpressionInputSet<T extends string> = {
     [K in T]: boolean;
@@ -477,7 +477,7 @@ function checkBlendShapes() {
 }
 
 function getBlendShapeName(name: keyof Expressions) {
-    return expressionConfig[`${name}Rename` as const] || name; // tslint:disable-line no-unnecessary-type-assertion
+    return expressionConfig[`${name}Rename` as `${keyof Expressions}Rename`] || name;
 }
 
 function setBlendShapes() {
@@ -495,7 +495,7 @@ function setBlendShapes() {
                 blendShapesComponent,
                 blendShapeName,
                 i,
-                expressionConfig[`${name}Scale` as const], // tslint:disable-line no-unnecessary-type-assertion
+                expressionConfig[`${name}Scale` as `${keyof Expressions}Scale`],
             );
         }
     }

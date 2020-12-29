@@ -12,7 +12,6 @@
 
 
 import events = require("events");
-import { SecureContextOptions } from 'tls';
 
 export interface ColumnType {
     /**
@@ -240,7 +239,7 @@ export interface ConnectionOptions {
     /**
      * When encryption is used, an object may be supplied that will be used for the first argument when calling tls.createSecurePair (default: {}).
      */
-    cryptoCredentialsDetails?: SecureContextOptions;
+    cryptoCredentialsDetails?: Object;
 
     /**
      * A boolean, that when true will expose received rows in Requests' done* events. See done, doneInProc and doneProc. (default: false)

@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/akumina-core-tests.ts"
+        "akumina-core-tests.ts"
     ]
 }

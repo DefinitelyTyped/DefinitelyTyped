@@ -51,9 +51,6 @@ promptly.prompt('hello world', () => {
 promptly.prompt('hello world', options, (err: Error, value: string) => {
 
 });
-async () => {
-  const result: string = await promptly.prompt('hello world');
-};
 
 // Password
 promptly.password('hello world');
@@ -64,9 +61,6 @@ promptly.password('hello world', () => {
 promptly.password('hello world', options, (err: Error, value: string) => {
 
 });
-async () => {
-  const result: string = await promptly.password('hello world');
-};
 
 // Confirm
 promptly.confirm('hello world');
@@ -77,9 +71,6 @@ promptly.confirm('hello world', () => {
 promptly.confirm('hello world', options, (err: Error, value: string) => {
 
 });
-async () => {
-  const result: boolean = await promptly.confirm('hello world');
-};
 
 // Choose
 promptly.choose('hello world', ['test1', 'test2']);
@@ -90,6 +81,3 @@ promptly.choose('hello world', ['test1', 'test2'], () => {
 promptly.choose('hello world', ['test1', 'test2'], options, (err: Error, value: string) => {
 
 });
-async () => {
-  const result: string = await promptly.choose('hello world', ['test1', 'test2']);
-};

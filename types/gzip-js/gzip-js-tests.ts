@@ -6,11 +6,7 @@ const options = {
     timestamp: Date.now() / 1000,
 };
 
-let out;
-out = Buffer.from(gz.zip('Hello world', options));
-out = Buffer.from(gz.zip([42, 42, 42], options));
-out = Buffer.from(gz.zip(Buffer.from([42, 42, 42]), options));
-out = Buffer.from(gz.zip(new Uint8Array([42, 42, 42]), options));
+const out = Buffer.from(gz.zip('Hello world', options));
 console.log(out);
 
 let buf;

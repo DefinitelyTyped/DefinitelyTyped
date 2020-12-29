@@ -77,9 +77,3 @@ declare module '@nuxt/types' {
         $auth: Auth;
     }
 }
-
-declare module 'vuex/types/index' {
-    interface Store<S> {
-        $auth: Auth;
-    }
-}

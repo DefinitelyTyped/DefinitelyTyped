@@ -111,25 +111,3 @@ export type Uploadable = File | Blob;
 export interface UploadableMap {
     [key: string]: Uploadable;
 }
-
-/**
- * React Flight tree created on the server.
- */
-export type ReactFlightServerTree = any;
-export interface ReactFlightPayloadQuery {
-    readonly id: any;
-    readonly module: any;
-    readonly response: GraphQLSingularResponse;
-    readonly variables: Variables;
-}
-/**
- * Data that is returned by a Flight compliant GraphQL server.
- *
- * - tree: an array of values that will be iterated and fed into
- *     ReactFlightDOMRelayClient.
- * - queries: an array of queries that the server preloaded for the client.
- */
-export interface ReactFlightPayloadData {
-    readonly tree: ReactFlightServerTree[];
-    readonly queries: ReactFlightPayloadQuery[];
-}

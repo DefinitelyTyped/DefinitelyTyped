@@ -3,34 +3,32 @@ import path = require('path');
 import { WebpackManifestPlugin, Options } from 'webpack-manifest-plugin';
 
 const options: Options = {
-    basePath: '/src/',
     fileName: 'manifest.json',
+    basePath: '/src/',
+    seed: {
+        name: 'Hello world',
+    },
+    publicPath: 'prod',
+    writeToFileEmit: false,
     filter: file => file.isInitial,
-    generate: (seed, files, entries) =>
-        files.reduce((manifest, { name, path }) => (name ? { ...manifest, [name]: path } : manifest), seed),
     map: file => {
         if (file.name) {
             file.name = path.join(path.dirname(file.path), file.name);
         }
         return file;
     },
-    publicPath: 'prod',
-    removeKeyHash: /[a-Z0-9]/g,
-    seed: {
-        name: 'Hello world',
-    },
-    serialize: manifest => JSON.stringify(manifest, null, 2),
     sort: (a, b) => a.path.localeCompare(b.path),
-    useEntryKeys: true,
-    writeToFileEmit: false,
+    generate: (seed, files) =>
+        files.reduce((manifest, { name, path }) => (name ? { ...manifest, [name]: path } : manifest), seed),
+    serialize: manifest => JSON.stringify(manifest, null, 2),
 };
 
 const c: Configuration = {
     plugins: [
         new WebpackManifestPlugin(),
         new WebpackManifestPlugin({
-            basePath: '/app/',
             fileName: 'my-manifest.json',
+            basePath: '/app/',
             seed: {
                 name: 'My Manifest',
             },

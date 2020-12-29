@@ -1507,7 +1507,7 @@ function testRef() {
     <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
     // Should not be able to use legacy string refs
     <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
-    // ref type should agree with type of the forwarded ref
+    // ref type should agree with type of the fowarded ref
     <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
     <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
 
@@ -1535,28 +1535,4 @@ function testConnectDefaultState() {
         const s = state;
         return state;
     });
-}
-
-function testPreserveDiscriminatedUnions() {
-    type OwnPropsT = {
-        color: string
-    } & (
-        | {
-            type: 'plain'
-        }
-        | {
-            type: 'localized'
-            params: Record<string, string> | undefined
-        }
-    );
-
-    class MyText extends React.Component<OwnPropsT> {}
-
-    const ConnectedMyText = connect()(MyText);
-    const someParams = { key: 'value', foo: 'bar' };
-
-    <ConnectedMyText type="plain" color="red" />;
-    <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
-    <ConnectedMyText type="localized" color="red" />; // $ExpectError
-    <ConnectedMyText type="localized" color="red" params={someParams} />;
 }

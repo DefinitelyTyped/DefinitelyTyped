@@ -22,10 +22,6 @@ export interface CloudWatchLogsDecodedData {
     logEvents: CloudWatchLogsLogEvent[];
 }
 
-export interface CloudWatchLogsLogEventExtractedFields {
-    [name: string]: string | undefined;
-}
-
 /**
  * See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html#LambdaFunctionExample
  */
@@ -33,5 +29,5 @@ export interface CloudWatchLogsLogEvent {
     id: string;
     timestamp: number;
     message: string;
-    extractedFields?: CloudWatchLogsLogEventExtractedFields;
+    extractedFields?: { [key: string]: string };
 }
