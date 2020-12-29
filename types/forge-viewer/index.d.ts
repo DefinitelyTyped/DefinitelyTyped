@@ -1734,6 +1734,174 @@ declare namespace Autodesk {
       }
     }
 
+    namespace Edit2D {
+      enum EdgeType {
+        Line = 0,
+        Bezier = 1,
+        Ellipse = 2
+      }
+
+      enum LoopType {
+        Empty = 0,
+        Inner = 1,
+        Outer = 2,
+        Overlapping = 3
+      }
+
+      class Edit2DContext {
+        get layer(): EditLayer;
+        get undoStack(): UndoStack;
+
+        addShape(shape: any): void;
+        removeShape(shape: any): void;
+
+        clearLayer(enableUndo?: boolean): void;
+        setMatrix(matrix: THREE.Matrix4): void;
+      }
+
+      class EditLayer extends Viewing.EventDispatcher {
+        constructor(viewer: Viewing.Viewer3D, options?: any);
+
+        shapes: Shape[];
+
+        addShape(shape: Shape): number;
+        addShapes(shapes: Shape[]): void;
+        clear(): void;
+        hasShape(shape: Shape): boolean;
+        removeShape(shape: Shape): boolean;
+        removeShapes(shapes: Shape[]): void;
+        update(): void;
+        updateCanvasGizmos(): void;
+      }
+
+      namespace Math2D {
+        function angleBetweenDirections(dir1: THREE.Vector2, dir2: THREE.Vector2): number;
+        function changesOrientation(matrix: THREE.Matrix4): boolean;
+        function collinear(p1: THREE.Vector2, dir1: THREE.Vector2, p2: THREE.Vector2, dir2: THREE.Vector2, precision: number): boolean;
+        function distance2D(p1: { x: number, y: number }, p2: { x: number, y: number }): number;
+        function edgeIsDegenerated(a: THREE.Vector2, b: THREE.Vector2, eps?: number): boolean;
+        function fuzzyEqual(a: number, b: number, precision: number): boolean;
+        function getEdgeCenter(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeDirection(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeLength(a: { x: number, y: number }, b: { x: number, y: number }): number;
+        function getFitToBoxTransform(fromBox: THREE.Box2, toBox: THREE.Box2, options?: { flipY: boolean, preserveAspect: boolean }, target?: THREE.Matrix4): THREE.Matrix4;
+        function intersectLines(linePoint1: {x: number, y: number },
+          lineDir1: { x: number, y: number },
+          linePoint2: { x: number, y: number },
+          lineDir2: { x: number, y: number },
+          outPoint?: { x: number, y: number }): boolean;
+        function isPointOnEdge(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number, checkInsideSegment?: boolean): boolean;
+        function isPointOnLine(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number): boolean;
+        function mirrorPointOnPoint(p: { x: number, y: number }, c: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function pointDelta(a: { x: number, y: number }, b: { x: number, y: number }, digits?: number): { x: number, y: number };
+        function pointLineDistance(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): number;
+        function projectToLine(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): void;
+        function rotateAround(p: THREE.Vector2, angle: number, center?: THREE.Vector2): THREE.Vector2;
+        function turnLeft(x: number, y: number): { x: number, y: number };
+      }
+
+      class MeasureTransform {
+        apply(p: THREE.Vector2): void;
+      }
+      class Path extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, isClosed?: boolean, style?: Style);
+
+        getEdgeType(segmentIndex: number, loopIndex?: number): EdgeType;
+        isBezierArc(segmentIndex: number, loopIndex?: number): boolean;
+        isEllipseArc(segmentIndex: number, loopIndex?: number): boolean;
+      }
+
+      class PolyBase extends Shape {
+        constructor(points?: Array<{ x: number; y: number }>, style?: Style);
+
+        isClosed: boolean;
+
+        get length(): number;
+        get loopCount(): number;
+        get points(): Array<{ x: number; y: number; }>;
+        get vertexCount(): number;
+
+        addPoint(x: number, y: number, loopIndex?: number): { x: number, y: number };
+        applyMatrix4(matrix: THREE.Matrix4): PolyBase;
+        enumEdges(cb: (a: THREE.Vector2, b: THREE.Vector2, ai: number, bi: number) => boolean, loopIndex?: number): void;
+        getChildLoops(loopIndex: number): number[];
+        getEdgeCount(loopIndex?: number): number;
+        getEdgeLength(edgeIndex: number, loopIndex?: number): number;
+        getLoopType(loopIndex: number): LoopType;
+        getMainLoops(): number[];
+        getPoint(index: number, loopIndex?: number, target?: THREE.Vector2): THREE.Vector2;
+        getVertexCount(loopIndex?: number): number;
+        isCCW(loopIndex?: number): boolean;
+        isLoopFinite(loopIndex: number): boolean;
+        isPath(): boolean;
+        isPointFinite(vertex: number, loopIndex?: number): boolean;
+        isPolygon(): boolean;
+        isPolyline(): boolean;
+        isSelfIntersecting(): boolean;
+      }
+
+      class Polygon extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, style?: Style);
+
+        getArea(measureTransform?: MeasureTransform): number;
+        hitTest(x: number, y: number): boolean;
+      }
+
+      class PolygonPath extends Path {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Polyline extends PolyBase {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Shape extends Viewing.EventDispatcher {
+        constructor(style?: Style);
+
+        bbox: THREE.Box2;
+        bboxDirty: boolean;
+        id: number;
+        style: Style;
+
+        computeBBox(): void;
+        getBBox(): THREE.Box2;
+        updateBBox(): void;
+      }
+
+      class Style {
+        constructor(params?: any);
+
+        color: string;
+        fillAlpha: number;
+        fillColor: string;
+        lineAlpha: number;
+        lineColor: string;
+        lineStyle: number;
+        lineWidth: number;
+
+        clone(): Style;
+        copy(from: Style): Style;
+        setFillColor(r: number, g: number, b: number): void;
+        setLineColor(r: number, g: number, b: number): void;
+      }
+
+      class UndoStack extends Viewing.EventDispatcher {
+        static AFTER_ACTION: string;
+        static BEFORE_ACTION: string;
+      }
+
+      namespace BooleanOps {
+        enum Operator {
+          Intersect = 1,
+          Union = 2,
+          Difference = 3,
+          Xor = 4
+        }
+
+        function apply(path1: PolyBase, path2: PolyBase, operator: Operator, extraOperands?: PolyBase[]): PolyBase;
+      }
+    }
+
     namespace Extensions {
       class DataVisualization extends Viewing.Extension {
         sceneModel: Viewing.Model;
@@ -1754,6 +1922,14 @@ declare namespace Autodesk {
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
           sensorType: string) => number): void;
+      }
+
+      class Edit2D extends Viewing.Extension {
+        get defaultContext(): Edit2D.Edit2DContext;
+        get defaultTools(): any;
+
+        registerDefaultTools(): void;
+        unregisterDefaultTools(): void;
       }
     }
 }
