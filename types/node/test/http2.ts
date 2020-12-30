@@ -102,6 +102,7 @@ import { URL } from 'url';
     (http2Session as ClientHttp2Session).request(headers, options);
 
     const stream: Http2Stream = {} as any;
+    http2Session.setLocalWindowSize(2 ** 20);
     http2Session.setTimeout(100, () => {});
     http2Session.close(() => {});
 
