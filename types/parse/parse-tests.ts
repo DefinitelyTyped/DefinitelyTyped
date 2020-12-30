@@ -246,7 +246,7 @@ function test_anonymous_utils(): Promise<Parse.User> {
     // $ExpectType Promise<User<Attributes>>
     Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: '' });
     // $ExpectType Promise<User<Attributes>>
-    Parse.AnonymousUtils.logIn({},  { useMasterKey: true, sessionToken: '' });
+    return Parse.AnonymousUtils.logIn({},  { useMasterKey: true, sessionToken: '' })
 }
 
 function return_a_query(): Parse.Query {
