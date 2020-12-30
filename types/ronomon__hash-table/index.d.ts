@@ -68,13 +68,13 @@ declare module "@ronomon/hash-table" {
 
         static VALUE_MIN: number;
 
-        static bucket(keySize: number, valueSize: number): number;
+        capacity: number;
 
-        static buckets(elements: number, buffers: number): number;
+        length: number;
 
-        static buffers(keySize: number, valueSize: number, elements: number): number;
+        load: number;
 
-        static capacity(elements: number): number;
+        size: number;
     }
 
     export = HashTable;
