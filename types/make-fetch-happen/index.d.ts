@@ -127,13 +127,13 @@ declare namespace fetch {
         integrity?: string | Integrity;
     }
 
-    type CachingFetchOpts = NodeFetchOpts & TlsOpts & MakeFetchHappenOpts;
+    type FetchOptions = NodeFetchOpts & TlsOpts & MakeFetchHappenOpts;
 
     interface FetchInterface {
         prototype: FetchInterface;
-        (uriOrRequest: string | Request, opts?: CachingFetchOpts): Promise<Response>;
-        (opts: CachingFetchOpts): Promise<Response>;
-        defaults(uri: string, opts?: CachingFetchOpts): FetchInterface;
-        defaults(opts?: CachingFetchOpts): FetchInterface;
+        (uriOrRequest: string | Request, opts?: FetchOptions): Promise<Response>;
+        (opts: FetchOptions): Promise<Response>;
+        defaults(uri: string, opts?: FetchOptions): FetchInterface;
+        defaults(opts?: FetchOptions): FetchInterface;
     }
 }
