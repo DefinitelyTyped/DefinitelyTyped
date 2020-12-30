@@ -87,7 +87,10 @@ I18n.t("point", { count: point_in_number, formatted_number: I18n.toNumber(point_
 I18n.translations = {};
 I18n.translations["en"] = {
     message: "Some special message for you",
+    genericNames: ["John", "Adam", "Sara"],
 };
 I18n.translations["pt-BR"] = {
     message: "Uma mensagem especial para você",
 };
+
+I18n.t<string[]>("genericNames");

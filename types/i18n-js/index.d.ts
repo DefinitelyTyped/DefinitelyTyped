@@ -47,7 +47,11 @@ declare namespace I18n {
         defaultValue?: string;
     }
     function translate(scope: Scope, options?: TranslateOptions): string;
+    // tslint:disable-next-line no-unnecessary-generics
+    function translate<T>(scope: Scope, options?: TranslateOptions): T;
     function t(scope: Scope, options?: TranslateOptions): string;
+    // tslint:disable-next-line no-unnecessary-generics
+    function t<T>(scope: Scope, options?: TranslateOptions): T;
 
     function localize(scope: "currency" | "number" | "percentage", value: number, options?: InterpolateOptions): string;
     function localize(scope: Scope, value: string | number | Date, options?: InterpolateOptions): string;
