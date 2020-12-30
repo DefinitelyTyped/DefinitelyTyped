@@ -244,10 +244,10 @@ async function test_live_query() {
 function test_anonymous_utils(): Promise<Parse.User> {
     // $ExpectType boolean
     Parse.AnonymousUtils.isLinked(new Parse.User());
-    // $ExpectType Promise<User<Attributes>>
+    // $ExpectType Promise<Parse.User>
     Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: '' });
-    // $ExpectType Promise<User<Attributes>>
-    return Parse.AnonymousUtils.logIn({},  { useMasterKey: true, sessionToken: '' })
+    // $ExpectType Promise<Parse.User>
+    return Parse.AnonymousUtils.logIn({},  { useMasterKey: true, sessionToken: '' });
 }
 
 function return_a_generic_query(): Parse.Query<Game> {
