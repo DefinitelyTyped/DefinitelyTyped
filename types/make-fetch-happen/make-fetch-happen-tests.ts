@@ -1,4 +1,5 @@
 import fetcher from 'make-fetch-happen';
+import { URL as NodeURL } from 'url';
 
 // Needs arguments when invoked
 // $ExpectError
@@ -34,3 +35,9 @@ fetcher.defaults()('http://url');
 
 // $ExpectType Promise<Response>
 fetcher.defaults().defaults()('http://url');
+
+// Test both the DOM URL and the Node.js `url` module.
+// $ExpectType Promise<Response>
+fetcher('http://url', { proxy: new URL('http://secure-proxy') });
+// $ExpectType Promise<Response>
+fetcher('http://url', { proxy: new NodeURL('http://secure-proxy') });

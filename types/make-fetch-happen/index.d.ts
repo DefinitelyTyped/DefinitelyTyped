@@ -5,7 +5,7 @@
 /// <reference types="node" />
 import { ClientRequestArgs, AgentOptions } from 'http';
 import { CommonConnectionOptions, SecureContextOptions } from 'tls';
-import { URL } from 'url';
+import { URL as NodeURL } from 'url';
 
 import { RequestInit, Response } from 'node-fetch';
 import { Integrity } from 'ssri';
@@ -50,7 +50,7 @@ declare namespace fetch {
         cacheManager?: string | Cache;
 
         cache?: RequestCache;
-        proxy?: string | URL;
+        proxy?: string | NodeURL | URL;
 
         /**
          * If present, should be a comma-separated string or an array of domain
