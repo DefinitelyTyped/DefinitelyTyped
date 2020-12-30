@@ -66,3 +66,9 @@ fetcher('http://url', { proxy: new NodeURL('http://secure-proxy') });
 // Test the imported `tls` type `rejectUnauthorized` remapped to `strictSSL`.
 // $ExpectType Promise<Response>
 fetcher('https://url', { strictSSL: true });
+
+// Test the `Cache` return type of the `delete` method.
+// $ExpectType Promise<boolean>
+fetcher.delete('http://ok');
+// $ExpectType Promise<boolean>
+fetcher.delete('http://ok', { cacheManager: cache });

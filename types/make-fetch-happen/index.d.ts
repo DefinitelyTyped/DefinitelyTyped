@@ -135,5 +135,6 @@ declare namespace fetch {
         (opts: FetchOptions): Promise<Response>;
         defaults(uri: string, opts?: FetchOptions): FetchInterface;
         defaults(opts?: FetchOptions): FetchInterface;
+        delete(uri: string, opts?: FetchOptions): ReturnType<Cache['delete']>;
     }
 }
