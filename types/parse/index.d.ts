@@ -1117,10 +1117,9 @@ namespace Parse {
      * Provides utility functions for working with Anonymously logged-in users.
      */
     namespace AnonymousUtils  {
-        function init(): void;
         function isLinked(user: User): boolean;
-        function link(user: User, options?: SuccessFailureOptions): Promise<User>;
-        function logIn(options?: FullOptions): Promise<User>;
+        function link(user: User, options?: ScopeOptions): Promise<User>;
+        function logIn(options?: ScopeOptions): Promise<User>;
     }
 
     /**
