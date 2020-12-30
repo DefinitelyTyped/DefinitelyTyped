@@ -1,4 +1,5 @@
 import fetcher from 'make-fetch-happen';
+import { Integrity } from 'ssri';
 import { URL as NodeURL } from 'url';
 
 // Needs arguments when invoked
@@ -35,6 +36,11 @@ fetcher.defaults()('http://url');
 
 // $ExpectType Promise<Response>
 fetcher.defaults().defaults()('http://url');
+
+// Test the SSRI types from `ssri`
+const integrity = new Integrity();
+// $ExpectType Promise<Response>
+fetcher('https://url', { integrity });
 
 // Test both the DOM URL and the Node.js `url` module.
 // $ExpectType Promise<Response>
