@@ -1,4 +1,4 @@
-// Type definitions for i18n-js 3.0
+// Type definitions for i18n-js 3.8
 // Project: https://github.com/fnando/i18n-js
 // Definitions by: Yuya Tanaka <https://github.com/ypresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,11 +40,13 @@ declare namespace I18n {
         [key: string]: any; // interpolation
     }
 
+    type Message = string | object | ((scope: Scope) => string | object);
+
     interface TranslateOptions extends InterpolateOptions {
         scope?: Scope;
         message?: string;
-        defaults?: Array<{ message: string } | { scope: Scope }>;
-        defaultValue?: string;
+        defaults?: Array<{ message: Message } | { scope: Scope }>;
+        defaultValue?: Message;
     }
     function translate(scope: Scope, options?: TranslateOptions): string;
     function t(scope: Scope, options?: TranslateOptions): string;
@@ -76,6 +78,7 @@ declare namespace I18n {
 
     interface ToHumanSizeOptions extends ToNumberOptions {
         format?: string;
+        scope?: Scope;
     }
     function toHumanSize(num: number, options?: ToHumanSizeOptions): string;
 

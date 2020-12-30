@@ -16,6 +16,11 @@ I18n.t("some.missing.scope", { defaultValue: "A default message" });
 I18n.t("noun", { defaultValue: "I'm a {{noun}}", noun: "Mac" });
 I18n.t("some.missing.scope", { defaults: [{ scope: "some.existing.scope" }] });
 I18n.t("some.missing.scope", { defaults: [{ message: "Some message" }] });
+I18n.translate("message", {defaultValue: { one: "%{count} message", other: "%{count} messages"}, count: 1});
+I18n.translate("foo", {
+    defaults: [{scope: "bar"}],
+    defaultValue: (scope: string) => scope.toUpperCase(),
+});
 
 I18n.fallbacks = true;
 I18n.fallbacks = "de";
@@ -68,6 +73,7 @@ I18n.toNumber(1000, { delimiter: ".", precision: 0 });
 I18n.toCurrency(1000, { precision: 0 });
 
 I18n.toHumanSize(1234);
+I18n.toHumanSize(1024 * 1024, {scope: "extended"});
 
 I18n.l("date.formats.short", "2009-09-18");
 I18n.l("time.formats.short", "2009-09-18 23:12:43");
