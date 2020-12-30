@@ -8,20 +8,20 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "types": [],
         "paths": {
             "mime": ["mime/v1"],
             "mime/*": ["mime/v1/*"]
         },
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "send-tests.ts"
+        "mime-tests.ts"
     ]
 }
