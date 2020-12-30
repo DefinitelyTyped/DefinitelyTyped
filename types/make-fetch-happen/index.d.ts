@@ -18,13 +18,16 @@ export = fetch;
 // `make-fetch-happen`'s use of the `module.exports` pattern.
 declare const fetch: fetch.FetchInterface;
 declare namespace fetch {
-    type NodeFetchOpts = Pick<RequestInit, 'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size'>;
+    type NodeFetchOptions = Pick<
+        RequestInit,
+        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size'
+    >;
 
-    type TlsOpts = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
+    type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
         strictSSL?: CommonConnectionOptions['rejectUnauthorized'];
     };
 
-    interface MakeFetchHappenOpts {
+    interface MakeFetchHappenOptions {
         /**
          * Either a `String` or a `Cache`. If the former, it will be assumed to
          * be a `Path` to be used as the cache root for
@@ -127,7 +130,7 @@ declare namespace fetch {
         integrity?: string | Integrity;
     }
 
-    type FetchOptions = NodeFetchOpts & TlsOpts & MakeFetchHappenOpts;
+    type FetchOptions = NodeFetchOptions & TlsOptions & MakeFetchHappenOptions;
 
     interface FetchInterface {
         prototype: FetchInterface;
