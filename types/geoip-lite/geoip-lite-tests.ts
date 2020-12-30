@@ -14,7 +14,6 @@ if (stringLookup) {
 // start the data update watcher
 geoip.startWatchingDataUpdate();
 
-//
 geoip.startWatchingDataUpdate(err => {
     // prettier-ignore
     err
