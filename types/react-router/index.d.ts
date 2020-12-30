@@ -134,10 +134,15 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-export function generatePath(
-    pattern: string,
-    params?: { [paramName: string]: string | number | boolean | undefined },
-): string;
+export type ExtractRouteParams<T extends string> = string extends T
+    ? Record<string, string>
+    : T extends `${infer _Start}:${infer Param}/${infer Rest}`
+    ? { [k in Param | keyof ExtractRouteParams<Rest>]: string }
+    : T extends `${infer _Start}:${infer Param}`
+    ? { [k in Param]: string }
+    : {};
+
+export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
     ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }

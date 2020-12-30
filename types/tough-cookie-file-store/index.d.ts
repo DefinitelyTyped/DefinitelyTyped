@@ -19,8 +19,6 @@ export class FileCookieStore extends tough.Store {
 
     constructor(filePath: string);
 
-    checkExpired(domain: string | null, path: string | null, key: string | null): boolean;
-
     findCookie(
         domain: string,
         path: string,
@@ -31,18 +29,20 @@ export class FileCookieStore extends tough.Store {
     findCookies(
         domain: string,
         path: string,
-        cb: (err: null, cookies: tough.Cookie[]) => void
+        cb: (err: Error | null, cookie: tough.Cookie[]) => void
+    ): void;
+    findCookies(
+        domain: string,
+        path: string,
+        allowSpecialUseDomain: boolean,
+        cb: (err: Error | null, cookie: tough.Cookie[]) => void
     ): void;
 
     getAllCookies(cb: (err: Error | null, cookies: tough.Cookie[]) => void): void;
 
-    inspect(): string;
-
-    isEmpty(): boolean;
-
-    isExpired(): boolean;
-
     putCookie(cookie: tough.Cookie, cb: (err: Error | null) => void): void;
+
+    removeAllCookies(cb: (err: Error | null) => void): void;
 
     removeCookie(
         domain: string,

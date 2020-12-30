@@ -3,7 +3,10 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RedisClient } from 'redis';
+
+interface RedisClient {
+    multi(operations: any[][]): { exec(cb: (err: any, res: any) => unknown): void };
+}
 
 declare class Limiter {
     constructor(opts: Limiter.LimiterOption);

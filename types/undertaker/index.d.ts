@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 import * as Registry from "undertaker-registry";
-import { Duplex } from "stream";
+import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
 
 declare namespace Undertaker {
@@ -23,7 +23,7 @@ declare namespace Undertaker {
     }
 
     interface TaskFunctionBase {
-        (done: (error?: Error | null) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+        (done: (error?: Error | null) => void): ReturnType<AsyncTask>;
     }
 
     interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}

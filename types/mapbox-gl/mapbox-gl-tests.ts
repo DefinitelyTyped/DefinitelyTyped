@@ -253,6 +253,36 @@ map.on('load', function () {
     });
 });
 
+//
+// setTerrain
+//
+
+// $ExpectType Map
+map.setTerrain();
+// $ExpectType Map
+map.setTerrain(null);
+// $ExpectType Map
+map.setTerrain(undefined);
+// $ExpectType Map
+map.setTerrain({
+    source: 'something',
+    exaggeration: 10,
+});
+
+//
+// getFreeCameraOptions
+//
+
+// $ExpectType FreeCameraOptions
+map.getFreeCameraOptions();
+
+//
+// setFreeCameraOptions
+//
+
+// $ExpectType Map
+map.setFreeCameraOptions(new mapboxgl.FreeCameraOptions());
+
 // FlyTo
 map.flyTo({
     center: [0, 0],
@@ -394,6 +424,7 @@ const popupOptions: mapboxgl.PopupOptions = {
     closeOnClick: false,
     closeOnMove: true,
     closeButton: true,
+    focusAfterOpen: true,
     anchor: 'top-right',
     offset: {
         top: [0, 0] as [number, number],
@@ -414,6 +445,8 @@ popup.getElement(); // $ExpectType HTMLElement
 popup.addClassName('class1');
 popup.removeClassName('class2');
 popup.toggleClassName('class3');
+// $ExpectType Popup
+popup.setOffset([10, 20]);
 
 /**
  * Add an image
@@ -621,6 +654,7 @@ let marker = new mapboxgl.Marker(undefined, {
     anchor: 'bottom-right',
     color: 'green',
     draggable: false,
+    clickTolerance: 10,
     rotation: 15,
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
@@ -689,6 +723,9 @@ new mapboxgl.FullscreenControl();
 new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
+
+// $expectType boolean
+map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
@@ -1698,3 +1735,10 @@ map.addImage('foo', fooArrayBufferView);
 createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
+
+// KeyboardHandler
+var keyboardHandler = new mapboxgl.KeyboardHandler(map);
+// $ExpectType void
+keyboardHandler.enableRotation();
+// $ExpectType void
+keyboardHandler.disableRotation();

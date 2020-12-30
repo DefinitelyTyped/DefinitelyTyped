@@ -19,14 +19,17 @@
 //                 Brandon Mitchell <https://github.com/brammitch>
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
 //                 Oleg Shilov <https://github.com/olegshilov>
+//                 Pablo Gracia <https://github.com/PabloGracia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
+import { OhclData } from './lib/traces/ohcl';
+import { CandlestickData } from './lib/traces/candlestick';
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData };
+export { BoxPlotData, ViolinData, OhclData, CandlestickData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -465,6 +468,7 @@ export interface Layout {
     polar9: Partial<PolarLayout>;
     transition: Transition;
     template: Template;
+    clickmode: 'event' | 'select' | 'event+select' | 'none';
 }
 
 export interface Legend extends Label {
@@ -1073,7 +1077,13 @@ export type PlotType =
     | 'volume'
     | 'waterfall';
 
-export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
+export type Data =
+    | Partial<PlotData>
+    | Partial<BoxPlotData>
+    | Partial<ViolinData>
+    | Partial<OhclData>
+    | Partial<CandlestickData>;
+
 export type Color =
     | string
     | number
@@ -1357,7 +1367,7 @@ export type MarkerSymbol = string | number | Array<string | number>;
  */
 export interface PlotMarker {
     symbol: MarkerSymbol;
-    color: Color | Color[];
+    color?: Color | Color[];
     colors?: Color[];
     colorscale?: ColorScale;
     cauto?: boolean;

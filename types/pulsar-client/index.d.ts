@@ -371,6 +371,11 @@ export interface SubscribeOpts {
      * The metadata of consumer.
      */
     properties?: MessageProperties;
+
+    /**
+     * The message listener of consumer.
+     */
+    listener?: (message: Message, consumer: Consumer) => void;
 }
 
 export class Consumer {

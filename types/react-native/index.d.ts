@@ -1659,6 +1659,11 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     style?: StyleProp<TextStyle>;
 
     /**
+     * Align the input text to the left, center, or right sides of the input field.
+     */
+    textAlign?: 'left' | 'center' | 'right';
+
+    /**
      * Used to locate this view in end-to-end tests
      */
     testID?: string;
@@ -2364,15 +2369,6 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
-     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
-     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
-     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
-     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
-     * @platform android
-     */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
-
-    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2401,13 +2397,6 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean;
-
-    /**
-     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
-     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
-     * @platform ios
-     */
-    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
@@ -2439,25 +2428,6 @@ export interface AccessibilityPropsIOS {
      */
     accessibilityIgnoresInvertColors?: boolean;
 }
-
-type AccessibilityTrait =
-    | 'none'
-    | 'button'
-    | 'link'
-    | 'header'
-    | 'search'
-    | 'image'
-    | 'selected'
-    | 'plays'
-    | 'key'
-    | 'text'
-    | 'summary'
-    | 'disabled'
-    | 'frequentUpdates'
-    | 'startsMedia'
-    | 'adjustable'
-    | 'allowsDirectInteraction'
-    | 'pageTurn';
 
 /**
  * @see https://reactnative.dev/docs/view#props
@@ -5362,13 +5332,13 @@ export class TouchableOpacity extends TouchableOpacityBase {
 
 interface BaseBackgroundPropType {
     type: string;
+    rippleRadius?: number | null;
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid';
-    color?: ColorValue;
-    borderless?: boolean;
-    radius?: number;
+    type: 'RippleAndroid',
+    borderless: boolean,
+    color?: number | null,
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
@@ -5416,15 +5386,19 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     /**
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
+     *
+     * @param rippleRadius The radius of ripple effect
      */
-    static SelectableBackground(): ThemeAttributeBackgroundPropType;
+    static SelectableBackground(rippleRadius?: number | null): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represent android theme's default background for borderless
      * selectable elements (?android:attr/selectableItemBackgroundBorderless).
      * Available on android API level 21+.
+     *
+     * @param rippleRadius The radius of ripple effect
      */
-    static SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
+    static SelectableBackgroundBorderless(rippleRadius?: number | null): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represents ripple drawable with specified color (as a
@@ -5435,8 +5409,9 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      *
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
+     * @param rippleRadius The radius of ripple effect
      */
-    static Ripple(color: ColorValue, borderless?: boolean): RippleBackgroundPropType;
+    static Ripple(color: ColorValue, borderless: boolean, rippleRadius?: number | null): RippleBackgroundPropType;
     static canUseNativeForeground(): boolean;
 }
 
@@ -8200,20 +8175,19 @@ export type StatusBarAnimation = 'none' | 'fade' | 'slide';
 
 export interface StatusBarPropsIOS {
     /**
-     * Sets the color of the status bar text.
-     */
-    barStyle?: StatusBarStyle;
-
-    /**
      * If the network activity indicator should be visible.
+     *
+     * @platform ios
      */
     networkActivityIndicatorVisible?: boolean;
 
     /**
      * The transition effect when showing and hiding the status bar using
      * the hidden prop. Defaults to 'fade'.
+     *
+     * @platform ios
      */
-    showHideTransition?: 'fade' | 'slide';
+    showHideTransition?: null | 'fade' | 'slide' | 'none';
 }
 
 export interface StatusBarPropsAndroid {
@@ -8228,6 +8202,8 @@ export interface StatusBarPropsAndroid {
      * If the status bar is translucent. When translucent is set to true,
      * the app will draw under the status bar. This is useful when using a
      * semi transparent status bar color.
+     *
+     * @platform android
      */
     translucent?: boolean;
 }
@@ -8238,6 +8214,11 @@ export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid
      * animated. Supported for backgroundColor, barStyle and hidden.
      */
     animated?: boolean;
+
+    /**
+     * Sets the color of the status bar text.
+     */
+    barStyle?: null | StatusBarStyle;
 
     /**
      * If the status bar is hidden.
@@ -8688,12 +8669,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): EventSubscription;
+    export function addChangeListener(listener: AppearanceListener): void;
 
     /**
      * Remove an event handler.
      */
-    export function removeChangeListener(listener: AppearanceListener): EventSubscription;
+    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
@@ -9378,23 +9359,28 @@ type ScreenRect = {
     height: number;
 };
 
-type BaseKeyboardEvent = {
+interface KeyboardEventIOS {
+    /**
+     * @platform ios
+     */
+    startCoordinates: ScreenRect;
+    /**
+     * @platform ios
+     */
+    isEventFromThisApp: boolean;
+}
+
+export interface KeyboardEvent extends Partial<KeyboardEventIOS> {
+    /**
+     * Always set to 0 on Android.
+     */
     duration: number;
+    /**
+     * Always set to "keyboard" on Android.
+     */
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect
+    endCoordinates: ScreenRect;
 }
-
-type AndroidKeyboardEvent = BaseKeyboardEvent & {
-    duration: 0,
-    easing: 'keyboard'
-}
-
-type IOSKeyboardEvent = BaseKeyboardEvent & {
-  startCoordinates: ScreenRect,
-  isEventFromThisApp: boolean
-}
-
-export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
@@ -9431,7 +9417,7 @@ export interface KeyboardStatic extends NativeEventEmitter {
      * Useful for syncing TextInput (or other keyboard accessory view) size of
      * position changes with keyboard movements.
      */
-    scheduleLayoutAnimation: (event: KeyboardEvent) => void
+    scheduleLayoutAnimation: (event: KeyboardEvent) => void;
 }
 
 /**

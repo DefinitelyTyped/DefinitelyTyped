@@ -27,6 +27,7 @@ import {
     TableRow,
     Tag,
     TileGroup,
+    Tooltip,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -389,6 +390,10 @@ const t5 = (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
                                     <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                        onChange={(val, idOrName, evt) => console.log(val, idOrName, evt)}
+                                    />
                                     {row.cells.map(cell => (
                                         <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
@@ -550,6 +555,9 @@ const tileGroupA = (
     />
 );
 
+// Tooltip
+const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
+
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
@@ -658,6 +666,24 @@ const multiSelect = (
     />
 );
 
+interface MultiSelectObjType1 {
+    id: number,
+    name: string,
+    someBoolProp?: boolean
+}
+
+const multiSelectObjs = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true }
+        ]}
+        itemToString={(item) => item && item.name || ""}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
@@ -671,26 +697,26 @@ const multiSelectFilterable = (
     />
 );
 
-const multiSelectFilterableObjs = [
+const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
-        id: "1",
+        id: 1,
         name: "One"
     },
     {
-        id: "2",
+        id: 2,
         name: "Two",
-        label: "label"
+        someBoolProp: true,
     }
 ];
 const multiSelectFilterableObj = (
-    <MultiSelect.Filterable
+    <MultiSelect.Filterable<MultiSelectObjType1>
         id="clusters"
         initialSelectedItems={[multiSelectFilterableObjs[0]]}
         items={multiSelectFilterableObjs}
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item && item.label ? item.label : ""}
+        itemToString={item => item && item.name ? item.name : ""}
         onChange={({ selectedItems }) => {}}
     />
 );

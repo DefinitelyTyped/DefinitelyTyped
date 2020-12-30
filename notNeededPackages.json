@@ -741,6 +741,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "@cucumber/cucumber",
+            "typingsPackageName": "cucumber",
+            "sourceRepoURL": "https://github.com/cucumber/cucumber-js",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "cucumber-html-reporter",
             "typingsPackageName": "cucumber-html-reporter",
             "asOfVersion": "5.0.1"
@@ -1209,6 +1215,11 @@
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "feedsub",
+            "typingsPackageName": "feedsub",
+            "asOfVersion": "0.7.5"
         },
         {
             "libraryName": "figures",
@@ -1689,6 +1700,11 @@
             "libraryName": "i18next-xhr-backend",
             "typingsPackageName": "i18next-xhr-backend",
             "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "icon-gen",
+            "typingsPackageName": "icon-gen",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "iconv-lite",
@@ -2704,6 +2720,11 @@
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "murmurhash",
+            "typingsPackageName": "murmurhash",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "naja",
@@ -4724,6 +4745,11 @@
             "libraryName": "unist-util-is",
             "typingsPackageName": "unist-util-is",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "universal-cookie",
+            "typingsPackageName": "universal-cookie",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "universal-router",

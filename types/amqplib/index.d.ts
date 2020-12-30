@@ -19,7 +19,9 @@ export interface Connection extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
-    serverProperties: ServerProperties;
+    connection: {
+        serverProperties: ServerProperties;
+    };
 }
 
 export interface Channel extends events.EventEmitter {
@@ -70,14 +72,14 @@ export interface ConfirmChannel extends Channel {
 
 export const credentials: {
     external(): {
-      mechanism: string;
-      response(): Buffer;
+        mechanism: string;
+        response(): Buffer;
     };
     plain(username: string, password: string): {
-      mechanism: string;
-      response(): Buffer;
-      username: string;
-      password: string;
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
     };
 };
 

@@ -42,6 +42,7 @@ export function createSymlink(src: string, dest: string, type: SymlinkType, call
 export function createSymlinkSync(src: string, dest: string, type: SymlinkType): void;
 
 export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
+export function ensureDir(path: string, callback?: (err: Error) => void): void;
 export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
 export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
 
@@ -184,7 +185,8 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
-export function mkdir(path: PathLike): Promise<void>;
+export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
+export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
