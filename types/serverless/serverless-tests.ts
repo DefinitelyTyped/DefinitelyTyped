@@ -633,11 +633,16 @@ const awsServerless: Aws.Serverless = {
                 Export: {
                     Name: 'testname',
                 },
-                Condition: 'testcondition'
-            }
-        }
-    }
+                Condition: 'testcondition',
+            },
+        },
+    },
 };
+
+// vpc can be set as a reference to some section of the config file
+// e.g. ${self:custom.vpc.${self:provider.stage}}
+awsServerless.provider.vpc = 'serverless reference';
+awsServerless.functions![0].vpc = 'serverless reference';
 
 // Test Aws Class
 const aws = new Aws(serverless, options);

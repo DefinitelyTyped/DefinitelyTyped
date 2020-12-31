@@ -56,7 +56,7 @@ declare namespace Aws {
         iamManagedPolicies?: string[];
         iamRoleStatements?: IamRoleStatement[];
         stackPolicy?: ResourcePolicy[];
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         notificationArns?: string[];
         stackParameters?: StackParameters[];
         resourcePolicy?: ResourcePolicy[];
@@ -525,7 +525,7 @@ declare namespace Aws {
         awsKmsKeyArn?: string;
         environment?: Environment;
         tags?: Tags;
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         package?: Package;
         layers?: Array<string | Record<string, string>>;
         tracing?: string;
