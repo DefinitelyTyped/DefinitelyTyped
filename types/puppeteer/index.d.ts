@@ -45,10 +45,10 @@ declare class CustomError extends Error {
  * Example operations are {@link Page.waitForSelector | page.waitForSelector}
  * or {@link PuppeteerNode.launch | puppeteer.launch}.
  */
-declare class TimeoutError extends CustomError {}
+declare class TimeoutError extends CustomError { }
 
 export namespace errors {
-    class TimeoutError extends CustomError {}
+    class TimeoutError extends CustomError { }
 }
 
 /** Wraps a DOM element into an ElementHandle instance */
@@ -58,7 +58,7 @@ export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
 
 export type Serializable = number | string | boolean | null | JSONArray | JSONObject;
-export interface JSONArray extends Array<Serializable> {}
+export interface JSONArray extends Array<Serializable> { }
 export interface JSONObject {
     [key: string]: Serializable;
 }
@@ -275,13 +275,13 @@ export interface JSEvalable<A = any> {
      * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
      * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
      * promise to resolve and return its value.
-     * @param fn Function to be evaluated in browser context
-     * @param args Arguments to pass to `fn`
+     * @param pageFunction - a function that is run within the page
+     * @param args - arguments to be passed to the pageFunction
      */
-    evaluateHandle(
+    evaluateHandle<HandlerType extends JSHandle = JSHandle>(
         pageFunction: string | ((arg1: A, ...args: any[]) => any),
         ...args: SerializableOrJSHandle[]
-    ): Promise<JSHandle>;
+    ): Promise<HandlerType>;
 }
 
 /** Keyboard provides an api for managing a virtual keyboard. */
@@ -324,11 +324,6 @@ export interface MousePressOptions {
      * @default 1
      */
     clickCount?: number;
-}
-
-export interface MouseWheelOptions {
-    deltaX?: number;
-    deltaY?: number;
 }
 
 export interface MouseWheelOptions {
@@ -2414,4 +2409,4 @@ export function customQueryHandlerNames(): string[];
 export function clearCustomQueryHandlers(): void;
 
 // Shut off  automatic exporting. See: https://github.com/Microsoft/dtslint/blob/master/docs/strict-export-declare-modifiers.md
-export {};
+export { };
