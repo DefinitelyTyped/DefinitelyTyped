@@ -739,3 +739,22 @@ puppeteer.launch().then(async browser => {
     console.log(err instanceof puppeteer.errors.TimeoutError);
   }
 });
+
+// page.evaluateHandle returning ElementHandle
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.goto("https://example.com/");
+
+  const firstLink = await page.evaluateHandle<puppeteer.ElementHandle>(() => {
+    const firstLink = document.querySelector("a");
+    return firstLink;
+  });
+
+  await firstLink.click();
+  await page.waitForNavigation({ waitUntil: "networkidle2" });
+  console.log("Moved to", page.url());
+
+  browser.close();
+});
