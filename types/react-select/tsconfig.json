@@ -26,6 +26,7 @@
         "test/AtlaskitDummy.ts",
         "test/ChronoNodeDummy.ts",
         "test/CustomSelect.tsx",
+        "test/CustomValueContainer.tsx",
         "test/Header.tsx",
         "test/Placeholder.tsx",
         "test/examples/AccessingInternals.tsx",
