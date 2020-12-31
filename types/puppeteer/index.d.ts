@@ -275,13 +275,13 @@ export interface JSEvalable<A = any> {
      * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
      * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
      * promise to resolve and return its value.
-     * @param fn Function to be evaluated in browser context
-     * @param args Arguments to pass to `fn`
+     * @param pageFunction - a function that is run within the page
+     * @param args - arguments to be passed to the pageFunction
      */
-    evaluateHandle(
+    evaluateHandle<HandlerType extends JSHandle = JSHandle>(
         pageFunction: string | ((arg1: A, ...args: any[]) => any),
         ...args: SerializableOrJSHandle[]
-    ): Promise<JSHandle>;
+    ): Promise<HandlerType>;
 }
 
 /** Keyboard provides an api for managing a virtual keyboard. */
