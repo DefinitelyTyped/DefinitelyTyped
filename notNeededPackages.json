@@ -1022,6 +1022,11 @@
             "asOfVersion": "1.0.6"
         },
         {
+            "libraryName": "emoji-regex",
+            "typingsPackageName": "emoji-regex",
+            "asOfVersion": "9.2.0"
+        },
+        {
             "libraryName": "empty-trash",
             "typingsPackageName": "empty-trash",
             "asOfVersion": "3.0.0"
