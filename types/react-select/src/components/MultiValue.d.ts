@@ -34,6 +34,7 @@ export const MultiValueContainer: typeof MultiValueGeneric;
 export const MultiValueLabel: typeof MultiValueGeneric;
 export type MultiValueRemoveProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, true> & {
   children: ReactNode,
+  data: OptionType,
   innerProps: {
     className: string,
     onTouchEnd: (event: any) => void,

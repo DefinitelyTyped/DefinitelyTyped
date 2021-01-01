@@ -1,6 +1,7 @@
 // Type definitions for tmi.js 1.4
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
+//                 Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -121,6 +122,9 @@ export interface Badges {
     turbo?: string;
     premium?: string;
     founder?: string;
+    ['bits-leader']?: string;
+    ['sub-gifter']?: string;
+    [other: string]: string | undefined;
 }
 
 export interface SubMethods {

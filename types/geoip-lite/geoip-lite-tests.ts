@@ -1,4 +1,3 @@
-// require geoip-lite
 import geoip = require('geoip-lite');
 
 // lookup an IP addres
@@ -14,6 +13,15 @@ if (stringLookup) {
 
 // start the data update watcher
 geoip.startWatchingDataUpdate();
+
+geoip.startWatchingDataUpdate(err => {
+    // prettier-ignore
+    err
+        ?
+        err // $ExpectType Error
+        :
+        err; // $ExpectType undefined
+});
 
 // stop the data update watcher
 geoip.stopWatchingDataUpdate();

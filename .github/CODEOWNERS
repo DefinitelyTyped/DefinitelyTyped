@@ -6463,7 +6463,7 @@
 /types/simplestorage.js/                                @axelcostaspena @mxl
 /types/simulant/                                        @ecraig12345
 /types/single-line-log/                                 @ffflorian
-/types/single-spa-react/                                @Garrett-Smith-iq @chrisdopuch @benceczeili
+/types/single-spa-react/                                @Garrett-Smith-iq @benceczeili
 /types/single-trailing-newline/                         @peterjuras
 /types/sinon/                                           @mrbigdog2u @lumaxis @nicojs @43081j @joshuakgoldberg @gjednaszewski @johnjesse @alecf @SimonSchick
 /types/sinon-as-promised/                               @igrayson
