@@ -15,6 +15,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
     - [Remover un paquete](#remover-un-paquete)
     - [Running Tests](#running-tests)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -196,6 +197,14 @@ Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
 Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+
+#### Naming
+
+Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
+Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
+(Puedes usar `npm info foo` para verificar la existencia del paquete `foo`.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
