@@ -18,6 +18,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Crie um novo pacote](#crie-um-novo-pacote)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Verificando](#verificando)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -224,6 +225,14 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
 Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+
+#### Naming
+
+Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
+Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
+(Você pode executar `npm info foo` para verificar a existência do pacote `foo`.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

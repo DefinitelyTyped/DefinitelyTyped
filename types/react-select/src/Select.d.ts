@@ -197,7 +197,7 @@ export interface NamedProps<
   /* Status to relay to screen readers */
   screenReaderStatus?: (obj: { count: number }) => string;
   /* Style modifier methods */
-  styles?: StylesConfig;
+  styles?: StylesConfig<OptionType, IsMulti>;
   /* Theme modifier method */
   theme?: ThemeConfig;
   /* Sets the tabIndex attribute on the input */

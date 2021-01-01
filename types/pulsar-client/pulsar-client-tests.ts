@@ -41,6 +41,9 @@ import Pulsar = require('pulsar-client');
         topic: 'my-topic',
         subscription: 'my-subscription',
         subscriptionType: 'Exclusive',
+        listener: (callbackMessage, callbackConsumer) => {
+            callbackConsumer.acknowledge(callbackMessage);
+        },
     });
 
     const msg: Pulsar.Message = await consumer.receive();

@@ -9,7 +9,7 @@
 
 import { EventEmitter } from "events";
 
-import { Db, Collection, ObjectID, MongoClient } from "mongodb";
+import { MongoClient, Db, Collection, ObjectID, FilterQuery, SortOptionObject } from "mongodb";
 
 export = Agenda;
 
@@ -105,14 +105,19 @@ declare class Agenda extends EventEmitter {
     create<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, data?: T): Agenda.Job<T>;
 
     /**
-     * Finds all jobs matching 'query'
+     * Find all Jobs matching `query`
      * @param query object for MongoDB
      * @param sort object for MongoDB
      * @param limit number of documents to return from MongoDB
-     * @param skip number of documents to skip in MongoDB
+     * @param number of documents to skip in MongoDB
      * @returns resolves when fails or passes
      */
-    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any, sort?: any, limit?: number, skip?: number): Promise<Agenda.Job<T>[]>;
+    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(
+        query: FilterQuery<Agenda.JobAttributes>,
+        sort?: SortOptionObject<Agenda.JobAttributes>,
+        limit?: number,
+        skip?: number):
+        Promise<Agenda.Job<T>[]>;
 
     /**
      * Removes all jobs from queue

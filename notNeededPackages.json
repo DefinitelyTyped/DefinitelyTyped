@@ -2722,6 +2722,11 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "murmurhash",
+            "typingsPackageName": "murmurhash",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "naja",
             "typingsPackageName": "naja",
             "asOfVersion": "2.0.0"
@@ -4285,6 +4290,11 @@
             "libraryName": "spotify-web-api-js",
             "typingsPackageName": "spotify-web-api-js",
             "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "sql-query-identifier",
+            "typingsPackageName": "sql-query-identifier",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "sqs-consumer",

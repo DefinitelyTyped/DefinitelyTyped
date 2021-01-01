@@ -517,6 +517,14 @@ redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.lo
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100).then(console.log);
 redis.zrevrangebyscore('set', 0, 100);
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -525,15 +533,31 @@ redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 
 redis.zrangebylex('set', '-', '[c').then(console.log);
 redis.zrangebylex('set', '-', '[c');
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c');
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 redis.zrevrangebylex('set', '-', '[c').then(console.log);
 redis.zrevrangebylex('set', '-', '[c');
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrevrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c');
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {

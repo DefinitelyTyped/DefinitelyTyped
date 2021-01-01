@@ -17,6 +17,7 @@
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
     - [Running tests](#running-tests)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -223,6 +224,14 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+
+#### Naming
+
+If you are adding typings for an npm package, create a directory with the same name.
+If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
+(You can use `npm info foo` to check for the existence of the `foo` package.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

@@ -1048,6 +1048,25 @@ declare namespace validator {
     function isSemVer(str: string): boolean;
 
     /**
+     * Check if string is considered a strong password. Allows options to be added
+     */
+
+    interface strongPasswordOptions {
+        minLength?: number;
+        minLowercase?: number;
+        minUppercase?: number;
+        minNumbers?: number;
+        minSymbols?: number;
+        returnScore?: boolean;
+        pointsPerUnique?: number;
+        pointsPerRepeat?: number;
+        pointsForContainingLower?: number;
+        pointsForContainingUpper?: number;
+        pointsForContainingNumber?: number;
+        pointsForContainingSymbol?: number;
+    }
+    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+    /**
      * Check if the string contains any surrogate pairs chars.
      */
     function isSurrogatePair(str: string): boolean;

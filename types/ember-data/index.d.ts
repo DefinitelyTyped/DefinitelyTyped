@@ -119,8 +119,8 @@ export namespace DS {
     ): string;
     const VERSION: string;
 
-    interface AttrOptions<T = any> {
-        defaultValue?: T | (() => T);
+    interface AttrOptions<T extends Transform | string | number | boolean | Date = any> {
+        defaultValue?: T extends Transform ? (() => ReturnType<T['deserialize']>) : string | number | boolean | (() => T);
         allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
     }
 

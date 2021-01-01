@@ -96,9 +96,12 @@ export interface MenuListProps {
   /** Inner ref to DOM Node */
   innerRef: InnerRef;
 }
+
+// TODO: Remove this and merge it into `MenuListProps` so that naming pattern is adhered to.
 export type MenuListComponentProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> &
   MenuListProps &
   MenuListState;
+
 export function menuListCSS(state: MenuState): React.CSSProperties;
 export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
 

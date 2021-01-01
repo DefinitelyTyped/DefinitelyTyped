@@ -20,6 +20,7 @@
     - [새 패키지를 만들기](#새-패키지를-만들기)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [검증하기](#검증하기)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -223,6 +224,14 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 `npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
 
 작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
+
+#### Naming
+
+npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
+npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
+(`npm info foo` 명령어를 사용하여 `foo` 패키지가 npm 에 있는지 확인할 수 있습니다.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

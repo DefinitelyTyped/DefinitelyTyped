@@ -22,6 +22,7 @@
     - [创建一个新的包](#创建一个新的包)
     - [删除一个包](#删除一个包)
     - [验证](#验证)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -222,6 +223,14 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+
+#### Naming
+
+如果你要为 npm 包添加类型，请创建具有相同名字的目录。
+如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
+(你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

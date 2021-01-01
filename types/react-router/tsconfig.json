@@ -42,6 +42,7 @@
         "test/Switch.tsx",
         "test/InheritingRoute.tsx",
         "test/WithRouter.tsx",
-        "test/RouterContext.tsx"
+        "test/RouterContext.tsx",
+        "test/generatePath.ts"
     ]
 }

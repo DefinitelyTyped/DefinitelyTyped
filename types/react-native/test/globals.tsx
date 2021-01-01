@@ -38,3 +38,14 @@ xmlRequest.addEventListener('load', ev => {
 const test = new URLSearchParams();
 
 const url = new URL("path", "http://localhost/");
+
+const blob = new Blob();
+
+const reader = new FileReader();
+
+reader.onloadend = ev => {
+    console.log(ev.target);
+    console.log(ev.loaded);
+};
+
+reader.readAsText(new Blob());

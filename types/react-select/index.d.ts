@@ -1,4 +1,4 @@
-// Type definitions for react-select 3.0
+// Type definitions for react-select 3.1
 // Project: https://github.com/JedWatson/react-select#readme
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Jon Freedman <https://github.com/jonfreedman>
@@ -6,8 +6,8 @@
 //                 Thomas Chia <https://github.com/thchia>
 //                 Daniel Del Core <https://github.com/danieldelcore>
 //                 Joonas Rouhiainen <https://github.com/rjoonas>
+//                 Kyle Holmberg <https://github.com/kylemh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import { StateManager } from './src/stateManager';
 

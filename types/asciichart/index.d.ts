@@ -42,4 +42,4 @@ export interface PlotConfig {
     format?: (x: number, i: number) => string;
 }
 
-export function plot(series: ReadonlyArray<number>, cfg?: PlotConfig): string;
+export function plot(series: ReadonlyArray<number | number[]>, cfg?: PlotConfig): string;

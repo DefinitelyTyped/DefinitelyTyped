@@ -18,6 +18,8 @@
 //                 Kazuma Ebina <https://github.com/kazuma1989>
 //                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
+//                 Lenz Weber <https://github.com/phryneas>
+//                 Mark Erikson <https://github.com/markerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -483,7 +485,7 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
 
 /**
  * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
- * redux store instead of this approeach.
+ * redux store instead of this approach.
  */
 export const ReactReduxContext: Context<ReactReduxContextValue>;
 
@@ -577,8 +579,6 @@ export function useSelector<TState = DefaultRootState, TSelected = unknown>(
  * }
  *
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
- *
- * @deprecated Use `createSelectorHook<State, Action>()`
  */
 export interface TypedUseSelectorHook<TState> {
     <TSelected>(

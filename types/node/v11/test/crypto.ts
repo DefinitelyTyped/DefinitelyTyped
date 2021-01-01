@@ -9,20 +9,23 @@ import { promisify } from 'util';
 
 {
     // crypto_hash_buffer_test
-    const hashResult: string = crypto.createHash('md5')
-        .update(new Buffer('world')).digest('hex');
+    const hashResult: string = crypto.createHash('md5').update(new Buffer('world')).digest('hex');
 }
 
 {
     // crypto_hash_dataview_test
-    const hashResult: string = crypto.createHash('md5')
-        .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    const hashResult: string = crypto
+        .createHash('md5')
+        .update(new DataView(new Buffer('world').buffer))
+        .digest('hex');
 }
 
 {
     // crypto_hash_int8array_test
-    const hashResult: string = crypto.createHash('md5')
-        .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
+    const hashResult: string = crypto
+        .createHash('md5')
+        .update(new Int8Array(new Buffer('world').buffer))
+        .digest('hex');
 }
 
 {
@@ -32,20 +35,23 @@ import { promisify } from 'util';
 
 {
     // crypto_hmac_buffer_test
-    const hmacResult: string = crypto.createHmac('md5', 'hello')
-        .update(new Buffer('world')).digest('hex');
+    const hmacResult: string = crypto.createHmac('md5', 'hello').update(new Buffer('world')).digest('hex');
 }
 
 {
     // crypto_hmac_dataview_test
-    const hmacResult: string = crypto.createHmac('md5', 'hello')
-        .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    const hmacResult: string = crypto
+        .createHmac('md5', 'hello')
+        .update(new DataView(new Buffer('world').buffer))
+        .digest('hex');
 }
 
 {
     // crypto_hmac_int8array_test
-    const hmacResult: string = crypto.createHmac('md5', 'hello')
-        .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
+    const hmacResult: string = crypto
+        .createHmac('md5', 'hello')
+        .update(new Int8Array(new Buffer('world').buffer))
+        .digest('hex');
 }
 
 {
@@ -58,14 +64,14 @@ import { promisify } from 'util';
 {
     // crypto_cipher_decipher_string_test
     const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText = "This is the clear text.";
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    let cipherText: string = cipher.update(clearText, "utf8", "hex");
-    cipherText += cipher.final("hex");
+    const clearText = 'This is the clear text.';
+    const cipher: crypto.Cipher = crypto.createCipher('aes-128-ecb', key);
+    let cipherText: string = cipher.update(clearText, 'utf8', 'hex');
+    cipherText += cipher.final('hex');
 
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-    clearText2 += decipher.final("utf8");
+    const decipher: crypto.Decipher = crypto.createDecipher('aes-128-ecb', key);
+    let clearText2: string = decipher.update(cipherText, 'hex', 'utf8');
+    clearText2 += decipher.final('utf8');
 
     assert.equal(clearText2, clearText);
 }
@@ -74,14 +80,14 @@ import { promisify } from 'util';
     // crypto_cipher_decipher_buffer_test
     const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
     const clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+    const cipher: crypto.Cipher = crypto.createCipher('aes-128-ecb', key);
     const cipherBuffers: Buffer[] = [];
     cipherBuffers.push(cipher.update(clearText));
     cipherBuffers.push(cipher.final());
 
     const cipherText: Buffer = Buffer.concat(cipherBuffers);
 
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+    const decipher: crypto.Decipher = crypto.createDecipher('aes-128-ecb', key);
     const decipherBuffers: Buffer[] = [];
     decipherBuffers.push(decipher.update(cipherText));
     decipherBuffers.push(decipher.final());
@@ -95,14 +101,14 @@ import { promisify } from 'util';
     // crypto_cipher_decipher_dataview_test
     const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
     const clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+    const cipher: crypto.Cipher = crypto.createCipher('aes-128-ecb', key);
     const cipherBuffers: Buffer[] = [];
     cipherBuffers.push(cipher.update(clearText));
     cipherBuffers.push(cipher.final());
 
     const cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+    const decipher: crypto.Decipher = crypto.createDecipher('aes-128-ecb', key);
     const decipherBuffers: Buffer[] = [];
     decipherBuffers.push(decipher.update(cipherText));
     decipherBuffers.push(decipher.final());
@@ -118,22 +124,22 @@ import { promisify } from 'util';
     const aad = Buffer.from('0123456789', 'hex');
 
     const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16
+        authTagLength: 16,
     });
     const plaintext = 'Hello world';
     cipher.setAAD(aad, {
-        plaintextLength: Buffer.byteLength(plaintext)
+        plaintextLength: Buffer.byteLength(plaintext),
     });
     const ciphertext = cipher.update(plaintext, 'utf8');
     cipher.final();
     const tag = cipher.getAuthTag();
 
     const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16
+        authTagLength: 16,
     });
     decipher.setAuthTag(tag);
     decipher.setAAD(aad, {
-        plaintextLength: ciphertext.length
+        plaintextLength: ciphertext.length,
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
@@ -147,7 +153,7 @@ import { promisify } from 'util';
     const cipher = crypto.createCipheriv('aes-192-gcm', key, nonce);
     const plaintext = 'Hello world';
     cipher.setAAD(aad, {
-        plaintextLength: Buffer.byteLength(plaintext)
+        plaintextLength: Buffer.byteLength(plaintext),
     });
     const ciphertext = cipher.update(plaintext, 'utf8');
     cipher.final();
@@ -156,7 +162,7 @@ import { promisify } from 'util';
     const decipher = crypto.createDecipheriv('aes-192-gcm', key, nonce);
     decipher.setAuthTag(tag);
     decipher.setAAD(aad, {
-        plaintextLength: ciphertext.length
+        plaintextLength: ciphertext.length,
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
@@ -208,7 +214,6 @@ import { promisify } from 'util';
     // let arr1: Uint8Array = Uint8Array.of(1, 0, 2, 0, 3, 0, 4, 0);
     // let arr2: Uint16Array = Uint16Array.of(1, 2, 3, 4);
     // let arr3: Uint32Array = Uint8ClampedArray.of(131073, 262147);
-
     // assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
     // assert(crypto.timingSafeEqual(arr1, arr3)); // binary same
 }
@@ -219,7 +224,6 @@ import { promisify } from 'util';
     // let arr1: Uint8Array = Uint8Array.of(1, 2, 3, 4);
     // let arr2: Uint16Array = Uint16Array.of(1, 2, 3, 4);
     // let arr3: Uint32Array = Uint8ClampedArray.of(1, 2, 3, 4);
-
     // assert(!crypto.timingSafeEqual(arr1, arr2)); // dumps core
     // assert(!crypto.timingSafeEqual(arr1, arr3)); // dumps core
 }
@@ -294,29 +298,37 @@ import { promisify } from 'util';
     const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
     crypto.scrypt(pwd, salt, 64, (err: Error | null, derivedKey: Buffer): void => {});
     const opts: crypto.ScryptOptions = {
-        N: 16384,
-        r: 8,
-        p: 1,
-        maxmem: 32 * 1024 * 1024
+        cost: 16384,
+        blockSize: 8,
+        parallelization: 1,
+        maxmem: 32 * 1024 * 1024,
     };
     crypto.scrypt(pwd, salt, 64, opts, (err: Error | null, derivedKey: Buffer): void => {});
     crypto.scrypt(pwd, salt, 64, { maxmem: 16 * 1024 * 1024 }, (err: Error | null, derivedKey: Buffer): void => {});
-    let buf: Buffer = crypto.scryptSync(pwd, salt, 64);
-    buf = crypto.scryptSync(pwd, salt, 64, opts);
-    buf = crypto.scryptSync(pwd, salt, 64, { N: 1024 });
+    crypto.scryptSync(pwd, salt, 64);
+    crypto.scryptSync(pwd, salt, 64, opts);
+    crypto.scryptSync(pwd, salt, 64, { N: 1024 });
+    const optsWithAliases: crypto.ScryptOptions = {
+        N: opts.cost,
+        r: opts.blockSize,
+        p: opts.parallelization,
+        maxmem: opts.maxmem,
+    };
+    crypto.scrypt(pwd, salt, 64, optsWithAliases, (err: Error | null, derivedKey: Buffer): void => {});
+    crypto.scryptSync(pwd, salt, 64, optsWithAliases);
 }
 
 {
-    let key: string | Buffer = Buffer.from("buf");
-    const curve = "secp256k1";
+    let key: string | Buffer = Buffer.from('buf');
+    const curve = 'secp256k1';
     let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
-    key = "0xfff";
+    key = '0xfff';
     ret = crypto.ECDH.convertKey(key, curve);
-    ret = crypto.ECDH.convertKey(key, curve, "hex");
-    ret = crypto.ECDH.convertKey(key, curve, "hex", "hex");
-    ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
-    ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
-    ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    ret = crypto.ECDH.convertKey(key, curve, 'hex');
+    ret = crypto.ECDH.convertKey(key, curve, 'hex', 'hex');
+    ret = crypto.ECDH.convertKey(key, curve, 'hex', 'hex', 'uncompressed');
+    ret = crypto.ECDH.convertKey(key, curve, 'hex', 'hex', 'compressed');
+    ret = crypto.ECDH.convertKey(key, curve, 'hex', 'hex', 'hybrid');
 }
 
 {
@@ -374,48 +386,60 @@ import { promisify } from 'util';
 }
 
 {
-    crypto.generateKeyPair('rsa', {
-        modulusLength: 123,
-        publicKeyEncoding: {
-            format: 'der',
-            type: 'pkcs1',
+    crypto.generateKeyPair(
+        'rsa',
+        {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
         },
-        privateKeyEncoding: {
-            cipher: 'some-cipher',
-            format: 'pem',
-            passphrase: 'secret',
-            type: 'pkcs8',
-        },
-    }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {});
+        (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {},
+    );
 
-    crypto.generateKeyPair('dsa', {
-        modulusLength: 123,
-        divisorLength: 123,
-        publicKeyEncoding: {
-            format: 'pem',
-            type: 'spki',
+    crypto.generateKeyPair(
+        'dsa',
+        {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
         },
-        privateKeyEncoding: {
-            cipher: 'some-cipher',
-            format: 'der',
-            passphrase: 'secret',
-            type: 'pkcs8',
-        },
-    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: Buffer) => {});
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: Buffer) => {},
+    );
 
-    crypto.generateKeyPair('ec', {
-        namedCurve: 'curve',
-        publicKeyEncoding: {
-            format: 'pem',
-            type: 'pkcs1',
+    crypto.generateKeyPair(
+        'ec',
+        {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
         },
-        privateKeyEncoding: {
-            cipher: 'some-cipher',
-            format: 'pem',
-            passphrase: 'secret',
-            type: 'pkcs8',
-        },
-    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
 }
 
 {
@@ -488,7 +512,7 @@ import { promisify } from 'util';
 
 {
     const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
-        namedCurve: 'sect239k1'
+        namedCurve: 'sect239k1',
     });
 
     const sign: crypto.Signer = crypto.createSign('SHA256');
@@ -499,7 +523,7 @@ import { promisify } from 'util';
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.write('some data to sign');
     verify.end();
-    verify.verify(publicKey, signature);    // $ExpectType boolean
+    verify.verify(publicKey, signature); // $ExpectType boolean
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
@@ -519,7 +543,7 @@ import { promisify } from 'util';
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.update('some data to sign');
     verify.end();
-    verify.verify(publicKey, signature);    // $ExpectType boolean
+    verify.verify(publicKey, signature); // $ExpectType boolean
 }
 
 {
