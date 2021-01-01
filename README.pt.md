@@ -6,7 +6,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 
 *Link para o [manual do Admin](./docs/admin.md)*
 
-## Tabela de Conteúdos
+## Tabela de conteúdos
 
 * [Status atual](#status-atual)
 * [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)

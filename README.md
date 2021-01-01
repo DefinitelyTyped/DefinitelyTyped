@@ -6,7 +6,7 @@
 
 *Link to [Admin manual](./docs/admin.md)*
 
-## Table of Contents
+## Contents
 
 * [Current status](#current-status)
 * [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
@@ -16,7 +16,7 @@
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
-    - [Running Tests](#running-tests)
+    - [Running tests](#running-tests)
     - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
@@ -25,7 +25,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Common mistakes](#common-mistakes)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [License](#license)
 
@@ -219,7 +219,7 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Running Tests
+#### Running tests
 
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
@@ -335,7 +335,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 

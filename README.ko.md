@@ -28,7 +28,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [자주 하는 질문들](#자주-하는-질문들)
 * [라이센스](#라이센스)
 
@@ -325,7 +325,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
   대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
