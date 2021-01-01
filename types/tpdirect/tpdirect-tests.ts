@@ -27,6 +27,10 @@ TPDirect.card.getTappayFieldsStatus();
 // $ExpectType void
 TPDirect.card.onUpdate((update) => {
     update.cardType; // $ExpectType "mastercard" | "visa" | "jcb" | "amex" | "unionpay" | "unknown"
+    update.hasError; // $ExpectType boolean
+    update.status.ccv; // $ExpectType 0 | 1 | 2 | 3
+    update.status.number; // $ExpectType 0 | 1 | 2 | 3
+    update.status.expiry; // $ExpectType 0 | 1 | 2 | 3
 });
 
 // $ExpectType void
@@ -71,6 +75,29 @@ TPDirect.card.setup({
 
 // $ExpectType boolean
 TPDirect.paymentRequestApi.checkAvailability();
+
+// $ExpectType void
+TPDirect.paymentRequestApi.setupPaymentRequest({
+    supportedNetworks: ['AMEX', "JCB", "MASTERCARD", "VISA"],
+    supportedMethods: ["apple_pay"],
+    displayItems: [{
+        amount: {
+            currency: "TWD",
+            value: "1.00"
+        },
+        label: "hi"
+    }],
+    total: {
+        amount: {
+            currency: "TWD",
+            value: '1.00'
+        },
+        label: "total"
+    }
+}, (result) => {
+    result.browserSupportPaymentRequest; // $ExpectType boolean
+    result.canMakePaymentWithActiveCard; // $ExpectType boolean
+});
 
 // $ExpectType void
 TPDirect.paymentRequestApi.setupApplePay({
@@ -143,6 +170,18 @@ TPDirect.googlePay.setupPaymentRequest({
     allowedNetworks: ["AMEX"],
     currency: "TWD",
     price: "1.00"
+});
+
+// $ExpectType void
+TPDirect.googlePay.getPrime((error, prime, result) => {
+    error.originalError; // // $ExpectType string | Error
+    prime; // $ExpectType Pick<BaseResult, "prime">
+    /**
+     * Only test different field with other payment response
+     */
+    result.client_ip; // $ExpectType string
+    result.card_info.country_code; // $ExpectType string
+    result.card_info.last_four; // $ExpectType string
 });
 
 /**
