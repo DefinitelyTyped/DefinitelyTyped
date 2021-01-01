@@ -106,7 +106,7 @@ export class LocalParticipant extends Participant {
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
     signalingRegion: string;
 
-    publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
+    publishTrack(track: LocalTrack, options?: LocalTrackPublishOptions): Promise<LocalTrackPublication>;
     publishTrack(mediaStreamTrack: MediaStreamTrack, options?: MediaStreamTrackPublishOptions): Promise<LocalTrackPublication>;
     publishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
@@ -117,7 +117,7 @@ export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
     kind: Track.Kind;
     track: LocalTrack;
-
+    priority: Track.Priority;
     setPriority(priority: Track.Priority): LocalTrackPublication;
     unpublish(): LocalTrackPublication;
 }
@@ -246,6 +246,8 @@ export class ParticipantNotFoundError extends TwilioError {
 }
 export class RemoteAudioTrack extends AudioTrack {
     sid: Track.SID;
+    priority: Track.Priority | null;
+    setPriority(priority: Track.Priority): RemoteAudioTrack;
 }
 export class RemoteAudioTrackPublication extends RemoteTrackPublication {
     kind: 'audio';
@@ -264,6 +266,8 @@ export class RemoteDataTrack extends Track {
     ordered: boolean;
     reliable: boolean;
     sid: Track.SID;
+    priority: Track.Priority | null;
+    setPriority(priority: Track.Priority): RemoteAudioTrack;
 }
 export class RemoteDataTrackPublication extends RemoteTrackPublication {
     kind: 'data';
@@ -289,6 +293,7 @@ export class RemoteVideoTrack extends VideoTrack {
     sid: Track.SID;
     isSwitchedOff: boolean;
     priority: Track.Priority | null;
+    setPriority(priority: Track.Priority): RemoteVideoTrack;
 }
 export class RemoteVideoTrackPublication extends RemoteTrackPublication {
     kind: 'video';
@@ -583,6 +588,9 @@ export interface LogLevels {
     media: LogLevel;
     signaling: LogLevel;
     webrtc: LogLevel;
+}
+export interface LocalTrackPublishOptions {
+    priority?: Track.Priority;
 }
 export interface MediaStreamTrackPublishOptions extends LocalTrackOptions {
     priority?: Track.Priority;
