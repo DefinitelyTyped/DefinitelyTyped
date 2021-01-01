@@ -174,7 +174,7 @@ Version | Released | End of Support
 
 如果你要为 npm 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
-(你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
+(你可以使用 `npm info <my-package>` 来检查 `<my-package>` 包是否存在。)
 
 你的包应该具有这样的结构：
 
@@ -196,26 +196,26 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 当一个包 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型时，应该从 Definitely Typed 中删除类型避免被混淆。
 
-你可以运行以下命令来删除它 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-- `typingsPackageName`: 这是你要删除的目录名字.
-- `asOfVersion`: 将使用此版本将存根发布到 `@types/foo`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `foo` 版本。
-- `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 `typingsPackageName` 相同，这种情况下你可以忽略它。
+你可以运行以下命令来删除它 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+- `<typingsPackageName>`: 这是你要删除的目录名字.
+- `<asOfVersion>`: 将使用此版本将存根发布到 `@types/<typingsPackageName>`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `<libraryName>` 版本。
+- `<libraryName>`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 `<typingsPackageName>` 相同，这种情况下你可以忽略它。
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
 你可以查看 `npm test` 中的错误来获得此列表。
-添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
+添加一个带有 `"dependencies": { "<libraryName>": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
 比如：
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+当你将 `package.json` 添加到 `<libraryName>` 依赖的时候，你还需要发起一个 PR, 将 `<libraryName>` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
 
@@ -228,7 +228,7 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 如果你要为 npm 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
-(你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
+(你可以使用 `npm info <my-package>` 来检查 `<my-package>` 包是否存在。)
 
 If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 

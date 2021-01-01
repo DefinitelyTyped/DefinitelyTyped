@@ -162,7 +162,7 @@ Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca
 
 Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
-(Puedes usar `npm info foo` para verificar la existencia del paquete `foo`.)
+(Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
 
 Tu paquete debería tener esta estructura:
 
@@ -184,12 +184,12 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 Cuando un paquete [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
-Se puede remover ejecutando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-- `typingsPackageName`: Este es el nombre del directorio que tienes que eliminar.
-- `asOfVersion`: Un stub será publicado a `@types/foo` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
-- `libraryName`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `typingsPackageName`.)
+Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+- `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
+- `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
+- `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)
 
-Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "foo": "x.y.z" }`.
+Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "<libraryName>": "x.y.z" }`.
 
 Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `notNeededPackages.json`.
 
@@ -202,7 +202,7 @@ Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
 
 Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
-(Puedes usar `npm info foo` para verificar la existencia del paquete `foo`.)
+(Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
 
 If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
@@ -272,7 +272,7 @@ También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para
 Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros automáticamente crearemos un `package.json` para eso.
 Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
-Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al `package.json`.
+Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/<libraryName>": "x.y.z" }` al `package.json`.
 
 #### `OTHER_FILES.txt`
 

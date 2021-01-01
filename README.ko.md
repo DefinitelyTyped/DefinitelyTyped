@@ -186,7 +186,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
 npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
-(`npm info foo` 명령어를 사용하여 `foo` 패키지가 npm 에 있는지 확인할 수 있습니다.)
+(`npm info <my-package>` 명령어를 사용하여 `<my-package>` 패키지가 npm 에 있는지 확인할 수 있습니다.)
 
 새 자료형 패키지는 다음과 같은 구조로 구성되어있어야만 합니다.
 
@@ -210,12 +210,12 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
-`npm run not-needed -- typingsPackageName asOfVersion [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
-- `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
-- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
-- `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `typingsPackageName` 와 같은 것으로 취급됩니다.)
+`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
+- `<typingsPackageName>` 는 삭제할 디렉토리의 이름입니다.
+- `<asOfVersion>`  는 새 스텁(Stub) 용 `@types/<typingsPackageName>` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
+- `<libraryName>` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `<typingsPackageName>` 와 같은 것으로 취급됩니다.)
 
-Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
+Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "<libraryName>": "x.y.z" }` 를 추가해주시면 됩니다.
 
 Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
 
@@ -229,7 +229,7 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
 npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
-(`npm info foo` 명령어를 사용하여 `foo` 패키지가 npm 에 있는지 확인할 수 있습니다.)
+(`npm info <my-package>` 명령어를 사용하여 `<my-package>` 패키지가 npm 에 있는지 확인할 수 있습니다.)
 
 If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
@@ -299,7 +299,7 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 일반적으로는 `package.json` 파일을 사용할 필요가 없습니다. 패키지가 퍼블리시(Publish)될 때 패키지를 위한 `package.json` 파일은 자동으로 생성됩니다.
 가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
 의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
-옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
+옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/<libraryName>": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
 
 #### `OTHER_FILES.txt`
 

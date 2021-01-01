@@ -172,7 +172,7 @@ If you are the library author and your package is written in TypeScript, [bundle
 
 If you are adding typings for an npm package, create a directory with the same name.
 If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
-(You can use `npm info foo` to check for the existence of the `foo` package.)
+(You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
 
 Your package should have this structure:
 
@@ -196,26 +196,26 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-* `typingsPackageName`: This is the name of the directory to delete.
-* `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `typingsPackageName`, in which case you can omit it.
+You can remove it by running `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+* `<typingsPackageName>`: This is the name of the directory to delete.
+* `<asOfVersion>`: A stub will be published to `@types/<typingsPackageName>` with this version. Should be higher than any currently published version, and should be a version of `<libraryName>` on npm.
+* `<libraryName>`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `<typingsPackageName>`, in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "foo": "x.y.z" }`.
+To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "<libraryName>": "x.y.z" }`.
 For example:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+When you add a `package.json` to dependents of `<libraryName>`, you will also need to open a PR to add `<libraryName>` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
@@ -229,7 +229,7 @@ This script uses [dtslint](https://github.com/microsoft/dtslint) to run the Type
 
 If you are adding typings for an npm package, create a directory with the same name.
 If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
-(You can use `npm info foo` to check for the existence of the `foo` package.)
+(You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
 
 If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 

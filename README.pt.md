@@ -173,7 +173,7 @@ Se você é o autor de uma biblioteca e seu pacote está escrito em TypeScript, 
 
 Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
 Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
-(Você pode executar `npm info foo` para verificar a existência do pacote `foo`.)
+(Você pode executar `npm info <my-package>` para verificar a existência do pacote `<my-package>`.)
 
 Seu pacote deve possuir a seguinte estrutura:
 
@@ -197,26 +197,26 @@ Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/Definitely
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
-- `typingsPackageName`: O nome do diretório a ser deletado.
-- `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `typingsPackageName`, e nesse caso pode ser omitido.
+Você pode removê-lo executando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
+- `<typingsPackageName>`: O nome do diretório a ser deletado.
+- `<asOfVersion>`: Um esboço será publicado em `@types/<typingsPackageName>` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `<libraryName>` no npm.
+- `<libraryName>`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `<typingsPackageName>`, e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
 Você pode obter esta lista olhando os erros do `npm test`.
-Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "foo": "x.y.z" }`.
+Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "<libraryName>": "x.y.z" }`.
 Por exemplo:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+Quando você adicionar um `package.json` aos dependentes de `<libraryName>`, você também precisará abrir uma PR para adicionar `<libraryName>` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
 
@@ -230,7 +230,7 @@ Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar 
 
 Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
 Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
-(Você pode executar `npm info foo` para verificar a existência do pacote `foo`.)
+(Você pode executar `npm info <my-package>` para verificar a existência do pacote `<my-package>`.)
 
 If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
