@@ -4292,6 +4292,11 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "sql-query-identifier",
+            "typingsPackageName": "sql-query-identifier",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "sqs-consumer",
             "typingsPackageName": "sqs-consumer",
             "asOfVersion": "5.0.0"
