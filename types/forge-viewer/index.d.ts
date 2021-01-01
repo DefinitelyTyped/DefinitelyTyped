@@ -635,7 +635,7 @@ declare namespace Autodesk {
 
         class Navigation {
             dollyFromPoint(distance: number, point: THREE.Vector3): void;
-            fitBounds(immediate: boolean, bounds: THREE.Box3): any;
+            fitBounds(immediate: boolean, bounds: THREE.Box3, reorient?: boolean, force?: boolean): { position: THREE.Vector3, target: THREE.Vector3 };
             getAlignedUpVector(): THREE.Vector3;
             getCamera(): any;
             getCameraRightVector(worldAligned: boolean): THREE.Vector3;
