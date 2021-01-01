@@ -70,6 +70,10 @@ export interface Settings extends Metadata, CodeInjection, SocialMedia {
         label: string;
         url: string;
     }>;
+    secondary_navigation?: Array<{
+        label: string;
+        url: string;
+    }>;
     url?: string;
 }
 
