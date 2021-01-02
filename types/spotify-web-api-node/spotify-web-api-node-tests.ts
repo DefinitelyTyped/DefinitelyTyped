@@ -7,6 +7,35 @@ import SpotifyWebApi = require('spotify-web-api-node');
 
 const spotifyApi = new SpotifyWebApi();
 
+// Create the authorization URL with token response type
+spotifyApi.createAuthorizeURL(
+  ["user-read-private"],
+  "state",
+  true,
+  "token"
+)
+
+// Create the authorization URL with code response type
+spotifyApi.createAuthorizeURL(
+  ["user-read-private"],
+  "state",
+  true,
+  "code"
+)
+
+// Create the authorization URL with default response type
+spotifyApi.createAuthorizeURL(
+  ["user-read-private"],
+  "state",
+  true
+)
+
+// Create the authorization URL with default response type and showDialog option
+spotifyApi.createAuthorizeURL(
+  ["user-read-private"],
+  "state"
+)
+
 // Get multiple albums
 spotifyApi.getAlbums(['5U4W9E5WsYb2jUQWePT8Xm', '3KyVcddATClQKIdtaap4bV'])
   .then((data) => {
