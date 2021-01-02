@@ -4,13 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-import * as three from 'three';
+import * as THREE from 'three';
 
-type THREE = typeof three;
-
-// tslint:disable-next-line:no-unnecessary-class
-declare class DragControls {
-    static install(library: { THREE: THREE }): void;
+declare class DragControls extends THREE.EventDispatcher  {
+    static install(library: { THREE: typeof THREE }): void;
 
     constructor(objects: ReadonlyArray<THREE.Object3D>, camera: THREE.Camera, domElement: HTMLCanvasElement);
 }
