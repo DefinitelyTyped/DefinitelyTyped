@@ -31,7 +31,7 @@ assert.notDeepStrictEqual({ x: { y: '3' } }, { x: { y: 3 } }, 'uses !== comparat
 
 assert.notEqual(1, 2, 'uses != comparator');
 
-assert.notStrictEqual(2, '2', 'uses === comparator');
+assert.notStrictEqual<any>(2, '2', 'uses === comparator');
 
 assert.ok(true);
 assert.ok(1);
@@ -52,7 +52,7 @@ assert.rejects(Promise.resolve(1));
 assert.doesNotReject(async () => 1);
 assert.doesNotReject(Promise.resolve(1));
 
-assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
+assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3' as any]], 4, 5]);
 
 assert.strict.strict.strict.ok(1);
 assert.strict.strict.ok(1);

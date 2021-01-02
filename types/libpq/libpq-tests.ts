@@ -407,7 +407,7 @@ describe('escapeLiteral', () => {
     it('fails to escape when the server is not connected', () => {
         const pq = new PQ();
         const result = pq.escapeLiteral('test');
-        assert.strictEqual(result, null);
+        assert.strictEqual<any>(result, null);
         assert(pq.errorMessage());
     });
 
@@ -430,7 +430,7 @@ describe('escapeIdentifier', () => {
     it('fails when the server is not connected', () => {
         const pq = new PQ();
         const result = pq.escapeIdentifier('test');
-        assert.strictEqual(result, null);
+        assert.strictEqual<any>(result, null);
         assert(pq.errorMessage());
     });
 
