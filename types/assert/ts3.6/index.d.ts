@@ -13,13 +13,13 @@ declare namespace assert {
 
     function notDeepEqual(actual: any, expected: any, message?: string): void;
 
-    function deepStrictEqual(actual: any, expected: any, message?: string): void;
+    function deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
-    function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+    function notDeepStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
-    function strictEqual(actual: any, expected: any, message?: string): void;
+    function strictEqual<T>(actual: T, expected: T, message?: string): void;
 
-    function notStrictEqual(actual: any, expected: any, message?: string): void;
+    function notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
     function throws(block: () => void, message?: string): void;
     function throws(block: () => void, error: (() => void) | ((err: any) => boolean) | RegExp, message?: string): void;

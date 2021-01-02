@@ -41,10 +41,10 @@ declare module 'assert' {
         function deepEqual(actual: any, expected: any, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
         function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
-        function strictEqual<T>(actual: any, expected: T, message?: string | Error): asserts actual is T;
-        function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
-        function deepStrictEqual<T>(actual: any, expected: T, message?: string | Error): asserts actual is T;
-        function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        function strictEqual<T>(actual: T, expected: T, message?: string | Error): asserts actual is T;
+        function notStrictEqual<T>(actual: T, expected: T, message?: string | Error): void;
+        function deepStrictEqual<T>(actual: T, expected: T, message?: string | Error): asserts actual is T;
+        function notDeepStrictEqual<T>(actual: T, expected: T, message?: string | Error): void;
 
         function throws(block: () => any, message?: string | Error): void;
         function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
