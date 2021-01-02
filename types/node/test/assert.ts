@@ -63,7 +63,7 @@ assert.notDeepStrictEqual({ x: { y: '3' } }, { x: { y: 3 } }, 'uses !== comparat
 
 assert.notEqual(1, 2, 'uses != comparator');
 
-assert.notStrictEqual(2, '2' as any, 'uses === comparator');
+assert.notStrictEqual<any>(2, '2', 'uses === comparator');
 
 assert.ok(true);
 assert.ok(1);
