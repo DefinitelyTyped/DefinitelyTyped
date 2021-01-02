@@ -32,9 +32,9 @@ declare namespace assert {
     export function notEqual(actual: any, expected: any, message?: string): void;
     export function deepEqual(actual: any, expected: any, message?: string): void;
     export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-    export function strictEqual<T extends U, U = T>(actual: U, expected: T, message?: string): void;
+    export function strictEqual<T>(actual: T, expected: T, message?: string): void;
     export function notStrictEqual<T>(actual: T, expected: T, message?: string): void;
-    export function deepStrictEqual<T extends U, U = T>(actual: U, expected: T, message?: string): void;
+    export function deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
     export function notDeepStrictEqual<T>(actual: T, expected: T, message?: string): void;
     export var throws: {
         (block: Function, message?: string): void;
