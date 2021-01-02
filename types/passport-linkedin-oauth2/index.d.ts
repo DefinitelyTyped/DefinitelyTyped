@@ -28,7 +28,8 @@ export interface StrategyOption {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-
+    
+    scope?: string[];
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];
