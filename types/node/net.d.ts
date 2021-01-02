@@ -75,6 +75,7 @@ declare module "net" {
         unref(): this;
         ref(): this;
 
+        /** @deprecated since v14.6.0 - Use `writableLength` instead. */
         readonly bufferSize: number;
         readonly bytesRead: number;
         readonly bytesWritten: number;

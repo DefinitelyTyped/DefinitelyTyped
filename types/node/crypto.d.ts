@@ -2,12 +2,30 @@ declare module 'crypto' {
     import * as stream from 'stream';
 
     interface Certificate {
+        /**
+         * @param spkac
+         * @returns The challenge component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
         exportChallenge(spkac: BinaryLike): Buffer;
-        exportPublicKey(spkac: BinaryLike): Buffer;
+        /**
+         * @param spkac
+         * @param encoding The encoding of the spkac string.
+         * @returns The public key component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
+        exportPublicKey(spkac: BinaryLike, encoding?: string): Buffer;
+        /**
+         * @param spkac
+         * @returns `true` if the given `spkac` data structure is valid,
+         * `false` otherwise.
+         */
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
-    const Certificate: {
+    const Certificate: Certificate & {
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
         new (): Certificate;
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
         (): Certificate;
     };
 
