@@ -68,3 +68,8 @@ assert['fail'](true, true, 'works like a charm');
         [util.inspect.custom](): string { return "hi"; }
     };
 }
+
+{
+    const a = 1
+    assert.deepStrictEqual(a, '1') // $ExpectError
+}
