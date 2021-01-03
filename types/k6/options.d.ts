@@ -25,6 +25,16 @@ export interface Options {
     /** Discard response bodies. */
     discardResponseBodies?: boolean;
 
+    /** DNS resolution behavior. https://k6.io/docs/using-k6/options#dns */
+    dns?: {
+        /** 0, inf, or any time duration(60s, 5m30s, 10m, 2h). */
+        ttl: string;
+
+        select: 'first' | 'random' |  'roundRobin';
+
+        policy: 'preferIPv4' | 'preferIPv6' | 'onlyIPv4' | 'onlyIPv6' | 'any';
+    };
+
     /** Test duration. */
     duration?: string;
 

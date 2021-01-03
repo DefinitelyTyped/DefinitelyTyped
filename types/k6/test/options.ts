@@ -8,7 +8,12 @@ const options: Options = {
 const moreOptions: Options = {
     vus: 10,
     duration: '10s',
-    blockHostnames: ["*.k6.io" , "www.example.com"]
+    blockHostnames: ["*.k6.io" , "www.example.com"],
+    dns: {
+        ttl: '6s',
+        select: 'first',
+        policy: 'preferIPv4'
+    }
 };
 
 const scenarios: Scenario[] = [{
