@@ -10,3 +10,5 @@ const renderer = new THREE.WebGLRenderer();
 const domElement = document.getElementsByTagName('canvas')[0];
 
 const dragControls = new DragControls(objects, camera, domElement);
+
+dragControls.deactivate();
