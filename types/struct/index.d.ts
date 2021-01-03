@@ -60,13 +60,13 @@ export class Struct<T> {
     doublebe(name: string): Struct<T>;
     chars(name: string, length: number, encoding?: string): Struct<T>;
     charsnt(name: string, length: number, encoding?: string): Struct<T>;
-    array<K = any>(
+    array(
         name: string,
         length: number,
-        type?: StructTypes | Struct<K>,
+        type?: StructTypes | Struct,
         ...args: Array<(StructTypes | number | Struct<K>)>
     ): Struct<T>;
-    struct<K = any>(name: string, struct: Struct<K>): Struct<T>;
+    struct(name: string, struct: Struct): Struct<T>;
     get(fieldName: string): any;
     set(fieldName: string, value: any): void;
     allocate(): Struct<T>;
