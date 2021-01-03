@@ -220,6 +220,7 @@ declare module "http" {
 
         method: string;
         path: string;
+        /** @deprecated since v14.1.0 Use `request.destroy()` instead. */
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -316,7 +317,7 @@ declare module "http" {
         httpVersionMinor: number;
         complete: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated since v13.0.0 - Use `socket` instead.
          */
         connection: Socket;
         socket: Socket;
