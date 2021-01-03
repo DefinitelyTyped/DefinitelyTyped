@@ -38,7 +38,7 @@ export type StructTypes =
     | StructCharsTypes
     | StructArrayType;
 
-export class Struct<T> {
+export class Struct<T = any> {
     word8(name: string): Struct<T>;
     word8Sle(name: string): Struct<T>;
     word8Sbe(name: string): Struct<T>;
