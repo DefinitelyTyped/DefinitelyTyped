@@ -1,6 +1,7 @@
 {
     "files": [
         "node-tests.ts",
+        "test/assert.ts",
         "test/url.ts",
         "test/util.ts",
         "test/zlib.ts",

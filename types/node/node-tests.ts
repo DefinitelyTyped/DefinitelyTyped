@@ -62,6 +62,3 @@ assert['fail'](true, true, 'works like a charm');
     a; // $ExpectType { b: number; }
 }
 
-{
-    assert.deepStrictEqual(1, '1'); // $ExpectError
-}

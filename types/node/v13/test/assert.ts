@@ -6,6 +6,8 @@ assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, 'DEEP WENT DERP');
 
 assert.deepStrictEqual({ a: 1 }, { a: 1 }, 'uses === comparator');
 
+assert.deepStrictEqual(1, '1'); // $ExpectError
+
 assert.doesNotThrow(
     () => {
         const b = false;
