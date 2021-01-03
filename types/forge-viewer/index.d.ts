@@ -352,6 +352,8 @@ declare namespace Autodesk {
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
+          static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
+
           parent: BubbleNode;
           id: number;
           data: ViewerItem;
@@ -383,6 +385,7 @@ declare namespace Autodesk {
           isMetadata(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
+          lineageUrn(encode?: boolean): string;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
