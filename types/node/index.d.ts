@@ -44,6 +44,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Victor Perin <https://github.com/victorperin>
+//                 Yongsheng Zhang <https://github.com/ZYSzys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.

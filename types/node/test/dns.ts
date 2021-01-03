@@ -1,4 +1,4 @@
-import { lookup, ADDRCONFIG, V4MAPPED, LookupAddress, lookupService, resolve, AnyRecord, MxRecord, resolve4, RecordWithTtl, resolve6, Resolver, ALL } from 'dns';
+import { lookup, ADDRCONFIG, V4MAPPED, LookupAddress, lookupService, resolve, AnyRecord, MxRecord, resolve4, RecordWithTtl, resolve6, Resolver, ALL, promises } from 'dns';
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;
@@ -100,9 +100,19 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 }
 {
     const resolver = new Resolver();
+    resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
     resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
     resolver.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
+    resolver.cancel();
+}
+
+{
+    const resolver = new promises.Resolver();
+    resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
+    resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
+    // $ExpectType Promise<string[]>
+    resolver.resolve("nodejs.org");
     resolver.cancel();
 }
