@@ -1666,6 +1666,7 @@ declare namespace Autodesk {
 
       class SpriteViewable extends CustomViewable {
         get color(): THREE.Color;
+        get highlightedColor(): THREE.Color;
         get type(): ViewableType;
       }
 
@@ -1724,16 +1725,20 @@ declare namespace Autodesk {
         get viewables(): CustomViewable[];
 
         addViewable(viewable: CustomViewable): void;
+        getViewableColor(dbId: string, highlighted: boolean): THREE.Color;
+        getViewableUV(dbId: string, highlighted: boolean): object;
         finish(): Promise<void>;
       }
 
       class ViewableStyle {
         color: THREE.Color;
+        highlightedColor: THREE.Color;
+        highlightedUrl: string;
         id: string;
         type: ViewableType;
         url: string;
 
-        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string, highlightedColor?: THREE.Color, highlightedUrl?: string);
       }
     }
 
