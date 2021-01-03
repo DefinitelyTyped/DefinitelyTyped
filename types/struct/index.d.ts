@@ -63,10 +63,10 @@ export class Struct<T = any> {
     array(
         name: string,
         length: number,
-        type?: StructTypes | Struct<any>,
-        ...args: Array<(StructTypes | number | Struct<any>)>
+        type?: StructTypes | Struct,
+        ...args: Array<(StructTypes | number | Struct)>
     ): Struct<T>;
-    struct(name: string, struct: Struct<any>): Struct<T>;
+    struct(name: string, struct: Struct): Struct<T>;
     get(fieldName: string): any;
     set(fieldName: string, value: any): void;
     allocate(): Struct<T>;
