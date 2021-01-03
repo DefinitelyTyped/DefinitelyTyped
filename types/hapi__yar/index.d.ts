@@ -149,7 +149,7 @@ declare namespace yar {
          * 'isOverride' used to indicate that the message provided should replace
          * any existing value instead of being appended to it (defaults to false).
          */
-        flash(type: string, message?: any, isOverride?: boolean): any[];
+        flash(type?: string, message?: any, isOverride?: boolean): any[];
 
         /**
          * if set to 'true', enables lazy mode.

@@ -22,9 +22,16 @@ async function boot() {
         method: 'get',
         handler(request: Request) {
             const example = request.yar.get('example');
+
+            request.yar.flash('info', 'Hello world.');
+            const all_flashes = request.yar.flash();
+            const info_flashes = request.yar.flash('info');
+
             return {
                 id: request.yar.id,
                 key: example.key,
+                all_flashes,
+                info_flashes
             };
         },
     });
