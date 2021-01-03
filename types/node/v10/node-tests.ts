@@ -68,4 +68,3 @@ assert['fail'](true, true, 'works like a charm');
         [util.inspect.custom](): string { return "hi"; }
     };
 }
-
