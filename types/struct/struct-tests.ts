@@ -11,8 +11,8 @@ interface Fields {
 }
 
 interface UDimensionalArray {
-    fooStructArray: Array<Array<Fields>>
-    bazStructArray: Array<Array<Fields>>
+    fooStructArray: Fields[][]
+    bazStructArray: Fields[][]
 }
 
 const fooStruct = cstruct<Fields>()
