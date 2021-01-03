@@ -1,5 +1,5 @@
-import { Server, Request } from 'hapi';
-import * as yar from 'yar';
+import { Server, Request } from '@hapi/hapi';
+import * as yar from '@hapi/yar';
 
 async function boot() {
     const server = new Server();
