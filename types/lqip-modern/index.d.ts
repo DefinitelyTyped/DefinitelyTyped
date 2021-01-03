@@ -23,7 +23,7 @@ declare namespace lqip {
 
     type OutputFormat = WebpOptions['outputFormat'] | JpegOptions['outputFormat'] | JpgOptions['outputFormat'];
 
-    type LqipOptions = WebpOptions | JpegOptions | JpgOptions;
+    type LqipOptions = WebpOptions | JpegOptions | JpgOptions | DefaultOptions;
 
     interface DefaultOptions {
         concurrency?: number;
@@ -31,16 +31,16 @@ declare namespace lqip {
     }
 
     interface WebpOptions extends DefaultOptions {
-        readonly outputFormat: 'webp';
-        readonly outputOptions: sharp.WebpOptions;
+        readonly outputFormat?: 'webp';
+        readonly outputOptions?: sharp.WebpOptions;
     }
     interface JpegOptions extends DefaultOptions {
         readonly outputFormat: 'jpeg';
-        readonly outputOptions: sharp.JpegOptions;
+        readonly outputOptions?: sharp.JpegOptions;
     }
     interface JpgOptions extends DefaultOptions {
         readonly outputFormat: 'jpg';
-        readonly outputOptions: sharp.JpegOptions;
+        readonly outputOptions?: sharp.JpegOptions;
     }
 }
 
