@@ -1,4 +1,4 @@
-// Type definitions for struct 0.0
+// Type definitions for struct 0.0.2
 // Project: https://github.com/xdenser/node-struct#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
