@@ -71,5 +71,6 @@ assert['fail'](true, true, 'works like a charm');
 
 {
     const a = 1;
-    assert.deepStrictEqual(a, '1'); // $ExpectError
+    //@ts-expect-error
+    assert.deepStrictEqual(a, '1');
 }
