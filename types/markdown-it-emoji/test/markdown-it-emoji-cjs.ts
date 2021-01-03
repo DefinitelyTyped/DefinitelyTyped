@@ -1,5 +1,7 @@
 import MarkdownIt = require('markdown-it');
 import emoji = require('markdown-it-emoji');
+import bare = require('markdown-it-emoji/bare');
+import light = require('markdown-it-emoji/light');
 
 {
     const md = MarkdownIt();
@@ -26,6 +28,12 @@ import emoji = require('markdown-it-emoji');
     const md = MarkdownIt();
 
     md.use(emoji, {
+        enabled: ['smile', 'grin'],
+    });
+    md.use(bare, {
+        enabled: ['smile', 'grin'],
+    });
+    md.use(light, {
         enabled: ['smile', 'grin'],
     });
 }
