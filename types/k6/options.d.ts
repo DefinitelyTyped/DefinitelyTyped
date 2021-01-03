@@ -19,6 +19,9 @@ export interface Options {
     /** Blacklist IP ranges from being called. */
     blacklistIPs?: string[];
 
+    /** Blacklist hostnames from being called. Wildcards are supported. */
+    blockHostnames?: string[];
+
     /** Discard response bodies. */
     discardResponseBodies?: boolean;
 
