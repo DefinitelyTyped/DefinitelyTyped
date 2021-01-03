@@ -2,6 +2,7 @@
 // Project: https://github.com/jahudka/mdarea#readme
 // Definitions by: Antoine Laffargue <https://github.com/toniopelo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export as namespace MarkdownArea;
 
 interface MarkdownEditorOptions {
     /**
