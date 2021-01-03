@@ -35,7 +35,7 @@ const bazStruct = new Struct<Fields>()
     .word32Ube('dwMsgLen')
     .allocate();
 
-const dimensionalArray = new cstruct<UDimensionalArray>()
+const dimensionalArray = cstruct<UDimensionalArray>()
     .array('fooStructArray', 4, 'array', 4, fooStruct)
     .array('bazStructArray', 4, 'array', 4, bazStruct)
     .allocate();
