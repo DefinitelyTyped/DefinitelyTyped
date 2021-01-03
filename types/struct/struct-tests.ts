@@ -29,3 +29,8 @@ const bazStruct = new Struct<Fields>()
     .word32Ube('dwArg2')
     .word32Ube('dwMsgLen')
     .allocate();
+
+const dimensionalArray = new cstruct()
+    .array('biArray', 4, 'array', 4, fooStruct)
+    .array('biArray', 4, 'array', 4, bazStruct)
+    .allocate();
