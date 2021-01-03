@@ -1,6 +1,7 @@
 // Type definitions for struct 0.0
 // Project: https://github.com/xdenser/node-struct#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
+//                 Nelson Faiçal Rechdan <https://github.com/Rechdan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
