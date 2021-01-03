@@ -13,7 +13,7 @@
 
     const app = express();
 
-    const options: swaggerJSDoc.Oas3Options = {
+    const options: swaggerJSDoc.OAS3Options = {
         definition: {
           openapi: '3.0.0',
           info: {
@@ -47,17 +47,17 @@ declare namespace swaggerJSDoc {
     /**
      * Open API Specification (OAS) version 3.0 options
      */
-    interface Oas3Options {
+    interface OAS3Options {
         apis?: ReadonlyArray<string>;
-        definition?: Oas3Definition;
-        swaggerDefinition?: Oas3Definition;
+        definition?: OAS3Definition;
+        swaggerDefinition?: OAS3Definition;
         [key: string]: any;
     }
 
     /**
      * For describing Open API Specification (OAS) version 3.0
      */
-    interface Oas3Definition {
+    interface OAS3Definition {
         openapi: string;
         info: Information;
         servers?: ReadonlyArray<Server>;

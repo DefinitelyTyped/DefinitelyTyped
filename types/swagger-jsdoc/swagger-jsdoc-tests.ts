@@ -3,7 +3,7 @@ import * as swaggerJSDoc from 'swagger-jsdoc';
 
 const app = express();
 
-const options: swaggerJSDoc.Oas3Options = {
+const options: swaggerJSDoc.OAS3Options = {
     definition: {
         openapi: '3.0.0',
         info: {
