@@ -37,6 +37,7 @@ import './http';
 import './metrics';
 import './options';
 import './ws';
+import './net/grpc';
 
 // === Main ===
 // ------------
