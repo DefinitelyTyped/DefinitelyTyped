@@ -536,7 +536,7 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         toFormat(
-            format: string | AvailableFormatInfo,
+            format: keyof FormatEnum | AvailableFormatInfo,
             options?:
                 | OutputOptions
                 | JpegOptions
@@ -713,7 +713,7 @@ declare namespace sharp {
 
     interface Metadata extends WriteableMetadata {
         /** Name of decoder used to decompress image data e.g. jpeg, png, webp, gif, svg */
-        format?: string;
+        format?: keyof FormatEnum;
         /** Total size of image in bytes, for Stream and Buffer input only */
         size?: number;
         /** Number of pixels wide (EXIF orientation is not taken into consideration) */
@@ -1138,23 +1138,23 @@ declare namespace sharp {
     }
 
     interface FormatEnum {
-        jpeg: AvailableFormatInfo;
-        png: AvailableFormatInfo;
-        webp: AvailableFormatInfo;
         avif: AvailableFormatInfo;
-        heif: AvailableFormatInfo;
-        raw: AvailableFormatInfo;
-        tiff: AvailableFormatInfo;
         dz: AvailableFormatInfo;
-        input: AvailableFormatInfo;
-        magick: AvailableFormatInfo;
-        openslide: AvailableFormatInfo;
-        ppm: AvailableFormatInfo;
         fits: AvailableFormatInfo;
         gif: AvailableFormatInfo;
-        svg: AvailableFormatInfo;
+        heif: AvailableFormatInfo;
+        input: AvailableFormatInfo;
+        jpeg: AvailableFormatInfo;
+        magick: AvailableFormatInfo;
+        openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;
+        png: AvailableFormatInfo;
+        ppm: AvailableFormatInfo;
+        raw: AvailableFormatInfo;
+        svg: AvailableFormatInfo;
+        tiff: AvailableFormatInfo;
         v: AvailableFormatInfo;
+        webp: AvailableFormatInfo;
     }
 
     interface CacheResult {
