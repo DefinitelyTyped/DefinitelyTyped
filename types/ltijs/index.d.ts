@@ -9,8 +9,8 @@ import { IdToken } from './lib/IdToken';
 import { PlatformContext } from './lib/Utils/Platform';
 
 declare module 'express' {
-    interface Response {
-        locals: {
+    interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>> {
+        locals: Locals & {
             token?: IdToken;
             context?: PlatformContext;
         };
