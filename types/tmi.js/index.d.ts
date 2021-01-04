@@ -216,9 +216,9 @@ export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
 }
 
 export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
-	"message-type"?: "giftpaidupgrade";
-	"msg-param-sender-name"?: string;
-	"msg-param-sender-login"?: string;
+    "message-type"?: "giftpaidupgrade";
+    "msg-param-sender-name"?: string;
+    "msg-param-sender-login"?: string;
 }
 
 export interface AnonSubGiftUpgradeUserstate extends CommonSubUserstate {
