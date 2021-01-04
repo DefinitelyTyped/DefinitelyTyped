@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { PDFPageProxy } from 'react-pdf/dist/Page';
+import { Document, Page, pdfjs, PDFPageProxy } from 'react-pdf';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 
 // Test special entry points
