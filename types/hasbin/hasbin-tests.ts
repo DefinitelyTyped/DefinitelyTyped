@@ -1,9 +1,9 @@
-import hasbin = require("hasbin");
+import hasbin = require('hasbin');
 
 hasbin('node', (result: boolean) => {});
-hasbin.some(['node', 'ls'], (result: boolean) => { });
-hasbin.all(['node', 'ls'], (result: boolean) => { });
-hasbin.first(['node', 'ls'], (first: string | false) => { });
+hasbin.some(['node', 'ls'], (result: boolean) => {});
+hasbin.all(['node', 'ls'], (result: boolean) => {});
+hasbin.first(['node', 'ls'], (first: string | false) => {});
 
 const first = hasbin.first.sync(['node', 'ls']); // $ExpectType string | false
 if (first !== false) {
