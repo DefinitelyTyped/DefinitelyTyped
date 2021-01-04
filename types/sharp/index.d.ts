@@ -720,8 +720,8 @@ declare namespace sharp {
         width?: number;
         /** Number of pixels high (EXIF orientation is not taken into consideration) */
         height?: number;
-        /** Name of colour space interpretation e.g. srgb, rgb, cmyk, lab, b-w ... */
-        space?: string;
+        /** Name of colour space interpretation */
+        space?: keyof ColourspaceEnum;
         /** Number of bands e.g. 3 for sRGB, 4 for CMYK */
         channels?: Channels;
         /** Name of pixel depth format e.g. uchar, char, ushort, float ... */
