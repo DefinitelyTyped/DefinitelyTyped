@@ -95,7 +95,7 @@ export interface DumpOptions {
     quotingType?: '\'' | '"';
     /** if true, all non-key strings will be quoted even if they normally don't need to. (default: false) */
     forceQuotes?: boolean;
-    /** callback `function (key, value)` called recursively on each key/value in source object (see `replacer` docs for `JSON.stringify`).*/
+    /** callback `function (key, value)` called recursively on each key/value in source object (see `replacer` docs for `JSON.stringify`). */
     replacer?: ((key: string, value: any) => any);
 }
 
