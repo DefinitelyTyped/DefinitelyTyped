@@ -431,7 +431,7 @@ declare namespace sharp {
          * Write output image data to a file.
          * @param fileOut The path to write the image data to.
          * @throws {Error} Invalid parameters
-         * @returns A promise that fulfills with an object containing informations on the resulting file
+         * @returns A promise that fulfills with an object containing information on the resulting file
          */
         toFile(fileOut: string): Promise<OutputInfo>;
 
