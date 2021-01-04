@@ -37,6 +37,7 @@
 //                 Sachin Shekhar <https://github.com/SachinShekhar>
 //                 Ivan Martos <https://github.com/ivanmartos>
 //                 Zach Anthony <https://github.com/zach-anthony>
+//                 Peter Savnik <https://github.com/savnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -69,7 +70,7 @@ export * from "./trigger/dynamodb-stream";
 export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
-// TODO: export * from "./trigger/iot"; for "IoT Events"
+export * from "./trigger/iot";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";
