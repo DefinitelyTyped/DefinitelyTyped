@@ -184,7 +184,7 @@ declare namespace stripe {
          * The type of entity that holds the account. Can be either individual or company.
          */
         account_holder_type: 'individual' | 'company';
-        
+
         /**
          * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the
          * object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by
