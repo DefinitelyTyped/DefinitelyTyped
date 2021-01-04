@@ -32,7 +32,6 @@ export function decode(signature: string): Signature;
 
 /**
  * (Synchronous) Validates that the signature seems to be a legitimate JWS signature.
- * 
  * @param signature JWS Signature
  */
 export function isValid(signature: string): boolean;
