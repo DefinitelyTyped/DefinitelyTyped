@@ -93,6 +93,12 @@ export interface DumpOptions {
      * Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false).
      */
     condenseFlow?: boolean;
+    /** strings will be quoted using this quoting style. If you specify single quotes, double quotes will still be used for non-printable characters. (default: `'`) */
+    quotingType?: '\'' | '"';
+    /** if true, all non-key strings will be quoted even if they normally don't need to. (default: false) */
+    forceQuotes?: boolean;
+    /** callback `function (key, value)` called recursively on each key/value in source object (see `replacer` docs for `JSON.stringify`).*/
+    replacer?: ((key: string, value: any) => any);
 }
 
 export interface TypeConstructorOptions {
