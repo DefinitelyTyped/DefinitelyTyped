@@ -154,7 +154,7 @@ class PrivateNote extends Note {
         return account.owns(this);
     }
 
-    set(attributes: any, options?: any): Backbone.Model {
+    set(attributes: any, options?: any): this {
         return Backbone.Model.prototype.set.call(this, attributes, options);
     }
 }
