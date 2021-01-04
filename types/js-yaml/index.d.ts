@@ -8,8 +8,7 @@
 
 export as namespace jsyaml;
 
-export function safeLoad(str: string, opts?: LoadOptions): string | object | undefined;
-export function load(str: string, opts?: LoadOptions): any;
+export function load(str: string, opts?: LoadOptions): string | object | undefined;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
@@ -30,13 +29,9 @@ export class Schema implements SchemaDefinition {
     static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
-export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
-
 export function loadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
 export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
 
-export function safeDump(obj: any, opts?: DumpOptions): string;
 export function dump(obj: any, opts?: DumpOptions): string;
 
 export interface LoadOptions {
