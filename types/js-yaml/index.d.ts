@@ -19,7 +19,9 @@ export class Type {
     instanceOf: object | null;
     predicate: ((data: object) => boolean) | null;
     represent: ((data: object) => any) | { [x: string]: (data: object) => any } | null;
+    representName: ((data: object) => any) | null;
     defaultStyle: string | null;
+    multi: boolean;
     styleAliases: { [x: string]: any };
 }
 
@@ -107,7 +109,9 @@ export interface TypeConstructorOptions {
     instanceOf?: object;
     predicate?: (data: object) => boolean;
     represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
+    representName?: (data: object) => any;
     defaultStyle?: string;
+    multi?: boolean;
     styleAliases?: { [x: string]: any };
 }
 

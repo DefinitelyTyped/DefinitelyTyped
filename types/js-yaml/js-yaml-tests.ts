@@ -24,7 +24,9 @@ const typeConstructorOptions: TypeConstructorOptions = {
     instanceOf: obj,
     predicate: obj => false,
     represent: fn,
+    representName: obj => "name",
     defaultStyle: str,
+    multi: false,
     styleAliases: map,
 };
 
