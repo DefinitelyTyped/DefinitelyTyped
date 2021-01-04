@@ -174,3 +174,5 @@ new yaml.YAMLException();
 yaml.DEFAULT_SCHEMA.extend([type]);
 // $ExpectType Schema
 yaml.DEFAULT_SCHEMA.extend(type);
+// $ExpectType Schema
+yaml.DEFAULT_SCHEMA.extend(schemaDefinition);
