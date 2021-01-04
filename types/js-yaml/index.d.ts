@@ -1,8 +1,9 @@
-// Type definitions for js-yaml 3.12
+// Type definitions for js-yaml 4.0
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Sebastian Clausen <https://github.com/sclausen>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Armaan Tobaccowalla <https://github.com/ArmaanT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
