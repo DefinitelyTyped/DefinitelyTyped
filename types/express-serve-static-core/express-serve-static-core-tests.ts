@@ -92,7 +92,7 @@ app.post("/", (req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any
-    res.send("ok"); // $ExpectType Response<any, number>
+    res.send("ok"); // $ExpectType Response<any, number, Record<string, any>>
 });
 
 // Default types - under route
@@ -100,14 +100,14 @@ app.route('/').post((req, res) => {
     req.params[0]; // $ExpectType string
 
     req.body; // $ExpectType any
-    res.send("ok"); // $ExpectType Response<any, number>
+    res.send("ok"); // $ExpectType Response<any, number, Record<string, any>>
 });
 
 // No params, only response body type
 app.get<never, { foo: string; }>("/", (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body; // $ExpectType any
 });
 
@@ -115,7 +115,7 @@ app.get<never, { foo: string; }>("/", (req, res) => {
 app.route('/').get<never, { foo: string; }>((req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body; // $ExpectType any
 });
 
@@ -123,7 +123,7 @@ app.route('/').get<never, { foo: string; }>((req, res) => {
 app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body.bar; // $ExpectType number
 
     res.json({ baz: "fail" }); // $ExpectError
@@ -134,7 +134,7 @@ app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
 app.route('/').post<never, { foo: string }, { bar: number }>((req, res) => {
     req.params.baz; // $ExpectError
 
-    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number>
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, number, Record<string, any>>
     req.body.bar; // $ExpectType number
 
     res.json({ baz: "fail" }); // $ExpectError
@@ -152,3 +152,10 @@ app.engine('ntl', (_filePath, _options, callback) => {
     type C = Parameters<B['status']>[0];  // $ExpectType 123
     type D = Parameters<B['sendStatus']>[0];  // $ExpectType 123
 }
+
+// Locals can be a custom type
+app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
+    res.locals.foo; // $ExpectType boolean
+    res.locals.bar; // $ExpectError
+    res.send({foo: 'ok'}); // $ExpectType Response<any, number, { foo: boolean; }>
+});

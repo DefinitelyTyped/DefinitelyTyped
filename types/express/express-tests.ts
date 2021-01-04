@@ -17,7 +17,7 @@ namespace express_tests {
     });
     app.use('/static', express.static(__dirname + '/public', {
         setHeaders: res => {
-            // $ExpectType Response<any>
+            // $ExpectType Response<any, Record<string, any>>
             res;
             res.set("foo", "bar");
         }
@@ -184,6 +184,12 @@ namespace express_tests {
     // Query will be defaulted to any
     router.get('/:foo', (req: express.Request<{}>) => {
         req.query; // $ExpectType ParsedQs
+    });
+
+    // Locals can be a custom type
+    router.get('/locals', (req, res: express.Response<any, {foo: boolean}>) => {
+        res.locals.foo; // $ExpectType boolean
+        res.locals.bar; // $ExpectError
     });
 
     // Response will default to any type
