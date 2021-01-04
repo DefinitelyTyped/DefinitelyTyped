@@ -190,7 +190,7 @@ declare namespace stripe {
          * object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by
          * posting an empty value to metadata.
          */
-        metadata: Record<string, string>;
+        metadata?: Record<string, string>;
     }
 
     interface PiiTokenOptions {
