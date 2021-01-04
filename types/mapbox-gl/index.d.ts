@@ -1668,6 +1668,10 @@ declare namespace mapboxgl {
 
         isDraggable(): boolean;
 
+        getRotation(): number;
+
+        setRotation(rotation: number): this;
+
         getRotationAlignment(): Alignment;
 
         setRotationAlignment(alignment: Alignment): this;

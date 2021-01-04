@@ -662,11 +662,15 @@ let marker = new mapboxgl.Marker(undefined, {
 })
     .setLngLat([-50, 50])
     .setPitchAlignment('map')
+    .setRotation(100)
     .setRotationAlignment('viewport')
     .addTo(map);
 
 // $ExpectType Alignment
 marker.getPitchAlignment();
+
+// $ExpectType number
+marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
