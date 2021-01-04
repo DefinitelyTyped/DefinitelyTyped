@@ -2799,20 +2799,7 @@ export interface Workspace {
      *  the existing item for that URI will be activated. If no URI is given, or
      *  no registered opener can open the URI, a new empty TextEditor will be created.
      */
-    open(uri: string, options?: WorkspaceOpenOptions): Promise<object>;
-    /**
-     *  Opens the given item in Atom asynchronously. If the item is already open,
-     *  the existing item will be activated. If no item is given, a new empty TextEditor
-     *  will be created.
-     */
-    open<T extends ViewModel = ViewModel>(item: T, options?: WorkspaceOpenOptions):
-        Promise<T>;
-    /**
-     *  Opens the given URI in Atom asynchronously. If the URI is already open,
-     *  the existing item for that URI will be activated. If no URI is given, or
-     *  no registered opener can open the URI, a new empty TextEditor will be created.
-     */
-    open(): Promise<TextEditor>;
+    open(uri?: string, options?: WorkspaceOpenOptions): Promise<TextEditor>;
 
     /**
      *  Search the workspace for items matching the given URI and hide them.
