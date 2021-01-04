@@ -118,12 +118,8 @@ export let FAILSAFE_SCHEMA: Schema;
 export let JSON_SCHEMA: Schema;
 /** same as JSON_SCHEMA: http://www.yaml.org/spec/1.2/spec.html#id2804923 */
 export let CORE_SCHEMA: Schema;
-/** all supported YAML types, without unsafe ones (!!js/undefined, !!js/regexp and !!js/function): http://yaml.org/type/ */
-export let DEFAULT_SAFE_SCHEMA: Schema;
-/** all supported YAML types. */
-export let DEFAULT_FULL_SCHEMA: Schema;
-export let MINIMAL_SCHEMA: Schema;
-export let SAFE_SCHEMA: Schema;
+/** all supported YAML types */
+export let DEFAULT_SCHEMA: Schema;
 
 export class YAMLException extends Error {
     constructor(reason?: any, mark?: any);
