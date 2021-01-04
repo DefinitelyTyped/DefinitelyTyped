@@ -22,11 +22,9 @@ export class Type {
     styleAliases: { [x: string]: any };
 }
 
-/* tslint:disable-next-line:no-unnecessary-class */
-export class Schema implements SchemaDefinition {
-    constructor(definition: SchemaDefinition);
-    static create(types: Type[] | Type): Schema;
-    static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
+export class Schema {
+    constructor(definition: SchemaDefinition | Type[] | Type);
+    extend(types: SchemaDefinition | Type[] | Type): Schema;
 }
 
 export function loadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
@@ -40,7 +38,7 @@ export interface LoadOptions {
     /** function to call on warning messages. */
     onWarning?(this: null, e: YAMLException): void;
     /** specifies a schema to use. */
-    schema?: SchemaDefinition;
+    schema?: Schema;
     /** compatibility with JSON.parse behaviour. */
     json?: boolean;
     /** listener for parse events */
@@ -52,7 +50,7 @@ export type EventType = 'open' | 'close';
 export interface State {
     input: string;
     filename: string | null;
-    schema: SchemaDefinition;
+    schema: Schema;
     onWarning: (this: null, e: YAMLException) => void;
     json: boolean;
     length: number;
@@ -79,7 +77,7 @@ export interface DumpOptions {
     /** Each tag may have own set of styles.    - "tag" => "style" map. */
     styles?: { [x: string]: any };
     /** specifies a schema to use. */
-    schema?: SchemaDefinition;
+    schema?: Schema;
     /** if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false) */
     sortKeys?: boolean | ((a: any, b: any) => number);
     /** set max line width. (default: 80) */
@@ -113,9 +111,8 @@ export interface TypeConstructorOptions {
 }
 
 export interface SchemaDefinition {
-    implicit?: any[];
+    implicit?: Type[];
     explicit?: Type[];
-    include?: Schema[];
 }
 
 /** only strings, arrays and plain objects: http://www.yaml.org/spec/1.2/spec.html#id2802346 */
