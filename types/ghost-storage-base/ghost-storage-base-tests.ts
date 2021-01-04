@@ -41,5 +41,5 @@ storage.getSanitizedFileName('IMAGE.jpg'); // $ExpectType string
 
 storage.exists('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>
 storage.save(image, '/'); // $ExpectType Promise<string>
-storage.serve(); // $ExpectType (req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void
+storage.serve(); // $ExpectType (req: Request<ParamsDictionary, any, any, ParsedQs, number, Record<string, any>>, res: Response<any, number, Record<string, any>>, next: NextFunction) => void
 storage.delete('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>

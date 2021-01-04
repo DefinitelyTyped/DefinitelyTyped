@@ -19,7 +19,7 @@ namespace express_tests {
         '/static',
         express.static(__dirname + '/public', {
             setHeaders: res => {
-                // $ExpectType Response<any, Record<string, any>>
+                // $ExpectType Response<any, number, Record<string, any>>
                 res;
                 res.set('foo', 'bar');
             },
@@ -197,7 +197,7 @@ namespace express_tests {
     });
 
     // Locals can be a custom type
-    router.get('/locals', (req, res: express.Response<any, { foo: boolean }>) => {
+    router.get('/locals', (req, res: express.Response<any, number, { foo: boolean }>) => {
         res.locals.foo; // $ExpectType boolean
         res.locals.bar; // $ExpectError
     });

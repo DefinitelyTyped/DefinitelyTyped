@@ -154,7 +154,7 @@ app.engine('ntl', (_filePath, _options, callback) => {
 }
 
 // Locals can be a custom type
-app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
+app.get<{}, any, any, {}, number, { foo: boolean }>('/locals', (req, res, next) => {
     res.locals.foo; // $ExpectType boolean
     res.locals.bar; // $ExpectError
     res.send({ foo: 'ok' }); // $ExpectType Response<any, number, { foo: boolean; }>
