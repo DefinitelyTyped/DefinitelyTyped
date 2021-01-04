@@ -10,7 +10,7 @@ const str = '';
 const obj: object = {};
 const map: { [x: string]: any } = {};
 const array: any[] = [];
-const fn: (...args: any[]) => any = () => { };
+const fn: (...args: any[]) => any = () => {};
 const type = new yaml.Type(str);
 
 const schemaDefinition: SchemaDefinition = {
@@ -24,7 +24,7 @@ const typeConstructorOptions: TypeConstructorOptions = {
     instanceOf: obj,
     predicate: obj => false,
     represent: fn,
-    representName: obj => "name",
+    representName: obj => 'name',
     defaultStyle: str,
     multi: false,
     styleAliases: map,
@@ -107,7 +107,7 @@ dumpOpts = {
     quotingType: '"',
 };
 dumpOpts = {
-    replacer: (_key, _value) => "new_value",
+    replacer: (_key, _value) => 'new_value',
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
