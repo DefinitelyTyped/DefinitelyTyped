@@ -133,7 +133,7 @@ export interface Badges {
 }
 
 export interface BadgeInfo {
-	subscriber?: string;
+    subscriber?: string;
     [other: string]: string | undefined;
 }
 
@@ -226,7 +226,7 @@ export interface AnonSubGiftUpgradeUserstate extends CommonSubUserstate {
 }
 
 export interface PrimeUpgradeUserstate extends CommonSubUserstate {
-	"message-type"?: "primepaidupgrade";
+    "message-type"?: "primepaidupgrade";
 }
 
 export interface RaidUserstate extends UserNoticeState {
@@ -379,8 +379,8 @@ export interface Options {
 }
 
 export interface ClientConstructor {
-	(opts: Options): Client;
-	new (opts: Options): Client;
+    (opts: Options): Client;
+    new (opts: Options): Client;
 }
 
 export const client: ClientConstructor;
