@@ -5340,9 +5340,9 @@ interface BaseBackgroundPropType {
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid',
-    borderless: boolean,
-    color?: number | null,
+    type: 'RippleAndroid';
+    borderless: boolean;
+    color?: number | null;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
