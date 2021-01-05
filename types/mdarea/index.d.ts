@@ -1,6 +1,7 @@
 // Type definitions for mdarea 1.0
 // Project: https://github.com/jahudka/mdarea#readme
 // Definitions by: Antoine Laffargue <https://github.com/toniopelo>
+//                 Dan Kadera <https://github.com/jahudka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace MarkdownArea;
 
