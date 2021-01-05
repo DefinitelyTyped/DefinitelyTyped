@@ -26,7 +26,7 @@ const apiLimiterWithMaxFn = rateLimit({
 const apiLimiterWithMaxFnRequestAndResponse = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: (req, _) => {
-        return req.body.shouldRejectThisRequest ? 0 : 5;
+        return req.params.shouldRejectThisRequest ? 0 : 5;
     },
     message: {
         status: 429,
