@@ -887,6 +887,12 @@ declare namespace CodeMirror {
                 /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
             Set this option to true to make it go to the left instead. */
                 insertLeft?: boolean;
+
+                /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents. By default, a marker appears only in its target document. */
+                shared?: boolean;
+
+                /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
+                handleMouseEvents?: boolean;
             },
         ): CodeMirror.TextMarker;
 
