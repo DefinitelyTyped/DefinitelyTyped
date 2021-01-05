@@ -136,8 +136,12 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
 
 export type ExtractRouteParams<T extends string> = string extends T
     ? Record<string, string | number>
+    : T extends `${infer _Start}:${infer Param}?/${infer Rest}`
+    ? { [k in Param]?: string | number } & ExtractRouteParams<Rest>
     : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? { [k in Param | keyof ExtractRouteParams<Rest>]: string | number }
+    ? { [k in Param]: string | number } & ExtractRouteParams<Rest>
+    : T extends `${infer _Start}:${infer Param}?`
+    ? { [k in Param]?: string | number }
     : T extends `${infer _Start}:${infer Param}`
     ? { [k in Param]: string | number }
     : {};
