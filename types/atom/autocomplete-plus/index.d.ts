@@ -124,14 +124,6 @@ export interface AutocompleteProvider {
     selector: string;
 
     /**
-     *  Is called when a suggestion request has been dispatched by autocomplete+ to
-     *  your provider. Return an array of suggestions (if any) in the order you would
-     *  like them displayed to the user. Returning a Promise of an array of suggestions
-     *  is also supported.
-     */
-    getSuggestions(params: SuggestionsRequestedEvent): Suggestions|Promise<Suggestions>;
-
-    /**
      *  Defines the scope selector(s) (can be comma-separated) for which your provider
      *  should not be used.
      */
@@ -153,6 +145,26 @@ export interface AutocompleteProvider {
      */
     suggestionPriority?: number;
 
+    /** Let autocomplete+ filter and sort the suggestions you provide. */
+    filterSuggestions?: boolean;
+
+    /**
+     *  Is called when a suggestion request has been dispatched by autocomplete+ to
+     *  your provider. Return an array of suggestions (if any) in the order you would
+     *  like them displayed to the user. Returning a Promise of an array of suggestions
+     *  is also supported.
+     */
+    getSuggestions(params: SuggestionsRequestedEvent): Suggestions|Promise<Suggestions>;
+
+    /**
+     *  (experimental) Is called when a suggestion is selected by the user for
+     *  the purpose of loading more information about the suggestion. Return a
+     *  Promise of the new suggestion to replace it with or return null if
+     *  no change is needed.
+     */
+    getSuggestionDetailsOnSelect?(suggestion: AnySuggestion):
+        Promise<AnySuggestion | null> | AnySuggestion | null;
+
     /**
      *  Function that is called when a suggestion from your provider was inserted
      *  into the buffer.
@@ -161,13 +173,4 @@ export interface AutocompleteProvider {
 
     /** Will be called if your provider is being destroyed by autocomplete+ */
     dispose?(): void;
-
-    /**
-     *  (experimental) Is called when a suggestion is selected by the user for
-     *  the purpose of loading more information about the suggestion. Return a
-     *  Promise of the new suggestion to replace it with or return null if
-     *  no change is needed.
-     */
-    getSuggestionDetailsOnSelect?:
-      (suggestion: AnySuggestion) => Promise<AnySuggestion | null> | AnySuggestion | null;
 }
