@@ -100,6 +100,9 @@ declare namespace NodeRSA {
 
     type FormatPem =
         | 'private' | 'public'
+        | 'openssh' | 'openssh-pem'
+        | 'openssh-private' | 'openssh-private-pem'
+        | 'openssh-public' | 'openssh-public-pem'
         | 'pkcs1' | 'pkcs1-pem'
         | 'pkcs1-private' | 'pkcs1-private-pem'
         | 'pkcs1-public' | 'pkcs1-public-pem'
@@ -107,6 +110,7 @@ declare namespace NodeRSA {
         | 'pkcs8-private' | 'pkcs8-private-pem'
         | 'pkcs8-public' | 'pkcs8-public-pem';
     type FormatDer =
+        | 'openssh-der' | 'openssh-private-der' | 'openssh-public-der'
         | 'pkcs1-der' | 'pkcs1-private-der' | 'pkcs1-public-der'
         | 'pkcs8-der' | 'pkcs8-private-der' | 'pkcs8-public-der';
     type FormatComponentsPrivate =
