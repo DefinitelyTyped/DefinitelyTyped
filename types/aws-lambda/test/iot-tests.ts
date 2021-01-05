@@ -1,7 +1,5 @@
 import { IoTEvent, IoTHandler } from "aws-lambda";
 
-// TODO: Update test to read all event properties, like the user will.
-
 const handler: IoTHandler = async (event, context, callback) => { };
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
