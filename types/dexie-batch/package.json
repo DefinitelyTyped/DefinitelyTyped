@@ -1,6 +1,6 @@
 {
   "private": true,
-  "peerDependencies": {
+  "dependencies": {
     "dexie": ">1.3.6"
   }
 }
