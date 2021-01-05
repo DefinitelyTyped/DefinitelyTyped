@@ -113,7 +113,11 @@ declare namespace Shippo {
     }
 }
 
-declare function ShippoInitializer(token: string): Shippo.Shippo;
+interface ShippoStatic {
+    (token: string): Shippo.Shippo;
+    new (token: string): Shippo.Shippo;
+}
 
-export = ShippoInitializer;
+declare const Shippo: ShippoStatic;
+export = Shippo;
 export as namespace Shippo;
