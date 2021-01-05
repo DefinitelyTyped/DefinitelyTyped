@@ -6,9 +6,9 @@ const handler: IoTHandler = async (event, context, callback) => { };
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
 const eventObject: IoTEvent = {
-  "row": "10",
-  "pos": "23",
-  "moisture": "75"
+  row: "10",
+  pos: "23",
+  moisture: "75"
 };
 
 const eventString: IoTEvent = "AWS Lambda IoT Event";
