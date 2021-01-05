@@ -1,1 +1,1 @@
-import offset from 'mouse-event-offset';
+import offset = require('mouse-event-offset');
