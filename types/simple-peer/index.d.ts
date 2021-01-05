@@ -90,6 +90,27 @@ declare namespace SimplePeer {
 
         // used for debug logging
         _debug(message?: any, ...optionalParams: any[]): void;
+ 
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peeronsignal-data--
+        on(event: "signal", listener: (data: Object) => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peeronconnect---
+        on(event: "connect", listener: () => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peerondata-data--
+        on(event: "data", listener: (data: string|Buffer|Uint8Array) => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peeronstream-stream--
+        on(event: "stream", listener: (stream: MediaStream) => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peerontrack-track-stream--
+        on(event: "track", listener: (track: MediaStreamTrack, stream: MediaStream) => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peeronclose---
+        on(event: "close", listener: () => void): this;
+
+        // https://github.com/feross/simple-peer/tree/v9.9.3#peeronerror-err--
+        on(event: "error", listener: (err:Error) => void): this;
     }
 }
 
