@@ -315,48 +315,22 @@ export interface Big {
     s: number;
 }
 
+// We want the exported symbol 'Big' to represent two things:
+// - The Big interface, when used in a type context.
+// - The BigConstructor instance, when used in a value context.
 export const Big: BigConstructor;
 
-// Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
-export type Big_ = Big;
-export type BigConstructor_ = BigConstructor;
-export type BigSource_ = BigSource;
+// The default export is the same as type/value combo symbol 'Big'.
 export default Big;
 
-declare global {
-    namespace BigJs {
-        type Big = Big_;
-        type BigConstructor = BigConstructor_;
-        type BigSource = BigSource_;
-
-        const enum Comparison {
-            GT = 1,
-            EQ = 0,
-            LT = -1,
-        }
-
-        const enum RoundingMode {
-            /**
-             * Rounds towards zero.
-             * I.e. truncate, no rounding.
-             */
-            RoundDown = 0,
-            /**
-             * Rounds towards nearest neighbour.
-             * If equidistant, rounds away from zero.
-             */
-            RoundHalfUp = 1,
-            /**
-             * Rounds towards nearest neighbour.
-             * If equidistant, rounds towards even neighbour.
-             */
-            RoundHalfEven = 2,
-            /**
-             * Rounds away from zero.
-             */
-            RoundUp = 3,
-        }
-    }
-
-    const Big: BigJs.BigConstructor;
-}
+// If you pull in big.js via a <script> tag, the global symbol 'Big' is automatically defined.
+// To let TypeScript know that, add this to your project's global types file, e.g. "types.d.ts":
+//
+// import BigJs from 'big.js';
+// declare global {
+//     const Big = BigJs;
+//     type Big = BigJs;
+// }
+//
+// There is a way to have TypeScript know to do this automatically (using "export as namespace"),
+// but I couldn't get it working correctly.
