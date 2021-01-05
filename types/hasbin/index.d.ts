@@ -19,7 +19,7 @@ declare namespace hasbin {
     function some(bins: string[], done: (result: boolean) => void): void;
 
     function async(bin: string, done: (result: boolean) => void): void;
-    
+
     function sync(bin: string): boolean;
 
     namespace all {
