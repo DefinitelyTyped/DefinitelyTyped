@@ -30,7 +30,7 @@ const apiLimiterWithMaxFnRequestAndResponse = rateLimit({
     },
     message: {
         status: 429,
-        message: "`shouldRejectThisRequest` was toggled in the request body and this request was rejected",
+        message: "`shouldRejectThisRequest` was toggled in the request params and this request was rejected",
     }
 });
 
