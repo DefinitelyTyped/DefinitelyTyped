@@ -1,6 +1,7 @@
 import hasbin = require('hasbin');
 
 hasbin('node', (result: boolean) => {});
+hasbin.async('node', (result: boolean) => {});
 hasbin.some(['node', 'ls'], (result: boolean) => {});
 hasbin.all(['node', 'ls'], (result: boolean) => {});
 hasbin.first(['node', 'ls'], (first: string | false) => {});
