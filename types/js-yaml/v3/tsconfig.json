@@ -8,21 +8,24 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "types": [],
         "paths": {
             "js-yaml": [
                 "js-yaml/v3"
+            ],
+            "js-yaml/*": [
+                "js-yaml/v3/*"
             ]
         },
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "convict-tests.ts"
+        "js-yaml-tests.ts",
+        "index.d.ts"
     ]
 }

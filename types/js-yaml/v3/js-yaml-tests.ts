@@ -16,6 +16,7 @@ const type = new yaml.Type(str);
 const schemaDefinition: SchemaDefinition = {
     implicit: array,
     explicit: array,
+    include: array,
 };
 const typeConstructorOptions: TypeConstructorOptions = {
     kind: 'scalar',
@@ -24,15 +25,11 @@ const typeConstructorOptions: TypeConstructorOptions = {
     instanceOf: obj,
     predicate: obj => false,
     represent: fn,
-    representName: obj => 'name',
     defaultStyle: str,
-    multi: false,
     styleAliases: map,
 };
 
 const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
-const schema1: yaml.Schema = new yaml.Schema(type);
-const schema2: yaml.Schema = new yaml.Schema([type]);
 
 let value: any;
 let loadOpts: LoadOptions;
@@ -47,13 +44,13 @@ yaml.JSON_SCHEMA;
 // $ExpectType Schema
 yaml.CORE_SCHEMA;
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA;
+yaml.DEFAULT_SAFE_SCHEMA;
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend(type);
+yaml.DEFAULT_FULL_SCHEMA;
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend([type]);
+yaml.MINIMAL_SCHEMA;
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend(schemaDefinition);
+yaml.SAFE_SCHEMA;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -69,7 +66,7 @@ loadOpts = {
     json: bool,
 };
 loadOpts = {
-    schema: yaml.FAILSAFE_SCHEMA,
+    schema: yaml.DEFAULT_SAFE_SCHEMA,
 };
 loadOpts = {
     listener(eventType: yaml.EventType, state) {
@@ -101,13 +98,7 @@ dumpOpts = {
     schema: value,
 };
 dumpOpts = {
-    schema: yaml.FAILSAFE_SCHEMA,
-};
-dumpOpts = {
-    quotingType: '"',
-};
-dumpOpts = {
-    replacer: (_key, _value) => 'new_value',
+    schema: yaml.DEFAULT_FULL_SCHEMA,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -134,12 +125,37 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType string | number | object | null | undefined
+// $ExpectType string | object | undefined
+yaml.safeLoad(str);
+// $ExpectType string | object | undefined
+yaml.safeLoad(str, loadOpts);
+
+// $ExpectType any
 yaml.load(str);
-// $ExpectType string | number | object | null | undefined
+// $ExpectType any
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+// $ExpectType any[]
+yaml.safeLoadAll(str);
+// $ExpectType any[]
+value = yaml.safeLoadAll(str, null, loadOpts);
+// $ExpectType any[]
+value = yaml.safeLoadAll(str, undefined, loadOpts);
+
+// $ExpectType void
+yaml.safeLoadAll(str, doc => {
+    value = doc;
+});
+// $ExpectType void
+yaml.safeLoadAll(
+    str,
+    doc => {
+        value = doc;
+    },
+    loadOpts,
+);
 
 // $ExpectType any[]
 value = yaml.loadAll(str);
@@ -164,6 +180,11 @@ yaml.loadAll(
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 // $ExpectType string
+yaml.safeDump(str);
+// $ExpectType string
+yaml.safeDump(str, dumpOpts);
+
+// $ExpectType string
 yaml.dump(str);
 // $ExpectType string
 yaml.dump(str, dumpOpts);
@@ -171,8 +192,14 @@ yaml.dump(str, dumpOpts);
 new yaml.YAMLException();
 
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend([type]);
+yaml.Schema.create([type]);
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend(type);
+yaml.Schema.create(type);
 // $ExpectType Schema
-yaml.DEFAULT_SCHEMA.extend(schemaDefinition);
+yaml.Schema.create(schema, [type]);
+// $ExpectType Schema
+yaml.Schema.create([schema], [type]);
+// $ExpectType Schema
+yaml.Schema.create(schema, type);
+// $ExpectType Schema
+yaml.Schema.create([schema], type);
