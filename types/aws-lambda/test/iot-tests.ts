@@ -2,7 +2,7 @@ import { IoTEvent, IoTHandler } from "aws-lambda";
 
 const handler: IoTHandler = async (event, context, callback) => { };
 
-// See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
+// See https://docs.aws.amazon.com/lambda/latest/dg/services-iot.html
 const eventObject: IoTEvent = {
   row: "10",
   pos: "23",
