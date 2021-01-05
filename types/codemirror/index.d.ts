@@ -1092,6 +1092,13 @@ declare namespace CodeMirror {
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
         extraKeys?: string | KeyMap;
 
+        /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
+        configureMouse?: (
+            cm: CodeMirror.Editor,
+            repeat: 'single' | 'double' | 'triple',
+            event: Event,
+        ) => MouseSelectionConfiguration;
+        
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;
 
@@ -1887,5 +1894,33 @@ declare namespace CodeMirror {
              */
             setShowDifferences(showDifferences: boolean): void;
         }
+    }
+
+    interface MouseSelectionConfiguration {
+        /** The unit by which to select. May be one of the built-in units
+        or a function that takes a position and returns a range around
+        that, for a custom unit. The default is to return "word" for
+        double clicks, "line" for triple clicks, "rectangle" for alt-clicks
+        (or, on Chrome OS, meta-shift-clicks), and "single" otherwise. */
+        unit?:
+            | 'char'
+            | 'word'
+            | 'line'
+            | 'rectangle'
+            | ((cm: CodeMirror.Editor, pos: Position) => { from: Position; to: Position });
+
+        /** Whether to extend the existing selection range or start
+        a new one. By default, this is enabled when shift clicking. */
+        extend?: boolean;
+
+        /** When enabled, this adds a new range to the existing selection,
+        rather than replacing it. The default behavior is to enable this
+        for command-click on Mac OS, and control-click on other platforms. */
+        addNew?: boolean;
+
+        /** When the mouse even drags content around inside the editor, this
+        controls whether it is copied (false) or moved (true). By default, this
+        is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere. */
+        moveOnDrag?: boolean;
     }
 }
