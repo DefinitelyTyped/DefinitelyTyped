@@ -16,4 +16,3 @@ const eventString: IoTEvent = "AWS Lambda IoT Event";
 const eventNumber: IoTEvent = 100;
 
 const eventArray: IoTEvent = [eventObject, eventString, eventNumber];
-
