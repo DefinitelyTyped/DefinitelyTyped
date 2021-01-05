@@ -2437,6 +2437,11 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdown-it-anchor",
+            "typingsPackageName": "markdown-it-anchor",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "markdownlint",
             "typingsPackageName": "markdownlint",
             "asOfVersion": "0.18.0"
