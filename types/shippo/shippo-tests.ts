@@ -1,4 +1,4 @@
-import Shippo from 'shippo';
+import Shippo = require("shippo");
 
 // $ExpectType Shippo
 export const shippo = Shippo('SHIPPO_API_KEY');
