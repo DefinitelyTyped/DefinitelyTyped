@@ -258,6 +258,10 @@ post(address, {
     analysis: file('thorough analysis', 'analysis.txt')
 });
 
+// Response parameters
+response = get(address);
+response.status_text;
+
 // Response.clickLink
 response = get(address);
 responseDefault = response.clickLink();
