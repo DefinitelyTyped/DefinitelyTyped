@@ -565,6 +565,10 @@ export interface Touchable {
     onTouchCancel?: (event: GestureResponderEvent) => void;
     onTouchEndCapture?: (event: GestureResponderEvent) => void;
 }
+export const Touchable: {
+    TOUCH_TARGET_DEBUG: boolean;
+    renderDebugView: (config: { color: string | number; hitSlop?: Insets }) => React.ReactElement | null;
+};
 
 export type ComponentProvider = () => React.ComponentType<any>;
 
@@ -5336,9 +5340,9 @@ interface BaseBackgroundPropType {
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid',
-    borderless: boolean,
-    color?: number | null,
+    type: 'RippleAndroid';
+    borderless: boolean;
+    color?: number | null;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
