@@ -741,7 +741,7 @@ declare namespace chrome.commands {
         shortcut?: string;
     }
 
-    export interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
+    export interface CommandEvent extends chrome.events.Event<(command: string, tab: chrome.tabs.Tab) => void> { }
 
     /**
      * Returns all the registered extension commands for this extension and their shortcut (if active).
