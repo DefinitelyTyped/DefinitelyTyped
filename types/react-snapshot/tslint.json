@@ -1,8 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "no-any-union": false,
-        "npm-naming": false
-    }
+    "extends": "dtslint/dt.json"
 }
