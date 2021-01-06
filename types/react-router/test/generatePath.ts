@@ -7,4 +7,10 @@ generatePath('/posts/:postId', { userId: '1', postId: '1' }); // $ExpectError
 
 // correct
 generatePath('/posts/:postId', { postId: '1' });
+generatePath('/posts/:postId', { postId: 1 });
+generatePath('/posts/:postId', { postId: true });
 generatePath('/posts/:postId');
+generatePath('/posts/:postId?', {});
+generatePath('/posts/:postId?', { postId: '1' });
+generatePath('/posts/:postId/comments/:commentId?', { postId: '1' });
+generatePath('/posts/:postId/comments/:commentId?', { postId: '1', commentId: '1' });
