@@ -21,7 +21,9 @@ const routesA = Polka()
     .post('/b', (req, res) => {});
 
 const routesB = Polka()
-    .get('/1', (req, res) => {})
+    .get('/1', (req, res) => {
+        app.server?.close();
+    })
     .delete('/2', (req, res) => {});
 
 const app = Polka()
@@ -30,7 +32,5 @@ const app = Polka()
     .use('/path-b', routesB);
 
 app.listen(3000);
-app.server?.close();
-
 
 const short = Polka().get('/abc', () => {}).listen(3000);

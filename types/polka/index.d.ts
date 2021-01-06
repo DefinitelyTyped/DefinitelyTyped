@@ -3,7 +3,7 @@
 // Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
 //                 James Messinger <https://github.com/JamesMessinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -98,9 +98,7 @@ declare namespace polka {
 
         /**
          * The instantiated `server` Polka creates when `listen()` is called.
-         *
          * `server` is only created if a server was not provided via `option.server`
-         *
          * `server` will be undefined until polka.listen is invoked or if a server was provided.
          */
         server: Server | undefined;
