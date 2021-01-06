@@ -1,4 +1,4 @@
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
 
 declare class Popover {
     constructor(element: Element, options?: Partial<Popover.Options>);
@@ -202,7 +202,7 @@ declare namespace Popover {
         /**
          * Offset of the popover relative to its target.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..offset.offset}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/offset}
          * @default 0
          */
         offset: number | string;
@@ -210,7 +210,7 @@ declare namespace Popover {
         /**
          * Allow to specify which position Popper will use on fallback.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..flip.behavior}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default 'flip'
          */
         fallbackPlacement: Popper.Behavior | Popper.Position[];
@@ -220,7 +220,7 @@ declare namespace Popover {
          * 'viewport', 'window', 'scrollParent', or an HTMLElement reference
          * (JavaScript only).
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#boundary}
          * @default 'scrollParent'
          */
         boundary: 'viewport' | 'window' | 'scrollParent' | Element;
@@ -251,10 +251,10 @@ declare namespace Popover {
         /**
          * To change Bootstrap's default Popper.js config
          *
-         * @see {@link https://popper.js.org/docs/v1/#Popper.Defaults}
+         * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.PopperOptions | null;
+        popperConfig: Popper.Options | null;
     }
 }
 
