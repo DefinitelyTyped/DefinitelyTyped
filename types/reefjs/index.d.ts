@@ -4,7 +4,7 @@
 //                 cferdinandi <https://github.com/cferdinandi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default Reef;
+export = Reef;
 
 declare class Reef {
     data: Record<string, any>;
@@ -45,7 +45,7 @@ declare class Reef {
      *
      * {@link https://reefjs.com/state-management/#non-reactive-data}
      */
-    static clone(data: Record<string, any> | Array<any>): any;
+    static clone(data: Record<string, any> | any[]): any;
 
     /**
      * Attach one or more components to another component.
@@ -103,7 +103,7 @@ declare namespace Reef {
          * A Data Store is a special Reef object that holds reactive data that you can share with multiple components.
          * Any time you update the data in your Data Store, any components that use the data will also be updated, and will render again if there are any UI changes.
          */
-        store?: Reef.Store;
+        store?: Store;
 
         /**
          * A string or a function that returns a string, to render into the DOM.
@@ -111,7 +111,7 @@ declare namespace Reef {
          */
         template:
             | string
-            | ((props: Record<string, any>, elemOrRouter?: Element | Reef.Router, elem?: Element) => string);
+            | ((props: Record<string, any>, elemOrRouter?: Element | Router, elem?: Element) => string);
 
         /**
          * Prevents Cross-Site Scripting (XSS) Attacks. You can disable this feature by setting this option to true.
@@ -126,12 +126,12 @@ declare namespace Reef {
         /**
          * For any Reef component that should be updated when the route changes, add a router property and associate your router component with it.
          */
-        router?: Reef.Router;
+        router?: Router;
     }
 
     interface DataStore {
         data: Record<string, any>;
-        setters?: { [key: string]: (data: Record<string, any>, ...args: Array<any>) => void };
+        setters?: { [key: string]: (data: Record<string, any>, ...args: any[]) => void };
         getters?: { [key: string]: (data: Record<string, any>) => any };
     }
 
