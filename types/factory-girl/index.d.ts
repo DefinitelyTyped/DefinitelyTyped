@@ -19,6 +19,8 @@ declare namespace factory {
     }>;
 
     interface Static {
+        factory: Static;
+
         /**
          * Associate the factory to other model
          */

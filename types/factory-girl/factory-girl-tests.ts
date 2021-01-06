@@ -1,4 +1,5 @@
 import * as factory from "factory-girl";
+import { factory as namedImportedFactory } from "factory-girl";
 
 interface User {
     username?: string;
@@ -124,3 +125,6 @@ factory
 
 // Testing cleanUp
 factory.cleanUp();
+
+// Testing namedImportedFactory
+namedImportedFactory.seq();
