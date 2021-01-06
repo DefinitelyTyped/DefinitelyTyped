@@ -1,4 +1,4 @@
-// Type definitions for spotify-web-api-node 4.0
+// Type definitions for spotify-web-api-node 5.0
 // Project: https://github.com/thelinmichael/spotify-web-api-node
 // Definitions by: Magnar Ovedal Myrtveit <https://github.com/Stadly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -286,7 +286,6 @@ declare class SpotifyWebApi {
 
     /**
      * Create a playlist.
-     * @param userId The playlist's owner's user ID.
      * @param playlistName The name of the playlist.
      * @param options The possible options, currently only public.
      * @param callback Optional callback method to be called instead of the promise.
@@ -294,8 +293,8 @@ declare class SpotifyWebApi {
      * @returns A promise that if successful, resolves to an object containing information about the
      *          created playlist. If rejected, it contains an error object. Not returned if a callback is given.
      */
-    createPlaylist(userId: string, playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
-    createPlaylist(userId: string, playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
+    createPlaylist(playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
+    createPlaylist(playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
 
     /**
      * Follow a playlist.
@@ -612,13 +611,14 @@ declare class SpotifyWebApi {
 
     /**
      * Transfer a User's Playback
+     * @param deviceIds An _array_ containing a device ID on which playback should be started/transferred. 
      * @param options Options, being market.
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    transferMyPlayback(options: TransferPlaybackOptions, callback: Callback<void>): void;
-    transferMyPlayback(options?: TransferPlaybackOptions): Promise<Response<void>>;
+    transferMyPlayback(deviceIds : string[], options: TransferPlaybackOptions, callback: Callback<void>): void;
+    transferMyPlayback(deviceIds : string[], options?: TransferPlaybackOptions): Promise<Response<void>>;
 
     /**
      * Starts or Resumes the Current User's Playback
@@ -644,22 +644,24 @@ declare class SpotifyWebApi {
 
     /**
      * Skip the Current User's Playback To Previous Track
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
      * @example playbackPrevious().then(...)
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    skipToPrevious(callback: Callback<void>): void;
+    skipToPrevious(options?: DeviceOptions, callback?: Callback<void>): void;
     skipToPrevious(): Promise<Response<void>>;
 
     /**
      * Skip the Current User's Playback To Next Track
+     * @param options Options, being device_id. If left empty will target the user's currently active device.
      * @param callback Optional callback method to be called instead of the promise.
      * @example playbackNext().then(...)
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    skipToNext(callback: Callback<void>): void;
+    skipToNext(options?: DeviceOptions, callback?: Callback<void>): void;
     skipToNext(): Promise<Response<void>>;
 
     /**
@@ -676,25 +678,26 @@ declare class SpotifyWebApi {
 
     /**
      * Set Repeat Mode On The Current User's Playback
+     * @param state State (track, context, or off)
      * @param options Options, being state (track, context, off).
      * @param callback Optional callback method to be called instead of the promise.
      * @example playbackRepeat({state: 'context'}).then(...)
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    setRepeat(options: RepeatOptions, callback: Callback<void>): void;
-    setRepeat(options?: RepeatOptions): Promise<Response<void>>;
+    setRepeat(state: string, options: RepeatOptions, callback: Callback<void>): void;
+    setRepeat(state: string, options?: RepeatOptions): Promise<Response<void>>;
 
     /**
      * Set Shuffle Mode On The Current User's Playback
-     * @param options Options, being state (true, false).
+     * @param state State 
      * @param callback Optional callback method to be called instead of the promise.
-     * @example playbackShuffle({state: 'false'}).then(...)
+     * @example playbackShuffle(true).then(...)
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    setShuffle(options: ShuffleOptions, callback: Callback<void>): void;
-    setShuffle(options?: ShuffleOptions): Promise<Response<void>>;
+    setShuffle(state: boolean, callback: Callback<void>): void;
+    setShuffle(state: boolean): Promise<Response<void>>;
 
     /**
      * Set the volume for the user’s current playback device.
@@ -1055,10 +1058,6 @@ interface PlayOptions extends DeviceOptions {
 
 interface RepeatOptions extends DeviceOptions {
     state?: 'track' | 'context' | 'off';
-}
-
-interface ShuffleOptions extends DeviceOptions {
-    state?: boolean;
 }
 
 interface GetFeaturedPlaylistsOptions extends PaginationLocaleOptions {
