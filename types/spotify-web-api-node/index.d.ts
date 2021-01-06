@@ -1,6 +1,8 @@
 // Type definitions for spotify-web-api-node 5.0
 // Project: https://github.com/thelinmichael/spotify-web-api-node
-// Definitions by: Magnar Ovedal Myrtveit <https://github.com/Stadly>
+// Definitions by: 
+//                Magnar Ovedal Myrtveit <https://github.com/Stadly>
+//                freiSMS <https://github.com/freiSMS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
