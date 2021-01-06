@@ -43,9 +43,9 @@ factory.sequence('User.score');
 
 // Testing sequence with callback
 // $ExpectType Generator<string>
-factory.seq(value => `${value}`);
+factory.seq(value => value.toString());
 // $ExpectType Generator<string>
-factory.sequence(value => `${value}`);
+factory.sequence(value => value.toString());
 
 // Testing sequence resetting
 factory.resetSeq();
