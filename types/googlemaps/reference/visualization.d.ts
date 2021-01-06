@@ -3,13 +3,13 @@ declare namespace google.maps.visualization {
         constructor(opts?: HeatmapLayerOptions);
         getData(): MVCArray<LatLng | WeightedLocation>;
         getMap(): Map;
-        setData(data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]): void;
+        setData(data: MVCArray<LatLng | WeightedLocation> | Array<LatLng | WeightedLocation>): void;
         setMap(map: Map | null): void;
         setOptions(options: HeatmapLayerOptions): void;
     }
 
     interface HeatmapLayerOptions {
-        data: any;
+        data: MVCArray<LatLng | WeightedLocation> | Array<LatLng | WeightedLocation>;
         dissipating?: boolean;
         gradient?: string[];
         map?: Map;

@@ -418,6 +418,12 @@ heatmap.setData([
     { weight: 2, location: new google.maps.LatLng({ lat: 37.782745, lng: -122.444586 }) },
 ]);
 
+// setData Should Accept (LatLng | WeightedLocation)[]
+heatmap.setData([
+    new google.maps.LatLng(37.782551, -122.445368),
+    { weight: 2, location: new google.maps.LatLng({ lat: 37.782745, lng: -122.444586 }) },
+]);
+
 // setOptions should required data and accepted any HeatmapLayerOptions
 heatmap.setOptions({
     data: [
