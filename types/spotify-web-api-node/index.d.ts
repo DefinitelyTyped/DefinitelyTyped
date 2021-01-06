@@ -611,14 +611,14 @@ declare class SpotifyWebApi {
 
     /**
      * Transfer a User's Playback
-     * @param deviceIds An _array_ containing a device ID on which playback should be started/transferred. 
+     * @param deviceIds An _array_ containing a device ID on which playback should be started/transferred.
      * @param options Options, being market.
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful, resolves into a paging object of tracks,
      *          otherwise an error. Not returned if a callback is given.
      */
-    transferMyPlayback(deviceIds : string[], options: TransferPlaybackOptions, callback: Callback<void>): void;
-    transferMyPlayback(deviceIds : string[], options?: TransferPlaybackOptions): Promise<Response<void>>;
+    transferMyPlayback(deviceIds: string[], options: TransferPlaybackOptions, callback: Callback<void>): void;
+    transferMyPlayback(deviceIds: string[], options?: TransferPlaybackOptions): Promise<Response<void>>;
 
     /**
      * Starts or Resumes the Current User's Playback
@@ -690,7 +690,7 @@ declare class SpotifyWebApi {
 
     /**
      * Set Shuffle Mode On The Current User's Playback
-     * @param state State 
+     * @param state State
      * @param callback Optional callback method to be called instead of the promise.
      * @example playbackShuffle(true).then(...)
      * @returns A promise that if successful, resolves into a paging object of tracks,
