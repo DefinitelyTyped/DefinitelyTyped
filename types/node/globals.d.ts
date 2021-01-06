@@ -27,7 +27,7 @@ interface String {
 }
 
 interface ImportMeta {
-    url: string;
+    url?: string;
 }
 
 /*-----------------------------------------------*
