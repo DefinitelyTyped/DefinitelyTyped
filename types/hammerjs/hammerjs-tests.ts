@@ -143,30 +143,36 @@
 
 
 (()=>{
-  var consts = {
-     [Hammer.STATE_POSSIBLE]: 1,
-     [Hammer.STATE_BEGAN]: 2,
-     [Hammer.STATE_CHANGED]: 4,
-     [Hammer.STATE_ENDED]: 8,
-     [Hammer.STATE_RECOGNIZED]: Hammer.STATE_ENDED,
-     [Hammer.STATE_CANCELLED]: 16,
-     [Hammer.STATE_FAILED]: 32,
+  var input = {
+    [Hammer.STATE_POSSIBLE]: 1 as 1,
+    [Hammer.STATE_BEGAN]: 2 as 2,
+    [Hammer.STATE_CHANGED]: 4 as 4,
+    [Hammer.STATE_ENDED]: 8 as 8,
+    [Hammer.STATE_RECOGNIZED]: Hammer.STATE_ENDED as typeof Hammer.STATE_ENDED,
+    [Hammer.STATE_CANCELLED]: 16 as 16,
+    [Hammer.STATE_FAILED]: 32 as 32,
+  }
 
-     [Hammer.INPUT_START]: 1,
-     [Hammer.INPUT_MOVE]: 2,
-     [Hammer.INPUT_END]: 4,
-     [Hammer.INPUT_CANCEL]: 8,
+  var direction = {
+    [Hammer.INPUT_START]: 1 as 1,
+    [Hammer.INPUT_MOVE]: 2 as 2,
+    [Hammer.INPUT_END]: 4 as 4,
+    [Hammer.INPUT_CANCEL]: 8 as 8,
+  }
 
-     [Hammer.DIRECTION_NONE]: 1,
-     [Hammer.DIRECTION_LEFT]: 2,
-     [Hammer.DIRECTION_RIGHT]: 4,
-     [Hammer.DIRECTION_UP]: 8,
-     [Hammer.DIRECTION_DOWN]: 16,
+  var state = {
+     [Hammer.DIRECTION_NONE]: 1 as 1,
+     [Hammer.DIRECTION_LEFT]: 2 as 2,
+     [Hammer.DIRECTION_RIGHT]: 4 as 4,
+     [Hammer.DIRECTION_UP]: 8 as 8,
+     [Hammer.DIRECTION_DOWN]: 16 as 16,
      [Hammer.DIRECTION_HORIZONTAL]: (Hammer.DIRECTION_LEFT | Hammer.DIRECTION_RIGHT) as 6, // TS infers this as a number, so we have to cast it ourselves
      [Hammer.DIRECTION_VERTICAL]: (Hammer.DIRECTION_UP | Hammer.DIRECTION_DOWN) as 24,     // bits aren't overlapping, so binary or is equal to addition
      [Hammer.DIRECTION_ALL]: (Hammer.DIRECTION_HORIZONTAL | Hammer.DIRECTION_VERTICAL) as 30,
-  } as const
+  }
 
-  type SameKeysAsValues<T extends { [K in keyof T]: K }> = true; // typecheck: if all keys are equal to their value
-  type HammerConsts = SameKeysAsValues<typeof consts>
+  type KeysSameAsValues<T extends { [K in keyof T]: K }> = true; // typecheck: if all keys are equal to their value
+  type HammerInputLiteralsCheck = KeysSameAsValues<typeof input>
+  type HammerDirectionLiteralsCheck = KeysSameAsValues<typeof direction>
+  type HammerStateLiteralsCheck = KeysSameAsValues<typeof state>
 })();
