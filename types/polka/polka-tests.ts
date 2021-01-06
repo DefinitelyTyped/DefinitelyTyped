@@ -30,5 +30,7 @@ const app = Polka()
     .use('/path-b', routesB);
 
 app.listen(3000);
+app.server?.close();
+
 
 const short = Polka().get('/abc', () => {}).listen(3000);
