@@ -95,6 +95,15 @@ declare namespace polka {
          * It receives all requests and tries to match the incoming URL against known routes.
          */
         handler(req: Request, res: ServerResponse, parsed?: Url): void;
+
+        /**
+         * The server Polka creates when `listen()` is called.
+         *
+         * server is only created if a server was not provided via `option.server`
+         *
+         * server will be undefined until polka.listen is invoked, unless a server was provided.
+         */
+        server: Server | undefined;
     }
 
     /**
