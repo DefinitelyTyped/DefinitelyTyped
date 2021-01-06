@@ -8,6 +8,8 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:no-trailing-whitespace
 
+export default Tabulator;
+
 declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,
