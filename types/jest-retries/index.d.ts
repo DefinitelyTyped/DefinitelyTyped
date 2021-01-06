@@ -5,5 +5,5 @@
 
 type DoneCallback = (...args: any[]) => any;
 type ProvidesCallback = (done?: DoneCallback) => any;
-declare function JestRetries(desc: string, retries: number, fn?: ProvidesCallback, timeout?: number): void;
-export = JestRetries;
+declare function retry(desc: string, retries: number, fn?: ProvidesCallback, timeout?: number): void;
+export = retry;
