@@ -1,0 +1,1 @@
+const tests: number = Number(1)
