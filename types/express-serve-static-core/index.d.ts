@@ -55,13 +55,12 @@ export interface RequestHandler<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    StatusCode extends number = number,
     Locals extends Record<string, any> = Record<string, any>
 > {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (
-        req: Request<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>,
-        res: Response<ResBody, StatusCode, Locals>,
+        req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+        res: Response<ResBody, number, Locals>,
         next: NextFunction,
     ): void;
 }
@@ -71,12 +70,11 @@ export type ErrorRequestHandler<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    StatusCode extends number = number,
     Locals extends Record<string, any> = Record<string, any>
 > = (
     err: any,
-    req: Request<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>,
-    res: Response<ResBody, StatusCode, Locals>,
+    req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+    res: Response<ResBody, number, Locals>,
     next: NextFunction,
 ) => void;
 
@@ -87,11 +85,10 @@ export type RequestHandlerParams<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    StatusCode extends number = number,
     Locals extends Record<string, any> = Record<string, any>
 > =
-    | RequestHandler<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>
-    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>
+    | RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
+    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<
@@ -103,24 +100,22 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        StatusCode extends number = number,
         Locals extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>>
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        StatusCode extends number = number,
         Locals extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>>
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     (path: PathParams, subApplication: Application): T;
 }
@@ -133,22 +128,20 @@ export interface IRouterHandler<T> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        StatusCode extends number = number,
         Locals extends Record<string, any> = Record<string, any>
     >(
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>>
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        StatusCode extends number = number,
         Locals extends Record<string, any> = Record<string, any>
     >(
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, StatusCode, Locals>>
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
 }
 
@@ -301,7 +294,6 @@ export interface Request<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    StatusCode extends number = number,
     Locals extends Record<string, any> = Record<string, any>
 > extends http.IncomingMessage,
         Express.Request {
@@ -576,7 +568,7 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, StatusCode, Locals>;
+    res?: Response<ResBody, number, Locals>;
     next?: NextFunction;
 }
 
