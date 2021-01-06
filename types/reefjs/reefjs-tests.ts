@@ -96,7 +96,6 @@ const store = new Reef.Store({
 
 const app3 = new Reef('#app', {
     store,
-    
     template: (props) => {
         return `
 			<h1>${props.heading}</h1>
