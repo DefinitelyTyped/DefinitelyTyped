@@ -60,7 +60,7 @@ export interface RequestHandler<
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (
         req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
-        res: Response<ResBody, number, Locals>,
+        res: Response<ResBody, Locals>,
         next: NextFunction,
     ): void;
 }
@@ -74,7 +74,7 @@ export type ErrorRequestHandler<
 > = (
     err: any,
     req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
-    res: Response<ResBody, number, Locals>,
+    res: Response<ResBody, Locals>,
     next: NextFunction,
 ) => void;
 
@@ -568,7 +568,7 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, number, Locals>;
+    res?: Response<ResBody, Locals>;
     next?: NextFunction;
 }
 
@@ -583,8 +583,8 @@ export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
 export interface Response<
     ResBody = any,
-    StatusCode extends number = number,
-    Locals extends Record<string, any> = Record<string, any>
+    Locals extends Record<string, any> = Record<string, any>,
+    StatusCode extends number = number
 > extends http.ServerResponse,
         Express.Response {
     /**
