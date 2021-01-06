@@ -1,4 +1,4 @@
-import Reef from 'reefjs';
+import Reef = require("reefjs");
 
 // Turns debugging mode on
 Reef.debug(true);
@@ -66,7 +66,7 @@ const app2 = new Reef('#someelement2', {
         sayHello: 'Hello world',
     },
 
-    template: props => {
+    template: (props) => {
         return `<h1>${props.sayHello} from Reef!</h1>`;
     },
 });
@@ -82,13 +82,13 @@ const store = new Reef.Store({
     },
 
     setters: {
-        addTodo: function (props, todo) {
+        addTodo: (props, todo) => {
             props.todos.push(todo);
         },
     },
 
     getters: {
-        total: function (props) {
+        total: (props) => {
             return props.todos.length;
         },
     },
@@ -97,12 +97,12 @@ const store = new Reef.Store({
 const app3 = new Reef('#app', {
     store: store,
 
-    template: function (props) {
+    template: (props) => {
         return `
 			<h1>${props.heading}</h1>
 			<ul>
 				${props.todos
-                    .map(function (todo: string) {
+                    .map( (todo: string) => {
                         return `<li>${todo}</li>`;
                     })
                     .join('')}
