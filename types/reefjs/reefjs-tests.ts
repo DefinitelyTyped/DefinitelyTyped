@@ -95,14 +95,14 @@ const store = new Reef.Store({
 });
 
 const app3 = new Reef('#app', {
-    store: store,
-
+    store,
+    
     template: (props) => {
         return `
 			<h1>${props.heading}</h1>
 			<ul>
 				${props.todos
-                    .map( (todo: string) => {
+                    .map((todo: string) => {
                         return `<li>${todo}</li>`;
                     })
                     .join('')}
