@@ -1,24 +1,17 @@
 {
   "compilerOptions": {
       "module": "commonjs",
-      "lib": [
-          "es6"
-      ],
+      "lib": ["es6", "es2017"],
       "noImplicitAny": true,
       "noImplicitThis": true,
-      "strictFunctionTypes": true,
       "strictNullChecks": true,
+      "strictFunctionTypes": true,
       "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
+      "typeRoots": ["../"],
       "types": [],
       "noEmit": true,
       "forceConsistentCasingInFileNames": true,
       "jsx": "react-native"
   },
-  "files": [
-      "index.d.ts",
-      "react-native-highlight-words-test.ts"
-  ]
+  "files": ["index.d.ts", "react-native-highlight-words-test.tsx"]
 }
