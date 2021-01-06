@@ -1624,11 +1624,63 @@ declare namespace editorClient {
          */
         (action: 'width', value: string | number): void;
     }
+                           
+    interface WidgetSearchBoxOptions {
+        /**
+         * @description
+         * Sets the minimum length of text before the input triggers a change event.
+         * Clearing the input to 0 will always trigger a change event regardless of this setting.
+         */
+        minimumLength?: number;
+
+        /**
+         * @description
+         * Sets the delay, in ms, after the last keystroke before a change event is fired.
+         */
+        delay: number;
+  }
+
+  interface WidgetSearchBox extends JQuery {
+    (opts: WidgetSearchBoxOptions): this;
+
+    /**
+     * @description
+     * Trigger the change event on the search input.
+     */
+    (action: 'change'): void;
+                           
+    /**
+     * @description
+     * Gets the current value of the search input.
+     */
+    (action: 'value'): string;
+
+    /**
+     * @description
+     * Sets the current value of the search input.
+     */
+    (action: 'value', value: string): void;
+
+    /**
+     * @description
+     * Sets the value of the count label on the search box.
+     * This can be used to provide feedback to the user as
+     * to how many ‘things’ the search currently matches.
+     *
+     * @example
+     * The standard pattern to follow is:
+     * - if the search box is empty, set it to the number of available items: "300"
+     * - if the search box is not empty, set it to the number of matching items, as well as the number of available items: "120 / 300".
+     * - If value is null, undefined or blank, the count field is hidden.
+     */
+    (action: 'count', value: string): void;
+  }
 }
 
 declare global {
     interface JQuery<TElement = HTMLElement> {
         editableList: editorClient.WidgetEditableList;
         typedInput: editorClient.WidgetTypedInput;
+        searchBox: editorClient.WidgetSearchBox
     }
 }
