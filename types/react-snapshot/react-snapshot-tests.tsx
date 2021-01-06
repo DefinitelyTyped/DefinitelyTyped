@@ -10,5 +10,4 @@ class Test extends React.Component {
 }
 
 render(<Test/>, document.getElementById('test'));
-render(<div><Test/></div>, document.getElementById('test'))
-
+render(<div><Test/></div>, document.getElementById('test'));
