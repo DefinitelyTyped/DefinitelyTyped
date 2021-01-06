@@ -296,16 +296,16 @@ export type ChildNode = TextNode | Element | CommentNode;
 export type ParentNode = Document | DocumentFragment | Element;
 
 export interface TreeAdapterTypeMap {
-    attribute: any;
-    childNode: any;
-    commentNode: any;
-    document: any;
-    documentFragment: any;
-    documentType: any;
-    element: any;
-    node: any;
-    parentNode: any;
-    textNode: any;
+    attribute: unknown;
+    childNode: unknown;
+    commentNode: unknown;
+    document: unknown;
+    documentFragment: unknown;
+    documentType: unknown;
+    element: unknown;
+    node: unknown;
+    parentNode: unknown;
+    textNode: unknown;
 }
 
 export interface TreeAdapter {
