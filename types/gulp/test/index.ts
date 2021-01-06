@@ -49,7 +49,7 @@ const someNextTask = () => {
 
 gulp.task(someTask);
 
-const someTaskWithCb = (cb: gulp.TaskCallback) => {
+const someTaskWithCb = (cb: gulp.TaskFunctionCallback) => {
     cb();
 };
 
