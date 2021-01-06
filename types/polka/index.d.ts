@@ -101,7 +101,7 @@ declare namespace polka {
          * `server` is only created if a server was not provided via `option.server`
          * `server` will be undefined until polka.listen is invoked or if a server was provided.
          */
-        server: Server | undefined;
+        server?: Server;
     }
 
     /**
