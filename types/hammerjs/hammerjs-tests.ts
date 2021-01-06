@@ -1,5 +1,21 @@
 // Tests based on examples at http://hammerjs.github.io/examples/
 
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
+
+  // create a simple instance
+  // by default, it only adds horizontal recognizers
+  var mc = new Hammer( myElement );
+
+  // listen to events...
+  mc.on( "panleft panright tap press", function ( ev )
+  {
+    console.log(ev.maxPointers  - 2);
+    console.log(Math.floor(ev.overallVelocity));
+    console.log(ev.timeStamp + Date.now());
+  } );
+})();
 
 
 (() =>
