@@ -2144,7 +2144,6 @@ declare namespace mapboxgl {
         | SymbolLayer
         | CustomLayerInterface;
 
-
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
         /** A unique layer id. */
