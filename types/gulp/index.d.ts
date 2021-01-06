@@ -16,7 +16,10 @@ declare namespace GulpClient {
 
     type TaskFunction = Undertaker.TaskFunction;
 
-    type TaskCallback = Undertaker.TaskCallback;
+    /**
+     * @deprecated - Now use `TaskFunction`.
+     */
+    type TaskCallback = TaskFunction;
 
     interface Gulp extends Undertaker {
         /**
