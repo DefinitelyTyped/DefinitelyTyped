@@ -1,4 +1,4 @@
-import retries from 'jest-retries';
+import retries = require('jest-retries');
 
 retries('some flaky test', 5, () => {
     if (Math.random() > 0.2) {
