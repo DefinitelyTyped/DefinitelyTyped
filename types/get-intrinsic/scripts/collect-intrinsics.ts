@@ -4,9 +4,9 @@ import path = require('path');
 import fs = require('fs');
 
 import { BASE_INTRINSICS, LEGACY_ALIASES, BASE_INTRINSIC_DATA } from './intrinsics-data';
-import { IntrinsicsWriter } from '../../get-intrinsic/scripts/intrinsics-writer';
+import { IntrinsicsWriter } from './intrinsics-writer';
 
-const OUT_FILE_PATH = path.resolve(__dirname, '..', 'GetIntrinsic.d.ts');
+const OUT_FILE_PATH = path.resolve(__dirname, '..', 'internal', 'intrinsics.d.ts');
 const GENERATED_MARKER = '\n// ------------------------ >8 ------------------------';
 
 const fileHead = (() => {
@@ -14,7 +14,7 @@ const fileHead = (() => {
 
     const markerIndex = fh.indexOf(GENERATED_MARKER);
     if (markerIndex < 0) {
-        throw new Error('Cannot find GENERATED_MARKER in GetIntrinsic.d.ts');
+        throw new Error('Cannot find GENERATED_MARKER in internal/intrinsics.d.ts');
     }
 
     fh = fh.substring(0, markerIndex + GENERATED_MARKER.length);
@@ -31,7 +31,8 @@ new IntrinsicsWriter(outStream).printIntrinsics(
         legacyAliases: LEGACY_ALIASES,
     },
     {
-        nsWrapper: 'GetIntrinsic',
+        skipLegacyNested: true,
+        nsWrapper: null,
     },
 );
 
