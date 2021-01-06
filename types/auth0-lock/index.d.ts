@@ -225,6 +225,7 @@ interface Auth0LockStatic extends Auth0LockCore {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
 }
 
+// additional options for passwordless mode
 interface Auth0LockPasswordlessConstructorOptions extends Auth0LockConstructorOptions {
     passwordlessMethod?: string;
 }
