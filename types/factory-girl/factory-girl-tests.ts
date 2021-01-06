@@ -29,6 +29,24 @@ const scoreSequence = factory.sequence<number>(
 );
 const scoreSeq = factory.seq<number>('User.score', score => score + 1);
 
+// Testing sequence with no params
+// $ExpectType Generator<number>
+factory.seq();
+// $ExpectType Generator<number>
+factory.sequence();
+
+// Testing sequence with id
+// $ExpectType Generator<number>
+factory.seq('User.score');
+// $ExpectType Generator<number>
+factory.sequence('User.score');
+
+// Testing sequence with callback
+// $ExpectType Generator<string>
+factory.seq(value => `${value}`);
+// $ExpectType Generator<string>
+factory.sequence(value => `${value}`);
+
 // Testing sequence resetting
 factory.resetSeq();
 factory.resetSequence();
