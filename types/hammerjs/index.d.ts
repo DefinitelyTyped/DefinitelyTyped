@@ -17,27 +17,27 @@ interface HammerStatic
 
   VERSION: number;
 
-  INPUT_START:  number;
-  INPUT_MOVE:   number;
-  INPUT_END:    number;
-  INPUT_CANCEL: number;
+  INPUT_START:  0b0001;
+  INPUT_MOVE:   0b0010;
+  INPUT_END:    0b0100;
+  INPUT_CANCEL: 0b1000;
 
-  STATE_POSSIBLE:   number;
-  STATE_BEGAN:      number;
-  STATE_CHANGED:    number;
-  STATE_ENDED:      number;
-  STATE_RECOGNIZED: number;
-  STATE_CANCELLED:  number;
-  STATE_FAILED:     number;
+  STATE_POSSIBLE:   0b1;
+  STATE_BEGAN:      0b10;
+  STATE_CHANGED:    0b100;
+  STATE_ENDED:      0b1000;
+  STATE_RECOGNIZED: 0b1000; // same as STATE_ENDED
+  STATE_CANCELLED:  0b10000;
+  STATE_FAILED:     0b100000;
 
-  DIRECTION_NONE:       number;
-  DIRECTION_LEFT:       number;
-  DIRECTION_RIGHT:      number;
-  DIRECTION_UP:         number;
-  DIRECTION_DOWN:       number;
-  DIRECTION_HORIZONTAL: number;
-  DIRECTION_VERTICAL:   number;
-  DIRECTION_ALL:        number;
+  DIRECTION_NONE:       0b00001;
+  DIRECTION_LEFT:       0b00010;
+  DIRECTION_RIGHT:      0b00100;
+  DIRECTION_UP:         0b01000;
+  DIRECTION_DOWN:       0b10000;
+  DIRECTION_HORIZONTAL: 0b00110; // DIRECTION_LEFT | DIRECTION_RIGHT
+  DIRECTION_VERTICAL:   0b11000; // DIRECTION_UP | DIRECTION_DOWN
+  DIRECTION_ALL:        0b11110; // DIRECTION_HORIZONTAL | DIRECTION_VERTICAL
 
   Manager:     HammerManagerConstructor;
   Input:       HammerInput;
