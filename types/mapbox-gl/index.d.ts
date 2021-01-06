@@ -2142,7 +2142,8 @@ declare namespace mapboxgl {
         | LineLayer
         | RasterLayer
         | SymbolLayer
-        | CustomLayerInterface;
+        | CustomLayerInterface
+        | SkyLayer;
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
