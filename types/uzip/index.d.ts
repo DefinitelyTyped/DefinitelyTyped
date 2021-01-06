@@ -25,6 +25,7 @@ export interface UZIPOptions {
 }
 
 /**
+ * Read a ZIP file (as `ArrayBuffer`) and convert into a key-value pair of containing files.
  * @param buf ArrayBuffer of the ZIP file
  * @param onlyNames If `true`, returns file sizes instead of contents.
  */
@@ -32,7 +33,7 @@ export function parse(buf: ArrayBuffer, onlyNames?: boolean): UZIPFiles;
 export function parse(buf: ArrayBuffer, onlyNames: true): UZIPSizeInfo;
 
 /**
- *
+ * Encode files into a ZIP buffer
  * @param obj Object with `key:property` pairs, where `key` is a file path, and `property` is an Uint8Array of its contents
  * @param noCmpr Disable ZIP compression
  */
