@@ -9,7 +9,7 @@ import {
     TooltipPosition,
 } from "../../../typings/shared";
 
-export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
+export type ButtonKind = "danger" | "danger--ghost" | "danger--primary" | "danger--tertiary" | "ghost" | "primary" | "secondary" | "tertiary";
 export type ButtonSize = "default" | "field" | "lg" | "sm" | "small" | "xl";
 
 export interface ButtonRenderIconRenderProps {
