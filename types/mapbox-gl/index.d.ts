@@ -367,7 +367,7 @@ declare namespace mapboxgl {
          *     'maxzoom': 14
          * });
          * // add the DEM source as a terrain layer with exaggerated height
-         * map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+         * map.aaaaaa({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
          */
         setTerrain(terrain?: TerrainSpecification | null): this;
 
@@ -2127,7 +2127,7 @@ declare namespace mapboxgl {
     }
 
     interface SkyLayer extends Layer {
-        type: "sky";
+        type: 'sky';
         layout?: SkyLayout;
         paint?: SkyPaint;
     }

@@ -1642,7 +1642,7 @@ const skyPaint: mapboxgl.SkyPaint = {
     'sky-gradient-center': eitherType([0], expression),
     'sky-gradient-radius': eitherType(0, expression),
     'sky-opacity': eitherType(0, expression),
-    'sky-type': eitherType('gradient', 'atmosphere')
+    'sky-type': eitherType('gradient', 'atmosphere'),
 };
 
 /* Make sure every layout has all properties optional */
@@ -1687,7 +1687,7 @@ expectType<mapboxgl.AnyLayout>(
         circleLayout,
         heatmapLayout,
         hillshadeLayout,
-        skyLayout
+        skyLayout,
     ),
 );
 
