@@ -367,7 +367,7 @@ declare namespace mapboxgl {
          *     'maxzoom': 14
          * });
          * // add the DEM source as a terrain layer with exaggerated height
-         * map.aaaaaa({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+         * map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
          */
         setTerrain(terrain?: TerrainSpecification | null): this;
 
