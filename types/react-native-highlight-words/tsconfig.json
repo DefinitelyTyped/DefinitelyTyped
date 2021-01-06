@@ -13,5 +13,5 @@
       "forceConsistentCasingInFileNames": true,
       "jsx": "react-native"
   },
-  "files": ["index.d.ts", "react-native-highlight-words-test.tsx"]
+  "files": ["index.d.ts", "react-native-highlight-words-tests.tsx"]
 }
