@@ -2036,7 +2036,8 @@ declare namespace mapboxgl {
         | RasterLayout
         | CircleLayout
         | HeatmapLayout
-        | HillshadeLayout;
+        | HillshadeLayout
+        | SkyLayout;
 
     export type AnyPaint =
         | BackgroundPaint
@@ -2047,7 +2048,8 @@ declare namespace mapboxgl {
         | RasterPaint
         | CirclePaint
         | HeatmapPaint
-        | HillshadePaint;
+        | HillshadePaint
+        | SkyPaint;
 
     interface Layer {
         id: string;
@@ -2124,6 +2126,12 @@ declare namespace mapboxgl {
         paint?: SymbolPaint;
     }
 
+    interface SkyLayer extends Layer {
+        type: "sky";
+        layout?: SkyLayout;
+        paint?: SkyPaint;
+    }
+
     export type AnyLayer =
         | BackgroundLayer
         | CircleLayer
@@ -2135,6 +2143,7 @@ declare namespace mapboxgl {
         | RasterLayer
         | SymbolLayer
         | CustomLayerInterface;
+
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
@@ -2446,5 +2455,19 @@ declare namespace mapboxgl {
         'hillshade-highlight-color-transition'?: Transition;
         'hillshade-accent-color'?: string | Expression;
         'hillshade-accent-color-transition'?: Transition;
+    }
+
+    export interface SkyLayout extends Layout {}
+
+    export interface SkyPaint {
+        'sky-atmosphere-color'?: string | Expression;
+        'sky-atmosphere-halo-color'?: string | Expression;
+        'sky-atmosphere-sun'?: number[] | Expression;
+        'sky-atmosphere-sun-intensity'?: number | Expression;
+        'sky-gradient'?: string | Expression;
+        'sky-gradient-center'?: number[] | Expression;
+        'sky-gradient-radius'?: number | Expression;
+        'sky-opacity'?: number | Expression;
+        'sky-type'?: 'gradient' | 'atmosphere';
     }
 }
