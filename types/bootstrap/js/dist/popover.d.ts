@@ -213,7 +213,7 @@ declare namespace Popover {
          * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default 'flip'
          */
-        fallbackPlacement: Popper.Behavior | Popper.Position[];
+        fallbackPlacement: string | string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
