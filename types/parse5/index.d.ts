@@ -89,13 +89,13 @@ export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
     treeAdapter?: T;
 }
 
-export interface SerializerOptions {
+export interface SerializerOptions<T extends TreeAdapter = TreeAdapter> {
     /***
      * Specifies input tree format.
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: TreeAdapter;
+    treeAdapter?: T;
 }
 
 /**
@@ -705,4 +705,6 @@ export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-
  * console.log(str); //> '<head></head><body>Hi there!</body>'
  * ```
  */
-export function serialize(node: Node, options?: SerializerOptions): string;
+export function serialize<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
+    node: T extends TypedTreeAdapter<infer TMap> ? TMap['node'] : Node,
+    options?: SerializerOptions<T>): string;
