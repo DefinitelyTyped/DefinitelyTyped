@@ -135,8 +135,8 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
 ): match<Params> | null;
 
 export type ExtractRouteOptionalParam<T extends string> = T extends `${infer Param}?`
-    ? { [k in Param]?: string | number }
-    : { [k in T]: string | number };
+    ? { [k in Param]?: string | number | boolean }
+    : { [k in T]: string | number | boolean };
 
 export type ExtractRouteParams<T extends string> = string extends T
     ? Record<string, string | number>
