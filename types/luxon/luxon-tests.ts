@@ -129,7 +129,7 @@ dt.isInDST; // $ExpectType boolean
 
 dt.set({ hour: 3 }).hour; // $ExpectType number
 
-const f = { month: 'long', day: 'numeric' } as const;
+const f: { month: 'long', day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);
 dt.setLocale('en-GB').toLocaleString(f);
 dt.setLocale('en-US').toLocaleString(f);
