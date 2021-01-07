@@ -1092,7 +1092,7 @@ declare namespace CodeMirror {
         specialChars?: RegExp;
 
         /** A function that, given a special character identified by the specialChars option, produces a DOM node that is used to represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code. */
-        specialCharPlaceholder?: (char: string) => HTMLElement;
+        specialCharPlaceholder?: (char: string) => Element;
 
         /** Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example, leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let users toggle this option. */
         direction?: "ltr" | "rtl"
