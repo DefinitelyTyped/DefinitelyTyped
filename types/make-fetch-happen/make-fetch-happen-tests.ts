@@ -1,4 +1,4 @@
-import fetcher from 'make-fetch-happen';
+import fetcher = require('make-fetch-happen');
 import { Integrity } from 'ssri';
 import { URL as NodeURL } from 'url';
 
@@ -14,8 +14,9 @@ fetcher.defaults();
 // $ExpectError
 fetcher.defaults()();
 
+// Recursively, should do the same!
 // $ExpectType FetchInterface
-fetcher.defaults();
+fetcher.defaults().defaults();
 
 // Returns a Response when fetched.
 // $ExpectType Promise<Response>
