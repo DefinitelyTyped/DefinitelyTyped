@@ -86,7 +86,10 @@ export const APPLICATION_JAVA_OBJECT: WellKnownMimeType;
 export const APPLICATION_CLOUDEVENTS_JSON: WellKnownMimeType;
 
 // ... reserved for future use ...
-
+// ... reserved for future use ...
+export const MESSAGE_RSOCKET_MIMETYPE: WellKnownMimeType;
+export const MESSAGE_RSOCKET_ACCEPT_MIMETYPES: WellKnownMimeType;
+export const MESSAGE_RSOCKET_AUTHENTICATION: WellKnownMimeType;
 export const MESSAGE_RSOCKET_TRACING_ZIPKIN: WellKnownMimeType;
 export const MESSAGE_RSOCKET_ROUTING: WellKnownMimeType;
 export const MESSAGE_RSOCKET_COMPOSITE_METADATA: WellKnownMimeType;
