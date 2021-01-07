@@ -4,7 +4,7 @@
 //                 ShinyLeee <https://github.com/ShinyLeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
-
+// tslint:disable:max-line-length
 import * as React from 'react';
 import {
     StyleProp,
@@ -1783,7 +1783,7 @@ export interface DialogCancelProps {
      */
     onCancel?: () => void;
 }
-
+// tslint:disable-next-line no-empty-interface
 export interface DialogAlertProps extends DialogProps {}
 export interface DialogCheckbox extends TYFlatListData {
     value?: string | number;
@@ -1996,6 +1996,7 @@ export interface DialogElse extends ModalProps {
     onHide?: () => void;
     onDismiss?: () => void;
 }
+// tslint:disable-next-line no-unnecessary-class
 export class Dialog {
     static alert: (option: DialogAlertProps, option2?: DialogElse) => void;
     static checkbox: (option: DialogCheckboxProps, option2?: DialogElse) => void;
@@ -3111,6 +3112,7 @@ export interface NotificationProps extends TouchableOpacityProps {
      */
     backIconCenter?: boolean;
 }
+// tslint:disable-next-line no-unnecessary-class
 export class Notification {
     static show: (option: NotificationProps) => void;
     static hide: () => void;
@@ -10068,6 +10070,7 @@ export let Utils: {
         ThemeProvider: React.ElementType<ThemeProviderProps>;
         ThemeConsumer: React.ElementType<ThemeConsumerProps>;
         deepMerge(target: object, ...args: object[]): object;
+        // tslint:disable-next-line no-unnecessary-generics
         withTheme<P extends { theme?: T }, T>(component: React.ComponentType<P>): React.ComponentType<P>;
         parseToCss: (values: number[], key: string) => { [styleKey: string]: number };
         parseToStyle: (values: number[], key: string) => { [styleKey: string]: number };
@@ -10119,7 +10122,7 @@ export let Utils: {
 };
 
 export let defaultTheme: GlobalTheme;
-
+// tslint:disable-next-line interface-name
 export interface I18NLanMap {
     en: Record<string, string>;
     zh: Record<string, string>;
@@ -10412,7 +10415,7 @@ export interface NavigationParam {
 export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
-
+// tslint:disable-next-line no-unnecessary-generics
 export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
 
 export type GotoDpAlarmData = Array<{
@@ -10484,6 +10487,7 @@ export let TYSdk: {
      * @param postData api params
      * @param version - api version, default 1.0
      */
+    // tslint:disable-next-line no-unnecessary-generics
     apiRequest<T>(a: string, postData: Record<string, any>, version?: string): Promise<T>;
     applyNavigator(navigator: DeprecatedNavigator): void;
     devInfo: DevInfo;
@@ -10494,6 +10498,7 @@ export let TYSdk: {
         getBleManagerState(): Promise<boolean>;
         getBluetoothState(): Promise<number>;
         getDeviceInfo(): Promise<DevInfo>;
+        // tslint:disable-next-line no-unnecessary-generics
         getDeviceState<S = Record<string, DpType>>(): Promise<S>;
         getDpCodeById(id: string | number): string;
         getDpCodes(): string[];
@@ -10545,6 +10550,7 @@ export let TYSdk: {
          */
         off(event: string, callback?: AnyFunction): void;
         on(event: string, callback: AnyFunction): void;
+        // tslint:disable-next-line no-unnecessary-generics
         on<T>(event: string, callback: (args: T) => void): void;
         /**
          * @desc
