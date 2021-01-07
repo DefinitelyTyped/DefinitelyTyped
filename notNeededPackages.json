@@ -4772,6 +4772,11 @@
             "asOfVersion": "8.0.0"
         },
         {
+            "libraryName": "unsplash-js",
+            "typingsPackageName": "unsplash-js",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "untildify",
             "typingsPackageName": "untildify",
             "asOfVersion": "4.0.0"
