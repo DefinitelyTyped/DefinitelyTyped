@@ -1,4 +1,4 @@
-// Type definitions for resolve 1.17.0
+// Type definitions for resolve 1.19.0
 // Project: https://github.com/browserify/resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Klaus Meinhardt <https://github.com/ajafff>
