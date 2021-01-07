@@ -1,7 +1,9 @@
 // Type definitions for forms 1.3
 // Project: https://github.com/caolan/forms
 // Definitions by: suXin <https://github.com/suXinjke>
+//                 Pelle Wessman <https://github.com/voxpelli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.4
 
 /// <reference types="node"/>
 
@@ -13,7 +15,7 @@ export interface FieldObjectChoice {
 
 export interface FieldArrayChoice extends Array<[string, string | FieldArrayChoice]> {}
 
-export type FieldParameters = {
+export interface FieldParameters {
     /** Optional label text which overrides the default. */
     label?: string;
 
@@ -83,7 +85,7 @@ export type Field<Data = any> = FieldParameters & {
      * which returns a HTML representation of the field label, error message and widget wrapped in a div.
      */
     toHTML: (name?: string, iterator?: FieldIterator) => string;
-}
+};
 
 export type FieldBound<Data = any, RawData = any> = Field<Data> & {
     /** The raw value from the request data. */
@@ -100,7 +102,7 @@ export type FieldBound<Data = any, RawData = any> = Field<Data> & {
      * If a validator fails, the resulting message is stored in the field's error attribute.
      */
     validate: (form: Form, callback: (err: string, field: Field) => void) => void;
-}
+};
 
 export interface Widget extends WidgetParameters {
     formatValue: (value: any) => any;
@@ -127,17 +129,22 @@ export interface WidgetParameters {
  */
 export type ValidatorFunction = (form: FormBound, field: FieldBound, callback: (err?: string) => void) => void;
 
-export type FormFields = {
+export interface FormFields {
     [key: string]: Field | FormFields;
 }
 
-type HandleData<Fields extends FormFields, Data> = Data extends IncomingMessage ? FormData<Fields> : Data;
+export type FormHandleCallback<
+    Fields extends FormFields = FormFields,
+    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: any })) = FormData<Fields>
+> = (form: FormBound<Fields, Data extends IncomingMessage ? FormData<Fields> : Data>) => void;
 
-export type FormHandleCallback<Fields extends FormFields = FormFields, Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: any })) = FormData<Fields>> = (form: FormBound<Fields, HandleData<Fields, Data>>) => void;
+export type FormData<Fields extends FormFields = FormFields> = {
+    [Key in keyof Fields]: Fields[Key] extends Field
+        ? ReturnType<Fields[Key]["parse"]>
+        : never
+};
 
-type FormData<Fields extends FormFields = FormFields> = { [Key in keyof Fields]: Fields[Key] extends Field ? ReturnType<Fields[Key]["parse"]> : never };
-
-export type Form<Fields extends FormFields = FormFields> = {
+export interface Form<Fields extends FormFields = FormFields> {
     /** Field objects this form was created with */
     fields: Fields;
 
@@ -162,7 +169,7 @@ export type Form<Fields extends FormFields = FormFields> = {
     toHTML: (iterator?: FieldIterator) => string;
 }
 
-export type FormBound<Fields extends FormFields = any, Data extends Partial<FormData<Fields>> = FormData<Fields>> = {
+export interface FormBound<Fields extends FormFields = any, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
     /** Object containing all the parsed data keyed by field name. */
     data: FormData<Fields> & Data;
 
