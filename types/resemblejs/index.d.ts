@@ -18,14 +18,20 @@ declare namespace Resemble {
   function outputSettings(settings: OutputSettings): typeof Resemble;
 
   interface OutputSettings {
-    errorColor: {
+    errorColor?: {
       red: number;
       green: number;
       blue: number;
     };
-    errorType: string;
-    transparency: number;
-    largeImageThreshold: number;
+    errorType?: string;
+    transparency?: number;
+    largeImageThreshold?: number;
+    ignoredBox?: {
+          left: number,
+          top: number,
+          right: number,
+          button: number
+     };
   }
 
   interface ResembleAnalysis {
