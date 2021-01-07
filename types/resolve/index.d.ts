@@ -80,6 +80,8 @@ declare namespace resolve {
     basedir?: string;
     /** package.json data applicable to the module being loaded */
     package?: any;
+    /** set to false to exclude node core modules (e.g. fs) from the search */
+    includeCoreModules?: boolean;
     /** array of file extensions to search in order (defaults to ['.js']) */
     extensions?: string | ReadonlyArray<string>;
     /** transform the parsed package.json contents before looking at the "main" field */
