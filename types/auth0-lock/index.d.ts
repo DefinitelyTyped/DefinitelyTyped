@@ -235,6 +235,7 @@ interface Auth0LockPasswordlessStatic extends Auth0LockCore {
 }
 
 declare module "auth0-lock" {
-    const Auth0Lock: Auth0LockStatic;
-    const Auth0LockPasswordless: Auth0LockPasswordlessStatic;
+    export default Auth0Lock;
+    export const Auth0Lock: Auth0LockStatic;
+    export const Auth0LockPasswordless: Auth0LockPasswordlessStatic;
 }

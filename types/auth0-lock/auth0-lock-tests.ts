@@ -1,5 +1,5 @@
 import * as auth0 from 'auth0-js';
-import { Auth0Lock, Auth0LockPasswordless } from 'auth0-lock';
+import Auth0Lock, { Auth0LockPasswordless } from 'auth0-lock';
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
