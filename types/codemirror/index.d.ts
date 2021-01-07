@@ -887,6 +887,12 @@ declare namespace CodeMirror {
                 /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
             Set this option to true to make it go to the left instead. */
                 insertLeft?: boolean;
+
+                /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents. By default, a marker appears only in its target document. */
+                shared?: boolean;
+
+                /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
+                handleMouseEvents?: boolean;
             },
         ): CodeMirror.TextMarker;
 
@@ -1059,6 +1065,9 @@ declare namespace CodeMirror {
         with a name property that names the mode (for example {name: "javascript", json: true}). */
         mode?: any;
 
+        /** Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific string is given, lines will only be split on that string, and output will, by default, use that same separator. */
+        lineSeparator?: string | null;
+
         /** The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
         The default is "default". */
         theme?: string;
@@ -1078,6 +1087,15 @@ declare namespace CodeMirror {
         /** Configures whether the editor should re-indent the current line when a character is typed
         that might change its proper indentation (only works if the mode supports indentation). Default is true. */
         electricChars?: boolean;
+
+        /** A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/. */
+        specialChars?: RegExp;
+
+        /** A function that, given a special character identified by the specialChars option, produces a DOM node that is used to represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code. */
+        specialCharPlaceholder?: (char: string) => HTMLElement;
+
+        /** Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example, leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let users toggle this option. */
+        direction?: "ltr" | "rtl"
 
         /** Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
         is visual (pressing the left arrow moves the cursor left)
@@ -1116,7 +1134,7 @@ declare namespace CodeMirror {
         and which will be used to draw the background of the gutters.
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
-        gutters?: string[];
+        gutters?: (string | { className: string; style?: string })[];
 
         /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
         foldGutter?: boolean;
