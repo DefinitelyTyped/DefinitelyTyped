@@ -170,7 +170,7 @@ export interface Form<Fields extends FormFields = FormFields> {
     toHTML: (iterator?: FieldIterator) => string;
 }
 
-export interface FormBound<Fields extends FormFields = unknown, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
+export interface FormBound<Fields extends FormFields = any, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
     /** Object containing all the parsed data keyed by field name. */
     data: FormData<Fields> & Data;
 
@@ -188,7 +188,7 @@ export function create<Fields extends FormFields = FormFields>(fields: Fields, o
 }): Form<Fields>;
 
 export namespace fields {
-    function array<T = unknown>(params?: FieldParameters): Field<T[]>;
+    function array(params?: FieldParameters): Field<unknown[]>;
     function boolean(params?: FieldParameters): Field<boolean>;
     function date(params?: FieldParameters): Field<string>;
     function email(params?: FieldParameters): Field<string>;
