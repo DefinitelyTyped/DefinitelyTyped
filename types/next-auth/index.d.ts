@@ -75,6 +75,7 @@ interface CookieOptions {
     path?: string;
     secure?: boolean;
     maxAge?: number;
+    domain?: string;
 }
 
 interface Events {
