@@ -44,7 +44,7 @@ export interface Options {
     /**
      * Create the manifest. It can return anything as long as it's serializable by JSON.stringify.
      */
-    generate?: (seed: object, files: FileDescriptor[], entries: string[]) => object;
+    generate?: (seed: object, files: FileDescriptor[], entries: Record<string, string[]>) => object;
 
     /**
      * Modify file details before the manifest is created.
