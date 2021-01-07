@@ -37,7 +37,7 @@ export class Change {
 
     slice(startA: number, endA: number, startB: number, endB: number): Change;
 
-    // : ([Change], [Change], (any, any) → any) → [Change]
+    // :: ([Change], [Change], (any, any) → any) → [Change]
     // This merges two changesets (the end document of x should be the
     // start document of y) into a single one spanning the start of x to
     // the end of y.
@@ -86,3 +86,12 @@ export class ChangeSet<S extends Schema = any> {
     // version for a merged range when it is.
     static create<S extends Schema = any>(doc: Node<S>, combine?: (a: any, b: any) => any): ChangeSet<S>;
 }
+
+// :: ([Change], Node) → [Change]
+// Simplifies a set of changes for presentation. This makes the
+// assumption that having both insertions and deletions within a word
+// is confusing, and, when such changes occur without a word boundary
+// between them, they should be expanded to cover the entire set of
+// words (in the new document) they touch. An exception is made for
+// single-character replacements.
+export function simplifyChanges(changes: Change[], doc: Node): Change[];

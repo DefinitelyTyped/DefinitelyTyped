@@ -1,5 +1,5 @@
-import { ChangeSet, Span, Change } from 'prosemirror-changeset';
-import { Node, Schema } from 'prosemirror-model';
+import { Change, ChangeSet, simplifyChanges, Span } from 'prosemirror-changeset';
+import { Node } from 'prosemirror-model';
 import { StepMap } from 'prosemirror-transform';
 
 const span = new Span(0, { test: 'test' });
@@ -89,3 +89,6 @@ changeset.changedRange(
 ChangeSet.create(new Node());
 // $ExpectType ChangeSet<any>
 ChangeSet.create(new Node(), (a, b) => ({ ...a, ...b }));
+
+// $ExpectType Change[]
+simplifyChanges([new Change(0, 0, 1, 1, [new Span(0, { test: 'test' })], [new Span(0, { test: 'test' })])], new Node());
