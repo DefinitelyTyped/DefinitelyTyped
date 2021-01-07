@@ -2,6 +2,7 @@
 // Project: https://github.com/caolan/forms
 // Definitions by: suXin <https://github.com/suXinjke>
 //                 Pelle Wessman <https://github.com/voxpelli>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -58,15 +59,15 @@ export interface FieldParameters {
 
 export type FieldIterator = (name: string, field: FieldBound) => string;
 
-export type Field<Data = any> = FieldParameters & {
+export type Field<Data = unknown> = FieldParameters & {
     /** A widget object to use when rendering the field. */
     widget: Widget;
 
     /** Coerces the raw data from the request into the correct format for the field, returning the result, e.g. '123' becomes 123 for the number field. */
-    parse: (rawData: any) => Data;
+    parse: (rawData: unknown) => Data;
 
     /** Returns a new bound field object. Calls parse on the data and stores in the bound field's data attribute, stores the raw value in the value attribute. */
-    bind: <RawData = any>(rawData: RawData) => FieldBound<Data, RawData>;
+    bind: <RawData = unknown>(rawData: RawData) => FieldBound<Data, RawData>;
 
     /** Returns a string containing a HTML element containing the fields error message, or an empty string if there is no error associated with the field. */
     errorHTML: () => string;
@@ -87,7 +88,7 @@ export type Field<Data = any> = FieldParameters & {
     toHTML: (name?: string, iterator?: FieldIterator) => string;
 };
 
-export type FieldBound<Data = any, RawData = any> = Field<Data> & {
+export type FieldBound<Data = unknown, RawData = unknown> = Field<Data> & {
     /** The raw value from the request data. */
     value: RawData;
 
@@ -135,7 +136,7 @@ export interface FormFields {
 
 export type FormHandleCallback<
     Fields extends FormFields = FormFields,
-    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: any })) = FormData<Fields>
+    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })) = FormData<Fields>
 > = (form: FormBound<Fields, Data extends IncomingMessage ? FormData<Fields> : Data>) => void;
 
 export type FormData<Fields extends FormFields = FormFields> = {
@@ -149,7 +150,7 @@ export interface Form<Fields extends FormFields = FormFields> {
     fields: Fields;
 
     /** Inspects a request or object literal and binds any data to the correct fields. */
-    handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: any })>(
+    handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })>(
         req: Data|undefined,
         callbacks: {
             success?: FormHandleCallback<Fields, Data>
@@ -159,7 +160,7 @@ export interface Form<Fields extends FormFields = FormFields> {
     ) => void;
 
     /** Binds data to correct fields, returning a new bound form object. */
-    bind: <Data extends Partial<FormData<Fields>>>(data: (Data & { [key: string]: any }) | null | undefined) => FormBound<Fields, Data>;
+    bind: <Data extends Partial<FormData<Fields>>>(data: (Data & { [key: string]: unknown }) | null | undefined) => FormBound<Fields, Data>;
 
     /**
      * Runs toHTML on each field returning the result.
@@ -169,7 +170,7 @@ export interface Form<Fields extends FormFields = FormFields> {
     toHTML: (iterator?: FieldIterator) => string;
 }
 
-export interface FormBound<Fields extends FormFields = any, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
+export interface FormBound<Fields extends FormFields = unknown, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
     /** Object containing all the parsed data keyed by field name. */
     data: FormData<Fields> & Data;
 
@@ -187,7 +188,7 @@ export function create<Fields extends FormFields = FormFields>(fields: Fields, o
 }): Form<Fields>;
 
 export namespace fields {
-    function array(params?: FieldParameters): Field<any[]>;
+    function array<T = unknown>(params?: FieldParameters): Field<T[]>;
     function boolean(params?: FieldParameters): Field<boolean>;
     function date(params?: FieldParameters): Field<string>;
     function email(params?: FieldParameters): Field<string>;
