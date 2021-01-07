@@ -24,7 +24,8 @@ module.exports = function(config: karma.Config) {
       dir: 'coverage/',
       // $ExpectType (browser: string) => string
       subdir: (browser) => {
-          return `cool-${browser}-directory`;
+          // tslint:disable-next-line:no-unnecessary-type-assertion
+          return `cool-${browser}-directory` as string;
       },
       // $ExpectType string
       file: 'index.html',
