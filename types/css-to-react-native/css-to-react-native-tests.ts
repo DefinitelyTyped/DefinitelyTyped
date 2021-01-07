@@ -2,9 +2,9 @@ import css2RN = require('css-to-react-native');
 
 // $ExpectType Style
 css2RN.default([
-  ['font', 'bold 14px/16px "Helvetica"'],
-  ['margin', '5px 7px 2px'],
-  ['border-left-width', '5px'],
+    ['font', 'bold 14px/16px "Helvetica"'],
+    ['margin', '5px 7px 2px'],
+    ['border-left-width', '5px'],
 ]);
 
 // $ExpectType string
