@@ -2411,7 +2411,7 @@ declare namespace Xrm {
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: number): OptionSetValue;            
 
             /**
              * Gets the option matching a label.
@@ -2986,6 +2986,12 @@ declare namespace Xrm {
              * @returns The attribute.
              */
             getAttribute(): Attributes.OptionSetAttribute;
+            
+            /**
+             * Gets all options currently on the control.
+             * @returns Array of options.
+             */
+            getOptions(): OptionSetValue[]
 
             /**
              * Removes the option matching the value.
