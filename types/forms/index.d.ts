@@ -150,7 +150,7 @@ export interface Form<Fields extends FormFields = FormFields> {
 
     /** Inspects a request or object literal and binds any data to the correct fields. */
     handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: any })>(
-        req: Data,
+        req: Data|undefined,
         callbacks: {
             success?: FormHandleCallback<Fields, Data>
             error?: FormHandleCallback<Fields, Data>
