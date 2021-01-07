@@ -9,6 +9,7 @@
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
 //                 Isabela Morais <https://github.com/isabela-morais>
+//                 Raimondo Butera <https://github.com/rbutera>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -68,6 +69,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
 
 export interface CreateUserData extends UserData {
   connection: string;
+}
+
+export interface SignUpUserData extends UserData {
+  connection?: string;
 }
 
 export interface UpdateUserData extends UserData {
@@ -1330,8 +1335,8 @@ export class DatabaseAuthenticator<A=AppMetadata, U=UserMetadata> {
   signIn(data: SignInOptions): Promise<SignInToken>;
   signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-  signUp(data: CreateUserData): Promise<User<A, U>>;
-  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  signUp(data: SignUpUserData): Promise<User<A, U>>;
+  signIn(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
 
 }
 
