@@ -326,6 +326,60 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
     // Handle the error
   });
 
+// Connections
+// Get all Connections with promise
+management.getConnections().then((connections: auth0.Connection[]) => {
+  console.log(connections);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Connections with callback
+management.getConnections((err: Error, connections: auth0.Connection[]) => {});
+
+// Get all Connections with promise and pagination
+management.getConnections({per_page: 25, page: 0}).then((connections: auth0.Connection[]) => {
+  console.log(connections);
+}).catch((err) => {
+  // error handler
+});
+
+// Rules
+// Get all Rules with promise
+management.getRules().then((rules: auth0.Rule[]) => {
+  console.log(rules);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Rules with callback
+management.getRules((err: Error, rule: auth0.Rule[]) => {});
+
+// Get all Rules with promise and pagination
+management.getRules({per_page: 25, page: 0}).then((rules: auth0.Rule[]) => {
+  console.log(rules);
+}).catch((err) => {
+  // error handler
+});
+
+// Resource Servers
+// Get all Resource Servers with promise
+management.getResourceServers().then((resourceServers: auth0.ResourceServer[]) => {
+  console.log(resourceServers);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Resource Servers with callback
+management.getResourceServers((err: Error, resourceServers: auth0.ResourceServer[]) => {});
+
+// Get all Resource Servers with promise and pagination
+management.getRules({per_page: 25, page: 0}).then((resourceServers: auth0.ResourceServer[]) => {
+  console.log(resourceServers);
+}).catch((err) => {
+  // error handler
+});
+
 // Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
 
