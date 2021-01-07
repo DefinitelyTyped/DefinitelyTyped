@@ -1,4 +1,4 @@
-// Type definitions for is-valid-domain 0.1
+// Type definitions for is-valid-domain 0.0
 // Project: https://github.com/miguelmota/is-valid-domain
 // Definitions by: Guille <https://github.com/guillenotfound>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
