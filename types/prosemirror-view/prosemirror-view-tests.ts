@@ -24,6 +24,8 @@ const res1_2: { pos: number, inside: number } = res1_1.posAtCoords({ left: 0, to
 const res1_3: boolean = res1_1.editable;
 const res1_4 = res1_1.coordsAtPos(1);
 const res1_5 = res1_1.coordsAtPos(1, 1);
+const res1_6 = res1_1.domAtPos(1);
+const res1_7 = res1_1.domAtPos(1, 1);
 res1_1.setProps({ scrollThreshold: 42 });
 
 const res2_1: view.EditorProps = {} as any;
