@@ -30,7 +30,7 @@ declare namespace Resemble {
           left: number,
           top: number,
           right: number,
-          button: number
+          bottom: number
      };
   }
 
