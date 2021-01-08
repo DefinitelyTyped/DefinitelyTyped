@@ -132,7 +132,7 @@ element.addEventListener(Modal.Events.hidePrevented, event => {
  */
 
 // $ExpectType Popover
-const popover = new Popover(element, { animation: true });
+const popover = new Popover(element, { delay: 0.5, animation: true });
 
 // $ExpectType Popover
 const instancePopover = Popover.getInstance(element);
