@@ -27,6 +27,7 @@
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Alexandre Germain <https://github.com/gerkindev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -1189,7 +1190,7 @@ declare namespace jest {
         /**
          * Returns the function that was set as the implementation of the mock (using mockImplementation).
          */
-        getMockImplementation(): (...args: Y) => T | undefined;
+        getMockImplementation(): ((...args: Y) => T) | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation

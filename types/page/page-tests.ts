@@ -100,3 +100,7 @@ const otherPage = page.create({
 });
 otherPage('/', index2);
 otherPage.clickHandler; // $ExpectType (e: MouseEvent) => void
+
+page.strict(true); // $ExpectType void
+page.strict(false); // $ExpectType void
+page.strict(); // $ExpectType boolean

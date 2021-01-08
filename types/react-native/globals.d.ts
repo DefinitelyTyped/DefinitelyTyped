@@ -78,7 +78,18 @@ declare var Headers: {
     new (init?: HeadersInit_): Headers;
 };
 
+/**
+ * React Native's implementation of fetch allows this syntax for uploading files from
+ * local filesystem.
+ * See https://github.com/facebook/react-native/blob/master/Libraries/Network/convertRequestBody.js#L22
+ */
+interface _SourceUri {
+    uri: string;
+    [key: string]: any;
+}
+
 type BodyInit_ =
+    | _SourceUri
     | Blob
     | Int8Array
     | Int16Array

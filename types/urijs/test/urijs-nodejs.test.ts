@@ -262,4 +262,14 @@ declare var $: (arg?: any) => JQuery;
     u.search(() => {
         // Return nothing
     });
+
+    /*
+    Tests for URI.withinString()
+    From: https://medialize.github.io/URI.js/docs.html#static-withinString
+    */
+    const decorate = (url: string, start: number, end: number, source: string) =>
+        [url, start, end, source.length].join();
+    const source = 'A www.example.com B';
+
+    test(URI.withinString(source, decorate), 'A www.example.com,2,17,19 B');
 }

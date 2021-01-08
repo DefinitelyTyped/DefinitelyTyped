@@ -118,6 +118,12 @@ declare namespace PageJS {
          */
         show(path: string): void;
         /**
+         * Get or set the strict path matching mode to enable.
+         * If enabled /blog will not match "/blog/" and /blog/ will not match "/blog".
+         */
+        strict(enable: boolean): void;
+        strict(): boolean;
+        /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
          *
          *     - click bind to click events [true]

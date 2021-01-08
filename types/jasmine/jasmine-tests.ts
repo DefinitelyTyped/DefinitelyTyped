@@ -1585,7 +1585,7 @@ describe("Custom async matcher: 'toBeEight'", () => {
 
 describe('better typed spys', () => {
     describe('a typed spy', () => {
-        const spy = jasmine.createSpy('spy', (num: number, str: string) => {
+        const spy = jasmine.createSpy('spy', (num: number, str: string): string => {
             return `${num} and ${str}`;
         });
         it('has a typed returnValue', () => {

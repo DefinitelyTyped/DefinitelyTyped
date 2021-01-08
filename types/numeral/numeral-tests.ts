@@ -107,3 +107,7 @@ const ordinalResult = localeData.ordinal(2)
 numeral.options.scalePercentBy100 = false
 numeral(50).format('0%')
 // '50%'
+
+// test isNumeral
+numeral.isNumeral(numeral(1000));
+numeral.isNumeral(1000);

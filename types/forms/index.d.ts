@@ -1,7 +1,14 @@
 // Type definitions for forms 1.3
 // Project: https://github.com/caolan/forms
 // Definitions by: suXin <https://github.com/suXinjke>
+//                 Pelle Wessman <https://github.com/voxpelli>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.4
+
+/// <reference types="node"/>
+
+import { IncomingMessage } from 'http';
 
 export interface FieldObjectChoice {
     [key: string]: string | FieldObjectChoice;
@@ -52,15 +59,15 @@ export interface FieldParameters {
 
 export type FieldIterator = (name: string, field: FieldBound) => string;
 
-export interface Field extends FieldParameters {
+export type Field<Data = unknown> = FieldParameters & {
     /** A widget object to use when rendering the field. */
     widget: Widget;
 
     /** Coerces the raw data from the request into the correct format for the field, returning the result, e.g. '123' becomes 123 for the number field. */
-    parse: (rawData: any) => any;
+    parse: (rawData: unknown) => Data;
 
     /** Returns a new bound field object. Calls parse on the data and stores in the bound field's data attribute, stores the raw value in the value attribute. */
-    bind: (rawData: any) => FieldBound;
+    bind: <RawData = unknown>(rawData: RawData) => FieldBound<Data, RawData>;
 
     /** Returns a string containing a HTML element containing the fields error message, or an empty string if there is no error associated with the field. */
     errorHTML: () => string;
@@ -79,14 +86,14 @@ export interface Field extends FieldParameters {
      * which returns a HTML representation of the field label, error message and widget wrapped in a div.
      */
     toHTML: (name?: string, iterator?: FieldIterator) => string;
-}
+};
 
-export interface FieldBound extends Field {
+export type FieldBound<Data = unknown, RawData = unknown> = Field<Data> & {
     /** The raw value from the request data. */
-    value: any;
+    value: RawData;
 
     /** The request data coerced to the correct format for this field. */
-    data: any;
+    data: Data;
 
     /** An error message if the field fails validation. */
     error: string;
@@ -96,7 +103,7 @@ export interface FieldBound extends Field {
      * If a validator fails, the resulting message is stored in the field's error attribute.
      */
     validate: (form: Form, callback: (err: string, field: Field) => void) => void;
-}
+};
 
 export interface Widget extends WidgetParameters {
     formatValue: (value: any) => any;
@@ -127,29 +134,33 @@ export interface FormFields {
     [key: string]: Field | FormFields;
 }
 
-export type FormHandleCallback = (form: Form) => void;
+export type FormHandleCallback<
+    Fields extends FormFields = FormFields,
+    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })) = FormData<Fields>
+> = (form: FormBound<Fields, Data extends IncomingMessage ? FormData<Fields> : Data>) => void;
 
-export interface Form {
+export type FormData<Fields extends FormFields = FormFields> = {
+    [Key in keyof Fields]: Fields[Key] extends Field
+        ? ReturnType<Fields[Key]["parse"]>
+        : never
+};
+
+export interface Form<Fields extends FormFields = FormFields> {
     /** Field objects this form was created with */
-    fields: FormFields;
+    fields: Fields;
 
     /** Inspects a request or object literal and binds any data to the correct fields. */
-    handle: (
-        req: {
-            method: string,
-            url: string
-            body: string
-        },
+    handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })>(
+        req: Data|undefined,
         callbacks: {
-            success?: FormHandleCallback
-            error?: FormHandleCallback
-            empty?: FormHandleCallback
-            other?: FormHandleCallback
+            success?: FormHandleCallback<Fields, Data>
+            error?: FormHandleCallback<Fields, Data>
+            empty?: FormHandleCallback<Fields, Data>
         }
     ) => void;
 
     /** Binds data to correct fields, returning a new bound form object. */
-    bind: (data: any) => FormBound;
+    bind: <Data extends Partial<FormData<Fields>>>(data: (Data & { [key: string]: unknown }) | null | undefined) => FormBound<Fields, Data>;
 
     /**
      * Runs toHTML on each field returning the result.
@@ -159,33 +170,33 @@ export interface Form {
     toHTML: (iterator?: FieldIterator) => string;
 }
 
-export interface FormBound extends Form {
+export interface FormBound<Fields extends FormFields = any, Data extends Partial<FormData<Fields>> = FormData<Fields>> {
     /** Object containing all the parsed data keyed by field name. */
-    data: any;
+    data: FormData<Fields> & Data;
 
     /** Calls validate on each field in the bound form and returns the resulting form object to the callback. */
-    validate: (callback: (err: string, form: FormBound) => void) => void;
+    validate: (callback: (err: string, form: FormBound<Fields, Data>) => void) => void;
 
     /** Checks all fields for an error attribute. Returns false if any exist, otherwise returns true. */
     isValid: () => boolean;
 }
 
 /** Converts a form definition (an object literal containing field objects) into a form object. */
-export function create(fields: FormFields, options?: {
+export function create<Fields extends FormFields = FormFields>(fields: Fields, options?: {
     /** If false, the first validation error will halt form validation, otherwise all fields will be validated. */
     validatePastFirstError?: boolean
-}): Form;
+}): Form<Fields>;
 
 export namespace fields {
-    function array(params?: FieldParameters): Field;
-    function boolean(params?: FieldParameters): Field;
-    function date(params?: FieldParameters): Field;
-    function email(params?: FieldParameters): Field;
-    function number(params?: FieldParameters): Field;
-    function password(params?: FieldParameters): Field;
-    function string(params?: FieldParameters): Field;
-    function tel(params?: FieldParameters): Field;
-    function url(params?: FieldParameters): Field;
+    function array(params?: FieldParameters): Field<unknown[]>;
+    function boolean(params?: FieldParameters): Field<boolean>;
+    function date(params?: FieldParameters): Field<string>;
+    function email(params?: FieldParameters): Field<string>;
+    function number(params?: FieldParameters): Field<number>;
+    function password(params?: FieldParameters): Field<string>;
+    function string(params?: FieldParameters): Field<string>;
+    function tel(params?: FieldParameters): Field<string>;
+    function url(params?: FieldParameters): Field<string>;
 }
 
 export namespace validators {

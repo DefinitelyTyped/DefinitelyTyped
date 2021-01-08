@@ -76,7 +76,7 @@ element.addEventListener(Collapse.Events.hidden, event => {
  */
 
 // $ExpectType Dropdown
-const dropdown = new Dropdown(element, { offset: 10 });
+const dropdown = new Dropdown(element, { flip: true });
 
 // $ExpectType Dropdown
 const instanceDropdown = Dropdown.getInstance(element);

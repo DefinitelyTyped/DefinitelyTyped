@@ -96,7 +96,7 @@ declare const URI: {
 
     unicode(): void;
 
-    withinString(source: string, func: (url: string) => string): string;
+    withinString(source: string, func: (url: string, start: number, end: number, source: string) => string): string;
 };
 
 declare namespace URI {

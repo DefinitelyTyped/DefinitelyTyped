@@ -1,4 +1,4 @@
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
 
 declare class Tooltip {
     constructor(element: Element, options?: Partial<Tooltip.Options>);
@@ -215,7 +215,7 @@ declare namespace Tooltip {
          * must return an object with the same structure. The triggering element
          * DOM node is passed as the second argument.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..offset.offset}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/offset}
          * @default 0
          */
         offset: number | string | (() => void);
@@ -223,10 +223,10 @@ declare namespace Tooltip {
         /**
          * Allow to specify which position Popper will use on fallback.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..flip.behavior}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default 'flip'
          */
-        fallbackPlacement: Popper.Behavior | Popper.Position[];
+        fallbackPlacement: string | string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
@@ -264,10 +264,10 @@ declare namespace Tooltip {
         /**
          * To change Bootstrap's default Popper.js config
          *
-         * @see {@link https://popper.js.org/docs/v1/#Popper.Defaults}
+         * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.PopperOptions | null;
+        popperConfig: Popper.Options | null;
     }
 }
 
