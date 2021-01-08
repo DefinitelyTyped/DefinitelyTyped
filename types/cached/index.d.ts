@@ -1,4 +1,4 @@
-// Type definitions for cached v5.0.2
+// Type definitions for cached 5.0
 // Project: https://github.com/groupon/node-cached
 // Definitions by: Juraj Mäsiar <https://github.com/Juraj-Masiar>
 // Definitions: https://github.com/Juraj-Masiar/DefinitelyTyped
@@ -127,5 +127,4 @@ declare class Cache {
      * Cache delete operation. key has to be a string.
      */
     unset(key: string, callback?: (err: any) => void): Promise<void>;
-
 }

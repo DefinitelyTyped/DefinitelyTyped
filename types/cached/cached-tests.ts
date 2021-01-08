@@ -1,7 +1,7 @@
 import * as cached from 'cached';
 
 const userCache = cached('usr', {backend: {type: 'memory'}});
-const uuid = 'user_1'
+const uuid = 'user_1';
 
 // $ExpectType Promise<number>
 userCache.getOrElse(uuid, () => 10, {expire: 1});
