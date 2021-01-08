@@ -5,7 +5,7 @@
 //                 Stuart Forrest <https://github.com/stuartforrest-infinity>
 //                 Un Ha Kim <https://github.com/UHKim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 2.8
 
 import { ComponentClass, Component } from 'react';
 import { ViewStyle } from 'react-native';
