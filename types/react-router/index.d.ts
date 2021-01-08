@@ -139,7 +139,7 @@ export type ExtractRouteOptionalParam<T extends string> = T extends `${infer Par
     : { [k in T]: string | number | boolean };
 
 export type ExtractRouteParams<T extends string> = string extends T
-    ? Record<string, string | number>
+    ? { [k in string]?: string | number | boolean }
     : T extends `${infer _Start}:${infer Param}/${infer Rest}`
     ? ExtractRouteOptionalParam<Param> & ExtractRouteParams<Rest>
     : T extends `${infer _Start}:${infer Param}`
