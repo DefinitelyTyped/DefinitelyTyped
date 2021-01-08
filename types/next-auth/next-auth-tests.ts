@@ -180,6 +180,7 @@ const allConfig = {
                 sameSite: true as true,
                 path: '/',
                 secure: true,
+                domain: 'foo.com',
             },
         },
     },
