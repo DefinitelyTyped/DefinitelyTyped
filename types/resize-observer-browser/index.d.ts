@@ -4,7 +4,6 @@
 //                 William Furr <https://github.com/wffurr>
 //                 Alexander Shushunov <https://github.com/AlexanderShushunov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 interface Window {
     ResizeObserver: typeof ResizeObserver;
@@ -17,7 +16,7 @@ interface ResizeObserverOptions {
      *
      * @default 'content-box'
      */
-    box?: 'content-box' | 'border-box';
+    box?: 'content-box' | 'border-box' | 'device-pixel-content-box';
 }
 
 interface ResizeObserverSize {
@@ -25,19 +24,25 @@ interface ResizeObserverSize {
     readonly blockSize: number;
 }
 
-declare class ResizeObserver {
-    constructor(callback: ResizeObserverCallback);
+interface ResizeObserver {
     disconnect(): void;
     observe(target: Element, options?: ResizeObserverOptions): void;
     unobserve(target: Element): void;
 }
 
-type ResizeObserverCallback = (entries: ReadonlyArray<ResizeObserverEntry>, observer: ResizeObserver) => void;
+declare var ResizeObserver: {
+    new (callback: ResizeObserverCallback): ResizeObserver;
+    prototype: ResizeObserver;
+};
+
+interface ResizeObserverCallback {
+    (entries: ResizeObserverEntry[], observer: ResizeObserver): void;
+}
 
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
-    readonly borderBoxSize?: ReadonlyArray<ResizeObserverSize>;
-    readonly contentBoxSize?: ReadonlyArray<ResizeObserverSize>;
+    readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize>;
 }
