@@ -30,6 +30,7 @@ Autodesk.Viewing.Initializer(options, () => {
         const model = await viewer.loadDocumentNode(doc, defaultModel);
 
         modelTests(model);
+        fragListTests(viewer, model);
     }
 
     function onDocumentLoadFailure() {
@@ -45,4 +46,17 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isPdf();
     model.isSceneBuilder();
     model.isSVF2();
+}
+
+function fragListTests(viewer: Autodesk.Viewing.GuiViewer3D, model: Autodesk.Viewing.Model): void {
+    const fragId = 1; // hard coded value for testing
+    const fragList = model.getFragmentList();
+
+    fragList.updateAnimTransform(fragId, undefined, undefined, new THREE.Vector3(10, 10, 10));
+    const s = new THREE.Vector3();
+    const r = new THREE.Quaternion();
+    const t = new THREE.Vector3();
+
+    // $ExpectType boolean
+    fragList.getAnimTransform(fragId, s, r, t);
 }
