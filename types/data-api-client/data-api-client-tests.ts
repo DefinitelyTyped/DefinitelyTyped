@@ -1,4 +1,4 @@
-import Client from 'data-api-client';
+import Client = require('data-api-client');
 
 const client = Client({
     resourceArn: '',
