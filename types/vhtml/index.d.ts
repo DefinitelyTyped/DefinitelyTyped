@@ -74,6 +74,7 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
  * - Empty components (no props.children)
  * - Empty components (props.children is an empty tuple)
  * - Components with exactly one child (props.children is a 1-length tuple)
+ * - Components with exactly zero or one child
  * - Components with arbitrary number of children (props.children is an array)
  * - Forbidding components whose props.children is not an array
  */
@@ -82,6 +83,8 @@ type ComponentPropTransform<TComp, TProps> = SafeEmptyType<Omit<TProps, 'childre
         ? {}
         : TProps extends { children: [infer ChildType] }
         ? { children: ChildType }
+        : TProps extends { children: [(infer ChildType)?] }
+        ? { children?: ChildType }
         : TProps extends { children: Array<infer ChildrenType> }
         ? { children?: ChildrenType | ChildrenType[] }
         : TProps extends { children: any }

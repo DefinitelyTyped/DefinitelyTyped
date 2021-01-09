@@ -140,6 +140,25 @@ declare function OneChild(props: { children: [string] }): JSX.Element;
 // $ExpectError
 <OneChild>{1}</OneChild>;
 
+// -------- Component accepts exactly zero or one child -------- //
+
+declare function ZeroOrOneChild(props: { children: [boolean?] }): JSX.Element;
+
+// $ExpectType string
+<ZeroOrOneChild />;
+// $ExpectType string
+<ZeroOrOneChild>{true}</ZeroOrOneChild>;
+
+// Multiple children given
+// $ExpectError
+<ZeroOrOneChild>
+    {true}
+    {true}
+</ZeroOrOneChild>;
+// Incorrect child type
+// $ExpectError
+<ZeroOrOneChild>Foo</ZeroOrOneChild>;
+
 // -------- Component accepts arbitrary number of children -------- //
 
 declare function AnyNumberOfChildren(props: { children: string[] }): JSX.Element;
