@@ -29,6 +29,8 @@
         "test/addon/edit/closetag.ts",
         "test/addon/edit/matchbrackets.ts",
         "test/addon/edit/matchtags.ts",
+        "test/addon/fold/foldcode.ts",
+        "test/addon/fold/foldgutter.ts",
         "test/addon/hint/show-hint.ts",
         "test/addon/merge/merge.ts",
         "test/addon/runmode/runmode.ts",
