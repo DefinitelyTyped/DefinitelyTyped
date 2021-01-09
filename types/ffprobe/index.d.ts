@@ -57,7 +57,7 @@ declare namespace getInfo {
             visual_impaired: number;
             clean_effects: number;
             attached_pic: number;
-            timed_thumbnails: number;
+            timed_thumbnails?: number;
         };
         tags: {
             language?: string;
