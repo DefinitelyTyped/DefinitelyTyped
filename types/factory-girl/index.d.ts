@@ -19,6 +19,8 @@ declare namespace factory {
     }>;
 
     interface Static {
+        factory: Static;
+
         /**
          * Associate the factory to other model
          */
@@ -84,8 +86,13 @@ declare namespace factory {
         /**
          * Generate values sequentially inside a factory
          */
+        seq(name?: string): Generator<number>;
         seq<T>(name: string, fn: (sequence: number) => T): Generator<T>;
+        seq<T>(fn: (sequence: number) => T): Generator<T>;
+
+        sequence(name?: string): Generator<number>;
         sequence<T>(name: string, fn: (sequence: number) => T): Generator<T>;
+        sequence<T>(fn: (sequence: number) => T): Generator<T>;
 
         /**
          * Register an adapter, either as default or tied to a specific model

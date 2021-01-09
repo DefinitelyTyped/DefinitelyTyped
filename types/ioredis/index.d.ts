@@ -1872,7 +1872,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family?: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

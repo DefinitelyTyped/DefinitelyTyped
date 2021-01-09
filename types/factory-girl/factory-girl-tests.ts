@@ -1,4 +1,6 @@
 import * as factory from "factory-girl";
+// tslint:disable-next-line:no-duplicate-imports
+import { factory as namedImportedFactory } from "factory-girl";
 
 interface User {
     username?: string;
@@ -27,6 +29,24 @@ const scoreSequence = factory.sequence<number>(
   score => score + 1,
 );
 const scoreSeq = factory.seq<number>('User.score', score => score + 1);
+
+// Testing sequence with no params
+// $ExpectType Generator<number>
+factory.seq();
+// $ExpectType Generator<number>
+factory.sequence();
+
+// Testing sequence with id
+// $ExpectType Generator<number>
+factory.seq('User.score');
+// $ExpectType Generator<number>
+factory.sequence('User.score');
+
+// Testing sequence with callback
+// $ExpectType Generator<string>
+factory.seq(value => value.toString());
+// $ExpectType Generator<string>
+factory.sequence(value => value.toString());
 
 // Testing sequence resetting
 factory.resetSeq();
@@ -124,3 +144,6 @@ factory
 
 // Testing cleanUp
 factory.cleanUp();
+
+// Testing namedImportedFactory
+namedImportedFactory.seq();

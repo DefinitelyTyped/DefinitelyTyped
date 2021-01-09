@@ -41,7 +41,7 @@ declare module 'codemirror' {
         /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
         on(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
-        showHint: (options: ShowHintOptions) => void;
+        showHint: (options?: ShowHintOptions) => void;
     }
 
     interface HintFunction {
