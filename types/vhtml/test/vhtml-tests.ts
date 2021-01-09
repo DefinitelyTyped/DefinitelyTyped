@@ -38,9 +38,15 @@ h(
 h('div', { class: 1 });
 
 // data-* attributes
-// (for hyperscript, only allow strings on unknown fields)
+// (for hyperscript, allow unknown fields to have arbitrary types)
 // $ExpectType string
-h('div', { 'data-value': '1', 'data-value-2': 'asdf' });
+h('div', { 'data-value': 1, 'data-value-2': 'asdf' });
+// $ExpectError
+h('div', { class: 1, 'data-value': 1, 'data-value-2': 'asdf' });
+
+// Unknown tags can have arbitrary attributes
+// $ExpectType string
+h('mytag', { foo: 1, bar: true });
 
 // -------- Special attributes -------- //
 
