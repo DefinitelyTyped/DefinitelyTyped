@@ -61,8 +61,9 @@ declare namespace getInfo {
         };
         tags: {
             language?: string;
-            handler_name: string;
+            handler_name?: string;
             creation_time?: string;
+            [tag: string]: string | undefined;
         };
     }
 
