@@ -65,9 +65,7 @@ import h = require('vhtml');
 
 // -------- Functional Pseudo-Components -------- //
 
-function Component({ prop1, prop2 }: { prop1: string; prop2?: number }): string {
-    return <div id={prop1}>{prop2}</div>;
-}
+declare function Component(props: { prop1: string; prop2?: number }): string;
 
 // $ExpectType string
 <Component prop1="foo" prop2={125} />;
@@ -79,3 +77,94 @@ function Component({ prop1, prop2 }: { prop1: string; prop2?: number }): string 
 // Incorrect prop type
 // $ExpectError
 <Component prop1="bar" prop2="250" />;
+
+// -------- Component accepts no children -------- //
+
+declare function NoChild(): JSX.Element;
+
+// $ExpectType string
+<NoChild />;
+
+// One child given
+// $ExpectError
+<NoChild>Foo bar</NoChild>;
+// One child given (undefined is still a child)
+// $ExpectError
+<NoChild>{undefined}</NoChild>;
+// Multiple children given
+// $ExpectError
+<NoChild>
+    <div>1</div>
+    <div>2</div>
+</NoChild>;
+
+// -------- Component accepts no children (using empty tuple type) -------- //
+
+// Note: This is a pedantic example. A typical childless component will simply
+// not define a `children` prop, as shown in the test case above.
+declare function EmptyChild(props: { children: [] }): JSX.Element;
+
+// $ExpectType string
+<EmptyChild />;
+
+// One child given
+// $ExpectError
+<EmptyChild>Foo bar</EmptyChild>;
+// One child given (undefined is still a child)
+// $ExpectError
+<EmptyChild>{undefined}</EmptyChild>;
+// Multiple children given
+// $ExpectError
+<EmptyChild>
+    <div>1</div>
+    <div>2</div>
+</EmptyChild>;
+
+// -------- Component accepts exactly one child (using tuple type) -------- //
+
+declare function OneChild(props: { children: [string] }): JSX.Element;
+
+// $ExpectType string
+<OneChild>Foo</OneChild>;
+
+// No child given
+// $ExpectError
+<OneChild />;
+// Multiple children given
+// $ExpectError
+<OneChild>
+    <div>1</div>
+    <div>2</div>
+</OneChild>;
+// Incorrect child type
+// $ExpectError
+<OneChild>{1}</OneChild>;
+
+// -------- Component accepts arbitrary number of children -------- //
+
+declare function AnyNumberOfChildren(props: { children: string[] }): JSX.Element;
+
+// $ExpectType string
+<AnyNumberOfChildren />;
+// $ExpectType string
+<AnyNumberOfChildren>Foo</AnyNumberOfChildren>;
+// $ExpectType string
+<AnyNumberOfChildren>
+    <div>1</div>
+    <div>2</div>
+</AnyNumberOfChildren>;
+
+// Incorrect child type
+// $ExpectError
+<AnyNumberOfChildren>{1}</AnyNumberOfChildren>;
+
+// -------- Invalid components (incorrect props.children type) --------//
+
+// For vhtml, props.children must be an array
+// This function should not be allowed as a component
+declare function BadComponentType(props: { children: string }): JSX.Element;
+
+// $ExpectError
+<BadComponentType />;
+// $ExpectError
+<BadComponentType>Foo</BadComponentType>;
