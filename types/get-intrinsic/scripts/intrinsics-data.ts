@@ -1,5 +1,3 @@
-// tslint:disable: ban-types no-async-without-await only-arrow-functions space-before-function-paren
-
 const hasSymbols = true;
 const { getPrototypeOf: getProto, getOwnPropertyDescriptor: $gOPD, setPrototypeOf: setProto } = Reflect as {
     getPrototypeOf(target: object): object | null;
