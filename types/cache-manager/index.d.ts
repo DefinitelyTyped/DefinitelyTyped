@@ -52,6 +52,7 @@ export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> = string | ((callback: CallbackFunc<T>) => void) | CachingConfig | CallbackFunc<T>;
 
 export interface Cache {
+    set<T>(key: string, value: T): Promise<any>;
     set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
     set<T>(key: string, value: T, ttl: number): Promise<any>;
     set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
@@ -67,7 +68,7 @@ export interface Cache {
     wrap<T>(...args: WrapArgsType<T>[]): Promise<any>;
 
     get<T>(key: string, callback: (error: any, result: T) => void): void;
-    get<T>(key: string): Promise<any>;
+    get<T>(key: string): Promise<T>;
 
     del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
