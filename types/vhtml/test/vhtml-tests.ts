@@ -69,13 +69,14 @@ function Component({ prop1, prop2 }: { prop1: string; prop2?: number }): string 
 }
 
 // $ExpectType string
-Component({ prop1: 'foo', prop2: 125 });
-h('body', null, Component({ prop1: 'foo', prop2: 125 }));
+h(Component, { prop1: 'foo', prop2: 125 });
+// $ExpectType string
+h('body', null, h(Component, { prop1: 'foo', prop2: 125 }));
 
 // Missing required prop
 // $ExpectError
-Component({ prop2: 125 });
+h(Component, { prop2: 125 });
 
 // Incorrect prop type
 // $ExpectError
-Component({ prop1: 250 });
+h(Component, { prop1: 250 });
