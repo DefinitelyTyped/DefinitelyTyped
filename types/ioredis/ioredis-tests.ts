@@ -733,3 +733,6 @@ redis.options.host;
 redis.status;
 cluster.options.maxRedirections;
 cluster.status;
+
+import { lookup } from 'dns';
+clusterOptions.dnsLookup = lookup;
