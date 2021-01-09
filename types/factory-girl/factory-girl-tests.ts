@@ -1,4 +1,5 @@
 import * as factory from "factory-girl";
+// tslint:disable-next-line:no-duplicate-imports
 import { factory as namedImportedFactory } from "factory-girl";
 
 interface User {
