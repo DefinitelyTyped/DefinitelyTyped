@@ -1,5 +1,5 @@
-import CircularDependencyPlugin = require('circular-dependency-plugin');
-import webpack = require('webpack');
+import * as webpack from 'webpack';
+import * as CircularDependencyPlugin from 'circular-dependency-plugin';
 
 new CircularDependencyPlugin();
 new CircularDependencyPlugin({});

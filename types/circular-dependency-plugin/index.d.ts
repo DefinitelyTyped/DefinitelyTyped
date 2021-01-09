@@ -2,17 +2,21 @@
 // Project: https://github.com/aackerman/circular-dependency-plugin
 // Definitions by: Olegs Jeremejevs <https://github.com/jeremejevs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
-import { Plugin, Module, compilation } from 'webpack';
+import { Module, Compiler, Compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
 /**
  * Detect modules with circular dependencies when bundling with webpack.
  */
-declare class CircularDependencyPlugin extends Plugin {
+declare class CircularDependencyPlugin {
   constructor(options?: CircularDependencyPlugin.Options);
+  /**
+	* Apply the plugin
+	*/
+  apply(compiler: Compiler): void;
   // Not exposing `isCyclic` because it isn't meant to be public, I believe
 }
 
@@ -44,9 +48,9 @@ declare namespace CircularDependencyPlugin {
     onDetected?: false | ((x: {
       module: Module;
       paths: string[];
-      compilation: compilation.Compilation;
+      compilation: Compilation;
     }) => void);
-    onEnd?: (x: { compilation: compilation.Compilation }) => void;
-    onStart?: (x: { compilation: compilation.Compilation }) => void;
+    onEnd?: (x: { compilation: Compilation }) => void;
+    onStart?: (x: { compilation: Compilation }) => void;
   }
 }
