@@ -3,9 +3,9 @@
 // Definitions by: Tommy Wong <https://github.com/wchtommy20013/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface JsonDiffConfig {
+export interface ColorizeOptions {
     color?: boolean;
 }
 
 export function diff(obj1: unknown, obj2: unknown): any;
-export function diffString(obj1: unknown, obj2: unknown, config?: JsonDiffConfig): string;
+export function diffString(obj1: unknown, obj2: unknown, colorizeOptions?: ColorizeOptions): string;
