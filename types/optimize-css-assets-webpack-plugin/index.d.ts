@@ -7,6 +7,7 @@
 
 import { WebpackPluginInstance as Plugin } from 'webpack';
 
+
 export = OptimizeCssAssetsPlugin;
 
 declare namespace OptimizeCssAssetsPlugin {
@@ -54,3 +55,4 @@ declare namespace OptimizeCssAssetsPlugin {
 declare class OptimizeCssAssetsPlugin extends Plugin {
     constructor(options?: OptimizeCssAssetsPlugin.Options);
 }
+

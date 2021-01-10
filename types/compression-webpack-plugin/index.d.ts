@@ -104,3 +104,5 @@ declare namespace CompressionPlugin {
 
     type Options<O> = ZlibOptions | CustomOptions<O>;
 }
+
+

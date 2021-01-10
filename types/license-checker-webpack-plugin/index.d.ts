@@ -6,12 +6,12 @@
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
 
-export class LicenseCheckerWebpackPlugin implements WebpackPluginInstance {
+declare class LicenseCheckerWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: Partial<LicenseCheckerWebpackPlugin.Options>);
     apply(compiler: Compiler): void;
 }
 
-export namespace LicenseCheckerWebpackPlugin {
+declare namespace LicenseCheckerWebpackPlugin {
     interface Dependency {
         name: string;
         version: string;
@@ -78,3 +78,4 @@ export namespace LicenseCheckerWebpackPlugin {
 }
 
 export = LicenseCheckerWebpackPlugin;
+
