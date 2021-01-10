@@ -23,6 +23,6 @@
   },
   "files": [
       "index.d.ts",
-      "limestone__api-tests.ts"
+      "limestonefi__api-tests.ts"
   ]
 }
