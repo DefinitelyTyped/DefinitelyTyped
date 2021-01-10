@@ -3,7 +3,7 @@
 // Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { WebpackPluginInstance, compilation, Compiler } from 'webpack';
+import { WebpackPluginInstance, Compilation, Compiler } from 'webpack';
 import { SyncWaterfallHook } from 'tapable';
 
 export const WebpackManifestPlugin: {
@@ -12,7 +12,7 @@ export const WebpackManifestPlugin: {
 
 export interface FileDescriptor {
     /** Only available if isChunk is true. */
-    chunk?: compilation.Chunk;
+    chunk?: Compilation.Chunk;
     isAsset: boolean;
     isChunk: boolean;
     /** Is required to run you app. Cannot be true if isChunk is false. */
