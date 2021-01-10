@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.32
+// Type definitions for non-npm package Forge Viewer 7.34
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -352,6 +352,8 @@ declare namespace Autodesk {
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
+          static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
+
           parent: BubbleNode;
           id: number;
           data: ViewerItem;
@@ -383,6 +385,7 @@ declare namespace Autodesk {
           isMetadata(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
+          lineageUrn(encode?: boolean): string;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
@@ -1663,6 +1666,7 @@ declare namespace Autodesk {
 
       class SpriteViewable extends CustomViewable {
         get color(): THREE.Color;
+        get highlightedColor(): THREE.Color;
         get type(): ViewableType;
       }
 
@@ -1721,16 +1725,20 @@ declare namespace Autodesk {
         get viewables(): CustomViewable[];
 
         addViewable(viewable: CustomViewable): void;
+        getViewableColor(dbId: string, highlighted: boolean): THREE.Color;
+        getViewableUV(dbId: string, highlighted: boolean): object;
         finish(): Promise<void>;
       }
 
       class ViewableStyle {
         color: THREE.Color;
+        highlightedColor: THREE.Color;
+        highlightedUrl: string;
         id: string;
         type: ViewableType;
         url: string;
 
-        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string, highlightedColor?: THREE.Color, highlightedUrl?: string);
       }
     }
 
