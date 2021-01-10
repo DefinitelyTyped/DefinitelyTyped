@@ -28,6 +28,7 @@ export interface ClientOptions {
     transport?: any;
     sessionToken?: string;
     partSize?: number;
+    pathStyle?: boolean;
 }
 
 export interface BucketItemFromList {
