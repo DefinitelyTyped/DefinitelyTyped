@@ -1,3 +1,3 @@
-import _limestone = require("@limestonefi/api")
+import _limestone = require("@limestonefi/api");
 
-_limestone.getPrice("test")
+_limestone.getPrice("test");
