@@ -1,5 +1,5 @@
-import * as React from "react"
-import Scramble from "react-scramble"
+import * as React from "react";
+import Scramble from "react-scramble";
 
 const ScrambleTest = () => {
   return (
@@ -17,8 +17,8 @@ const ScrambleTest = () => {
         ]}
         autoStart={true}
         bindMethod={({ start, pause }) => {
-          start() // $ExpectType void
-          pause() // $ExpectType void
+          start(); // $ExpectType void
+          pause(); // $ExpectType void
         }}
         text={"Scramble!"}
         mouseEnterTrigger={"pause"}
@@ -28,5 +28,5 @@ const ScrambleTest = () => {
         speed={"fast"}
       />
     </>
-  )
-}
+  );
+};
