@@ -49,6 +49,8 @@ completion.on("repo", ({ before, reply }) => {
   reply([`http://github.com/${before}/helloworld`, `http://github.com/${before}/blabla`]);
 });
 
+completion.on('complete', (fragment, { reply }) => reply(["hello", "world"]));
+
 // Initialize the omelette.
 completion.init();
 
