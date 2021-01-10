@@ -186,7 +186,7 @@ declare namespace validator {
          */
         urlSafe?: boolean;
     }
-    
+
     /**
      * Check if a string is base64 encoded.
      *
