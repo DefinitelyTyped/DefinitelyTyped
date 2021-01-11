@@ -78,4 +78,3 @@ declare namespace LicenseCheckerWebpackPlugin {
 }
 
 export = LicenseCheckerWebpackPlugin;
-

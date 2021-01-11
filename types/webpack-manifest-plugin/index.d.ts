@@ -93,4 +93,3 @@ export interface Options {
 }
 
 export function getCompilerHooks(compiler: Compiler): { afterEmit: SyncWaterfallHook; beforeEmit: SyncWaterfallHook };
-
