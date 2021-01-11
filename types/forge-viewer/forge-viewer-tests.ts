@@ -30,8 +30,9 @@ Autodesk.Viewing.Initializer(options, () => {
         const model = await viewer.loadDocumentNode(doc, defaultModel);
 
         bubbleNodeTests();
-        await dataVizTests(viewer);
+        fragListTests(model);
         modelTests(model);
+        await dataVizTests(viewer);
         await edit2DTests(viewer);
     }
 
@@ -109,4 +110,17 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resUnion = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Union);
     const resDifference = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Difference);
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
+}
+
+function fragListTests(model: Autodesk.Viewing.Model): void {
+    const fragId = 1; // hard coded value for testing
+    const fragList = model.getFragmentList();
+
+    fragList.updateAnimTransform(fragId, undefined, undefined, new THREE.Vector3(10, 10, 10));
+    const s = new THREE.Vector3();
+    const r = new THREE.Quaternion();
+    const t = new THREE.Vector3();
+
+    // $ExpectType boolean
+    fragList.getAnimTransform(fragId, s, r, t);
 }
