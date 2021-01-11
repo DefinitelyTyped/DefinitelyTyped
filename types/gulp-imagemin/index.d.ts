@@ -18,6 +18,7 @@ declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Op
 
 declare namespace imagemin {
     interface Options {
+        silent?: boolean;
         verbose?: boolean;
     }
 
