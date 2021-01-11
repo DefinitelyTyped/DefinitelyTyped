@@ -368,7 +368,7 @@ export interface Options {
     };
     identity?: {
         username?: string;
-        password?: string;
+        password?: string | (() => string | Promise<string>);;
     };
     channels?: string[];
     logger?: {
