@@ -31,8 +31,8 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
