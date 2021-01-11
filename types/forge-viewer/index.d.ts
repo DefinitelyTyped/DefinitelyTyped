@@ -1154,6 +1154,9 @@ declare namespace Autodesk {
               useThreeMesh: boolean;
               vizflags: Uint32Array;
               vizmeshes: THREE.Mesh[];
+
+              getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
+              updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
             }
 
             interface GeometryList {
