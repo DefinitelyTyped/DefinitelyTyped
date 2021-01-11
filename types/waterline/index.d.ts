@@ -10,17 +10,35 @@
 import BluebirdPromise = require('bluebird');
 declare namespace Waterline {
     type Adapter = Object;
-    type Connection = {
+    interface DatastoreConfig {
         adapter: string;
-    };
+    }
+    interface DatastoreConfigInstance extends DatastoreConfig{
+        identity: string;
+    }
+    interface Datastore {
+        adapter: any;
+        collections: string[];
+        config: DatastoreConfigInstance;
+    }
     interface Config {
         adapters: { [index: string]: Adapter };
-        connections: { [index: string]: Connection };
+        datastores: { [index: string]: DatastoreConfig };
     }
     type Ontology = {
         collections: any;
-        datastores: any;
+        datastores: { [index: string]: Datastore };
     };
+    interface Datastores {
+        default: DatastoreBuilder;
+    }
+    interface DatastoreBuilder {
+        /** datastoreConfig */
+        config: any;
+        /** adapters[] */
+        adapter: any;
+        collections: string[];
+    }
     interface Waterline {
         loadCollection(collection: CollectionClass): void;
         registerModel(collection: CollectionClass): void;
