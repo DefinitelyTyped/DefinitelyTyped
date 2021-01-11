@@ -95,60 +95,65 @@ factory.attrs<User>('user').then(attrs => null);
 factory
     .attrs<User>('user', { score: 10 })
     .then(attrs => null);
+factory.attrs<User>('user', {}, { isAdmin: true }).then(attrs => null);
 
 // Testing attrsMany, with and without attributes
 factory.attrsMany<User>('user', 2).then(attrs => null);
 factory
     .attrsMany<User>('user', 2, [{ score: 10 }])
     .then(attrs => null);
+factory
+    .attrsMany<User>('user', 2, [{}], { isAdmin: true })
+    .then(attrs => null);
+factory.attrsMany<User>('user', 2, [{}], [{ isAdmin: true }]).then(attrs => null);
 
 // Testing build, with and without attributes
 factory.build<User>('user').then(user => user.username);
 factory
     .build<User>('user', { score: 10 })
     .then(user => user.username);
+factory.build<User>('user', {}, { isAdmin: true }).then(user => user.username);
 
 // Testing buildMany, with and without attributes and options
 factory.buildMany<User>('user', 3).then(users => users.map(user => user.username));
-
 factory
     .buildMany<User>('user', 3, { username: 'John McClane' })
     .then(users => users.map(user => user.username));
-
-// Testing buildMany with a list of attributes
-factory
-    .buildMany<User>('user', [{ username: 'Jake Blues' }, { username: 'Elwood Blues' }])
-    .then(users => users.map(user => user.username));
+factory.buildMany<User>('user', 3, {}, { isAdmin: true }).then(users => users.map(user => user.username));
+factory.buildMany<User>('user', 1, [{}], [{ isAdmin: true }]).then(users => users.map(user => user.username));
 
 // Testing create, with and without attributes
 factory.create<User>('user').then(user => user.username);
 factory
     .create<User>('user', { score: 10 })
     .then(user => user.username);
+factory.create<User>('user', {}, { isAdmin: true }).then(user => user.username);
 
 // Testing createMany, with and without attributes
 factory.createMany<User>('user', 3).then(users => users.map(user => user.username));
-
 factory
     .createMany<User>('user', 3, { username: 'Rocky Balboa' })
     .then(users => users.map(user => user.username));
-
-// Testing createMany with options
 factory
-    .createMany<User>(
-        'user',
-        3,
-        { username: 'John Rambo' },
-        {
-            afterBuild: (model, attrs, options) => {},
-            afterCreate: (model, attrs, options) => {},
-        },
-    )
+    .createMany<User>('user', 3, { username: 'Rocky Balboa' }, { isAdmin: true })
+    .then(users => users.map(user => user.username));
+factory
+    .createMany<User>('user', 1, [{ username: 'Rocky Balboa' }], [{ isAdmin: true }])
     .then(users => users.map(user => user.username));
 
 // Testing createMany with a list of attributes
 factory
     .createMany<User>('user', [{ username: 'Emmett Brown' }, { username: 'Marty McFly' }])
+    .then(users => users.map(user => user.username));
+factory
+    .createMany<User>('user', [{ username: 'Emmett Brown' }, { username: 'Marty McFly' }], { isAdmin: true })
+    .then(users => users.map(user => user.username));
+factory
+    .createMany<User>(
+        'user',
+        [{ username: 'Emmett Brown' }, { username: 'Marty McFly' }],
+        [{ isAdmin: true }, { isAdmin: false }],
+    )
     .then(users => users.map(user => user.username));
 
 // Testing cleanUp
