@@ -9,17 +9,17 @@
 
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): object | string | number | null | undefined;
+export function load(str: string, opts?: LoadOptions): Record<string, unknown> | string | number | null | undefined;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
     kind: 'sequence' | 'scalar' | 'mapping' | null;
     resolve(data: any): boolean;
     construct(data: any): any;
-    instanceOf: object | null;
-    predicate: ((data: object) => boolean) | null;
-    represent: ((data: object) => any) | { [x: string]: (data: object) => any } | null;
-    representName: ((data: object) => any) | null;
+    instanceOf: Record<string, unknown> | null;
+    predicate: ((data: Record<string, unknown>) => boolean) | null;
+    represent: ((data: Record<string, unknown>) => any) | { [x: string]: (data: Record<string, unknown>) => any } | null;
+    representName: ((data: Record<string, unknown>) => any) | null;
     defaultStyle: string | null;
     multi: boolean;
     styleAliases: { [x: string]: any };
@@ -106,10 +106,10 @@ export interface TypeConstructorOptions {
     kind?: 'sequence' | 'scalar' | 'mapping';
     resolve?: (data: any) => boolean;
     construct?: (data: any) => any;
-    instanceOf?: object;
-    predicate?: (data: object) => boolean;
-    represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
-    representName?: (data: object) => any;
+    instanceOf?: Record<string, unknown>;
+    predicate?: (data: Record<string, unknown>) => boolean;
+    represent?: ((data: Record<string, unknown>) => any) | { [x: string]: (data: Record<string, unknown>) => any };
+    representName?: (data: Record<string, unknown>) => any;
     defaultStyle?: string;
     multi?: boolean;
     styleAliases?: { [x: string]: any };

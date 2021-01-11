@@ -7,7 +7,7 @@ import SchemaDefinition = yaml.SchemaDefinition;
 const bool = true;
 const num = 0;
 const str = '';
-const obj: object = {};
+const obj: Record<string, unknown> = {};
 const map: { [x: string]: any } = {};
 const array: any[] = [];
 const fn: (...args: any[]) => any = () => {};
@@ -121,11 +121,11 @@ type.kind;
 type.resolve;
 // $ExpectType (data: any) => any
 type.construct;
-// $ExpectType object | null
+// $ExpectType Record<string, unknown> | null
 type.instanceOf;
-// $ExpectType ((data: object) => boolean) | null
+// $ExpectType ((data: Record<string, unknown>) => boolean) | null
 type.predicate;
-// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
+// $ExpectType ((data: Record<string, unknown>) => any) | { [x: string]: (data: Record<string, unknown>) => any; } | null
 type.represent;
 // $ExpectType string | null
 type.defaultStyle;
@@ -134,9 +134,9 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType string | number | object | null | undefined
+// $ExpectType string | number | Record<string, unknown> | null | undefined
 yaml.load(str);
-// $ExpectType string | number | object | null | undefined
+// $ExpectType string | number | Record<string, unknown> | null | undefined
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
