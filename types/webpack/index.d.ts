@@ -1523,7 +1523,7 @@ declare namespace webpack {
     interface WebpackPluginInstance extends Plugin {}
 
     // tslint:disable-next-line no-empty-interface
-    interface Chunk extends compilation.Chunk{}
+    interface Chunk extends compilation.Chunk {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
