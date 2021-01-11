@@ -2970,8 +2970,8 @@ declare namespace math {
             callback: (a: any, b: number, c: Matrix) => void,
             skipZeros?: boolean
         ): void;
-        toArray(): MathArray | Matrix;
-        valueOff(): MathArray | Matrix;
+        toArray(): MathArray;
+        valueOf(): MathArray;
         format(options?: FormatOptions | number | ((value: any) => string)): string;
         toString(): string;
         toJSON(): any;

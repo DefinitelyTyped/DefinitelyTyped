@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
-declare class LicenseCheckerWebpackPlugin extends Plugin {
+declare class LicenseCheckerWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: Partial<LicenseCheckerWebpackPlugin.Options>);
+    apply(compiler: Compiler): void;
 }
 
 declare namespace LicenseCheckerWebpackPlugin {
