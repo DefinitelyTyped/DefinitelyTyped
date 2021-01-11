@@ -14,9 +14,11 @@ declare namespace factory {
 
     type Definition<T> = T | Generator<T>;
 
-    type Attributes<T> = Definition<{
-        [P in keyof T]: Definition<T[P]>;
-    }>;
+    type Attributes<T> = Definition<
+        {
+            [P in keyof T]: Definition<T[P]>;
+        }
+    >;
 
     interface Static {
         factory: Static;
@@ -70,8 +72,17 @@ declare namespace factory {
         /**
          * Builds an array of model instances that are persisted
          */
-        createMany<T>(name: string, num: number, attrs?: Attributes<Partial<T>>, buildOptions?: Options<T>): Promise<T[]>;
-        createMany<T>(name: string, attrs?: ReadonlyArray<Attributes<Partial<T>>>, buildOptions?: Options<T>): Promise<T[]>;
+        createMany<T>(
+            name: string,
+            num: number,
+            attrs?: Attributes<Partial<T>>,
+            buildOptions?: Options<T>,
+        ): Promise<T[]>;
+        createMany<T>(
+            name: string,
+            attrs?: ReadonlyArray<Attributes<Partial<T>>>,
+            buildOptions?: Options<T>,
+        ): Promise<T[]>;
 
         /**
          * Define a new factory with a set of options
