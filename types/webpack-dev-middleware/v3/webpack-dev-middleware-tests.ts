@@ -3,12 +3,25 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const compilerWithPublicPath = webpack({
+    output: {
+        publicPath: '/assets/',
+    },
+});
 
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
 
+webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
+
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     logLevel: 'silent',
+    logTime: true,
     lazy: true,
+    methods: ['GET', 'POST'],
+    mimeTypes: {
+        typeMap: { 'text/html': ['phtml'] },
+        force: true,
+    },
     watchOptions: {
         aggregateTimeout: 300,
         poll: true,
@@ -34,11 +47,15 @@ webpackDevMiddlewareInstance.close(() => {
 });
 
 webpackDevMiddlewareInstance.invalidate(stats => {
-    console.log(stats.toJson());
+    if (stats) {
+        console.log(stats.toJson());
+    }
 });
 
 webpackDevMiddlewareInstance.waitUntilValid(stats => {
-    console.log('Package is in a valid state:' + stats.toJson());
+    if (stats) {
+        console.log('Package is in a valid state:' + stats.toJson());
+    }
 });
 
 const fs = webpackDevMiddlewareInstance.fileSystem;
