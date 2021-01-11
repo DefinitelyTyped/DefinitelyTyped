@@ -2132,6 +2132,11 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "json-schema-traverse",
+            "typingsPackageName": "json-schema-traverse",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "jsonata",
             "typingsPackageName": "jsonata",
             "asOfVersion": "1.5.0"
