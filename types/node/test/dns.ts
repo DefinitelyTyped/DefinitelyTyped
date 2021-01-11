@@ -99,20 +99,24 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
     });
 }
 {
-    const resolver = new Resolver();
+    let resolver = new Resolver();
     resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
     resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
     resolver.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
     resolver.cancel();
+
+    resolver = new Resolver({ timeout: -1});
 }
 
 {
-    const resolver = new promises.Resolver();
+    let resolver = new promises.Resolver();
     resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
     resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
     // $ExpectType Promise<string[]>
     resolver.resolve("nodejs.org");
     resolver.cancel();
+
+    resolver = new promises.Resolver({ timeout: 1500 });
 }

@@ -523,12 +523,13 @@ import Module = require("module");
         });
     }
     {
-        const resolver = new dns.Resolver();
+        let resolver = new dns.Resolver();
         resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
         resolver.resolve("nodejs.org", (err, addresses) => {
             const _addresses: string[] = addresses;
         });
         resolver.cancel();
+        resolver = new dns.Resolver({ timeout: -1});
     }
 }
 

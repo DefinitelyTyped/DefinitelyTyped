@@ -276,7 +276,12 @@ declare module "dns" {
     const ADDRGETNETWORKPARAMS: string;
     const CANCELLED: string;
 
+    interface ResolverOptions {
+        timeout?: number;
+    }
+
     class Resolver {
+        constructor(options?: ResolverOptions);
         cancel(): void;
         getServers: typeof getServers;
         resolve: typeof resolve;
@@ -352,6 +357,7 @@ declare module "dns" {
         function setServers(servers: ReadonlyArray<string>): void;
 
         class Resolver {
+            constructor(options?: ResolverOptions);
             cancel(): void;
             getServers: typeof getServers;
             resolve: typeof resolve;
