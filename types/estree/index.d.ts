@@ -243,7 +243,7 @@ export interface ThisExpression extends BaseExpression {
 
 export interface ArrayExpression extends BaseExpression {
   type: "ArrayExpression";
-  elements: Array<Expression | SpreadElement>;
+  elements: Array<Expression | SpreadElement | null>;
 }
 
 export interface ObjectExpression extends BaseExpression {
@@ -436,7 +436,8 @@ export interface TemplateElement extends BaseNode {
   type: "TemplateElement";
   tail: boolean;
   value: {
-    cooked: string;
+    /** It is null when the template literal is tagged and the text has an invalid escape (e.g. - tag`\unicode and \u{55}`) */
+    cooked?: string | null;
     raw: string;
   };
 }
@@ -454,7 +455,7 @@ export interface ObjectPattern extends BasePattern {
 
 export interface ArrayPattern extends BasePattern {
   type: "ArrayPattern";
-  elements: Array<Pattern>;
+  elements: Array<Pattern | null>;
 }
 
 export interface RestElement extends BasePattern {
