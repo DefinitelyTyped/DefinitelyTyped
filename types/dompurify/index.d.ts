@@ -5,6 +5,7 @@
 //                 FlowCrypt <https://github.com/FlowCrypt>
 //                 Exigerr <https://github.com/Exigerr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Nicholas Ellul <https://github.com/NicholasEllul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="trusted-types"/>
 
@@ -95,5 +96,6 @@ declare namespace DOMPurify {
         attrValue: string;
         keepAttr: boolean;
         allowedAttributes: { [key: string]: boolean };
+        forceKeepAttr?: boolean;
     }
 }
