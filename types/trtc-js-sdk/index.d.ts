@@ -1,6 +1,7 @@
-// Type definitions for trtc-js-sdk 4.3
+// Type definitions for trtc-js-sdk 4.8
 // Project: https://github.com/tencentyun/TRTCSDK#readme
 // Definitions by: yokots <https://github.com/yokots>
+//                 Wang KaiLing <https://github.com/wkl007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace TRTC;
@@ -53,7 +54,7 @@ export namespace Logger {
 export const VERSION: string;
 
 /** 检测浏览器是否兼容 TRTC Web SDK */
-export function checkSystemRequirements(): Promise<boolean>;
+export function checkSystemRequirements(): Promise<CheckResult>;
 
 /** 检测浏览器是否支持屏幕分享 */
 export function isScreenShareSupported(): boolean;
@@ -261,10 +262,10 @@ export interface ClientConfig {
     userSig: string;
     /**
      * 应用场景,目前支持以下两种场景:
-     * - `videoCall` 实时通话模式
+     * - `rtc` 实时通话模式
      * - `live` 互动直播模式
      */
-    mode: 'videoCall' | 'live';
+    mode: 'rtc' | 'live';
     /** 绑定腾讯云直播 CDN 流 ID，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV|HLS）播放该用户的音视频流。 */
     streamId?: string;
     /** 设置云端录制完成后的回调消息中的 "userdefinerecordid" 字段内容，便于您更方便的识别录制回调。 */
@@ -758,3 +759,18 @@ export interface Profile {
 export type VideoProfileString = '120p' | '180p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '4K';
 
 export type ScreenProfileString = '480p' | '480p_2' | '720p' | '720p_2' | '1080p' | '1080p_2';
+
+export interface CheckResult {
+    /** 检测结果 */
+    result: boolean;
+    detail: {
+        /** 当前浏览器是否是 SDK 支持的浏览器 */
+        isBrowserSupported: boolean;
+        /** 当前浏览器是否支持 webRTC */
+        isWebRTCSupported: boolean;
+        /** 当前浏览器是否支持获取媒体设备及媒体流 */
+        isMediaDevicesSupported: boolean;
+        /** 当前浏览器是否支持 H264 编码 */
+        isH264Supported: boolean;
+    };
+}

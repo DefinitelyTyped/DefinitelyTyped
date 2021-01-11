@@ -6,6 +6,12 @@ TRTC.getDevices().then(devices => {
     });
 });
 
+TRTC.checkSystemRequirements().then(checkResult => {
+    if (!checkResult.result) {
+        console.log('checkResult', checkResult.result, 'checkDetail', checkResult.detail);
+    }
+});
+
 const client = TRTC.createClient({
     sdkAppId: 123,
     userId: '123',
