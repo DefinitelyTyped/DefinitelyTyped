@@ -13,7 +13,7 @@
 // to the interfaces that extend them (like Identifier or
 // ArrowFunctionExpression), but you can't extend a type union or enforce
 // common fields on them. So we've split the high level interfaces into two
-// types, a base type which passes down inhereted fields, and a type union of
+// types, a base type which passes down inherited fields, and a type union of
 // all types which extend the base type. Only the type union is exported, and
 // the union is how other types refer to the collection of inheriting types.
 //
@@ -243,7 +243,7 @@ export interface ThisExpression extends BaseExpression {
 
 export interface ArrayExpression extends BaseExpression {
   type: "ArrayExpression";
-  elements: Array<Expression | SpreadElement>;
+  elements: Array<Expression | SpreadElement | null>;
 }
 
 export interface ObjectExpression extends BaseExpression {
@@ -436,7 +436,8 @@ export interface TemplateElement extends BaseNode {
   type: "TemplateElement";
   tail: boolean;
   value: {
-    cooked: string;
+    /** It is null when the template literal is tagged and the text has an invalid escape (e.g. - tag`\unicode and \u{55}`) */
+    cooked?: string | null;
     raw: string;
   };
 }
@@ -454,7 +455,7 @@ export interface ObjectPattern extends BasePattern {
 
 export interface ArrayPattern extends BasePattern {
   type: "ArrayPattern";
-  elements: Array<Pattern>;
+  elements: Array<Pattern | null>;
 }
 
 export interface RestElement extends BasePattern {
