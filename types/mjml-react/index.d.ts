@@ -337,6 +337,7 @@ export interface MjmlSocialElementProps {
         'github' | 'instagram' | 'web' | 'snapchat' | 'youtube' | 'vimeo' | 'medium' | 'soundcloud' | 'dribbble';
     src?: string;
     alt?: string;
+    iconPadding?: string;
 }
 
 export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & HrefProps & PaddingProps> { }
