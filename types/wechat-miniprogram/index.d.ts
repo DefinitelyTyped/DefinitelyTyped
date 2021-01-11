@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Wechat Mini Program - wechat-miniprogram 3.1
+// Type definitions for non-npm package Wechat Mini Program - wechat-miniprogram 3.2
 // Project: https://developers.weixin.qq.com/miniprogram/dev/api/
 // Definitions by: Wechat Miniprogram <https://github.com/wechat-miniprogram>,
 //                SgLy <https://github.com/SgLy>,

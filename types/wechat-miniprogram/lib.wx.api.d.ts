@@ -56,6 +56,36 @@ declare namespace WechatMiniprogram {
         cardList: AddCardResponseInfo[]
         errMsg: string
     }
+    interface AddCustomLayerOption {
+        /** 个性化图层id */
+        layerId: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: AddCustomLayerCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: AddCustomLayerFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: AddCustomLayerSuccessCallback
+    }
+    interface AddGroundOverlayOption {
+        /** 图片覆盖的经纬度范围 */
+        bounds: MapBounds
+        /** 图片图层 id */
+        id: string
+        /** 图片路径，支持网络图片、临时路径、代码包路径 */
+        src: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: AddGroundOverlayCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: AddGroundOverlayFailCallback
+        /** 图层透明度 */
+        opacity?: number
+        /** 接口调用成功的回调函数 */
+        success?: AddGroundOverlaySuccessCallback
+        /** 是否可见 */
+        visible?: boolean
+        /** 图层绘制顺序 */
+        zIndex?: number
+    }
     interface AddMarkersOption {
         /** 同传入 map 组件的 marker 属性 */
         markers: any[]
@@ -227,12 +257,12 @@ declare namespace WechatMiniprogram {
         success?: AppendFileSuccessCallback
     }
     interface AuthPrivateMessageOption {
+        /** shareTicket。可以从 wx.onShow 中获取。详情 [shareTicket](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/share.html) */
+        shareTicket: string
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: AuthPrivateMessageCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: AuthPrivateMessageFailCallback
-        /** shareTicket。可以从 wx.onShow 中获取。详情 [shareTicket](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/share.html) */
-        shareTicket?: string
         /** 接口调用成功的回调函数 */
         success?: AuthPrivateMessageSuccessCallback
     }
@@ -294,6 +324,14 @@ declare namespace WechatMiniprogram {
         read: boolean
         /** 该特征值是否支持 write 操作 */
         write: boolean
+    }
+    interface BLEPeripheralServerCloseOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: SocketTaskCloseCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: SocketTaskCloseFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: SocketTaskCloseSuccessCallback
     }
     /** 描述service的Object */
     interface BLEPeripheralService {
@@ -1657,6 +1695,14 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 帧数据宽度 */
         width: number
     }
+    interface FromScreenLocationOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: FromScreenLocationCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: FromScreenLocationFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: FromScreenLocationSuccessCallback
+    }
     interface GetAtqaOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: GetAtqaCompleteCallback
@@ -2253,6 +2299,10 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          *
          * 最低基础库： `2.10.1` */
         subscriptionsSetting: SubscriptionsSetting
+        /** [AuthSetting](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/setting/AuthSetting.html)
+         *
+         * 在插件中调用时，当前宿主小程序的用户授权结果 */
+        miniprogramAuthSetting?: AuthSetting
         errMsg: string
     }
     interface GetShareInfoOption {
@@ -2321,6 +2371,14 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         data: any
         errMsg: string
     }
+    interface GetSystemInfoAsyncOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: GetSystemInfoAsyncCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: GetSystemInfoAsyncFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: GetSystemInfoAsyncSuccessCallback
+    }
     interface GetSystemInfoOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: GetSystemInfoCompleteCallback
@@ -2328,211 +2386,6 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         fail?: GetSystemInfoFailCallback
         /** 接口调用成功的回调函数 */
         success?: GetSystemInfoSuccessCallback
-    }
-    interface GetSystemInfoSuccessCallbackResult {
-        /** 客户端基础库版本
-         *
-         * 最低基础库： `1.1.0` */
-        SDKVersion: string
-        /** 允许微信使用相册的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        albumAuthorized: boolean
-        /** 设备性能等级（仅 Android）。取值为：-2 或 0（该设备无法运行小游戏），-1（性能未知），>=1（设备性能值，该值越高，设备性能越好，目前最高不到50）
-         *
-         * 最低基础库： `1.8.0` */
-        benchmarkLevel: number
-        /** 蓝牙的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        bluetoothEnabled: boolean
-        /** 设备品牌
-         *
-         * 最低基础库： `1.5.0` */
-        brand: string
-        /** 允许微信使用摄像头的开关
-         *
-         * 最低基础库： `2.6.0` */
-        cameraAuthorized: boolean
-        /** 用户字体大小（单位px）。以微信客户端「我-设置-通用-字体大小」中的设置为准
-         *
-         * 最低基础库： `1.5.0` */
-        fontSizeSetting: number
-        /** 微信设置的语言 */
-        language: string
-        /** 允许微信使用定位的开关
-         *
-         * 最低基础库： `2.6.0` */
-        locationAuthorized: boolean
-        /** 地理位置的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        locationEnabled: boolean
-        /** 允许微信使用麦克风的开关
-         *
-         * 最低基础库： `2.6.0` */
-        microphoneAuthorized: boolean
-        /** 设备型号 */
-        model: string
-        /** 允许微信通知带有提醒的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationAlertAuthorized: boolean
-        /** 允许微信通知的开关
-         *
-         * 最低基础库： `2.6.0` */
-        notificationAuthorized: boolean
-        /** 允许微信通知带有标记的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationBadgeAuthorized: boolean
-        /** 允许微信通知带有声音的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationSoundAuthorized: boolean
-        /** 设备像素比 */
-        pixelRatio: number
-        /** 客户端平台 */
-        platform: string
-        /** 在竖屏正方向下的安全区域
-         *
-         * 最低基础库： `2.7.0` */
-        safeArea: SafeAreaResult
-        /** 屏幕高度，单位px
-         *
-         * 最低基础库： `1.1.0` */
-        screenHeight: number
-        /** 屏幕宽度，单位px
-         *
-         * 最低基础库： `1.1.0` */
-        screenWidth: number
-        /** 状态栏的高度，单位px
-         *
-         * 最低基础库： `1.9.0` */
-        statusBarHeight: number
-        /** 操作系统及版本 */
-        system: string
-        /** 微信版本号 */
-        version: string
-        /** Wi-Fi 的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        wifiEnabled: boolean
-        /** 可使用窗口高度，单位px */
-        windowHeight: number
-        /** 可使用窗口宽度，单位px */
-        windowWidth: number
-        /** 系统当前主题，取值为`light`或`dark`，全局配置`"darkmode":true`时才能获取，否则为 undefined （不支持小游戏）
-         *
-         * 可选值：
-         * - 'dark': 深色主题;
-         * - 'light': 浅色主题;
-         *
-         * 最低基础库： `2.11.0` */
-        theme?: 'dark' | 'light'
-        errMsg: string
-    }
-    interface GetSystemInfoSyncResult {
-        /** 客户端基础库版本
-         *
-         * 最低基础库： `1.1.0` */
-        SDKVersion: string
-        /** 允许微信使用相册的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        albumAuthorized: boolean
-        /** 设备性能等级（仅 Android）。取值为：-2 或 0（该设备无法运行小游戏），-1（性能未知），>=1（设备性能值，该值越高，设备性能越好，目前最高不到50）
-         *
-         * 最低基础库： `1.8.0` */
-        benchmarkLevel: number
-        /** 蓝牙的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        bluetoothEnabled: boolean
-        /** 设备品牌
-         *
-         * 最低基础库： `1.5.0` */
-        brand: string
-        /** 允许微信使用摄像头的开关
-         *
-         * 最低基础库： `2.6.0` */
-        cameraAuthorized: boolean
-        /** 用户字体大小（单位px）。以微信客户端「我-设置-通用-字体大小」中的设置为准
-         *
-         * 最低基础库： `1.5.0` */
-        fontSizeSetting: number
-        /** 微信设置的语言 */
-        language: string
-        /** 允许微信使用定位的开关
-         *
-         * 最低基础库： `2.6.0` */
-        locationAuthorized: boolean
-        /** 地理位置的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        locationEnabled: boolean
-        /** 允许微信使用麦克风的开关
-         *
-         * 最低基础库： `2.6.0` */
-        microphoneAuthorized: boolean
-        /** 设备型号 */
-        model: string
-        /** 允许微信通知带有提醒的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationAlertAuthorized: boolean
-        /** 允许微信通知的开关
-         *
-         * 最低基础库： `2.6.0` */
-        notificationAuthorized: boolean
-        /** 允许微信通知带有标记的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationBadgeAuthorized: boolean
-        /** 允许微信通知带有声音的开关（仅 iOS 有效）
-         *
-         * 最低基础库： `2.6.0` */
-        notificationSoundAuthorized: boolean
-        /** 设备像素比 */
-        pixelRatio: number
-        /** 客户端平台 */
-        platform: string
-        /** 在竖屏正方向下的安全区域
-         *
-         * 最低基础库： `2.7.0` */
-        safeArea: SafeAreaResult
-        /** 屏幕高度，单位px
-         *
-         * 最低基础库： `1.1.0` */
-        screenHeight: number
-        /** 屏幕宽度，单位px
-         *
-         * 最低基础库： `1.1.0` */
-        screenWidth: number
-        /** 状态栏的高度，单位px
-         *
-         * 最低基础库： `1.9.0` */
-        statusBarHeight: number
-        /** 操作系统及版本 */
-        system: string
-        /** 微信版本号 */
-        version: string
-        /** Wi-Fi 的系统开关
-         *
-         * 最低基础库： `2.6.0` */
-        wifiEnabled: boolean
-        /** 可使用窗口高度，单位px */
-        windowHeight: number
-        /** 可使用窗口宽度，单位px */
-        windowWidth: number
-        /** 系统当前主题，取值为`light`或`dark`，全局配置`"darkmode":true`时才能获取，否则为 undefined （不支持小游戏）
-         *
-         * 可选值：
-         * - 'dark': 深色主题;
-         * - 'light': 浅色主题;
-         *
-         * 最低基础库： `2.11.0` */
-        theme?: 'dark' | 'light'
     }
     interface GetUserInfoOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -2791,7 +2644,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 点击已经聚合的标记点时是否实现聚合分离 */
         zoomOnClick?: boolean
     }
-    /** InnerAudioContext 实例，可通过 [wx.createInnerAudioContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/wx.createInnerAudioContext.html) 接口获取实例。
+    /** InnerAudioContext 实例，可通过 [wx.createInnerAudioContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/wx.createInnerAudioContext.html) 接口获取实例。注意，音频播放过程中，可能被系统中断，可通过 [wx.onAudioInterruptionBegin](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAudioInterruptionBegin.html)、[wx.onAudioInterruptionEnd](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAudioInterruptionEnd.html)事件来处理这种情况。
 *
 * **支持格式**
 *
@@ -2948,6 +2801,14 @@ innerAudioContext.onError((res) => {
         /** 错误信息 */
         errMsg: string
     }
+    interface IsConnectedOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: IsConnectedCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: IsConnectedFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: IsConnectedSuccessCallback
+    }
     interface JoinVoIPChatOption {
         /** 小游戏内此房间/群聊的 ID。同一时刻传入相同 groupId 的用户会进入到同个实时语音房间。 */
         groupId: string
@@ -3052,12 +2913,12 @@ innerAudioContext.onError((res) => {
     interface MakeBluetoothPairOption {
         /** 蓝牙设备 id */
         deviceId: string
+        /** pin 码，Base64 格式。 */
+        pin: string
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: MakeBluetoothPairCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: MakeBluetoothPairFailCallback
-        /** pin 码 */
-        pin?: ArrayBuffer
         /** 接口调用成功的回调函数 */
         success?: MakeBluetoothPairSuccessCallback
         /** 超时时间 */
@@ -3079,6 +2940,13 @@ innerAudioContext.onError((res) => {
         manufacturerId: string
         /** 制造商信息 */
         manufacturerSpecificData?: ArrayBuffer
+    }
+    /** 图片覆盖的经纬度范围 */
+    interface MapBounds {
+        /** 东北角经纬度 */
+        northeast: MapPostion
+        /** 西南角经纬度 */
+        southwest: MapPostion
     }
     interface MapPostion {
         /** 纬度 */
@@ -3308,11 +3176,11 @@ innerAudioContext.onError((res) => {
     }
     interface NdefCloseOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: CloseCompleteCallback
+        complete?: NdefCloseCompleteCallback
         /** 接口调用失败的回调函数 */
-        fail?: CloseFailCallback
+        fail?: NdefCloseFailCallback
         /** 接口调用成功的回调函数 */
-        success?: CloseSuccessCallback
+        success?: NdefCloseSuccessCallback
     }
     interface NodeCallbackResult {
         /** 节点对应的 Node 实例 */
@@ -3743,6 +3611,20 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: OpenLocationSuccessCallback
     }
+    interface OpenMapAppOption {
+        /** 目的地名称 */
+        destination: string
+        /** 目的地纬度 */
+        latitude: number
+        /** 目的地经度 */
+        longitude: number
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: OpenMapAppCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: OpenMapAppFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: OpenMapAppSuccessCallback
+    }
     interface OpenSettingOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: OpenSettingCompleteCallback
@@ -4156,6 +4038,16 @@ innerAudioContext.onError((res) => {
         /** message 的大小，单位：字节 */
         size: number
     }
+    interface RemoveCustomLayerOption {
+        /** 个性化图层id */
+        layerId: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: RemoveCustomLayerCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: RemoveCustomLayerFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: RemoveCustomLayerSuccessCallback
+    }
     interface RemoveFormatOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: RemoveFormatCompleteCallback
@@ -4163,6 +4055,16 @@ innerAudioContext.onError((res) => {
         fail?: RemoveFormatFailCallback
         /** 接口调用成功的回调函数 */
         success?: RemoveFormatSuccessCallback
+    }
+    interface RemoveGroundOverlayOption {
+        /** 图片图层 id */
+        id: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: RemoveGroundOverlayCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: RemoveGroundOverlayFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: RemoveGroundOverlaySuccessCallback
     }
     interface RemoveMarkersOption {
         /** marker 的 id 集合。 */
@@ -4395,7 +4297,7 @@ innerAudioContext.onError((res) => {
         errMsg: string
     }
     interface RequestSubscribeMessageOption {
-        /** 需要订阅的消息模板的id的集合，一次调用最多可订阅3条消息（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次性订阅/长期订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置 */
+        /** 需要订阅的消息模板的id的集合，一次调用最多可订阅3条消息（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次性订阅/长期订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置。每个tmplId对应的模板标题需要不相同，否则会被过滤。 */
         tmplIds: any[]
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: RequestSubscribeMessageCompleteCallback
@@ -4405,7 +4307,7 @@ innerAudioContext.onError((res) => {
         success?: RequestSubscribeMessageSuccessCallback
     }
     interface RequestSubscribeMessageSuccessCallbackResult {
-        /** [TEMPLATE_ID]是动态的键，即模板id，值包括'accept'、'reject'、'ban'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示已被后台封禁。例如 { errMsg: "requestSubscribeMessage:ok", zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE: "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息 */
+        /** [TEMPLATE_ID]是动态的键，即模板id，值包括'accept'、'reject'、'ban'、'filter'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示已被后台封禁，'filter'表示该模板因为模板标题同名被后台过滤。例如 { errMsg: "requestSubscribeMessage:ok", zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE: "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息 */
         TEMPLATE_ID: string
         /** 接口调用成功时errMsg值为'requestSubscribeMessage:ok' */
         errMsg: string
@@ -4496,7 +4398,7 @@ innerAudioContext.onError((res) => {
     /** 在竖屏正方向下的安全区域
      *
      * 最低基础库： `2.7.0` */
-    interface SafeAreaResult {
+    interface SafeArea {
         /** 安全区域右下角纵坐标 */
         bottom: number
         /** 安全区域的高度，单位逻辑像素 */
@@ -4782,6 +4684,8 @@ innerAudioContext.onError((res) => {
         mixWithOther?: boolean
         /** （仅在 iOS 生效）是否遵循静音开关，设置为 false 之后，即使是在静音模式下，也能播放声音 */
         obeyMuteSwitch?: boolean
+        /** true 代表用扬声器播放，false 代表听筒播放，默认值为 true。 */
+        speakerOn?: boolean
         /** 接口调用成功的回调函数 */
         success?: SetInnerAudioOptionSuccessCallback
     }
@@ -4955,6 +4859,10 @@ innerAudioContext.onError((res) => {
     interface ShowActionSheetOption {
         /** 按钮的文字数组，数组长度最大为 6 */
         itemList: string[]
+        /** 警示文案
+         *
+         * 最低基础库： `2.14.0` */
+        alertText?: string
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ShowActionSheetCompleteCallback
         /** 接口调用失败的回调函数 */
@@ -5077,9 +4985,10 @@ innerAudioContext.onError((res) => {
          *
          * 可选值：
          * - 'success': 显示成功图标，此时 title 文本最多显示 7 个汉字长度;
+         * - 'error': 显示失败图标，此时 title 文本最多显示 7 个汉字长度;
          * - 'loading': 显示加载图标，此时 title 文本最多显示 7 个汉字长度;
          * - 'none': 不显示图标，此时 title 文本最多可显示两行，[1.9.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)及以上版本支持; */
-        icon?: 'success' | 'loading' | 'none'
+        icon?: 'success' | 'error' | 'loading' | 'none'
         /** 自定义图标的本地路径，image 的优先级高于 icon
          *
          * 最低基础库： `1.1.0` */
@@ -5120,13 +5029,13 @@ innerAudioContext.onError((res) => {
         /** 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。 */
         code?: number
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: CloseCompleteCallback
+        complete?: SocketTaskCloseCompleteCallback
         /** 接口调用失败的回调函数 */
-        fail?: CloseFailCallback
+        fail?: SocketTaskCloseFailCallback
         /** 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）。 */
         reason?: string
         /** 接口调用成功的回调函数 */
-        success?: CloseSuccessCallback
+        success?: SocketTaskCloseSuccessCallback
     }
     interface SocketTaskOnCloseCallbackResult {
         /** 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。 */
@@ -5623,6 +5532,110 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: SwitchTabSuccessCallback
     }
+    interface SystemInfo {
+        /** 客户端基础库版本
+         *
+         * 最低基础库： `1.1.0` */
+        SDKVersion: string
+        /** 允许微信使用相册的开关（仅 iOS 有效）
+         *
+         * 最低基础库： `2.6.0` */
+        albumAuthorized: boolean
+        /** 设备性能等级（仅 Android）。取值为：-2 或 0（该设备无法运行小游戏），-1（性能未知），>=1（设备性能值，该值越高，设备性能越好，目前最高不到50）
+         *
+         * 最低基础库： `1.8.0` */
+        benchmarkLevel: number
+        /** 蓝牙的系统开关
+         *
+         * 最低基础库： `2.6.0` */
+        bluetoothEnabled: boolean
+        /** 设备品牌
+         *
+         * 最低基础库： `1.5.0` */
+        brand: string
+        /** 允许微信使用摄像头的开关
+         *
+         * 最低基础库： `2.6.0` */
+        cameraAuthorized: boolean
+        /** 用户字体大小（单位px）。以微信客户端「我-设置-通用-字体大小」中的设置为准
+         *
+         * 最低基础库： `1.5.0` */
+        fontSizeSetting: number
+        /** 微信设置的语言 */
+        language: string
+        /** 允许微信使用定位的开关
+         *
+         * 最低基础库： `2.6.0` */
+        locationAuthorized: boolean
+        /** 地理位置的系统开关
+         *
+         * 最低基础库： `2.6.0` */
+        locationEnabled: boolean
+        /** `true` 表示模糊定位，`false` 表示精确定位，仅 iOS 支持 */
+        locationReducedAccuracy: boolean
+        /** 允许微信使用麦克风的开关
+         *
+         * 最低基础库： `2.6.0` */
+        microphoneAuthorized: boolean
+        /** 设备型号。新机型刚推出一段时间会显示unknown，微信会尽快进行适配。 */
+        model: string
+        /** 允许微信通知带有提醒的开关（仅 iOS 有效）
+         *
+         * 最低基础库： `2.6.0` */
+        notificationAlertAuthorized: boolean
+        /** 允许微信通知的开关
+         *
+         * 最低基础库： `2.6.0` */
+        notificationAuthorized: boolean
+        /** 允许微信通知带有标记的开关（仅 iOS 有效）
+         *
+         * 最低基础库： `2.6.0` */
+        notificationBadgeAuthorized: boolean
+        /** 允许微信通知带有声音的开关（仅 iOS 有效）
+         *
+         * 最低基础库： `2.6.0` */
+        notificationSoundAuthorized: boolean
+        /** 设备像素比 */
+        pixelRatio: number
+        /** 客户端平台 */
+        platform: string
+        /** 在竖屏正方向下的安全区域
+         *
+         * 最低基础库： `2.7.0` */
+        safeArea: SafeArea
+        /** 屏幕高度，单位px
+         *
+         * 最低基础库： `1.1.0` */
+        screenHeight: number
+        /** 屏幕宽度，单位px
+         *
+         * 最低基础库： `1.1.0` */
+        screenWidth: number
+        /** 状态栏的高度，单位px
+         *
+         * 最低基础库： `1.9.0` */
+        statusBarHeight: number
+        /** 操作系统及版本 */
+        system: string
+        /** 微信版本号 */
+        version: string
+        /** Wi-Fi 的系统开关
+         *
+         * 最低基础库： `2.6.0` */
+        wifiEnabled: boolean
+        /** 可使用窗口高度，单位px */
+        windowHeight: number
+        /** 可使用窗口宽度，单位px */
+        windowWidth: number
+        /** 系统当前主题，取值为`light`或`dark`，全局配置`"darkmode":true`时才能获取，否则为 undefined （不支持小游戏）
+         *
+         * 可选值：
+         * - 'dark': 深色主题;
+         * - 'light': 浅色主题;
+         *
+         * 最低基础库： `2.11.0` */
+        theme?: 'dark' | 'light'
+    }
     interface TakePhotoOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: TakePhotoCompleteCallback
@@ -5665,6 +5678,21 @@ innerAudioContext.onError((res) => {
     interface TextMetrics {
         /** 文本的宽度 */
         width: number
+    }
+    interface ToScreenLocationOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ToScreenLocationCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ToScreenLocationFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ToScreenLocationSuccessCallback
+    }
+    interface ToScreenLocationSuccessCallbackResult {
+        /** x 坐标值 */
+        x: number
+        /** y 坐标值 */
+        y: number
+        errMsg: string
     }
     interface ToggleTorchOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -5794,6 +5822,26 @@ innerAudioContext.onError((res) => {
     interface UpdatableMessageFrontEndTemplateInfo {
         /** 参数列表 */
         parameterList: UpdatableMessageFrontEndParameter[]
+    }
+    interface UpdateGroundOverlayOption {
+        /** 图片覆盖的经纬度范围 */
+        bounds: MapBounds
+        /** 图片图层 id */
+        id: string
+        /** 图片路径，支持网络图片、临时路径、代码包路径 */
+        src: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: UpdateGroundOverlayCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: UpdateGroundOverlayFailCallback
+        /** 图层透明度 */
+        opacity?: number
+        /** 接口调用成功的回调函数 */
+        success?: UpdateGroundOverlaySuccessCallback
+        /** 是否可见 */
+        visible?: boolean
+        /** 图层绘制顺序 */
+        zIndex?: number
     }
     interface UpdateShareMenuOption {
         /** 动态消息的 activityId。通过 [updatableMessage.createActivityId](https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/updatable-message/updatableMessage.createActivityId.html) 接口获取
@@ -6389,7 +6437,7 @@ innerAudioContext.onError((res) => {
          * 关闭当前服务端。
          *
          * 最低基础库： `2.10.3` */
-        close(option?: NdefCloseOption): void
+        close(option?: BLEPeripheralServerCloseOption): void
         /** [BLEPeripheralServer.offCharacteristicReadRequest(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-peripheral/BLEPeripheralServer.offCharacteristicReadRequest.html)
          *
          * 取消监听已连接的设备请求读当前外围设备的特征值事件
@@ -9203,6 +9251,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [IsoDep.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/IsoDep.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [IsoDep.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/IsoDep.setTimeout.html)
          *
          * 设置超时时间
@@ -9403,12 +9457,30 @@ Page({
         ): void
     }
     interface MapContext {
+        /** [MapContext.addCustomLayer(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.addCustomLayer.html)
+         *
+         * 添加个性化图层。
+         *
+         * 最低基础库： `2.12.0` */
+        addCustomLayer(option: AddCustomLayerOption): void
+        /** [MapContext.addGroundOverlay(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.addGroundOverlay.html)
+         *
+         * 创建自定义图片图层，图片会随着地图缩放而缩放。
+         *
+         * 最低基础库： `2.14.0` */
+        addGroundOverlay(option: AddGroundOverlayOption): void
         /** [MapContext.addMarkers(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.addMarkers.html)
          *
          * 添加 marker。
          *
          * 最低基础库： `2.13.0` */
         addMarkers(option: AddMarkersOption): void
+        /** [MapContext.fromScreenLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.fromScreenLocation.html)
+         *
+         * 获取屏幕上的点对应的经纬度，坐标原点为地图左上角。
+         *
+         * 最低基础库： `2.14.0` */
+        fromScreenLocation(option: FromScreenLocationOption): void
         /** [MapContext.getCenterLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.getCenterLocation.html)
          *
          * 获取当前地图中心的经纬度。返回的是 gcj02 坐标系，可以用于 [wx.openLocation()](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.openLocation.html) */
@@ -9505,6 +9577,24 @@ Page({
 *
 * 最低基础库： `2.13.0` */
         on(): void
+        /** [MapContext.openMapApp(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.openMapApp.html)
+         *
+         * 拉起地图APP选择导航。
+         *
+         * 最低基础库： `2.14.0` */
+        openMapApp(option: OpenMapAppOption): void
+        /** [MapContext.removeCustomLayer(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.removeCustomLayer.html)
+         *
+         * 移除个性化图层。
+         *
+         * 最低基础库： `2.12.0` */
+        removeCustomLayer(option: RemoveCustomLayerOption): void
+        /** [MapContext.removeGroundOverlay(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.removeGroundOverlay.html)
+         *
+         * 移除自定义图片图层。
+         *
+         * 最低基础库： `2.14.0` */
+        removeGroundOverlay(option: RemoveGroundOverlayOption): void
         /** [MapContext.removeMarkers(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.removeMarkers.html)
          *
          * 移除 marker。
@@ -9517,12 +9607,24 @@ Page({
          *
          * 最低基础库： `2.10.0` */
         setCenterOffset(option: SetCenterOffsetOption): void
+        /** [MapContext.toScreenLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.toScreenLocation.html)
+         *
+         * 获取经纬度对应的屏幕坐标，坐标原点为地图左上角。
+         *
+         * 最低基础库： `2.14.0` */
+        toScreenLocation(option: ToScreenLocationOption): void
         /** [MapContext.translateMarker(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.translateMarker.html)
          *
          * 平移marker，带动画。
          *
          * 最低基础库： `1.2.0` */
         translateMarker(option: TranslateMarkerOption): void
+        /** [MapContext.updateGroundOverlay(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.updateGroundOverlay.html)
+         *
+         * 更新自定义图片图层。
+         *
+         * 最低基础库： `2.14.0` */
+        updateGroundOverlay(option: UpdateGroundOverlayOption): void
     }
     interface MediaAudioPlayer {
         /** [Promise MediaAudioPlayer.addAudioSource([VideoDecoder](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.html) source)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/MediaAudioPlayer.addAudioSource.html)
@@ -9696,6 +9798,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [MifareClassic.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareClassic.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [MifareClassic.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareClassic.setTimeout.html)
          *
          * 设置超时时间
@@ -9728,6 +9836,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [MifareUltralight.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareUltralight.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [MifareUltralight.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareUltralight.setTimeout.html)
          *
          * 设置超时时间
@@ -9860,6 +9974,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         connect(option?: ConnectOption): void
+        /** [Ndef.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/Ndef.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [Ndef.offNdefMessage(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/Ndef.offNdefMessage.html)
          *
          * 取消监听 Ndef 消息
@@ -9916,6 +10036,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getSak(option?: GetSakOption): void
+        /** [NfcA.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcA.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [NfcA.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcA.setTimeout.html)
          *
          * 设置超时时间
@@ -9948,6 +10074,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [NfcB.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcB.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [NfcB.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcB.setTimeout.html)
          *
          * 设置超时时间
@@ -9980,6 +10112,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [NfcF.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcF.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [NfcF.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcF.setTimeout.html)
          *
          * 设置超时时间
@@ -10012,6 +10150,12 @@ Page({
          *
          * 最低基础库： `2.11.2` */
         getMaxTransceiveLength(option?: GetMaxTransceiveLengthOption): void
+        /** [NfcV.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcV.isConnected.html)
+         *
+         * 检查是否已连接
+         *
+         * 最低基础库： `2.11.2` */
+        isConnected(option?: IsConnectedOption): void
         /** [NfcV.setTimeout(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcV.setTimeout.html)
          *
          * 设置超时时间
@@ -11176,7 +11320,7 @@ try {
   // Do something when catch error
 }
 ``` */
-        getSystemInfoSync(): GetSystemInfoSyncResult
+        getSystemInfoSync(): SystemInfo
         /** [[Animation](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.html) wx.createAnimation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/wx.createAnimation.html)
          *
          * 创建一个动画实例 [animation](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.html)。调用实例的方法来描述动画。最后通过动画实例的 export 方法导出动画数据传递给组件的 animation 属性。 */
@@ -11399,16 +11543,23 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
 *
 * 目前支持获取以下几类性能指标：
 *
-* | 类别 | 名称 (entryType) | 指标             |
-* | ---- | ---------------- | ---------------- |
-* | 路由 | navigation       | route, appLaunch |
-* | 渲染 | render           | firstRender      |
-* | 脚本 | script           | evaluateScript   |
+* | 指标类型（entryType） | 指标名称          |
+* | ------------------- | ---------------- |
+* | 路由（navigation）   | route: 路由性能 \n appLaunch: 小程序启动耗时  |
+* | 渲染（render）       | firstRender: 页面首次渲染耗时      |
+* | 脚本（script）       | evaluateScript: 注入脚本耗时   |
 *
-*  - route: 路由性能
-*  - appLaunch: 小程序启动耗时
-*  - firstRender: 页面首次渲染耗时
-*  - evaluateScript: 注入脚本耗时
+*  性能数据详情：
+*
+* | 属性 | 说明 |
+* | ---- | ----- |
+* | entryType | 指标类型 |
+* | name | 指标名称 |
+* | startTime | 指标调用开始时间 |
+* | duration | 耗时 |
+* | path | 路径 |
+* | navigationStart | 路由真正响应开始时间 |
+* | navigationType | 路由详细类型 |
 *
 * **示例代码**
 *
@@ -12073,7 +12224,7 @@ wx.chooseVideo({
         ): PromisifySuccessResult<TOption, ChooseVideoOption>
         /** [wx.clearStorage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.clearStorage.html)
 *
-* 清理本地数据缓存
+* 清理本地数据缓存。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。
 *
 * **示例代码**
 *
@@ -12837,7 +12988,7 @@ wx.getSetting({
         getShareInfo(option: GetShareInfoOption): void
         /** [wx.getStorage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorage.html)
 *
-* 从本地缓存中异步获取指定 key 的内容
+* 从本地缓存中异步获取指定 key 的内容。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。
 *
 * **示例代码**
 *
@@ -12866,7 +13017,7 @@ try {
         ): PromisifySuccessResult<TOption, GetStorageOption>
         /** [wx.getStorageInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageInfo.html)
 *
-* 异步获取当前storage的相关信息
+* 异步获取当前storage的相关信息。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。
 *
 * **示例代码**
 *
@@ -12932,6 +13083,29 @@ try {
         getSystemInfo<TOption extends GetSystemInfoOption>(
             option?: TOption
         ): PromisifySuccessResult<TOption, GetSystemInfoOption>
+        /** [wx.getSystemInfoAsync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/system-info/wx.getSystemInfoAsync.html)
+*
+* 异步获取系统信息。需要一定的微信客户端版本支持，在不支持的客户端上，会使用同步实现来返回。
+*
+* **示例代码**
+*
+*
+* ```js
+wx.getSystemInfoAsync({
+  success (res) {
+    console.log(res.model)
+    console.log(res.pixelRatio)
+    console.log(res.windowWidth)
+    console.log(res.windowHeight)
+    console.log(res.language)
+    console.log(res.version)
+    console.log(res.platform)
+  }
+})
+```
+*
+* 最低基础库： `2.14.1` */
+        getSystemInfoAsync(option?: GetSystemInfoAsyncOption): void
         /** [wx.getUserInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserInfo.html)
 *
 * 获取用户信息。
@@ -13236,7 +13410,7 @@ wx.login({
         login(option?: LoginOption): void
         /** [wx.makeBluetoothPair(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-ble/wx.makeBluetoothPair.html)
          *
-         * 蓝牙配对接口，仅安卓使用。安卓上蓝牙连接时，部分设备需先配对。
+         * 蓝牙配对接口，仅安卓支持。通常情况下（需要指定 `pin` 码或者密码时）系统会接管配对流程，直接使用 直接 `createBLEConnection` 即可；该接口只应当在开发者不想让用户手动输入`pin` 码且真机验证确认可以正常生效情况下用。
          *
          * 最低基础库： `2.12.0` */
         makeBluetoothPair<TOption extends MakeBluetoothPairOption>(
@@ -14706,7 +14880,7 @@ wx.getSavedFileList({
         ): PromisifySuccessResult<TOption, WxRemoveSavedFileOption>
         /** [wx.removeStorage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.removeStorage.html)
 *
-* 从本地缓存中移除指定 key
+* 从本地缓存中移除指定 key。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。
 *
 * **示例代码**
 *
@@ -14830,7 +15004,7 @@ wx.reportPerformance(1101, 680, 'custom')
         ): void
         /** [wx.requestPayment(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestPayment.html)
 *
-* 发起微信支付。了解更多信息，可以参考 [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml)：
+* 发起微信支付。调用前需在[小程序微信公众平台](https://mp.weixin.qq.com/) -功能-微信支付入口申请接入微信支付。了解更多信息，可以参考 [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml)：
 * - [开发指引](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter2_3.shtml)
 * - [下单接口](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_2.shtml)
 * - [支付接口](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_12.shtml)
@@ -14911,6 +15085,7 @@ wx.cloud.callFunction({
 *  - 低版本基础库2.4.4~2.8.3 已支持订阅消息接口调用，仅支持传入一个一次性 tmplId / 永久 tmplId。
 *  - [2.8.2](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 版本开始，用户发生点击行为或者发起支付回调后，才可以调起订阅消息界面。
 *  - [2.10.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 版本开始，开发版和体验版小程序将禁止使用模板消息 formId。
+*  - 一次授权调用里，每个tmplId对应的模板标题不能存在相同的，若出现相同的，只保留一个。
 *
 * **错误码**
 *
@@ -15229,6 +15404,12 @@ wx.setEnableDebug({
         /** [wx.setInnerAudioOption(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/wx.setInnerAudioOption.html)
          *
          * 设置 [InnerAudioContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/InnerAudioContext.html) 的播放选项。设置之后对当前小程序全局生效。
+         *
+         * **注意**
+         *
+         *
+         * 为保证微信整体体验，speakerOn 为 true 时，客户端会忽略 mixWithOthers 参数的内容，强制与其它音频互斥
+         * 不支持在播放音频的过程中切换为扬声器播放，开发者如需切换可以先暂停当前播放的音频并记录下当前暂停的时间点，然后切换后重新从原来暂停的时间点开始播放音频
          *
          * 最低基础库： `2.3.0` */
         setInnerAudioOption<TOption extends SetInnerAudioOption>(
@@ -16272,6 +16453,18 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type AddCardSuccessCallback = (result: AddCardSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type AddCustomLayerCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type AddCustomLayerFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type AddCustomLayerSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type AddGroundOverlayCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type AddGroundOverlayFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type AddGroundOverlaySuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type AddMarkersCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type AddMarkersFailCallback = (res: GeneralCallbackResult) => void
@@ -16498,17 +16691,11 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type CloseBluetoothAdapterSuccessCallback = (res: BluetoothError) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type CloseCompleteCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用失败的回调函数 */
-    type CloseFailCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type CloseSocketCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type CloseSocketFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type CloseSocketSuccessCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用成功的回调函数 */
-    type CloseSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type CompressImageCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -16526,9 +16713,9 @@ wx.writeBLECharacteristicValue({
         result: CompressVideoSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type ConnectCompleteCallback = (res: GeneralCallbackResult) => void
+    type ConnectCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type ConnectFailCallback = (res: GeneralCallbackResult) => void
+    type ConnectFailCallback = (res: Nfcrwerror) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ConnectSocketCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -16536,7 +16723,7 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type ConnectSocketSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
-    type ConnectSuccessCallback = (res: GeneralCallbackResult) => void
+    type ConnectSuccessCallback = (res: Nfcrwerror) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ConnectWifiCompleteCallback = (res: WifiError) => void
     /** 接口调用失败的回调函数 */
@@ -16662,9 +16849,19 @@ wx.writeBLECharacteristicValue({
         result: SaveFileFailCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type GetAtqaCompleteCallback = (res: GeneralCallbackResult) => void
+    type FromScreenLocationCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用失败的回调函数 */
-    type GetAtqaFailCallback = (res: GeneralCallbackResult) => void
+    type FromScreenLocationFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type FromScreenLocationSuccessCallback = (
+        result: GetCenterLocationSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type GetAtqaCompleteCallback = (res: Nfcrwerror) => void
+    /** 接口调用失败的回调函数 */
+    type GetAtqaFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type GetAtqaSuccessCallback = (result: GetAtqaSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -16848,11 +17045,9 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type GetHCEStateSuccessCallback = (res: NFCError) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type GetHistoricalBytesCompleteCallback = (
-        res: GeneralCallbackResult
-    ) => void
+    type GetHistoricalBytesCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type GetHistoricalBytesFailCallback = (res: GeneralCallbackResult) => void
+    type GetHistoricalBytesFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type GetHistoricalBytesSuccessCallback = (
         result: GetHistoricalBytesSuccessCallbackResult
@@ -16874,13 +17069,9 @@ wx.writeBLECharacteristicValue({
         result: GetLocationSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type GetMaxTransceiveLengthCompleteCallback = (
-        res: GeneralCallbackResult
-    ) => void
+    type GetMaxTransceiveLengthCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type GetMaxTransceiveLengthFailCallback = (
-        res: GeneralCallbackResult
-    ) => void
+    type GetMaxTransceiveLengthFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type GetMaxTransceiveLengthSuccessCallback = (
         result: GetMaxTransceiveLengthSuccessCallbackResult
@@ -16910,9 +17101,9 @@ wx.writeBLECharacteristicValue({
         result: GetRotateSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type GetSakCompleteCallback = (res: GeneralCallbackResult) => void
+    type GetSakCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type GetSakFailCallback = (res: GeneralCallbackResult) => void
+    type GetSakFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type GetSakSuccessCallback = (result: GetSakSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -17002,13 +17193,19 @@ wx.writeBLECharacteristicValue({
         result: GetStorageSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type GetSystemInfoAsyncCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type GetSystemInfoAsyncFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type GetSystemInfoAsyncSuccessCallback = (result: SystemInfo) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type GetSystemInfoCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type GetSystemInfoFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
-    type GetSystemInfoSuccessCallback = (
-        result: GetSystemInfoSuccessCallbackResult
-    ) => void
+    type GetSystemInfoSuccessCallback = (result: SystemInfo) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type GetUserInfoCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -17147,6 +17344,12 @@ wx.writeBLECharacteristicValue({
         result: InterstitialAdOnErrorCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type IsConnectedCompleteCallback = (res: Nfcrwerror) => void
+    /** 接口调用失败的回调函数 */
+    type IsConnectedFailCallback = (res: Nfcrwerror) => void
+    /** 接口调用成功的回调函数 */
+    type IsConnectedSuccessCallback = (res: Nfcrwerror) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type JoinVoIPChatCompleteCallback = (res: JoinVoIPChatError) => void
     /** 接口调用失败的回调函数 */
     type JoinVoIPChatFailCallback = (res: JoinVoIPChatError) => void
@@ -17252,6 +17455,12 @@ wx.writeBLECharacteristicValue({
     type NavigateToSuccessCallback = (
         result: NavigateToSuccessCallbackResult
     ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type NdefCloseCompleteCallback = (res: Nfcrwerror) => void
+    /** 接口调用失败的回调函数 */
+    type NdefCloseFailCallback = (res: Nfcrwerror) => void
+    /** 接口调用成功的回调函数 */
+    type NdefCloseSuccessCallback = (res: Nfcrwerror) => void
     /** 回调函数，在执行 `SelectorQuery.exec` 方法后，返回节点信息。 */
     type NodeCallback = (result: NodeCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -17600,6 +17809,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type OpenLocationSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type OpenMapAppCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type OpenMapAppFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type OpenMapAppSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type OpenSettingCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type OpenSettingFailCallback = (res: GeneralCallbackResult) => void
@@ -17734,11 +17949,29 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type RedoSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type RemoveCustomLayerCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type RemoveCustomLayerFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type RemoveCustomLayerSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type RemoveFormatCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type RemoveFormatFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type RemoveFormatSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type RemoveGroundOverlayCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type RemoveGroundOverlayFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type RemoveGroundOverlaySuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type RemoveMarkersCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18068,11 +18301,11 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type SetTabBarStyleSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type SetTimeoutCompleteCallback = (res: GeneralCallbackResult) => void
+    type SetTimeoutCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type SetTimeoutFailCallback = (res: GeneralCallbackResult) => void
+    type SetTimeoutFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
-    type SetTimeoutSuccessCallback = (res: GeneralCallbackResult) => void
+    type SetTimeoutSuccessCallback = (res: Nfcrwerror) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type SetTopBarTextCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18161,6 +18394,12 @@ wx.writeBLECharacteristicValue({
     type ShowToastFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type ShowToastSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type SocketTaskCloseCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type SocketTaskCloseFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type SocketTaskCloseSuccessCallback = (res: GeneralCallbackResult) => void
     /** WebSocket 连接关闭事件的回调函数 */
     type SocketTaskOnCloseCallback = (
         result: SocketTaskOnCloseCallbackResult
@@ -18218,11 +18457,11 @@ wx.writeBLECharacteristicValue({
         res: GeneralCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type StartDiscoveryCompleteCallback = (res: GeneralCallbackResult) => void
+    type StartDiscoveryCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type StartDiscoveryFailCallback = (res: GeneralCallbackResult) => void
+    type StartDiscoveryFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
-    type StartDiscoverySuccessCallback = (res: GeneralCallbackResult) => void
+    type StartDiscoverySuccessCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
     type StartFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -18390,11 +18629,11 @@ wx.writeBLECharacteristicValue({
         res: GeneralCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type StopDiscoveryCompleteCallback = (res: GeneralCallbackResult) => void
+    type StopDiscoveryCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type StopDiscoveryFailCallback = (res: GeneralCallbackResult) => void
+    type StopDiscoveryFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
-    type StopDiscoverySuccessCallback = (res: GeneralCallbackResult) => void
+    type StopDiscoverySuccessCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
     type StopFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -18498,15 +18737,23 @@ wx.writeBLECharacteristicValue({
         result: TakePhotoSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ToScreenLocationCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ToScreenLocationFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ToScreenLocationSuccessCallback = (
+        result: ToScreenLocationSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ToggleTorchCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type ToggleTorchFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type ToggleTorchSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type TransceiveCompleteCallback = (res: GeneralCallbackResult) => void
+    type TransceiveCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type TransceiveFailCallback = (res: GeneralCallbackResult) => void
+    type TransceiveFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type TransceiveSuccessCallback = (
         result: TransceiveSuccessCallbackResult
@@ -18548,6 +18795,16 @@ wx.writeBLECharacteristicValue({
     type UnzipFailCallback = (result: UnzipFailCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type UnzipSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type UpdateGroundOverlayCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type UpdateGroundOverlayFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type UpdateGroundOverlaySuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type UpdateShareMenuCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18621,11 +18878,11 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type WriteFileSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type WriteNdefMessageCompleteCallback = (res: GeneralCallbackResult) => void
+    type WriteNdefMessageCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
-    type WriteNdefMessageFailCallback = (res: GeneralCallbackResult) => void
+    type WriteNdefMessageFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
-    type WriteNdefMessageSuccessCallback = (res: GeneralCallbackResult) => void
+    type WriteNdefMessageSuccessCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
     type WxGetFileInfoFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
