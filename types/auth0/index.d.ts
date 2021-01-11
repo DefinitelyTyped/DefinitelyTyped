@@ -932,17 +932,7 @@ export interface Enrollment {
   auth_method: AuthMethod;
 }
 
-export interface GetConnectionOptions {
-  per_page?: number;
-  page?: number;
-}
-
-export interface GetRuleOptions {
-  per_page?: number;
-  page?: number;
-}
-
-export interface GetResourceServerOptions {
+export interface PagingOptions {
   per_page?: number;
   page?: number;
 }
@@ -1006,7 +996,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getClientInfo(): ClientInfo;
 
   // Connections
-  getConnections(params: GetConnectionOptions): Promise<Connection[]>;
+  getConnections(params: PagingOptions): Promise<Connection[]>;
   getConnections(): Promise<Connection[]>;
   getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
@@ -1110,7 +1100,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
 
     // Rules
-  getRules(params: GetRuleOptions): Promise<Rule[]>;
+  getRules(params: PagingOptions): Promise<Rule[]>;
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -1298,7 +1288,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
   createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  getResourceServers(params: GetResourceServerOptions): Promise<ResourceServer[]>;
+  getResourceServers(params: PagingOptions): Promise<ResourceServer[]>;
   getResourceServers(): Promise<ResourceServer[]>;
   getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
