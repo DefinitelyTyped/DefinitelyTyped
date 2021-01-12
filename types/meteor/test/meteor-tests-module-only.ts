@@ -18,7 +18,7 @@ function foo(x: number) {
 MeteorPromise.async(foo, false)(1);
 
 // $ExpectType string
-MeteorPromise.async(foo, false)(1).await();
+MeteorPromise.async(foo, false)('1').await();
 
 // $ExpectType Promise<string>
 MeteorPromise.asyncApply(foo, null, [1]);
