@@ -7,6 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
+// FIXME: Should this be removed since it appears these are no longer part of '@ember/string'?
 export { htmlSafe, isHTMLSafe } from '@ember/template';
 
 export function camelize(str: string): string;
