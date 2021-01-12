@@ -4,7 +4,6 @@
 //                 Felipe Castillo <https://github.com/fcastilloec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //              https://dev.evernote.com/doc/reference/
-// TypeScript Version: 2.3
 
 import { oauth1tokenCallback, OAuth } from 'oauth';
 
