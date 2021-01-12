@@ -25,4 +25,6 @@ export function compile(
  * Each of these two arrays in turn contains two regexps, one
  * strict and one for 'maybe'.
  */
-export function parse(content: string): RegExp[][];
+export function parse(content: string): [GitignoreParseResultSet, GitignoreParseResultSet];
+
+export type GitignoreParseResultSet = [RegExp, RegExp]; // [strict, maybe]
