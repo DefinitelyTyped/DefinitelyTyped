@@ -50,10 +50,6 @@ declare class MemoryFileSystem {
         }
     ): any;
 
-
-
-
-
     createWriteStream(path: string, options?: any): any;
 
     dirname?(arg0: string): string;
