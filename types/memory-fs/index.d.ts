@@ -83,7 +83,7 @@ declare class MemoryFileSystem {
 
     mkdir(path: string, callback: (err: Error | null) => void): void;
     mkdir(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
-    mkdir(arg0: string, arg1: (arg0?: ErrnoException | undefined) => void): void;
+    mkdir(arg0: string, arg1: (arg0?: NodeJS.ErrnoException | undefined) => void): void;
 
     readFile(path: string, callback: (err: Error | null, result?: any) => void): void;
     readFile(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
