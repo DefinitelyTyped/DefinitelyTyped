@@ -15,7 +15,7 @@ interface UDimensionalArray {
     bazStructArray: Fields[][];
 }
 
-interface IArrayCharsntEncoding {
+interface UArrayCharsntEncoding {
     items: string[];
 }
 
@@ -44,6 +44,6 @@ const dimensionalArray = cstruct<UDimensionalArray>()
     .array('bazStructArray', 4, 'array', 4, bazStruct)
     .allocate();
 
-const arrayCharsntEncoding = cstruct<IArrayCharsntEncoding>()
+const arrayCharsntEncoding = cstruct<UArrayCharsntEncoding>()
     .array('items', 4, 'charsnt', 4, 'latin1')
     .allocate();
