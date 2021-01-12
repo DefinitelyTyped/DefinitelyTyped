@@ -1,4 +1,3 @@
-// tslint:disable-next-line: no-single-declare-module
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
