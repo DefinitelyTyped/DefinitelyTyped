@@ -6,7 +6,7 @@ const isAccept: boolean = gitCompile.accepts('test');
 const isDeny: boolean = gitCompile.maybe('test');
 const isMaybe: boolean = gitCompile.denies('test');
 
-const parseVal = gitignore.parse('.git');
+const parseVal: [[RegExp, RegExp], [RegExp, RegExp]] = gitignore.parse('.git');
 
 parseVal.forEach(vals => {
     vals.forEach(val => {
