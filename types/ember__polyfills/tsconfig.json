@@ -15,11 +15,8 @@
             "../"
         ],
         "paths": {
-            "@ember/polyfills": [
-                "ember__polyfills"
-            ],
-            "@ember/polyfills/*": [
-                "ember__polyfills/*"
+            "@ember/*": [
+                "ember__*"
             ]
         },
         "types": [],

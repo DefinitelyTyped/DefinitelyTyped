@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 import { ResizableProps } from 're-resizable';
 
 declare namespace ResizableBox {

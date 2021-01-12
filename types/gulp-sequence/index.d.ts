@@ -23,9 +23,9 @@ const maxArgs = 25;
 const outDone = [];
 
 for (let i = 1; i <= maxArgs; i++) {
-	let def = [];
+    let def = [];
   for (let j = 1; j <= i; j++) {
-  	def.push(`s${j}: seq.Step`);
+      def.push(`s${j}: seq.Step`);
   }
 
   def.push(`done: seq.Done): void;`);

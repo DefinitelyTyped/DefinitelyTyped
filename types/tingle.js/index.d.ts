@@ -17,7 +17,7 @@ export interface Options {
 }
 export class modal {
     constructor(options?: Options);
-    setContent(content: string | Element): void;
+    setContent(content: string | Node): void;
     getContent(): HTMLDivElement;
     destroy(): void;
     open(): void;

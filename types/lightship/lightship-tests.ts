@@ -1,8 +1,9 @@
-import { createLightship, BeaconControllerType, UserConfigurationType, LightshipType } from 'lightship';
+import { createLightship, BeaconControllerType, ConfigurationInputType, LightshipType } from 'lightship';
 
-const lightshipParams: UserConfigurationType = {
+const lightshipParams: ConfigurationInputType = {
     detectKubernetes: false,
-    timeout: 1000,
+    gracefulShutdownTimeout: 5_000,
+    shutdownHandlerTimeout: 2_000,
     port: 50,
     signals: ['SIGBUS'],
 };

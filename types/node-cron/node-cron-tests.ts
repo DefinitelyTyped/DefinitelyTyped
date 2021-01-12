@@ -2,7 +2,6 @@
 
 import cron = require('node-cron');
 
-// tslint:disable-next-line no-console
 const log = console.log;
 
 cron.schedule('* * * * *', () => {
@@ -13,7 +12,6 @@ cron.schedule('1-5 * * * *', () => {
     log('running every minute to 1 from 5');
 });
 
-// tslint:disable-next-line rule
 const task = cron.schedule('* * * * *', () => {
     log('immediately started');
     // because of manual call start method
@@ -47,8 +45,20 @@ if (valid && !invalid) {
 }
 
 // check timezones are accepted from the string literal
-const tast4 = cron.schedule('* * * * *', () => {
+const task4 = cron.schedule('* * * * *', () => {
     log('will execute every minute until stopped');
 }, { timezone: 'Europe/London' });
 
-tast4.destroy();
+task4.destroy();
+
+const task5 = cron.schedule('* * * * *', () => {
+    log('will execute every minute until stopped');
+});
+
+if (task5.getStatus() === 'scheduled') {
+    task5.destroy();
+}
+
+if (task5.getStatus() === 'destroyed') {
+    log('Task5 is destroyed!');
+}

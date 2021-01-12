@@ -374,10 +374,10 @@ declare namespace Q {
      */
     export function resolve<T>(object: IWhenable<T>): Promise<T>;
 
-	/**
-	 * Resets the global "Q" variable to the value it has before Q was loaded.
-	 * This will either be undefined if there was no version or the version of Q which was already loaded before.
-	 * @returns { The last version of Q. }
-	 */
-	export function noConflict(): typeof Q;
+    /**
+     * Resets the global "Q" variable to the value it has before Q was loaded.
+     * This will either be undefined if there was no version or the version of Q which was already loaded before.
+     * @returns { The last version of Q. }
+     */
+    export function noConflict(): typeof Q;
 }

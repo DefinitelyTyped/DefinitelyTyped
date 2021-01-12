@@ -1,19 +1,19 @@
-import * as lib from 'semantic-release';
+import { Config, Context, GlobalConfig, Options, Result } from 'semantic-release';
 import semanticRelease = require('semantic-release');
 
-function verify(pluginConfig: any, context: lib.Context) {
+function verify(pluginConfig: any, context: Context) {
     if (!("AWS_ACCESS_KEY_ID" in context.env)) {
         throw new Error("AWS_ACCESS_KEY_ID not set");
     }
 }
 
-function publish(pluginConfig: any, context: lib.Context) {
+function publish(pluginConfig: any, context: Context) {
     const version = context.nextRelease && context.nextRelease.version;
     context.logger.log(`New version ${version}`);
 }
 
-const options: lib.GlobalConfig = {
-    branch: "master",
+const options: GlobalConfig = {
+    branches: "master",
     repositoryUrl: "https://github.com/semantic-release/semantic-release.git",
     // Lint check disabled for the following line because this is the actual
     // format used by semantic-release. This is not a broken template string.
@@ -36,7 +36,26 @@ const options: lib.GlobalConfig = {
     ]
 };
 
-const context: lib.Context = {
+const options2: Options = {
+    branches: [
+        "master",
+        {
+            name: "next",
+            channel: "next",
+            prerelease: "beta"
+        },
+        {
+            name: "rc*",
+            prerelease: true
+        },
+        {
+            name: "legacy",
+            range: "1.x"
+        }
+    ]
+};
+
+const context: Context = {
     nextRelease: {
         type: "major",
         version: '1.0.0',
@@ -54,7 +73,7 @@ const context: lib.Context = {
 verify({}, context);
 publish({}, context);
 
-const config: lib.Config = {
+const config: Config = {
     cwd: "/home/example/code/semantic-release",
     env: {
         AWS_ACCESS_KEY_ID: "12345",
@@ -65,9 +84,11 @@ const config: lib.Config = {
     stderr: process.stderr
 };
 
-const result: Promise<lib.Result> = semanticRelease(options, config);
+const result: Promise<Result> = semanticRelease(options, config);
 
-const result2: lib.Result = {
+const result2: Promise<Result> = semanticRelease(options2);
+
+const result3: Result = {
     lastRelease: {
         version: "1.1.0",
         gitTag: "v1.1.0",

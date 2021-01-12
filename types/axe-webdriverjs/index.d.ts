@@ -1,10 +1,9 @@
-// Type definitions for axe-webdriverjs 2.1
+// Type definitions for axe-webdriverjs 2.3
 // Project: https://github.com/dequelabs/axe-webdriverjs#readme
 // Definitions by: Joshua Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Tyler Krupicka <https://github.com/tylerkrupicka>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
 
@@ -83,7 +82,15 @@ export interface AxeBuilder {
     ): Promise<AxeAnalysis>;
 }
 
+export interface BuilderOptions {
+    /**
+     * Should errors be printed into console
+     * @default true
+     */
+    logIframeErrors?: boolean;
+}
+
 export const AxeBuilder: {
-    (driver: WebDriver): AxeBuilder;
-    new (driver: WebDriver): AxeBuilder;
+    (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
+    new (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
 };

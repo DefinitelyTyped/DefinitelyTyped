@@ -45,7 +45,7 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
     classNames?: any;
     style?: any;
     suggestionsPortalHost?: Element;
-    inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;
+    inputRef?: React.Ref<HTMLTextAreaElement> | React.Ref<HTMLInputElement>;
 }
 
 /**

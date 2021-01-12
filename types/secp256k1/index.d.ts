@@ -1,4 +1,4 @@
-// Type definitions for secp256k1 3.5
+// Type definitions for secp256k1 4.0
 // Project: https://github.com/cryptocoinjs/secp256k1-node
 // Definitions by: Anler <https://github.com/anler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -115,7 +115,7 @@ export function signatureImport(signature: Uint8Array): Uint8Array;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recovery: number};
+export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recid: number};
 
 /**
  * Verify an ECDSA signature.
@@ -128,12 +128,12 @@ export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?:
  * - Compute point `R = (s^-1 * m * G + s^-1 * r * Q)`. Reject if `R` is infinity.
  * - Signature is valid if R's `x` coordinate equals to `r`.
  */
-export function ecdsaVerify(message: Uint8Array, signature: Uint8Array, publicKey: Uint8Array): boolean;
+export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKey: Uint8Array): boolean;
 
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function ecdsaRecover(message: Uint8Array, signature: Uint8Array, recovery: number, compressed?: boolean): Uint8Array;
+export function ecdsaRecover(signature: Uint8Array, recid: number, message: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.

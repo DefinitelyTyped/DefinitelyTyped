@@ -1,10 +1,11 @@
 import * as React from "react";
 
-interface InheritedProps { }
-
 export type SearchLayoutButtonFormat = "grid" | "list";
 
-export interface SearchLayoutButtonProps extends InheritedProps {
+/**
+ * @deprecated
+ */
+export interface SearchLayoutButtonProps {
     format?: SearchLayoutButtonFormat,
     iconDescriptionGrid?: string,
     iconDescriptionList?: string,
@@ -12,6 +13,9 @@ export interface SearchLayoutButtonProps extends InheritedProps {
     onChangeFormat?(data: { format: NonNullable<SearchLayoutButtonProps["format"]> }): void,
 }
 
+/**
+ * @deprecated
+ */
 declare class SearchLayoutButton extends React.Component<SearchLayoutButtonProps> { }
 
 export default SearchLayoutButton;

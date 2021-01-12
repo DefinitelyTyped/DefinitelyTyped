@@ -1,4 +1,5 @@
 import noUiSlider = require("nouislider");
+import wNumb from 'wnumb';
 
 var testHtmlElement = document.getElementById('test');
 

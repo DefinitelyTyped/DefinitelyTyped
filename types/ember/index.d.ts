@@ -1,5 +1,5 @@
-// Type definitions for Ember.js 3.1
-// Project: http://emberjs.com/, https://github.com/emberjs/ember
+// Type definitions for Ember.js 3.16
+// Project: https://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 //                 Derek Wickern <https://github.com/dwickern>
@@ -9,8 +9,10 @@
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
 //                 Mike North <https://github.com/mike-north>
 //                 Bryan Crotaz <https://github.com/BryanCrotaz>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /// <reference types="jquery" />
 /// <reference types="ember__string" />
@@ -540,6 +542,5 @@ declare module 'htmlbars-inline-precompile' {
     interface TemplateFactory {
         __htmlbars_inline_precompile_template_factory: any;
     }
-    // tslint:disable-next-line:strict-export-declare-modifiers
     export default function hbs(tagged: TemplateStringsArray): TemplateFactory;
 }

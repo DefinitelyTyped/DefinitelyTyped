@@ -846,7 +846,7 @@ export interface ScrollbarOptions {
     lockClass?: string;
 
     /**
-     * 	Scrollbar draggable element CSS class
+     *     Scrollbar draggable element CSS class
      *
      * @default 'swiper-scrollbar-drag'
      */
@@ -998,7 +998,7 @@ export interface HashNavigationOptions {
      * Works in addition to hashnav to replace current url state with the
      * new one instead of adding it to history
      *
-     * @default 	false
+     * @default     false
      */
     replaceState?: boolean;
 }
@@ -1105,8 +1105,6 @@ export interface A11yOptions {
     notificationClass?: string;
 }
 
-// "Multiple imports from './dist/js/swiper.esm' can be combined into one" + "Line breaks are not allowed in import declaration" = ...
-// tslint:disable-next-line:max-line-length
 import {
     Virtual,
     Keyboard,
@@ -1445,7 +1443,7 @@ export default class Swiper {
      *
      * @example removeSlide(0); // remove first slide
      * @example removeSlide([0, 1]); // remove first and second slides
-     * @example removeAllSlides();	// Remove all slides
+     * @example removeAllSlides();    // Remove all slides
      */
     removeSlide(slideIndex: number | number[]): void;
 

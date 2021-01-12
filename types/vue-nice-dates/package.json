@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "date-fns": "^2.9.0",
+        "vue": "^2.3.0"
+    }
+}

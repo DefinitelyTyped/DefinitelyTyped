@@ -68,3 +68,10 @@ namespace Module.Commit.Revert {
     revert.hash; // $ExpectType string | null | undefined
     revert.header; // $ExpectType string | null | undefined
 }
+
+namespace Module.Options {
+    let options: conventionalCommitsParser.Options;
+    options = {};
+    options = {warn: console.warn.bind(console)};
+    options = {warn: true};
+}

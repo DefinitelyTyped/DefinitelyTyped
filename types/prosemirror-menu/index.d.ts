@@ -96,17 +96,12 @@ export interface MenuItemSpec<S extends Schema = any> {
   /**
    * Optionally adds a CSS class to the item's DOM representation.
    */
-  class: string;
+  class?: string;
   /**
    * Optionally adds a string of inline CSS to the item's DOM
    * representation.
    */
-  css: string;
-  /**
-   * Defines which event on the command's DOM representation should
-   * trigger the execution of the command. Defaults to mousedown.
-   */
-  execEvent: string;
+  css?: string;
 }
 /**
  * A drop-down menu, displayed as a label with a downwards-pointing

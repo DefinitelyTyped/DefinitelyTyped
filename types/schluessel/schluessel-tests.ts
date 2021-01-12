@@ -1,0 +1,1 @@
+import schluessel = require('schluessel');

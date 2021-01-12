@@ -1,82 +1,69 @@
-// Type definitions for hosted-git-info 2.7
+// Type definitions for hosted-git-info 3.0
 // Project: https://github.com/npm/hosted-git-info
-// Definitions by: Jason <https://github.com/OiyouYeahYou>
+// Definitions by: Jason <https://github.com/OiyouYeahYou>, Michael <https://github.com/Ovyerus>, Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class HostedGitInfo {
-    host: HostedGitInfo.hosts;
-    user: string | null;
-    auth: string | null;
-    project: string | null;
-    committish: string | null;
-    default: string;
-    opts: HostedGitInfo.Options;
-
+declare class GitHost {
     constructor(
-        host: HostedGitInfo.hosts,
-        user: string | null,
-        auth: string | null,
-        project: string | null,
-        committish: string | null,
-        defaultRepresentation: string,
-        opts?: HostedGitInfo.Options
+        type: GitHost.Hosts,
+        user: string,
+        auth: string | undefined,
+        project: string,
+        committish?: string,
+        defaultRepresentation?: GitHost.Representation,
+        opts?: GitHost.FillOptions,
     );
 
-    // From git-host-info
+    type: GitHost.Hosts;
+    user: string;
+    auth?: string;
+    project: string;
+    committish?: string;
+    default?: string;
+    opts: GitHost.Options;
+    protocols: string[];
+    domain: string;
+    treepath?: string;
 
-    // defaults
+    // Templates
     sshtemplate: string;
     sshurltemplate: string;
     browsetemplate: string;
+    browsefiletemplate: string;
     docstemplate: string;
+    httpstemplate: string;
     filetemplate: string;
     shortcuttemplate: string;
     pathtemplate: string;
+    bugstemplate: string;
+    gittemplate?: string;
+    tarballtemplate: string;
 
     pathmatch: RegExp;
     protocols_re: RegExp;
     hashformat(fragment: string): string;
 
-    // special
-    protocols: string[];
-    domain: string;
-    bugstemplate: string;
-    gittemplate: string;
-    browsefiletemplate: string;
-    httpstemplate: string;
-    treepath: string;
-    tarballtemplate: string;
-
-    // /From git-host-info
-
     hash(): string;
-    ssh(opts?: HostedGitInfo.FillOptions): string | undefined;
-    sshurl(opts?: HostedGitInfo.FillOptions): string | undefined;
-    browse(
-        path: string,
-        fragment: string,
-        opts?: HostedGitInfo.FillOptions
-    ): string | undefined;
-    browse(path: string, opts?: HostedGitInfo.FillOptions): string | undefined;
-    browse(opts?: HostedGitInfo.FillOptions): string | undefined;
-    docs(opts?: HostedGitInfo.FillOptions): string | undefined;
-    bugs(opts?: HostedGitInfo.FillOptions): string | undefined;
-    https(opts?: HostedGitInfo.FillOptions): string | undefined;
-    git(opts?: HostedGitInfo.FillOptions): string | undefined;
-    shortcut(opts?: HostedGitInfo.FillOptions): string | undefined;
-    path(opts?: HostedGitInfo.FillOptions): string | undefined;
-    tarball(opts?: HostedGitInfo.FillOptions): string | undefined;
-    file(path: string, opts?: HostedGitInfo.FillOptions): string | undefined;
-    getDefaultRepresentation(): string;
-    toString(opts?: HostedGitInfo.FillOptions): string | undefined;
-
-    static fromUrl(
-        gitUrl: string,
-        options?: HostedGitInfo.Options
-    ): HostedGitInfo;
+    ssh(opts?: GitHost.FillOptions): string;
+    sshurl(opts?: GitHost.FillOptions): string;
+    browse(opts?: GitHost.FillOptions): string;
+    browse(path: string, opts?: GitHost.FillOptions): string;
+    browse(path: string, fragment: string, opts?: GitHost.FillOptions): string;
+    docs(opts?: GitHost.FillOptions): string;
+    bugs(opts?: GitHost.FillOptions): string;
+    https(opts?: GitHost.FillOptions): string;
+    git(opts?: GitHost.FillOptions): string;
+    shortcut(opts?: GitHost.FillOptions): string;
+    path(opts?: GitHost.FillOptions): string;
+    tarball(opts?: GitHost.FillOptions): string;
+    file(path: string, opts?: GitHost.FillOptions): string;
+    getDefaultRepresentation(): GitHost.Representation | undefined;
+    toString(opts?: GitHost.FillOptions): string;
 }
 
-declare namespace HostedGitInfo {
+declare namespace GitHost {
+    function fromUrl(gitUrl: string, opts?: Options): GitHost | undefined;
+
     interface Options {
         noCommittish?: boolean;
         noGitPlus?: boolean;
@@ -90,7 +77,21 @@ declare namespace HostedGitInfo {
         treepath?: string;
     }
 
-    type hosts = 'github' | 'bitbucket' | 'gitlab' | 'gist';
+    type Hosts = 'github' | 'bitbucket' | 'gitlab' | 'gist';
+
+    type Representation =
+        | 'hash'
+        | 'ssh'
+        | 'sshurl'
+        | 'browse'
+        | 'docs'
+        | 'bugs'
+        | 'https'
+        | 'git'
+        | 'shortcut'
+        | 'path'
+        | 'tarball'
+        | 'file';
 }
 
-export = HostedGitInfo;
+export = GitHost;

@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "file-name-casing": false,
-        "no-empty-interface": false
+        "ban-types": false
     }
 }

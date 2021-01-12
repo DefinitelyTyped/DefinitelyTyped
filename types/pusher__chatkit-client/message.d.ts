@@ -12,6 +12,7 @@ interface UrlPayload {
     url: string;
 }
 
+// This is what a file looks like after it's returned by Chatkit
 interface AttachmentPayload {
     type: string;
     name: string;
@@ -21,9 +22,20 @@ interface AttachmentPayload {
     urlExpiry: () => Promise<Date>;
 }
 
+// This is used when uploading a file.
+interface FilePayload {
+    type?: string; // Optional if it can be inferred from the file
+    name?: string; // Optional if it can be inferred from the file
+    file: Blob;
+    customData?: any;
+}
+
+export type SendMessagePayload = InlinePayload | UrlPayload | FilePayload;
+type MessagePayload = InlinePayload | UrlPayload | AttachmentPayload;
+
 export interface MessagePart {
     partType: 'inline' | 'url' | 'attachment';
-    payload: any;
+    payload: MessagePayload;
 }
 
 interface MessageFromPusher {

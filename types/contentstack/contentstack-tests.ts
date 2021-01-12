@@ -167,3 +167,35 @@ stack
     .Query()
     .containedIn('key', 'value')
     .find();
+stack
+    .ContentType('content_type')
+    .Entry('an_entry')
+    .fetch();
+stack
+    .ContentType('content_type')
+    .Assets('asset')
+    .toJSON()
+    .fetch();
+stack
+    .ContentType('content_type')
+    .Assets('asset')
+    .addParam('key', 'value')
+    .fetch();
+stack.Entry('uid').fetch();
+stack.Assets('uid').fetch();
+stack.Query().fetch();
+stack
+    .setPort(9000)
+    .setProtocol('https')
+    .setHost('somehost')
+    .setCachePolicy(1)
+    .setCacheProvider({ provider: 'provider' })
+    .clearByQuery()
+    .clearByContentType()
+    .clearAll()
+    .getCacheProvider()
+    .getLastActivites()
+    .getContentTypes('param')
+    .sync({});
+stack
+    .imageTransform('url', { some: 'params' });

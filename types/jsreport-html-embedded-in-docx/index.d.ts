@@ -7,9 +7,9 @@
 import { ExtensionDefinition } from 'jsreport-core';
 
 declare module 'jsreport-core' {
-	interface Template {
-		recipe: 'html-embedded-in-docx' | string;
-	}
+    interface Template {
+        recipe: 'html-embedded-in-docx' | string;
+    }
 }
 
 declare function JsReportHtmlEmbeddedInDocx(): ExtensionDefinition;

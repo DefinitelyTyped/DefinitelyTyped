@@ -92,6 +92,11 @@ jsonld.flatten(doc, context)
     log(res);
 });
 
+jsonld.flatten(doc)
+    .then((res) => {
+        log(res);
+    });
+
 jsonld.flatten(doc, context, {base: baseUrl})
 .then((res) => {
     log(res);
@@ -142,14 +147,6 @@ jsonld.normalize(doc, {expansion: false})
 /**
  * fromRDF() test
  */
-jsonld.fromRDF(docNQuads, (err, res) => {
-    log(res);
-});
-
-jsonld.fromRDF(docNQuads, {format: 'application/n-quads'}, (err, res) => {
-    log(res);
-});
-
 jsonld.fromRDF(docRDF)
 .then((res) => {
     log(res);

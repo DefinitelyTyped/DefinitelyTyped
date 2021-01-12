@@ -21,7 +21,7 @@ export interface Chunk {
   end: number;
 }
 
-interface HighlighterProps {
+export interface HighlighterProps {
     /** The class name to be applied to an active match. Use along with activeIndex */
     activeClassName?: string;
     /** Specify the match index that should be actively highlighted. Use along with activeClassName */
@@ -62,6 +62,8 @@ interface HighlighterProps {
     unhighlightClassName?: string;
     /** Inline styles applied to unhighlighted text */
     unhighlightStyle?: React.CSSProperties;
+    /** Allows to pass through any parameter to wrapped component */
+    [index: string]: any;
 }
 
 declare class Highlighter extends React.Component<HighlighterProps> {}

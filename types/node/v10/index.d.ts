@@ -8,7 +8,6 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
 //                 Flarna <https://github.com/Flarna>
@@ -21,7 +20,6 @@
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -36,57 +34,12 @@
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Minh Son Nguyen <https://github.com/nguymin4>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: These definitions support NodeJS and TypeScript 3.1.
+// NOTE: These definitions support NodeJS and TypeScript 3.7.
+// This isn't strictly needed since 3.7 has the assert module, but this way we're consistent.
+// Typically type modificatons should be made in base.d.ts instead of here
 
-// NOTE: TypeScript version-specific augmentations can be found in the following paths:
-//          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
-//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
-
-// NOTE: Augmentations for TypeScript 3.1 and later should use individual files for overrides
-//       within the respective ~/ts3.1 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.1, so the older definitions will be found here.
-
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
-
-// TypeScript 2.1-specific augmentations:
-
-// Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface Set<T> {}
-interface ReadonlySet<T> {}
-interface IteratorResult<T> { }
-interface Iterable<T> { }
-interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
-}
-interface IterableIterator<T> { }
-interface AsyncIterableIterator<T> {}
-interface SymbolConstructor {
-    readonly iterator: symbol;
-    readonly asyncIterator: symbol;
-}
-declare var Symbol: SymbolConstructor;
-interface SharedArrayBuffer {
-    readonly byteLength: number;
-    slice(begin?: number, end?: number): SharedArrayBuffer;
-}
-
-declare module "util" {
-    namespace inspect {
-        const custom: symbol;
-    }
-    namespace promisify {
-        const custom: symbol;
-    }
-    namespace types {
-        function isBigInt64Array(value: any): boolean;
-        function isBigUint64Array(value: any): boolean;
-    }
-}
+/// <reference path="ts3.6/base.d.ts" />

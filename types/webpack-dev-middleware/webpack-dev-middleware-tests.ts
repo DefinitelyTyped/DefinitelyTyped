@@ -3,48 +3,65 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
-
-let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
-
-webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-	logLevel: 'silent',
-	lazy: true,
-	watchOptions: {
-		aggregateTimeout: 300,
-		poll: true,
-	},
-	publicPath: '/assets/',
-	index: 'index.html',
-	headers: {
-		'X-Custom-Header': 'yes'
-	},
-	stats: {
-		colors: true,
-	},
-	reporter: null,
-	serverSideRender: false,
-	writeToDisk: false,
+const compilerWithPublicPath = webpack({
+    output: {
+        publicPath: '/assets/',
+    },
 });
 
+// options
+let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    mimeTypes: {
+        myhtml: 'text/html',
+    },
+    writeToDisk: false,
+    methods: ['GET', 'POST'],
+    headers: {
+        'X-Custom-Header': 'yes',
+    },
+    publicPath: '/assets/',
+    serverSideRender: false,
+    outputFileSystem: compiler.outputFileSystem,
+    index: 'index.html',
+});
+
+// return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
+webpackDevMiddlewareInstance.waitUntilValid(stats => {
+    if (stats) {
+        console.log('Package is in a valid state:' + stats.toJson());
+    }
+});
+
+webpackDevMiddlewareInstance.invalidate(stats => {
+    if (stats) {
+        console.log(stats.toJson());
+    }
+});
+
 webpackDevMiddlewareInstance.close(() => {
-	console.log('closed');
+    console.log('closed');
 });
 
-webpackDevMiddlewareInstance.invalidate((stats) => {
-	console.log(stats.toJson());
-});
+// $ExpectType boolean
+webpackDevMiddlewareInstance.context.state;
 
-webpackDevMiddlewareInstance.waitUntilValid((stats) => {
-	console.log('Package is in a valid state:' + stats.toJson());
-});
+function foo(_: webpack.Stats) {}
+if (webpackDevMiddlewareInstance.context.stats) {
+    foo(webpackDevMiddlewareInstance.context.stats);
+}
 
-const fs = webpackDevMiddlewareInstance.fileSystem;
-fs.mkdirpSync('foo');
+webpackDevMiddleware(compilerWithPublicPath, webpackDevMiddlewareInstance.context.options);
 
-let filename = webpackDevMiddlewareInstance.getFilenameFromUrl('url');
-if (filename !== false) {
-	filename = filename.substr(0);
+webpackDevMiddleware(webpackDevMiddlewareInstance.context.compiler, {});
+
+function bar(_: webpack.Watching) {}
+if (webpackDevMiddlewareInstance.context.watching) {
+    bar(webpackDevMiddlewareInstance.context.watching);
 }

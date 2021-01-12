@@ -1,9 +1,11 @@
 import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import Point from '../geom/Point';
 import { ObjectEvent } from '../Object';
+import Projection from '../proj/Projection';
 import { AttributionLike } from './Source';
 import VectorSource, { VectorSourceEvent } from './Vector';
 
@@ -11,7 +13,7 @@ export interface Options {
     attributions?: AttributionLike;
     distance?: number;
     geometryFunction?: (p0: Feature<Geometry>) => Point;
-    source: VectorSource<Geometry>;
+    source?: VectorSource<Geometry>;
     wrapX?: boolean;
 }
 export default class Cluster extends VectorSource {
@@ -20,16 +22,37 @@ export default class Cluster extends VectorSource {
     protected features: Feature<Geometry>[];
     protected geometryFunction: (feature: Feature<Geometry>) => Point;
     protected resolution: number;
-    protected source: VectorSource<Geometry>;
     protected cluster(): void;
     protected createCluster(features: Feature<Geometry>[]): Feature<Geometry>;
+    /**
+     * Remove all features from the source.
+     */
+    clear(opt_fast?: boolean): void;
+    /**
+     * Get the distance in pixels between clusters.
+     */
     getDistance(): number;
-    getResolutions(): number[];
+    getResolutions(): number[] | undefined;
+    /**
+     * Get a reference to the wrapped source.
+     */
     getSource(): VectorSource<Geometry>;
+    loadFeatures(extent: Extent, resolution: number, projection: Projection): void;
+    /**
+     * Handle the source changing.
+     */
+    refresh(): void;
+    /**
+     * Set the distance in pixels between clusters.
+     */
     setDistance(distance: number): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    /**
+     * Replace the wrapped source.
+     */
+    setSource(source: VectorSource<Geometry>): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
     once(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;
     un(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): void;

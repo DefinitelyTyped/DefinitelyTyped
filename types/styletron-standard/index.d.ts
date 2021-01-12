@@ -7,7 +7,7 @@
 import * as CSS from 'csstype';
 
 export type Properties = CSS.Properties<string | number>;
-export type FontFace = CSS.FontFace;
+export type FontFace = CSS.AtRule.FontFace;
 export interface KeyframesPercentageObject {
     [key: string]: Properties;
 }

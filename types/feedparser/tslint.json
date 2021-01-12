@@ -1,5 +1,6 @@
-{ "extends": "dtslint/dt.json",
-  "rules": {
-    "no-conditional-assignment": false
-  }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-conditional-assignment": false
+    }
 }

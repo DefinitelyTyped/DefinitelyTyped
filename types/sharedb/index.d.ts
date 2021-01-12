@@ -2,12 +2,15 @@
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
+//                 Peter Xu <https://github.com/pxpeterxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /// <reference path="lib/sharedb.d.ts" />
 
+import { Duplex } from 'stream';
 import Agent = require('./lib/agent');
+import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
 
 interface PubSubOptions {
@@ -31,7 +34,17 @@ declare class sharedb {
         disableDocAction?: boolean,
         disableSpaceDelimitedActions?: boolean
     });
-    connect: (connection?: any, req?: any) => sharedb.Connection;
+    /**
+     * Creates a server-side connection to ShareDB.
+     *
+     * This is almost always called with no arguments.
+     *
+     * @param connection optional existing connection to re-bind to this `Backend`.
+     * @param req optional request context for the new connection. See `#listen` for details.
+     *
+     * @see https://github.com/share/sharedb#client-api
+     */
+    connect(connection?: Connection, req?: any): Connection;
     /**
      * Registers a projection that can be used from clients just like a normal collection.
      *
@@ -40,7 +53,16 @@ declare class sharedb {
      * @param fields field whitelist for the projection
      */
     addProjection(name: string, collection: string, fields: ProjectionFields): void;
-    listen(stream: any): void;
+    /**
+     * Registers a new `Duplex` stream with the backend. This should be called when the server
+     * receives a new connection from a client.
+     *
+     * @param stream duplex stream for exchanging data with the new client
+     * @param request optional request that initiated the new connection, e.g. a HTTP request. This
+     *   is passed to any "connect" middleware listeners, which can use it for inspecting cookies
+     *   or session info.
+     */
+    listen(stream: Duplex, request?: any): Agent;
     close(callback?: BasicCallback): void;
     /**
      * Registers a server middleware function.
@@ -52,9 +74,7 @@ declare class sharedb {
         action: A,
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
-    static types: {
-        register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
-    };
+    static types: ShareDB.Types;
 }
 
 declare namespace sharedb {
@@ -64,9 +84,9 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
         commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getOps(collection: string, id: string, from: number, to: number, options: any, callback: (...args: any[]) => any): void;
-        getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options: any, callback: (...args: any[]) => any): void;
+        getSnapshotBulk(collection: string, ids: string[], fields: any, options: any, callback: (...args: any[]) => any): void;
+        getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
+        getOpsToSnapshot(collection: string, id: string, from: number | null, snapshot: number, options: any, callback: (...args: any[]) => any): void;
         getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
         getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
         query: DBQueryMethod;
@@ -110,6 +130,10 @@ declare namespace sharedb {
         private _removeStream(channel, stream): void;
     }
 
+    /**
+     * @deprecated Use the `Connection` type from 'sharedb/lib/client' instead, as that's where it
+     *   lives in the actual source code.
+     */
     class Connection {
         constructor(ws: WebSocket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
@@ -120,6 +144,9 @@ declare namespace sharedb {
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
+    type CreateOp = ShareDB.CreateOp;
+    type DeleteOp = ShareDB.DeleteOp;
+    type EditOp = ShareDB.EditOp;
     type AddNumOp = ShareDB.AddNumOp;
     type ListMoveOp = ShareDB.ListMoveOp;
     type ListInsertOp = ShareDB.ListInsertOp;
@@ -227,7 +254,7 @@ interface SubmitRequest {
     projection: Projection | undefined;
     collection: string;
     id: string;
-    op: sharedb.Op;
+    op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
 

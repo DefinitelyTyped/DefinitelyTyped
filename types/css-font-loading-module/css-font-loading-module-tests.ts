@@ -18,4 +18,12 @@ contexts.forEach(context => {
     const b: boolean = context.fonts.check("12px Example", "ß");
     const c: Promise<FontFace[]> = context.fonts.load("12px MyFont", "ß").then();
     const d: Promise<typeof context.fonts> = context.fonts.ready.then();
+    const e: FontFaceSetLoadEvent = new FontFaceSetLoadEvent('loading', {fontfaces: []});
+    context.fonts.addEventListener('loading', (evt) => {
+        evt.fontfaces;
+    });
+    context.fonts.onloadingdone = (evt) => {
+        evt.fontfaces;
+    };
+    context.fonts.dispatchEvent(e);
 });

@@ -1,83 +1,110 @@
-import { SCServerSocket } from "socketcluster-server";
-import SCBroker = require("sc-broker/scbroker");
-import { FlexiMap } from "fleximap";
-import { ExpiryManager } from "expirymanager";
-import * as scClusterBrokerClient from "scc-broker-client";
+import scBroker = require('sc-broker');
+import SCBroker = require('sc-broker/scbroker');
+
+// From the README
+
+// $ExpectType SCBrokerServer
+scBroker.createServer({ port: 9000, secretKey: 'mySecretKey' });
+
+const conf = { port: 9000 };
+const server = scBroker.createServer(conf);
+
+server.on('ready', () => {
+    console.log('Server ready, create client');
+    const client = scBroker.createClient(conf);
+
+    // $ExpectType boolean
+    client.isConnected();
+});
+
+server.destroy();
+
+const dataClient = scBroker.createClient({ port: 9000, secretKey: 'mySecretKey' });
+
+dataClient.set(['this', 'is', 'a', 'deep', 'key'], 'Hello world');
+
+dataClient.get(['this', 'is', 'a'], (err, val) => {
+    if (!err) console.log(val);
+});
+
+dataClient.add(['this', 'is', 'a'], 'foo');
+
+dataClient.get(['this', 'is', 'a', 0], (err, val) => {
+    if (!err) console.log(val);
+});
 
 ////////////////////////////////////////////////////
 /// SCBroker tests
 ////////////////////////////////////////////////////
 
 const run = () => {
-    console.log("run called!");
+    console.log('run called!');
 };
 
-let scBroker = new SCBroker();
-scBroker = new SCBroker({ run });
-scBroker.options = { environment: "prod" };
+let broker = new SCBroker();
+broker = new SCBroker({ run });
+broker.options = { environment: 'prod' };
 
-const id: number = scBroker.id;
-const instanceId: number = scBroker.instanceId;
-const dataMap: FlexiMap = scBroker.dataMap;
-const dataExpirer: ExpiryManager = scBroker.dataExpirer;
-const subscriptions = scBroker.subscriptions;
+// $ExpectType number
+broker.id;
 
-const socket: SCServerSocket = subscriptions[1]["test"];
+// $ExpectType number
+broker.instanceId;
 
-scBroker.on("subscribe", channel => {
-    const subscribeChannel: string = channel;
+// $ExpectType FlexiMap
+broker.dataMap;
+
+// $ExpectType ExpiryManager
+broker.dataExpirer;
+
+const subscriptions = broker.subscriptions;
+
+// $ExpectType ComSocket
+subscriptions[1]['test'];
+
+broker
+    .on('subscribe', channel => {
+        // $ExpectType string
+        channel;
+    })
+    .on('unsubscribe', channel => {
+        // $ExpectType string
+        channel;
+    })
+    .on('publish', (channel, data) => {
+        // $ExpectType string
+        channel;
+
+        // $ExpectType any
+        data;
+    })
+    .on('masterMessage', (data, masterMessageResponse) => {
+        // $ExpectType any
+        data;
+
+        masterMessageResponse(null, 'test');
+        masterMessageResponse(new Error(), null);
+    });
+
+broker.publish('testChannel', 123);
+
+broker.exec(dataMap => {
+    dataMap.set(['main', 'message'], 'Message');
+    return dataMap.get(['main']);
 });
-scBroker.on("unsubscribe", channel => {
-    const unsubscribeChannel: string = channel;
-});
-scBroker.on("publish", (channel, data) => {
-    const publishChannel: string = channel;
-    const publishData: any = data;
-});
-scBroker.on("masterMessage", (data, masterMessageResponse) => {
-    const masterMessageData: any = data;
-    masterMessageResponse(null, "test");
-    masterMessageResponse(new Error(), null);
-});
 
-scBroker.publish("testChannel", 123);
-
-scBroker.exec(dataMap => {
-    dataMap.set(["main", "message"], "Message");
-    return dataMap.get(["main"]);
-});
-
-scBroker.sendToMaster("data");
-scBroker.sendToMaster(123, (err, response) => {
+broker.sendToMaster('data');
+broker.sendToMaster(123, (err, response) => {
     if (!err) {
-        const answer = response;
+        // $ExpectType any
+        response;
     }
 });
 
 class MyBroker extends SCBroker {
     run() {
-        this.on("subscribe", channel => {});
+        this.on('subscribe', channel => {});
     }
 }
 
-// From the socketcluster sample
-class Broker extends SCBroker {
-    run() {
-        console.log("   >> Broker PID:", process.pid);
-
-        if (this.options.clusterStateServerHost) {
-            scClusterBrokerClient.attach(this, {
-                stateServerHost: this.options.clusterStateServerHost,
-                stateServerPort: this.options.clusterStateServerPort,
-                mappingEngine: this.options.clusterMappingEngine,
-                clientPoolSize: this.options.clusterClientPoolSize,
-                authKey: this.options.clusterAuthKey,
-                stateServerConnectTimeout: this.options.clusterStateServerConnectTimeout,
-                stateServerAckTimeout: this.options.clusterStateServerAckTimeout,
-                stateServerReconnectRandomness: this.options.clusterStateServerReconnectRandomness
-            });
-        }
-    }
-}
-
-new Broker();
+new MyBroker();

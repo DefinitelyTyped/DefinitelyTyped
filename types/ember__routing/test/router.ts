@@ -2,27 +2,26 @@ import Router from '@ember/routing/router';
 import Service, { inject as service } from '@ember/service';
 import EmberObject, { get } from '@ember/object';
 
-const AppRouter = Router.extend({
-});
+const AppRouter = Router.extend({});
 
-AppRouter.map(function() {
+AppRouter.map(function () {
     this.route('index', { path: '/' });
     this.route('about');
     this.route('favorites', { path: '/favs' });
-    this.route('posts', function() {
+    this.route('posts', function () {
         this.route('index', { path: '/' });
         this.route('new');
         this.route('post', { path: '/post/:post_id', resetNamespace: true });
-        this.route('comments', { resetNamespace: true }, function() {
+        this.route('comments', { resetNamespace: true }, function () {
             this.route('new');
         });
     });
-    this.route('photo', { path: '/photo/:id' }, function() {
+    this.route('photo', { path: '/photo/:id' }, function () {
         this.route('comment', { path: '/comment/:id' });
     });
     this.route('not-found', { path: '/*path' });
     this.mount('my-engine');
-    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine'});
+    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine' });
 });
 
 const RouterServiceConsumer = Service.extend({
@@ -33,24 +32,23 @@ const RouterServiceConsumer = Service.extend({
     currentURL() {
         const x: string = get(this, 'router').currentURL;
     },
+    rootURL() {
+        const x: string = get(this, 'router').rootURL;
+    },
     transitionWithoutModel() {
-        get(this, 'router')
-        .transitionTo('some-route');
+        get(this, 'router').transitionTo('some-route');
     },
     transitionWithModel() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('some.other.route', model);
+        get(this, 'router').transitionTo('some.other.route', model);
     },
     transitionWithMultiModel() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('some.other.route', model, model);
+        get(this, 'router').transitionTo('some.other.route', model, model);
     },
     transitionWithModelAndOptions() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('index', model, { queryParams: { search: 'ember' }});
+        get(this, 'router').transitionTo('index', model, { queryParams: { search: 'ember' } });
     },
     onAndRouteInfo() {
         const router = get(this, 'router');

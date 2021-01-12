@@ -574,6 +574,14 @@ declare class SpotifyWebApi {
     getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
 
     /**
+     * Add track or episode to device queue
+     * @param uri URI of the track or episode to add
+     * @param options Options, being device_id.
+     * @returns A promise that if successful returns null, otherwise an error.
+     */
+    addToQueue(uri: string, options?: DeviceOptions): Promise<Response<SpotifyApi.AddToQueueResponse>>;
+
+    /**
      * Get the Current User's Connect Devices
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful, resolves into a paging object of tracks,

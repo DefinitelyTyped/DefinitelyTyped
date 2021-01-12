@@ -20,6 +20,32 @@ import InputPrompt = require("inquirer/lib/prompts/input");
     new inquirer.ui.BottomBar();
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }
+{
+    const checkBoxQuestion: inquirer.CheckboxQuestion = {
+        type: "checkbox"
+    };
+
+    const listQuestion: inquirer.ListQuestion = {
+        type: "list"
+    };
+
+    // $ExpectError
+    checkBoxQuestion.loop;
+    // $ExpectType boolean
+    listQuestion.loop!;
+}
+{
+    inquirer.prompt<Partial<any>>([
+        {
+            filter(input, answers) {
+                // $ExpectType any
+                input;
+                // $ExpectType Partial<any>
+                answers;
+            }
+        }
+    ]);
+}
 
 interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
     previewColors: boolean;
@@ -47,3 +73,12 @@ inquirer.prompt([
         previewColors: true
     }
 ]);
+
+inquirer.prompt([
+    {
+        name: 'foo',
+        default: 'bar'
+    }
+], {
+    foo: 'baz'
+});

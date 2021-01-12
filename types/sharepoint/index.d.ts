@@ -1671,7 +1671,6 @@ declare namespace SPClientForms {
         class ValidatorSet {
             RegisterValidator(validator: IValidator): void;
         }
-        // tslint:disable-next-line: interface-name
         interface IValidator {
             Validate(value: any): ValidationResult;
         }
@@ -1827,14 +1826,12 @@ declare namespace SPAnimationUtility {
     }
 }
 
-// tslint:disable-next-line: interface-name
 interface IEnumerator<T> {
     get_current(): T;
     moveNext(): boolean;
     reset(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface IEnumerable<T> {
     getEnumerator(): IEnumerator<T>;
 }
@@ -1939,7 +1936,6 @@ declare namespace SP {
         itemAtIndex(index: number): T;
         constructor();
     }
-    // tslint:disable-next-line: interface-name
     interface IFromJson {
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
@@ -2048,7 +2044,6 @@ declare namespace SP {
         static createLocalDateTime(milliseconds: number): Date;
     }
 
-    // tslint:disable-next-line: interface-name
     interface IWebRequestExecutorFactory {
         createWebRequestExecutor(): Sys.Net.WebRequestExecutor;
     }
@@ -7137,7 +7132,6 @@ declare namespace SP {
                 constructor(entities: any);
                 get_entities(): any;
             }
-            // tslint:disable-next-line: interface-name
             interface ISelectorComponent {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
@@ -7178,7 +7172,6 @@ declare namespace SP {
                 setEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
             }
 
-            // tslint:disable-next-line: interface-name
             interface ICalendarController {
                 moveToDate(date: string): void;
                 moveToViewType(viewType: string): void;
@@ -7352,7 +7345,6 @@ declare namespace SP {
         /** Callback which processes dialog result value after dialog is closed */
         type DialogReturnValueCallback = (dialogResult: DialogResult, returnValue: any) => void;
         /** Options for dialog creation */
-        // tslint:disable-next-line: interface-name
         interface IDialogOptions {
             /** Text displayed in the title bar of the dialog box. If not defined, it will default to the title of the page defined by url property. */
             title?: string;
@@ -7582,7 +7574,6 @@ declare function RefreshCommandUI(): void;
 declare namespace SP {
     namespace UI {
         namespace Controls {
-            // tslint:disable-next-line: interface-name
             interface INavigationOptions {
                 assetId?: string;
                 siteTitle?: string;
@@ -7606,7 +7597,6 @@ declare namespace SP {
 
             class NavigationOptions implements INavigationOptions { }
 
-            // tslint:disable-next-line: interface-name
             interface ISettingsLink {
                 linkUrl: string;
                 displayName: string;
@@ -9464,7 +9454,6 @@ declare class SPClientAutoFill {
     UpdateAutoFillPosition(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientAutoFillData {
     AutoFillKey?: any;
     AutoFillDisplayText?: string;
@@ -9599,7 +9588,6 @@ declare class SPClientPeoplePicker {
     AddResolvedUserToLocalCache(resolvedEntity: ISPClientPeoplePickerEntity, resolveText: string): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientPeoplePickerSchema {
     TopLevelElementId?: string;
     EditorElementId?: string;
@@ -9657,7 +9645,6 @@ declare class SPClientPeoplePickerMRU {
     ResetCache(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientPeoplePickerEntity {
     Key?: string;
     Description?: string;
@@ -9995,7 +9982,6 @@ declare namespace SP {
             ReadOnlyDisabled, // 1
         }
 
-        // tslint:disable-next-line: interface-name
         interface IValue {
             data?: any;
             localized?: string;
@@ -10271,7 +10257,6 @@ declare namespace SP {
             GetSpCsrRenderCtx(): any;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IChangeKey {
             Reserve(): void;
             Release(): void;
@@ -10380,7 +10365,6 @@ declare namespace SP {
                 If bHideTooltip == false, then alternative text is also shown as the tooltip (title attribute). */
             Render(altText: string, clickFn: (eventInfo: Sys.UI.DomEvent) => void, bHideTooltip: boolean): HTMLElement;
         }
-        // tslint:disable-next-line: interface-name no-empty-interface
         interface IEventArgs { }
         namespace EventArgs {
             class OnEntryRecordAdded implements IEventArgs {
@@ -10609,7 +10593,6 @@ declare namespace SP {
             // todo
         }
 
-        // tslint:disable-next-line: interface-name
         interface IStyleManager {
             gridPaneStyle: IStyleType.GridPane;
             columnHeaderStyleCollection: {
@@ -10652,7 +10635,6 @@ declare namespace SP {
             UpdateDefaultCellStyleFromCss(styleObject: IStyleType.Cell, cssClass: string): void;
             UpdateGroupStylesFromCss(styleObject: IStyleType.Cell, prefix: string): void;
         }
-        // tslint:disable-next-line: no-empty-interface interface-name
         interface IStyleType { }
         namespace IStyleType {
             interface Splitter extends IStyleType {
@@ -10850,7 +10832,6 @@ declare namespace SP {
             fnGetSingleValueTooltip: (record: IRecord, fieldKey: string, dataValue: any, localizedValue: any) => string;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IRecord {
             /** True if this is an entry row */
             bIsNewRow: boolean;
@@ -10886,7 +10867,6 @@ declare namespace SP {
             MakeRecord(dataPropMap: any, localizedPropMap: any, bKeepRawData: boolean): IRecord;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IPropertyBase {
             HasLocalizedValue(): boolean;
             HasDataValue(): boolean;
@@ -10922,7 +10902,6 @@ declare namespace SP {
             GetIsMultiValue(): boolean;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditActorGridContext {
             jsGridObj: JsGridControl;
             parentNode: HTMLElement;
@@ -10933,19 +10912,16 @@ declare namespace SP {
             OnKeyDown(domEvent: Sys.UI.DomEvent): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControlGridContext extends IEditActorGridContext {
             OnActivateActor(): void;
             OnDeactivateActor(): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IPropertyType {
             ID: string;
             BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupPropertyType extends IPropertyType {
             GetItems(fnCallback: any): void;
             DataToLocalized(dataValue: any): string;
@@ -10956,7 +10932,6 @@ declare namespace SP {
             GetSerializableLookupPropType(): { items: any[]; id: string; bLimitToList: boolean };
         }
 
-        // tslint:disable-next-line: interface-name
         interface IMultiValuePropertyType extends IPropertyType {
             bMultiValue: boolean;
             separator: string;
@@ -11081,7 +11056,6 @@ declare namespace SP {
             }
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditActorCellContext {
             propType: IPropertyType;
             originalValue: IValue;
@@ -11093,7 +11067,6 @@ declare namespace SP {
             SetCurrentValue(value: any): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControlCellContext extends IEditActorCellContext {
             cellWidth: number;
             cellHeight: number;
@@ -11108,7 +11081,6 @@ declare namespace SP {
         namespace EditControl {
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControl {
             SupportedWriteMode?: SP.JsGrid.EditActorWriteType;
             SupportedReadMode?: SP.JsGrid.EditActorReadType;
@@ -11135,7 +11107,6 @@ declare namespace SP {
             InitJsGridParams(optGridParams?: JsGridControl.Parameters): JsGridControl.Parameters;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IGridData {
             MetaData: IGridMetadata;
 
@@ -11166,7 +11137,6 @@ declare namespace SP {
             ViewDepKeys?: any[];
         }
 
-        // tslint:disable-next-line: interface-name
         interface IColumnInfo {
             /** Column title */
             name: string;
@@ -11196,7 +11166,6 @@ declare namespace SP {
             isFooter?: boolean;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IGridMetadata {
             KeyColumnName: string;
             IsGanttEnabled?: boolean;
@@ -11209,7 +11178,6 @@ declare namespace SP {
             GridOperationalConstantsFieldKeyMap?: { [index: number]: string };
         }
 
-        // tslint:disable-next-line: interface-name
         interface IFieldInfo {
             fieldKey: string;
             propertyTypeId: string;
@@ -11222,7 +11190,6 @@ declare namespace SP {
             defaultCellStyleId?: any;
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupTableInfo {
             id: string;
             showImage?: boolean;
@@ -11231,7 +11198,6 @@ declare namespace SP {
             lookup: ILookupInfo[];
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupInfo {
             localString: string;
             value: number;
@@ -13275,12 +13241,10 @@ declare namespace CUI {
     }
 
     class Component implements CUI.IMenuItem, Sys.IDisposable {
-        /* tslint:disable:variable-name */
         _lastWidthUpdate: number;
         _lastHeightUpdate: number;
         _lastTopUpdate: number;
         _lastLeftUpdate: number;
-        /* tslint:enable:variable-name */
         constructor(root: CUI.Component, id: string, title: string, description: string);
         createChildArray(): void;
         get_id(): string;
@@ -13488,7 +13452,6 @@ declare namespace CUI {
     class Strip extends CUI.RibbonComponent { }
 
     class Tab extends CUI.RibbonComponent {
-        // tslint:disable-next-line: parameters-max-number
         constructor(
             ribbon: CUI.Ribbon,
             id: string,

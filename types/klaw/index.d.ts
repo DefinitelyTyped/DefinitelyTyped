@@ -30,7 +30,7 @@ declare module "klaw" {
             preserveSymlinks?: boolean
         }
 
-        type Event = "close" | "data" | "end" | "readable" | "error"
+        type Event = "close" | "data" | "end" | "error" | "pause" | "readable" | "resume"
 
         interface Walker extends Readable {
             on(event: Event, listener: Function): this

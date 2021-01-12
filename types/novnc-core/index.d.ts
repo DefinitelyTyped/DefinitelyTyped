@@ -8,7 +8,7 @@ import Display from './lib/display';
 import { Keyboard, Mouse } from './lib/input/devices';
 
 export default class RFB {
-	constructor(defaults?: NvRFBDefaults);
+    constructor(defaults?: NvRFBDefaults);
     get_target(): HTMLCanvasElement;
     set_target(target: HTMLCanvasElement): void;
     get_focusContainer(): HTMLElement;
@@ -53,19 +53,19 @@ export default class RFB {
     set_onDesktopName(handler: (rfb: this, name: string) => void): void;
     get_onXvpInit(): (version: number) => void;
     set_onXvpInit(handler: (rfb: this, name: string) => void): void;
-	get_display(): Display;
-	get_keyboard(): Keyboard;
-	get_mouse(): Mouse;
-	connect(host: string, port: number, password?: string, path?: string): boolean;
-	disconnect(): void;
-	sendPassword(passwd: string): void;
-	sendCtrlAltDel(): boolean;
+    get_display(): Display;
+    get_keyboard(): Keyboard;
+    get_mouse(): Mouse;
+    connect(host: string, port: number, password?: string, path?: string): boolean;
+    disconnect(): void;
+    sendPassword(passwd: string): void;
+    sendCtrlAltDel(): boolean;
     xvpOp(version: number, op: NvXvpOperation): boolean;
     xvpShutdown(): boolean;
     xvpReboot(): boolean;
     xvpReset(): boolean;
-	sendKey(keysym: number, code: string, down?: boolean): boolean;
-	clipboardPasteFrom(text: string): void;
+    sendKey(keysym: number, code: string, down?: boolean): boolean;
+    clipboardPasteFrom(text: string): void;
     requestDesktopSize(width: number, height: number): boolean;
 }
 

@@ -1400,17 +1400,30 @@ function testUseStore() {
 
 // These should match the types of the hooks.
 function testCreateHookFunctions() {
-    // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
-    createDispatchHook();
-    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
-    createSelectorHook();
     interface RootState {
         property: string;
     }
-    // Should be able to create a version typed for a specific root state.
-    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
-    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    interface RootAction {
+        type: 'TEST_ACTION';
+    }
+
+    const Context = React.createContext<ReactReduxContextValue<RootState, RootAction>>(null as any);
+
+    // No context tests
+    // $ExpectType () => Dispatch<AnyAction>
+    createDispatchHook();
+    // $ExpectType <Selected extends unknown>(selector: (state: any) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook();
+    // $ExpectType () => Store<any, AnyAction>
     createStoreHook();
+
+    // With context tests
+    // $ExpectType () => Dispatch<RootAction>
+    createDispatchHook(Context);
+    // $ExpectType <Selected extends unknown>(selector: (state: RootState) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook(Context);
+    // $ExpectType () => Store<RootState, RootAction>
+    createStoreHook(Context);
 }
 
 function testConnectedProps() {
@@ -1472,4 +1485,78 @@ function testConnectReturnType() {
 
     const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
     myHoc2(Test);
+}
+
+function testRef() {
+    const FunctionalComponent: React.FC = () => null;
+    const ForwardedFunctionalComponent = React.forwardRef<string>(() => null);
+    class ClassComponent extends React.Component {}
+
+    const ConnectedFunctionalComponent = connect()(FunctionalComponent);
+    const ConnectedForwardedFunctionalComponent = connect()(ForwardedFunctionalComponent);
+    const ConnectedClassComponent = connect()(ClassComponent);
+
+    // Should not be able to pass any type of ref to a FunctionalComponent
+    // ref is not a valid property
+    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>; // $ExpectError
+
+    // Should be able to pass modern refs to a ForwardRefExoticComponent
+    const modernRef: React.Ref<string> | undefined = undefined;
+    <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
+    // Should not be able to use legacy string refs
+    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // ref type should agree with type of the forwarded ref
+    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+
+    // Should be able to use all refs including legacy string
+    const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
+    <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
+    // ref type should be the typeof the wrapped component
+    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
+    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
+}
+
+function testConnectDefaultState() {
+    connect((state) => {
+        // $ExpectType DefaultRootState
+        const s = state;
+        return state;
+    });
+
+    const connectWithDefaultState: Connect<{value: number}> = connect;
+    connectWithDefaultState((state) => {
+        // $ExpectType { value: number; }
+        const s = state;
+        return state;
+    });
+}
+
+function testPreserveDiscriminatedUnions() {
+    type OwnPropsT = {
+        color: string
+    } & (
+        | {
+            type: 'plain'
+        }
+        | {
+            type: 'localized'
+            params: Record<string, string> | undefined
+        }
+    );
+
+    class MyText extends React.Component<OwnPropsT> {}
+
+    const ConnectedMyText = connect()(MyText);
+    const someParams = { key: 'value', foo: 'bar' };
+
+    <ConnectedMyText type="plain" color="red" />;
+    <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
+    <ConnectedMyText type="localized" color="red" />; // $ExpectError
+    <ConnectedMyText type="localized" color="red" params={someParams} />;
 }

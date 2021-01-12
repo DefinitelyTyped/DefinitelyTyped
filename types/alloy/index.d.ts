@@ -2,14 +2,95 @@
 // Project: https://github.com/appcelerator/alloy
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Mathias Lorenzen <https://github.com/ffMathy>
+//                 Jan Vennemann <https://github.com/janvennemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 
+/**
+ * Properties and TSS classes to apply to a Titanium UI element.
+ */
+interface AlloyStyleDict {
+  /**
+   * Array of TSS classes to apply to the Titanium UI object.
+   */
+  classes?: string[] | string;
+
+  /**
+   * TSS ID style to apply to the Titanium UI object.
+   */
+  id?: string;
+
+  [key: string]: any;
+}
+
+/**
+ * Provides convenience methods for working with Titanium Views in Alloy
+ */
 interface AlloyControllerUI {
-  create(apiName: string, opts?: any): any;
+  /**
+   * Creates a Titanium UI element with the specified options.
+   *
+   * The following creates a new View and assigns the "dialog" TSS class
+   * (defined in your styles) to the view, and finally adds it to main window.
+   *
+   * ```js
+   * const view = $.UI.create("View", {
+   *   classes: 'dialog'
+   * });
+   * $.index.add(view);
+   * ```
+   *
+   * @param apiName Name of the UI element to create. This can either be the full class name, such as `Ti.UI.Button`, or the XML element, such as `Button`.
+   * @param opts Styles and any additional properties you would like to apply directly the created view.
+   */
+  create(apiName: string, opts?: AlloyStyleDict): any;
+}
+
+interface AlloyFactories {
+  /**
+   * Factory method for instantiating a Backbone collection of model objects.
+   *
+   * Creates and returns a collection for holding the named type of model objects.
+   *
+   * @param name Name of model to hold in this collection.
+   * @param args Arguments to pass to the collection.
+   */
+  createCollection(name: string, args?: any): Backbone.Collection;
+
+  /**
+   * Factory method for instantiating a controller.
+   *
+   * Creates and returns an instance of the named controller.
+   *
+   * @param name Name of controller to instantiate.
+   * @param args Arguments to pass to the controller
+   */
+  createController(name: string, args?: any): AlloyController;
+
+  /**
+   * Factory method for instantiating a Backbone Model object.
+   *
+   * Creates and returns an instance of the named model.
+   *
+   * @param name Name of model to instantiate.
+   * @param args Arguments to pass to the model.
+   */
+  createModel(name: string, args?: any): Backbone.Model;
+
+  /**
+   * Factory method for instantiating a widget controller.
+   *
+   * Creates and returns an instance of the named widget.
+   *
+   * @param id Id of widget to instantiate.
+   * @param name Name of the view within the widget to instantiate ('widget' by default)
+   * @param args Arguments to pass to the widget.
+   */
+  createWidget(id: string, args?: any): AlloyController;
+  createWidget(id: string, name?: string, args?: any): AlloyController;
 }
 
 /**
@@ -17,6 +98,10 @@ interface AlloyControllerUI {
  */
 interface AlloyController extends Backbone.Events {
   args: any;
+
+  /**
+   * Provides convenience methods for working with Titanium Views in Alloy
+   */
   UI: AlloyControllerUI;
 
   /**
@@ -45,10 +130,32 @@ interface AlloyController extends Backbone.Events {
    */
   createStyle(opts: any): Partial<Titanium.Proxy>;
 
+  /**
+   * Frees binding resources associated with this controller and its UI
+   * components.
+   *
+   * It is critical that this is called when employing model/collection binding
+   * in order to avoid potential memory leaks. `$.destroy()` should be called
+   * whenever a controller's UI is to be "closed" or removed from the app.
+   */
   destroy(): void;
 
+  /**
+   * Gets all the tracked event listeners of the view-controller or only the
+   * ones specified by the parameters.
+   *
+   * Passing no parameters, retrieves all tracked event listeners. Set a
+   * parameter to null if you do not want to restrict the match to that
+   * parameter.
+   *
+   * @param proxy Proxy view object.
+   * @param type Name of the event.
+   */
   getListener(proxy?: Titanium.Proxy, type?: string): any[];
 
+  /**
+   * Returns a list of the root view elements associated with this controller.
+   */
   getTopLevelViews(): any[];
 
   /**
@@ -104,66 +211,91 @@ interface AlloyController extends Backbone.Events {
   updateViews(args: { [k: string]: any}): AlloyController;
 }
 
+interface SingletonCollections {
+  /**
+   * Creates a singleton instance of a Collection based on the given model, or
+   * returns an existing instance if one has already been created.
+   *
+   * @param name The name of the base model for the collection.
+   */
+  instance(name: string): Backbone.Collection;
+  [key: string]: unknown;
+}
+
+interface SingletonModels {
+  /**
+   * Creates a singleton instance of a Model based on the given model, or
+   * returns an existing instance if one has already been created.
+   *
+   * @param name The name of the base model for the model.
+   */
+  instance(name: string): Backbone.Model;
+  [key: string]: unknown;
+}
+
+interface BackboneSingletons {
+  /**
+   * An object for storing globally accessible Alloy collections. Singleton
+   * collections created via markup will be stored on this object.
+   *
+   * ```xml
+   * <Collection src="myModel"/>
+   * ```
+   *
+   * The above markup would effectively generate the following code:
+   *
+   * ```js
+   * Alloy.Collections.myModel = Alloy.createCollection('MyModel');
+   * ```
+   *
+   * Alloy.Collections.myModel would then be accessible in any controller in your app.v
+   */
+  Collections: SingletonCollections;
+
+  /**
+   * An object for storing globally accessible Alloy models.
+   *
+   * Singleton models created via markup will be stored on this object.
+   *
+   * ```xml
+   * <Model src="myModel"/>
+   * ```
+   *
+   * The above markup would effectively generate the following code:
+   *
+   * ```js
+   * Alloy.Models.myModel = Alloy.createModel('MyModel');
+   * ```
+   *
+   * `Alloy.Models.myModel` would then be accessible in any controller in your app.
+   */
+  Models: SingletonModels;
+}
+
 /**
  * Top-level module for Alloy functions.
  */
-interface AlloyInterface {
+interface AlloyInterface extends AlloyFactories, BackboneSingletons {
   /**
-   * An object for storing globally accessible Alloy collections. Singleton collections created via markup will be stored on this object.
+   * An object that stores Alloy configuration values as defined in your app's
+   * `app/config.json`.
    */
-  Collections: {
-    [k: string]: unknown;
-    instance(name: string): unknown;
-  };
+  CFG: any;
 
   /**
-   * An object for storing globally accessible Alloy models. Singleton models created via markup will be stored on this object.
+   * An object for storing globally accessible variables and functions.
    */
-  Models: unknown;
+  Globals: any;
 
   /**
-   * Returns true if the current device is a handheld device (not a tablet).
+   * `true` if the current device is a handheld device (not a tablet).
    */
   isHandheld: boolean;
 
   /**
-   * true if the current device is a tablet.
+   * `true` if the current device is a tablet.
    */
   isTablet: boolean;
-
-  /**
-   * Factory method for instantiating a Backbone collection of model objects. Creates and returns a collection for holding the named type of model objects.
-   *
-   * @param name Name of model to hold in this collection.
-   * @param args Arguments to pass to the collection.
-   */
-  createCollection(name: string, args?: any): any;
-
-  /**
-   * Factory method for instantiating a controller. Creates and returns an instance of the named controller.
-   *
-   * @param name Name of controller to instantiate.
-   * @param args Arguments to pass to the controller
-   */
-  createController(name: string, args?: any): any;
-
-  /**
-   * Factory method for instantiating a Backbone Model object. Creates and returns an instance of the named model.
-   *
-   * @param name Name of model to instantiate.
-   * @param args Arguments to pass to the model.
-   */
-  createModel(name: string, args?: any): any;
-
-  /**
-   * Factory method for instantiating a widget controller. Creates and returns an instance of the named widget.
-   *
-   * @param id Id of widget to instantiate.
-   * @param name Name of the view within the widget to instantiate ('widget' by default)
-   * @param args Arguments to pass to the widget.
-   */
-  createWidget(id: string, args?: any): any;
-  createWidget(id: string, name?: string, args?: any): any;
 }
 
 /**
@@ -171,37 +303,12 @@ interface AlloyInterface {
  */
 declare const Alloy: AlloyInterface;
 
-/**
- * Top-level module for Alloy widget.
- */
-interface WidgetInterface {
-  /**
-   * Factory method for instantiating a controller. Creates and returns an instance of the named controller.
-   *
-   * @param name Name of controller to instantiate.
-   * @param args Arguments to pass to the controller
-   */
-  createController(name: string, args?: any): any;
-}
+interface WidgetInterface extends AlloyFactories, BackboneSingletons {}
 
 /**
- * The global Widget module.
+ * The current Widget context.
+ *
+ * Use `Widget.create*` rather than the `Alloy.create*` methods to create
+ * components relative to the widget context rather than the Alloy project.
  */
 declare const Widget: WidgetInterface;
-
-/**
- * Shows an AlertDialog with the specified message.
- *
- * @param msg Message to show in the alert dialog
- */
-declare function alert(msg: string): void;
-
-/**
- * True if the current target platform is Android, false otherwise
- */
-declare const OS_ANDROID: boolean;
-
-/**
- * True if the current target platform is iOS, false otherwise
- */
-declare const OS_IOS: boolean;

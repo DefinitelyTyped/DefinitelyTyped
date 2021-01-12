@@ -1,6 +1,7 @@
 // Type definitions for ssh2-streams v0.1.9
 // Project: https://github.com/mscdex/ssh2-streams
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
+//                 Leo Toneff <https://github.com/bragle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -1070,6 +1071,24 @@ export class SFTPStream extends stream.Transform {
 
     /**
      * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new writable stream for `path`.
      */
     createWriteStream(path: string, options?: WriteStreamOptions): stream.Writable;
@@ -1686,7 +1705,7 @@ export interface Stats extends Attributes {
 }
 
 export namespace utils {
-    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | {}[];
+    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | ParsedKey[] | Error | null;
 }
 
 export interface ParsedKey {
@@ -1701,5 +1720,11 @@ export interface ParsedKey {
 
 export interface ReadFileOptions {
     encoding?: string;
+    flag?: string;
+}
+
+export interface WriteFileOptions {
+    encoding?: string;
+    mode?: number;
     flag?: string;
 }

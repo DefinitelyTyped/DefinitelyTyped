@@ -75,7 +75,7 @@ declare namespace mongoose_delete {
     }
     interface SoftDeleteInterface {
         /** Soft deleted ? */
-        deleted: boolean;
+        deleted?: boolean;
         deleteAt?: Date;
         deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document;
     }
@@ -84,7 +84,7 @@ interface Options {
     overrideMethods: boolean | 'all' | mongoose_delete.overridableMethods[];
     deletedAt: boolean;
     deletedBy: boolean;
-    indexFields: boolean | 'all' | keyof mongoose_delete.SoftDeleteInterface;
+    indexFields: boolean | 'all' | Array<keyof mongoose_delete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
 
     /**

@@ -1,4 +1,4 @@
-import { ComponentType, FocusEventHandler } from '@wordpress/element';
+import { ComponentType, FocusEventHandler } from 'react';
 
 declare namespace SandBox {
     interface Props {

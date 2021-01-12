@@ -2,17 +2,17 @@
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 
 namespace demo.geolocation {
-	'use strict';
+    'use strict';
 
-	export class GeolocationController {
+    export class GeolocationController {
 
     erroMsg:string;
-		position:ngCordova.IGeoPosition;
+        position:ngCordova.IGeoPosition;
 
-		static $inject:Array<string> = ["$ionicPlatform", "$cordovaGeolocation"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaGeolocation:ngCordova.IGeolocationService) {
+        static $inject:Array<string> = ["$ionicPlatform", "$cordovaGeolocation"];
+        constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaGeolocation:ngCordova.IGeolocationService) {
 
-		}
+        }
 
     getLocation = function () {
 
@@ -29,7 +29,7 @@ namespace demo.geolocation {
         });
     };
 
-	}
+    }
 
-	angular.module("demo.geolocation").controller("GeolocationController", GeolocationController);
+    angular.module("demo.geolocation").controller("GeolocationController", GeolocationController);
 }

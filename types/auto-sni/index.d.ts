@@ -8,16 +8,18 @@
 import { Server } from "https";
 
 declare namespace createServer {
-	interface Options {
-		email: string;
-		agreeTos: boolean;
-		domains: Array<string | string[]>;
-		ports?: {
-			http?: number,
-			https?: number
-		};
-		debug?: boolean;
-	}
+    type DomainList = Array<string | string[]>;
+    interface Options {
+        email: string;
+        agreeTos: boolean;
+        domains: DomainList | (() => (DomainList | Promise<DomainList>));
+        dir?: string;
+        ports?: {
+            http?: number,
+            https?: number
+        };
+        debug?: boolean;
+    }
 }
 
 declare function createServer(opts: createServer.Options, app?: any): Server;

@@ -17,6 +17,8 @@ declare module 'react-calendar-timeline' {
         id: Id;
         title: React.ReactNode;
         rightTitle?: React.ReactNode;
+        height?: number;
+        stackItems?: boolean;
     }
 
     export interface TimelineItemBase<DateType> {
@@ -284,16 +286,16 @@ declare module 'react-calendar-timeline' {
     export type CursorMarkerProps = Omit<MarkerProps, 'date'>;
     export class CursorMarker extends React.Component<CursorMarkerProps> {}
 
-    export class TimelineHeaders extends React.Component<React.HTMLAttributes<Element>> {}
-
-    export interface TimelineHeaderProps {
+    export interface TimelineHeadersProps {
         style?: React.CSSProperties;
         className?: string;
         calendarHeaderStyle?: React.CSSProperties;
         calendarHeaderClassName?: string;
         headerRef?: React.Ref<any>;
     }
-    export class TimelineHeader extends React.Component<TimelineHeaderProps> {}
+    export class TimelineHeaders extends React.Component<TimelineHeadersProps> {}
+
+    export type TimelineHeaderProps = TimelineHeadersProps;
 
     export interface SidebarHeaderChildrenFnProps<Data> {
         getRootProps: (propsToOverride?: { style: React.CSSProperties }) => { style: React.CSSProperties };

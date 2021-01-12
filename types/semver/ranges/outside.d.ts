@@ -1,6 +1,6 @@
 import Range = require('../classes/range');
 import SemVer = require('../classes/semver');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Return true if the version is outside the bounds of the range in either the high or low direction.

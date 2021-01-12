@@ -98,9 +98,14 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
         .limit(4)
         .run(conn)
         .then((cursor: r.Cursor) => {
-          cursor.toArray().then((rows: any[]) => {
-            console.log(rows);
-          });
+          return cursor.next().then((row) => {
+            console.log('first row', row);
+            return cursor.toArray();
+          }).then((rows) => {
+            console.log('all rows', rows);
+          }).then(() => {
+            return cursor.close();
+          })
         });
     });
 });

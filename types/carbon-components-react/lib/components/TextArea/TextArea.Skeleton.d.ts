@@ -1,11 +1,7 @@
 import * as React from "react";
-import { ReactLabelAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    id?: ReactLabelAttr["htmlFor"],
-}
-
-export interface TextAreaSkeletonProps extends InheritedProps {
+export interface TextAreaSkeletonProps extends ReactDivAttr {
     hideLabel?: boolean,
 }
 

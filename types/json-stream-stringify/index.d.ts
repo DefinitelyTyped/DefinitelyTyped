@@ -6,7 +6,9 @@
 /// <reference types="node" />
 import { Readable } from "stream";
 
-export default class JsonStreamStringify extends Readable {
+declare class JsonStreamStringify extends Readable {
     constructor(value: any, replacer?: ((key: any, value: any) => any) | any[], spaces?: string | number, cycle?: boolean);
     path(): [string, number];
+    stack: string[];
 }
+export = JsonStreamStringify;

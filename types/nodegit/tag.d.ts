@@ -28,7 +28,7 @@ export class Tag {
     owner(): Repository;
     peel(tagTargetOut: Object): number;
     tagger(): Signature;
-    target(): Object;
+    target(): Promise<Object>;
     targetId(): Oid;
     targetType(): number;
 }

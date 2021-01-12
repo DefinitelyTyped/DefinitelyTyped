@@ -6,7 +6,7 @@ import {
     PusherMessage,
     PusherReadCursor,
     UserPresenceState,
-} from 'pusher__chatkit-client';
+} from '@pusher/chatkit-client';
 
 const chatManager = new ChatManager({
     instanceLocator: 'abc123',
@@ -75,6 +75,26 @@ async function test_connecting() {
             onNewReadCursor: (cursor: PusherReadCursor) => { },
         },
         messageLimit: 10,
+    });
+
+    await currentUser.sendSimpleMessage({
+        roomId: room.id,
+        text: 'Hello world!',
+    });
+
+    await currentUser.sendMultipartMessage({
+        roomId: room.id,
+        parts: [
+            { type: "text/plain", content: "🐷😍" },
+            {
+              type: "image/gif",
+              url: "https://gfycat.com/failingforkedheterodontosaurus",
+            },
+            {
+              file: new Blob(),
+              customData: { metadata: 42 },
+            }
+          ],
     });
 
     currentUser.roomSubscriptions[room.id].disableCursors = false;

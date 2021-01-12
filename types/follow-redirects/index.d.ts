@@ -1,8 +1,9 @@
-// Type definitions for follow-redirects 1.8
+// Type definitions for follow-redirects 1.13
 // Project: https://github.com/follow-redirects/follow-redirects
-// Definitions by: Emily Klassen <https://github.com/forivall>, Claas Ahlrichs <https://github.com/claasahl>
+// Definitions by: Emily Klassen <https://github.com/forivall>
+//                 Claas Ahlrichs <https://github.com/claasahl>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -84,7 +85,7 @@ export interface FollowOptions<Options> {
     followRedirects?: boolean;
     maxRedirects?: number;
     maxBodyLength?: number;
-    beforeRedirect?: (options: Options & FollowOptions<Options>) => void;
+    beforeRedirect?: (options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void;
     agents?: {
         http?: coreHttp.Agent;
         https?: coreHttps.Agent;
@@ -101,6 +102,10 @@ export interface Redirect {
     url: string;
     headers: coreHttp.IncomingHttpHeaders;
     statusCode: number;
+}
+
+export interface  ResponseDetails {
+    headers: coreHttp.IncomingHttpHeaders;
 }
 
 export const http: Override<typeof coreHttp, RedirectScheme<

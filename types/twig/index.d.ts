@@ -3,6 +3,9 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Maik Tizziani <https://github.com/mtizziani>
+//                 Daniel Melcer <https://github.com/dmelcer9>
+//                 Chris Frewin <https://github.com/princefishthrower>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
@@ -24,6 +27,7 @@ export interface Parameters {
 
 export interface Template {
     reset(blocks: any): void;
+    render(context?: any, params?: any, allow_async?: false): string;
     render(context?: any, params?: any, allow_async?: boolean): string | Promise<string>;
     renderAsync(context?: any, params?: any): Promise<string>;
     importFile(file: string): Template;
@@ -35,7 +39,18 @@ export interface Template {
 
 export interface CompileOptions {
     filename: string;
-    settings: any;
+    settings: {
+        views: any;
+        'twig options': any;
+    };
+}
+
+export interface RenderOptions {
+    allowAsync?: boolean;
+    settings?: {
+        views: any;
+        'twig options': any;
+    };
 }
 
 export function twig(params: Parameters): Template;
@@ -44,6 +59,7 @@ export function extendFunction(name: string, definition: (...params: any[]) => s
 export function extendTest(name: string, definition: (value: any) => boolean): void;
 export function extendTag(definition: any): void;
 export function compile(markup: string, options: CompileOptions): (context: any) => any;
-export function renderFile(path: string, options: CompileOptions, fn: (err: Error, result: any) => void): void;
+export function renderFile(path: string, options: RenderOptions, fn: (err: Error, result: any) => void): void;
+export function renderFile(path: string, fn: (err: Error, result: any) => void): void;
 export function __express(path: string, options: CompileOptions, fn: (err: Error, result: any) => void): void;
 export function cache(value: boolean): void;

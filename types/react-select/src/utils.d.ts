@@ -29,7 +29,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export function cleanValue<OptionType extends OptionTypeBase>(value: ValueType<OptionType>): OptionsType<OptionType>;
+export function cleanValue<OptionType extends OptionTypeBase>(value: ValueType<OptionType, boolean>): OptionsType<OptionType>;
 
 // ==============================
 // Handle Input Change
@@ -68,10 +68,10 @@ export function getScrollParent(element: React.Ref<any>): Element;
 // ------------------------------
 
 export function animatedScrollTo(
-  element: Element,
+  element: HTMLElement | typeof window,
   to: number,
-  duration: number,
-  callback: (element: Element) => void
+  duration?: number,
+  callback?: (element: HTMLElement | typeof window) => void
 ): void;
 
 // Scroll Into View

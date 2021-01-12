@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@newrelic/winston-enricher": [
-                "newrelic__winston-enricher"
+            "@newrelic/*": [
+                "newrelic__*"
             ]
         }
     },

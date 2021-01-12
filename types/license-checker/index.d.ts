@@ -85,6 +85,15 @@ export interface InitOpts {
      * Look for direct dependencies only
      */
     direct?: boolean;
+    /**
+     * Colorize output
+     */
+    color?: boolean;
+    /**
+     * Specify the columns for CSV format
+     * or add the specified items for JSON format
+     */
+    customFormat?: Record<string, any>;
 }
 
 /**
@@ -135,6 +144,22 @@ export interface ModuleInfo {
      * Whether the license is modified
      */
     licenseModified?: string;
+    /**
+     * Private module
+     */
+    private?: boolean;
+    /**
+     * Path to module
+     */
+    path?: string;
+    /**
+     * Copyright statements
+     */
+    copyright?: string;
+    /**
+     * Path of NOTICE file
+     */
+    noticeFile?: string;
 }
 
 export interface ModuleInfos {

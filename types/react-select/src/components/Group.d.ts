@@ -8,14 +8,18 @@ interface ComponentProps {
   children: ReactNode;
   /** Component to wrap the label, recieves headingProps. */
   Heading: ComponentType<any>;
+  /** Props to pass to Heading. */
+  headingProps: any;
   /** Label to be displayed in the heading component. */
   label: ReactNode;
 }
-export type GroupProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & ComponentProps;
+export type GroupProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & ComponentProps;
 
 export function groupCSS(): React.CSSProperties;
 
-export const Group: ComponentType<GroupProps<any>>;
+export const Group: ComponentType<GroupProps<any, boolean>>;
+
+export type GroupHeadingProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & Pick<ComponentProps, 'children'>;
 
 export function groupHeadingCSS(): React.CSSProperties;
 

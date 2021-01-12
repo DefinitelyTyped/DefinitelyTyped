@@ -9,8 +9,17 @@ const client = new Client({
     port: 5334,
     user: 'database-user',
     password: 'secretpassword!!',
+    application_name: 'DefinitelyTyped',
     keepAlive: true,
 });
+
+const user: string | undefined = client.user;
+const database: string | undefined = client.database;
+const port: number = client.port;
+const host: string = client.host;
+const password: string | undefined = client.password;
+const ssl: boolean = client.ssl;
+
 client.connect(err => {
     if (err) {
         console.error('Could not connect to postgres', err);
@@ -224,3 +233,17 @@ pool.end().then(() => console.log('pool has ended'));
 // client config object tested above
 let c = new Client(); // empty constructor allowed
 c = new Client('connectionString'); // connection string allowed
+c = new Client({
+    connectionString: 'connectionString',
+    connectionTimeoutMillis: 1000, // connection timeout optionally specified
+});
+
+const dynamicPasswordSync = new Client({
+    password: () => 'sync-secret',
+});
+dynamicPasswordSync.connect();
+
+const dynamicPasswordAsync = new Client({
+    password: async () => 'sync-secret',
+});
+dynamicPasswordAsync.connect();

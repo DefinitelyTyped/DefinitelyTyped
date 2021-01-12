@@ -1,29 +1,40 @@
-
-import bCrypt = require("bcrypt-nodejs");
+import bcrypt = require('bcrypt-nodejs');
 
 function test_sync() {
-    var salt1 = bCrypt.genSaltSync();
-    var salt2 = bCrypt.genSaltSync(8);
+    const salt1 = bcrypt.genSaltSync();
+    const salt2 = bcrypt.genSaltSync(8);
 
-    var hash1 = bCrypt.hashSync('super secret');
-    var hash2 = bCrypt.hashSync('super secret', salt1);
+    const hash1 = bcrypt.hashSync('super secret');
+    const hash2 = bcrypt.hashSync('super secret', salt1);
 
-    var compare1 = bCrypt.compareSync('super secret', hash1);
+    const compare1 = bcrypt.compareSync('super secret', hash1);
 
-    var rounds1 = bCrypt.getRounds(hash2);
+    const rounds1 = bcrypt.getRounds(hash2);
 }
 
 function test_async() {
-    var cbString = (error: Error, result: string) => {};
-    var cbVoid = () => {};
-    var cbBoolean = (error: Error, result: boolean) => {};
+    const cbString = (error: Error, result: string) => {};
+    const cbVoid = () => {};
+    const cbBoolean = (error: Error, result: boolean) => {};
 
-    bCrypt.genSalt(8, cbString);
+    bcrypt.genSalt(8, cbString);
 
-    var salt = bCrypt.genSaltSync();
-    bCrypt.hash('super secret', salt, cbString);
-    bCrypt.hash('super secret', salt, cbVoid, cbString);
+    const salt = bcrypt.genSaltSync();
+    bcrypt.hash('super secret', salt, cbString);
+    bcrypt.hash('super secret', salt, cbVoid, cbString);
 
-    var hash = bCrypt.hashSync('super secret');
-    bCrypt.compare('super secret', hash, cbBoolean);
+    const hash = bcrypt.hashSync('super secret');
+    bcrypt.compare('super secret', hash, cbBoolean);
+
+    bcrypt.hash('bacon', salt, null, (err, hash) => {
+        // Store hash in your password DB.
+    });
+
+    // Load hash from your password DB.
+    bcrypt.compare('bacon', hash, (err, res) => {
+        // res == true
+    });
+    bcrypt.compare('veggies', hash, (err, res) => {
+        // res = false
+    });
 }

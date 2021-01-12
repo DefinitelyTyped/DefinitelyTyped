@@ -23,4 +23,7 @@ yargsInteractive()
     .interactive(options)
     .then((result: any) => {
         console.log(result);
-    });
+    })
+    .demandCommand(1, 1, 'You need to specify a command before moving on')
+    .help()
+    .wrap(null).version;

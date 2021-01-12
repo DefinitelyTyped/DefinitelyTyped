@@ -1,15 +1,21 @@
 // Type definitions for react-native-text-input-mask 0.7
 // Project: https://github.com/react-native-community/react-native-text-input-mask
 // Definitions by: Rodrigo Weber <https://github.com/RodrigoAWeber>
+//                 Tom Xu <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as ReactNative from "react-native";
+import * as React from 'react';
+import * as ReactNative from 'react-native';
 
 export type onChangeTextCallback = (formatted: string, extracted?: string) => void;
 
-export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.TextInputIOSProps, ReactNative.TextInputAndroidProps, ReactNative.AccessibilityProps {
+export interface TextInputMaskProps
+    extends ReactNative.ViewProps,
+        ReactNative.TextInputIOSProps,
+        ReactNative.TextInputAndroidProps,
+        ReactNative.AccessibilityProps {
+    refInput?: (ref: any) => void;
     maskDefaultValue?: boolean;
     mask?: string;
     onChangeText: onChangeTextCallback;
@@ -33,7 +39,7 @@ export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.T
      *
      * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
      */
-    autoCapitalize?: "none" | "sentences" | "words" | "characters";
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 
     /**
      * If false, disables auto-correct.
@@ -99,16 +105,14 @@ export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.T
     /**
      * Callback that is called when the text input's text changes.
      */
-    onChange?: (
-        event: {
-            nativeEvent: {
-                text: string;
-                contentSize: { width: number; height: number };
-                target: number;
-                eventCount: number;
-            };
-        }
-    ) => void;
+    onChange?: (event: {
+        nativeEvent: {
+            text: string;
+            contentSize: { width: number; height: number };
+            target: number;
+            eventCount: number;
+        };
+    }) => void;
 
     /**
      * Callback that is called when the text input's content size changes.
@@ -223,4 +227,4 @@ export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.T
     value?: string;
 }
 
-export default class TextInputMask extends React.Component<TextInputMaskProps> { }
+export default class TextInputMask extends React.Component<TextInputMaskProps> {}

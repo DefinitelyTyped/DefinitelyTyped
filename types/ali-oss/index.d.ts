@@ -2,7 +2,7 @@
 // Project: https://github.com/aliyun/oss-nodejs-sdk
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 export = OSS;
 
@@ -19,6 +19,64 @@ declare namespace OSS {
         secure?: boolean; // instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol.
         timeout?: string | number; // instance level timeout for all operations, default is 60s
         cname?: boolean; // use custom domain name
+    }
+
+    /**
+     * Generate STS Authorization
+     */
+    class STS {
+        constructor(options: STSOptions);
+
+        assumeRole(
+            roleArn: string,
+            /**
+             * RAM Policy config object or valid JSON string
+             */
+            policy?: object | string, // TODO: RAM policy type
+            expirationSeconds?: number,
+            session?: string,
+            options?: {
+                timeout: number;
+                /**
+                 * ctx param in urllib's request param
+                 */
+                ctx: any;
+            },
+        ): Promise<{ credentials: Credentials }>;
+    }
+
+    interface Credentials {
+        /**
+         * STS access key id.
+         */
+        AccessKeyId: string;
+
+        /**
+         * STS access key secret.
+         */
+        AccessKeySecret: string;
+
+        /**
+         * STS token.
+         */
+        SecurityToken: string;
+
+        /**
+         * STS expiration UTC time in ISO format.
+         */
+        Expiration: string;
+    }
+
+    interface STSOptions {
+        /**
+         * Access key id.
+         */
+        accessKeyId: string;
+
+        /**
+         * Access key secret.
+         */
+        accessKeySecret: string;
     }
 
     interface Bucket {
@@ -180,6 +238,7 @@ declare namespace OSS {
 
     interface PutObjectResult {
         name: string;
+        url: string;
         data: object;
         res: NormalSuccessResponse;
     }
@@ -459,7 +518,7 @@ declare namespace OSS {
         putStream(
             name: string,
             stream: any,
-            options?: PutStreamOptions
+            options?: PutStreamOptions,
         ): Promise<{ name: string; res: NormalSuccessResponse }>;
 
         head(name: string, options?: HeadObjectOptions): Promise<HeadObjectResult>;
@@ -537,7 +596,7 @@ declare namespace OSS {
         putStyle(
             name: string,
             style: string,
-            options?: RequestOptions
+            options?: RequestOptions,
         ): Promise<{ data: object; res: NormalSuccessResponse }>;
 
         /**
@@ -578,7 +637,7 @@ declare class OSS {
      */
     putBucket(
         name: string,
-        options?: OSS.PutBucketOptions
+        options?: OSS.PutBucketOptions,
     ): Promise<{ bucket: string; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -624,7 +683,7 @@ declare class OSS {
      */
     getBucketLogging(
         name: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{ enable: boolean; prefix: string | null; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -643,7 +702,7 @@ declare class OSS {
      */
     getBucketWebsite(
         name: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{ index: string; error: string; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -659,7 +718,7 @@ declare class OSS {
         name: string,
         allowEmpty: boolean,
         referers: string[],
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
@@ -667,7 +726,7 @@ declare class OSS {
      */
     getBucketReferer(
         name: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{ allowEmpty: boolean; referers: string[]; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -682,7 +741,7 @@ declare class OSS {
     putBucketLifecycle(
         name: string,
         rules: OSS.LifecycleRule[],
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
@@ -690,7 +749,7 @@ declare class OSS {
      */
     getBucketLifecycle(
         name: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{ rules: OSS.LifecycleRule[]; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -705,7 +764,7 @@ declare class OSS {
     putBucketCORS(
         name: string,
         rules: OSS.CORSRule[],
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
@@ -735,7 +794,7 @@ declare class OSS {
     putStream(
         name: string,
         stream: any,
-        options?: OSS.PutStreamOptions
+        options?: OSS.PutStreamOptions,
     ): Promise<{ name: string; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -823,7 +882,7 @@ declare class OSS {
         file: any,
         start: number,
         end: number,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.UploadPartResult>;
 
     /**
@@ -836,7 +895,7 @@ declare class OSS {
         partNo: number,
         range: string,
         sourceData: { sourceKey: string; sourceBucketName: string },
-        options: { timeout?: number; headers?: object }
+        options: { timeout?: number; headers?: object },
     ): Promise<OSS.UploadPartResult>;
 
     /**
@@ -846,7 +905,7 @@ declare class OSS {
         name: string,
         uploadId: string,
         parts: Array<{ number: number; etag: string }>,
-        options?: OSS.CompleteMultipartUploadOptions
+        options?: OSS.CompleteMultipartUploadOptions,
     ): Promise<OSS.CompleteMultipartUploadResult>;
 
     /**
@@ -862,7 +921,7 @@ declare class OSS {
     multipartUploadCopy(
         name: string,
         sourceData: OSS.MultipartUploadCopySourceData,
-        options?: OSS.MultipartUploadOptions
+        options?: OSS.MultipartUploadOptions,
     ): Promise<OSS.MultipartUploadCopyResult>;
 
     /**
@@ -872,7 +931,7 @@ declare class OSS {
         name: string,
         uploadId: string,
         query?: OSS.ListPartsQuery,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.ListPartsResult>;
 
     /**
@@ -886,7 +945,7 @@ declare class OSS {
     abortMultipartUpload(
         name: string,
         uploadId: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
 
     /************************************************ RTMP Operations *************************************************************/
@@ -900,7 +959,7 @@ declare class OSS {
      */
     getChannel(
         id: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{ data: OSS.PutChannelConf; res: OSS.NormalSuccessResponse }>;
 
     /**
@@ -935,7 +994,7 @@ declare class OSS {
         id: string,
         name: string,
         time: { startTime: number; endTime: number },
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**

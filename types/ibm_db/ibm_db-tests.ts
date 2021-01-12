@@ -21,3 +21,8 @@ service.executeSync();
  service._executeSync(
   ["test"]
 );
+
+/** ibm.Database */
+new ibmdb.Database({
+    connected: true,
+});

@@ -1,4 +1,4 @@
-// Type definitions for Date Range Picker 3.0
+// Type definitions for Date Range Picker 3.1
 // Project: http://www.daterangepicker.com/, https://github.com/dangrossman/daterangepicker
 // Definitions by: SirMartin <https://github.com/SirMartin>
 //                 Steven Masala <https://github.com/smasala>
@@ -13,9 +13,14 @@ declare global {
     interface JQuery {
         daterangepicker: ((
             options?: daterangepicker.Options,
-            callback?: daterangepicker.DataRangePickerCallback
+            callback?: daterangepicker.DataRangePickerCallback,
         ) => JQuery) & { defaultOptions?: daterangepicker.Options };
         data(key: 'daterangepicker'): daterangepicker | undefined;
+
+        on(
+            events: daterangepicker.DatepickerEvents,
+            handler: (event: Event, picker: daterangepicker.DateRangePicker) => void,
+        ): JQuery;
     }
 }
 
@@ -23,7 +28,7 @@ declare class daterangepicker {
     constructor(
         element: HTMLElement,
         options?: daterangepicker.Options,
-        callback?: daterangepicker.DataRangePickerCallback
+        callback?: daterangepicker.DataRangePickerCallback,
     );
 
     startDate: moment.Moment;
@@ -36,17 +41,73 @@ declare class daterangepicker {
 }
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (
-        start: moment.Moment,
-        end: moment.Moment,
-        label: string | null
-    ) => void;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => void;
 
     type DateOrString = string | moment.Moment | Date;
+
+    type DatepickerEvents =
+        | 'show.daterangepicker'
+        | 'hide.daterangepicker'
+        | 'showCalendar.daterangepicker'
+        | 'hideCalendar.daterangepicker'
+        | 'apply.daterangepicker'
+        | 'cancel.daterangepicker';
 
     interface DatepickerEventObject extends JQueryEventObject {
         date: Date;
         format(format?: string): string;
+    }
+
+    type Month = moment.Moment[][] & {
+        firstDay: moment.Moment;
+        lastDay: moment.Moment;
+    };
+
+    interface Calendar {
+        calendar: Month;
+        month: moment.Moment;
+    }
+
+    interface DateRangePicker {
+        startDate: moment.Moment;
+        endDate: moment.Moment;
+        minDate: moment.Moment;
+        maxDate: moment.Moment;
+        maxSpan: moment.DurationInputArg1 | boolean;
+        showDropdowns: boolean;
+        minYear: number;
+        maxYear: number;
+        showWeekNumbers: boolean;
+        showISOWeekNumbers: boolean;
+        timePicker: boolean;
+        timePickerIncrement: number;
+        timePicker24Hour: boolean;
+        timePickerSeconds: boolean;
+        ranges: { [name: string]: [DateOrString, DateOrString] };
+        showCustomRangeLabel: boolean;
+        alwaysShowCalendars: boolean;
+        opens: 'left' | 'right' | 'center';
+        drops: 'down' | 'up';
+        buttonClasses: string[];
+        applyButtonClasses: string;
+        cancelButtonClasses: string;
+        locale: Required<Locale>;
+        singleDatePicker: boolean;
+        autoApply: boolean;
+        linkedCalendars: boolean;
+        isInvalidDate(startDate: DateOrString, endDate?: DateOrString): boolean;
+        isCustomDate(date: DateOrString): string | string[] | false | undefined;
+        autoUpdateInput: boolean;
+        parentEl: JQuery;
+        element: JQuery;
+        container: JQuery;
+        isShowing: boolean;
+        previousRightTime: moment.Moment;
+        oldStartDate: moment.Moment;
+        oldEndDate: moment.Moment;
+        leftCalendar: Calendar;
+        rightCalendar: Calendar;
+        chosenLabel?: string;
     }
 
     interface Options {
@@ -69,7 +130,7 @@ declare namespace daterangepicker {
         /**
          * The maximum span between the selected start and end dates. Can have any property you can add to a moment object (i.e. days, months)
          */
-        maxSpan?: moment.MomentInput | moment.Duration;
+        maxSpan?: moment.DurationInputArg1;
         /**
          * Show year and month select boxes above calendars to jump to a specific month and year
          */
@@ -127,7 +188,7 @@ declare namespace daterangepicker {
         /**
          * Whether the picker appears below (default) or above the HTML element it's attached to
          */
-        drops?: 'down' | 'up';
+        drops?: 'down' | 'up' | 'auto';
         /**
          * CSS class names that will be added to all buttons in the picker
          */
@@ -166,7 +227,7 @@ declare namespace daterangepicker {
         /**
          * A function that is passed each date in the two calendars before they are displayed, and may return a string or array of CSS class names to apply to that date's calendar cell.
          */
-        isCustomDate?(date: DateOrString): string | string[] | undefined;
+        isCustomDate?(date: DateOrString): string | string[] | false | undefined;
         /**
          * Indicates whether the date range picker should automatically update the value of an < input > element it's attached to at initialization and when the selected dates change.
          */
@@ -174,7 +235,7 @@ declare namespace daterangepicker {
         /**
          * jQuery selector of the parent element that the date range picker will be added to, if not provided this will be 'body'
          */
-        parentEl?: string;
+        parentEl?: Element | string;
     }
 
     interface Locale {

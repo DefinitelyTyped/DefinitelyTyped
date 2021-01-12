@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.21
+// Type definitions for luxon 1.25
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -7,10 +7,9 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Miklos Danka <https://github.com/mdanka>
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
@@ -66,10 +65,34 @@ export interface ToSQLOptions {
     includeZone?: boolean;
 }
 
+export type ToISOFormat = 'basic' | 'extended';
+
 export interface ToISOTimeOptions {
+    /**
+     * @default false
+     */
     suppressMilliseconds?: boolean;
+    /**
+     * @default false
+     */
     suppressSeconds?: boolean;
+    /**
+     * @default true
+     */
     includeOffset?: boolean;
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
+}
+
+export interface ToISODateOptions {
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
 }
 
 // alias for backwards compatibility
@@ -137,6 +160,8 @@ export class DateTime {
     static readonly DATE_FULL: DateTimeFormatOptions;
     static readonly DATE_HUGE: DateTimeFormatOptions;
     static readonly DATE_MED: DateTimeFormatOptions;
+    /** abbreviated date with weekday */
+    static readonly DATE_MED_WITH_WEEKDAY: DateTimeFormatOptions;
     static readonly DATE_SHORT: DateTimeFormatOptions;
     static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
     static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
@@ -168,7 +193,13 @@ export class DateTime {
         format: string,
         options?: DateTimeOptions,
     ): ExplainedFormat;
-    static invalid(reason: any): DateTime;
+    /**
+     * Create an invalid DateTime.
+     * @param reason - simple string of why this DateTime is invalid.
+     * Should not contain parameters or anything else data-dependent
+     * @param [explanation=null] - longer explanation, may include parameters and other useful debugging information
+     */
+    static invalid(reason: string, explanation?: string): DateTime;
     static isDateTime(o: any): o is DateTime;
     static local(
         year?: number,
@@ -243,7 +274,8 @@ export class DateTime {
     toFormat(format: string, options?: DateTimeFormatOptions): string;
     toHTTP(): string;
     toISO(options?: ToISOTimeOptions): string;
-    toISODate(): string;
+    /** Returns an ISO 8601-compliant string representation of this DateTime's date component */
+    toISODate(options?: ToISODateOptions): string;
     toISOTime(options?: ToISOTimeOptions): string;
     toISOWeekDate(): string;
     toJSDate(): Date;
@@ -409,6 +441,7 @@ export interface Features {
     intl: boolean;
     intlTokens: boolean;
     zones: boolean;
+    relative: boolean;
 }
 
 export namespace Info {
@@ -523,7 +556,7 @@ export class IANAZone extends Zone {
 }
 
 export class FixedOffsetZone extends Zone {
-    static utcInstance: string;
+    static utcInstance: FixedOffsetZone;
     static instance(offset: number): FixedOffsetZone;
     static parseSpecifier(s: string): FixedOffsetZone;
 }

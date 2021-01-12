@@ -3,6 +3,9 @@ import * as data from '@wordpress/data';
 data.select('core/block-editor').isTyping<boolean>();
 data.dispatch('core/block-editor').resetBlocks('');
 
+const unsubscribe = data.subscribe(() => console.log('Store was updated.'));
+unsubscribe();
+
 data.use(data.plugins.persistence, { storage: window.localStorage });
 
 interface FooBar {
@@ -10,6 +13,7 @@ interface FooBar {
     bar: number;
 }
 
+// $ExpectType Store<FooBar, AnyAction>
 data.registerStore<FooBar>('foo', {
     reducer(state = { foo: 'foo', bar: 21 }, action) {
         return state;

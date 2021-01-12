@@ -8,6 +8,8 @@
 import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
+import { SourceMapGenerator } from "source-map";
+
 /**
  * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
  */
@@ -92,7 +94,7 @@ declare namespace CleanCSS {
         /**
          * Output source map if requested with `sourceMap` option
          */
-        sourceMap: string;
+        sourceMap: SourceMapGenerator;
 
         /**
          * A list of errors raised
@@ -389,6 +391,11 @@ declare namespace CleanCSS {
          * Controls maximum line length; defaults to `false`
          */
         wrapAt?: false | number;
+
+        /**
+         * Controls removing trailing semicolons in rule; defaults to `false` - means remove
+         */
+        semicolonAfterLastProperty?: boolean;
     }
 
     /**
@@ -506,11 +513,6 @@ declare namespace CleanCSS {
              * Controls selectors optimizing; defaults to `true`
              */
             tidySelectors?: boolean;
-
-            /**
-             * Controls removing trailing semicolons in rule; defaults to `false` - means remove
-             */
-            semicolonAfterLastProperty?: boolean;
 
             /**
              * Defines a callback for fine-grained property optimization; defaults to no-op

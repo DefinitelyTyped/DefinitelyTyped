@@ -8,216 +8,216 @@ var assert = {deepEqual: function (a: Object, b: Object) {
 }};
 
 assert.deepEqual(
-	merge({a: 'b'}, {b: 'c'}),
+    merge({a: 'b'}, {b: 'c'}),
   {a: 'b', b: 'c'}
 );
 
 assert.deepEqual(
-	merge({a: 'b'}, {a: 'c'}),
-	{a: 'c'}
+    merge({a: 'b'}, {a: 'c'}),
+    {a: 'c'}
 );
 
 assert.deepEqual(
-	merge({a: 'b', b: 'd'}, {a: 'c'}),
-	{a: 'c', b: 'd'}
+    merge({a: 'b', b: 'd'}, {a: 'c'}),
+    {a: 'c', b: 'd'}
 );
 
 assert.deepEqual(
-	merge({a: null}, {b: 'c'}),
-	{a: null, b: 'c'}
+    merge({a: null}, {b: 'c'}),
+    {a: null, b: 'c'}
 );
 
 assert.deepEqual(
-	merge({a: null}, {a: 'b'}),
-	{a: 'b'}
+    merge({a: null}, {a: 'b'}),
+    {a: 'b'}
 );
 
 assert.deepEqual(
-	merge({a: 'b'}, {a: null}),
-	{a: null}
+    merge({a: 'b'}, {a: null}),
+    {a: null}
 );
 
 assert.deepEqual(
-	merge([], {a: 'b'}),
-	{a: 'b'}
+    merge([], {a: 'b'}),
+    {a: 'b'}
 );
 
 assert.deepEqual(
-	merge({a: 'b'}, []),
-	[]
+    merge({a: 'b'}, []),
+    []
 );
 
 assert.deepEqual(
-	merge({a: {b: {c: 'd'}}, d: 'e'}, {a: {b: 'a'}}),
-	{a: {b: 'a'}, d: 'e'}
+    merge({a: {b: {c: 'd'}}, d: 'e'}, {a: {b: 'a'}}),
+    {a: {b: 'a'}, d: 'e'}
 );
 
 assert.deepEqual(
-	merge({a: {b: {c: 'd'}, d: 'e'}}, {a: {b: {c: 'e'}}}),
-	{a: {b: {c: 'e'}, d: 'e'}}
+    merge({a: {b: {c: 'd'}, d: 'e'}}, {a: {b: {c: 'e'}}}),
+    {a: {b: {c: 'e'}, d: 'e'}}
 );
 
 assert.deepEqual(
-	merge({a: 'b'}, null),
-	null
+    merge({a: 'b'}, null),
+    null
 );
 
 assert.deepEqual(
-	generate({a: 'b'}, {a: 'c'}),
+    generate({a: 'b'}, {a: 'c'}),
   {a: 'c'}
 );
 
 assert.deepEqual(
-	generate({a: 'b'}, { a: 'b', b: 'c'}),
-	{b: 'c'}
+    generate({a: 'b'}, { a: 'b', b: 'c'}),
+    {b: 'c'}
 );
 
 assert.deepEqual(
-	generate({a: 'b'}, {}),
-	{a: null}
+    generate({a: 'b'}, {}),
+    {a: null}
 );
 
 assert.deepEqual(
-	generate({a: 'b', b: 'c'}, {b: 'c'}),
-	{a: null}
+    generate({a: 'b', b: 'c'}, {b: 'c'}),
+    {a: null}
 );
 
 assert.deepEqual(
-	generate({a: ['b']}, {a: 'c'}),
-	{a: 'c'}
+    generate({a: ['b']}, {a: 'c'}),
+    {a: 'c'}
 );
 
 assert.deepEqual(
-	generate({a: 'c'}, {a: ['b']}),
-	{a: ['b']}
+    generate({a: 'c'}, {a: ['b']}),
+    {a: ['b']}
 );
 
 assert.deepEqual(
-	generate({a: [{b: 'c'}]}, {a: [1]}),
-	{a: [1]}
+    generate({a: [{b: 'c'}]}, {a: [1]}),
+    {a: [1]}
 );
 
 assert.deepEqual(
-	generate(['a', 'b'], ['c', 'd']),
-	['c', 'd']
+    generate(['a', 'b'], ['c', 'd']),
+    ['c', 'd']
 );
 
 assert.deepEqual(
-	generate(['a', 'b'], ['a']),
-	['a']
+    generate(['a', 'b'], ['a']),
+    ['a']
 );
 
 assert.deepEqual(
-	generate({a: 'b'}, ['c']),
-	['c']
+    generate({a: 'b'}, ['c']),
+    ['c']
 );
 
 assert.deepEqual(
-	generate({a: 'foo'}, null),
-	null
+    generate({a: 'foo'}, null),
+    null
 );
 
 assert.deepEqual(
-	generate({a: 'foo'}, 'bar'),
-	'bar'
+    generate({a: 'foo'}, 'bar'),
+    'bar'
 );
 
 assert.deepEqual(
-	generate({e: null}, {e: null, a: 1}),
-	{a: 1}
+    generate({e: null}, {e: null, a: 1}),
+    {a: 1}
 );
 
 assert.deepEqual(
-	generate({}, {a: {bb: {}}}),
-	{a: {bb: {}}}
+    generate({}, {a: {bb: {}}}),
+    {a: {bb: {}}}
 );
 
 assert.deepEqual(
-	generate({a: 'a'}, {a: 'a'}),
-	undefined
+    generate({a: 'a'}, {a: 'a'}),
+    undefined
 );
 
 assert.deepEqual(
-	generate({a: {b: 'c'}}, {a: {b: 'c'}}),
-	undefined
+    generate({a: {b: 'c'}}, {a: {b: 'c'}}),
+    undefined
 );
 
 assert.deepEqual(
-	generate([1,2,3], [1,2,3]),
-	undefined
+    generate([1,2,3], [1,2,3]),
+    undefined
 );
 
 assert.deepEqual(
-	apply({a: 'b'}, {a: 'c'}),
+    apply({a: 'b'}, {a: 'c'}),
   {a: 'c'}
 );
 
 assert.deepEqual(
-	apply({a: 'b'}, {b: 'c'}),
+    apply({a: 'b'}, {b: 'c'}),
   {a: 'b', b: 'c'}
 );
 
 assert.deepEqual(
-	apply({a: 'b'}, {a: null}),
+    apply({a: 'b'}, {a: null}),
   {}
 );
 
 assert.deepEqual(
-	apply({a: 'b', b: 'c'}, {a: null}),
+    apply({a: 'b', b: 'c'}, {a: null}),
   {b: 'c'}
 );
 
 assert.deepEqual(
-	apply({a: ['b']}, {a: 'c'}),
+    apply({a: ['b']}, {a: 'c'}),
   {a: 'c'}
 );
 
 assert.deepEqual(
-	apply({a: 'c'}, {a: ['b']}),
+    apply({a: 'c'}, {a: ['b']}),
   {a: ['b']}
 );
 
 assert.deepEqual(
-	apply({a: {b: 'c'}}, {a: {b: 'd', c: null}}),
+    apply({a: {b: 'c'}}, {a: {b: 'd', c: null}}),
   {a: {b: 'd'}}
 );
 
 assert.deepEqual(
-	apply({a: [{b: 'c'}]}, {a: [1]}),
+    apply({a: [{b: 'c'}]}, {a: [1]}),
   {a: [1]}
 );
 
 assert.deepEqual(
-	apply(['a', 'b'], ['c', 'd']),
-	['c', 'd']
+    apply(['a', 'b'], ['c', 'd']),
+    ['c', 'd']
 );
 
 assert.deepEqual(
-	apply({a: 'b'}, ['c']),
-	['c']
+    apply({a: 'b'}, ['c']),
+    ['c']
 );
 
 assert.deepEqual(
-	apply({a: 'foo'}, null),
-	null
+    apply({a: 'foo'}, null),
+    null
 );
 
 assert.deepEqual(
-	apply({a: 'foo'}, 'bar'),
-	'bar'
+    apply({a: 'foo'}, 'bar'),
+    'bar'
 );
 
 assert.deepEqual(
-	apply({e: null}, {a: 1}),
-	{e: null, a: 1}
+    apply({e: null}, {a: 1}),
+    {e: null, a: 1}
 );
 
 assert.deepEqual(
-	apply([1, 2], {a: 'b', c: null}),
-	{a: 'b'}
+    apply([1, 2], {a: 'b', c: null}),
+    {a: 'b'}
 );
 
 assert.deepEqual(
-	apply({}, {a: {bb: {ccc: null}}}),
-	{a: {bb: {}}}
+    apply({}, {a: {bb: {ccc: null}}}),
+    {a: {bb: {}}}
 );

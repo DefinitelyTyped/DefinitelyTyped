@@ -51,7 +51,6 @@ declare namespace koaBunyanLogger {
 
 // Extend the Koa context to add the logger..
 declare module 'koa' {
-    // tslint:disable-next-line: interface-name
     interface BaseContext {
         log: Logger;
     }

@@ -1,4 +1,4 @@
-import { ASTNode, FileInfo, API, Transform, Parser } from "jscodeshift";
+import { ASTNode, FileInfo, API, Transform, Parser, JSCodeshift, Collection, ImportDeclaration } from "jscodeshift";
 import * as testUtils from "jscodeshift/src/testUtils";
 
 // Can define transform with `function`.
@@ -82,11 +82,18 @@ const transformWithRecastParseOptions: Transform = (file, { j }) => {
     }
 }
 
+// Can define a collection
+function getFileDefaultImport(file: FileInfo, j: JSCodeshift): Collection<ImportDeclaration> {
+    return j(file.source).find(j.ImportDeclaration);
+}
+
 // Can define a test
 testUtils.defineTest(
     "directory",
     "transformName",
     { opt: true },
+    undefined,
+    { parser: 'tsx' }
 );
 
 // Can define a test

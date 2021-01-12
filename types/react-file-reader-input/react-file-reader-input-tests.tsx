@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FileReaderInput = require('react-file-reader-input');
+import FileReaderInput from 'react-file-reader-input';
 
 class MyComponent extends React.Component {
   handleChange = (event: React.SyntheticEvent<any>, results: FileReaderInput.Result[]) => {
@@ -13,7 +13,7 @@ class MyComponent extends React.Component {
     return (
       <form>
         <label htmlFor="my-file-input">Upload a File: </label>
-        <FileReaderInput as="binary" onChange={this.handleChange} >
+        <FileReaderInput as="binary" onChange={this.handleChange} accept=".txt">
           <button>Select a file!</button>
         </FileReaderInput>
       </form>

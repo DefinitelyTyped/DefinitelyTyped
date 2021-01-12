@@ -18,17 +18,6 @@ select('core/edit-post', 'isEditorPanelEnabled', 'foo');
 // $ExpectType void
 select('core/edit-post', 'isEditorPanelEnabled', 'foo', 123, true, 'bar');
 
-/* tslint:disable:no-void-expression */
-function* generator() {
-    // $ExpectType any
-    const apiFetchValue = yield apiFetch({ path: '/wp/v2/posts' });
-    // $ExpectType any
-    const dispatchValue = yield dispatch('core/edit-post', 'togglePublishSidebar');
-    // $ExpectType any
-    const selectValue = yield select('core/edit-post', 'isEditorPanelEnabled', 'foo');
-}
-/* tslint:enable:no-void-expression */
-
 const myExistingControls = {
     FOO: () => Promise.resolve('foo'),
     BAR: () => 'bar',

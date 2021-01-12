@@ -1,6 +1,7 @@
 // Type definitions for non-npm package plaid-link-browser 2.0
-// Project: https://github.com/plaid/link (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/plaid/link
 // Definitions by: Aaron Holderman <https://github.com/afholderman>
+//                 Hannes Kindströmmer <https://github.com/brolaugh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 // TypeScript Version: 2.4
 
@@ -24,6 +25,7 @@ export namespace Plaid {
         onEvent?: OnEvent;
         onLoad?: OnLoad;
         language?: Language;
+        linkCustomizationName?: string;
         countryCodes?: Country[];
         webhook?: string;
         userLegalName?: string;
@@ -43,6 +45,7 @@ export namespace Plaid {
     interface LinkHandler {
         open: () => void;
         exit: (options?: ExitOptions) => void;
+        destroy: () => void;
         institutions: Institution[];
     }
 
