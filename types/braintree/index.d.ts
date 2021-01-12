@@ -457,7 +457,7 @@ declare namespace braintree {
         amount: string;
         avsErrorResponseCode?: string;
         avsPostalCodeResponseCode?: string;
-        avsScreetAddressResponseCode?: string;
+        avsStreetAddressResponseCode?: string;
         billing?: {
             company?: string;
             countryName?: string;
