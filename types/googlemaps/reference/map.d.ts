@@ -633,7 +633,7 @@ declare namespace google.maps {
     /**
      * @deprecated https://developers.google.com/maps/documentation/javascript/releases#2020-12-09
      */
-    export type MouseEvent = MapMouseEvent;
+    type MouseEvent = MapMouseEvent;
 
     /**
      * This object is sent in an event when a user clicks on an icon on the map.
