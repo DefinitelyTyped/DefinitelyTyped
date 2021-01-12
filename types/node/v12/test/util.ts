@@ -40,6 +40,12 @@ import { expectType } from '../node-tests';
         colors: true,
     };
 
+    util.format('%s:%s', 'foo');
+    util.format('%s:%s', 'foo', 'bar', 'baz');
+    util.format(1, 2, 3);
+    util.format('%% %s');
+    util.format();
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify

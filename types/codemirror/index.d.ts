@@ -887,6 +887,12 @@ declare namespace CodeMirror {
                 /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
             Set this option to true to make it go to the left instead. */
                 insertLeft?: boolean;
+
+                /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents. By default, a marker appears only in its target document. */
+                shared?: boolean;
+
+                /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
+                handleMouseEvents?: boolean;
             },
         ): CodeMirror.TextMarker;
 
@@ -1059,6 +1065,9 @@ declare namespace CodeMirror {
         with a name property that names the mode (for example {name: "javascript", json: true}). */
         mode?: any;
 
+        /** Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific string is given, lines will only be split on that string, and output will, by default, use that same separator. */
+        lineSeparator?: string | null;
+
         /** The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
         The default is "default". */
         theme?: string;
@@ -1079,6 +1088,15 @@ declare namespace CodeMirror {
         that might change its proper indentation (only works if the mode supports indentation). Default is true. */
         electricChars?: boolean;
 
+        /** A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/. */
+        specialChars?: RegExp;
+
+        /** A function that, given a special character identified by the specialChars option, produces a DOM node that is used to represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code. */
+        specialCharPlaceholder?: (char: string) => HTMLElement;
+
+        /** Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example, leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let users toggle this option. */
+        direction?: "ltr" | "rtl"
+
         /** Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
         is visual (pressing the left arrow moves the cursor left)
         or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text).
@@ -1092,6 +1110,13 @@ declare namespace CodeMirror {
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
         extraKeys?: string | KeyMap;
 
+        /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
+        configureMouse?: (
+            cm: CodeMirror.Editor,
+            repeat: 'single' | 'double' | 'triple',
+            event: Event,
+        ) => MouseSelectionConfiguration;
+        
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;
 
@@ -1109,7 +1134,7 @@ declare namespace CodeMirror {
         and which will be used to draw the background of the gutters.
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
-        gutters?: string[];
+        gutters?: (string | { className: string; style?: string })[];
 
         /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
         foldGutter?: boolean;
@@ -1887,5 +1912,33 @@ declare namespace CodeMirror {
              */
             setShowDifferences(showDifferences: boolean): void;
         }
+    }
+
+    interface MouseSelectionConfiguration {
+        /** The unit by which to select. May be one of the built-in units
+        or a function that takes a position and returns a range around
+        that, for a custom unit. The default is to return "word" for
+        double clicks, "line" for triple clicks, "rectangle" for alt-clicks
+        (or, on Chrome OS, meta-shift-clicks), and "single" otherwise. */
+        unit?:
+            | 'char'
+            | 'word'
+            | 'line'
+            | 'rectangle'
+            | ((cm: CodeMirror.Editor, pos: Position) => { from: Position; to: Position });
+
+        /** Whether to extend the existing selection range or start
+        a new one. By default, this is enabled when shift clicking. */
+        extend?: boolean;
+
+        /** When enabled, this adds a new range to the existing selection,
+        rather than replacing it. The default behavior is to enable this
+        for command-click on Mac OS, and control-click on other platforms. */
+        addNew?: boolean;
+
+        /** When the mouse even drags content around inside the editor, this
+        controls whether it is copied (false) or moved (true). By default, this
+        is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere. */
+        moveOnDrag?: boolean;
     }
 }

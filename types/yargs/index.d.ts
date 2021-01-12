@@ -564,6 +564,14 @@ declare namespace yargs {
         strict(enabled: boolean): Argv<T>;
 
         /**
+         * Similar to .strict(), except that it only applies to unrecognized commands.
+         * A user can still provide arbitrary options, but unknown positional commands
+         * will raise an error.
+         */
+        strictCommands(): Argv<T>;
+        strictCommands(enabled: boolean): Argv<T>;
+
+        /**
          * Similar to `.strict()`, except that it only applies to unrecognized options. A
          * user can still provide arbitrary positional options, but unknown options
          * will raise an error.

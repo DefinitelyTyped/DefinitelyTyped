@@ -3,6 +3,7 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
 //                 Jimexist <https://github.com/Jimexist>
+//                 ChenKS12138 <https://github.com/ChenKS12138>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -3080,7 +3081,7 @@ declare namespace wx {
      * @version 1.9.0
      */
     function canvasPutImageData(options: CanvasImageDataOptions): void;
-    // 页面-----下拉刷新
+    // 界面-----下拉刷新
     /**
      * 开始下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致
      * @version 1.5.0
@@ -3091,6 +3092,38 @@ declare namespace wx {
      * @version 1.5.0
      */
     function stopPullDownRefresh(options?: BaseOptions): void;
+    // 界面-----字体
+    interface LoadFontFaceOptions extends BaseOptions {
+        /** 是否全局生效 */
+        global?: boolean;
+        /** 定义的字体名称 */
+        family: string;
+        /** 字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容 */
+        source: string;
+        /** 可选的字体描述符 */
+        desc?: {
+            /** 字体样式，可选值为 normal / italic / oblique */
+            style?: ['normal', 'italic', 'oblique'];
+            /** 字体粗细，可选值为 normal / bold / 100 / 200../ 900 */
+            weight?: ['normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
+            /** 设置小型大写字母的字体显示文本，可选值为 normal / small-caps / inherit */
+            variant?: ['normal', 'small-caps', 'inherit'];
+        };
+        /** 字体作用范围，可选值为 webview / native，默认 webview，设置 native 可在 Canvas 2D 下使用 */
+        scopes?: Array<'webview'|'native'>;
+    }
+    /**
+     * 动态加载网络字体，文件地址需为下载类型。['2.10.0'](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)起支持全局生效，需在 `app.js` 中调用
+     * 注意：
+     *  1. 字体文件返回的 contet-type 参考 [font](https://www.iana.org/assignments/media-types/media-types.xhtml#font)，格式不正确时会解析失败。
+     *  2. 字体链接必须是https（ios不支持http)
+     *  3. 字体链接必须是同源下的，或开启了cors支持，小程序的域名是 `servicewechat.com`
+     *  4. canvas等原生组件不支持使用接口添加的字体
+     *  5. 工具里提示 Faild to load font可以忽略
+     *  6. ['2.10.0'](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 以前仅在调用页面生效。
+     * @version 2.1.0
+     */
+    function loadFontFace(loadFontFaceOptions: LoadFontFaceOptions): void;
     // #endregion
     // #region 第三方平台
     interface ExtConfig {

@@ -33,6 +33,7 @@ es/austin/index.d.ts
 es/automate--modular--management/index.d.ts
 es/automation--decision/index.d.ts
 es/automobile/index.d.ts
+es/baby--bottle/index.d.ts
 es/backpack/index.d.ts
 es/bag/index.d.ts
 es/bangalore/index.d.ts
@@ -118,6 +119,13 @@ es/cloud--strategy/index.d.ts
 es/cloud--tutorials/index.d.ts
 es/cloud--upload/index.d.ts
 es/cloud--vmware/index.d.ts
+es/cloud-pak--family/index.d.ts
+es/cloud-pak--for-applications/index.d.ts
+es/cloud-pak--for-data/index.d.ts
+es/cloud-pak--for-integration/index.d.ts
+es/cloud-pak--for-multicloud-management/index.d.ts
+es/cloud-pak--for-security/index.d.ts
+es/cloud-pak--system/index.d.ts
 es/cloudy/index.d.ts
 es/cloudy--dewy/index.d.ts
 es/cloudy--hazy/index.d.ts
@@ -133,6 +141,7 @@ es/commercial--financing--01/index.d.ts
 es/commercial--financing--02/index.d.ts
 es/concept--expansion/index.d.ts
 es/concept--insights/index.d.ts
+es/condition--builder/index.d.ts
 es/connect/index.d.ts
 es/connected--ecosystem/index.d.ts
 es/connected--nodes--to--the--cloud/index.d.ts
@@ -175,11 +184,13 @@ es/dna/index.d.ts
 es/do-not/index.d.ts
 es/docker/index.d.ts
 es/doctor/index.d.ts
+es/doctor-patient/index.d.ts
 es/document--conversion/index.d.ts
 es/document--security/index.d.ts
 es/door--handle/index.d.ts
 es/download--01/index.d.ts
 es/download--02/index.d.ts
+es/dropper/index.d.ts
 es/dubai--palm-islands/index.d.ts
 es/dubai--skyscraper/index.d.ts
 es/dublin--brewery/index.d.ts
@@ -222,6 +233,7 @@ es/feedback--01/index.d.ts
 es/feedback--02/index.d.ts
 es/file--backup/index.d.ts
 es/file--transfer/index.d.ts
+es/filter--variable/index.d.ts
 es/finance--strategy/index.d.ts
 es/financial--consultant/index.d.ts
 es/financial--gain/index.d.ts
@@ -287,6 +299,7 @@ es/home--front/index.d.ts
 es/home--garage/index.d.ts
 es/home--profile/index.d.ts
 es/hospital/index.d.ts
+es/hpi/index.d.ts
 es/humid/index.d.ts
 es/hurricane/index.d.ts
 es/hybrid--cloud/index.d.ts
@@ -389,9 +402,11 @@ es/networking--06/index.d.ts
 es/nice/index.d.ts
 es/night--clear/index.d.ts
 es/nyc--brooklyn/index.d.ts
+es/nyc--chrysler-building/index.d.ts
 es/nyc--manhattan--01/index.d.ts
 es/nyc--manhattan--02/index.d.ts
 es/nyc--statue-of-liberty/index.d.ts
+es/nyc--world-trade-center/index.d.ts
 es/office/index.d.ts
 es/oil--pump/index.d.ts
 es/oil--rig/index.d.ts
@@ -428,7 +443,10 @@ es/police/index.d.ts
 es/population--diagram/index.d.ts
 es/power/index.d.ts
 es/prague--charles-bridge-tower/index.d.ts
+es/prague--dancing-house--01/index.d.ts
+es/prague--dancing-house--02/index.d.ts
 es/pregnant/index.d.ts
+es/prescription/index.d.ts
 es/presentation/index.d.ts
 es/presenter/index.d.ts
 es/price/index.d.ts
@@ -449,6 +467,7 @@ es/racetrack/index.d.ts
 es/rainy/index.d.ts
 es/rainy--heavy/index.d.ts
 es/raleigh-nc/index.d.ts
+es/random--samples/index.d.ts
 es/rank/index.d.ts
 es/receipt/index.d.ts
 es/recycle/index.d.ts
@@ -468,6 +487,7 @@ es/retrieve--and--rank/index.d.ts
 es/rich--text--format/index.d.ts
 es/robot/index.d.ts
 es/robotics/index.d.ts
+es/rock-on/index.d.ts
 es/rome/index.d.ts
 es/saas--enablement/index.d.ts
 es/sample--file/index.d.ts
@@ -487,6 +507,7 @@ es/security--as--a--service/index.d.ts
 es/security--hygiene/index.d.ts
 es/security--intelligence/index.d.ts
 es/security--shield/index.d.ts
+es/select--range/index.d.ts
 es/server--rack/index.d.ts
 es/servers/index.d.ts
 es/shirt/index.d.ts
@@ -498,6 +519,8 @@ es/single--sign-on/index.d.ts
 es/slider/index.d.ts
 es/sneaker/index.d.ts
 es/snow/index.d.ts
+es/social--work--01/index.d.ts
+es/social--work--02/index.d.ts
 es/socks/index.d.ts
 es/soft--ice--cream/index.d.ts
 es/softlayer--enablement/index.d.ts
@@ -548,6 +571,8 @@ es/team--alignment/index.d.ts
 es/teammates/index.d.ts
 es/tel-aviv/index.d.ts
 es/telecom/index.d.ts
+es/telemedicine/index.d.ts
+es/telemedicine--mobile/index.d.ts
 es/telephone/index.d.ts
 es/television/index.d.ts
 es/temperature--high/index.d.ts
@@ -675,6 +700,7 @@ lib/austin/index.d.ts
 lib/automate--modular--management/index.d.ts
 lib/automation--decision/index.d.ts
 lib/automobile/index.d.ts
+lib/baby--bottle/index.d.ts
 lib/backpack/index.d.ts
 lib/bag/index.d.ts
 lib/bangalore/index.d.ts
@@ -760,6 +786,13 @@ lib/cloud--strategy/index.d.ts
 lib/cloud--tutorials/index.d.ts
 lib/cloud--upload/index.d.ts
 lib/cloud--vmware/index.d.ts
+lib/cloud-pak--family/index.d.ts
+lib/cloud-pak--for-applications/index.d.ts
+lib/cloud-pak--for-data/index.d.ts
+lib/cloud-pak--for-integration/index.d.ts
+lib/cloud-pak--for-multicloud-management/index.d.ts
+lib/cloud-pak--for-security/index.d.ts
+lib/cloud-pak--system/index.d.ts
 lib/cloudy/index.d.ts
 lib/cloudy--dewy/index.d.ts
 lib/cloudy--hazy/index.d.ts
@@ -775,6 +808,7 @@ lib/commercial--financing--01/index.d.ts
 lib/commercial--financing--02/index.d.ts
 lib/concept--expansion/index.d.ts
 lib/concept--insights/index.d.ts
+lib/condition--builder/index.d.ts
 lib/connect/index.d.ts
 lib/connected--ecosystem/index.d.ts
 lib/connected--nodes--to--the--cloud/index.d.ts
@@ -817,11 +851,13 @@ lib/dna/index.d.ts
 lib/do-not/index.d.ts
 lib/docker/index.d.ts
 lib/doctor/index.d.ts
+lib/doctor-patient/index.d.ts
 lib/document--conversion/index.d.ts
 lib/document--security/index.d.ts
 lib/door--handle/index.d.ts
 lib/download--01/index.d.ts
 lib/download--02/index.d.ts
+lib/dropper/index.d.ts
 lib/dubai--palm-islands/index.d.ts
 lib/dubai--skyscraper/index.d.ts
 lib/dublin--brewery/index.d.ts
@@ -864,6 +900,7 @@ lib/feedback--01/index.d.ts
 lib/feedback--02/index.d.ts
 lib/file--backup/index.d.ts
 lib/file--transfer/index.d.ts
+lib/filter--variable/index.d.ts
 lib/finance--strategy/index.d.ts
 lib/financial--consultant/index.d.ts
 lib/financial--gain/index.d.ts
@@ -929,6 +966,7 @@ lib/home--front/index.d.ts
 lib/home--garage/index.d.ts
 lib/home--profile/index.d.ts
 lib/hospital/index.d.ts
+lib/hpi/index.d.ts
 lib/humid/index.d.ts
 lib/hurricane/index.d.ts
 lib/hybrid--cloud/index.d.ts
@@ -1031,9 +1069,11 @@ lib/networking--06/index.d.ts
 lib/nice/index.d.ts
 lib/night--clear/index.d.ts
 lib/nyc--brooklyn/index.d.ts
+lib/nyc--chrysler-building/index.d.ts
 lib/nyc--manhattan--01/index.d.ts
 lib/nyc--manhattan--02/index.d.ts
 lib/nyc--statue-of-liberty/index.d.ts
+lib/nyc--world-trade-center/index.d.ts
 lib/office/index.d.ts
 lib/oil--pump/index.d.ts
 lib/oil--rig/index.d.ts
@@ -1070,7 +1110,10 @@ lib/police/index.d.ts
 lib/population--diagram/index.d.ts
 lib/power/index.d.ts
 lib/prague--charles-bridge-tower/index.d.ts
+lib/prague--dancing-house--01/index.d.ts
+lib/prague--dancing-house--02/index.d.ts
 lib/pregnant/index.d.ts
+lib/prescription/index.d.ts
 lib/presentation/index.d.ts
 lib/presenter/index.d.ts
 lib/price/index.d.ts
@@ -1091,6 +1134,7 @@ lib/racetrack/index.d.ts
 lib/rainy/index.d.ts
 lib/rainy--heavy/index.d.ts
 lib/raleigh-nc/index.d.ts
+lib/random--samples/index.d.ts
 lib/rank/index.d.ts
 lib/receipt/index.d.ts
 lib/recycle/index.d.ts
@@ -1110,6 +1154,7 @@ lib/retrieve--and--rank/index.d.ts
 lib/rich--text--format/index.d.ts
 lib/robot/index.d.ts
 lib/robotics/index.d.ts
+lib/rock-on/index.d.ts
 lib/rome/index.d.ts
 lib/saas--enablement/index.d.ts
 lib/sample--file/index.d.ts
@@ -1129,6 +1174,7 @@ lib/security--as--a--service/index.d.ts
 lib/security--hygiene/index.d.ts
 lib/security--intelligence/index.d.ts
 lib/security--shield/index.d.ts
+lib/select--range/index.d.ts
 lib/server--rack/index.d.ts
 lib/servers/index.d.ts
 lib/shirt/index.d.ts
@@ -1140,6 +1186,8 @@ lib/single--sign-on/index.d.ts
 lib/slider/index.d.ts
 lib/sneaker/index.d.ts
 lib/snow/index.d.ts
+lib/social--work--01/index.d.ts
+lib/social--work--02/index.d.ts
 lib/socks/index.d.ts
 lib/soft--ice--cream/index.d.ts
 lib/softlayer--enablement/index.d.ts
@@ -1190,6 +1238,8 @@ lib/team--alignment/index.d.ts
 lib/teammates/index.d.ts
 lib/tel-aviv/index.d.ts
 lib/telecom/index.d.ts
+lib/telemedicine/index.d.ts
+lib/telemedicine--mobile/index.d.ts
 lib/telephone/index.d.ts
 lib/television/index.d.ts
 lib/temperature--high/index.d.ts

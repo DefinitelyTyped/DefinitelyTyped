@@ -436,6 +436,9 @@ export interface Response {
     /** HTTP status code. */
     status: number;
 
+    /** HTTP status text returned by the server. */
+    status_text: string;
+
     /** Performance timing information. */
     timings: {
         /** Milliseconds spent blocked before initiating request. */
@@ -668,11 +671,12 @@ export class CookieJar {
     /**
      * Set cookie.
      * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
+     * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
      */
-    set(name: string, value: string, options?: CookieOptions | null): void;
+    set(url: string, name: string, value: string, options?: CookieOptions | null): void;
 }
 
 /**

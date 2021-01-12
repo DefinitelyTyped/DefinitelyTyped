@@ -45,6 +45,12 @@ import { expectType } from '../node-tests';
         [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
     });
 
+    util.format('%s:%s', 'foo');
+    util.format('%s:%s', 'foo', 'bar', 'baz');
+    util.format(1, 2, 3);
+    util.format('%% %s');
+    util.format();
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify

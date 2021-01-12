@@ -2,6 +2,7 @@ import Ember from 'ember';
 import DS, { ChangedAttributes } from 'ember-data';
 import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
+import { Point } from './transform';
 
 const Person = DS.Model.extend({
     firstName: DS.attr(),
@@ -12,6 +13,8 @@ const Person = DS.Model.extend({
     fullName: Ember.computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
+
+    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
 });
 
 const User = DS.Model.extend({

@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.16
+// Type definitions for prosemirror-view 1.17
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -329,11 +329,15 @@ export class EditorView<S extends Schema = any> {
   coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
    * Find the DOM position that corresponds to the given document
-   * position. Note that you should **not** mutate the editor's
-   * internal DOM, only inspect it (and even that is usually not
-   * necessary).
+   * position. When `side` is negative, find the position as close as
+   * possible to the content before the position. When positive,
+   * prefer positions close to the content after the position. When
+   * zero, prefer as shallow a position as possible.
+   *
+   * Note that you should **not** mutate the editor's internal DOM,
+   * only inspect it (and even that is usually not necessary).
    */
-  domAtPos(pos: number): { node: Node; offset: number };
+  domAtPos(pos: number, side?: number): { node: Node; offset: number };
   /**
    * Find the DOM node that represents the document node after the
    * given position. May return null when the position doesn't point

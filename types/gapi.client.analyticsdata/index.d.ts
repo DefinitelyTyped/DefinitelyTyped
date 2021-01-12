@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Google Analytics Data API v1alpha 1.0
-// Project: https://developers.google.com/analytics/trusted-testing/analytics-data/
+// Project: https://developers.google.com/analytics/devguides/reporting/data/v1/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

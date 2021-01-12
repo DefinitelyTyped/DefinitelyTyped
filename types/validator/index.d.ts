@@ -180,10 +180,19 @@ declare namespace validator {
      */
     function isBase32(str: string): boolean;
 
+    interface IsBase64Options {
+        /**
+         * @default false
+         */
+        urlSafe?: boolean;
+    }
+
     /**
      * Check if a string is base64 encoded.
+     *
+     * @param [options] - Options
      */
-    function isBase64(str: string): boolean;
+    function isBase64(str: string, options?: IsBase64Options): boolean;
 
     /**
      * Check if the string is a date that's before the specified date.
@@ -1047,6 +1056,25 @@ declare namespace validator {
      */
     function isSemVer(str: string): boolean;
 
+    /**
+     * Check if string is considered a strong password. Allows options to be added
+     */
+
+    interface strongPasswordOptions {
+        minLength?: number;
+        minLowercase?: number;
+        minUppercase?: number;
+        minNumbers?: number;
+        minSymbols?: number;
+        returnScore?: boolean;
+        pointsPerUnique?: number;
+        pointsPerRepeat?: number;
+        pointsForContainingLower?: number;
+        pointsForContainingUpper?: number;
+        pointsForContainingNumber?: number;
+        pointsForContainingSymbol?: number;
+    }
+    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
     /**
      * Check if the string contains any surrogate pairs chars.
      */

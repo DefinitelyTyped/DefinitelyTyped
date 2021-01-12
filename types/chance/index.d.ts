@@ -18,11 +18,11 @@ declare namespace Chance {
 
     interface ChanceStatic {
         (): Chance;
-        (seed: Seed): Chance;
+        (...seed: Seed[]): Chance;
         (generator: () => any): Chance;
 
         new (): Chance;
-        new (seed: Seed): Chance;
+        new (...seed: Seed[]): Chance;
         new (generator: () => any): Chance;
     }
 

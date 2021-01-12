@@ -240,6 +240,15 @@ function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
 }
 
+function test_anonymous_utils() {
+    // $ExpectType boolean
+    Parse.AnonymousUtils.isLinked(new Parse.User());
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: '' });
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.logIn({ useMasterKey: true, sessionToken: '' });
+}
+
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
 }

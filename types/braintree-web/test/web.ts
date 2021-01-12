@@ -128,14 +128,14 @@ braintree.client.create(
                 },
                 fields: {
                     number: {
-                        selector: '#card-number',
+                        container: document.createElement('div'),
                     },
                     cvv: {
-                        selector: '#cvv',
+                        container: '#cvv',
                         type: 'password',
                     },
                     expirationMonth: {
-                        selector: '#expiration-month',
+                        container: '#expiration-month',
                         select: {
                             options: [
                                 '01 - Jan',
@@ -154,7 +154,7 @@ braintree.client.create(
                         },
                     },
                     expirationYear: {
-                        selector: '#expiration-year',
+                        container: '#expiration-year',
                         select: true,
                     },
                 },
@@ -681,6 +681,10 @@ braintree.client.create(
                     });
             });
         });
+
+        clientInstance.teardown((err) => {
+            // implementation
+        });
     },
 );
 
@@ -726,6 +730,7 @@ braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
+        bin: "1234",
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
             const my3DSContainer = document.createElement('div');
