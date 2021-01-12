@@ -659,6 +659,20 @@ declare namespace Pubnub {
         timetoken: number;
     }
 
+    interface FileEvent {
+        channel: string;
+        file: {
+            id: string,
+            name: string,
+            url: string
+        };
+        message?: string;
+        publisher: string;
+        subscription?: string;
+        timetoken: string;
+        userMetadata?: any;
+    }
+
     interface SetUUIDMetadataEvent<UUIDCustom extends ObjectCustom> extends BaseObjectsEvent {
         message: {
             event: 'set';
@@ -973,6 +987,8 @@ declare namespace Pubnub {
         messageAction?(messageActionEvent: MessageActionEvent): void;
 
         objects?(objectsEvent: ObjectsEvent): void;
+
+        file?(fileEvent: FileEvent): void;
     }
 
     // hereNow

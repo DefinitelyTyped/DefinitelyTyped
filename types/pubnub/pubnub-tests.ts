@@ -119,7 +119,30 @@ pubnub.addListener({
                 }
             }
         );
-    }
+    },
+    file: ({ channel, file: {
+        id,
+        name,
+        url
+    },
+        message,
+        publisher,
+        subscription,
+        timetoken,
+        userMetadata
+    }) =>
+        console.log({
+            channel, file: {
+                id,
+                name,
+                url
+            },
+            message,
+            publisher,
+            subscription,
+            timetoken,
+            userMetadata
+        }),
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });
@@ -878,7 +901,7 @@ pubnub.listFiles({
 pubnub.sendFile({
     channel: 'myChannel',
     file: {
-        data: [ 12, 34 ],
+        data: [12, 34],
         name: 'cat_picture.jpg'
     }
 });
