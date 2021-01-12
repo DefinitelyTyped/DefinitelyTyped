@@ -15,6 +15,10 @@ interface UDimensionalArray {
     bazStructArray: Fields[][];
 }
 
+interface IArrayCharsntEncoding {
+    items: string[];
+}
+
 const fooStruct = cstruct<Fields>()
     .word32Ube('dwMagic')
     .word32Ube('dwType')
@@ -38,4 +42,8 @@ const bazStruct = new Struct<Fields>()
 const dimensionalArray = cstruct<UDimensionalArray>()
     .array('fooStructArray', 4, 'array', 4, fooStruct)
     .array('bazStructArray', 4, 'array', 4, bazStruct)
+    .allocate();
+
+const arrayCharsntEncoding = cstruct<IArrayCharsntEncoding>()
+    .array('items', 4, 'charsnt', 4, 'latin1')
     .allocate();
