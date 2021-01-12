@@ -66,7 +66,8 @@ declare class MemoryFileSystem {
 
     normalize(path: string): string;
 
-    stat(path: string, callback: (err: Error | null, result?: any) => void | ((arg0?: NodeJS.ErrnoException, arg1?: FsStats) => void)): void;
+    // stat(path: string, callback: (err: Error | null, result?: any) => void | ((arg0?: NodeJS.ErrnoException, arg1?: FsStats) => void)): void;
+    stat(arg0: string, arg1: (arg0?: NodeJS.ErrnoException | Error | null, arg1?: Stats | undefined) => void): void;
 
     readdir(path: string, callback: (err: Error | null, result?: any) => void): void;
 
@@ -78,10 +79,11 @@ declare class MemoryFileSystem {
 
     readlink(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    mkdir(arg0: string, arg1: (arg0?: ErrnoException | undefined) => void): void;
+    mkdir(arg0: string, arg1: (arg0?: NodeJS.ErrnoException | Error ) => void): void;
+    // mkdir(path: string, callback: (err: Error | null) => void | ((arg0?: NodeJS.ErrnoException) => void)): void;
     mkdir(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 
-    readFile(path: string, callback: (err: Error | null, result?: any) => void | ((arg0?: NodeJS.ErrnoException, arg1?: Buffer) => void)): void;
+    readFile(path: string, callback: (err: Error | null, result?: any) => void | ((arg0?: NodeJS.ErrnoException | Error | null, arg1?: Buffer) => void)): void;
     readFile(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 }
 
