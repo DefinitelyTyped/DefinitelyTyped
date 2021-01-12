@@ -8,11 +8,6 @@
 
 import { oauth1tokenCallback, OAuth } from 'oauth';
 
-export {};
-type Dictionary<TKey extends number | string, TValue> = {
-    [key in TKey]: TValue
-};
-
 /* NoteStore: Data types and Constants */
 export namespace NoteStore {
     class CreateOrUpdateNotebookSharesResult {
@@ -105,12 +100,12 @@ export namespace NoteStore {
         });
     }
     class NoteCollectionCounts {
-        notebookCounts?: Dictionary<Types.Guid, number>;
-        tagCounts?: Dictionary<Types.Guid, number>;
+        notebookCounts?: Record<Types.Guid, number>;
+        tagCounts?: Record<Types.Guid, number>;
         trashCount?: number;
         constructor(args?: {
-            notebookCounts?: Dictionary<Types.Guid, number>;
-            tagCounts?: Dictionary<Types.Guid, number>;
+            notebookCounts?: Record<Types.Guid, number>;
+            tagCounts?: Record<Types.Guid, number>;
             trashCount?: number;
         });
     }
