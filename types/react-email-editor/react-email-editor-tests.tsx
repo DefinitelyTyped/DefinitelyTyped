@@ -134,6 +134,13 @@ class App extends React.Component {
                 'custom.key': 'Custom translation',
               },
             },
+            displayConditions: [{
+              type: 'type',
+              label: 'label',
+              description: 'description',
+              before: 'before',
+              after: 'after',
+            }]
           }}
           tools={TOOLS_CONFIG}
           appearance={{

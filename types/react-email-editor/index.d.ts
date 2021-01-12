@@ -52,6 +52,14 @@ export interface DesignTagConfig {
     readonly delimeter: [string, string];
 }
 
+export interface DisplayCondition {
+    readonly type: string;
+    readonly label: string;
+    readonly description: string;
+    readonly before: string;
+    readonly after: string;
+}
+
 export interface ToolConfig {
     readonly enabled?: boolean;
     readonly position?: number;
@@ -103,6 +111,7 @@ export interface UnlayerOptions {
     readonly customCSS?: string[];
     readonly features?: Features;
     readonly translations?: Translations;
+    readonly displayConditions?: DisplayCondition[];
 }
 
 export interface EmailEditorProps {
