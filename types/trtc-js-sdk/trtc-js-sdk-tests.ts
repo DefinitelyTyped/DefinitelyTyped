@@ -156,7 +156,7 @@ client.on('client-banned', error => {
     console.error('client-banned observed: ' + error);
 });
 
-client.on('network_quality', ({ uplinkNetworkQuality, downlinkNetworkQuality }) => {
+client.on('network-quality', ({ uplinkNetworkQuality, downlinkNetworkQuality }) => {
     console.log(
         `network-quality, uplinkNetworkQuality:${uplinkNetworkQuality}, downlinkNetworkQuality: ${downlinkNetworkQuality}`,
     );

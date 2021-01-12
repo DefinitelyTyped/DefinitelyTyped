@@ -321,7 +321,7 @@ export interface ClientEventMap {
      */
     'client-banned': RtcError;
     /** 网络质量统计数据事件，进房后开始统计，每两秒触发一次，包括上行（uplinkNetworkQuality）和下行（downlinkNetworkQuality）的质量统计数据。 */
-    network_quality: NetworkQuality;
+    'network-quality': NetworkQuality;
     /** 客户端错误事件 */
     error: RtcError;
 }
