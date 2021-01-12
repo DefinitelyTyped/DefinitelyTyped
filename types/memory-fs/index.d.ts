@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
+import { Stats as FsStats, WriteStream } from "fs";
 
 declare class MemoryFileSystem {
     data: any;
