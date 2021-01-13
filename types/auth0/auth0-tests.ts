@@ -663,3 +663,5 @@ const oauthAuthenticator = new auth0.OAuthAuthenticator({
 
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));
+
+authentication.database.signUp({email: 'email', password: 'password'})

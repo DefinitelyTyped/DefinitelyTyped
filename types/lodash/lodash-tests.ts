@@ -5631,17 +5631,17 @@ fp.now(); // $ExpectType number
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.omit(dictionary, "a"); // $ExpectType Pick<Dictionary<AbcObject>, string | number>
     _.omit(numericDictionary, "a"); // $ExpectType Pick<NumericDictionary<AbcObject>, number>
-    _(obj).omit("a"); // $ExpectType Object<Pick<AbcObject, "b" | "c">>
+    _(obj).omit("a"); // $ExpectType Object<Pick<AbcObject, "b" | "c">> || Object<Omit<AbcObject, "a">>
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
-    _(dictionary).omit("a"); // $ExpectType Object<Pick<Dictionary<AbcObject>, string | number>>
-    _(numericDictionary).omit(100); // $ExpectType Object<Pick<NumericDictionary<AbcObject>, number>>
+    _(dictionary).omit("a"); // $ExpectType Object<Pick<Dictionary<AbcObject>, string | number>> || Object<Omit<Dictionary<AbcObject>, "a">>
+    _(numericDictionary).omit(100); // $ExpectType Object<Pick<NumericDictionary<AbcObject>, number>> || Object<Omit<NumericDictionary<AbcObject>, 100>>
 
-    _.chain(obj).omit("a"); // $ExpectType ObjectChain<Pick<AbcObject, "b" | "c">>
+    _.chain(obj).omit("a"); // $ExpectType ObjectChain<Pick<AbcObject, "b" | "c">> || ObjectChain<Omit<AbcObject, "a">>
     _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType ObjectChain<Partial<AbcObject>>
-    _.chain(dictionary).omit("a"); // $ExpectType ObjectChain<Pick<Dictionary<AbcObject>, string | number>>
+    _.chain(dictionary).omit("a"); // $ExpectType ObjectChain<Pick<Dictionary<AbcObject>, string | number>> || ObjectChain<Omit<Dictionary<AbcObject>, "a">>
     _.chain(numericDictionary).omit("a"); // $ExpectType ObjectChain<Partial<NumericDictionary<AbcObject>>>
 
-    fp.omit("a", obj); // $ExpectType Pick<AbcObject, "b" | "c">
+    fp.omit("a", obj); // $ExpectType Pick<AbcObject, "b" | "c"> || Omit<AbcObject, "a">
     fp.omit("a")(obj); // $ExpectType Partial<AbcObject>
     fp.omit(["a", "b"])(obj); // $ExpectType Partial<AbcObject>
 }
