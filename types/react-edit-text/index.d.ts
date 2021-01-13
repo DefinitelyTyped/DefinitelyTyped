@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 2.0
+// Type definitions for react-edit-text 3.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
