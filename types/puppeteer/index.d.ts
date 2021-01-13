@@ -9,7 +9,7 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Andrés Ortiz <https://github.com/angrykoala>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Pan Alexei <https://github.com/pan-alexey>
+//                 Pan Alexey <https://github.com/pan-alexey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
