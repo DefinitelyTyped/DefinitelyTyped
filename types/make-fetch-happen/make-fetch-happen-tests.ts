@@ -1,6 +1,8 @@
 import fetcher = require('make-fetch-happen');
 import { Integrity } from 'ssri';
 import { URL as NodeURL } from 'url';
+import { Agent } from 'http';
+import { Headers } from 'node-fetch';
 
 // Needs arguments when invoked
 // $ExpectError
@@ -39,7 +41,7 @@ fetcher.defaults()('http://url');
 fetcher.defaults().defaults()('http://url');
 
 // $ExpectError
-fetcher('https://secure', { cache: "invalid-option" });
+fetcher('https://secure', { cache: 'invalid-option' });
 
 const cache = new Cache();
 // $ExpectType Promise<Response>
@@ -56,7 +58,7 @@ fetcher('https://url', { integrity });
 
 // Test the `retry` types.
 // $ExpectType Promise<Response>
-fetcher('http://url', { retry: { retries: 1, maxTimeout: 1 }});
+fetcher('http://url', { retry: { retries: 1, maxTimeout: 1 } });
 
 // Test both the DOM URL and the Node.js `url` module.
 // $ExpectType Promise<Response>
@@ -67,6 +69,20 @@ fetcher('http://url', { proxy: new NodeURL('http://secure-proxy') });
 // Test the imported `tls` type `rejectUnauthorized` remapped to `strictSSL`.
 // $ExpectType Promise<Response>
 fetcher('https://url', { strictSSL: true });
+
+// Test the various types of `headers` that can be passed in as options
+// $ExpectType Promise<Response>
+fetcher('http://url', { headers: { key: 'value' } });
+// $ExpectType Promise<Response>
+fetcher('http://url', { headers: new Headers({ key: 'value' }) });
+// $ExpectType Promise<Response>
+fetcher('http://url', { headers: [['key', 'value']] });
+
+// Test the various types of `agent` that can be passed in as options
+// $ExpectType Promise<Response>
+fetcher('http://url', { agent: new Agent() });
+// $ExpectType Promise<Response>
+fetcher('http://url', { agent: () => new Agent() });
 
 // Test the `Cache` return type of the `delete` method.
 // $ExpectType Promise<boolean>
