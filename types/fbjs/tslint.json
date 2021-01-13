@@ -1,6 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "space-before-function-paren": false
+        "no-useless-files": false
     }
 }
