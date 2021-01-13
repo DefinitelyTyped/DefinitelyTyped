@@ -202,7 +202,7 @@ element.addEventListener(Tab.Events.shown, event => {
  */
 
 // $ExpectType Toast
-const toast = new Toast(element);
+const toast = new Toast(element, { animation: false });
 
 // $ExpectType Toast
 const instanceToast = Toast.getInstance(element);
