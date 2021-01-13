@@ -20,7 +20,7 @@ declare const fetch: fetch.FetchInterface;
 declare namespace fetch {
     type NodeFetchOptions = Pick<
         RequestInit,
-        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size'
+        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size' | 'headers' | 'agent'
     >;
 
     type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
