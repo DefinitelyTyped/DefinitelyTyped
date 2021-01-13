@@ -9,6 +9,7 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Andrés Ortiz <https://github.com/angrykoala>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Pan Alexei <https://github.com/pan-alexey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1231,7 +1232,7 @@ export interface FrameBase extends Evalable, JSEvalable {
    * Waits for a certain amount of time before resolving.
    * @param duration The time to wait for.
    */
-  waitFor(duration: number): Promise<void>;
+  waitForTimeout(duration: number): Promise<void>;
   /**
    * Shortcut for waitForSelector and waitForXPath
    */

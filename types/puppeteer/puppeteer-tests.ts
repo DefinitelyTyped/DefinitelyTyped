@@ -493,7 +493,7 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.waitFor(1000); // $ExpectType void
+  await page.waitForTimeout(1000); // $ExpectType void
   const el: puppeteer.ElementHandle = await page.waitFor('selector');
   const nullableEl: puppeteer.ElementHandle | null = await page.waitFor('selector', {
     hidden: true,
