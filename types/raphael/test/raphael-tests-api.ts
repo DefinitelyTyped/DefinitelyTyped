@@ -540,7 +540,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     circle.attr([]);
     // $ExpectType [number | undefined]
     circle.attr(["cy"]);
-    // $ExpectType [string | undefined, number | undefined, "butt" | "square" | "round" | undefined, number | undefined]
+    // $ExpectType [string | undefined, number | undefined, "butt" | "square" | "round" | undefined, number | undefined] || [string | undefined, number | undefined, RaphaelLineCapType | undefined, number | undefined]
     circle.attr(["fill", "cx", "stroke-linecap", "hue"]);
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>

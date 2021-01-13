@@ -50,7 +50,7 @@ marker.getOpacity(); // $ExpectType number | null | undefined
 
 marker.getPosition(); // $ExpectType LatLng | null | undefined
 
-marker.getShape(); // $ExpectType MarkerShapeCircle | MarkerShapeRect | MarkerShapePoly | null | undefined
+marker.getShape(); // $ExpectType MarkerShapeCircle | MarkerShapeRect | MarkerShapePoly | null | undefined || MarkerShape | null | undefined
 
 marker.getTitle(); // $ExpectType string | null | undefined
 

@@ -27,7 +27,7 @@ type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
 type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
 const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
-    key, // $ExpectType string | number | null | undefined
+    key, // $ExpectType string | number | null | undefined || Key | null | undefined
     ...props
 }) => <Animated.Text {...props} />;
 

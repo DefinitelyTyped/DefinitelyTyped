@@ -228,8 +228,8 @@ puppeteer.launch().then(async browser => {
     };
 
     const browserFetcher = puppeteer.createBrowserFetcher(options);
-    browserFetcher.product(); // $ExpectType LiteralUnion<"chrome" | "firefox">
-    browserFetcher.revisionInfo('revision').product; // $ExpectType LiteralUnion<"chrome" | "firefox">
+    browserFetcher.product(); // $ExpectType LiteralUnion<"chrome" | "firefox"> || Product
+    browserFetcher.revisionInfo('revision').product; // $ExpectType LiteralUnion<"chrome" | "firefox"> || Product
 })();
 
 // Launching with default viewport disabled

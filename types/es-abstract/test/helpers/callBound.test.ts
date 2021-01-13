@@ -12,4 +12,4 @@ callBound('%ObjProto_valueOf%'); // $ExpectType (thisArg: unknown) => Object
 callBound('%PromiseProto_then%'); // $ExpectType (thisArg: unknown, onfulfilled?: ((value: any) => unknown) | null | undefined, onrejected?: ((reason: any) => unknown) | null | undefined) => Promise<unknown>
 
 // Dotted intrinsic:
-callBound('%Object.prototype.hasOwnProperty%'); // $ExpectType (thisArg: unknown, v: string | number | symbol) => boolean
+callBound('%Object.prototype.hasOwnProperty%'); // $ExpectType (thisArg: unknown, v: string | number | symbol) => boolean || (thisArg: unknown, v: PropertyKey) => boolean

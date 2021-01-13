@@ -9,5 +9,5 @@ if (isPropertyDescriptor(ES5, any)) {
 }
 
 if (isPropertyDescriptor(ES5, optPropDesc)) {
-    optPropDesc; // $ExpectType PropertyDescriptor<string>
+    optPropDesc; // $ExpectType PropertyDescriptor<string> || AccessorDescriptor<string> | DataDescriptor<string>
 }
