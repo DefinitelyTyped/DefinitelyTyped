@@ -1,6 +1,7 @@
 declare namespace PhotosMimeType {
-    var isImage: (mimeString) => boolean;
-    var isJpeg: (mimeString) => boolean;
+    function isImage(mimeString: string): boolean;
+    function isJpeg(mimeString: string): boolean;
 }
 
+// tslint:disable-next-line export-just-namespace
 export = PhotosMimeType;

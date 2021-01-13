@@ -6,22 +6,20 @@ declare class ReactWheelHandler {
      * this order
      */
     constructor(
-        /*function*/
-        onWheel: any,
-        /*boolean|function*/
-        handleScrollX,
-        /*boolean|function*/
-        handleScrollY,
-        /*?boolean|?function*/
-        stopPropagation?: any,
+        // tslint:disable-next-line:ban-types
+        onWheel: Function,
+        // tslint:disable-next-line:ban-types
+        handleScrollX: boolean | Function,
+        // tslint:disable-next-line:ban-types
+        handleScrollY: boolean | Function,
+        // tslint:disable-next-line:ban-types
+        stopPropagation?: boolean | Function,
     );
 
-    onWheel(
-        /*object*/
-        event,
-    ): void;
+    onWheel(event: any): void;
 
     _didWheel(): void;
 }
 
+declare namespace ReactWheelHandler {}
 export = ReactWheelHandler;

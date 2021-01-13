@@ -27,18 +27,15 @@
  * Unicode Standard Annex #9 (UAX9)
  * http://www.unicode.org/reports/tr9/
  */
-import type { BidiDirection } from './UnicodeBidiDirection';
 
 declare class UnicodeBidiService {
-    _defaultDir: BidiDirection;
-    _lastDir: BidiDirection;
+    _defaultDir: UnicodeBidiService.BidiDirection;
+    _lastDir: UnicodeBidiService.BidiDirection;
     /**
      * Stateful class for paragraph direction detection
-     *
-     * @param defaultDir  Default direction of the service
      */
 
-    constructor(defaultDir: BidiDirection | null);
+    constructor(defaultDir: UnicodeBidiService.BidiDirection | null);
     /**
      * Reset the internal state
      *
@@ -55,7 +52,9 @@ declare class UnicodeBidiService {
      * @return     The resolved direction
      */
 
-    getDirection(str: string): BidiDirection;
+    getDirection(str: string): UnicodeBidiService.BidiDirection;
 }
-
+declare namespace UnicodeBidiService {
+    type BidiDirection = 'LTR' | 'RTL' | 'NEUTRAL';
+}
 export = UnicodeBidiService;

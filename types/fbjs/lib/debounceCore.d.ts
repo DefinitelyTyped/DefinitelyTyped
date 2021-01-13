@@ -16,18 +16,18 @@
  *   // later, to cancel pending calls
  *   debouncedUpdatePreview.reset();
  *
- * @param {function} func - the function to debounce
- * @param {number} wait - how long to wait in milliseconds
- * @param {*} context - optional context to invoke the function in
- * @param {?function} setTimeoutFunc - an implementation of setTimeout
+ * func - the function to debounce
+ * wait - how long to wait in milliseconds
+ * context - optional context to invoke the function in
+ * setTimeoutFunc - an implementation of setTimeout
  *  if nothing is passed in the default setTimeout function is used
- * @param {?function} clearTimeoutFunc - an implementation of clearTimeout
+ * clearTimeoutFunc - an implementation of clearTimeout
  *  if nothing is passed in the default clearTimeout function is used
  */
 declare function debounce(
     func: any,
     wait: number,
-    context: any,
+    context?: any,
     setTimeoutFunc?: typeof setTimeout,
     clearTimeoutFunc?: typeof clearTimeout,
 ): (...args: any) => void;

@@ -5,24 +5,15 @@
 declare namespace EventListener {
     /**
      * Listen to DOM events during the bubble phase.
-     *
-     * @param {DOMEventTarget} target DOM element to register listener on.
-     * @param {string} eventType Event type, e.g. 'click' or 'mouseover'.
-     * @param {function} callback Callback function.
-     * @return {object} Object with a `remove` method.
      */
-    var listen: (target, eventType, callback) => { remove: () => void };
+    function listen(target: EventTarget, eventType: string, callback: any): { remove: () => void };
 
     /**
      * Listen to DOM events during the capture phase.
-     *
-     * @param {DOMEventTarget} target DOM element to register listener on.
-     * @param {string} eventType Event type, e.g. 'click' or 'mouseover'.
-     * @param {function} callback Callback function.
-     * @return {object} Object with a `remove` method.
      */
-    var capture: (target, eventType, callback) => { remove: () => void };
-    var registerDefault: () => void;
+    function capture(target: EventTarget, eventType: string, callback: any): { remove: () => void };
+    function registerDefault(): void;
 }
 
+// tslint:disable-next-line export-just-namespace
 export = EventListener;

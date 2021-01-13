@@ -13,7 +13,7 @@
  * @param [string ...]  Variable list of classNames in the string case.
  * @return string       Renderable space-separated CSS className.
  */
-declare function cx(classNames: string | Array<string> | object): string;
+declare function cx(classNames: string | string[] | object): string;
 
 declare namespace cx {}
 

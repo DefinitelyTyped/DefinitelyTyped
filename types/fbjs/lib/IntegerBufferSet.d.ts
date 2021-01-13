@@ -46,21 +46,21 @@ declare class IntegerBufferSet {
 
     _cleanHeap(
         /*object*/
-        heap,
+        heap: any,
     ): void;
 
     _smallerComparator(
         /*object*/
-        lhs,
+        lhs: any,
         /*object*/
-        rhs,
+        rhs: any,
     ): boolean;
 
     _greaterComparator(
         /*object*/
-        lhs,
+        lhs: any,
         /*object*/
-        rhs,
+        rhs: any,
     ): boolean;
 }
 

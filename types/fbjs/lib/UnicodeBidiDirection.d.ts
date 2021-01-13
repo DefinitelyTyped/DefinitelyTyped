@@ -12,44 +12,46 @@
  * http://www.unicode.org/reports/tr9/
  */
 declare namespace UnicodeBidiDirection {
-    export type BidiDirection = 'LTR' | 'RTL' | 'NEUTRAL';
-    export type HTMLDir = 'ltr' | 'rtl';
+    type BidiDirection = 'LTR' | 'RTL' | 'NEUTRAL';
+    type HTMLDir = 'ltr' | 'rtl';
     // Values
-    var NEUTRAL: 'NEUTRAL'; // No strong direction
+    const NEUTRAL: 'NEUTRAL'; // No strong direction
 
-    var LTR: 'LTR'; // Left-to-Right direction
+    const LTR: 'LTR'; // Left-to-Right direction
 
-    var RTL: 'RTL'; // Right-to-Left direction
+    const RTL: 'RTL'; // Right-to-Left direction
     /**
      * Check if a directionality value is a Strong one
      */
-    var isStrong: (dir: BidiDirection) => boolean;
+    function isStrong(dir: BidiDirection): boolean;
 
     /**
      * Get string value to be used for `dir` HTML attribute or `direction` CSS
      * property.
      */
-    var getHTMLDir: (dir: BidiDirection) => HTMLDir;
+    function getHTMLDir(dir: BidiDirection): HTMLDir;
     /**
      * Get string value to be used for `dir` HTML attribute or `direction` CSS
      * property, but returns null if `dir` has same value as `otherDir`.
      * `null`.
      */
 
-    var getHTMLDirIfDifferent: (dir: BidiDirection, otherDir: BidiDirection) => HTMLDir | null | undefined;
+    function getHTMLDirIfDifferent(dir: BidiDirection, otherDir: BidiDirection): HTMLDir | null | undefined;
     // Global Direction
     /**
      * Set the global direction.
      */
-    var setGlobalDir: (dir: BidiDirection) => void;
+    function setGlobalDir(dir: BidiDirection): void;
     /**
      * Initialize the global direction
      */
-    var initGlobalDir: () => void;
+    function initGlobalDir(): void;
     /**
      * Get the global direction
      */
 
-    var getGlobalDir: () => BidiDirection;
+    function getGlobalDir(): BidiDirection;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = UnicodeBidiDirection;

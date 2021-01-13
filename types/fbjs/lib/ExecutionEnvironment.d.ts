@@ -5,11 +5,12 @@
  * `ReactWorker` dependency.
  */
 declare namespace ExecutionEnvironment {
-    var canUseDOM: boolean;
-    var canUseWorkers: boolean;
-    var canUseEventListeners: boolean;
-    var canUseViewport: boolean;
-    var isInWorker: boolean;
+    const canUseDOM: boolean;
+    const canUseWorkers: boolean;
+    const canUseEventListeners: boolean;
+    const canUseViewport: boolean;
+    const isInWorker: boolean;
 }
 
+// tslint:disable-next-line export-just-namespace
 export = ExecutionEnvironment;

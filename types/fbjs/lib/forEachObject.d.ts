@@ -11,12 +11,8 @@
  * value passed to `callback` will be the value at the time `forEachObject`
  * visits them. Properties that are deleted before being visited are not
  * visited.
- *
- * @param {?object} object
- * @param {function} callback
- * @param {*} context
  */
-declare function forEachObject(object: object | null, callback, context): void;
+declare function forEachObject(object: object | null, callback: any, context?: any): void;
 
 declare namespace forEachObject {}
 

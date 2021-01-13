@@ -27,10 +27,9 @@ declare namespace UnicodeHangulKorean {
     /**
      * Return Unicode characters as they are, except for Hangul characters, which
      * will be converted to the Conjoining Jamo form.
-     *
-     * @param {string} string
-     * @output {string}
      */
-    var toConjoiningJamo: (string) => string;
+    function toConjoiningJamo(str: string): string;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = UnicodeHangulKorean;

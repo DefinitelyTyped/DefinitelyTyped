@@ -5,7 +5,7 @@
 declare function fetchWithRetries(uri: string, initWithRetries?: fetchWithRetries.InitWithRetries | null): Promise<any>;
 
 declare namespace fetchWithRetries {
-    export type InitWithRetries = {
+    interface InitWithRetries {
         body?: any;
         cache?: string | null;
         credentials?: string | null;
@@ -13,8 +13,8 @@ declare namespace fetchWithRetries {
         headers?: any;
         method?: string | null;
         mode?: string | null;
-        retryDelays?: Array<number> | null;
-    };
+        retryDelays?: number[] | null;
+    }
 }
 
 export = fetchWithRetries;

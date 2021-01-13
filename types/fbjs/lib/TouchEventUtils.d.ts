@@ -5,15 +5,14 @@ declare namespace TouchEventUtils {
      * - `touchEnd` events usually do not have the `touches` property.
      *   http://stackoverflow.com/questions/3666929/
      *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
-     *
-     * @param {Event} nativeEvent Native event that may or may not be a touch.
-     * @return {TouchesObject?} an object with pageX and pageY or null.
      */
-    var extractSingleTouch: (
-        nativeEvent,
-    ) => {
+    function extractSingleTouch(
+        nativeEvent: Event,
+    ): {
         pageX: number;
         pageY: number;
     } | null;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = TouchEventUtils;

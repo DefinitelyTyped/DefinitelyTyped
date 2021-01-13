@@ -17,8 +17,8 @@
  * visited.
  */
 declare function everyObject(
-    object: Object | null,
-    callback: (value: any, name: string, object: Object) => any,
+    o: object | null,
+    callback: (value: any, name: string, o: object) => any,
     context?: any,
 ): boolean;
 

@@ -11,7 +11,7 @@
  * @copyright 2014-2015 Jon Schlinkert
  * @license MIT
  */
-declare function flattenArray(array: Array<any>): Array<any>;
+declare function flattenArray(array: any[]): any[];
 
 declare namespace flattenArray {}
 

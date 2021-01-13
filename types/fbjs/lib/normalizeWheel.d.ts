@@ -99,18 +99,16 @@
  *
  */
 declare function normalizeWheel(
-    /*object*/
-    event,
+    event: any,
 ): {
     spinX: number;
     spinY: number;
     pixelX: number;
     pixelY: number;
 };
-/*object*/
 
 declare namespace normalizeWheel {
-    var getEventType: () => string;
+    function getEventType(): string;
 }
 
 export = normalizeWheel;

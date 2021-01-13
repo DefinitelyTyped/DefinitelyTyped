@@ -1,7 +1,4 @@
-/**
- * @param {DOMElement} node input/textarea to focus
- */
-declare function focusNode(node): void;
+declare function focusNode(node: HTMLElement): void;
 
 declare namespace focusNode {}
 

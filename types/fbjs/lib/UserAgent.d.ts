@@ -42,21 +42,15 @@ declare namespace UserAgent {
      * https://fburl.com/50728104).
      *
      * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "Name [range expression]"
-     * @return {boolean}
      */
-    var isBrowser: (query: string) => boolean;
+    function isBrowser(query: string): boolean;
 
     /**
      * Check if the User Agent browser uses a 32 or 64 bit architecture.
      *
      * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "32" or "64".
-     * @return {boolean}
      */
-    var isBrowserArchitecture: (query: string) => boolean;
+    function isBrowserArchitecture(query: string): boolean;
 
     /**
      * Check if the User Agent device matches `query`.
@@ -78,11 +72,8 @@ declare namespace UserAgent {
      * https://fburl.com/50728332).
      *
      * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "Name"
-     * @return {boolean}
      */
-    var isDevice: (query: string) => boolean;
+    function isDevice(query: string): boolean;
 
     /**
      * Check if the User Agent rendering engine matches `query`.
@@ -101,12 +92,9 @@ declare namespace UserAgent {
      * class related classes in the same file (see calls to `new
      * UserAgentRenderingEngine` here: https://fburl.com/50728617).
      *
-     * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "Name [range expression]"
-     * @return {boolean}
+     * Function results are memoized
      */
-    var isEngine: (query: string) => boolean;
+    function isEngine(query: string): boolean;
 
     /**
      * Check if the User Agent platform matches `query`.
@@ -138,21 +126,17 @@ declare namespace UserAgent {
      * related classes in the same file (see calls to `new UserAgentPlatform`
      * here: https://fburl.com/50729226).
      *
-     * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "Name [range expression]"
-     * @return {boolean}
+     * Function results are memoized
      */
-    var isPlatform: (query: string) => boolean;
+    function isPlatform(query: string): boolean;
 
     /**
      * Check if the User Agent platform is a 32 or 64 bit architecture.
      *
-     * @note Function results are memoized
-     *
-     * @param {string} query Query of the form "32" or "64".
-     * @return {boolean}
+     * Function results are memoized
      */
-    var isPlatformArchitecture: (query: string) => boolean;
+    function isPlatformArchitecture(query: string): boolean;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = UserAgent;

@@ -1,23 +1,23 @@
 declare namespace BrowserSupportCore {
     /**
-     * @return {bool} True if browser supports css animations.
+     * True if browser supports css animations.
      */
-    var hasCSSAnimations: () => boolean;
+    function hasCSSAnimations(): boolean;
 
     /**
-     * @return {bool} True if browser supports css transforms.
+     * True if browser supports css transforms.
      */
-    var hasCSSTransforms: () => boolean;
+    function hasCSSTransforms(): boolean;
 
     /**
-     * @return {bool} True if browser supports css 3d transforms.
+     * True if browser supports css 3d transforms.
      */
-    var hasCSS3DTransforms: () => boolean;
+    function hasCSS3DTransforms(): boolean;
 
     /**
-     * @return {bool} True if browser supports css transitions.
+     * True if browser supports css transitions.
      */
-    var hasCSSTransitions: () => boolean;
+    function hasCSSTransitions(): boolean;
 }
-
+// tslint:disable-next-line export-just-namespace
 export = BrowserSupportCore;

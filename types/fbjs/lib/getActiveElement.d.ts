@@ -4,11 +4,8 @@
  *
  * The activeElement will be null only if the document or document body is not
  * yet defined.
- *
- * @param {?DOMDocument} doc Defaults to current document.
- * @return {?DOMElement}
  */
-declare function getActiveElement(doc): any | null | undefined;
+declare function getActiveElement(doc?: Document): HTMLElement | null | undefined;
 
 declare namespace getActiveElement {}
 

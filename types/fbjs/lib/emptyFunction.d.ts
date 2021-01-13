@@ -7,12 +7,12 @@
 declare function emptyFunction(): void;
 
 declare namespace emptyFunction {
-    var thatReturns: <T>(arg: T) => (...args: Array<any>) => T;
-    var thatReturnsFalse: () => false;
-    var thatReturnsTrue: () => true;
-    var thatReturnsNull: () => null;
-    var thatReturnsThis: () => any;
-    var thatReturnsArgument: (arg) => any;
+    function thatReturns<T>(arg: T): (...args: any[]) => T;
+    function thatReturnsFalse(): false;
+    function thatReturnsTrue(): true;
+    function thatReturnsNull(): null;
+    function thatReturnsThis(): any;
+    function thatReturnsArgument<T>(arg: T): T;
 }
 
 export = emptyFunction;

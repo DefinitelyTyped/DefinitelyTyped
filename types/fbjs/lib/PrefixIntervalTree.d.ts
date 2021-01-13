@@ -29,7 +29,7 @@ declare class PrefixIntervalTree {
 
     _heap: Int32Array;
 
-    constructor(xs: Array<number>);
+    constructor(xs: number[]);
 
     static uniform(size: number, initialValue: number): PrefixIntervalTree;
 
@@ -78,4 +78,5 @@ declare class PrefixIntervalTree {
 
     leastStrictUpperBound(t: number): number;
 }
+declare namespace PrefixIntervalTree {}
 export = PrefixIntervalTree;

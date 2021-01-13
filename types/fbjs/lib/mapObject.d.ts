@@ -11,16 +11,8 @@
  * by `callback`. If the values of existing properties are changed, the value
  * passed to `callback` will be the value at the time `mapObject` visits them.
  * Properties that are deleted before being visited are not visited.
- *
- * @grep function objectMap()
- * @grep function objMap()
- *
- * @param {?object} object
- * @param {function} callback
- * @param {*} context
- * @return {?object}
  */
-declare function mapObject(object: object | null | undefined, callback, context): object | null | undefined;
+declare function mapObject(obj: object | null | undefined, callback: any, context?: any): object | null | undefined;
 
 declare namespace mapObject {}
 

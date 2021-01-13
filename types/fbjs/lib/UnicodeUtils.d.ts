@@ -11,11 +11,8 @@
 declare namespace UnicodeUtils {
     /**
      * Get a list of Unicode code-points from a String
-     *
-     * @param {string} str        Valid Unicode string
-     * @return {array<number>}    A list of code-points in [0..0x10FFFF]
      */
-    var getCodePoints: (str) => Array<number>;
+    function getCodePoints(str: string): number[];
     /**
      * Return the length of the original Unicode character at given position in the
      * String by looking into the UTF-16 code unit; that is equal to 1 for any
@@ -24,63 +21,36 @@ declare namespace UnicodeUtils {
      * representing non-BMP characters ([U+10000..U+10FFFF]).
      *
      * Examples:
-     * - '\u0020' => 1
-     * - '\u3020' => 1
-     * - '\uD835' => 2
-     * - '\uD835\uDDEF' => 2
-     * - '\uDDEF' => 2
-     *
-     * @param {string} str  Non-empty string
-     * @param {number} pos  Position in the string to look for one code unit
-     * @return {number}      Number 1 or 2
+     * - '\u0020': 1
+     * - '\u3020': 1
+     * - '\uD835': 2
+     * - '\uD835\uDDEF': 2
+     * - '\uDDEF': 2
      */
-    var getUTF16Length: (str: string, pos: number) => number;
-    /**
-     * @param {string} str  Non-empty string
-     * @return {boolean}    True if the input includes any surrogate code units
-     */
-    var hasSurrogateUnit: (str: string) => boolean;
-    /**
-     * @param {number} codeUnit   A Unicode code-unit, in range [0, 0x10FFFF]
-     * @return {boolean}          Whether code-unit is in a surrogate (hi/low) range
-     */
-    var isCodeUnitInSurrogateRange: (codeUnit: number) => boolean;
+    function getUTF16Length(str: string, pos: number): number;
+
+    function hasSurrogateUnit(str: string): boolean;
+
+    function isCodeUnitInSurrogateRange(codeUnit: number): boolean;
     /**
      * Returns whether the two characters starting at `index` form a surrogate pair.
      * For example, given the string s = "\uD83D\uDE0A", (s, 0) returns true and
      * (s, 1) returns false.
-     *
-     * @param {string} str
-     * @param {number} index
-     * @return {boolean}
      */
-    var isSurrogatePair: (str: string, index: number) => Boolean;
+    function isSurrogatePair(str: string, index: number): boolean;
     /**
      * Fully Unicode-enabled replacement for String#length
-     *
-     * @param {string} str  Valid Unicode string
-     * @return {number}     The number of Unicode characters in the string
      */
-    var strlen: (str: string) => number;
+    function strlen(str: string): number;
     /**
      * Fully Unicode-enabled replacement for String#substring()
-     *
-     * @param {string} str    Valid Unicode string
-     * @param {number} start  Location in Unicode sequence to begin extracting
-     * @param {?number} end   Location in Unicode sequence to end extracting
-     *                        (default: end of the string)
-     * @return {string}       Extracted sub-string
      */
-    var substring: (str: string, start: number, end?: number) => string;
+    function substring(str: string, start?: number, end?: number): string;
     /**
      * Fully Unicode-enabled replacement for String#substr()
-     *
-     * @param {string} str      Valid Unicode string
-     * @param {number} start    Location in Unicode sequence to begin extracting
-     * @param {?number} length  The number of Unicode characters to extract
-     *                          (default: to the end of the string)
-     * @return {string}         Extracted sub-string
      */
-    var substr: (str: string, start: number, length?: number) => string;
+    function substr(str: string, start?: number, length?: number): string;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = UnicodeUtils;

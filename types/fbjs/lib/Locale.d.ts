@@ -1,4 +1,6 @@
 declare namespace Locale {
-    var isRTL: () => boolean;
+    function isRTL(): boolean;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = Locale;

@@ -7,7 +7,7 @@
  * The invariant message will be stripped in production, but the invariant will
  * remain to ensure logic does not differ in production.
  */
-declare function invariant(condition: any, format: string, ...args: Array<any>): string;
+declare function invariant(condition: any, format: string, ...args: any[]): string;
 
 declare namespace invariant {}
 

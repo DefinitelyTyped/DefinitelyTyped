@@ -13,6 +13,8 @@
 // \u1801\u0964\u104a\u104b
 //             is misc. other language punctuation marks
 declare namespace TokenizeUtil {
-    var getPunctuation: () => string;
+    function getPunctuation(): string;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = TokenizeUtil;

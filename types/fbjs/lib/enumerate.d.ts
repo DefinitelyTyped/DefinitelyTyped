@@ -2,22 +2,22 @@
  * Main iterator function. Returns default iterator based
  * on the class of an instance.
  */
-declare function enumerate(object, kind?: any): any;
+declare function enumerate(o: any, kind?: any): any;
 
 declare namespace enumerate {
-    var KIND_KEYS: 'keys';
-    var KIND_VALUES: 'values';
-    var KIND_ENTRIES: 'entries';
+    const KIND_KEYS: 'keys';
+    const KIND_VALUES: 'values';
+    const KIND_ENTRIES: 'entries';
 
     /**
      * Convenient explicit iterators for special kinds.
      */
-    var keys: (object) => any;
+    function keys(object: any): any;
 
-    var values: (object) => any;
+    function values(object: any): any;
 
-    var entries: (object) => any;
+    function entries(object: any): any;
 
-    var generic: (object) => any;
+    function generic(object: any): any;
 }
 export = enumerate;

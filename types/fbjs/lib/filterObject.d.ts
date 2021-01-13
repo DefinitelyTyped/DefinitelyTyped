@@ -12,16 +12,8 @@
  * value passed to `callback` will be the value at the time `filterObject`
  * visits them. Properties that are deleted before being visited are not
  * visited.
- *
- * @grep function objectFilter()
- * @grep function objFilter()
- *
- * @param {?object} object
- * @param {function} callback
- * @param {*} context
- * @return {?object}
  */
-declare function filterObject(object: object | null, callback, context: object | null);
+declare function filterObject(o: object | null, callback: any, context?: any): object | null | undefined;
 
 declare namespace filterObject {}
 

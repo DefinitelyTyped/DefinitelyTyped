@@ -4,7 +4,7 @@
  * paths. Removing the logging code for production environments will keep the
  * same logic and follow the same code paths.
  */
-declare function warning(condition: any, format: string, ...args: Array<any>): string;
+declare function warning(condition: any, format: string, ...args: any[]): string;
 
 declare namespace warning {}
 

@@ -7,14 +7,8 @@
  * call releaseMouseMoves since mousemove is expensive to listen to.
  */
 declare class DOMMouseMoveTracker {
-    constructor(
-        /*function*/
-        onMove,
-        /*function*/
-        onMoveEnd,
-        /*DOMElement*/
-        domNode,
-    );
+    // tslint:disable-next-line:ban-types
+    constructor(onMove: Function, onMoveEnd: Function, domNode: HTMLElement);
     /**
      * This is to set up the listeners for listening to mouse move
      * and mouse up signaling the movement has ended. Please note that these
@@ -22,10 +16,7 @@ declare class DOMMouseMoveTracker {
      * in order to grab inital state.
      */
 
-    captureMouseMoves(
-        /*object*/
-        event,
-    ): void;
+    captureMouseMoves(event: object): void;
 
     /**
      * These releases all of the listeners on document.body.
@@ -42,7 +33,7 @@ declare class DOMMouseMoveTracker {
      */
     _onMouseMove(
         /*object*/
-        event,
+        event: object,
     ): void;
 
     _didMouseMove(): void;

@@ -9,17 +9,19 @@
  * Others are going to be harder.
  */
 declare namespace uaData {
-    var browserArchitecture: string;
-    var browserFullVersion: string;
-    var browserMinorVersion: string;
-    var browserName: string;
-    var browserVersion: string;
-    var deviceName: string;
-    var engineName: string;
-    var engineVersion: string;
-    var platformArchitecture: string;
-    var platformName: string;
-    var platformVersion: string;
-    var platformFullVersion: string;
+    const browserArchitecture: string;
+    const browserFullVersion: string;
+    const browserMinorVersion: string;
+    const browserName: string;
+    const browserVersion: string;
+    const deviceName: string;
+    const engineName: string;
+    const engineVersion: string;
+    const platformArchitecture: string;
+    const platformName: string;
+    const platformVersion: string;
+    const platformFullVersion: string;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = uaData;

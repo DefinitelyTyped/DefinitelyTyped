@@ -10,11 +10,8 @@
  *
  * As Modernizr suggests (http://modernizr.com/docs/#prefixed), an `ms` prefix
  * is converted to `-ms-`.
- *
- * @param {string} string
- * @return {string}
  */
-declare function hyphenateStyleName(string: string): string;
+declare function hyphenateStyleName(str: string): string;
 
 declare namespace hyphenateStyleName {}
 

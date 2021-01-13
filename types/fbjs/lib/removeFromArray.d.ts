@@ -1,7 +1,7 @@
 /**
  * Removes an element from an array.
  */
-declare function removeFromArray<T>(array: Array<T>, element: T): void;
+declare function removeFromArray<T>(array: T[], element: T): void;
 
 declare namespace removeFromArray {}
 

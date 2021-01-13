@@ -5,5 +5,5 @@ declare class URI {
 
     toString(): string;
 }
-
+declare namespace URI {}
 export = URI;

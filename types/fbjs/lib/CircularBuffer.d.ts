@@ -1,5 +1,5 @@
 declare class CircularBuffer {
-    write(entry): CircularBuffer;
+    write(entry: any): CircularBuffer;
     clear(): CircularBuffer;
     read(): any[];
 }

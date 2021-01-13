@@ -3,11 +3,8 @@
  * `scrollHeight`. This may differ across different browsers.
  *
  * NOTE: The return value can be null if the DOM is not yet ready.
- *
- * @param {?DOMDocument} doc Defaults to current document.
- * @return {?DOMElement}
  */
-declare function getDocumentScrollElement(doc): any;
+declare function getDocumentScrollElement(doc?: Document): HTMLElement | null | undefined;
 
 declare namespace getDocumentScrollElement {}
 

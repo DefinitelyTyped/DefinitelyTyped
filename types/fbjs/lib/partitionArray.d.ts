@@ -4,10 +4,10 @@
  * second.
  */
 declare function partitionArray<Tv>(
-    array: Array<Tv>,
-    predicate: (value: Tv, index: number, array: Array<Tv>) => boolean,
+    array: Tv[],
+    predicate: (value: Tv, index: number, array: Tv[]) => boolean,
     context?: any,
-): [Array<Tv>, Array<Tv>];
+): [Tv[], Tv[]];
 
 declare namespace partitionArray {}
 

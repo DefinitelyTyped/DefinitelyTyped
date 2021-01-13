@@ -25,11 +25,9 @@ declare namespace VersionRange {
      *    ""        (Empty string) Same as *
      *    v1 - v2   Equivalent to ">= v1 and <= v2"
      *    r1 || r2  Passes if either r1 or r2 are satisfied
-     *
-     * @param {string} range
-     * @param {string} version
-     * @returns {boolean}
      */
-    var contains: (range: string, version: string) => boolean;
+    function contains(range: string, version: string): boolean;
 }
+
+// tslint:disable-next-line export-just-namespace
 export = VersionRange;

@@ -12,9 +12,6 @@
  *
  *   Input:  {key1: val1, key2: val2}
  *   Output: {key1: key1, key2: key2}
- *
- * @param {object} obj
- * @return {object}
  */
 declare function keyMirror<T extends {}>(obj: T): { [K in keyof T]: K };
 

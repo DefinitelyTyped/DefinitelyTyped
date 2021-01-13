@@ -17,8 +17,8 @@
  * visited.
  */
 declare function someObject(
-    object: Object | null,
-    callback: (value: any, name: string, object: Object) => any,
+    obj: object | null,
+    callback: (value: any, name: string, obj: object) => any,
     context?: any,
 ): boolean;
 declare namespace someObject {}

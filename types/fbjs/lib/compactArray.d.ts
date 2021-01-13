@@ -3,7 +3,7 @@
  * `null` and `undefined` ones. This brings the benefit of strong typing over
  * `Array.prototype.filter`.
  */
-declare function compactArray<T>(array: Array<T | null | void>): Array<T>;
+declare function compactArray<T>(array: Array<T | null | undefined>): T[];
 
 declare namespace compactArray {}
 

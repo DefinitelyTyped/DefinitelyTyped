@@ -19,12 +19,7 @@
  *
  * var result = getByPath(obj, ['x', 'y', 'z']); // undefined
  */
-declare function getByPath(
-    root: /*?Object | Error*/
-    any,
-    path: Array<string>,
-    fallbackValue?: any,
-): any;
+declare function getByPath(root: any /*?Object | Error*/, path: string[], fallbackValue?: any): any;
 
 declare namespace getByPath {}
 

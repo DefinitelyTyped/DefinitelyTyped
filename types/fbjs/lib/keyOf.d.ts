@@ -8,7 +8,7 @@
  * 'xa12' in that case. Resolve keys you want to use once at startup time, then
  * reuse those resolutions.
  */
-declare function keyOf(oneKeyObj): any | null;
+declare function keyOf(oneKeyObj: any): any;
 
 declare namespace keyOf {}
 

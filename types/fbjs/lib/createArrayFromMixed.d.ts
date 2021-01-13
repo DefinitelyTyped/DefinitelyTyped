@@ -15,11 +15,8 @@
  *
  * If you need to convert an array-like object, like `arguments`, into an array
  * use toArray instead.
- *
- * @param {*} obj
- * @return {array}
  */
-declare function createArrayFromMixed(obj: any);
+declare function createArrayFromMixed(obj: any): any[];
 
 declare namespace createArrayFromMixed {}
 

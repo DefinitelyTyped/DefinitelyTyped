@@ -4,12 +4,12 @@
 declare function getViewportDimensions(): getViewportDimensions.ViewportDimensions;
 
 declare namespace getViewportDimensions {
-    export type ViewportDimensions = {
+    interface ViewportDimensions {
         width: number;
         height: number;
-    };
+    }
 
-    var withoutScrollbars: () => ViewportDimensions;
+    function withoutScrollbars(): ViewportDimensions;
 }
 
 export = getViewportDimensions;

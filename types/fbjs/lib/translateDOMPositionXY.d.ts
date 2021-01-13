@@ -1,6 +1,6 @@
 declare function translateDOMPositionXY(): (
     /*object*/
-    style,
+    style: object,
     /*number*/
     x: number,
     /*number*/

@@ -11,29 +11,11 @@
  *    set the 'scroll{Top,Left}' on both elements.
  */
 declare namespace Scroll {
-    /**
-     * @param {DOMElement} element
-     * @return {number}
-     */
-    var getTop: (element: any) => number;
-
-    /**
-     * @param {DOMElement} element
-     * @param {number} newTop
-     */
-    var setTop: (element, newTop: number) => void;
-
-    /**
-     * @param {DOMElement} element
-     * @return {number}
-     */
-    var getLeft: (element) => number;
-
-    /**
-     * @param {DOMElement} element
-     * @param {number} newLeft
-     */
-    var setLeft: (element, newLeft: number) => void;
+    function getTop(element: HTMLElement): number;
+    function setTop(element: HTMLElement, newTop: number): void;
+    function getLeft(element: HTMLElement): number;
+    function setLeft(element: HTMLElement, newLeft: number): void;
 }
 
+// tslint:disable-next-line export-just-namespace
 export = Scroll;

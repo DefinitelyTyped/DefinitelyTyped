@@ -1,8 +1,4 @@
-/**
- * @param {*} object The object to check.
- * @return {boolean} Whether or not the object is a DOM node.
- */
-declare function isNode(object): boolean;
+declare function isNode(obj?: any): boolean;
 
 declare namespace isNode {}
 
