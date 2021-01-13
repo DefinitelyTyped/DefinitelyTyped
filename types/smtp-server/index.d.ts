@@ -3,7 +3,7 @@
 // Definitions by: markisme <https://github.com/markisme>
 //                 taisiias <https://github.com/Taisiias>
 //                 Piotr Roszatycki <https://github.com/dex4er>
-//                 OhMySMTP <https://github.com/ohmysmtp>
+//                 Paul Oms <https://github.com/paul-oms>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
