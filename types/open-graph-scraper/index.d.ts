@@ -17,11 +17,17 @@ declare namespace run {
                 type: string;
                 url: string;
                 width: string;
-            };
+            }[];
             ogTitle?: string;
             ogType?: string;
             ogUrl?: string;
             requestUrl: string;
+            ogSiteName?:string;
+            ogLocale?:string;
+            twitterSite?:string;
+            twitterCard?:string;
+            twitterTitle?:string;
+            twitterDescription?:string;
             success: true;
         };
         response: PassThrough;
