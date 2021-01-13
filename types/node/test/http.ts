@@ -142,6 +142,12 @@ import * as net from 'net';
     method = http.METHODS[42];
 }
 
+// HTTP status codes
+{
+    let codeMessage: string = http.STATUS_CODES['400']!;
+    codeMessage = http.STATUS_CODES[400]!;
+}
+
 {
     let agent: http.Agent = new http.Agent({
         keepAlive: true,
