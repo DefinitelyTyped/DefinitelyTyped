@@ -50,8 +50,7 @@ marker.getOpacity(); // $ExpectType number | null | undefined
 
 marker.getPosition(); // $ExpectType LatLng | null | undefined
 
-// TODO: In typescript 4.2, ExpectType does not expand the type.
-// marker.getShape(); // $ExpectType MarkerShapeCircle | MarkerShapeRect | MarkerShapePoly | null | undefined
+marker.getShape(); // $ExpectType MarkerShapeCircle | MarkerShapeRect | MarkerShapePoly | null | undefined || MarkerShape | null | undefined
 
 marker.getTitle(); // $ExpectType string | null | undefined
 
