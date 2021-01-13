@@ -60,7 +60,7 @@ export interface DisplayCondition {
     readonly after: string;
 }
 
-export type EmptyDisplayCondition = object
+export type EmptyDisplayCondition = object;
 
 export interface ToolConfig {
     readonly enabled?: boolean;
@@ -155,7 +155,7 @@ export type EventCallback = (data: object) => void;
 export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) => void;
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
-export type DisplayConditionDoneCallback = (data: DisplayCondition | EmptyDisplayCondition) => void;
+export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
 export type DisplayConditionCallback = (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => void;
 
 export default class Component extends ReactComponent<EmailEditorProps> {

@@ -59,7 +59,7 @@ class App extends React.Component {
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
-         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done({}),
+         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
