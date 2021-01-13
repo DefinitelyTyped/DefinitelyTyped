@@ -174,46 +174,46 @@ marker.setZIndex(null);
 marker.addListener('animation_changed', () => {});
 marker.addListener('animation_changed', event => {}); // $ExpectError
 marker.addListener('click', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('clickable_changed', () => {});
 marker.addListener('clickable_changed', event => {}); // $ExpectError
 marker.addListener('cursor_changed', () => {});
 marker.addListener('cursor_changed', event => {}); // $ExpectError
 marker.addListener('dblclick', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('drag', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('dragend', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('draggable_changed', () => {});
 marker.addListener('draggable_changed', event => {}); // $ExpectError
 marker.addListener('dragstart', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('flat_changed', () => {});
 marker.addListener('flat_changed', event => {}); // $ExpectError
 marker.addListener('icon_changed', () => {});
 marker.addListener('icon_changed', event => {}); // $ExpectError
 marker.addListener('mousedown', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('mouseout', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('mouseover', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('mouseup', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('position_changed', () => {});
 marker.addListener('position_changed', event => {}); // $ExpectError
 marker.addListener('rightclick', event => {
-    event; // $ExpectType MouseEvent
+    event; // $ExpectType MapMouseEvent
 });
 marker.addListener('shape_changed', () => {});
 marker.addListener('shape_changed', event => {}); // $ExpectError
