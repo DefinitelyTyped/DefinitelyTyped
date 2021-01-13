@@ -22,7 +22,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#package.json)
+    - [`package.json`](#packagejson)
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Erros comuns](#erros-comuns)
     </details>
