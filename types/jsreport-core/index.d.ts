@@ -1,4 +1,4 @@
-// Type definitions for jsreport-core 1.5
+// Type definitions for jsreport-core 2.0
 // Project: http://jsreport.net
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 pofider <https://github.com/pofider>
