@@ -60,6 +60,8 @@ export interface DisplayCondition {
     readonly after: string;
 }
 
+export type EmptyDisplayCondition = object
+
 export interface ToolConfig {
     readonly enabled?: boolean;
     readonly position?: number;
@@ -153,9 +155,13 @@ export type EventCallback = (data: object) => void;
 export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) => void;
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
+export type DisplayConditionDoneCallback = (data: DisplayCondition | EmptyDisplayCondition) => void;
+export type DisplayConditionCallback = (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => void;
+
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;
     registerCallback(type: 'image', callback: FileUploadCallback): void;
+    registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
