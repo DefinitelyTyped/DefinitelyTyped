@@ -8,7 +8,14 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
+import {
+    PayloadData,
+    Network,
+    UploadableMap,
+    PayloadError,
+    GraphQLResponse,
+    ReactFlightServerTree,
+} from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
@@ -63,6 +70,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
@@ -433,27 +441,32 @@ type LogEvent =
           info: any;
       }>
     | Readonly<{
-          name: 'execute.start';
+          name: 'network.info';
+          transactionID: number;
+          info: unknown;
+      }>
+    | Readonly<{
+          name: 'network.start';
           transactionID: number;
           params: RequestParameters;
           variables: Variables;
       }>
     | Readonly<{
-          name: 'execute.next';
+          name: 'network.next';
           transactionID: number;
           response: GraphQLResponse;
       }>
     | Readonly<{
-          name: 'execute.error';
+          name: 'network.error';
           transactionID: number;
           error: Error;
       }>
     | Readonly<{
-          name: 'execute.complete';
+          name: 'network.complete';
           transactionID: number;
       }>
     | Readonly<{
-          name: 'execute.unsubscribe';
+          name: 'network.unsubscribe';
           transactionID: number;
       }>
     | Readonly<{
@@ -580,7 +593,6 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
@@ -624,6 +636,28 @@ export interface Environment {
         operation: OperationDescriptor;
         source: RelayObservable<GraphQLResponse>;
     }): RelayObservable<GraphQLResponse>;
+
+    /**
+     * Returns true if a request is currently "active", meaning it's currently
+     * actively receiving payloads or downloading modules, and has not received
+     * a final payload yet. Note that a request might still be pending (or "in flight")
+     * without actively receiving payload, for example a live query or an
+     * active GraphQL subscription
+     */
+    isRequestActive(requestIdentifier: string): boolean;
+
+    /**
+     * Returns true if the environment is for use during server side rendering.
+     * functions like getQueryResource key off of this in order to determine
+     * whether we need to set up certain caches and timeout's.
+     */
+    isServer(): boolean;
+
+    /**
+     * Called by Relay when it encounters a missing field that has been annotated
+     * with `@required(action: LOG)`.
+     */
+    requiredFieldLogger: RequiredFieldLogger;
 }
 
 /**
@@ -832,17 +866,17 @@ export type MissingFieldHandler =
  */
 export type RequiredFieldLogger = (
     arg:
-      | Readonly<{
-          kind: "missing_field.log",
-          owner: string,
-          fieldPath: string,
-        }>
-      | Readonly<{
-          kind: "missing_field.throw",
-          owner: string,
-          fieldPath: string,
-        }>
-  ) => void;
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
 
 /**
  * The results of normalizing a query.
@@ -902,3 +936,18 @@ export interface PublishQueue {
      */
     run(): ReadonlyArray<RequestDescriptor>;
 }
+
+/**
+ * ReactFlightDOMRelayClient processes a ReactFlightServerTree into a
+ * ReactFlightClientResponse object. readRoot() can suspend.
+ */
+export interface ReactFlightClientResponse {
+    readRoot: () => any;
+}
+
+export interface ReactFlightReachableQuery {
+    readonly module: any;
+    readonly variables: Variables;
+}
+
+export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;

@@ -11,7 +11,8 @@ const request = new Request('https://github.com', { headers });
 const reply: Promise<Response> = fetch(request);
 
 function foo(x: number) {
-    return `${x}`;
+    // tslint:disable-next-line:no-unnecessary-type-assertion
+    return `${x}` as string;
 }
 
 // $ExpectType Promise<string>

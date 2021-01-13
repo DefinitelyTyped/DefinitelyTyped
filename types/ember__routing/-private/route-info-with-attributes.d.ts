@@ -16,9 +16,4 @@ export default interface RouteInfoWithAttributes extends RouteInfo {
      * route's model hook.
      */
     readonly attributes: unknown;
-    /**
-     * Will contain the result `Route#buildRouteInfoMetadata`
-     * for the corresponding Route.
-     */
-    readonly metadata: unknown;
 }

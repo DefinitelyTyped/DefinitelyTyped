@@ -96,4 +96,17 @@ export interface Client {
      * });
      */
     request(options: { method: string; endpoint: string; data: any; timeout?: number }, callback: callback): void;
+
+    /**
+     * Cleanly tear down anything set up by {@link Client#getConfiguration|create}.
+     * @param [callback] Called once teardown is complete. No data is returned if teardown completes successfully.
+     * @example
+     * clientInstance.teardown();
+     * @example <caption>With callback</caption>
+     * clientInstance.teardown(function () {
+     *   // teardown is complete
+     * });
+     * @returns Returns a promise if no callback is provided.
+     */
+    teardown(callback: callback<void>): Promise<void>;
 }

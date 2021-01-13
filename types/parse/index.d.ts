@@ -1,4 +1,4 @@
-// Type definitions for parse 2.12
+// Type definitions for parse 2.18
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -21,6 +21,7 @@
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
+//                  Switt Kongdachalert <https://github.com/swittk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -98,6 +99,7 @@ namespace Parse {
     let serverAuthType: string | undefined;
     let serverURL: string;
     let secret: string;
+    let idempotency: boolean;
     let encryptedUser: boolean;
 
     interface BatchSizeOption {
@@ -675,10 +677,21 @@ namespace Parse {
         reduce<U>(callback: (accumulator: U, currentObject: T, index: number) => PromiseLike<U> | U, initialValue: U, options?: Query.BatchOptions): Promise<U>;
         filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
-        equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
+        equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
+            key: K,
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
+        ): this;
         exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
+        findAll(options?: Query.BatchOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromNetwork(): this;
         fromLocalDatastore(): this;
@@ -699,7 +712,17 @@ namespace Parse {
         matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         near<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         notContainedIn<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K]>): this;
-        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(
+            key: K,
+            value: T['attributes'][K] | (
+                T['attributes'][K] extends Object
+                ? Pointer
+                : (T['attributes'][K] extends Array<infer E>
+                    ? E
+                    : never
+                )
+            )
+        ): this;
         polygonContains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
         select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
         skip(n: number): Query<T>;
@@ -1088,6 +1111,15 @@ namespace Parse {
 
     namespace Analytics {
         function track(name: string, dimensions: any): Promise<any>;
+    }
+
+    /**
+     * Provides utility functions for working with Anonymously logged-in users.
+     */
+    namespace AnonymousUtils  {
+        function isLinked(user: User): boolean;
+        function link(user: User, options?: ScopeOptions): Promise<User>;
+        function logIn(options?: ScopeOptions): Promise<User>;
     }
 
     /**

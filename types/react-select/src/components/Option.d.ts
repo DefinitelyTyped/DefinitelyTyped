@@ -19,8 +19,8 @@ interface InnerProps {
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }
-export type OptionProps<OptionType extends OptionTypeBase> = PropsWithStyles &
-  CommonProps<OptionType> &
+export type OptionProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = PropsWithStyles &
+  CommonProps<OptionType, IsMulti> &
   State & {
     /** The children to be rendered. */
     children: ReactNode,
@@ -39,6 +39,6 @@ export type OptionProps<OptionType extends OptionTypeBase> = PropsWithStyles &
 
 export function optionCSS(state: State): React.CSSProperties;
 
-export const Option: ComponentType<OptionProps<any>>;
+export const Option: ComponentType<OptionProps<any, boolean>>;
 
 export default Option;

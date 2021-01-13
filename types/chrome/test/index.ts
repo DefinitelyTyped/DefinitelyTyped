@@ -547,3 +547,21 @@ function testOmnibox() {
 
     chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
 }
+
+function testSearch() {
+    function getCallback() {}
+
+    const DISPOSITIONS: chrome.search.Disposition[] = [
+        "CURRENT_TAB",
+        "NEW_TAB",
+        "NEW_WINDOW",
+    ];
+
+    DISPOSITIONS.forEach((disposition) => {
+        chrome.search.query({
+            disposition,
+            tabId: 1,
+            text: 'text'
+        }, getCallback);
+    });
+}

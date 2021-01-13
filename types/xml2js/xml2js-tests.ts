@@ -79,10 +79,18 @@ parser.on('end', (result: any) => {
 
 const v1Defaults = xml2js.defaults['0.1'];
 v1Defaults.async = true;
+new xml2js.Parser(v1Defaults);
+new xml2js.Builder(v1Defaults);
+xml2js.parseString('', v1Defaults, () => undefined);
+xml2js.parseStringPromise('', v1Defaults);
 
 const v2Defaults = xml2js.defaults['0.2'];
 v2Defaults.async = false;
 v2Defaults.chunkSize = 20000;
+new xml2js.Parser(v2Defaults);
+new xml2js.Builder(v2Defaults);
+xml2js.parseString('', v2Defaults, () => undefined);
+xml2js.parseStringPromise('', v2Defaults);
 
 fs.readFile(__dirname + '/foo.xml', (err, data) => {
     parser.parseString(data, (err: Error | null, result: any) => {

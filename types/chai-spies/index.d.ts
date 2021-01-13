@@ -75,7 +75,7 @@ declare namespace ChaiSpies {
        * @param {function} fn replacement function
        * @returns function to actually call
        */
-      on(object: Object, methodNames: string | string[], fn?: (parameters: any[]|any) => any): any;
+      on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
 
       /**
        * #### chai.spy.restore (function)
@@ -139,7 +139,7 @@ declare namespace ChaiSpies {
          * @param {function} fn replacement function
          * @returns function to actually call
          */
-        on(object: Object, methodNames: string | string[], fn?: (parameters: any[]|any) => any): any;
+        on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
 
         /**
          * #### chai.spy.interface (function)

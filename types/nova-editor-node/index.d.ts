@@ -1,4 +1,4 @@
-// Type definitions for non-npm package nova-editor-node 2.0
+// Type definitions for non-npm package nova-editor-node 3.0
 // Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,11 @@ type WritableStream<T = any> = unknown;
 type AssistantsRegistrySelector = string | { syntax: string };
 
 interface AssistantsRegistry {
-    registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
+    registerCompletionAssistant(
+        selector: AssistantsRegistrySelector,
+        object: CompletionAssistant,
+        options?: { triggerChars?: Charset },
+    ): Disposable;
     registerIssueAssistant(
         selector: AssistantsRegistrySelector,
         object: IssueAssistant,
@@ -692,6 +696,15 @@ declare class Task {
     setAction(name: string, action?: TaskProcessAction | null): void;
 }
 
+/// https://docs.nova.app/api-reference/task-command-action/
+
+declare class TaskCommandAction {
+    constructor(command: string, options?: { args?: string[] });
+
+    readonly args: string[];
+    readonly command: string;
+}
+
 /// https://docs.nova.app/api-reference/task-process-action/
 
 declare class TaskProcessAction {
@@ -757,12 +770,12 @@ declare class TextEditor {
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
     insert(string: string, format?: InsertTextFormat): Promise<void>;
-    save(): void;
+    save(): Promise<void>;
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
     onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
     onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
-    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void | Promise<void>): Disposable;
     onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
     onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
     onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;

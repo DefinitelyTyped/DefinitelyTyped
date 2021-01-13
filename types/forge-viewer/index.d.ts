@@ -1,11 +1,11 @@
-// Type definitions for non-npm package Forge Viewer 7.5
+// Type definitions for non-npm package Forge Viewer 7.34
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
 //                 Petr Broz <https://github.com/petrbroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.6
 
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
@@ -352,6 +352,8 @@ declare namespace Autodesk {
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
+          static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
+
           parent: BubbleNode;
           id: number;
           data: ViewerItem;
@@ -383,6 +385,7 @@ declare namespace Autodesk {
           isMetadata(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
+          lineageUrn(encode?: boolean): string;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
@@ -483,6 +486,7 @@ declare namespace Autodesk {
         }
 
         class InstanceTree {
+            fragList: Private.FragmentList;
             maxDepth: number;
             nodeAccess: InstanceTreeAccess;
             numHidden: number;
@@ -528,10 +532,11 @@ declare namespace Autodesk {
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
-            getFragmentList(): any;
+            getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getPageToModelTransform(vpId: number): THREE.Matrix4;
@@ -556,14 +561,22 @@ declare namespace Autodesk {
             getUnitScale(): number;
             getUnitString(): string;
             getUpVector(): number[];
+            getVisibleBounds(includeGhosted?: boolean, excludeShadow?: boolean): THREE.Box3;
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
             is3d(): boolean;
             isAEC(): boolean;
+            isConsolidated(): boolean;
+            isLeaflet(): boolean;
             isLoadDone(): boolean;
             isObjectTreeCreated(): boolean;
             isObjectTreeLoaded(): boolean;
+            isOTG(): boolean;
+            isPageCoordinates(): boolean;
+            isPdf(onlyPdfSource?: boolean): boolean;
+            isSceneBuilder(): boolean;
+            isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
@@ -625,7 +638,7 @@ declare namespace Autodesk {
 
         class Navigation {
             dollyFromPoint(distance: number, point: THREE.Vector3): void;
-            fitBounds(immediate: boolean, bounds: THREE.Box3): any;
+            fitBounds(immediate: boolean, bounds: THREE.Box3, reorient?: boolean, force?: boolean): { position: THREE.Vector3, target: THREE.Vector3 };
             getAlignedUpVector(): THREE.Vector3;
             getCamera(): any;
             getCameraRightVector(worldAligned: boolean): THREE.Vector3;
@@ -1065,8 +1078,46 @@ declare namespace Autodesk {
           }
         }
 
+        class SceneBuilder extends Extension {
+          addNewModel(options: {
+            conserveMemory?: boolean,
+            createWireFrame?: boolean
+          }): Promise<ModelBuilder>;
+        }
+
+        class ModelBuilder {
+          fragList: Private.FragmentList;
+          geomList: Private.GeometryList;
+          instanceTree: any;
+          model: Model;
+
+          constructor(model: Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
+          addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
+          addMaterial(name: string, material: THREE.Material): boolean;
+          addMesh(mesh: THREE.Mesh): boolean;
+          changeFragmentsDbId(fragments: number|number[]|THREE.Mesh|THREE.Mesh[], dbId: number): boolean;
+          changeFragmentGeometry(fragment: number|THREE.Mesh, geometry: number|THREE.BufferGeometry, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeFragmentMaterial(fragment: number|THREE.Mesh, material: string|THREE.Material): boolean;
+          changeFragmentTransform(fragment: number|THREE.Mesh, transform: THREE.Matrix4|number[], bbox: THREE.Box3|number[]): boolean;
+          changeGeometry(existingGeom: number|THREE.BufferGeometry, geometry: THREE.BufferGeometry, numFragments?: number): boolean;
+          changeMaterial(existingMaterial: string, material: THREE.Material): boolean;
+          findGeometryFragments(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): number[];
+          findMaterial(name: string): THREE.Material;
+          findMaterialFragments(materials: string|string[]|THREE.Material|THREE.Material[]): number[];
+          isConservingMemory(): boolean;
+          packNormals(geometry: THREE.BufferGeometry): THREE.BufferGeometry;
+          removeFragment(fragments: number|number[]|THREE.Mesh|THREE.Mesh[]): boolean;
+          removeGeometry(geometry: number|number[]|THREE.BufferGeometry|THREE.BufferGeometry[]): boolean;
+          removeMaterial(materials: string|string[]|THREE.Material|THREE.Material[]): boolean;
+          removeMesh(meshes: THREE.Mesh|THREE.Mesh[]): boolean;
+          sceneUpdated(objectsMoved: boolean, skipRepaint: boolean): void;
+          updateMesh(meshes: THREE.Mesh|THREE.Mesh[], skipGeom: boolean, skipTransform: boolean): boolean;
+        }
+
         namespace Private {
             const env: string;
+            const LocalStorage: LocalStorageClass;
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
@@ -1074,6 +1125,63 @@ declare namespace Autodesk {
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
+
+            interface FragmentList {
+              allVisible: boolean;
+              allVisibleDirty: boolean;
+              animxforms: any;
+              boxes: any;
+              db2ThemingColor: any[];
+              dbIdIsGhosted: any[];
+              dbIdOpacity: any[];
+              fragments: any;
+              geomids: Int32Array;
+              geoms: GeometryList;
+              is2d: boolean;
+              isFixedSize: boolean;
+              linesHidden: boolean;
+              materialIdMap: { [id: number]: any };
+              materialids: Int32Array;
+              materialmap: any;
+              matrix: any;
+              modelId: number;
+              nextAvailableFragID: number;
+              nextMaterialId: number;
+              originalColors: any[];
+              pointsHidden: boolean;
+              themingOrGhostingNeedsUpdate: any[];
+              transforms: any;
+              useThreeMesh: boolean;
+              vizflags: Uint32Array;
+              vizmeshes: THREE.Mesh[];
+
+              getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
+              updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
+            }
+
+            interface GeometryList {
+              disableStreaming: boolean;
+              geomBoxes: Float32Array;
+              geomMemory: number;
+              geomPolyCount: number;
+              geoms: any[];
+              gpuMeshMemory: number;
+              gpuNumMeshes: number;
+              instancePolyCount: number;
+              is2d: boolean;
+              numGeomsInMemory: number;
+              numObjects: number;
+            }
+
+            class LocalStorageClass {
+              clear(): void;
+              getAllKeys(): string[];
+              getItem(key: string): string;
+              isSupported(): boolean;
+              removeItem(key: string): void;
+              setItem(key: string, value: string): void;
+            }
+
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1112,6 +1220,15 @@ declare namespace Autodesk {
               enumGeoms(filter: any, callback: any): void;
               enumGeomsForObject(dbId: number, callback: any): void;
               enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+            }
+
+            namespace VertexEnumerator {
+              function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
+              function getVertexCount(geom: THREE.Geometry): number;
             }
 
             class ViewerState {
@@ -1158,7 +1275,7 @@ declare namespace Autodesk {
 
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
-                model: any;
+                model: Model;
                 overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
@@ -1175,6 +1292,7 @@ declare namespace Autodesk {
                 disableHighlight(disable: boolean): void;
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
+                getFragmentProxy(model: Model, fragId: number): any;
                 hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1491,5 +1609,339 @@ declare namespace Autodesk {
             saveAsDefault(): void;
           }
         }
+    }
+
+    namespace DataVisualization {
+      const MOUSE_CLICK = 'HYPERION_OBJECT_CLICK';
+      const MOUSE_HOVERING = 'HYPERION_OBJECT_HOVERING';
+
+      enum ViewableType {
+        SPRITE = 1,
+        GEOMETRY = 2
+      }
+
+      class CustomViewable {
+        constructor(position: THREE.Vector3, style: ViewableStyle, dbId: number);
+
+        get dbId(): number;
+        get position(): THREE.Vector3;
+        get style(): ViewableStyle;
+      }
+
+      class Device {
+        id: string|number;
+        x: number;
+        y: number;
+        z: number;
+        sensorTypes: string[];
+
+        constructor(id: string|number, x: number, y: number, z: number, sensorTypes: string[]);
+      }
+
+      class LevelRoomsMap {
+        addRoomToLevel(levelName: string, room: Room): void;
+        getRoomsOnLevel(levelName: string, onlyRoomsWithDevices: boolean): Room[];
+      }
+
+      class ModelStructureInfo {
+        model: Viewing.Model;
+        rooms: Room[];
+
+        constructor(model: Viewing.Model);
+
+        generateSurfaceShadingData(devices: Device[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+        getLevel(room: Room): string;
+        getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
+        getRoomList(): Promise<Room[]>;
+      }
+
+      class Room {
+        constructor(id: number, name: string, bounds: THREE.Box3);
+
+        get bounds(): THREE.Box3;
+        get devices(): Device[];
+        get id(): number;
+        get info(): { properties: any[] };
+        set info(value: { properties: any[] });
+        get name(): string;
+
+        addDevice(device: Device): void;
+      }
+
+      class SpriteViewable extends CustomViewable {
+        get color(): THREE.Color;
+        get highlightedColor(): THREE.Color;
+        get type(): ViewableType;
+      }
+
+      class SurfaceShadingData extends SurfaceShadingGroup {
+        initialize(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingGroup {
+        id: string;
+        isGroup: boolean;
+        isLeaf: boolean;
+
+        constructor(id?: string);
+
+        get children(): SurfaceShadingGroup[];
+
+        addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
+        getChildLeafs(results: SurfaceShadingNode[]): void;
+        getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingNode {
+        dbIds: number[];
+        fragIds: number[];
+        id: string;
+        isLeaf: boolean;
+        shadingPoints: SurfaceShadingPoint[];
+
+        constructor(id: string, dbIds: number|number[], shadingPoints?: SurfaceShadingPoint[]);
+
+        addPoint(point: SurfaceShadingPoint): void;
+        update(model: Viewing.Model): void;
+      }
+
+      class SurfaceShadingPoint {
+        id: string;
+        position: {
+          x: number,
+          y: number,
+          z: number
+        };
+        types: string[];
+
+        constructor(id: string, position: { x: number, y: number, z: number }, types: string[]);
+
+        positionFromDBId(model: Viewing.Model, dbId: number): void;
+      }
+
+      class ViewableData {
+        spriteSize: number;
+
+        constructor(options?: { atlasWidth: number, atlasHeight: number });
+
+        get spriteAtlas(): any;
+        get viewables(): CustomViewable[];
+
+        addViewable(viewable: CustomViewable): void;
+        getViewableColor(dbId: string, highlighted: boolean): THREE.Color;
+        getViewableUV(dbId: string, highlighted: boolean): object;
+        finish(): Promise<void>;
+      }
+
+      class ViewableStyle {
+        color: THREE.Color;
+        highlightedColor: THREE.Color;
+        highlightedUrl: string;
+        id: string;
+        type: ViewableType;
+        url: string;
+
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string, highlightedColor?: THREE.Color, highlightedUrl?: string);
+      }
+    }
+
+    namespace Edit2D {
+      enum EdgeType {
+        Line = 0,
+        Bezier = 1,
+        Ellipse = 2
+      }
+
+      enum LoopType {
+        Empty = 0,
+        Inner = 1,
+        Outer = 2,
+        Overlapping = 3
+      }
+
+      class Edit2DContext {
+        get layer(): EditLayer;
+        get undoStack(): UndoStack;
+
+        addShape(shape: any): void;
+        removeShape(shape: any): void;
+
+        clearLayer(enableUndo?: boolean): void;
+        setMatrix(matrix: THREE.Matrix4): void;
+      }
+
+      class EditLayer extends Viewing.EventDispatcher {
+        constructor(viewer: Viewing.Viewer3D, options?: any);
+
+        shapes: Shape[];
+
+        addShape(shape: Shape): number;
+        addShapes(shapes: Shape[]): void;
+        clear(): void;
+        hasShape(shape: Shape): boolean;
+        removeShape(shape: Shape): boolean;
+        removeShapes(shapes: Shape[]): void;
+        update(): void;
+        updateCanvasGizmos(): void;
+      }
+
+      namespace Math2D {
+        function angleBetweenDirections(dir1: THREE.Vector2, dir2: THREE.Vector2): number;
+        function changesOrientation(matrix: THREE.Matrix4): boolean;
+        function collinear(p1: THREE.Vector2, dir1: THREE.Vector2, p2: THREE.Vector2, dir2: THREE.Vector2, precision: number): boolean;
+        function distance2D(p1: { x: number, y: number }, p2: { x: number, y: number }): number;
+        function edgeIsDegenerated(a: THREE.Vector2, b: THREE.Vector2, eps?: number): boolean;
+        function fuzzyEqual(a: number, b: number, precision: number): boolean;
+        function getEdgeCenter(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeDirection(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeLength(a: { x: number, y: number }, b: { x: number, y: number }): number;
+        function getFitToBoxTransform(fromBox: THREE.Box2, toBox: THREE.Box2, options?: { flipY: boolean, preserveAspect: boolean }, target?: THREE.Matrix4): THREE.Matrix4;
+        function intersectLines(linePoint1: {x: number, y: number },
+          lineDir1: { x: number, y: number },
+          linePoint2: { x: number, y: number },
+          lineDir2: { x: number, y: number },
+          outPoint?: { x: number, y: number }): boolean;
+        function isPointOnEdge(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number, checkInsideSegment?: boolean): boolean;
+        function isPointOnLine(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number): boolean;
+        function mirrorPointOnPoint(p: { x: number, y: number }, c: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function pointDelta(a: { x: number, y: number }, b: { x: number, y: number }, digits?: number): { x: number, y: number };
+        function pointLineDistance(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): number;
+        function projectToLine(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): void;
+        function rotateAround(p: THREE.Vector2, angle: number, center?: THREE.Vector2): THREE.Vector2;
+        function turnLeft(x: number, y: number): { x: number, y: number };
+      }
+
+      class MeasureTransform {
+        apply(p: THREE.Vector2): void;
+      }
+      class Path extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, isClosed?: boolean, style?: Style);
+
+        getEdgeType(segmentIndex: number, loopIndex?: number): EdgeType;
+        isBezierArc(segmentIndex: number, loopIndex?: number): boolean;
+        isEllipseArc(segmentIndex: number, loopIndex?: number): boolean;
+      }
+
+      class PolyBase extends Shape {
+        constructor(points?: Array<{ x: number; y: number }>, style?: Style);
+
+        isClosed: boolean;
+
+        get length(): number;
+        get loopCount(): number;
+        get points(): Array<{ x: number; y: number; }>;
+        get vertexCount(): number;
+
+        addPoint(x: number, y: number, loopIndex?: number): { x: number, y: number };
+        applyMatrix4(matrix: THREE.Matrix4): PolyBase;
+        enumEdges(cb: (a: THREE.Vector2, b: THREE.Vector2, ai: number, bi: number) => boolean, loopIndex?: number): void;
+        getChildLoops(loopIndex: number): number[];
+        getEdgeCount(loopIndex?: number): number;
+        getEdgeLength(edgeIndex: number, loopIndex?: number): number;
+        getLoopType(loopIndex: number): LoopType;
+        getMainLoops(): number[];
+        getPoint(index: number, loopIndex?: number, target?: THREE.Vector2): THREE.Vector2;
+        getVertexCount(loopIndex?: number): number;
+        isCCW(loopIndex?: number): boolean;
+        isLoopFinite(loopIndex: number): boolean;
+        isPath(): boolean;
+        isPointFinite(vertex: number, loopIndex?: number): boolean;
+        isPolygon(): boolean;
+        isPolyline(): boolean;
+        isSelfIntersecting(): boolean;
+      }
+
+      class Polygon extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, style?: Style);
+
+        getArea(measureTransform?: MeasureTransform): number;
+        hitTest(x: number, y: number): boolean;
+      }
+
+      class PolygonPath extends Path {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Polyline extends PolyBase {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Shape extends Viewing.EventDispatcher {
+        constructor(style?: Style);
+
+        bbox: THREE.Box2;
+        bboxDirty: boolean;
+        id: number;
+        style: Style;
+
+        computeBBox(): void;
+        getBBox(): THREE.Box2;
+        updateBBox(): void;
+      }
+
+      class Style {
+        constructor(params?: any);
+
+        color: string;
+        fillAlpha: number;
+        fillColor: string;
+        lineAlpha: number;
+        lineColor: string;
+        lineStyle: number;
+        lineWidth: number;
+
+        clone(): Style;
+        copy(from: Style): Style;
+        setFillColor(r: number, g: number, b: number): void;
+        setLineColor(r: number, g: number, b: number): void;
+      }
+
+      class UndoStack extends Viewing.EventDispatcher {
+        static AFTER_ACTION: string;
+        static BEFORE_ACTION: string;
+      }
+
+      namespace BooleanOps {
+        enum Operator {
+          Intersect = 1,
+          Union = 2,
+          Difference = 3,
+          Xor = 4
+        }
+
+        function apply(path1: PolyBase, path2: PolyBase, operator: Operator, extraOperands?: PolyBase[]): PolyBase;
+      }
+    }
+
+    namespace Extensions {
+      class DataVisualization extends Viewing.Extension {
+        sceneModel: Viewing.Model;
+
+        addViewables(data: DataVisualization.ViewableData): void;
+        clearHighlightedViewables(): void;
+        changeOcclusion(enable: boolean): void;
+        hideTextures(): void;
+        highlightViewables(dbIds: number|number[]): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[]): void;
+        removeAllViewables(): void;
+        removeSurfaceShading(): void;
+        renderSurfaceShading(nodeIds: string|string[],
+          sensorType: string,
+          valueCallback: (device: DataVisualization.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.SurfaceShadingData): void;
+        showHideViewables(visible: boolean, occlusion: boolean): void;
+        showTextures(): void;
+        updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
+          sensorType: string) => number): void;
+      }
+
+      class Edit2D extends Viewing.Extension {
+        get defaultContext(): Edit2D.Edit2DContext;
+        get defaultTools(): any;
+
+        registerDefaultTools(): void;
+        unregisterDefaultTools(): void;
+      }
     }
 }

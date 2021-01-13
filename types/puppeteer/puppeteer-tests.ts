@@ -1,3 +1,5 @@
+import * as crypto from "crypto";
+import * as fs from "fs";
 import * as puppeteer from "puppeteer";
 
 // Accessibility
@@ -82,9 +84,6 @@ puppeteer.launch().then(async browser => {
     bodyHandle
   );
 });
-
-import * as crypto from "crypto";
-import * as fs from "fs";
 
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
@@ -226,10 +225,11 @@ puppeteer.launch().then(async browser => {
     });
     const options: puppeteer.FetcherOptions = {
         product: 'firefox',
-      };
-      const browserFetcher = puppeteer.createBrowserFetcher(options);
-      browserFetcher.product(); // $ExpectType Product
-      browserFetcher.revisionInfo('revision').product; // $ExpectType Product
+    };
+
+    const browserFetcher = puppeteer.createBrowserFetcher(options);
+    browserFetcher.product(); // $ExpectType LiteralUnion<"chrome" | "firefox">
+    browserFetcher.revisionInfo('revision').product; // $ExpectType LiteralUnion<"chrome" | "firefox">
 })();
 
 // Launching with default viewport disabled
@@ -727,3 +727,15 @@ puppeteer.launch().then(async browser => {
 
   await page.mouse.wheel({ deltaY: -100 });
 })();
+
+// Errors
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  try {
+    await page.waitFor('test');
+  } catch (err) {
+    console.log(err instanceof puppeteer.errors.TimeoutError);
+  }
+});

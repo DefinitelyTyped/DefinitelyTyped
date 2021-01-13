@@ -18,7 +18,7 @@ binarySearch(
   4,
 );
 
-// Test with primitve types
+// Test with primitive types
 // Tests below are the examples from the projects README
 
 binarySearch([21, 42, 91, 91], 40);

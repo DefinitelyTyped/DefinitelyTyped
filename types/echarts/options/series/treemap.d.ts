@@ -8029,7 +8029,7 @@ declare namespace echarts {
                      * "rgba(0,0,0,0.7)"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * boxplot border color, whose format is similar to that
@@ -8040,7 +8040,7 @@ declare namespace echarts {
                      * "rgba(255,255,255,0.7)"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * boxplot border width.
@@ -8088,7 +8088,7 @@ declare namespace echarts {
                      * "rgba(150,150,150,1)"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -8801,7 +8801,7 @@ declare namespace echarts {
                          * "rgba(0,0,0,0.7)"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * boxplot border color, whose format is similar to
@@ -8812,7 +8812,7 @@ declare namespace echarts {
                          * "rgba(255,255,255,0.7)"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * boxplot border width.
@@ -8860,7 +8860,7 @@ declare namespace echarts {
                          * "rgba(150,150,150,1)"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

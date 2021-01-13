@@ -376,7 +376,7 @@ for (let i = 0; i < 10; i++) adder.add(.1);
 const value: number = adder.valueOf();
 
 // -----------------------------------------------------------------------------
-// Test Searching Arrays
+// Test Search
 // -----------------------------------------------------------------------------
 
 numbersArray = [0, 2, 3, 4, 7, 8];
@@ -572,6 +572,36 @@ num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1));
 num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1), 1);
 num = d3Array.bisectRight(readonlyDateArray, new Date(2011, 2, 1), 1, 2);
 
+// bisectCenter() ---------------------------------------------------------------
+
+num = d3Array.bisectCenter(numbersArray, 4);
+num = d3Array.bisectCenter(numbersArray, 4, 1);
+num = d3Array.bisectCenter(numbersArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(stringyNumbersArray, '21');
+num = d3Array.bisectCenter(stringyNumbersArray, '21', 1);
+num = d3Array.bisectCenter(stringyNumbersArray, '21', 1, 4);
+
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1));
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1), 1);
+num = d3Array.bisectCenter(dateArray, new Date(2011, 2, 1), 1, 2);
+
+num = d3Array.bisectCenter(typedArray, 4);
+num = d3Array.bisectCenter(typedArray, 4, 1);
+num = d3Array.bisectCenter(typedArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(readonlyNumbersArray, 4);
+num = d3Array.bisectCenter(readonlyNumbersArray, 4, 1);
+num = d3Array.bisectCenter(readonlyNumbersArray, 4, 1, 4);
+
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21');
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21', 1);
+num = d3Array.bisectCenter(readonlyStringyNumbersArray, '21', 1, 4);
+
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1));
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1), 1);
+num = d3Array.bisectCenter(readonlyDateArray, new Date(2011, 2, 1), 1, 2);
+
 // bisect() --------------------------------------------------------------------
 
 num = d3Array.bisect(numbersArray, 4);
@@ -663,7 +693,7 @@ num = d3Array.descending('10', '20');
 num = d3Array.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // -----------------------------------------------------------------------------
-// Test Transforming  Arrays
+// Test Transformations
 // -----------------------------------------------------------------------------
 
 // merge() ---------------------------------------------------------------------
@@ -843,6 +873,16 @@ const resultUint32: Uint32Array = d3Array.shuffle(new Uint32Array(numbersArray))
 const resultFloat32: Float32Array = d3Array.shuffle(new Float32Array(numbersArray));
 const resultFloat64: Float64Array = d3Array.shuffle(new Float64Array(numbersArray));
 
+// shuffler() -------------------------------------------------------------------
+
+let random: typeof d3Array.shuffle = d3Array.shuffler(Math.random);
+random = d3Array.shuffler(() => 2);
+random = d3Array.shuffler(() => Number('123'));
+random = d3Array.shuffler(() => Math.random());
+// the following will actually work in code but is similar to isNan() typechecking
+// $ExpectError
+random = d3Array.shuffler(() => '2');
+
 // ticks() ---------------------------------------------------------------------
 
 numbersArray = d3Array.ticks(1, 10, 5);
@@ -855,6 +895,10 @@ let numDiff: number = d3Array.tickIncrement(1, 10, 5);
 
 numDiff = d3Array.tickStep(1, 10, 5);
 
+// nice() ------------------------------------------------------------------
+
+const [start, stop]: [number, number] = d3Array.nice(1, 10, 5);
+
 // transpose() -----------------------------------------------------------------
 
 testArrays = d3Array.transpose([testArray1, testArray2]);
@@ -866,7 +910,67 @@ testArrays = d3Array.zip(testArray1, testArray2);
 testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
 
 // -----------------------------------------------------------------------------
-// Test Histogram
+// Test Iterables
+// -----------------------------------------------------------------------------
+
+// every() ---------------------------------------------------------------------
+
+const every: boolean = d3Array.every(new Set([1, 3, 5, 7]), x => x & 1);
+
+// some() ----------------------------------------------------------------------
+
+const some: boolean = d3Array.some(new Set([0, 2, 3, 4]), x => x & 1);
+
+// filter() --------------------------------------------------------------------
+
+const filtered: number[] = d3Array.filter(new Set([0, 2, 3, 4]), x => x & 1);
+
+// map() -----------------------------------------------------------------------
+
+const mapped: number[] = d3Array.map(new Set([0, 2, 3, 4]), x => x & 1);
+
+// reduce() --------------------------------------------------------------------
+
+const reduced: number = d3Array.reduce(new Set([0, 2, 3, 4]), (p, v) => p + v, 0);
+
+// reverse() -------------------------------------------------------------------
+
+const reversed: number[] = d3Array.reverse(new Set([0, 2, 3, 1]));
+
+// sort() -------------------------------------------------------------------
+
+const sorted: number[] = d3Array.sort(new Set([0, 2, 3, 1]));
+
+// -----------------------------------------------------------------------------
+// Test Sets
+// -----------------------------------------------------------------------------
+
+// difference() ----------------------------------------------------------------
+
+const difference: Set<number> = d3Array.difference([0, 1, 2, 0], [1]);
+
+// union() ---------------------------------------------------------------------
+
+const union: Set<number> = d3Array.union([0, 2, 1, 0], [1, 3]);
+
+// intersection() --------------------------------------------------------------
+
+const intersection: Set<number> = d3Array.intersection([0, 2, 1, 0], [1, 3]);
+
+// superset() ------------------------------------------------------------------
+
+const isSuperset: boolean = d3Array.superset([0, 2, 1, 3, 0], [1, 3]);
+
+// subset() --------------------------------------------------------------------
+
+const isSubset: boolean = d3Array.subset([1, 3], [0, 2, 1, 3, 0]);
+
+// disjoint() ------------------------------------------------------------------
+
+const isDisjoint: boolean = d3Array.disjoint([1, 3], [2, 4]);
+
+// -----------------------------------------------------------------------------
+// Test Bins
 // -----------------------------------------------------------------------------
 
 const timeScale = scaleTime();

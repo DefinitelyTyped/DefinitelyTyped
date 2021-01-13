@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.3
+// Type definitions for react-instantsearch-core 6.8
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -20,6 +20,7 @@ export interface InstantSearchProps {
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
+  widgetsCollector?: (...args: any[]) => any;
   resultsState?: any;
   stalledSearchDelay?: number;
 }
@@ -31,7 +32,12 @@ export interface InstantSearchProps {
  */
 export class InstantSearch extends React.Component<InstantSearchProps> {}
 
-export class Index extends React.Component<any> {}
+export interface IndexProps {
+  indexName: string;
+  indexId?: string;
+}
+
+export class Index extends React.Component<IndexProps> {}
 
 export interface ConnectorSearchResults<TDoc = BasicDoc> {
   results: AllSearchResults<TDoc>;
@@ -184,8 +190,10 @@ export interface AutocompleteExposed {
   defaultRefinement?: string;
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<TDoc = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>
+): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
   Composed: React.ComponentType<Props>
 ): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
@@ -337,8 +345,10 @@ export interface HitsProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(stateless: React.FunctionComponent<HitsProvided<THit>>): React.ComponentClass;
+export function connectHits<THit = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<HitsProvided<THit>>
+): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, HitsProvided<THit>>;
@@ -697,7 +707,9 @@ interface HighlightResultPrimitive {
   fullyHighlighted?: boolean;
 }
 
-export function EXPERIMENTAL_connectConfigureRelatedItems(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function EXPERIMENTAL_connectConfigureRelatedItems(
+  Composed: React.ComponentType<any>
+): React.ComponentClass<any>;
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectHitInsights(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;

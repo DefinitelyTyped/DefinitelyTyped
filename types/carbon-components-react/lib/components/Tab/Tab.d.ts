@@ -21,8 +21,8 @@ export interface TabCustomAnchorProviderProps extends TabCustomButtonProvidedPro
 
 export interface TabStandaloneProps extends Omit<ReactLIAttr, ExcludedAttributes> {
     disabled?: boolean;
-    handleTabClick(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
-    handleTabKeyDown(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
+    handleTabClick?(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
+    handleTabKeyDown?(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
     /**
      * @deprecated
      */

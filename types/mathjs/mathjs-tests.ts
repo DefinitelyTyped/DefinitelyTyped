@@ -318,6 +318,12 @@ Matrices examples
         }); // returns [6, 4, 3]
         math.filter(['23', 'foo', '100', '55', 'bar'], /[0-9]+/); // returns ["23", "100", "55"]
     }
+
+    // concat matrix
+    {
+        math.concat([[0, 1, 2]], [[1, 2, 3]]); // returns [[ 0, 1, 2, 1, 2, 3 ]]
+        math.concat([[0, 1, 2]], [[1, 2, 3]], 0); // returns [[ 0, 1, 2 ], [ 1, 2, 3 ]]
+    }
 }
 
 /*

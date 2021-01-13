@@ -7,6 +7,8 @@ import * as PDFMake from 'pdfmake/interfaces';
 
 export function renderPdf(jsx: JSX.Element): PDFMake.TDocumentDefinitions;
 
+export const Fragment: JSX.IntrinsicElements['stack'];
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -42,7 +44,13 @@ declare global {
             column: Ele<{ width: number | string }>;
 
             image: EleNoChidlren<Omit<PDFMake.ContentImage, 'image'> & { src: string }>;
-            svg: EleNoChidlren<{ content: string }>;
+            qr: EleNoChidlren<Omit<PDFMake.ContentQr, 'qr'> & { content: string }>;
+            svg: EleNoChidlren<{
+                content: string;
+                width?: number;
+                height?: number;
+                fit?: [number, number];
+            }>;
         }
     }
 }

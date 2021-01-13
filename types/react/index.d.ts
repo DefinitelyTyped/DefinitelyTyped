@@ -1,4 +1,4 @@
-// Type definitions for React 16.9
+// Type definitions for React 17.0
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -558,8 +558,10 @@ declare namespace React {
         displayName?: string;
     }
 
+    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -1209,6 +1211,7 @@ declare namespace React {
         /** @deprecated */
         charCode: number;
         ctrlKey: boolean;
+        code: string;
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
@@ -2089,6 +2092,7 @@ declare namespace React {
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
+        enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
         form?: string;
         formAction?: string;
         formEncType?: string;
@@ -2350,6 +2354,7 @@ declare namespace React {
         poster?: string;
         width?: number | string;
         disablePictureInPicture?: boolean;
+        disableRemotePlayback?: boolean;
     }
 
     // this list is "complete" in that it contains every SVG attribute

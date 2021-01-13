@@ -27,6 +27,7 @@ describe("Stripe object", () => {
         const stripeWithBetaOption: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { betas: ['beta-feature'] }); // This looks deprecated
         const stripeWithLocale: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { locale: 'zh' });
         const stripeWithAccount: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { stripeAccount: 'acct_24BFMpJ1svR5A89k' });
+        const stripeWithApiVersion: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { apiVersion: '2020-08-27' });
     });
 });
 
@@ -362,6 +363,7 @@ describe("Stripe elements", () => {
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?)
         stripe
             .confirmCardPayment(
@@ -379,11 +381,13 @@ describe("Stripe elements", () => {
                         },
                         name: 'Recipient name',
                     },
+                    setup_future_usage: 'off_session',
                 }
             )
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?,options?)
         stripe
             .confirmCardPayment(
@@ -395,6 +399,7 @@ describe("Stripe elements", () => {
                             name: 'Jenny Rosen',
                         },
                     },
+                    setup_future_usage: 'on_session',
                 },
                 {
                     handleActions: false,

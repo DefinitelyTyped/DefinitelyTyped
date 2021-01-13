@@ -240,6 +240,15 @@ function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
 }
 
+function test_anonymous_utils() {
+    // $ExpectType boolean
+    Parse.AnonymousUtils.isLinked(new Parse.User());
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: '' });
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.logIn({ useMasterKey: true, sessionToken: '' });
+}
+
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
 }
@@ -1542,7 +1551,12 @@ function testQuery() {
                 super('Another', { x: 'example' });
             }
         }
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubClass}> { }
+        class MySubClass extends Parse.Object<{
+            attribute1: string,
+            attribute2: number,
+            attribute3: AnotherSubClass,
+            attribute4: string[]
+        }> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1640,6 +1654,26 @@ function testQuery() {
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
         query.equalTo('nonexistentProp', 'any value');
+
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', 'a_string_value'); // Can query contents of array
+        // Can query array itself if equal too (mongodb $eq matches the array exactly or the <field> contains an element that matches the array exactly)
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', ['a_string_value']);
+
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', 'a_string_value');
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', ['a_string_value']);
+
+        // $ExpectError
+        query.equalTo('attribute4', 5);
+        // $ExpectError
+        query.notEqualTo('attribute4', 5);
+        // $ExpectError
+        query.equalTo('attribute4', [5]);
+        // $ExpectError
+        query.notEqualTo('attribute4', [5]);
 
         // $ExpectType Query<MySubClass>
         query.exists('attribute1');

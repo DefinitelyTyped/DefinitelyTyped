@@ -1,6 +1,12 @@
 import * as assert from 'assert';
 import util = require('util');
 
+/**
+ * The `expectType` function from https://www.npmjs.com/package/tsd,
+ * except instead of returning `void`, it returns `T`.
+ */
+export declare function expectType<T>(value: T): T;
+
 assert(true, "it's working");
 
 assert.ok(true, 'inner functions work as well');

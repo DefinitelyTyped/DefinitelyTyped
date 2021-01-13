@@ -26,13 +26,13 @@ declare namespace google.maps {
          * The click event is not fired if a marker or infowindow was clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.click Maps JavaScript API}
          */
-        click: (this: T, event: MouseEvent | IconMouseEvent) => void;
+        click: (this: T, event: MapMouseEvent | IconMouseEvent) => void;
 
         /**
          * This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dblclick Maps JavaScript API}
          */
-        dblclick: (this: T, event: MouseEvent) => void;
+        dblclick: (this: T, event: MapMouseEvent) => void;
 
         /**
          * This event is repeatedly fired while the user drags the map.
@@ -80,19 +80,19 @@ declare namespace google.maps {
          * This event is fired whenever the user's mouse moves over the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mousemove Maps JavaScript API}
          */
-        mousemove: (this: T, event: MouseEvent) => void;
+        mousemove: (this: T, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse exits the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseout Maps JavaScript API}
          */
-        mouseout: (this: T, event: MouseEvent) => void;
+        mouseout: (this: T, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse enters the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseover Maps JavaScript API}
          */
-        mouseover: (this: T, event: MouseEvent) => void;
+        mouseover: (this: T, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the projection has changed.
@@ -105,7 +105,7 @@ declare namespace google.maps {
          * This event is fired when the DOM contextmenu event is fired on the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.rightclick Maps JavaScript API}
          */
-        rightclick: (this: T, event: MouseEvent) => void;
+        rightclick: (this: T, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the visible tiles have finished loading.
@@ -603,8 +603,9 @@ declare namespace google.maps {
     /**
      * This object is returned from various mouse events on the map and overlays,
      * and contains all the fields shown below.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent Maps JavaScript API}
      */
-    interface MouseEvent {
+    interface MapMouseEvent {
         /** Prevents this event from propagating further. */
         stop(): void;
         /**
@@ -612,6 +613,14 @@ declare namespace google.maps {
          * occurred.
          */
         latLng: LatLng;
+        /**
+         * The corresponding native DOM event. Developers should not rely on `target`,
+         * `currentTarget`, `relatedTarget` and `path` properties being defined and consistent.
+         * Developers should not also rely on the DOM structure of the internal
+         * implementation of the Maps API.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent.domEvent Maps JavaScript API}
+         */
+        domEvent: MouseEvent | TouchEvent | PointerEvent | Event;
     }
 
     /**
@@ -621,7 +630,7 @@ declare namespace google.maps {
      * on this event to prevent it being propagated. Learn more about place IDs in
      * the Places API developer guide.
      */
-    interface IconMouseEvent extends MouseEvent {
+    interface IconMouseEvent extends MapMouseEvent {
         /**
          * The place ID of the place that was clicked.
          * This place ID can be used to query more information about the feature
