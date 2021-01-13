@@ -3,6 +3,7 @@
 // Definitions by: Jesse Rosenberger <https://github.com/abernix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
+/// <reference lib="dom" />
 import { ClientRequestArgs, AgentOptions } from 'http';
 import { CommonConnectionOptions, SecureContextOptions } from 'tls';
 import { URL as NodeURL } from 'url';
