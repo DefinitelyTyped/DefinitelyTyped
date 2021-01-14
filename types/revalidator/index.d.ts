@@ -19,7 +19,7 @@ declare module Revalidator {
     }
 
     interface RevalidatorStatic {
-        validate<T>(object: T, schema: JSONSchema<T>, options?: IOptions): IReturnMessage;
+        validate<T>(object: unknown, schema: JSONSchema<T>, options?: IOptions): IReturnMessage;
     }
 
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
