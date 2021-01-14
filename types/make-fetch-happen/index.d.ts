@@ -1,6 +1,7 @@
 // Type definitions for make-fetch-happen 8.0
 // Project: https://github.com/npm/make-fetch-happen#readme
 // Definitions by: Jesse Rosenberger <https://github.com/abernix>
+//                 Trevor Scheer <https://github.com/trevor-scheer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { ClientRequestArgs, AgentOptions } from 'http';
@@ -20,7 +21,7 @@ declare const fetch: fetch.FetchInterface;
 declare namespace fetch {
     type NodeFetchOptions = Pick<
         RequestInit,
-        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size'
+        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size' | 'headers' | 'agent'
     >;
 
     type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
