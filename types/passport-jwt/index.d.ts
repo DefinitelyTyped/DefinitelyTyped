@@ -10,8 +10,8 @@
 // TypeScript Version: 2.3
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
-import {Request} from 'express';
-import { VerifyOptions } from 'jsonwebtoken'
+import { Request } from 'express';
+import { VerifyOptions } from 'jsonwebtoken';
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
