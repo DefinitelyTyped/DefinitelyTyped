@@ -15,7 +15,7 @@ export class Connection {
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
 }
-export type Doc = ShareDB.Doc;
+export type Doc<T = any> = ShareDB.Doc<T>;
 export type Query = ShareDB.Query;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;

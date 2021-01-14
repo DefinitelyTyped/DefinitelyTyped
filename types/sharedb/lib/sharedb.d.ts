@@ -9,11 +9,11 @@ export interface JSONObject {
 export interface JSONArray extends Array<JSONValue> {}
 
 export type Path = ReadonlyArray<string|number>;
-export interface Snapshot {
+export interface Snapshot<T = any> {
     id: string;
     v: number;
     type: string | null;
-    data?: any;
+    data?: T;
     m: SnapshotMeta | null;
 }
 
@@ -89,12 +89,12 @@ export type Callback = (err: Error) => any;
 
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
-export class Doc extends EventEmitter {
+export class Doc<T = any> extends EventEmitter {
     connection: Connection;
     type: Type | null;
     id: string;
     collection: string;
-    data: any;
+    data: T;
     version: number | null;
 
     fetch: (callback: (err: Error) => void) => void;
@@ -112,11 +112,11 @@ export class Doc extends EventEmitter {
     addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
-    ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
+    ingestSnapshot(snapshot: Snapshot<T>, callback: Callback): void;
     destroy(): void;
-    create(data: any, callback?: Callback): void;
-    create(data: any, type?: OTType, callback?: Callback): void;
-    create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
+    create(data: T, callback?: Callback): void;
+    create(data: T, type?: OTType, callback?: Callback): void;
+    create(data: T, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
     del(options: ShareDBSourceOptions, callback: (err: Error) => void): void;
     whenNothingPending(callback: (err: Error) => void): void;

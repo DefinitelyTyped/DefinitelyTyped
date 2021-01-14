@@ -230,6 +230,17 @@ function startClient(callback) {
         doc.submitOp([{p: ['numClicks'], na: 1}]);
         callback();
     });
+
+    interface MyDoc {
+        foo: number;
+        bar: string;
+    }
+    const typedDoc: ShareDBClient.Doc<MyDoc> = connection.get('example', 'my-doc');
+    typedDoc.create({
+        foo: 123,
+        bar: 'abc',
+    });
+
     // sharedb-mongo query object
     connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
         console.log(err, results);
