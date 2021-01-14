@@ -233,6 +233,10 @@ zoom = map.getBoundsZoom(latLngBounds, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true, point);
+zoom = map.getZoomScale(10);
+zoom = map.getZoomScale(10, 7);
+zoom = map.getScaleZoom(10);
+zoom = map.getScaleZoom(10, 7);
 
 let mapLatLngBounds: L.LatLngBounds;
 mapLatLngBounds = map.getBounds();
@@ -240,6 +244,10 @@ mapLatLngBounds = map.getBounds();
 let mapPoint: L.Point;
 mapPoint = map.getSize();
 mapPoint = map.getPixelOrigin();
+mapPoint = map.project(coordinates);
+mapPoint = map.project(coordinates, 10);
+coordinates = map.unproject(mapPoint);
+coordinates = map.unproject(mapPoint, 10);
 
 let mapPixelBounds: L.Bounds;
 mapPixelBounds = map.getPixelBounds();
@@ -431,6 +439,7 @@ map = map
     .openTooltip(htmlElement, latLngTuple, tooltipOptions)
     .closeTooltip()
     .closeTooltip(L.tooltip())
+    .setView(latLng)
     .setView(latLng, 12)
     .setView(latLng, 12, zoomPanOptions)
     .setView(latLngLiteral, 12)
