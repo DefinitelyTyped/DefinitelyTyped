@@ -35,5 +35,6 @@ opts.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromHeader('x-api-ke
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.jwtFromRequest = (req: Request) => { return req.query.token as string; };
 opts.secretOrKey = new Buffer('secret');
+opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer('secret'));
 
 declare function findUser(condition: {id: string}, callback: (error: any, user :any) => void): void;
