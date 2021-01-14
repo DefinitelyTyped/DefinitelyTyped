@@ -14,6 +14,8 @@ export class Connection {
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
+    fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
 }
 export type Doc = ShareDB.Doc;
 export type Query = ShareDB.Query;

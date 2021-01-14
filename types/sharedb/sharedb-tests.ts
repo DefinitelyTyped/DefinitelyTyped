@@ -271,5 +271,15 @@ function startClient(callback) {
         if (doc.hasWritePending()) throw new Error();
     });
 
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
+    connection.fetchSnapshotByTimestamp('examples', 'bar', Date.now(), (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
     connection.close();
 }
