@@ -164,11 +164,18 @@ declare namespace sharedb {
 
     namespace middleware {
         interface ActionContextMap {
+            /**
+             * @deprecated use 'afterWrite' instead
+             */
             afterSubmit: SubmitContext;
+            afterWrite: SubmitContext;
             apply: ApplyContext;
             commit: CommitContext;
             connect: ConnectContext;
-            doc: DocContext;  // Deprecated, use 'readSnapshots' instead.
+            /**
+             * @deprecated use 'readSnapshots' instead
+             */
+            doc: DocContext;
             op: OpContext;
             query: QueryContext;
             readSnapshots: ReadSnapshotsContext;
