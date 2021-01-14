@@ -14,9 +14,12 @@ export class Connection {
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
+    getPresence(channel: string): Presence;
+    getDocPresence(collection: string, id: string): Presence;
 }
 export type Doc = ShareDB.Doc;
 export type Query = ShareDB.Query;
+export type Presence<T = any> = ShareDB.Presence<T>;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;
 export type AddNumOp = ShareDB.AddNumOp;

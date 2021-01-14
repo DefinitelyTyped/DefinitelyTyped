@@ -31,6 +31,7 @@ declare class sharedb {
         db?: any,
         pubsub?: sharedb.PubSub,
         extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
+        presence?: boolean,
         disableDocAction?: boolean,
         disableSpaceDelimitedActions?: boolean
     });
