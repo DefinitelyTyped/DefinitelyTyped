@@ -34,7 +34,16 @@ declare class sharedb extends EventEmitter {
         pubsub?: sharedb.PubSub,
         extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
         milestoneDb?: sharedb.MilestoneDB,
+        suppressPublish?: boolean,
+        maxSubmitRetries?: number,
+
+        /**
+         * @deprecated disableDocAction was removed in v1.0
+         */
         disableDocAction?: boolean,
+        /**
+         * @deprecated disableSpaceDelimitedActions was removed in v1.0
+         */
         disableSpaceDelimitedActions?: boolean
     });
     /**
