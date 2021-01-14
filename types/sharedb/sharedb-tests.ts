@@ -248,5 +248,15 @@ function startClient(callback) {
       Math.round(anotherDoc.version);
     }
 
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
+    connection.fetchSnapshotByTimestamp('examples', 'bar', Date.now(), (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
     connection.close();
 }
