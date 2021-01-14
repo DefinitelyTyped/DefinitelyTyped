@@ -65,8 +65,8 @@ declare module 'sharedb/lib/agent' {
     }
 }
 // Exercise middleware (backend.use)
-type SubmitRelatedActions = 'afterSubmit' | 'apply' | 'commit' | 'submit';
-const submitRelatedActions: SubmitRelatedActions[] = ['afterSubmit', 'apply', 'commit', 'submit'];
+type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
+const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
         if (request.agent.custom.user) {
