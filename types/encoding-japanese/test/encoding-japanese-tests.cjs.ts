@@ -1,9 +1,10 @@
-import * as Encoding from 'encoding-japanese';
+/// <reference types="node" />
+import Encoding = require('encoding-japanese');
 
 // Convert character encoding to Shift_JIS from UTF-8.
 const utf8Array_1 = new Uint8Array([1, 2, 3]);
 const utf8Array_2 = [1, 2, 3];
-const utf8Array_3 = new Buffer([1, 2, 3]);
+const utf8Array_3 = Buffer.from([1, 2, 3]);
 const utf8Array_4 = new Uint16Array([1, 2, 3]);
 const utf8Array_5 = new Uint32Array([1, 2, 3]);
 const utf8Array_6 = new Int16Array([1, 2, 3]);
