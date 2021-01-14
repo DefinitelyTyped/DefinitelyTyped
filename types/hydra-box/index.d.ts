@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-/// <reference types="@rdfjs/express-handler" />
 /// <reference types="absolute-url" />
 /// <reference types="set-link" />
 
