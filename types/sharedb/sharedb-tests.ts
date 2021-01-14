@@ -301,5 +301,14 @@ function startClient(callback) {
         console.log(snapshot.data);
     });
 
+    interface PresenceValue {
+        foo: number;
+    }
+    const presence: ShareDBClient.Presence<PresenceValue> = connection.getDocPresence('foo', 'bar');
+    presence.subscribe((error) => console.log(error));
+    presence.on('receive', (id, value) => console.log(id, value.foo.toLocaleString()));
+    const localPresence = presence.create('123');
+    localPresence.submit({foo: 123});
+
     connection.close();
 }

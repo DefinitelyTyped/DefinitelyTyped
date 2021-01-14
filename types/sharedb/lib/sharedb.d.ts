@@ -152,6 +152,33 @@ export class Query extends EventEmitter {
     destroy(): void;
 }
 
+export type ReceivePresence<T> = (id: string, value: T) => void;
+export class Presence<T = any> extends EventEmitter {
+    connection: string;
+    channel: string;
+    wantSubscribe: boolean;
+    subscribed: boolean;
+    remotePresences: Record<string, T>;
+    localPresences: Record<string, LocalPresence<T>>;
+    subscribe(callback?: Callback): void;
+    unsubscribe(callback?: Callback): void;
+    create(id?: string): LocalPresence<T>;
+    destroy(callback?: Callback): void;
+    on(event: 'receive', callback: ReceivePresence<T>): this;
+    addListener(event: 'receive', callback: ReceivePresence<T>): this;
+}
+
+export class LocalPresence<T = any> extends EventEmitter {
+    presence: Presence<T>;
+    presenceId: string;
+    connection: string;
+    presenceVersion: number;
+    value: T;
+    submit(value: T, callback?: Callback): void;
+    send(callback?: Callback): void;
+    destroy(callback?: Callback): void;
+}
+
 export type RequestAction = 'qf' | 'qs' | 'qu' | 'bf' | 'bs' | 'bu' | 'f' | 's' | 'u' | 'op' | 'nf' | 'nt';
 
 export interface ClientRequest {
