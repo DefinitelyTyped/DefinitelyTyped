@@ -37,14 +37,38 @@ export default class BaseVectorLayer<
 > extends Layer<VectorSourceType> {
     constructor(opt_options?: Options);
     getDeclutter(): boolean;
+    /**
+     * Get the topmost feature that intersects the given pixel on the viewport. Returns a promise
+     * that resolves with an array of features. The array will either contain the topmost feature
+     * when a hit was detected, or it will be empty.
+     * The hit detection algorithm used for this method is optimized for performance, but is less
+     * accurate than the one used in {@link module:ol/PluggableMap~PluggableMap#getFeaturesAtPixel}: Text
+     * is not considered, and icons are only represented by their bounding box instead of the exact
+     * image.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
-    getRenderBuffer(): number;
-    getRenderOrder(): (p0: Feature<Geometry>, p1: Feature<Geometry>) => number;
-    getStyle(): StyleLike;
-    getStyleFunction(): StyleFunction;
+    getRenderBuffer(): number | undefined;
+    getRenderOrder(): (p0: Feature<Geometry>, p1: Feature<Geometry>) => number | null | undefined;
+    /**
+     * Get the style for features.  This returns whatever was passed to the style
+     * option at construction or to the setStyle method.
+     */
+    getStyle(): StyleLike | null | undefined;
+    /**
+     * Get the style function.
+     */
+    getStyleFunction(): StyleFunction | undefined;
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
     setRenderOrder(renderOrder: OrderFunction | null | undefined): void;
+    /**
+     * Set the style for features.  This can be a single style object, an array
+     * of styles, or a function that takes a feature and resolution and returns
+     * an array of styles. If set to null, the layer has no style (a null style),
+     * so only features that have their own styles will be rendered in the layer. Call
+     * setStyle() without arguments to reset to the default style. See
+     * {@link module:ol/style} for information on the default style.
+     */
     setStyle(opt_style?: StyleLike | null): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

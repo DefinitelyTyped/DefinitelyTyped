@@ -1,4 +1,4 @@
-import postcss = require('postcss');
+import postcss from 'postcss';
 import less = require('postcss-less');
 
 const lessCode = `

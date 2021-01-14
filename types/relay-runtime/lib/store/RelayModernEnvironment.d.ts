@@ -19,7 +19,7 @@ import {
 import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
 import { TaskScheduler } from './RelayModernQueryExecutor';
 import { RelayOperationTracker } from './RelayOperationTracker';
-import { Disposable, CacheConfig } from '../util/RelayRuntimeTypes';
+import { Disposable } from '../util/RelayRuntimeTypes';
 import { RelayObservable } from '../network/RelayObservable';
 
 export interface EnvironmentConfig {
@@ -41,6 +41,7 @@ export interface EnvironmentConfig {
 export default class RelayModernEnvironment implements Environment {
     options: unknown;
     configName: string | null | undefined;
+    requiredFieldLogger: RequiredFieldLogger;
     constructor(config: EnvironmentConfig);
     getStore(): Store;
     getNetwork(): Network;
@@ -59,18 +60,15 @@ export default class RelayModernEnvironment implements Environment {
     isServer(): boolean;
     execute(data: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
     executeMutation({
-        cacheConfig,
         operation,
         optimisticResponse,
         optimisticUpdater,
         updater,
         uploadables,
     }: {
-        cacheConfig: CacheConfig | null;
         operation: OperationDescriptor;
         optimisticUpdater?: SelectorStoreUpdater | null;
         optimisticResponse?: { [key: string]: any } | null;

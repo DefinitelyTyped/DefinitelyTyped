@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
+import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType extends OptionTypeBase> {
+export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   /* Allow options to be created while the `isLoading` prop is true. Useful to
      prevent the "create new ..." option being displayed while async results are
      still being loaded. */
@@ -14,7 +14,11 @@ export interface CreatableProps<OptionType extends OptionTypeBase> {
   formatCreateLabel?: (inputValue: string) => React.ReactNode;
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
-  isValidNewOption?: (inputValue: string, value: ValueType<OptionType>, options: OptionsType<OptionType>) => boolean;
+  isValidNewOption?: (
+    inputValue: string,
+    value: ValueType<OptionType, IsMulti>,
+    options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
+   ) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
   getNewOptionData?: (inputValue: string, optionLabel: React.ReactNode) => OptionType;
@@ -26,24 +30,24 @@ export interface CreatableProps<OptionType extends OptionTypeBase> {
   createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType extends OptionTypeBase> = SelectProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> & CreatableProps<OptionType, IsMulti>;
 
-export const defaultProps: Props<any>;
+export const defaultProps: Props<any, boolean>;
 
 export interface State<OptionType extends OptionTypeBase> {
   newOption: OptionType | undefined;
   options: OptionsType<OptionType>;
 }
 
-export class Creatable<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
-  static defaultProps: Props<any>;
+export class Creatable<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
+  static defaultProps: Props<any, boolean>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
+  onChange: (newValue: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
   focus(): void;
   blur(): void;
 }
 
-export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any>;
+export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any, boolean>;
 
 export default Creatable;

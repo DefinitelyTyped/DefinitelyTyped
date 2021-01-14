@@ -11,14 +11,15 @@ const request = new Request('https://github.com', { headers });
 const reply: Promise<Response> = fetch(request);
 
 function foo(x: number) {
-    return `${x}`;
+    // tslint:disable-next-line:no-unnecessary-type-assertion
+    return `${x}` as string;
 }
 
 // $ExpectType Promise<string>
-MeteorPromise.async(foo, null)(1);
+MeteorPromise.async(foo, false)(1);
 
 // $ExpectType string
-MeteorPromise.async(foo, null)(1).await();
+MeteorPromise.async(foo, false)(1).await();
 
 // $ExpectType Promise<string>
 MeteorPromise.asyncApply(foo, null, [1]);

@@ -3,6 +3,11 @@ import { ReactDivAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "id" | "onChange";
 
+export interface PaginationPageSize {
+    text: string,
+    value: string,
+}
+
 export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     backwardText?: string,
     forwardText?: string,
@@ -20,7 +25,7 @@ export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> 
     pageNumberText?: string,
     pageRangeText?(current: number, total: number): string,
     pageSize?: number,
-    pageSizes: readonly number[],
+    pageSizes: readonly number[] | readonly PaginationPageSize[],
     pageText?(page: number): string,
     pagesUnknown?: boolean,
     totalItems?: number,

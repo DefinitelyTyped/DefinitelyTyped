@@ -945,7 +945,7 @@ export interface RenewAuthOptions {
     /**
      * type of the response used by OAuth 2.0 flow. It can be any space separated
      * list of the values `code`, `token`, `id_token`.
-     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html}
      */
     responseType?: string;
     /**

@@ -16,7 +16,7 @@ import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 interface InitOptions {
-    providers: Array<ReturnType<PossibleProviders>>;
+    providers: ReadonlyArray<ReturnType<PossibleProviders>>;
     database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;
@@ -75,6 +75,7 @@ interface CookieOptions {
     path?: string;
     secure?: boolean;
     maxAge?: number;
+    domain?: string;
 }
 
 interface Events {
@@ -94,9 +95,9 @@ interface Session {
 }
 
 interface User {
-    name: string;
-    email: string;
-    image: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
 }
 
 interface JWTOptions {

@@ -18,13 +18,17 @@ import express = require('express');
  */
 declare function serveFavicon(
     path: string | Buffer,
-    options?: {
+    options?: serveFavicon.Options
+): express.RequestHandler;
+
+declare namespace serveFavicon {
+    interface Options {
         /**
          * The cache-control max-age directive in ms, defaulting to 1 day.
          * This can also be a string accepted by the `ms` module.
          */
         maxAge?: number | string;
-    },
-): express.RequestHandler;
+    }
+}
 
 export = serveFavicon;

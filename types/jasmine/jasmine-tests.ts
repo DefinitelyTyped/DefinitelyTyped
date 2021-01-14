@@ -1065,6 +1065,39 @@ describe("jasmine.any", () => {
     });
 });
 
+describe('DiffBuilder', function() {
+  it('can be passed to matchersUtil.equals', () => {
+      const differ = jasmine.DiffBuilder();
+      jasmine.matchersUtil.equals(1, 1, undefined, differ);
+  });
+
+  it('records the actual and expected objects', () => {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({ x: 'actual' }, { x: 'expected' });
+      diffBuilder.recordMismatch();
+
+      expect(diffBuilder.getMessage()).toEqual(
+          "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
+      );
+  });
+
+  it("allows customization of the message", function() {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({x: 'bar'}, {x: 'foo'});
+
+      function darthVaderFormatter(actual: any, expected: any, path: any) {
+          return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
+      }
+
+      diffBuilder.withPath('x', () => {
+          diffBuilder.recordMismatch(darthVaderFormatter);
+      });
+
+      expect(diffBuilder.getMessage())
+          .toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
+  });
+});
+
 describe('custom asymmetry', function() {
     const tester: jasmine.AsymmetricMatcher<string> = {
         asymmetricMatch: (actual: string, customTesters) => {
@@ -1552,7 +1585,7 @@ describe("Custom async matcher: 'toBeEight'", () => {
 
 describe('better typed spys', () => {
     describe('a typed spy', () => {
-        const spy = jasmine.createSpy('spy', (num: number, str: string) => {
+        const spy = jasmine.createSpy('spy', (num: number, str: string): string => {
             return `${num} and ${str}`;
         });
         it('has a typed returnValue', () => {

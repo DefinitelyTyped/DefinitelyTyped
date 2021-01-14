@@ -14,7 +14,7 @@ export interface GroupType<OptionType extends OptionTypeBase> {
 
 export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
 
-export type ValueType<OptionType extends OptionTypeBase> = OptionType | OptionsType<OptionType> | null | undefined;
+export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> =  (IsMulti extends true ? OptionsType<OptionType> : OptionType) | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -39,7 +39,7 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType extends OptionTypeBase> {
+export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   clearValue: () => void;
   className?: string;
   cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
@@ -49,13 +49,13 @@ export interface CommonProps<OptionType extends OptionTypeBase> {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
-  getValue: () => ValueType<OptionType>;
+  getValue: () => OptionsType<OptionType>;
   hasValue: boolean;
   isMulti: boolean;
   options: OptionsType<OptionType>;
   selectOption: (option: OptionType) => void;
   selectProps: SelectProps<OptionType>;
-  setValue: (value: ValueType<OptionType>, action: ActionTypes) => void;
+  setValue: (value: ValueType<OptionType, IsMulti>, action: ActionTypes) => void;
 }
 
 export type ActionTypes =

@@ -6113,6 +6113,9 @@ function JQuery() {
             $(document).find('select').parents('div');
 
             // $ExpectType JQuery<HTMLElement>
+            $(document).find('select').parents('.container');
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').parents('.container');
         }
 
@@ -8209,7 +8212,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>> || EventHandler<EventTarget, any>
                 eventHandle;
 
                 return false;

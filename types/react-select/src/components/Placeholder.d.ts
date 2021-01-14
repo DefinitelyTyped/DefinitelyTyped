@@ -2,7 +2,7 @@ import { ComponentType, CSSProperties, ReactNode } from 'react';
 
 import { CommonProps, OptionTypeBase } from '../types';
 
-export interface PlaceholderProps<OptionType extends OptionTypeBase> extends CommonProps<OptionType> {
+export interface PlaceholderProps<OptionType extends OptionTypeBase, IsMulti extends boolean> extends CommonProps<OptionType, IsMulti> {
     className?: string;
     /** The children to be rendered. */
     children: ReactNode;
@@ -13,6 +13,6 @@ export interface PlaceholderProps<OptionType extends OptionTypeBase> extends Com
 
 export function placeholderCSS(): React.CSSProperties;
 
-export const Placeholder: ComponentType<PlaceholderProps<any>>;
+export const Placeholder: ComponentType<PlaceholderProps<any, boolean>>;
 
 export default Placeholder;

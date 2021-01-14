@@ -20,8 +20,14 @@ import RenderFeature from './Feature';
 export default class VectorContext {
     constructor();
     drawCircle(circleGeometry: Circle, feature: Feature<Geometry>): void;
+    /**
+     * Render a geometry with a custom renderer.
+     */
     drawCustom(geometry: SimpleGeometry, feature: FeatureLike, renderer: () => void): void;
     drawFeature(feature: Feature<Geometry>, style: Style): void;
+    /**
+     * Render a geometry.
+     */
     drawGeometry(geometry: Geometry): void;
     drawGeometryCollection(geometryCollectionGeometry: GeometryCollection, feature: Feature<Geometry>): void;
     drawLineString(lineStringGeometry: LineString | RenderFeature, feature: FeatureLike): void;
@@ -33,6 +39,9 @@ export default class VectorContext {
     drawText(geometry: SimpleGeometry | RenderFeature, feature: FeatureLike): void;
     setFillStrokeStyle(fillStyle: Fill, strokeStyle: Stroke): void;
     setImageStyle(imageStyle: ImageStyle, opt_declutterGroup?: DeclutterGroup): void;
+    /**
+     * Set the rendering style.
+     */
     setStyle(style: Style): void;
     setTextStyle(textStyle: Text, opt_declutterGroups?: DeclutterGroups): void;
 }

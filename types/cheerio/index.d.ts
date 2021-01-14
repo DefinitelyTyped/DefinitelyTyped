@@ -16,20 +16,28 @@
 interface Document {}
 
 declare namespace cheerio {
-    interface Element {
-        // Document References
-        // Node Console
+    type Element = TextElement | TagElement;
+
+    interface TextElement {
+        type: 'text';
+        next: Element | null;
+        prev: Element | null;
+        parent: Element;
+        data?: string;
+    }
+
+    interface TagElement {
         tagName: string;
-        type: string;
+        type: 'tag';
         name: string;
         attribs: { [attr: string]: string };
         children: Element[];
-        childNodes: Element[];
-        lastChild: Element;
-        firstChild: Element;
-        next: Element;
+        childNodes: Element[] | null;
+        lastChild: Element | null;
+        firstChild: Element | null;
+        next: Element | null;
         nextSibling: Element;
-        prev: Element;
+        prev: Element | null;
         previousSibling: Element;
         parent: Element;
         parentNode: Element;
@@ -286,7 +294,7 @@ declare namespace cheerio {
         // JQuery http://api.jquery.com
         root(): Cheerio;
         contains(container: Element, contained: Element): boolean;
-        parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
+        parseHTML(data: string, context?: Document | null, keepScripts?: boolean): Document[];
 
         html(options?: CheerioParserOptions): string;
         html(dom: string | Cheerio | Element, options?: CheerioParserOptions): string;

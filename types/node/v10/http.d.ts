@@ -160,7 +160,7 @@ declare module "http" {
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v10.23.0/lib/_http_client.js#L65
     class ClientRequest extends OutgoingMessage {
         connection: net.Socket;
         socket: net.Socket;

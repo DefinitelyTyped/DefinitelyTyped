@@ -14,7 +14,7 @@ interface ValueProps<OptionType extends OptionTypeBase> {
   /** Props passed to the wrapping element for the group. */
   innerProps: any;
 }
-export type SingleValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & ValueProps<OptionType> & State;
+export type SingleValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, false> & ValueProps<OptionType> & State;
 
 export function css(props: SingleValueProps<any>): React.CSSProperties;
 

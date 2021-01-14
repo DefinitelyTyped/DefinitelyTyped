@@ -6,7 +6,7 @@ import { ColourOption, colourOptions } from '../data';
 
 export default function AnimatedMulti() {
   return (
-    <Select<ColourOption>
+    <Select<ColourOption, true>
       closeMenuOnSelect={false}
       components={makeAnimated()}
       defaultValue={[colourOptions[4], colourOptions[5]]}

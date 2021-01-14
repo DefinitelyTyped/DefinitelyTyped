@@ -69,8 +69,9 @@ declare namespace bonjour {
     }
     interface Service extends BaseService, NodeJS.EventEmitter {
         published: boolean;
+        addresses: string[];
 
-        stop(cb: () => void): void;
+        stop(cb?: () => void): void;
         start(): void;
     }
     interface BonjourOptions {

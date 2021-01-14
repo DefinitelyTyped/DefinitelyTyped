@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.8
+// Type definitions for tabulator-tables 4.9
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -197,9 +197,11 @@ declare namespace Tabulator {
         paginationInitialPage?: number;
     }
 
+    type GroupArg = string | string[] | ((data: any) => any);
+
     interface OptionsRowGrouping {
         /** String/function to select field to group rows by     */
-        groupBy?: string | ((data: any) => any);
+        groupBy?: GroupArg;
         /** By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
 
     This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level     */
@@ -684,6 +686,7 @@ declare namespace Tabulator {
         /** The headerSortTristate option can now be set in the table options to affect all columns as well as in column definitions.*/
         headerSortTristate?: boolean;
         headerSortElement?: string;
+        columnMaxWidth?: number;
     }
 
     interface OptionsCell {
@@ -827,8 +830,9 @@ declare namespace Tabulator {
 
     interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
         label: string | HTMLElement | ((component: T) => string | HTMLElement);
-        action: (e: any, component: T) => any;
+        action?: (e: any, component: T) => any;
         disabled?: boolean | ((component: T) => boolean);
+        menu?: Array<MenuObject<T>>;
     }
     interface MenuSeparator {
         separator?: boolean;
@@ -1221,6 +1225,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         titleHtmlOutput?: string;
         /**When printing you may want to apply a different columnheader title from the one usualy used in the table. You can now do this using the titlePrint column definition option, which takes the same inputs as the standard title property. */
         titlePrint?: string;
+        maxWidth?: number | false;
     }
 
     interface CellCallbacks {
@@ -1386,7 +1391,10 @@ You can pass an optional additional property with sorter, sorterParams that shou
         // Image
         height?: string;
         width?: string;
+        urlPrefix?: string;
+        urlSuffix?: string;
     }
+
     interface LinkParams {
         // Link
         labelField?: string;
@@ -2170,7 +2178,7 @@ declare class Tabulator {
     /** To retrieve the maximum available page use the getPageMax function. this will return the number of the maximum available page. If pagination is disabled this will return false. */
     getPageMax: () => number | false;
     /** You can use the setGroupBy function to change the fields that rows are grouped by. This function has one argument and takes the same values as passed to the groupBy setup option. */
-    setGroupBy: (groups: string | ((data: any) => any)) => void;
+    setGroupBy: (groups: Tabulator.GroupArg) => void;
     /** You can use the setGroupStartOpen function to change the default open state of groups. This function has one argument and takes the same values as passed to the groupStartOpen setup option.
      ** Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
@@ -2263,4 +2271,10 @@ declare class Tabulator {
      */
     validate: () => true | Tabulator.CellComponent[];
     setGroupValues: (data: Tabulator.GroupValuesArg) => void;
+
+    /**You can now trigger a refresh of the current filters using the refreshFilter function. This function will cause the current filters to be run again and applied to the table data. */
+    refreshFilters: () => void;
+
+    /**The clearHistory function can be used to clear out the current table interaction history. */
+    clearHistory: () => void;
 }

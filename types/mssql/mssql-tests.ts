@@ -24,6 +24,8 @@ var config: sql.config = {
     }
 }
 
+var minimalConfig: sql.config = { server: 'ip' };
+
 var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
     if (err) {
         return err;
@@ -251,4 +253,32 @@ async function test_msnodesqlv8() {
 function test_rows_and_columnns() {
     var table = new sql.Table('#temp_table3');
     table.columns.forEach(col => col.name)
+}
+
+function test_mssql_errors() {
+    // Test constructors
+    const sqlDriverError = new Error('mock error');
+    const mssqlStringError = new sql.MSSQLError('Something went wrong');
+    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, 'EREQUEST');
+    const connectionError = new sql.ConnectionError(sqlDriverError, 'ELOGIN');
+    const requestError = new sql.RequestError(sqlDriverError, 'EREQUEST');
+    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, 'EINJECT');
+    const transactionError = new sql.TransactionError(sqlDriverError, 'EABORT');
+
+    // Test inheritance
+    if (
+        'name' in baseMSSQLError &&
+        'name' in connectionError &&
+        'name' in requestError &&
+        'name' in preparedStatementError &&
+        'name' in transactionError
+    ) {
+        let name: string = baseMSSQLError.name;
+        let msg: string = requestError.message;
+        let lineNo: number = requestError.lineNumber;
+        let err: Error = requestError.originalError;
+        err = connectionError.originalError;
+        err = preparedStatementError.originalError;
+        err = transactionError.originalError;
+    }
 }

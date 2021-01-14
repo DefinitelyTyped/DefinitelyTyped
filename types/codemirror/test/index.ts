@@ -138,10 +138,22 @@ myCodeMirror.getCursor();
 
 // Ensure marks come back with option values
 myCodeMirror.markText(from, to, {
-  readOnly: true,
-  inclusiveLeft: true,
-  inclusiveRight: false,
+    readOnly: true,
+    inclusiveLeft: true,
+    inclusiveRight: false,
 });
+
+const textMarker = myCodeMirror.markText(
+    { line: 6, ch: 26 },
+    { line: 6, ch: 42 },
+    {
+        className: 'styled-background',
+        attributes: {
+            title: 'yellow text',
+        },
+    },
+);
+textMarker.clear();
 
 const marks = myCodeMirror.getAllMarks();
 

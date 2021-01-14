@@ -95,7 +95,7 @@ declare namespace ShopifyBuy {
         /**
          * Update a line item quantity based on line item id
          */
-        updateLineItem(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
+        updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
     }
 
     export interface ShopResource {

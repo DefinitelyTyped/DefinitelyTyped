@@ -29,6 +29,7 @@ asciichart.plot([1, 2, 3], { max: 15 });
 asciichart.plot([1, 2, 3], { symbols: ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│'] });
 asciichart.plot([1, 2, 3], { format: x => x.toFixed(1) });
 asciichart.plot([1, 2, 3], { format: (x, i) => (i === 2 ? '  * ' : x.toFixed(2)) });
+asciichart.plot([[1, 2, 3], [4, 5, 6]]);
 
 asciichart.plot([1, 2, 3], {
     offset: 4,

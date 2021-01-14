@@ -31,15 +31,23 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name: string;
-        package: Package;
+        name?: string;
+        package?: Package;
+        reservedConcurrency?: number;
         runtime?: string;
-        handler: string;
         timeout?: number;
         memorySize?: number;
         environment?: { [name: string]: string };
         events: Event[];
         tags?: { [key: string]: string };
+    }
+
+    interface FunctionDefinitionHandler extends FunctionDefinition {
+        handler: string;
+    }
+
+    interface FunctionDefinitionImage extends FunctionDefinition {
+        image: string;
     }
 
     // Other events than ApiGatewayEvent are available
@@ -83,6 +91,15 @@ declare class Serverless {
     version: string;
 
     resources: AwsProvider.Resources;
+
+    configSchemaHandler: {
+        defineCustomProperties(schema: unknown): void;
+        defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
+        defineFunctionEventProperties(provider: string, existingEvent: string, schema: unknown): void;
+        defineFunctionProperties(provider: string, schema: unknown): void;
+        defineProvider(provider: string, options?: Record<string, unknown>): void;
+        defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
+    };
 }
 
 export = Serverless;

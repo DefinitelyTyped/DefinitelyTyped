@@ -17,7 +17,15 @@ export interface Options {
 }
 declare class LabeledTile extends Tile {
     constructor(tileCoord: TileCoord, tileSize: Size, text: string);
+    /**
+     * Get the image element for this tile.
+     */
     getImage(): HTMLCanvasElement;
+    /**
+     * Load the image or retry if loading previously failed.
+     * Loading is taken care of by the tile queue, and calling this method is
+     * only needed for preloading or for reloading in case of an error.
+     */
     load(): void;
 }
 export default class TileDebug extends XYZ {

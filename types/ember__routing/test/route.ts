@@ -147,6 +147,10 @@ class TransitionToExamples extends Route {
         // $ExpectType Transition<any>
         this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
     }
+
+    buildRouteInfoMetadata() {
+        return { foo: 'bar' };
+    }
 }
 
 class ApplicationController extends Controller {}

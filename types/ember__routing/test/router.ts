@@ -32,6 +32,9 @@ const RouterServiceConsumer = Service.extend({
     currentURL() {
         const x: string = get(this, 'router').currentURL;
     },
+    rootURL() {
+        const x: string = get(this, 'router').rootURL;
+    },
     transitionWithoutModel() {
         get(this, 'router').transitionTo('some-route');
     },

@@ -24,8 +24,17 @@ export interface Options {
 }
 export default class CartoDB extends XYZ {
     constructor(options: Options);
+    /**
+     * Returns the current config.
+     */
     getConfig(): any;
+    /**
+     * Sets the CartoDB config
+     */
     setConfig(config: any): void;
+    /**
+     * Updates the carto db config.
+     */
     updateConfig(config: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

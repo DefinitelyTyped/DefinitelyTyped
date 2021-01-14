@@ -1,4 +1,4 @@
-// Type definitions for ws 7.2
+// Type definitions for ws 7.4
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -235,7 +235,7 @@ declare namespace WebSocket {
         address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
-            upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
+            upgradeHead: Buffer, callback: (client: WebSocket, request: http.IncomingMessage) => void): void;
         shouldHandle(request: http.IncomingMessage): boolean | Promise<boolean>;
 
         // Events

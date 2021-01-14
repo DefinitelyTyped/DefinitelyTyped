@@ -182,7 +182,7 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    value => value === 'jimmy',
+    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
@@ -224,6 +224,8 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any, object>
     this.schema;
+    // $ExpectType any
+    this.originalValue;
     // $ExpectType (value: any) => any
     this.resolve;
     // $ExpectType ValidationError
@@ -627,6 +629,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         oneOf: '${path} must be one of the following values: ${values}',
         notOneOf: '${path} must not be one of the following values: ${values}',
         notType: '${path} is not the correct type',
+        defined: '${path} is not defined',
     },
     string: {
         length: '${path} must be exactly ${length} characters',
@@ -645,6 +648,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         max: '${path} must be less than or equal to ${max}',
         lessThan: '${path} must be less than ${less}',
         moreThan: '${path} must be greater than ${more}',
+        notEqual: '${path} must be not equal to ${notEqual}',
         positive: '${path} must be a positive number',
         negative: '${path} must be a negative number',
         integer: '${path} must be an integer',
@@ -657,7 +661,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         // NOOP
     },
     object: {
-        noUnknown: '${path} field cannot have keys not specified in the object shape',
+        noUnknown: '${path} field has unspecified keys: ${unknown}',
     },
     array: {
         min: '${path} field must have at least ${min} items',

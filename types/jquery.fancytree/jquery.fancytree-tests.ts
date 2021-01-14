@@ -70,6 +70,9 @@ var activeNode: Fancytree.FancytreeNode = tree.getRootNode();
 // Sort children of active node:
 activeNode.sortChildren();
 
+// Set new icon for active node:
+activeNode.icon = "./icon.svg";
+
 // Expand all tree nodes
 tree.visit(function (node) {
     node.setExpanded(true);

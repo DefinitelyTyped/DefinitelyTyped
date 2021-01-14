@@ -364,6 +364,7 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+Chart.defaults.global.defaultColor = ctx.createLinearGradient(0, 0, 0, 100);
 
 // Update Chart defaults using scaleService
 Chart.scaleService.updateScaleDefaults('time', {
@@ -552,3 +553,18 @@ const categoryXAxe: Chart.ChartXAxe = {
     type: 'category',
     labels: ['label1', 'label2'],
 };
+
+// Testing plugin service static methods
+const plugins = Chart.plugins.getAll();
+console.log(plugins);
+const foo = plugins.find(plugin => plugin.id === 'foo');
+console.log(foo);
+const pluginCount = Chart.plugins.count();
+console.log(pluginCount);
+const notify = Chart.plugins.notify(chart, 'beforeInit', []);
+console.log(notify);
+const pluginDescriptors = Chart.plugins.descriptors(chart);
+console.log(pluginDescriptors);
+
+Chart.plugins.clear();
+console.log(Chart.plugins.getAll());

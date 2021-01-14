@@ -1,5 +1,8 @@
 import * as React from 'react';
 import {
+    AccumulationIce16,
+    Layers16,
+    BorderLeft20,
     AnalyticsReference16,
     Add16,
     Add24,
@@ -13,13 +16,10 @@ import {
     ChartColumn16,
     LogoKeybase16,
 } from '@carbon/icons-react';
-import Flag16 from "@carbon/icons-react/lib/flag/16";
-import Flag24 from "@carbon/icons-react/es/flag/24";
-import WatsonHealth_3D_Cursor24 from "@carbon/icons-react/es/watson-health/3D-Cursor/24";
 
-<Flag16 aria-label='4'/>; // $ExpectType Element
-<Flag24 aria-label='4'/>; // $ExpectType Element
-<WatsonHealth_3D_Cursor24 aria-label='4'/>; // $ExpectType Element
+<AccumulationIce16 />; // $ExpectType Element
+<Layers16 />; // $ExpectType Element
+<BorderLeft20 />; // $ExpectType Element
 <AccessibilityAlt16 />; // $ExpectType Element
 <Add16><title>Icon title</title></Add16>; // $ExpectType Element
 <Add24 aria-label="Add" />; // $ExpectType Element

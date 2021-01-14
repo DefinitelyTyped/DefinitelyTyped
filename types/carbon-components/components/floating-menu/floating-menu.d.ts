@@ -2,21 +2,7 @@ export const DIRECTION_LEFT = 'left';
 export const DIRECTION_TOP = 'top';
 export const DIRECTION_RIGHT = 'right';
 export const DIRECTION_BOTTOM = 'bottom';
-export function getFloatingPosition({
-    menuSize,
-    refPosition,
-    offset,
-    direction,
-    scrollX,
-    scrollY,
-}: {
-    menuSize: any;
-    refPosition: any;
-    offset?: {};
-    direction?: string;
-    scrollX?: number;
-    scrollY?: number;
-}): any;
+export function getFloatingPosition({ menuSize, refPosition, offset, direction, scrollX, scrollY }: any): any;
 declare const FloatingMenu_base: any;
 declare class FloatingMenu extends FloatingMenu_base {
     constructor(element: any, options: any);

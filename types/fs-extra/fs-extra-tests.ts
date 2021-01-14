@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import * as Path from "path";
 
 const len = 2;
 const src = "";
@@ -73,6 +72,22 @@ fs.createFile(file).then(() => {
 });
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
+
+fs.mkdir(dir).then(() => {
+    // stub
+});
+fs.mkdir(dir, errorCallback);
+fs.mkdirSync(dir);
+fs.mkdir(dir, modeNum).then(() => {
+    // stub
+});
+fs.mkdir(dir, modeNum, errorCallback);
+fs.mkdirSync(dir, modeNum);
+fs.mkdir(dir, {mode: modeNum}).then(() => {
+    // stub
+});
+fs.mkdir(dir, {mode: modeNum}, errorCallback);
+fs.mkdirSync(dir, {mode: modeNum});
 
 fs.mkdirs(dir).then(() => {
     // stub
@@ -158,6 +173,7 @@ fs.ensureDir(path, ensureNum).then(() => {
 });
 fs.ensureDir(path, ensureObj, errorCallback);
 fs.ensureDir(path, ensureNum, errorCallback);
+fs.ensureDir(path, errorCallback);
 fs.ensureDirSync(path);
 fs.ensureDirSync(path, ensureObj);
 fs.ensureDirSync(path, ensureNum);
@@ -172,12 +188,15 @@ fs.ensureLink(path, path).then(() => {
 });
 fs.ensureLink(path, path, errorCallback);
 fs.createLink(path, path).then(() => {
-	// stub
+    // stub
 });
 fs.createLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
 fs.createLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
+    // stub
+});
+fs.ensureSymlink(path, path, "junction").then(() => {
     // stub
 });
 fs.ensureSymlink(path, path, errorCallback);
@@ -186,7 +205,10 @@ fs.emptyDir(path).then(() => {
     // stub
 });
 fs.emptyDir(path, errorCallback);
+fs.emptydir(path, errorCallback);
+fs.emptydir(path).then(() => {});
 fs.emptyDirSync(path);
+fs.emptydirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
     // stub
 });
@@ -249,7 +271,7 @@ fs.copyFile("src", "dest", errorCallback);
 
 fs.createSymlink("src", "dest", "dir").then();
 fs.createSymlink("src", "dest", "file").then();
-fs.createSymlink("src", "dest", "dir", errorCallback);
+fs.createSymlink("src", "dest", "junction", errorCallback);
 
 const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path); // $ExpectType Dir

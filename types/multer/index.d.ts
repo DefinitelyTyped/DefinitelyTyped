@@ -270,7 +270,7 @@ declare namespace multer {
         _removeFile(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error) => void
+            callback: (error: Error | null) => void
         ): void;
     }
 

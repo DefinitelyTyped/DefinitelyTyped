@@ -792,7 +792,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
+(loader as webpack.loader.Loader).pitch = function(this: webpack.loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any) { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
 

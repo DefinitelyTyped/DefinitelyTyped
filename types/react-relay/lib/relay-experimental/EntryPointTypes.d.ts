@@ -53,6 +53,7 @@ export interface PreloadedQuery<
         kind: 'PreloadedQuery';
         environment: IEnvironment;
         environmentProviderOptions?: TEnvironmentProviderOptions | null;
+        fetchKey: string | number;
         fetchPolicy: PreloadFetchPolicy;
         networkCacheConfig?: CacheConfig | null;
         id?: string | null;

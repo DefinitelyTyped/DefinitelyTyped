@@ -20,11 +20,13 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     label?: React.ReactNode,
     light?: boolean,
     size?: Extract<CarbonInputSize, "sm" | "xl">,
-    value: number,
+    value: number | '',
     warn?: boolean,
     warnText?: React.ReactNode,
 }
 
-declare const NumberInput: ForwardRefReturn<HTMLInputElement, NumberInputProps>;
+declare class NumberInputComponent extends React.Component<NumberInputProps> { }
+export { NumberInputComponent as NumberInput };
 
+declare const NumberInput: ForwardRefReturn<HTMLInputElement, NumberInputProps>;
 export default NumberInput;

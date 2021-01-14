@@ -6,18 +6,11 @@ declare class DataTable extends DataTable_base {
     deactivateSearch(container: any, evt: any): void;
     _sortToggle: (detail: any) => void;
     _selectToggle: (detail: any) => void;
-    _selectAllToggle: ({ element }: {
-        element: any;
-    }) => void;
+    _selectAllToggle: ({ element }: any) => void;
     _actionBarCancel: () => void;
     _actionBarToggle: (toggleOn: any) => void;
-    _rowExpandToggle: ({ element, forceExpand }: {
-        element: any;
-        forceExpand: any;
-    }) => void;
-    _rowExpandToggleAll: ({ element }: {
-        element: any;
-    }) => void;
+    _rowExpandToggle: ({ element, forceExpand }: any) => void;
+    _rowExpandToggleAll: ({ element }: any) => void;
     _expandableHoverToggle: (evt: any) => void;
     _toggleState: (element: any, evt: any) => void;
     _keydownHandler: (evt: any) => void;

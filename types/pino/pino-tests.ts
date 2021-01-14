@@ -192,7 +192,7 @@ const withNestedKey = pino({
 
 const withHooks = pino({
     hooks: {
-        logMethod(args, method) {
+        logMethod(args, method, level) {
             return method.apply(this, args);
         },
     },
@@ -248,3 +248,10 @@ interface StrictShape {
 info<StrictShape>({
     activity: 'Required property',
 });
+
+const logLine: pino.LogDescriptor = {
+    level: 20,
+    msg: 'A log message',
+    time: new Date().getTime(),
+    aCustomProperty: true,
+};

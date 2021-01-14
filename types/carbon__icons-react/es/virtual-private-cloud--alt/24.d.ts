@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VirtualPrivateCloudAlt24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VirtualPrivateCloudAlt24;
+export { VirtualPrivateCloudAlt24 as default } from "../../";

@@ -13,9 +13,18 @@ namespace express_tests {
     app.engine('html', require('ejs').renderFile);
 
     express.static.mime.define({
-        'application/fx': ['fx']
+        'application/fx': ['fx'],
     });
-    app.use('/static', express.static(__dirname + '/public'));
+    app.use(
+        '/static',
+        express.static(__dirname + '/public', {
+            setHeaders: res => {
+                // $ExpectType Response<any, Record<string, any>>
+                res;
+                res.set('foo', 'bar');
+            },
+        }),
+    );
 
     // simple logger
     app.use((req, res, next) => {
@@ -33,16 +42,18 @@ namespace express_tests {
     });
 
     // Accept json app-wide or on one endpoint.
-    app.use(express.json({ limit: "200kb" }));
+    app.use(express.json({ limit: '200kb' }));
     app.post('/echo', express.json(), (req, res) => {
         res.json(req.body);
     });
 
     // Accept urlencoded app-wide or on one endpoint.
-    app.use(express.urlencoded({
-        extended: false,
-        parameterLimit: 16
-    }));
+    app.use(
+        express.urlencoded({
+            extended: false,
+            parameterLimit: 16,
+        }),
+    );
     app.post('/search', express.urlencoded(), (req, res) => {
         res.json(Object.keys(req.body));
     });
@@ -66,62 +77,67 @@ namespace express_tests {
     router.post(pathRE);
     router.delete(pathRE);
 
-    router.use((req, res, next) => { next(); });
-    router.route('/users')
-        .get((req, res, next) => {
-            const types: string[] = req.accepts();
-            let type: string | false = req.accepts('json');
-            type = req.accepts(['json', 'text']);
-            type = req.accepts('json', 'text');
-
-            const charsets: string[] = req.acceptsCharsets();
-            let charset: string | false = req.acceptsCharsets('utf-8');
-            charset = req.acceptsCharsets(['utf-8', 'utf-16']);
-            charset = req.acceptsCharsets('utf-8', 'utf-16');
-
-            const encodings: string[] = req.acceptsEncodings();
-            let encoding: string | false = req.acceptsEncodings('gzip');
-            encoding = req.acceptsEncodings(['gzip', 'deflate']);
-            encoding = req.acceptsEncodings('gzip', 'deflate');
-
-            const languages: string[] = req.acceptsLanguages();
-            let language: string | false = req.acceptsLanguages('en');
-            language = req.acceptsLanguages(['en', 'ja']);
-            language = req.acceptsLanguages('en', 'ja');
-
-            // downcasting
-            req.get('set-cookie') as undefined;
-            req.get('set-cookie') as string[];
-            const setCookieHeader1 = req.get('set-cookie');
-            if (setCookieHeader1 !== undefined) {
-                const setCookieHeader2: string[] = setCookieHeader1;
-            }
-            req.get('header') as undefined;
-            req.get('header') as string;
-            const header1 = req.get('header');
-            if (header1 !== undefined) {
-                const header2: string = header1;
-            }
-
-            // upcasting
-            const setCookieHeader3: string[] | undefined = req.get('set-cookie');
-            const header3: string | undefined = req.header('header');
-
-            req.headers.existingHeader as string;
-            req.headers.nonExistingHeader as any as undefined;
-
-            // Since 4.14.0 req.range() has options
-            req.range(2, { combine: true });
-
-            res.send(req.query['token']);
-        });
-
-    router.get('/user/:id', (req, res, next) => {
-        if (Number(req.params.id) === 0) next('route');
-        else next();
-    }, (req, res, next) => {
-        res.render('regular');
+    router.use((req, res, next) => {
+        next();
     });
+    router.route('/users').get((req, res, next) => {
+        const types: string[] = req.accepts();
+        let type: string | false = req.accepts('json');
+        type = req.accepts(['json', 'text']);
+        type = req.accepts('json', 'text');
+
+        const charsets: string[] = req.acceptsCharsets();
+        let charset: string | false = req.acceptsCharsets('utf-8');
+        charset = req.acceptsCharsets(['utf-8', 'utf-16']);
+        charset = req.acceptsCharsets('utf-8', 'utf-16');
+
+        const encodings: string[] = req.acceptsEncodings();
+        let encoding: string | false = req.acceptsEncodings('gzip');
+        encoding = req.acceptsEncodings(['gzip', 'deflate']);
+        encoding = req.acceptsEncodings('gzip', 'deflate');
+
+        const languages: string[] = req.acceptsLanguages();
+        let language: string | false = req.acceptsLanguages('en');
+        language = req.acceptsLanguages(['en', 'ja']);
+        language = req.acceptsLanguages('en', 'ja');
+
+        // downcasting
+        req.get('set-cookie') as undefined;
+        req.get('set-cookie') as string[];
+        const setCookieHeader1 = req.get('set-cookie');
+        if (setCookieHeader1 !== undefined) {
+            const setCookieHeader2: string[] = setCookieHeader1;
+        }
+        req.get('header') as undefined;
+        req.get('header') as string;
+        const header1 = req.get('header');
+        if (header1 !== undefined) {
+            const header2: string = header1;
+        }
+
+        // upcasting
+        const setCookieHeader3: string[] | undefined = req.get('set-cookie');
+        const header3: string | undefined = req.header('header');
+
+        req.headers.existingHeader as string;
+        (req.headers.nonExistingHeader as any) as undefined;
+
+        // Since 4.14.0 req.range() has options
+        req.range(2, { combine: true });
+
+        res.send(req.query['token']);
+    });
+
+    router.get(
+        '/user/:id',
+        (req, res, next) => {
+            if (Number(req.params.id) === 0) next('route');
+            else next();
+        },
+        (req, res, next) => {
+            res.render('regular');
+        },
+    );
 
     // Params defaults to dictionary
     router.get('/:foo', req => {
@@ -149,28 +165,28 @@ namespace express_tests {
 
     // Params can be a custom type
     // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
-    router.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
+    router.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         req.params.baz; // $ExpectError
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
-    router.get('/:foo/:bar', (req: Request<{ foo: string, bar: number }>) => {
+    router.get('/:foo/:bar', (req: Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         req.params.baz; // $ExpectError
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express)
-    router.get('/:foo/:bar', (req: express.Request<{ foo: string, bar: number }>) => {
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         req.params.baz; // $ExpectError
     });
 
     // Query can be a custom type
-    router.get('/:foo', (req: express.Request<{}, any, any , {q: string}>) => {
+    router.get('/:foo', (req: express.Request<{}, any, any, { q: string }>) => {
         req.query.q; // $ExpectType string
         req.query.a; // $ExpectError
     });
@@ -180,13 +196,19 @@ namespace express_tests {
         req.query; // $ExpectType ParsedQs
     });
 
+    // Locals can be a custom type
+    router.get('/locals', (req, res: express.Response<any, { foo: boolean }>) => {
+        res.locals.foo; // $ExpectType boolean
+        res.locals.bar; // $ExpectError
+    });
+
     // Response will default to any type
-    router.get("/", (req: Request, res: express.Response) => {
+    router.get('/', (req: Request, res: express.Response) => {
         res.json({});
     });
 
     // Response will be of Type provided
-    router.get("/", (req: Request, res: express.Response<string>) => {
+    router.get('/', (req: Request, res: express.Response<string>) => {
         res.json();
         res.json(1); // $ExpectError
         res.send(1); // $ExpectError
@@ -217,20 +239,20 @@ namespace express_tests {
     app.use('/sub-app', express());
 
     // Test on mount event
-    app.on('mount', (parent) => true);
+    app.on('mount', parent => true);
 
     // Test mountpath
-    const mountPath: string|string[] = app.mountpath;
+    const mountPath: string | string[] = app.mountpath;
 
     app.listen(3000);
 
-    const next: express.NextFunction = () => { };
+    const next: express.NextFunction = () => {};
 
     // Make sure we can use every generic
-    const someOtherHandler: express.RequestHandler<{}, any, any , { foo: string }> = (req, res, next) => next();
+    const someOtherHandler: express.RequestHandler<{}, any, any, { foo: string }> = (req, res, next) => next();
 
     // Make sure we can use every generic
-    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any , { foo: string }> = (req, res) => {};
+    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any, { foo: string }> = (req, res) => {};
 }
 
 /***************************
