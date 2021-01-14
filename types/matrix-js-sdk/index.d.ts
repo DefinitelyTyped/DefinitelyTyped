@@ -482,7 +482,8 @@ export class MatrixClient extends EventEmitter {
       generic_search_term: string // String to search for
     };
   }, callback?: (...args: any[]) => any): Promise<void>;
-  redactEvent(roomId: string, eventId: string, txnIdopt: string, callback?: MatrixCallback): Promise<void>;
+  // TODO: clarify return type
+  redactEvent(roomId: string, eventId: string, txnId?: string, callbackOrOpts?: MatrixCallback | { reason: string}): Promise<any>;
   register(
     username: string, password: string, sessionId?: string,
     auth?: object, bindThreepids?: object, guestAccessToken?: string,
@@ -571,7 +572,7 @@ export class MatrixClient extends EventEmitter {
     roomId: string, sessionId: string, version: number, data: object,
   ): Promise<void>;
   sendMessage(
-    roomId: string, content: object, txnId: string, callback?: MatrixCallback,
+    roomId: string, content: object, txnId?: string, callback?: MatrixCallback,
   ): Promise<void>;
   sendNotice(
     roomId: string, body: string, txnId: string, callback?: MatrixCallback,
@@ -796,6 +797,7 @@ export class MatrixScheduler {
  * The following types are the classes that To Be Typing:
  */
 export type CryptoVerificationBase = any;
+export type CryptoModule = any;
 export class RoomSummary {
   constructor(
     roomId: string,
