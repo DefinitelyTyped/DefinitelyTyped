@@ -35,3 +35,4 @@ export type Path = ShareDB.Path;
 export type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
 
 export const types: ShareDB.Types;
+export const logger: ShareDB.Logger;

@@ -76,6 +76,16 @@ export interface Types {
     map: { [key: string]: Type };
 }
 
+export type LoggerFunction = typeof console.log;
+export interface LoggerOverrides {
+    info?: LoggerFunction;
+    warn?: LoggerFunction;
+    error?: LoggerFunction;
+}
+export class Logger {
+    setMethods(overrides: LoggerOverrides): void;
+}
+
 export interface Error {
     code: number;
     message: string;
