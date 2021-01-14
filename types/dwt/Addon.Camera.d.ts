@@ -65,6 +65,33 @@ export interface Camera {
      * Capture a frame from the video stream.
      */
     capture(): Promise<Blob>;
+	/**
+     * Start streaming video from the current camera in the viewer.
+     * @param deviceId Specify a camera.
+     * @param resolution Specify the initial resolution.
+     * @param mode Specify the mode. Allowed values are 'picture' and 'document'. Setting to 'document' mode will enable border detection.
+     * @param fill Whether to leave blank margins when showing
+     */
+    showVideo(deviceId?: string,
+        resolution?: Resolution,
+		mode?: string,
+		fill?: boolean
+    ): Promise<Resolution>;
+    /**
+     * Close the camera and hide the video streaming UI.
+     */
+    closeVideo(): void;
+	 /**
+     * Specify an event listener for the specified built-in viewer event.
+     * @param name Specify the event name.
+     * @param callback The event listener.
+     */
+	on(name: string, callback: (event: ViewerEvent) => void): void;
+    /**
+     * Remove a built-in viewer event handler.
+     * @param eventName Specify the event name.
+     */
+	off(eventName: string, callback?: (event: ViewerEvent) => void): boolean;
 }
 export interface DeviceInfo {
     deviceId: string;

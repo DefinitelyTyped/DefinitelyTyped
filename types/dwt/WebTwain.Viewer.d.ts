@@ -5,17 +5,10 @@ export interface WebTwainViewer extends WebTwainAcquire {
     /**
      * Create a Dynamsoft Viewer instance and bind it to the WebTwain instance.
      * @param elementId Specify an HTML element to create the viewer.
-     * @param config Configuration of the viewer.
      */
     BindViewer(
-        elementId: string,
-        config?: BasicViewerConfig
+        elementId: string
     ): boolean;
-    /**
-     * Update the viewer with the new configuration.
-     * @param config Configuration of the viewer.
-     */
-    UpdateViewer(config: BasicViewerConfig): boolean;
     /**
      * Unbind and destroy the viewer.
      */
@@ -75,24 +68,213 @@ export interface WebTwainViewer extends WebTwainAcquire {
     Viewer: DynamsoftViewer;
 }
 export interface DynamsoftViewer {
-    /**
-     * Start streaming video from the current camera in the viewer.
-     * @param deviceId Specify a camera.
-     * @param resolution Specify the initial resolution.
+	/**
+     * Return or set the width of the viewer.
      */
-    showVideo(deviceId?: string,
-        resolution?: Resolution
-    ): Promise<Resolution>;
-    /**
-     * Close the camera and hide the video streaming UI.
+    width: number | string;
+	/**
+     * Return or set the height of the viewer.
      */
-    closeVideo(): void;
-    /**
-     * Remove a built-in event handler.
-     * @param eventName Specify the event.
+    height: number | string;
+	/**
+     * Return the postfix of the main viewer.
      */
-    off(eventName: string): boolean;
+    readonly idPostfix: string;
+	/**
+     * [Scope] Main viewer
+     * [Description] Return or set the background colour/image of the viewer. 
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+	 * Replace the previous `BackgroundColor` method.
+     * Allow any CSS rules
+     */
+    background: string;
+	/**
+	 * [Scope] Global 
+     * [Description] Return or set the border of the viewer.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    border: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return or set the border of the main viewer. Priority is higher than border.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    innerBorder: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return or set the shape of the cursor.
+     * [Usage Notes] The default value is crosshair, which supports drag to select an area on the image. When set to pointer, the shape is “hand”. Only works if the view mode of the viewer is set to -1 * -1, and the displayed image does not fit the Window (when there is a scroll bar), then the image can be moved.	 
+	 * 'Invalid property value' is reported when the set value does not meet the CSS standard.
+	 * Replace the previous `MouseShape` property.
+     * Allow any CSS rules
+     */
+    cursor: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Returns or sets whether to display the newly added image or keep the current one after an image(s) is imported into the Dynamic Web TWAIN viewer. 
+	 * The default value of the IfAutoScroll property is true. If set to true, it will display the newly added image. If set to false, it will display the current one.
+     * [Usage Notes] 'Invalid property type' is reported when the set value is not string or number.
+     */
+    ifAutoScroll: boolean;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return or set the margin between images in the main viewer.
+	 * [Usage Notes] The pageMargin is only effective when the view mode is not -1 * -1.
+	 * number in pixels, string in percentage.
+     */
+    pageMargin: number | string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Set the border color of the selected area.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    selectedAreaBorderColor: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Specify a aspect ratio to be used when selecting a rectangle on an image. The default value is 0.
+     */
+    selectionRectAspectRatio: number;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return or set the zoom factor.
+     * [Usage Notes] Allow value [0.02 ~ 65].
+     */
+    zoom: number;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Set whether to use single page mode.
+     * [Usage Notes] The default value is false, that is, the view mode is 1 * 1. True means the view mode is -1 * -1.
+     */
+	singlePageMode:  boolean;
+	 /**
+	 * [Scope] Main viewer, Thumbnail viewer
+     * [Description] Set whether to disable the ability to drag and drop image to the viewer. The default value is true.
+     * [Usage Notes] 'Unsupported file type' will be reported if the file is in an unsupported type.
+     */
+    acceptDrop: boolean;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Whether to allow sliding. The default value is true which supports swiping left and right to switch images.
+     * [Usage Notes] Only works if the view mode of the viewer is set to -1 * -1.
+     */
+    allowSlide: boolean;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return or set the border style for selected image(s).
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules 
+     */
+    selectedPageBorder: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Set the selected page background color of the viewer.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules 
+     */
+    selectedPageBackground: string;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Whether to show the page number. The default value is false.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    showPageNumber: boolean;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Return the index of the next image of the currently selected image.
+     */
+    next(): number;
+   /**
+	 * [Scope] Main viewer
+     * [Description] Return the index of the previous image of the currently selected image.
+     */
+    previous(): number;
+   /**
+	 * [Scope] Main viewer
+     * [Description] Return the index of the fist image.
+     */
+    first(): number;
+     /**
+	 * [Scope] Main viewer
+     * [Description] Return the index of the last image.
+     */
+    last(): number;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Go to the specified image.
+     */
+    gotoPage(index: number): number;
+     /**
+	 * [Scope] Main viewer
+     * [Description] Refresh the viewer, the effect is shown in "onPageRender" event
+     */
+    render(): void;
+	/**
+	 * [Scope] Global
+     * [Description] Create an image editor with specified settings.
+     * [Usage Notes] Replace the previous `ShowImageEditor` method. Only one ImageEditor object can be created. If you create it multiple times, you'll receive 'An ImageEditor already exists' error, and an existing ImageEditor object will be returned.
+     * @param editorSettings The ImageEditor settings. If not set, the default setting is used.
+     */
+    createImageEditor(editorSettings?: EditorSettings): ImageEditor;
+	/**
+	 * [Scope] Global
+     * [Description] Create a thumbnail viewer with specified settings.
+     * @param editorSettings The thumbnailViewerSettings settings. If not set, the default setting is used.
+     */
+    createThumbnailViewer(thumbnailViewerSettings: ThumbnailViewerSettings): ThumbnailViewer;
+	/**
+	 * [Scope] Main viewer
+     * [Description] Create a custom element and append it to the main viewer.
+     * @param element Specify an element (not ID).
+	 * @param location Whether to put the element in the main viewer. Allowed values are left, top, right, bottom.
+	 * @param ifFull Whether to display the element in full screen. 
+     */
+    createCustomElement(element: HTMLDivElement, location?: string, ifFull?: boolean): CustomElement;
+	/**
+	 * [Scope] Global
+     * [Description] Return the current UI settings (from DVS itself)
+     */
+    getUISettings(): any;
+	 /**
+	 * [Scope] Global
+     * [Description] Reset UI settings to initial settings (JSON).
+     */
+    resetUISetting(): any;
     /**
+	 * [Scope] Global
+     * [Description] Update UI settings and take effect immediately.
+     * @param uISettings Specify the updated settings.
+     */
+    updateUISettings(uISettings: any): any;
+	/**
+	 * [Scope] Main viewer
+     * [Description] Clear the selected area(s) on the current image.
+     */
+    clearSelectedAreas(): void;
+     /**
+	 * [Scope] Main viewer
+     * [Description] Set one or more rectangular area(s) on the specified image.
+     * @param areas Specify the areas.
+     */
+    setSelectedAreas(areas: Area[]): void;
+	/**
+	 * [Scope] Main viewer
+     * [Description] Fit the image to the window
+     * @param type Specify a type to fit. (width, height, both)
+     */
+    fitWindow(type: string): void;
+     /**
+     * [Description] Set the CSS class name of the specified button defined in updateUISetting.
+     * @param name Specify the button.
+     * @param className Specify the CSS class name.
+     */
+    setButtonClass(
+        name: string,
+        className: string
+    ): boolean;
+	/**
      * Set the view mode of the viewer.
      * @param columns Specify the number of images per row.
      * @param rows Specify the number of images per column.
@@ -102,485 +284,502 @@ export interface DynamsoftViewer {
         rows: number
     ): boolean;
     /**
-     * Select a rectangular area on the specified image.
-     * @param left Specify the rectangle (leftmost coordinate).
-     * @param top Specify the rectangle (topmost coordinate).
-     * @param width Specify the rectangle (the width).
-     * @param height Specify the rectangle (the height).
+	 * [Scope] Global
+     * [Description] Create a Dynamsoft Viewer instance and bind it to the WebTwain instance.
+     * @param element Specify an HTML element to create the viewer.
      */
-    setSelectedImageArea(
-        left: number,
-        top: number,
-        width: number,
-        height: number
-    ): boolean;
-    /**
-     * Set the CSS class name of the specified button.
-     * @param name Specify the button.
-     * @param className Specify the CSS class name.
+    bind(element: HTMLDivElement): boolean;
+	 /**
+	 * [Scope] Main viewer
+     * [Description] Show the viewer (Main viewer, ImageEditor, ThumbnailViewer, CustomElement).
      */
-    setButtonClass(
-        name: string,
-        className: string
-    ): boolean;
-    /**
-     * Return or set the margin between two images or the margin between one side of an image and the border of the viewer.
+    show(): void;
+	/**
+	 * [Scope] Main viewer
+     * [Description] Hide the viewer(Main viewer, ImageEditor, ThumbnailViewer, CustomElement).
      */
-    imageMargin: number;
-    /**
-     * The mode of operation. Allowed values are 0(no selection, cursor is pointer), 1 (seleciton, cursor is crosshair)
+    hide(): void;
+	/**
+     * [Scope] Main viewer
+     * [Description] Unbind the viewer.
      */
-    operationMode: number;
-    /**
-     * Return or set whether to show the footer of the viewer.
+    unbind(): boolean;
+	/**
+	 * [Scope] Main viewer
+     * [Description] Specify an event listener for the viewer event.
+     * @param name Specify the event name.
+     * @param callback The event listener
      */
-    showFooter: boolean;
-    /**
-     * Return or set whether to show the header of the viewer.
+    on(name: string, callback: (event: ViewerEvent) => void): void;
+     /**
+     * [Scope] Main viewer
+     * [Description] Remove the event handler.
+     * @param eventName Specify the event name.
+     * @param callback The event listener.
      */
-    showHeader: boolean;
-    /**
-     * Zoom in by 6/5.
-     */
-    zoomIn(): boolean;
-    /**
-     * Zoom out by 5/6.
-     */
-    zoomOut(): boolean;
-    /**
-     * Bind a custom element to the viewer to add extra features.
-     * @param Id Specify the element by its Id.
-     * @param priority Specify the importance of the element.
-     * @param fullScreen Whether to show the element full-screen.
-     */
-    bindCustomElement(
-        Id: string,
-        priority: number,
-        fullScreen: boolean
-    ): boolean;
-    /**
-     * Unbind a custom element from the viewer.
-     * @param Id Specify the element by its Id.
-     */
-    unBindCustomElement(Id: string): boolean;
-    /**
-     * Show the custom element.
-     * @param name Specify the element by its Id.
-     */
-    showCustomElement(Id: string): boolean;
-    /**
-     * Hide the custom element.
-     * @param name Specify the element by its Id.
-     */
-    hideCustomElement(Id: string): boolean;
-    /**
-     * Show or hide the custom element.
-     * @param name Specify the element by its Id.
-     */
-    toggleCustomElement(Id: string): boolean;
-    /**
-     * Whether to only show the thumbnails view.
-     */
-    bOnlyShowThumbnailsView: boolean;
-    /**
-     * Set the shape of the cursor over the thumbnails view.
-     */
-    cursorOverThumbnailsView: string;
-    /**
-     * Update the viewer with detailed configuration.
-     * @param config Specify the detailed configuration.
-     */
-    updateUISettings(config: ViewerConfig): boolean;
+    off(eventName: string, callback?: () => void): void;
 }
-export interface BasicViewerConfig {
+export interface EditorSettings {
     /**
-     * Specify the size of the viewer.
+	 * [Scope] ImageEditor viewer
+	 * [Scope] ImageEditor viewer
+     * [Description] Specify an HTML Element.
      */
-    Height: number | string;
-    Width: number | string;
+    element: HTMLDivElement,
     /**
-     * Set up the content view.
+	 * [Scope] ImageEditor viewer
+     * [Description] The width of the image editor viewer. The default value is "100%".
+     * [Usage Notes] 'Invalid property value' will be reported when the set value is not string or number.
      */
-    view: ContentView;
+    width: number | string;
+     /**
+	 * [Scope] ImageEditor viewer
+     * [Description] The height of the image editor viewer. The default value is "100%".
+     * [Usage Notes] 'Invalid property value' will be reported when the set value is not string or number.
+     */
+    height: number | string;
+    /**
+	 * [Scope] ImageEditor viewer
+     * [Description] The border of the ImageEditor viewer.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    border: string;
+    /**
+	 * [Scope] ImageEditor viewer
+     * [Description] Set the border of the top toolbar.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    topMenuBorder: string;
+    /**
+	 * [Scope] ImageEditor viewer
+     * [Description] The inner border of the image area.
+     * Allow any CSS rules
+     */
+    innerBorder: string;
+    /**
+	 * [Scope] ImageEditor viewer
+     * [Description] The background color/image of the ImageEditor viewer.
+     * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Allow any CSS rules
+     */
+    background: string;
+    /**
+	 * [Scope] ImageEditor viewer
+     * [Description] Whether to pop up a window prompting to save the changes. The default value is true. 
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    promptToSaveChange: boolean;
+    /**
+     * [Scope] ImageEditor viewer
+     * [Description] Modify button titles and whether to hide specific buttons in the image editor viewer.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    buttons: {
+        titles: {
+            'previous': 'Previous Image',
+            'next': 'Next Image',
+            'print': 'Print Image',
+            'scan': 'Scan Documents',
+            'load': 'Load Local Images',
+            'rotateleft': 'Rotate Left',
+            'rotate': 'Rotate',
+            'rotateright': 'Rotate Right',
+            'deskew': 'Deskew',
+            'crop': 'Crop Selected Area',
+            'cut': 'Cut Selected Area',
+            'changeimagesize': 'Change Image Size',
+            'flip': 'Flip Image',
+            'mirror': 'Mirror Image',
+            'zoomin': 'Zoom In',
+            'originalsize': 'Show Original Size',
+            'zoomout': 'Zoom Out',
+            'stretch': 'Stretch Mode',
+            'fit': 'Fit Window',
+            'fitw': 'Fit Horizontally',
+            'fith': 'Fit Vertically',
+            'hand': 'Hand Mode',
+            'rectselect': 'Select Mode',
+            'zoom': 'Click to Zoom In',
+            'restore': 'Restore Original Image',
+            'save': 'Save Changes',
+            'close': 'Close the Editor',
+            'removeall': 'Remove All Images',
+            'removeselected': 'Remove All Selected Images'
+        },
+        visibility: {
+            'scan': true, 'load': true, 'print': true,
+            'removeall': true, 'removeselected': true,
+            'rotateleft': true, 'rotate': true, 'rotateright': true, 'deskew': true,
+            'crop': true, 'erase': true, 'changeimagesize': true, 'flip': true, 'mirror': true,
+            'zoomin': true, 'originalsize': true, 'zoomout': true, 'stretch': true,
+            'fit': true, 'fitw': true, 'fith': true,
+            'hand': true, 'rectselect': true, 'zoom': true, 'restore': true, 'save': true, 'close': true
+        }
+    },
+     /**
+     * [Scope] ImageEditor viewer
+     * [Description] Define the dialog text
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    dialogText: {
+        dlgRotateAnyAngle: ['Angle :', 'Interpolation:', 'Keep size', '  OK  ', 'Cancel'],
+        dlgChangeImageSize: ['New Height :', 'New Width :', 'Interpolation method:', '  OK  ', 'Cancel'],
+        saveChangedImage: ['You have changed the image, do you want to keep the change(s)?', '  Yes  ', '  No  '],
+        selectSource: ['Select Source:', 'Select', 'Cancel', 'There is no source available']
+    }
 }
-export interface ContentView {
+export interface ThumbnailViewerSettings {
     /**
-     * Whether to show the content view or not.
-     * If set to false, then only thumbnails view is shown.
+     * [Scope] Thumbnail viewer
+     * [Description] Where to put the thumbnail view. The allowed values are left, top, right, bottom. The default value is left.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
      */
-    bShow: boolean;
+    location: string;
     /**
-     * Specify the width of the major content view.
+     * [Scope] Thumbnail viewer
+     * [Description] Specify the size of width or height in pixels or percentage. The default value is 30%.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * number in pixels, string in percentage
      */
-    Width: number | string;
+    size: number | string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Specify how many images to display per row.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly. If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
+     * number in pixels, string in percentage
+     */
+    columns: number;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Specify how many images to display per column.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly. If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
+     * number in pixels, string in percentage
+     */
+    rows: number;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Fit the image vertically or horizontally. Allowed values are 'vertical' and 'horizontal'.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    scrollDirection: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the margin between images & the margin between image and the viewer border). The default value is 10.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * number in pixels, string in percentage
+     */
+    margin: number | string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background of the entire thumbnail viewer. The default value is white.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    background: string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the border of the thumbnail viewer. 
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    border: string;
+   /**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow keyboard control.
+     */
+    allowKeyboardControl: boolean;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow image dragging. The default value is true.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    allowPageDragging: boolean;
+	/**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+	allowResizing: boolean;
+    /**
+	 * [Scope] Thumbnail viewer
+     * [Description] Whether to show the page number. The default value is false.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    showPageNumber: boolean;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Return or set the background colour/image of the thumbnail viewer. The default value is white.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    pageBackground: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the image border style. 
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    pageBorder: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the image background when the mouse is hovered.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    hoverBackground: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the image border when the mouse is hovered.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    hoverBorder: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background when dragging the image. The default value is yellow.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    placeholderBackground: string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the border of the selected image.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    selectedImageBorder: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background of the selected image.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules 
+     */
+    selectedImageBackground: string;
 }
-export interface ViewerConfig {
+export interface CustomElement {
     /**
-     * Specify which components are shown.
+     * [Scope] Current Element
+     * [Description] Show the element.
      */
-    component?: {
-        header?: boolean;
-        topMenu?: boolean;
-        asideMenu?: boolean;
-        bottomMenu?: boolean;
-    };
-    group?: {
-        global?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
-        tabName?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
-        viewerCorner?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
-        viewMenuBlock?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
-        viewMenu?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
-        topMenuRight?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
-        pager?: {
-            visibility?: boolean,
-            location?: string, // Example: 'bottomMenu'
-            sequence?: number
-        },
-        viewChange?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        }
-    };
-    buttons?: {
-        // loadImage button
-        loadImage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewerCorner'
-            iconClass?: string, // Example: 'icon-file'
-            sequence?: number,
-            onButtonClick?: string // Example: onLoadImage'
-        },
-        currentTab?: {
-            visibility?: boolean,
-            location?: string, // Example: 'tabName',
-            sequence?: number
-        },
-        // panelChange button (thumbnail, dir tree, tags)
-        panelChange?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            iconClass?: string, // Example: 'icon-list'
-            sequence?: number,
-            onButtonClick?: string // Example: onPanelChange'
-        },
-        // readDirection change button (vertical ,horizontal)
-        readDirection?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            iconClass?: string, // Example: 'icon-readType'
-            sequence?: number,
-            onButtonClick?: string // Example: onReadDirection'
-        },
-        // readDirection change button (vertical ,horizontal)
-        blank1?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            sequence?: number
-        },
-        // flip button
-        flip?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-flip'
-            sequence?: number,
-            onButtonClick?: string // Example: onFlip'
-        },
-        // mirror button
-        mirror?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-mirror'
-            sequence?: number,
-            onButtonClick?: string // Example: onMirror'
-        },
-        // rotate button
-        rotate?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-rotateLeft'
-            sequence?: number,
-            onButtonClick?: string // Example: onRotate'
-        },
-        // rotateAll button
-        rotateAll?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-rotateAll'
-            sequence?: number,
-            onButtonClick?: string // Example: onRotateAll'
-        },
-        // crop button
-        crop?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-crop'
-            sequence?: 5,
-            onButtonClick?: string // Example: onCrop'
-        },
-        // wipe button
-        wipe?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-wipe'
-            sequence?: 6,
-            onButtonClick?: string // Example: onWipe'
-        },
-        // undo button
-        undo?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-undo'
-            sequence?: 7,
-            onButtonClick?: string // Example: onUndo'
-        },
-        // redo button
-        redo?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-redo'
-            sequence?: 8,
-            onButtonClick?: string // Example: onRedo'
-        },
-        // magnifyCanvas button
-        zoomIn?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-magnifyImage'
-            sequence?: 9,
-            onButtonClick?: string // Example: onZoomIn'
-        },
-        // shrinkCanvas button
-        zoomOut?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-shrinkImage'
-            sequence?: 10,
-            onButtonClick?: string // Example: onZoomOut'
-        },
-        // reset button
-        reset?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-reset'
-            sequence?: 11,
-            onButtonClick?: string // Example: onReset'
-        },
-        // remove button
-        remove?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-delete'
-            sequence?: number,
-            onButtonClick?: string // Example: onRemove'
-        },
-        // print button
-        print?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-print'
-            sequence?: number,
-            onButtonClick?: string // Example: onPrint'
-        },
-        // save button
-        save?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-save'
-            sequence?: number,
-            onButtonClick?: string // Example: onSave'
-        },
-        // firstPage button
-        firstPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageStart'
-            sequence?: number,
-            onButtonClick?: string // Example: onFirstPage'
-        },
-        // previousPage button
-        previousPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pagePre'
-            sequence?: number,
-            onButtonClick?: string // Example: onPreviousPage'
-        },
-        // pagination show
-        pagination?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-        },
-        // nextPage button
-        nextPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageNext'
-            sequence?: number,
-            onButtonClick?: string // Example: onNextPage'
-        },
-        // lastPage button
-        lastPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageEnd'
-            sequence?: 5,
-            onButtonClick?: string // Example: onLastPage'
-        },
-        // autoFit button
-        autoFit?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-autoFit'
-            sequence?: number,
-            onButtonClick?: string // Example: onAutoFit'
-        },
-        // fitHeight button
-        fitHeight?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fitHeight'
-            sequence?: number,
-            onButtonClick?: string // Example: onFitHeight'
-        },
-        // fitWidth button
-        fitWidth?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fitWidth'
-            sequence?: number,
-            onButtonClick?: string // Example: onFitWidth'
-        },
-        // fullScreenToWebPage button
-        fullPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fullWeb'
-            sequence?: number,
-            onButtonClick?: string // Example: onFullPage'
-        },
-        // fullScreenToDevice
-        fullScreen?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fullDevice'
-            sequence?: number,
-            onButtonClick?: string // Example: onFullScreen'
-        }
-    };
-    tipsConfig?: {
-        loadImage?: string, // Example 'loadImage'
-        panelChange?: string, // Example 'panelChange'
-        readDirection?: string, // Example 'readDirection'
-        flip?: string, // Example 'flip'
-        mirror?: string, // Example 'mirror'
-        rotate?: string, // Example 'rotate'
-        rotateAll?: string, // Example 'rotateAll'
-        crop?: string, // Example 'crop'
-        wipe?: string, // Example 'wipe'
-        undo?: string, // Example 'undo'
-        redo?: string, // Example 'redo'
-        zoomIn?: string, // Example 'zoomIn'
-        zoomOut?: string, // Example 'zoomOut'
-        reset?: string, // Example 'reset'
-        remove?: string, // Example 'remove'
-        print?: string, // Example 'print'
-        save?: string, // Example 'save'
-        firstPage?: string, // Example 'firstPage'
-        previousPage?: string, // Example 'previousPage'
-        pagination?: string, // Example 'pagination'
-        nextPage?: string, // Example 'nextPage'
-        lastPage?: string, // Example 'lastPage'
-        autoFit?: string, // Example 'fitWindow'
-        fitHeight?: string, // Example 'fitHeight'
-        fitWidth?: string, // Example 'fitWidth'
-        fullPage?: string, // Example 'fullPage'
-        fullScreen?: string, // Example 'fullScreen'
-    };
-    content?: {
-        visibility?: boolean,
-        besides?: {
-            visibility?: boolean,
-            sequence?: number
-        },
-        viewPort?: {
-            visibility?: boolean,
-            sequence?: number
-        },
-        allImage?: {
-            visibility?: boolean,
-            displayName?: string // Example: 'All Images'
-        }
-    };
-    thumbnail?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-thumbnail'
-        selectedBorderColor?: string // Example: 'red'
-        selectedBackgroundColor?: string // Example: 'rgb(127, 133, 251)'
-        imageBackgroundColor?: string // Example: 'transparent'
-        imageBorderColor?: string // Example: 'gray'
-        hoverBackgroundColor?: string // Example: '#c4faf8'
-        hoverBorderColor?: string // Example: 'yellow'
-        blockBackgroundColor?: string // Example: 'pink'
-        backgroundColor?: string // Example: 'rgba(67, 66, 70, 1)'
-        imageSpace?: number, // Example: 10
-        showPageNumber?: boolean,
-        showThumbnailControl?: boolean,
-        mouseShape?: string // Example: 'pointer'
-    };
-    tree?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-tree',
-        selectedColor?: string // Example: '#0000ff',
-        goToThumbnail?: boolean
-    };
-    tag?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-tags',
-        selectedColor?: string // Example: '#0000ff',
-        goToThumbnail?: boolean,
-        displayMode?: string // Example: ''// icon or text
-    };
-    cropStyle?: {
-        ratios?: any, // Example [[1, 1], [3, 2], [4, 3], [5, 4], [7, 5], [16, 9]],
-        cropMask?: boolean,
-        cropBar?: boolean
-    };
-    buttonResize?: {
-        ifResize?: boolean,
-        maxSize?: number, // Example: 26,
-        minSize?: number, // Example: 14
-    };
-    skinColor?: {
-        topMenuBackground?: string // Example: '#000000'
-        asideBackground?: string // Example: '#ffffff'
-        canvasBackground?: string // Example: 'rgba(67,66,70,1)'
-        bottomMenuBackground?: string // Example: '#000000'
-    };
-    presetMode?: string; // Example: 'basic'
-    theme?: string; // Example: 'basic'
+    show(): void;
+    /**
+     * [Scope] Current Element
+     * [Description] Hide the element.
+     */
+    hide(): void;
+    /**
+     * [Scope] Current Element
+     * [Description] Delete the element.
+     */
+    dispose(): void;
+}
+export interface ImageEditor {
+    /**
+     * [Scope] ImageEditor viewer
+     * [Description] Show the ImageEditor viewer.
+     */
+    show(): void;
+    /**
+     * [Scope] ImageEditor viewer
+     * [Description] Hide the ImageEditor viewer.
+     */
+    hide(): void;
+    /**
+     * [Scope] ImageEditor viewer
+     * [Description] Delete the ImageEditor viewer.
+     */
+    dispose(): void;
+}
+export interface ThumbnailViewer {
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Show the Thumbnail viewer.
+     */
+    show(): void;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Hide the Thumbnail viewer.
+     */
+    hide(): void;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Delete the Thumbnail viewer.
+     */
+    dispose(): void;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the view mode.
+     */
+    updateViewMode(viewMode: ViewMode): void;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Specify an event listener for the viewer event.
+     * @param name Specify the event name.
+     * @param callback The event listener.
+     */
+    on(name: string, callback: (event: ThumbnailViewerEvent) => void): void;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Remove the event handler.
+     * @param eventName Specify the event name.
+     * @param callback The event listener.
+     */
+    off(eventName: string, callback?: () => void): void;
+	 /**
+     * [Scope] Thumbnail viewer
+     * [Description] Where to put the thumbnail view. The allowed values are left, top, right, bottom. The default value is left.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     */
+    location: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Specify the size of width or height in pixels or percentage. The default value is 30%.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * number in pixels, string in percentage
+     */
+    size: number | string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Specify scroll direction. Allowed values are 'vertical' and 'horizontal'.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    scrollDirection: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the margin between images & the margin between image and the viewer border). The default value is 10.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * number in pixels, string in percentage
+     */
+    margin: number | string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background of the entire thumbnail viewer. The default value is white.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    background: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the border of the thumbnail viewer. 
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    border: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow keyboard control.
+     */
+    allowKeyboardControl: boolean;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow image dragging. The default value is true.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    allowPageDragging: boolean;
+	/**
+     * [Scope] Thumbnail viewer
+     * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+	allowResizing: boolean;
+    /**
+	 * [Scope] Thumbnail viewer
+     * [Description] Whether to show the page number. The default value is false.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     */
+    showPageNumber: boolean;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Return or set the background colour/image of the thumbnail viewer. The default value is white.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    pageBackground: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the border of the thumbnail viewer. 
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    pageBorder: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the image background when the mouse is hovered.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    hoverBackground: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the image border when the mouse is hovered.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    hoverBorder: string;
+    /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background when dragging the image. The default value is yellow.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    placeholderBackground: string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the border of the selected image.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules
+     */
+    selectedImageBorder: string;
+     /**
+     * [Scope] Thumbnail viewer
+     * [Description] Set the background of the selected image.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * Allow any CSS rules 
+     */
+    selectedImageBackground: string;
+}
+
+export interface ViewMode {
+    columns: number;
+    rows: number;
+    scrollDirection: string;
+}
+
+export interface ViewerEvent {
+    /**
+     * The index of the current image.
+     */
+    index: number;
+    /**
+     * The x-coordinate of the upper-left corner of the image.
+     */
+    imageX: number;
+    /**
+     * The y-coordinate of the upper-left corner of the image.
+     */
+    imageY: number;
+    /** 
+     * The x-coordinate relative to the browser page.
+     */ 
+    pageX: number;
+	/** 
+     * The y-coordinate relative to the browser page.
+     */ 
+    pageY: number;
+}
+export interface ThumbnailViewerEvent {
+    /**
+     * The index of the current image.
+     */
+    index: number;
+    /** 
+     * The x-coordinate relative to the browser page.
+     */ 
+    pageX: number;
+	/** 
+     * The y-coordinate relative to the browser page.
+     */ 
+    pageY: number;
 }
