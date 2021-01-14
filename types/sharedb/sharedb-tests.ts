@@ -36,7 +36,9 @@ class CustomExtraDb {
 }
 
 const backend = new ShareDB({
-    extraDbs: {myDb: new CustomExtraDb()}
+    extraDbs: {myDb: new CustomExtraDb()},
+    suppressPublish: false,
+    maxSubmitRetries: 3,
 });
 console.log(backend.db);
 

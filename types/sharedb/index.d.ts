@@ -31,7 +31,16 @@ declare class sharedb {
         db?: any,
         pubsub?: sharedb.PubSub,
         extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
+        suppressPublish?: boolean,
+        maxSubmitRetries?: number,
+
+        /**
+         * @deprecated disableDocAction was removed in v1.0
+         */
         disableDocAction?: boolean,
+        /**
+         * @deprecated disableSpaceDelimitedActions was removed in v1.0
+         */
         disableSpaceDelimitedActions?: boolean
     });
     /**
