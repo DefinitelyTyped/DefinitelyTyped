@@ -9,11 +9,11 @@ export interface JSONObject {
 export interface JSONArray extends Array<JSONValue> {}
 
 export type Path = ReadonlyArray<string|number>;
-export interface Snapshot {
+export interface Snapshot<T = any> {
     id: string;
     v: number;
     type: string | null;
-    data?: any;
+    data?: T;
     m: SnapshotMeta | null;
 }
 
@@ -89,12 +89,12 @@ export type Callback = (err: Error) => any;
 
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
-export class Doc extends EventEmitter {
+export class Doc<T = any> extends EventEmitter {
     connection: Connection;
     type: Type | null;
     id: string;
     collection: string;
-    data: any;
+    data: T;
     version: number | null;
     subscribed: boolean;
     preventCompose: boolean;
@@ -116,7 +116,7 @@ export class Doc extends EventEmitter {
     addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
-    ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
+    ingestSnapshot(snapshot: Snapshot<T>, callback: Callback): void;
     destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;

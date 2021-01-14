@@ -17,7 +17,7 @@ export class Connection {
     fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
 }
-export type Doc = ShareDB.Doc;
+export type Doc<T = any> = ShareDB.Doc<T>;
 export type Query = ShareDB.Query;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;
