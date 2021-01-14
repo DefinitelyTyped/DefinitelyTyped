@@ -1,58 +1,111 @@
+// Type definitions for trtc-calling-js 0.6
+// Project: https://github.com/tencentyun/TRTCSDK#readme
+// Definitions by: Wang KaiLing <https://github.com/wkl007>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export as namespace TRTCCalling;
 
-export default TRTCCalling;
+export = TRTCCalling;
 
-export const CALL_TYPE: 1;
+/**
+ * 定义 TRTCCalling 命名空间，方便导出用到的变量类型给外部引用
+ */
+declare namespace TRTCCalling {
+    type LogLevel = 0 | 1 | 2 | 3 | 4;
 
-interface Options {
-    SDKAppID: number;
+    type Callback<T = any> = (eventName: T) => void;
+
+    interface Options {
+        SDKAppID: number;
+    }
+
+    interface LoginOptions {
+        userID: string;
+        userSig: string;
+    }
+
+    interface CallOptions {
+        userID: string;
+        type: 1 | 2;
+        timeout: number;
+    }
+
+    interface GroupCallOptions {
+        userIDList: string[];
+        type: 1 | 2;
+        groupID?: string;
+    }
+
+    interface AcceptOptions {
+        inviteID: string;
+        roomID: number;
+        callType: 1 | 2;
+    }
+
+    interface RejectOptions {
+        inviteID: string;
+        isBusy: boolean;
+        callType: 1 | 2;
+    }
+
+    interface ViewOptions {
+        userID: string;
+        videoViewDomID: string;
+    }
+
+    interface RtcError {
+        error: string;
+    }
+
+    interface UserInfo {
+        userID: string;
+    }
+
+    interface UserVideoInfo extends UserInfo {
+        isVideoAvailable: boolean;
+    }
+
+    interface UserAudioInfo extends UserInfo {
+        isAudioAvailable: boolean;
+    }
+
+    interface InvitedInfo {
+        sponsor: string;
+        userIDList: string[];
+        isFromGroup: boolean;
+        inviteData: {
+            version: string;
+            callType: 1 | 2;
+            roomID?: string;
+            callEnd?: boolean;
+        };
+        inviteID: string;
+    }
+
+    /** 事件 */
+    interface EventMap {
+        onReject: UserInfo;
+        onNoResp: UserInfo;
+        onLineBusy: UserInfo;
+        onUserEnter: UserInfo;
+        onUserLeave: UserInfo;
+        onInvited: InvitedInfo;
+        onUserVideoAvailable: UserVideoInfo;
+        onUserAudioAvailable: UserAudioInfo;
+        onCallingCancel: undefined;
+        onCallingTimeout: undefined;
+        onCallEnd: undefined;
+        onKickedOut: undefined;
+        onError: any;
+    }
 }
 
-interface LoginOptions {
-    userID: string;
-    userSig: string;
-}
-
-interface CallOptions {
-    userID: string;
-    type: 1 | 2;
-    timeout: number;
-}
-
-interface GroupCallOptions {
-    userIDList: string[];
-    type: 1 | 2;
-    groupID?: string;
-}
-
-interface AcceptOptions {
-    inviteID: string;
-    roomID: number;
-    callType: 1 | 2;
-}
-
-interface RejectOptions {
-    inviteID: string;
-    isBusy: boolean;
-    callType: 1 | 2;
-}
-
-interface ViewOptions {
-    userID: string;
-    videoViewDomID: string;
-}
-
-interface RtcError {
-    error: string;
-}
-
-/** 事件 */
-interface EventMap {
-    'onError': RtcError
-}
-
+/**
+ * TRTCCalling 类，创建该类的实例可用于调用 TRTCCalling API
+ * @see https://webim-1252463788.cos.ap-shanghai.myqcloud.com/trtc-calling/doc/TRTCCalling.html
+ */
 declare class TRTCCalling {
-    constructor (options: Options);
+    constructor(options: TRTCCalling.Options);
 
     /** 通话类型 */
     static CALL_TYPE: {
@@ -94,48 +147,72 @@ declare class TRTCCalling {
         USER_AUDIO_AVAILABLE: 'onUserAudioAvailable';
     };
 
+    /**
+     * 设置日志输出等级
+     * 0 普通级别，日志量较多，接入时建议使用
+     * 1 release级别，SDK 输出关键信息，生产环境时建议使用
+     * 2 告警级别，SDK 只输出告警和错误级别的日志
+     * 3 错误级别，SDK 只输出错误级别的日志
+     * 4 无日志级别，SDK 将不打印任何日志
+     */
+    setLogLevel(level: TRTCCalling.LogLevel): void;
+
     /** 登录接口 */
-    login (options: LoginOptions): void;
+    login(options: TRTCCalling.LoginOptions): Promise<void>;
 
     /** 登出接口 */
-    logout (): void;
+    logout(): Promise<void>;
 
     /** 1对1通话邀请 */
-    call (options: CallOptions): void;
+    call(options: TRTCCalling.CallOptions): Promise<void>;
 
     /** 群组通话邀请 */
-    groupCall (options: GroupCallOptions): void;
+    groupCall(options: TRTCCalling.GroupCallOptions): Promise<void>;
 
     /** 接受当前的邀请 */
-    accept (options: AcceptOptions): void;
+    accept(options: TRTCCalling.AcceptOptions): Promise<void>;
 
     /** 拒绝当前的邀请 */
-    reject (options: RejectOptions): void;
+    reject(options: TRTCCalling.RejectOptions): void;
 
     /**
      * 1.当您处于通话中，可以调用该函数结束通话。
      * 2.当未拨通时, 可用来取消通话。
      */
-    hangup (): void;
+    hangup(): void;
 
     /** 将远端用户的摄像头数据渲染到指定的 DOM ID 节点里 */
-    startRemoteView (options: ViewOptions): void;
+    startRemoteView(options: TRTCCalling.ViewOptions): Promise<void>;
 
     /** 将远端用户的摄像头数据渲染的 DOM 节点删除 */
-    stopRemoteView (options: ViewOptions): void;
+    stopRemoteView(options: TRTCCalling.ViewOptions): void;
 
     /** 将本地用户的摄像头数据渲染到指定的 DOM ID 节点里 */
-    startLocalView (options: ViewOptions): void;
+    startLocalView(options: TRTCCalling.ViewOptions): Promise<void>;
 
     /** 将本地用户的摄像头数据渲染的 DOM 节点删除 */
-    stopLocalView (options: ViewOptions): void;
+    stopLocalView(options: TRTCCalling.ViewOptions): void;
 
     /** 开启本地摄像头 */
-    openCamera (): void;
+    openCamera(): void;
 
     /** 关闭摄像头 */
-    closeCamera (): void;
+    closeCamera(): void;
 
     /** 开启/关闭麦克风 */
-    setMicMute (isMute: boolean): void;
+    setMicMute(isMute: boolean): void;
+
+    /** 用于监听组件派发的事件 */
+    on<K extends keyof TRTCCalling.EventMap>(
+        eventName: K,
+        callback: TRTCCalling.Callback<TRTCCalling.EventMap[K]>,
+        context?: any,
+    ): void;
+
+    /** 用于取消事件监听 */
+    off<K extends keyof TRTCCalling.EventMap>(
+        eventName: K,
+        callback: TRTCCalling.Callback<TRTCCalling.EventMap[K]>,
+        context?: any,
+    ): void;
 }
