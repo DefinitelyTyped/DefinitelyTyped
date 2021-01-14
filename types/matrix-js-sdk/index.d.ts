@@ -478,7 +478,7 @@ export class MatrixClient extends EventEmitter {
     phoneCountry: string, phoneNumber: string, clientSecret: string, sendAttempt: number, nextLink: string,
   ): Promise<string>;
   requestVerification(
-    userId: string, methods: string[], devices: string[],
+    userId: string, devices: string[],
   ): Promise<CryptoVerificationBase>;
   resendEvent(event: MatrixEvent, room: Room): Promise<void>;
   resetNotifTimelineSet(): void;
@@ -643,18 +643,170 @@ export class MatrixClient extends EventEmitter {
   uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;
 }
 
+export class CryptoDeviceInfo {
+  constructor(deviceId: string)
+  deviceId: string
+  algorithms: string[]
+  keys: {[key: string]: string}
+  verified: number
+  known: boolean
+  unsigned: object
+  static VERIFIED: 1
+  static UNVERIFIED: 0
+  static BLOCKED: -1
+  static fromStorage(obj: object, deviceId: string): CryptoDeviceInfo
+  toStorage(): object
+  getFingerprint(): string
+  getIdentityKey(): string
+  getDisplayName(): string | null
+  isBlocked(): boolean
+  isVerified(): boolean
+  isUnverified(): boolean
+  isKnown(): boolean
+}
+export type EventTimelineDirection = typeof EventTimeline.BACKWARDS | typeof EventTimeline.FORWARDS
+export class EventTimeline {
+  constructor(eventTimelineSet: EventTimelineSet)
+  load(initialEventId?: string, initialWindowSize?: number): Promise<void>
+  static BACKWARDS: 'b'
+  static FORWARDS: 'f'
+  static setEventMetadata(event: MatrixEvent, stateContext: RoomState, toStartOfTimeline: boolean): void
+  addEvent(event: MatrixEvent, atStart: boolean): void
+  fork(direction: EventTimelineDirection): EventTimeline
+  forkLive(direction: EventTimelineDirection): EventTimeline
+  getBaseIndex(): number
+  getEvents(): MatrixEvent[]
+  getFilter(): Filter
+  getNeighbouringTimeline(direction: EventTimelineDirection): EventTimeline | null
+  getPaginationToken(direction: EventTimelineDirection): string | null
+  getRoomId(): string
+  getState(direction: EventTimelineDirection): RoomState
+  getTimelineSet(): EventTimelineSet
+  initialiseState(stateEvents: MatrixEvent[]): void
+  removeEvent(eventId: string): MatrixEvent | null
+  setNeighbouringTimeline(neighbour: EventTimeline, direction: EventTimelineDirection): void
+  setPaginationToken(token: string | null, direction: EventTimelineDirection): void
+  toString(): string
+}
+export class Relations extends EventEmitter {
+  constructor(relationType: string, eventType: string, room: Room | null)
+  addEvent(event: MatrixEvent): void
+  getRelations(): MatrixEvent[]
+  getSortedAnnotationsByKey(): [key: any, events: Set<MatrixEvent>][] | null
+  getAnnotationsBySender(): {[key: string]: Set<MatrixEvent>} | null
+  getLastReplacement(): MatrixEvent | null
+  setTargetEvent(event: MatrixEvent): void
+}
+export class EventTimelineSet extends EventEmitter {
+  constructor(room: Room | null, opts: {
+    timelineSupport?: boolean;
+    filter?: Filter;
+    unstableClientRelationAggregation?: boolean;
+  })
+  addEventsToTimeline(events: MatrixEvent[], toStartOfTimeline: boolean, timeline: EventTimeline, paginationToken?: string): void
+  addEventToTimeline(event: MatrixEvent, timeline: EventTimeline, toStartOfTimeline: boolean, fromCache: boolean): void
+  addLiveEvent(event: MatrixEvent, duplicateStrategy: string | null, fromCache: boolean): void
+  addTimeline(): EventTimeline
+  aggregateRelations(event: MatrixEvent): void
+  compareEventOrdering(eventId1: string, eventId2: string): number | null
+  eventIdToTimeline(eventId: string): EventTimeline
+  findEventById(eventId: string): MatrixEvent | undefined
+  getFilter(): Filter | null
+  getLiveTimeline(): EventTimeline
+  getPendingEvents(): MatrixEvent[]
+  getRelationsForEvent(eventId: string, relationType: string, eventType: string): Relations | undefined
+  getTimelineForEvent(eventId: string): EventTimeline
+  getTimelines(): EventTimeline[]
+  handleRemoteEcho(localEvent: MatrixEvent, oldEventId: string, newEventId: string): void
+  removeEvent(eventId: string): MatrixEvent | null
+  replaceEventId(oldEventId: string, newEventId: string): void
+  resetLiveTimeline(backPaginationToken?: string, forwardPaginationToken?: string): void
+  setFilter(filter: Filter): void
+  setRelationsTarget(event: MatrixEvent): void
+}
+export class Group extends EventEmitter {
+  constructor(groupId: string)
+  groupId: string
+  name: string
+  avatarUrl: string
+  myMembership: string
+  inviter: { userId: string }
+  setProfile(name: string, avatarUrl: string): void
+  setMyMembership(membership: string): void
+  setInviter(inviter: object): void
+}
+export type PushAction = {
+  notify: boolean;
+  tweaks: {
+    highlight: boolean;
+    sound: boolean;
+  };
+}
+
+export type RetryAlgorithm = (event: MatrixEvent, attempts: number, err: MatrixError) => number
+export type QueueAlgorithm = (event: MatrixEvent) => string
+export type ProcessFn = (event: MatrixEvent) => Promise<any>
+
+export class MatrixScheduler {
+  constructor(retryAlgorithm?: RetryAlgorithm, queueAlgorithm?: QueueAlgorithm)
+  static RETRY_BACKOFF_RATELIMIT(event: MatrixEvent, attempts: number, err: MatrixError): number
+  static QUEUE_MESSAGES(event: MatrixEvent): string | null
+  getQueueForEvent(event: MatrixEvent): MatrixEvent[] | null
+  removeEventFromQueue(event: MatrixEvent): boolean 
+  setProcessFunction(fn: ProcessFn): void
+  queueEvent(event: MatrixEvent): Promise<void> | null
+}
 /**
  * The following types are the classes that To Be Typing:
  */
-export type CryptoDeviceInfo = any;
-export type EventTimeline = any;
-export type EventTimelineSet = any;
-export type Group = any;
-export type PushAction = any;
-export type MatrixScheduler = any;
 export type CryptoVerificationBase = any;
-export type RoomSummary = any;
-export type EventStatus = any;
+export class RoomSummary {
+  constructor(
+    roomId: string,
+    info?: {
+      title: string
+      desc: string
+      numMembers: number
+      aliases: string[]
+      timestamp: number
+    }
+  )
+}
+export enum EventStatus  {
+  NOT_SENT = 'not_sent',
+  ENCRYPTING = 'encrypting',
+  SENDING = 'sending',
+  QUEUED = 'queued',
+  SENT = 'sent',
+  CANCELLED = 'cancelled'
+}
+
+export class TimelineIndex {
+  constructor(timeline: EventTimeline, index: number)
+  minIndex(): number
+  maxIndex(): number
+  advance(delta: number): number
+  retreat(delta: number): number
+}
+export class TimelineWindow {
+  constructor(
+    client: MatrixClient,
+    timelineSet: EventTimelineSet,
+    opts?: { windowLimit?: number }
+  )
+  canPaginate(direction: EventTimelineDirection): boolean
+  extend(direction: EventTimelineDirection, size: number): boolean
+  getEvents(): MatrixEvent[]
+  getTimelineIndex(direction: EventTimelineDirection): TimelineIndex | null
+  load(initialEventId?: string, initialWindowSize?: number): Promise<void>
+  paginate(
+    direction: EventTimelineDirection,
+    size: number,
+    makeRequest?: boolean,
+    requestLimit?: number
+  ): Promise<boolean>
+  unpaginate(delta: number, startOfTimeline: boolean): void
+}
 
 export interface CreateRoomOptions {
   invite?: string[];  //  <string> A list of user IDs to invite to this room.
@@ -682,7 +834,7 @@ export class Filter {
   setIncludeLeaveRooms(includeLeave: boolean): void;
   setTimelineLimit(limit: number): void;
 }
-
+// TODO: inherits EventEmitter?
 export class MatrixEvent {
   event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
   sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
@@ -708,6 +860,49 @@ export class MatrixEvent {
   getLocalAge(): number;
   getStateKey(): string;
   isState(): boolean;
+  makeEncrypted(crypto_type: string, crypto_content: object, senderCurve25519Key: string, claimedEd25519Key: string): void;
+  isBeingDecrypted(): boolean;
+  isDecryptionFailure(): boolean;
+  attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>
+  cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>
+  getKeyRequestRecipients(userId: string): { userId: string, deviceId: string}[]
+  getClearContent(): EventContentType
+  isEncrypted(): boolean
+  getSenderKey(): string
+  getKeysClaimed(): { ed25519: string }
+  getClaimedEd25519Key(): string
+  getForwardingCurve25519KeyChain(): string[]
+  isKeySourceUntrusted(): boolean
+  getUnsigned(): any
+  unmarkLocallyRedacted(): boolean
+  markLocallyRedacted(redactionEvent: MatrixEvent): void
+  makeRedacted(redaction_event: MatrixEvent): void
+  isRedacted(): boolean
+  isRedaction(): boolean
+  getPushActions(): PushAction[]
+  setPushActions(pushActions: PushAction[]): void
+  handleRemoteEcho(event: MatrixEvent): void
+  isSending(): boolean
+  setStatus(status: EventStatus): void
+  replaceLocalEventId(eventId: string): void
+  isRelation(relType?: string): boolean
+  getRelation(): EventContentType | null
+  makeReplaced(newEvent?: MatrixEvent): void
+  getAssociatedStatus(): EventStatus
+  getServerAggregatedRelation(relType: string): any[]
+  replacingEventId(): string | undefined
+  replacingEvent(): string | undefined
+  replacingEventDate(): Date | undefined
+  localRedactionEvent(): MatrixEvent
+  getAssociatedId(): string | undefined
+  hasAssocation(): boolean
+  updateAssociatedId(eventId: string): void
+  flagCancelled(cancelled?: boolean): void
+  isCancelled(): boolean
+  toJSON(): any
+  setVerificationRequest(request: any): void
+  setTxnId(txnId: string): void
+  getTxnId(): string
 }
 
 export class RoomMember {
