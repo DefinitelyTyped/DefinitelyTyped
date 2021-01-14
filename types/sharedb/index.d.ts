@@ -9,6 +9,7 @@
 /// <reference path="lib/sharedb.d.ts" />
 
 import { Duplex } from 'stream';
+import { EventEmitter } from 'events';
 import Agent = require('./lib/agent');
 import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
@@ -22,7 +23,7 @@ interface Stream {
 
 export = sharedb;
 
-declare class sharedb {
+declare class sharedb extends EventEmitter {
     db: sharedb.DB;
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
@@ -74,6 +75,13 @@ declare class sharedb {
         action: A,
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
+
+    on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    on(event: 'error', callback: (err: Error) => void): this;
+
+    addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    addListener(event: 'error', callback: (err: Error) => void): this;
+
     static types: ShareDB.Types;
 }
 
