@@ -12985,7 +12985,9 @@ wx.getSetting({
 * - 小游戏可以通过 `wx.getGroupInfo` 接口获取群名称
 *
 * 最低基础库： `1.1.0` */
-        getShareInfo(option: GetShareInfoOption): void
+        getShareInfo<TOption extends GetShareInfoOption>(
+            option: TOption
+        ): PromisifySuccessResult<TOption, GetShareInfoOption>
         /** [wx.getStorage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorage.html)
 *
 * 从本地缓存中异步获取指定 key 的内容。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。
@@ -13191,7 +13193,9 @@ Page({
   }
 })
 ``` */
-        getUserInfo(option: GetUserInfoOption): void
+        getUserInfo<TOption extends GetUserInfoOption>(
+            option: TOption
+        ): PromisifySuccessResult<TOption, GetUserInfoOption>
         /** [wx.getVideoInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/wx.getVideoInfo.html)
          *
          * 获取视频详细信息。
@@ -13248,7 +13252,9 @@ wx.getWeRunData({
 * | step | number | 微信运动步数 |
 *
 * 最低基础库： `1.2.0` */
-        getWeRunData(option?: GetWeRunDataOption): void
+        getWeRunData<TOption extends GetWeRunDataOption>(
+            option?: TOption
+        ): PromisifySuccessResult<TOption, GetWeRunDataOption>
         /** [wx.getWifiList(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/wifi/wx.getWifiList.html)
          *
          * 请求获取 Wi-Fi 列表。在 `onGetWifiList` 注册的回调中返回 `wifiList` 数据。 **Android 调用前需要 [用户授权](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html) scope.userLocation。**
@@ -13407,7 +13413,9 @@ wx.login({
   }
 })
 ``` */
-        login(option?: LoginOption): void
+        login<TOption extends LoginOption>(
+            option?: TOption
+        ): PromisifySuccessResult<TOption, LoginOption>
         /** [wx.makeBluetoothPair(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-ble/wx.makeBluetoothPair.html)
          *
          * 蓝牙配对接口，仅安卓支持。通常情况下（需要指定 `pin` 码或者密码时）系统会接管配对流程，直接使用 直接 `createBLEConnection` 即可；该接口只应当在开发者不想让用户手动输入`pin` 码且真机验证确认可以正常生效情况下用。
