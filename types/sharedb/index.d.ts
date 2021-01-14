@@ -26,11 +26,13 @@ declare class sharedb {
     db: sharedb.DB;
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
+    milestoneDb?: sharedb.MilestoneDB;
 
     constructor(options?: {
         db?: any,
         pubsub?: sharedb.PubSub,
         extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
+        milestoneDb?: sharedb.MilestoneDB,
         disableDocAction?: boolean,
         disableSpaceDelimitedActions?: boolean
     });
@@ -128,6 +130,14 @@ declare namespace sharedb {
         protected _emit(channel: string, data: {[k: string]: any}): void;
         private _createStream(channel): void;
         private _removeStream(channel, stream): void;
+    }
+
+    abstract class MilestoneDB {
+        close(callback?: BasicCallback): void;
+        getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
+        saveMilestoneSnapshot(collection: string, snapshot: ShareDB.Snapshot, callback?: BasicCallback): void;
+        getMilestoneSnapshotAtOrBeforeTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
+        getMilestoneSnapshotAtOrAfterTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
     }
 
     /**
