@@ -94,6 +94,7 @@ declare class sharedb extends EventEmitter {
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     static types: ShareDB.Types;
+    static logger: ShareDB.Logger;
 }
 
 declare namespace sharedb {

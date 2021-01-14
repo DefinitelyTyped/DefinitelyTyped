@@ -229,6 +229,15 @@ const op1 = [{ insert: 'Hello' }];
 const op2 = [{ retain: 5 }, { insert: ' world!' }];
 const op3 = ShareDBClient.types.map['rich-text'].compose(op1, op2);
 
+ShareDB.logger.setMethods({
+    warn: (...args: any[]) => console.log(...args),
+});
+
+ShareDBClient.logger.setMethods({
+    info: () => {},
+    error: (message: string) => console.error(message),
+});
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
