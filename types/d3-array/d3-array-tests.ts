@@ -941,10 +941,8 @@ const reversed: number[] = d3Array.reverse(new Set([0, 2, 3, 1]));
 
 const sorted: number[] = d3Array.sort(new Set([0, 2, 3, 1]));
 const sortedComparator: number[] = d3Array.sort(new Set([0, 2, 3, 1]), (a, b) => a - b);
-interface ObjectWithValue {
-    value: number;
-}
-const sortedAccessor: ObjectWithValue[] = d3Array.sort([{ value: 5 }, { value: 3 }], (a) => a.value);
+
+const sortedAccessor: Array<{ value: number }> = d3Array.sort([{ value: 5 }, { value: 3 }], (a) => a.value);
 
 // -----------------------------------------------------------------------------
 // Test Sets
