@@ -440,7 +440,7 @@ export class Editor {
     private constructor();
     id(): string;
     name(): string;
-    teams(): Array<Team>;
+    teams(): Team[];
 }
 
 export class Team {
