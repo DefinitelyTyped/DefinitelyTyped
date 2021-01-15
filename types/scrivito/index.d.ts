@@ -1,4 +1,4 @@
-// Type definitions for scrivito 1.16
+// Type definitions for scrivito 1.17
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger <https://github.com/juliankrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -466,6 +466,8 @@ export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): void;
 export function useHistory(history: History): void;
 export function validationResults(model: Obj | Widget, attribute: string): object[];
+export function isComparisonActive(): boolean;
+export function currentWorkspaceId(): string;
 
 // Fix automatic exports
 
