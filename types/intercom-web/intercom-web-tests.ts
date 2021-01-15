@@ -21,10 +21,12 @@ Intercom('show');
 Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
+Intercom('startTour', 123);
 Intercom('onHide', () => { /* Do stuff */ });
 Intercom('onUnreadCountChange', (unreadCount: number) => { /* Do stuff */ });
 Intercom('onActivatorClick', () => { /* Do stuff */ });
 Intercom('trackEvent', 'invited-friend');
+
 const visitorId = Intercom('getVisitorId');
 
 Intercom.booted;
@@ -74,3 +76,6 @@ intercomSettings = {
   horizontal_padding: 20,
   vertical_padding: 20
 };
+
+// $ExpectError
+Intercom('update', { some: 'invalid properties' });

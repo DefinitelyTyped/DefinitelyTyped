@@ -18,7 +18,7 @@ export enum LoggerLevel {
     INFO = 800,
     WARNING = 900,
     ERROR = 1000,
-    NONE = 1500
+    NONE = 1500,
 }
 
 export enum ContentProtection {
@@ -29,6 +29,11 @@ export enum ContentProtection {
     AES_128 = 'aes_128',
     AES_128_CKP = 'aes_128_ckp',
 }
+
+/**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
 
 /**
  * Manages text tracks.
@@ -187,6 +192,47 @@ export class QueueBase {
      * Shuffles the queue and returns new queue items. Returns null if the operation is not supported.
      */
     shuffle(): messages.QueueItem[] | Promise<messages.QueueItem[]>;
+}
+
+// So we can have some auxiliary private types.
+export {};
+type MessageInterceptor<MessageType> =
+    | ((data: MessageType) => MessageType | messages.ErrorData)
+    | ((data: MessageType) => Promise<MessageType | messages.ErrorData>)
+    | ((data: MessageType) => null)
+    | null;
+
+interface MessageEventToMessageTypeMap {
+    [messages.MessageType.CLOUD_STATUS]: messages.CloudMediaStatus;
+    [messages.MessageType.CUSTOM_COMMAND]: messages.CustomCommandRequestData;
+    [messages.MessageType.DISPLAY_STATUS]: messages.DisplayStatusRequestData;
+    [messages.MessageType.EDIT_AUDIO_TRACKS]: messages.EditAudioTracksRequestData;
+    [messages.MessageType.EDIT_TRACKS_INFO]: messages.EditTracksInfoRequestData;
+    [messages.MessageType.FOCUS_STATE]: messages.FocusStateRequestData;
+    [messages.MessageType.GET_STATUS]: messages.GetStatusRequestData;
+    [messages.MessageType.LOAD]: messages.LoadRequestData;
+    [messages.MessageType.LOAD_BY_ENTITY]: messages.LoadByEntityRequestData;
+    [messages.MessageType.MEDIA_STATUS]: messages.MediaStatus;
+    [messages.MessageType.PRECACHE]: messages.PrecacheRequestData;
+    [messages.MessageType.PRELOAD]: messages.PreloadRequestData;
+    [messages.MessageType.QUEUE_CHANGE]: messages.QueueChange;
+    [messages.MessageType.QUEUE_GET_ITEMS]: messages.GetItemsInfoRequestData;
+    [messages.MessageType.QUEUE_GET_ITEM_RANGE]: messages.FetchItemsRequestData;
+    [messages.MessageType.QUEUE_INSERT]: messages.QueueInsertRequestData;
+    [messages.MessageType.QUEUE_ITEMS]: messages.ItemsInfo;
+    [messages.MessageType.QUEUE_ITEM_IDS]: messages.QueueIds;
+    [messages.MessageType.QUEUE_LOAD]: messages.QueueLoadRequestData;
+    [messages.MessageType.QUEUE_REMOVE]: messages.QueueRemoveRequestData;
+    [messages.MessageType.QUEUE_REORDER]: messages.QueueReorderRequestData;
+    [messages.MessageType.QUEUE_UPDATE]: messages.QueueUpdateRequestData;
+    [messages.MessageType.RESUME_SESSION]: messages.ResumeSessionRequestData;
+    [messages.MessageType.SEEK]: messages.SeekRequestData;
+    [messages.MessageType.SESSION_STATE]: messages.StoreSessionRequestData;
+    [messages.MessageType.SET_CREDENTIALS]: messages.SetCredentialsRequestData;
+    [messages.MessageType.SET_PLAYBACK_RATE]: messages.SetPlaybackRateRequestData;
+    [messages.MessageType.SET_VOLUME]: messages.VolumeRequestData;
+    [messages.MessageType.STORE_SESSION]: messages.StoreSessionRequestData;
+    [messages.MessageType.USER_ACTION]: messages.UserActionRequestData;
 }
 
 /**
@@ -658,254 +704,11 @@ export class PlayerManager {
      * provided, and no interceptor is provided for preload - the load
      * interceptor will be called for preload messages.
      */
-    setMessageInterceptor(
-        type: messages.MessageType.CLOUD_STATUS,
-        interceptor:
-            | ((messageData: messages.CloudMediaStatus) => messages.CloudMediaStatus)
-            | ((messageData: messages.CloudMediaStatus) => Promise<messages.CloudMediaStatus>)
-            | ((messageData: messages.CloudMediaStatus) => null)
-            | null,
+    setMessageInterceptor<MessageEvent extends keyof MessageEventToMessageTypeMap>(
+        type: MessageEvent,
+        interceptor: MessageInterceptor<MessageEventToMessageTypeMap[MessageEvent]>,
     ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.CUSTOM_COMMAND,
-        interceptor:
-            | ((messageData: messages.CustomCommandRequestData) => messages.CustomCommandRequestData)
-            | ((messageData: messages.CustomCommandRequestData) => Promise<messages.CustomCommandRequestData>)
-            | ((messageData: messages.CustomCommandRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.DISPLAY_STATUS,
-        interceptor:
-            | ((messageData: messages.DisplayStatusRequestData) => messages.DisplayStatusRequestData)
-            | ((messageData: messages.DisplayStatusRequestData) => Promise<messages.DisplayStatusRequestData>)
-            | ((messageData: messages.DisplayStatusRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_AUDIO_TRACKS,
-        interceptor:
-            | ((messageData: messages.EditAudioTracksRequestData) => messages.EditAudioTracksRequestData)
-            | ((messageData: messages.EditAudioTracksRequestData) => Promise<messages.EditAudioTracksRequestData>)
-            | ((messageData: messages.EditAudioTracksRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_TRACKS_INFO,
-        interceptor:
-            | ((messageData: messages.EditTracksInfoRequestData) => messages.EditTracksInfoRequestData)
-            | ((messageData: messages.EditTracksInfoRequestData) => Promise<messages.EditTracksInfoRequestData>)
-            | ((messageData: messages.EditTracksInfoRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.FOCUS_STATE,
-        interceptor:
-            | ((messageData: messages.FocusStateRequestData) => messages.FocusStateRequestData)
-            | ((messageData: messages.FocusStateRequestData) => Promise<messages.FocusStateRequestData>)
-            | ((messageData: messages.FocusStateRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.GET_STATUS,
-        interceptor:
-            | ((messageData: messages.GetStatusRequestData) => messages.GetStatusRequestData)
-            | ((messageData: messages.GetStatusRequestData) => Promise<messages.GetStatusRequestData>)
-            | ((messageData: messages.GetStatusRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD,
-        interceptor:
-            | ((messageData: messages.LoadRequestData) => messages.LoadRequestData)
-            | ((messageData: messages.LoadRequestData) => Promise<messages.LoadRequestData>)
-            | ((messageData: messages.LoadRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD_BY_ENTITY,
-        interceptor:
-            | ((messageData: messages.LoadByEntityRequestData) => messages.LoadByEntityRequestData)
-            | ((messageData: messages.LoadByEntityRequestData) => Promise<messages.LoadByEntityRequestData>)
-            | ((messageData: messages.LoadByEntityRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.MEDIA_STATUS,
-        interceptor:
-            | ((messageData: messages.MediaStatus) => messages.MediaStatus)
-            | ((messageData: messages.MediaStatus) => Promise<messages.MediaStatus>)
-            | ((messageData: messages.MediaStatus) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRECACHE,
-        interceptor:
-            | ((messageData: messages.PrecacheRequestData) => messages.PrecacheRequestData)
-            | ((messageData: messages.PrecacheRequestData) => Promise<messages.PrecacheRequestData>)
-            | ((messageData: messages.PrecacheRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRELOAD,
-        interceptor:
-            | ((messageData: messages.PreloadRequestData) => messages.PreloadRequestData)
-            | ((messageData: messages.PreloadRequestData) => Promise<messages.PreloadRequestData>)
-            | ((messageData: messages.PreloadRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_CHANGE,
-        interceptor:
-            | ((messageData: messages.QueueChange) => messages.QueueChange)
-            | ((messageData: messages.QueueChange) => Promise<messages.QueueChange>)
-            | ((messageData: messages.QueueChange) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEMS,
-        interceptor:
-            | ((messageData: messages.GetItemsInfoRequestData) => messages.GetItemsInfoRequestData)
-            | ((messageData: messages.GetItemsInfoRequestData) => Promise<messages.GetItemsInfoRequestData>)
-            | ((messageData: messages.GetItemsInfoRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEM_RANGE,
-        interceptor:
-            | ((messageData: messages.FetchItemsRequestData) => messages.FetchItemsRequestData)
-            | ((messageData: messages.FetchItemsRequestData) => Promise<messages.FetchItemsRequestData>)
-            | ((messageData: messages.FetchItemsRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_INSERT,
-        interceptor:
-            | ((messageData: messages.QueueInsertRequestData) => messages.QueueInsertRequestData)
-            | ((messageData: messages.QueueInsertRequestData) => Promise<messages.QueueInsertRequestData>)
-            | ((messageData: messages.QueueInsertRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEMS,
-        interceptor:
-            | ((messageData: messages.ItemsInfo) => messages.ItemsInfo)
-            | ((messageData: messages.ItemsInfo) => Promise<messages.ItemsInfo>)
-            | ((messageData: messages.ItemsInfo) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEM_IDS,
-        interceptor:
-            | ((messageData: messages.QueueIds) => messages.QueueIds)
-            | ((messageData: messages.QueueIds) => Promise<messages.QueueIds>)
-            | ((messageData: messages.QueueIds) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_LOAD,
-        interceptor:
-            | ((messageData: messages.QueueLoadRequestData) => messages.QueueLoadRequestData)
-            | ((messageData: messages.QueueLoadRequestData) => Promise<messages.QueueLoadRequestData>)
-            | ((messageData: messages.QueueLoadRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REMOVE,
-        interceptor:
-            | ((messageData: messages.QueueRemoveRequestData) => messages.QueueRemoveRequestData)
-            | ((messageData: messages.QueueRemoveRequestData) => Promise<messages.QueueRemoveRequestData>)
-            | ((messageData: messages.QueueRemoveRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REORDER,
-        interceptor:
-            | ((messageData: messages.QueueReorderRequestData) => messages.QueueReorderRequestData)
-            | ((messageData: messages.QueueReorderRequestData) => Promise<messages.QueueReorderRequestData>)
-            | ((messageData: messages.QueueReorderRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_UPDATE,
-        interceptor:
-            | ((messageData: messages.QueueUpdateRequestData) => messages.QueueUpdateRequestData)
-            | ((messageData: messages.QueueUpdateRequestData) => Promise<messages.QueueUpdateRequestData>)
-            | ((messageData: messages.QueueUpdateRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.RESUME_SESSION,
-        interceptor:
-            | ((messageData: messages.ResumeSessionRequestData) => messages.ResumeSessionRequestData)
-            | ((messageData: messages.ResumeSessionRequestData) => Promise<messages.ResumeSessionRequestData>)
-            | ((messageData: messages.ResumeSessionRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SEEK,
-        interceptor:
-            | ((messageData: messages.SeekRequestData) => messages.SeekRequestData)
-            | ((messageData: messages.SeekRequestData) => Promise<messages.SeekRequestData>)
-            | ((messageData: messages.SeekRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SESSION_STATE,
-        interceptor:
-            | ((messageData: messages.StoreSessionResponseData) => messages.StoreSessionResponseData)
-            | ((messageData: messages.StoreSessionResponseData) => Promise<messages.StoreSessionResponseData>)
-            | ((messageData: messages.StoreSessionResponseData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_CREDENTIALS,
-        interceptor:
-            | ((messageData: messages.SetCredentialsRequestData) => messages.SetCredentialsRequestData)
-            | ((messageData: messages.SetCredentialsRequestData) => Promise<messages.SetCredentialsRequestData>)
-            | ((messageData: messages.SetCredentialsRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_PLAYBACK_RATE,
-        interceptor:
-            | ((messageData: messages.SetPlaybackRateRequestData) => messages.SetPlaybackRateRequestData)
-            | ((messageData: messages.SetPlaybackRateRequestData) => Promise<messages.SetPlaybackRateRequestData>)
-            | ((messageData: messages.SetPlaybackRateRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_VOLUME,
-        interceptor:
-            | ((messageData: messages.VolumeRequestData) => messages.VolumeRequestData)
-            | ((messageData: messages.VolumeRequestData) => Promise<messages.VolumeRequestData>)
-            | ((messageData: messages.VolumeRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.STORE_SESSION,
-        interceptor:
-            | ((messageData: messages.StoreSessionRequestData) => messages.StoreSessionRequestData)
-            | ((messageData: messages.StoreSessionRequestData) => Promise<messages.StoreSessionRequestData>)
-            | ((messageData: messages.StoreSessionRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.USER_ACTION,
-        interceptor:
-            | ((messageData: messages.UserActionRequestData) => messages.UserActionRequestData)
-            | ((messageData: messages.UserActionRequestData) => Promise<messages.UserActionRequestData>)
-            | ((messageData: messages.UserActionRequestData) => null)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType,
-        interceptor:
-            | ((messageData: messages.RequestData) => messages.RequestData)
-            | ((messageData: messages.RequestData) => Promise<messages.RequestData>)
-            | ((messageData: messages.RequestData) => null)
-            | null,
-    ): void;
+    setMessageInterceptor(type: messages.MessageType, interceptor: MessageInterceptor<messages.RequestData>): void;
 
     /**
      * Sets playback configuration on the PlayerManager.
@@ -923,6 +726,51 @@ export class PlayerManager {
      * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
      */
     setPreferredTextLanguage(preferredTextLanguage: string): void;
+
+    /**
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
+     */
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Remove commands from receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    removeSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Add commands to receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    addSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Gets the current receiver supported media commands.
+     * Should only be called after calling receiver start, otherwise it returns 0.
+     * This reflects the current media status. E.g. during ads playback, SEEK might not be supported.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getCurrentSupportedMediaCommands(): number;
+
+    /**
+     * Gets receiver supported media commands. Should only be called after calling receiver start, otherwise it returns 0.
+     * This is the static supported media commands set by receiver application.
+     * It won't be updated based on current media status.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getSupportedMediaCommands(): number;
 
     /**
      * Stops currently playing media.
@@ -1128,12 +976,12 @@ export class CastReceiverContext {
     /**
      * Sets message listener on custom message channel.
      */
-    addCustomMessageListener(namespace: string, listener: EventHandler): void;
+    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Add listener to cast system events.
      */
-    addEventListener(type: system.EventType | system.EventType[], handler: EventHandler): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
@@ -1196,12 +1044,12 @@ export class CastReceiverContext {
     /**
      * Remove a message listener on custom message channel.
      */
-    removeCustomMessageListener(namespace: string, listener: EventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Remove listener to cast system events.
      */
-    removeEventListener(type: system.EventType, handler: EventHandler): void;
+    removeEventListener(type: system.EventType, handler: SystemEventHandler): void;
 
     /**
      * Sends a message to a specific sender or broadcasts it to all connected senders (to broadcast pass undefined as a senderId).

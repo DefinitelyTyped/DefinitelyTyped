@@ -23,7 +23,11 @@ function doneReading() {
     if (++filesRead < 2) return;
     const diff = new PNG({ width: img1.width, height: img1.height });
 
-    pixelmatch(img1.data, img2.data, diff.data, img1.width, img1.height, { threshold: 0.1, diffMask: true });
+    pixelmatch(img1.data, img2.data, diff.data, img1.width, img1.height, {
+        threshold: 0.1,
+        diffMask: true,
+        diffColorAlt: [0, 255, 0],
+    });
 
     diff.pack().pipe(fs.createWriteStream('diff.png'));
 }

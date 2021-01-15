@@ -12,6 +12,9 @@ import {
     APIGatewayProxyEvent,
     APIGatewayProxyHandler,
     APIGatewayProxyResult,
+    APIGatewayProxyEventV2,
+    APIGatewayProxyHandlerV2,
+    APIGatewayProxyResultV2,
     APIGatewayProxyWithLambdaAuthorizerEventRequestContext,
     APIGatewayProxyWithLambdaAuthorizerHandler,
     APIGatewayRequestAuthorizerHandler,
@@ -26,6 +29,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
+    APIGatewayProxyStructuredResultV2,
 } from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -67,15 +71,18 @@ type ProbablyInvalidCustomProxyHandler = APIGatewayProxyWithLambdaAuthorizerHand
 
 let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = event.body;
-    str = event.headers['example'];
-    str = event.multiValueHeaders['example'][0];
+    const headers = event.headers; // $ExpectType APIGatewayProxyEventHeaders
+    strOrUndefined = event.headers['example'];
+    strArrayOrUndefined = event.multiValueHeaders['example'];
+    str = event.multiValueHeaders['example']![0];
     str = event.httpMethod;
     bool = event.isBase64Encoded;
     str = event.path;
-    str = event.pathParameters!['example'];
-    str = event.queryStringParameters!['example'];
-    str = event.multiValueQueryStringParameters!['example'][0];
-    str = event.stageVariables!['example'];
+    strOrUndefined = event.pathParameters!['example'];
+    strOrUndefined = event.queryStringParameters!['example'];
+    strArrayOrUndefined = event.multiValueQueryStringParameters!['example'];
+    str = event.multiValueQueryStringParameters!['example']![0];
+    strOrUndefined = event.stageVariables!['example'];
     let requestContext: APIGatewayEventRequestContext;
     requestContext = event.requestContext;
     let requestContextWithCustomAuthorizer: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
@@ -132,11 +139,44 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     return result;
 };
 
+const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    strOrUndefined = event.body;
+    str = event.headers['example']!;
+    str = event.routeKey;
+    bool = event.isBase64Encoded;
+    str = event.rawPath;
+    str = event.rawQueryString;
+    strOrUndefined = event.cookies ? event.cookies[0] : undefined;
+    strOrUndefined = event.queryStringParameters ? event.queryStringParameters['example'] : undefined;
+    strOrUndefined = event.pathParameters ? event.pathParameters['example'] : undefined;
+    strOrUndefined = event.stageVariables ? event.stageVariables['example'] : undefined;
+
+    str = event.requestContext.http.protocol;
+    str = event.requestContext.http.sourceIp;
+    str = event.requestContext.http.method;
+    str = event.requestContext.http.userAgent;
+    str = event.requestContext.accountId;
+    str = event.requestContext.apiId;
+    str = event.requestContext.domainName;
+    str = event.requestContext.domainPrefix;
+    str = event.requestContext.stage;
+    str = event.requestContext.requestId;
+    str = event.requestContext.time;
+    num = event.requestContext.timeEpoch;
+
+    const result = createProxyResultV2();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
 const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
     // standard fields...
     strOrNull = event.body;
-    str = event.headers['example'];
-    str = event.multiValueHeaders['example'][0];
+    strOrUndefined = event.headers['example'];
+    strArrayOrUndefined = event.multiValueHeaders['example'];
+    str = event.multiValueHeaders['example']![0];
 
     // It seems like it would be easy to make this mistake, but it's still a useful type.
     let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
@@ -193,6 +233,78 @@ function createProxyResult(): APIGatewayProxyResult {
     };
     return result;
 }
+
+function createProxyResultV2(): APIGatewayProxyResultV2 {
+    let result: APIGatewayProxyStructuredResultV2 = {
+        statusCode: num,
+        body: str,
+    };
+    result = {
+        statusCode: num,
+        headers: {
+            [str]: str,
+            [str]: bool,
+            [str]: num,
+        },
+        isBase64Encoded: true,
+        body: str,
+    };
+    return result;
+}
+
+const proxyHandlerV2ForStringResult: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    const result = createProxyStringResultV2();
+
+    callback(new Error());
+    callback(undefined, result);
+    return result;
+};
+
+function createProxyStringResultV2(): APIGatewayProxyResultV2 {
+    const result = 'example';
+    return result;
+}
+
+interface Response {
+    example: string;
+}
+
+const proxyHandlerV2ForObjectResult: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+    const result = createProxyStringResultV2();
+
+    callback(new Error());
+    callback(undefined, result);
+    return result;
+};
+
+function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
+    const result: Response = {
+        example: 'example squared'
+    };
+    return result;
+}
+
+// $ExpectError
+const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
+    const result = {
+        wrongExample: 'wrong example'
+    };
+
+    callback(new Error());
+    callback(undefined, result); // $ExpectError
+    return result;
+};
+
+// $ExpectError
+const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    const result = {
+        wrongExample: 'wrong example',
+    };
+
+    callback(new Error());
+    callback(undefined, result); // $ExpectError
+    return result;
+};
 
 const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
     if (event.type === "TOKEN") {
@@ -277,17 +389,17 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     str = event.path;
     str = event.httpMethod;
     if (event.headers !== null)
-        str = event.headers[str];
+        strOrUndefined = event.headers[str];
     if (event.multiValueHeaders !== null)
-        str = event.multiValueHeaders[str][num];
+        str = event.multiValueHeaders[str]![num];
     if (event.pathParameters !== null)
-        str = event.pathParameters[str];
+        strOrUndefined = event.pathParameters[str];
     if (event.queryStringParameters !== null)
-        str = event.queryStringParameters[str];
+        strOrUndefined = event.queryStringParameters[str];
     if (event.multiValueQueryStringParameters !== null)
-        str = event.multiValueQueryStringParameters[str][num];
+        str = event.multiValueQueryStringParameters[str]![num];
     if (event.stageVariables !== null)
-        str = event.stageVariables[str];
+        strOrUndefined = event.stageVariables[str];
     const requestContext: APIGatewayEventRequestContext = event.requestContext;
     if (requestContext.domainName != null) {
         str = requestContext.domainName;

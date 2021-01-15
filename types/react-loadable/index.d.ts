@@ -188,7 +188,7 @@ declare namespace LoadableExport {
 
 declare const LoadableExport: LoadableExport.Loadable;
 
-/* tslint:disable-next-line */
+/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
 declare module "react-loadable" {
     export = LoadableExport;
 }

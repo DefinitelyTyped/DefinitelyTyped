@@ -2,15 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "no-declare-current-package": false,
-        "no-redundant-jsdoc": false,
         "no-self-import": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false
     }

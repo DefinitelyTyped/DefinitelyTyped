@@ -3,19 +3,15 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-name": false,
         "interface-over-type-literal": false,
         "member-access": false,
         "no-any-union": false,
         "no-declare-current-package": false,
-        "no-redundant-jsdoc": false,
         "no-self-import": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-generics": false,
         "no-void-expression": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

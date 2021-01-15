@@ -79,6 +79,11 @@ router.get("/", (req, res) => {
     } else {
         res.json({ success: false });
     }
+})
+.queryParam("noJoi", {
+    validate(value) {
+        return { value };
+    }
 });
 
 router.use((req, res, next) => {

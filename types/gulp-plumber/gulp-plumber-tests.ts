@@ -9,10 +9,10 @@ gulp.src('./src/*.ext')
 //error handler function
 gulp.src('./src/*.ext')
     .pipe(plumber((error) => {
-		console.log(error);
-	}))
+        console.log(error);
+    }))
     .pipe(gulp.dest('./dist'));
-	
+    
 gulp.src('./src/*.ext')
     .pipe(plumber({}))
     .pipe(gulp.dest('./dist'));

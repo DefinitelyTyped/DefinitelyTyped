@@ -117,7 +117,7 @@ export const optionLength = [
 
 // let bigOptions = [];
 // for (let i = 0; i < 10000; i++) {
-// 	bigOptions = bigOptions.concat(colourOptions);
+//     bigOptions = bigOptions.concat(colourOptions);
 // }
 
 const colourGroup: GroupType<ColourOption> = {

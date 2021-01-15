@@ -4,8 +4,22 @@ const dropzoneRenameFunction = (name: string): string => {
     return name + 'new';
 };
 
+const blacklistedBrowsers: RegExp[] = Dropzone.blacklistedBrowsers;
 Dropzone.createElement('<div id="divTest"></div>');
+const dataURItoBlob: Blob = Dropzone.dataURItoBlob('');
+const discover: Dropzone[] = Dropzone.discover();
+const elementInside: boolean = Dropzone.elementInside(document.getElementById('test'), document.getElementById('parentOfTest'));
+const dropzoneForSelector: Dropzone = Dropzone.forElement('#selector');
+const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById('test'));
+const getElementString: HTMLElement = Dropzone.getElement('.test', 'optional description');
+const getElementNodeLike: HTMLElement = Dropzone.getElement(document.getElementById('test'));
+const getElementsString: HTMLElement[] = Dropzone.getElements('.test');
+const getElementsNodeLike: HTMLElement[] = Dropzone.getElements(document.getElementById('test'));
+const getElementsWithArray: HTMLElement[] = Dropzone.getElements(['.test', document.getElementById('test')]);
 Dropzone.isBrowserSupported();
+const isValidFile: boolean = Dropzone.isValidFile(new File([], 'test'), 'application/javascript');
+const optionsForElement: Dropzone.DropzoneOptions | undefined =  Dropzone.optionsForElement(document.getElementById('test'));
+Dropzone.version;
 Dropzone.options['divTest'] = { clickable: true };
 Dropzone.options['noDiscover'] = false;
 console.log(Dropzone.instances.length);
@@ -174,9 +188,20 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 
 const dropzone = new Dropzone('.test');
 
+dropzone.element;
+dropzone.hiddenFileInput;
+dropzone.previewsContainer;
+dropzone.version;
+
+dropzone.listeners;
+dropzone.listeners[0].element;
+dropzone.listeners[0].events;
+dropzone.listeners[0].events.click(new MouseEvent('click'));
+dropzone.listeners[0].events.dragstart(new DragEvent('drag'));
+
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
-	dropzone.options.headers = {};
+    dropzone.options.headers = {};
 }
 dropzone.options.headers.test = 'test';
 dropzone.enable();
@@ -193,9 +218,20 @@ dropzone.files.forEach(f => {
     } else {
         console.log(f.status.toUpperCase());
     }
+    if (f.upload) {
+        console.log(f.upload.progress);
+        console.log(f.upload.bytesSent);
+        console.log(f.upload.total);
+        console.log(f.upload.uuid);
+        if (f.upload.totalChunkCount) {
+            console.log(f.upload.totalChunkCount);
+        }
+    }
 });
 
 const firstFile = dropzone.files[0];
+firstFile.dataURL;
+
 dropzone.removeFile(firstFile);
 dropzone.addFile(firstFile);
 dropzone.enqueueFile(firstFile);
@@ -228,6 +264,41 @@ dropzone.createThumbnail(
     () => {
         console.log('createThumbnail');
     },
+);
+
+const mockFile: Dropzone.DropzoneMockFile = {
+    name: 'Mock File',
+    size: 123456,
+    customProperty: 'additional data',
+};
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg');
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg', () => {
+    console.log('displayExistingFile');
+});
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    undefined,
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+    false,
 );
 
 dropzone.createThumbnailFromUrl(firstFile);

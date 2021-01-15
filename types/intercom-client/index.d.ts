@@ -9,8 +9,20 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { List as UserList, User, UserIdentifier, CreateUpdateUser } from './User';
-import { List as LeadList, Lead, LeadIdentifier } from './Lead';
+import {
+    List as UserList,
+    User,
+    UserIdIdentifier,
+    UserEmailIdentifier,
+    UserIdentifier,
+    CreateUpdateUser,
+} from './User';
+import {
+    List as LeadList,
+    Lead,
+    LeadIdentifier,
+    LeadIdIdentifier,
+} from './Lead';
 import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
@@ -20,6 +32,7 @@ import { Scroll } from './Scroll';
 import { IntercomError } from './IntercomError';
 
 import { IncomingMessage } from 'http';
+import request = require('request');
 
 export { IntercomError };
 
@@ -44,6 +57,12 @@ export class Client {
     leads: Leads;
     visitors: Visitors;
     messages: Messages;
+
+    /**
+     * client library also supports passing in `request` options
+     * Note that certain request options (such as `json`, and certain `headers` names cannot be overridden).
+     */
+    useRequestOpts(options?: request.CoreOptions): this;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -59,8 +78,12 @@ export class Users {
     update(user: UserIdentifier & Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
     update(user: UserIdentifier & Partial<CreateUpdateUser>, cb: callback<ApiResponse<User>>): void;
 
-    find(identifier: UserIdentifier): Promise<ApiResponse<User>>;
-    find(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
+    find(identifier: UserIdIdentifier): Promise<ApiResponse<User>>;
+    find(identifier: UserIdIdentifier, cb: callback<ApiResponse<User>>): void;
+    find(identifier: UserEmailIdentifier): Promise<ApiResponse<UserList>>;
+    find(identifier: UserEmailIdentifier, cb: callback<ApiResponse<UserList>>): void;
+    find(identifier: UserIdentifier): Promise<ApiResponse<User | UserList>>;
+    find(identifier: UserIdentifier, cb: callback<ApiResponse<User | UserList>>): void;
 
     list(): Promise<ApiResponse<UserList>>;
     list(cb: callback<ApiResponse<UserList>>): void;
@@ -96,8 +119,8 @@ export class Leads {
     find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>;
     find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
 
-    delete(id: string): Promise<ApiResponse<Lead>>;
-    delete(id: string, cb: callback<ApiResponse<Lead>>): void;
+    delete(identifier: LeadIdIdentifier): Promise<ApiResponse<Lead>>;
+    delete(identifier: LeadIdIdentifier, cb: callback<ApiResponse<Lead>>): void;
 
     convert(params: { contact: LeadIdentifier; user: UserIdentifier }): Promise<ApiResponse<Lead>>;
     convert(params: { contact: LeadIdentifier; user: UserIdentifier }, cb: callback<ApiResponse<Lead>>): void;

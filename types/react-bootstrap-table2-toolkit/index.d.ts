@@ -33,6 +33,20 @@ export interface TableSearchProps<T extends object = any> {
     customMatchFunc?: (props: SearchMatchProps<T>) => boolean;
 }
 
+export interface CSVProps {
+    fileName?: string;
+    separator?: string;
+    ignoreHeader?: boolean;
+    noAutoBOM?: boolean;
+    /**
+     * default is text/plain;charset=utf-8
+     */
+    blobType?: string;
+    exportAll?: boolean;
+    onlyExportSelection?: boolean;
+    onlyExportFiltered?: boolean;
+}
+
 export interface TableToolkitProps<T extends object = any> {
     bootstrap4?: boolean;
     search?: TableSearchProps<T> | boolean;
@@ -41,6 +55,8 @@ export interface TableToolkitProps<T extends object = any> {
     ref?: any;
     columns: Array<ColumnDescription<T>>;
     children: (props: ToolkitContextType) => JSX.Element;
+    exportCSV?: boolean | CSVProps;
+    columnToggle?: boolean;
 }
 
 export interface ToolkitContextType {
@@ -91,7 +107,7 @@ export interface ExportCSVButtonProps {
 }
 
 export namespace CSVExport {
-    function ToggleList(props: ExportCSVButtonProps): React.ReactElement | null;
+    function ExportCSVButton(props: ExportCSVButtonProps): React.ReactElement | null;
 }
 
 export interface SearchBarProps {
@@ -111,7 +127,7 @@ export interface ClearSearchButtonProps {
 
 export namespace Search {
     function SearchBar(props: SearchBarProps): React.ReactElement | null;
-    function ClearSearchButton(props: ExportCSVButtonProps): React.ReactElement | null;
+    function ClearSearchButton(props: ClearSearchButtonProps): React.ReactElement | null;
 }
 
 export const ToolkitContext: React.Context<ToolkitContextType>;

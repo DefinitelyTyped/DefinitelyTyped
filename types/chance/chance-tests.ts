@@ -52,6 +52,7 @@ chance.mixin({
 const chanceConstructedWithSeed100 = new Chance(100);
 const chanceCalledWithSeed100 = Chance();
 const chanceConstructedWithStringSeed = new Chance("test");
+const chanceConstructedWithMultipleParameters = new Chance("test", 1, 1.5);
 
 // Test new added typed functions
 
@@ -142,6 +143,11 @@ char = chance.character({ alpha: true });
 char = chance.character({ numeric: true });
 char = chance.character({ symbols: true });
 char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: true });
+
+chance.falsy(); // $ExpectType FalsyType
+chance.falsy({ pool: [NaN, undefined] }); // $ExpectType FalsyType
+
+chance.template('{AA###}-{##}'); // $ExpectType string
 
 let url: string = chance.url();
 url = chance.url({});

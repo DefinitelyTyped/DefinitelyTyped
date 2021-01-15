@@ -7,7 +7,7 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 gamsterX <https://github.com/gamsterx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
@@ -28,14 +28,11 @@ declare module 'mongoose' {
     }
 
     interface PaginateOptions {
-        /* tslint:disable-next-line: ban-types */
-        select?: Object | string;
-        /* tslint:disable-next-line: ban-types */
-        sort?: Object | string;
+        select?: object | string;
+        sort?: object | string;
         customLabels?: CustomLabels;
         collation?: CollationOptions;
-        /* tslint:disable-next-line: ban-types */
-        populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
+        populate?: object[] | string[] | object | string | QueryPopulateOptions;
         lean?: boolean;
         leanWithId?: boolean;
         offset?: number;
@@ -44,6 +41,8 @@ declare module 'mongoose' {
         read?: ReadOptions;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean;
+        projection?: any;
+        options?: QueryFindOptions;
     }
 
     interface QueryPopulateOptions {
@@ -73,12 +72,12 @@ declare module 'mongoose' {
         hasPrevPage: boolean;
         hasNextPage: boolean;
         meta?: any;
-        [customLabel: string]: T[] | number | undefined;
+        [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
     interface PaginateModel<T extends Document> extends Model<T> {
         paginate(
-            query?: object,
+            query?: FilterQuery<T>,
             options?: PaginateOptions,
             callback?: (err: any, result: PaginateResult<T>) => void,
         ): Promise<PaginateResult<T>>;
@@ -90,3 +89,6 @@ declare module 'mongoose' {
 import mongoose = require('mongoose');
 declare function _(schema: mongoose.Schema): void;
 export = _;
+declare namespace _ {
+    const paginate: { options: mongoose.PaginateOptions };
+}

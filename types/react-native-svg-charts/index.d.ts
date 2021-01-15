@@ -84,6 +84,8 @@ export interface PieChartProps<T extends PieChartData> extends ChartProps<T> {
     outerRadius?: number | string;
     labelRadius?: number | string;
     padAngle?: number;
+    startAngle?: number;
+    endAngle?: number;
     sort?: SortFunction<T>;
     valueAccessor?: AccessorFunction<T, number>;
 }

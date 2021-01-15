@@ -24,6 +24,7 @@ import isCurrencyFunc from 'validator/lib/isCurrency';
 import isEthereumAddressFunc from 'validator/lib/isEthereumAddress';
 import isBtcAddressFunc from 'validator/lib/isBtcAddress';
 import isDataURIFunc from 'validator/lib/isDataURI';
+import isDateFunc from 'validator/lib/isDate';
 import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
@@ -66,6 +67,7 @@ import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
+import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -143,6 +145,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isDataURI = validator.isDataURI;
     _isDataURI = isDataURIFunc;
+
+    let _isDate = validator.isDate;
+    _isDate = isDateFunc;
 
     let _isDecimal = validator.isDecimal;
     _isDecimal = isDecimalFunc;
@@ -270,6 +275,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isSemVer = validator.isSemVer;
     _isSemVer = isSemVerFunc;
 
+    let _isStrongPassword = validator.isStrongPassword;
+    _isStrongPassword = isStrongPasswordFunc;
+
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
 
@@ -327,6 +335,94 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isSlug = validator.isSlug;
     _isSlug = isSlugFunc;
 }
+
+/************************************************
+ *                                               *
+ *                  ES IMPORT TESTS              *
+ *                                               *
+ ************************************************/
+import blacklistFuncEs from 'validator/es/lib/blacklist';
+import containsFuncEs from 'validator/es/lib/contains';
+import equalsFuncEs from 'validator/es/lib/equals';
+import escapeFuncEs from 'validator/es/lib/escape';
+import isAfterFuncEs from 'validator/es/lib/isAfter';
+import isAlphaFuncEs from 'validator/es/lib/isAlpha';
+import isAlphanumericFuncEs from 'validator/es/lib/isAlphanumeric';
+import isAsciiFuncEs from 'validator/es/lib/isAscii';
+import isBase64FuncEs from 'validator/es/lib/isBase64';
+import isBeforeFuncEs from 'validator/es/lib/isBefore';
+import isIBANFuncEs from 'validator/es/lib/isIBAN';
+import isBICFuncEs from 'validator/es/lib/isBIC';
+import isBooleanFuncEs from 'validator/es/lib/isBoolean';
+import isByteLengthFuncEs from 'validator/es/lib/isByteLength';
+import isCreditCardFuncEs from 'validator/es/lib/isCreditCard';
+import isCurrencyFuncEs from 'validator/es/lib/isCurrency';
+import isEthereumAddressFuncEs from 'validator/es/lib/isEthereumAddress';
+import isBtcAddressFuncEs from 'validator/es/lib/isBtcAddress';
+import isDataURIFuncEs from 'validator/es/lib/isDataURI';
+import isDateFuncEs from 'validator/es/lib/isDate';
+import isDecimalFuncEs from 'validator/es/lib/isDecimal';
+import isDivisibleByFuncEs from 'validator/es/lib/isDivisibleBy';
+import isEmailFuncEs from 'validator/es/lib/isEmail';
+import isEmptyFuncEs from 'validator/es/lib/isEmpty';
+import isFQDNFuncEs from 'validator/es/lib/isFQDN';
+import isFloatFuncEs from 'validator/es/lib/isFloat';
+import isFullWidthFuncEs from 'validator/es/lib/isFullWidth';
+import isHalfWidthFuncEs from 'validator/es/lib/isHalfWidth';
+import isHashFuncEs from 'validator/es/lib/isHash';
+import isHexColorFuncEs from 'validator/es/lib/isHexColor';
+import isHSLFuncEs from 'validator/es/lib/isHSL';
+import isRgbColorFuncEs from 'validator/es/lib/isRgbColor';
+import isHexadecimalFuncEs from 'validator/es/lib/isHexadecimal';
+import isIPFuncEs from 'validator/es/lib/isIP';
+import isISBNFuncEs from 'validator/es/lib/isISBN';
+import isEANFuncEs from 'validator/es/lib/isEAN';
+import isISSNFuncEs from 'validator/es/lib/isISSN';
+import isISINFuncEs from 'validator/es/lib/isISIN';
+import isISO8601FuncEs from 'validator/es/lib/isISO8601';
+import isISO31661Alpha2FuncEs from 'validator/es/lib/isISO31661Alpha2';
+import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
+import isISRCFuncEs from 'validator/es/lib/isISRC';
+import isInFuncEs from 'validator/es/lib/isIn';
+import isIntFuncEs from 'validator/es/lib/isInt';
+import isJSONFuncEs from 'validator/es/lib/isJSON';
+import isJWTFuncEs from 'validator/es/lib/isJWT';
+import isLatLongFuncEs from 'validator/es/lib/isLatLong';
+import isLengthFuncEs from 'validator/es/lib/isLength';
+import isLocaleFuncEs from 'validator/es/lib/isLocale';
+import isLowercaseFuncEs from 'validator/es/lib/isLowercase';
+import isMACAddressFuncEs from 'validator/es/lib/isMACAddress';
+import isMD5FuncEs from 'validator/es/lib/isMD5';
+import isMimeTypeFuncEs from 'validator/es/lib/isMimeType';
+import isMobilePhoneFuncEs from 'validator/es/lib/isMobilePhone';
+import isMongoIdFuncEs from 'validator/es/lib/isMongoId';
+import isMultibyteFuncEs from 'validator/es/lib/isMultibyte';
+import isNumericFuncEs from 'validator/es/lib/isNumeric';
+import isOctalFuncEs from 'validator/es/lib/isOctal';
+import isPassportNumberFuncEs from 'validator/es/lib/isPassportNumber';
+import isPortFuncEs from 'validator/es/lib/isPort';
+import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
+import isSemVerFuncEs from 'validator/es/lib/isSemVer';
+import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
+import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
+import isURLFuncEs from 'validator/es/lib/isURL';
+import isUUIDFuncEs from 'validator/es/lib/isUUID';
+import isUppercaseFuncEs from 'validator/es/lib/isUppercase';
+import isVariableWidthFuncEs from 'validator/es/lib/isVariableWidth';
+import isWhitelistedFuncEs from 'validator/es/lib/isWhitelisted';
+import ltrimFuncEs from 'validator/es/lib/ltrim';
+import matchesFuncEs from 'validator/es/lib/matches';
+import normalizeEmailFuncEs from 'validator/es/lib/normalizeEmail';
+import rtrimFuncEs from 'validator/es/lib/rtrim';
+import stripLowFuncEs from 'validator/es/lib/stripLow';
+import toBooleanFuncEs from 'validator/es/lib/toBoolean';
+import toDateFuncEs from 'validator/es/lib/toDate';
+import toFloatFuncEs from 'validator/es/lib/toFloat';
+import toIntFuncEs from 'validator/es/lib/toInt';
+import trimFuncEs from 'validator/es/lib/trim';
+import unescapeFuncEs from 'validator/es/lib/unescape';
+import whitelistFuncEs from 'validator/es/lib/whitelist';
+import isSlugFuncEs from 'validator/es/lib/isSlug';
 
 /************************************************
  *                                               *
@@ -451,7 +547,9 @@ const any: any = null;
 
     result = validator.isAscii('sample');
 
+    const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
+    result = validator.isBase64('sample', isBase64Options);
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
@@ -476,6 +574,10 @@ const any: any = null;
     result = validator.isBtcAddress('sample');
 
     result = validator.isDataURI('sample');
+
+    const isDateOptions: validator.IsDateOptions = {};
+    result = validator.isDate('sample');
+    result = validator.isDate('sample', isDateOptions);
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal('sample');
@@ -699,6 +801,8 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
+
+    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 

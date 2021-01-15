@@ -1,4 +1,4 @@
-// Type definitions for Chance 1.0
+// Type definitions for Chance 1.1
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
 //                 Brice BERNARD <https://github.com/brikou>
@@ -6,8 +6,8 @@
 //                 Colby M. White <https://github.com/colbywhite>
 //                 Zachary Dow <https://github.com/NewDark90>
 //                 Jacob Easley <https://github.com/jacobez>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 declare namespace Chance {
     type Seed = number | string;
@@ -18,23 +18,31 @@ declare namespace Chance {
 
     interface ChanceStatic {
         (): Chance;
-        (seed: Seed): Chance;
+        (...seed: Seed[]): Chance;
         (generator: () => any): Chance;
 
         new (): Chance;
-        new (seed: Seed): Chance;
+        new (...seed: Seed[]): Chance;
         new (generator: () => any): Chance;
+    }
+
+    type FalsyType = false | null | undefined | 0 | typeof NaN | '';
+    interface FalsyOptions {
+        pool: FalsyType[];
     }
 
     interface Chance extends Seeded {
         // Basics
         bool(opts?: {likelihood: number}): boolean;
         character(opts?: Partial<CharacterOptions>): string;
+        /** https://chancejs.com/basics/falsy.html */
+        falsy(ops?: FalsyOptions): FalsyType;
         floating(opts?: Options): number;
         integer(opts?: Partial<IntegerOptions>): number;
         letter(opts?: Options): string;
         natural(opts?: Options): number;
         string(opts?: Partial<StringOptions>): string;
+        template(template: string): string;
 
         // Text
         paragraph(opts?: Options): string;

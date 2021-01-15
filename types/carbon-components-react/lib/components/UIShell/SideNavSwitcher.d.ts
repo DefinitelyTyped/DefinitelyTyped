@@ -1,15 +1,14 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ForwardRefReturn } from "../../../typings/shared";
 
-interface InheritedProps {
-    className?: ReactAttr["className"],
+export interface SideNavSwitcherProps {
+    children?: React.ReactNode,
+    className?: string,
+    labelText: string;
     onChange?(event: React.ChangeEvent<HTMLSelectElement>): void,
+    options: readonly string[],
 }
 
-export interface SideNavSwitcherProps extends InheritedProps {
-    options: string[],
-}
-
-declare const SideNavSwitcher: React.RefForwardingComponent<HTMLSelectElement, SideNavSwitcherProps>;
+declare const SideNavSwitcher: ForwardRefReturn<HTMLSelectElement, SideNavSwitcherProps>;
 
 export default SideNavSwitcher;

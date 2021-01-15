@@ -117,7 +117,7 @@ const notifier4 = new notifier.Growl({
 notifier4.notify({
     title: 'Foo',
     message: 'Hello World',
-    icon: fs.readFileSync(__dirname + '/coulson.jpg', 'r'),
+    icon: fs.readFileSync(__dirname + '/coulson.jpg', 'utf8'),
     wait: false, // if wait for user interaction
 
     // and other growl options like sticky etc.
@@ -160,7 +160,29 @@ notifier6.notify({
     icon: __dirname + '/coulson.jpg',
     // .. and other notify-send flags:
     urgency: void 0,
-    time: void 0,
+    timeout: void 0,
+    category: void 0,
+    hint: void 0,
+});
+
+notifier6.notify({
+    title: 'Foo',
+    message: 'Hello World',
+    icon: __dirname + '/coulson.jpg',
+    wait: true,
+    // .. and other notify-send flags:
+    urgency: void 0,
+    category: void 0,
+    hint: void 0,
+});
+
+notifier6.notify({
+    title: 'Foo',
+    message: 'Hello World',
+    icon: __dirname + '/coulson.jpg',
+    timeout: false,
+    // .. and other notify-send flags:
+    urgency: void 0,
     category: void 0,
     hint: void 0,
 });

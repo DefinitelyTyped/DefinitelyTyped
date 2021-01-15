@@ -1,28 +1,31 @@
-// Type definitions for tmp 0.1
+// Type definitions for tmp 0.2
 // Project: http://github.com/raszi/node-tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
 //                 Gyusun Yeom <https://github.com/Perlmint>
 //                 Alan Plum <https://github.com/pluma>
+//                 Carsten Klein <https://github.com/silkentrance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TmpNameOptions {
-    prefix?: string;
-    postfix?: string;
-    template?: string;
     dir?: string;
+    name?: string;
+    postfix?: string;
+    prefix?: string;
+    template?: string;
+    tmpdir?: string;
     tries?: number;
 }
 
 export interface FileOptions extends TmpNameOptions {
-    mode?: number;
-    keep?: boolean;
-    discardDescriptor?: boolean;
     detachDescriptor?: boolean;
+    discardDescriptor?: boolean;
+    keep?: boolean;
+    mode?: number;
 }
 
 export interface DirOptions extends TmpNameOptions {
-    mode?: number;
     keep?: boolean;
+    mode?: number;
     unsafeCleanup?: boolean;
 }
 
@@ -38,19 +41,21 @@ export interface DirResult {
 }
 
 export type FileCallback = (
-    err: any,
+    err: Error|null,
     name: string,
     fd: number,
     removeCallback: () => void
 ) => void;
 
 export type DirCallback = (
-    err: any,
+    err: Error|null,
     name: string,
     removeCallback: () => void
 ) => void;
 
-export type TmpNameCallback = (err: any, name: string) => void;
+export type TmpNameCallback = (err: Error|null, name: string) => void;
+
+export const tmpdir: string;
 
 export function file(options: FileOptions, cb: FileCallback): void;
 export function file(cb: FileCallback): void;

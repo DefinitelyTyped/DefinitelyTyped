@@ -2,15 +2,15 @@
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/fs.d.ts
 
 import {
-	Dirent,
-	FSWatcher,
-	NoParamCallback,
-	PathLike,
-	RmDirAsyncOptions,
-	WriteFileOptions,
-	Stats,
-	symlink as symlinkNS,
-	MakeDirectoryOptions,
+    Dirent,
+    FSWatcher,
+    NoParamCallback,
+    PathLike,
+    RmDirOptions,
+    WriteFileOptions,
+    Stats,
+    symlink as symlinkNS,
+    MakeDirectoryOptions,
 } from "fs";
 export * from "fs";
 
@@ -303,10 +303,10 @@ export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
  * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
  */
 export function symlink(
-	target: PathLike,
-	path: PathLike,
-	type: symlinkNS.Type | null | undefined,
-	callback: NoParamCallback
+    target: PathLike,
+    path: PathLike,
+    type: symlinkNS.Type | null | undefined,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -340,9 +340,9 @@ export function symlink(target: PathLike, path: PathLike, type?: string | null):
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readlink(
-	path: PathLike,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
+    path: PathLike,
+    options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
 ): void;
 
 /**
@@ -354,9 +354,9 @@ export function readlink(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readlink(
-	path: PathLike,
-	options: { encoding: "buffer" } | "buffer",
-	callback: (err: NodeJS.ErrnoException | null, linkString: Buffer) => void
+    path: PathLike,
+    options: { encoding: "buffer" } | "buffer",
+    callback: (err: NodeJS.ErrnoException | null, linkString: Buffer) => void
 ): void;
 
 /**
@@ -368,9 +368,9 @@ export function readlink(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readlink(
-	path: PathLike,
-	options: { encoding?: string | null } | string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void
+    path: PathLike,
+    options: { encoding?: string | null } | string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void
 ): void;
 
 /**
@@ -381,8 +381,8 @@ export function readlink(
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
 export function readlink(
-	path: PathLike,
-	callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
+    path: PathLike,
+    callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
 ): void;
 
 /**
@@ -394,8 +394,8 @@ export function readlink(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readlink(
-	path: PathLike,
-	options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
+    path: PathLike,
+    options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
 ): Promise<string>;
 
 /**
@@ -417,8 +417,8 @@ export function readlink(path: PathLike, options: { encoding: "buffer" } | "buff
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readlink(
-	path: PathLike,
-	options?: { encoding?: string | null } | string | null
+    path: PathLike,
+    options?: { encoding?: string | null } | string | null
 ): Promise<string | Buffer>;
 
 /**
@@ -430,9 +430,9 @@ export function readlink(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function realpath(
-	path: PathLike,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
+    path: PathLike,
+    options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
 ): void;
 
 /**
@@ -444,9 +444,9 @@ export function realpath(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function realpath(
-	path: PathLike,
-	options: { encoding: "buffer" } | "buffer",
-	callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void
+    path: PathLike,
+    options: { encoding: "buffer" } | "buffer",
+    callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void
 ): void;
 
 /**
@@ -458,9 +458,9 @@ export function realpath(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function realpath(
-	path: PathLike,
-	options: { encoding?: string | null } | string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
+    path: PathLike,
+    options: { encoding?: string | null } | string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
 ): void;
 
 /**
@@ -471,8 +471,8 @@ export function realpath(
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
 export function realpath(
-	path: PathLike,
-	callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
+    path: PathLike,
+    callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
 ): void;
 
 /**
@@ -484,8 +484,8 @@ export function realpath(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function realpath(
-	path: PathLike,
-	options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
+    path: PathLike,
+    options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
 ): Promise<string>;
 
 /**
@@ -507,37 +507,37 @@ export function realpath(path: PathLike, options: { encoding: "buffer" } | "buff
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function realpath(
-	path: PathLike,
-	options?: { encoding?: string | null } | string | null
+    path: PathLike,
+    options?: { encoding?: string | null } | string | null
 ): Promise<string | Buffer>;
 
 export namespace realpath {
-	function native(
-		path: PathLike,
-		options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
-		callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
-	): void;
-	function native(
-		path: PathLike,
-		options: { encoding: "buffer" } | "buffer",
-		callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void
-	): void;
-	function native(
-		path: PathLike,
-		options: { encoding?: string | null } | string | null | undefined,
-		callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
-	): void;
-	function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
+    function native(
+        path: PathLike,
+        options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
+    ): void;
+    function native(
+        path: PathLike,
+        options: { encoding: "buffer" } | "buffer",
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void
+    ): void;
+    function native(
+        path: PathLike,
+        options: { encoding?: string | null } | string | null | undefined,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void
+    ): void;
+    function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
 
-	function native(
-		path: PathLike,
-		options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
-	): Promise<string>;
-	function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
-	function native(
-		path: PathLike,
-		options: { encoding?: string | null } | string | null | undefined
-	): Promise<string | Buffer>;
+    function native(
+        path: PathLike,
+        options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
+    ): Promise<string>;
+    function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+    function native(
+        path: PathLike,
+        options: { encoding?: string | null } | string | null | undefined
+    ): Promise<string | Buffer>;
 }
 
 /**
@@ -574,7 +574,7 @@ export function rmdir(path: PathLike, callback: NoParamCallback): void;
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
 
 /**
  * Asynchronous `rmdir(2)`
@@ -583,7 +583,7 @@ export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoPa
  *
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
-export function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+export function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
 
 /**
  * Asynchronous `mkdir(2)`.
@@ -595,9 +595,9 @@ export function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void
  * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
  */
 export function mkdir(
-	path: PathLike,
-	options: number | string | MakeDirectoryOptions | null | undefined,
-	callback: NoParamCallback
+    path: PathLike,
+    options: number | string | MakeDirectoryOptions | null | undefined,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -629,9 +629,9 @@ export function mkdir(path: PathLike, options?: number | string | MakeDirectoryO
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function mkdtemp(
-	prefix: string,
-	options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, folder: string) => void
+    prefix: string,
+    options: { encoding?: BufferEncoding | null } | BufferEncoding | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, folder: string) => void
 ): void;
 
 /**
@@ -643,9 +643,9 @@ export function mkdtemp(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function mkdtemp(
-	prefix: string,
-	options: "buffer" | { encoding: "buffer" },
-	callback: (err: NodeJS.ErrnoException | null, folder: Buffer) => void
+    prefix: string,
+    options: "buffer" | { encoding: "buffer" },
+    callback: (err: NodeJS.ErrnoException | null, folder: Buffer) => void
 ): void;
 
 /**
@@ -657,9 +657,9 @@ export function mkdtemp(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function mkdtemp(
-	prefix: string,
-	options: { encoding?: string | null } | string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void
+    prefix: string,
+    options: { encoding?: string | null } | string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void
 ): void;
 
 /**
@@ -681,8 +681,8 @@ export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException | 
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function mkdtemp(
-	prefix: string,
-	options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
+    prefix: string,
+    options?: { encoding?: BufferEncoding | null } | BufferEncoding | null
 ): Promise<string>;
 
 /***
@@ -704,8 +704,8 @@ export function mkdtemp(prefix: string, options: { encoding: "buffer" } | "buffe
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function mkdtemp(
-	prefix: string,
-	options?: { encoding?: string | null } | string | null
+    prefix: string,
+    options?: { encoding?: string | null } | string | null
 ): Promise<string | Buffer>;
 
 /**
@@ -717,9 +717,9 @@ export function mkdtemp(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, files: string[]) => void
+    path: PathLike,
+    options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, files: string[]) => void
 ): void;
 
 /**
@@ -731,9 +731,9 @@ export function readdir(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options: { encoding: "buffer"; withFileTypes?: false } | "buffer",
-	callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
+    path: PathLike,
+    options: { encoding: "buffer"; withFileTypes?: false } | "buffer",
+    callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
 ): void;
 
 /**
@@ -745,9 +745,9 @@ export function readdir(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options: { encoding?: string | null; withFileTypes?: false } | string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void
+    path: PathLike,
+    options: { encoding?: string | null; withFileTypes?: false } | string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void
 ): void;
 
 /**
@@ -768,9 +768,9 @@ export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException | 
  * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
  */
 export function readdir(
-	path: PathLike,
-	options: { encoding?: string | null; withFileTypes: true },
-	callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
+    path: PathLike,
+    options: { encoding?: string | null; withFileTypes: true },
+    callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
 ): void;
 
 /**
@@ -782,8 +782,8 @@ export function readdir(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null
+    path: PathLike,
+    options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null
 ): Promise<string[]>;
 
 /**
@@ -795,8 +795,8 @@ export function readdir(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options: "buffer" | { encoding: "buffer"; withFileTypes?: false }
+    path: PathLike,
+    options: "buffer" | { encoding: "buffer"; withFileTypes?: false }
 ): Promise<Buffer[]>;
 
 /**
@@ -808,8 +808,8 @@ export function readdir(
  * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
  */
 export function readdir(
-	path: PathLike,
-	options?: { encoding?: string | null; withFileTypes?: false } | string | null
+    path: PathLike,
+    options?: { encoding?: string | null; withFileTypes?: false } | string | null
 ): Promise<string[] | Buffer[]>;
 
 /**
@@ -849,10 +849,10 @@ export function close(fd: number): Promise<void>;
  * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
  */
 export function open(
-	path: PathLike,
-	flags: string | number,
-	mode: string | number | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, fd: number) => void
+    path: PathLike,
+    flags: string | number,
+    mode: string | number | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, fd: number) => void
 ): void;
 
 /**
@@ -863,9 +863,9 @@ export function open(
  * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
  */
 export function open(
-	path: PathLike,
-	flags: string | number,
-	callback: (err: NodeJS.ErrnoException | null, fd: number) => void
+    path: PathLike,
+    flags: string | number,
+    callback: (err: NodeJS.ErrnoException | null, fd: number) => void
 ): void;
 
 /**
@@ -886,10 +886,10 @@ export function open(path: PathLike, flags: string | number, mode?: string | num
  * @param mtime The last modified time. If a string is provided, it will be coerced to number.
  */
 export function utimes(
-	path: PathLike,
-	atime: string | number | Date,
-	mtime: string | number | Date,
-	callback: NoParamCallback
+    path: PathLike,
+    atime: string | number | Date,
+    mtime: string | number | Date,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -909,10 +909,10 @@ export function utimes(path: PathLike, atime: string | number | Date, mtime: str
  * @param mtime The last modified time. If a string is provided, it will be coerced to number.
  */
 export function futimes(
-	fd: number,
-	atime: string | number | Date,
-	mtime: string | number | Date,
-	callback: NoParamCallback
+    fd: number,
+    atime: string | number | Date,
+    mtime: string | number | Date,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -951,12 +951,12 @@ export function fsync(fd: number): Promise<void>;
  * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
  */
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	offset: number | null | undefined,
-	length: number | null | undefined,
-	position: number | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number | null | undefined,
+    length: number | null | undefined,
+    position: number | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
 /**
@@ -967,11 +967,11 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
  * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
  */
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	offset: number | null | undefined,
-	length: number | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number | null | undefined,
+    length: number | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
 /**
@@ -981,10 +981,10 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
  * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
  */
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	offset: number | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
 /**
@@ -993,9 +993,9 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
  * @param fd A file descriptor.
  */
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
 ): void;
 
 /**
@@ -1007,11 +1007,11 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
  * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
  */
 export function write<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer?: TBuffer,
-	offset?: number,
-	length?: number,
-	position?: number | null
+    fd: number,
+    buffer?: TBuffer,
+    offset?: number,
+    length?: number,
+    position?: number | null
 ): Promise<[number, TBuffer]>;
 
 /**
@@ -1023,11 +1023,11 @@ export function write<TBuffer extends NodeJS.ArrayBufferView>(
  * @param encoding The expected string encoding.
  */
 export function write(
-	fd: number,
-	data: any,
-	position: number | null | undefined,
-	encoding: string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
+    fd: number,
+    data: any,
+    position: number | null | undefined,
+    encoding: string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
 ): void;
 
 /**
@@ -1038,10 +1038,10 @@ export function write(
  * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
  */
 export function write(
-	fd: number,
-	data: any,
-	position: number | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
+    fd: number,
+    data: any,
+    position: number | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
 ): void;
 
 /**
@@ -1051,9 +1051,9 @@ export function write(
  * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
  */
 export function write(
-	fd: number,
-	data: any,
-	callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
+    fd: number,
+    data: any,
+    callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
 ): void;
 
 /**
@@ -1065,10 +1065,10 @@ export function write(
  * @param encoding The expected string encoding.
  */
 export function write(
-	fd: number,
-	string: any,
-	position?: number | null,
-	encoding?: string | null
+    fd: number,
+    string: any,
+    position?: number | null,
+    encoding?: string | null
 ): Promise<[number, string]>;
 
 /**
@@ -1081,12 +1081,12 @@ export function write(
  * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
  */
 export function read<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	offset: number,
-	length: number,
-	position: number | null,
-	callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    position: number | null,
+    callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
 ): void;
 
 /**
@@ -1099,12 +1099,12 @@ export function read<TBuffer extends NodeJS.ArrayBufferView>(
  * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
  */
 export function read<TBuffer extends NodeJS.ArrayBufferView>(
-	fd: number,
-	buffer: TBuffer,
-	offset: number,
-	length: number,
-	position: number | null
-): Promise<{ bytesRead: number; buffer: TBuffer }>;
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    position: number | null
+): Promise<[number, TBuffer]>;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -1115,9 +1115,9 @@ export function read<TBuffer extends NodeJS.ArrayBufferView>(
  * If a flag is not provided, it defaults to `'r'`.
  */
 export function readFile(
-	path: PathLike | number,
-	options: { encoding?: null; flag?: string } | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
+    path: PathLike | number,
+    options: { encoding?: null; flag?: string } | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
 ): void;
 
 /**
@@ -1130,9 +1130,9 @@ export function readFile(
  * If a flag is not provided, it defaults to `'r'`.
  */
 export function readFile(
-	path: PathLike | number,
-	options: { encoding: string; flag?: string } | string,
-	callback: (err: NodeJS.ErrnoException | null, data: string) => void
+    path: PathLike | number,
+    options: { encoding: string; flag?: string } | string,
+    callback: (err: NodeJS.ErrnoException | null, data: string) => void
 ): void;
 
 /**
@@ -1145,9 +1145,9 @@ export function readFile(
  * If a flag is not provided, it defaults to `'r'`.
  */
 export function readFile(
-	path: PathLike | number,
-	options: { encoding?: string | null; flag?: string } | string | null | undefined,
-	callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void
+    path: PathLike | number,
+    options: { encoding?: string | null; flag?: string } | string | null | undefined,
+    callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void
 ): void;
 
 /**
@@ -1157,8 +1157,8 @@ export function readFile(
  * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
  */
 export function readFile(
-	path: PathLike | number,
-	callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
+    path: PathLike | number,
+    callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void
 ): void;
 
 /**
@@ -1181,8 +1181,8 @@ export function readFile(path: PathLike | number, options?: { encoding?: null; f
  * If a flag is not provided, it defaults to `'r'`.
  */
 export function readFile(
-	path: PathLike | number,
-	options: { encoding: string; flag?: string } | string
+    path: PathLike | number,
+    options: { encoding: string; flag?: string } | string
 ): Promise<string>;
 
 /**
@@ -1195,8 +1195,8 @@ export function readFile(
  * If a flag is not provided, it defaults to `'r'`.
  */
 export function readFile(
-	path: PathLike | number,
-	options?: { encoding?: string | null; flag?: string } | string | null
+    path: PathLike | number,
+    options?: { encoding?: string | null; flag?: string } | string | null
 ): Promise<string | Buffer>;
 
 /**
@@ -1213,10 +1213,10 @@ export function readFile(
  * If `flag` is not supplied, the default of `'w'` is used.
  */
 export function writeFile(
-	path: PathLike | number,
-	data: any,
-	options: WriteFileOptions,
-	callback: NoParamCallback
+    path: PathLike | number,
+    data: any,
+    options: WriteFileOptions,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -1258,10 +1258,10 @@ export function writeFile(path: PathLike | number, data: any, options?: WriteFil
  * If `flag` is not supplied, the default of `'a'` is used.
  */
 export function appendFile(
-	file: PathLike | number,
-	data: any,
-	options: WriteFileOptions,
-	callback: NoParamCallback
+    file: PathLike | number,
+    data: any,
+    options: WriteFileOptions,
+    callback: NoParamCallback
 ): void;
 
 /**
@@ -1293,9 +1293,9 @@ export function appendFile(file: PathLike | number, data: any, options?: WriteFi
  * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
  */
 export function watchFile(
-	filename: PathLike,
-	options: { persistent?: boolean; interval?: number } | undefined,
-	listener: (curr: Stats, prev: Stats) => void
+    filename: PathLike,
+    options: { persistent?: boolean; interval?: number } | undefined,
+    listener: (curr: Stats, prev: Stats) => void
 ): void;
 
 /**
@@ -1322,13 +1322,13 @@ export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: S
  * If `recursive` is not supplied, the default of `false` is used.
  */
 export function watch(
-	filename: PathLike,
-	options:
-		{ encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } |
-		BufferEncoding |
-		undefined |
-		null,
-	listener?: (event: string, filename: string) => void
+    filename: PathLike,
+    options:
+        { encoding?: BufferEncoding | null; persistent?: boolean; recursive?: boolean } |
+        BufferEncoding |
+        undefined |
+        null,
+    listener?: (event: string, filename: string) => void
 ): FSWatcher;
 
 /**
@@ -1341,9 +1341,9 @@ export function watch(
  * If `recursive` is not supplied, the default of `false` is used.
  */
 export function watch(
-	filename: PathLike,
-	options: { encoding: "buffer"; persistent?: boolean; recursive?: boolean } | "buffer",
-	listener?: (event: string, filename: Buffer) => void
+    filename: PathLike,
+    options: { encoding: "buffer"; persistent?: boolean; recursive?: boolean } | "buffer",
+    listener?: (event: string, filename: Buffer) => void
 ): FSWatcher;
 
 /**
@@ -1356,9 +1356,9 @@ export function watch(
  * If `recursive` is not supplied, the default of `false` is used.
  */
 export function watch(
-	filename: PathLike,
-	options: { encoding?: string | null; persistent?: boolean; recursive?: boolean } | string | null,
-	listener?: (event: string, filename: string | Buffer) => void
+    filename: PathLike,
+    options: { encoding?: string | null; persistent?: boolean; recursive?: boolean } | string | null,
+    listener?: (event: string, filename: string | Buffer) => void
 ): FSWatcher;
 
 /**
@@ -1484,20 +1484,20 @@ export function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise
  * The kernel ignores the position argument and always appends the data to the end of the file.
  */
 export function writev(
-	fd: number,
-	buffers: NodeJS.ArrayBufferView[],
-	cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
+    fd: number,
+    buffers: NodeJS.ArrayBufferView[],
+    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
 ): void;
 
 export function writev(
-	fd: number,
-	buffers: NodeJS.ArrayBufferView[],
-	position: number,
-	cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
+    fd: number,
+    buffers: NodeJS.ArrayBufferView[],
+    position: number,
+    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
 ): void;
 
 export function writev(
-	fd: number,
-	buffers: NodeJS.ArrayBufferView[],
-	position?: number
+    fd: number,
+    buffers: NodeJS.ArrayBufferView[],
+    position?: number
 ): Promise<[number, NodeJS.ArrayBufferView[]]>;

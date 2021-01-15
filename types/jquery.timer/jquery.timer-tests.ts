@@ -1,8 +1,8 @@
 // Create the timer
 $("body").timer(
-	function () {
-		console.log("This function just got called");
-	}, 10000, true
+    function () {
+        console.log("This function just got called");
+    }, 10000, true
 );
 
 $("body").timer.set({ time: 5000 }); // Change the time from 10000 millseconds to 5000 milliseconds
@@ -13,10 +13,10 @@ $("body").timer.play(); // Start / play the timer
 // #region Outputting if timer is active or not
 var isTimerActive = $("body").timer.isActive; // Define boolean isActive as isTimerActive
 if (isTimerActive == true){
-	console.log("Timer is active!");
+    console.log("Timer is active!");
 }
 else{
-	console.log("Timer is not active!");
+    console.log("Timer is not active!");
 }
 // #endregion
 

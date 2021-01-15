@@ -162,6 +162,17 @@ bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
 bool = semver.intersects(str, str, loose);
 sem = semver.minVersion(str, loose);
+semver.simplifyRange(versions, '1.x'); // $ExpectType string | Range
+semver.simplifyRange(versions, '1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4'); // $ExpectType string | Range
+semver.simplifyRange(versions, new Range('1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4')); // $ExpectType string | Range
+semver.simplifyRange(versions, '>=3.0.0 <3.1.0'); // $ExpectType string | Range
+semver.simplifyRange(versions, '3.0.0 || 3.1 || 3.2 || 3.3'); // $ExpectType string | Range
+semver.simplifyRange(versions, '1 || 2 || 3'); // $ExpectType string | Range
+semver.simplifyRange(versions, '2.1 || 2.2 || 2.3'); // $ExpectType string | Range
+semver.subset('1.x', '1.x'); // $ExpectType boolean
+semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
+semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
+semver.subset('', ''); // $ExpectType boolean
 
 // Coercion
 sem = semver.coerce(str);

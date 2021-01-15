@@ -1,8 +1,9 @@
-import ConcatPlugin = require('webpack-concat-plugin');
 import { Compiler } from 'webpack';
 import webpack = require('webpack');
+import ConcatPlugin = require('webpack-concat-plugin');
 
 const webpackCompiler: Compiler = {} as any;
+const webpackCompilation: webpack.compilation.Compilation = {} as any;
 
 const plugin = new ConcatPlugin();
 plugin.apply(webpackCompiler);
@@ -11,6 +12,7 @@ plugin.getFileName('aa', '[name].[hash].js'); // $ExpectType string
 plugin.hashFile('aa'); // $ExpectType string
 plugin.getRelativePathAsync('some/path'); // $ExpectType Promise<string>
 plugin.resolveReadFiles(webpackCompiler); // $ExpectType void
+plugin.resolveConcatAndUglify(webpackCompilation, []); // $ExpectType void
 
 // options
 new ConcatPlugin({

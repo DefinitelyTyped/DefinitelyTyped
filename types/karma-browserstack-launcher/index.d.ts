@@ -1,6 +1,6 @@
-// Type definitions for karma-browserstack-launcher 1.5
+// Type definitions for karma-browserstack-launcher 1.6
 // Project: https://github.com/karma-runner/karma-browserstack-launcher#readme
-// Definitions by: Peter Blazejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -36,7 +36,7 @@ declare module 'karma' {
         /** the BS worker project name (optional, defaults to global) */
         project?: string;
         /**
-         * you can also pass through any additional options supported by browserstack. (EG. url, resolution, etc.)
+         * you can also pass through any additional options supported by browserstack. (EG. `url`, `resolution`, etc.)
          * See {@link browserstack.com/automate/capabilities} for a full list of supported options.
          */
         [option: string]: any;
@@ -50,11 +50,14 @@ declare module 'karma' {
         /** do you wanna establish the BrowserStack tunnel */
         startTunnel?: boolean;
         /**
-         * in case you want to start the BrowserStack tunnel outside karma
-         * by setting `startTunnel` to `false`,
-         * set the identifier passed to the -localIdentifier option here (optional)
+         * in case you want to start the BrowserStack tunnel outside `karma` by setting `startTunnel` to `false`,
+         * set the identifier passed to the `-localIdentifier` option here
          */
         tunnelIdentifier?: string;
+        /**
+         * @alias tunnelIdentifier
+         */
+        localIdentifier?: string;
         /** how many times do you want to retry to capture the browser */
         retryLimit?: number;
         /** the browser capture timeout */

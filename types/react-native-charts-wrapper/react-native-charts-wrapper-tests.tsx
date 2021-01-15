@@ -7,6 +7,7 @@ import {
     HorizontalBarChart,
     CombinedChart,
     PieChart,
+    AxisLimitLine,
 } from 'react-native-charts-wrapper';
 import * as React from 'react';
 import { View, processColor, StyleSheet } from 'react-native';
@@ -326,10 +327,9 @@ class CandleStickChartScreen extends React.Component {
                             drawGridLines: true,
                             position: 'BOTTOM',
                             yOffset: 5,
-
                             limitLines: Array.from({ length: 47 / 5 })
                                 .fill(0)
-                                .map((_, i) => {
+                                .map<AxisLimitLine>((_, i) => {
                                     return {
                                         limit: 5 * (i + 1) + 0.5,
                                         lineColor: processColor('darkgray'),
@@ -787,8 +787,8 @@ class PieChartScreen extends React.Component {
                                         valueTextColor: processColor('green'),
                                         sliceSpace: 5,
                                         selectionShift: 13,
-                                        xValuePosition: "OUTSIDE_SLICE",
-                                        yValuePosition: "OUTSIDE_SLICE",
+                                        xValuePosition: 'OUTSIDE_SLICE',
+                                        yValuePosition: 'OUTSIDE_SLICE',
                                         valueFormatter: "#.#'%'",
                                         valueLineColor: processColor('green'),
                                         valueLinePart1Length: 0.5,

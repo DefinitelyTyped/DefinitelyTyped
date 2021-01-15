@@ -96,4 +96,30 @@ const options = {
     maximumScreenSpaceError: 2
 };
 
- const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);
+const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);
+
+const polygonGraphics = new Cesium.PolygonGraphics({
+    hierarchy: Cesium.Cartesian3.fromDegreesArray([
+        -108.0,
+        42.0,
+        -100.0,
+        42.0,
+        -104.0,
+        40.0,
+    ]),
+});
+
+const polygonHierarchyProperty: Cesium.Property = polygonGraphics.hierarchy;
+
+const polylineGraphics = new Cesium.PolylineGraphics({
+    positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+        -75,
+        42,
+        250000,
+        -125,
+        42,
+        250000,
+    ]),
+});
+
+const polylinePositionsProperty: Cesium.Property = polylineGraphics.positions;

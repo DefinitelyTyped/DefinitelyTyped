@@ -26,9 +26,3 @@ function test_readability_with_options() {
     };
     const article = new Readability(dom.window.document, options).parse();
 }
-
-function test_is_probably_readerable() {
-    const dom = new JSDOM(`<p>Hello</p><p><strong>Hi!</strong>`);
-
-    const isReadable = new Readability(dom.window.document).isProbablyReaderable();
-}

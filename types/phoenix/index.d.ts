@@ -1,4 +1,4 @@
-// Type definitions for phoenix 1.4
+// Type definitions for phoenix 1.5
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
 //                 John Goff <https://github.com/John-Goff>
@@ -6,18 +6,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+export type PushStatus = 'ok' | 'error' | 'timeout';
+
 export class Push {
-  constructor(
-    channel: Channel,
-    event: string,
-    payload: object,
-    timeout: number,
-  );
+  constructor(channel: Channel, event: string, payload: object, timeout: number);
 
   send(): void;
   resend(timeout: number): void;
 
-  receive(status: string, callback: (response?: any) => any): this;
+  receive(status: PushStatus, callback: (response?: any) => any): this;
 }
 
 export class Channel {
@@ -51,7 +48,10 @@ export interface SocketConnectOption {
   logger: (kind: string, message: string, data: any) => void;
   reconnectAfterMs: (tries: number) => number;
   rejoinAfterMs: (tries: number) => number;
+  vsn: string;
 }
+
+export type MessageRef = string;
 
 export class Socket {
   constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
@@ -71,12 +71,13 @@ export class Socket {
   log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
-  onOpen(callback: (cb: any) => void): void;
-  onClose(callback: (cb: any) => void): void;
-  onError(callback: (cb: any) => void): void;
-  onMessage(callback: (cb: any) => void): void;
+  onOpen(callback: (cb: any) => void): MessageRef;
+  onClose(callback: (cb: any) => void): MessageRef;
+  onError(callback: (cb: any) => void): MessageRef;
+  onMessage(callback: (cb: any) => void): MessageRef;
 
-  makeRef(): string;
+  makeRef(): MessageRef;
+  off(refs: MessageRef[]): void;
 }
 
 export class LongPoll {
@@ -96,7 +97,7 @@ export class LongPoll {
 
 // tslint:disable:no-unnecessary-class
 export class Ajax {
-  static states: {[state: string]: number};
+  static states: { [state: string]: number };
 
   static request(
     method: string,
@@ -105,7 +106,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void
+    callback?: (response?: any) => void,
   ): void;
 
   static xdomainRequest(
@@ -115,7 +116,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void
+    callback?: (response?: any) => void,
   ): void;
 
   static xhrRequest(
@@ -126,7 +127,7 @@ export class Ajax {
     body: any,
     timeout?: number,
     ontimeout?: any,
-    callback?: (response?: any) => void
+    callback?: (response?: any) => void,
   ): void;
 
   static parseJSON(resp: string): JSON;
@@ -147,34 +148,30 @@ export class Presence {
     currentState: object,
     newState: object,
     onJoin?: PresenceOnJoinCallback,
-    onLeave?: PresenceOnLeaveCallback
+    onLeave?: PresenceOnLeaveCallback,
   ): any;
 
   static syncDiff(
     currentState: object,
-    diff: {joins: object; leaves: object},
+    diff: { joins: object; leaves: object },
     onJoin?: PresenceOnJoinCallback,
-    onLeave?: PresenceOnLeaveCallback
+    onLeave?: PresenceOnLeaveCallback,
   ): any;
 
-  static list<T = any>(
-    presences: object,
-    chooser?: (key: string, presence: any) => T,
-  ): T[];
+  static list<T = any>(presences: object, chooser?: (key: string, presence: any) => T): T[];
 }
 
-export type PresenceOnJoinCallback = (
-  key?: string,
-  currentPresence?: any,
-  newPresence?: any
-) => void;
+export type PresenceOnJoinCallback = (key?: string, currentPresence?: any, newPresence?: any) => void;
 
-export type PresenceOnLeaveCallback = (
-  key?: string,
-  currentPresence?: any,
-  newPresence?: any
-) => void;
+export type PresenceOnLeaveCallback = (key?: string, currentPresence?: any, newPresence?: any) => void;
 
 export interface PresenceOpts {
   events?: { state: string; diff: string };
+}
+
+export class Timer {
+  constructor(callback: () => void, timerCalc: (tries: number) => number);
+
+  reset(): void;
+  scheduleTimeout(): void;
 }

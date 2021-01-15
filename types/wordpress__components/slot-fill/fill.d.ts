@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, ReactPortal } from '@wordpress/element';
+import { ComponentType, ReactNode, ReactPortal } from 'react';
 
 declare namespace Fill {
     interface Props {

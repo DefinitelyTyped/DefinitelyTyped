@@ -1,11 +1,15 @@
-import yts from 'yt-search';
+import yts, { search } from 'yt-search';
 
 // $ExpectType Promise<SearchResult>
 yts('');
+// $ExpectType Promise<SearchResult>
+yts.search('');
+// $ExpectType Promise<SearchResult>
+search('');
 
 // $ExpectType void
 yts('', (err, data) => {
-    // $ExpectType Error
+    // $ExpectType string | Error | null | undefined
     err;
     // $ExpectType SearchResult
     data;

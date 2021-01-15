@@ -4797,7 +4797,6 @@ declare namespace Office {
     }
 
     /** For Macintosh only */
-    // tslint:disable-next-line:interface-name
     class IFind {
         private 'Office.IFind_typekey': IFind;
         private constructor();

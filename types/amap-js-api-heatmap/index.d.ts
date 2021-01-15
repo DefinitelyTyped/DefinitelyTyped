@@ -112,7 +112,7 @@ declare namespace AMap {
          */
         getMap(): Map;
         /**
-         * 	获取热力图的属性信息
+         *     获取热力图的属性信息
          */
         getOptions(): Heatmap.Options;
         /**

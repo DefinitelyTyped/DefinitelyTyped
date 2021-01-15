@@ -6,6 +6,34 @@
 
 /// <reference types="node" />
 
+export type Letter =
+    | 'A'
+    | 'B'
+    | 'C'
+    | 'D'
+    | 'E'
+    | 'F'
+    | 'G'
+    | 'H'
+    | 'I'
+    | 'J'
+    | 'K'
+    | 'L'
+    | 'M'
+    | 'N'
+    | 'O'
+    | 'P'
+    | 'Q'
+    | 'R'
+    | 'S'
+    | 'T'
+    | 'U'
+    | 'V'
+    | 'W'
+    | 'X'
+    | 'Y'
+    | 'Z';
+
 export type Permission =
     | 'Printing' // – Top Quality Printing
     | 'DegradedPrintin' // – Lower Quality Printing
@@ -255,5 +283,5 @@ export interface ConfigureOptions {
     tempDir: string;
 }
 
-export function input(file: string): PDFTK;
+export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;
 export function configure(opts: ConfigureOptions): void;

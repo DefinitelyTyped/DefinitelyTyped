@@ -1,11 +1,19 @@
-// Type definitions for cli-progress 3.4
+// Type definitions for cli-progress 3.8
 // Project: https://github.com/AndiDittrich/Node.CLI-Progress
 // Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
 //                  Álvaro Martínez <https://github.com/alvaromartmart>
+//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
+
+export interface Params {
+    progress: number;
+    eta: number;
+    startTime: Date;
+    total: number;
+    value: number;
+    maxWidth: number;
+}
 
 export interface Options {
     /**
@@ -25,7 +33,16 @@ export interface Options {
      *    is rendered as
      *      progress [========================================] 100% | ETA: 0s | 200/200
      */
-    format?: string;
+    format?: string | ((options: Options, params: Params, payload: any) => string);
+
+    /** a custom bar formatter function which renders the bar-element (default: format-bar.js) */
+    formatBar?: (progress: number, options: Options) => string;
+
+    /** a custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
+    formatTime?: (t: number, options: Options, roundToMultipleOf: number) => string;
+
+    /** a custom value formatter function which renders all other values (default: format-value.js) */
+    formatValue?: (v: number, options: Options, type: string) => string;
 
     /** the maximum update rate (default: 10) */
     fps?: number;
@@ -41,6 +58,7 @@ export interface Options {
 
     /** the length of the progress bar in chars (default: 40) */
     barsize?: number;
+
     /**  position of the progress bar - 'left' (default), 'right' or 'center  */
     align?: 'left' | 'right' | 'center';
 
@@ -65,6 +83,13 @@ export interface Options {
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number;
 
+    /**
+     *  trigger an eta calculation update during asynchronous rendering trigger using the current value
+     * - should only be used for long running processes in conjunction with lof `fps` values and large `etaBuffer`
+     * @default false
+     */
+    etaAsynchronousUpdate?: boolean;
+
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null;
 
@@ -82,6 +107,12 @@ export interface Options {
 
     /** trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
     forceRedraw?: boolean;
+
+    /** add padding chars to formatted time and percentage to force fixed width (default: false) */
+    autopadding?: boolean;
+
+    /** the character sequence used for autopadding (default: " ") */
+    autopaddingChar?: string;
 }
 
 export interface Preset {
@@ -116,6 +147,8 @@ export class SingleBar {
     constructor(opt: Options, preset?: Preset);
 
     calculateETA(): void;
+    /** Force eta calculation update (long running processes) without altering the progress values. */
+    updateETA(): void;
 
     formatTime(t: any, roundToMultipleOf: any): any;
 
@@ -123,6 +156,7 @@ export class SingleBar {
 
     /** Increases the current progress value by a specified amount (default +1). Update payload optionally */
     increment(step?: number, payload?: object): void;
+    increment(payload: object): void;
 
     render(): void;
 
@@ -139,12 +173,13 @@ export class SingleBar {
 
     /** Sets the current progress value and optionally the payload with values of custom tokens as a second parameter */
     update(current: number, payload?: object): void;
+    update(payload: object): void;
 }
 
 export class MultiBar {
     constructor(opt: Options, preset?: Preset);
 
-    create(total: number, startValue: number, payload: any): SingleBar;
+    create(total: number, startValue: number, payload?: any): SingleBar;
 
     remove(bar: SingleBar): boolean;
 

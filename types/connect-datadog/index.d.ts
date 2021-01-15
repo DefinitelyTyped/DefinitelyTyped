@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 import express = require('express');
-import dogstatsd = require('node-dogstatsd');
+import hotShots = require('hot-shots');
 
 export = Factory;
 
@@ -22,6 +22,6 @@ declare namespace Factory {
         method?: boolean;
         protocol?: boolean;
         response_code?: boolean;
-        dogstatsd?: dogstatsd.StatsDClient;
+        dogstatsd?: hotShots.StatsD;
     }
 }

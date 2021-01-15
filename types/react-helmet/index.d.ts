@@ -1,4 +1,4 @@
-// Type definitions for react-helmet 5.0
+// Type definitions for react-helmet 6.1
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>
 //                 Isman Usoh <https://github.com/isman-usoh>
@@ -7,6 +7,8 @@
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
 //                 Justin Hall <https://github.com/wKovacs64>
+//                 Andriy2 <https://github.com/Andriy2>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,12 +54,17 @@ export interface HelmetProps {
     titleTemplate?: string;
 }
 
-export class Helmet extends React.Component<HelmetProps> {
+declare class Helmet extends React.Component<HelmetProps> {
     static peek(): HelmetData;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
     static canUseDOM: boolean;
 }
+
+declare const HelmetExport: typeof Helmet;
+
+export { HelmetExport as Helmet };
+export default HelmetExport;
 
 export interface HelmetData {
     base: HelmetDatum;
@@ -91,4 +98,3 @@ export const peek: () => HelmetData;
 export const rewind: () => HelmetData;
 export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;
-export default Helmet;

@@ -91,7 +91,7 @@ module.exports = (config: karma.Config) => {
         browserNoActivityTimeout: 10_000,
         browserSocketTimeout: 20_000,
 
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome', 'Firefox', 'FirefoxHeadless'],
         customHeaders: [
             {
                 match: '.*foo.html',

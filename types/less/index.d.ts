@@ -30,10 +30,13 @@ declare namespace Less {
         constructor(less: LessStatic);
 
         addPreProcessor(preProcessor: PreProcessor, priority?: number): void;
+
+        addFileManager(fileManager: FileManager): void;
     }
 
     interface Plugin {
         install: (less: LessStatic, pluginManager: PluginManager) => void;
+        minVersion?: [number, number, number];
     }
 
     interface PreProcessor {
@@ -50,6 +53,108 @@ declare namespace Less {
         imports: {
             [key: string]: any;
         };
+    }
+
+    interface FileLoadResult {
+        /** Full resolved path to file. */
+        filename: string;
+
+        /** The contents of the file, as a string. */
+        contents: string;
+    }
+
+    interface FileLoadError {
+        /** Error object if an error occurs. */
+        error: unknown;
+    }
+
+    class FileManager extends AbstractFileManager {
+        /**
+         * Returns whether this file manager supports this file for file retrieval
+         * If true is returned, loadFile will then be called with the file.
+         */
+        supports(filename: string, currentDirectory: string, options: LoadFileOptions, environment: Environment): boolean;
+
+        /**
+         * Loads a file asynchronously. Expects a promise that either rejects with an error or fulfills with a FileLoadResult.
+         */
+        loadFile(filename: string, currentDirectory: string, options: LoadFileOptions, environment: Environment): Promise<FileLoadResult>;
+
+        /**
+         * Loads a file synchronously. Expects an immediate return with wither a FileLoadResult or FileLoadError.
+         */
+        loadFileSync(filename: string, currentDirectory: string, options: LoadFileOptions, environment: Environment): FileLoadResult | FileLoadError;
+    }
+
+    class AbstractFileManager {
+        /**
+         * Given the full path to a file, return the path component.
+         */
+        getPath(filename: string): string;
+
+        /**
+         * Append a .less extension if appropriate. Only called if less thinks one could be added.
+         */
+        tryAppendLessExtension(filename: string): string;
+
+        /**
+         * Whether the rootpath should be converted to be absolute.
+         * The browser ovverides this to return true because urls must be absolute.
+         */
+        alwaysMakePathsAbsolute(): boolean;
+
+        /**
+         * Returns whether a path is absolute.
+         */
+        isPathAbsolute(path: string): boolean;
+
+        /**
+         * Joins together 2 paths.
+         */
+        join(basePath: string, laterPath: string): string;
+
+        /**
+         * Returns the difference between 2 paths
+         * E.g. url = a/ baseUrl = a/b/ returns ../
+         * url = a/b/ baseUrl = a/ returns b/
+         */
+        pathDiff(url: string, baseUrl: string): string;
+
+        /**
+         * Returns whether this file manager supports this file for syncronous file retrieval
+         * If true is returned, loadFileSync will then be called with the file.
+         */
+        supportsSync(filename: string, currentDirectory: string, options: LoadFileOptions, environment: Environment): boolean;
+    }
+
+    interface LoadFileOptions {
+        paths?: string[];
+        prefixes?: string[];
+        ext?: string;
+        rawBuffer?: any;
+        syncImport?: boolean;
+    }
+
+    interface Environment {
+        /**
+         * Converts a string to a base 64 string
+         */
+        encodeBase64(str: string): string;
+
+        /**
+         * Lookup the mime-type of a filename
+         */
+        mimeLookup(filename: string): string;
+
+        /**
+         * Look up the charset of a mime type
+         */
+        charsetLookup(mime: string): string;
+
+        /**
+         * Gets a source map generator
+         */
+        getSourceMapGenerator(): any;
     }
 
     interface SourceMapOption {
@@ -167,6 +272,9 @@ interface LessStatic {
     version: number[];
 
     watch(): void;
+
+    FileManager: typeof Less.FileManager;
+    PluginManager: typeof Less.PluginManager;
 }
 
 declare module "less" {

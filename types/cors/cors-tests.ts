@@ -4,6 +4,7 @@ import cors = require('cors');
 
 const app = express();
 app.use(cors());
+app.use(cors({}));
 app.use(cors({
     maxAge: 100,
     credentials: true,
@@ -53,5 +54,8 @@ app.use(cors((req, cb) => {
     } else {
         cb(new Error('Not trusted'));
     }
-}))
+}));
+app.use(cors({
+    preflightContinue: true,
+}));
 

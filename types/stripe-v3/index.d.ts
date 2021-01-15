@@ -15,6 +15,8 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Kevin Soltysiak <https://github.com/ksol>
 //                 Kohei Matsubara <https://github.com/matsuby>
+//                 Marko Kaznovac <https://github.com/kaznovac>
+//                 Hartley Robertson <https://github.com/hartleyrobertson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -94,6 +96,9 @@ declare namespace stripe {
             data?: ConfirmCardSetupData,
             options?: ConfirmCardSetupOptions,
         ): Promise<SetupIntentResponse>;
+        retrieveSetupIntent(
+            clientSecret: string,
+        ): Promise<SetupIntentResponse>;
         confirmSepaDebitSetup(
             clientSecret: string,
             data?: ConfirmSepaDebitSetupData,
@@ -138,6 +143,7 @@ declare namespace stripe {
 
     interface StripeOptions {
         stripeAccount?: string;
+        apiVersion?: string;
         betas?: string[];
         locale?: string;
     }
@@ -154,12 +160,30 @@ declare namespace stripe {
     }
 
     interface BankAccountTokenOptions {
+        /**
+         * Two character country code (e.g., US).
+         */
         country: string;
+        /**
+         * Three character currency code (e.g., usd).
+         */
         currency: string;
-        routing_number: string;
+        /**
+         * The bank routing number (e.g., 111000025). Optional if the currency is eur, as the account number is an IBAN.
+         */
+        routing_number?: string;
+        /**
+         * The bank account number (e.g., 000123456789).
+         */
         account_number: string;
+        /**
+         * The name of the account holder.
+         */
         account_holder_name: string;
-        account_holder_type: string;
+        /**
+         * The type of entity that holds the account. Can be either individual or company.
+         */
+        account_holder_type: 'individual' | 'company';
     }
 
     interface PiiTokenOptions {
@@ -616,7 +640,7 @@ declare namespace stripe {
         /**
          * Indicates that you intend to make future payments with this PaymentIntent's payment method.
          */
-        setup_future_usage?: boolean;
+        setup_future_usage?: "on_session" | "off_session";
     }
     interface ConfirmCardPaymentOptions {
         /*
@@ -953,6 +977,7 @@ declare namespace stripe {
             };
             hidePostalCode?: boolean;
             hideIcon?: boolean;
+            showIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
             placeholderCountry?: string;
@@ -991,6 +1016,7 @@ declare namespace stripe {
 
         interface StyleOptions {
             color?: string;
+            backgroundColor?: string;
             fontFamily?: string;
             fontSize?: string;
             fontSmoothing?: string;

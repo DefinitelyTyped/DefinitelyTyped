@@ -7,9 +7,8 @@
 //                 HyunSeob Lee <https://github.com/hyunseob>
 //                 Pierre Tchuente <https://github.com/PierreTchuente>
 //                 Oliver Emery <https://github.com/thrymgjol>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Request, RequestHandler } from 'express';
 import { Readable } from 'stream';
 
@@ -62,57 +61,6 @@ declare global {
     }
 }
 
-declare class Multer {
-    /**
-     * Returns middleware that processes a single file associated with the
-     * given form field.
-     *
-     * The `Request` object will be populated with a `file` object containing
-     * information about the processed file.
-     *
-     * @param fieldName Name of the multipart form field to process.
-     */
-    single(fieldName: string): RequestHandler;
-    /**
-     * Returns middleware that processes multiple files sharing the same field
-     * name.
-     *
-     * The `Request` object will be populated with a `files` array containing
-     * an information object for each processed file.
-     *
-     * @param fieldName Shared name of the multipart form fields to process.
-     * @param maxCount Optional. Maximum number of files to process. (default: Infinity)
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName`
-     */
-    array(fieldName: string, maxCount?: number): RequestHandler;
-    /**
-     * Returns middleware that processes multiple files associated with the
-     * given form fields.
-     *
-     * The `Request` object will be populated with a `files` object which
-     * maps each field name to an array of the associated file information
-     * objects.
-     *
-     * @param fields Array of `Field` objects describing multipart form fields to process.
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
-     */
-    fields(fields: ReadonlyArray<multer.Field>): RequestHandler;
-    /**
-     * Returns middleware that processes all files contained in the multipart
-     * request.
-     *
-     * The `Request` object will be populated with a `files` array containing
-     * an information object for each processed file.
-     */
-    any(): RequestHandler;
-    /**
-     * Returns middleware that accepts only non-file multipart form fields.
-     *
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if any file is encountered.
-     */
-    none(): RequestHandler;
-}
-
  /**
   * Returns a Multer instance that provides several methods for generating
   * middleware that process files uploaded in `multipart/form-data` format.
@@ -127,9 +75,63 @@ declare class Multer {
   * populated with an entry mapping the field name to its string value, or array
   * of string values if multiple fields share the same name.
   */
-declare function multer(options?: multer.Options): Multer;
+declare function multer(options?: multer.Options): multer.Multer;
 
 declare namespace multer {
+    /**
+     * @see {@link https://github.com/expressjs/multer#api}
+     */
+    interface Multer {
+        /**
+         * Returns middleware that processes a single file associated with the
+         * given form field.
+         *
+         * The `Request` object will be populated with a `file` object containing
+         * information about the processed file.
+         *
+         * @param fieldName Name of the multipart form field to process.
+         */
+        single(fieldName: string): RequestHandler;
+        /**
+         * Returns middleware that processes multiple files sharing the same field
+         * name.
+         *
+         * The `Request` object will be populated with a `files` array containing
+         * an information object for each processed file.
+         *
+         * @param fieldName Shared name of the multipart form fields to process.
+         * @param maxCount Optional. Maximum number of files to process. (default: Infinity)
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName`
+         */
+        array(fieldName: string, maxCount?: number): RequestHandler;
+        /**
+         * Returns middleware that processes multiple files associated with the
+         * given form fields.
+         *
+         * The `Request` object will be populated with a `files` object which
+         * maps each field name to an array of the associated file information
+         * objects.
+         *
+         * @param fields Array of `Field` objects describing multipart form fields to process.
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
+         */
+        fields(fields: ReadonlyArray<Field>): RequestHandler;
+        /**
+         * Returns middleware that processes all files contained in the multipart
+         * request.
+         *
+         * The `Request` object will be populated with a `files` array containing
+         * an information object for each processed file.
+         */
+        any(): RequestHandler;
+        /**
+         * Returns middleware that accepts only non-file multipart form fields.
+         *
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if any file is encountered.
+         */
+        none(): RequestHandler;
+    }
+
     /**
      * Returns a `StorageEngine` implementation configured to store files on
      * the local file system.
@@ -140,6 +142,7 @@ declare namespace multer {
      * character filenames.
      */
     function diskStorage(options: DiskStorageOptions): StorageEngine;
+
     /**
      * Returns a `StorageEngine` implementation configured to store files in
      * memory as `Buffer` objects.
@@ -267,7 +270,7 @@ declare namespace multer {
         _removeFile(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error) => void
+            callback: (error: Error | null) => void
         ): void;
     }
 

@@ -130,7 +130,7 @@ declare namespace videojs {
      *          An HTML element - `<video>`, `<audio>`, or `<video-js>` -
      *          or a string matching the `id` of such an element.
      *
-     * @return	A player instance or `undefined` if there is no player instance
+     * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
     function getPlayer(id: string): Player;
@@ -138,7 +138,7 @@ declare namespace videojs {
     /**
      * Get an object with the currently created players, keyed by player ID
      *
-     * @return	The created players
+     * @return    The created players
      */
     function getPlayers(): { [key: string]: Player };
 
@@ -148,7 +148,7 @@ declare namespace videojs {
      * @param name
      *         The name of a plugin.
      *
-     * @return	The plugin (or `undefined`).
+     * @return    The plugin (or `undefined`).
      */
     const getPlugin: typeof Plugin.getPlugin;
 
@@ -159,7 +159,7 @@ declare namespace videojs {
      *         If provided, should be an array of plugin names. Defaults to _all_
      *         plugin names.
      *
-     * @return	An object containing plugin(s) associated with their name(s) or
+     * @return    An object containing plugin(s) associated with their name(s) or
      *         `undefined` if no matching plugins exist).
      */
     const getPlugins: typeof Plugin.getPlugins;
@@ -170,7 +170,7 @@ declare namespace videojs {
      * @param name
      *         The name of a plugin.
      *
-     * @return	The plugin's version or an empty string.
+     * @return    The plugin's version or an empty string.
      */
     const getPluginVersion: typeof Plugin.getPluginVersion;
 
@@ -214,7 +214,7 @@ declare namespace videojs {
      * @param [fn]
      *        Optionally add a hook (or hooks) to the lifecycle that your are getting.
      *
-     * @return	an array of hooks, or an empty array if there are none.
+     * @return    an array of hooks, or an empty array if there are none.
      */
     function hooks(type: string, fn?: (() => any) | Array<() => any>): void;
 
@@ -224,7 +224,7 @@ declare namespace videojs {
      * @param url
      *        The url to check.
      *
-     * @return	Whether it is a cross domain request or not.
+     * @return    Whether it is a cross domain request or not.
      */
     function isCrossOrigin(url: string): boolean;
 
@@ -248,7 +248,7 @@ declare namespace videojs {
      * @param sources
      *          One or more objects to merge into a new object.
      *
-     * @return	A new object that is the merged result of all sources.
+     * @return    A new object that is the merged result of all sources.
      */
     function mergeOptions<A, B, C, D, E, F>(
         option: A,
@@ -265,7 +265,7 @@ declare namespace videojs {
      * @param url
      *         The url to parse
      *
-     * @return	An object of url details
+     * @return    An object of url details
      */
     function parseUrl(url: string): url.URLObject;
 
@@ -356,7 +356,7 @@ declare namespace videojs {
      * @param comp
      *        The component class
      *
-     * @return	The newly registered component
+     * @return    The newly registered component
      */
     const registerComponent: typeof Component.registerComponent;
 
@@ -373,7 +373,7 @@ declare namespace videojs {
      * @param plugin
      *         A sub-class of `Plugin` or a function for basic plugins.
      *
-     * @return	For advanced plugins, a factory function for that plugin. For
+     * @return    For advanced plugins, a factory function for that plugin. For
      *         basic plugins, a wrapper function that initializes the plugin.
      */
     const registerPlugin: typeof Plugin.registerPlugin;
@@ -409,7 +409,7 @@ declare namespace videojs {
      * @param fn
      *        The hooked function to remove
      *
-     * @return	The function that was removed or undef
+     * @return    The function that was removed or undef
      */
     function removeHook(type: string, fn: () => any): boolean;
 
@@ -425,7 +425,7 @@ declare namespace videojs {
      * @param [hash]
      *        data hash to pass along with the event
      *
-     * @return	- Returns the opposite of `defaultPrevented` if default was prevented
+     * @return    - Returns the opposite of `defaultPrevented` if default was prevented
      *         - Otherwise returns undefined
      */
     function trigger(elem: Element, event: EventTarget.Event | string, hash?: any): boolean | undefined;
@@ -2320,7 +2320,7 @@ declare namespace videojs {
          *
          * @return The position of the element that was passed in.
          */
-        findPosition(el: Element): Position;
+        findPosition(el: Element): Dom.Position;
 
         /**
          * Get the value of an element's attribute
@@ -3093,7 +3093,7 @@ declare namespace videojs {
          *
          * @return The current logging level.
          */
-        level(lvl: string): string;
+        level(lvl?: string): string;
 
         /**
          * Enumeration of available logging levels, where the keys are the level names

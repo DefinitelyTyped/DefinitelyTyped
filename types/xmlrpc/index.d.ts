@@ -46,8 +46,8 @@ declare module 'xmlrpc' {
         function createClient(options: string | ClientOptions): Client;
         function createSecureClient(options: string | ClientOptions): Client;
 
-        function createServer(options: string | ServerOptions, callback: () => void): Server;
-        function createSecureServer(options: string | TlsOptions, callback: () => void): Server;
+        function createServer(options: string | ServerOptions, callback?: () => void): Server;
+        function createSecureServer(options: string | TlsOptions, callback?: () => void): Server;
 
         interface Client {
             options: ClientOptions;

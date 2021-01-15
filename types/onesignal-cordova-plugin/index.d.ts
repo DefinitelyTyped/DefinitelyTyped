@@ -395,8 +395,8 @@ declare namespace OneSignalCordovaPlugin {
      */
     const enum OSNotificationPermission {
         NotDetermined = 0,
-        Authorized = 1,
-        Denied = 2,
+        Denied = 1,
+        Authorized = 2,
     }
 
     /**

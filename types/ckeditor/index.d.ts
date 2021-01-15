@@ -656,8 +656,8 @@ declare namespace CKEDITOR {
         emailProtection?: string;
         embed_provider?: string;
         emoji_emojiListUrl?: string;
-		emoji_minChars?: number;
-		enableContextMenu?: boolean;
+        emoji_minChars?: number;
+        enableContextMenu?: boolean;
         enableTabKeyTools?: boolean;
         enterMode?: number;
         entities?: boolean;

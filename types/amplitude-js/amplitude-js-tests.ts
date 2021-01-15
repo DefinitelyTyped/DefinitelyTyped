@@ -107,6 +107,8 @@ import amplitude = require('amplitude-js');
         .set('colors', ['rose', 'gold'])
         .append('ab-tests', 'campaign_a')
         .append('existing_list', [4, 5]);
+    identify.setOnce('is_test_user', true);
+    identify.set('is_alpha_user', false);
 
     revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99);
     revenue = new amplitude.Revenue()
@@ -167,8 +169,11 @@ const defaults: amplitude.Config = {
     apiEndpoint: 'api.amplitude.com',
     batchEvents: false,
     cookieExpiration: 365 * 10,
+    cookieForceUpgrade: false,
     cookieName: 'amplitude_id',
+    deferInitialization: false,
     deviceIdFromUrlParam: false,
+    disableCookies: false,
     domain: '',
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
@@ -178,9 +183,10 @@ const defaults: amplitude.Config = {
     includeUtm: false,
     language: 'en',
     logLevel: 'WARN',
-    optOut: false,
     onError: () => {},
+    optOut: false,
     platform: 'iOS',
+    sameSiteCookie: 'Lax', // cookie privacy policy
     savedMaxCount: 1000,
     saveEvents: true,
     saveParamsReferrerOncePerSession: true,

@@ -7,6 +7,7 @@
 //                 angusfretwell <https://github.com/angusfretwell>
 //                 orzarchi <https://github.com/orzarchi>
 //                 ilaiwi <https://github.com/ilaiwi>
+//                 mrkosima <https://github.com/mrkosima>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -72,10 +73,16 @@ export const Card: React.FunctionComponent<BoxKnownProps>;
 
 interface FlexKnownProps
     extends BoxKnownProps,
+        StyledSystem.FlexGrowProps,
+        StyledSystem.FlexShrinkProps,
         StyledSystem.FlexWrapProps,
         StyledSystem.FlexDirectionProps,
         StyledSystem.AlignItemsProps,
-        StyledSystem.JustifyContentProps {}
+        StyledSystem.AlignContentProps,
+        StyledSystem.AlignSelfProps,
+        StyledSystem.JustifyItemsProps,
+        StyledSystem.JustifyContentProps,
+        StyledSystem.JustifySelfProps {}
 export interface FlexProps extends FlexKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;
 

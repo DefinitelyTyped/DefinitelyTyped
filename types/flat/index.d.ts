@@ -9,34 +9,34 @@ declare var flatten: FlatTypes.Flatten;
 export = flatten;
 
 declare namespace FlatTypes {
-	interface FlattenOptions {
-		delimiter?: string;
-		safe?: boolean;
-		maxDepth?: number;
+    interface FlattenOptions {
+        delimiter?: string;
+        safe?: boolean;
+        maxDepth?: number;
         transformKey?: (key: string) => string;
-	}
+    }
 
-	interface Flatten {
-		<TTarget, TResult>(
-			target: TTarget,
-			options?: FlattenOptions
-		): TResult;
+    interface Flatten {
+        <TTarget, TResult>(
+            target: TTarget,
+            options?: FlattenOptions
+        ): TResult;
 
-		flatten: Flatten;
-		unflatten: Unflatten;
-	}
+        flatten: Flatten;
+        unflatten: Unflatten;
+    }
 
-	interface UnflattenOptions {
-		delimiter?: string;
-		object?: boolean;
-		overwrite?: boolean;
+    interface UnflattenOptions {
+        delimiter?: string;
+        object?: boolean;
+        overwrite?: boolean;
         transformKey?: (key: string) => string;
-	}
+    }
 
-	interface Unflatten {
-		<TTarget, TResult>(
-			target: TTarget,
-			options?: UnflattenOptions
-		): TResult;
-	}
+    interface Unflatten {
+        <TTarget, TResult>(
+            target: TTarget,
+            options?: UnflattenOptions
+        ): TResult;
+    }
 }

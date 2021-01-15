@@ -2,6 +2,7 @@
 // Project: https://github.com/kartik-v/bootstrap-fileinput
 // Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Zach Hall <https://github.com/zshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -120,48 +121,88 @@ declare namespace BootstrapFileInput {
          */
         theme?: string;
         /**
+         * Whether file selection is mandatory before upload (for ajax) or submit of the form (for non-ajax). When set to true, and if files are not
+         * selected before upload, this will show the error message as set in msgFilerequired.
+         * @default false
+         */
+        required?: boolean;
+        /**
+         * Whether to orient the widget in Right-To-Left (RTL) mode. To view RTL orientation you must set this to true and also must load the
+         * css/fileinput-rtl.css file after the css/fileinput.css on your page for RTL styling.
+         * @default false
+         */
+        rtl?: boolean;
+        /**
+         * Whether to hide the preview content (image, pdf content, text content, etc.) within the thumbnail.
+         * When set to true, only the file name and file size as defined in the thumbnail footer layout template will be displayed.
+         * @default false
+         */
+        hideThumbnailContent?: boolean;
+        /**
+         * Whether to encode all the URLs before triggering the ajax calls.
+         * The following URLs are currently set and used within the plugin:
+         *     * uploadUrl
+         *     * deleteUrl
+         *     * initialPreviewDownloadUrl
+         *     * url within initialPreviewConfig
+         *     * downloadUrl within initialPreviewConfig
+         *     * testUrl within resumableUploadOptions
+         * @default true
+         */
+        encodeUrl?: boolean;
+        /**
+         * Whether to focus the file caption after browsing and selecting a file.
+         * @default true
+         */
+        focusCaptionOnBrowse?: boolean;
+        /**
+         * Whether to focus the file caption after clearing / removing the files (using the remove button for example).
+         * @default true
+         */
+        focusCaptionOnClear?: boolean;
+        /**
          * Whether to display the file caption.
-         * Defaults to true.
+         * @default true
          */
         showCaption?: boolean;
         /**
          * Whether to display the file preview.
-         * Defaults to true.
+         * @default true
          */
         showPreview?: boolean;
         /**
          * Whether to display the file remove/clear button.
-         * Defaults to true.
+         * @default true
          */
         showRemove?: boolean;
         /**
          * Whether to display the file upload button.
-         * Defaults to true.
+         * @default true
          * This will default to a form submit button, unless the uploadUrl is specified.
          */
         showUpload?: boolean;
         /**
          * Whether to display the file upload cancel button.
-         * Defaults to true.
+         * @default true
          * This will be only enabled and displayed when an AJAX upload is in process.
          */
         showCancel?: boolean;
         /**
          * Whether to display the close icon in the preview.
-         * Defaults to true.
+         * @default true
          * This will be only parsed when showPreview is true or when you are using the {close} tag in your preview templates.
          */
         showClose?: boolean;
         /**
          * Whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed.
-         * Defaults to true.
+         * @default true
          * When set to false, a next batch of files selected for upload will clear these thumbnails from preview.
          */
         showUploadedThumbs?: boolean;
         /**
          * Whether to automatically replace the files in the preview after the maxFileCount limit is reached and a new set of file(s) is/are selected.
          * This will only work if a valid maxFileCount is set.
-         * Defaults to false.
+         * @default false
          */
         autoReplace?: boolean;
         /**
@@ -236,8 +277,10 @@ declare namespace BootstrapFileInput {
          * The ajax delete action will send the following data to server via POST:
          *     key: the key setting as setup in initialPreviewConfig['key']
          *     any other extra data passed as key: value pairs either via initialPreviewConfig['extra'] OR deleteExtraData if former is not set.
+         * You can also set deleteUrl as a function callback which will return a string. In that case, the function will get executed every time at runtime.
+         * This will enable you to set a dynamically changing url based on runtime conditions.
          */
-        deleteUrl?: string;
+        deleteUrl?: string | (() => string);
         /**
          * the initial preview caption text to be displayed.
          * If you do not set a value here and initialPreview is set to true this will default to "{preview-file-count} files selected",
@@ -398,11 +441,22 @@ declare namespace BootstrapFileInput {
          *     This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
          *     The plugin automatically send $_FILES data to the server with the input `name` attribute as the key if provided.
          *     If input name is not set, the key defaults to file-data.
+         * You can also set uploadUrl as a function callback which will return a string. In that case, the function will get executed at runtime
+         * just before every ajax call. This will enable you to set a dynamic upload url based on runtime / dynamic conditions.
          */
-        uploadUrl?: string;
+        uploadUrl?: string | (() => string);
+        /**
+         * the URL for the ajax upload processing action applicable when each individual file thumbnail is separately uploaded. Defaults to null.
+         * If this is not set, this will default to the uploadUrl setting. This property is useful for synchronous uploads when uploadAsync is
+         * set to false, and you want to set a different server action for batch upload via uploadUrl, but a different server action for single
+         * file thumbnail upload via uploadUrlThumb.
+         * You can also set uploadThumbUrl as a function callback which will return a string. In that case, the function will get executed at
+         * runtime just before every ajax call. This will enable you to set a dynamic upload thumbnail url based on runtime / dynamic conditions.
+         */
+        uploadUrlThumb?: string | (() => string);
         /**
          * whether the batch upload of multiple files will be asynchronous/in parallel.
-         * Defaults to true.
+         * @default true
          */
         uploadAsync?: boolean;
         /**
@@ -483,7 +537,7 @@ declare namespace BootstrapFileInput {
         maxFileCount?: number;
         /**
          * whether to include initial preview file count (server uploaded files) in validating minFileCount and maxFileCount.
-         * Defaults to false.
+         * @default false
          */
         validateInitialCount?: boolean;
         /**
@@ -763,7 +817,7 @@ declare namespace BootstrapFileInput {
         /**
          * whether to enable a drag and drop zone for dragging and dropping files to.
          * This is available only for ajax based uploads.
-         * Defaults to true.
+         * @default true
          */
         dropZoneEnabled?: boolean;
         /**
@@ -781,7 +835,7 @@ declare namespace BootstrapFileInput {
         /**
          * configuration for setting up file actions for newly selected file thumbnails in the preview window.
          */
-        fileActionsettings?: FileActionSettings;
+        fileActionSettings?: FileActionSettings;
         /**
          * markup for additional action buttons to display within the initial preview thumbnails (for example displaying an image edit button).
          * The following tag can be used in the markup and will be automatically replaced:
@@ -810,7 +864,7 @@ declare namespace BootstrapFileInput {
         ajaxDeleteSettings?: JQueryAjaxSettings;
         /**
          * whether to show details of the error stack from the server log when an error is encountered via ajax response.
-         * Defaults to true.
+         * @default true
          */
         showAjaxErrorDetails?: boolean;
     }
@@ -1098,59 +1152,137 @@ declare namespace BootstrapFileInput {
         /**
          * icon for remove button to be displayed in each file thumbnail.
          */
-        removeIcon: string;
+        removeIcon?: string;
         /**
          * CSS class for the remove button in each file thumbnail.
          */
-        removeClass: string;
+        removeClass?: string;
         /**
          * title for remove button in each file thumbnail.
          */
-        removeTitle: string;
+        removeTitle?: string;
+        /**
+         * whether to show the upload button in the thumbnail.
+         * @default true // will be always false for resumable uploads
+         */
+        showUpload?: boolean | (() => boolean);
+        /**
+         * whether to show the download button in the thumbnail.
+         * @default true
+         */
+        showDownload?: boolean | (() => boolean);
+        /**
+         * whether to show the remove button in the thumbnail.
+         * @default true
+         */
+        showRemove?: boolean | (() => boolean);
+        /**
+         * whether to show the zoom button in the thumbnail.
+         * @default true
+         */
+        showZoom?: boolean | (() => boolean);
+        /**
+         * whether to show the drag button in the thumbnail (applicable only for initial preview content)
+         * @default true
+         */
+        showDrag?: boolean | (() => boolean);
         /**
          * icon for upload button to be displayed in each file thumbnail.
          */
-        uploadIcon: string;
+        uploadIcon?: string;
         /**
          * CSS class for the remove button in each file thumbnail.
          */
-        uploadClass: string;
+        uploadClass?: string;
         /**
          * title for remove button in each file thumbnail.
          */
-        uploadTitle: string;
+        uploadTitle?: string;
+        /**
+         * title to be displayed for upload button after an upload error is encountered from the server to allow retry of the upload.
+         * This will be rendered in such a case for the errored file thumbnail when retryErrorUploads is set to true.
+         */
+        uploadRetryIcon?: string;
+        /**
+         * icon for download button to be displayed in each file thumbnail.
+         */
+        downloadIcon?: string;
+        /**
+         * CSS class for the download button in each file thumbnail.
+         */
+        downloadClass?: string;
+        /**
+         * title for download button in each file thumbnail.
+         */
+        downloadTitle?: string;
+        /**
+         * icon for zoom button to be displayed in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
+         */
+        zoomIcon?: string;
+        /**
+         * CSS class for the zoom button in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
+         */
+        zoomClass?: string;
+        /**
+         * title for zoom button in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
+         */
+        zoomTitle?: string;
+        /**
+         * icon for drag button to be displayed in each file thumbnail (to sort / rearrange items in initial preview).
+         */
+        dragIcon?: string;
+        /**
+         * CSS class for the drag button in each file thumbnail (to sort / rearrange items in initial preview).
+         */
+        dragClass?: string;
+        /**
+         * title for drag button in each file thumbnail (to sort / rearrange items in initial preview).
+         */
+        dragTitle?: string;
+        /**
+         * the configuration for the Sortable plugin that will allow you to control the drag settings.
+         */
+        dragSettings?: object;
         /**
          * an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
          */
-        indicatorNew: string;
+        indicatorNew?: string;
         /**
          * an indicator (HTML markup) for successful upload displayed in each file thumbnail.
          */
-        indicatorSuccess: string;
+        indicatorSuccess?: string;
         /**
          * an indicator (HTML markup) for error in upload displayed in each file thumbnail.
          */
-        indicatorError: string;
+        indicatorError?: string;
         /**
          * an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
          */
-        indicatorLoading: string;
+        indicatorLoading?: string;
+        /**
+         * an indicator (HTML markup) for paused upload displayed in each file thumbnail (applicable for resumable uploads when enableResumableUpload property to true).
+         */
+        indicatorPaused?: string;
         /**
          * title to display on hover of indicator for new pending upload in each file thumbnail.
          */
-        indicatorNewTitle: string;
+        indicatorNewTitle?: string;
         /**
          * title to display on hover of indicator for successful in each file thumbnail.
          */
-        indicatorSuccessTitle: string;
+        indicatorSuccessTitle?: string;
         /**
          * title to display on hover of indicator for error in upload in each file thumbnail.
          */
-        indicatorErrorTitle: string;
+        indicatorErrorTitle?: string;
         /**
          * title to display on hover of indicator for ongoing upload in each file thumbnail.
          */
-        indicatorLoadingTitle: string;
+        indicatorLoadingTitle?: string;
+        /**
+         * title to display on hover of indicator for paused upload in each file thumbnail (applicable for resumable uploads when enableResumableUpload property to true).
+         */
+        indicatorPausedTitle?: string;
     }
 
     interface FileStack {

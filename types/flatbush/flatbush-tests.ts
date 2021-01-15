@@ -1,9 +1,10 @@
-import Flatbush from 'flatbush';
+import Flatbush = require('flatbush');
 
 const from: Flatbush = Flatbush.from(new ArrayBuffer(0));
 
 const index = new Flatbush(1);
-index.add(0, 0, 1, 1);
+// $ExpectType number
+const addedIndex = index.add(0, 0, 1, 1);
 index.finish();
 
 const results = index.search(0.5, 0.5, 0.5, 0.5);

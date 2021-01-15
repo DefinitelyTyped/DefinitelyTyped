@@ -300,7 +300,8 @@ const sshconfig: ssh2.ConnectConfig = {
     host: 'localhost',
     port: 22,
     username: 'ubuntu',
-    password: 'password'
+    password: 'password',
+    authHandler: (methodsLeft: any, partialSuccess: any, callback: any) => { if(!methodsLeft) callback('password') }
 };
 
 //

@@ -6,7 +6,6 @@
 // TypeScript Version: 2.6
 
 /// <reference types="jquery"/>
-/// <reference types="requirejs"/>
 
 export as namespace Select2;
 
@@ -163,9 +162,32 @@ export interface Trigger {
 export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any> extends JQueryAjaxSettingsBase {
     delay?: number;
     url?: string | ((params: QueryOptions) => string);
-    data?: (params: QueryOptions) => PlainObject;
+    data?: (params: QueryOptions) => PlainObject | string;
     transport?: (settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void;
     processResults?: (data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>;
+}
+
+// --------------------------------------------------------------------------
+// Built-in AMD Loader
+// --------------------------------------------------------------------------
+
+export interface Select2Require {
+    config(config: Select2RequireConfig): Select2Require;
+    (module: string): any;
+    (modules: string[]): void;
+    (modules: string[], ready: (...modules: any[]) => void): void;
+    (modules: string[], ready: (...modules: any[]) => void, errback: (err: any) => void): void;
+}
+
+export interface Select2RequireConfig {
+    map?: {
+        [id: string]: {
+            [id: string]: string;
+        };
+    };
+    config?: { [id: string]: {}; };
+    deps?: string[];
+    callback?: (...modules: any[]) => void;
 }
 
 // --------------------------------------------------------------------------
@@ -206,14 +228,14 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     sorter?: (data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>;
     tags?: boolean;
     templateResult?: (result: LoadingData | Result) => string | JQuery | null;
-    templateSelection?: (selection: IdTextPair | LoadingData | Result) => string | JQuery;
+    templateSelection?: (selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery;
     theme?: string;
     tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Options) => string;
     tokenSeparators?: string[];
     width?: string;
 
     // Not in https://select2.org/configuration/options-api
-    createTag?: (params: SearchOptions) => IdTextPair | null;
+    createTag?: (params: SearchOptions) => (IdTextPair & Record<string, any>) | null;
     insertTag?: (data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void;
 }
 
@@ -222,7 +244,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
 // --------------------------------------------------------------------------
 
 export interface Select2Plugin<TElement = HTMLElement>  {
-    amd: { require: Require; };
+    amd: { require: Select2Require; };
 
     defaults: {
         set: (key: string, value: any) => void;
@@ -233,21 +255,21 @@ export interface Select2Plugin<TElement = HTMLElement>  {
     // tslint:disable-next-line:no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(options: Options<Result, RemoteResult>): JQuery<TElement>;
 
-	/**
-	 * Get the data object of the current selection
-	 */
+    /**
+     * Get the data object of the current selection
+     */
     (method: "data"): OptionData[];
-	/**
-	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
-	 */
+    /**
+     * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+     */
     (method: "destroy"): JQuery<TElement>;
-	/**
-	 * Opens the dropdown
-	 */
+    /**
+     * Opens the dropdown
+     */
     (method: "open"): JQuery<TElement>;
-	/**
-	 * Closes the dropdown
-	 */
+    /**
+     * Closes the dropdown
+     */
     (method: "close"): JQuery<TElement>;
 }
 

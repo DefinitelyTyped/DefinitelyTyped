@@ -18,10 +18,13 @@ import { Template } from "meteor/templating";
 import { Blaze } from "meteor/blaze";
 import { Session } from "meteor/session";
 import { HTTP } from "meteor/http";
+import { ReactiveDict } from "meteor/reactive-dict";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
+import { Random } from "meteor/random"
+import { EJSON } from "meteor/ejson";
 
 declare module 'meteor/meteor' {
     namespace Meteor {
@@ -251,25 +254,39 @@ Posts.insert({ title: "Hello world", body: "First post" });
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
  **/
 
+type AnimalPOD = {
+    _id?: string;
+    name: string;
+    sound: string;
+}
+interface Animal extends AnimalPOD {}
+
 class Animal {
     constructor(public doc: any) {}
+    makeNoise() {
+        return 'roar';
+    }
 }
 
 interface AnimalDAO {
     _id?: string;
     name: string;
     sound: string;
-    makeNoise?: () => void;
+    makeNoise: () => void;
 }
 
 // Define a Collection that uses Animal as its document
-var Animals = new Mongo.Collection<AnimalDAO>("Animals", {
-    transform: function (doc: any): Animal { return new Animal(doc); }
+var Animals = new Mongo.Collection<AnimalPOD, AnimalDAO>("Animals", {
+    transform: function (doc: AnimalPOD): Animal { return new Animal(doc); }
 });
 
 // Create an Animal and call its makeNoise method
 Animals.insert({ name: "raptor", sound: "roar" });
-Animals.findOne({ name: "raptor" }).makeNoise(); // prints "roar"
+var animal = Animals.findOne({ name: "raptor" });
+
+if (animal) {
+    animal.makeNoise(); // prints "roar"
+}
 
 /**
  * From Collections, Collection.insert section
@@ -363,7 +380,7 @@ Posts = new Mongo.Collection<iPost>("posts");
 Posts.allow({
     insert: function (userId: string, doc: iPost) {
         // the user must be logged in, and the document must be owned by the user
-        return (userId && doc.owner === userId);
+        return Boolean(userId && doc.owner === userId);
     },
     update: function (userId: string, doc: iPost, fields: string[], modifier: any) {
         // can only change your own documents
@@ -418,6 +435,7 @@ var handle = query.observeChanges({
         console.log("Lost one. We're now down to " + count1 + " admins.");
     }
 });
+query.observeChanges({}, { nonMutatingCallbacks: true }); // $ExpectType LiveQueryHandle
 
 let cursor: Mongo.Cursor<Object>;
 
@@ -503,7 +521,7 @@ Session.set("enemy", "Eurasia");
 /**
  * From Sessions, Session.equals section
  */
-var value: string;
+var value = '';
 Session.get("key") === value;
 Session.equals("key", value);
 
@@ -511,6 +529,7 @@ Session.equals("key", value);
  * From Accounts, Meteor.users section
  */
 Meteor.publish("userData", function () {
+    if (this.userId === null) return;
     return Meteor.users.find({ _id: this.userId },
         { fields: { 'other': 1, 'things': 1 } });
 });
@@ -534,6 +553,8 @@ Meteor.loginWithGithub({
     if (err)
         Session.set('errorMessage', err.reason || 'Unknown error');
 });
+
+Meteor.loggingOut(); // $ExpectType boolean
 
 /**
  * From Accounts, Accounts.ui.config section
@@ -624,6 +645,8 @@ Template.registerHelper('testHelper', function () {
 });
 
 var instance = Template.instance();
+var userId = instance.data.userId;
+
 var data = Template.currentData();
 var data = Template.parentData(1);
 var body = Template.body;
@@ -657,10 +680,34 @@ Meteor.methods({
         message.text;
         // $ExpectType Date
         message.timestamp;
-        // $ExpectType "Test String"
+        // $ExpectType "Test String" | undefined
         message.tags;
     }
 });
+
+/**
+ * From Match.test section
+ */
+
+var value2: unknown;
+
+// Will return true for `{ foo: 1, bar: 'hello' }` or similar.
+if (Match.test(value2, { foo: Match.Integer, bar: String })) {
+    // $ExpectType { foo: number; bar: string; }
+    value2;
+}
+
+// Will return true if `value` is a string.
+if (Match.test(value2, String)) {
+    // $ExpectType string
+    value2;
+}
+
+// Will return true if `value` is a string or an array of numbers.
+if (Match.test(value2, Match.OneOf(String, [Number]))) {
+    // $ExpectType string | number[]
+    value2;
+}
 
 /**
  * From Match patterns section
@@ -737,8 +784,22 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
-        if (result.statusCode === 200) {
+    function (error, result) {
+        error; // $ExpectType Error | null
+        result; // $ExpectType HTTPResponse | undefined
+
+        if (result && result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        error; // $ExpectType Error | null
+        result; // $ExpectType HTTPResponse | undefined
+
+        if (result && result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
@@ -779,8 +840,31 @@ Blaze.toHTMLWithData(testTemplate, function () { });
 Blaze.toHTMLWithData(testView, { test: 1 });
 Blaze.toHTMLWithData(testView, function () { });
 
+var reactiveDict1 = new ReactiveDict();
+var reactiveDict2 = new ReactiveDict();
+var reactiveDict3 = new ReactiveDict('reactive-dict-3');
+var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
+var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+
+reactiveDict1.setDefault('foo', 'bar');
+reactiveDict1.setDefault({ foo: 'bar' });
+
+reactiveDict1.set('foo', 'bar');
+reactiveDict2.set({ foo: 'bar' });
+
+reactiveDict1.get('foo') === 'bar';
+
+reactiveDict1.equals('foo', 'bar');
+
+reactiveDict1.all();
+
+reactiveDict1.clear();
+
+reactiveDict1.destroy();
+
+
 var reactiveVar1 = new ReactiveVar<string>('test value');
-var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });
+var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
@@ -813,7 +897,7 @@ Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
 Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
     return "<h1>Some html here</h1>";
 };
-Accounts.emailTemplates.enrollAccount.from = function () {
+Accounts.emailTemplates.enrollAccount.from = function (user: Meteor.User) {
     return "asdf@asdf.com";
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {
@@ -866,10 +950,25 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    const user = Meteor.users.findOne({}) ?? {} as Meteor.User;
+    const check = Accounts._checkPassword(user, 'abc123');
     if (check.error) {
         console.error('incorrect password');
     }
+}
+
+// Accounts.onLogout
+
+if (Meteor.isServer) {
+    Accounts.onLogout(({ user, connection }) => {
+
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.onLogout(() => {
+
+    });
 }
 
 // Covers https://github.com/meteor-typings/meteor/issues/8
@@ -922,3 +1021,27 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+Random.choice([1, 2, 3]); // $ExpectType number | undefined
+Random.choice("String"); // $ExpectType string
+
+EJSON.newBinary(5); // $ExpectType Uint8Array
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
+
+// EnvironmentVariable
+const scopedCounter = new Meteor.EnvironmentVariable<number>();
+// $ExpectType number | null
+scopedCounter.getOrNullIfOutsideFiber();
+// $ExpectType string
+scopedCounter.withValue(42, () => {
+    // $ExpectType number
+    scopedCounter.get();
+    return '';
+});

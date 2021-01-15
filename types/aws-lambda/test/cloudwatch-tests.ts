@@ -24,7 +24,7 @@ const logsHandler: CloudWatchLogsHandler = async (event, context, callback) => {
     str = logEvent.id;
     num = logEvent.timestamp;
     str = logEvent.message;
-    str = logEvent.extractedFields!['example'];
+    strOrUndefined = logEvent.extractedFields!['example'];
 
     callback();
     callback(new Error());
@@ -42,4 +42,8 @@ const scheduledHandler: ScheduledHandler = async (event, context, callback) => {
 
     callback();
     callback(new Error());
+};
+
+const scheduledHandlerWithDetails: ScheduledHandler<{ status: string }> = async (event, context, callback) => {
+    const eventDetail: { status: string } = event.detail;
 };

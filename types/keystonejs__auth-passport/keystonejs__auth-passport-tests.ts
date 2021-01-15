@@ -9,7 +9,6 @@ import {
 } from '@keystonejs/auth-passport';
 
 const keystone = new Keystone({
-    name: 'Typescript Test',
     adapter: new KnexAdapter(),
 });
 

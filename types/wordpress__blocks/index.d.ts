@@ -7,7 +7,7 @@
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';
@@ -21,6 +21,7 @@ export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
     readonly className: string;
+    readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
 }
@@ -29,7 +30,7 @@ export interface BlockIconNormalized {
     background?: string;
     foreground?: string;
     shadowColor?: string;
-    src: Dashicon.Icon | ComponentType;
+    src: Dashicon.Icon | ReactElement | ComponentType;
 }
 
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;

@@ -1,7 +1,7 @@
-import EmberObject, { computed, notifyPropertyChange } from "@ember/object";
+import EmberObject, { computed, notifyPropertyChange } from '@ember/object';
 
 const LifetimeHooks = EmberObject.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();
@@ -11,7 +11,7 @@ const LifetimeHooks = EmberObject.extend({
     willDestroy() {
         delete this.resource;
         this._super();
-    }
+    },
 });
 
 class MyObject30 extends EmberObject {
@@ -28,8 +28,12 @@ class MyObject31 extends EmberObject {
 
 class Foo extends EmberObject {
     a = computed({
-        get() { return ''; },
-        set(key: string, newVal: string) { return ''; }
+        get() {
+            return '';
+        },
+        set(key: string, newVal: string) {
+            return '';
+        },
     });
     b = 5;
     baz() {
@@ -44,7 +48,7 @@ class Foo extends EmberObject {
         // this.setProperties({ b: '11' }); // $ExpectError
         this.setProperties({
             a: 'def',
-            b: 11
+            b: 11,
         });
     }
     bar() {

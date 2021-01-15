@@ -9,15 +9,19 @@ device.portNumbers = [1, 2, 3];
 
 device.__open();
 device.__claimInterface(0);
+device.__attachKernelDriver(0);
+device.__detachKernelDriver(0);
+const isKernelActive: boolean = device.__isKernelDriverActive(0);
 
 device.open(true);
 device.close();
-const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: usb.LibUSBException, buf: Buffer): usb.Device => new usb.Device());
-device.getStringDescriptor(1, (error: string, buf: Buffer) => null);
-device.getBosDescriptor((error: string, descriptor: usb.BosDescriptor) => null);
-device.getCapabilities((error: string, capabilities: usb.Capability[]) => null);
-device.setConfiguration(1, (error: string) => null);
-device.reset((error: string) => null);
+const xferDeviceIn: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error?: usb.LibUSBException, buffer?: Buffer): usb.Device => new usb.Device());
+const xferDeviceOut: usb.Device = device.controlTransfer(1, 1, 1, 1, Buffer.alloc(5), (error?: usb.LibUSBException): usb.Device => new usb.Device());
+device.getStringDescriptor(1, (error?: usb.LibUSBException, data?: string) => null);
+device.getBosDescriptor((error?: usb.LibUSBException, descriptor?: usb.BosDescriptor) => null);
+device.getCapabilities((error?: usb.LibUSBException, capabilities?: usb.Capability[]) => null);
+device.setConfiguration(1, (error?: usb.LibUSBException) => null);
+device.reset((error?: usb.LibUSBException) => null);
 
 const deviceDesc: usb.DeviceDescriptor = new usb.DeviceDescriptor();
 
@@ -55,6 +59,7 @@ const deviceInterface: usb.Interface = device.interface(1);
 device.interfaces = [deviceInterface];
 device.parent = device;
 device.configDescriptor = configDesc;
+const configDesc2: usb.ConfigDescriptor = device.__getConfigDescriptor();
 device.allConfigDescriptors = [configDesc];
 
 const iface = new usb.Interface(device, 1);
@@ -62,12 +67,12 @@ const iface = new usb.Interface(device, 1);
 iface.interfaceNumber = 1;
 iface.altSetting = 0;
 iface.claim();
-iface.release((error: string) => null);
-iface.release(false, (error: string) => null);
+iface.release((error?: usb.LibUSBException) => null);
+iface.release(false, (error?: usb.LibUSBException) => null);
 const kernelActive: boolean = iface.isKernelDriverActive();
-const detachKernel: number = iface.detachKernelDriver();
-const attachKernel: number = iface.attachKernelDriver();
-iface.setAltSetting(1, (error: string) => null);
+iface.detachKernelDriver();
+iface.attachKernelDriver();
+iface.setAltSetting(1, (error?: usb.LibUSBException) => null);
 
 const ifaceDesc: usb.InterfaceDescriptor = new usb.InterfaceDescriptor();
 
@@ -105,13 +110,17 @@ inEndpoint.direction = "in";
 inEndpoint.transferType = 1;
 inEndpoint.timeout = 1;
 inEndpoint.descriptor = endpointDesc;
-const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: usb.LibUSBException, data: Buffer) => inEndpoint);
+const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error?: usb.LibUSBException, data?: Buffer) => inEndpoint);
 inEndpoint.on("data", (data) => null);
 inEndpoint.startPoll(1, 1);
 inEndpoint.startPoll(1);
 inEndpoint.startPoll();
 inEndpoint.stopPoll(() => null);
 inEndpoint.stopPoll();
+inEndpoint.clearHalt((error?: usb.LibUSBException) => null);
+const transferIn: usb.Transfer = inEndpoint.makeTransfer(0, (error?: usb.LibUSBException, buffer?: Buffer, actualLength?: number) => null);
+transferIn.submit(Buffer.alloc(0));
+const transferInCancelResult: boolean = transferIn.cancel();
 
 const outEndpoint: usb.OutEndpoint = new usb.OutEndpoint(device, endpointDesc);
 outEndpoint.direction = "out";
@@ -119,8 +128,11 @@ outEndpoint.transferType = 1;
 outEndpoint.timeout = 1;
 outEndpoint.descriptor = endpointDesc;
 inEndpoint.on("error", (err) => null);
-const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error: usb.LibUSBException) => null);
-outEndpoint.transferWithZLP(new Buffer([]), (error: usb.LibUSBException) => null);
+const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error?: usb.LibUSBException) => null);
+outEndpoint.transferWithZLP(new Buffer([]), (error?: usb.LibUSBException) => null);
+outEndpoint.clearHalt((error?: usb.LibUSBException) => null);
+const transferOut: usb.Transfer = outEndpoint.makeTransfer(0, (error?: usb.LibUSBException, buffer?: Buffer, actualLength?: number) => null);
+const transferOutCancelResult: boolean = transferOut.cancel();
 
 iface.endpoints = [inEndpoint, outEndpoint];
 

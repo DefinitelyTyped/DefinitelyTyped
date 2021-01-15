@@ -5,11 +5,11 @@
 
 declare namespace GalleriaJS {
 
-	interface GalleriaOptions {
+    interface GalleriaOptions {
         dataSource: GalleriaEntry[];
         autoplay?: boolean;
-		lightbox?: boolean;
-	}
+        lightbox?: boolean;
+    }
 
     interface GalleriaEntry {
         image?: string;
@@ -18,13 +18,13 @@ declare namespace GalleriaJS {
         description?: string;
     }
 
-	interface GalleriaFactory {
+    interface GalleriaFactory {
         run(): GalleriaFactory;
         run(selector: String): GalleriaFactory;
         run(selector: String, options: GalleriaOptions): GalleriaFactory;
 
-		loadTheme(url : String): GalleriaFactory;
-		configure(options: GalleriaOptions): GalleriaFactory;
+        loadTheme(url : String): GalleriaFactory;
+        configure(options: GalleriaOptions): GalleriaFactory;
 
         ready( method: () => any): void;
 
@@ -32,7 +32,7 @@ declare namespace GalleriaJS {
         resize(): GalleriaFactory;
         load( data: GalleriaEntry[]): GalleriaFactory;
         setOptions( options: GalleriaOptions): GalleriaFactory;
-	}
+    }
 
 }
 

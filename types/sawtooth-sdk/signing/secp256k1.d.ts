@@ -43,13 +43,13 @@ export class Secp256k1PrivateKey extends PrivateKey {
      * @return a private key instance
      * @throws if the private key is not valid
      */
-    static fromHex(privateKeyHex: string): PrivateKey;
+    static fromHex(privateKeyHex: string): Secp256k1PrivateKey;
 
     /**
      * @return generates a random PrivateKey
      *
      */
-    static newRandom(): PrivateKey;
+    static newRandom(): Secp256k1PrivateKey;
 }
 
 /**
@@ -75,10 +75,7 @@ export class Secp256k1PublicKey extends PublicKey {
      * @return a public key instance
      * @throws if the public key is not valid
      */
-    static fromHex(publicKeyHex: string): PublicKey;
-
-    /** Generate a new random public key */
-    static newRandom(): PublicKey;
+    static fromHex(publicKeyHex: string): Secp256k1PublicKey;
 }
 
 export class Secp256k1Context extends Context {

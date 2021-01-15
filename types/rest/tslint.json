@@ -1,12 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
         "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
-        "no-redundant-jsdoc": false,
         "no-self-import": false,
         "no-unnecessary-callback-wrapper": false,
         "no-unnecessary-generics": false,
@@ -14,7 +12,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,

@@ -383,16 +383,16 @@ declare namespace sap {
       }
       /**
        * A MasterPage is a {@link sap.m.semantic.SemanticPage} that supports semantic content of the
-       * following types:<ul>	<li>{@link sap.m.semantic.AddAction}</li>	<li>{@link
-       * sap.m.semantic.MainAction}</li>	<li>{@link sap.m.semantic.PositiveAction}</li>	<li>{@link
-       * sap.m.semantic.NegativeAction}</li>	<li>{@link sap.m.semantic.ForwardAction}</li>	<li>{@link
-       * sap.m.semantic.EditAction}</li>	<li>{@link sap.m.semantic.SaveAction}</li>	<li>{@link
-       * sap.m.semantic.DeleteAction}</li>	<li>{@link sap.m.semantic.CancelAction}</li>	<li>{@link
-       * sap.m.semantic.MultiSelectAction}</li>	<li>{@link sap.m.semantic.FlagAction}</li>	<li>{@link
-       * sap.m.semantic.FavoriteAction}</li>	<li>{@link sap.m.semantic.SortAction}</li>	<li>{@link
-       * sap.m.semantic.SortSelect}</li>	<li>{@link sap.m.semantic.FilterAction}</li>	<li>{@link
-       * sap.m.semantic.FilterSelect}</li>	<li>{@link sap.m.semantic.GroupAction}</li>	<li>{@link
-       * sap.m.semantic.GroupSelect}</li>	<li>{@link sap.m.semantic.MessagesIndicator}</li></ul>
+       * following types:<ul>    <li>{@link sap.m.semantic.AddAction}</li>    <li>{@link
+       * sap.m.semantic.MainAction}</li>    <li>{@link sap.m.semantic.PositiveAction}</li>    <li>{@link
+       * sap.m.semantic.NegativeAction}</li>    <li>{@link sap.m.semantic.ForwardAction}</li>    <li>{@link
+       * sap.m.semantic.EditAction}</li>    <li>{@link sap.m.semantic.SaveAction}</li>    <li>{@link
+       * sap.m.semantic.DeleteAction}</li>    <li>{@link sap.m.semantic.CancelAction}</li>    <li>{@link
+       * sap.m.semantic.MultiSelectAction}</li>    <li>{@link sap.m.semantic.FlagAction}</li>    <li>{@link
+       * sap.m.semantic.FavoriteAction}</li>    <li>{@link sap.m.semantic.SortAction}</li>    <li>{@link
+       * sap.m.semantic.SortSelect}</li>    <li>{@link sap.m.semantic.FilterAction}</li>    <li>{@link
+       * sap.m.semantic.FilterSelect}</li>    <li>{@link sap.m.semantic.GroupAction}</li>    <li>{@link
+       * sap.m.semantic.GroupSelect}</li>    <li>{@link sap.m.semantic.MessagesIndicator}</li></ul>
        * @resource sap/m/semantic/MasterPage.js
       */
       export class MasterPage extends sap.m.semantic.SemanticPage {
@@ -671,16 +671,16 @@ declare namespace sap {
       }
       /**
        * A DetailPage is a {@link sap.m.semantic.ShareMenuPage} that supports semantic content of the
-       * following types:<ul>	<li>{@link sap.m.semantic.AddAction}</li>	<li>{@link
-       * sap.m.semantic.MainAction}</li>	<li>{@link sap.m.semantic.PositiveAction}</li>	<li>{@link
-       * sap.m.semantic.NegativeAction}</li>	<li>{@link sap.m.semantic.ForwardAction}</li>	<li>{@link
-       * sap.m.semantic.EditAction}</li>	<li>{@link sap.m.semantic.SaveAction}</li>	<li>{@link
-       * sap.m.semantic.DeleteAction}</li>	<li>{@link sap.m.semantic.CancelAction}</li>	<li>{@link
-       * sap.m.semantic.FlagAction}</li>	<li>{@link sap.m.semantic.FavoriteAction}</li>	<li>{@link
-       * sap.m.semantic.OpenInAction}</li>	<li>{@link sap.m.semantic.DiscussInJamAction}</li>	<li>{@link
-       * sap.m.semantic.ShareInJamAction}</li>	<li>{@link sap.m.semantic.SendEmailAction}</li>	<li>{@link
-       * sap.m.semantic.SendMessageAction}</li>	<li>{@link sap.m.semantic.PrintAction}</li>	<li>{@link
-       * sap.m.semantic.MessagesIndicator}</li>	<li>{@link sap.m.DraftIndicator}</li></ul>
+       * following types:<ul>    <li>{@link sap.m.semantic.AddAction}</li>    <li>{@link
+       * sap.m.semantic.MainAction}</li>    <li>{@link sap.m.semantic.PositiveAction}</li>    <li>{@link
+       * sap.m.semantic.NegativeAction}</li>    <li>{@link sap.m.semantic.ForwardAction}</li>    <li>{@link
+       * sap.m.semantic.EditAction}</li>    <li>{@link sap.m.semantic.SaveAction}</li>    <li>{@link
+       * sap.m.semantic.DeleteAction}</li>    <li>{@link sap.m.semantic.CancelAction}</li>    <li>{@link
+       * sap.m.semantic.FlagAction}</li>    <li>{@link sap.m.semantic.FavoriteAction}</li>    <li>{@link
+       * sap.m.semantic.OpenInAction}</li>    <li>{@link sap.m.semantic.DiscussInJamAction}</li>    <li>{@link
+       * sap.m.semantic.ShareInJamAction}</li>    <li>{@link sap.m.semantic.SendEmailAction}</li>    <li>{@link
+       * sap.m.semantic.SendMessageAction}</li>    <li>{@link sap.m.semantic.PrintAction}</li>    <li>{@link
+       * sap.m.semantic.MessagesIndicator}</li>    <li>{@link sap.m.DraftIndicator}</li></ul>
        * @resource sap/m/semantic/DetailPage.js
       */
       export class DetailPage extends sap.m.semantic.ShareMenuPage {
@@ -1878,16 +1878,16 @@ declare namespace sap {
       }
       /**
        * A FullscreenPage is a {@link sap.m.semantic.ShareMenuPage} that supports semantic content of the
-       * following types:<ul> <li>{@link sap.m.semantic.AddAction}</li>	<li>{@link
-       * sap.m.semantic.MainAction}</li>	<li>{@link sap.m.semantic.PositiveAction}</li>	<li>{@link
-       * sap.m.semantic.NegativeAction}</li>	<li>{@link sap.m.semantic.ForwardAction}</li>	<li>{@link
-       * sap.m.semantic.EditAction}</li>	<li>{@link sap.m.semantic.SaveAction}</li>	<li>{@link
-       * sap.m.semantic.DeleteAction}</li>	<li>{@link sap.m.semantic.CancelAction}</li>	<li>{@link
-       * sap.m.semantic.FlagAction}</li>	<li>{@link sap.m.semantic.FavoriteAction}</li>	<li>{@link
-       * sap.m.semantic.OpenInAction}</li>	<li>{@link sap.m.semantic.DiscussInJamAction}</li>	<li>{@link
-       * sap.m.semantic.ShareInJamAction}</li>	<li>{@link sap.m.semantic.SendEmailAction}</li>	<li>{@link
-       * sap.m.semantic.SendMessageAction}</li>	<li>{@link sap.m.semantic.PrintAction}</li>	<li>{@link
-       * sap.m.semantic.MessagesIndicator}</li>	<li>{@link sap.m.DraftIndicator}</li></ul>
+       * following types:<ul> <li>{@link sap.m.semantic.AddAction}</li>    <li>{@link
+       * sap.m.semantic.MainAction}</li>    <li>{@link sap.m.semantic.PositiveAction}</li>    <li>{@link
+       * sap.m.semantic.NegativeAction}</li>    <li>{@link sap.m.semantic.ForwardAction}</li>    <li>{@link
+       * sap.m.semantic.EditAction}</li>    <li>{@link sap.m.semantic.SaveAction}</li>    <li>{@link
+       * sap.m.semantic.DeleteAction}</li>    <li>{@link sap.m.semantic.CancelAction}</li>    <li>{@link
+       * sap.m.semantic.FlagAction}</li>    <li>{@link sap.m.semantic.FavoriteAction}</li>    <li>{@link
+       * sap.m.semantic.OpenInAction}</li>    <li>{@link sap.m.semantic.DiscussInJamAction}</li>    <li>{@link
+       * sap.m.semantic.ShareInJamAction}</li>    <li>{@link sap.m.semantic.SendEmailAction}</li>    <li>{@link
+       * sap.m.semantic.SendMessageAction}</li>    <li>{@link sap.m.semantic.PrintAction}</li>    <li>{@link
+       * sap.m.semantic.MessagesIndicator}</li>    <li>{@link sap.m.DraftIndicator}</li></ul>
        * @resource sap/m/semantic/FullscreenPage.js
       */
       export class FullscreenPage extends sap.m.semantic.ShareMenuPage {
@@ -3020,7 +3020,7 @@ declare namespace sap {
        *                               // default    styleClass: ""                                       //
        * default    initialFocus: null                                   // default    textDirection:
        * sap.ui.core.TextDirection.Inherit     // default    });</pre>The callback is called with the
-       * following signature				 *<pre>  function (oAction)</pre>The information dialog opened by this method
+       * following signature                 *<pre>  function (oAction)</pre>The information dialog opened by this method
        * is processed asynchronously.Applications have to use <code>fnCallback</code> to continue work after
        * theuser closed the information dialog
        * @since 1.30
@@ -3079,7 +3079,7 @@ declare namespace sap {
        *                    // default    styleClass: ""                                       // default   
        * initialFocus: null                                   // default    textDirection:
        * sap.ui.core.TextDirection.Inherit     // default    });</pre>The callback is called with the
-       * following signature				 *<pre>  function (oAction)</pre>The warning dialog opened by this method is
+       * following signature                 *<pre>  function (oAction)</pre>The warning dialog opened by this method is
        * processed asynchronously.Applications have to use <code>fnCallback</code> to continue work after
        * theuser closed the warning dialog
        * @since 1.30
@@ -9267,8 +9267,8 @@ declare namespace sap {
        * <code>sap.m.Select</code>.When called, the context of the event handler (its <code>this</code>) will
        * be bound to <code>oListener</code> if specified, otherwise it will be bound to this
        * <code>sap.m.Select</code> itself.This event is fired when the value in the selection field is
-       * changed in combination with one ofthe following actions:<ul>	<li>The focus leaves the selection
-       * field</li>	<li>The <i>Enter</i> key is pressed</li>	<li>The item is pressed</li></ul>
+       * changed in combination with one ofthe following actions:<ul>    <li>The focus leaves the selection
+       * field</li>    <li>The <i>Enter</i> key is pressed</li>    <li>The item is pressed</li></ul>
        * @param oData An application-specific payload object that will be passed to the event handler along
        * with the event object when firing the event
        * @param fnFunction The function to be called when the event occurs
@@ -15935,7 +15935,7 @@ declare namespace sap {
        * Fires event <code>tokenChange</code> to attached listeners.Expects the following event
        * parameters:<ul><li><code>type</code> of type <code>string</code>type of tokenChange event.There are
        * four TokenChange types: "added", "removed", "removedAll", "tokensChanged".Use
-       * Tokenizer.TokenChangeType.Added for "added",	Tokenizer.TokenChangeType.Removed for "removed",
+       * Tokenizer.TokenChangeType.Added for "added",    Tokenizer.TokenChangeType.Removed for "removed",
        * Tokenizer.TokenChangeType.RemovedAll for "removedAll" and Tokenizer.TokenChangeType.TokensChanged
        * for "tokensChanged".</li><li><code>token</code> of type <code>sap.m.Token</code>the added token or
        * removed token.This parameter is used when tokenChange type is "added" or
@@ -18131,7 +18131,7 @@ declare namespace sap {
        * Fires event <code>tokenChange</code> to attached listeners.Expects the following event
        * parameters:<ul><li><code>type</code> of type <code>string</code>Type of tokenChange event.There are
        * four TokenChange types: "added", "removed", "removedAll", "tokensChanged".Use
-       * Tokenizer.TokenChangeType.Added for "added",	Tokenizer.TokenChangeType.Removed for "removed",
+       * Tokenizer.TokenChangeType.Added for "added",    Tokenizer.TokenChangeType.Removed for "removed",
        * Tokenizer.TokenChangeType.RemovedAll for "removedAll" and Tokenizer.TokenChangeType.TokensChanged
        * for "tokensChanged".</li><li><code>token</code> of type <code>sap.m.Token</code>The added token or
        * removed token.This parameter is used when tokenChange type is "added" or
@@ -19103,8 +19103,8 @@ declare namespace sap {
     }
     /**
      * MessagePage is displayed when there is no data or matching content. There are different use cases
-     * where a MessagePage might be visualized, for example:		- The search query returned no results		- The
-     * app contains no items		- There are too many items		- The application is loadingThe layout is
+     * where a MessagePage might be visualized, for example:        - The search query returned no results        - The
+     * app contains no items        - There are too many items        - The application is loadingThe layout is
      * unchanged but the text varies depending on the use case.<br><b>Note:</b> The
      * <code>MessagePage</code> is not intended to be used as a top-level control,but rather used within
      * controls such as <code>NavContainer</code>, <code>App</code>, <code>Shell</code> or other container
@@ -25892,13 +25892,13 @@ declare namespace sap {
 
       /**
        * Gets current value of property <code>htmlText</code>.Text in HTML format.The following tags are
-       * supported:<ul>	<li><code>a</code></li>	<li><code>abbr</code></li>	<li><code>blockquote</code></li>
-       * <li><code>br</code></li>	<li><code>cite</code></li>	<li><code>code</code></li>
-       * <li><code>em</code></li>	<li><code>h1</code></li>	<li><code>h2</code></li>	<li><code>h3</code></li>
-       * <li><code>h4</code></li>	<li><code>h5</code></li>	<li><code>h6</code></li>	<li><code>p</code></li>
-       * <li><code>pre</code></li>	<li><code>strong</code></li>	<li><code>span</code></li>
-       * <li><code>u</code></li>	<li><code>dl</code></li>	<li><code>dt</code></li>	<li><code>dl</code></li>
-       * <li><code>ul</code></li>	<li><code>ol</code></li>	<li><code>li</code></li></ul><p><code>class,
+       * supported:<ul>    <li><code>a</code></li>    <li><code>abbr</code></li>    <li><code>blockquote</code></li>
+       * <li><code>br</code></li>    <li><code>cite</code></li>    <li><code>code</code></li>
+       * <li><code>em</code></li>    <li><code>h1</code></li>    <li><code>h2</code></li>    <li><code>h3</code></li>
+       * <li><code>h4</code></li>    <li><code>h5</code></li>    <li><code>h6</code></li>    <li><code>p</code></li>
+       * <li><code>pre</code></li>    <li><code>strong</code></li>    <li><code>span</code></li>
+       * <li><code>u</code></li>    <li><code>dl</code></li>    <li><code>dt</code></li>    <li><code>dl</code></li>
+       * <li><code>ul</code></li>    <li><code>ol</code></li>    <li><code>li</code></li></ul><p><code>class,
        * style,</code> and <code>target</code> attributes are allowed.If <code>target</code> is not set,
        * links open in a new window by default.<p>Only safe <code>href</code> attributes can be used. See
        * {@link jQuery.sap.validateUrl}.Default value is <code></code>.
@@ -34559,9 +34559,9 @@ declare namespace sap {
        * <code>mSettings</code> that defines initialproperty values, aggregated and associated objects as
        * well as event handlers.See {@link sap.ui.base.ManagedObject#constructor} for a general description
        * of the syntax of the settings object.
-       * @param sId optional id for the new control; generated automatically if			no non-empty id is given
-       * Note: this can be omitted, no matter			whether <code>mSettings</code> will be given or not!
-       * @param mSettings optional map/JSON-object with initial settings for the			new component instance
+       * @param sId optional id for the new control; generated automatically if            no non-empty id is given
+       * Note: this can be omitted, no matter            whether <code>mSettings</code> will be given or not!
+       * @param mSettings optional map/JSON-object with initial settings for the            new component instance
       */
       constructor(sId: string, mSettings?: any);
 
@@ -36047,12 +36047,12 @@ declare namespace sap {
        * instead.</li><li><code>status</code> of type <code>string</code>Status Code of the completed upload
        * event. This parameter is deprecated since version 1.28.0., use parameter files
        * instead.</li><li><code>files</code> of type <code>object[]</code>A list of uploaded files. Each
-       * entry contains the following members.fileName	: The name of a file to be uploaded.response	:
+       * entry contains the following members.fileName    : The name of a file to be uploaded.response    :
        * Response message which comes from the server. On the server side, this response has to be put within
        * the 'body' tags of the response document of the iFrame. It can consist of a return code and an
        * optional message. This does not work in cross-domain scenarios.responseRaw : HTTP-Response which
        * comes from the server. This property is not supported by Internet Explorer Versions lower than
-       * 9.status	: Status of the XHR request. This property is not supported by Internet Explorer 9 and
+       * 9.status    : Status of the XHR request. This property is not supported by Internet Explorer 9 and
        * lower.headers : HTTP-Response-Headers which come from the server. Provided as a JSON-map, i.e. each
        * header-field is reflected by a property in the header-object, with the property value reflecting the
        * header-field's content. This property is not supported by Internet Explorer 9 and lower.Since
@@ -38690,7 +38690,7 @@ declare namespace sap {
 
       /**
        * Opens the ViewSettingsDialog relative to the parent control.
-       * @param sPageId The ID of the initial page to be opened in the dialog.	The available values are
+       * @param sPageId The ID of the initial page to be opened in the dialog.    The available values are
        * "sort", "group", "filter" or IDs of custom tabs.
        * @returns this pointer for chaining
       */
@@ -40862,9 +40862,9 @@ declare namespace sap {
        * literal <code>mSettings</code> that defines initialproperty values, aggregated and associated
        * objects as well as event handlers.See {@link sap.ui.base.ManagedObject#constructor} for a general
        * description of the syntax of the settings object.
-       * @param sId optional id for the new control; generated automatically if			no non-empty id is given
-       * Note: this can be omitted, no matter			whether <code>mSettings</code> will be given or not!
-       * @param mSettings optional map/JSON-object with initial settings for the			new component instance
+       * @param sId optional id for the new control; generated automatically if            no non-empty id is given
+       * Note: this can be omitted, no matter            whether <code>mSettings</code> will be given or not!
+       * @param mSettings optional map/JSON-object with initial settings for the            new component instance
       */
       constructor(sId: string, mSettings?: any);
 
@@ -40875,14 +40875,14 @@ declare namespace sap {
        * TablePersoDialog for the associatedtable and attaches a close handler to apply the personalizations
        * tothe table and persist them.This method should be called when the table to be personalized knowsits
        * columns. Usually, this is when that table's view has set its model,which is typically done in the
-       * corresponding controller's init method.For example<pre><code> onInit: function () {		// set explored
-       * app's demo model on this sample		var oModel = new
-       * JSONModel(jQuery.sap.getModulePath("sap.ui.demo.mock", "/products.json"));		var oGroupingModel = new
-       * JSONModel({ hasGrouping: false});		this.getView().setModel(oModel);	
-       * this.getView().setModel(oGroupingModel, 'Grouping');		// init and activate controller		this._oTPC =
-       * new TablePersoController({			table: this.getView().byId("productsTable"),			//specify the first part
-       * of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'			componentName: "demoApp",		
-       * persoService: DemoPersoService,		}).activate();	}</code></pre>
+       * corresponding controller's init method.For example<pre><code> onInit: function () {        // set explored
+       * app's demo model on this sample        var oModel = new
+       * JSONModel(jQuery.sap.getModulePath("sap.ui.demo.mock", "/products.json"));        var oGroupingModel = new
+       * JSONModel({ hasGrouping: false});        this.getView().setModel(oModel);    
+       * this.getView().setModel(oGroupingModel, 'Grouping');        // init and activate controller        this._oTPC =
+       * new TablePersoController({            table: this.getView().byId("productsTable"),            //specify the first part
+       * of persistence ids e.g. 'demoApp-productsTable-dimensionsCol'            componentName: "demoApp",        
+       * persoService: DemoPersoService,        }).activate();    }</code></pre>
        * @returns the TablePersoController instance.
       */
       activate(): TablePersoController;

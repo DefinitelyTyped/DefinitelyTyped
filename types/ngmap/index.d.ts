@@ -88,29 +88,29 @@ declare namespace angular.map {
     }
 
     interface INgMap {
-    	/**
-    	 * Add map to pool
-    	 * @param {Function | any[]} mapCtrl Map controller
-    	 */
+        /**
+         * Add map to pool
+         * @param {Function | any[]} mapCtrl Map controller
+         */
         addMap(mapCtrl: Function | any[]): void;
-		/**
-		 * Delete map from pool
-		 * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
-		 * controller in pool
-		 */
+        /**
+         * Delete map from pool
+         * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
+         * controller in pool
+         */
         deleteMap(mapCtrl?: Function | any[]): void;
-		/**
-		 * Get map coordinates from address.
-		 * @param  {string}                               address Use 'current' to get users location
-		 * @param  {PositionOptions}                      options optional
-		 * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
-		 */
+        /**
+         * Get map coordinates from address.
+         * @param  {string}                               address Use 'current' to get users location
+         * @param  {PositionOptions}                      options optional
+         * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
+         */
         getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>
-    	/**
-    	 * Get map from the pool of all shown maps.
-    	 * @param  {IGetMapOptions}                    options optional
-    	 * @return {angular.IPromise<google.maps.Map>}         promise
-    	 */
+        /**
+         * Get map from the pool of all shown maps.
+         * @param  {IGetMapOptions}                    options optional
+         * @return {angular.IPromise<google.maps.Map>}         promise
+         */
         getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>
         /**
          * Initialize map from mapId or the current first shown map

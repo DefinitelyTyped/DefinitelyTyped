@@ -44,6 +44,7 @@ declare var callExpression: ESTree.CallExpression;
 declare var simpleCallExpression: ESTree.SimpleCallExpression;
 declare var newExpression: ESTree.NewExpression;
 declare var memberExpression: ESTree.MemberExpression;
+declare var chainExpression: ESTree.ChainExpression;
 declare var pattern: ESTree.Pattern;
 declare var switchCase: ESTree.SwitchCase;
 declare var catchClause: ESTree.CatchClause;
@@ -175,7 +176,7 @@ expression = forInStatement.right;
 // ArrayExpression
 var arrayExpression: ESTree.ArrayExpression;
 string = arrayExpression.type;
-var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement
+var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement | null
     = arrayExpression.elements[0];
 
 // ObjectExpression
@@ -235,6 +236,19 @@ var memberExpression: ESTree.MemberExpression;
 expressionOrSuper = memberExpression.object;
 identifierOrExpression = memberExpression.property;
 boolean = memberExpression.computed;
+
+// ChainExpression
+var chainExpression: ESTree.ChainExpression;
+var memberExpressionOrCallExpression = chainExpression.expression;
+boolean = memberExpressionOrCallExpression.optional;
+if (memberExpressionOrCallExpression.type === 'MemberExpression') {
+  expressionOrSuper = memberExpressionOrCallExpression.object;
+  identifierOrExpression = memberExpressionOrCallExpression.property;
+  boolean = memberExpressionOrCallExpression.computed;
+} else {
+  expressionOrSuper = memberExpressionOrCallExpression.callee;
+  expressionOrSpread = callExpression.arguments[0];
+}
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
@@ -407,6 +421,9 @@ switch (node.type) {
     break;
   case 'MemberExpression':
     memberExpression = node;
+    break;
+  case 'ChainExpression':
+    chainExpression = node;
     break;
   case 'ConditionalExpression':
     conditionalExpression = node;
@@ -618,6 +635,9 @@ switch (expression.type) {
     break;
   case 'MemberExpression':
     memberExpression = expression;
+    break;
+  case 'ChainExpression':
+    chainExpression = expression;
     break;
   case 'ConditionalExpression':
     conditionalExpression = expression;

@@ -228,6 +228,9 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
         return true;
     });
+
+    certificate.issued(certificate);
+    certificate.isIssuer(certificate);
 }
 
 {
@@ -413,4 +416,12 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     p7.content = forge.util.createBuffer('content');
     p7.encrypt();
     let asn1: forge.asn1.Asn1 = p7.toAsn1();
+}
+
+{
+  publicKeyRsa.encrypt('content');
+  privateKeyRsa.decrypt('content');
+}
+{
+    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
 }

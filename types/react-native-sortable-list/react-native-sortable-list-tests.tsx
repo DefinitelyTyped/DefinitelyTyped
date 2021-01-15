@@ -107,7 +107,9 @@ class Basic extends React.Component {
                     style={styles.list}
                     contentContainerStyle={styles.contentContainer}
                     data={data}
-                    renderRow={this._renderRow}/>
+                    renderRow={this._renderRow}
+                    keyboardShouldPersistTaps='never'
+                />
             </View>
         );
     }

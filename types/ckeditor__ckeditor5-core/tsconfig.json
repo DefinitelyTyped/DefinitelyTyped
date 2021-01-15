@@ -17,7 +17,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

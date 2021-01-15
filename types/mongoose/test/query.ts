@@ -14,6 +14,8 @@ var doc = <mongoose.Document>{};
 var query = <mongoose.Query<mongoose.Document[]>>{};
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
+query.find().where('path').all(['val1', 'val2', 'val3']);
+query.find().all('path', ['val1', 'val2', 'val3']);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
 query.batchSize(100).batchSize(100);
 var lowerLeft = [40.73083, -73.99756]
@@ -90,6 +92,7 @@ var polyC = [ 0, 0 ]
 query.where('loc').within().geometry({ type: 'Point', coordinates: polyC })
 query.where('loc').intersects().geometry({ type: 'Point', coordinates: polyC })
 query.getQuery();
+query.getFilter();
 query.getUpdate();
 query.find().where('age').gt(21);
 query.find().gt('age', 21);
@@ -294,13 +297,61 @@ locationQuery.find({
 locationQuery.find({ name: 123 });
 // $ExpectError
 locationQuery.find({ rating: 'foo' });
-locationQuery.findOne({ name: 'foo', rating: 10 });
+locationQuery.findOne({ name: 'foo', rating: 10 }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectError
+        location.unknown;
+        location.save();
+    }
+});
+locationQuery.findOne({ name: 'foo' }, 'name', { lean: true }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+});
 // $ExpectError
 locationQuery.findOne({ rating: 'foo' });
 locationQuery.findOneAndRemove({ name: 'foo', rating: 10 });
 // $ExpectError
 locationQuery.findOneAndRemove({ rating: 'foo' });
-locationQuery.findOneAndUpdate({ name: 'foo', rating: 10 }, { rating: 20 });
+locationQuery.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        location.save();
+    }
+});
+locationQuery.findOneAndUpdate({ name: 'foo' }, { rating: 20 }, { lean: true }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+});
 // $ExpectError
 locationQuery.findOneAndUpdate({ rating: 'foo' }, { rating: 20 });
 locationQuery.remove({ name: 'foo', rating: 10 });
@@ -371,3 +422,10 @@ locWithStringIDQuery.lean().then(location => {
         location.save();
     }
 });
+
+async function testOrFail() {
+    var lq = <mongoose.DocumentQuery<Location, Location>>{};
+
+    var x = await lq.findOne({ color: 'blue' }).orFail().exec(); 
+    x.toJSON();
+}

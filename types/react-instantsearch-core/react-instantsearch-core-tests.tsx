@@ -301,6 +301,18 @@ import {
 };
 
 () => {
+    const MyClearRefinements = ({ refine, items }: CurrentRefinementsProvided) => (
+      <button onClick={() => refine(items)}>
+        clear all
+      </button>
+    );
+
+    const ConnectedClearRefinements = connectCurrentRefinements(MyClearRefinements);
+
+    <ConnectedClearRefinements clearsQuery={true} transformItems={item => item} />;
+};
+
+() => {
   function renderRefinement(label: string, value: Refinement['value'], refine: CurrentRefinementsProvided['refine']) {
     return (
       <button className="badge badge-secondary" onClick={() => refine(value)}>

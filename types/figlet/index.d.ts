@@ -361,7 +361,6 @@ declare namespace figlet {
      * @desc
      * This `unified-signatures` is disabled because `Fonts` type is too long
      */
-    // tslint:disable-next-line: unified-signatures
     function textSync(txt: string, options: Options): string;
 
     function metadata(font: Fonts, cb: (error: Error | null, fontOptions?: FontOptions, headerComment?: string) => void): void;

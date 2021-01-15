@@ -4,9 +4,32 @@ import {
 } from "../common/api-gateway";
 import { Callback, Handler } from "../handler";
 
+/**
+ * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
+/**
+ * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 
+/**
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
+/**
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export type APIGatewayProxyCallbackV2 = Callback<APIGatewayProxyResultV2>;
+
+/**
+ * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
 export type APIGatewayProxyEvent = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>;
 
 export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> =
@@ -39,21 +62,49 @@ export interface APIGatewayProxyCognitoAuthorizer {
     };
 }
 
+export interface APIGatewayProxyEventHeaders {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventMultiValueHeaders {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayProxyEventPathParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventQueryStringParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayProxyEventMultiValueQueryStringParameters {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayProxyEventStageVariables {
+    [name: string]: string | undefined;
+}
+
 export interface APIGatewayProxyEventBase<TAuthorizerContext> {
     body: string | null;
-    headers: { [name: string]: string };
-    multiValueHeaders: { [name: string]: string[] };
+    headers: APIGatewayProxyEventHeaders;
+    multiValueHeaders: APIGatewayProxyEventMultiValueHeaders;
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
-    pathParameters: { [name: string]: string } | null;
-    queryStringParameters: { [name: string]: string } | null;
-    multiValueQueryStringParameters: { [name: string]: string[] } | null;
-    stageVariables: { [name: string]: string } | null;
+    pathParameters: APIGatewayProxyEventPathParameters | null;
+    queryStringParameters: APIGatewayProxyEventQueryStringParameters | null;
+    multiValueQueryStringParameters: APIGatewayProxyEventMultiValueQueryStringParameters | null;
+    stageVariables: APIGatewayProxyEventStageVariables | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>;
     resource: string;
 }
 
+/**
+ * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
 export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
@@ -64,6 +115,69 @@ export interface APIGatewayProxyResult {
     };
     body: string;
     isBase64Encoded?: boolean;
+}
+
+/**
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export interface APIGatewayProxyEventV2 {
+    version: string;
+    routeKey: string;
+    rawPath: string;
+    rawQueryString: string;
+    cookies?: string[];
+    headers: APIGatewayProxyEventHeaders;
+    queryStringParameters?: APIGatewayProxyEventQueryStringParameters;
+    requestContext: {
+        accountId: string;
+        apiId: string;
+        authorizer?: {
+            jwt: {
+                claims: { [name: string]: string | number | boolean | string[] };
+                scopes: string[];
+            };
+        };
+        domainName: string;
+        domainPrefix: string;
+        http: {
+            method: string;
+            path: string;
+            protocol: string;
+            sourceIp: string;
+            userAgent: string;
+        };
+        requestId: string;
+        routeKey: string;
+        stage: string;
+        time: string;
+        timeEpoch: number;
+    };
+    body?: string;
+    pathParameters?: APIGatewayProxyEventPathParameters;
+    isBase64Encoded: boolean;
+    stageVariables?: APIGatewayProxyEventStageVariables;
+}
+
+/**
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResultV2 | string | T;
+
+/**
+ * Interface for structured response with `statusCode` and`headers`
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export interface APIGatewayProxyStructuredResultV2 {
+    statusCode?: number;
+    headers?: {
+        [header: string]: boolean | number | string;
+    };
+    body?: string;
+    isBase64Encoded?: boolean;
+    cookies?: string[];
 }
 
 // Legacy names

@@ -1,19 +1,20 @@
 import {
     DateTime,
     Duration,
-    Interval,
-    Info,
-    Settings,
-    InvalidZone,
-    LocalZone,
     FixedOffsetZone,
     IANAZone,
+    Info,
+    Interval,
+    Settings,
     Zone,
-    ZoneOffsetOptions,
     ZoneOffsetFormat,
+    ZoneOffsetOptions,
 } from 'luxon';
 
 /* DateTime */
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
 const now = DateTime.local();
@@ -46,7 +47,7 @@ const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
 
-FixedOffsetZone.utcInstance;
+FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
@@ -71,9 +72,11 @@ getters.isInLeapYear;
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true }); // $ExpectType string
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
+dt.toISODate({ format: 'basic'}); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
+dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
@@ -126,7 +129,7 @@ dt.isInDST; // $ExpectType boolean
 
 dt.set({ hour: 3 }).hour; // $ExpectType number
 
-const f = { month: 'long', day: 'numeric' };
+const f: { month: 'long', day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);
 dt.setLocale('en-GB').toLocaleString(f);
 dt.setLocale('en-US').toLocaleString(f);
@@ -197,6 +200,7 @@ Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
+Info.features().relative;
 
 /* Settings */
 Settings.defaultLocale;
@@ -224,10 +228,12 @@ Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
+DateTime.local().resolvedLocaleOpts({ locale: 'de' });
 
 dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
+dt.toFormat('MMMM dd, yyyy GG', { locale: 'de' });
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
 

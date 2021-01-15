@@ -11,7 +11,7 @@ import { Plugin } from 'webpack';
 export = WebpackBar;
 
 declare class WebpackBar extends Plugin {
-	constructor(options?: WebpackBar.Options);
+    constructor(options?: WebpackBar.Options);
 
   state: WebpackBar.State;
 }
@@ -49,7 +49,7 @@ declare namespace WebpackBar {
     color?: string;
     /** Enable the profiler for files and loaders */
     profile?: boolean;
-    /** Stream to rwite to */
+    /** Stream to write to */
     stream?: NodeJS.WriteStream;
     /** Minimal output */
     minimal?: boolean;

@@ -11,8 +11,8 @@ declare namespace MultiSamlStrategy {
 
 declare class MultiSamlStrategy extends Strategy {
     constructor(config: MultiSamlStrategy.MultiSamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
-	generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): never;
-	generateServiceProviderMetadata(req: express.Request,
+    generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): never;
+    generateServiceProviderMetadata(req: express.Request,
                                     decryptionCert: string | null,
                                     signingCert: string | null,
                                     callback: (err: Error | null, metadata?: string) => void): string;

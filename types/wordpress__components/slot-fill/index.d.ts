@@ -1,4 +1,4 @@
-import { FC } from '@wordpress/element';
+import { FC } from 'react';
 
 import Slot from './slot';
 import Fill from './fill';

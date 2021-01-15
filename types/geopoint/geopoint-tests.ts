@@ -5,6 +5,8 @@ function test() {
 
     const boundingCoords: [GeoPoint, GeoPoint] = geopoint.boundingCoordinates(5, 12, true);
 
+    const boundingCoordsWithoutRadius: [GeoPoint, GeoPoint] = geopoint.boundingCoordinates(5, undefined, true);
+
     const distanceTo: number = geopoint.distanceTo(new GeoPoint(4.20, 6.9));
 
     const latitude: number = geopoint.latitude(false);

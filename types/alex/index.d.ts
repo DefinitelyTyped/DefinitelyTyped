@@ -1,17 +1,14 @@
-// Type definitions for alex 8.1
+// Type definitions for alex 9.0
 // Project: https://alexjs.com
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
-/// <reference types="node" />
-
-import * as vfile from 'vfile';
+import { VFile } from 'vfile';
 
 /**
  * finds gender favoring, polarizing, race related, religion inconsiderate, or other unequal phrasing in text.
  */
-declare function alex(value: vfile.VFile | string, config?: alex.Config): vfile.VFile;
+declare function alex(value: VFile | string, config?: alex.Config): VFile;
 
 declare namespace alex {
     /**
@@ -22,6 +19,11 @@ declare namespace alex {
     interface AlexOptions {
         /** an array of rules (the default is []) */
         allow?: string[];
+        /**
+         * When provided, only the rules specified are reported.
+         * @default []
+         */
+        deny?: string[];
         /**
          * When turned on (`true`), pairs such as `he` and `she` and `garbageman` or `garbagewoman` are seen as errors.
          * When turned off (`false`, the default), such pairs are okay
@@ -36,13 +38,21 @@ declare namespace alex {
     }
 
     /** Check Markdown (ignoring syntax). */
-    function markdown(value: vfile.VFile | string, config?: Config): vfile.VFile;
+    function markdown(value: VFile | string, config?: Config): VFile;
 
     /** Check HTML (ignoring syntax). */
-    function html(value: vfile.VFile | string, config?: Config): vfile.VFile;
+    function html(value: VFile | string, config?: Config): VFile;
 
     /** Check plain text (as in, syntax is checked). */
-    function text(value: vfile.VFile | string, config?: Config): vfile.VFile;
+    function text(value: VFile | string, config?: Config): VFile;
+
+    /**
+     * Check [MDX][] (ignoring syntax).
+     *
+     * Note: the syntax for [MDX@2][mdx-next], while currently in beta, is used in
+     * alex
+     */
+    function mdx(value: VFile | string, config?: Config): VFile;
 }
 
 export as namespace alex;

@@ -8,20 +8,16 @@
 //                 SardineFish <https://github.com/SardineFish>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Sergey Bakulin <https://github.com/vansergen>
+//                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 import BN = require('bn.js');
 import stream = require('stream');
 
 export {};
-
-// Declare to fix type issue
 type NodeStream = stream;
 type Integer = number;
 type Infinity = any;
 type ReadableStream<T> = any;
-
-export as namespace openpgp;
 
 export namespace cleartext {
     /**
@@ -1113,16 +1109,83 @@ export namespace enums {
      * Maps curve names under various standards to one
      * @see
      */
-    type curve =
-        | 'p256'
-        | 'p384'
-        | 'p251'
-        | 'secp256k1'
-        | 'ed25519'
-        | 'curve25519'
-        | 'brainpoolP256r1'
-        | 'brainpoolP384r1'
-        | 'brainpoolP512r1';
+    enum curve {
+        /**
+         * NIST P-256 Curve
+         */
+        p256 = 'p256',
+        'P-256' = 'p256',
+        secp256r1 = 'p256',
+        prime256v1 = 'p256',
+        '1.2.840.10045.3.1.7' = 'p256',
+        '2a8648ce3d030107' = 'p256',
+        '2A8648CE3D030107' = 'p256',
+        /**
+         * NIST P-384 Curve
+         */
+        p384 = 'p384',
+        'P-384' = 'p384',
+        secp384r1 = 'p384',
+        '1.3.132.0.34' = 'p384',
+        '2b81040022' = 'p384',
+        '2B81040022' = 'p384',
+        /**
+         * NIST P-521 Curve
+         */
+        p521 = 'p521',
+        'P-521' = 'p521',
+        secp521r1 = 'p521',
+        '1.3.132.0.35' = 'p521',
+        '2b81040023' = 'p521',
+        '2B81040023' = 'p521',
+        /**
+         * SECG SECP256k1 Curve
+         */
+        secp256k1 = 'secp256k1',
+        '1.3.132.0.10' = 'secp256k1',
+        '2b8104000a' = 'secp256k1',
+        '2B8104000A' = 'secp256k1',
+        /**
+         * Ed25519
+         */
+        ED25519 = 'ed25519',
+        ed25519 = 'ed25519',
+        Ed25519 = 'ed25519',
+        '1.3.6.1.4.1.11591.15.1' = 'ed25519',
+        '2b06010401da470f01' = 'ed25519',
+        '2B06010401DA470F01' = 'ed25519',
+        /**
+         * Curve25519
+         */
+        X25519 = 'curve25519',
+        cv25519 = 'curve25519',
+        curve25519 = 'curve25519',
+        Curve25519 = 'curve25519',
+        '1.3.6.1.4.1.3029.1.5.1' = 'curve25519',
+        '2b060104019755010501' = 'curve25519',
+        '2B060104019755010501' = 'curve25519',
+        /**
+         * BrainpoolP256r1 Curve
+         */
+        brainpoolP256r1 = 'brainpoolP256r1',
+        '1.3.36.3.3.2.8.1.1.7' = 'brainpoolP256r1',
+        '2b2403030208010107' = 'brainpoolP256r1',
+        '2B2403030208010107' = 'brainpoolP256r1',
+        /**
+         * BrainpoolP384r1 Curve
+         */
+        brainpoolP384r1 = 'brainpoolP384r1',
+        '1.3.36.3.3.2.8.1.1.11' = 'brainpoolP384r1',
+        '2b240303020801010b' = 'brainpoolP384r1',
+        '2B240303020801010B' = 'brainpoolP384r1',
+        /**
+         * BrainpoolP512r1 Curve
+         */
+        brainpoolP512r1 = 'brainpoolP512r1',
+        '1.3.36.3.3.2.8.1.1.13' = 'brainpoolP512r1',
+        '2b240303020801010d' = 'brainpoolP512r1',
+        '2B240303020801010D' = 'brainpoolP512r1',
+    }
 
     /**
      * A string to key specifier type
@@ -1280,19 +1343,19 @@ export namespace enums {
         /**
          * Binary data 'b'
          */
-        binary = 98,
+        binary = '',
         /**
          * Text data 't'
          */
-        text = 116,
+        text = '',
         /**
          * Utf8 data 'u'
          */
-        utf8 = 117,
+        utf8 = '',
         /**
          * MIME message body part 'm'
          */
-        mime = 109,
+        mime = '',
     }
 
     /**
@@ -4326,6 +4389,8 @@ export namespace signature {
          * @returns ASCII armor
          */
         armor(): ReadableStream<String>;
+
+        packets: packet.List;
     }
 
     /**
@@ -4333,14 +4398,14 @@ export namespace signature {
      * @param armoredText text to be parsed
      * @returns new signature object
      */
-    function readArmored(armoredText: string | ReadableStream<String>): Signature;
+    function readArmored(armoredText: string | ReadableStream<String>): Promise<Signature>;
 
     /**
      * reads an OpenPGP signature as byte array and returns a signature object
      * @param input binary signature
      * @returns new signature object
      */
-    function read(input: Uint8Array | ReadableStream<Uint8Array>): Signature;
+    function read(input: Uint8Array | ReadableStream<Uint8Array>): Promise<Signature>;
 }
 
 export namespace type {
@@ -4833,7 +4898,7 @@ export namespace wkd {
          * @param options.rawBytes Returns Uint8Array instead of parsed key.
          * @returns The public key.
          */
-        lookup(): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
+        lookup(options: { email: string; rawBytes?: boolean; }): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
     }
 }
 
@@ -5300,7 +5365,7 @@ export interface SignResult {
  *          {
  *          signature: string|ReadableStream<String>|NodeStream, (if `armor` was true, the default)
  *          signature: Signature (if `armor` was false)
- *          }
+ *          }{
  */
 export function sign(options: SignOptions & { armor?: true; detached?: false }): Promise<{ data: string }>;
 export function sign(options: SignOptions & { armor: false; detached?: false }): Promise<{ message: message.Message }>;

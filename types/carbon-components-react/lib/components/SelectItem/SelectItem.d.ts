@@ -1,11 +1,8 @@
 import * as React from "react";
 
-interface InheritedProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "value"> {
-    value: unknown,
-}
-
-export interface SelectItemProps extends InheritedProps {
+export interface SelectItemProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "value"> {
     text: string,
+    value: any,
 }
 
 declare const SelectItem: React.FC<SelectItemProps>;

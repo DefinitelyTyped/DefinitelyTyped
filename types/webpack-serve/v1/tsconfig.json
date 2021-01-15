@@ -13,7 +13,10 @@
       "../../"
     ],
     "paths": {
-        "webpack-serve": ["webpack-serve/v1"]
+        "webpack-serve": ["webpack-serve/v1"],
+        "webpack-dev-middleware": [
+          "webpack-dev-middleware/v3"
+      ]
     },
     "types": [],
     "noEmit": true,

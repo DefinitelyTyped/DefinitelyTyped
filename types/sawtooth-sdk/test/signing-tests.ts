@@ -66,10 +66,10 @@ const privAlgoName = privateKey.getAlgorithmName();
 // $ExpectType Buffer
 const privAsBytes = privateKey.asBytes();
 
-// $ExpectType PrivateKey
+// $ExpectType Secp256k1PrivateKey
 const privFromHex = Secp256k1PrivateKey.fromHex('test');
 
-// $ExpectType PrivateKey
+// $ExpectType Secp256k1PrivateKey
 const privNewRandom = Secp256k1PrivateKey.newRandom();
 
 // $ExpectType Buffer
@@ -81,11 +81,8 @@ const pubAlgoName = publicKey.getAlgorithmName();
 // $ExpectType Buffer
 const pubAsBytes = publicKey.asBytes();
 
-// $ExpectType PublicKey
+// $ExpectType Secp256k1PublicKey
 const pubFromHex = Secp256k1PublicKey.fromHex('test');
-
-// $ExpectType PublicKey
-const pubNewRandom = Secp256k1PublicKey.newRandom();
 
 // $ExpectType string
 const contextAlgoName = cryptoContext.getAlgorithmName();

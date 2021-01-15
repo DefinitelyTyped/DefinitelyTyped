@@ -28,7 +28,7 @@ interface PaginationChildProps extends PaginationOptions {
  * Pagination context provider
  */
 export function PaginationProvider(props: {
-    pagination?: PaginationOptions;
+    pagination?: PaginationCtxOptions;
     children: (childProps: {
         paginationProps: PaginationChildProps;
         paginationTableProps: BootstrapTableProps;

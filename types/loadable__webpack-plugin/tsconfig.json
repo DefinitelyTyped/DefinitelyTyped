@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@loadable/webpack-plugin": [
-                "loadable__webpack-plugin"
+            "@loadable/*": [
+                "loadable__*"
             ]
         }
     },

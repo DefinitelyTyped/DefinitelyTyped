@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference types="cash"/>
+type Cash = import("cash-dom").Cash;
 
 type MElements = NodeListOf<Element> | JQuery | Cash;
 

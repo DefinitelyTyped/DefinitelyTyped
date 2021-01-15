@@ -176,7 +176,7 @@ declare namespace SegmentAnalytics {
     /* Once Analytics.js loaded, you can retrieve information about the
        currently identified user or group like their id and traits. */
     user(): {
-      id(): string;
+      id(newId?: string | null): string | null | undefined;
       logout(): void;
       reset(): void;
       anonymousId(newId?: string): string;

@@ -1,5 +1,13 @@
 import * as React from 'react';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, {
+    parsePhoneNumber,
+    PhoneNumber,
+    getCountries,
+    getCountryCallingCode,
+    CountrySelectComponentProps,
+} from 'react-phone-number-input';
+
+const phoneNumber: PhoneNumber | undefined = parsePhoneNumber('+12025550112');
 
 const test1 = (
     <PhoneInput
@@ -15,6 +23,7 @@ const test1 = (
         placeholder="Place holder"
         international={true}
         country={'US'}
+        countrySelectProps={{ tabIndex: '-1' }}
     >
         <div>panel 1</div>
         <div>panel 2</div>
@@ -34,6 +43,53 @@ const test2 = (
         }}
         addInternationalOption
         countryOptionsOrder={['US', 'CA', 'AU', '|', '...']}
+        disabled
+        inputComponent={InputComponent}
+        numberInputProps={{ type: 'tel' }}
+        smartCaret={false}
+    />
+);
+
+const CountrySelect = ({
+    value,
+    onChange,
+    labels,
+    ...rest
+}: CountrySelectComponentProps) => (
+    <select
+        {...rest}
+        value={value}
+        onChange={(event) => {
+            if (onChange) {
+                onChange(event.target.value || undefined);
+            }
+        }}
+    >
+        {getCountries().map((country: string) => (
+            <option key={country} value={country}>
+                {labels ? labels[country] : country} +{getCountryCallingCode(country)}
+            </option>
+        ))}
+    </select>
+);
+
+CountrySelect.defaultProps = {
+    labels: {
+        AU: "Australie",
+        CA: "Canada",
+        US: "États-Unis d'Amérique",
+    }
+};
+
+const test3 = (
+    <PhoneInput
+        value={'+64271231234'}
+        onChange={(value: string) => {
+            console.log(value);
+        }}
+        countrySelectComponent={CountrySelect}
+        addInternationalOption
+        countries={['AU', 'CA', 'US']}
         disabled
         inputComponent={InputComponent}
         numberInputProps={{ type: 'tel' }}

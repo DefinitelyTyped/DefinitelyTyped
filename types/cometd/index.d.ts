@@ -185,6 +185,13 @@ export class CometD {
     unregisterTransports(): void;
 
     /**
+     * Gets all registered transport types.
+     *
+     * @return an array of all registered transport types
+     */
+    getTransportTypes(): string[];
+
+    /**
      * Configures and establishes the Bayeux communication with the Bayeux server via a handshake
      * and a subsequent connect.
      *

@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-empty-interface": false,
-        "no-redundant-jsdoc": false,
         "no-unnecessary-class": false,
         "npm-naming": false
     }

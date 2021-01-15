@@ -379,7 +379,6 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
@@ -411,6 +410,12 @@ interface ForwardingRefComponentProps {
 const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentProps, ref: React.Ref<RefComponent>) => {
     return React.createElement(RefComponent, { ref });
 });
+
+// Declaring forwardRef render function separately (not inline).
+const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
+    return React.createElement(RefComponent, { ref });
+};
+React.forwardRef(ForwardRefRenderFunction);
 
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
@@ -459,8 +464,8 @@ const MemoizedForwardingRefComponent = React.memo(ForwardingRefComponent);
 const LazyComponent = React.lazy(() => Promise.resolve({ default: RefComponent }));
 
 type ClassComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
-type FunctionComponentWithoutPropsAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType undefined
-type FunctionComponentWithPropsAsRef = React.ElementRef<typeof FunctionComponent>; // $ExpectType undefined
+type FunctionComponentWithoutPropsAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType never
+type FunctionComponentWithPropsAsRef = React.ElementRef<typeof FunctionComponent>; // $ExpectType never
 type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
 type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
 type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
@@ -501,7 +506,8 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     'aria-atomic': false,
     'aria-checked': 'true',
     'aria-colcount': 7,
-    'aria-label': 'test'
+    'aria-label': 'test',
+    'aria-relevant': 'additions removals'
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);

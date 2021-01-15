@@ -14,6 +14,8 @@
 //                 Rogier Schouten  <https://github.com/rogierschouten>
 //                 Ivan Aseev       <https://github.com/aseevia>
 //                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
+//                 Ligia Frangello  <https://github.com/frangello>
+//                 Dmitry Avezov    <https://github.com/avezov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -290,6 +292,28 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+
+            /**
+             * Returns true if this certificate's issuer matches the passed
+             * certificate's subject. Note that no signature check is performed.
+             *
+             * @param parent the certificate to check.
+             *
+             * @return true if this certificate's issuer matches the passed certificate's
+             *         subject.
+             */
+            isIssuer(parent: Certificate): boolean;
+
+            /**
+             * Returns true if this certificate's subject matches the issuer of the
+             * given certificate). Note that not signature check is performed.
+             *
+             * @param child the certificate to check.
+             *
+             * @return true if this certificate's subject matches the passed
+             *         certificate's issuer.
+             */
+            issued(child: Certificate): boolean;
         }
 
         /**
@@ -350,7 +374,7 @@ declare module "node-forge" {
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
@@ -378,9 +402,9 @@ declare module "node-forge" {
 
         function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
 
-        function publicKeyFromPem(pem: PEM): PublicKey;
+        function publicKeyFromPem(pem: PEM): rsa.PublicKey;
 
-        function privateKeyFromPem(pem: PEM): PrivateKey;
+        function privateKeyFromPem(pem: PEM): rsa.PrivateKey;
 
         function decryptPrivateKeyInfo(obj: asn1.Asn1, password: string): asn1.Asn1;
 
@@ -390,7 +414,7 @@ declare module "node-forge" {
 
         function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
 
-        function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, password: string): rsa.PrivateKey;
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 

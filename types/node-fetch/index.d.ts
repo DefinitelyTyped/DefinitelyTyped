@@ -6,7 +6,6 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
-//                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Savin <https://github.com/alexandrusavin>
@@ -117,10 +116,10 @@ export class Headers implements Iterable<[string, string]> {
     raw(): { [k: string]: string[] };
     set(name: string, value: string): void;
 
-    // Iterator methods
-    entries(): Iterator<[string, string]>;
-    keys(): Iterator<string>;
-    values(): Iterator<[string]>;
+    // Iterable methods
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<[string]>;
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 

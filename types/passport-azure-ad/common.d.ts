@@ -76,4 +76,3 @@ export interface ITokenPayload {
 export interface VerifyCallback {
     (error: any, user?: any, info?: any): void;
 }
-  

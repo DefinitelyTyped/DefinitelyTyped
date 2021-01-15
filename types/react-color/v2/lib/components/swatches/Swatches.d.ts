@@ -1,15 +1,12 @@
 import { Component, CSSProperties } from "react";
 import { CustomPickerProps, ColorState } from "../../..";
+import { Classes } from "reactcss";
 
-export interface SwatchesPickerDefaultStyles {
+export interface SwatchesPickerStylesProps {
     picker?: CSSProperties;
     overflow?: CSSProperties;
     body?: CSSProperties;
     clear?: CSSProperties;
-}
-
-export interface SwatchesPickerStyles {
-    default?: SwatchesPickerDefaultStyles;
 }
 
 export interface SwatchesPickerProps extends CustomPickerProps {
@@ -17,8 +14,7 @@ export interface SwatchesPickerProps extends CustomPickerProps {
     height?: string;
     width?: string;
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
-    styles?: SwatchesPickerStyles;
-    className?: string;
+    styles?: Partial<Classes<SwatchesPickerStylesProps>>;
 }
 
-export default class SwatchesPicker extends Component<SwatchesPickerProps> {}
+export default class SwatchesPicker extends Component<SwatchesPickerProps> { }
