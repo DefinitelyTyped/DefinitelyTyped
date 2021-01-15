@@ -305,6 +305,7 @@ export interface UseTableRowProps<D extends object> {
     original: D;
     id: string;
     subRows: Array<Row<D>>;
+    depth: number;
 }
 
 export interface UseTableCellProps<D extends object, V = any> {
