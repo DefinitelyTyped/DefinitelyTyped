@@ -233,9 +233,20 @@ function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
     const doc = connection.get('examples', 'counter');
+    doc.preventCompose = true;
+    if (doc.subscribed) return;
+    if (doc.paused) doc.resume();
     doc.subscribe(() => {
         doc.submitOp([{p: ['numClicks'], na: 1}]);
-        callback();
+        doc.unsubscribe((error) => {
+            if (error) console.error(error);
+            doc.pause();
+            doc.flush();
+            doc.destroy((error) => {
+                if (error) console.error(error);
+                callback();
+            });
+        });
     });
     // sharedb-mongo query object
     connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
@@ -254,6 +265,11 @@ function startClient(callback) {
     if (anotherDoc.version !== null) {
       Math.round(anotherDoc.version);
     }
+
+    doc.whenNothingPending(() => {
+        if (doc.hasPending()) throw new Error();
+        if (doc.hasWritePending()) throw new Error();
+    });
 
     connection.close();
 }
