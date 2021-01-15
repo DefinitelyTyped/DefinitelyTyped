@@ -80,10 +80,10 @@ export interface WebTwainUtil {
      * @param productKey the ProductKey.
      */
     SetProductKeyAsync(productKey: string): Promise<Authorization>;
-	/**
-     * Whether using ActiveX 
+    /**
+     * Whether using ActiveX.
      */
-	isUsingActiveX():boolean
+	isUsingActiveX(): boolean;
 }
 
 export interface Authorization {

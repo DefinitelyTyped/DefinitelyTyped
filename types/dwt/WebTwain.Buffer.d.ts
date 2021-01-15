@@ -250,7 +250,7 @@ export interface WebTwainBuffer extends WebTwainIO {
      * @param tag Specify the tag.
      */
     TagImages(indices: number[], tag: string): boolean;
-	/**
+    /**
      * Rename Tag.
      * @param oldTag Old tag name.
      * @param newTag Specify the new tag name.

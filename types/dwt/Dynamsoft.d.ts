@@ -392,12 +392,12 @@ export interface WebTwainEnv {
      * Whether to use the library in Local-Service mode or WASM mode.
      */
     UseLocalService: boolean;
-	/**
-     * Whether to load UI related js files 
+    /**
+     * Whether to load UI related js files.
      */
 	UseDefaultViewer: boolean;
 	/**
-     * Control whether the scanner related UI & load/save UI are always display in the front window 
+     * Control whether the scanner related UI & load/save UI are always display in the front window.
      */
 	IfAlwaysFocusOnPopupWindow: boolean;
     ConnectToTheService: () => void;
@@ -482,11 +482,11 @@ export interface Product {
     name: string;
 }
 export interface WasmConfig {
-	/**
+    /**
      * Maximum heap size
      */
 	maxHeapSize: number;
-	 /**
+    /**
      * fetch API Options
      */
 	fetchOptions: any;

@@ -65,7 +65,7 @@ export interface Camera {
      * Capture a frame from the video stream.
      */
     capture(): Promise<Blob>;
-	/**
+    /**
      * Start streaming video from the current camera in the viewer.
      * @param deviceId Specify a camera.
      * @param resolution Specify the initial resolution.
@@ -81,7 +81,7 @@ export interface Camera {
      * Close the camera and hide the video streaming UI.
      */
     closeVideo(): void;
-	 /**
+    /**
      * Specify an event listener for the specified built-in viewer event.
      * @param name Specify the event name.
      * @param callback The event listener.
@@ -100,4 +100,26 @@ export interface DeviceInfo {
 export interface Resolution {
     width: number;
     height: number;
+}
+export interface ViewerEvent {
+    /**
+     * The index of the current image.
+     */
+    index: number;
+    /**
+     * The x-coordinate of the upper-left corner of the image.
+     */
+    imageX: number;
+    /**
+     * The y-coordinate of the upper-left corner of the image.
+     */
+    imageY: number;
+    /** 
+     * The x-coordinate relative to the browser page.
+     */ 
+    pageX: number;
+	/** 
+     * The y-coordinate relative to the browser page.
+     */ 
+    pageY: number;
 }

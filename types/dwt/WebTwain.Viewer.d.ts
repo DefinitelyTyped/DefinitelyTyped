@@ -68,204 +68,206 @@ export interface WebTwainViewer extends WebTwainAcquire {
     Viewer: DynamsoftViewer;
 }
 export interface DynamsoftViewer {
-	/**
+    /**
      * Return or set the width of the viewer.
      */
     width: number | string;
-	/**
+    /**
      * Return or set the height of the viewer.
      */
     height: number | string;
-	/**
+    /**
      * Return the postfix of the main viewer.
      */
     readonly idPostfix: string;
-	/**
+    /**
      * [Scope] Main viewer
-     * [Description] Return or set the background colour/image of the viewer. 
+     * [Description] Return or set the background colour/image of the viewer.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
-	 * Replace the previous `BackgroundColor` method.
+     * Replace the previous `BackgroundColor` method.
      * Allow any CSS rules
      */
     background: string;
-	/**
-	 * [Scope] Global 
+    /**
+     * [Scope] Global
      * [Description] Return or set the border of the viewer.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     border: string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return or set the border of the main viewer. Priority is higher than border.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     innerBorder: string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return or set the shape of the cursor.
-     * [Usage Notes] The default value is crosshair, which supports drag to select an area on the image. When set to pointer, the shape is “hand”. Only works if the view mode of the viewer is set to -1 * -1, and the displayed image does not fit the Window (when there is a scroll bar), then the image can be moved.	 
-	 * 'Invalid property value' is reported when the set value does not meet the CSS standard.
-	 * Replace the previous `MouseShape` property.
+     * [Usage Notes] The default value is crosshair, which supports drag to select an area on the image. When set to pointer, the shape is “hand”.
+     * Only works if the view mode of the viewer is set to -1 * -1, and the displayed image does not fit the Window (when there is a scroll bar), then the image can be moved.
+     * 'Invalid property value' is reported when the set value does not meet the CSS standard.
+     * Replace the previous `MouseShape` property.
      * Allow any CSS rules
      */
     cursor: string;
-	 /**
-	 * [Scope] Main viewer
-     * [Description] Returns or sets whether to display the newly added image or keep the current one after an image(s) is imported into the Dynamic Web TWAIN viewer. 
-	 * The default value of the IfAutoScroll property is true. If set to true, it will display the newly added image. If set to false, it will display the current one.
+    /**
+     * [Scope] Main viewer
+     * [Description] Returns or sets whether to display the newly added image or keep the current one after an image(s) is imported into the Dynamic Web TWAIN viewer.
+     * The default value of the IfAutoScroll property is true. If set to true, it will display the newly added image. If set to false, it will display the current one.
      * [Usage Notes] 'Invalid property type' is reported when the set value is not string or number.
      */
     ifAutoScroll: boolean;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return or set the margin between images in the main viewer.
-	 * [Usage Notes] The pageMargin is only effective when the view mode is not -1 * -1.
-	 * number in pixels, string in percentage.
+     * [Usage Notes] The pageMargin is only effective when the view mode is not -1 * -1.
+     * number in pixels, string in percentage.
      */
     pageMargin: number | string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Set the border color of the selected area.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     selectedAreaBorderColor: string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Specify a aspect ratio to be used when selecting a rectangle on an image. The default value is 0.
      */
     selectionRectAspectRatio: number;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return or set the zoom factor.
      * [Usage Notes] Allow value [0.02 ~ 65].
      */
     zoom: number;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Set whether to use single page mode.
      * [Usage Notes] The default value is false, that is, the view mode is 1 * 1. True means the view mode is -1 * -1.
      */
-	singlePageMode:  boolean;
-	 /**
-	 * [Scope] Main viewer, Thumbnail viewer
+	singlePageMode: boolean;
+    /**
+     * [Scope] Main viewer, Thumbnail viewer
      * [Description] Set whether to disable the ability to drag and drop image to the viewer. The default value is true.
      * [Usage Notes] 'Unsupported file type' will be reported if the file is in an unsupported type.
      */
     acceptDrop: boolean;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Whether to allow sliding. The default value is true which supports swiping left and right to switch images.
      * [Usage Notes] Only works if the view mode of the viewer is set to -1 * -1.
      */
     allowSlide: boolean;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return or set the border style for selected image(s).
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
-     * Allow any CSS rules 
+     * Allow any CSS rules
      */
     selectedPageBorder: string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Set the selected page background color of the viewer.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
-     * Allow any CSS rules 
+     * Allow any CSS rules
      */
     selectedPageBackground: string;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Whether to show the page number. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     showPageNumber: boolean;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return the index of the next image of the currently selected image.
      */
     next(): number;
-   /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return the index of the previous image of the currently selected image.
      */
     previous(): number;
-   /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return the index of the fist image.
      */
     first(): number;
-     /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Return the index of the last image.
      */
     last(): number;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Go to the specified image.
      */
     gotoPage(index: number): number;
-     /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Refresh the viewer, the effect is shown in "onPageRender" event
      */
     render(): void;
-	/**
-	 * [Scope] Global
+    /**
+     * [Scope] Global
      * [Description] Create an image editor with specified settings.
-     * [Usage Notes] Replace the previous `ShowImageEditor` method. Only one ImageEditor object can be created. If you create it multiple times, you'll receive 'An ImageEditor already exists' error, and an existing ImageEditor object will be returned.
+     * [Usage Notes] Replace the previous `ShowImageEditor` method. Only one ImageEditor object can be created.
+     * If you create it multiple times, you'll receive 'An ImageEditor already exists' error, and an existing ImageEditor object will be returned.
      * @param editorSettings The ImageEditor settings. If not set, the default setting is used.
      */
     createImageEditor(editorSettings?: EditorSettings): ImageEditor;
-	/**
-	 * [Scope] Global
+    /**
+     * [Scope] Global
      * [Description] Create a thumbnail viewer with specified settings.
      * @param editorSettings The thumbnailViewerSettings settings. If not set, the default setting is used.
      */
     createThumbnailViewer(thumbnailViewerSettings: ThumbnailViewerSettings): ThumbnailViewer;
-	/**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Create a custom element and append it to the main viewer.
      * @param element Specify an element (not ID).
-	 * @param location Whether to put the element in the main viewer. Allowed values are left, top, right, bottom.
-	 * @param ifFull Whether to display the element in full screen. 
+     * @param location Whether to put the element in the main viewer. Allowed values are left, top, right, bottom.
+     * @param ifFull Whether to display the element in full screen.
      */
     createCustomElement(element: HTMLDivElement, location?: string, ifFull?: boolean): CustomElement;
-	/**
-	 * [Scope] Global
+    /**
+     * [Scope] Global
      * [Description] Return the current UI settings (from DVS itself)
      */
     getUISettings(): any;
-	 /**
-	 * [Scope] Global
+    /**
+     * [Scope] Global
      * [Description] Reset UI settings to initial settings (JSON).
      */
     resetUISetting(): any;
     /**
-	 * [Scope] Global
+     * [Scope] Global
      * [Description] Update UI settings and take effect immediately.
      * @param uISettings Specify the updated settings.
      */
     updateUISettings(uISettings: any): any;
-	/**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Clear the selected area(s) on the current image.
      */
     clearSelectedAreas(): void;
-     /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Set one or more rectangular area(s) on the specified image.
      * @param areas Specify the areas.
      */
     setSelectedAreas(areas: Area[]): void;
-	/**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Fit the image to the window
      * @param type Specify a type to fit. (width, height, both)
      */
     fitWindow(type: string): void;
-     /**
+    /**
      * [Description] Set the CSS class name of the specified button defined in updateUISetting.
      * @param name Specify the button.
      * @param className Specify the CSS class name.
@@ -274,7 +276,7 @@ export interface DynamsoftViewer {
         name: string,
         className: string
     ): boolean;
-	/**
+    /**
      * Set the view mode of the viewer.
      * @param columns Specify the number of images per row.
      * @param rows Specify the number of images per column.
@@ -284,34 +286,34 @@ export interface DynamsoftViewer {
         rows: number
     ): boolean;
     /**
-	 * [Scope] Global
+     * [Scope] Global
      * [Description] Create a Dynamsoft Viewer instance and bind it to the WebTwain instance.
      * @param element Specify an HTML element to create the viewer.
      */
     bind(element: HTMLDivElement): boolean;
-	 /**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Show the viewer (Main viewer, ImageEditor, ThumbnailViewer, CustomElement).
      */
     show(): void;
-	/**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Hide the viewer(Main viewer, ImageEditor, ThumbnailViewer, CustomElement).
      */
     hide(): void;
-	/**
+    /**
      * [Scope] Main viewer
      * [Description] Unbind the viewer.
      */
     unbind(): boolean;
-	/**
-	 * [Scope] Main viewer
+    /**
+     * [Scope] Main viewer
      * [Description] Specify an event listener for the viewer event.
      * @param name Specify the event name.
      * @param callback The event listener
      */
     on(name: string, callback: (event: ViewerEvent) => void): void;
-     /**
+    /**
      * [Scope] Main viewer
      * [Description] Remove the event handler.
      * @param eventName Specify the event name.
@@ -321,53 +323,53 @@ export interface DynamsoftViewer {
 }
 export interface EditorSettings {
     /**
-	 * [Scope] ImageEditor viewer
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] Specify an HTML Element.
      */
-    element: HTMLDivElement,
+    element: HTMLDivElement;
     /**
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] The width of the image editor viewer. The default value is "100%".
      * [Usage Notes] 'Invalid property value' will be reported when the set value is not string or number.
      */
     width: number | string;
-     /**
-	 * [Scope] ImageEditor viewer
+    /**
+     * [Scope] ImageEditor viewer
      * [Description] The height of the image editor viewer. The default value is "100%".
      * [Usage Notes] 'Invalid property value' will be reported when the set value is not string or number.
      */
     height: number | string;
     /**
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] The border of the ImageEditor viewer.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     border: string;
     /**
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] Set the border of the top toolbar.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     topMenuBorder: string;
     /**
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] The inner border of the image area.
      * Allow any CSS rules
      */
     innerBorder: string;
     /**
-	 * [Scope] ImageEditor viewer
+     * [Scope] ImageEditor viewer
      * [Description] The background color/image of the ImageEditor viewer.
      * [Usage Notes] 'Invalid property value' is reported when the set value does not meet the CSS standard.
      * Allow any CSS rules
      */
     background: string;
     /**
-	 * [Scope] ImageEditor viewer
-     * [Description] Whether to pop up a window prompting to save the changes. The default value is true. 
+     * [Scope] ImageEditor viewer
+     * [Description] Whether to pop up a window prompting to save the changes. The default value is true.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     promptToSaveChange: boolean;
@@ -417,8 +419,8 @@ export interface EditorSettings {
             'fit': true, 'fitw': true, 'fith': true,
             'hand': true, 'rectselect': true, 'zoom': true, 'restore': true, 'save': true, 'close': true
         }
-    },
-     /**
+    };
+    /**
      * [Scope] ImageEditor viewer
      * [Description] Define the dialog text
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
@@ -434,13 +436,13 @@ export interface ThumbnailViewerSettings {
     /**
      * [Scope] Thumbnail viewer
      * [Description] Where to put the thumbnail view. The allowed values are left, top, right, bottom. The default value is left.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     location: string;
     /**
      * [Scope] Thumbnail viewer
      * [Description] Specify the size of width or height in pixels or percentage. The default value is 30%.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * number in pixels, string in percentage
      */
     size: number | string;
@@ -451,7 +453,7 @@ export interface ThumbnailViewerSettings {
      * number in pixels, string in percentage
      */
     columns: number;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Specify how many images to display per column.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly. If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
@@ -471,21 +473,21 @@ export interface ThumbnailViewerSettings {
      * number in pixels, string in percentage
      */
     margin: number | string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Set the background of the entire thumbnail viewer. The default value is white.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
     background: string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
-     * [Description] Set the border of the thumbnail viewer. 
+     * [Description] Set the border of the thumbnail viewer.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
     border: string;
-   /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Whether to allow keyboard control.
      */
@@ -496,19 +498,19 @@ export interface ThumbnailViewerSettings {
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     allowPageDragging: boolean;
-	/**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
 	allowResizing: boolean;
     /**
-	 * [Scope] Thumbnail viewer
+     * [Scope] Thumbnail viewer
      * [Description] Whether to show the page number. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     showPageNumber: boolean;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Return or set the background colour/image of the thumbnail viewer. The default value is white.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
@@ -517,7 +519,7 @@ export interface ThumbnailViewerSettings {
     pageBackground: string;
     /**
      * [Scope] Thumbnail viewer
-     * [Description] Set the image border style. 
+     * [Description] Set the image border style.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
@@ -543,7 +545,7 @@ export interface ThumbnailViewerSettings {
      * Allow any CSS rules
      */
     placeholderBackground: string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Set the border of the selected image.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
@@ -554,7 +556,7 @@ export interface ThumbnailViewerSettings {
      * [Scope] Thumbnail viewer
      * [Description] Set the background of the selected image.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
-     * Allow any CSS rules 
+     * Allow any CSS rules
      */
     selectedImageBackground: string;
 }
@@ -603,7 +605,7 @@ export interface ThumbnailViewer {
      * [Description] Hide the Thumbnail viewer.
      */
     hide(): void;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Delete the Thumbnail viewer.
      */
@@ -627,16 +629,16 @@ export interface ThumbnailViewer {
      * @param callback The event listener.
      */
     off(eventName: string, callback?: () => void): void;
-	 /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Where to put the thumbnail view. The allowed values are left, top, right, bottom. The default value is left.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     location: string;
     /**
      * [Scope] Thumbnail viewer
      * [Description] Specify the size of width or height in pixels or percentage. The default value is 30%.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.	
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * number in pixels, string in percentage
      */
     size: number | string;
@@ -653,7 +655,7 @@ export interface ThumbnailViewer {
      * number in pixels, string in percentage
      */
     margin: number | string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Set the background of the entire thumbnail viewer. The default value is white.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
@@ -662,7 +664,7 @@ export interface ThumbnailViewer {
     background: string;
     /**
      * [Scope] Thumbnail viewer
-     * [Description] Set the border of the thumbnail viewer. 
+     * [Description] Set the border of the thumbnail viewer.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
@@ -678,14 +680,14 @@ export interface ThumbnailViewer {
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
     allowPageDragging: boolean;
-	/**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
 	allowResizing: boolean;
     /**
-	 * [Scope] Thumbnail viewer
+     * [Scope] Thumbnail viewer
      * [Description] Whether to show the page number. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
@@ -699,7 +701,7 @@ export interface ThumbnailViewer {
     pageBackground: string;
     /**
      * [Scope] Thumbnail viewer
-     * [Description] Set the border of the thumbnail viewer. 
+     * [Description] Set the border of the thumbnail viewer.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
@@ -725,18 +727,18 @@ export interface ThumbnailViewer {
      * Allow any CSS rules
      */
     placeholderBackground: string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Set the border of the selected image.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      * Allow any CSS rules
      */
     selectedImageBorder: string;
-     /**
+    /**
      * [Scope] Thumbnail viewer
      * [Description] Set the background of the selected image.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
-     * Allow any CSS rules 
+     * Allow any CSS rules
      */
     selectedImageBackground: string;
 }
@@ -760,13 +762,13 @@ export interface ViewerEvent {
      * The y-coordinate of the upper-left corner of the image.
      */
     imageY: number;
-    /** 
+    /**
      * The x-coordinate relative to the browser page.
-     */ 
+     */
     pageX: number;
-	/** 
+    /**
      * The y-coordinate relative to the browser page.
-     */ 
+     */
     pageY: number;
 }
 export interface ThumbnailViewerEvent {
@@ -774,12 +776,18 @@ export interface ThumbnailViewerEvent {
      * The index of the current image.
      */
     index: number;
-    /** 
+    /**
      * The x-coordinate relative to the browser page.
-     */ 
+     */
     pageX: number;
-	/** 
+    /** 
      * The y-coordinate relative to the browser page.
-     */ 
+     */
     pageY: number;
+}
+export interface Area {
+	left: number;
+	top: number;
+    right: number;
+    bottom: number;
 }
