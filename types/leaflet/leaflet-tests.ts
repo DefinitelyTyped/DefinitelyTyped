@@ -512,7 +512,9 @@ let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
-const geojson = new L.GeoJSON();
+const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false };
+const geojson = new L.GeoJSON(null, geojsonOptions);
+
 const style: L.PathOptions = {
     className: "string",
 };
