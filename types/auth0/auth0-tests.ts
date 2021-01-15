@@ -1,4 +1,7 @@
+/// <reference types="node" />
+
 import * as auth0 from 'auth0';
+import idToken = require('auth0/src/auth/idToken');
 
 const management = new auth0.ManagementClient({
   token: '{YOUR_API_V2_TOKEN}',
@@ -596,7 +599,6 @@ management.createClient({
         subject: 'subject',
     }
 });
-
 management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
 management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
 management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
@@ -718,4 +720,20 @@ const oauthAuthenticator = new auth0.OAuthAuthenticator({
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));
 
-authentication.database.signUp({email: 'email', password: 'password'})
+authentication.database.signUp({email: 'email', password: 'password'});
+
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+decoded._raw; // $ExpectType string
+decoded.header; // $ExpectType any
+decoded.payload; // $ExpectType any
+decoded.signature; // $ExpectType string
+
+async () => {
+    const defaultOptions = {
+        issuer: 'issuer',
+        audience: ['clientId', 'clientIdAlt'],
+        nonce: 'a1b2c3d4e5',
+    };
+    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
+    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+};
