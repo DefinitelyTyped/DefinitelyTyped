@@ -1,10 +1,10 @@
-import ch, { KeyPair } from 'chloride';
+import * as ch from 'chloride';
 
 const data = Buffer.from('data');
 const seed = Buffer.alloc(32);
 const nonce = Buffer.alloc(24);
 
-let keyPair: KeyPair;
+let keyPair: ch.KeyPair;
 let hashed: Buffer;
 
 // *** hash ***
