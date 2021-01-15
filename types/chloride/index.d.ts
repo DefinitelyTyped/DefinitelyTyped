@@ -6,12 +6,11 @@
 
 /// <reference types="node" />
 
-export interface KeyPair {
-    publicKey: Buffer;
-    secretKey: Buffer;
-}
-
 declare namespace chloride {
+    export interface KeyPair {
+        publicKey: Buffer;
+        secretKey: Buffer;
+    }
     // *** hash ***
     // sha512
     function crypto_hash(plainText: Buffer): Buffer;
@@ -53,4 +52,4 @@ declare namespace chloride {
     function crypto_sign_ed25519_sk_to_curve25519(secretKey: Buffer): Buffer;
     function crypto_sign_ed25519_pk_to_curve25519(publicKey: Buffer): Buffer;
 }
-export default chloride;
+export = chloride;
