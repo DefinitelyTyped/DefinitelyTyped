@@ -431,6 +431,8 @@ declare module 'crypto' {
     function randomInt(max: number, callback: (err: Error | null, value: number) => void): void;
     function randomInt(min: number, max: number, callback: (err: Error | null, value: number) => void): void;
 
+    function randomUUID(options?: { disableEntropyCache?: boolean }): string;
+
     function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
     function randomFill<T extends NodeJS.ArrayBufferView>(
         buffer: T,

@@ -829,6 +829,14 @@ import { promisify } from 'util';
     crypto.randomInt(1, 10, callback);
 }
 
+// crypto.randomUUID
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
+}
+
 {
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
