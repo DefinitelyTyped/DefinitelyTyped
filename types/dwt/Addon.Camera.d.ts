@@ -114,12 +114,12 @@ export interface ViewerEvent {
      * The y-coordinate of the upper-left corner of the image.
      */
     imageY: number;
-    /** 
+    /**
      * The x-coordinate relative to the browser page.
-     */ 
+     */
     pageX: number;
-	/** 
+    /**
      * The y-coordinate relative to the browser page.
-     */ 
+     */
     pageY: number;
 }

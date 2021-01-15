@@ -396,7 +396,7 @@ export interface WebTwainEnv {
      * Whether to load UI related js files.
      */
 	UseDefaultViewer: boolean;
-	/**
+    /**
      * Control whether the scanner related UI & load/save UI are always display in the front window.
      */
 	IfAlwaysFocusOnPopupWindow: boolean;

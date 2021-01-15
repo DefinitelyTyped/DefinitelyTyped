@@ -430,7 +430,7 @@ export interface EditorSettings {
         dlgChangeImageSize: ['New Height :', 'New Width :', 'Interpolation method:', '  OK  ', 'Cancel'],
         saveChangedImage: ['You have changed the image, do you want to keep the change(s)?', '  Yes  ', '  No  '],
         selectSource: ['Select Source:', 'Select', 'Cancel', 'There is no source available']
-    }
+    };
 }
 export interface ThumbnailViewerSettings {
     /**
@@ -449,14 +449,16 @@ export interface ThumbnailViewerSettings {
     /**
      * [Scope] Thumbnail viewer
      * [Description] Specify how many images to display per row.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly. If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
      * number in pixels, string in percentage
      */
     columns: number;
     /**
      * [Scope] Thumbnail viewer
      * [Description] Specify how many images to display per column.
-     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly. If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
+     * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
+     * If columns and rows are both 1, report 'ThumbnailViewer shoud display more than 1 page' error.
      * number in pixels, string in percentage
      */
     rows: number;
@@ -780,7 +782,7 @@ export interface ThumbnailViewerEvent {
      * The x-coordinate relative to the browser page.
      */
     pageX: number;
-    /** 
+    /**
      * The y-coordinate relative to the browser page.
      */
     pageY: number;
