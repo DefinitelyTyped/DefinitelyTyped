@@ -264,6 +264,8 @@ export interface UseTableInstanceProps<D extends object> {
     prepareRow: (row: Row<D>) => void;
     flatRows: Array<Row<D>>;
     totalColumnsWidth: number;
+    totalColumnsMinWidth: number; // not documented
+    totalColumnsMaxWidth: number; // not documented
     allColumnsHidden: boolean;
     toggleHideColumn: (columnId: IdType<D>, value?: boolean) => void;
     setHiddenColumns: (param: Array<IdType<D>> | UpdateHiddenColumns<D>) => void;
@@ -286,6 +288,8 @@ export interface UseTableColumnProps<D extends object> {
     render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
+    totalMaxWidth: number; // not documented
+    totalMinWidth: number; // not documented
     getHeaderProps: (propGetter?: HeaderPropGetter<D>) => TableHeaderProps;
     getFooterProps: (propGetter?: FooterPropGetter<D>) => TableFooterProps;
     toggleHidden: (value?: boolean) => void;
