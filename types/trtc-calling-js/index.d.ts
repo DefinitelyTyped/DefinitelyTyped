@@ -11,64 +11,70 @@ export = TRTCCalling;
  * 定义 TRTCCalling 命名空间，方便导出用到的变量类型给外部引用
  */
 declare namespace TRTCCalling {
+    /** 日志输出等级 */
     type LogLevel = 0 | 1 | 2 | 3 | 4;
 
+    /** callback回调事件类型 */
     type Callback<T = any> = (eventName: T) => void;
 
+    /** 实例化参数类型 */
     interface Options {
         SDKAppID: number;
     }
 
-    interface LoginOptions {
+    /** 共有参数类型 */
+    interface UserInfo {
         userID: string;
+    }
+
+    /** 登录参数类型 */
+    interface LoginOptions extends UserInfo {
         userSig: string;
     }
 
-    interface CallOptions {
-        userID: string;
+    /** 1对1通话邀请参数类型 */
+    interface CallOptions extends UserInfo {
         type: 1 | 2;
         timeout: number;
     }
 
+    /** 群组通话邀请参数类型 */
     interface GroupCallOptions {
         userIDList: string[];
         type: 1 | 2;
         groupID?: string;
     }
 
+    /** 接受当前的邀请参数类型 */
     interface AcceptOptions {
         inviteID: string;
         roomID: number;
         callType: 1 | 2;
     }
 
+    /** 拒绝当前的邀请参数类型 */
     interface RejectOptions {
         inviteID: string;
         isBusy: boolean;
         callType: 1 | 2;
     }
 
-    interface ViewOptions {
-        userID: string;
+    /** 摄像头渲染相关类型 */
+    interface ViewOptions extends UserInfo {
         videoViewDomID: string;
     }
 
-    interface RtcError {
-        error: string;
-    }
-
-    interface UserInfo {
-        userID: string;
-    }
-
+    /** 远端用户开启/关闭了摄像头返回参数类型 */
     interface UserVideoInfo extends UserInfo {
         isVideoAvailable: boolean;
     }
 
+    /** 远端用户开启/关闭了麦克风返回参数类型 */
     interface UserAudioInfo extends UserInfo {
         isAudioAvailable: boolean;
     }
 
+    /** 收到了邀请通知返回参数类型 */
     interface InvitedInfo {
         sponsor: string;
         userIDList: string[];
