@@ -14,11 +14,17 @@ import middleware = require('./middleware');
 import Api = require('./Api');
 
 declare namespace HydraBox {
+    interface PotentialOperation {
+        resource: Resource | PropertyResource;
+        operation: GraphPointer;
+    }
+
     interface HydraBox {
         api: Api;
         term: RDF.NamedNode;
         resource: Resource;
         operation: GraphPointer;
+        operations: PotentialOperation[];
     }
 
     interface Resource {

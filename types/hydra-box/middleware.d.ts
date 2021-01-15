@@ -9,6 +9,7 @@ import { ResourceLoader } from '.';
 declare namespace middleware {
     interface HydraBoxMiddleware {
         resource?: express.RequestHandler | express.RequestHandler[];
+        operations?: express.RequestHandler | express.RequestHandler[];
     }
 
     interface Options {
