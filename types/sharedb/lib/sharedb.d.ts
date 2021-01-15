@@ -96,9 +96,13 @@ export class Doc extends EventEmitter {
     collection: string;
     data: any;
     version: number | null;
+    subscribed: boolean;
+    preventCompose: boolean;
+    paused: boolean;
 
     fetch: (callback: (err: Error) => void) => void;
     subscribe: (callback: (err: Error) => void) => void;
+    unsubscribe: (callback: (error: Error) => void) => void;
 
     on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
     on(event: 'create', callback: (source: boolean) => void): this;
@@ -113,13 +117,18 @@ export class Doc extends EventEmitter {
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
-    destroy(): void;
+    destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
     create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
     del(options: ShareDBSourceOptions, callback: (err: Error) => void): void;
-    whenNothingPending(callback: (err: Error) => void): void;
+    whenNothingPending(callback: () => void): void;
+    hasPending(): boolean;
+    hasWritePending(): boolean;
+    pause(): void;
+    resume(): void;
+    flush(): void;
 }
 
 export type QueryEvent = 'ready' | 'error' | 'changed' | 'insert' | 'move' | 'remove' | 'extra';
