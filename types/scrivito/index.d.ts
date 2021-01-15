@@ -1,4 +1,4 @@
-// Type definitions for scrivito 1.18
+// Type definitions for scrivito 1.19
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger <https://github.com/juliankrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -163,6 +163,7 @@ interface ConfigOptions {
     // Hard to type
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
+    priority?: 'foreground' | 'background';
 }
 
 /**
