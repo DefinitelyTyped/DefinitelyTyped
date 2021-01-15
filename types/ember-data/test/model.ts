@@ -14,8 +14,12 @@ const Person = DS.Model.extend({
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 
-    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+    pointOne: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+    pointTwo: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 }) }),
 });
+
+const person = Person.create();
+assertType<Point>(person.get('pointOne'));
 
 const User = DS.Model.extend({
     username: DS.attr('string'),
