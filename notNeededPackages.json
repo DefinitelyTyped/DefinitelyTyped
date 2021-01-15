@@ -2737,6 +2737,11 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "asOfVersion": "4.0.0"
