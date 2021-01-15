@@ -128,13 +128,39 @@ import { expectType } from '../node-tests';
     // util.promisify
     const readPromised = util.promisify(readFile);
     const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-    const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
-    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
-    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
-    const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
+
+    function parseString(str: any, cb?: (...args: any[]) => any): void {}
+    const parseStringP = util.promisify(parseString);
+    parseStringP; // $ExpectType (str: any) => Promise<any>
+    const x = parseStringP("abc");
+    x; // $ExpectType Promise<any>
+
+    const arg1UnknownError = util.promisify((arg: string, cb: (err: unknown, result: number) => void): void => { });
+    arg1UnknownError; // $ExpectType (arg: string) => Promise<number>
+
+    const arg1AnyError = util.promisify((arg: string, cb: (err: any, result: number) => void): void => { });
+    arg1AnyError; // $ExpectType (arg: string) => Promise<number>
+
+    const arg0 = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
+    arg0; // $ExpectType () => Promise<number>
+
+    const arg0NoResult = util.promisify((cb: (err: Error | null) => void): void => { });
+    arg0NoResult; // $ExpectType () => Promise<void>
+
+    const arg1 = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    arg1; // $ExpectType (arg: string) => Promise<number>
+
+    const arg1UnknownError2 = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    arg1UnknownError2; // $ExpectType (arg: string) => Promise<number>
+
+    const arg1NoResult = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
+    arg1NoResult; // $ExpectType (arg: string) => Promise<void>
+
+    const cbOptionalError = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
+    cbOptionalError; // $ExpectType () => Promise<void>
+
     assert(typeof util.promisify.custom === 'symbol');
+
     // util.deprecate
     const foo = () => {};
     // $ExpectType () => void
