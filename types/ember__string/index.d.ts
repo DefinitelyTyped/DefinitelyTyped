@@ -7,8 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-export { htmlSafe, isHTMLSafe } from '@ember/template';
-
 export function camelize(str: string): string;
 export function capitalize(str: string): string;
 export function classify(str: string): string;

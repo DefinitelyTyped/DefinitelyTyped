@@ -1,20 +1,27 @@
 declare class Toast {
-    constructor(element: Element);
+    constructor(element: Element, options?: Partial<Toast.Options>);
 
     /**
-     * When using scrollspy in conjunction with adding or removing of
-     * elements from the DOM, you’ll need to call the refresh method like
-     * so:
+     * Reveals an element’s toast. Returns to the caller before the toast has actually
+     * been shown (i.e. before the shown.bs.toast event occurs).
+     * You have to manually call this method, instead your toast won’t show.
      */
-    refresh(): void;
+    show(): void;
 
     /**
-     * Destroys an element’s scrollspy.
+     * Hides an element’s toast. Returns to the caller before the toast has actually
+     * been hidden (i.e. before the hidden.bs.toast event occurs).
+     * You have to manually call this method if you made autohide to false.
+     */
+    hide(): void;
+
+    /**
+     * Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
      */
     dispose(): void;
 
     /**
-     * Static method which allows you to get the scrollspy instance associated
+     * Static method which allows you to get the toast instance associated
      * with a DOM element
      */
     static getInstance(element: Element): Toast;
@@ -63,7 +70,7 @@ declare namespace Toast {
         /**
          * Delay hiding the toast (ms)
          *
-         * @default 500
+         * @default 5000
          */
         delay: number;
     }

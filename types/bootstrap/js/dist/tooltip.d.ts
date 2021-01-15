@@ -56,7 +56,7 @@ declare class Tooltip {
     update(): void;
 
     /**
-     * Static method which allows you to get the scrollspy instance associated
+     * Static method which allows you to get the tooltip instance associated
      * with a DOM element
      */
     static getInstance(element: Element): Tooltip;
