@@ -65,7 +65,7 @@ export class PushNotificationObject {
 
     messageId?: string;
 
-    actions?: string;
+    actions?: string[];
     invokeApp?: boolean;
 
     /* iOS only properties */

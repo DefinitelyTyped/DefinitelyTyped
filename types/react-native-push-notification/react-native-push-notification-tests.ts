@@ -14,8 +14,8 @@ PushNotification.configure({
 });
 
 PushNotification.unregister();
-PushNotification.localNotification({ message: '' });
-PushNotification.localNotificationSchedule({ date: new Date(), message: '' });
+PushNotification.localNotification({ message: '', actions: ["Yes", "No"] });
+PushNotification.localNotificationSchedule({ date: new Date(), message: '', actions: ["Yes", "No"] });
 PushNotification.requestPermissions();
 PushNotification.subscribeToTopic("topic");
 PushNotification.presentLocalNotification({ message: '' });
