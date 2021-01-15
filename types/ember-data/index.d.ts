@@ -119,10 +119,13 @@ export namespace DS {
     ): string;
     const VERSION: string;
 
-    interface AttrOptions<T extends Transform | string | number | boolean | Date = any> {
-        defaultValue?: T extends Transform ? (() => ReturnType<T['deserialize']>) : string | number | boolean | (() => T);
+    interface AttrOptions<T> {
+        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T);
         allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
     }
+
+    // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
+    type TransformType<K extends keyof TransformRegistry> = TransformRegistry[K] extends Transform ? ReturnType<TransformRegistry[K]['deserialize']> : TransformRegistry[K];
 
     /**
      * `DS.attr` defines an attribute on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -134,9 +137,9 @@ export namespace DS {
      */
     function attr<K extends keyof TransformRegistry>(
         type: K,
-        options?: AttrOptions<TransformRegistry[K]>
-    ): Ember.ComputedProperty<TransformRegistry[K]>;
-    function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
+        options?: AttrOptions<TransformType<K>>
+    ): Ember.ComputedProperty<TransformType<K>>;
+    function attr(options?: AttrOptions<any>): Ember.ComputedProperty<any>;
     function attr(target: any, propertyKey: string): void;
 
     /**
@@ -1950,7 +1953,7 @@ export namespace DS {
      * used when `boolean` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class BooleanTransform extends Transform {}
+    class BooleanTransform extends Transform<boolean> {}
     /**
      * The `DS.DateTransform` class is used to serialize and deserialize
      * date attributes on Ember Data record objects. This transform is used
@@ -1958,21 +1961,21 @@ export namespace DS {
      * [DS.attr](../../data#method_attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)
      * standard.
      */
-    class DateTransform extends Transform {}
+    class DateTransform extends Transform<Date> {}
     /**
      * The `DS.NumberTransform` class is used to serialize and deserialize
      * numeric attributes on Ember Data record objects. This transform is
      * used when `number` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class NumberTransform extends Transform {}
+    class NumberTransform extends Transform<number> {}
     /**
      * The `DS.StringTransform` class is used to serialize and deserialize
      * string attributes on Ember Data record objects. This transform is
      * used when `string` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class StringTransform extends Transform {}
+    class StringTransform extends Transform<string> {}
     /**
      * The `DS.Transform` class is used to serialize and deserialize model
      * attributes when they are saved or loaded from an
@@ -1980,17 +1983,17 @@ export namespace DS {
      * attributes. All subclasses of `DS.Transform` must implement a
      * `serialize` and a `deserialize` method.
      */
-    class Transform extends Ember.Object {
+    class Transform<Deserialized = any, Serialized = any> extends Ember.Object {
         /**
          * When given a deserialized value from a record attribute this
          * method must return the serialized value.
          */
-        serialize(deserialized: any, options: AttrOptions): any;
+        serialize(deserialized: Deserialized, options: AttrOptions<Deserialized>): Serialized;
         /**
          * When given a serialize value from a JSON object this method must
          * return the deserialized value for the record attribute.
          */
-        deserialize(serialized: any, options: AttrOptions): any;
+        deserialize(serialized: Serialized, options: AttrOptions<Deserialized>): Deserialized;
     }
     /**
      * An adapter is an object that receives requests from a store and
