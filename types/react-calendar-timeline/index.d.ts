@@ -17,6 +17,8 @@ declare module 'react-calendar-timeline' {
         id: Id;
         title: React.ReactNode;
         rightTitle?: React.ReactNode;
+        height?: number;
+        stackItems?: boolean;
     }
 
     export interface TimelineItemBase<DateType> {

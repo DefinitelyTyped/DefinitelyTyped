@@ -1,5 +1,5 @@
 import { Coordinate } from './coordinate';
-import { EventsKey, ListenerFunction } from './events';
+import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import Polygon from './geom/Polygon';
 import BaseObject, { ObjectEvent } from './Object';
@@ -13,20 +13,67 @@ export interface Options {
 }
 export default class Geolocation extends BaseObject {
     constructor(opt_options?: Options);
-    getAccuracy(): number;
+    /**
+     * Clean up.
+     */
+    disposeInternal(): void;
+    /**
+     * Get the accuracy of the position in meters.
+     */
+    getAccuracy(): number | undefined;
+    /**
+     * Get a geometry of the position accuracy.
+     */
     getAccuracyGeometry(): Polygon;
-    getAltitude(): number;
-    getAltitudeAccuracy(): number;
-    getHeading(): number;
-    getPosition(): Coordinate;
-    getProjection(): Projection;
-    getSpeed(): number;
+    /**
+     * Get the altitude associated with the position.
+     */
+    getAltitude(): number | undefined;
+    /**
+     * Get the altitude accuracy of the position.
+     */
+    getAltitudeAccuracy(): number | undefined;
+    /**
+     * Get the heading as radians clockwise from North.
+     * Note: depending on the browser, the heading is only defined if the enableHighAccuracy
+     * is set to true in the tracking options.
+     */
+    getHeading(): number | undefined;
+    /**
+     * Get the position of the device.
+     */
+    getPosition(): Coordinate | undefined;
+    /**
+     * Get the projection associated with the position.
+     */
+    getProjection(): Projection | undefined;
+    /**
+     * Get the speed in meters per second.
+     */
+    getSpeed(): number | undefined;
+    /**
+     * Determine if the device location is being tracked.
+     */
     getTracking(): boolean;
-    getTrackingOptions(): PositionOptions;
+    /**
+     * Get the tracking options.
+     * See http://www.w3.org/TR/geolocation-API/#position-options.
+     */
+    getTrackingOptions(): PositionOptions | undefined;
+    /**
+     * Set the projection to use for transforming the coordinates.
+     */
     setProjection(projection: ProjectionLike): void;
+    /**
+     * Enable or disable tracking.
+     */
     setTracking(tracking: boolean): void;
+    /**
+     * Set the tracking options.
+     * See http://www.w3.org/TR/geolocation-API/#position-options.
+     */
     setTrackingOptions(options: PositionOptions): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -65,13 +112,15 @@ export default class Geolocation extends BaseObject {
     on(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
     once(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
     un(type: 'error', listener: (evt: GeolocationError) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-
-export class GeolocationError extends BaseEvent {
-    constructor(type: string);
+declare class GeolocationError extends BaseEvent {
+    constructor(error: any);
     code: number;
     message: string;
 }

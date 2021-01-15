@@ -112,6 +112,6 @@ declare namespace jsrsasign.KJUR.crypto {
          * // set password by explicit Base64URL string
          * mac.setPassword({"b64u": "Mb-c3f_"});
          */
-        setPassword(pass: string): void;
+        setPassword(pass: string | { [type: string]: string }): void;
     }
 }

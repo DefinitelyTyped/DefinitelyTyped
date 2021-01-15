@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.13
+// Type definitions for Auth0.js 9.14
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -7,7 +7,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+/// <reference lib="dom" />
 export as namespace auth0;
 
 export class Authentication {
@@ -267,7 +267,7 @@ export class WebAuth {
      * - If the client_id parameter is included, the returnTo URL must be listed in the Allowed Logout URLs set at the client level (see Setting Allowed Logout URLs at the App Level).
      * - If the client_id parameter is NOT included, the returnTo URL must be listed in the Allowed Logout URLs set at the account level (see Setting Allowed Logout URLs at the Account Level).
      *
-     * @see   {@link https://auth0.com/docs/api/authentication#logout}
+     * @see {@link https://auth0.com/docs/api/authentication#logout}
      */
     logout(options: LogoutOptions): void;
 
@@ -300,6 +300,17 @@ export class WebAuth {
      * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
     checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
+
+    /**
+     * Renders the captcha challenge in the provided element.
+     * This function can only be used in the context of a Classic Universal Login Page.
+     * @param element The element where the captcha needs to be rendered
+     * @param [options] The configuration options for the captcha
+     * @param [callback] An optional completion callback
+     *
+     * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
+     */
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -557,6 +568,44 @@ export interface AuthOptions {
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
+}
+
+export interface CatpchaConfiguration {
+    /**
+     *  An object containaing templates for each captcha provider
+     */
+    templates?: CaptchaTemplates;
+
+    /**
+     * The ISO code of the language for recaptcha
+     * @default 'en'
+     */
+    lang?: string;
+}
+
+/**
+ * An object containing templates for a captcha provider
+ */
+export interface CaptchaTemplates {
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    auth0?: (challenge: Auth0Challenge) => string;
+
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    recaptcha_v2?: (challenge: Auth0Challenge) => string;
+
+    error: (error: Error) => string;
+}
+
+export interface Auth0Challenge {
+    type: 'code';
+    image: string;
+    required: boolean;
+    provider: 'auth0' | 'recaptcha_v2';
+    [other: string]: unknown;
 }
 
 export interface PasswordlessAuthOptions {
@@ -896,7 +945,7 @@ export interface RenewAuthOptions {
     /**
      * type of the response used by OAuth 2.0 flow. It can be any space separated
      * list of the values `code`, `token`, `id_token`.
-     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html}
      */
     responseType?: string;
     /**
@@ -941,7 +990,7 @@ export interface RenewAuthOptions {
      */
     timeout?: number;
     /**
-     * use postMessage to comunicate between the silent callback and the SPA.
+     * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false

@@ -1,5 +1,5 @@
 import Range = require('../classes/range');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Mostly just for testing and legacy API reasons

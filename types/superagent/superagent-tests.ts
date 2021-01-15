@@ -206,6 +206,7 @@ request('/search')
         const files: object = res.files;
         const text: string = res.text;
         const contentLength = res.header['content-length'];
+        assert(res.header === res.headers);
         const contentType: string = res.type;
         const charset: string = res.charset;
         const redirects: string[] = res.redirects;

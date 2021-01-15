@@ -1,4 +1,4 @@
-import WooCommerceRestApi from 'woocommerce__woocommerce-rest-api';
+import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
 
 // Create Rest API Instance
 const api: WooCommerceRestApi = new WooCommerceRestApi({

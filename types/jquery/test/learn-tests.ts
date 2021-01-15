@@ -7,7 +7,6 @@ interface JQuery {
 }
 
 interface GreenifyPlugin {
-    // tslint:disable-next-line:callable-types
     (this: JQuery): void;
 }
 

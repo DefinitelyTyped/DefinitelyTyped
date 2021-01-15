@@ -1,4 +1,4 @@
-// Type definitions for typeform__embed 0.22
+// Type definitions for @typeform/embed 0.22
 // Project: https://github.com/Typeform/embed
 // Definitions by: Florian Merz <https://github.com/florianmrz>
 //                 Gabriel Cangussu <https://github.com/gcangussu>

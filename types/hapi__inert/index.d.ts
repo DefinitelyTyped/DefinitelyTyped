@@ -6,10 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Plugin,
-    Request,
-} from '@hapi/hapi';
+import { Plugin, Request } from '@hapi/hapi';
 
 declare namespace inert {
     type RequestHandler<T> = (request: Request) => T;
@@ -19,7 +16,7 @@ declare namespace inert {
          * confine - serve file relative to this directory and returns 403 Forbidden if the path resolves outside the confine directory.
          * Defaults to true which uses the relativeTo route option as the confine. Set to false to disable this security feature.
          */
-        confine?: boolean;
+        confine?: boolean | string;
         /**
          * filename - an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path
          */
@@ -38,7 +35,7 @@ declare namespace inert {
         /**
          * lookupMap - an object which maps content encoding to expected file name extension. Defaults to `{ gzip: '.gz' }.
          */
-        lookupMap?: {[index: string]: string};
+        lookupMap?: { [index: string]: string };
         /**
          * etagMethod - specifies the method used to calculate the ETag header response. Available values:
          *  * 'hash' - SHA1 sum of the file contents, suitable for distributed deployments. Default value.

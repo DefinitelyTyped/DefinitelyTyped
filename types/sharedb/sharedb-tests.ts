@@ -1,4 +1,3 @@
-/// <reference types="qunit" />
 import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
@@ -79,6 +78,9 @@ for (const action of submitRelatedActions) {
             request.snapshot,
             request.ops,
             request.channels,
+            request.op.op,
+            request.op.create,
+            request.op.del,
         );
         callback();
     });
@@ -189,6 +191,8 @@ function startServer() {
     wss.on('connection', (ws, req) => {
       const stream = new WebSocketJSONStream(ws);
       backend.listen(stream);
+      // Test type definition for 2-argument version
+      backend.listen(stream, req);
     });
 
     server.listen(8080);
@@ -243,4 +247,6 @@ function startClient(callback) {
     if (anotherDoc.version !== null) {
       Math.round(anotherDoc.version);
     }
+
+    connection.close();
 }

@@ -1365,7 +1365,6 @@ declare namespace editorClient {
      * Widgets
      */
 
-    // tslint:disable-next-line:no-unnecessary-generics
     interface WidgetEditableListOptions<T> {
         /**
          * Determines whether a button is shown below the list that, when clicked, will add a new entry to the list.

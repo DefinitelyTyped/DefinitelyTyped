@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "@hapi/boom": "^9.0.0",
-        "@hapi/iron": "^6.0.0"
+        "@hapi/iron": "^6.0.0",
+        "joi": "^17.3.0"
     }
 }

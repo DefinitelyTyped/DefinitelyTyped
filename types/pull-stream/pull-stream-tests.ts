@@ -8,6 +8,19 @@ let source: pull.Source<string> = (end, cb) => {};
 let through: pull.Through<string, string> = source => source;
 let sink: pull.Sink<string> = source => {};
 
+const duplexSource = {
+    source,
+};
+
+const duplexSink = {
+    sink,
+};
+
+const duplexThrough: pull.DuplexThrough<string, string> = {
+    source: (end, cb) => {},
+    sink: source => source,
+};
+
 function voidFunc(): void {}
 
 type Void = ReturnType<typeof voidFunc>;
@@ -15,24 +28,64 @@ type Void = ReturnType<typeof voidFunc>;
 // Start with source and end with sink
 let nothing: Void;
 nothing = pull();
+
 nothing = pull(source, sink);
+nothing = pull(duplexSource, duplexSink);
+
 nothing = pull(source, through, sink);
+nothing = pull(duplexSource, through, duplexSink);
+
 nothing = pull(source, through, through, sink);
+nothing = pull(duplexSource, through, through, duplexSink);
+nothing = pull(duplexSource, through, through, through, duplexSink);
+nothing = pull(duplexSource, through, through, through, through, duplexSink);
 
 // Start with source
 source = pull(source);
+source = pull(duplexSource);
+
 source = pull(source, through);
-source = pull(source, through, through);
+source = pull(duplexSource, through);
+source = pull(duplexSource, duplexThrough);
+
+source = pull(source, duplexThrough, through);
+source = pull(duplexSource, duplexThrough, through);
+source = pull(source, duplexThrough, through, through);
+source = pull(duplexSource, duplexThrough, through, through);
+source = pull(source, duplexThrough, through, through, through, through);
+source = pull(duplexSource, duplexThrough, through, through, through, through);
+source = pull(source, duplexThrough, through, through, through, through, through);
+source = pull(duplexSource, duplexThrough, through, through, through, through, through);
 
 // End with sink
 sink = pull(sink);
+sink = pull(duplexSink);
+
 sink = pull(through, sink);
-sink = pull(through, through, sink);
+sink = pull(duplexThrough, sink);
+sink = pull(duplexThrough, duplexSink);
+
+sink = pull(through, duplexThrough, sink);
+sink = pull(through, duplexThrough, duplexSink);
+sink = pull(through, duplexThrough, through, sink);
+sink = pull(through, duplexThrough, through, duplexSink);
+sink = pull(through, duplexThrough, through, through, sink);
+sink = pull(through, duplexThrough, through, through, duplexSink);
+sink = pull(through, duplexThrough, through, through, through, sink);
+sink = pull(through, duplexThrough, through, through, through, duplexSink);
+sink = pull(through, duplexThrough, through, through, through, through, sink);
+sink = pull(through, duplexThrough, through, through, through, through, duplexSink);
 
 // Through only
 through = pull(through);
-through = pull(through, through);
+through = pull(through, duplexThrough);
+
 through = pull(through, through, through);
+through = pull(through, duplexThrough, through);
+through = pull(through, duplexThrough, duplexThrough);
+through = pull(through, through, through, duplexThrough);
+through = pull(through, through, through, through, duplexThrough);
+through = pull(through, through, through, through, through, duplexThrough);
 
 const numberSource: pull.Source<number> = (end, cb) => {};
 const parseNumber: pull.Through<string, number> = source => numberSource;

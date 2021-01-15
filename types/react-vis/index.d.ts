@@ -169,11 +169,11 @@ export interface WhiskerSeriesPoint extends AbstractSeriesPoint {
 
 export interface TreemapPoint extends AbstractSeriesPoint {
     title: string;
-    size: number;
+    size?: number;
     opacity?: number;
     color?: string | number;
-    style: CSSProperties;
-    children: TreemapPoint[];
+    style?: CSSProperties;
+    children?: TreemapPoint[];
 }
 
 export interface ParallelCoordinatesPoint extends AbstractSeriesPoint {
@@ -199,8 +199,8 @@ export interface SankeyPoint extends AbstractSeriesPoint {
 
 export interface SunburstPoint extends AbstractSeriesPoint {
     title: string;
-    size: number;
-    color?: number;
+    size?: number;
+    color?: number|string;
     label?: string;
     labelStyle?: CSSProperties;
     dontRotateLabel?: boolean;
@@ -243,7 +243,7 @@ export interface AbstractSeriesProps<T extends AbstractSeriesPoint> {
     getY?: RVGet<T, 'y'>;
     height?: number;
     onNearestX?: RVNearestXEventHandler<T>;
-    onNearestXY?: RVNearestXEventHandler<T>;
+    onNearestXY?: RVNearestXYEventHandler<T>;
     onSeriesClick?: RVMouseEventHandler;
     onSeriesMouseOut?: RVMouseEventHandler;
     onSeriesMouseOver?: RVMouseEventHandler;
@@ -561,7 +561,12 @@ export interface XAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;
@@ -592,7 +597,12 @@ export interface YAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;
@@ -819,6 +829,7 @@ export interface TreemapProps {
     width: number;
     getSize?: RVGet<TreemapPoint, 'size'>;
     getColor?: RVGet<TreemapPoint, 'color'>;
+    color?: string;
 }
 export class Treemap<T = any> extends Component<TreemapProps & T> {}
 

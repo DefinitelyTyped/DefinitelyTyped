@@ -32,7 +32,7 @@ declare module "process" {
                 lts?: string;
             }
 
-            interface ProcessVersions {
+            interface ProcessVersions extends Dict<string> {
                 http_parser: string;
                 node: string;
                 v8: string;
@@ -84,6 +84,7 @@ declare module "process" {
 
             interface HRTime {
                 (time?: [number, number]): [number, number];
+                bigint(): bigint;
             }
 
             interface ProcessReport {
@@ -191,7 +192,7 @@ declare module "process" {
                 argv0: string;
                 execArgv: string[];
                 execPath: string;
-                abort(): void;
+                abort(): never;
                 chdir(directory: string): void;
                 cwd(): string;
                 debugPort: number;
@@ -208,7 +209,7 @@ declare module "process" {
                 getegid(): number;
                 setegid(id: number | string): void;
                 getgroups(): number[];
-                setgroups(groups: Array<string | number>): void;
+                setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 version: string;
@@ -245,6 +246,8 @@ declare module "process" {
                 title: string;
                 arch: string;
                 platform: Platform;
+                /** @deprecated since v14.0.0 - use `require.main` instead. */
+                mainModule?: Module;
                 memoryUsage(): MemoryUsage;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
@@ -260,9 +263,15 @@ declare module "process" {
                     tls: boolean;
                 };
                 /**
+                 * @deprecated since v14.0.0 - Calling process.umask() with no argument causes
+                 * the process-wide umask to be written twice. This introduces a race condition between threads,
+                 * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+                 */
+                umask(): number;
+                /**
                  * Can only be set if not in worker thread.
                  */
-                umask(mask: number): number;
+                umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
                 domain: Domain;
@@ -285,6 +294,8 @@ declare module "process" {
                 report?: ProcessReport;
 
                 resourceUsage(): ResourceUsage;
+
+                traceDeprecation: boolean;
 
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;

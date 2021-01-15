@@ -1,5 +1,5 @@
 import SemVer = require('../classes/semver');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Return the major version number.

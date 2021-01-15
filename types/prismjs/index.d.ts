@@ -416,7 +416,6 @@ export class Token {
      */
     greedy: boolean;
 
-    // tslint:disable:no-redundant-jsdoc-2
     /**
      * Converts the given token or token stream to an HTML representation.
      *

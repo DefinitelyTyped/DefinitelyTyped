@@ -62,7 +62,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 /*-----------------------------------------------*
@@ -183,7 +188,6 @@ declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -326,7 +330,7 @@ declare const Buffer: {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    new(array: any[]): Buffer;
+    new(array: ReadonlyArray<any>): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -348,7 +352,7 @@ declare const Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[]): Buffer;
+    from(data: ReadonlyArray<any>): Buffer;
     from(data: Uint8Array): Buffer;
     /**
      * Creates a new buffer containing the coerced value of an object
@@ -399,7 +403,7 @@ declare const Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Uint8Array[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -705,6 +709,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface Process extends EventEmitter {
@@ -716,7 +721,7 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
@@ -733,7 +738,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -1004,5 +1009,17 @@ declare namespace NodeJS {
         constructor(id: string, parent?: Module);
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
+    type ArrayBufferView = TypedArray | DataView;
 }

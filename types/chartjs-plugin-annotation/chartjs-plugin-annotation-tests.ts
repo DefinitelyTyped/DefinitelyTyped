@@ -1,5 +1,6 @@
 import * as Chart from 'chart.js';
 import * as ChartJsAnnotation from 'chartjs-plugin-annotation';
+import moment = require('moment');
 
 Chart.pluginService.register(ChartJsAnnotation);
 Chart.pluginService.unregister(ChartJsAnnotation);
@@ -266,6 +267,16 @@ const boxAnnotation: ChartJsAnnotation.BoxAnnotationOptions = {
   onWheel(e) { }
 };
 
+// Date and Moment support
+// https://github.com/chartjs/chartjs-plugin-annotation/blob/v0.5.7/samples/line-time-scale.html#L171
+const dateBox: ChartJsAnnotation.BoxAnnotationOptions = {
+  type: "box",
+  xMin: new Date('2020-01-01'),
+  xMax: new Date('2020-02-01'),
+  yMin: moment('2020-01-01'),
+  yMax: moment('2020-02-01'),
+};
+
 const annotatedChart = new Chart(ctx, {
   type: 'bar',
   data: chartData,
@@ -273,7 +284,8 @@ const annotatedChart = new Chart(ctx, {
     annotation: {
       annotations: [
         lineAnnotation,
-        boxAnnotation
+        boxAnnotation,
+        dateBox
       ]
     }
   }

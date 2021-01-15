@@ -1374,22 +1374,16 @@ declare namespace algoliasearch {
     objectID?: string;
   }
 
-  /**
-   */
   interface MultiObjectTask {
     objectIDs: string[];
     taskID: number;
   }
 
-  /**
-   */
   interface UpdateIndexTask {
     updatedAt: string;
     taskID: number;
   }
 
-  /**
-   */
   interface BatchTask {
     objectIDs: string[];
     taskID: Record<string, number>;

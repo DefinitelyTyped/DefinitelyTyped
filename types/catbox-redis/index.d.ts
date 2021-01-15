@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-declare-current-package no-single-declare-module
 declare module 'catbox-redis' {
     import { Redis } from 'ioredis';
     import { EnginePrototype, ClientOptions, Client } from 'catbox';

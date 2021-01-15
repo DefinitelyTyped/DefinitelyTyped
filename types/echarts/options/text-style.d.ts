@@ -1,14 +1,12 @@
 declare namespace echarts {
     namespace EChartOption {
-
         /**
          * @see https://echarts.apache.org/en/option.html#textStyle
          */
         interface BaseTextStyle {
             color?: string;
             fontStyle?: 'normal' | 'italic' | 'oblique';
-            fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
-                            | '100' | '200' | '300' | '400';
+            fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
             fontFamily?: string;
             fontSize?: number;
             lineHeight?: number;

@@ -37,7 +37,7 @@ index.coordNorm({ doc: 1 }, { doc: ['token'] }, 1);
 index.fieldSearch(['ok'], 'field', { field: { boost: 10 } });
 index.fieldSearch(['ok'], 'field', { field: { boost: 10, bool: 'OR' } });
 index.fieldSearch(['ok'], 'field', { field: { boost: 10, bool: 'AND' } });
-index.fieldSearch(['ok'], 'field', { field: { boost: 10, expand: true } });
+index.fieldSearch(['ok'], 'field', { field: { boost: 10 } });
 
 index.fieldSearchStats({ doc: ['ok'] }, 'ok', { doc: testDoc });
 
@@ -71,6 +71,10 @@ index.search('query', {
     fields: {
         field: { boost: 2 },
     },
+});
+
+index.search('query', {
+    expand: true
 });
 
 index.toJSON();

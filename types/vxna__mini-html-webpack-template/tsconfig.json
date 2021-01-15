@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@vxna/mini-html-webpack-template": [
-                "vxna__mini-html-webpack-template"
+            "@vxna/*": [
+                "vxna__*"
             ]
         },
         "types": [],

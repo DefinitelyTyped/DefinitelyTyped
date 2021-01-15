@@ -1038,12 +1038,12 @@ declare namespace Foxx {
 
     interface ValidationResult<T> {
         value: T;
-        error: any;
+        error?: any;
+        errors?: any;
     }
 
     interface Schema {
-        isJoi: boolean;
-        validate<T>(value: T): ValidationResult<T>;
+        validate<T>(value: T, options?: any): ValidationResult<T>;
     }
 
     interface Model {

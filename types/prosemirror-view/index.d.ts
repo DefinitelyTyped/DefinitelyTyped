@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.15
+// Type definitions for prosemirror-view 1.17
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -319,18 +319,25 @@ export class EditorView<S extends Schema = any> {
     top: number;
   }): { pos: number; inside: number } | null | undefined;
   /**
-   * Returns the viewport rectangle at a given document position. `left`
-   * and `right` will be the same number, as this returns a flat
-   * cursor-ish rectangle.
+   * Returns the viewport rectangle at a given document position.
+   * `left` and `right` will be the same number, as this returns a
+   * flat cursor-ish rectangle. If the position is between two things
+   * that aren't directly adjacent, `side` determines which element is
+   * used. When < 0, the element before the position is used,
+   * otherwise the element after.
    */
-  coordsAtPos(pos: number): { left: number; right: number; top: number; bottom: number };
+  coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
    * Find the DOM position that corresponds to the given document
-   * position. Note that you should **not** mutate the editor's
-   * internal DOM, only inspect it (and even that is usually not
-   * necessary).
+   * position. When `side` is negative, find the position as close as
+   * possible to the content before the position. When positive,
+   * prefer positions close to the content after the position. When
+   * zero, prefer as shallow a position as possible.
+   *
+   * Note that you should **not** mutate the editor's internal DOM,
+   * only inspect it (and even that is usually not necessary).
    */
-  domAtPos(pos: number): { node: Node; offset: number };
+  domAtPos(pos: number, side?: number): { node: Node; offset: number };
   /**
    * Find the DOM node that represents the document node after the
    * given position. May return null when the position doesn't point
@@ -405,7 +412,7 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    * `preventDefault` yourself (or not, if you want to allow the
    * default behavior).
    */
-  handleDOMEvents?: { [name: string]: (this: ThisT, view: EditorView<S>, event: Event) => boolean } | null;
+  handleDOMEvents?: HandleDOMEventsProp<ThisT, S> | null;
   /**
    * Called when the editor receives a `keydown` event.
    */
@@ -624,6 +631,16 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    */
   scrollMargin?: number | { top: number, right: number, bottom: number, left: number } | null;
 }
+/**
+ * A mapping of dom events.
+ */
+export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Partial<
+  {
+    [K in keyof DocumentEventMap]: (this: ThisT, view: EditorView<S>, event: DocumentEventMap[K]) => boolean;
+  }
+> & {
+  [key: string]: (this: ThisT, view: EditorView<S>, event: any) => boolean;
+};
 /**
  * The props object given directly to the editor view supports two
  * fields that can't be used in plugins:

@@ -1,11 +1,8 @@
-import MUIDataTable, { MUIDataTableColumn, MUIDataTableOptions, MUIDataTableTextLabels } from 'mui-datatables';
+import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps } from 'mui-datatables';
 import * as React from 'react';
 
-interface Props extends MUIDataTableOptions {
-    data: any;
-    title: string;
-    textLabels?: MUIDataTableTextLabels;
-    options?: MUIDataTableOptions;
+interface Props extends Omit<MUIDataTableProps, 'columns'> {
+    columns?: MUIDataTableColumn[];
 }
 
 const MuiCustomTable: React.FC<Props> = props => {
@@ -15,14 +12,18 @@ const MuiCustomTable: React.FC<Props> = props => {
             name: 'id',
             label: 'id',
             options: {
-                draggable: true
-            }
+                draggable: true,
+                sortThirdClickReset: true,
+            },
         },
         {
             name: 'name',
             label: 'Name',
             options: {
                 filterType: 'custom',
+                sortCompare: order => (val1, val2) => {
+                    return (val1.data.length - val2.data.length) * (order === 'asc' ? 1 : -1);
+                },
                 customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <input
@@ -51,14 +52,16 @@ const MuiCustomTable: React.FC<Props> = props => {
             options: {
                 customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
                     return <p>Some customize Header</p>;
-                }
-            }
-        }
+                },
+            },
+        },
     ];
 
     const TableOptions: MUIDataTableOptions = {
+        jumpToPage: true,
         fixedHeader: true,
         fixedSelectColumn: false,
+        sortOrder: { name: 'amount', direction: 'asc' },
         filterType: 'checkbox',
         responsive: 'standard',
         selectableRows: 'none',
@@ -69,7 +72,7 @@ const MuiCustomTable: React.FC<Props> = props => {
             separator: ',',
         },
         draggableColumns: {
-            enabled: true
+            enabled: true,
         },
         sortFilterList: false,
         customRowRender: (data, dataIndex, rowIndex) => {
@@ -123,8 +126,13 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
         setFilterChipProps: () => {
             return {
-                color: "secondary",
-                variant: "outlined"
+                color: 'secondary',
+                variant: 'outlined',
+            };
+        },
+        setRowProps: (row, dataIndex, rowIndex) => {
+            return {
+                className: `row${dataIndex}`,
             };
         },
         textLabels: {
@@ -138,6 +146,7 @@ const MuiCustomTable: React.FC<Props> = props => {
                 previous: 'Previous Page',
                 rowsPerPage: 'Rows per page:',
                 displayRows: 'of',
+                jumpToPage: 'Go To',
             },
             toolbar: {
                 search: 'Search',
@@ -191,15 +200,31 @@ const options: MUIDataTableOptions = {
 const Todos = [
     { id: 1, name: 'Buy apples', color: 'Red', amount: 4 },
     { id: 2, name: 'Eat apple', color: 'Green', amount: 1 },
-    { id: 3, name: 'Eat some more apple', color: 'Yellow', amount: 3 }
+    { id: 3, name: 'Eat some more apple', color: 'Yellow', amount: 3 },
 ];
 
 const todoOptions: MUIDataTableOptions = {
     textLabels: {
         body: {
-            noMatch: <p>You have no apples, go an buy some.</p>
-        }
-    }
+            noMatch: <p>You have no apples, go an buy some.</p>,
+        },
+    },
 };
 
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
+
+const customComponents: MUIDataTableProps['components'] = {
+    ExpandButton: ({ dataIndex }) => (dataIndex === 1 ? <>expand button</> : null),
+    TableFooter: props => <>table footer</>,
+};
+
+<MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} components={customComponents} />;
+
+const disabledOptions: MUIDataTableOptions = {
+    print: 'true',
+    search: false,
+    viewColumns: 'disabled',
+    filter: true,
+};
+
+<MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;

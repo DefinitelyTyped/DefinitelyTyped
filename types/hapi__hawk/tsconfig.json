@@ -11,38 +11,8 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "paths": {
-            "@hapi/basic": [
-                "hapi__basic"
-            ],
-            "@hapi/boom": [
-                "hapi__boom"
-            ],
-            "@hapi/catbox": [
-                "hapi__catbox"
-            ],
-            "@hapi/hapi": [
-                "hapi__hapi"
-            ],
-            "@hapi/hawk": [
-                "hapi__hawk"
-            ],
-            "@hapi/iron": [
-                "hapi__iron"
-            ],
-            "@hapi/joi": [
-                "hapi__joi"
-            ],
-            "@hapi/mimos": [
-                "hapi__mimos"
-            ],
-            "@hapi/podium": [
-                "hapi__podium"
-            ],
-            "@hapi/shot": [
-                "hapi__shot"
-            ],
-            "@hapi/sntp": [
-                "hapi__sntp"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "typeRoots": [

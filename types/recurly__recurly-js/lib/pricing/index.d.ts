@@ -33,6 +33,13 @@ export interface PricingInstance<PricingPromise> extends Emitter<PricingEvent> {
 }
 
 export type Pricing = {
+  /**
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#pricing|Pricing}
+   */
   Checkout: () => CheckoutPricingInstance;
+
+  /**
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#pricing|Pricing}
+   */
   Subscription: () => SubscriptionPricingInstance;
 };

@@ -54,3 +54,9 @@ moment('2015-12-25T16:30:00Z').isWorkingDay(); // false
 moment('2016-12-25T16:30:00Z').isWorkingDay(); // false
 moment('2017-12-25T16:30:00Z').isWorkingDay(); // false
 moment('2018-12-25T16:30:00Z').isWorkingDay(); // false
+
+moment('2015-02-26T17:30:00').nextTransitionTime().moment; // $ExpectedType Moment
+moment('2015-02-26T17:30:00').nextTransitionTime().transition; // $ExpectType "open" | "close"
+
+moment('2015-02-26T17:30:00').lastTransitionTime().moment; // $ExpectedType Moment
+moment('2015-02-26T17:30:00').lastTransitionTime().transition; // $ExpectType "open" | "close"

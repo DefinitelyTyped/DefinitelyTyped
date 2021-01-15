@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.50
+// Type definitions for node-telegram-bot-api 0.51
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -243,12 +243,23 @@ declare namespace TelegramBot {
         is_flexible?: boolean;
     }
 
+    interface CopyMessageOptions extends SendBasicOptions {
+        caption?: string;
+        parse_mode?: ParseMode;
+        caption_entities?: MessageEntity[];
+        allow_sending_without_reply?: boolean;
+    }
+
     interface RestrictChatMemberOptions {
         until_date?: number;
         can_send_messages?: boolean;
         can_send_media_messages?: boolean;
+        can_send_polls?: boolean;
         can_send_other_messages?: boolean;
         can_add_web_page_previews?: boolean;
+        can_change_info?: boolean;
+        can_invite_users?: boolean;
+        can_pin_messages?: boolean;
     }
 
     interface PromoteChatMemberOptions {
@@ -1057,6 +1068,10 @@ declare namespace TelegramBot {
         command: string;
         description: string;
     }
+
+    interface MessageId {
+        message_id: number;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1076,6 +1091,10 @@ declare class TelegramBot extends EventEmitter {
 
     getMe(): Promise<TelegramBot.User>;
 
+    logOut(): Promise<boolean>;
+
+    close(): Promise<boolean>;
+
     setWebHook(url: string, options?: TelegramBot.SetWebHookOptions): Promise<any>;
 
     deleteWebHook(): Promise<boolean>;
@@ -1091,6 +1110,8 @@ declare class TelegramBot extends EventEmitter {
     answerInlineQuery(inlineQueryId: string, results: ReadonlyArray<TelegramBot.InlineQueryResult>, options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean>;
 
     forwardMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.ForwardMessageOptions): Promise<TelegramBot.Message>;
+
+    copyMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.CopyMessageOptions): Promise<TelegramBot.MessageId>;
 
     sendPhoto(chatId: number | string, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message>;
 
@@ -1143,6 +1164,8 @@ declare class TelegramBot extends EventEmitter {
 
     unpinChatMessage(chatId: number | string): Promise<boolean>;
 
+    unpinAllChatMessages(chatId: number | string): Promise<boolean>;
+
     answerCallbackQuery(callbackQueryId: string, options?: Partial<TelegramBot.AnswerCallbackQueryOptions>): Promise<boolean>;
 
     /**
@@ -1180,9 +1203,13 @@ declare class TelegramBot extends EventEmitter {
 
     removeTextListener(regexp: RegExp): TelegramBot.TextListener | null;
 
+    clearTextListeners(): void;
+
     onReplyToMessage(chatId: number | string, messageId: number | string, callback: ((msg: TelegramBot.Message) => void)): number;
 
     removeReplyListener(replyListenerId: number): TelegramBot.ReplyListener;
+
+    clearReplyListeners(): void;
 
     getChat(chatId: number | string): Promise<TelegramBot.Chat>;
 
@@ -1361,7 +1388,7 @@ declare class TelegramBot extends EventEmitter {
     off(event: 'polling_error' | 'webhook_error' | 'error', listener: (error: Error) => void): this;
 
     removeAllListeners(
-        event:
+        event?:
             TelegramBot.MessageType |
             'message' |
             'callback_query' |

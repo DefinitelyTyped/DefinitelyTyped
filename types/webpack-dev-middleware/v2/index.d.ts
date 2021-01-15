@@ -15,7 +15,7 @@ export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
     compiler: webpack.ICompiler,
-    options?: WebpackDevMiddleware.Options
+    options?: WebpackDevMiddleware.Options,
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
 declare namespace WebpackDevMiddleware {

@@ -1,8 +1,9 @@
-// Type definitions for mock-fs 4.10
+// Type definitions for mock-fs 4.13
 // Project: https://github.com/tschaub/mock-fs
 // Definitions by: Wim Looman <https://github.com/Nemo157>,
 //                 Qubo <https://github.com/tkqubo>,
-//                 Porama Ruengrairatanaroj <https://github.com/Seally>
+//                 Porama Ruengrairatanaroj <https://github.com/Seally>,
+//                 Chris Shaw <https://github.com/cshawaus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import FileSystem = require('./lib/filesystem');
@@ -28,6 +29,20 @@ export = mock;
 declare function mock(config?: FileSystem.DirectoryItems, options?: FileSystem.Options): void;
 
 declare namespace mock {
+    /**
+     * Temporarily bypass the mocked file system and load directly from the real file system.
+     *
+     * @example
+     * const filePath = '/path/file.json';
+     * const data = mock.bypass(() => fs.readFileSync(filePath, 'utf-8'));
+     */
+    function bypass<T>(fn: () => T): T;
+
+    /**
+     * Load a real file/folder into the mock file system.
+     */
+    function load(path: string, options?: FileSystem.LoaderOptions): FileSystem.DirectoryItem;
+
     /**
      * Get hold of the mocked filesystem's 'root'
      * If fs hasn't currently been replaced, this will return an empty object

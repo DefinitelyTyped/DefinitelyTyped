@@ -2,12 +2,9 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "jsdoc-format": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

@@ -119,7 +119,30 @@ pubnub.addListener({
                 }
             }
         );
-    }
+    },
+    file: ({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    }) => console.log({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    })
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });
@@ -167,6 +190,15 @@ const grantOptions = {
     manage: false,
 };
 pubnub.grant(grantOptions).then(status => {
+    console.log(status);
+});
+
+const grantUuidOptions = {
+    uuids: ['uuid-1'],
+    authKeys: ['auth-key'],
+    update: true
+};
+pubnub.grant(grantUuidOptions).then(status => {
     console.log(status);
 });
 
@@ -850,9 +882,45 @@ pubnub.objects.getChannelMembers({
 pubnub.objects.setChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+    page: {
+        next: "abc",
+        prev: "def"
+    }
 });
 
 pubnub.objects.removeChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+});
+
+pubnub.listFiles({
+    channel: 'myChannel',
+    limit: 10
+});
+
+pubnub.sendFile({
+    channel: 'myChannel',
+    file: {
+        data: [ 12, 34 ],
+        name: 'cat_picture.jpg'
+    }
+});
+
+pubnub.downloadFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.deleteFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.publishFile({
+    channel: 'myChannel',
+    fileId: '...',
+    fileName: 'cat_picture.jpg',
+    message: { field: 'value' }
 });

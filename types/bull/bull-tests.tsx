@@ -84,6 +84,10 @@ imageQueue.process((job, done) => {
     // transcode image asynchronously and report progress
     job.progress(42);
 
+    // update job data
+    job.update({ image: 'image2.jpg'});
+    job.update({ url: 'image2.jpg'}); // $ExpectError
+
     // call done when finished
     done();
 

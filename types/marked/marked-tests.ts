@@ -15,7 +15,7 @@ let options: marked.MarkedOptions = {
     smartypants: false,
     tokenizer: new marked.Tokenizer(),
     renderer: new marked.Renderer(),
-    walkTokens: (tokens: marked.TokensList, callback: (token: marked.Token) => void) => {}
+    walkTokens: (callback: (token: marked.Token) => void) => {}
 };
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
@@ -43,6 +43,9 @@ console.log(marked.parse('5) I am using __markdown__.'));
 console.log(marked.parse('6) I am using __markdown__.', options));
 marked.parse('7) I am using __markdown__.', callback);
 marked.parse('8) I am using __markdown__.', options, callback);
+
+console.log(marked.parseInline('9) I am using __markdown__.'));
+console.log(marked.parseInline('10) I am using __markdown__.', options));
 
 const text = 'Something';
 const tokens: marked.TokensList = marked.lexer(text, options);
@@ -85,5 +88,9 @@ console.log(inlineLexer.output('http://'));
 console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
+
+const slugger = new marked.Slugger();
+console.log(slugger.slug('Test Slug'));
+console.log(slugger.slug('Test Slug', { dryrun: true }));
 
 marked.use({ renderer });

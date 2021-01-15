@@ -17,8 +17,8 @@
       "../"
     ],
     "paths": {
-      "@hcaptcha/vue-hcaptcha": [
-        "hcaptcha__vue-hcaptcha"
+      "@hcaptcha/*": [
+        "hcaptcha__*"
       ]
     },
     "types": [],

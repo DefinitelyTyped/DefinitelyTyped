@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, NavLinkProps, match, Link, RouteComponentProps, LinkProps } from 'react-router-dom';
+import { NavLink, NavLinkProps, match, Link, RouteComponentProps, LinkProps, HashRouter } from 'react-router-dom';
 import * as H from 'history';
 
 const getIsActive = (extraProp: string) => (match: match | null, location: H.Location) => !!extraProp;
@@ -28,6 +28,7 @@ const Component: React.FC<OtherProps> = props => {
 };
 
 <Link to="/url" />;
+<HashRouter basename="/" hashType="hashbang" getUserConfirmation={(message) => {}} />;
 
 const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...props} />;
 <Link to="/url" component={MyLink} />;

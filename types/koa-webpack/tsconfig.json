@@ -12,6 +12,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack-dev-middleware": [
+                "webpack-dev-middleware/v3"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

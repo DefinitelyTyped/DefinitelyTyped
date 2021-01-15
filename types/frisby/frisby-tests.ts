@@ -6,21 +6,10 @@ frisby.globalSetup({
     }
 });
 
-describe('Test Suite 1', () => {
-    it('should be a teapot get', (done) => {
-        frisby.get(URL + '/users/3.json')
-            .expect('status', 418)
-            .done(done);
-    });
+frisby.get(URL + '/users/3.json')
+  .expect('status', 418)
+  .done(() => {});
 
-    it('should be a teapot post', (done) => {
-        frisby.post(URL + '/users/3.json')
-            .expect('status', 418)
-            .done(done);
-    });
-
-    it('should handle jest matchers', () => {
-      const str = 'bar';
-      expect(str).toHaveLength(3);
-    });
-});
+frisby.post(URL + '/users/3.json')
+  .expect('status', 418)
+  .done(() => {});

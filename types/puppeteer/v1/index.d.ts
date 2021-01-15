@@ -335,7 +335,7 @@ export interface Tracing {
 }
 
 export interface TracingStartOptions {
-  path: string;
+  path?: string;
   screenshots?: boolean;
   categories?: string[];
 }

@@ -11,7 +11,7 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "paths": {
-            "@mdx-js/react": ["mdx-js__react"]
+            "@mdx-js/*": ["mdx-js__*"]
         },
         "typeRoots": [
             "../"

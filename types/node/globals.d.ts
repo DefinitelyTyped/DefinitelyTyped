@@ -19,6 +19,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -68,6 +73,8 @@ declare var exports: any;
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
 
+type WithImplicitCoercion<T> = T | { valueOf(): T };
+
 /**
  * Raw data is stored in instances of the Buffer class.
  * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -111,7 +118,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: any[]);
+    constructor(array: ReadonlyArray<any>);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -127,25 +134,19 @@ declare class Buffer extends Uint8Array {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    static from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    static from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: number[]): Buffer;
-    static from(data: Uint8Array): Buffer;
-    /**
-     * Creates a new buffer containing the coerced value of an object
-     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
-     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
-     */
-    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    static from(data: Uint8Array | ReadonlyArray<number>): Buffer;
+    static from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    static from(str: string, encoding?: BufferEncoding): Buffer;
+    static from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -186,7 +187,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -251,10 +252,18 @@ declare class Buffer extends Uint8Array {
      * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
      */
     subarray(begin?: number, end?: number): Buffer;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
     writeIntBE(value: number, offset: number, byteLength: number): number;
+    readBigUInt64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
     readUIntLE(offset: number, byteLength: number): number;
     readUIntBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
@@ -528,6 +537,7 @@ declare namespace NodeJS {
     interface Timer extends RefCounted {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     interface Immediate extends RefCounted {
@@ -538,13 +548,24 @@ declare namespace NodeJS {
     interface Timeout extends Timer {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;
@@ -571,7 +592,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
         /**
          * @since 11.14.0

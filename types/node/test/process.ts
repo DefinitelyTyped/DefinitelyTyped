@@ -79,3 +79,17 @@ import { EventEmitter } from "events";
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
 }
+{
+    let strDict: NodeJS.Dict<string>;
+    strDict = process.versions;
+    strDict = p.versions;
+}
+{
+    process.traceDeprecation = true;
+}
+
+{
+    function abortNeverReturns(): never {
+        process.abort();
+    }
+}

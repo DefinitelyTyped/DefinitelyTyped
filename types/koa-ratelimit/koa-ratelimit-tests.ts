@@ -18,6 +18,13 @@ app.use(rateLimit({
     db: new Map()
 }));
 
+app.use(rateLimit({
+    driver: 'memory',
+    db: new Map(),
+    blacklist: async (context) => Promise.resolve(true),
+    whitelist: (context) => false
+}));
+
 app.use(async context => {
     context.body = "Hello";
 });

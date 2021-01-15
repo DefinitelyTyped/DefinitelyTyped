@@ -9,6 +9,11 @@ const apiLimiter = rateLimit({
     headers: false,
     skipFailedRequests: false,
     skipSuccessfulRequests: true,
+    draft_polli_ratelimit_headers: true,
+    statusCode: 429,
+    skip(req, res) { return false; },
+    onLimitReached(req, res, options) { },
+    keyGenerator(req, res) { return req.ip; }
 });
 
 apiLimiter.resetKey('testKey'); // $ExpectType void
@@ -16,6 +21,17 @@ apiLimiter.resetKey('testKey'); // $ExpectType void
 const apiLimiterWithMaxFn = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: () => 5,
+});
+
+const apiLimiterWithMaxFnRequestAndResponse = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: (req, _) => {
+        return req.params.shouldRejectThisRequest ? 0 : 5;
+    },
+    message: {
+        status: 429,
+        message: "`shouldRejectThisRequest` was toggled in the request params and this request was rejected",
+    }
 });
 
 const apiLimiterWithMaxPromiseFn = rateLimit({
@@ -28,7 +44,7 @@ const apiLimiterWithMessageObject = rateLimit({
     max: 100,
     message: {
         status: 429,
-        message: 'To many requests, try again later',
+        message: 'Too many requests, try again later',
     },
 });
 

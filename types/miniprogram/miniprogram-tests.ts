@@ -362,7 +362,12 @@ my.removeSavedFile({
     apFilePath: '',
 });
 
-my.getLocation({});
+my.getLocation({
+    fail(res) {
+        res.error;
+        res.errorMessage;
+    }
+});
 
 my.request({ url: '' });
 

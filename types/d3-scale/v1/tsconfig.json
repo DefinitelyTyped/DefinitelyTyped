@@ -16,6 +16,9 @@
         "paths": {
             "d3-scale": [
                 "d3-scale/v1"
+            ],
+            "d3-time": [
+                "d3-time/v1"
             ]
         },
         "types": [],

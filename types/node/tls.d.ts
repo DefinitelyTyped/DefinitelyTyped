@@ -436,7 +436,7 @@ declare module "tls" {
 
     interface PSKCallbackNegotation {
         psk: DataView | NodeJS.TypedArray;
-        identitty: string;
+        identity: string;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -706,6 +706,17 @@ declare module "tls" {
          * shared between applications. Unused by clients.
          */
         sessionIdContext?: string;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
+         */
+        ticketKeys?: Buffer;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
+        sessionTimeout?: number;
     }
 
     interface SecureContext {
@@ -729,7 +740,7 @@ declare module "tls" {
      * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

@@ -249,4 +249,12 @@ declare var $: (arg?: any) => JQuery;
     const u = new URI('mailto:mail@example.org');
     u.query(qs => qs);
     u.search(qs => qs);
+    u.query(() => undefined);
+    u.search(() => undefined);
+    u.query(() => {
+        // Return nothing
+    });
+    u.search(() => {
+        // Return nothing
+    });
 }

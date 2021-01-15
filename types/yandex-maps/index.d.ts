@@ -215,7 +215,7 @@ declare namespace ymaps {
     }
 
     namespace clusterer {
-        class Balloon implements IBalloonManager<Clusterer> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Clusterer> {
             constructor(clusterer: Clusterer);
 
             events: IEventManager;
@@ -639,6 +639,61 @@ declare namespace ymaps {
             };
             state?: {};
         }
+
+        class ZoomControl implements IControl, ICustomizable {
+            constructor(parameters?: IZoomControlParameters);
+
+            events: IEventManager;
+            options: IOptionManager;
+            state: data.Manager;
+
+            getParent(): null | IControlParent;
+
+            setParent(parent: IControlParent): this;
+
+            clear(): void;
+
+            getMap(): Map;
+
+            getRequestString(): string;
+
+            getResponseMetaData(): object;
+
+            getResult(index: number): Promise<object>;
+
+            getResultsArray(): object[];
+
+            getResultsCount(): number;
+
+            getSelectedIndex(): number;
+
+            hideResult(): void;
+
+            search(request: string): Promise<void>;
+
+            showResult(index: number): this;
+        }
+
+        interface IZoomControlParameters {
+            options?: {
+                position?: {
+                    top?: number | string | 'auto';
+                    right?: number | string | 'auto';
+                    bottom?: number | string | 'auto';
+                    left?: number | string | 'auto';
+                }
+            };
+        }
+
+        class TypeSelector extends ListBox {
+            constructor(parameters?: ITypeSelectorParameters);
+        }
+
+        interface ITypeSelectorParameters {
+            options?: {
+                panoramasItemMode: 'on' | 'off' | 'ifMercator';
+            };
+        }
     }
 
     namespace data {
@@ -651,7 +706,7 @@ declare namespace ymaps {
 
             getAll(): object;
 
-            set(path: object | string, value: object): this;
+            set(path: object | string, value: object | number | string | null | undefined): this;
 
             setAll(): this;
 
@@ -680,10 +735,11 @@ declare namespace ymaps {
     }
 
     namespace event {
-        class Manager implements IEventManager {
+        class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
             constructor(params?: { context?: object; controllers?: IEventWorkflowController[]; parent?: IEventManager });
 
-            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
 
             getParent(): IEventManager | null;
 
@@ -703,12 +759,12 @@ declare namespace ymaps {
 
     namespace geometry {
         namespace base {
-            class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
+            class LineString implements IBaseLineStringGeometry {
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString;
 
-                static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: geometry.LineString): string;
 
                 getBounds(): number[][] | null;
 
@@ -732,7 +788,7 @@ declare namespace ymaps {
 
                 set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-                setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+                setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
                 splice(index: number, length: number): number[][];
 
@@ -753,7 +809,7 @@ declare namespace ymaps {
                 fire(type: string, eventobject: object | IEvent): this;
             }
 
-            class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
+            class Point implements IBasePointGeometry {
                 events: IEventManager;
 
                 getBounds(): number[][] | null;
@@ -770,8 +826,8 @@ declare namespace ymaps {
 
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-                static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+                static toEncodedCoordinates(geometry: Polygon): string;
 
                 contains(position: number[]): boolean;
 
@@ -823,8 +879,8 @@ declare namespace ymaps {
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): LineString;
+            static toEncodedCoordinates(geometry: LineString): string;
 
             getMap(): Map | null;
 
@@ -854,7 +910,7 @@ declare namespace ymaps {
 
             set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-            setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+            setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
             splice(index: number, length: number): number[][];
 
@@ -902,8 +958,8 @@ declare namespace ymaps {
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+            static toEncodedCoordinates(geometry: Polygon): string;
 
             add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
@@ -1381,7 +1437,7 @@ declare namespace ymaps {
     }
 
     namespace geoObject {
-        class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<GeoObject> {
             constructor(geoObject: GeoObject);
 
             events: IEventManager;
@@ -1508,6 +1564,8 @@ declare namespace ymaps {
                 rebuild(): void;
             }
         }
+
+        const storage: util.Storage;
     }
 
     namespace map {
@@ -1531,7 +1589,7 @@ declare namespace ymaps {
             }
         }
 
-        namespace behavior { //tslint:disable-line no-shadowed-variable
+        namespace behavior {
             class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
                 constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
@@ -1574,6 +1632,8 @@ declare namespace ymaps {
                 remove(object: object): this;
 
                 getMap(): Map;
+
+                getAll(): Array<Collection<Layer>>;
             }
         }
 
@@ -1623,7 +1683,7 @@ declare namespace ymaps {
             }
         }
 
-        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ {
             constructor(map: Map);
 
             events: IEventManager;
@@ -1705,7 +1765,7 @@ declare namespace ymaps {
             options: IOptionManager;
             events: IEventManager;
 
-            add(child: IGeoObject, index?: number): this;
+            add(child: IGeoObject | ObjectManager, index?: number): this;
 
             each(callback: (object: IGeoObject) => void, context?: object): void;
 
@@ -1721,7 +1781,7 @@ declare namespace ymaps {
 
             indexOf(object: IGeoObject): number;
 
-            remove(child: IGeoObject): this;
+            remove(child: IGeoObject | ObjectManager): this;
 
             removeAll(): this;
 
@@ -2229,7 +2289,7 @@ declare namespace ymaps {
 
             resolve(key: string, name?: string): object;
 
-            set(key: object | string, value?: object): this;
+            set(key: object | string, value?: object | number | string | null): this;
 
             unset(keys: string[][] | string[] | string): this;
 
@@ -2255,9 +2315,70 @@ declare namespace ymaps {
 
             fire(type: string, eventobject: object | IEvent): this;
         }
+
+        const presetStorage: util.Storage;
     }
 
     namespace panorama {
+        type Layer = 'yandex#panorama' | 'yandex#airPanorama';
+
+        class Base implements IPanorama {
+            getAngularBBox(): number[];
+
+            getConnectionArrows(): IPanoramaConnectionArrow[];
+
+            getConnectionMarkers(): IPanoramaConnectionMarker[];
+
+            getConnections(): IPanoramaConnectionMarker[];
+
+            getCoordSystem(): ICoordSystem;
+
+            getDefaultDirection(): number[];
+
+            getDefaultSpan(): number[];
+
+            getGraph(): IPanoramaGraph | null;
+
+            getMarkers(): IPanoramaMarker[];
+
+            getName(): string;
+
+            getPosition(): number[];
+
+            getThoroughfares(): IPanoramaConnectionArrow[];
+
+            getTileLevels(): IPanoramaTileLevel[];
+
+            getTileSize(): number[];
+
+            validate(): void;
+
+            static createPanorama(params: {
+                angularBBox: number[],
+                coordSystem?: ICoordSystem;
+                name?: string;
+                position: number[];
+                tilesLevels: IPanoramaTileLevel[];
+                tileSize: number[];
+            }): IPanorama;
+
+            static getMarkerPositionFromDirection(
+                panorama: IPanorama,
+                direction: number[],
+                distance: number,
+            ): number[];
+        }
+
+        function createPlayer(element: HTMLElement | string, point: number[], options?: {
+            direction?: number[] | string;
+            layer?: Layer;
+            span?: number[] | string;
+        }): Promise<Player>;
+
+        function isSupported(): boolean;
+
+        function locate(point: number[], options?: { layer?: Layer; }): Promise<IPanorama[]>;
+
         class Manager implements IEventEmitter {
             events: IEventManager;
 
@@ -2301,7 +2422,7 @@ declare namespace ymaps {
 
             moveTo(point: number[], options?: {
                 direction?: number[] | string;
-                layer?: "yandex#panorama" | "yandex#airPanorama";
+                layer?: Layer;
                 span?: number[] | string;
             }): Promise<void>;
 
@@ -2493,7 +2614,7 @@ declare namespace ymaps {
         }
     }
 
-    class Balloon extends Popup<Balloon> implements IBaloon<Balloon> {
+    class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
         constructor(map: Map, options?: IBalloonOptions);
 
         getData(): object;
@@ -2519,6 +2640,12 @@ declare namespace ymaps {
         remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
         fire(type: string, eventobject: object | IEvent): this;
+
+        destroy(): void;
+
+        getOptions(): IOptionManager | null;
+
+        setOptions(options: object): Promise<Balloon>;
     }
 
     interface IBalloonOptions {
@@ -2544,7 +2671,7 @@ declare namespace ymaps {
         shadowOffset?: number[];
     }
 
-    class Circle implements GeoObject {
+    class Circle implements GeoObject<ICircleGeometry> {
         constructor(geometry: ICircleGeometry[][][][] | number[][] | object, properties?: object | IDataManager, options?: ICircleOptions)
 
         balloon: geoObject.Balloon;
@@ -2555,7 +2682,7 @@ declare namespace ymaps {
         properties: data.Manager;
         state: data.Manager;
 
-        geometry: IGeometry | null;
+        geometry: ICircleGeometry | null;
         indices: ArrayBuffer;
         vertices: ArrayBuffer;
 
@@ -2696,7 +2823,7 @@ declare namespace ymaps {
         zIndexHover?: number;
     }
 
-    class Collection implements ICollection, collection.Item {
+    class Collection<T = {}> implements ICollection, collection.Item {
         constructor(options?: object);
 
         events: IEventManager;
@@ -2722,7 +2849,7 @@ declare namespace ymaps {
 
         get(index: number): object;
 
-        getAll(): object[];
+        getAll(): T[];
 
         getLength(): number;
 
@@ -2731,16 +2858,17 @@ declare namespace ymaps {
         removeAll(): this;
     }
 
-    class Event implements IEvent {
+    class Event<OriginalEvent = {}, TargetGeometry = {}> implements IEvent<OriginalEvent, TargetGeometry> {
         constructor(originalEvent: object, sourceEvent: IEvent);
 
         allowMapEvent(): void;
 
         callMethod(name: string): void;
 
+        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
         get(name: string): object;
 
-        getSourceEvent(): IEvent | null;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -2755,16 +2883,25 @@ declare namespace ymaps {
         stopImmediatePropagation(): boolean;
 
         stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry;
+            };
+        };
     }
 
-    class GeoObject implements IGeoObject {
+    class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
         constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
-        geometry: IGeometry | null;
+        geometry: T | null;
         balloon: geoObject.Balloon;
         editor: IGeometryEditor;
         hint: geoObject.Hint;
-        events: event.Manager;
+        events: event.Manager<TargetGeometry>;
         options: option.Manager;
         properties: data.Manager;
         state: data.Manager;
@@ -2883,6 +3020,10 @@ declare namespace ymaps {
         setParent(parent: IControlParent): this;
 
         getMap(): Map;
+
+        getAlias(): string;
+
+        getElement(): HTMLElement;
     }
 
     class Map implements IDomEventEmitter {
@@ -2967,7 +3108,12 @@ declare namespace ymaps {
         behaviors?: string[];
         bounds?: number[][];
         center?: number[];
-        controls?: string[];
+        controls?: Array<
+            string
+            | control.ZoomControl
+            | control.RulerControl
+            | control.TypeSelector
+        >;
         margin?: number[][] | number[];
         type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid";
         zoom?: number;
@@ -2989,9 +3135,13 @@ declare namespace ymaps {
         suppressObsoleteBrowserNotifier?: boolean;
         yandexMapAutoSwitch?: boolean;
         yandexMapDisablePoiInteractivity?: boolean;
+
+        copyrightLogoVisible?: boolean;
+        copyrightProvidersVisible?: boolean;
+        copyrightUaVisible?: boolean;
     }
 
-    class Placemark extends GeoObject {
+    class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
         constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
     }
 
@@ -3020,7 +3170,7 @@ declare namespace ymaps {
         zIndexHover?: number;
     }
 
-    class Polygon extends GeoObject {
+    class Polygon extends GeoObject<IPolygonGeometry> {
         constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
     }
 
@@ -3057,8 +3207,8 @@ declare namespace ymaps {
         zIndexHover?: number;
     }
 
-    class Polyline extends GeoObject {
-        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions)
+    class Polyline extends GeoObject<ILineStringGeometry> {
+        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions);
     }
 
     interface IPolylineOptions {
@@ -3203,13 +3353,13 @@ declare namespace ymaps {
         getType(): string;
     }
 
-    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {
     }
 
-    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {
     }
 
-    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {
     }
 
     interface IBehavior extends IChildOnMap, ICustomizable {
@@ -3226,10 +3376,10 @@ declare namespace ymaps {
         setParent(parent: object | null): this;
     }
 
-    interface IChildOnMap extends IChild<IControlParent> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IChildOnMap extends IChild<IControlParent> {
     }
 
-    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {
     }
 
     interface ICircleGeometryAccess extends IFreezable {
@@ -3254,7 +3404,7 @@ declare namespace ymaps {
         remove(object: object): this;
     }
 
-    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface
         // new (options?: object);
     }
 
@@ -3270,7 +3420,7 @@ declare namespace ymaps {
         solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
     }
 
-    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface
     }
 
     interface ICopyrightsProvider extends IEventEmitter {
@@ -3289,17 +3439,23 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
     }
 
-    interface IEvent {
+    interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
         allowMapEvent(): void;
 
         callMethod(name: string): void;
 
+        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
+
+        get(name: 'type'): string;
+        get(name: 'objectId'): string | undefined;
+        get(name: 'newZoom' | 'oldZoom'): number | undefined;
+
         get(name: string): object;
 
-        getSourceEvent(): IEvent | null;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3314,6 +3470,15 @@ declare namespace ymaps {
         stopImmediatePropagation(): boolean;
 
         stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry;
+            };
+        };
     }
 
     interface IEventController {
@@ -3334,8 +3499,9 @@ declare namespace ymaps {
         removeAll(): this;
     }
 
-    interface IEventManager extends IEventTrigger {
-        add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+    interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+        add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+        add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
         getParent(): object | null;
 
@@ -3356,7 +3522,7 @@ declare namespace ymaps {
         onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
     }
 
-    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IFreezable {
@@ -3407,15 +3573,15 @@ declare namespace ymaps {
         getPixels(): number[];
     }
 
-    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface
     }
 
     interface IGeometryJson {
         type: string;
     }
 
-    interface IGeoObject extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
-        geometry: IGeometry | null;
+    interface IGeoObject<T = IGeometry> extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
+        geometry: T | null;
         properties: IDataManager;
         state: IDataManager;
 
@@ -3466,7 +3632,7 @@ declare namespace ymaps {
         indexOf(geoObject: IGeoObject): number;
     }
 
-    interface IHintManager<T> extends IPopupManager<T> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IHintManager<T> extends IPopupManager<T> {
     }
 
     interface IIterator {
@@ -3532,7 +3698,7 @@ declare namespace ymaps {
         unfreeze(): IFreezable;
     }
 
-    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {
     }
 
     interface ILineStringGeometryAccess extends IFreezable {
@@ -3552,7 +3718,7 @@ declare namespace ymaps {
 
         set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-        setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+        setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
         splice(index: number, length: number): number[][];
     }
@@ -3563,7 +3729,7 @@ declare namespace ymaps {
         end(): void;
     }
 
-    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {
     }
 
     interface IMultiRouteModelJson {
@@ -3667,7 +3833,7 @@ declare namespace ymaps {
         getPanorama(): IPanorama;
     }
 
-    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {
     }
 
     interface IPanoramaGraph {
@@ -3784,7 +3950,7 @@ declare namespace ymaps {
         shift(offset: number[]): IPixelGeometry;
     }
 
-    interface IPointGeometry extends IGeometry, IPointGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPointGeometry extends IGeometry, IPointGeometryAccess {
     }
 
     interface IPointGeometryAccess {
@@ -3793,7 +3959,7 @@ declare namespace ymaps {
         setCoordinates(coordinates: number[] | null): this;
     }
 
-    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {
     }
 
     interface IPolygonGeometryAccess extends IFreezable {
@@ -3897,7 +4063,7 @@ declare namespace ymaps {
         switchPoints(): void;
     }
 
-    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface
     }
 
     interface ISelectableControl extends IControl {
@@ -3914,7 +4080,7 @@ declare namespace ymaps {
         select(): void;
     }
 
-    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IShape {
@@ -3939,6 +4105,54 @@ declare namespace ymaps {
         get(name: string): any;
         remove(name: string): Monitor;
         removeAll(): Monitor;
+    }
+
+    interface IObjectManagerOptions {
+        clusterize?: boolean;
+        syncOverlayInit?: boolean;
+        viewportMargin?: number | number[];
+        clusterHasBalloon?: boolean;
+        geoObjectOpenBalloonOnClick?: boolean;
+    }
+
+    class ObjectManager {
+        constructor(options: IObjectManagerOptions);
+
+        add(params: object): ObjectManager;
+
+        objects: objectManager.ObjectCollection;
+
+        removeAll(): this;
+    }
+
+    namespace objectManager {
+        class ObjectCollection implements ICollection, ICustomizable {
+            options: option.Manager;
+
+            events: IEventManager;
+
+            add(object: object): this;
+
+            getIterator(): IIterator;
+
+            remove(object: object): this;
+
+            getById(id: string | null | undefined): object | null;
+        }
+    }
+
+    namespace modules {
+        function require(modules: string | string[]): vow.Promise;
+    }
+
+    class Hotspot implements IHotspot {
+        constructor(shape: IShape, zIndex?: number);
+
+        events: IEventManager;
+    }
+
+    interface IHotspot extends IDomEventEmitter {
+        events: IEventManager;
     }
 }
 

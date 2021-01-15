@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "interface-over-type-literal": false,
         "no-consecutive-blank-lines": false,
@@ -10,8 +9,6 @@
         "no-inferrable-types": false,
         "no-misused-new": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
