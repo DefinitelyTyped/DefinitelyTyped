@@ -14,12 +14,16 @@ const Person = DS.Model.extend({
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 
-    pointOne: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
-    pointTwo: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 }) }),
+    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+    oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+
+    // Can't have a non-primitive as default
+    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })}) // $ExpectError
 });
 
 const person = Person.create();
-assertType<Point>(person.get('pointOne'));
+assertType<Point>(person.get('point'));
+assertType<Point>(person.get('oldPoint'));
 
 const User = DS.Model.extend({
     username: DS.attr('string'),
