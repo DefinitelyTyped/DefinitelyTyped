@@ -92,4 +92,4 @@ export interface Options {
     writeToFileEmit?: boolean;
 }
 
-export function getCompilerHooks(compiler: Compiler): { afterEmit: SyncWaterfallHook; beforeEmit: SyncWaterfallHook };
+export function getCompilerHooks(compiler: Compiler): { afterEmit: SyncWaterfallHook<any>; beforeEmit: SyncWaterfallHook<any> };
