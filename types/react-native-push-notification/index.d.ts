@@ -116,6 +116,7 @@ export class ChannelObject {
     soundName?: string;
     importance?: number;
     vibrate?: boolean;
+    playSound?: boolean;
 }
 
 export interface PushNotification {
