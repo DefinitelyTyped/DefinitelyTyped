@@ -565,7 +565,7 @@ declare namespace Draft {
             interface RawDraftEntity<T = { [key: string]: any }> {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: T;
+                data?: T;
             }
 
             /**
@@ -573,13 +573,14 @@ declare namespace Draft {
              * attribution repackaged as range objects.
              */
             interface RawDraftContentBlock {
-                key: string;
+                key?: string;
                 type: DraftBlockType;
                 text: string;
-                depth: number;
-                inlineStyleRanges: Array<RawDraftInlineStyleRange>;
-                entityRanges: Array<RawDraftEntityRange>;
+                depth?: number;
+                inlineStyleRanges?: Array<RawDraftInlineStyleRange>;
+                entityRanges?: Array<RawDraftEntityRange>;
                 data?: { [key: string]: any };
+                children?: Array<RawDraftContentBlock>;
             }
 
             /**
