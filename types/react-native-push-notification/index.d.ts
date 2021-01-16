@@ -12,7 +12,7 @@ export interface PushNotificationPermissions {
     sound?: boolean;
 }
 
-export interface PushNotification {
+export interface ReceivedNotification {
     foreground: boolean;
     userInteraction: boolean;
     message: string | object;
@@ -27,8 +27,8 @@ export interface PushNotification {
 
 export interface PushNotificationOptions {
     onRegister?: (token: { os: string; token: string }) => void;
-    onNotification?: (notification: PushNotification) => void;
-    onAction?: (notification: PushNotification) => void;
+    onNotification?: (notification: ReceivedNotification) => void;
+    onAction?: (notification: ReceivedNotification) => void;
     onRegistrationError?: (error: any) => void;
     onRemoteFetch?: (notificationData: any) => void;
     permissions?: PushNotificationPermissions;
@@ -136,7 +136,7 @@ export interface PushNotification {
         callback: (badgeCount: number) => void
     ): void;
     popInitialNotification(
-        callback: (notification: PushNotification | null) => void
+        callback: (notification: ReceivedNotification | null) => void
     ): void;
     abandonPermissions(): void;
     checkPermissions(
