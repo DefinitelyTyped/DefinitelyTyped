@@ -1,4 +1,4 @@
-// Type definitions for migrate-mongo 7.0
+// Type definitions for migrate-mongo 8.1
 // Project: https://github.com/seppevs/migrate-mongo#readme
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
