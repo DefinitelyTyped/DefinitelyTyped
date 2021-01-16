@@ -62,7 +62,7 @@ newrelic.setCurrentRouteName(null);
 // actionText()
 newrelic
     .interaction()
-    .actionText('Buy Button');
+    .actionText('Create Subscription');
 
 // createTracer()
 newrelic
