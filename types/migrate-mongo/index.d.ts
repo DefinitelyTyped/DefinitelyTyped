@@ -35,6 +35,11 @@ export namespace config {
      * Read the `migrate-mongo-config.js` file.
      */
     function read(): Promise<Config>;
+    /**
+     * Set the passed config object.
+     * @param config The config object.
+     */
+    function set(config: Partial<Config>): Promise<void>;
 
     interface Config {
         mongodb: {
