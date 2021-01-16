@@ -1733,15 +1733,16 @@ declare namespace mapboxgl {
         scale?: number;
     }
 
+    type EventedListener = (object: Object) => any;
     /**
      * Evented
      */
     export class Evented {
-        on(type: string, listener: Function): this;
+        on(type: string, listener: EventedListener): this;
 
-        off(type?: string | any, listener?: Function): this;
+        off(type?: string | any, listener?: EventedListener): this;
 
-        once(type: string, listener: Function): this;
+        once(type: string, listener: EventedListener): this;
 
         // https://github.com/mapbox/mapbox-gl-js/issues/6522
         fire(type: string, properties?: { [key: string]: any }): this;
