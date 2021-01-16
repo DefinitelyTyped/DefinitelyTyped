@@ -39,7 +39,7 @@ export namespace config {
      * Set the passed config object.
      * @param config The config object.
      */
-    function set(config: Partial<Config>): Promise<void>;
+    function set(config: Partial<Config>): void;
 
     interface Config {
         mongodb: {
