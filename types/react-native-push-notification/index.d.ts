@@ -30,7 +30,7 @@ export interface ReceivedNotification {
 export interface PushNotificationOptions {
     onRegister?: (token: { os: string; token: string }) => void;
     onNotification?: (notification: Omit<ReceivedNotification, 'userInfo'>) => void;
-    onAction?: (notification: Omit<ReceivedNotification, 'data'>) => void;
+    onAction?: (notification: ReceivedNotification) => void;
     onRegistrationError?: (error: any) => void;
     onRemoteFetch?: (notificationData: any) => void;
     permissions?: PushNotificationPermissions;
