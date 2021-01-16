@@ -390,3 +390,16 @@ rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
     console.log(block.data.language)
   }
 });
+
+const rawContent: RawDraftContentState = {
+  blocks: [{
+    text: '',
+    type: 'unstyled',
+  }],
+  entityMap: {
+    0: {
+      type: 'TOKEN',
+      mutability: 'IMMUTABLE',
+    },
+  },
+};
