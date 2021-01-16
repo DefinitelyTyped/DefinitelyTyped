@@ -1,5 +1,5 @@
-import imagemin = require('imagemin');
-import imageminZopfli = require('./index');
+import imagemin = require('imagemin')
+import imageminZopfli = require('imagemin-zopfli')
 
 imagemin(['*.png'], {
     plugins: [
@@ -12,6 +12,6 @@ imagemin(['*.png'], {
             more: true,
         }),
     ],
-});
+})
 
-imageminZopfli(); // $ExpectType Plugin
+imageminZopfli() // $ExpectType Plugin
