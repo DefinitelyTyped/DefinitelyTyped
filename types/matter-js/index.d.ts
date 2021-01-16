@@ -1986,7 +1986,6 @@ declare namespace Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
-         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
 
