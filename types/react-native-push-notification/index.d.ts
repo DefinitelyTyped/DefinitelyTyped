@@ -22,6 +22,7 @@ export interface ReceivedNotification {
     alert: object;
     sound: string;
     id: number;
+    action?: string;
     finish: (fetchResult: string) => void;
 }
 
