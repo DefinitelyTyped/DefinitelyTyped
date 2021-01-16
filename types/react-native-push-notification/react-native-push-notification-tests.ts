@@ -1,11 +1,11 @@
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
-    onNotification: ({ finish, action }) => {
+    onNotification: ({ finish, action, data }) => {
         finish("UIBackgroundFetchResultNoData");
     },
     onRegister: (token) => {},
-    onAction: ({ action }) => {},
+    onAction: ({ action, userInfo }) => {},
     onRegistrationError: (err) => {},
     onRemoteFetch: (notificationData) => {},
     permissions: { alert: true, badge: true, sound: true },

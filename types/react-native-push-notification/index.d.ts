@@ -1,10 +1,10 @@
-// Type definitions for react-native-push-notification 5.0
+// Type definitions for react-native-push-notification 7.0
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.5
 
 export interface PushNotificationPermissions {
     alert?: boolean;
@@ -16,7 +16,8 @@ export interface ReceivedNotification {
     foreground: boolean;
     userInteraction: boolean;
     message: string | object;
-    data: object;
+    data: Record<string, any>;
+    userInfo: Record<string, any>;
     subText?: string;
     badge: number;
     alert: object;
@@ -28,8 +29,8 @@ export interface ReceivedNotification {
 
 export interface PushNotificationOptions {
     onRegister?: (token: { os: string; token: string }) => void;
-    onNotification?: (notification: ReceivedNotification) => void;
-    onAction?: (notification: ReceivedNotification) => void;
+    onNotification?: (notification: Omit<ReceivedNotification, 'userInfo'>) => void;
+    onAction?: (notification: Omit<ReceivedNotification, 'data'>) => void;
     onRegistrationError?: (error: any) => void;
     onRemoteFetch?: (notificationData: any) => void;
     permissions?: PushNotificationPermissions;
