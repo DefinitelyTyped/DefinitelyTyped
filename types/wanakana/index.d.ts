@@ -1,16 +1,19 @@
 // Type definitions for wanakana 4.0
 // Project: https://github.com/WaniKani/WanaKana
 // Definitions by: Ross Hendry <https://github.com/chooban>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-export type IMEModes = true|false|"toHiragana"|"toKatakana";
+
+export as namespace wanakana;
+
+export type IMEModes = true | false | 'toHiragana' | 'toKatakana';
 
 export interface WanakanaOptions {
     useObsoleteKana?: boolean;
     passRomaji?: boolean;
     upcaseKatakana?: boolean;
     IMEMode?: IMEModes;
-    romanization?: "hepburn";
+    romanization?: 'hepburn';
     customKanaMapping?: Record<string, string>;
     customRomajiMapping?: Record<string, string>;
 }
@@ -25,8 +28,8 @@ export interface TokenizeOptions {
     detailed?: boolean;
 }
 
-export function bind(el: HTMLElement, options?: WanakanaOptions): void;
-export function unbind(el: HTMLElement): void;
+export function bind(el: HTMLInputElement | HTMLTextAreaElement, options?: WanakanaOptions): void;
+export function unbind(el: HTMLInputElement | HTMLTextAreaElement): void;
 
 export function isJapanese(input: string): boolean;
 export function isKana(input: string): boolean;
