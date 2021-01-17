@@ -18,7 +18,7 @@ declare module "worker_threads" {
     }
 
     /** A message received by a target object. */
-    class MessageEvent<T = any> extends Event {
+    class MessageEvent<T = any> extends NodeJS.Event {
         /**
          * Returns the data of the message.
          */

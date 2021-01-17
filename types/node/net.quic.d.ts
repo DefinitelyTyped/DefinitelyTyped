@@ -109,7 +109,7 @@ declare module "net" {
         /**
          * Optionally allows the `bind()` to be canceled using an `AbortController`.
          */
-        signal?: AbortSignal;
+        signal?: NodeJS.AbortSignal;
     }
 
     class QuicEndpoint {

@@ -9,7 +9,7 @@ declare module "timers" {
         /**
          * An optional `AbortSignal` that can be used to cancel the scheduled timer.
          */
-        signal?: AbortSignal;
+        signal?: NodeJS.AbortSignal;
     }
 
     function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
