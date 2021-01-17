@@ -29,7 +29,19 @@ export interface RepeatingRadialGradientNode {
 
 export interface DirectionalNode {
     type: 'directional';
-    value: 'left' | 'top' | 'bottom' | 'right' | 'left top';
+    value:
+        | 'left'
+        | 'top'
+        | 'bottom'
+        | 'right'
+        | 'left top'
+        | 'top left'
+        | 'left bottom'
+        | 'bottom left'
+        | 'right top'
+        | 'top right'
+        | 'right bottom'
+        | 'bottom right';
 }
 
 export interface AngularNode {
