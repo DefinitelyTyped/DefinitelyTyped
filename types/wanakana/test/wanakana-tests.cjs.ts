@@ -1,4 +1,5 @@
-import * as wanakana from "wanakana";
+import wanakana = require('wanakana');
+import { bind, unbind } from 'wanakana';
 
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ'); // $ExpectType boolean
 wanakana.isKana('あーア'); // $ExpectType boolean
@@ -8,7 +9,7 @@ wanakana.isKanji('切腹'); // $ExpectType boolean
 wanakana.isRomaji('Tōkyō and Ōsaka'); // $ExpectType boolean
 
 wanakana.toKana('ONAJI buttsuuji'); // $ExpectType string
-wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' }}); // $ExpectType string
+wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } }); // $ExpectType string
 
 wanakana.toHiragana('toukyou, オオサカ'); // $ExpectType string
 wanakana.toHiragana('only カナ', { passRomaji: true }); // $ExpectType string
@@ -24,3 +25,13 @@ wanakana.stripOkurigana('お腹', { leading: true }); // $ExpectType string
 
 wanakana.tokenize('ふふフフ'); // $ExpectType string[]
 wanakana.tokenize('I said 私はすごく悲しい', { compact: true }); // $ExpectType string[]
+
+declare const input: HTMLInputElement;
+declare const textArea: HTMLTextAreaElement;
+
+bind(input);
+bind(input, {});
+unbind(input);
+bind(textArea);
+bind(textArea, {});
+unbind(textArea);
