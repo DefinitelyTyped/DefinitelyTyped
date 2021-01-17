@@ -1,11 +1,11 @@
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
-    onNotification: (notification) => {
-        notification.finish("UIBackgroundFetchResultNoData");
+    onNotification: ({ finish, action, data }) => {
+        finish("UIBackgroundFetchResultNoData");
     },
     onRegister: (token) => {},
-    onAction: (notification) => {},
+    onAction: ({ action, userInfo }) => {},
     onRegistrationError: (err) => {},
     onRemoteFetch: (notificationData) => {},
     permissions: { alert: true, badge: true, sound: true },
@@ -35,6 +35,6 @@ PushNotification.removeDeliveredNotifications(['id']);
 PushNotification.invokeApp({ message: '' });
 PushNotification.getChannels((channels) => {});
 PushNotification.channelExists('chanel_id', (exists) => {});
-PushNotification.createChannel({ channelId: 'id', channelName: 'name' }, (created) => {});
+PushNotification.createChannel({ channelId: 'id', channelName: 'name', playSound: false }, (created) => {});
 PushNotification.channelBlocked('chanel_id', (blocked) => {});
 PushNotification.deleteChannel('id');
