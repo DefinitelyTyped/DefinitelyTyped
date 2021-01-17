@@ -47,7 +47,7 @@
         /**
          * url params
          */
-        params: any;
+        params: Record<string, string>;
         /**
          * the router instance
          */
