@@ -1,13 +1,13 @@
 import { APIGatewayProxyEvent, Context, APIGatewayProxyResult } from 'aws-lambda';
 import * as express from 'express';
 
-type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type SessionData = Record<string, any>;
-type JsonBody = any;
-type HtmlBody = string;
-type RequestBody = any;
+export type SessionData = Record<string, any>;
+export type JsonBody = any;
+export type HtmlBody = string;
+export type RequestBody = any;
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
@@ -112,19 +112,19 @@ export interface HttpHandler {
     (req: HttpRequest): Promise<HttpResponse | undefined>;
 }
 
-type LambdaHandler = (event: APIGatewayProxyEvent, context: Context) => Promise<APIGatewayProxyResult>;
-type HttpAsync = (...fns: HttpHandler[]) => LambdaHandler;
-type HttpExpress = (app: express.Application) => LambdaHandler;
-type HttpSession = {
+export type LambdaHandler = (event: APIGatewayProxyEvent, context: Context) => Promise<APIGatewayProxyResult>;
+export type HttpAsync = (...fns: HttpHandler[]) => LambdaHandler;
+export type HttpExpress = (app: express.Application) => LambdaHandler;
+export interface HttpSession {
     read(req: HttpRequest): Promise<SessionData>;
     write(sess: SessionData): Promise<string>;
-};
-type HttpProxyOptions = {
+}
+export interface HttpProxyOptions {
     spa: boolean;
     alias: Record<string, string>;
-};
+}
 
-type HttpProxy = (options: HttpProxyOptions) => HttpHandler;
+export type HttpProxy = (options: HttpProxyOptions) => HttpHandler;
 
 export interface ArcHttp {
     /**

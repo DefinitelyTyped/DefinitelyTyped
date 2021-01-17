@@ -1,15 +1,15 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
-type Key = any;
-type GenericCallback = (err: Error, data: any) => void;
-type DeleteCallback = GenericCallback;
-type GetCallback = GenericCallback;
-type PutCallback = GenericCallback;
-type QueryCallback = GenericCallback;
-type ScanCallback = GenericCallback;
-type UpdateCallback = GenericCallback;
+export type Key = any;
+export type GenericCallback = (err: Error, data: any) => void;
+export type DeleteCallback = GenericCallback;
+export type GetCallback = GenericCallback;
+export type PutCallback = GenericCallback;
+export type QueryCallback = GenericCallback;
+export type ScanCallback = GenericCallback;
+export type UpdateCallback = GenericCallback;
 
-interface ArcTable {
+export interface ArcTable {
     delete(key: Key, callback: DeleteCallback): void;
     get(key: Key, callback: GetCallback): void;
     put(key: Key, callback: PutCallback): void;
@@ -18,11 +18,11 @@ interface ArcTable {
     update(params: any, callback: UpdateCallback): void;
 }
 
-type ArcDataIndexable = ArcData & {
+export type ArcDataIndexable = ArcData & {
     [tableName: string]: ArcTable;
 };
 
-interface ArcData {
+export interface ArcData {
     _name(tableName: string): string;
 }
 

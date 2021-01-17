@@ -1,7 +1,7 @@
-import * as arc from '../index';
+import * as arc from '@architect/functions';
 
 async function test() {
-    let data = await arc.tables();
+    const data = await arc.tables();
 
     const tn: string = data._name('foo');
     console.log('table resource name:', tn);
