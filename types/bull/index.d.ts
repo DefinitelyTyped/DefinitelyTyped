@@ -18,7 +18,6 @@
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
-//                 Sascha Jovanoski <https://github.com/sajov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
