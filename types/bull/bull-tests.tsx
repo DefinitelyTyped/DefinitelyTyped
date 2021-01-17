@@ -247,20 +247,22 @@ myQueue.on('active', (job: Queue.Job) => {
 myQueue.pause().then(() => {
     console.log('queue paused');
 });
+myQueue.isPaused();
 myQueue.pause(true).then(() => {
     console.log('queue paused locally');
 });
 myQueue.pause(true, true).then(() => {
     console.log('queue paused locally, not waiting for active jobs to finish');
 });
-
+myQueue.isPaused();
 myQueue.resume().then(() => {
     console.log('queue resumed');
 });
+myQueue.isPaused();
 myQueue.resume(true).then(() => {
     console.log('queue resumed locally');
 });
-
+myQueue.isPaused();
 // Remove jobs
 myQueue.removeJobs('?oo*').then(() => {
     console.log('done removing jobs');

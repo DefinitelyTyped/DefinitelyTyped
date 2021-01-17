@@ -620,6 +620,11 @@ declare namespace Bull {
     resume(isLocal?: boolean): Promise<void>;
 
     /**
+     * Returns a promise that resolves with a boolean if queue is paused
+     */
+    isPaused(): Promise<boolean>;
+
+    /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
      * Since there may be other processes adding or processing jobs, this value may be true only for a very small amount of time.
      */
