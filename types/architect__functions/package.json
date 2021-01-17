@@ -1,0 +1,8 @@
+{
+  "name": "@types/architect__functions",
+  "types": "index.d.ts",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.820.0"
+  }
+}
