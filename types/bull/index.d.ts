@@ -1,4 +1,4 @@
-// Type definitions for bull 3.14
+// Type definitions for bull 3.15
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -18,6 +18,7 @@
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
+//                 Sascha Jovanoski <https://github.com/sajov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
