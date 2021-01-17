@@ -305,7 +305,6 @@ export interface UseTableRowProps<D extends object> {
     original: D;
     id: string;
     subRows: Array<Row<D>>;
-    depth: number;
 }
 
 export interface UseTableCellProps<D extends object, V = any> {
@@ -415,6 +414,7 @@ export interface UseExpandedRowProps<D extends object> {
     subRows: Array<Row<D>>;
     toggleRowExpanded: (value?: boolean) => void;
     getToggleRowExpandedProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
+    depth: number;
 }
 
 //#endregion
