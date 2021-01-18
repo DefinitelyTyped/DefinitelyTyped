@@ -9,8 +9,12 @@
 import http = require("http");
 import stream = require("stream");
 import events = require("events");
+import crypto = require("crypto");
 
 export declare class IncomingForm extends events.EventEmitter {
+    
+    constructor({ ...options }?: FormidableOptions);
+    
     encoding: string;
     uploadDir: string;
     keepExtensions: boolean;
@@ -27,6 +31,20 @@ export declare class IncomingForm extends events.EventEmitter {
 
     handlePart(part: Part): void;
     parse(req: http.IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => any): void;
+}
+
+export declare interface IncomingFormOptions {
+    encoding?: string;
+    uploadDir?: string;
+    keepExtensions?: boolean;
+    allowEmptyFiles?: boolean;
+    minFileSize?: number;
+    maxFileSize?: number;
+    maxFields?: number;
+    maxFieldsSize?: number;
+    hash?: crypto.Encoding | boolean;
+    fileWriteStreamHandler?: () => stream.Writable;
+    multiples?: boolean;
 }
 
 export interface Fields {
