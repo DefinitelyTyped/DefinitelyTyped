@@ -2,22 +2,28 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "smartwizard": [
+                "smartwizard/v4"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "bcrypt-nodejs-tests.ts"
+        "smartwizard-tests.ts"
     ]
 }

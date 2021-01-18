@@ -1,5 +1,3 @@
-import * as wanakana from "wanakana";
-
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ'); // $ExpectType boolean
 wanakana.isKana('あーア'); // $ExpectType boolean
 wanakana.isHiragana('すげー'); // $ExpectType boolean
@@ -8,7 +6,7 @@ wanakana.isKanji('切腹'); // $ExpectType boolean
 wanakana.isRomaji('Tōkyō and Ōsaka'); // $ExpectType boolean
 
 wanakana.toKana('ONAJI buttsuuji'); // $ExpectType string
-wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' }}); // $ExpectType string
+wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } }); // $ExpectType string
 
 wanakana.toHiragana('toukyou, オオサカ'); // $ExpectType string
 wanakana.toHiragana('only カナ', { passRomaji: true }); // $ExpectType string
@@ -24,3 +22,11 @@ wanakana.stripOkurigana('お腹', { leading: true }); // $ExpectType string
 
 wanakana.tokenize('ふふフフ'); // $ExpectType string[]
 wanakana.tokenize('I said 私はすごく悲しい', { compact: true }); // $ExpectType string[]
+
+declare const input: HTMLInputElement;
+
+wanakana.bind(input);
+wanakana.bind(input, {});
+wanakana.unbind(input);
+
+wanakana.VERSION; // $ExpectType string

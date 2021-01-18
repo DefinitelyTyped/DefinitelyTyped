@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-middleware 4.0
+// Type definitions for webpack-dev-middleware 4.1
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>
@@ -41,6 +41,8 @@ declare namespace WebpackDevMiddleware {
         publicPath?: string;
         /** Instructs the module to enable or disable the server-side rendering mode */
         serverSideRender?: boolean;
+        /** Stats options object or preset name. */
+        stats?: webpack.Stats.ToJsonOptions;
         /**
          * Set the default file system which will be used by webpack as primary destination of generated files
          */

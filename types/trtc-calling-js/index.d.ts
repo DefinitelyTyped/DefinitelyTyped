@@ -82,7 +82,7 @@ declare namespace TRTCCalling {
         inviteData: {
             version: string;
             callType: 1 | 2;
-            roomID?: string;
+            roomID?: number;
             callEnd?: boolean;
         };
         inviteID: string;

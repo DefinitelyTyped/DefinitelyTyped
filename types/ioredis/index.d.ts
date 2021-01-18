@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.17
+// Type definitions for ioredis 4.19
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -16,6 +16,7 @@
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 //                 Asyrique <https://github.com/asyrique>
+//                 Michael Salaverry <https://github.com/barakplasma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -320,6 +321,8 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+
+        lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 
         lpopBuffer(key: KeyType, callback: Callback<Buffer>): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;
