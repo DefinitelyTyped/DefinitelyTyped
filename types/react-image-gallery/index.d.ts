@@ -69,7 +69,7 @@ export interface ReactImageGalleryProps {
     swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;
     onBeforeSlide?: (currentIndex: number) => void;
-    onScreenChange?: (fullScreenElement: Element) => void;
+    onScreenChange?: (fullScreen: boolean) => void;
     onPause?: (currentIndex: number) => void;
     onPlay?: (currentIndex: number) => void;
     onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
