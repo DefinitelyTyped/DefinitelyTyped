@@ -1642,6 +1642,18 @@ export namespace enums {
     function read(): void;
 }
 
+
+export interface HKPOptions {
+    /**
+     * (optionsl) The long public key ID.
+     */
+    keyId?: string;
+    /**
+     * (optional) This can be any part of the key user ID such as name or email address.
+     */
+    query?: string;
+}
+
 export namespace hkp {
     class HKP {
         /**
@@ -1659,7 +1671,7 @@ export namespace hkp {
          *        or email address.
          * @returns The ascii armored public key.
          */
-        lookup(): Promise<String>;
+        lookup(options: HKPOptions): Promise<String>;
 
         /**
          * Upload a public key to the server.
@@ -1686,7 +1698,7 @@ export class HKP {
      *        or email address.
      * @returns The ascii armored public key.
      */
-    lookup(): Promise<String>;
+    lookup(options: HKPOptions): Promise<String>;
 
     /**
      * Upload a public key to the server.
