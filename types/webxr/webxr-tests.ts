@@ -37,7 +37,7 @@ xr.requestSession('immersive-vr').then((session: XRSession) => {
         session
             .requestReferenceSpace('local')
             .then(rs => {
-                space = rs as XRReferenceSpace;
+                space = rs;
             })
             .catch(e => {
                 throw Error("Can't get reference space" + e);

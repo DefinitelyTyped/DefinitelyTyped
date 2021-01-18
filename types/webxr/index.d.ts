@@ -140,7 +140,7 @@ export interface XRReferenceSpace extends XRSpace {
     onreset: XREventHandler;
 }
 
-export interface XRBoundedReferenceSpace extends XRSpace {
+export interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
