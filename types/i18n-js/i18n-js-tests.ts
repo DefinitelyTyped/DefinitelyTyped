@@ -93,4 +93,4 @@ I18n.translations["pt-BR"] = {
     message: "Uma mensagem especial para você",
 };
 
-I18n.t<string[]>("genericNames");
+const name = I18n.t("genericNames")[1];
