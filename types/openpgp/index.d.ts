@@ -1642,7 +1642,6 @@ export namespace enums {
     function read(): void;
 }
 
-
 export interface HKPOptions {
     /**
      * (optionsl) The long public key ID.
