@@ -1372,7 +1372,7 @@ declare namespace editorClient {
          * If set to false (boolean), the button is not shown.
          * If set to a non-blank string, a button is shown using its value as the text of the button.
          */
-        addButtons?: boolean | string;
+        addButton?: boolean | string;
         /**
          * A callback function that gets called when a new item is being added to the list.
          * If it was triggered by clicking the ‘add button’, data will be {}. Otherwise it will be the data passed to the call to the addItem method.
