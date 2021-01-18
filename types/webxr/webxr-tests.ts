@@ -59,3 +59,8 @@ const renderFrame = (frame: XRFrame) => {
         }
     }
 };
+
+xr.addEventListener('devicechange', (e: Event) => {
+    // Event is a simple event; there is no additional data
+    // XR device availability changed
+});
