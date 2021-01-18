@@ -54,6 +54,11 @@ export interface QueryConfig<I extends any[] = any[]> {
     name?: string;
     text: string;
     values?: I;
+    types?: CustomTypesConfig;
+}
+
+export interface CustomTypesConfig {
+    getTypeParser: (id: pgTypes.TypeId, format: pgTypes.TypeFormat) => any;
 }
 
 export interface Submittable {
