@@ -622,7 +622,7 @@ declare namespace Bull {
     /**
      * Returns a promise that resolves with a boolean if queue is paused
      */
-    isPaused(): Promise<boolean>;
+    isPaused(isLocal?: boolean): Promise<boolean>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
