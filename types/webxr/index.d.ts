@@ -81,7 +81,7 @@ export interface XRSessionEvent extends Event {
     readonly session: XRSession;
 }
 
-export interface XRSystem {
+export interface XRSystem extends EventTarget {
     isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
     requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
 }
