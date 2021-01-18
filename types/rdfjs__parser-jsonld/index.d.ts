@@ -3,7 +3,7 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Context } from 'jsonld/jsonld-spec';
+import { ContextDefinition as Context } from 'jsonld/jsonld';
 import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 import { EventEmitter } from 'events';
 

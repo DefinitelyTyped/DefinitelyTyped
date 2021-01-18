@@ -1,5 +1,5 @@
 import Parser = require('@rdfjs/parser-jsonld');
-import { Context } from 'jsonld/jsonld-spec';
+import { ContextDefinition as Context } from 'jsonld/jsonld';
 import { DataFactory, Sink, Stream, BaseQuad } from 'rdf-js';
 import { EventEmitter } from 'events';
 
