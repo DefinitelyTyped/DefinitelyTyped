@@ -28,6 +28,10 @@ export interface TokenizeOptions {
     detailed?: boolean;
 }
 
+export const VERSION: string;
+export const TO_KANA_METHODS: Record<string, string>;
+export const ROMANIZATIONS: Record<string, string>;
+
 export function bind(el: HTMLInputElement | HTMLTextAreaElement, options?: WanakanaOptions): void;
 export function unbind(el: HTMLInputElement | HTMLTextAreaElement): void;
 
@@ -36,6 +40,7 @@ export function isKana(input: string): boolean;
 export function isHiragana(input: string): boolean;
 export function isKatakana(input: string): boolean;
 export function isKanji(input: string): boolean;
+export function isMixed(input: string, options?: { passKanji?: boolean }): boolean;
 export function isRomaji(input: string): boolean;
 
 export function toKana(input: string, options?: WanakanaOptions): string;
