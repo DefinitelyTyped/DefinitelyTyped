@@ -25,7 +25,7 @@ interface RequestResponse {
 export default class XMLY {
   /**
    * 通用请求方法，支持开放平台对外输出的所有接口请求。
-   *  1.这是一个万金油方法，只要 url 对了，都可以请求通；
+   * 这是一个万金油方法，只要 url 对了，都可以请求通；
    *
    * @param param0
    * @param param0.url 请求 url
@@ -45,8 +45,4 @@ export default class XMLY {
    * @param params 业务参数
    */
   post(url?: string, params?: object): Promise<RequestResponse>
-  /**
-   * 提取设备ID
-   */
-  getDeviceId(): string
 }

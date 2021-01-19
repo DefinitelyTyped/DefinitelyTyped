@@ -37,7 +37,7 @@ xr.requestSession('immersive-vr').then((session: XRSession) => {
         session
             .requestReferenceSpace('local')
             .then(rs => {
-                space = rs as XRReferenceSpace;
+                space = rs;
             })
             .catch(e => {
                 throw Error("Can't get reference space" + e);
@@ -59,3 +59,8 @@ const renderFrame = (frame: XRFrame) => {
         }
     }
 };
+
+xr.addEventListener('devicechange', (e: Event) => {
+    // Event is a simple event; there is no additional data
+    // XR device availability changed
+});
