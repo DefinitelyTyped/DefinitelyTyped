@@ -9,6 +9,7 @@ import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
 import Environment = require('yeoman-environment');
 import { Store } from 'mem-fs';
+import { Editor } from 'mem-fs-editor';
 
 /**
  * Represents a dictionary.
@@ -193,7 +194,7 @@ export interface RunResultOptions {
     /**
      * The file-system editor of the generator.
      */
-    fs: Generator.MemFsEditor;
+    fs: Editor;
 
     /**
      * The mocked generators of the context.
