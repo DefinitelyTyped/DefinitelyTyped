@@ -200,6 +200,16 @@ export interface RunResult extends RunResultOptions {
      * The options of this result.
      */
     options: RunResultOptions;
+
+    /**
+     * Either dumps the contents of the specified files or the name and the contents of each file to the console.
+     */
+    dumpFiles(...files: string[]): void;
+
+    /**
+     * Dumps the name of each file to the console.
+     */
+    dumpFilenames(): void;
 }
 
 /**
