@@ -205,7 +205,7 @@ export interface RunResult extends RunResultOptions {
 /**
  * Represents the context of a running generator.
  */
-export interface RunContext extends RunContextConstructor, EventEmitter {
+export interface RunContext extends RunContextConstructor, EventEmitter, Promise<RunResult> {
     /**
      * A value indicating whether the generator ran through.
      */
@@ -252,16 +252,6 @@ export interface RunContext extends RunContextConstructor, EventEmitter {
      * @return Promise resolved on end or rejected on error
      */
     toPromise(): Promise<string>;
-
-    /**
-     * Promise `.then()` duck typing
-     */
-    then: Promise<string>['then'];
-
-    /**
-     * Promise `.catch()` duck typing
-     */
-    catch: Promise<string>['catch'];
 
     /**
      * Clean the provided directory, then change directory into it
