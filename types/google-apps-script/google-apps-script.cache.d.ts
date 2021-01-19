@@ -50,8 +50,8 @@ declare namespace GoogleAppsScript {
      */
     interface CacheService {
       getDocumentCache(): Cache | null;
-      getScriptCache(): Cache | null;
-      getUserCache(): Cache | null;
+      getScriptCache(): Cache;
+      getUserCache(): Cache;
     }
   }
 }
