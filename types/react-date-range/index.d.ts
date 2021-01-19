@@ -60,7 +60,11 @@ export interface Range {
     endDate?: Date;
 }
 
-export type OnChangeProps = Range | { selection: Range } | Date;
+export interface RangeWithKey extends Range {
+    key: 'selection';
+}
+
+export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
