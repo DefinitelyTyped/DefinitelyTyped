@@ -9,6 +9,7 @@
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Sergey Bakulin <https://github.com/vansergen>
 //                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
+//                 Ugo Sangiorgi <https://github.com/ugosan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import BN = require('bn.js');
 import stream = require('stream');
