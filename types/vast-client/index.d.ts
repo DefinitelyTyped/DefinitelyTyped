@@ -1,4 +1,4 @@
-// Type definitions for vast-client 2.1
+// Type definitions for vast-client 3.0
 // Project: https://github.com/dailymotion/vast-client-js#readme
 // Definitions by: John G. Gainfort Jr. <https://github.com/jgainfort>, Sara Nordmyr da Cunha <https://github.com/kobawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -342,9 +342,9 @@ export interface VastCreativeLinear extends VastCreative {
     icons: VastIcon[];
     mediaFiles: VastMediaFile[];
     skipDelay: number | null;
-    videoClickThroughURLTemplate: string | null;
-    videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTemplates: string[];
+    videoClickThroughURLTemplate: VastUrlValue | null;
+    videoClickTrackingURLTemplates: VastUrlValue[];
+    videoCustomClickURLTemplates: VastUrlValue[];
 }
 
 export interface VastCreativeNonLinear extends VastCreative {
@@ -356,13 +356,13 @@ export interface VastCreativeCompanion extends VastCreative {
 }
 
 export interface VastAd {
-    advertiser: string | null;
+    advertiser: VastAdvertiser[];
     creatives: VastCreative[];
     description: string | null;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
     id: string | null;
-    impressionURLTemplates: string[];
+    impressionURLTemplates: VastUrlValue[];
     pricing: string | null;
     sequence: string | null;
     survey: string | null;
@@ -371,6 +371,8 @@ export interface VastAd {
 }
 
 export interface VastAdExtension {
+    name: string | null;
+    value: any;
     attributes: VastAdAttributes;
     children: VastAdExtensionChild[];
 }
@@ -391,7 +393,7 @@ export interface VastAdChildAttributes {
 }
 
 export interface VastNonLinearAd {
-    nonLinearClickTrackingURLTemplates: string[];
+    nonLinearClickTrackingURLTemplates: VastUrlValue[];
     nonLinearClickThroughURLTemplate: string | null;
     adParameters: string | null;
     type: string | null;
@@ -412,14 +414,13 @@ export interface VastNonLinearAd {
 export interface VastCompanionAd {
     companionClickThroughURLTemplate: string | null;
     companionClickTrackingURLTemplate: string | null | undefined;
-    companionClickTrackingURLTemplates: string[];
+    companionClickTrackingURLTemplates: VastUrlValue[];
     height: string;
-    htmlResource: string | null;
+    htmlResources: string[];
     id: string | null;
-    iframeResource: string | null;
-    staticResource: string | null;
+    iframeResources: string[];
+    staticResources: StaticResource[];
     trackingEvents: VastCompanionTrackingEvents;
-    type: string | null;
     width: string;
     altText: string | null;
 }
@@ -472,6 +473,21 @@ export interface VastIcon {
     htmlResource: string | null;
     iframeResource: string | null;
     iconClickThroughURLTemplate: string | null;
-    iconClickTrackingURLTemplates: string[];
+    iconClickTrackingURLTemplates: VastUrlValue[];
     iconViewTrackingURLTemplate: string | null;
+}
+
+export interface VastAdvertiser {
+    id: string | null;
+    value: string;
+}
+
+export interface VastUrlValue {
+    id: string | null;
+    url: string;
+}
+
+export interface StaticResource {
+    url: string;
+    creativeType: string | null;
 }
