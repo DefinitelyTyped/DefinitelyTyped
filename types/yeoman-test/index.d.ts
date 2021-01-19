@@ -7,6 +7,7 @@
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
 import Environment = require('yeoman-environment');
+import { Store } from 'mem-fs';
 
 /**
  * Represents a dictionary.
@@ -162,6 +163,43 @@ export interface RunContextConstructor {
      *                                      'gen:test' in all cases
      */
     new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
+}
+
+/**
+ * Provides options for `RunResult`s.
+ */
+export interface RunResultOptions {
+    /**
+     * The environment of the generator.
+     */
+    env: Environment;
+
+    /**
+     * The working directory after running the generator.
+     */
+    cwd: string;
+
+    /**
+     * The working directory before on running the generator.
+     */
+    oldCwd: string;
+
+    /**
+     * The file-system of the generator.
+     */
+    memFs: Store;
+
+    /**
+     * The file-system editor of the generator.
+     */
+    fs: Generator.MemFsEditor;
+}
+
+export interface RunResult extends RunResultOptions {
+    /**
+     * The options of this result.
+     */
+    options: RunResultOptions;
 }
 
 /**
