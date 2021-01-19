@@ -12,11 +12,11 @@ interface options {
     timeout?: number; // 请求超时时间（单位毫秒，默认：10*1000毫秒，即10s）
     debug?: boolean; // 是否开启调试模式（控制台输出日志）
     /**
-     *  - sig_url、access_token_url、get_access_token 参数三选一，必传。
-     *  - 如果都传入，优先级：sig_url > access_token_url > get_access_token。
+     *  - appSecret、accessTokenUrl、getAccessToken 参数三选一，必传
+     *  - 如果都传入，优先级：getAccessToken > access_token_url > appSecret
      */
-    sigUrl?: string; // 合作方实现：获取签名的服务端接口url（免登录授权必传）
-    accessTokenUrl?: string; // 合作方实现：授权 code 换 access_token 的接口 url（标准登录授权，必传）
+    appSecret?: string; // 开放平台应用接入申请的app_secret（免登录授权必传）
+    accessTokenUrl?: string; // 应用登记的oauth2授权回调地址（标准登录授权，必传）
     getAccessToken?: () => string; // 合作方实现：获取 access_token 的 js 函数（第三方账号登录授权，必传）
 }
 

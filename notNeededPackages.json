@@ -2742,6 +2742,11 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "multiaddr",
             "typingsPackageName": "multiaddr",
             "asOfVersion": "7.4.0"
