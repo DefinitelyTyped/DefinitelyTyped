@@ -6,6 +6,7 @@
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
+import Environment = require('yeoman-environment');
 
 /**
  * Represents a dictionary.
@@ -21,10 +22,11 @@ export interface Constructor<T> {
     new (...args: any[]): T;
 }
 
-// Environment from yeoman-environment
-export interface Env extends EventEmitter {
+/**
+ * Represents an environment for running yeoman-generators.
+ */
+export interface Env extends Environment {
     queues: string[];
-    enforceUpdate(env: Env): this;
 }
 
 /**
