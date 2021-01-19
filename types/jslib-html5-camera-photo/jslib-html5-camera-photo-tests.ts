@@ -57,6 +57,7 @@ cameraPhoto
 
 // Use all the default value
 const config1: CaptureConfigOption = {};
+// $ExpectType string
 const dataUri1 = cameraPhoto.getDataUri(config1);
 
 const config2: CaptureConfigOption = {
@@ -65,6 +66,7 @@ const config2: CaptureConfigOption = {
     imageCompression: 0.95,
     isImageMirror: false,
 };
+// $ExpectType string
 const dataUri2 = cameraPhoto.getDataUri(config2);
 
 const cameraSettings = cameraPhoto.getCameraSettings();
@@ -75,6 +77,7 @@ if (cameraSettings) {
     console.log(settingsStr);
 }
 
+// $ExpectType MediaDeviceInfo[]
 const inputVideoDeviceInfos = cameraPhoto.getInputVideoDeviceInfos();
 inputVideoDeviceInfos.forEach(inputVideoDeviceInfo => {
     const { kind, label, deviceId } = inputVideoDeviceInfo;
