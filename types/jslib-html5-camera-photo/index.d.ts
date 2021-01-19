@@ -13,16 +13,16 @@ interface ImageTypes {
     JPG: 'jpg';
 }
 
-declare type FacingMode = 'user' | 'environment';
-declare type ImageType = 'png' | 'jpg';
+type FacingMode = 'user' | 'environment';
+type ImageType = 'png' | 'jpg';
 
 interface Resolution {
     height?: number;
     width?: number;
 }
 
-export declare const FACING_MODES: FacingModes;
-export declare const IMAGE_TYPES: ImageTypes;
+export const FACING_MODES: FacingModes;
+export const IMAGE_TYPES: ImageTypes;
 
 export interface CaptureConfigOption {
     /**
