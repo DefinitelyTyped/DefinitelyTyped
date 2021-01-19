@@ -392,6 +392,14 @@ export interface WebTwainEnv {
      * Whether to use the library in Local-Service mode or WASM mode.
      */
     UseLocalService: boolean;
+    /**
+     * Whether to load UI related js files.
+     */
+	UseDefaultViewer: boolean;
+    /**
+     * Control whether the scanner related UI & load/save UI are always display in the front window.
+     */
+	IfAlwaysFocusOnPopupWindow: boolean;
     ConnectToTheService: () => void;
     initQueue: any[];
     /**
@@ -472,6 +480,16 @@ export interface Product {
     bPluginEdition: boolean;
     host: string;
     name: string;
+}
+export interface WasmConfig {
+    /**
+     * Maximum heap size
+     */
+	maxHeapSize: number;
+    /**
+     * fetch API Options
+     */
+	fetchOptions: any;
 }
 declare const Dynamsoft: (typeof DynamsoftEnums & typeof DynamsoftStatic);
 export default Dynamsoft;
