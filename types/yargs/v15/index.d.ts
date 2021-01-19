@@ -1,4 +1,4 @@
-// Type definitions for yargs 16.0
+// Type definitions for yargs 15.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -570,14 +570,6 @@ declare namespace yargs {
          */
         strictCommands(): Argv<T>;
         strictCommands(enabled: boolean): Argv<T>;
-
-        /**
-         * Similar to `.strict()`, except that it only applies to unrecognized options. A
-         * user can still provide arbitrary positional options, but unknown options
-         * will raise an error.
-         */
-        strictOptions(): Argv<T>;
-        strictOptions(enabled: boolean): Argv<T>;
 
         /**
          * Tell the parser logic not to interpret `key` as a number or boolean. This can be useful if you need to preserve leading zeros in an input.
