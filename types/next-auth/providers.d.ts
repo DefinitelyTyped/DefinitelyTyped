@@ -188,12 +188,19 @@ interface Auth0Profile extends GenericObject {
     picture: string;
 }
 
+interface ProfileResult {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+}
+
 interface ProviderAuth0Options extends GenericObject {
     name?: string;
     clientId: string;
     clientSecret: string;
     domain: string;
-    profile?: (profile: Auth0Profile) => GenericObject
+    profile?: <T extends ProfileResult>(profile: Auth0Profile) => T
 }
 
 /**
