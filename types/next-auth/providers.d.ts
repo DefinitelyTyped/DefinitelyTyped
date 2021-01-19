@@ -200,7 +200,7 @@ interface ProviderAuth0Options extends GenericObject {
     clientId: string;
     clientSecret: string;
     domain: string;
-    profile?: <T extends ProfileResult>(profile: Auth0Profile) => T
+    profile?: <T extends ProfileResult>(profile: Auth0Profile) => T;
 }
 
 /**
