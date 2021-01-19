@@ -149,7 +149,7 @@ export interface DynamsoftViewer {
      * [Description] Set whether to use single page mode.
      * [Usage Notes] The default value is false, that is, the view mode is 1 * 1. True means the view mode is -1 * -1.
      */
-	singlePageMode: boolean;
+    singlePageMode: boolean;
     /**
      * [Scope] Main viewer, Thumbnail viewer
      * [Description] Set whether to disable the ability to drag and drop image to the viewer. The default value is true.
@@ -505,7 +505,7 @@ export interface ThumbnailViewerSettings {
      * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
-	allowResizing: boolean;
+    allowResizing: boolean;
     /**
      * [Scope] Thumbnail viewer
      * [Description] Whether to show the page number. The default value is false.
@@ -687,7 +687,7 @@ export interface ThumbnailViewer {
      * [Description] Whether to allow the mouse to resize the thumbnail viewer. The default value is false.
      * [Usage Notes] 'Invalid property value' will be reported when the specified value type is wrong or the parameter name is spelled incorrectly.
      */
-	allowResizing: boolean;
+    allowResizing: boolean;
     /**
      * [Scope] Thumbnail viewer
      * [Description] Whether to show the page number. The default value is false.
@@ -788,8 +788,8 @@ export interface ThumbnailViewerEvent {
     pageY: number;
 }
 export interface Area {
-	left: number;
-	top: number;
+    left: number;
+    top: number;
     right: number;
     bottom: number;
 }

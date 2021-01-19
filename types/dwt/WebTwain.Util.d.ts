@@ -83,7 +83,7 @@ export interface WebTwainUtil {
     /**
      * Whether using ActiveX.
      */
-	isUsingActiveX(): boolean;
+    isUsingActiveX(): boolean;
 }
 
 export interface Authorization {

@@ -74,8 +74,8 @@ export interface Camera {
      */
     showVideo(deviceId?: string,
         resolution?: Resolution,
-		mode?: string,
-		fill?: boolean
+        mode?: string,
+        fill?: boolean
     ): Promise<Resolution>;
     /**
      * Close the camera and hide the video streaming UI.
@@ -86,12 +86,12 @@ export interface Camera {
      * @param name Specify the event name.
      * @param callback The event listener.
      */
-	on(name: string, callback: (event: ViewerEvent) => void): void;
+    on(name: string, callback: (event: ViewerEvent) => void): void;
     /**
      * Remove a built-in viewer event handler.
      * @param eventName Specify the event name.
      */
-	off(eventName: string, callback?: (event: ViewerEvent) => void): boolean;
+    off(eventName: string, callback?: (event: ViewerEvent) => void): boolean;
 }
 export interface DeviceInfo {
     deviceId: string;

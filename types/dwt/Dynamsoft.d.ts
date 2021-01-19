@@ -395,11 +395,11 @@ export interface WebTwainEnv {
     /**
      * Whether to load UI related js files.
      */
-	UseDefaultViewer: boolean;
+    UseDefaultViewer: boolean;
     /**
      * Control whether the scanner related UI & load/save UI are always display in the front window.
      */
-	IfAlwaysFocusOnPopupWindow: boolean;
+    IfAlwaysFocusOnPopupWindow: boolean;
     ConnectToTheService: () => void;
     initQueue: any[];
     /**
@@ -485,11 +485,11 @@ export interface WasmConfig {
     /**
      * Maximum heap size
      */
-	maxHeapSize: number;
+    maxHeapSize: number;
     /**
      * fetch API Options
      */
-	fetchOptions: any;
+    fetchOptions: any;
 }
 declare const Dynamsoft: (typeof DynamsoftEnums & typeof DynamsoftStatic);
 export default Dynamsoft;

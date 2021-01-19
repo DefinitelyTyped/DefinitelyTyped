@@ -255,5 +255,5 @@ export interface WebTwainBuffer extends WebTwainIO {
      * @param oldTag Old tag name.
      * @param newTag Specify the new tag name.
      */
-	RenameTag(oldTag: string, newTag: string): boolean;
+    RenameTag(oldTag: string, newTag: string): boolean;
 }
