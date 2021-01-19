@@ -271,7 +271,7 @@ export interface RunContext extends RunContextConstructor, EventEmitter, Promise
      * Return a promise representing the generator run process
      * @return Promise resolved on end or rejected on error
      */
-    toPromise(): Promise<string>;
+    toPromise(): Promise<RunResult>;
 
     /**
      * Clean the provided directory, then change directory into it
