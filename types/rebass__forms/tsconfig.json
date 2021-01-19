@@ -24,6 +24,7 @@
     },
     "files": [
         "index.d.ts",
-        "rebass__forms-tests.tsx"
+        "rebass__forms-tests.tsx",
+        "styled-components.d.ts"
     ]
 }
