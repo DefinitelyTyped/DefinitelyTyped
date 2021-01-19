@@ -193,6 +193,11 @@ export interface RunResultOptions {
      * The file-system editor of the generator.
      */
     fs: Generator.MemFsEditor;
+
+    /**
+     * The mocked generators of the context.
+     */
+    mockedGenerators: Dictionary<Generator>;
 }
 
 export interface RunResult extends RunResultOptions {
@@ -250,6 +255,11 @@ export interface RunContext extends RunContextConstructor, EventEmitter, Promise
      * A set of generators this generator depends on.
      */
     dependencies: Dependency[];
+
+    /**
+     * A set of mocked generators.
+     */
+    mockedGenerators: Dictionary<Generator>;
 
     /**
      * Hold the execution until the returned callback is triggered
@@ -336,6 +346,12 @@ export interface RunContext extends RunContextConstructor, EventEmitter, Promise
      * @param  localConfig - should look just like if called config.getAll()
      */
     withLocalConfig(localConfig: Dictionary<any>): this;
+
+    /**
+     * Creates mocked generators.
+     * @param namespaces - The namespaces of the mocked generators.
+     */
+    withMockedGenerators(namespaces: string[]): this;
 }
 
 export {};
