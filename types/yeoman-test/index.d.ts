@@ -7,10 +7,16 @@
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
 
+/**
+ * Represents a dictionary.
+ */
 export interface Dictionary<T> {
     [key: string]: T;
 }
 
+/**
+ * Represents a constructor.
+ */
 export interface Constructor<T> {
     new (...args: any[]): T;
 }
@@ -120,6 +126,9 @@ export function registerDependencies(env: Env, dependencies: Dependency[]): void
  */
 export function run(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 
+/**
+ * Provides settings for creating a `RunContext`.
+ */
 export interface RunContextSettings {
     /**
      * Automatically run this generator in a tmp dir
@@ -139,6 +148,9 @@ export interface RunContextSettings {
     namespace?: string;
 }
 
+/**
+ * Provides the functionality to initialize new `RunContext`s.
+ */
 export interface RunContextConstructor {
     /**
      * This class provide a run context object to façade the complexity involved in setting
@@ -150,13 +162,43 @@ export interface RunContextConstructor {
     new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 }
 
+/**
+ * Represents the context of a running generator.
+ */
 export interface RunContext extends RunContextConstructor, EventEmitter {
+    /**
+     * A value indicating whether the generator ran through.
+     */
     ran: boolean;
+
+    /**
+     * A value indicating whether a current directory has been set.
+     */
     inDirSet: boolean;
+
+    /**
+     * The arguments that are passed to the generator.
+     */
     args: string[];
+
+    /**
+     * The options that are passed to the generator.
+     */
     options: {};
+
+    /**
+     * The mocked `inquirer`-answers.
+     */
     answers: Generator.Answers;
+
+    /**
+     * The mocked configuration.
+     */
     localConfig: {};
+
+    /**
+     * A set of generators this generator depends on.
+     */
     dependencies: Dependency[];
 
     /**
