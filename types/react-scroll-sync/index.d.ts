@@ -21,5 +21,5 @@ export interface ScrollSyncPaneProps {
     enabled?: boolean;
 }
 
-declare const ScrollSync: React.FC<ScrollSyncProps>;
-declare const ScrollSyncPane: React.FC<ScrollSyncPaneProps>;
+export const ScrollSync: React.FC<ScrollSyncProps>;
+export const ScrollSyncPane: React.FC<ScrollSyncPaneProps>;
