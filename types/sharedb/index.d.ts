@@ -39,10 +39,10 @@ declare class sharedb extends EventEmitter {
         suppressPublish?: boolean,
         maxSubmitRetries?: number,
 
+        presence?: boolean,
         /**
          * @deprecated disableDocAction was removed in v1.0
          */
-        presence?: boolean,
         disableDocAction?: boolean,
         /**
          * @deprecated disableSpaceDelimitedActions was removed in v1.0

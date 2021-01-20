@@ -110,9 +110,9 @@ export class Doc<T = any> extends EventEmitter {
     preventCompose: boolean;
     paused: boolean;
 
-    fetch: (callback: (err: Error) => void) => void;
-    subscribe: (callback: (err: Error) => void) => void;
-    unsubscribe: (callback: (error: Error) => void) => void;
+    fetch: (callback?: (err: Error) => void) => void;
+    subscribe: (callback?: (err: Error) => void) => void;
+    unsubscribe: (callback?: (err: Error) => void) => void;
 
     on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
     on(event: 'create', callback: (source: boolean) => void): this;
@@ -126,13 +126,13 @@ export class Doc<T = any> extends EventEmitter {
     addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
-    ingestSnapshot(snapshot: Snapshot<T>, callback: Callback): void;
+    ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
     destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
     create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
-    del(options: ShareDBSourceOptions, callback: (err: Error) => void): void;
+    del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
     whenNothingPending(callback: () => void): void;
     hasPending(): boolean;
     hasWritePending(): boolean;
@@ -152,7 +152,7 @@ export class Query extends EventEmitter {
     destroy(): void;
 }
 
-export type ReceivePresence<T> = (id: string, value: T) => void;
+export type ReceivePresenceListener<T> = (id: string, value: T) => void;
 export class Presence<T = any> extends EventEmitter {
     connection: string;
     channel: string;
@@ -164,8 +164,8 @@ export class Presence<T = any> extends EventEmitter {
     unsubscribe(callback?: Callback): void;
     create(id?: string): LocalPresence<T>;
     destroy(callback?: Callback): void;
-    on(event: 'receive', callback: ReceivePresence<T>): this;
-    addListener(event: 'receive', callback: ReceivePresence<T>): this;
+    on(event: 'receive', callback: ReceivePresenceListener<T>): this;
+    addListener(event: 'receive', callback: ReceivePresenceListener<T>): this;
 }
 
 export class LocalPresence<T = any> extends EventEmitter {
