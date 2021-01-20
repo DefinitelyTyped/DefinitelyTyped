@@ -145,6 +145,13 @@ export class Graph<N extends GraphNode, L extends GraphLink> extends Component<G
     componentWillUnmount(): void;
 
     render(): any;
+    /**
+     * Sets nodes and links highlighted value.
+     *
+     * @param {string} id - the id of the node to highlight.
+     * @param {boolean} value - the highlight value to be set (true or false).
+    */
+    _setNodeHighlightedValue: (id: string, value: boolean) => void;
 }
 
 export class Link extends Component<any, any> {
