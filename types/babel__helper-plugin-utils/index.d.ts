@@ -9,8 +9,7 @@ import type * as babel from '@babel/core';
 export type BabelAPI = typeof babel & babel.ConfigAPI;
 export function declare<
     O extends Record<string, any>,
-    S = babel.PluginPass,
-    R extends babel.PluginObj<S> = babel.PluginObj<S>
+    R extends babel.PluginObj = babel.PluginObj
 >(
     builder: (api: BabelAPI, options: O, dirname: string) => R,
 ): (api: object, options: O | null | undefined, dirname: string) => R;
