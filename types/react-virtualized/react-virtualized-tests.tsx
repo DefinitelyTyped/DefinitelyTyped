@@ -296,7 +296,7 @@ export class AutoSizerESMExample extends PureComponent<any, any> {
             </div>
         );
     }
-;
+}
 
 import {} from 'react';
 import { CellMeasurer, CellMeasurerCache, ListRowProps } from 'react-virtualized';
