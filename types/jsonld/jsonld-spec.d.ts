@@ -7,7 +7,7 @@ import {
     JsonLdDocument,
     NodeObject,
     ContextDefinition,
-} from './jsonld.d';
+} from './jsonld';
 
 // Some aliases and placeholders for better readability
 export type JsonLdObj = NodeObject;
@@ -19,6 +19,8 @@ type LoadDocumentCallback = (url: Url) => Promise<RemoteDocument>;
 
 export type Url = DOMString;
 export type Iri = Url;
+export type Document = JsonLdDocument;
+export type Context = ContextDefinition;
 export type Frame = JsonLdObj|Url;
 
 export interface Options {

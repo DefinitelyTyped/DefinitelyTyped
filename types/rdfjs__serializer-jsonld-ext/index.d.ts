@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
-import { ContextDefinition as Context } from 'jsonld/jsonld';
+import { Context } from 'jsonld/jsonld-spec';
 import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Serializer {
