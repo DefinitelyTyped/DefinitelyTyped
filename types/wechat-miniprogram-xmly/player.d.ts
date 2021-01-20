@@ -78,7 +78,7 @@ export interface Sound {
  * 声音集合
  */
 interface Sounds<T> {
-    [k: string]: T;
+    [k: number]: T;
 }
 
 /**
@@ -86,7 +86,46 @@ interface Sounds<T> {
  */
 type PlayList = number[];
 
-export default class XMplayer {
+declare class Event {
+    /**
+     * 绑定自定义事件
+     * @param name 自定义事件名称
+     * @param callback 回调函数，接收emit触发所有参数
+     * @param ctx 回调函数的执行上下文
+     * @returns 返回this，支持链式调用
+     */
+    on(name: string, callback: any): this;
+    /**
+     * 绑定自定义事件（仅一次）
+     * @param name 自定义事件名称
+     * @param callback 回调函数，接收emit触发所有参数
+     * @param ctx 回调函数的执行上下文
+     * @returns 返回this，支持链式调用
+     */
+    once(name: string, callback: any): this;
+    /**
+     * 解除绑定的自定义事件
+     *  1.funcInQueue参数缺省时，该自定义事件对应的整个回调队列都会被清空，否则仅移除事件的回调队列中的某一函数；
+     *
+     * @param name 自定义事件名称
+     * @param funcInQueue 自定义事件对应的回调函数队列中某一函数
+     * @returns 返回this，支持链式调用
+     */
+    off(name: string, funcInQueue?: any): this;
+    /**
+     * 校验是否在指定的事件集合中
+     * @param name 事件名
+     */
+    /**
+     * 触发（执行）自定义事件, 尽量避免手动触发播放器事件, 可能会影响到播放器内部运行
+     * @param name 自定义事件名称
+     * @param args 参数列表，传参示例；obj.emit('eventName', param1, param2, ...)
+     * @returns 返回this，支持链式调用
+     */
+    emit(name: string, ...args: any[]): this;
+}
+
+export default class XMplayer extends Event {
     /**
      * 播放
      * @param id 声音 ID | 空

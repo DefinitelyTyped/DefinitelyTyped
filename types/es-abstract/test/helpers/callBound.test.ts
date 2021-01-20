@@ -8,8 +8,9 @@ callBound('%ArrayProto_forEach%'); // $ExpectType (thisArg: unknown, callbackfn:
 callBound('%ObjProto_toString%'); // $ExpectType (thisArg: unknown) => string
 callBound('%ObjProto_valueOf%'); // $ExpectType (thisArg: unknown) => Object
 
-// tslint:disable-next-line: max-line-length
-callBound('%PromiseProto_then%'); // $ExpectType (thisArg: unknown, onfulfilled?: ((value: any) => unknown) | null | undefined, onrejected?: ((reason: any) => unknown) | null | undefined) => Promise<unknown>
+// $ExpectType (thisArg: unknown, onfulfilled?: ((value: any) => unknown) | null | undefined, onrejected?: ((reason: any) => unknown) | null | undefined) => Promise<unknown>
+callBound('%PromiseProto_then%');
 
 // Dotted intrinsic:
-callBound('%Object.prototype.hasOwnProperty%'); // $ExpectType (thisArg: unknown, v: string | number | symbol) => boolean
+// $ExpectType (thisArg: unknown, v: string | number | symbol) => boolean || (thisArg: unknown, v: PropertyKey) => boolean
+callBound('%Object.prototype.hasOwnProperty%');

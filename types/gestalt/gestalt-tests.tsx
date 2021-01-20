@@ -14,6 +14,7 @@ import {
     CompositeZIndex,
     Container,
     Divider,
+    Dropdown,
     FixedZIndex,
     Flex,
     Flyout,
@@ -107,8 +108,8 @@ const CheckUseReducedMotion = () => {
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryLink={{ href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryLink={{ href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ href: 'https://pinterest.com', label: 'Get started' }}
+    secondaryAction={{ href: 'https://pinterest.com', label: 'Learn more' }}
     dismissButton={{
         accessibilityLabel: 'Dismiss banner',
         onDismiss: () => {},
@@ -119,6 +120,17 @@ const CheckUseReducedMotion = () => {
 <Column span={1} />;
 <Container />;
 <Divider />;
+<Dropdown id="dropdown-example" onDismiss={() => {}}>
+    <Dropdown.Section label="View options">
+        <Dropdown.Item
+            option={{ value: 'item 1', label: 'Custom link 1' }}
+            handleSelect={({ item }) => {}}
+            selected={undefined}
+        >
+            <Text>Dropdown</Text>
+        </Dropdown.Item>
+    </Dropdown.Section>
+</Dropdown>;
 <Flex />;
 <Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
@@ -133,7 +145,7 @@ const CheckUseReducedMotion = () => {
 <Link href="#" />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
-<Modal accessibilityModalLabel="modal" onDismiss={() => {}} />;
+<Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"

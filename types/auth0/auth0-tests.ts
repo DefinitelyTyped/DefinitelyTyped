@@ -1,4 +1,7 @@
+/// <reference types="node" />
+
 import * as auth0 from 'auth0';
+import idToken = require('auth0/src/auth/idToken');
 
 const management = new auth0.ManagementClient({
   token: '{YOUR_API_V2_TOKEN}',
@@ -326,6 +329,60 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
     // Handle the error
   });
 
+// Connections
+// Get all Connections with promise
+management.getConnections().then((connections: auth0.Connection[]) => {
+  console.log(connections);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Connections with callback
+management.getConnections((err: Error, connections: auth0.Connection[]) => {});
+
+// Get all Connections with promise and pagination
+management.getConnections({per_page: 25, page: 0}).then((connections: auth0.Connection[]) => {
+  console.log(connections);
+}).catch((err) => {
+  // error handler
+});
+
+// Rules
+// Get all Rules with promise
+management.getRules().then((rules: auth0.Rule[]) => {
+  console.log(rules);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Rules with callback
+management.getRules((err: Error, rule: auth0.Rule[]) => {});
+
+// Get all Rules with promise and pagination
+management.getRules({per_page: 25, page: 0}).then((rules: auth0.Rule[]) => {
+  console.log(rules);
+}).catch((err) => {
+  // error handler
+});
+
+// Resource Servers
+// Get all Resource Servers with promise
+management.getResourceServers().then((resourceServers: auth0.ResourceServer[]) => {
+  console.log(resourceServers);
+}).catch((err) => {
+  // error handler
+});
+
+// Get all Resource Servers with callback
+management.getResourceServers((err: Error, resourceServers: auth0.ResourceServer[]) => {});
+
+// Get all Resource Servers with promise and pagination
+management.getRules({per_page: 25, page: 0}).then((resourceServers: auth0.ResourceServer[]) => {
+  console.log(resourceServers);
+}).catch((err) => {
+  // error handler
+});
+
 // Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
 
@@ -542,7 +599,6 @@ management.createClient({
         subject: 'subject',
     }
 });
-
 management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
 management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
 management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
@@ -663,3 +719,21 @@ const oauthAuthenticator = new auth0.OAuthAuthenticator({
 
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
 oauthAuthenticator.refreshToken({ refresh_token:'{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));
+
+authentication.database.signUp({email: 'email', password: 'password'});
+
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+decoded._raw; // $ExpectType string
+decoded.header; // $ExpectType any
+decoded.payload; // $ExpectType any
+decoded.signature; // $ExpectType string
+
+async () => {
+    const defaultOptions = {
+        issuer: 'issuer',
+        audience: ['clientId', 'clientIdAlt'],
+        nonce: 'a1b2c3d4e5',
+    };
+    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
+    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+};

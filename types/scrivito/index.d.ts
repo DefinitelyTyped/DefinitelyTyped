@@ -1,4 +1,4 @@
-// Type definitions for scrivito 1.16
+// Type definitions for scrivito 1.19
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger <https://github.com/juliankrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -163,6 +163,7 @@ interface ConfigOptions {
     // Hard to type
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
+    priority?: 'foreground' | 'background';
 }
 
 /**
@@ -358,6 +359,7 @@ export class Obj {
     isRestricted(): boolean;
     lastChanged(): Date | null;
     metadata(): any;
+    modification(): null | 'new' | 'edited' | 'deleted';
     objClass(): string;
     parent(): Obj | null;
     path(): string | null;
@@ -434,6 +436,20 @@ interface ObjComponentProps {
 type WidgetComponent = FC<WidgetComponentProps>;
 type ObjComponent = FC<ObjComponentProps>;
 
+export class Editor {
+    private constructor();
+    id(): string;
+    name(): string;
+    teams(): Team[];
+}
+
+export class Team {
+    private constructor();
+    description(): string;
+    id(): string;
+    name(): string;
+}
+
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
 export function configureContentBrowser(options: any): void;
@@ -466,6 +482,9 @@ export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): void;
 export function useHistory(history: History): void;
 export function validationResults(model: Obj | Widget, attribute: string): object[];
+export function isComparisonActive(): boolean;
+export function currentWorkspaceId(): string;
+export function currentEditor(): Editor | null;
 
 // Fix automatic exports
 

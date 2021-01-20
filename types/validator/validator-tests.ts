@@ -547,7 +547,9 @@ const any: any = null;
 
     result = validator.isAscii('sample');
 
+    const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
+    result = validator.isBase64('sample', isBase64Options);
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());

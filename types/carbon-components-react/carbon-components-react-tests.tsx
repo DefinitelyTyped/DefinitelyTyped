@@ -281,7 +281,18 @@ const t4 = (
                 <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
+                <TableHeader
+                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}
+                    translateWithId={(mId, args) => {
+                        if (args) {
+                            console.log(args.header);
+                            console.log(args.isSortHeader);
+                            console.log(args.sortDirection);
+                            console.log(args.sortStates);
+                        }
+                        return "string";
+                    }}
+                >
                     {header.header}
                 </TableHeader>
             ));
@@ -294,7 +305,10 @@ const t4 = (
             ));
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
             let batchActions = (
-                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
+                <TableBatchActions
+                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}
+                    translateWithId={(mId, args) => `${args ? args.totalSelected : 0}`}
+                >
                     Content
                 </TableBatchActions>
             );

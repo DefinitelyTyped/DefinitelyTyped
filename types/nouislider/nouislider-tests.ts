@@ -581,3 +581,7 @@ var callback: noUiSlider.Callback = (values, handle, unencoded) => {};
 
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.destroy();
 
+// Properties
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.options;
+
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.target;
