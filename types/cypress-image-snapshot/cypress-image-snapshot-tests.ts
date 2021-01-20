@@ -7,4 +7,6 @@ command.addMatchImageSnapshotCommand({
     scale: true,
 });
 
-addMatchImageSnapshotPlugin(() => null, {}); // $ExpectType void
+function pluginSetup(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): void {
+    addMatchImageSnapshotPlugin(on, config); // $ExpectType void
+}
