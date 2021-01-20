@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@paypal/*": [
+                "paypal__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

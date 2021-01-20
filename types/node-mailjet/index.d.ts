@@ -114,7 +114,7 @@ export namespace Email {
         Variables?: object;
         TemplateID?: number;
         TemplateLanguage?: boolean;
-        Subject: string;
+        Subject?: string;
         TextPart?: string;
         HTMLPart?: string;
         MonitoringCategory?: string;

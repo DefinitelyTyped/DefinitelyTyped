@@ -3,19 +3,16 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
-        "prefer-method-signature": false,
         "typedef-whitespace": false
     }
 }

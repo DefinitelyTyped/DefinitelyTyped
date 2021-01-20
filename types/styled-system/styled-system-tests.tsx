@@ -40,7 +40,6 @@ import {
     ShadowProps,
 } from 'styled-system';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
 
 const boxStyle = variant({

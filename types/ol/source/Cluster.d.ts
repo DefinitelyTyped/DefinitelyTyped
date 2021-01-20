@@ -24,13 +24,31 @@ export default class Cluster extends VectorSource {
     protected resolution: number;
     protected cluster(): void;
     protected createCluster(features: Feature<Geometry>[]): Feature<Geometry>;
+    /**
+     * Remove all features from the source.
+     */
     clear(opt_fast?: boolean): void;
+    /**
+     * Get the distance in pixels between clusters.
+     */
     getDistance(): number;
-    getResolutions(): number[];
+    getResolutions(): number[] | undefined;
+    /**
+     * Get a reference to the wrapped source.
+     */
     getSource(): VectorSource<Geometry>;
     loadFeatures(extent: Extent, resolution: number, projection: Projection): void;
+    /**
+     * Handle the source changing.
+     */
     refresh(): void;
+    /**
+     * Set the distance in pixels between clusters.
+     */
     setDistance(distance: number): void;
+    /**
+     * Replace the wrapped source.
+     */
     setSource(source: VectorSource<Geometry>): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

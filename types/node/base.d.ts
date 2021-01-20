@@ -13,7 +13,6 @@
 /// <reference lib="esnext.bigint" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
-// tslint:disable-next-line:no-bad-reference
 /// <reference path="ts3.6/base.d.ts" />
 
 // TypeScript 3.7-specific augmentations:

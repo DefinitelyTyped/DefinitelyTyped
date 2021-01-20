@@ -8,7 +8,7 @@ import {
     XRViewerPose,
     XRRigidTransform,
     XRView,
-    XRViewPort,
+    XRViewport,
 } from 'webxr';
 
 const canvas = document.createElement('canvas');
@@ -37,7 +37,7 @@ xr.requestSession('immersive-vr').then((session: XRSession) => {
         session
             .requestReferenceSpace('local')
             .then(rs => {
-                space = rs as XRReferenceSpace;
+                space = rs;
             })
             .catch(e => {
                 throw Error("Can't get reference space" + e);
@@ -49,13 +49,18 @@ const renderFrame = (frame: XRFrame) => {
     const tf = new XRRigidTransform(startSpot, startRot);
     space = space.getOffsetReferenceSpace(tf);
 
-    const pose: XRViewerPose = frame.getViewerPose(space);
+    const pose = frame.getViewerPose(space);
 
     if (pose) {
         let view: XRView;
         for (view of pose.views) {
-            const viewport: XRViewPort = layer.getViewport(view);
+            const viewport: XRViewport = layer.getViewport(view);
             // draw to the device eyes
         }
     }
 };
+
+xr.addEventListener('devicechange', (e: Event) => {
+    // Event is a simple event; there is no additional data
+    // XR device availability changed
+});

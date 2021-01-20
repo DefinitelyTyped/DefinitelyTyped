@@ -37,7 +37,7 @@ declare namespace MySQLStore {
     type MySQLStore = MySQLStoreClass;
 }
 
-declare class MySQLStoreClass {
+declare class MySQLStoreClass extends expressSession.Store {
     constructor(options: MySQLStore.Options, connection?: any, callback?: (error: any) => void);
 
     setDefaultOptions(): void;

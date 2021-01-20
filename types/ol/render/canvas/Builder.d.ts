@@ -35,6 +35,11 @@ export default class CanvasBuilder extends VectorContext {
     ): number;
     protected applyPixelRatio(dashArray: number[]): number[];
     protected beginGeometry(geometry: Geometry | RenderFeature, feature: FeatureLike): void;
+    /**
+     * Get the buffered rendering extent.  Rendering will be clipped to the extent
+     * provided to the constructor.  To account for symbolizers that may intersect
+     * this extent, we calculate a buffered extent (e.g. based on stroke width).
+     */
     protected getBufferedMaxExtent(): Extent;
     protected maxExtent: Extent;
     protected resolution: number;
@@ -51,6 +56,9 @@ export default class CanvasBuilder extends VectorContext {
     ): number;
     endGeometry(feature: FeatureLike): void;
     finish(): SerializableInstructions;
+    /**
+     * Reverse the hit detection instructions.
+     */
     reverseHitDetectionInstructions(): void;
     setFillStrokeStyle(fillStyle: Fill, strokeStyle: Stroke): void;
     updateFillStyle(state: FillStrokeState, createFill: (this: CanvasBuilder, p0: FillStrokeState) => any[]): void;

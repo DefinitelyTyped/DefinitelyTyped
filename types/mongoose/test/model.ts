@@ -104,6 +104,11 @@ MongoModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {
     docs[0].remove();
     docs[1].execPopulate();
 });
+async () => {
+    for await (const item of MongoModel.find({})) {
+        item.model;
+    }
+};
 MongoModel.find({ name: /john/i }, 'name friends', function (err, docs) { })
 MongoModel.find({ name: /john/i }, null, { skip: 10 })
 MongoModel.find({ name: /john/i }, null, { skip: 10 }, function (err, docs) {});
@@ -158,6 +163,7 @@ MongoModel.findOneAndUpdate({}, {}, {});
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, arrayFilters: [{ 'elem._id': 123 }] });
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, timestamps: true });
+MongoModel.findOneAndUpdate({}, {}, { overwrite: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -646,8 +652,8 @@ interface ModelWithFunction extends mongoose.Document {
     selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
 
     parent?: {
-        ref: { 
-            _id: mongodb.ObjectId; 
+        ref: {
+            _id: mongodb.ObjectId;
             child: ModelWithFunction
         } | mongodb.ObjectID;
     }
@@ -664,40 +670,40 @@ interface ModelWithFunction extends mongoose.Document {
         tuple?: [number, number];
         array?: number[];
 
-        deepArray?: Array<{ 
-            title: string, 
+        deepArray?: Array<{
+            title: string,
             func: () => {}, // should be excluded in CreateQuery<T>
             tuple?: [number, number]
             objectId?: mongoose.Types.ObjectId;
 
-            mapWithFuncs?: Map<string, { 
-                title: string, 
+            mapWithFuncs?: Map<string, {
+                title: string,
                 func: () => {}, // should be excluded in CreateQuery<T>
                 innerMap: Map<string, {
-                    title: string, 
+                    title: string,
                     func: () => {} // should be excluded in CreateQuery<T>
                     readonly readonly: unknown; // should be excluded in CreateQuery<T>
                     objectId?: mongoose.Types.ObjectId;
-                }> 
+                }>
             }>;
         }>
     }
-    
+
     map?: Map<string, boolean>
 
-    mapWithFuncs?: Map<string, { 
-        title: string, 
+    mapWithFuncs?: Map<string, {
+        title: string,
         func: () => {}, // should be excluded in CreateQuery<T>
         innerMap: Map<string, {
-            title: string, 
+            title: string,
             func: () => {} // should be excluded in CreateQuery<T>
             readonly readonly: unknown; // should be excluded in CreateQuery<T>
-        }> 
+        }>
     }>;
 
 
-    jobs: Array<{ 
-        title: string, 
+    jobs: Array<{
+        title: string,
         readonly readonly: unknown // should be excluded in CreateQuery<T>
     }>;
 
@@ -711,34 +717,34 @@ var ModelWithFunctionInSchema = mongoose.model<ModelWithFunction>("ModelWithFunc
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "test", array: [1, 2, 3], tuple: [1, 2] } });
 
-ModelWithFunctionInSchema.create({ 
-    name: "test", 
-    jobs: [], 
-    deeperFuncTest: { 
-        test: "hello", 
-        deepArray: [{ 
-            title: "test", 
-            tuple: [1, 2], 
+ModelWithFunctionInSchema.create({
+    name: "test",
+    jobs: [],
+    deeperFuncTest: {
+        test: "hello",
+        deepArray: [{
+            title: "test",
+            tuple: [1, 2],
             objectId: "valid-object-id-source",
-            mapWithFuncs: { 
-                test: { 
-                    title: "test", 
-                    innerMap: { 
-                        test: { 
+            mapWithFuncs: {
+                test: {
+                    title: "test",
+                    innerMap: {
+                        test: {
                             title: "hello",
                             objectId: "valid-object-id-source"
                         },
                     }
                 }
-            } 
-        }] 
-    } 
+            }
+        }]
+    }
 });
 
 
 // ------------------------------------------------------------------------------------
 // TESTS DISABLED: note that these tests does not properly pass $ExpectError on TS 3.3
-// they can be re-enabled once minimum TS version is bumped 
+// they can be re-enabled once minimum TS version is bumped
 
 //! $ExpectError
 //ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
@@ -786,16 +792,16 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
 });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: "valid-object-id-source" });
-ModelWithFunctionInSchema.create({ 
-    name: "test", 
-    jobs: [], 
-    objectId: new mongodb.ObjectID("valid-object-id-source") 
+ModelWithFunctionInSchema.create({
+    name: "test",
+    jobs: [],
+    objectId: new mongodb.ObjectID("valid-object-id-source")
 });
 
-ModelWithFunctionInSchema.create({ 
-    name: "test", 
-    jobs: [], 
-    date: new Date() 
+ModelWithFunctionInSchema.create({
+    name: "test",
+    jobs: [],
+    date: new Date()
 });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: "2020-01-01" });
 

@@ -2,9 +2,8 @@ import * as React from "react";
 import { ReactButtonAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "title" | "type";
-interface InheritedProps extends Omit<ReactButtonAttr, ExcludedAttributes> { }
 
-export interface HeaderMenuButtonProps extends InheritedProps {
+export interface HeaderMenuButtonProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
     isActive?: boolean,
     isCollapsible?: boolean,
 }

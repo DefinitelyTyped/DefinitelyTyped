@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@mapbox/tile-cover": [
-                "mapbox__tile-cover"
+            "@mapbox/*": [
+                "mapbox__*"
             ]
         }
     },

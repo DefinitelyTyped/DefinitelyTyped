@@ -3,12 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
-        "dt-header": false,
-        "no-consecutive-blank-lines": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
-        "semicolon": false,
-        "trim-file": false
+        "dt-header": false
     }
 }

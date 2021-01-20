@@ -21,3 +21,24 @@ const sitemap2 = expressSitemapXml(getLeavesPromise, base);
 
 express().use(sitemap1);
 express().use(sitemap2);
+
+async () => {
+    const urls = [
+        {
+            url: '/1',
+            lastMod: '2000-01-01',
+            changeFreq: 'daily',
+        },
+        {
+            url: '/2',
+            lastMod: new Date('2000-02-02'),
+            changeFreq: 'weekly',
+        },
+        {
+            url: '/3',
+        },
+        '/4',
+    ];
+    // $ExpectType Sitemap
+    const sitemap = await buildSitemaps(urls, 'https://example.com');
+};

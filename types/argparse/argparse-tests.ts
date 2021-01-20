@@ -6,7 +6,13 @@ import {
     Action,
     ActionConstructorOptions,
     Namespace,
-    Const,
+    ONE_OR_MORE,
+    ZERO_OR_MORE,
+    OPTIONAL,
+    SUPPRESS,
+    REMAINDER,
+    ArgumentError,
+    ArgumentTypeError,
 } from 'argparse';
 let args: any;
 
@@ -44,6 +50,9 @@ console.dir(args);
 console.log('-----------');
 args = simpleExample.parse_args('--foo 5 --bar 6'.split(' '));
 console.dir(args);
+console.log('-----------');
+
+console.dir(simpleExample.convert_arg_line_to_args("foo  bar   asd"));
 console.log('-----------');
 
 const choicesExample = new ArgumentParser({
@@ -144,11 +153,23 @@ console.log('-----------');
 args = nargsExample.parse_args('--bar b c f --foo a'.split(' '));
 console.dir(args);
 
+function positiveInt(s: string): number {
+    const i = parseInt(s, 10);
+    if (i <= 0) {
+        throw new ArgumentTypeError('must be positive');
+    }
+    return i;
+}
+
 const parent_parser = new ArgumentParser({ add_help: false });
 // note add_help:false to prevent duplication of the -h option
 parent_parser.add_argument(
     '--parent',
     { type: 'int', help: 'parent' }
+);
+parent_parser.add_argument(
+    '--blah',
+    { type: positiveInt, help: 'blah' }
 );
 
 const foo_parser = new ArgumentParser({
@@ -306,34 +327,34 @@ constExample.add_argument(
     '-f', '--foo',
     {
         help: 'foo bar',
-        nargs: Const.ONE_OR_MORE
+        nargs: ONE_OR_MORE
     }
 );
 constExample.add_argument(
     '-b', '--bar',
     {
         help: 'bar foo',
-        nargs: Const.ZERO_OR_MORE
+        nargs: ZERO_OR_MORE
     }
 );
 constExample.add_argument(
     '--baz',
     {
         help: 'baz',
-        nargs: Const.OPTIONAL
+        nargs: OPTIONAL
     }
 );
 constExample.add_argument(
     '--qux',
     {
-        help: Const.SUPPRESS
+        help: SUPPRESS
     }
 );
 constExample.add_argument(
     'quux',
     {
         help: 'quux',
-        nargs: Const.REMAINDER
+        nargs: REMAINDER
     }
 );
 
@@ -342,4 +363,23 @@ console.log('-----------');
 
 args = constExample.parse_args('--foo x --bar --baz y --qux z a b c d e'.split(' '));
 console.dir(args);
+console.log('-----------');
+
+const versionExample = new ArgumentParser({ description: 'Add version' });
+versionExample.add_argument('-v', '--v', { action: 'version', version: '1.0.0' });
+versionExample.print_help();
+console.log('-----------');
+
+const noExitOnError = new ArgumentParser({
+    exit_on_error: false
+});
+noExitOnError.add_argument('-f', '--foo', { action: 'store_true' });
+try {
+    noExitOnError.parse_args(['unknown']);
+} catch (err) {
+    if (err instanceof ArgumentError) {
+        const errorMessage: string = err.str();
+        console.log(errorMessage);
+    }
+}
 console.log('-----------');

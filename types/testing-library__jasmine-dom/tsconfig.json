@@ -13,7 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@testing-library/jasmine-dom": ["testing-library__jasmine-dom"]
+            "@testing-library/*": ["testing-library__*"]
         }
     },
     "files": [

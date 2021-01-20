@@ -7,10 +7,7 @@ declare class DatePicker extends DatePicker_base {
     _rightArrowHTML(): string;
     _leftArrowHTML(): string;
     _addInputLogic: (input: any, index: any) => void;
-    _updateClassNames: ({ calendarContainer, selectedDates }: {
-        calendarContainer: any;
-        selectedDates: any;
-    }) => void;
+    _updateClassNames: ({ calendarContainer, selectedDates }: any) => void;
     _updateInputFields: (selectedDates: any, type: any) => void;
     _formatDate: (date: any) => any;
     release(): any;

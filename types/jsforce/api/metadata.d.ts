@@ -1,7 +1,6 @@
 import { Callback, Connection } from '../connection';
 import { EventEmitter } from 'events';
 import { Stream } from 'stream';
-import { Buffer } from 'buffer';
 
 interface DeployResult {
     id: string;

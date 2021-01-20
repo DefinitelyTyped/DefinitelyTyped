@@ -1,5 +1,6 @@
 import Arena from 'bull-arena';
 import express from 'express';
+import Bull from 'bull';
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ const arena = Arena({
             redis: {},
         },
     ],
+    Bull,
 });
 router.use('/', arena);

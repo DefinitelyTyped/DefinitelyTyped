@@ -20,7 +20,6 @@ import { EventEmitter } from "events";
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error) => { });
     process.once("uncaughtExceptionMonitor", (error: Error) => { });
-    // tslint:disable-next-line: no-null-undefined-union
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
@@ -84,4 +83,13 @@ import { EventEmitter } from "events";
     let strDict: NodeJS.Dict<string>;
     strDict = process.versions;
     strDict = p.versions;
+}
+{
+    process.traceDeprecation = true;
+}
+
+{
+    function abortNeverReturns(): never {
+        process.abort();
+    }
 }

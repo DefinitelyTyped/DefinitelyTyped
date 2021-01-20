@@ -154,6 +154,11 @@ parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
 str = d3Dsv.csvFormat(parseRowsMappedArray);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "length"]);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+str = d3Dsv.csvFormat(parseRowsMappedArray as readonly ParsedTestObject[], ["year", "length"] as ReadonlyArray<keyof ParsedTestObject>);
+
+// csvFormatBody(...) ========================================================================
+
+str = d3Dsv.csvFormatBody(parseRowsMappedArray);
 
 // csvFormatRows(...) ========================================================================
 
@@ -163,6 +168,19 @@ str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// csvFormatRow(...) ========================================================================
+
+str = d3Dsv.csvFormatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// csvFormatValue(...) ========================================================================
+
+str = d3Dsv.csvFormatValue(parseRowsMappedArray[0].make);
 
 // ------------------------------------------------------------------------------------------
 // Test TSV
@@ -238,6 +256,10 @@ str = d3Dsv.tsvFormat(parseRowsMappedArray);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "length"]);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
+// tsvFormat(...) ============================================================================
+
+str = d3Dsv.tsvFormatBody(parseRowsMappedArray);
+
 // tsvFormatRows(...) ========================================================================
 
 str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d) => [
@@ -246,6 +268,19 @@ str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// tsvFormatRow(...) ========================================================================
+
+str = d3Dsv.tsvFormatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// tsvFormatValue(...) ========================================================================
+
+str = d3Dsv.tsvFormatValue(parseRowsMappedArray[0].make);
 
 // ------------------------------------------------------------------------------------------
 // Test DSV Generalized Parsers and Formatters
@@ -326,6 +361,10 @@ str = dsv.format(parseRowsMappedArray);
 str = dsv.format(parseRowsMappedArray, ["year", "length"]);
 str = dsv.format(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
+// formatBody(...) ========================================================================
+
+str = dsv.formatBody(parseRowsMappedArray);
+
 // formatRows(...) ========================================================================
 
 str = dsv.formatRows(parseRowsMappedArray.map((d) => [
@@ -334,3 +373,21 @@ str = dsv.formatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// formatRow(...) ========================================================================
+
+str = dsv.formatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// formatValue(...) ========================================================================
+
+str = dsv.formatValue(parseRowsMappedArray[0].make);
+
+// autoType(...) ==========================================================================
+
+parseMappedArray = d3Dsv.csvParse<ParsedTestObject, Headers>(csvTestStringWithHeader, d3Dsv.autoType);
+parseRowsMappedArray = d3Dsv.csvParseRows<ParsedTestObject>(csvTestString, d3Dsv.autoType);

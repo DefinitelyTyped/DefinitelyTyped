@@ -1,10 +1,38 @@
 // Type definitions for node-pdftk 2.1
 // Project: https://github.com/jjwilly16/node-pdftk#readme
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/node-pdftk
 // Minimum TypeScript Version: 3.0
 
 /// <reference types="node" />
+
+export type Letter =
+    | 'A'
+    | 'B'
+    | 'C'
+    | 'D'
+    | 'E'
+    | 'F'
+    | 'G'
+    | 'H'
+    | 'I'
+    | 'J'
+    | 'K'
+    | 'L'
+    | 'M'
+    | 'N'
+    | 'O'
+    | 'P'
+    | 'Q'
+    | 'R'
+    | 'S'
+    | 'T'
+    | 'U'
+    | 'V'
+    | 'W'
+    | 'X'
+    | 'Y'
+    | 'Z';
 
 export type Permission =
     | 'Printing' // – Top Quality Printing
@@ -255,5 +283,5 @@ export interface ConfigureOptions {
     tempDir: string;
 }
 
-export function input(file: string | Buffer): PDFTK;
+export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;
 export function configure(opts: ConfigureOptions): void;

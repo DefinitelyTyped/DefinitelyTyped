@@ -2,12 +2,9 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
-        "no-redundant-jsdoc": false,
         "no-reference-import": false,
         "no-unnecessary-qualifier": false,
         "no-void-expression": false,
-        "prefer-method-signature": false,
         "semicolon": false
     }
 }

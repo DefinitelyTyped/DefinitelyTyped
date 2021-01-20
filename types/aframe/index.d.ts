@@ -10,8 +10,6 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-/// <reference types="tween.js" />
-
 import * as three from 'three';
 import * as tween from '@tweenjs/tween.js';
 

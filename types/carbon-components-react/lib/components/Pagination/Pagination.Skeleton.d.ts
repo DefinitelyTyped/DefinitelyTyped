@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface PaginationSkeletonProps extends InheritedProps { }
+export interface PaginationSkeletonProps extends ReactDivAttr { }
 
 declare const PaginationSkeleton: React.FC<PaginationSkeletonProps>;
 

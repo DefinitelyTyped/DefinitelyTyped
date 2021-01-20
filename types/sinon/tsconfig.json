@@ -16,8 +16,8 @@
         ],
         "types": [],
         "paths": {
-            "@sinonjs/fake-timers": [
-                "sinonjs__fake-timers"
+            "@sinonjs/*": [
+                "sinonjs__*"
             ]
         },
         "noEmit": true,

@@ -19,7 +19,10 @@ import {
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
     stringOrDate,
-    ViewProps
+    ViewProps,
+    Day,
+    TimeGrid,
+    Week
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -102,6 +105,28 @@ class CalendarResource {
     const localizer = dateFnsLocalizer(dateFnsConfig);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// handle-drag-start Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const HandleDragStart = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            handleDragStart={console.log}
+        />
+    );
+
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    ReactDOM.render(<HandleDragStart localizer={localizer} />, document.body);
 }
 
 // Drag and Drop Example Test
@@ -424,4 +449,55 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
     const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// Test Week and TimeGrid types
+class MyWorkWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWorkWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWorkWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWorkWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWorkWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+class MyWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+// Test Day types
+class MyDay extends Day {
+    render() {
+        const { date } = this.props;
+        return date.toString();
+    }
 }

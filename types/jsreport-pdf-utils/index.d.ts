@@ -5,15 +5,6 @@
 
 import { ExtensionDefinition, Template } from 'jsreport-core';
 
-declare module 'jsreport-core' {
-    interface Template {
-        pdfOperations?: JsReportPdfUtils.PdfOperation[];
-        pdfMeta?: JsReportPdfUtils.PdfMeta;
-        pdfSign?: JsReportPdfUtils.PdfSign;
-        pdfPassword?: JsReportPdfUtils.PdfPassword;
-    }
-}
-
 declare namespace JsReportPdfUtils {
     interface PdfOperation {
         type: "merge" | "append" | "prepend";
@@ -51,8 +42,21 @@ declare namespace JsReportPdfUtils {
         contentAccessibility: boolean;
         documentAssembly: true;
     }
+
+    interface PdfTemplate extends Template {
+        pdfOperations?: PdfOperation[];
+        pdfMeta?: PdfMeta;
+        pdfSign?: PdfSign;
+        pdfPassword?: PdfPassword;
+    }
 }
 
-declare function JSReportPdfUtils(): ExtensionDefinition;
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        PdfTemplate: JsReportPdfUtils.PdfTemplate;
+    }
+}
 
-export = JSReportPdfUtils;
+declare function JsReportPdfUtils(): ExtensionDefinition;
+
+export = JsReportPdfUtils;

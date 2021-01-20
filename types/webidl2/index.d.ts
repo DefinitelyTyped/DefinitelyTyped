@@ -29,11 +29,7 @@ export type IDLInterfaceMemberType =
     | DeclarationMemberType
     | OperationMemberType;
 
-export type IDLInterfaceMixinMemberType =
-    | AttributeMemberType
-    | ConstantMemberType
-    | (DeclarationMemberType & { type: "stringifier" })
-    | OperationMemberType;
+export type IDLInterfaceMixinMemberType = AttributeMemberType | ConstantMemberType | OperationMemberType;
 
 export type IDLNamespaceMemberType = AttributeMemberType | OperationMemberType;
 

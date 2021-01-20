@@ -9,6 +9,7 @@
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -32,7 +33,7 @@ export function unparse(data: object[] | any[][] | UnparseObject, config?: Unpar
  * Read-Only Properties
  */
 // An array of characters that are not allowed as delimiters.
-export const BAD_DELIMETERS: string[];
+export const BAD_DELIMITERS: string[];
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
 export type RECORD_SEP_TYPE = '';
@@ -126,6 +127,7 @@ export interface UnparseConfig {
     quotes?: boolean | boolean[] | ((value: any) => boolean); // default: false
     quoteChar?: string; // default: '"'
     escapeChar?: string; // default: '"'
+    escapeFormulae?: boolean; // default: false
     delimiter?: string; // default: ","
     /**
      * If defined and the download property is true,

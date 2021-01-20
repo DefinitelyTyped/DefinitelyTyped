@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-bad-reference
 import "../node-tests";
 import * as util from "util";
 

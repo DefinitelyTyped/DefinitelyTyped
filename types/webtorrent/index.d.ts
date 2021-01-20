@@ -1,8 +1,9 @@
-// Type definitions for WebTorrent 0.107
+// Type definitions for WebTorrent 0.109
 // Project: https://github.com/feross/webtorrent, https://webtorrent.io
 // Definitions by: Bazyli Brzóska <https://github.com/niieani>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Gabriel Juchault <https://github.com/gjuchault>
+//                 Adam Crowder <https://github.com/cheeseandcereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -27,6 +28,7 @@ declare namespace WebTorrent {
         tracker?: boolean | {};
         dht?: boolean | {};
         webSeeds?: boolean;
+        utp?: boolean;
     }
 
     interface TorrentOptions {
@@ -35,7 +37,11 @@ declare namespace WebTorrent {
         maxWebConns?: number;
         path?: string;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
-        name?: string;
+        private?: boolean;
+    }
+
+    interface TorrentDestroyOptions {
+        destroyStore?: boolean;
     }
 
     interface Instance extends NodeJS.EventEmitter {
@@ -48,7 +54,7 @@ declare namespace WebTorrent {
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
 
-        remove(torrentId: Torrent | string | Buffer, callback?: (err: Error | string) => void): void;
+        remove(torrentId: Torrent | string | Buffer, opts?: TorrentDestroyOptions, callback?: (err: Error | string) => void): void;
 
         destroy(callback?: (err: Error | string) => void): void;
 
@@ -122,7 +128,7 @@ declare namespace WebTorrent {
 
         readonly maxWebConns: number;
 
-        destroy(cb?: (err: Error | string) => void): void;
+        destroy(opts?: TorrentDestroyOptions, cb?: (err: Error | string) => void): void;
 
         addPeer(peer: string | SimplePeer): boolean;
 
