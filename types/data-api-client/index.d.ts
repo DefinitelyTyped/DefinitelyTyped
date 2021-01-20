@@ -45,8 +45,7 @@ interface iDataAPIClient {
     query<T = any>(sql: string, params?: [] | unknown): Promise<iDataAPIQueryResult<T>>; // params can be [] or {};
     query<T = any>(obj: {
         sql: string;
-        parameters?: [] | unknown;
-        transactionId?: string;
+        parameters: [] | unknown;
         database?: string;
         hydrateColumnNames?: boolean;
     }): Promise<iDataAPIQueryResult<T>>;
