@@ -1,16 +1,18 @@
+interface ToolbarOptions {
+    selectorInit: string;
+    selectorSearch: string;
+    selectorRowHeight: string;
+    classTallRows: string;
+    classSearchActive: string;
+}
+
 declare const Toolbar_base: any;
 declare class Toolbar extends Toolbar_base {
-    constructor(element: any, options: any);
-    _handleDocumentClick(event: any): void;
-    _handleKeyDown(event: any): void;
-    _handleRowHeightChange(event: any, boundTable: any): void;
+    constructor(element: HTMLElement, options?: Partial<ToolbarOptions>);
+    _handleDocumentClick(event: MouseEvent): void;
+    _handleKeyDown(event: KeyboardEvent): void;
+    _handleRowHeightChange(event: MouseEvent, boundTable: HTMLElement): void;
     static components: WeakMap<object, any>;
-    static get options(): {
-        selectorInit: string;
-        selectorSearch: string;
-        selectorRowHeight: string;
-        classTallRows: string;
-        classSearchActive: string;
-    };
+    static get options(): ToolbarOptions;
 }
 export default Toolbar;

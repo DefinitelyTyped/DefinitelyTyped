@@ -1,4 +1,4 @@
-interface ContentSwitcherOptions {
+export interface ContentSwitcherOptions {
     selectorInit: string;
     selectorButton: string;
     classActive: string;
