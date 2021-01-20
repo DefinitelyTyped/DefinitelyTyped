@@ -3,7 +3,7 @@
 // Definitions by: Debananda Mohanty <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
+import * as React from 'react';
 
 export interface ClampProps {
     lines: number;
@@ -17,4 +17,4 @@ export interface ClampProps {
     onShowMore?: () => void;
 }
 
-export default class Clamp extends Component<ClampProps> {}
+export default class Clamp extends React.Component<ClampProps> {}
