@@ -175,9 +175,9 @@ export class Graph<N extends GraphNode, L extends GraphLink> extends Component<G
     /**
      * Sets nodes and links highlighted value.
      *
-     * @param {string} id - the id of the node to highlight.
-     * @param {boolean} value - the highlight value to be set (true or false).
-    */
+     * @param id - the id of the node to highlight.
+     * @param value - the highlight value to be set (true or false).
+     */
     _setNodeHighlightedValue: (id: string, value: boolean) => void;
 }
 
