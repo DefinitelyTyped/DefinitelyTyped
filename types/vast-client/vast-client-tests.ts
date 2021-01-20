@@ -339,7 +339,9 @@ const invitationButton = document.getElementById('invitationButtonId') as HTMLBu
 // Bind click listener to the button
 invitationButton.addEventListener('click', () => {
     vastTracker.track('acceptInvitation');
-    vastTracker.track('acceptInvitationLinear', false);
+    vastTracker.track('acceptInvitationLinear', {once: false});
+    vastTracker.track('acceptInvitationLinear', {macros: {test: 'value'}, once: false});
+    vastTracker.track('acceptInvitationLinear', {macros: {test: 'value'}});
 });
 
 const vastAdvertiserWithId: VastAdvertiser = {

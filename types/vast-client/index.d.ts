@@ -136,7 +136,7 @@ export class VASTTracker extends EventEmitter {
          * The name of the event. Call the specified event tracking URLs. Emit the specified event when done.
          */
         eventName: string,
-        trackOptions: TrackOptions,
+        trackOptions?: TrackOptions,
     ): void;
 }
 
@@ -503,7 +503,7 @@ export interface TrackOptions {
     /**
      * An optional Object of parameters(vast macros) to be used in the tracking calls.
      */
-    macros: Record<string, any>;
+    macros?: Record<string, any>;
     /**
      * Indicate if the event has to be tracked only once.
      * Default: false
