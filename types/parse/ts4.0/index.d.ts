@@ -181,6 +181,9 @@ declare global {
             createdAt: Date;
             objectId: string;
             updatedAt: Date;
+        }
+
+        interface CommonAttributes {
             ACL: ACL;
         }
 
@@ -425,7 +428,7 @@ declare global {
             ): Relation<this, R>;
             remove: this['add'];
             removeAll: this['addAll'];
-            revert(...keys: Array<Extract<keyof T, string>>): void;
+            revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
             save<K extends Extract<keyof T, string>>(
                 attrs?:
                     | (((x: T) => void) extends (x: Attributes) => void
@@ -518,7 +521,7 @@ declare global {
                 : T extends RegExp
                 ? string
                 : T extends Array<infer R>
-                ? any[]
+                ? Array<Encode<R>>
                 : T extends object
                 ? ToJSON<T>
                 : T;
@@ -689,6 +692,7 @@ declare global {
             exclude<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
             exists<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
             find(options?: Query.FindOptions): Promise<T[]>;
+            findAll(options?: Query.BatchOptions): Promise<T[]>;
             first(options?: Query.FirstOptions): Promise<T | undefined>;
             fromNetwork(): this;
             fromLocalDatastore(): this;
@@ -970,11 +974,6 @@ declare global {
                 options: { authData?: AuthData },
                 saveOpts?: FullOptions,
             ) => Promise<this>;
-            _linkWith: (
-                provider: string | AuthProvider,
-                options: { authData?: AuthData },
-                saveOpts?: FullOptions,
-            ) => Promise<this>;
             _isLinked: (provider: string | AuthProvider) => boolean;
             _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
         }
@@ -1158,7 +1157,20 @@ declare global {
                 string
             >;
 
-            interface FieldOptions<T extends FieldType = any> {
+            interface FieldOptions<
+                T extends
+                    | string
+                    | number
+                    | boolean
+                    | Date
+                    | File
+                    | GeoPoint
+                    | Polygon
+                    | any[]
+                    | object
+                    | Pointer
+                    | Relation = any
+            > {
                 required?: boolean;
                 defaultValue?: T;
             }
@@ -1199,15 +1211,6 @@ declare global {
 
         namespace Analytics {
             function track(name: string, dimensions: any): Promise<any>;
-        }
-
-        /**
-         * Provides utility functions for working with Anonymously logged-in users.
-         */
-        namespace AnonymousUtils {
-            function isLinked(user: User): boolean;
-            function link(user: User, options?: ScopeOptions): Promise<User>;
-            function logIn(options?: ScopeOptions): Promise<User>;
         }
 
         /**
