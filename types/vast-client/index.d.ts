@@ -1,6 +1,6 @@
 // Type definitions for vast-client 3.0
 // Project: https://github.com/dailymotion/vast-client-js#readme
-// Definitions by: John G. Gainfort Jr. <https://github.com/jgainfort>, Sara Nordmyr da Cunha <https://github.com/kobawan>
+// Definitions by: John G. Gainfort Jr. <https://github.com/jgainfort>, Sara Nordmyr da Cunha <https://github.com/kobawan>, Nicolas Gehlert <https://github.com/ngehlert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -136,11 +136,7 @@ export class VASTTracker extends EventEmitter {
          * The name of the event. Call the specified event tracking URLs. Emit the specified event when done.
          */
         eventName: string,
-        /**
-         * Indicate if the event has to be tracked only once.
-         * Default: false
-         */
-        once?: boolean
+        trackOptions: TrackOptions,
     ): void;
 }
 
@@ -187,6 +183,8 @@ export class VASTClient {
 }
 
 export class VASTParser extends EventEmitter {
+    rootURL?: string;
+
     /**
      * util method for handling urls, it is used to make the requests.
      */
@@ -235,7 +233,7 @@ export class VASTParser extends EventEmitter {
         /**
          * url of original wrapper
          */
-        originalUrl?: string
+        previousUrl?: string
     ): Promise<Document>;
     /**
      * Fetches and parses a VAST for the given url.
@@ -265,6 +263,15 @@ export class VASTParser extends EventEmitter {
          */
         options?: VastRequestOptions,
     ): Promise<VastResponse>;
+
+    /**
+     * Parses the given xml Object into an array of ads
+     * Returns the array or throws an `Error` if an invalid VAST XML is provided
+     */
+    parseVastXml(
+        vastXml: Document,
+        options: ParseVastXmlOptions,
+    ): VastAd[];
 }
 
 export interface VASTClientCustomStorage {
@@ -490,4 +497,24 @@ export interface VastUrlValue {
 export interface StaticResource {
     url: string;
     creativeType: string | null;
+}
+
+export interface TrackOptions {
+    /**
+     * An optional Object of parameters(vast macros) to be used in the tracking calls.
+     */
+    macros: Record<string, any>;
+    /**
+     * Indicate if the event has to be tracked only once.
+     * Default: false
+     */
+    once?: boolean;
+}
+
+export interface ParseVastXmlOptions {
+    isRootVAST?: boolean;
+    url?: string | null;
+    wrapperDepth?: number;
+    allowMultipleAds?: boolean;
+    followAdditionalWrappers?: boolean;
 }
