@@ -3,6 +3,8 @@
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
 //                 Peter Xu <https://github.com/pxpeterxu>
+//                 Alec Gibson <https://github.com/alecgibson>
+//                 Christina Burger <https://github.com/pypmannetjies>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
