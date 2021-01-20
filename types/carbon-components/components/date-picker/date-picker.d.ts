@@ -1,8 +1,30 @@
+interface DatePickerOptions {
+    selectorInit: string;
+    selectorDatePickerInput: string;
+    selectorDatePickerInputFrom: string;
+    selectorDatePickerInputTo: string;
+    selectorDatePickerIcon: string;
+    selectorFlatpickrMonthYearContainer: string;
+    selectorFlatpickrYearContainer: string;
+    selectorFlatpickrCurrentMonth: string;
+    classCalendarContainer: string;
+    classMonth: string;
+    classWeekdays: string;
+    classDays: string;
+    classWeekday: string;
+    classDay: string;
+    classFocused: string;
+    classVisuallyHidden: string;
+    classFlatpickrCurrentMonth: string;
+    attribType: string;
+    dateFormat: string;
+}
+
 declare const DatePicker_base: any;
 declare class DatePicker extends DatePicker_base {
-    constructor(element: any, options: any);
+    constructor(element: HTMLElement, options?: Partial<DatePickerOptions>);
     _handleFocus: () => void;
-    _handleBlur: (event: any) => void;
+    _handleBlur: (event: FocusEvent) => void;
     _initDatePicker: (type: any) => any;
     _rightArrowHTML(): string;
     _leftArrowHTML(): string;
@@ -11,27 +33,7 @@ declare class DatePicker extends DatePicker_base {
     _updateInputFields: (selectedDates: any, type: any) => void;
     _formatDate: (date: any) => any;
     release(): any;
-    static get options(): {
-        selectorInit: string;
-        selectorDatePickerInput: string;
-        selectorDatePickerInputFrom: string;
-        selectorDatePickerInputTo: string;
-        selectorDatePickerIcon: string;
-        selectorFlatpickrMonthYearContainer: string;
-        selectorFlatpickrYearContainer: string;
-        selectorFlatpickrCurrentMonth: string;
-        classCalendarContainer: string;
-        classMonth: string;
-        classWeekdays: string;
-        classDays: string;
-        classWeekday: string;
-        classDay: string;
-        classFocused: string;
-        classVisuallyHidden: string;
-        classFlatpickrCurrentMonth: string;
-        attribType: string;
-        dateFormat: string;
-    };
+    static get options(): DatePickerOptions;
     static components: WeakMap<object, any>;
 }
 export default DatePicker;

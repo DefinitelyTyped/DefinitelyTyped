@@ -36,15 +36,15 @@ import {
     settings,
 } from 'carbon-components';
 
-const accordion = new Accordion(document.getElementById('root'), {});
+const accordion = new Accordion(document.getElementById('root')!, { selectorAccordionContent: '' });
 
 accordion._checkIfButton();
 accordion._handleKeypress({});
-accordion._toggle(document.getElementById('root'));
+accordion._toggle(document.getElementById('root')!);
 Accordion.components;
 Accordion.options;
 
-const checkbox = new Checkbox(document.getElementById('root'), {});
+const checkbox = new Checkbox(document.getElementById('root')!);
 
 checkbox._handleBlur();
 checkbox._handleClick();
@@ -52,7 +52,7 @@ checkbox._handleFocus();
 checkbox._indeterminateCheckbox();
 checkbox._initCheckbox();
 checkbox.setDisabled(true);
-checkbox.setState({ disabled: true });
+checkbox.setState(false);
 
 settings.prefix; // $ExpectType string
 settings.selectorFocusable; // $ExpectType string
