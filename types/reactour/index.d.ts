@@ -58,6 +58,15 @@ export interface ReactourStep {
     navDotAriaLabel?: string;
 }
 
+export interface ReactourAccessibilityOptions {
+    // attribute to associate the dialog with a title for screen readers
+    ariaLabelledBy?: string;
+    // aria-label attribute for the close button
+    closeButtonAriaLabel?: string;
+    // Show/Hide Navigation Dots for screen reader software
+    showNavigationScreenReaders?: boolean;
+}
+
 export interface ReactourProps {
     /**
      * You know…
@@ -249,6 +258,11 @@ export interface ReactourProps {
      * @default false
      */
     disableFocusLock?: boolean;
+
+    /**
+     * Configure accessibility related accessibility options
+     */
+    accessibilityOptions?: ReactourAccessibilityOptions;
 }
 
 export interface ReactourState {

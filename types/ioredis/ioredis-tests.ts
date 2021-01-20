@@ -17,6 +17,9 @@ const cbNumber = (err: Error | null, result: any) => {
 redis.set('foo', 'bar');
 redis.get('foo', cb);
 
+redis.getrangeBuffer("foo", 0, 1, cb);
+redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
 
@@ -66,6 +69,11 @@ redis.sinter('keya', 'keyb').then(console.log);
 redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
+
+// Test list index command
+redis.rpush('lposlist', 'foo', 'bar', 'baz');
+redis.lpos('lposlist', 'foo').then(console.log);
+redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
 
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
@@ -126,6 +134,12 @@ redis.zpopmax('myset', cb);
 redis.zpopmax('myset', 1, cb);
 redis.zpopmax('myset', 1).then(console.log);
 redis.zpopmax('myset').then(console.log);
+redis.bzpopmin('myset', 0).then(console.log);
+redis.bzpopmin('mysetA', 'mysetB', 0).then(console.log);
+redis.bzpopmin(['mysetA', 'mysetB', 0]).then(console.log);
+redis.bzpopmin('myset', 0, cb);
+redis.bzpopmin('mysetA', 'mysetB', 0, cb);
+redis.bzpopmin(['mysetA', 'mysetB', 0], cb);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -143,7 +157,18 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
 
-// Test OverloadedKeyedHashCommand
+// Test OverloadedKeyedHashCommand for hset
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
+redis.hset('foo', '1', '2', '3', 4).then(console.log);
+redis.hset('foo', '1', '2', '3', 4);
+redis.hset('foo', '1', '2').then(console.log);
+redis.hset('foo', '1', ['1', 2]);
+redis.hset('foo', { a: 'b', c: 4 }).then(console.log);
+redis.hset('foo', { a: 'b', c: 4 }, cb);
+redis.hset('foo', new Map<string, number>(), cb);
+
+// Test OverloadedKeyedHashCommand for hmset
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.hmset('foo', '1', '2', '3', 4).then(console.log);
@@ -173,6 +198,19 @@ redis.msetnx('1', ['1', 2]);
 redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
 redis.msetnx(new Map<string, number>(), cbNumber);
+
+// Test for GEO commands
+redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
+redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
+redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
+redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
+redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
+redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+
+// Test for memory usage
+redis.memory('USAGE', 'foo').then(console.log);
 
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
@@ -279,6 +317,7 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    username: 'user',
     password: 'auth',
     db: 0,
     retryStrategy() {
@@ -289,6 +328,7 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
+    enableAutoPipelining: true
 });
 
 const pub = new Redis();
@@ -312,6 +352,7 @@ pipeline.hset('hash', 'foo', 4);
 pipeline.hget('hash', 'foo');
 pipeline.hsetBuffer('hash', 'fooBuffer', 4);
 pipeline.hgetBuffer('hash', 'fooBuffer');
+pipeline.getrangeBuffer('foo', 0, 1);
 pipeline.exec((err, results) => {
     // `err` is always null, and `results` is an array of responses
     // corresponding to the sequence of queued commands.
@@ -389,9 +430,24 @@ redis
     .get('foo', (err, result) => {
         // result === 'QUEUED'
     })
+    .sscan('set', 0)
+    .sscan('set', '0')
+    .hscan('hash', 0)
+    .hscan('hash', '0')
+    .zscan('zset', 0)
+    .zscan('zset', '0')
+    .zadd('key', 1, 'a')
+    .zadd('key', 1, 'a', 2, 'b')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 'f')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
+
+redis.multi().options;
+redis.multi().redis;
 
 redis
     .multi([
@@ -472,6 +528,14 @@ redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.lo
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100).then(console.log);
 redis.zrevrangebyscore('set', 0, 100);
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -480,15 +544,31 @@ redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console
 redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES').then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebyscoreBuffer('set', 0, 100, 'LIMIT', 0, 10, cb);
 
 redis.zrangebylex('set', '-', '[c').then(console.log);
 redis.zrangebylex('set', '-', '[c');
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c');
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 redis.zrevrangebylex('set', '-', '[c').then(console.log);
 redis.zrevrangebylex('set', '-', '[c');
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrevrangebylexBuffer('set', '-', '[c').then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c');
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebylexBuffer('set', '-', '[c', 'LIMIT', 0, 10, cb);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
@@ -659,3 +739,11 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+redis.options.host;
+redis.status;
+cluster.options.maxRedirections;
+cluster.status;
+
+import { lookup } from 'dns';
+clusterOptions.dnsLookup = lookup;

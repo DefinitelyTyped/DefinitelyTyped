@@ -11,6 +11,9 @@ const streams: pinoms.Streams = [
     { stream: pinoms.prettyStream() },
     { stream: pinoms.prettyStream({ prettyPrint: { colorize: true } }) }
 ];
+const opts: pinoms.MultiStreamOptions = {
+    dedupe: true
+};
 const logger = pinoms({
     level: 'warn',
     streams
@@ -20,5 +23,5 @@ const log = pino(
     {
         level: 'debug',
     },
-    pinoms.multistream(streams)
+    pinoms.multistream(streams, opts)
 );

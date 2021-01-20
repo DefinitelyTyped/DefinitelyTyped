@@ -1,9 +1,10 @@
-// Type definitions for k6 0.26
+// Type definitions for k6 0.29
 // Project: https://k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
 //                 Pepe Cano <https://github.com/ppcano>
+//                 Simon Aronsson <https://github.com/simskij>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -36,6 +37,7 @@ import './http';
 import './metrics';
 import './options';
 import './ws';
+import './net/grpc';
 
 // === Main ===
 // ------------
@@ -48,6 +50,11 @@ import './ws';
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
  * @returns `true` if all checks have succeeded, otherwise `false`.
+ * @example
+ * check(res, {
+ *  "response code was 200": (res) => res.status == 200,
+ *  "body size was 1234 bytes": (res) => res.body.length == 1234,
+ * });
  */
 export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
@@ -55,6 +62,8 @@ export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
  * Immediately throw an error, aborting the current script iteration.
  * https://k6.io/docs/javascript-api/k6/fail-err
  * @param err - Error message that gets printed to stderr.
+ * @example
+ * fail("abort current iteration");
  */
 export function fail(err?: string): never;
 
@@ -65,6 +74,10 @@ export function fail(err?: string): never;
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
+ * @example
+ * group("group name", function() {
+ *  ..
+ * });
  */
 export function group<RT>(name: string, fn: () => RT): RT;
 
@@ -72,6 +85,8 @@ export function group<RT>(name: string, fn: () => RT): RT;
  * Suspend VU execution for the specified duration.
  * https://k6.io/docs/javascript-api/k6/sleep-t
  * @param t - Duration, in seconds.
+ * @example
+ * sleep(3);
  */
 export function sleep(t: number): void;
 

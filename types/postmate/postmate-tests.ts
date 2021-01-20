@@ -11,7 +11,8 @@ import Postmate = require('postmate');
 const parentHandshake = new Postmate({
   container: document.getElementById('some-div'),
   url: 'http://child.com/page.html',
-  classListArray: ["myClass"]
+  classListArray: ["myClass"],
+  name: 'some-name',
 });
 
 // When parent <-> child handshake is complete, data may be requested from the child

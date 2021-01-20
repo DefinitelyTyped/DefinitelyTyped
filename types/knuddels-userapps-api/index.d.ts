@@ -1,11 +1,19 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.00119839
+// Type definitions for non-npm package Knuddels UserApps API 1.20201208063705
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // helper types
 export type JsonData = string | number | boolean | Date | Json | JsonArray | undefined;
-export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable | undefined;
+export type KnuddelsJsonData =
+    | string
+    | number
+    | boolean
+    | Date
+    | KnuddelsJson
+    | KnuddelsJsonArray
+    | KnuddelsSerializable
+    | undefined;
 export type KnuddelsSerializable = string | number | boolean | User | BotUser | undefined;
 export type KnuddelsEvent = string | Json | KnuddelsEventArray;
 
@@ -19,14 +27,11 @@ declare global {
         [x: string]: KnuddelsJsonData | undefined;
     }
 
-    interface JsonArray extends Array<JsonData> {
-    }
+    interface JsonArray extends Array<JsonData> {}
 
-    interface KnuddelsJsonArray extends Array<KnuddelsJsonData> {
-    }
+    interface KnuddelsJsonArray extends Array<KnuddelsJsonData> {}
 
-    interface KnuddelsEventArray extends Array<string | Json | KnuddelsEventArray> {
-    }
+    interface KnuddelsEventArray extends Array<string | Json | KnuddelsEventArray> {}
 }
 
 // Apps API
@@ -38,21 +43,15 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_mayJoinChannel
          */
-        mayJoinChannel?(
-            user: User
-        ): ChannelJoinPermission;
+        mayJoinChannel?(user: User): ChannelJoinPermission;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_mayShowPublicMessage
          */
-        mayShowPublicMessage?(
-            publicMessage: PublicMessage
-        ): boolean;
+        mayShowPublicMessage?(publicMessage: PublicMessage): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_mayShowPublicActionMessage
          */
-        mayShowPublicActionMessage?(
-            publicActionMessage: PublicActionMessage
-        ): boolean;
+        mayShowPublicActionMessage?(publicActionMessage: PublicActionMessage): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onAppStart
          */
@@ -60,48 +59,31 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onBeforeKnuddelReceived
          */
-        onBeforeKnuddelReceived?(
-            knuddelTransfer: KnuddelTransfer
-        ): void;
+        onBeforeKnuddelReceived?(knuddelTransfer: KnuddelTransfer): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onKnuddelReceived
          */
-        onKnuddelReceived?(
-            sender: User,
-            receiver: BotUser,
-            knuddelAmount: KnuddelAmount,
-            transferReason: string
-        ): void;
+        onKnuddelReceived?(sender: User, receiver: BotUser, knuddelAmount: KnuddelAmount, transferReason: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onPrepareShutdown
          */
-        onPrepareShutdown?(
-            secondsTillShutdown: number
-        ): void;
+        onPrepareShutdown?(secondsTillShutdown: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onPrivateMessage
          */
-        onPrivateMessage?(
-            privateMessage: PrivateMessage
-        ): void;
+        onPrivateMessage?(privateMessage: PrivateMessage): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onPublicMessage
          */
-        onPublicMessage?(
-            publicMessage: PublicMessage
-        ): void;
+        onPublicMessage?(publicMessage: PublicMessage): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onPublicEventMessage
          */
-        onPublicEventMessage?(
-            publicEventMessage: PublicEventMessage
-        ): void;
+        onPublicEventMessage?(publicEventMessage: PublicEventMessage): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onPublicActionMessage
          */
-        onPublicActionMessage?(
-            publicActionMessage: PublicActionMessage
-        ): void;
+        onPublicActionMessage?(publicActionMessage: PublicActionMessage): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onShutdown
          */
@@ -109,38 +91,28 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onUserDiced
          */
-        onUserDiced?(
-            diceEvent: DiceEvent
-        ): void;
+        onUserDiced?(diceEvent: DiceEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onUserJoined
          */
-        onUserJoined?(
-            user: User
-        ): void;
+        onUserJoined?(user: User): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onUserLeft
          */
-        onUserLeft?(
-            user: User
-        ): void;
+        onUserLeft?(user: User): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/App.html#method_onDebtsUpdate
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        onDebtsUpdate?(debts: KnuddelAmount): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onAppEventReceived
          */
-        onAppEventReceived?(
-            appInstance: AppInstance,
-            type: string,
-            data: KnuddelsEvent
-        ): void;
+        onAppEventReceived?(appInstance: AppInstance, type: string, data: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onEventReceived
          */
-        onEventReceived?(
-            user: User,
-            type: string,
-            data: KnuddelsEvent,
-            appContentSession: AppContentSession
-        ): void;
+        onEventReceived?(user: User, type: string, data: KnuddelsEvent, appContentSession: AppContentSession): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onAccountReceivedKnuddel
          */
@@ -149,7 +121,7 @@ declare global {
             receiver: BotUser,
             knuddelAmount: KnuddelAmount,
             transferReason: string,
-            knuddelAccount: KnuddelAccount
+            knuddelAccount: KnuddelAccount,
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onAccountChangedKnuddelAmount
@@ -158,30 +130,21 @@ declare global {
             user: User,
             knuddelAccount: KnuddelAccount,
             oldKnuddelAmount: KnuddelAmount,
-            newKnuddelAmount: KnuddelAmount
+            newKnuddelAmount: KnuddelAmount,
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onUserDeleted
          */
-        onUserDeleted?(
-            userId: number,
-            userPersistence: UserPersistence
-        ): void;
+        onUserDeleted?(userId: number, userPersistence: UserPersistence): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_onDeveloperCommand
          * @since AppServer 108662, ChatServer 108662
          */
-        onDeveloperCommand?(
-            user: User,
-            params: string
-        ): void;
+        onDeveloperCommand?(user: User, params: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#method_mayUserDice
          */
-        mayUserDice?(
-            user: User,
-            diceConfig: DiceConfiguration
-        ): boolean;
+        mayUserDice?(user: User, diceConfig: DiceConfiguration): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/App.html#property_chatCommands
          */
@@ -200,16 +163,12 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getAllRunningAppsInChannel
          * @since AppServer 82904
          */
-        getAllRunningAppsInChannel(
-            includeSelf?: boolean
-        ): AppInstance[];
+        getAllRunningAppsInChannel(includeSelf?: boolean): AppInstance[];
         /**
          * @see https://developer.knuddels.de/docs/classes/AppAccess.html#method_getRunningAppInChannel
          * @since AppServer 82904
          */
-        getRunningAppInChannel(
-            appId: string
-        ): (AppInstance|null);
+        getRunningAppInChannel(appId: string): AppInstance | null;
     }
 
     /**
@@ -239,45 +198,27 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_overlayContent
          */
-        static overlayContent(
-            htmlFile: HTMLFile,
-            width: number,
-            height: number
-        ): AppContent;
+        static overlayContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_overlayContent
          */
-        static overlayContent(
-            htmlFile: HTMLFile
-        ): AppContent;
+        static overlayContent(htmlFile: HTMLFile): AppContent;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_popupContent
          */
-        static popupContent(
-            htmlFile: HTMLFile
-        ): AppContent;
+        static popupContent(htmlFile: HTMLFile): AppContent;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_popupContent
          */
-        static popupContent(
-            htmlFile: HTMLFile,
-            width: number,
-            height: number
-        ): AppContent;
+        static popupContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_headerbarContent
          */
-        static headerbarContent(
-            htmlFile: HTMLFile,
-            height: number
-        ): AppContent;
+        static headerbarContent(htmlFile: HTMLFile, height: number): AppContent;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_sendEvent
          */
-        sendEvent(
-            type: string,
-            data?: KnuddelsEvent
-        ): void;
+        sendEvent(type: string, data?: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getUsers
          */
@@ -289,9 +230,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_replaceWithAppContent
          */
-        replaceWithAppContent(
-            newAppContent: AppContent
-        ): void;
+        replaceWithAppContent(newAppContent: AppContent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_remove
          */
@@ -299,18 +238,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_addCloseListener
          */
-        addCloseListener(
-            callback: {
-                user: User;
-                appContent: AppContent;
-            }
-        ): void;
+        addCloseListener(callback: { user: User; appContent: AppContent }): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_setAllowJFXBrowser
          */
-        setAllowJFXBrowser(
-            allowJFXBrowser: boolean
-        ): void;
+        setAllowJFXBrowser(allowJFXBrowser: boolean): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_isAllowJFXBrowser
          */
@@ -324,10 +256,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_sendEvent
          */
-        sendEvent(
-            type: string,
-            data?: KnuddelsEvent
-        ): void;
+        sendEvent(type: string, data?: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getAppViewMode
          */
@@ -394,6 +323,11 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppInfo.html#method_getMaxPayoutKnuddelAmount
          */
         getMaxPayoutKnuddelAmount(): KnuddelAmount;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppInfo.html#method_requestKnuddelDebts
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        requestKnuddelDebts(callback: (debts: number, result: string) => void): void;
     }
 
     /**
@@ -407,10 +341,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_sendAppEvent
          */
-        sendAppEvent(
-            type: string,
-            data: KnuddelsEvent
-        ): void;
+        sendAppEvent(type: string, data: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_isRootInstance
          */
@@ -422,9 +353,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_getAllInstances
          */
-        getAllInstances(
-            includeSelf?: boolean
-        ): AppInstance[];
+        getAllInstances(includeSelf?: boolean): AppInstance[];
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_getStartDate
          */
@@ -432,7 +361,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_getRegisteredChatCommandNames
          */
-        getRegisteredChatCommandNames(): (string[]|null);
+        getRegisteredChatCommandNames(): string[] | null;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppInstance.html#method_getChannelName
          */
@@ -451,6 +380,21 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getDatabaseFileSizeLimit
          */
         getDatabaseFileSizeLimit(): number;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getStringKeys
+         * @since AppServer 20191007-160000
+         */
+        getStringKeys(keyPattern?: string): string[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getNumberKeys
+         * @since AppServer 20191007-160000
+         */
+        getNumberKeys(keyPattern?: string): string[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getObjectKeys
+         * @since AppServer 20191007-160000
+         */
+        getObjectKeys(keyPattern?: string): string[];
     }
 
     /**
@@ -482,29 +426,21 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppProfileEntryAccess.html#method_getAppProfileEntry
          */
-        getAppProfileEntry(
-            userPersistenceNumberKey: string
-        ): AppProfileEntry;
+        getAppProfileEntry(userPersistenceNumberKey: string): AppProfileEntry;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppProfileEntryAccess.html#method_createOrUpdateEntry
          */
-        createOrUpdateEntry(
-            toplist: Toplist,
-            toplistDisplayType: ToplistDisplayType
-        ): AppProfileEntry;
+        createOrUpdateEntry(toplist: Toplist, toplistDisplayType: ToplistDisplayType): AppProfileEntry;
         /**
          * @see https://developer.knuddels.de/docs/classes/AppProfileEntryAccess.html#method_removeEntry
          */
-        removeEntry(
-            appProfileEntry: AppProfileEntry
-        ): void;
+        removeEntry(appProfileEntry: AppProfileEntry): void;
     }
 
     /**
      * @see https://developer.knuddels.de/docs/classes/AppServerInfo.html
      */
-    class AppServerInfo extends ServerInfo {
-    }
+    class AppServerInfo extends ServerInfo {}
 
     /**
      * @see https://developer.knuddels.de/docs/classes/AppViewMode.html
@@ -558,42 +494,43 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_sendPublicMessage
          */
-        sendPublicMessage(
-            message: string
-        ): void;
+        sendPublicMessage(message: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_sendPublicActionMessage
          */
-        sendPublicActionMessage(
-            actionMessage: string
-        ): void;
+        sendPublicActionMessage(actionMessage: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_sendPrivateMessage
          */
-        sendPrivateMessage(
-            message: string,
-            users?: User[]
-        ): void;
+        sendPrivateMessage(message: string, users?: User[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_sendPostMessage
          */
-        sendPostMessage(
-            topic: string,
-            text: string,
-            receivingUser?: User
-        ): void;
+        sendPostMessage(topic: string, text: string, receivingUser?: User): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_transferKnuddel
          */
         transferKnuddel(
-            receivingUserOrAccount: (User|KnuddelAccount),
+            receivingUserOrAccount: User | KnuddelAccount,
             knuddelAmount: KnuddelAmount,
             parameters?: {
                 displayReasonText?: string;
                 transferDisplayType?: KnuddelTransferDisplayType;
                 onSuccess?: () => void;
                 onError?: (message: string) => void;
-            }
+            },
+        ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/BotUser.html#method_destroyKnuddel
+         * @since AppServer 20200212-112449
+         */
+        destroyKnuddel(
+            knuddelAmount: KnuddelAmount,
+            reason: string,
+            parameters?: {
+                onSuccess?: (knuddelAmount: KnuddelAmount, reason: string) => void;
+                onError?: (knuddelAmount: KnuddelAmount, reason: string, message: string) => void;
+            },
         ): void;
     }
 
@@ -617,9 +554,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Channel.html#method_getOnlineUsers
          */
-        getOnlineUsers(
-            ...userType: UserType[]
-        ): User[];
+        getOnlineUsers(...userType: UserType[]): User[];
         /**
          * @see https://developer.knuddels.de/docs/classes/Channel.html#method_isVideoChannel
          */
@@ -643,9 +578,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Channel.html#method_getAllUsersWithTalkPermission
          */
-        getAllUsersWithTalkPermission(
-            ...channelTalkPermission: ChannelTalkPermission[]
-        ): User[];
+        getAllUsersWithTalkPermission(...channelTalkPermission: ChannelTalkPermission[]): User[];
         /**
          * @see https://developer.knuddels.de/docs/classes/Channel.html#method_isVisible
          * @since AppServer 82202
@@ -700,10 +633,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/ChannelInformation.html#method_setTopic
          */
-        setTopic(
-            topic: string,
-            showMessage: boolean
-        ): void;
+        setTopic(topic: string, showMessage: boolean): void;
     }
 
     /**
@@ -717,9 +647,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/ChannelJoinPermission.html#method_denied
          */
-        static denied(
-            denyReason: string
-        ): ChannelJoinPermission;
+        static denied(denyReason: string): ChannelJoinPermission;
     }
 
     /**
@@ -827,66 +755,46 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_sendEvent
          */
-        static sendEvent(
-            type: string,
-            data: KnuddelsEvent
-        ): void;
+        static sendEvent(type: string, data: KnuddelsEvent): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_executeSlashCommand
          */
-        static executeSlashCommand(
-            command: string
-        ): void;
+        static executeSlashCommand(command: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_includeJS
          */
-        static includeJS(
-            ...files: string[]
-        ): void;
+        static includeJS(...files: string[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_addEventListener
          */
-        static addEventListener(
-            type: string,
-            callback: (event: {type: string, data: KnuddelsEvent}) => void
-        ): void;
+        static addEventListener(type: string, callback: (event: { type: string; data: KnuddelsEvent }) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_dispatchEvent
          */
-        static dispatchEvent(
-            event: Client.Event
-        ): void;
+        static dispatchEvent(event: Client.Event): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeEventListener
          */
         static removeEventListener(
             type: string,
-            callback?: (event: {type: string, data: KnuddelsEvent}) => void
+            callback?: (event: { type: string; data: KnuddelsEvent }) => void,
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_includeCSS
          */
-        static includeCSS(
-            ...files: string[]
-        ): void;
+        static includeCSS(...files: string[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_playSound
          */
-        static playSound(
-            fileName: string
-        ): void;
+        static playSound(fileName: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_prefetchSound
          */
-        static prefetchSound(
-            fileName: string
-        ): void;
+        static prefetchSound(fileName: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_freeSound
          */
-        static freeSound(
-            fileName: string
-        ): void;
+        static freeSound(fileName: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_getHostFrame
          */
@@ -900,6 +808,10 @@ declare global {
          */
         static getClientType(): ClientType;
         /**
+         * @see https://developer.knuddels.de/docs/classes/Client.html#method_isK3Client
+         */
+        static isK3Client(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_getCacheInvalidationId
          */
         static getCacheInvalidationId(): string;
@@ -910,15 +822,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_addConnectionTypeChangeListener
          */
-        static addConnectionTypeChangeListener(
-            callback: (type: string) => void
-        ): void;
+        static addConnectionTypeChangeListener(callback: (type: string) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_removeConnectionTypeChangeListener
          */
-        static removeConnectionTypeChangeListener(
-            callback: (type: string) => void
-        ): void;
+        static removeConnectionTypeChangeListener(callback: (type: string) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#property_pageData
          */
@@ -933,17 +841,11 @@ declare global {
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.Color.html#method_fromRGB
              */
-            static fromRGB(
-                red: number,
-                green: number,
-                blue: number
-            ): Color;
+            static fromRGB(red: number, green: number, blue: number): Color;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.Color.html#method_fromHexString
              */
-            static fromHexString(
-                colorString: string
-            ): Color;
+            static fromHexString(colorString: string): Color;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.Color.html#method_getRed
              */
@@ -971,10 +873,7 @@ declare global {
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.Event.html#method_Event
              */
-            constructor(
-                type: string,
-                data: KnuddelsEvent
-            );
+            constructor(type: string, data: KnuddelsEvent);
         }
     }
 
@@ -986,29 +885,20 @@ declare global {
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setTitle
              */
-            setTitle(
-                newTitle: string
-            ): void;
+            setTitle(newTitle: string): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setBackgroundColor
              */
-            setBackgroundColor(
-                newColor: Color,
-                durationMillis?: number
-            ): void;
+            setBackgroundColor(newColor: Color, durationMillis?: number): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setIcons
              * @since Applet: 9.0bwj, AppServer: 84904
              */
-            setIcons(
-                ...path: string[]
-            ): void;
+            setIcons(...path: string[]): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setResizable
              */
-            setResizable(
-                resizable: boolean
-            ): void;
+            setResizable(resizable: boolean): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_focus
              * @since Applet: 9.0bwj, AppServer: 84904
@@ -1018,10 +908,7 @@ declare global {
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_setSize
              * @since Applet: 9.0bwj, AppServer: 84516
              */
-            setSize(
-                width: number,
-                height: number
-            ): void;
+            setSize(width: number, height: number): void;
             /**
              * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getAppViewMode
              * @since Applet: 9.0byl
@@ -1059,6 +946,14 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_Offline
          */
         static readonly Offline: ClientType;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_Web
+         */
+        static readonly Web: ClientType;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_MobileWeb
+         */
+        static readonly MobileWeb: ClientType;
     }
 
     /**
@@ -1068,20 +963,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Color.html#method_fromRGB
          */
-        static fromRGB(
-            red: number,
-            green: number,
-            blue: number
-        ): Color;
+        static fromRGB(red: number, green: number, blue: number): Color;
         /**
          * @see https://developer.knuddels.de/docs/classes/Color.html#method_fromRGBA
          */
-        static fromRGBA(
-            red: number,
-            green: number,
-            blue: number,
-            alpha: number
-        ): Color;
+        static fromRGBA(red: number, green: number, blue: number, alpha: number): Color;
         /**
          * @see https://developer.knuddels.de/docs/classes/Color.html#method_getAlpha
          */
@@ -1109,9 +995,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Color.html#method_fromNumber
          */
-        static fromNumber(
-            value: number
-        ): Color;
+        static fromNumber(value: number): Color;
     }
 
     /**
@@ -1121,10 +1005,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_Dice
          */
-        constructor(
-            count: number /* optional */,
-            value: number
-        );
+        constructor(count: number /* optional */, value: number);
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_getAmount
          */
@@ -1154,9 +1035,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfiguration.html#method_equals
          */
-        equals(
-            diceConfiguration: DiceConfiguration
-        ): boolean;
+        equals(diceConfiguration: DiceConfiguration): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfiguration.html#method_getChatCommand
          * @since AppServer 82248
@@ -1176,9 +1055,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_addDice
          */
-        addDice(
-            dice: Dice
-        ): void;
+        addDice(dice: Dice): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_computeCurrentDiceCount
          */
@@ -1186,15 +1063,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_setUseOpenThrow
          */
-        setUseOpenThrow(
-            shouldUseOpenThrow: boolean
-        ): void;
+        setUseOpenThrow(shouldUseOpenThrow: boolean): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_setShouldUsePrivateThrow
          */
-        setShouldUsePrivateThrow(
-            shouldUsePrivateThrow: boolean
-        ): void;
+        setShouldUsePrivateThrow(shouldUsePrivateThrow: boolean): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_getDiceConfiguration
          */
@@ -1202,9 +1075,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/DiceConfigurationFactory.html#method_fromString
          */
-        static fromString(
-            diceConfigurationString: string
-        ): DiceConfiguration;
+        static fromString(diceConfigurationString: string): DiceConfiguration;
     }
 
     /**
@@ -1265,9 +1136,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/ExternalServerAccess.html#method_canAccessURL
          */
-        canAccessURL(
-            urlString: string
-        ): boolean;
+        canAccessURL(urlString: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/ExternalServerAccess.html#method_getURL
          */
@@ -1276,7 +1145,7 @@ declare global {
             parameters?: {
                 onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-            }
+            },
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/ExternalServerAccess.html#method_postURL
@@ -1287,7 +1156,7 @@ declare global {
                 onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 data?: Json;
-            }
+            },
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/ExternalServerAccess.html#method_touchURL
@@ -1297,7 +1166,7 @@ declare global {
             parameters?: {
                 onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-            }
+            },
         ): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/ExternalServerAccess.html#method_callURL
@@ -1307,9 +1176,9 @@ declare global {
             parameters?: {
                 onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-                method?: ("GET" | "POST");
+                method?: 'GET' | 'POST';
                 data?: Json;
-            }
+            },
         ): void;
     }
 
@@ -1338,9 +1207,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/ExternalServerResponse.html#method_getHeaderFieldValues
          * @since AppServer 108668
          */
-        getHeaderFieldValues(
-            headerFieldName: string
-        ): string[];
+        getHeaderFieldValues(headerFieldName: string): string[];
     }
 
     /**
@@ -1368,10 +1235,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/HTMLFile.html#method_HTMLFile
          */
-        constructor(
-            assetPath: string,
-            pageData?: Json
-        );
+        constructor(assetPath: string, pageData?: Json);
         /**
          * @see https://developer.knuddels.de/docs/classes/HTMLFile.html#method_getAssetPath
          */
@@ -1409,9 +1273,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAccount.html#method_hasEnough
          */
-        hasEnough(
-            knuddelAmount: KnuddelAmount
-        ): boolean;
+        hasEnough(knuddelAmount: KnuddelAmount): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAccount.html#method_getUser
          */
@@ -1426,7 +1288,7 @@ declare global {
                 transferReason?: string;
                 onError?: (message: string) => void;
                 onSuccess?: () => void;
-            }
+            },
         ): void;
     }
 
@@ -1437,21 +1299,15 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAmount.html#method_KnuddelAmount
          */
-        constructor(
-            knuddel: number
-        );
+        constructor(knuddel: number);
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAmount.html#method_fromCents
          */
-        static fromCents(
-            knuddel: number
-        ): KnuddelAmount;
+        static fromCents(knuddel: number): KnuddelAmount;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAmount.html#method_fromKnuddel
          */
-        static fromKnuddel(
-            knuddel: number
-        ): KnuddelAmount;
+        static fromKnuddel(knuddel: number): KnuddelAmount;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelAmount.html#method_getKnuddelCents
          */
@@ -1501,10 +1357,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelPot.html#method_setFee
          */
-        setFee(
-            feeUser: BotUser,
-            feeMultiplier: number
-        ): void;
+        setFee(feeUser: BotUser, feeMultiplier: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelPot.html#method_getFeeUser
          */
@@ -1520,22 +1373,15 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelPot.html#method_refund
          */
-        refund(
-            reason?: string
-        ): void;
+        refund(reason?: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelPot.html#method_addWinner
          */
-        addWinner(
-            user: User,
-            weight?: number
-        ): void;
+        addWinner(user: User, weight?: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelPot.html#method_payout
          */
-        payout(
-            text?: string
-        ): void;
+        payout(text?: string): void;
     }
 
     /**
@@ -1579,9 +1425,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelTransfer.html#method_reject
          */
-        reject(
-            reason: string
-        ): void;
+        reject(reason: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelTransfer.html#method_accept
          */
@@ -1589,15 +1433,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelTransfer.html#method_canAddToPot
          */
-        canAddToPot(
-            pot: KnuddelPot
-        ): boolean;
+        canAddToPot(pot: KnuddelPot): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelTransfer.html#method_addToPot
          */
-        addToPot(
-            knuddelPot: KnuddelPot
-        ): void;
+        addToPot(knuddelPot: KnuddelPot): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelTransfer.html#method_isProcessed
          */
@@ -1633,15 +1473,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_execute
          */
-        static execute(
-            fileName: string
-        ): void;
+        static execute(fileName: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_listFiles
          */
-        static listFiles(
-            path: string
-        ): string[];
+        static listFiles(path: string): string[];
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getDefaultBotUser
          */
@@ -1678,15 +1514,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getFullImagePath
          */
-        static getFullImagePath(
-            imageName: string
-        ): string;
+        static getFullImagePath(imageName: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getFullSystemImagePath
          */
-        static getFullSystemImagePath(
-            imageName: string
-        ): string;
+        static getFullSystemImagePath(imageName: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getChatServerInfo
          */
@@ -1708,14 +1540,12 @@ declare global {
                 payoutTimeoutMinutes?: number;
                 shouldSealPot?: (pot: KnuddelPot) => boolean;
                 onPotSealed?: (pot: KnuddelPot) => void;
-            }
+            },
         ): KnuddelPot;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getKnuddelPot
          */
-        static getKnuddelPot(
-            id: number
-        ): (KnuddelPot|null);
+        static getKnuddelPot(id: number): KnuddelPot | null;
         /**
          * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getAllKnuddelPots
          */
@@ -1737,39 +1567,27 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setBackgroundColor
          */
-        setBackgroundColor(
-            color: Color
-        ): void;
+        setBackgroundColor(color: Color): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setBackgroundImage
          */
-        setBackgroundImage(
-            imageUrl: string
-        ): void;
+        setBackgroundImage(imageUrl: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setText
          */
-        setText(
-            text: string
-        ): void;
+        setText(text: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setLoadingIndicatorImage
          */
-        setLoadingIndicatorImage(
-            imageUrl: string
-        ): void;
+        setLoadingIndicatorImage(imageUrl: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setForegroundColor
          */
-        setForegroundColor(
-            color: Color
-        ): void;
+        setForegroundColor(color: Color): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/LoadConfiguration.html#method_setEnabled
          */
-        setEnabled(
-            enabled: boolean
-        ): void;
+        setEnabled(enabled: boolean): void;
     }
 
     /**
@@ -1779,33 +1597,23 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Logger.html#method_debug
          */
-        debug(
-            ...msg: any[]
-        ): void;
+        debug(...msg: any[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Logger.html#method_info
          */
-        info(
-            ...msg: any[]
-        ): void;
+        info(...msg: any[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Logger.html#method_warn
          */
-        warn(
-            ...msg: any[]
-        ): void;
+        warn(...msg: any[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Logger.html#method_error
          */
-        error(
-            ...msg: any[]
-        ): void;
+        error(...msg: any[]): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Logger.html#method_fatal
          */
-        fatal(
-            ...msg: any[]
-        ): void;
+        fatal(...msg: any[]): void;
     }
 
     /**
@@ -1838,10 +1646,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/OwnAppInstance.html#method_getOnlineUsers
          * @since AppServer 82560
          */
-        getOnlineUsers(
-            otherAppInstance: AppInstance,
-            ...userType: UserType[]
-        ): User[];
+        getOnlineUsers(otherAppInstance: AppInstance, ...userType: UserType[]): User[];
     }
 
     /**
@@ -1860,7 +1665,28 @@ declare global {
                 customMessage?: string;
                 transferReason?: string;
                 toAccount?: boolean;
-            }
+            },
+        ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/PaymentAccess.html#method_requestKnuddelBuyBonusInfos
+         * @since AppServer 20200403-191108, ChatServer 20200403-191108
+         */
+        requestKnuddelBuyBonusInfos(
+            user: User,
+            callback: (
+                user: User,
+                bonusEndTimestamp: number,
+                bonuses: [
+                    {
+                        productId: string;
+                        origPriceCents: number;
+                        newPriceCents?: number;
+                        origKnuddelPayout: number;
+                        newKnuddelPayout?: number;
+                    },
+                ],
+                result: string,
+            ) => void,
         ): void;
     }
 
@@ -1871,88 +1697,58 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_hasString
          */
-        hasString(
-            key: string
-        ): boolean;
+        hasString(key: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_setString
          */
-        setString(
-            key: string,
-            value: string
-        ): void;
+        setString(key: string, value: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_getString
          */
-        getString(
-            key: string,
-            defaultValue?: string
-        ): string;
+        getString(key: string, defaultValue?: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_deleteString
          */
-        deleteString(
-            key: string
-        ): void;
+        deleteString(key: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_hasNumber
          */
-        hasNumber(
-            key: string
-        ): boolean;
+        hasNumber(key: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_setNumber
          */
-        setNumber(
-            key: string,
-            value: number
-        ): void;
+        setNumber(key: string, value: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_addNumber
          */
-        addNumber(
-            key: string,
-            value: number
-        ): number;
+        addNumber(key: string, value: number): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_getNumber
          */
-        getNumber(
-            key: string,
-            defaultValue?: number
-        ): number;
+        getNumber(key: string, defaultValue?: number): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_deleteNumber
          */
-        deleteNumber(
-            key: string
-        ): void;
+        deleteNumber(key: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_hasObject
          */
-        hasObject(
-            key: string
-        ): boolean;
+        hasObject(key: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_setObject
          */
-        setObject(
-            key: string,
-            object: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)
-        ): void;
+        setObject(key: string, object: KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_getObject
          */
         getObject(
             key: string,
-            defaultValue?: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)
-        ): (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable);
+            defaultValue?: KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable,
+        ): KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable;
         /**
          * @see https://developer.knuddels.de/docs/classes/Persistence.html#method_deleteObject
          */
-        deleteObject(
-            key: string
-        ): void;
+        deleteObject(key: string): void;
     }
 
     /**
@@ -1966,9 +1762,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/PrivateMessage.html#method_sendReply
          */
-        sendReply(
-            text: string
-        ): void;
+        sendReply(text: string): void;
     }
 
     /**
@@ -1994,8 +1788,7 @@ declare global {
     /**
      * @see https://developer.knuddels.de/docs/classes/PublicMessage.html
      */
-    class PublicMessage extends Message {
-    }
+    class PublicMessage extends Message {}
 
     /**
      * @see https://developer.knuddels.de/docs/classes/Quest.html
@@ -2005,9 +1798,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_setSolved
          * @since AppServer 82290, ChatServer 82290
          */
-        setSolved(
-            count?: number
-        ): void;
+        setSolved(count?: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Quest.html#method_getQuestKey
          * @since AppServer 82290, ChatServer 82290
@@ -2028,16 +1819,12 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_hasQuest
          * @since AppServer 82290, ChatServer 82290
          */
-        hasQuest(
-            questKey: string
-        ): boolean;
+        hasQuest(questKey: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_getQuest
          * @since AppServer 82290, ChatServer 82290
          */
-        getQuest(
-            questKey: string
-        ): (Quest|null);
+        getQuest(questKey: string): Quest | null;
         /**
          * @see https://developer.knuddels.de/docs/classes/QuestAccess.html#method_getUser
          * @since AppServer 82290, ChatServer 82290
@@ -2052,10 +1839,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInt
          */
-        static nextInt(
-            minValue: number /* optional */,
-            maxValue: number
-        ): number;
+        static nextInt(minValue: number /* optional */, maxValue: number): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInts
          */
@@ -2063,34 +1847,25 @@ declare global {
             minValue: number /* optional */,
             maxValue: number,
             count: number,
-            onlyDifferentNumbers: boolean
+            onlyDifferentNumbers: boolean,
         ): number[];
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_flipTrue
          */
-        static flipTrue(
-            truePropability: number
-        ): boolean;
+        static flipTrue(truePropability: number): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_getRandomObject
          */
-        static getRandomObject<T>(
-            objects: T[]
-        ): T;
+        static getRandomObject<T>(objects: T[]): T;
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_shuffleObjects
          */
-        static shuffleObjects<T>(
-            objects: T[]
-        ): T[];
+        static shuffleObjects<T>(objects: T[]): T[];
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_getRandomString
          * @since AppServer 92699
          */
-        static getRandomString(
-            length: number,
-            allowedCharacters?: string
-        ): string;
+        static getRandomString(length: number, allowedCharacters?: string): string;
     }
 
     /**
@@ -2098,12 +1873,17 @@ declare global {
      */
     class RootAppInstance extends AppInstance {
         /**
+         * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_updateAppFiles
+         */
+        updateAppFiles(): string[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_invalidateClientCache
+         */
+        invalidateClientCache(): void;
+        /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_updateApp
          */
-        updateApp(
-            message: string /* optional */,
-            logMessage?: string
-        ): number;
+        updateApp(message: string /* optional */, logMessage?: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_cancelUpdateApp
          * @since AppServer 98117
@@ -2112,10 +1892,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_stopApp
          */
-        stopApp(
-            message: string /* optional */,
-            logMessage?: string
-        ): void;
+        stopApp(message: string /* optional */, logMessage?: string): void;
     }
 
     /**
@@ -2127,9 +1904,10 @@ declare global {
          */
         getServerId(): string;
         /**
-         * @see https://developer.knuddels.de/docs/classes/ServerInfo.html#method_getRevision
+         * @see https://developer.knuddels.de/docs/classes/ServerInfo.html#method_getVersion
+         * @since AppServer 20191007-160000
          */
-        getRevision(): number;
+        getVersion(): string;
     }
 
     /**
@@ -2165,44 +1943,28 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_startsWith
          */
-        startsWith(
-            prefix: string
-        ): boolean;
+        startsWith(prefix: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_endsWith
          */
-        endsWith(
-            suffix: string
-        ): boolean;
+        endsWith(suffix: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_getPixelWidth
          */
-        getPixelWidth(
-            fontSize: number,
-            isBold: boolean
-        ): number;
+        getPixelWidth(fontSize: number, isBold: boolean): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_limitString
          */
-        limitString(
-            fontSize: number,
-            isBold: boolean,
-            maxPixelWidth: number,
-            abbreviationMarker?: string
-        ): string;
+        limitString(fontSize: number, isBold: boolean, maxPixelWidth: number, abbreviationMarker?: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_contains
          */
-        contains(
-            needle: string
-        ): boolean;
+        contains(needle: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_minimalConversionCost
          * @since AppServer 82271
          */
-        minimalConversionCost(
-            otherString: string
-        ): number;
+        minimalConversionCost(otherString: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_hasOnlyNicknameCharacters
          * @since AppServer 82271
@@ -2236,10 +1998,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_replaceAll
          */
-        replaceAll(
-            search: string|RegExp,
-            replacement: string
-        ): string;
+        replaceAll(search: string | RegExp, replacement: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/String.html#method_isOk
          * @since ChatServer 82262, AppServer 82262
@@ -2262,39 +2021,27 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_getChatCommand
          */
-        getChatCommand(
-            user_or_userId?: (User|number)
-        ): string;
+        getChatCommand(user_or_userId?: User | number): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_getLabel
          */
-        getLabel(
-            user_or_userId: (User|number)
-        ): string;
+        getLabel(user_or_userId: User | number): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_addLabelChangeListener
          */
-        addLabelChangeListener(
-            listener: (labelChangeEvent: ToplistLabelChangeEvent) => void
-        ): void;
+        addLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_removeLabelChangeListener
          */
-        removeLabelChangeListener(
-            listener: (labelChangeEvent: ToplistLabelChangeEvent) => void
-        ): void;
+        removeLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_addRankChangeListener
          */
-        addRankChangeListener(
-            listener: (rankChangeEvent: ToplistRankChangeEvent) => void
-        ): void;
+        addRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/Toplist.html#method_removeRankChangeListener
          */
-        removeRankChangeListener(
-            listener: (rankChangeEvent: ToplistRankChangeEvent) => void
-        ): void;
+        removeRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
     }
 
     /**
@@ -2308,15 +2055,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/ToplistAccess.html#method_getToplist
          */
-        getToplist(
-            userPersistenceNumberKey: string
-        ): Toplist;
+        getToplist(userPersistenceNumberKey: string): Toplist;
         /**
          * @see https://developer.knuddels.de/docs/classes/ToplistAccess.html#method_removeToplist
          */
-        removeToplist(
-            toplist: Toplist
-        ): void;
+        removeToplist(toplist: Toplist): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/ToplistAccess.html#method_createOrUpdateToplist
          */
@@ -2327,7 +2070,7 @@ declare global {
                 labelMapping?: { [minValue: string]: string };
                 ascending?: boolean;
                 sortIndex?: number;
-            }
+            },
         ): Toplist;
     }
 
@@ -2454,24 +2197,21 @@ declare global {
          */
         getClientType(): ClientType;
         /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_isConnectedWithK3Client
+         */
+        isConnectedWithK3Client(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_canShowAppViewMode
          */
-        canShowAppViewMode(
-            mode: AppViewMode
-        ): boolean;
+        canShowAppViewMode(mode: AppViewMode): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_canSendAppContent
          */
-        canSendAppContent(
-            appContent: AppContent
-        ): boolean;
+        canSendAppContent(appContent: AppContent): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isInTeam
          */
-        isInTeam(
-            teamName: string,
-            subTeamName?: string
-        ): boolean;
+        isInTeam(teamName: string, subTeamName?: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getPersistence
          */
@@ -2479,16 +2219,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_sendPrivateMessage
          */
-        sendPrivateMessage(
-            message: string
-        ): void;
+        sendPrivateMessage(message: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_sendPostMessage
          */
-        sendPostMessage(
-            topic: string,
-            text: string
-        ): void;
+        sendPostMessage(topic: string, text: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isChannelOwner
          */
@@ -2533,9 +2268,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getProfileLink
          */
-        getProfileLink(
-            displayText?: string
-        ): string;
+        getProfileLink(displayText?: string): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isOnlineInChannel
          */
@@ -2557,6 +2290,10 @@ declare global {
          */
         getOnlineMinutes(): number;
         /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_getLastOnlineTime
+         */
+        getLastOnlineTime(): Date;
+        /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isAway
          */
         isAway(): boolean;
@@ -2567,9 +2304,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_sendAppContent
          */
-        sendAppContent(
-            appContent: AppContent
-        ): AppContentSession;
+        sendAppContent(appContent: AppContent): AppContentSession;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getAppContentSessions
          */
@@ -2577,22 +2312,15 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getAppContentSession
          */
-        getAppContentSession(
-            appViewMode: AppViewMode
-        ): AppContentSession;
+        getAppContentSession(appViewMode: AppViewMode): AppContentSession;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_equals
          */
-        equals(
-            user: User
-        ): boolean;
+        equals(user: User): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getProfilePhoto
          */
-        getProfilePhoto(
-            width: number,
-            height: number
-        ): string;
+        getProfilePhoto(width: number, height: number): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getQuestAccess
          * @since AppServer 82290, ChatServer 82290
@@ -2621,23 +2349,16 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_addNicklistIcon
          */
-        addNicklistIcon(
-            imagePath: string,
-            imageWidth: number
-        ): void;
+        addNicklistIcon(imagePath: string, imageWidth: number): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_removeNicklistIcon
          */
-        removeNicklistIcon(
-            imagePath: string
-        ): void;
+        removeNicklistIcon(imagePath: string): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_triggerDice
          * @since AppServer 89159, ChatServer 89159
          */
-        triggerDice(
-            diceConfiguration: DiceConfiguration
-        ): void;
+        triggerDice(diceConfiguration: DiceConfiguration): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getAuthenticityClassification
          * @since AppServer 94663, ChatServer 94663
@@ -2652,39 +2373,32 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_getUserId
          */
-        getUserId(
-            nick: string
-        ): number;
+        getUserId(nick: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_exists
          */
-        exists(
-            nick: string
-        ): boolean;
+        exists(nick: string): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_isUserDeleted
          */
-        isUserDeleted(
-            userId: number
-        ): boolean;
+        isUserDeleted(userId: number): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_mayAccess
          */
-        mayAccess(
-            userId: number
-        ): boolean;
+        mayAccess(userId: number): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_getUserById
          */
-        getUserById(
-            userId: number
-        ): User;
+        getUserById(userId: number): User;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_getNick
          */
-        getNick(
-            userId: number
-        ): string;
+        getNick(userId: number): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_getAccessibleUserCount
+         * @since AppServer 20200212-112449
+         */
+        getAccessibleUserCount(): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserAccess.html#method_eachAccessibleUser
          */
@@ -2693,7 +2407,8 @@ declare global {
             parameters?: {
                 onStart?: (accessibleUserCount: number, key?: string) => void;
                 onEnd?: (accessibleUserCount: number, key?: string) => void;
-            }
+                online?: boolean;
+            },
         ): void;
     }
 
@@ -2752,15 +2467,11 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getSum
          */
-        static getSum(
-            key: string
-        ): number;
+        static getSum(key: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_deleteAll
          */
-        static deleteAll(
-            key: string
-        ): number;
+        static deleteAll(key: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getCount
          */
@@ -2769,23 +2480,16 @@ declare global {
             parameters?: {
                 minimumValue?: number;
                 maximumValue?: number;
-            }
+            },
         ): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_updateKey
          */
-        static updateKey(
-            oldKeyName: string,
-            newKeyName: string
-        ): number;
+        static updateKey(oldKeyName: string, newKeyName: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_updateValue
          */
-        static updateValue(
-            key: string,
-            oldValue: number,
-            newValue: number
-        ): number;
+        static updateValue(key: string, oldValue: number, newValue: number): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_addNumber
          */
@@ -2796,7 +2500,7 @@ declare global {
                 minimumValue?: number;
                 maximumValue?: number;
                 targetUsers?: User[];
-            }
+            },
         ): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getSortedEntries
@@ -2809,40 +2513,40 @@ declare global {
                 page?: number;
                 minimumValue?: number;
                 maximumValue?: number;
-            }
+            },
         ): UserPersistenceNumberEntry[];
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getSortedEntriesAdjacent
          */
         static getSortedEntriesAdjacent(
             key: string,
-            user_or_userId: (User|number),
+            user_or_userId: User | number,
             parameters?: {
                 ascending?: boolean;
                 count?: number;
-            }
+            },
         ): UserPersistenceNumberEntry[];
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getPosition
          */
         static getPosition(
             key: string,
-            user_or_userId: (User|number),
+            user_or_userId: User | number,
             parameters?: {
                 ascending?: boolean;
                 minimumValue?: number;
-            }
+            },
         ): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getRank
          */
         static getRank(
             key: string,
-            user_or_userId: (User|number),
+            user_or_userId: User | number,
             parameters?: {
                 ascending?: boolean;
                 minimumValue?: number;
-            }
+            },
         ): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_each
@@ -2857,15 +2561,24 @@ declare global {
                 maximumCount?: number;
                 onStart?: (totalCount: number, key: string) => void;
                 onEnd?: (totalCount: number, key: string) => void;
-            }
+                online?: boolean;
+            },
         ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getUserIdsByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getUserIdsByKey(key: string, callback: (userIds: number[]) => void): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getNicksByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getNicksByKey(key: string, callback: (nicks: string[]) => void): void;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceNumbers.html#method_getAllKeys
          * @since AppServer 82483
          */
-        static getAllKeys(
-            filterKey?: string
-        ): string[];
+        static getAllKeys(filterKey?: string): string[];
     }
 
     /**
@@ -2876,16 +2589,35 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_deleteAll
          * @since AppServer 82478
          */
-        static deleteAll(
-            key: string
-        ): number;
+        static deleteAll(key: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getAllKeys
          * @since AppServer 82483
          */
-        static getAllKeys(
-            filterKey?: string
-        ): string[];
+        static getAllKeys(filterKey?: string): string[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_each
+         */
+        static each(
+            key: string,
+            callback: (user: User, value: object, index: number, totalCount: number, key: string) => boolean,
+            parameters?: {
+                maximumCount?: number;
+                onStart?: (totalCount: number, key: string) => void;
+                onEnd?: (totalCount: number, key: string) => void;
+                online?: boolean;
+            },
+        ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getUserIdsByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getUserIdsByKey(key: string, callback: (userIds: number[]) => void): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceObjects.html#method_getNicksByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getNicksByKey(key: string, callback: (nicks: string[]) => void): void;
     }
 
     /**
@@ -2896,25 +2628,41 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_exists
          * @since AppServer 88571
          */
-        static exists(
-            key: string,
-            value: string,
-            ignoreCase?: boolean
-        ): boolean;
+        static exists(key: string, value: string, ignoreCase?: boolean): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_deleteAll
          * @since AppServer 82478
          */
-        static deleteAll(
-            key: string
-        ): number;
+        static deleteAll(key: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getAllKeys
          * @since AppServer 82483
          */
-        static getAllKeys(
-            filterKey?: string
-        ): string[];
+        static getAllKeys(filterKey?: string): string[];
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_each
+         */
+        static each(
+            key: string,
+            callback: (user: User, value: string, index: number, totalCount: number, key: string) => boolean,
+            parameters?: {
+                ascending?: boolean;
+                maximumCount?: number;
+                onStart?: (totalCount: number, key: string) => void;
+                onEnd?: (totalCount: number, key: string) => void;
+                online?: boolean;
+            },
+        ): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getUserIdsByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getUserIdsByKey(key: string, callback: (userIds: number[]) => void): void;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/UserPersistenceStrings.html#method_getNicksByKey
+         * @since AppServer 20201113-145716, ChatServer 20201113-145716
+         */
+        getNicksByKey(key: string, callback: (nicks: string[]) => void): void;
     }
 
     /**
@@ -2928,9 +2676,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/UserStatus.html#method_isAtLeast
          */
-        isAtLeast(
-            otherUserStatus: UserStatus
-        ): boolean;
+        isAtLeast(otherUserStatus: UserStatus): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/UserStatus.html#property_Newbie
          */

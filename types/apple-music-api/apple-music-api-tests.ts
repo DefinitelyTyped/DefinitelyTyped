@@ -563,3 +563,34 @@ const PlaylistResponse: AppleMusicApi.PlaylistResponse = {
         },
     ],
 };
+
+const ArtistResponse: AppleMusicApi.ArtistResponse = {
+    data: [
+        {
+            id: '367955316',
+            type: 'artists',
+            href: '/v1/catalog/us/artists/367955316',
+            attributes: {
+                editorialNotes: {
+                    short: 'short note',
+                    standard: 'elaborated, standard-length note',
+                },
+                genreNames: ['Jazz', 'Rock'],
+                name: 'artist name',
+                url: 'artist/url',
+            },
+            relationships: {
+                albums: {
+                    data: [
+                        {
+                            id: '897072740',
+                            type: 'albums',
+                            href: '/v1/catalog/us/albums/897072740',
+                        },
+                    ],
+                    href: '/v1/catalog/us/songs/897072750/albums',
+                },
+            },
+        },
+    ],
+};

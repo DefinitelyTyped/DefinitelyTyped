@@ -480,3 +480,88 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     harLog; // $ExpectType HARLog
     console.log('harLog: ', harLog)
 });
+
+function testAssistiveWindow() {
+    chrome.input.ime.setAssistiveWindowProperties({
+      contextID: 0,
+      properties: {
+          type: 'undo',
+          visible: true
+        }
+    });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        announceString: 'Undo button highlighted',
+        highlighted: true
+    });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        highlighted: false
+    });
+
+    chrome.input.ime.onAssistiveWindowButtonClicked.addListener((details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
+          details;
+          console.log(
+            `${details.buttonID} button in ${details.windowType} window clicked`);
+        });
+}
+
+// https://developer.chrome.com/extensions/omnibox#types
+function testOmnibox() {
+    const suggestion: chrome.omnibox.Suggestion = { description: 'description' };
+    chrome.omnibox.setDefaultSuggestion(suggestion);
+
+    function onInputEnteredCallback(text: string, disposition: chrome.omnibox.OnInputEnteredDisposition) {
+        if (disposition === 'currentTab') {
+        }
+        if (disposition === 'newForegroundTab') {
+        }
+        if (disposition === 'newBackgroundTab') {
+        }
+    }
+    chrome.omnibox.onInputEntered.addListener(onInputEnteredCallback);
+
+    const suggestResult1: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+    };
+    const suggestResult2: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+        deletable: true,
+    };
+    function onInputChangedCallback(text: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
+        suggest([suggestResult1, suggestResult2]);
+    }
+    chrome.omnibox.onInputChanged.addListener(onInputChangedCallback);
+
+    chrome.omnibox.onInputStarted.addListener(() => {});
+
+    chrome.omnibox.onInputCancelled.addListener(() => {});
+
+    chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
+}
+
+function testSearch() {
+    function getCallback() {}
+
+    const DISPOSITIONS: chrome.search.Disposition[] = [
+        "CURRENT_TAB",
+        "NEW_TAB",
+        "NEW_WINDOW",
+    ];
+
+    DISPOSITIONS.forEach((disposition) => {
+        chrome.search.query({
+            disposition,
+            tabId: 1,
+            text: 'text'
+        }, getCallback);
+    });
+}

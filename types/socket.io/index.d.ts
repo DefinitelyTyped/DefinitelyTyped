@@ -11,10 +11,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+///<reference lib="dom" />
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
-import { EventEmitter } from 'events';
+import { Server as HttpServer, IncomingMessage } from 'http';
+import { Server as HttpsServer } from 'https';
+import { Encoder as ParserEncoder, Decoder as ParserDecoder } from 'socket.io-parser';
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
@@ -30,7 +33,7 @@ interface SocketIOStatic {
      * @param srv The HTTP server that we're going to bind to
      * @param opts An optional parameters object
      */
-    (srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+    (srv: HttpServer | HttpsServer, opts?: SocketIO.ServerOptions): SocketIO.Server;
 
     /**
      * Creates a new Server
@@ -46,6 +49,31 @@ interface SocketIOStatic {
     (opts: SocketIO.ServerOptions): SocketIO.Server;
 
     /**
+     * Default Server constructor
+     */
+    new (): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param srv The HTTP server that we're going to bind to
+     * @param opts An optional parameters object
+     */
+    new (srv: HttpServer | HttpsServer, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param port A port to bind to, as a number, or a string
+     * @param An optional parameters object
+     */
+    new (port: string | number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param A parameters object
+     */
+    new (opts: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
      * Backwards compatibility
      * @see io().listen()
      */
@@ -54,7 +82,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
     interface Server {
-        engine: { ws: any };
+        engine: { ws: any, generateId: (id: IncomingMessage) => string };
 
         /**
          * A dictionary of all the namespaces currently on this Server
@@ -163,7 +191,7 @@ declare namespace SocketIO {
          * @param opts An optional parameters object
          * @return This Server
          */
-        attach(srv: any, opts?: ServerOptions): Server;
+        attach(srv: HttpServer | HttpsServer, opts?: ServerOptions): Server;
 
         /**
          * Attaches socket.io to a port
@@ -176,7 +204,7 @@ declare namespace SocketIO {
         /**
          * @see attach( srv, opts )
          */
-        listen(srv: any, opts?: ServerOptions): Server;
+        listen(srv: HttpServer | HttpsServer, opts?: ServerOptions): Server;
 
         /**
          * @see attach( port, opts )
@@ -429,7 +457,7 @@ declare namespace SocketIO {
      */
     interface ServerOptions extends engine.ServerAttachOptions {
         /**
-         * The path to server the client file to
+         * The path to server the client file to.
          * @default '/socket.io'
          */
         path?: string;
@@ -442,16 +470,26 @@ declare namespace SocketIO {
 
         /**
          * The adapter to use for handling rooms. NOTE: this should be a class,
-         * not an object
+         * not an object.
          * @default typeof Adapter
          */
         adapter?: Adapter;
 
         /**
-         * Accepted origins
+         * Accepted origins.
          * @default '*:*'
          */
         origins?: string | string[];
+
+        /**
+         * The parser to use. Defaults to an instance of the `Parser` that
+         * ships with socket.io which is memory-based. See `socket.io-parser`.
+         * @default require('socket.io-parser')
+         */
+        parser?: {
+            Encoder: ParserEncoder,
+            Decoder: ParserDecoder,
+        };
     }
 
     /**

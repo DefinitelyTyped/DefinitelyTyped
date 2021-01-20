@@ -1,6 +1,8 @@
 import {
+    CacheConfig,
     ConcreteRequest,
     ConnectionHandler,
+    DataID,
     Environment,
     getDefaultMissingFieldHandlers,
     Network,
@@ -11,8 +13,14 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     Store,
+    Variables,
     commitLocalUpdate,
     ReaderFragment,
+    isPromise,
+    __internal,
+    graphql,
+    getRequest,
+    createOperationDescriptor,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -21,6 +29,7 @@ const storeWithNullOptions = new Store(source, {
     gcScheduler: null,
     operationLoader: null,
     gcReleaseBufferSize: null,
+    queryCacheExpirationTime: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -29,6 +38,7 @@ const storeWithOptions = new Store(source, {
         load: () => Promise.resolve(null),
     },
     gcReleaseBufferSize: 10,
+    queryCacheExpirationTime: 1000,
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -57,10 +67,22 @@ const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
+
+const isServer = false;
+
+const options = {
+    test: true,
+};
+
+const treatMissingFieldsAsNull = false;
+
 const environment = new Environment({
     handlerProvider, // Can omit.
     network,
     store,
+    isServer,
+    options,
+    treatMissingFieldsAsNull,
     missingFieldHandlers: [
         ...getDefaultMissingFieldHandlers(),
         // Example from https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
@@ -93,17 +115,25 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case 'execute.start':
-            case 'execute.next':
-            case 'execute.error':
+            case 'network.start':
+            case 'network.complete':
+            case 'network.error':
+            case 'network.info':
+            case 'network.unsubscribe':
             case 'execute.info':
-            case 'execute.complete':
-            case 'execute.unsubscribe':
             case 'queryresource.fetch':
             default:
                 break;
         }
     },
+    requiredFieldLogger: (arg) => {
+        if (arg.kind === 'missing_field.log') {
+            console.log(arg.fieldPath, arg.owner);
+        } else {
+            arg.kind; // $ExpectType "missing_field.throw"
+            console.log(arg.fieldPath, arg.owner);
+        }
+    }
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -123,9 +153,11 @@ function handlerProvider(handle: any) {
 }
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
@@ -153,10 +185,12 @@ function passToHelper(edge: RecordProxy<MessageEdge>) {
 }
 
 function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
+    store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
     const id = newMessageEdge.getValue('id');
     const conversationStore = store.get<TConversation>(id);
+    conversationStore!.invalidateRecord();
     const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
@@ -249,6 +283,7 @@ const node: ConcreteRequest = (function () {
             operationKind: 'query',
             name: 'FooQuery',
             id: null,
+            cacheID: null,
             text: 'query FooQuery {\n  __typename\n}\n',
             metadata: {},
         },
@@ -281,13 +316,11 @@ const nodeFragment: ReaderFragment = {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'latArg',
-            type: 'String',
         },
         {
             defaultValue: null,
             kind: 'LocalArgument',
             name: 'lonArg',
-            type: 'String',
         },
     ],
     kind: 'Fragment',
@@ -371,3 +404,30 @@ const nodeFragment: ReaderFragment = {
     type: 'Query',
     abstractKey: null,
 };
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// INTERNAL-ONLY
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const p = Promise.resolve() as unknown;
+if (isPromise(p)) {
+    p.then(() => console.log('Indeed a promise'));
+}
+
+const gqlQuery = graphql`
+    query ExampleQuery($pageID: ID!) {
+        page(id: $pageID) {
+            name
+        }
+   }
+`;
+
+const pageID = '110798995619330';
+const cacheConfig: CacheConfig = { force: true};
+const request = getRequest(gqlQuery);
+const variables: Variables = {pageID};
+const dataID: DataID = "dataID";
+const operation = createOperationDescriptor(request, variables);
+const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
+const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
+const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);

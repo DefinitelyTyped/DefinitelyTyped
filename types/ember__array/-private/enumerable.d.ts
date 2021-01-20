@@ -1,6 +1,6 @@
-import ComputedProperty from "@ember/object/computed";
-import Mixin from "@ember/object/mixin";
-import NativeArray from "@ember/array/-private/native-array";
+import ComputedProperty from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
+import NativeArray from '@ember/array/-private/native-array';
 import EmberArray from '@ember/array';
 /**
  * This mixin defines the common interface implemented by enumerable objects
@@ -62,10 +62,7 @@ interface Enumerable<T> {
      * Returns an array with all of the items in the enumeration where the passed
      * function returns false. This method is the inverse of filter().
      */
-    reject(
-        callbackfn: (value: T, index: number, array: T[]) => any,
-        thisArg?: any
-    ): NativeArray<T>;
+    reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
     /**
      * Returns an array with just the items with the matched property. You
      * can pass an optional second argument with the target value. Otherwise
@@ -105,10 +102,7 @@ interface Enumerable<T> {
      * Returns `true` if the passed function returns true for any item in the
      * enumeration.
      */
-    any(
-        callback: (value: T, index: number, array: T[]) => boolean,
-        target?: {}
-    ): boolean;
+    any(callback: (value: T, index: number, array: T[]) => boolean, target?: {}): boolean;
     /**
      * Returns `true` if the passed property resolves to the value of the second
      * argument for any item in the enumerable. This method is often simpler/faster
@@ -157,6 +151,7 @@ interface Enumerable<T> {
      * The default implementation returns an array regardless of the receiver type.
      */
     uniqBy(property: string): NativeArray<T>;
+    uniqBy(callback: (value: T) => unknown): NativeArray<T>;
     /**
      * Returns `true` if the passed object can be found in the enumerable.
      */

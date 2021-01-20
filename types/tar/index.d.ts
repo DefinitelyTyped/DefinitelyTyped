@@ -716,7 +716,7 @@ export const x: typeof extract;
  *
  * Archive data should be written to the returned stream.
  */
-export function list(options?: ListOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function list(options?: ListOptions  & FileOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
 
 /**
  * List the contents of a tarball archive. The fileList is an array of paths

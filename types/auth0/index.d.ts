@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.20.0
+// Type definitions for auth0 2.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -6,10 +6,11 @@
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
-//                 Johannes Schneider <https://github.com/neshanjo>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
 //                 Isabela Morais <https://github.com/isabela-morais>
+//                 Raimondo Butera <https://github.com/rbutera>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -69,6 +70,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
 
 export interface CreateUserData extends UserData {
   connection: string;
+}
+
+export interface SignUpUserData extends UserData {
+  connection?: string;
 }
 
 export interface UpdateUserData extends UserData {
@@ -286,7 +291,7 @@ export interface Client {
    */
   cross_origin_auth?: boolean;
   /**
-   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
    */
   cross_origin_loc?: string;
   /**
@@ -612,11 +617,21 @@ export interface PasswordGrantOptions {
   password: string;
   realm?: string;
   scope?: string;
+  audience?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
   code: string;
   redirect_uri: string;
+}
+
+export interface AuthenticationClientRefreshTokenOptions {
+  refresh_token:string;
+  client_id?: string;
+}
+
+export interface RefreshTokenOptions {
+  refresh_token:string;
 }
 
 export interface TokenResponse {
@@ -732,6 +747,38 @@ export interface VerificationEmailJob {
     created_at?: string;
 }
 
+export type CustomDomainVerificationMethod = 'txt';
+
+export type CustomDomainStatus = 'disabled' | 'pending' | 'pending_verification' | 'ready';
+
+export type CustomDomainType = 'auth0_managed_certs' | 'self_managed_certs';
+
+export interface CreateDomainData {
+    domain: string;
+    type: CustomDomainType;
+    verification_method?: CustomDomainVerificationMethod;
+    tls_policy?: string;
+    custom_client_ip_header?: string;
+}
+
+export interface Domain {
+    custom_domain_id: string;
+    domain: string;
+    primary: boolean;
+    status: CustomDomainStatus;
+    type: CustomDomainType;
+    origin_domain_name?: string;
+    verification: {
+        methods: any[];
+    };
+    custom_client_ip_header?: string;
+    tls_policy?: string;
+}
+
+export interface DomainVerification extends Domain {
+    cname_api_key?: string;
+}
+
 export interface BaseImportUsersOptions {
     connection_id: string;
     upsert?: boolean;
@@ -808,6 +855,11 @@ export interface UsersOptions extends BaseClientOptions {
   headers?: any;
 }
 
+export interface CustomDomainsManagerOptions extends BaseClientOptions {
+  headers?: any;
+  retry?: RetryOptions;
+}
+
 export interface SignInOptions extends VerifyOptions {
   connection?: string;
 }
@@ -868,6 +920,23 @@ export interface UserBlocks {
     blocked_for: BlockedForEntry[];
 }
 
+export type EnrollmentStatus = 'pending' | 'confirmed';
+
+export type AuthMethod = 'authentication' | 'guardian' | 'sms';
+
+export interface Enrollment {
+  id: string;
+  status: EnrollmentStatus;
+  enrolled_at: string;
+  last_auth: string;
+  type: string;
+  auth_method: AuthMethod;
+}
+
+export interface PagingOptions {
+  per_page?: number;
+  page?: number;
+}
 
 export class AuthenticationClient {
 
@@ -914,6 +983,11 @@ export class AuthenticationClient {
   passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
   passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
+  refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: AuthenticationClientRefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 
@@ -923,6 +997,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getClientInfo(): ClientInfo;
 
   // Connections
+  getConnections(params: PagingOptions): Promise<Connection[]>;
   getConnections(): Promise<Connection[]>;
   getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
@@ -1018,14 +1093,15 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
-  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
-  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
-  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
-  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
   getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
   getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
 
     // Rules
+  getRules(params: PagingOptions): Promise<Rule[]>;
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -1182,17 +1258,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
 
   // Jobs
-    getJob(params: ObjectWithId): Promise<Job>;
-    getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
+  getJob(params: ObjectWithId): Promise<Job>;
+  getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
-    importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
-    importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+  importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
+  importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
-    exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
-    exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
+  exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
+  exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+  sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
+  sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -1213,6 +1289,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
   createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
+  getResourceServers(params: PagingOptions): Promise<ResourceServer[]>;
   getResourceServers(): Promise<ResourceServer[]>;
   getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
@@ -1224,6 +1301,34 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
   updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+
+  // Custom Domains
+  createCustomDomain(data: CreateDomainData): Promise<Domain>;
+  createCustomDomain(data: CreateDomainData, cb: (err: Error, domain: Domain) => void): void;
+
+  getCustomDomains(): Promise<Domain[]>;
+  getCustomDomains(cb: (err: Error, data: Domain[]) => void): void;
+
+  getCustomDomain(params: ObjectWithId): Promise<Domain>;
+  getCustomDomain(params: ObjectWithId, cb: (err: Error, data: Domain) => void): void;
+
+
+  verifyCustomDomain(params: ObjectWithId): Promise<DomainVerification>;
+  verifyCustomDomain(params: ObjectWithId, cb: (err: Error, data: DomainVerification) => void): void;
+
+  deleteCustomDomain(params: ObjectWithId): Promise<void>;
+  deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  // User enrollment
+  getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
+  getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
+
+  deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
+  deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+  //MFA invalidate remember browser
+  invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
+  invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
 }
 
 
@@ -1239,8 +1344,8 @@ export class DatabaseAuthenticator<A=AppMetadata, U=UserMetadata> {
   signIn(data: SignInOptions): Promise<SignInToken>;
   signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-  signUp(data: CreateUserData): Promise<User<A, U>>;
-  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  signUp(data: SignUpUserData): Promise<User<A, U>>;
+  signIn(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
 
 }
 
@@ -1259,6 +1364,12 @@ export class OAuthAuthenticator {
 
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  refreshToken(options: RefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: RefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 export class PasswordlessAuthenticator {

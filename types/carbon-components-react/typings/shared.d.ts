@@ -31,17 +31,8 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface EmbeddedIconProps {
-    iconDescription?: string;
-}
-
-export interface EmbeddedTooltipProps {
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-}
-
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
@@ -49,8 +40,8 @@ export interface MenuOffsetData {
     top?: number;
 }
 
-export interface RenderIconProps {
-    renderIcon?: React.ComponentType;
+export interface RenderIconProps<P = any> {
+    renderIcon?: React.ComponentType<P>;
 }
 
 export interface RequiresChildrenProps<T = React.ReactNode> {
@@ -65,15 +56,6 @@ export interface SizingProps {
     small?: boolean;
 }
 
-export interface ThemeProps {
-    light?: boolean;
-}
-
-export interface ValidityProps {
-    invalid?: boolean;
-    invalidText?: string;
-}
-
 export interface SideNavSharedProps {
     isSideNavExpanded?: boolean;
 }
@@ -82,20 +64,20 @@ export interface SideNavSizingProps {
     large?: boolean;
 }
 
-export interface RefForwardingProps<T = HTMLElement> {
-    ref?: React.RefObject<T>;
-}
-
+//
 // aliases for some React types that it doesn't export directly. They are needed to make sure we match the signatures
-// as close as possible
-export type FCReturn = ReturnType<React.FC>;
-// IMPORTANT: this type matches what react types has but you MUST add children prop to your prop interface or children
-// will be an unknown prop. This is typically not the case for a regular function component.
-export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<
-    React.PropsWithoutRef<P> & React.RefAttributes<T>
->;
+// as close as possible.
+//
+// reference patterns:
+//  function component with no generics: export declare const Comp: React.FC<PropsInterface>;
+//  function component with generics: export declare function Comp<T extends SomeType>(props: FCProps<PropsInterface<T>>): FCReturn;
+//  forwardRef component with no generics: export declare const Comp: ForwardRefReturn<HTMLElement, PropsInterface>;
+//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<HTMLElement, PropsInterface<T>>): FCReturn;
+//
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
-export type ForwardRefRefType<T> = Parameters<React.ForwardRefRenderFunction<T, unknown>>[1];
+export type FCReturn = ReturnType<React.FC>;
+export type ForwardRefProps<T, P = {}> = React.PropsWithoutRef<React.PropsWithChildren<P>> & React.RefAttributes<T>;
+export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<ForwardRefProps<T, P>>;
 
 export type JSXIntrinsicElementProps<
     K extends keyof JSX.IntrinsicElements,

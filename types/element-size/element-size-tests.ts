@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import size = require('element-size');
 
 const element = document.body;

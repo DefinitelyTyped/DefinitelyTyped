@@ -18,6 +18,11 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
+    stringOrDate,
+    ViewProps,
+    Day,
+    TimeGrid,
+    Week
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -102,12 +107,36 @@ class CalendarResource {
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
-// Drag and Drop Example Test
+// handle-drag-start Example Test
 {
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(Calendar);
+    const HandleDragStart = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            handleDragStart={console.log}
+        />
+    );
+
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    ReactDOM.render(<HandleDragStart localizer={localizer} />, document.body);
+}
+
+// Drag and Drop Example Test
+{
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -141,12 +170,12 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
-// overriding 'views' props
+// overriding 'views' props, with custom day view
 {
-    interface DayProps {
-        random: string;
+    interface DayComponentProps {
+        date: stringOrDate;
     }
-    class DayComponent extends React.Component<DayProps> {
+    class DayComponent extends React.Component<DayComponentProps> {
         static title() {
             return 'title';
         }
@@ -166,7 +195,29 @@ class CalendarResource {
     />, document.body);
 }
 
-// optional 'views' prop
+// overriding 'views' props, with custom day view using ViewProps interface
+{
+    class DayComponent extends React.Component<ViewProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
+                        views={{
+                            day: DayComponent,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// optional 'localizer' prop
 {
     ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }
@@ -261,6 +312,7 @@ class CalendarResource {
                     resourceAccessor={event => event.resourceId}
                     resourceIdAccessor={resource => resource.id}
                     resourceTitleAccessor={resource => resource.title}
+                    style={{ height: 500 }}
                 />
             );
         }
@@ -298,7 +350,7 @@ function getResources(): CalendarResource[] {
     ];
 }
 
-class EventAgenda extends React.Component<any, any> {
+class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
     render() {
         // const { label } = this.props;
         return (
@@ -364,7 +416,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
-class Toolbar extends React.Component<ToolbarProps> {
+class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
         return (
@@ -397,4 +449,55 @@ class Toolbar extends React.Component<ToolbarProps> {
     const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// Test Week and TimeGrid types
+class MyWorkWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWorkWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWorkWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWorkWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWorkWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+class MyWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+// Test Day types
+class MyDay extends Day {
+    render() {
+        const { date } = this.props;
+        return date.toString();
+    }
 }

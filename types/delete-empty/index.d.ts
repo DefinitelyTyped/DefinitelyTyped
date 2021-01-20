@@ -1,13 +1,33 @@
-// Type definitions for delete-empty 2.0
+// Type definitions for delete-empty 3.0
 // Project: https://github.com/jonschlinkert/delete-empty
 // Definitions by: Alorel <https://github.com/Alorel>
+//                 Piotr Błażejewicz <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare function deleteEmpty(dir: string, options: deleteEmpty.Options, cb: deleteEmpty.DeleteEmptyCallback): void;
+declare function deleteEmpty(dir: string, cb: deleteEmpty.DeleteEmptyCallback): void;
 declare function deleteEmpty(dir: string): Promise<string[]>;
-declare function deleteEmpty(dir: string, cb: (err: Error | undefined | null, deleted: string[]) => void): void;
 
 declare namespace deleteEmpty {
-    function sync(dir: string): string[];
+    function sync(dir: string, options?: Options): string[];
+
+    interface DeleteEmptyCallback {
+        (err: Error | undefined | null, deleted: string[]): void;
+    }
+
+    interface Options {
+        /**
+         * Do a dry run without deleting any files
+         * @default false
+         */
+        dryRun?: boolean;
+        filter?: FilterFunction;
+        junkRegex?: RegExp;
+    }
+
+    interface FilterFunction {
+        (file: string, regex: RegExp): string;
+    }
 }
 
 export = deleteEmpty;

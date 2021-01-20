@@ -20,7 +20,8 @@ export interface SliderProps {
     reverse?: boolean;
     step?: number;
     tooltip?: boolean;
+    className?: string;
     value: number;
 }
 
-export default class Slider extends React.Component<SliderProps> { }
+export default class Slider extends React.Component<SliderProps> {}

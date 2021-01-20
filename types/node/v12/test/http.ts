@@ -63,7 +63,7 @@ import * as net from 'net';
         ['x-foO', 'OxOxOxO'],
         ['X-fOo', 'xOxOxOx'],
         ['X-foO', 'OxOxOxO']
-    ]);
+    ] as ReadonlyArray<[string, string]>);
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
@@ -120,6 +120,9 @@ import * as net from 'net';
 
     // path
     const path: string = req.path;
+
+    // method
+    const method: string = req.method;
 }
 
 {

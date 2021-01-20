@@ -1,4 +1,5 @@
 import ssri = require("ssri");
+import fs = require("fs");
 import { createReadStream } from "fs";
 
 const integrityString =
@@ -178,3 +179,11 @@ ssri.integrityStream({
     integrity,
     algorithms: ["sha1", "sha256"],
 });
+
+// ssri.merge
+const data = fs.readFileSync('data.txt');
+const expectedIntegrity = ssri.parse(fs.readFileSync('integrity.txt', 'utf8'));
+const updatedIntegrity = ssri.fromData(data, { algorithms: ['sha512'] });
+expectedIntegrity.merge(updatedIntegrity); // $ExpectType void
+expectedIntegrity.merge(updatedIntegrity, {}); // $ExpectType void
+expectedIntegrity.merge(updatedIntegrity, { strict: true }); // $ExpectType void

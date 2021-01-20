@@ -5,7 +5,7 @@ declare interface URLS {
 }
 
 declare interface EmailFields {
-    from?: () => string;
+    from?: (user: Meteor.User) => string;
     subject?: (user: Meteor.User) => string;
     text?: (user: Meteor.User, url: string) => string;
     html?: (user: Meteor.User, url: string) => string;
@@ -34,6 +34,7 @@ declare module Accounts {
         passwordResetTokenExpirationInDays?: number;
         passwordEnrollTokenExpirationInDays?: number;
         ambiguousErrorMessages?: boolean;
+        defaultFieldSelector?: {[key: string]: 0 | 1}
     }): void;
 
     function onLogin(func: Function): {

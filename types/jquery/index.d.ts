@@ -1,4 +1,4 @@
-// Type definitions for jquery 3.3
+// Type definitions for jquery 3.5
 // Project: https://jquery.com
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Boris Yankov <https://github.com/borisyankov>

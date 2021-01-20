@@ -1,4 +1,4 @@
-// Type definitions for svg-maps__usa 1.1
+// Type definitions for @svg-maps/usa 1.1
 // Project: https://github.com/VictorCazanave/svg-maps/tree/master/packages/usa
 // Definitions by: Nick Glazer <https://github.com/nickglazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

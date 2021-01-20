@@ -5,14 +5,13 @@
 
 import { DataFactory, NamedNode } from 'rdf-js';
 
-declare function namespace(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder;
+// tslint:disable-next-line: no-unnecessary-generics
+declare function namespace<TermNames extends string = string>(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder<TermNames>;
 
 declare namespace namespace {
-    interface NamespaceBuilder {
-        (property?: TemplateStringsArray | string): NamedNode;
-
-        readonly [property: string]: NamedNode;
-    }
+    type NamespaceBuilder<TermNames extends string = any> = Record<TermNames, NamedNode> & {
+        (property?: TemplateStringsArray | TermNames): NamedNode;
+    };
 
     interface BuilderOptions {
         factory?: DataFactory;

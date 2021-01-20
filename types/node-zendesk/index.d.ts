@@ -1,4 +1,4 @@
-// Type definitions for node-zendesk 1.4
+// Type definitions for node-zendesk 2.0
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -79,6 +79,7 @@ export function createClient(config: ClientOptions): Client;
 export namespace Attachments {
     interface Methods {
         request(httpMethod: string, fields: unknown, config: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+        request(httpMethod: string, fields: unknown, config: unknown): Promise<unknown>;
 
         upload(
             file: PathLike,
@@ -88,6 +89,13 @@ export namespace Attachments {
             },
             cb: ZendeskCallback<unknown, unknown>
         ): void;
+        upload(
+            file: PathLike,
+            fileOptions: {
+                filename: string;
+                token?: string;
+            }
+        ): Promise<void>;
     }
 
     interface Photo extends PersistableModel {
@@ -112,12 +120,18 @@ export namespace Attachments {
 export namespace JobStatuses {
     interface Methods {
         show(jobStatusId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(jobStatusId: ZendeskID): Promise<ResponsePayload>;
         watch(
             jobStatusId: ZendeskID,
             interval: number,
             maxAttempts: number,
             cb: ZendeskCallback<unknown, unknown>
         ): unknown;
+        watch(
+            jobStatusId: ZendeskID,
+            interval: number,
+            maxAttempts: number
+        ): Promise<unknown>;
     }
 
     type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
@@ -152,6 +166,10 @@ export namespace Macros {
             macroId: number,
             cb: ZendeskCallback<unknown, unknown>
         ): ApplyTicketResponsePayload;
+        applyTicket(
+            ticketId: ZendeskID,
+            macroId: number
+        ): Promise<ApplyTicketResponsePayload>;
     }
 
     interface ApplyTicketResponsePayload {
@@ -193,23 +211,33 @@ export namespace Requests {
     interface Methods {
         /** Listing Requests */
         list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
         listOpen(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listOpen(): Promise<ListPayload>;
         listSolved(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listSolved(): Promise<ListPayload>;
         listCCD(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listCCD(organizationId: ZendeskID): Promise<ListPayload>;
         listByUser(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUser(userId: ZendeskID): Promise<ListPayload>;
         listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID): Promise<ListPayload>;
 
         /** Viewing Requests */
         getRequest(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        getRequest(requestId: ZendeskID): Promise<ResponsePayload>;
 
         /** Creating Requests */
         create(request: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(request: CreatePayload): Promise<ResponsePayload>;
 
         /** Updating Requests */
         update(requestId: ZendeskID, request: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(requestId: ZendeskID, request: UpdatePayload): Promise<ResponsePayload>;
 
         /** Listing Comments */
         listComments(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Comments.ListPayload;
+        listComments(requestId: ZendeskID): Promise<Comments.ListPayload>;
 
         /** Get Comment */
         getComment(
@@ -217,9 +245,14 @@ export namespace Requests {
             commentId: ZendeskID,
             cb: ZendeskCallback<unknown, unknown>
         ): Comments.ResponsePayload;
+        getComment(
+            requestId: ZendeskID,
+            commentId: ZendeskID
+        ): Promise<Comments.ResponsePayload>;
 
         /** Inherited */
         requestAll(httpMethod: string, fields: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        requestAll(httpMethod: string, fields: unknown): Promise<ListPayload>;
     }
 
     /**
@@ -358,31 +391,49 @@ export namespace Tickets {
     interface Methods {
         /** Listing Tickets */
         list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
         listAssigned(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listAssigned(userId: ZendeskID): Promise<ListPayload>;
         listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID): Promise<ListPayload>;
         listByUserRequested(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUserRequested(userId: ZendeskID): Promise<ListPayload>;
         listByUserCCD(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUserCCD(userId: ZendeskID): Promise<ListPayload>;
         listWithFilter(type: string, value: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listWithFilter(type: string, value: unknown): Promise<ListPayload>;
         listRecent(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listRecent(): Promise<ListPayload>;
         listCollaborators(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Users.ListPayload;
+        listCollaborators(ticketId: ZendeskID): Promise<Users.ListPayload>;
         listIncidents(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listIncidents(ticketId: ZendeskID): Promise<ListPayload>;
         listMetrics(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Metrics.ResponsePayload;
+        listMetrics(ticketId: ZendeskID): Promise<Metrics.ResponsePayload>;
 
         /** Viewing Tickets */
         show(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(ticketId: ZendeskID): Promise<ResponsePayload>;
         showMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        showMany(ticketIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
 
         /** Creating Tickets */
         create(ticket: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(ticket: CreatePayload): Promise<ResponsePayload>;
         createMany(tickets: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(tickets: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Tickets */
         update(ticketId: ZendeskID, ticket: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(ticketId: ZendeskID, ticket: UpdatePayload): Promise<ResponsePayload>;
         updateMany(tickets: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(tickets: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Deleting Tickets */
         delete(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        delete(ticketId: ZendeskID): Promise<unknown>;
         deleteMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): unknown;
+        deleteMany(ticketIds: ReadonlyArray<ZendeskID>): Promise<unknown>;
 
         /** Merging Tickets */
         merge(
@@ -390,22 +441,33 @@ export namespace Tickets {
             mergingTickets: MergePayload,
             cb: ZendeskCallback<unknown, unknown>
         ): JobStatuses.ResponsePayload;
+        merge(
+            ticketId: ZendeskID,
+            mergingTickets: MergePayload
+        ): Promise<JobStatuses.ResponsePayload>;
 
         /** Ticket Exports */
         export(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+        export(startTime: number): Promise<unknown>;
         exportSample(startTime: number, options: unknown): unknown;
         incremental(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+        incremental(startTime: number): Promise<unknown>;
         incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+        incrementalInclude(startTime: number, include: unknown): Promise<unknown>;
         incrementalSample(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+        incrementalSample(startTime: number): Promise<unknown>;
 
         /** Listing Comments */
         getComments(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Comments.ListPayload;
+        getComments(requestId: ZendeskID): Promise<Comments.ListPayload>;
 
         /** Listing Audits */
         exportAudit(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): AuditsListPayload;
+        exportAudit(ticketId: ZendeskID): Promise<AuditsListPayload>;
 
         /** Adding Tags */
         addTags(ticketId: ZendeskID, tags: ReadonlyArray<string>, cb: ZendeskCallback<unknown, unknown>): TagsPayload;
+        addTags(ticketId: ZendeskID, tags: ReadonlyArray<string>): Promise<TagsPayload>;
     }
 
     /**
@@ -667,48 +729,71 @@ export namespace Users {
     interface Methods {
         /** User Auth */
         auth(cb: ZendeskCallback<unknown, unknown>): unknown;
+        auth(): Promise<unknown>;
 
         /** Listing Users */
         list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
         listByGroup(groupId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByGroup(groupId: ZendeskID): Promise<ListPayload>;
         listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID): Promise<ListPayload>;
 
         /** Showing Users */
         show(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(userId: ZendeskID): Promise<ResponsePayload>;
         showMany(userIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        showMany(userIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
 
         /** Creating Users */
         create(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(user: CreatePayload): Promise<ResponsePayload>;
         createMany(users: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(users: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
         createOrUpdate(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        createOrUpdate(user: CreatePayload): Promise<ResponsePayload>;
         createOrUpdateMany(
             users: CreateManyPayload,
             cb: ZendeskCallback<unknown, unknown>
         ): JobStatuses.ResponsePayload;
+        createOrUpdateMany(
+            users: CreateManyPayload
+        ): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Users */
         update(userId: ZendeskID, user: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(userId: ZendeskID, user: UpdatePayload): Promise<ResponsePayload>;
         updateMany(
             userIds: UpdateIdPayload,
             users: UpdateManyPayload,
             cb: ZendeskCallback<unknown, unknown>
         ): JobStatuses.ResponsePayload;
+        updateMany(
+            userIds: UpdateIdPayload,
+            users: UpdateManyPayload
+        ): Promise<JobStatuses.ResponsePayload>;
 
         /** Suspending Users */
         suspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        suspend(userId: ZendeskID): Promise<ResponsePayload>;
         unsuspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        unsuspend(userId: ZendeskID): Promise<ResponsePayload>;
 
         /** Deleting Users */
         delete(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        delete(userId: ZendeskID): Promise<unknown>;
 
         /** Searching Users */
         search(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        search(params: unknown): Promise<ListPayload>;
 
         /** Getting own User */
         me(cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        me(): Promise<ResponsePayload>;
 
         /** Merging Users */
         merge(userId: ZendeskID, targetUserId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        merge(userId: ZendeskID, targetUserId: ZendeskID): Promise<ResponsePayload>;
 
         /** Changing User Password */
         password(
@@ -717,11 +802,19 @@ export namespace Users {
             newPassword: string,
             cb: ZendeskCallback<unknown, unknown>
         ): unknown;
+        password(
+            userId: ZendeskID,
+            oldPassword: string,
+            newPassword: string
+        ): Promise<unknown>;
 
         /** Users Export */
         incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        incrementalInclude(startTime: number, include: unknown): Promise<ListPayload>;
         incremental(startTime: number, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        incremental(startTime: number): Promise<ListPayload>;
         incrementalSample(startTime: number, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        incrementalSample(startTime: number): Promise<ListPayload>;
     }
 
     interface BaseModel {
@@ -852,12 +945,15 @@ export namespace Users {
         interface Methods {
             /** Listing Identities */
             list(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+            list(userId: ZendeskID): Promise<ListPayload>;
 
             /** Viewing Identities */
             show(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+            show(userId: ZendeskID, identityId: ZendeskID): Promise<ResponsePayload>;
 
             /** Creating Identities */
             create(userId: ZendeskID, identity: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponseModel;
+            create(userId: ZendeskID, identity: CreatePayload): Promise<ResponseModel>;
 
             /** Updating Identities */
             update(
@@ -866,16 +962,28 @@ export namespace Users {
                 identity: UpdatePayload,
                 cb: ZendeskCallback<unknown, unknown>
             ): ResponsePayload;
+            update(
+                userId: ZendeskID,
+                identityId: ZendeskID,
+                identity: UpdatePayload
+            ): Promise<ResponsePayload>;
             makePrimary(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+            makePrimary(userId: ZendeskID, identityId: ZendeskID): Promise<ListPayload>;
             verify(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+            verify(userId: ZendeskID, identityId: ZendeskID): Promise<ResponsePayload>;
             requestVerification(
                 userId: ZendeskID,
                 identityId: ZendeskID,
                 cb: ZendeskCallback<unknown, unknown>
             ): unknown;
+            requestVerification(
+                userId: ZendeskID,
+                identityId: ZendeskID
+            ): Promise<unknown>;
 
             /** Deleting Identities */
             delete(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(userId: ZendeskID, identityId: ZendeskID): Promise<unknown>;
         }
 
         interface CreateModel {
@@ -925,10 +1033,57 @@ export namespace Users {
     namespace Fields {
         interface Methods {
             list(cb: ZendeskCallback<unknown, unknown>): unknown;
+            list(): Promise<unknown>;
             show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
-            create(field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            show(fieldId: ZendeskID): Promise<unknown>;
+            create(field: CreateUserField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: CreateUserField): Promise<unknown>;
+            create(field: CreateUserField, cb: ZendeskCallback<unknown, unknown>): unknown;
             update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown): Promise<unknown>;
             delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(fieldId: ZendeskID): Promise<unknown>;
+        }
+        /**
+         * Types of custom fields that can be created
+         * @default 'text'
+         */
+        type UserFieldType =
+            | 'text'
+            | 'textarea'
+            | 'checkbox'
+            | 'date'
+            | 'integer'
+            | 'decimal'
+            | 'regexp'
+            | 'tagger';
+
+        /**
+         * Represents 'user_field'
+         */
+        interface UserField {
+            readonly id?: number;
+            readonly url?: string;
+            readonly type?: UserFieldType;
+            key?: string;
+            title: string;
+            raw_title?: string;
+            description?: string;
+            raw_description?: string;
+            position?: number;
+            active?: boolean;
+            readonly system?: boolean;
+            regexp_for_validation?: string;
+            created_at?: Date;
+            updated_at?: Date;
+            tag?: string;
+            custom_field_options?: CustomFieldOptions[];
+        }
+        interface CreateUserField extends UserField {
+            key: string;
+        }
+        interface CustomFieldOptions {
+            [key: string]: unknown;
         }
     }
 }

@@ -42,4 +42,4 @@ apinstance.scanFileAdvanced(
     (error: any, data: CloudmersiveVirusApiClient.VirusScanAdvancedResult, response: any) => {},
 );
 // $ExpectType any
-apinstance.scanWebsite('', (error: any, data: CloudmersiveVirusApiClient.WebsiteScanResult, response: any) => {});
+apinstance.scanWebsite({ Url: '' }, (error: any, data: CloudmersiveVirusApiClient.WebsiteScanResult, response: any) => {});

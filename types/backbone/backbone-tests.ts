@@ -245,6 +245,8 @@ class ArbitraryCollection extends Backbone.Collection { }
 function test_collection() {
 
     var books = new Books();
+    books.set([{title: "Title 0", author: "Johan" }]);
+    books.reset();
 
     var book1: Book = new Book({ title: "Title 1", author: "Mike" });
     books.add(book1);
@@ -286,6 +288,14 @@ function test_collection() {
     models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
+
+    let it1: Iterator<Book>;
+    it1 = books.values();
+    it1 = books[Symbol.iterator]();
+    let it2: Iterator<any>;
+    it2 = books.keys();
+    let it3: Iterator<[any, Book]>;
+    it3 = books.entries();
 
     // underscore methods
     bool       = books.all((value: Book, index: number, list: Book[]) => true);
@@ -393,6 +403,12 @@ namespace v1Changes {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
+        }
+
+        function test_model_create_with_collection() {
+            var collection = new Books();
+            var employee = new Book({}, {collection, parse: true})
+            employee.collection
         }
 
         function test_parse() {

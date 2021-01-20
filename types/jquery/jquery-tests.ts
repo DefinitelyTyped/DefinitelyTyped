@@ -5925,6 +5925,14 @@ function JQuery() {
             $('p').find('span').first();
         }
 
+        function even() {
+            $('li').even().css('background-color', 'red');
+        }
+
+        function odd() {
+            $('li').odd().css('background-color', 'red');
+        }
+
         function offsetParent() {
             // $ExpectType JQuery<HTMLElement>
             $('p').offsetParent();
@@ -6095,11 +6103,20 @@ function JQuery() {
         }
 
         function parents() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').parents('span');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').parents();
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $(document).find('select').parents('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $(document).find('select').parents('.container');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('.container');
         }
 
         function parentsUntil() {
@@ -8195,7 +8212,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>> || EventHandler<EventTarget, any>
                 eventHandle;
 
                 return false;

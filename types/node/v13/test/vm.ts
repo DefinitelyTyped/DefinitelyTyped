@@ -51,7 +51,7 @@ import { inspect } from 'util';
 }
 
 {
-    const fn: Function = compileFunction('console.log("test")', [], {
+    const fn: Function = compileFunction('console.log("test")', [] as ReadonlyArray<string>, {
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,

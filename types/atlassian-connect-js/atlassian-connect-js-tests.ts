@@ -15,7 +15,7 @@ AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
 
-AP.dialog.create({ key: 'key', size: 'small', width: 100, height: 100, customData: { data: 1 } }); // $ExpectType Dialog
+AP.dialog.create({ key: 'key', size: 'small', customData: { data: 1 } }); // $ExpectType Dialog
 AP.dialog.close(); // $ExpectType void
 AP.dialog.getCustomData(data => console.log(data)); // $ExpectType void
 AP.dialog.getButton('submit'); // $ExpectType {} | DialogButton
@@ -39,7 +39,7 @@ AP.events.offAnyPublic(data => console.log(data)); // $ExpectType void
 AP.events.emit('name', ['data']); // $ExpectType void
 AP.events.emitPublic('name', ['data']); // $ExpectType void
 
-const flag = AP.flag.create({ title: 'title', body: 'body', type: 'info', close: 'manual', actions: { test: 'text' } }); // $ExpectType Flag
+const flag = AP.flag.create({ title: 'title', body: 'body', type: 'info', actions: { test: 'text' } }); // $ExpectType Flag
 flag.close(); // $ExpectType void
 
 AP.history.back(); // $ExpectType void

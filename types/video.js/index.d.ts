@@ -2320,7 +2320,7 @@ declare namespace videojs {
          *
          * @return The position of the element that was passed in.
          */
-        findPosition(el: Element): Position;
+        findPosition(el: Element): Dom.Position;
 
         /**
          * Get the value of an element's attribute
@@ -3093,7 +3093,7 @@ declare namespace videojs {
          *
          * @return The current logging level.
          */
-        level(lvl: string): string;
+        level(lvl?: string): string;
 
         /**
          * Enumeration of available logging levels, where the keys are the level names

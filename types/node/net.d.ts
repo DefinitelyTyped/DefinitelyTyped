@@ -71,10 +71,11 @@ declare module "net" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | {};
         unref(): this;
         ref(): this;
 
+        /** @deprecated since v14.6.0 - Use `writableLength` instead. */
         readonly bufferSize: number;
         readonly bytesRead: number;
         readonly bytesWritten: number;

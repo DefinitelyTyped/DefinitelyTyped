@@ -1,25 +1,15 @@
-import {
-    ReactAttr,
-    ReactAnchorAttr,
-    RequiresChildrenProps,
-    FCReturn,
-    ForwardRefRefType,
-    FCProps
-} from "../../../typings/shared";
+import { ReactAnchorAttr, RequiresChildrenProps, FCReturn, ForwardRefProps, } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
-interface InheritedProps extends RequiresChildrenProps {
-    className?: ReactAttr["className"],
-}
-
-export interface SwitcherItemPropsBase extends InheritedProps {
+export interface SwitcherItemPropsBase extends RequiresChildrenProps {
+    className?: string,
     isSelected?: boolean,
 }
 
 export type SwitcherItemProps<E extends object = ReactAnchorAttr> = Omit<LinkProps<E>, "tabIndex"> & SwitcherItemPropsBase;
 
-declare function SwitcherItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
-    props: FCProps<SwitcherItemProps<E>>, ref: ForwardRefRefType<R>
+declare function SwitcherItem<E extends object = ReactAnchorAttr, R = HTMLElement>(
+    props: ForwardRefProps<R, SwitcherItemProps<E>>
 ): FCReturn;
 
 export default SwitcherItem;

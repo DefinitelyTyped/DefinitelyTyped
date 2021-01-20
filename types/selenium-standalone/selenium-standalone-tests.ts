@@ -24,6 +24,15 @@ let installOpts: InstallOpts = {
     cb: (error: Error) => {},
 };
 
+const installOptsCompact: InstallOpts = {
+    version: "version",
+    drivers: {
+        chrome: {
+            version: "chrome_version",
+        },
+    },
+};
+
 installOpts = {};
 
 installOpts = {
@@ -60,6 +69,15 @@ let startOpts: StartOpts = {
 };
 startOpts = {};
 
+const startOptsCompact: StartOpts = {
+    version: "version",
+    drivers: {
+        firefox: {
+            version: "version",
+        }
+    },
+};
+
 // FsPaths interface
 let fsPaths: FsPaths = {
     bla: "foo",
@@ -88,8 +106,10 @@ fsPaths = {};
 
 // start method
 start(startOpts, (error: Error | null, selenium: ChildProcess) => {});
+start(installOptsCompact, (error: Error | null, selenium: ChildProcess) => {});
 start((error: Error | null, selenium: ChildProcess) => {});
 
 // install method
 install(installOpts, (error: Error | undefined, fsPaths: FsPaths) => {});
+install(installOptsCompact, (error: Error | undefined, fsPaths: FsPaths) => {});
 install((error: Error | undefined, fsPaths: FsPaths) => {});

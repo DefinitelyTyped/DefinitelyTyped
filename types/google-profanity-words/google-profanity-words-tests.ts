@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { list } from 'google-profanity-words';
 import { profanity } from 'google-profanity-words/lib/profanity';
 

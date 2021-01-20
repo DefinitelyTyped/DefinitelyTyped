@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 50.0
+// Type definitions for non-npm package OpenFin API 51.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -6,9 +6,9 @@
 //                 Li Cui <https://github.com/licui3936>
 //                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.6
 
-// based on v15.80.50.23
+// based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 declare const fdc3: typeof import('./_v2/fdc3/main');
@@ -18,6 +18,7 @@ declare const fdc3: typeof import('./_v2/fdc3/main');
  * have access to the "fdc3" namespace without the need to include additional source files. You can treat the "fdc3"
  * namespace as you would the "window", "navigator" or "document" objects.
  */
+
 declare namespace fdc3 {
     type AppChannel = import('./_v2/fdc3/main').AppChannel;
     type AppDirIntent = import('./_v2/fdc3/main').AppDirIntent;
@@ -84,59 +85,68 @@ declare namespace fin {
     var System: import('./_v2/api/system/system').default;
     var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
-
+    var me: import('./_v2/api/fin').default['me'];
     // v2 shapes
     type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
     type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
     type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
     type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
-    type ApplySnapshotOptions = import('./_v2/api/platform/platform').ApplySnapshotOptions;
-    type AnchorType = import('./_v2/shapes').AnchorType
-    type Bounds = import('./_v2/shapes').Bounds;
+    type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
+    type AnchorType = import('./_v2/shapes/shapes').AnchorType
+    type Bounds = import('./_v2/shapes/shapes').Bounds;
     type Channel = import('./_v2/api/interappbus/channel/index').Channel;
     type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
     type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
-    type ContextMenuSettings = import('./_v2/shapes').ContextMenuSettings;
+    type ContextMenuSettings = import('./_v2/shapes/shapes').ContextMenuSettings;
     type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
     type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type Entity = import('./_v2/api/system/entity').Entity;
     type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
     type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ExternalConnection = import('./_v2/api/system/external-process').ExternalConnection;
     type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
     type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
     type FrameInfo = import('./_v2/api/window/window').FrameInfo;
+    type GetLogRequestType = import('./_v2/api/system/log').GetLogRequestType;
     type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
     type Identity = import('./_v2/identity').Identity;
+    type InstalledApps = import('./_v2/api/system/installedApps').InstalledApps;
     type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type LogInfo = import('./_v2/api/system/log').LogInfo;
     type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
-    type Opacity = import('./_v2/shapes').Opacity;
+    type Opacity = import('./_v2/shapes/shapes').Opacity;
     type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
-    type Position = import('./_v2/shapes').Position;
+    type Position = import('./_v2/shapes/shapes').Position;
     type Platform = import('./_v2/api/platform/platform').Platform;
-    type InitPlatformOptions = import('./_v2/api/platform/platform').InitPlatformOptions;
+    type ProxyConfig = import('./_v2/api/system/proxy').ProxyConfig;
+    type InitPlatformOptions = import('./_v2/shapes/Platform').InitPlatformOptions;
     type Layout = import('./_v2/api/platform/layout').Layout;
-    type PlatformOptions = import('./_v2/api/platform/platform').PlatformOptions;
+    type LogLevel = import('./_v2/api/system/log').LogLevel;
+    type PlatformOptions = import('./_v2/shapes/Platform').PlatformOptions;
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
     type RvmLaunchOptions = import('./_v2/api/application/application').RvmLaunchOptions;
-    type RGB = import('./_v2/shapes').RGB;
+    type RGB = import('./_v2/shapes/shapes').RGB;
     type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
     type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type ServiceConfiguration = import('./_v2/api/system/external-process').ServiceConfiguration;
+    type ServiceIdentifier = import('./_v2/api/system/system').ServiceIdentifier;
     type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
-    type Snapshot = import('./_v2/api/platform/platform').Snapshot;
+    type Snapshot = import('./_v2/shapes/Platform').Snapshot;
     type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
-    type Size = import('./_v2/shapes').Size;
+    type Size = import('./_v2/shapes/shapes').Size;
+    type TerminateExternalRequestType = import('./_v2/api/system/external-process').TerminateExternalRequestType;
     type TrayInfo = import('./_v2/api/application/application').TrayInfo;
-    type Transition = import('./_v2/shapes').Transition;
-    type TransitionOptions = import('./_v2/shapes').TransitionOptions;
-    type TransitionBase = import('./_v2/shapes').TransitionBase;
+    type Transition = import('./_v2/shapes/shapes').Transition;
+    type TransitionOptions = import('./_v2/shapes/shapes').TransitionOptions;
+    type TransitionBase = import('./_v2/shapes/shapes').TransitionBase;
     type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
     type View = import('./_v2/api/view/view').View;
     type ViewOptions = import('./_v2/api/view/view').ViewOptions;
@@ -151,15 +161,12 @@ declare namespace fin {
     interface OpenFinDesktop {
         main(f: () => any): void;
         Application: OpenFinApplicationStatic;
-        ExternalApp: OpenFinExternalApplicationStatic;
+        ExternalApplication: OpenFinExternalApplicationStatic;
         GlobalHotkey: OpenFinGlobalHotkey;
         InterApplicationBus: OpenFinInterApplicationBus;
         Notification: OpenFinNotificationStatic;
-        Platform: OpenFinPlatformStatic;
         System: OpenFinSystem;
-        View: OpenFinViewStatic;
         Window: OpenFinWindowStatic;
-        ExternalWin: OpenFinExternalWindowStatic;
         Frame: OpenFinFrameStatic;
     }
 
@@ -1092,289 +1099,6 @@ declare namespace fin {
         updateOptions(options: WindowOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
-    interface OpenFinExternalWindowStatic {
-        /**
-         * Returns an External Window object that wraps an existing window.
-         */
-        wrap(appUuid: string, windowName: string): Promise<OpenFinExternalWindow>;
-
-        /**
-         * Synchronously returns an External Window object that wraps an existing window.
-         */
-        wrapSync(appUuid: string, windowName: string): OpenFinExternalWindow;
-    }
-
-    /**
-     * Class: ExternalWindow
-     * An ExternalWindow is an OpenFin object representing a window that belongs to a non-openfin application.<br>
-     * While External Windows don't have the complete functionality of an OpenFin Window object,
-     * they can be used to tap into any application that is currently running in the OS.<br>
-     * External Windows are useful for grouping, moving and resizing non-openfin applications
-     * as well as listening to events that are dispatched by these applications.<br>
-     * They are also compatible with OpenFin's Layouts service to facilitate
-     * a complete positional control over all running applications.<br>
-     */
-    interface OpenFinExternalWindow {
-        /**
-         * The external window's id
-         */
-        uuid: string;
-        /**
-         * The external window's name
-         */
-        name: string;
-        /**
-         * Brings the external window to the front of the window stack.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-
-        /**
-         * Registers an event listener on the specified event.
-         */
-        addEventListener(
-            type: OpenFinExternalWindowEventType,
-            listener: (event: ExternalWindowBaseEvent) => void,
-            callback?: () => void, errorCallback?: (reason: string) => void): void;
-
-        bringToFront(): Promise<void>;
-
-        /**
-         * Closes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-        */
-        close(): Promise<void>;
-
-        /**
-         * Prevents a user from changing an external window's size/position
-         * when using the window's frame.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        disableUserMovement(): Promise<void>;
-
-        /**
-         * Re-enables user changes to an external window's size/position
-         * when using the window's frame.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        enableUserMovement(): Promise<void>;
-
-        /**
-         * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        flash(): Promise<void>;
-
-        /**
-         * Gives focus to the external window.
-         * @return {Promise.<void>}
-         * @emits ExternalWindow#focused
-         * @experimental
-         */
-        focus(): Promise<void>;
-
-        /**
-         * Gets the current bounds (top, left, etc.) of the external window.
-         * @return {Promise.<Bounds>}
-         * @experimental
-        */
-        getBounds(): Promise<Bounds>;
-
-        /**
-         * Retrieves an array containing wrapped external windows that are grouped
-         * with this external window. If a window is not in a group an empty array
-         * is returned.
-         * @return {Promise.<Array<ExternalWindow|_Window>>}
-         * @experimental
-         */
-        getGroup(): Promise<Array<OpenFinExternalWindow | OpenFinWindow>>;
-
-        /**
-         * Gets an information object for the window.
-         * @return {Promise.<any>}
-         * @experimental
-         */
-        getInfo(): Promise<any>;
-
-        /**
-         * Gets an external window's options.
-         * @return {Promise.<any>}
-         * @experimental
-         */
-        getOptions(): Promise<any>;
-
-        /**
-         * Gets the current state ("minimized", "maximized", or "restored") of
-         * the external window.
-         * @return {Promise.<string>}
-         * @experimental
-         */
-        getState(): Promise<string>;
-
-        /**
-         * Hides the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        hide(): Promise<void>;
-
-        /**
-         * Determines if the external window is currently showing.
-         * @return {Promise.<boolean>}
-         * @experimental
-         */
-        isShowing(): Promise<boolean>;
-
-        /**
-         * Joins the same window group as the specified window.
-         * @param { _Window | ExternalWindow } target The window whose group is to be joined
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        joinGroup(target: OpenFinExternalWindow | OpenFinWindow): Promise<void>;
-
-        /**
-         * Leaves the current window group so that the window can be moved
-         * independently of those in the group.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        leaveGroup(): Promise<void>;
-
-        /**
-         * Maximizes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        maximize(): Promise<void>;
-
-        /**
-         * Merges the instance's window group with the same window group as the specified window
-         * @param { _Window | ExternalWindow } target The window whose group is to be merged with
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        mergeGroups(target: OpenFinExternalWindow | OpenFinWindow): Promise<void>;
-
-        /**
-         * Minimizes the external window.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        minimize(): Promise<void>;
-
-        /**
-         * Moves the external window by a specified amount.
-         * @param { number } deltaLeft The change in the left position of the window
-         * @param { number } deltaTop The change in the top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        moveBy(deltaLeft: number, deltaTop: number): Promise<void>;
-
-        /**
-         * Moves the external window to a specified location.
-         * @param { number } left The left position of the window
-         * @param { number } top The top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        moveTo(left: number, top: number): Promise<void>;
-
-        /**
-         * Resizes the external window by a specified amount.
-         * @param { number } deltaWidth The change in the width of the window
-         * @param { number } deltaHeight The change in the height of the window
-         * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
-         * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
-         * If undefined, the default is "top-left".
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
-
-        /**
-         * Removes a previously registered event listener from the specified event.
-         */
-        removeEventListener(
-            type: OpenFinExternalWindowEventType,
-            listener: (event: ExternalWindowBaseEvent) => void,
-            callback?: () => void,
-            errorCallback?: (reason: string) => void): void;
-
-        /**
-         * Resizes the external window to the specified dimensions.
-         * @param { number } width The change in the width of the window
-         * @param { number } height The change in the height of the window
-         * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
-         * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
-         * If undefined, the default is "top-left".
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
-
-        /**
-         * Restores the external window to its normal state (i.e. unminimized, unmaximized).
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        restore(): Promise<void>;
-
-        /**
-         * Will bring the external window to the front of the entire stack and
-         * give it focus.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        setAsForeground(): Promise<void>;
-
-        /**
-         * Sets the external window's size and position.
-         * @property { Bounds } bounds
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        setBounds(bounds: Bounds): Promise<void>;
-
-        /**
-         * Shows the external window if it is hidden.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        show(): Promise<void>;
-
-        /**
-         * Shows the external window, if it is hidden, at the specified location.
-         * If the toggle parameter is set to true, the external window will
-         * alternate between showing and hiding.
-         * @param { number } left The left position of the window
-         * @param { number } top The top position of the window
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        showAt(left: number, top: number): Promise<void>;
-
-        /**
-         * Stops the taskbar icon from flashing.
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        stopFlashing(): Promise<void>;
-
-        /**
-         * Updates the external window using the passed options
-         * @param {*} options Changes an external window's options
-         * @return {Promise.<void>}
-         * @experimental
-         */
-        updateOptions(options: any): Promise<void>;
-    }
-
     interface OpenFinFrameStatic {
         wrap(uuid: string, name: string): OpenFinFrame;
 
@@ -1392,511 +1116,6 @@ declare namespace fin {
         getInfo(callback?: (entityInfo: EntityInfo) => void, errorCallback?: (reason: string) => void): void;
 
         removeEventListener(type: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
-    }
-
-    interface OpenFinPlatformStatic {
-        Layout: OpenFinLayoutStatic;
-        /**
-         * Initializes a Platform. Must be called from the Provider when using a custom provider.
-         * @param { InitPlatformOptions } [options] - platform options including a callback function that can be used to extend or replace
-         * default Provider behavior.
-         * @return {Promise.<void>}
-         * @tutorial Platform.init
-         * @experimental
-         * @static
-         */
-        init(options?: InitPlatformOptions): Promise<any>;
-        /**
-         * Asynchronously returns a Platform object that represents an existing platform.
-         * @param { Identity } identity
-         * @return {Promise.<Platform>}
-         * @tutorial Platform.wrap
-         * @static
-         */
-        wrap(identity: Identity): Promise<Platform>;
-        /**
-         * Synchronously returns a Platform object that represents an existing platform.
-         * @param { Identity } identity
-         * @return {Platform}
-         * @tutorial Platform.wrapSync
-         * @static
-         */
-        wrapSync(identity: Identity): Platform;
-        /**
-         * Asynchronously returns a Platform object that represents the current platform.
-         * @return {Promise.<Platform>}
-         * @tutorial Platform.getCurrent
-         * @static
-         */
-        getCurrent(): Promise<Platform>;
-        /**
-         * Synchronously returns a Platform object that represents the current platform.
-         * @return {Platform}
-         * @tutorial Platform.getCurrentSync
-         * @static
-         */
-        getCurrentSync(): Platform;
-        /**
-        * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
-        * be used to launch content into the platform.  Promise will reject if the platform is already running.
-        * @param { PlatformOptions } platformOptions
-        * @return {Promise.<Platform>}
-        * @tutorial Platform.start
-        * @static
-        */
-        start(platformOptions: PlatformOptions): Promise<Platform>;
-        /**
-         * Retrieves platforms's manifest and returns a wrapped and running Platform.  If there is a snapshot in the manifest,
-         * it will be launched into the platform.
-         * @param {string} manifestUrl - The URL of platform's manifest.
-         * @param {RvmLaunchOptions} [opts] - Parameters that the RVM will use.
-         * @return {Promise.<Platform>}
-         * @tutorial Platform.startFromManifest
-         * @static
-         */
-        startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Platform>;
-    }
-
-    interface OpenFinPlatform {
-        identity: Identity;
-        Layout: Layout;
-
-        /**
-         * Creates a new view and attaches it to a specified target window.
-         * @param { View~options } viewOptions View creation options
-         * @param { Identity } [target] The window to which the new view is to be attached. If no target, create a view in a new window.
-         * @return { Promise<View> }
-         * @tutorial Platform.createView
-         */
-        createView(viewOptions: ViewCreationOptions, target?: Identity): Promise<View>;
-        /**
-         * Creates a new Window.
-         * @param { Window~options } options Window creation options
-         * @return { Promise<_Window> }
-         * @tutorial Platform.createWindow
-         */
-        createWindow(options: WindowOption): Promise<_Window & Identity>;
-        /**
-         * Closes current platform, all its windows, and their views.
-         * @return { Promise<void> }
-         * @tutorial Platform.quit
-         */
-        quit(): Promise<void>;
-        /**
-         * Closes a specified view in a target window.
-         * @param { Identity } viewIdentity View identity
-         * @return { Promise<void> }
-         * @tutorial Platform.closeView
-         */
-        closeView(viewIdentity: Identity): Promise<void>;
-        /**
-         * Reparents a specified view in a new target window.
-         * @param { Identity } viewIdentity View identity
-         * @param { Identity } target new owner window identity
-         * @return { Promise<View> }
-         * @tutorial Platform.reparentView
-         */
-        reparentView(viewIdentity: Identity, target: Identity): Promise<View>;
-        /**
-         * Returns a snapshot of the platform in its current state.
-         *
-         * Can be used to restore an application to a previous state.
-         * @return { Promise<Snapshot> }
-         * @tutorial Platform.getSnapshot
-         */
-        getSnapshot(): Promise<Snapshot>;
-        /**
-         * Adds a snapshot to a running Platform.
-         *
-         * Can optionally close existing windows and overwrite current platform state with that of a snapshot.
-         *
-         * The function accepts either a snapshot taken using {@link Platform#getSnapshot getSnapshot},
-         * or a url or filepath to a snapshot JSON object.
-         * @param { Snapshot | string } requestedSnapshot Snapshot to apply, or a url or filepath.
-         * @param { ApplySnapshotOptions } [options] Optional parameters to specify whether existing windows should be closed.
-         * @return { Promise<Platform> }
-         * @tutorial Platform.applySnapshot
-         */
-        applySnapshot(requestedSnapshot: Snapshot | string, options?: ApplySnapshotOptions): Promise<Platform>;
-        /**
-         * Retrieves a manifest by url and launches a legacy application manifest or snapshot into the platform.  Returns a promise that
-         * resolves to the wrapped Platform.
-         * @param {string} [manifestUrl] - The URL of the manifest of the app to launch into the platform.  If this app manifest
-         * contains a snapshot, that will be launched into the platform.  If not, the application described in startup_app options
-         * will be launched into the platform. The applicable startup_app options will become {@link View~options View Options}.
-         * @return {Promise<Platform>}
-         * @tutorial Platform.launchLegacyManifest
-         * @experimental
-         */
-        launchLegacyManifest(manifestUrl?: string): Promise<Platform>;
-        /**
-         * Set the context of your current window or view environment.  The context will be saved in any platform snapshots.
-         * @param {any} context - A field where serializable context data can be stored to be saved in platform snapshots.
-         * @return {Promise<void>}
-         * @tutorial Platform.setContext
-         * @experimental
-         */
-        setContext(context?: any): Promise<void>;
-        /**
-         * Get the context of your current window or view environment that was previously set using {@link Platform#setContext setContext}.
-         * The context will be saved in any platform snapshots.  Returns a promise that resolves to the context.
-         * @return {Promise<any>}
-         * @tutorial Platform.getContext
-         * @experimental
-         */
-        getContext(): Promise<any>;
-        /**
-         * Set a listener to be executed when the when a View's target Window experiences a context update. Can only be set from a view that
-         * has wrapped it's current platform. The listener receives the new context as its first argument and the previously context as the
-         * second argument.  If the listener returns a truthy value, the View's context will be updated with the new context as if
-         * {@link Platform#setContext setContext} was called.  This can only be set once per javascript environment (once per View), and any
-         * subsequent calls to onWindowContextUpdated will error out.  If the listener is successfully set, returns a promise that resolves to
-         * true.
-         * @return {Promise.<boolean>}
-         * @tutorial Platform.onWindowContextUpdated
-         * @experimental
-         */
-        onWindowContextUpdated(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
-    }
-    interface OpenFinLayoutStatic {
-        /**
-         * Asynchronously returns a Layout object that represents a Window's layout.
-         * @param { Identity } identity
-         * @return {Promise.<Layout>}
-         * @tutorial Layout.wrap
-         * @static
-         */
-        wrap(identity: Identity): Promise<Layout>;
-        /**
-         * Synchronously returns a Layout object that represents a Window's layout.
-         * @param { Identity } identity
-         * @return {Layout}
-         * @tutorial Layout.wrapSync
-         * @static
-         */
-        wrapSync(identity: Identity): Layout;
-        /**
-         * Asynchronously returns a Layout object that represents a Window's layout.
-         * @return {Promise.<Layout>}
-         * @tutorial Layout.getCurrent
-         * @static
-         */
-        getCurrent(): Promise<Layout>;
-        /**
-         * Synchronously returns a Layout object that represents a Window's layout.
-         * @return {Layout}
-         * @tutorial Layout.getCurrentSync
-         * @static
-         */
-        getCurrentSync(): Layout;
-        /**
-         * Initialize the window's Layout.  Must be called from a custom window that has a truthy 'layout' option property (set `layout` to
-         * `true` in order to use this call with your own layout).  If a layout is not provided in the options for this call, the `layout`
-         * property set upon creation of that window is used.  If a containerId is not provided, this method attempts to find an element
-         * with the id `layout-container`.
-         * @param { InitLayoutOptions } [options] - Layout init options.
-         * @return { Promise<Layout> }
-         * @static
-         * @experimental
-         * @tutorial Layout.init
-         */
-        init: (options?: InitLayoutOptions) => Promise<Layout>;
-    }
-    interface OpenFinLayout {
-        // init: (options?: InitLayoutOptions) => Promise<Layout>;
-        identity: Identity;
-        /**
-         * Returns the configuration of the window's layout.  Returns the same information that is returned for all windows in getSnapshot.
-         * @return { Promise<LayoutConfig> }
-         * @tutorial Layout.getConfig
-         */
-        getConfig(): Promise<GoldenLayout.Config>;
-        /**
-         * Replaces a Platform window's layout with a new layout.  Any views that were in the old layout but not the new layout
-         * will be destroyed.
-         * @param { LayoutConfig } layout New layout to implement in the target window.
-         * Please see explanation of a layout {@link https://developers.openfin.co/docs/platform-api#section-layout here}.
-         * @return { Promise<void> }
-         * @tutorial Layout.replace
-         */
-        replace: (layout: GoldenLayout.Config) => Promise<void>;
-        /**
-         * Replaces a Platform window's layout with a preset layout arrangement using the existing Views attached to the window.
-         * The preset options are `columns`, `grid`, `rows`, and `tabs`.
-         * @param { PresetLayoutOptions } options Mandatory object with `presetType` property that sets which preset layout arrangement to use.
-         * The preset options are `columns`, `grid`, `rows`, and `tabs`.
-         * @return { Promise<void> }
-         * @tutorial Layout.applyPreset
-         */
-        applyPreset: (options: PresetLayoutOptions) => Promise<void>;
-    }
-
-    interface OpenFinView {
-        /**
-         * Executes Javascript on the view, restricted to contents you own or contents owned by
-         * applications you have created.
-         * @param { string } code JavaScript code to be executed on the view.
-         * @function executeJavaScript
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.executeJavaScript
-         */
-        /**
-         * Focuses the view
-         * @return {Promise.<void>}
-         * @function focus
-         * @memberof View
-         * @emits focused
-         * @instance
-         * @tutorial View.focus
-         * @experimental
-        */
-        /**
-        * Returns the zoom level of the view.
-        * @function getZoomLevel
-        * @memberOf View
-        * @instance
-        * @return {Promise.<number>}
-        * @tutorial View.getZoomLevel
-        */
-        /**
-         * Sets the zoom level of the view.
-         * @param { number } level The zoom level
-         * @function setZoomLevel
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.setZoomLevel
-         */
-        /**
-         * Find and highlight text on a page.
-         * @param { string } searchTerm Term to find in page
-         * @param { FindInPageOptions } options Search options
-         * @function findInPage
-         * @memberOf View
-         * @instance
-         * @return {Promise.<number>}
-         * @tutorial View.findInPage
-         */
-        /**
-         * Stops any findInPage call with the provided action.
-         * @param {string} action
-         * Action to execute when stopping a find in page:<br>
-         * "clearSelection" - Clear the selection.<br>
-         * "keepSelection" - Translate the selection into a normal selection.<br>
-         * "activateSelection" - Focus and click the selection node.<br>
-         * @function stopFindInPage
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.stopFindInPage
-         */
-        /**
-         * Navigates the view to a specified URL. The url must contain the protocol prefix such as http:// or https://.
-         * @param { string } url - The URL to navigate the view to.
-         * @return {Promise.<void>}
-         * @function navigate
-         * @memberof View
-         * @instance
-         * @tutorial View.navigate
-         * @experimental
-         */
-        /**
-         * Navigates the view back one page.
-         * @function navigateBack
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.navigateBack
-         */
-        /**
-         * Navigates the view forward one page.
-         * @function navigateForward
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.navigateForward
-         */
-        /**
-         * Stops any current navigation the view is performing.
-         * @function stopNavigation
-         * @memberOf View
-         * @instance
-         * @return {Promise.<void>}
-         * @tutorial View.stopNavigation
-         */
-        /**
-        * Reloads the view current page
-        * @function reload
-        * @memberOf View
-        * @instance
-        * @return {Promise.<void>}
-        * @tutorial View.reload
-        */
-        /**
-        * Prints the view's web page
-        * @param { PrintOptions } [options] Printer Options
-        * @function print
-        * @memberOf View
-        * @instance
-        * @return {Promise.<void>}
-        * @tutorial View.print
-        */
-        /**
-        * Returns an array with all system printers
-        * @function getPrinters
-        * @memberOf View
-        * @instance
-        * @return { Promise.Array.<PrinterInfo> }
-        * @tutorial View.getPrinters
-        */
-        /**
-        * Shows the Chromium Developer Tools
-        * @function showDeveloperTools
-        * @memberOf View
-        * @instance
-        * @return {Promise.<void>}
-        * @tutorial View.showDeveloperTools
-        */
-        /**
-        * Attaches the current view to a the given window identity.
-        * Identity must be the identity of a window in the same application.
-        * This detaches the view from its current window, and sets the view to be destroyed when its new window closes.
-        * @param target {Identity}
-        * @return {Promise.<void>}
-        * @tutorial View.attach
-        * @experimental
-        */
-        attach: (target: Identity) => Promise<void>;
-        /**
-        * Destroys the current view
-        * @return {Promise.<void>}
-        * @tutorial View.destroy
-        * @experimental
-        */
-        destroy: () => Promise<void>;
-        /**
-        * Shows the current view if it is currently hidden.
-        * @return {Promise.<void>}
-        * @tutorial View.show
-        * @experimental
-        */
-        show: () => Promise<void>;
-        /**
-        * Hides the current view if it is currently visible.
-        * @return {Promise.<void>}
-        * @tutorial View.hide
-        * @experimental
-        */
-        hide: () => Promise<void>;
-        /**
-        * Sets the bounds (top, left, width, height) of the view relative to its window.
-        * @param bounds {Bounds}
-        * @return {Promise.<void>}
-        * @tutorial View.setBounds
-        * @experimental
-        */
-        setBounds: (bounds: Pick<Bounds, "height" | "width" | "top" | "left">) => Promise<void>;
-        /**
-        * Gets the bounds (top, left, width, height) of the view relative to its window.
-        * @return {Promise.<Bounds>}
-        * @tutorial View.getBounds
-        * @experimental
-        */
-        getBounds: () => Promise<any>;
-        /**
-        * Gets the View's info.
-        * @return {Promise.<ViewInfo>}
-        * @tutorial View.getInfo
-        * @experimental
-        */
-        getInfo: () => Promise<any>;
-        /**
-        * Gets the View's options.
-        * @return {Promise<ViewCreationOptions>}
-        * @tutorial View.getOptions
-        * @experimental
-        */
-        getOptions: () => Promise<ViewCreationOptions>;
-        /**
-        * Gets the view's info.
-        * @param { Partial<ViewOptions> } options
-        * @return {Promise.<void>}
-        * @tutorial View.updateOptions
-        * @experimental
-        */
-        updateOptions: (options: Partial<ViewOptions>) => Promise<any>;
-        /**
-        * Retrieves the window the view is currently attached to.
-        * @return {Promise.<_Window>}
-        * @experimental
-        */
-        getCurrentWindow: () => Promise<_Window>;
-        /**
-        * Sets a custom window handler. Only works if experimental child windows are enabled for the view.
-        * Takes a match pattern or array of match patterns for which to call the handler.
-        * If multiple handlers are set that match a url, only the first set one will be called.
-        * This can be used to "cascade" listeners.
-        * Returns a function to unsubscribe this handler.
-        * @tutorial View.setCustomWindowHandler
-        * @param { string | string[] } urls Url match pattern or array of match patterns
-        * see (https://developer.chrome.com/extensions/match_patterns)
-        * @param {Function} handler function that will be called with the window options that match the url.
-        * @return {Function}
-        * @experimental
-        */
-        setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => Promise<void>>;
-    }
-
-    interface OpenFinViewStatic {
-        /**
-         * Creates a new View.
-         * @param { View~options } options - View creation options
-         * @return {Promise.<View>}
-         * @tutorial View.create
-         * @experimental
-         * @static
-         */
-        create(options: ViewCreationOptions): Promise<View>;
-
-        /**
-         * Asynchronously returns a View object that represents an existing view.
-         * @param { Identity } identity
-         * @return {Promise.<View>}
-         * @tutorial View.wrap
-         * @experimental
-         * @static
-         */
-        wrap(identity: Identity): Promise<View>;
-
-        /**
-         * Synchronously returns a View object that represents an existing view.
-         * @param { Identity } identity
-         * @return {View}
-         * @tutorial View.wrapSync
-         * @experimental
-         * @static
-         */
-        wrapSync(identity: Identity): View;
-
-        /**
-         * Asynchronously returns a View object that represents the current view
-         * @return {Promise.<View>}
-         * @tutorial View.getCurrent
-         * @experimental
-         * @static
-         */
-        getCurrent(): Promise<View>;
-
-        /**
-         * Synchronously returns a View object that represents the current view
-         * @return {View}
-         * @tutorial View.getCurrentSync
-         * @experimental
-         * @static
-         */
-        getCurrentSync(): View;
     }
     interface ApplicationBaseEvent {
         topic: string;
@@ -2017,24 +1236,6 @@ declare namespace fin {
         uuid: string;
     }
 
-    interface ExternalWindowBaseEvent {
-        /**
-         * the name of the window
-         */
-        name: string;
-        /**
-         * always window
-         */
-        topic: "external-window";
-        /**
-         * window event type
-         */
-        type: OpenFinExternalWindowEventType;
-        /**
-         * the UUID of the application the window belongs to
-         */
-        uuid: string;
-    }
     interface WindowAuthRequestedEvent extends WindowBaseEvent {
         authInfo: {
             host: string;
@@ -2248,23 +1449,4 @@ declare namespace fin {
         | "restored"
         | "show-requested"
         | "shown";
-
-    type OpenFinExternalWindowEventType = 'begin-user-bounds-changing' |
-        'blurred' |
-        'bounds-changed' |
-        'bounds-changing' |
-        'closed' |
-        'closing' |
-        'disabled-movement-bounds-changed' |
-        'disabled-movement-bounds-changing' |
-        'end-user-bounds-changing' |
-        'focused' |
-        'group-changed' |
-        'hidden' |
-        'maximized' |
-        'minimized' |
-        'restored' |
-        'shown' |
-        'user-movement-disabled' |
-        'user-movement-enabled';
 }

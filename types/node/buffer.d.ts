@@ -13,7 +13,7 @@ declare module "buffer" {
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
 
     export const SlowBuffer: {
-        /** @deprecated since v6.0.0, use Buffer.allocUnsafeSlow() */
+        /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
         new(size: number): Buffer;
         prototype: Buffer;
     };

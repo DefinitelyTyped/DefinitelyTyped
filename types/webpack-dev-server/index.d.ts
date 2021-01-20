@@ -292,7 +292,7 @@ declare namespace WebpackDevServer {
          * displayed.  This can be a nice middle ground if you want some bundle
          * information, but not all of it.
          */
-        stats?: webpack.Options.Stats;
+        stats?: webpack.Configuration['stats'];
         /**
          * transportMode is an experimental option, meaning its usage could
          * potentially change without warning.
@@ -337,7 +337,7 @@ declare namespace WebpackDevServer {
          */
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
-        watchOptions?: webpack.WatchOptions;
+        watchOptions?: webpack.Configuration['watchOptions'];
         /** Tells devServer to write generated assets to the disk. */
         writeToDisk?: boolean | ((filePath: string) => boolean);
     }

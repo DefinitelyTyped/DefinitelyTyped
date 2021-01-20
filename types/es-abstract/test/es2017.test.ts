@@ -13,9 +13,9 @@ ES2017.EnumerableOwnProperties({ Object, String }, 'value'); // $ExpectType (Obj
 ES2017.EnumerableOwnProperties({ Object, String }, 'key+value'); // $ExpectType [string, ObjectConstructor | StringConstructor][]
 
 ES2017.EnumerableOwnProperties(object, 'key'); // $ExpectType string[]
-ES2017.EnumerableOwnProperties(object, 'value'); // $ExpectType unknown[]
-ES2017.EnumerableOwnProperties(object, 'key+value'); // $ExpectType [string, unknown][]
-ES2017.EnumerableOwnProperties(object, OWN_PROPERTY_TYPES); // $ExpectType unknown[]
+ES2017.EnumerableOwnProperties(object, 'value'); // $ExpectType any[]
+ES2017.EnumerableOwnProperties(object, 'key+value'); // $ExpectType [string, any][]
+ES2017.EnumerableOwnProperties(object, OWN_PROPERTY_TYPES); // $ExpectType any[]
 
 // $ExpectType number[]
 ES2017.IterableToList([1, 2, 3]);

@@ -5,7 +5,7 @@ export type ReaderArgument = ReaderLiteral | ReaderVariable | ReaderObjectValue 
 
 export type ReaderArgumentDefinition = ReaderLocalArgument | ReaderRootArgument;
 
-export type ReaderField = ReaderScalarField | ReaderLinkedField | ReaderMatchField;
+export type ReaderField = ReaderScalarField | ReaderLinkedField;
 
 export interface ReaderFragment {
     readonly kind: string; // 'Fragment';
@@ -41,20 +41,6 @@ export interface ReaderLinkedField {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
-export interface ReaderMatchField {
-    readonly kind: string; // 'MatchField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
-    readonly matchesByType: {
-        readonly [key: string]: {
-            readonly fragmentPropName: string;
-            readonly fragmentName: string;
-        };
-    };
-}
-
 export interface ReaderPaginationMetadata {
     readonly backward: {
         readonly count: string;
@@ -82,13 +68,45 @@ export interface ReaderScalarField {
     readonly storageKey: string | null | undefined;
 }
 
+export interface ReaderFlightField {
+    readonly kind: string; // 'FlightField',
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
+    readonly storageKey: string | null | undefined;
+}
+
+export interface ReaderDefer {
+    readonly kind: string; // 'Defer',
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export interface ReaderStream {
+    readonly kind: string; // 'Stream',
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export type RequiredFieldAction = 'NONE' | 'LOG' | 'THROW';
+
+export interface ReaderRequiredField {
+    readonly kind: string; // 'RequiredField'
+    readonly field: ReaderField;
+    readonly action: RequiredFieldAction;
+    readonly path: string;
+}
+
 export type ReaderSelection =
     | ReaderCondition
     | ReaderClientExtension
+    | ReaderDefer
     | ReaderField
+    | ReaderFlightField
     | ReaderFragmentSpread
+    | ReaderInlineDataFragmentSpread
     | ReaderInlineFragment
-    | ReaderMatchField;
+    | ReaderModuleImport
+    | ReaderStream
+    | ReaderRequiredField;
 
 export interface ReaderSplitOperation {
     readonly kind: string; // 'SplitOperation';
@@ -125,20 +143,19 @@ export interface ReaderListValue {
 export interface ReaderLocalArgument {
     readonly kind: string; // 'LocalArgument';
     readonly name: string;
-    readonly type: string;
     readonly defaultValue: unknown;
 }
 
 export interface ReaderRootArgument {
     readonly kind: string; // 'RootArgument';
     readonly name: string;
-    readonly type: string | null | undefined;
 }
 
 export interface ReaderRefetchMetadata {
-    readonly connection: ReaderPaginationMetadata | null | undefined;
+    readonly connection?: ReaderPaginationMetadata | null;
     readonly operation: string | ConcreteRequest;
     readonly fragmentPathInResult: ReadonlyArray<string>;
+    readonly identifierField?: string | null;
 }
 
 export interface ReaderCondition {

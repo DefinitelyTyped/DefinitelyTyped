@@ -726,6 +726,13 @@ declare namespace Joi {
         };
     }
 
+    interface GetRuleOptions {
+        args?: Record<string, any>;
+        method?: string;
+        name: string;
+        operator?: string;
+    }
+
     interface SchemaInternals {
         /**
          * Parent schema object.
@@ -767,7 +774,7 @@ declare namespace Joi {
         /**
          * Retrieve some rule configuration.
          */
-        $_getRule(name: string): ExtensionRule;
+        $_getRule(name: string): GetRuleOptions | undefined;
 
         $_mapLabels(path: string | string[]): string;
 
@@ -1122,7 +1129,7 @@ declare namespace Joi {
         tailor(targets: string | string[]): Schema;
 
         /**
-         * Annotates the key with an unit name.
+         * Annotates the key with a unit name.
          */
         unit(name: string): this;
 
@@ -1643,7 +1650,7 @@ declare namespace Joi {
         /**
          * Renames a key to another name (deletes the renamed key).
          */
-        rename(from: string, to: string, options?: RenameOptions): this;
+        rename(from: string | RegExp, to: string, options?: RenameOptions): this;
 
         /**
          * Requires the object to be a Joi schema instance.

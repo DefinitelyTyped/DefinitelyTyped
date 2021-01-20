@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.1
+// Type definitions for Screeps 3.2
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -322,6 +322,11 @@ declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
+declare const CPU_UNLOCK: CPU_UNLOCK;
+declare const PIXEL: PIXEL;
+declare const ACCESS_KEY: ACCESS_KEY;
+
+declare const PIXEL_CPU_COST: 5000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -736,8 +741,10 @@ declare const BOOSTS: {
     };
 };
 
+declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
+
 declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
         level?: number;
         amount: number;
@@ -1018,7 +1025,7 @@ declare const POWER_INFO: {
         level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
-        duration: 800;
+        duration: 1000;
         ops: 100;
     };
 };
@@ -1519,7 +1526,7 @@ interface Game {
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**
@@ -1652,6 +1659,15 @@ interface CPU {
      * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
      */
     shardLimits: CPUShardLimits;
+    /**
+     * Whether full CPU is currently unlocked for your account.
+     */
+    unlocked: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until full CPU is unlocked for your account.
+     * This property is not defined when full CPU is not unlocked for your account or it's unlocked with a subscription.
+     */
+    unlockedTime: number | undefined;
 
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
@@ -1685,6 +1701,17 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+    /**
+     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     */
+    generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
+
+    /**
+     * Unlock full CPU for your account for additional 24 hours.
+     * This method will consume 1 CPU unlock bound to your account (See `Game.resources`).
+     * If full CPU is not currently unlocked for your account, it may take some time (up to 5 minutes) before unlock is applied to your account.
+     */
+    unlock(): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL;
 }
 
 interface HeapStatistics {
@@ -2038,6 +2065,8 @@ type Terrain = "plain" | "swamp" | "wall";
 type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
+
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
 
 // Return Codes
 
@@ -2401,7 +2430,8 @@ type CommodityConstant =
     | RESOURCE_EMANATION
     | RESOURCE_ESSENCE;
 
-type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
+type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
+type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
@@ -2501,6 +2531,9 @@ type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 
@@ -2824,9 +2857,189 @@ interface GameMap {
      * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
      */
     getRoomStatus(roomName: string): RoomStatus;
+
+    /**
+     * Map visuals provide a way to show various visual debug info on the game map.
+     * You can use the `Game.map.visual` object to draw simple shapes that are visible only to you.
+     *
+     * Map visuals are not stored in the database, their only purpose is to display something in your browser.
+     * All drawings will persist for one tick and will disappear if not updated.
+     * All `Game.map.visual` calls have no added CPU cost (their cost is natural and mostly related to simple JSON.serialize calls).
+     * However, there is a usage limit: you cannot post more than 1000 KB of serialized data.
+     *
+     * All draw coordinates are measured in global game coordinates (`RoomPosition`).
+     */
+    visual: MapVisual;
 }
 
 // No static is available
+
+interface MapVisual {
+    /**
+     * Draw a line.
+     * @param pos1 The start position object.
+     * @param pos2 The finish position object.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    line(pos1: RoomPosition, pos2: RoomPosition, style?: MapLineStyle): MapVisual;
+
+    /**
+     * Draw a circle.
+     * @param pos The position object of the center.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    circle(pos: RoomPosition, style?: MapCircleStyle): MapVisual;
+
+    /**
+     * Draw a rectangle.
+     * @param topLeftPos The position object of the top-left corner.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    rect(topLeftPos: RoomPosition, width: number, height: number, style?: MapPolyStyle): MapVisual;
+
+    /**
+     * Draw a polyline.
+     * @param points An array of points. Every item should be a `RoomPosition` object.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining.
+     */
+    poly(points: RoomPosition[], style?: MapPolyStyle): MapVisual;
+
+    /**
+     * Draw a text label. You can use any valid Unicode characters, including emoji.
+     * @param text The text message.
+     * @param pos The position object of the label baseline.
+     * @param style The optional style
+     * @returns The MapVisual object, for chaining
+     */
+    text(text: string, pos: RoomPosition, style?: MapTextStyle): MapVisual;
+
+    /**
+     * Remove all visuals from the map.
+     * @returns The MapVisual object, for chaining
+     */
+    clear(): MapVisual;
+
+    /**
+     * Get the stored size of all visuals added on the map in the current tick. It must not exceed 1024,000 (1000 KB).
+     * @returns The size of the visuals in bytes.
+     */
+    getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added on the map in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * @param data The string returned from `Game.map.visual.export`.
+     * @returns The MapVisual object itself, so that you can chain calls.
+     */
+    import(data: string): MapVisual;
+}
+
+interface MapLineStyle {
+    /**
+     * Line width, default is 0.1.
+     */
+    width?: number;
+    /**
+     * Line color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    color?: string;
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+    /**
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     */
+    lineStyle?: "dashed" | "dotted" | "solid";
+}
+
+interface MapPolyStyle {
+    /**
+     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    fill?: string;
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+    /**
+     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     */
+    stroke?: string | undefined;
+    /**
+     * Stroke line width, default is 0.5.
+     */
+    strokeWidth?: number;
+    /**
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     */
+    lineStyle?: "dashed" | "dotted" | "solid";
+}
+
+interface MapCircleStyle extends MapPolyStyle {
+    /**
+     * Circle radius, default is 10.
+     */
+    radius?: number;
+}
+
+interface MapTextStyle {
+    /**
+     * Font color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     */
+    color?: string;
+    /**
+     * The font family, default is sans-serif
+     */
+    fontFamily?: string;
+    /**
+     * The font size in game coordinates, default is 10
+     */
+    fontSize?: number;
+    /**
+     * The font style ('normal', 'italic' or 'oblique')
+     */
+    fontStyle?: string;
+    /**
+     * The font variant ('normal' or 'small-caps')
+     */
+    fontVariant?: string;
+    /**
+     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     */
+    stroke?: string;
+    /**
+     * Stroke width, default is 0.15.
+     */
+    strokeWidth?: number;
+    /**
+     * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
+     */
+    backgroundColor?: string;
+    /**
+     * Background rectangle padding, default is 2.
+     */
+    backgroundPadding?: number;
+    /**
+     * Text align, either center, left, or right. Default is center.
+     */
+    align?: "center" | "left" | "right";
+    /**
+     * Opacity value, default is 0.5.
+     */
+    opacity?: number;
+}
 /**
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
  * terminals, and your buy/sell orders. The object is accessible via the singleton Game.market property.
@@ -3668,11 +3881,11 @@ interface RoomPosition {
      */
     findClosestByPath<K extends FindConstant>(
         type: K,
-        opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
     ): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -3682,7 +3895,7 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: any | string; algorithm?: string },
+        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -3944,6 +4157,19 @@ declare class RoomVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added in the room in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * @param data The string returned from `RoomVisual.export`.
+     * @returns The RoomVisual object itself, so that you can chain calls.
+     */
+    import(data: string): RoomVisual;
 }
 
 interface LineStyle {
@@ -5058,10 +5284,10 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     store: Store<RESOURCE_ENERGY, false>;
 
     /**
-     * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely attack any creep or structure in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: AnyCreep): ScreepsReturnCode;
+    attack(target: AnyCreep | Structure): ScreepsReturnCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.

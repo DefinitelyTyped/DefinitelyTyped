@@ -23,7 +23,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-themeRiver
          */
         interface SeriesThemeRiver {
-
             /**
              * @default
              * "themeRiver"
@@ -42,7 +41,16 @@ declare namespace echarts {
             id?: string;
 
             /**
-             * `zlevel` value of all graghical elements in .
+             * Series name used for displaying in
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-themeRiver.name
+             */
+            name?: string;
+
+            /**
+             * `zlevel` value of all graphical elements in the series.
              *
              * `zlevel` is used to make layers with Canvas.
              * Graphical elements with different `zlevel` values will be placed
@@ -200,7 +208,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-themeRiver.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -580,12 +587,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -631,7 +636,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-themeRiver.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -917,7 +922,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-themeRiver.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color.
                  *
@@ -934,7 +938,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -944,7 +948,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -985,7 +989,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1018,12 +1022,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1154,7 +1156,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1402,12 +1404,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1453,7 +1453,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1738,7 +1738,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1755,7 +1754,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1765,7 +1764,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1810,7 +1809,7 @@ declare namespace echarts {
                      * "rgba(0,0,0,0.8)"
                      * @see https://echarts.apache.org/en/option.html#series-themeRiver.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1972,10 +1971,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-themeRiver.data
              */
-            data?: (
-                (void | number | string | SeriesThemeRiver.DataObject)[]
-                | (void | number | string | SeriesThemeRiver.DataObject)[][]
-            );
+            data?:
+                | (void | number | string | SeriesThemeRiver.DataObject)[]
+                | (void | number | string | SeriesThemeRiver.DataObject)[][];
 
             /**
              * tooltip settings in this series.
@@ -1988,7 +1986,6 @@ declare namespace echarts {
 
         namespace SeriesThemeRiver {
             interface DataObject {
-
                 /**
                  * the time attribute of time and theme.
                  *

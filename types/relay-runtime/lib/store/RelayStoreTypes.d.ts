@@ -1,6 +1,6 @@
 import { ReaderFragment } from '../util/ReaderNode';
-import { Variables, Disposable, DataID, CacheConfig } from '../util/RelayRuntimeTypes';
-import { ConcreteRequest } from '../util/RelayConcreteNode';
+import { Variables, Disposable, DataID, CacheConfig, FetchPolicy, RenderPolicy } from '../util/RelayRuntimeTypes';
+import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationSelectableNode,
@@ -9,16 +9,17 @@ import {
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
 import {
-    ConnectionReference,
-    ConnectionResolver,
-    ConnectionSnapshot,
-    ConnectionInternalEvent,
-    ConnectionID,
-} from './RelayConnection';
-import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
+    PayloadData,
+    Network,
+    UploadableMap,
+    PayloadError,
+    GraphQLResponse,
+    ReactFlightServerTree,
+} from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
+import { InvalidationState } from './RelayModernStore';
 
 export type FragmentReference = unknown;
 export type OperationTracker = RelayOperationTracker;
@@ -52,6 +53,7 @@ export interface SelectorData {
 export interface SingularReaderSelector {
     readonly kind: string;
     readonly dataID: DataID;
+    readonly isWithinUnmatchedTypeRefinement: boolean;
     readonly node: ReaderFragment;
     readonly owner: RequestDescriptor;
     readonly variables: Variables;
@@ -68,6 +70,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
@@ -197,7 +200,15 @@ export interface CheckOptions {
     handlers: ReadonlyArray<MissingFieldHandler>;
 }
 
-export type OperationAvailability = 'available' | 'stale' | 'missing';
+export type OperationAvailability =
+    | {
+          status: 'available';
+          fetchTime: number | null | undefined;
+      }
+    | { status: 'stale' }
+    | { status: 'missing' };
+
+export { InvalidationState } from './RelayModernStore';
 
 /**
  * An interface for keeping multiple views of data consistent across an
@@ -225,17 +236,19 @@ export interface Store {
     /**
      * Notify subscribers (see `subscribe`) of any data that was published
      * (`publish()`) since the last time `notify` was called.
+     * Optionally provide an OperationDescriptor indicating the source operation
+     * that was being processed to produce this run.
      *
-     * Also this method should return an array of the affected fragment owners
+     * This method should return an array of the affected fragment owners
      */
-    notify(): ReadonlyArray<RequestDescriptor>;
+    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): ReadonlyArray<RequestDescriptor>;
 
     /**
      * Publish new information (e.g. from the network) to the store, updating its
      * internal record source. Subscribers are not immediately notified - this
      * occurs when `notify()` is called.
      */
-    publish(source: RecordSource): void;
+    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
 
     /**
      * Ensure that all the records necessary to fulfill the given selector are
@@ -257,29 +270,6 @@ export interface Store {
      */
     holdGC(): Disposable;
 
-    lookupConnection_UNSTABLE<TEdge, TState>(
-        connectionReference: ConnectionReference<TEdge>,
-        resolver: ConnectionResolver<TEdge, TState>,
-    ): ConnectionSnapshot<TEdge, TState>;
-
-    subscribeConnection_UNSTABLE<TEdge, TState>(
-        snapshot: ConnectionSnapshot<TEdge, TState>,
-        resolver: ConnectionResolver<TEdge, TState>,
-        callback: (state: TState) => void,
-    ): Disposable;
-
-    /**
-     * Publish connection events, updating the store's list of events. As with
-     * publish(), subscribers are only notified after notify() is called.
-     */
-    publishConnectionEvents_UNSTABLE(events: ConnectionInternalEvent[], final: boolean): void;
-
-    /**
-     * Get a read-only view of the store's internal connection events for a given
-     * connection.
-     */
-    getConnectionEvents_UNSTABLE(connectionID: ConnectionID): ReadonlyArray<ConnectionInternalEvent>;
-
     /**
      * Record a backup/snapshot of the current state of the store, including
      * records and derived data such as fragment and connection subscriptions.
@@ -291,6 +281,30 @@ export interface Store {
      * Reset the state of the store to the point that snapshot() was last called.
      */
     restore(): void;
+
+    /**
+     * Will return an opaque snapshot of the current invalidation state of
+     * the data ids that were provided.
+     */
+    lookupInvalidationState(dataIDs: ReadonlyArray<DataID>): InvalidationState;
+
+    /**
+     * Given the previous invalidation state for those
+     * ids, this function will return:
+     *   - false, if the invalidation state for those ids is the same, meaning
+     *     **it has not changed**
+     *   - true, if the invalidation state for the given ids has changed
+     */
+    checkInvalidationState(previousInvalidationState: InvalidationState): boolean;
+
+    /**
+     * Will subscribe the provided callback to the invalidation state of the
+     * given data ids. Whenever the invalidation state for any of the provided
+     * ids changes, the callback will be called, and provide the latest
+     * invalidation state.
+     * Disposing of the returned disposable will remove the subscription.
+     */
+    subscribeToInvalidationState(invalidationState: InvalidationState, callback: () => void): Disposable;
 }
 
 /**
@@ -352,6 +366,7 @@ export interface RecordProxy<T = {}> {
     ): RecordProxy<T>;
     setValue<K extends keyof T>(value: T[K], name: K, args?: Variables | null): RecordProxy<T>;
     setValue(value: Primitive | Primitive[], name: string, args?: Variables | null): RecordProxy;
+    invalidateRecord(): void;
 }
 
 export interface ReadOnlyRecordProxy {
@@ -372,7 +387,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line
+    // tslint:disable-next-line:no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
@@ -391,7 +406,7 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField<K extends keyof T>(fieldName: K): RecordProxy<NonNullable<T[K]>>;
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
-    insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
+    invalidateStore(): void;
 }
 
 interface OperationDescriptor {
@@ -400,65 +415,88 @@ interface OperationDescriptor {
     readonly root: NormalizationSelector;
 }
 
-interface LogEventQueryResourceFetch {
-    readonly name: 'queryresource.fetch';
-    readonly operation: OperationDescriptor;
-    // FetchPolicy from relay-experimental
-    readonly fetchPolicy: string;
-    // RenderPolicy from relay-experimental
-    readonly renderPolicy: string;
-    readonly queryAvailability: OperationAvailability;
-    readonly shouldFetch: boolean;
-}
-
-interface LogEventExecuteInfo {
-    readonly name: 'execute.info';
-    readonly transactionID: number;
-    readonly info: unknown;
-}
-
-interface LogEventExecuteStart {
-    readonly name: 'execute.start';
-    readonly transactionID: number;
-    readonly params: {
-        // RequestParameters type
-        readonly name: string;
-        readonly operationKind: string;
-        readonly text: string;
-    };
-    readonly variables: object;
-}
-
-interface LogEventExecuteNext {
-    readonly name: 'execute.next';
-    readonly transactionID: number;
-    readonly response: unknown;
-}
-
-interface LogEventExecuteError {
-    readonly name: 'execute.error';
-    readonly transactionID: number;
-    readonly error: Error;
-}
-
-interface LogEventExecuteComplete {
-    readonly name: 'execute.complete';
-    readonly transactionID: number;
-}
-
-interface LogEventExecuteUnsubscribe {
-    readonly name: 'execute.unsubscribe';
-    readonly transactionID: number;
-}
-
 type LogEvent =
-    | LogEventQueryResourceFetch
-    | LogEventExecuteInfo
-    | LogEventExecuteStart
-    | LogEventExecuteNext
-    | LogEventExecuteError
-    | LogEventExecuteComplete
-    | LogEventExecuteUnsubscribe;
+    | Readonly<{
+          name: 'queryresource.fetch';
+          /**
+           * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
+           */
+          resourceID: number;
+          operation: OperationDescriptor;
+          profilerContext: any;
+          fetchPolicy: FetchPolicy;
+          renderPolicy: RenderPolicy;
+          queryAvailability: OperationAvailability;
+          shouldFetch: boolean;
+      }>
+    | Readonly<{
+          name: 'queryresource.retain';
+          resourceID: number;
+          // value from ProfilerContext
+          profilerContext: any;
+      }>
+    | Readonly<{
+          name: 'execute.info';
+          transactionID: number;
+          info: any;
+      }>
+    | Readonly<{
+          name: 'network.info';
+          transactionID: number;
+          info: unknown;
+      }>
+    | Readonly<{
+          name: 'network.start';
+          transactionID: number;
+          params: RequestParameters;
+          variables: Variables;
+      }>
+    | Readonly<{
+          name: 'network.next';
+          transactionID: number;
+          response: GraphQLResponse;
+      }>
+    | Readonly<{
+          name: 'network.error';
+          transactionID: number;
+          error: Error;
+      }>
+    | Readonly<{
+          name: 'network.complete';
+          transactionID: number;
+      }>
+    | Readonly<{
+          name: 'network.unsubscribe';
+          transactionID: number;
+      }>
+    | Readonly<{
+          name: 'store.publish';
+          source: RecordSource;
+          optimistic: boolean;
+      }>
+    | Readonly<{
+          name: 'store.snapshot';
+      }>
+    | Readonly<{
+          name: 'store.restore';
+      }>
+    | Readonly<{
+          name: 'store.gc';
+          references: Set<DataID>;
+      }>
+    | Readonly<{
+          name: 'store.notify.start';
+      }>
+    | Readonly<{
+          name: 'store.notify.complete';
+          updatedRecordIDs: UpdatedRecords;
+          invalidatedRecordIDs: Set<DataID>;
+      }>
+    | Readonly<{
+          name: 'entrypoint.root.consume';
+          profilerContext: any;
+          rootModuleID: string;
+      }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 
@@ -467,6 +505,11 @@ export type LogFunction = (logEvent: LogEvent) => void;
  * own in-memory cache.
  */
 export interface Environment {
+    /**
+     * Extra information attached to the environment instance
+     */
+    options: unknown;
+
     /**
      * Determine if the operation can be resolved with data in the store (i.e. no
      * fields are missing).
@@ -550,7 +593,6 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
         updater?: SelectorStoreUpdater | null;
     }): RelayObservable<GraphQLResponse>;
 
@@ -594,6 +636,28 @@ export interface Environment {
         operation: OperationDescriptor;
         source: RelayObservable<GraphQLResponse>;
     }): RelayObservable<GraphQLResponse>;
+
+    /**
+     * Returns true if a request is currently "active", meaning it's currently
+     * actively receiving payloads or downloading modules, and has not received
+     * a final payload yet. Note that a request might still be pending (or "in flight")
+     * without actively receiving payload, for example a live query or an
+     * active GraphQL subscription
+     */
+    isRequestActive(requestIdentifier: string): boolean;
+
+    /**
+     * Returns true if the environment is for use during server side rendering.
+     * functions like getQueryResource key off of this in order to determine
+     * whether we need to set up certain caches and timeout's.
+     */
+    isServer(): boolean;
+
+    /**
+     * Called by Relay when it encounters a missing field that has been annotated
+     * with `@required(action: LOG)`.
+     */
+    requiredFieldLogger: RequiredFieldLogger;
 }
 
 /**
@@ -797,15 +861,33 @@ export type MissingFieldHandler =
       };
 
 /**
+ * A handler for events related to @required fields. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW`.
+ */
+export type RequiredFieldLogger = (
+    arg:
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
+
+/**
  * The results of normalizing a query.
  */
 export interface RelayResponsePayload {
-    readonly connectionEvents: ConnectionInternalEvent[] | null | undefined;
     readonly errors: PayloadError[] | null | undefined;
     readonly fieldPayloads: HandleFieldPayload[] | null | undefined;
     readonly incrementalPlaceholders: IncrementalDataPlaceholder[] | null | undefined;
     readonly moduleImportPayloads: ModuleImportPayload[] | null | undefined;
     readonly source: MutableRecordSource;
+    readonly isFinal: boolean;
 }
 
 /**
@@ -854,3 +936,18 @@ export interface PublishQueue {
      */
     run(): ReadonlyArray<RequestDescriptor>;
 }
+
+/**
+ * ReactFlightDOMRelayClient processes a ReactFlightServerTree into a
+ * ReactFlightClientResponse object. readRoot() can suspend.
+ */
+export interface ReactFlightClientResponse {
+    readRoot: () => any;
+}
+
+export interface ReactFlightReachableQuery {
+    readonly module: any;
+    readonly variables: Variables;
+}
+
+export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;

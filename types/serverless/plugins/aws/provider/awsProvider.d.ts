@@ -7,6 +7,7 @@ declare namespace Aws {
     interface Serverless {
         service: Service | string;
         frameworkVersion: string;
+        configValidationMode?: string;
         provider: Provider;
         package?: Package;
         functions?: Functions;
@@ -26,7 +27,7 @@ declare namespace Aws {
 
     interface Provider {
         name: 'aws';
-        runtime: string;
+        runtime?: string;
         stage?: string;
         region?: string;
         stackName?: string;
@@ -44,7 +45,7 @@ declare namespace Aws {
         rolePermissionsBoundary?: string;
         cfnRole?: string;
         versionFunctions?: boolean;
-        environment?: Environment;
+        environment?: Environment | string;
         endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
@@ -55,7 +56,7 @@ declare namespace Aws {
         iamManagedPolicies?: string[];
         iamRoleStatements?: IamRoleStatement[];
         stackPolicy?: ResourcePolicy[];
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         notificationArns?: string[];
         stackParameters?: StackParameters[];
         resourcePolicy?: ResourcePolicy[];
@@ -82,7 +83,7 @@ declare namespace Aws {
     }
 
     interface Environment {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface ApiGateway {
@@ -96,6 +97,8 @@ declare namespace Aws {
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
+        metrics?: boolean;
+        shouldStartNameWithService?: boolean;
     }
 
     interface CognitoAuthorizer {
@@ -195,7 +198,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[];
+        subnetIds: string[] | string;
     }
 
     interface StackParameters {
@@ -237,9 +240,9 @@ declare namespace Aws {
     }
 
     interface Logs {
-        restApi?: RestApiLogs;
+        restApi?: true | RestApiLogs;
         websocket?: WebsocketLogs;
-        httpApi?: HttpApiLogs;
+        httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
     }
 
@@ -265,23 +268,50 @@ declare namespace Aws {
         type?: string;
     }
 
+    interface HttpCors {
+        origins?: string | string[];
+        headers?: string | string[];
+        allowCredentials?: boolean;
+        maxAge?: number;
+        cacheControl?: string;
+    }
+
+    interface HttpRequestParametersValidation {
+        querystrings?: { [key: string]: boolean };
+        headers?: { [key: string]: boolean };
+        paths?: { [key: string]: boolean };
+    }
+
+    interface HttpRequestValidation {
+        parameters?: HttpRequestParametersValidation;
+        schema?: { [key: string]: Record<string, unknown> };
+    }
+
     interface Http {
         path: string;
         method: string;
-        cors?: boolean;
+        cors?: boolean | HttpCors;
         private?: boolean;
+        async?: boolean;
         authorizer?: HttpAuthorizer;
+        request?: HttpRequestValidation;
+        integration?: 'lambda' | 'mock';
     }
 
-    interface HttpApiEventAuthorizer {
+    interface NamedHttpApiEventAuthorizer {
         name: string;
+        scopes?: string[];
+    }
+
+    interface IdRefHttpApiEventAuthorizer {
+        id: string;
         scopes?: string[];
     }
 
     interface HttpApiEvent {
         method: string;
         path: string;
-        authorizer?: HttpApiEventAuthorizer;
+        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer;
     }
 
     interface WebsocketAuthorizer {
@@ -304,7 +334,7 @@ declare namespace Aws {
     interface S3 {
         bucket: string;
         event: string;
-        rules: S3Rule[];
+        rules?: S3Rule[];
         existing?: boolean;
     }
 
@@ -339,24 +369,34 @@ declare namespace Aws {
     }
 
     interface Sns {
-        topicName: string;
+        arn?: string;
+        topicName?: string;
         displayName?: string;
-        filterPolicy?: string[] | { [key: string]: string };
+        filterPolicy?: Record<string, unknown>;
         redrivePolicy?: RedrivePolicy;
     }
 
     interface Sqs {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         maximumRetryAttempts?: number | string;
         enabled?: boolean;
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
+        type?: 'dynamodb' | 'kinesis';
+    }
+
+    interface Msk {
+        arn: string;
+        topic: string;
+        batchSize?: number;
+        enabled?: boolean;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
     }
 
     interface AlexaSkill {
@@ -460,6 +500,7 @@ declare namespace Aws {
         sns?: Sns;
         sqs?: Sqs;
         stream?: Stream;
+        msk?: Msk;
         alexaSkill?: AlexaSkill;
         alexaSmartHome?: AlexaSmartHome;
         iot?: Iot;
@@ -472,7 +513,6 @@ declare namespace Aws {
     }
 
     interface AwsFunction {
-        handler: string;
         name?: string;
         description?: string;
         memorySize?: number | string;
@@ -485,9 +525,9 @@ declare namespace Aws {
         awsKmsKeyArn?: string;
         environment?: Environment;
         tags?: Tags;
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         package?: Package;
-        layers?: string[];
+        layers?: Array<string | Record<string, string>>;
         tracing?: string;
         condition?: string;
         dependsOn?: string[];
@@ -495,8 +535,16 @@ declare namespace Aws {
         events?: Event[];
     }
 
+    interface AwsFunctionHandler extends AwsFunction {
+        handler: string;
+    }
+
+    interface AwsFunctionImage extends AwsFunction {
+        image: string;
+    }
+
     interface Functions {
-        [key: string]: AwsFunction;
+        [key: string]: AwsFunctionHandler | AwsFunctionImage;
     }
 
     interface Layer {
@@ -538,6 +586,7 @@ declare namespace Aws {
     }
 
     interface Resources {
+        Description?: string;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources;
         Outputs?: Outputs;

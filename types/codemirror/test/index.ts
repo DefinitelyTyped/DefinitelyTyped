@@ -41,6 +41,7 @@ const myCodeMirror3: CodeMirror.Editor = CodeMirror(
 const myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
 
 const doc: CodeMirror.Doc = new CodeMirror.Doc('text');
+doc.lineSeparator();
 const doc2: CodeMirror.Doc = CodeMirror(document.body).getDoc();
 
 const lintStateOptions: CodeMirror.LintStateOptions = {
@@ -137,10 +138,22 @@ myCodeMirror.getCursor();
 
 // Ensure marks come back with option values
 myCodeMirror.markText(from, to, {
-  readOnly: true,
-  inclusiveLeft: true,
-  inclusiveRight: false,
+    readOnly: true,
+    inclusiveLeft: true,
+    inclusiveRight: false,
 });
+
+const textMarker = myCodeMirror.markText(
+    { line: 6, ch: 26 },
+    { line: 6, ch: 42 },
+    {
+        className: 'styled-background',
+        attributes: {
+            title: 'yellow text',
+        },
+    },
+);
+textMarker.clear();
 
 const marks = myCodeMirror.getAllMarks();
 

@@ -77,7 +77,7 @@ declare namespace PouchDB {
         interface Selector extends CombinationOperators {
             [field: string]: Selector | Selector[] | ConditionOperators | any;
 
-            _id?: ConditionOperators;
+            _id?: string | ConditionOperators;
         }
 
         interface FindRequest<Content extends {}> {

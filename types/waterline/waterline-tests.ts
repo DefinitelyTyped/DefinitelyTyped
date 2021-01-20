@@ -1,6 +1,6 @@
 import Waterline = require('waterline');
 const waterline = new Waterline();
-const userCollection = Waterline.Collection.extend({
+const userCollection = Waterline.Model.extend({
     identity: 'user',
     connection: 'default',
     attributes: {
@@ -30,7 +30,7 @@ const petCollection = Waterline.Collection.extend({
     },
 });
 
-waterline.loadCollection(userCollection);
+waterline.registerModel(userCollection);
 waterline.loadCollection(petCollection);
 
 const config: Waterline.Config = {
@@ -286,6 +286,8 @@ User.findOrCreate({ name: 'Walter Jr' }, {}, (err, user) => {}).exec((err, users
 User.update({ name: 'Walter Jr' }, { name: 'Flynn' }, (err, value) => {}).exec((err, users) => {});
 // .destroy( criteria , [callback] )
 User.destroy({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
+// .destroyOne( criteria , [callback] )
+User.destroyOne({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
 // .query( query, [data], callback )
 const Movie: Waterline.Model = {} as any;
 const title = 'The Speech';

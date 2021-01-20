@@ -21,6 +21,8 @@ export function del<RT extends ResponseType | undefined>(
  * @param url - Request URL.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @example
+ * http.get('https://k6.io')
  */
 export function get<RT extends ResponseType | undefined>(
     url: string,
@@ -62,6 +64,10 @@ export function patch<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @example
+ * let formData = {name: 'k6'};
+ * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+ * http.post(url, formData, { headers: headers });
  */
 export function post<RT extends ResponseType | undefined>(
     url: string,
@@ -91,6 +97,10 @@ export function put<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @example
+ * let formData = {name: 'k6'};
+ * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+ * http.request('POST', url, formData, { headers: headers });
  */
 export function request<RT extends ResponseType | undefined>(
     method: string,
@@ -105,6 +115,22 @@ export function request<RT extends ResponseType | undefined>(
  * https://k6.io/docs/javascript-api/k6-http/batch-requests
  * @param requests - Request specifications.
  * @returns Resulting responses.
+ * @example
+ * let req1 = {
+ *    method: 'GET',
+ *    url: 'https://httpbin.org/get',
+ * };
+ * let req2 = {
+ *   method: 'POST',
+ *   url: 'https://httpbin.org/post',
+ *   body: {
+ *     hello: 'world!',
+ *   },
+ *   params: {
+ *     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+ *   },
+ * };
+ * let responses = http.batch([req1, req2]);
  */
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
@@ -115,6 +141,15 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  * @param filename - Filename. Included in MIME message.
  * @param contentType - Content type. Included in MIME message.
  * @returns File data object.
+ * @example
+ * let binFile = open('/path/to/file.bin', 'b');
+ *
+ * export default function() {
+ *   let f = http.file(binFile, 'test.bin');
+ *   console.log(md5(f.data, 'hex'));
+ *   console.log(f.filename);
+ *   console.log(f.content_type);
+ * }
  */
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
@@ -122,6 +157,8 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  * Get active cookie jar.
  * https://k6.io/docs/javascript-api/k6-http/cookiejar
  * @returns Active cookie jar.
+ * @example
+ * let jar = http.cookieJar();
  */
 export function cookieJar(): CookieJar;
 
@@ -399,6 +436,9 @@ export interface Response {
     /** HTTP status code. */
     status: number;
 
+    /** HTTP status text returned by the server. */
+    status_text: string;
+
     /** Performance timing information. */
     timings: {
         /** Milliseconds spent blocked before initiating request. */
@@ -449,6 +489,9 @@ export interface Response {
      * https://docs.k6.io/docs/response-k6http
      * @param selector - Selector expression.
      * @returns Document node or selected elements.
+     * @example
+     * let res = http.get("https://stackoverflow.com");
+     * let doc = res.html();
      */
     html(selector?: string): Selection;
 
@@ -457,6 +500,9 @@ export interface Response {
      * https://docs.k6.io/docs/response-k6http
      * @param selector - GJSON expression.
      * @returns Parse result if successful, `undefined` if unsuccessful.
+     * @example
+     * let res = http.get(url);
+     * res.json();
      */
     json(selector?: string): JSONValue | undefined;
 
@@ -611,7 +657,7 @@ export abstract class FileData {
  * Object for storing cookies.
  * https://docs.k6.io/docs/cookiejar-k6http
  */
-export abstract class CookieJar {
+export class CookieJar {
     protected __brand: never;
 
     /**
@@ -625,11 +671,12 @@ export abstract class CookieJar {
     /**
      * Set cookie.
      * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
+     * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
      */
-    set(name: string, value: string, options?: CookieOptions | null): void;
+    set(url: string, name: string, value: string, options?: CookieOptions | null): void;
 }
 
 /**
@@ -687,6 +734,8 @@ declare namespace http {
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
+     * @example
+     * http.get('https://k6.io')
      */
     function get<RT extends ResponseType | undefined>(
         url: string,
@@ -728,6 +777,10 @@ declare namespace http {
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
      * @returns Resulting response.
+     * @example
+     * let formData = {name: 'k6'};
+     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+     * http.post(url, formData, { headers: headers });
      */
     function post<RT extends ResponseType | undefined>(
         url: string,
@@ -757,6 +810,10 @@ declare namespace http {
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
      * @returns Resulting response.
+     * @example
+     * let formData = {name: 'k6'};
+     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+     * http.request('POST', url, formData, { headers: headers });
      */
     function request<RT extends ResponseType | undefined>(
         method: string,
@@ -771,6 +828,22 @@ declare namespace http {
      * https://k6.io/docs/javascript-api/k6-http/batch-requests
      * @param requests - Request specifications.
      * @returns Resulting responses.
+     * @example
+     * let req1 = {
+     *    method: 'GET',
+     *    url: 'https://httpbin.org/get',
+     * };
+     * let req2 = {
+     *   method: 'POST',
+     *   url: 'https://httpbin.org/post',
+     *   body: {
+     *     hello: 'world!',
+     *   },
+     *   params: {
+     *     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+     *   },
+     * };
+     * let responses = http.batch([req1, req2]);
      */
     function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
@@ -781,6 +854,15 @@ declare namespace http {
      * @param filename - Filename. Included in MIME message.
      * @param contentType - Content type. Included in MIME message.
      * @returns File data object.
+     * @example
+     * let binFile = open('/path/to/file.bin', 'b');
+     *
+     * export default function() {
+     *   let f = http.file(binFile, 'test.bin');
+     *   console.log(md5(f.data, 'hex'));
+     *   console.log(f.filename);
+     *   console.log(f.content_type);
+     * }
      */
     function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
@@ -788,6 +870,8 @@ declare namespace http {
      * Get active cookie jar.
      * https://k6.io/docs/javascript-api/k6-http/cookiejar
      * @returns Active cookie jar.
+     * @example
+     * let jar = http.cookieJar();
      */
     function cookieJar(): CookieJar;
 }

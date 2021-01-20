@@ -32,6 +32,10 @@ import { EventEmitter } from "events";
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
     process.addListener('uncaughtException', oldHandler);
+
+    const stdInFd = process.stdin.fd;
+    const stdOutFd = process.stdout.fd;
+    const stdErrorFd = process.stderr.fd;
 }
 {
     function myCb(err: Error): void {
@@ -74,4 +78,18 @@ import { EventEmitter } from "events";
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
+}
+{
+    let strDict: NodeJS.Dict<string>;
+    strDict = process.versions;
+    strDict = p.versions;
+}
+{
+    process.traceDeprecation = true;
+}
+
+{
+    function abortNeverReturns(): never {
+        process.abort();
+    }
 }

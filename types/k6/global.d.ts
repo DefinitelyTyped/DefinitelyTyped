@@ -20,6 +20,16 @@ declare global {
      * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns File contents decoded as UTF-8.
+     * @example
+     * let binFile = open('/path/to/file.bin', 'b');
+     * export default function () {
+     * var data = {
+     *    field: 'this is a standard form field',
+     *    file: http.file(binFile, 'test.bin'),
+     *  };
+     *  const res = http.post('https://example.com/upload', data);
+     *  sleep(3);
+     * }
      */
     function open(filePath: string): string;
 
@@ -28,6 +38,16 @@ declare global {
      * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns Binary file contents.
+     * @example
+     * let binFile = open('/path/to/file.bin', 'b');
+     * export default function () {
+     * var data = {
+     *    field: 'this is a standard form field',
+     *    file: http.file(binFile, 'test.bin'),
+     *  };
+     *  const res = http.post('https://example.com/upload', data);
+     *  sleep(3);
+     * }
      */
     function open(filePath: string, mode: 'b'): bytes;
 

@@ -25,6 +25,50 @@ type RequestDeviceOptions = {
     optionalServices?: BluetoothServiceUUID[];
 };
 
+type BluetoothManufacturerData = Map<number, DataView>;
+type BluetoothServiceData = Map<BluetoothServiceUUID, DataView>;
+
+interface BluetoothDataFilter {
+    readonly dataPrefix: DataView;
+    readonly mask: DataView;
+}
+
+interface BluetoothManufacturerDataFilter {
+    readonly [manufacturerId: number]: BluetoothDataFilter;
+}
+
+type BluetoothServiceDataFilter = {
+    readonly [serviceUUID in BluetoothServiceUUID]: BluetoothDataFilter;
+};
+
+interface BluetoothLEScanFilter {
+    readonly name?: string;
+    readonly namePrefix?: string;
+    readonly services?: BluetoothServiceUUID[];
+    readonly manufacturerData?: BluetoothManufacturerDataFilter;
+    readonly serviceData?: BluetoothServiceDataFilter;
+}
+
+interface RequestLEScanOptions {
+    readonly filters?: BluetoothLEScanFilter[];
+    readonly keepRepeatedDevices?: boolean;
+    readonly acceptAllAdvertisements?: boolean;
+}
+
+interface BluetoothLEScan extends RequestLEScanOptions {
+    active: boolean;
+    stop: () => void;
+}
+
+interface BluetoothAdvertisementEvent extends Event {
+    device: BluetoothDevice;
+    rssi: number;
+    txPower: number;
+    manufacturerData?: BluetoothManufacturerData;
+    serviceData?: BluetoothServiceData;
+    uuids?: BluetoothServiceUUID[];
+}
+
 interface BluetoothRemoteGATTDescriptor {
     readonly characteristic: BluetoothRemoteGATTCharacteristic;
     readonly uuid: string;
@@ -58,6 +102,8 @@ interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicE
     getDescriptors(descriptor?: BluetoothDescriptorUUID): Promise<BluetoothRemoteGATTDescriptor[]>;
     readValue(): Promise<DataView>;
     writeValue(value: BufferSource): Promise<void>;
+    writeValueWithResponse(value: BufferSource): Promise<void>;
+    writeValueWithoutResponse(value: BufferSource): Promise<void>;
     startNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
     stopNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
     addEventListener(type: "characteristicvaluechanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
@@ -112,11 +158,14 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
 }
 
 interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+    getDevices(): Promise<BluetoothDevice[]>;
     getAvailability(): Promise<boolean>;
     onavailabilitychanged: (this: this, ev: Event) => any;
     readonly referringDevice?: BluetoothDevice;
     requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
+    requestLEScan(options?: RequestLEScanOptions): Promise<BluetoothLEScan>;
     addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisementEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

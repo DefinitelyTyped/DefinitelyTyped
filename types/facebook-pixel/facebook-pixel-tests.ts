@@ -47,3 +47,20 @@ fbq('track', 'ViewContent', {
 });
 
 fbq('track', 'CompleteRegistration', {currency: 'USD', value: 0.75});
+
+fbq('track', 'Purchase',
+  {
+    value: 115.00,
+    currency: 'USD',
+    contents: [
+      {
+        id: '301',
+        quantity: 1
+      },
+      {
+        id: '401',
+        quantity: 2
+      }],
+    content_type: 'product'
+  }
+);

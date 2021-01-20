@@ -3,8 +3,6 @@
 // Definitions by: Vít Stanislav <https://github.com/slaweet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export interface ToStringOpts {
   format?: 'auto' | 'v4' | 'v4-mapped' | 'v6';
   zeroElide?: boolean;

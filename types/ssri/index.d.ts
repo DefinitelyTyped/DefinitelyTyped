@@ -1,11 +1,12 @@
-// Type definitions for ssri 6.0
+// Type definitions for ssri 7.1
 // Project: https://github.com/zkat/ssri
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Utf8AsciiLatin1Encoding, Hash as CryptoHash } from "crypto";
+import { Hash as CryptoHash } from "crypto";
 import { Readable, Transform } from "stream";
 
 export interface HashLike {
@@ -57,6 +58,16 @@ export class Integrity {
             pickAlgorithm?: (algo1: string, algo2: string) => string,
         },
     ): Hash | false;
+
+    /**
+     * Safely merges another IntegrityLike or integrity string into an Integrity object.
+     */
+    merge(
+        otherIntegrity?: string | IntegrityLike | HashLike,
+        opts?: {
+            single?: boolean,
+            strict?: boolean
+    }): void;
 
     pickAlgorithm(opts?: {
         pickAlgorithm?: (algo1: string, algo2: string) => string,

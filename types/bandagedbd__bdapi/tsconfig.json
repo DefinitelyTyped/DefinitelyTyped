@@ -16,7 +16,12 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "paths": {
+            "@bandagedbd/*": [
+                "bandagedbd__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

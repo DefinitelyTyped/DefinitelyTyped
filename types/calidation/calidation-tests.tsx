@@ -25,7 +25,7 @@ const config: FieldsConfig<FieldTypes> = {
         isGreaterThan: {
             message: 'This field must be greater than 7',
             value: 7,
-            validateIf: ({ isDirty }: ValidatorContext<FieldTypes>) => isDirty,
+            validateIf: ({ isDirty, fields }) => isDirty && fields.bar.some(b => b === 'test'),
         },
     },
     bar: {},

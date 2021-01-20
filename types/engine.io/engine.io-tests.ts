@@ -33,8 +33,7 @@ attachOptions = {
 };
 attachOptions.handlePreflightRequest = true;
 attachOptions.handlePreflightRequest = false;
-attachOptions.handlePreflightRequest = (server, req, res) => {
-    console.log(server.clientsCount);
+attachOptions.handlePreflightRequest = (req, res) => {
     console.log(req.httpVersion);
     console.log(res.finished);
 };

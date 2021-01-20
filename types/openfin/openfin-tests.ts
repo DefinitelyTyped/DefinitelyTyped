@@ -1,3 +1,7 @@
+function test_fin_me() {
+    const {uuid, name, isWindow, isView, isFrame} = fin.me;
+}
+
 function test_application() {
     let application: fin.OpenFinApplication;
     // constructor
@@ -169,7 +173,7 @@ function test_application() {
 function test_external_application() {
     let externalApp: fin.OpenFinExternalApplication;
     // wrap
-    externalApp = fin.desktop.ExternalApp.wrap('my-uuid');
+    externalApp = fin.desktop.ExternalApplication.wrap('my-uuid');
     // addEventListener
     externalApp.addEventListener('connected', () => {
         console.log('external app connected');
@@ -477,7 +481,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -491,7 +495,7 @@ function test_system() {
         // will default to the one mentioned by appAssets.target
         // If the the path below refers to a specific path it will override this default
         alias: "myApp",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -503,7 +507,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         alias: "myApp",
         arguments: "e f g",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -520,7 +524,7 @@ function test_system() {
             subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
             thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
         },
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -537,7 +541,7 @@ function test_system() {
     // monitorExternalProcess
     fin.desktop.System.monitorExternalProcess({
         pid: 2508,
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log('the exit code', result.exitCode);
         }
     }, payload => {
@@ -563,7 +567,7 @@ function test_system() {
     fin.desktop.System.launchExternalProcess({
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -603,7 +607,7 @@ function test_system() {
         // notepad is in the system's PATH
         path: "notepad",
         arguments: "",
-        listener(result) {
+        listener(result: { exitCode: any; }) {
             console.log("The exit code", result.exitCode);
         }
     }, result => {
@@ -903,9 +907,9 @@ async function test_external_window() {
     fin.System.getFocusedExternalWindow();
 
     // getAllExternalWindows
-    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
+    fin.System.getAllExternalWindows().then((exWins: any[]) => exWins.forEach(exWin => console.log(exWin.uuid)));
     // addEventListener
-    externalWin.addListener('some-event', event => console.log(event.message));
+    externalWin.addListener('some-event', (event: { message: any; }) => console.log(event.message));
 
     // removeEventListener
     externalWin.removeListener('some-event', () => {});
@@ -918,11 +922,11 @@ function test_frame() {
     // wrap
     const frame = fin.desktop.Frame.wrap('uuid', 'name');
     // getCurrent
-    const currentFrame = fin.desktop.Frame.getCurrent();
+    const currentFrame = fin.Frame.getCurrentSync();
     // addEventlistener
     frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
     // removeEventListener
-    frame.removeEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
+    frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
     // getInfo
     frame.getInfo(info => {
         console.log(info.uuid, info.name, info.entityType, info.parent.uuid, info.parent.name);
@@ -936,15 +940,15 @@ function test_frame() {
 async function testPlatform() {
     // ** Class Methods ** //
     // wrap
-    const platform = await fin.desktop.Platform.wrap({uuid: 'uuid',name: 'name'});
+    const platform = await fin.Platform.wrap({uuid: 'uuid',name: 'name'});
     // getCurrent
-    const currentPlatform = await fin.desktop.Platform.getCurrent();
+    const currentPlatform = await fin.Platform.getCurrent();
     // getCurrentSync
-    const anotherCurrentPlatform = fin.desktop.Platform.getCurrentSync();
+    const anotherCurrentPlatform = fin.Platform.getCurrentSync();
     // start
-    fin.desktop.Platform.start({uuid: 'uuid', name: 'name'});
+    fin.Platform.start({uuid: 'uuid', name: 'name'});
     // start from manifest
-    fin.desktop.Platform.startFromManifest('some manifest url');
+    fin.Platform.startFromManifest('some manifest url');
 
     // ** Instance Methods ** //
     // getSnapshot & applySnapshot
@@ -957,12 +961,10 @@ async function testPlatform() {
     // createWindow
     platform.createWindow({uuid: 'uuid', name: 'name'});
     // get and set context
-    const context = await platform.getContext();
-    platform.setContext(context);
+    const context = await platform.getWindowContext();
+    platform.setWindowContext(context);
     // launchLegacyManifest
     platform.launchLegacyManifest('some_manifest_url.html');
-    // onWindowContextUpdate
-    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
     // quit
     platform.quit();
 }
@@ -970,15 +972,15 @@ async function testPlatform() {
 async function testView() {
     // ** Class Methods ** //
     // wrap
-    const view = await fin.desktop.View.wrap({uuid: 'uuid',name: 'name'});
+    const view = await fin.View.wrap({uuid: 'uuid',name: 'name'});
     // getCurrent
-    const currentView = await fin.desktop.View.getCurrent();
+    const currentView = await fin.View.getCurrent();
     // getCurrentSync
-    const anotherCurrentView = fin.desktop.View.getCurrentSync();
+    const anotherCurrentView = fin.View.getCurrentSync();
     // create
-    fin.desktop.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
+    fin.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
     // start from manifest
-    fin.desktop.Platform.startFromManifest('some manifest url');
+    fin.Platform.startFromManifest('some manifest url');
 
     // ** Instance Methods ** //
     // attach
@@ -1002,15 +1004,15 @@ async function testView() {
 async function testLayout() {
     // ** Class Methods ** //
 
-    const layout = fin.desktop.Platform.Layout.getCurrentSync();
-    const sameLayout = await fin.desktop.Platform.Layout.getCurrent();
+    const layout = fin.Platform.Layout.getCurrentSync();
+    const sameLayout = await fin.Platform.Layout.getCurrent();
 
     const config = await layout.getConfig();
+    const initOptions = {layout: config};
+    fin.Platform.Layout.init(initOptions);
 
-    fin.desktop.Platform.Layout.init({layout: config});
-
-    const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
-    const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
+    const wrappedLayout = await fin.Platform.Layout.wrap(layout.identity);
+    const anotherWrappedLayout = fin.Platform.Layout.wrapSync(layout.identity);
 
     // ** Instance Methods ** //
     layout.replace(config);

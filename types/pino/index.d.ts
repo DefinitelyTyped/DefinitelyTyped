@@ -1,4 +1,4 @@
-// Type definitions for pino 6.0
+// Type definitions for pino 6.3
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -46,6 +46,38 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+    const symbols: {
+        readonly setLevelSym: unique symbol,
+        readonly getLevelSym: unique symbol,
+        readonly levelValSym: unique symbol,
+        readonly useLevelLabelsSym: unique symbol,
+        readonly mixinSym: unique symbol,
+        readonly lsCacheSym: unique symbol,
+        readonly chindingsSym: unique symbol,
+        readonly parsedChindingsSym: unique symbol,
+        readonly asJsonSym: unique symbol,
+        readonly writeSym: unique symbol,
+        readonly serializersSym: unique symbol,
+        readonly redactFmtSym: unique symbol,
+        readonly timeSym: unique symbol,
+        readonly timeSliceIndexSym: unique symbol,
+        readonly streamSym: unique symbol,
+        readonly stringifySym: unique symbol,
+        readonly stringifiersSym: unique symbol,
+        readonly endSym: unique symbol,
+        readonly formatOptsSym: unique symbol,
+        readonly messageKeySym: unique symbol,
+        readonly nestedKeySym: unique symbol,
+        readonly wildcardFirstSym: unique symbol,
+        readonly needsMetadataGsym: unique symbol,
+        readonly useOnlyCustomLevelsSym: unique symbol,
+        readonly formattersSym: unique symbol,
+        readonly hooksSym: unique symbol,
+    };
+    /**
+     * Exposes the Pino package version. Also available on the logger instance.
+     */
+    const version: string;
 
     type SerializedError = pinoStdSerializers.SerializedError;
     type SerializedResponse = pinoStdSerializers.SerializedResponse;
@@ -172,7 +204,7 @@ declare namespace P {
     /**
      * The pino.final method can be used to create an exit listener function.
      * This listener function can be supplied to process exit events.
-     * The exit listener function will cal the handler with
+     * The exit listener function will call the handler with
      * @param [logger]: pino logger that serves as reference for the final logger
      * @param [handler]: Function that will be called by the handler returned from this function
      * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
@@ -491,6 +523,20 @@ declare namespace P {
            */
           log?: (object: object) => object;
         };
+
+        /**
+         * An object mapping to hook functions. Hook functions allow for customizing internal logger operations.
+         * Hook functions must be synchronous functions.
+         */
+        hooks?: {
+            /**
+             * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
+             * logMethod (args, method, level) {}, where args is an array of the arguments that were passed to the
+             * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
+             * using apply, like so: method.apply(this, newArgumentsArray).
+             */
+            logMethod?: (args: any[], method: LogFn, level: number) => void;
+        };
     }
 
     interface PrettyOptions {
@@ -542,6 +588,10 @@ declare namespace P {
          * Ignore one or several keys. Example: "time,hostname"
          */
         ignore?: string;
+        /**
+         * Suppress warning on first synchronous flushing.
+         */
+        suppressFlushSyncWarning?: boolean;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -550,15 +600,10 @@ declare namespace P {
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
 
-    interface LogDescriptor {
-        pid: number;
-        hostname: string;
-        level: number;
-        time: string;
-        msg: string;
-        v: number;
-        [key: string]: any;
-    }
+    /**
+     * Describes a log line.
+     */
+    type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
         level?: Level | string;
@@ -613,6 +658,10 @@ declare namespace P {
          * Holds the current log format version (as output in the v property of each log record).
          */
         readonly LOG_VERSION: number;
+        /**
+         * Exposes the Pino package version. Also available on the exported pino function.
+         */
+        readonly version: string;
 
         levels: LevelMapping;
 
@@ -679,6 +728,7 @@ declare namespace P {
          * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -688,6 +738,7 @@ declare namespace P {
          * Log at `'error'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -697,6 +748,7 @@ declare namespace P {
          * Log at `'warn'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -706,6 +758,7 @@ declare namespace P {
          * Log at `'info'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -715,6 +768,7 @@ declare namespace P {
          * Log at `'debug'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
@@ -724,11 +778,16 @@ declare namespace P {
          * Log at `'trace'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
          * If more args follows `msg`, these will be used to format `msg` using `util.format`.
          *
+         * @typeParam T: the interface of the object being serialized. Default is object.
          * @param obj: object to be serialized
          * @param msg: the log message to write
          * @param ...args: format string values when `msg` is a format string
          */
         trace: LogFn;
+        /**
+         * Noop function.
+         */
+        silent: LogFn;
 
         /**
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
@@ -754,8 +813,9 @@ declare namespace P {
     ) => void;
 
     interface LogFn {
+        /* tslint:disable:no-unnecessary-generics */
+        <T extends object>(obj: T, msg?: string, ...args: any[]): void;
         (msg: string, ...args: any[]): void;
-        (obj: object, msg?: string, ...args: any[]): void;
     }
 
     interface redactOptions {

@@ -182,4 +182,7 @@ function testLogger() {
     videojs.log('hello');
     mylogger('how are you');
     anotherlogger('today');
+
+    const currentLevel = videojs.log.level();
+    videojs.log.level(videojs.log.levels.DEFAULT);
 }

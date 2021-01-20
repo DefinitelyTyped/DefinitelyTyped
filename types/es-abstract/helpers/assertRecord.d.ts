@@ -1,4 +1,4 @@
-import { PropertyDescriptor as ESPropertyDescriptor } from '../index';
+import type { PropertyDescriptor } from '../index';
 
 declare function assertRecord<K extends string>(
     ES: K extends keyof assertRecord.Predicates ? Parameters<assertRecord.Predicates[K]>[0] : object,
@@ -13,7 +13,7 @@ declare namespace assertRecord {
             ES: {
                 Type(o: unknown): string | undefined;
             },
-            Desc: ESPropertyDescriptor,
+            Desc: PropertyDescriptor,
         ) => boolean;
     }
 }

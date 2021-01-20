@@ -77,6 +77,8 @@ simpleList.innerHTML = Array.apply(null, new Array(10))
 
 Sortable.create(simpleList, {});
 
+Sortable.version; // $ExpectType string
+
 simpleList.innerHTML = Array.apply(null, new Array(100))
     .map(function(value: any, iterator: number) {
         return '<div class="list-group-item">item ' + (iterator + 1) + '</div>';
@@ -395,6 +397,18 @@ Sortable.create(simpleList, {
         }
 
         return 1; // insert after target
+    },
+});
+
+Sortable.create(simpleList, {
+    handle: '.glyphicon-move',
+    animation: 150,
+    filter: '.disabled',
+    onMove: function(evt, originalEvent) {
+        if (evt.related.className.indexOf('disabled') !== -1) {
+            return false;
+        }
+        // Keep the default insertion place based on the direction.
     },
 });
 

@@ -747,6 +747,7 @@ objSchema = objSchema.without(str, str);
 objSchema = objSchema.without(str, strArr);
 
 objSchema = objSchema.rename(str, str);
+objSchema = objSchema.rename(exp, str);
 objSchema = objSchema.rename(str, str, renOpts);
 
 objSchema = objSchema.assert(str, schema);
@@ -1155,6 +1156,13 @@ schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
 });
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const rule = Joi.string().case('upper').$_getRule('case');
+if (rule && rule.args) {
+    const direction = rule.args.direction;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

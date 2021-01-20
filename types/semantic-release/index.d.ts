@@ -1,7 +1,8 @@
-// Type definitions for semantic-release 17.0
+// Type definitions for semantic-release 17.2
 // Project: https://github.com/semantic-release/semantic-release#readme
 // Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
 //                 Daniel Cassidy <https://github.com/djcsdy>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -284,7 +285,7 @@ declare namespace SemanticRelease {
          *
          * Required for pre-release branches.
          */
-        prerelease?: string;
+        prerelease?: string | boolean;
     };
 
     /**
@@ -574,6 +575,7 @@ declare namespace SemanticRelease {
 /**
  * Run semantic-release and returns a Promise that resolves to a Result
  * object.
+ * @async
  */
 declare function SemanticRelease(options: SemanticRelease.Options,
     environment?: SemanticRelease.Config): Promise<SemanticRelease.Result>;

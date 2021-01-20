@@ -79,6 +79,7 @@ map.addText({
     text: 'My Text',
 });
 map.addText({
+    anchor: 'end',
     coord: [13.437524, 52.4945528],
     text: 'My Text',
     size: 50,

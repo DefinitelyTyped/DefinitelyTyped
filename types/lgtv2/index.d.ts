@@ -10,7 +10,7 @@ import { EventEmitter } from 'events';
 
 declare namespace LGTV {
     interface SpecializedSocket {
-        send(type: string, payload: any): void;
+        send(type: string, payload?: any): void;
 
         close(): void;
     }

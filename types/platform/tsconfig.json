@@ -2,12 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es2017",
-            "dom"
+            "ES6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [

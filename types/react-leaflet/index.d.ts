@@ -3,7 +3,6 @@
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
-//                 Jeroen Claassens <https://github.com/favna>
 //                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

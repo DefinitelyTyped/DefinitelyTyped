@@ -21,6 +21,7 @@ declare namespace G {
 
     function hasMagic(pattern: string, options?: IOptions): boolean;
 
+    let glob: typeof G;
     let Glob: IGlobStatic;
     let GlobSync: IGlobSyncStatic;
 

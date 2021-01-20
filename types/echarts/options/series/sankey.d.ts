@@ -33,7 +33,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-sankey
          */
         interface SeriesSankey {
-
             /**
              * @default
              * "sankey"
@@ -50,6 +49,15 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.id
              */
             id?: string;
+
+            /**
+             * Series name used for displaying in
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-sankey.name
+             */
+            name?: string;
 
             /**
              * `zlevel` value of all graghical elements in .
@@ -184,6 +192,17 @@ declare namespace echarts {
             nodeGap?: number;
 
             /**
+             * Alignment of nodes in the graph.
+             *
+             * May be 'left', 'right' or 'justify'
+             *
+             * @default
+             * justify
+             * @see https://echarts.apache.org/en/option.html#series-sankey.nodeAlign
+             */
+            nodeAlign?: string;
+
+            /**
              * The iterations of layout, which is used to continuously optimize
              * the positions of nodes in graph, decreasing the overlapping between
              * nodes and edges.
@@ -259,7 +278,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -436,7 +454,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-sankey.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -721,12 +739,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-sankey.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -772,7 +788,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sankey.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1058,7 +1074,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -1077,7 +1092,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1087,7 +1102,7 @@ declare namespace echarts {
                  * "#aaa"
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1130,7 +1145,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1170,7 +1185,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * The color of the edge in sankey graphs.
                  *
@@ -1244,12 +1258,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1423,7 +1435,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1709,12 +1721,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1760,7 +1770,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2045,7 +2055,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2062,7 +2071,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2072,7 +2081,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2113,7 +2122,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2146,7 +2155,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * The color of the edge in sankey graphs.
                      *
@@ -2252,10 +2260,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-sankey.data
              */
-            data?: (
-                (number | SeriesSankey.DataObject)[]
-                | (number | SeriesSankey.DataObject)[][]
-            );
+            data?: (number | SeriesSankey.DataObject)[] | (number | SeriesSankey.DataObject)[][];
 
             /**
              * Equals to
@@ -2277,194 +2282,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-sankey.links
              */
-            links?: {
-
-                /**
-                 * The
-                 * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
-                 * of edge
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.source
-                 */
-                source?: string;
-
-                /**
-                 * The
-                 * [name of target node](https://echarts.apache.org/en/option.html#series-graph.data.name)
-                 * of edge
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.target
-                 */
-                target?: string;
-
-                /**
-                 * The value of edge, which decides the width of edge.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.value
-                 */
-                value?: number;
-
-                /**
-                 * The line stlye of edge.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle
-                 */
-                lineStyle?: {
-
-                    /**
-                     * The color of the edge in sankey graphs.
-                     *
-                     *
-                     * @default
-                     * "'#314656"
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * The opacity of the edge in sankey graph.
-                     *
-                     *
-                     * @default
-                     * 0.2
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.opacity
-                     */
-                    opacity?: number;
-
-                    /**
-                     * The curveness of the edge in sankey graph.
-                     *
-                     *
-                     * @default
-                     * 0.5
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.curveness
-                     */
-                    curveness?: number;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sankey.sankey.links.lineStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-                };
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle
-                     */
-                    lineStyle?: {
-
-                        /**
-                         * The color of the edge in sankey graphs.
-                         *
-                         *
-                         * @default
-                         * "'#314656"
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * The opacity of the edge in sankey graph.
-                         *
-                         *
-                         * @default
-                         * 0.2
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.opacity
-                         */
-                        opacity?: number;
-
-                        /**
-                         * The curveness of the edge in sankey graph.
-                         *
-                         *
-                         * @default
-                         * 0.5
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.curveness
-                         */
-                        curveness?: number;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sankey.sankey.links.emphasis.lineStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-                    };
-                };
-            };
-
+            links?: SeriesSankey.LinkObject[];
             /**
              * Equals to
              * [links](https://echarts.apache.org/en/option.html#series-sankey.links)
@@ -2600,7 +2418,6 @@ declare namespace echarts {
 
         namespace SeriesSankey {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
@@ -2624,7 +2441,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -2643,7 +2459,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2653,7 +2469,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2694,7 +2510,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2730,7 +2546,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2859,7 +2674,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -3145,12 +2960,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3196,7 +3009,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3481,12 +3294,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -3504,7 +3315,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -3515,7 +3326,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -3556,7 +3367,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -3589,7 +3400,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3718,7 +3528,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4008,12 +3818,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4059,7 +3867,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4360,6 +4168,190 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.tooltip
                  */
                 tooltip?: BaseTooltip;
+            }
+
+            interface LinkObject {
+                /**
+                 * The
+                 * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
+                 * of edge
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.source
+                 */
+                source?: string;
+
+                /**
+                 * The
+                 * [name of target node](https://echarts.apache.org/en/option.html#series-graph.data.name)
+                 * of edge
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.target
+                 */
+                target?: string;
+
+                /**
+                 * The value of edge, which decides the width of edge.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.value
+                 */
+                value?: number;
+
+                /**
+                 * The line stlye of edge.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle
+                 */
+                lineStyle?: {
+                    /**
+                     * The color of the edge in sankey graphs.
+                     *
+                     *
+                     * @default
+                     * "'#314656"
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * The opacity of the edge in sankey graph.
+                     *
+                     *
+                     * @default
+                     * 0.2
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.opacity
+                     */
+                    opacity?: number;
+
+                    /**
+                     * The curveness of the edge in sankey graph.
+                     *
+                     *
+                     * @default
+                     * 0.5
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.curveness
+                     */
+                    curveness?: number;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-sankey.sankey.links.lineStyle)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+                };
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis
+                 */
+                emphasis?: {
+                    /**
+                     * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle
+                     */
+                    lineStyle?: {
+                        /**
+                         * The color of the edge in sankey graphs.
+                         *
+                         *
+                         * @default
+                         * "'#314656"
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * The opacity of the edge in sankey graph.
+                         *
+                         *
+                         * @default
+                         * 0.2
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.opacity
+                         */
+                        opacity?: number;
+
+                        /**
+                         * The curveness of the edge in sankey graph.
+                         *
+                         *
+                         * @default
+                         * 0.5
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.curveness
+                         */
+                        curveness?: number;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sankey.sankey.links.emphasis.lineStyle)
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+                    };
+                };
             }
         }
     }

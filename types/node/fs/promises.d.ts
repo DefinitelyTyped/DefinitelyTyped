@@ -4,7 +4,8 @@ declare module 'fs/promises' {
         WriteVResult,
         ReadVResult,
         PathLike,
-        RmDirAsyncOptions,
+        RmDirOptions,
+        RmOptions,
         MakeDirectoryOptions,
         Dirent,
         OpenDirOptions,
@@ -143,12 +144,12 @@ declare module 'fs/promises' {
         /**
          * See `fs.writev` promisified version.
          */
-        writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
 
         /**
          * See `fs.readv` promisified version.
          */
-        readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
 
         /**
          * Asynchronous close(2) - close a `FileHandle`.
@@ -255,7 +256,12 @@ declare module 'fs/promises' {
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+    function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+
+    /**
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
+     */
+    function rm(path: PathLike, options?: RmOptions): Promise<void>;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -408,6 +414,16 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
+
+    /**
+     * Changes the access and modification times of a file in the same way as `fsPromises.utimes()`,
+     * with the difference that if the path refers to a symbolic link, then the link is not
+     * dereferenced: instead, the timestamps of the symbolic link itself are changed.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
      * Asynchronous fchown(2) - Change ownership of a file.

@@ -1,6 +1,6 @@
 export { default as Button } from './components/Button';
 export { default as Element } from './components/Element';
-export { default as Link } from './components/Link';
+export { default as Link, LinkProps } from './components/Link';
 export { Helpers } from './mixins/Helpers';
 export { default as Events } from './mixins/scroll-events';
 export { default as ScrollElement, ScrollElementProps } from './mixins/scroll-element';

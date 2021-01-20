@@ -9,7 +9,7 @@
 //                 David Baumgold <https://github.com/singingwolfboy>
 //                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
 
 /// <reference lib='dom' />
 
@@ -87,9 +87,9 @@ export interface QueryRenderedFeaturesParams {
 export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(
-        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
         parameters?: QueryRenderedFeaturesParams,
-    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export interface ExtraState {
@@ -207,6 +207,10 @@ export class MapController implements BaseMapController {
 export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
+    offsetCenter: {
+        x: number;
+        y: number;
+    };
     lngLat: [number, number];
     target: any;
     srcEvent: any;
@@ -306,9 +310,9 @@ export interface InteractiveMapProps extends StaticMapProps {
 export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(
-        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        geometry?: MapboxGL.PointLike | [MapboxGL.PointLike, MapboxGL.PointLike],
         parameters?: QueryRenderedFeaturesParams,
-    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    ): MapboxGL.MapboxGeoJSONFeature[];
 }
 
 export default InteractiveMap;
@@ -350,7 +354,7 @@ export interface PopupProps extends BaseControlProps {
     tipSize?: number;
     closeButton?: boolean;
     closeOnClick?: boolean;
-    anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+    anchor?: MapboxGL.Anchor;
     dynamicPosition?: boolean;
     sortByDepth?: boolean;
     onClose?: () => void;
@@ -396,6 +400,7 @@ export interface GeolocateControlProps extends BaseControlProps {
     onViewportChange?: ViewportChangeHandler;
     onGeolocate?: (options: PositionOptions) => void;
     style?: React.CSSProperties;
+    auto?: boolean;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
