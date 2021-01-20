@@ -114,7 +114,7 @@ declare module facebook.Pixel {
         value?:number;
         currency?:string;
         content_name?:string;
-        status?:string;
+        status?:boolean;
     }
 }
 
