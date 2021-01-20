@@ -50,6 +50,7 @@ import {
     Lens,
     Merge,
     MergeAll,
+    ObjectHavingSome,
     ObjPred,
     Ord,
     Path,
@@ -697,10 +698,10 @@ export function gte(a: number): (b: number) => boolean;
 /**
  * Returns whether or not an object has an own property with the specified name.
  */
-export function has<T>(__: Placeholder, obj: T): (s: string) => boolean;
-export function has<T>(__: Placeholder): (obj: T, s: string) => boolean;
-export function has<T>(s: string, obj: T): boolean;
-export function has(s: string): <T>(obj: T) => boolean;
+export function has(__: Placeholder, obj: unknown): (s: string) => boolean;
+export function has(__: Placeholder): <P extends string>(obj: unknown, s: P) => obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P, obj: unknown): obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P): (obj: unknown) => obj is ObjectHavingSome<P>;
 
 /**
  * Returns whether or not an object or its prototype chain has a property with the specified name
