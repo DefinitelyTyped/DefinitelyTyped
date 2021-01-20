@@ -29,6 +29,7 @@ export interface ClientConfig {
     idle_in_transaction_session_timeout?: number;
     application_name?: string;
     connectionTimeoutMillis?: number;
+    types?: CustomTypesConfig;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -58,7 +59,7 @@ export interface QueryConfig<I extends any[] = any[]> {
 }
 
 export interface CustomTypesConfig {
-    getTypeParser: (id: pgTypes.TypeId, format: pgTypes.TypeFormat) => any;
+    getTypeParser: typeof pgTypes.getTypeParser;
 }
 
 export interface Submittable {

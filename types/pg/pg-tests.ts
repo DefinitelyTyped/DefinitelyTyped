@@ -159,6 +159,30 @@ client
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));
 
+const clientCustomQueryTypes = new Client({
+    host: 'my.database-server.com',
+    port: 5334,
+    user: 'database-user',
+    password: 'secretpassword!!',
+    application_name: 'DefinitelyTyped',
+    keepAlive: true,
+    types: customTypes
+});
+
+clientCustomQueryTypes.query(query, (err, res) => {
+    if (err) {
+        console.error(err.stack);
+    } else {
+        console.log(res.rows);
+        console.log(res.fields.map(f => f.name));
+    }
+});
+
+clientCustomQueryTypes
+    .end()
+    .then(() => console.log('client has disconnected'))
+    .catch(err => console.error('error during disconnection', err.stack));
+
 // pg.Pool
 // https://node-postgres.com/api/pool
 
