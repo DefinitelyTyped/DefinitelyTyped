@@ -8,11 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      # https://github.com/Flet/github-slugger/pull/35
-      - run:
-          curl https://github.com/Flet/github-slugger/compare/master...jablko:patch-1.patch |
-          git apply
-            --directory node_modules/github-slugger
-            --include node_modules/github-slugger/_generated_unicode_regex.js
-            --include node_modules/github-slugger/index.js
       - run: npx remark --use validate-links --frail . .github
