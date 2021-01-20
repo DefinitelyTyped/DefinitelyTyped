@@ -265,13 +265,13 @@ export class DateTime {
     minus(duration: Duration | number | DurationObject): DateTime;
     plus(duration: Duration | number | DurationObject): DateTime;
     reconfigure(properties: LocaleOptions): DateTime;
-    resolvedLocaleOpts(options?: DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOpts(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
     set(values: DateObjectUnits): DateTime;
     setLocale(locale: string): DateTime;
     setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
     startOf(unit: DurationUnit): DateTime;
     toBSON(): Date;
-    toFormat(format: string, options?: DateTimeFormatOptions): string;
+    toFormat(format: string, options?: LocaleOptions & DateTimeFormatOptions): string;
     toHTTP(): string;
     toISO(options?: ToISOTimeOptions): string;
     /** Returns an ISO 8601-compliant string representation of this DateTime's date component */

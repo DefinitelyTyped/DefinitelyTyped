@@ -121,7 +121,7 @@ declare class Cache {
      * This is done on a per-instance level, so if you create many cache instances reading and writing the same keys, you are asking for trouble.
      * If you don't, the worst case is every process in your system fetching the value at once. Which should be a smaller number than the number of concurrent requests in most cases.
      */
-    getOrElse<T>(key: string, value: T | Promise<T> | (() => T) | (() => Promise<T>), options: any, callback?: (err: any, value: T) => void): Promise<T>;
+    getOrElse<T>(key: string, value: T | (() => T) | Promise<T> | (() => Promise<T>), options?: CacheDefaults, callback?: (err: any, value: T) => void): Promise<T>;
 
     /**
      * Cache delete operation. key has to be a string.

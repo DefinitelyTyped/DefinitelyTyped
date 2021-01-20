@@ -421,6 +421,7 @@ Providers.IdentityServer4({
 Providers.Discord({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'identify', // This tests the `extends GenericObject`
 });
 
 // $ExpectType GenericReturnConfig

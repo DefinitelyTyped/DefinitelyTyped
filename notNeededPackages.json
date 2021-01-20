@@ -2082,6 +2082,11 @@
             "asOfVersion": "1.0.13"
         },
         {
+            "libraryName": "joi",
+            "typingsPackageName": "joi",
+            "asOfVersion": "17.2.0"
+        },
+        {
             "libraryName": "jointjs",
             "typingsPackageName": "jointjs",
             "asOfVersion": "2.0.0"
@@ -2130,6 +2135,11 @@
             "libraryName": "json-rules-engine",
             "typingsPackageName": "json-rules-engine",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "json-schema-traverse",
+            "typingsPackageName": "json-schema-traverse",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "jsonata",
@@ -2727,6 +2737,21 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multibase",
+            "typingsPackageName": "multibase",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "asOfVersion": "4.0.0"
@@ -3295,6 +3320,12 @@
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "asOfVersion": "5.4.3"
+        },
+        {
+            "libraryName": "pg-types",
+            "typingsPackageName": "pg-types",
+            "sourceRepoURL": "https://github.com/brianc/node-pg-types",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "phin",

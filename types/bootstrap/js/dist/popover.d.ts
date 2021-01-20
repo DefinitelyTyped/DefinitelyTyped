@@ -254,7 +254,7 @@ declare namespace Popover {
          * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.Options | null;
+        popperConfig: Partial<Popper.Options> | null;
     }
 }
 

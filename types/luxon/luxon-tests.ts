@@ -228,10 +228,12 @@ Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
+DateTime.local().resolvedLocaleOpts({ locale: 'de' });
 
 dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
+dt.toFormat('MMMM dd, yyyy GG', { locale: 'de' });
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
 

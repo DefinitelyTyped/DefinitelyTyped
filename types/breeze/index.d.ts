@@ -1250,7 +1250,7 @@ declare namespace breeze.config {
         /** the name of a previously registered "dataService" adapter */
         dataService?: string;
         /** the name of a previously registered "modelLibrary" adapter */
-        modelLibary?: string;
+        modelLibrary?: string;
         /** the name of a previously registered "uriBuilder" adapter */
         uriBuilder?: string;
     }
