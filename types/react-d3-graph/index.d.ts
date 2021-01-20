@@ -99,11 +99,38 @@ export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
     staticGraphWithDragAndDrop: boolean;
     width: number;
     d3: {
-        alphaTarget: number;
-        gravity: number;
-        linkLength: number;
-        linkStrength: number;
-        disableLinkForce: boolean;
+        /**
+         * @see https://github.com/d3/d3-force#simulation_alphaTarget
+         * @default 0.05
+         */
+        alphaTarget?: number;
+        /**
+         * this will define how close nodes are to each other.
+         * - If value is positive, nodes will attract each other.
+         * - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
+         *
+         * @see https://github.com/d3/d3-force#forces
+         * @default -100
+         */
+        gravity?: number;
+        /**
+         * the length of each link from the center of the nodes it joins.
+         *
+         * @default 100
+         */
+        linkLength?: number;
+        /**
+         * @see https://github.com/d3/d3-force#link_strength
+         * @default 1
+         */
+        linkStrength?: number;
+        /**
+         * Completely disables d3 force link and simulation to re-trigger so that one can obtain precise render of node positions
+         *
+         * @see https://github.com/danielcaldas/react-d3-graph/pull/278
+         * @default false
+         */
+        disableLinkForce?: boolean;
     };
 }
 
