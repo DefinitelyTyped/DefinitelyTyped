@@ -2,7 +2,6 @@
 // Project: https://workerb.io/
 // Definitions by: workerB <https://github.com/workerb-io>
 //                Saurabh Garg <https://github.com/s-garg>
-//                Praveen Kumar Saini <https://github.com/praveen-me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
@@ -23,6 +22,11 @@ declare type typeQueryMethods =
     | 'by_query_selector'
     | 'by_label'
     | 'by_placeholder';
+
+declare interface SetVarsVariable {
+    name: string;
+    value: string;
+}
 
 declare interface QueryOptions {
     /**
@@ -389,3 +393,25 @@ declare function httpPost(url: string, data?: any, headers?: object): APIRespons
  * * status: A number that is the Status Code returned by the remote server.
  */
 declare function httpPut(url: string, data?: any, headers?: object): APIResponse;
+
+/**
+ * The setVars function sets required variables for a package, later package scripts
+ * can use those variables for various operations like authenticating the user
+ *
+ * @param variables An array of objects conatining name of user private property and its value
+ * @param options An optional object to specify other things like running system information
+ *
+ * @returns undefined
+ */
+declare function setVars(variables: SetVarsVariable[], options?: object): undefined;
+
+/**
+ * The reIndex function updates the index based on path passed into the function, if nothing
+ * is passed this function will update the complete index
+ *
+ * @param path An optional array of string which can have a path to specific node in the
+ * index to update.
+ *
+ * @returns undefined
+ */
+declare function reIndex(path?: string[]): undefined;

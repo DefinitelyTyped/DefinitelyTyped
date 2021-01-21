@@ -83,3 +83,15 @@ httpDelete('https://api.delete.com/posts/1');
 httpPost('https://www.google.com', JSON.stringify({ name: 'workerB' }), { 'content-type': 'application/json' });
 
 httpPut('https://www.google.com', JSON.stringify({ name: 'workerB' }), { 'content-type': 'application/json' });
+
+setVars([{
+    name: 'accessToken',
+    value: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+}, {
+    name: 'accessKey',
+    value: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+}], {local: true});
+
+reIndex(['boards', 'Board Name', 'lists']);
+
+reIndex();
