@@ -2,7 +2,6 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/controller.ts",
         "test/default.ts",
         "test/response-body.ts",
         "test/settings.ts"

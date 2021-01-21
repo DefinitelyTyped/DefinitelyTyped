@@ -490,7 +490,6 @@ declare class Application<
      */
     use<NewStateT = {}, NewContextT = {}>(
         middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
-        | Application.Controller<any, StateT & NewStateT, ContextT & NewContextT>
     ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
@@ -538,8 +537,6 @@ declare namespace Application {
     type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<
         ParameterizedContext<StateT, ContextT, ResponseBodyT>
     >;
-
-    type Controller<ResponseBodyT = any, StateT = DefaultState, ContextT = DefaultContext> = (ctx: ParameterizedContext<StateT, ContextT, ResponseBodyT>) => void;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
