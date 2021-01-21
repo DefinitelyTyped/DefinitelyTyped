@@ -110,16 +110,16 @@ interface JWTOptions {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: Record<string, unknown>, profile: Record<string, unknown>): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
-        token: GenericObject,
+        token: Record<string, unknown>,
         user: User,
-        account: GenericObject,
-        profile: GenericObject,
+        account: Record<string, unknown>,
+        profile: Record<string, unknown>,
         isNewUser: boolean,
-    ): Promise<GenericObject>;
+    ): Promise<Record<string, unknown>>;
 }
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;

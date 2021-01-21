@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { IncomingMessage } from 'http';
-import { GenericObject, SessionBase  } from './_utils';
+import { SessionBase  } from './_utils';
 
-type Session = SessionBase & GenericObject;
+type Session = SessionBase;
 
 interface GetProvidersResponse {
     [provider: string]: SessionProvider;
 }
 
-interface SessionProvider extends GenericObject {
+interface SessionProvider {
     id: string;
     name: string;
     type: string;
@@ -48,7 +48,7 @@ declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
     provider?: string,
-    data?: GenericObject & {
+    data?: Record<string, any> & {
         callbackUrl?: string;
     },
 ): Promise<void>;
