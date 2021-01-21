@@ -5,9 +5,6 @@ interface Point {
   y: number;
 }
 
-type Getter<S, A> = (s: S) => A;
-type Setter<S, A> = (a: A, s: S) => S;
-
 () => {
   const headLens = R.lensIndex<string>(0);
   // $ExpectType string[]
@@ -15,7 +12,7 @@ type Setter<S, A> = (a: A, s: S) => S;
 };
 
 () => {
-  const xLens = R.lens(R.prop('x') as Getter<Point, number>, R.assoc('x') as Setter<Point, number>);
+  const xLens = R.lens<Point, number>(R.prop('x'), R.assoc('x'));
   // $ExpectType { x: number; y: number; }
   R.over(xLens, R.negate, { x: 1, y: 2 }); // => {x: -1, y: 2}
   // $ExpectType (value: Point) => Point
