@@ -2737,6 +2737,21 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multibase",
+            "typingsPackageName": "multibase",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "asOfVersion": "4.0.0"

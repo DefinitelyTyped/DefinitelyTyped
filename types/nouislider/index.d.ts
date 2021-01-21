@@ -204,6 +204,10 @@ declare namespace noUiSlider {
          */
         options: Options;
         /**
+         * The slider element
+         */
+        target: HTMLElement;
+        /**
          * `noUiSlider` has an update method that can change the `margin`,
          * `padding`, `limit`, `step`, `range`, `pips`, `tooltips`, `animate` and `snap` options.
          * All other options require changes to the slider's HTML or event bindings.

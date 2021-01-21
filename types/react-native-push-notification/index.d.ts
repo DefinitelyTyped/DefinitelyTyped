@@ -1,10 +1,10 @@
-// Type definitions for react-native-push-notification 5.0
+// Type definitions for react-native-push-notification 7.0
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.5
 
 export interface PushNotificationPermissions {
     alert?: boolean;
@@ -12,23 +12,25 @@ export interface PushNotificationPermissions {
     sound?: boolean;
 }
 
-export interface PushNotification {
+export interface ReceivedNotification {
     foreground: boolean;
     userInteraction: boolean;
     message: string | object;
-    data: object;
+    data: Record<string, any>;
+    userInfo: Record<string, any>;
     subText?: string;
     badge: number;
     alert: object;
     sound: string;
     id: number;
+    action?: string;
     finish: (fetchResult: string) => void;
 }
 
 export interface PushNotificationOptions {
     onRegister?: (token: { os: string; token: string }) => void;
-    onNotification?: (notification: PushNotification) => void;
-    onAction?: (notification: PushNotification) => void;
+    onNotification?: (notification: Omit<ReceivedNotification, 'userInfo'>) => void;
+    onAction?: (notification: ReceivedNotification) => void;
     onRegistrationError?: (error: any) => void;
     onRemoteFetch?: (notificationData: any) => void;
     permissions?: PushNotificationPermissions;
@@ -62,7 +64,7 @@ export class PushNotificationObject {
     channelId?: string;
     onlyAlertOnce?: boolean;
     allowWhileIdle?: boolean;
-
+    timeoutAfter?: number | null;
     messageId?: string;
 
     actions?: string[];
@@ -114,6 +116,7 @@ export class ChannelObject {
     soundName?: string;
     importance?: number;
     vibrate?: boolean;
+    playSound?: boolean;
 }
 
 export interface PushNotification {
@@ -136,7 +139,7 @@ export interface PushNotification {
         callback: (badgeCount: number) => void
     ): void;
     popInitialNotification(
-        callback: (notification: PushNotification | null) => void
+        callback: (notification: ReceivedNotification | null) => void
     ): void;
     abandonPermissions(): void;
     checkPermissions(

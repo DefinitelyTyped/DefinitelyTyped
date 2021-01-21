@@ -1888,6 +1888,28 @@ describe("User scenarios", () => {
     });
 });
 
+describe('setDefaultSpyStrategy', () => {
+    // https://jasmine.github.io/tutorials/default_spy_strategy
+    beforeEach(() => {
+        jasmine.setDefaultSpyStrategy(and => and.returnValue("Hello World"));
+    });
+
+    it("returns the value Hello World", () => {
+        const spy = jasmine.createSpy();
+        expect(spy()).toEqual("Hello World");
+    });
+
+    it("throws if you call any methods", () => {
+        jasmine.setDefaultSpyStrategy(and => and.throwError(new Error("Do Not Call Me")));
+        const program = jasmine.createSpyObj(["start", "stop", "examine"]);
+        jasmine.setDefaultSpyStrategy();
+
+        expect(() => {
+            program.start();
+        }).toThrowError("Do Not Call Me");
+    });
+});
+
 (() => {
     // from boot.js
     const env = jasmine.getEnv();
