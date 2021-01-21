@@ -8,7 +8,7 @@ import {
     VASTClientCustomStorage,
     VASTClientUrlHandler,
     VastCreativeCompanion,
-} from 'v2';
+} from 'vast-client';
 
 const VASTUrl = 'http://example.dailymotion.com/vast.xml';
 const VASTXml = new DOMParser().parseFromString('<vast></vast>', 'text/xml');
