@@ -70990,6 +70990,8 @@ declare namespace Word {
      * ContentControl appearance
      *
      * [Api set: WordApi]
+     * @remarks
+     * Content control appearance options are bounding box, tags, or hidden.
      */
     enum ContentControlAppearance {
         /**
@@ -71130,6 +71132,10 @@ declare namespace Word {
      * The insertion location types.
      *
      * [Api set: WordApi]
+     * @remarks
+     * To be used with an API call, such as `obj.insertSomething(newStuff, location);`
+     * If the location is "Before" or "After", `newStuff` will be outside of the modified `obj`.
+     * If the location is "Start" or "End", `newStuff` will be included as part of the modified `obj`.
      */
     enum InsertLocation {
         /**
