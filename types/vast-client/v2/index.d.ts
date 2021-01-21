@@ -1,4 +1,4 @@
-// Type definitions for vast-client 3.0
+// Type definitions for vast-client 2.1
 // Project: https://github.com/dailymotion/vast-client-js#readme
 // Definitions by: John G. Gainfort Jr. <https://github.com/jgainfort>, Sara Nordmyr da Cunha <https://github.com/kobawan>, Nicolas Gehlert <https://github.com/ngehlert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -136,7 +136,11 @@ export class VASTTracker extends EventEmitter {
          * The name of the event. Call the specified event tracking URLs. Emit the specified event when done.
          */
         eventName: string,
-        trackOptions?: TrackOptions,
+        /**
+         * Indicate if the event has to be tracked only once.
+         * Default: false
+         */
+        once?: boolean
     ): void;
 }
 
@@ -183,8 +187,6 @@ export class VASTClient {
 }
 
 export class VASTParser extends EventEmitter {
-    rootURL?: string;
-
     /**
      * util method for handling urls, it is used to make the requests.
      */
@@ -233,7 +235,7 @@ export class VASTParser extends EventEmitter {
         /**
          * url of original wrapper
          */
-        previousUrl?: string
+        originalUrl?: string
     ): Promise<Document>;
     /**
      * Fetches and parses a VAST for the given url.
@@ -263,15 +265,6 @@ export class VASTParser extends EventEmitter {
          */
         options?: VastRequestOptions,
     ): Promise<VastResponse>;
-
-    /**
-     * Parses the given xml Object into an array of ads
-     * Returns the array or throws an `Error` if an invalid VAST XML is provided
-     */
-    parseVastXml(
-        vastXml: Document,
-        options: ParseVastXmlOptions,
-    ): VastAd[];
 }
 
 export interface VASTClientCustomStorage {
@@ -349,9 +342,9 @@ export interface VastCreativeLinear extends VastCreative {
     icons: VastIcon[];
     mediaFiles: VastMediaFile[];
     skipDelay: number | null;
-    videoClickThroughURLTemplate: VastUrlValue | null;
-    videoClickTrackingURLTemplates: VastUrlValue[];
-    videoCustomClickURLTemplates: VastUrlValue[];
+    videoClickThroughURLTemplate: string | null;
+    videoClickTrackingURLTemplates: string[];
+    videoCustomClickURLTemplates: string[];
 }
 
 export interface VastCreativeNonLinear extends VastCreative {
@@ -363,13 +356,13 @@ export interface VastCreativeCompanion extends VastCreative {
 }
 
 export interface VastAd {
-    advertiser: VastAdvertiser[];
+    advertiser: string | null;
     creatives: VastCreative[];
     description: string | null;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
     id: string | null;
-    impressionURLTemplates: VastUrlValue[];
+    impressionURLTemplates: string[];
     pricing: string | null;
     sequence: string | null;
     survey: string | null;
@@ -378,8 +371,6 @@ export interface VastAd {
 }
 
 export interface VastAdExtension {
-    name: string | null;
-    value: any;
     attributes: VastAdAttributes;
     children: VastAdExtensionChild[];
 }
@@ -400,7 +391,7 @@ export interface VastAdChildAttributes {
 }
 
 export interface VastNonLinearAd {
-    nonLinearClickTrackingURLTemplates: VastUrlValue[];
+    nonLinearClickTrackingURLTemplates: string[];
     nonLinearClickThroughURLTemplate: string | null;
     adParameters: string | null;
     type: string | null;
@@ -421,13 +412,14 @@ export interface VastNonLinearAd {
 export interface VastCompanionAd {
     companionClickThroughURLTemplate: string | null;
     companionClickTrackingURLTemplate: string | null | undefined;
-    companionClickTrackingURLTemplates: VastUrlValue[];
+    companionClickTrackingURLTemplates: string[];
     height: string;
-    htmlResources: string[];
+    htmlResource: string | null;
     id: string | null;
-    iframeResources: string[];
-    staticResources: StaticResource[];
+    iframeResource: string | null;
+    staticResource: string | null;
     trackingEvents: VastCompanionTrackingEvents;
+    type: string | null;
     width: string;
     altText: string | null;
 }
@@ -480,41 +472,6 @@ export interface VastIcon {
     htmlResource: string | null;
     iframeResource: string | null;
     iconClickThroughURLTemplate: string | null;
-    iconClickTrackingURLTemplates: VastUrlValue[];
+    iconClickTrackingURLTemplates: string[];
     iconViewTrackingURLTemplate: string | null;
-}
-
-export interface VastAdvertiser {
-    id: string | null;
-    value: string;
-}
-
-export interface VastUrlValue {
-    id: string | null;
-    url: string;
-}
-
-export interface StaticResource {
-    url: string;
-    creativeType: string | null;
-}
-
-export interface TrackOptions {
-    /**
-     * An optional Object of parameters(vast macros) to be used in the tracking calls.
-     */
-    macros?: Record<string, any>;
-    /**
-     * Indicate if the event has to be tracked only once.
-     * Default: false
-     */
-    once?: boolean;
-}
-
-export interface ParseVastXmlOptions {
-    isRootVAST?: boolean;
-    url?: string | null;
-    wrapperDepth?: number;
-    allowMultipleAds?: boolean;
-    followAdditionalWrappers?: boolean;
 }
