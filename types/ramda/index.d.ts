@@ -927,27 +927,64 @@ export function length<T>(list: readonly T[]): number;
  * "gets" the value of the focus; the setter "sets" the value of the focus.
  * The setter should not mutate the data structure.
  */
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
 
 /**
  * Creates a lens that will focus on index n of the source array.
  */
-export function lensIndex(n: number): Lens;
+export function lensIndex<A>(n: number): Lens<A[], A>;
 
 /**
  * Returns a lens whose focus is the specified path.
  * See also view, set, over.
  */
-export function lensPath(path: Path): Lens;
+export function lensPath<S, K0 extends keyof S = keyof S>(path: [K0]): Lens<S, S[K0]>;
+export function lensPath<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1]): Lens<S, S[K0][K1]>;
+export function lensPath<
+    S, 
+    K0 extends keyof S = keyof S, 
+    K1 extends keyof S[K0] = keyof S[K0], 
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(
+    path: [K0, K1, K2]
+): Lens<S, S[K0][K1][K2]>;
+export function lensPath<
+    S, 
+    K0 extends keyof S = keyof S, 
+    K1 extends keyof S[K0] = keyof S[K0], 
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(
+    path: [K0, K1, K2, K3]
+): Lens<S, S[K0][K1][K2][K3]>;
+export function lensPath<
+    S, 
+    K0 extends keyof S = keyof S, 
+    K1 extends keyof S[K0] = keyof S[K0], 
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(
+    path: [K0, K1, K2, K3, K4]
+): Lens<S, S[K0][K1][K2][K3][K4]>;
+export function lensPath<
+    S, 
+    K0 extends keyof S = keyof S, 
+    K1 extends keyof S[K0] = keyof S[K0], 
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(
+    path: [K0, K1, K2, K3, K4, K5]
+): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
+
+export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
 
 /**
  * lensProp creates a lens that will focus on property k of the source object.
  */
-export function lensProp(str: string): {
-    <T, U>(obj: T): U;
-    set<T, U, V>(val: T, obj: U): V;
-    /*map<T>(fn: (...a: readonly any[]) => any, obj: T): T*/
-};
+export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
 /**
  * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
@@ -1304,12 +1341,9 @@ export function otherwise<A, B>(onError: (error: any) => B | Promise<B>): (promi
  * Returns the result of "setting" the portion of the given data structure
  * focused by the given lens to the given value.
  */
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+export function over<S, A>(lens: Lens<S, A>): (fn: (a: A) => A, value: S) => S;
 
 /**
  * Takes two arguments, fst and snd, and returns [fst, snd].
@@ -1697,9 +1731,9 @@ export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TRes
  * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
  * given value.
  */
-export function set<T, U>(lens: Lens, a: U, obj: T): T;
-export function set<U>(lens: Lens, a: U): <T>(obj: T) => T;
-export function set(lens: Lens): <T, U>(a: U, obj: T) => T;
+export function set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
+export function set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+export function set<S, A>(lens: Lens<S, A>): (a: A, obj: S) => S;
 
 /**
  * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
@@ -2083,8 +2117,8 @@ export function valuesIn<T>(obj: any): T[];
  * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
  * portion of the data structure is visible.
  */
-export function view<T, U>(lens: Lens): (obj: T) => U;
-export function view<T, U>(lens: Lens, obj: T): U;
+export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
+export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
 /**
  * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function

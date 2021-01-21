@@ -6,8 +6,8 @@ import * as R from 'ramda';
   }
 
   // $ExpectType Lens<ObjWithPhrase, string>
-  R.lensProp<ObjWithPhrase>('phrase');
+  R.lensPath<ObjWithPhrase>(['phrase']);
 
   // $ExpectError
-  R.lensProp<ObjWithPhrase>('phrae');
+  R.lensPath<ObjWithPhrase>(['phrae']);
 };
