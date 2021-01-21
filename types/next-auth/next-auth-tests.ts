@@ -10,7 +10,7 @@ import Adapters, { Adapter, EmailSessionProvider, Profile, Session, Verification
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
-import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
 
@@ -139,14 +139,14 @@ const allConfig = {
     },
     pages: pageOptions,
     callbacks: {
-        signIn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIn: (user: NextAuthTypes.User, account: unknown, profile: unknown) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
         session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
-            token: GenericObject,
+            token: unknown,
             user: NextAuthTypes.User,
-            account: GenericObject,
-            profile: GenericObject,
+            account: unknown,
+            profile: unknown,
             isNewUser: boolean,
         ) => Promise.resolve({}),
     },

@@ -1,11 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { User } from './index';
 
-interface GenericObject {
-    [key: string]: any;
-}
-
-interface NextApiRequest extends IncomingMessage, GenericObject {
+interface NextApiRequest extends IncomingMessage {
     query: {
         [key: string]: string | string[];
     };
@@ -15,7 +11,7 @@ interface NextApiRequest extends IncomingMessage, GenericObject {
     body: any;
 }
 
-interface NextApiResponse<T = any> extends ServerResponse, GenericObject {
+interface NextApiResponse<T = any> extends ServerResponse {
     send: Send<T>;
     json: Send<T>;
     status: (statusCode: number) => NextApiResponse<T>;
@@ -29,4 +25,4 @@ interface SessionBase {
     expires: string;
 }
 
-export { GenericObject, SessionBase, NextApiRequest, NextApiResponse };
+export { SessionBase, NextApiRequest, NextApiResponse };
