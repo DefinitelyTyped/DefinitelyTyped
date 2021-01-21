@@ -57,13 +57,6 @@ console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
 
-// Test module augmentation to attach custom typed properties to `agent.custom`.
-import _ShareDbAgent = require('sharedb/lib/agent');
-declare module 'sharedb/lib/agent' {
-    interface Custom {
-        user?: {id: string};
-    }
-}
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
