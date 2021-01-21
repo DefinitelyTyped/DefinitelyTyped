@@ -40,7 +40,7 @@ export interface StringDeleteOp { p: Path; sd: string; }
 
 export interface SubtypeOp { p: Path; t: string; o: any; }
 
-export type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
+export type Json0Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
 
 export interface RawOp {
     src: string;
@@ -53,7 +53,7 @@ export interface RawOp {
 
 export type CreateOp = RawOp & { create: { type: string; data: any }; del: undefined; op: undefined; };
 export type DeleteOp = RawOp & { del: boolean; create: undefined; op: undefined; };
-export type EditOp = RawOp & { op: Op[]; create: undefined; del: undefined; };
+export type EditOp = RawOp & { op: any[]; create: undefined; del: undefined; };
 
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
@@ -90,7 +90,7 @@ export interface Error {
     code: number;
     message: string;
 }
-export interface ShareDBSourceOptions { source?: boolean; }
+export interface ShareDBSourceOptions { source?: any; }
 // interface ShareDBCreateOptions extends ShareDBSourceOptions {}
 // interface ShareDBDelOptions extends ShareDBSourceOptions {}
 // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
@@ -116,15 +116,15 @@ export class Doc<T = any> extends EventEmitter {
     unsubscribe: (callback?: (err: Error) => void) => void;
 
     on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    on(event: 'create', callback: (source: boolean) => void): this;
-    on(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
-    on(event: 'del', callback: (data: any, source: boolean) => void): this;
+    on(event: 'create', callback: (source: any) => void): this;
+    on(event: 'op' | 'before op', callback: (ops: any[], source: any) => void): this;
+    on(event: 'del', callback: (data: any, source: any) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
 
     addListener(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    addListener(event: 'create', callback: (source: boolean) => void): this;
-    addListener(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
-    addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
+    addListener(event: 'create', callback: (source: any) => void): this;
+    addListener(event: 'op' | 'before op', callback: (ops: any[], source: any) => void): this;
+    addListener(event: 'del', callback: (data: any, source: any) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
@@ -132,7 +132,7 @@ export class Doc<T = any> extends EventEmitter {
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
     create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
-    submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
+    submitOp(data: any, options?: ShareDBSourceOptions, callback?: Callback): void;
     del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
     whenNothingPending(callback: () => void): void;
     hasPending(): boolean;

@@ -105,7 +105,7 @@ declare namespace sharedb {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
         close(callback?: BasicCallback): void;
-        commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
+        commit(collection: string, id: string, op: any, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshotBulk(collection: string, ids: string[], fields: any, options: any, callback: (...args: any[]) => any): void;
         getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
@@ -174,7 +174,7 @@ declare namespace sharedb {
     type Doc = ShareDB.Doc;
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
-    type Op = ShareDB.Op;
+    type Json0Op = ShareDB.Json0Op;
     type CreateOp = ShareDB.CreateOp;
     type DeleteOp = ShareDB.DeleteOp;
     type EditOp = ShareDB.EditOp;
@@ -241,7 +241,7 @@ declare namespace sharedb {
         interface OpContext extends BaseContext {
             collection: string;
             id: string;
-            op: ShareDB.Op;
+            op: any;
         }
 
         interface QueryContext extends BaseContext {
@@ -305,7 +305,7 @@ interface SubmitRequest {
     retries: number;
 
     snapshot: ShareDB.Snapshot | null;
-    ops: ShareDB.Op[];
+    ops: any[];
     channels: string[] | null;
 }
 

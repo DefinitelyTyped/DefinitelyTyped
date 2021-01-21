@@ -285,6 +285,8 @@ function startClient(callback) {
         if (doc.hasWritePending()) throw new Error();
     });
 
+    doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
+
     connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);

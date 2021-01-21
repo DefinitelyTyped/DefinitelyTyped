@@ -23,7 +23,7 @@ export type Doc<T = any> = ShareDB.Doc<T>;
 export type Query = ShareDB.Query;
 export type Presence<T = any> = ShareDB.Presence<T>;
 export type Error = ShareDB.Error;
-export type Op = ShareDB.Op;
+export type Json0Op = ShareDB.Json0Op;
 export type AddNumOp = ShareDB.AddNumOp;
 export type ListMoveOp = ShareDB.ListMoveOp;
 export type ListInsertOp = ShareDB.ListInsertOp;
