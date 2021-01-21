@@ -57,3 +57,12 @@ checkbox.setState(false);
 settings.prefix; // $ExpectType string
 settings.selectorFocusable; // $ExpectType string
 settings.selectorTabbable; // $ExpectType string
+
+const tooltip = new Tooltip(document.getElementById('tooltip')!, { classShown: 'tooltip' });
+
+tooltip.changeState('', {}, () => {});
+
+const tableEl = document.getElementById('table')!;
+const datatable = new DataTableV2(tableEl, { selectorActionCancel: '' });
+
+datatable.activateSearch(tableEl);

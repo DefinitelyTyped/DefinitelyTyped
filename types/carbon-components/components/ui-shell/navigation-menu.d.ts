@@ -37,3 +37,5 @@ export default class NavigationMenu extends NavigationMenuPanel {
         FORWARD: number;
     };
 }
+
+export {};

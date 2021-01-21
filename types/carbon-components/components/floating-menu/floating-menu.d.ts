@@ -9,7 +9,7 @@ interface FloatingMenuOptions {
     eventAfterShown: string;
     eventBeforeHidden: string;
     eventAfterHidden: string;
-    refNode: null;
+    refNode: HTMLElement;
     offset: Partial<{
         left: number;
         top: number;
