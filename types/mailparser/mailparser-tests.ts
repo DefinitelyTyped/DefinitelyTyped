@@ -52,7 +52,14 @@ simpleParser(sourceString, (err, mail) => {
     // Attachments
     mail.attachments.forEach(attachment => console.log(attachment.filename));
 
-    // Text
+    // TO Recipieints
+    if (Array.isArray(mail.to)) {
+        mail.to.forEach(recipient => console.log(recipient));
+    } else {
+        console.log(mail.to);
+    }
+
+    // Texte
     console.log(mail.text);
     console.log(mail.html);
     console.log(mail.textAsHtml);
