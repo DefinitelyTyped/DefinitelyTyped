@@ -323,7 +323,7 @@ declare namespace mapboxgl {
 
         removeImage(name: string): this;
 
-        loadImage(url: string, callback: (error: Error | null, result: HTMLImageElement | ImageBitmap) => void): this;
+        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): this;
 
         listImages(): string[];
 
@@ -1733,7 +1733,7 @@ declare namespace mapboxgl {
         scale?: number;
     }
 
-    type EventedListener = (object: Object) => any;
+    type EventedListener = (object?: Object) => any;
     /**
      * Evented
      */
