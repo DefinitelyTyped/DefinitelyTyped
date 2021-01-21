@@ -109,6 +109,7 @@ export class Doc<T = any> extends EventEmitter {
     subscribed: boolean;
     preventCompose: boolean;
     paused: boolean;
+    submitSource: boolean;
 
     fetch: (callback?: (err: Error) => void) => void;
     subscribe: (callback?: (err: Error) => void) => void;

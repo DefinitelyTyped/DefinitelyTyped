@@ -295,6 +295,9 @@ interface SubmitRequest {
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
+    extra: {
+        source?: any;
+    };
 
     saveMilestoneSnapshot: boolean | null;
     suppressPublish: boolean | null;
