@@ -2,12 +2,12 @@ import * as R from 'ramda';
 
 () => {
   interface ObjWithPhrase {
-    phrase: string
+    phrase: string;
   }
 
   // $ExpectType Lens<ObjWithPhrase, string>
   R.lensPath<ObjWithPhrase>(['phrase']);
 
-  // $ExpectError
+  // $ExpectType Lens<ObjWithPhrase, any>
   R.lensPath<ObjWithPhrase>(['phrae']);
 };

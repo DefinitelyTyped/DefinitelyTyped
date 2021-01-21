@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 () => {
   interface ObjWithPhrase {
-    phrase: string
+    phrase: string;
   }
 
   // $ExpectType Lens<ObjWithPhrase, string>

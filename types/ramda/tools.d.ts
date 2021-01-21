@@ -237,8 +237,8 @@ type FilterOnceApplied<A> =
  * @param A
  */
 export type Functor<A> =
-  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string] : any }
-  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string] : any };
+  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
 // ---------------------------------------------------------------------------------------
 // K

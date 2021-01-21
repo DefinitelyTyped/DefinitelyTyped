@@ -5,8 +5,8 @@ interface Point {
   y: number;
 }
 
-type Getter<S, A> = (s: S) => A
-type Setter<S, A> = (a:A, s:S) => S
+type Getter<S, A> = (s: S) => A;
+type Setter<S, A> = (a: A, s: S) => S;
 
 () => {
   const headLens = R.lensIndex<string>(0);
@@ -19,7 +19,8 @@ type Setter<S, A> = (a:A, s:S) => S
   // $ExpectType number
   R.view(xLens, { x: 1, y: 2 }); // => 1
   // $ExpectType (obj: Point) => number
-  R.view(xLens)({ x: 1, y: 2 }); // => 1
+  const fn = R.view(xLens);
+  fn({ x: 1, y: 2 }); // => 1
 };
 
 () => {
@@ -34,10 +35,9 @@ type Setter<S, A> = (a:A, s:S) => S
   R.view(xLens, { x: 1, y: 2 }); // => 1
 };
 
-
 () => {
-  const testObj = { 
-    x: [{ y: 2, z: 3 }, { y: 4, z: 5 }] 
+  const testObj = {
+    x: [{ y: 2, z: 3 }, { y: 4, z: 5 }]
   };
 
   const xyLens = R.lensPath<typeof testObj>(['x', 0, 'y']);
@@ -45,7 +45,7 @@ type Setter<S, A> = (a:A, s:S) => S
   // Array seems to be an issue
   R.view(xyLens, testObj); // => 2
 
-  const testObj2 = { 
+  const testObj2 = {
     root: {
       x: { y: 2, z: 3 }
     }
