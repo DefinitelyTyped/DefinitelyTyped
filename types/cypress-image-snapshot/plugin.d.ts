@@ -1,3 +1,5 @@
-declare function addMatchImageSnapshotPlugin(on: (action: string, fn: any) => void, config: any): void;
+/// <reference types="Cypress" />
+
+declare function addMatchImageSnapshotPlugin(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): void;
 
 export { addMatchImageSnapshotPlugin };
