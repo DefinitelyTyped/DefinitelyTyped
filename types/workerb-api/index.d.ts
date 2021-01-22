@@ -3,26 +3,15 @@
 // Definitions by: workerB <https://github.com/workerb-io>
 //                Saurabh Garg <https://github.com/s-garg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
-declare type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
+type QueryMethods = 'text' | 'regex' | 'id' | 'xpath' | 'query_selector';
 
-declare type getAttributeQueryMethods =
-    | 'by_text'
-    | 'by_regex'
-    | 'by_id'
-    | 'by_xpath'
-    | 'by_query_selector'
-    | 'by_query_selector_all';
+declare type clickQueryMethods = `by_${QueryMethods}`;
 
-declare type typeQueryMethods =
-    | 'by_text'
-    | 'by_regex'
-    | 'by_id'
-    | 'by_xpath'
-    | 'by_query_selector'
-    | 'by_label'
-    | 'by_placeholder';
+declare type getAttributeQueryMethods = `by_${QueryMethods | 'query_selector_all'}`;
 
+declare type typeQueryMethods = `by_${QueryMethods | 'label' | 'placeholder'}`;
 declare interface SetVarsVariable {
     name: string;
     value: string;
