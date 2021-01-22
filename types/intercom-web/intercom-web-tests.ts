@@ -76,6 +76,3 @@ intercomSettings = {
   horizontal_padding: 20,
   vertical_padding: 20
 };
-
-// $ExpectError
-Intercom('update', { some: 'invalid properties' });

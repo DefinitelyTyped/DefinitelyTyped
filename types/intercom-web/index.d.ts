@@ -6,6 +6,7 @@
 //                 Samer Albahra <https://github.com/salbahra>
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Chia-Lun Wu <https://github.com/bingo4508>
+//                 Chris Doe <https://github.com/cdoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {
@@ -46,6 +47,9 @@ declare namespace Intercom_ {
       website?: string;
       industry?: string;
     };
+
+    // Custom attributes
+    [custom_attribute: string]: any;
   }
 
   interface IntercomCommandSignature {
