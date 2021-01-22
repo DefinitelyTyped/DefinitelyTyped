@@ -3,48 +3,39 @@ import * as express from 'express';
 
 export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SessionData = Record<string, any>;
 export type JsonBody = any;
 export type HtmlBody = string;
 export type RequestBody = any;
-/* eslint-enable @typescript-eslint/no-explicit-any */
+
+export interface ObjectLiteral {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+}
 
 /**
- * An incoming Architect Request.
- * https://arc.codes/docs/en/reference/runtime/node#request
+ * An incoming Architect Request - an extension of the AWS Lambda version 2 request format
+ *  - https://arc.codes/docs/en/reference/runtime/node#request (current docs, less detailed)
+ *  - https://v6.arc.codes/primitives/http#req (older Arc docs site, more detailed)
+ *  - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+
  */
 export interface HttpRequest {
-    httpMethod: HttpMethods;
     /**
-     * The absolute path of the request
+     * The request body in a base64-encoded buffer. You'll need to parse request.body before you can use it, but Architect provides tools to do this - see parsing request bodies.
      */
-    path: string;
+    body: RequestBody;
 
-    /**
-     * The absolute path of the request, with resources substituted for actual path parts (e.g. /{foo}/bar)
-     */
-    resource: string;
-
-    /**
-     * Any URL params, if defined in your HTTP Function's path (e.g. foo in GET /:foo/bar)
-     */
-    pathParameters: Record<string, string>;
-
-    /**
-     * Any query params if present in the client request
-     */
-    queryStringParameters: Record<string, string>;
+    // Array containing all cookies, if present in client request
+    cookies?: string[];
 
     /**
      * All client request headers
      */
     headers: Record<string, string>;
 
-    /**
-     * The request body in a base64-encoded buffer. You'll need to parse request.body before you can use it, but Architect provides tools to do this - see parsing request bodies.
-     */
-    body: RequestBody;
+    httpMethod: HttpMethods;
 
     /**
      * Indicates whether body is base64-encoded binary payload (will always be true if body has not null)
@@ -52,13 +43,57 @@ export interface HttpRequest {
     isBase64Encoded: boolean;
 
     /**
+     * The absolute path of the request
+     */
+    path: string;
+
+    /**
+     * Any URL params, if defined in your HTTP Function's path (e.g. foo in GET /:foo/bar)
+     */
+    pathParameters: Record<string, string>;
+
+    // The absolute path of the request
+    rawPath: string;
+
+    // String containing query string params of request, if any:
+    // Eg: '?someParam=someValue', or '' (if no query params)
+    rawQueryString: string;
+
+    /**
+     * The absolute path of the request, with resources substituted for actual path parts (e.g. /{foo}/bar)
+     */
+    resource: string;
+
+    // Request metadata, including http object containing method and path (should you not want to parse the routeKey)
+    requestContext: ObjectLiteral;
+
+    // String combining of HTTP method (GET, POST, PATCH, PUT, or DELETE) and path
+    // Eg: 'GET /shop/{product}' or '$default' for the default handler.
+    routeKey: string;
+
+    /**
+     * Any query params if present in the client request
+     */
+    queryStringParameters: Record<string, string>;
+
+    /**
      * When the request/response is run through arc.http.async (https://arc.codes/docs/en/reference/runtime/node#arc.http.async) then it will have session added.
      */
     session?: SessionData;
+
+    // Stage variables are name-value pairs associated with a specific API deployment stage and act like environment variables for use in your API setup and mapping templates.
+    // See https://aws.amazon.com/about-aws/whats-new/2015/11/amazon-api-gateway-supports-stage-variables/
+    // and example at https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+    stageVariables: ObjectLiteral;
+
+    // Payload version (e.g. '2.0')
+    version: string;
 }
 
 /**
- * https://arc.codes/primitives/http#res
+ * https://arc.codes/primitives/http#res (current docs, less detailed)
+ * https://v6.arc.codes/primitives/http#res (older Arc docs site, more detailed)
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export interface HttpResponse {
     /**
