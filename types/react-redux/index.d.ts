@@ -303,7 +303,11 @@ export interface Connect<DefaultState = DefaultRootState> {
  */
 export type ConnectedProps<TConnector> =
     TConnector extends InferableComponentEnhancerWithProps<infer TInjectedProps, any>
-        ? TInjectedProps
+        ? unknown extends TInjectedProps
+            ? TConnector extends InferableComponentEnhancer<infer TInjectedProps>
+                ? TInjectedProps
+                : never
+            : TInjectedProps
         : never;
 
 /**
