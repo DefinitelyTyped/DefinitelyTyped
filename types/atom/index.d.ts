@@ -2591,6 +2591,8 @@ export interface TextEditorElement extends HTMLElement {
 
   /** Essential: Scrolls the editor to the bottom. */
   scrollToBottom(): void;
+    
+  hasFocus(): boolean;
 
   setScrollTop(scrollTop: number): void;
   getScrollTop(): number;
