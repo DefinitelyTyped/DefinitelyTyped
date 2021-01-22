@@ -16,7 +16,7 @@ async function testTasks(onfleet: Onfleet) {
     destination: 'fake_destination_id',
   });
 
-  await onfleet.tasks.create({
+  const taskCreated = await onfleet.tasks.create({
     recipients: [
       '<recipient-id-1>',
       '<recipient-id-2>',
@@ -36,14 +36,22 @@ async function testTasks(onfleet: Onfleet) {
     }
   });
 
+  if (taskCreated.container.type === 'TEAM') {
+    taskCreated.container.team === 'teamId';
+  }
+
   // test tasks.update
-  await onfleet.tasks.update(dummyTask.id, {
+  const taskUpdated = await onfleet.tasks.update(dummyTask.id, {
     notes: 'Some test task notes',
     container: {
       type: 'WORKER',
       worker: 'workerId'
     }
   });
+
+  if (taskUpdated.container.type === 'WORKER') {
+    taskUpdated.container.worker === 'workerId';
+  }
 
   // test tasks.update barcodes
   await onfleet.tasks.update(dummyTask.id, {
