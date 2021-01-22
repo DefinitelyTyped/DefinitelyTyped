@@ -16,7 +16,6 @@ export interface Providers {
     Google: Google;
     IdentityServer4: IdentityServer4;
     LinkedIn: LinkedIn;
-    Mixer: Mixer;
     Okta: Okta;
     Reddit: Reddit;
     Slack: Slack;
@@ -202,11 +201,6 @@ interface DiscordCredentialOptions extends CommonCredentialOptions {
  * Twitch
  */
 type Twitch = Provider<CommonCredentialOptions>;
-
-/**
- * Mixer
- */
-type Mixer = Provider<CommonCredentialOptions>;
 
 /**
  * Okta

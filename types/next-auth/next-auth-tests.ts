@@ -431,12 +431,6 @@ Providers.Twitch({
 });
 
 // $ExpectType GenericReturnConfig
-Providers.Mixer({
-    clientId: 'foo123',
-    clientSecret: 'bar123',
-});
-
-// $ExpectType GenericReturnConfig
 Providers.Okta({
     clientId: 'foo123',
     clientSecret: 'bar123',
