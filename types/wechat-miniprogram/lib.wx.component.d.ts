@@ -453,6 +453,11 @@ declare namespace WechatMiniprogram.Component {
          *
          * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
         definitionFilter?: DefinitionFilter
+
+        /**
+         * 组件自定义导出，当使用 `behavior: wx://component-export` 时，这个定义段可以用于指定组件被 selectComponent 调用时的返回值，参见 [组件间通信与事件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html)
+         * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
+        export: () => IAnyObject
     }
 
     interface KeyFrame {
