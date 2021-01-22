@@ -166,7 +166,7 @@ declare namespace sharedb {
      *   lives in the actual source code.
      */
     class Connection {
-        constructor(ws: WebSocket);
+        constructor(socket: ShareDB.Socket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
         createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
         createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;

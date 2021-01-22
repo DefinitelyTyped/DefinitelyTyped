@@ -308,3 +308,18 @@ function startClient(callback) {
 
     connection.close();
 }
+
+class SocketLike {
+    readyState = 1;
+
+    close(reason?: number): void {}
+    send(data: any): void {}
+
+    onmessage: (event: any) => void;
+    onclose: (event: any) => void;
+    onerror: (event: any) => void;
+    onopen: (event: any) => void;
+}
+
+const socketLike = new SocketLike();
+new ShareDBClient.Connection(socketLike);

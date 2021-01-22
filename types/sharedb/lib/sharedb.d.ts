@@ -188,3 +188,15 @@ export interface ClientRequest {
 
     [propertyName: string]: any;
 }
+
+export interface Socket {
+    readyState: number;
+
+    close(reason?: number): void;
+    send(data: any): void;
+
+    onmessage: (event: any) => void;
+    onclose: (event: any) => void;
+    onerror: (event: any) => void;
+    onopen: (event: any) => void;
+}
