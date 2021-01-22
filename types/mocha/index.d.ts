@@ -5,6 +5,7 @@
 //                 Vadim Macagon <https://github.com/enlight>
 //                 Andrew Bradley <https://github.com/cspotcode>
 //                 Dmitrii Sorin <https://github.com/1999>
+//                 Kamil Socha <https://github.com/ksocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -2738,24 +2739,14 @@ declare module "mocha" {
     export = Mocha;
 }
 
-declare module "mocha/lib/ms" {
-    export = milliseconds;
-    /**
-     * Parse the given `str` and return milliseconds.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~parse}
-     */
-    function milliseconds(val: string): number;
+declare module "mocha/lib/stats-collector" {
+    export = createStatsCollector;
 
     /**
-     * Format for `ms`.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~format}
+     * Provides stats such as test duration, number of tests passed / failed etc., by listening for events emitted by `runner`.
      */
-    function milliseconds(val: number): string;
-}
+    function createStatsCollector(runner: Mocha.Runner): void;
+  }
 
 declare module "mocha/lib/interfaces/common" {
     export = common;
