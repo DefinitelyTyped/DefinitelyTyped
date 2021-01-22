@@ -258,7 +258,7 @@ declare function readTable(
  *
  * @returns A string which is the URL of the webpage in the active tab.
  */
-declare function readUrl(): string;
+declare function readURL(): string;
 
 /**
  * The runInTab function runs the specified function in a new tab and returns the result to the current tab.

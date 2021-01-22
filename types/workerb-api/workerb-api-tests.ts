@@ -44,7 +44,7 @@ readTable('#table', {
     numberOfTries: 10,
 });
 
-readUrl();
+readURL();
 
 runInTab(() => {
     open('https://cnn.com');
