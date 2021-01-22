@@ -11,7 +11,7 @@
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
-import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
+import { SessionBase, NextApiRequest, NextApiResponse } from './_utils';
 import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
@@ -112,7 +112,7 @@ interface JWTOptions {
 interface Callbacks {
     signIn?(user: User, account: Record<string, unknown>, profile: Record<string, unknown>): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: SessionBase, user: User): Promise<GenericObject>;
+    session?(session: SessionBase, user: User): Promise<Record<string, unknown>>;
     jwt?(
         token: Record<string, unknown>,
         user: User,
