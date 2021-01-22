@@ -193,6 +193,12 @@ bot.editMessageText({
     inlineMsgId: 9999
 }, 'text');
 
+bot.editMessageText({
+    inlineMsgId: 9999
+}, 'text', {
+    parseMode: 'html'
+});
+
 bot.editMessageCaption({
     inlineMsgId: 9999
 }, 'caption');

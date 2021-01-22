@@ -1,3 +1,9 @@
+// TODO: #50253 remove after that most libraries will go to MapMouseEvent
+/**
+ * @internal
+ */
+type GoogleMapsNativeMouseEvent = MouseEvent;
+
 declare namespace google.maps {
     interface MapHandlerMap<T extends Map> {
         /**
@@ -620,8 +626,14 @@ declare namespace google.maps {
          * implementation of the Maps API.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapMouseEvent.domEvent Maps JavaScript API}
          */
-        domEvent: MouseEvent | TouchEvent | PointerEvent | Event;
+        domEvent: GoogleMapsNativeMouseEvent | TouchEvent | PointerEvent | Event;
     }
+
+    // TODO: #50253 remove after that most libraries will go to MapMouseEvent
+    /**
+     * @deprecated https://developers.google.com/maps/documentation/javascript/releases#2020-12-09
+     */
+    type MouseEvent = MapMouseEvent;
 
     /**
      * This object is sent in an event when a user clicks on an icon on the map.

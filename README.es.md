@@ -6,9 +6,9 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
 
 ## Contents
 
-* [¿Qué son los `declaration files`?](#¿qué-son-los-declaration-files)
-* [¿Cómo los obtengo?](#¿cómo-los-obtengo)
-* [¿Cómo puedo contribuir?](#¿cómo-puedo-contribuir)
+* [¿Qué son los `declaration files`?](#qué-son-los-declaration-files)
+* [¿Cómo los obtengo?](#cómo-los-obtengo)
+* [¿Cómo puedo contribuir?](#cómo-puedo-contribuir)
   - [Prueba](#prueba)
   - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
     - [Editar un paquete existente](#editar-un-paquete-existente)
@@ -125,9 +125,9 @@ Añade a tu `tsconfig.json`:
 Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
 Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
 Entonces compila *y* ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
-Una vez que hayas probado tus definiciones con el código real, haz un [PR](#make-a-pull-request)
-luego sigue las instrucciones para [editar un paquete existente](#edit-an-existing-package) o
-[crear un nuevo paquete](#create-a-new-package).
+Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
+luego sigue las instrucciones para [editar un paquete existente](#editar-un-paquete-existente) o
+[crear un nuevo paquete](#crear-un-nuevo-paquete).
 
 
 ### Haz un pull request
