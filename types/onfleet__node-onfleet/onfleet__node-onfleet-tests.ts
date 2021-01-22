@@ -30,11 +30,19 @@ async function testTasks(onfleet: Onfleet) {
         street: 'Test Street Blvd.',
       },
     },
+    container: {
+      type: 'TEAM',
+      team: 'teamId'
+    }
   });
 
   // test tasks.update
   await onfleet.tasks.update(dummyTask.id, {
     notes: 'Some test task notes',
+    container: {
+      type: 'WORKER',
+      worker: 'workerId'
+    }
   });
 
   // test tasks.update barcodes
