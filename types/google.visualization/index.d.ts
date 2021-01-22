@@ -1,10 +1,17 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>,
+//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
+//                 Dan Manastireanu <https://github.com/danmana>,
+//                 Michael Cheng <https://github.com/mlcheng>,
+//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
+//                 Gleb Mazovetskiy <https://github.com/glebm>,
+//                 Shrujal Shah <https://github.com/shrujalshah28>,
+//                 David <https://github.com/dckorben>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
-
     /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
     function load(visualization: 'visualization', version: string | number, options: LoadOptions): void;
     function setOnLoadCallback(handler: Function): void;
@@ -468,6 +475,7 @@ declare namespace google {
 
         export interface ChartFill {
             fill?: string;
+            fillOpacity?: number;
         }
 
         export interface ChartArea {
@@ -1722,6 +1730,39 @@ declare namespace google {
             yellowColor?: string;
             yellowFrom?: number;
             yellowTo?: number;
+        }
+
+        //#endregion
+        //#region Sankey
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey
+        export class Sankey extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: SankeyChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey#configuration-options
+        export interface SankeyChartOptions {
+            width?: number;
+            forceIFrame?: boolean;
+            height?: number;
+            sankey?: {
+                iterations?: number;
+                link?: {
+                    color?: string | ChartStrokeFill;
+                    colorMode?: 'none' | 'source' | 'target' | 'gradient';
+                    colors?: string[];
+                };
+                node?: {
+                    colorMode?: 'unique';
+                    colors?: string[];
+                    interactivity?: boolean;
+                    label?: ChartTextStyle;
+                    labelPadding?: number;
+                    nodePadding?: number;
+                    width?: number;
+                };
+                tooltip?: ChartTooltip;
+            };
         }
 
         //#endregion
