@@ -27,8 +27,8 @@ export type OperationTracker = RelayOperationTracker;
 /*
  * An individual cached graph object.
  */
-export interface Record {
-    [key: string]: unknown;
+export interface Record<T = {}> {
+    [key: string]: T;
 }
 
 /**
