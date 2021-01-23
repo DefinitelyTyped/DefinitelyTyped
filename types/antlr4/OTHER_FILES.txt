@@ -1,1 +1,0 @@
-error/index.d.ts

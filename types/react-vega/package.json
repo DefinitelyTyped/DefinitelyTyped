@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "vega-typings": "^0.7.0"
-    }
-}

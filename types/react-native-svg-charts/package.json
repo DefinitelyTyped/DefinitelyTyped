@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "react-native-svg": "^6.2.1"
-    }
-}

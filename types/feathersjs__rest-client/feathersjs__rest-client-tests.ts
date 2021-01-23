@@ -1,1 +1,0 @@
-const dummy: any = null;

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "cassandra-driver": "^4.3.0"
-    }
-}

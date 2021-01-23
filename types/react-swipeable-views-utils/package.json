@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@material-ui/types": "^4.0.0"
-    }
-}

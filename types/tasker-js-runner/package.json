@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "tasker-types": "^1.0.0"
-    }
-}

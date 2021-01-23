@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "@types/helmet": "0.0.48"
-  }
-}

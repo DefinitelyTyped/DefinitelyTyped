@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "dexie": "^2.0.0"
-  }
-}

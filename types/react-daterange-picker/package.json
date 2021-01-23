@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "moment": "^2.18.1",
-        "moment-range": "^4.0.0"
-    }
-}

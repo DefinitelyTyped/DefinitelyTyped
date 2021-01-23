@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "should": "^13.2.1"
-    }
-}

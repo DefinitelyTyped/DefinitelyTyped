@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/react-navigation": "3.0.8"
-    }
-}

@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-      "domhandler": "^2.4.0"
-  }
-}

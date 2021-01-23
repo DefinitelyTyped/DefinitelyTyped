@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "moment": "^2.19.4",
-        "semantic-ui-react": "0.88.1"
-    }
-}

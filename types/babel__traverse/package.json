@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@babel/types": "^7.3.0"
-    }
-}

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "final-form": "4.x.x"
-    }
-}
