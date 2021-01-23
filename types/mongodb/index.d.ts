@@ -250,7 +250,7 @@ export interface MongoClientCommonOption {
 }
 
 export interface MongoCallback<T> {
-    (error: MongoError, result: T): void;
+    (error: MongoError | null, result: T | null): void;
 }
 
 /**
