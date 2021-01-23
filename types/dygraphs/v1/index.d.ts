@@ -1,13 +1,12 @@
-// Type definitions for dygraphs 2.0
+// Type definitions for dygraphs 1.1.3
 // Project: http://dygraphs.com
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = Array<Array<number | Date | null>>;
+    type DataArray = (number|Date|null)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -22,9 +21,9 @@ declare namespace dygraphs {
          * A per-series color definition. Used in conjunction with, and overrides, the colors option.
          */
         color?: string;
-
+                
         /**
-         * A function which plot data for this series on the chart.
+         * A function which plot data for this series on the chart.         
          */
         plotter?: any;
 
@@ -103,7 +102,7 @@ declare namespace dygraphs {
         strokeWidth?: number;
     }
 
-    interface PerAxisOptions<T extends HTMLElement> {
+    interface PerAxisOptions {
         /**
          * Color for x- and y-axis labels. This is a CSS color string.
          */
@@ -118,12 +117,7 @@ declare namespace dygraphs {
          * Function to call to format the tick values that appear along an axis. This is usually set
          * on a <a href='per-axis.html'>per-axis</a> basis.
          */
-        axisLabelFormatter?: (
-            v: number | Date,
-            granularity: number,
-            opts: (name: string) => any,
-            dygraph: Readonly<Dygraph<T>>,
-        ) => any;
+        axisLabelFormatter?: (v: number | Date, granularity: number, opts: (name: string) => any, dygraph: Dygraph) => any;
 
         /**
          * Width (in pixels) of the containing divs for x- and y-axis labels. For the y-axis, this
@@ -234,9 +228,9 @@ declare namespace dygraphs {
             max: number,
             pixels: number,
             opts: (name: string) => any,
-            dygraph: Readonly<Dygraph<T>>,
-            vals: number[],
-        ) => Array<{ v: number; label: string }>;
+            dygraph: Dygraph,
+            vals: number[]) => Array<{ v: number, label: string }>;
+
 
         /**
          * Function to provide a custom display format for the values displayed on mouseover. This
@@ -248,10 +242,9 @@ declare namespace dygraphs {
             v: number,
             opts: (name: string) => any,
             seriesName: string,
-            dygraph: Readonly<Dygraph<T>>,
+            dygraph: Dygraph,
             row: number,
-            col: number,
-        ) => any;
+            col: number) => any;
 
         /**
          * Explicitly set the vertical range of the graph to [low, high]. This may be set on a
@@ -313,8 +306,7 @@ declare namespace dygraphs {
          */
         yHTML: string;
     }
-
-    interface LegendData<T extends HTMLElement> {
+    interface LegendData {
         /**
          * x value of highlighted points
          */
@@ -330,57 +322,36 @@ declare namespace dygraphs {
         /**
          * Dygraph object for this graph
          */
-        dygraph: Dygraph<T>;
+        dygraph: Dygraph;
     }
-
-    interface Options<T extends HTMLElement> extends PerSeriesOptions, PerAxisOptions<T> {
+    interface Options extends PerSeriesOptions, PerAxisOptions {
         /**
          * Set this option to animate the transition between zoom windows. Applies to programmatic
          * and interactive zooms. Note that if you also set a drawCallback, it will be called several
          * times on each zoom. If you set a zoomCallback, it will only be called after the animation
          * is complete.
          */
-        animatedZooms?: boolean;
+        animatedZooms?: boolean
 
         /**
          * If provided, this function is called whenever the user clicks on an annotation.
          */
-        annotationClickHandler?: (
-            annotation: Annotation<T>,
-            point: Point<T>,
-            dygraph: Dygraph<T>,
-            event: MouseEvent,
-        ) => any;
+        annotationClickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /**
          * If provided, this function is called whenever the user double-clicks on an annotation.
          */
-        annotationDblClickHandler?: (
-            annotation: Annotation<T>,
-            point: Point<T>,
-            dygraph: Dygraph<T>,
-            event: MouseEvent,
-        ) => any;
+        annotationDblClickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /**
          * If provided, this function is called whenever the user mouses out of an annotation.
          */
-        annotationMouseOutHandler?: (
-            annotation: Annotation<T>,
-            point: Point<T>,
-            dygraph: Dygraph<T>,
-            event: MouseEvent,
-        ) => any;
+        annotationMouseOutHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /**
          * If provided, this function is called whenever the user mouses over an annotation.
          */
-        annotationMouseOverHandler?: (
-            annotation: Annotation<T>,
-            point: Point<T>,
-            dygraph: Dygraph<T>,
-            event: MouseEvent,
-        ) => any;
+        annotationMouseOverHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /**
          * Defines per-axis options. Valid keys are 'x', 'y' and 'y2'. Only some options may be set
@@ -389,15 +360,15 @@ declare namespace dygraphs {
          * per-axis options</a>.
          */
         axes?: {
-            x?: PerAxisOptions<T>;
-            y?: PerAxisOptions<T>;
-            y2?: PerAxisOptions<T>;
+            x?: PerAxisOptions;
+            y?: PerAxisOptions;
+            y2?: PerAxisOptions;
         };
 
         /**
          * A function to call when the canvas is clicked.
          */
-        clickCallback?: (event: MouseEvent, xval: number, points: ReadonlyArray<Point<T>>) => any;
+        clickCallback?: (e: MouseEvent, xval: number, points: Point[]) => any;
 
         /**
          * If <strong>colors</strong> is not specified, saturation of the automatically-generated
@@ -430,7 +401,7 @@ declare namespace dygraphs {
          * When set, parse each CSV cell as "low;middle;high". Error bars will be drawn for each
          * point between low and high, with the series itself going through middle.
          */
-        customBars?: boolean;
+        customBars?: boolean
 
         /**
          * Custom DataHandler. This is an advanced customization. See http://bit.ly/151E7Aq.
@@ -478,7 +449,7 @@ declare namespace dygraphs {
          * When set, this callback gets called every time the dygraph is drawn. This includes the
          * initial draw, after zooming and repeatedly while panning.
          */
-        drawCallback?: (dygraph: Readonly<Dygraph<T>>, is_initial: boolean) => any;
+        drawCallback?: (dygraph: Dygraph, is_initial: boolean) => any;
 
         /**
          * Draw points at the edges of gaps in the data. This improves visibility of small data
@@ -492,14 +463,13 @@ declare namespace dygraphs {
          * cy) Also see <a href='#drawPointCallback'>drawPointCallback</a>
          */
         drawHighlightPointCallback?: (
-            dygraph: Readonly<Dygraph<T>>,
+            g: Dygraph,
             seriesName: string,
             canvasContext: CanvasRenderingContext2D,
             cx: number,
             cy: number,
             color: string,
-            pointSize: number,
-        ) => any;
+            pointSize: number) => any;
 
         /**
          * Draw a custom item when drawPoints is enabled. Default is a small dot matching the series
@@ -507,14 +477,13 @@ declare namespace dygraphs {
          * Also see <a href='#drawHighlightPointCallback'>drawHighlightPointCallback</a>
          */
         drawPointCallback?: (
-            dygraph: Readonly<Dygraph<T>>,
+            g: Dygraph,
             seriesName: string,
             canvasContext: CanvasRenderingContext2D,
             cx: number,
             cy: number,
             color: string,
-            pointSize: number,
-        ) => any;
+            pointSize: number) => any;
 
         /**
          * Does the data contain standard deviations? Setting this to true alters the input format.
@@ -552,10 +521,9 @@ declare namespace dygraphs {
         highlightCallback?: (
             event: MouseEvent,
             xval: number,
-            points: ReadonlyArray<Point<T>>,
+            points: Point[],
             row: number,
-            seriesName: string,
-        ) => any;
+            seriesName: string) => any;
 
         /**
          * Fade the background while highlighting series. 1=fully visible background (disable
@@ -645,7 +613,7 @@ declare namespace dygraphs {
         /**
          * for details see https://github.com/danvk/dygraphs/pull/683
          */
-        legendFormatter?: (legendData: LegendData<T>) => string;
+        legendFormatter?: (legendData: LegendData) => string;
 
         /**
          * A value representing the farthest a graph may be panned, in percent of the display. For
@@ -668,7 +636,7 @@ declare namespace dygraphs {
         /**
          * A function to call when a data point is clicked. and the point that was clicked.
          */
-        pointClickCallback?: (event: MouseEvent, point: Readonly<Point<T>>) => any;
+        pointClickCallback?: (e: MouseEvent, point: Point) => any;
 
         /**
          * Height, in pixels, of the range selector widget. This option can only be specified at
@@ -706,7 +674,7 @@ declare namespace dygraphs {
          * options.
          */
         series?: {
-            [seriesName: string]: PerSeriesOptions;
+            [seriesName: string]: PerSeriesOptions
         };
 
         /**
@@ -763,7 +731,7 @@ declare namespace dygraphs {
          * When set, this callback gets called before the chart is drawn. It details on how to use
          * this.
          */
-        underlayCallback?: (context: CanvasRenderingContext2D, area: Area, dygraph: Readonly<Dygraph<T>>) => any;
+        underlayCallback?: (context: CanvasRenderingContext2D, area: dygraphs.Area, dygraph: Dygraph) => any;
 
         /**
          * When set, this callback gets called every time the user stops highlighting any point by
@@ -862,7 +830,7 @@ declare namespace dygraphs {
         /**
          * A function to call when the zoom window is changed (either by zooming in or out).
          */
-        zoomCallback?: (minDate: number, maxDate: number, yRanges: ReadonlyArray<[number, number]>) => any;
+        zoomCallback?: (minDate: number, maxDate: number, yRanges: [number, number][]) => any;
     }
 
     interface SeriesProperties {
@@ -888,23 +856,23 @@ declare namespace dygraphs {
      * yval_stacked is the cumulative Y value used for stacking graphs,
      * and bottom/top/minus/plus are used for error bar graphs.
      */
-    interface Point<T extends HTMLElement> {
-        annotation?: Annotation<T>;
+    interface Point {
         idx: number;
         name: string;
         x?: number;
         xval?: number;
         y_bottom?: number;
+        y?: number;
         y_stacked?: number;
         y_top?: number;
-        y?: number;
         yval_minus?: number;
+        yval?: number;
         yval_plus?: number;
         yval_stacked?: number;
-        yval?: number;
+        annotation?: dygraphs.Annotation;
     }
 
-    interface Annotation<T extends HTMLElement> {
+    interface Annotation {
         /** The name of the series to which the annotated point belongs. */
         series: string;
 
@@ -949,389 +917,393 @@ declare namespace dygraphs {
         div?: HTMLDivElement;
 
         /** This function is called whenever the user clicks on this annotation. */
-        clickHandler?: (
-            annotation: Readonly<Annotation<T>>,
-            point: Readonly<Point<T>>,
-            dygraph: Readonly<Dygraph<T>>,
-            event: MouseEvent,
-        ) => any;
+        clickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /** This function is called whenever the user mouses over this annotation. */
-        mouseOverHandler?: (
-            annotation: Readonly<Annotation<T>>,
-            point: Readonly<Point<T>>,
-            dygraph: Readonly<Dygraph<T>>,
-            event: MouseEvent,
-        ) => any;
+        mouseOverHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /** This function is called whenever the user mouses out of this annotation. */
-        mouseOutHandler?: (
-            annotation: Readonly<Annotation<T>>,
-            point: Readonly<Point<T>>,
-            dygraph: Readonly<Dygraph<T>>,
-            event: MouseEvent,
-        ) => any;
+        mouseOutHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
 
         /** this function is called whenever the user double-clicks on this annotation. */
-        dblClickHandler?: (
-            annotation: Readonly<Annotation<T>>,
-            point: Readonly<Point<T>>,
-            dygraph: Readonly<Dygraph<T>>,
-            event: MouseEvent,
-        ) => any;
+        dblClickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
     }
 
     type Axis = 'x' | 'y' | 'y2';
 }
 
-declare class Dygraph<T extends HTMLElement> {
-    /**
-     * Creates an interactive, zoomable chart.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#constructor}
-     */
+declare class Dygraph {
     constructor(
-        container: T | string,
+        container: HTMLElement | string,
         data: dygraphs.Data | (() => dygraphs.Data),
-        options?: dygraphs.Options<T> | null,
-    );
+        options?: dygraphs.Options);
 
     /**
-     * Adjusts the number of points in the rolling average. Updates the graph to
-     * reflect the new averaging period.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#adjustRoll}
-     */
-    adjustRoll(length: number): void;
-
-    /**
-     * Return the list of annotations.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#annotations}
-     */
-    annotations(): Array<dygraphs.Annotation<T>>;
-
-    /**
-     * Clears the current selection (i.e. points that were highlighted by moving
-     * the mouse over the chart).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#clearSelection}
-     */
-    clearSelection(): void;
-
-    /**
-     * Detach DOM elements in the dygraph and null out all data references.
-     * Calling this when you're done with a dygraph can dramatically reduce
-     * memory usage. See, e.g., the tests/perf.html example.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#destroy}
-     */
-    destroy(): void;
-
-    /**
-     * Convert a mouse event to DOM coordinates relative to the graph origin.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#eventToDomCoords}
-     */
-    eventToDomCoords(event: MouseEvent): [number, number];
-
-    /**
-     * Get the current graph's area object.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getArea}
-     */
-    getArea(): dygraphs.Area;
-
-    /**
-     * Return the list of colors. This is either the list of colors passed in
-     * the attributes or the autogenerated list of rgb(r,g,b) strings. This does
-     * not return colors for invisible series.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getColors}
-     */
-    getColors(): string[];
-
-    /**
-     * Returns the name of the currently-highlighted series. Only available when
-     * the highlightSeriesOpts option is in use.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getHighlightSeries}
-     */
-    getHighlightSeries(): string;
-
-    /**
-     * Get the list of label names for this graph. The first column is the
-     * x-axis, so the data series names start at index 1. Returns null when
-     * labels have not yet been defined.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getLabels}
-     */
-    getLabels(): string[] | null;
-
-    /**
-     * Returns the current value for an option, as set in the constructor or via
-     * updateOptions. You may pass in an (optional) series name to get
-     * per-series values for the option. All values returned by this method
-     * should be considered immutable. If you modify them, there is no guarantee
-     * that the changes will be honored or that dygraphs will remain in a
-     * consistent state. If you want to modify an option, use updateOptions()
-     * instead.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getOption}
-     */
-    getOption(name: string, seriesName?: string): any;
-
-    /**
-     * Returns a few attributes of a series, i.e. its color, its visibility,
-     * which axis it's assigned to, and its column in the original data. Returns
-     * null if the series does not exist. Otherwise, returns an object with
-     * column, visibility, color and axis properties. The "axis" property will
-     * be set to 1 for y1 and 2 for y2. The "column" property can be fed back
-     * into getValue(row, column) to get values for this series.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getPropertiesForSeries}
-     */
-    getPropertiesForSeries(seriesName: string): dygraphs.SeriesProperties | null;
-
-    /**
-     * Find the row number corresponding to the given x-value. Returns null if
-     * there is no such x-value in the data. If there are multiple rows with the
-     * same x-value, this will return the first one.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getRowForX}
-     */
-    getRowForX(xVal: number): number | null;
-
-    /**
-     * Returns the number of the currently selected row. To get data for this
-     * row, you can use the getValue method.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getSelection}
-     */
-    getSelection(): number;
-
-    /**
-     * Returns the value in the given row and column. If the row and column
-     * exceed the bounds on the data, returns null. Also returns null if the
-     * value is missing.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#getValue}
-     */
-    getValue(row: number, col: number): number | null;
-
-    /**
-     * Get the index of a series (column) given its name. The first column is
-     * the x-axis, so the data series start with index 1.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#indexFromSetName}
-     */
-    indexFromSetName(name: string): number;
-
-    /**
-     * Returns true if the currently-highlighted series was locked via
-     * setSelection(..., seriesName, true).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#isSeriesLocked}
-     */
-    isSeriesLocked(): boolean;
-
-    /**
-     * Returns the zoomed status of the chart for one or both axes. Axis is an
-     * optional parameter. Can be set to 'x' or 'y'. The zoomed status for an
-     * axis is set whenever a user zooms using the mouse or when the dateWindow
-     * or valueRange are updated. Double-clicking or calling resetZoom() resets
-     * the zoom status for the chart.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#isZoomed}
+     * Returns the zoomed status of the chart for one or both axes.
+     *
+     * Axis is an optional parameter. Can be set to 'x' or 'y'.
+     *
+     * The zoomed status for an axis is set whenever a user zooms using the mouse
+     * or when the dateWindow or valueRange are updated (unless the
+     * isZoomedIgnoreProgrammaticZoom option is also specified).
      */
     isZoomed(axis?: 'x' | 'y'): boolean;
 
     /**
-     * Returns the number of y-axes on the chart.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#numAxes}
+     * Returns information about the Dygraph object, including its containing ID.
      */
-    numAxes(): number;
+    toString(): string;
+
+    /**
+     * Returns the current value for an option, as set in the constructor or via
+     * updateOptions. You may pass in an (optional) series name to get per-series
+     * values for the option.
+     *
+     * All values returned by this method should be considered immutable. If you
+     * modify them, there is no guarantee that the changes will be honored or that
+     * dygraphs will remain in a consistent state. If you want to modify an option,
+     * use updateOptions() instead.
+     *
+     * @param {string} name The name of the option (e.g. 'strokeWidth')
+     * @param {string=} opt_seriesName Series name to get per-series values.
+     * @return {*} The value of the option.
+     */
+    getOption(name: string, seriesName?: string): any;
+
+    /**
+     * Get the value of an option on a per-axis basis.
+     */
+    getOptionForAxis(name: string, axis: dygraphs.Axis): any;
+
+    /**
+     * Returns the current rolling period, as set by the user or an option.
+     */
+    rollPeriod(): number;
+
+    /**
+     * Returns the currently-visible x-range. This can be affected by zooming,
+     * panning or a call to updateOptions.
+     * Returns a two-element array: [left, right].
+     * If the Dygraph has dates on the x-axis, these will be millis since epoch.
+     */
+    xAxisRange(): [number, number];
+
+    /**
+     * Returns the lower- and upper-bound x-axis values of the data set.
+     */
+    xAxisExtremes(): [number, number];
+
+    /**
+     * Returns the currently-visible y-range for an axis. This can be affected by
+     * zooming, panning or a call to updateOptions. Axis indices are zero-based. If
+     * called with no arguments, returns the range of the first axis.
+     * Returns a two-element array: [bottom, top].
+     */
+    yAxisRange(idx?: number): [number, number];
+
+    /**
+     * Returns the currently-visible y-ranges for each axis. This can be affected by
+     * zooming, panning, calls to updateOptions, etc.
+     * Returns an array of [bottom, top] pairs, one for each y-axis.
+     */
+    yAxisRanges(): [number, number][];
+
+    /**
+     * Convert from data coordinates to canvas/div X/Y coordinates.
+     * If specified, do this conversion for the coordinate system of a particular
+     * axis. Uses the first axis by default.
+     * Returns a two-element array: [X, Y]
+     *
+     * Note: use toDomXCoord instead of toDomCoords(x, null) and use toDomYCoord
+     * instead of toDomCoords(null, y, axis).
+     */
+    toDomCoords(x: number, y: number, axis?: number): [number, number];
+
+    /**
+     * Convert from data x coordinates to canvas/div X coordinate.
+     * If specified, do this conversion for the coordinate system of a particular
+     * axis.
+     * Returns a single value or null if x is null.
+     */
+    toDomXCoord(x: number): number;
+
+    /**
+     * Convert from data y coordinates to canvas/div Y coordinate and optional
+     * axis. Uses the first axis by default.
+     *
+     * returns a single value or null if y is null.
+     */
+    toDomYCoord(y: number, axis?: number): number;
+
+    /**
+     * Convert from canvas/div coords to data coordinates.
+     * If specified, do this conversion for the coordinate system of a particular
+     * axis. Uses the first axis by default.
+     * Returns a two-element array: [X, Y].
+     *
+     * Note: use toDataXCoord instead of toDataCoords(x, null) and use toDataYCoord
+     * instead of toDataCoords(null, y, axis).
+     */
+    toDataCoords(x: number, y: number, axis?: number): [number, number];
+
+    /**
+     * Convert from canvas/div x coordinate to data coordinate.
+     *
+     * If x is null, this returns null.
+     */
+    toDataXCoord(x: number): number;
+
+    /**
+     * Convert from canvas/div y coord to value.
+     *
+     * If y is null, this returns null.
+     * if axis is null, this uses the first axis.
+     */
+    toDataYCoord(y: number, axis?: number): number;
+
+    /**
+     * Converts a y for an axis to a percentage from the top to the
+     * bottom of the drawing area.
+     *
+     * If the coordinate represents a value visible on the canvas, then
+     * the value will be between 0 and 1, where 0 is the top of the canvas.
+     * However, this method will return values outside the range, as
+     * values can fall outside the canvas.
+     *
+     * If y is null, this returns null.
+     * if axis is null, this uses the first axis.
+     *
+     * @param {number} y The data y-coordinate.
+     * @param {number} [axis] The axis number on which the data coordinate lives.
+     * @return {number} A fraction in [0, 1] where 0 = the top edge.
+     */
+    toPercentYCoord(y: number, axis?: number): number;
+
+    /**
+     * Converts an x value to a percentage from the left to the right of
+     * the drawing area.
+     *
+     * If the coordinate represents a value visible on the canvas, then
+     * the value will be between 0 and 1, where 0 is the left of the canvas.
+     * However, this method will return values outside the range, as
+     * values can fall outside the canvas.
+     *
+     * If x is null, this returns null.
+     * @param {number} x The data x-coordinate.
+     * @return {number} A fraction in [0, 1] where 0 = the left edge.
+     */
+    toPercentXCoord(x: number): number;
 
     /**
      * Returns the number of columns (including the independent variable).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#numColumns}
      */
     numColumns(): number;
 
     /**
      * Returns the number of rows (excluding any header/label row).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#numRows}
      */
     numRows(): number;
 
     /**
-     * Trigger a callback when the dygraph has drawn itself and is ready to be
-     * manipulated. This is primarily useful when dygraphs has to do an XHR for
-     * the data (i.e. a URL is passed as the data source) and the chart is drawn
-     * asynchronously. If the chart has already drawn, the callback will fire
-     * immediately. This is a good place to call setAnnotation().
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#ready}
+     * Returns the value in the given row and column. If the row and column exceed
+     * the bounds on the data, returns null. Also returns null if the value is
+     * missing.
+     * @param {number} row The row number of the data (0-based). Row 0 is the
+     *         first row of data, not a header row.
+     * @param {number} col The column number of the data (0-based)
+     * @return {number} The value in the specified cell or null if the row/col
+     *         were out of range.
      */
-    ready(callback: (g: Dygraph<T>) => any): void;
+    getValue(row: number, col: number): number;
+
+    /**
+     * Detach DOM elements in the dygraph and null out all data references.
+     * Calling this when you're done with a dygraph can dramatically reduce memory
+     * usage. See, e.g., the tests/perf.html example.
+     */
+    destroy(): void;
+
+    /**
+     * Return the list of colors. This is either the list of colors passed in the
+     * attributes or the autogenerated list of rgb(r,g,b) strings.
+     * This does not return colors for invisible series.
+     * @return {Array.<string>} The list of colors.
+     */
+    getColors(): string[];
+
+    /**
+     * Returns a few attributes of a series, i.e. its color, its visibility, which
+     * axis it's assigned to, and its column in the original data.
+     * Returns null if the series does not exist.
+     * Otherwise, returns an object with column, visibility, color and axis properties.
+     * The "axis" property will be set to 1 for y1 and 2 for y2.
+     * The "column" property can be fed back into getValue(row, column) to get
+     * values for this series.
+     */
+    getPropertiesForSeries(series_name: string): dygraphs.SeriesProperties;
 
     /**
      * Reset the zoom to the original view coordinates. This is the same as
      * double-clicking on the graph.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#resetZoom}
      */
     resetZoom(): void;
+
+    /**
+     * Get the current graph's area object.
+     */
+    getArea(): dygraphs.Area;
+
+    /**
+     * Convert a mouse event to DOM coordinates relative to the graph origin.
+     *
+     * Returns a two-element array: [X, Y].
+     */
+    eventToDomCoords(event: MouseEvent): [number, number];
+
+    /**
+     * Manually set the selected points and display information about them in the
+     * legend. The selection can be cleared using clearSelection() and queried
+     * using getSelection().
+     * @param {number} row Row number that should be highlighted (i.e. appear with
+     * hover dots on the chart).
+     * @param {seriesName} optional series name to highlight that series with the
+     * the highlightSeriesOpts setting.
+     * @param { locked } optional If true, keep seriesName selected when mousing
+     * over the graph, disabling closest-series highlighting. Call clearSelection()
+     * to unlock it.
+     */
+    setSelection(row: number | boolean, seriesName?: string, locked?: boolean): void;
+
+    /**
+     * Clears the current selection (i.e. points that were highlighted by moving
+     * the mouse over the chart).
+     */
+    clearSelection(): void;
+
+    /**
+     * Returns the number of the currently selected row. To get data for this row,
+     * you can use the getValue method.
+     * @return {number} row number, or -1 if nothing is selected
+     */
+    getSelection(): number;
+
+    /**
+     * Returns the name of the currently-highlighted series.
+     * Only available when the highlightSeriesOpts option is in use.
+     */
+    getHighlightSeries(): string;
+
+    /**
+     * Returns true if the currently-highlighted series was locked
+     * via setSelection(..., seriesName, true).
+     */
+    isSeriesLocked(): boolean;
+
+    /**
+     * Returns the number of y-axes on the chart.
+     */
+    numAxes(): number;
+
+    /**
+     * Changes various properties of the graph. These can include:
+     * <ul>
+     * <li>file: changes the source data for the graph</li>
+     * <li>errorBars: changes whether the data contains stddev</li>
+     * </ul>
+     *
+     * There's a huge variety of options that can be passed to this method. For a
+     * full list, see http://dygraphs.com/options.html.
+     *
+     * @param {Object} input_attrs The new properties and values
+     * @param {boolean} block_redraw Usually the chart is redrawn after every
+     *         call to updateOptions(). If you know better, you can pass true to
+     *         explicitly block the redraw. This can be useful for chaining
+     *         updateOptions() calls, avoiding the occasional infinite loop and
+     *         preventing redraws when it's not necessary (e.g. when updating a
+     *         callback).
+     */
+    updateOptions(input_attrs: dygraphs.Options, block_redraw?: boolean): void;
 
     /**
      * Resizes the dygraph. If no parameters are specified, resizes to fill the
      * containing div (which has presumably changed size since the dygraph was
      * instantiated. If the width/height are specified, the div will be resized.
+     *
      * This is far more efficient than destroying and re-instantiating a
-     * Dygraph<T>, since it doesn't have to reparse the underlying data.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#resize}
+     * Dygraph, since it doesn't have to reparse the underlying data.
+     *
+     * @param {number} width Width (in pixels)
+     * @param {number} height Height (in pixels)
      */
     resize(width: number, height: number): void;
 
     /**
-     * Returns the current rolling period, as set by the user or an option.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#rollPeriod}
+     * Adjusts the number of points in the rolling average. Updates the graph to
+     * reflect the new averaging period.
+     * @param {number} length Number of points over which to average the data.
      */
-    rollPeriod(): number;
-
-    /**
-     * Update the list of annotations and redraw the chart. See
-     * dygraphs.com/annotations.html for more info on how to use annotations.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#setAnnotations}
-     */
-    setAnnotations(ann: Array<dygraphs.Annotation<T>>, suppressDraw?: boolean): void;
-
-    /**
-     * Manually set the selected points and display information about them in
-     * the legend. The selection can be cleared using clearSelection() and
-     * queried using getSelection(). To set a selected series but not a selected
-     * point, call setSelection with row=false and the selected series name.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#setSelection}
-     */
-    setSelection(row: number | false, seriesName?: string, locked?: boolean): void;
-
-    /**
-     * Changes the visibility of one or more series.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#setVisibility}
-     */
-    setVisibility(num: number | number[] | object, value: boolean): void;
-
-    /**
-     * Convert from canvas/div coords to data coordinates. If specified, do this
-     * conversion for the coordinate system of a particular axis. Uses the first
-     * axis by default. Returns a two-element array: [X, Y]. Note: use
-     * toDataXCoord instead of toDataCoords(x, null) and use toDataYCoord
-     * instead of toDataCoords(null, y, axis).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDataCoords}
-     */
-    toDataCoords<X extends number | null, Y extends number | null>(x: X, y: Y, axis?: number): [X, Y];
-
-    /**
-     * Convert from canvas/div x coordinate to data coordinate. If x is null, this returns null.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDataXCoord}
-     */
-    toDataXCoord<T extends number | null>(x: T): T;
-
-    /**
-     * Convert from canvas/div y coord to value. If y is null, this returns null. if axis is null, this uses the first axis.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDataYCoord}
-     */
-    toDataYCoord<T extends number | null>(y: T, axis?: number): T;
-
-    /**
-     * Convert from data coordinates to canvas/div X/Y coordinates. If
-     * specified, do this conversion for the coordinate system of a particular
-     * axis. Uses the first axis by default. Returns a two-element array: [X, Y]
-     * Note: use toDomXCoord instead of toDomCoords(x, null) and use toDomYCoord
-     * instead of toDomCoords(null, y, axis).
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDomCoords}
-     */
-    toDomCoords<X extends number | null, Y extends number | null>(x: X, y: Y, axis?: number): [X, Y];
-
-    /**
-     * Convert from data x coordinates to canvas/div X coordinate. If specified,
-     * do this conversion for the coordinate system of a particular axis.
-     * Returns a single value or null if x is null.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDomXCoord}
-     */
-    toDomXCoord<T extends number | null>(x: T): T;
-
-    /**
-     * Convert from data x coordinates to canvas/div Y coordinate and optional
-     * axis. Uses the first axis by default. returns a single value or null if y
-     * is null.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toDomYCoord}
-     */
-    toDomYCoord<T extends number | null>(y: T, axis?: number): T;
-
-    /**
-     * Converts an x value to a percentage from the left to the right of the
-     * drawing area. If the coordinate represents a value visible on the canvas,
-     * then the value will be between 0 and 1, where 0 is the left of the
-     * canvas. However, this method will return values outside the range, as
-     * values can fall outside the canvas. If x is null, this returns null.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toPercentXCoord}
-     */
-    toPercentXCoord<T extends number | null>(x: T): T extends null ? null : 0 | 1;
-
-    /**
-     * Converts a y for an axis to a percentage from the top to the bottom of
-     * the drawing area. If the coordinate represents a value visible on the
-     * canvas, then the value will be between 0 and 1, where 0 is the top of the
-     * canvas. However, this method will return values outside the range, as
-     * values can fall outside the canvas. If y is null, this returns null. if
-     * axis is null, this uses the first axis.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toPercentYCoord}
-     */
-    toPercentYCoord<T extends number | null>(y: T, axis?: number): T extends null ? null : 0 | 1;
-
-    /**
-     * Returns information about the Dygraph object, including its containing ID.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#toString}
-     */
-    toString(): string;
-
-    /**
-     * Changes various properties of the graph. These can include:
-     *   - file: changes the source data for the graph
-     *   - errorBars: changes whether the data contains stddev
-     * There's a huge variety of options that can be passed to this method.
-     * For a full list, see http://dygraphs.com/options.html.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#updateOptions}
-     */
-    updateOptions(inputAttrs: dygraphs.Options<T>, blockRedraw?: boolean): void;
+    adjustRoll(length: number): void;
 
     /**
      * Returns a boolean array of visibility statuses.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#visibility}
      */
     visibility(): boolean[];
 
     /**
-     * Returns the lower- and upper-bound x-axis values of the data set.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#xAxisExtremes}
+     * Changes the visiblity of a series.
+     *
+     * @param {number} num the series index
+     * @param {boolean} value true or false, identifying the visibility.
      */
-    xAxisExtremes(): [number, number];
+    setVisibility(num: number, value: boolean): void;
 
     /**
-     * Returns the currently-visible x-range. This can be affected by zooming,
-     * panning or a call to updateOptions. Returns a two-element array: [left,
-     * right]. If the Dygraph has dates on the x-axis, these will be millis
-     * since epoch.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#xAxisRange}
+     * Update the list of annotations and redraw the chart.
+     * See dygraphs.com/annotations.html for more info on how to use annotations.
+     * @param ann {Array} An array of annotation objects.
+     * @param suppressDraw {Boolean} Set to "true" to block chart redraw (optional).
      */
-    xAxisRange(): [number, number];
+    setAnnotations(ann: dygraphs.Annotation[], suppressDraw?: boolean): void;
 
     /**
-     * Returns the lower- and upper-bound y-axis values for each axis. These are
-     * the ranges you'll get if you double-click to zoom out or call
-     * resetZoom(). The return value is an array of [low, high] tuples, one for
-     * each y-axis.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#yAxisExtremes}
+     * Return the list of annotations.
      */
-    yAxisExtremes(): [number, number];
+    annotations(): dygraphs.Annotation[];
 
     /**
-     * Returns the currently-visible y-range for an axis. This can be affected
-     * by zooming, panning or a call to updateOptions. Axis indices are
-     * zero-based. If called with no arguments, returns the range of the first
-     * axis. Returns a two-element array: [bottom, top].
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#yAxisRange}
+     * Get the list of label names for this graph. The first column is the
+     * x-axis, so the data series names start at index 1.
+     *
+     * Returns null when labels have not yet been defined.
      */
-    yAxisRange(idx?: number): [number, number];
+    getLabels(): string[];
 
     /**
-     * Returns the currently-visible y-ranges for each axis. This can be
-     * affected by zooming, panning, calls to updateOptions, etc. Returns an
-     * array of [bottom, top] pairs, one for each y-axis.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#yAxisRanges}
+     * Get the index of a series (column) given its name. The first column is the
+     * x-axis, so the data series start with index 1.
      */
-    yAxisRanges(): Array<[number, number]>;
+    indexFromSetName(name: string): number;
+
+    /**
+     * Find the row number corresponding to the given x-value.
+     * Returns null if there is no such x-value in the data.
+     * If there are multiple rows with the same x-value, this will return the
+     * first one.
+     * @param xVal The x-value to look for (e.g. millis since epoch).
+     * @return The row number, which you can pass to getValue(), or null.
+     */
+    getRowForX(xVal: number): number | null;
+
+    /**
+     * Trigger a callback when the dygraph has drawn itself and is ready to be
+     * manipulated. This is primarily useful when dygraphs has to do an XHR for the
+     * data (i.e. a URL is passed as the data source) and the chart is drawn
+     * asynchronously. If the chart has already drawn, the callback will fire
+     * immediately.
+     *
+     * This is a good place to call setAnnotations().
+     */
+    ready(callback: (g: Dygraph) => any): void;
 
     // Tick granularities (passed to ticker).
     static SECONDLY: number;
@@ -1364,32 +1336,13 @@ declare class Dygraph<T extends HTMLElement> {
     static DASHED_LINE: number[];
     static DOT_DASH_LINE: number[];
 
-    /**
-     * Standard plotters.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#.Plotters}
-     */
     static Plotters: {
-        errorPlotter(event: any): void;
-        linePlotter(event: any): void;
-        fillPlotter(event: any): void;
-    };
+        errorPlotter: any;
+        linePlotter: any;
+        fillPlotter: any;
+    }
+}
 
-    /**
-     * Point structure.
-     * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#.PointType}
-     */
-    static PointType: {
-        idx: number;
-        name: string;
-        x?: number;
-        xval?: number;
-        y_bottom?: number;
-        y?: number;
-        y_stacked?: number;
-        y_top?: number;
-        yval_minus?: number;
-        yval?: number;
-        yval_plus?: number;
-        yval_stacked?: number;
-    };
+declare module "dygraphs" {
+    export default Dygraph;
 }
