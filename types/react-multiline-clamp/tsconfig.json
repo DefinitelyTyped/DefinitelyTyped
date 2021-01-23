@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-multiline-clamping-tests.tsx"
+        "react-multiline-clamp-tests.tsx"
     ]
 }

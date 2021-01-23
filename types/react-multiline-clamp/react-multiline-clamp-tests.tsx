@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Clamp from 'react-multiline-clamping';
+import Clamp from 'react-multiline-clamp';
 
 class Test extends React.Component {
     render() {
