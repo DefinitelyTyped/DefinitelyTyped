@@ -13,6 +13,11 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "dygraphs": [
+                "dygraphs/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
