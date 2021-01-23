@@ -38,11 +38,12 @@ export interface HostedFieldsField {
  * An object that has {@link module:braintree-web/hosted-fields~field field objects} for each field. Used in {@link module:braintree-web/hosted-fields~create create}.
  */
 export interface HostedFieldFieldOptions {
-    number: HostedFieldsField;
+    cardholderName?: HostedFieldsField;
+    cvv: HostedFieldsField;
     expirationDate?: HostedFieldsField;
     expirationMonth?: HostedFieldsField;
     expirationYear?: HostedFieldsField;
-    cvv: HostedFieldsField;
+    number: HostedFieldsField;
     postalCode?: HostedFieldsField;
 }
 

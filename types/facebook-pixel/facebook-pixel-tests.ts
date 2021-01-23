@@ -48,6 +48,8 @@ fbq('track', 'ViewContent', {
 
 fbq('track', 'CompleteRegistration', {currency: 'USD', value: 0.75});
 
+fbq('track', 'CompleteRegistration', {currency: 'USD', value: 0.75, status: false});
+
 fbq('track', 'Purchase',
   {
     value: 115.00,

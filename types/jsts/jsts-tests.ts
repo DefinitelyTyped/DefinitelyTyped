@@ -1,5 +1,3 @@
-
-
 import * as jsts from 'jsts';
 
 var str: string;
@@ -150,6 +148,8 @@ c = ls.getCoordinateN(n);
 p = ls.getEndPoint();
 p = ls.getPointN(n);
 p = ls.getStartPoint();
+n = ls.distance(p);
+n = ls.distance(ls);
 bool = ls.isClosed();
 bool = ls.isRing();
 

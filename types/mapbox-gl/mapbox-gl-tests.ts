@@ -1761,6 +1761,9 @@ createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
 
+// $ExpectType Map
+map.loadImage('foo', (error, result) => {});
+
 // KeyboardHandler
 var keyboardHandler = new mapboxgl.KeyboardHandler(map);
 // $ExpectType void

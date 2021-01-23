@@ -98,6 +98,9 @@ braintree.client.create(
                         selector: '#cvv',
                         type: 'password',
                     },
+                    cardholderName: {
+                        container: '#cardholder-name',
+                    },
                     expirationMonth: {
                         selector: '#expiration-month',
                         select: {
