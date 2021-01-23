@@ -18,8 +18,8 @@
 // The changelog for the important changes is located in the Readme.md
 
 import {
-    ComponentType,
     ChangeEvent,
+    ComponentType,
     DependencyList,
     EffectCallback,
     MouseEvent,
