@@ -177,7 +177,6 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    get(dataID: DataID): Record | null | undefined;
     // tslint:disable-next-line:no-unnecessary-generics
     get<T = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
