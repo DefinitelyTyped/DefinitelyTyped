@@ -19,6 +19,7 @@
 
 import {
     ComponentType,
+    ChangeEvent,
     DependencyList,
     EffectCallback,
     MouseEvent,
@@ -139,7 +140,7 @@ export interface TableRowProps extends TableKeyedProps {}
 export interface TableCellProps extends TableKeyedProps {}
 
 export interface TableToggleCommonProps extends TableCommonProps {
-    onChange?: () => void;
+    onChange?: (e: ChangeEvent) => void;
     checked?: boolean;
     title?: string;
     indeterminate?: boolean;
