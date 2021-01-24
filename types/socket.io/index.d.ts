@@ -825,7 +825,7 @@ declare namespace SocketIO {
         /**
          * Any query string parameters in the request url
          */
-        query: any;
+        query: { [props: string]: any };
     }
 
     /**
