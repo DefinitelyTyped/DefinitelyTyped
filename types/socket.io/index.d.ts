@@ -788,6 +788,11 @@ declare namespace SocketIO {
         headers: any;
 
         /**
+         * The authentication payload
+         */
+        auth: { [props: string]: any };
+        
+        /**
          * The current time, as a string
          */
         time: string;
