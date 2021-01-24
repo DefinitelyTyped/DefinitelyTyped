@@ -14,7 +14,7 @@ export interface GroupType<OptionType extends OptionTypeBase> {
 
 export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
 
-export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> =  (IsMulti extends true ? OptionsType<OptionType> : OptionType) | null | undefined;
+export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> = IsMulti extends true ? OptionsType<OptionType> : OptionType | null;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
