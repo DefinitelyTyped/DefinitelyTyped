@@ -791,7 +791,7 @@ declare namespace SocketIO {
          * The authentication payload
          */
         auth: { [props: string]: any };
-        
+
         /**
          * The current time, as a string
          */
