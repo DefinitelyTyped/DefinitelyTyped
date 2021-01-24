@@ -29,6 +29,7 @@
         "test/CustomValueContainer.tsx",
         "test/Header.tsx",
         "test/Placeholder.tsx",
+        "test/Tests.tsx",
         "test/examples/AccessingInternals.tsx",
         "test/examples/AnimatedMulti.tsx",
         "test/examples/AsyncCallbacks.tsx",
