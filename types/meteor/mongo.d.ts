@@ -5,6 +5,27 @@ declare module "meteor/mongo" {
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
     module Mongo {
+        interface Document {
+            _id?: string;
+        }
+
+        interface FindOneOptions<T> {
+            sort?: SortSpecifier;
+            skip?: number;
+            fields?: FieldSpecifier;
+            reactive?: boolean;
+            transform?: (doc: T) => any;
+        }
+
+        interface FindOptions<T> extends FindOneOptions<T> {
+            limit?: number;
+        }
+
+        interface CursorDescription<T> {
+            collectionName: string;
+            selector: any;
+            options: FindOptions<T>;
+        }
 
         type BsonType = 1 | "double" |
             2 | "string" |
@@ -175,7 +196,7 @@ declare module "meteor/mongo" {
             update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
                 upsert?: boolean;
-                arrayFilters? : { [identifier: string]: any }[];
+                arrayFilters?: { [identifier: string]: any }[];
             }, callback?: Function): number;
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
@@ -219,6 +240,8 @@ declare module "meteor/mongo" {
             map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
             observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
             observeChanges(callbacks: ObserveChangesCallbacks<T>, options?: { nonMutatingCallbacks?: boolean }): Meteor.LiveQueryHandle;
+            _mongo: MongoInternals.Connection;
+            _synchronousCursor: MongoInternals.SynchronousCursor;
         }
 
         var ObjectID: ObjectIDStatic;
@@ -242,4 +265,40 @@ declare module "meteor/mongo" {
             transform?: Function | null;
         }
     }
+}
+
+declare module MongoInternals {
+    interface SynchronousCursor {
+        _nextObject(): Mongo.Document;
+        close(): void;
+
+        _dbCursor: {
+            isClosed(): boolean;
+        };
+    }
+
+    interface Connection {
+        find(collectionName: string, selector?: any, options?: Mongo.FindOptions<Mongo.Document>): Mongo.Cursor<Mongo.Document>;
+        findOne(collectionName: string, selector?: any, options?: Mongo.FindOneOptions<Mongo.Document>): Mongo.Document;
+
+        _createSynchronousCursor(cursorDescription: Mongo.CursorDescription<Mongo.Document>, options: {
+            selfForIteration: any,
+            useTransform: boolean,
+        }): SynchronousCursor;
+
+        db: any;
+        _oplogHandle: {
+            onOplogEntry(trigger: any, callback: (notification: any) => void): void;
+            waitUntilCaughtUp(): void;
+            _lastProcessedTS: any;
+            _oplogLastEntryConnection: any;
+            _baseOplogSelector: any;
+        };
+    }
+
+    function defaultRemoteCollectionDriver(): {
+        mongo: Connection;
+    };
+
+    var NpmModules: any;
 }
