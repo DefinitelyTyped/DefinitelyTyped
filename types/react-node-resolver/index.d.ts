@@ -5,7 +5,7 @@
 
 import * as React from "react";
 
-interface Props {
+export interface Props {
     innerRef: React.RefCallback<HTMLElement>;
     children: React.ReactElement;
 }
