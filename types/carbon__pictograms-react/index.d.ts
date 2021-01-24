@@ -1,10 +1,10 @@
-// Type definitions for @carbon/pictograms-react 11.0
+// Type definitions for @carbon/pictograms-react 11.1
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/pictograms-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 640 pictograms in total */
+/** 665 pictograms in total */
 
 export interface CarbonPictogramProps
   extends Omit<
@@ -61,6 +61,7 @@ export const Austin: CarbonPictogramType;
 export const AutomateModularManagement: CarbonPictogramType;
 export const AutomationDecision: CarbonPictogramType;
 export const Automobile: CarbonPictogramType;
+export const BabyBottle: CarbonPictogramType;
 export const Backpack: CarbonPictogramType;
 export const Bag: CarbonPictogramType;
 export const Bangalore: CarbonPictogramType;
@@ -146,6 +147,13 @@ export const CloudStrategy: CarbonPictogramType;
 export const CloudTutorials: CarbonPictogramType;
 export const CloudUpload: CarbonPictogramType;
 export const CloudVmware: CarbonPictogramType;
+export const CloudPakFamily: CarbonPictogramType;
+export const CloudPakForApplications: CarbonPictogramType;
+export const CloudPakForData: CarbonPictogramType;
+export const CloudPakForIntegration: CarbonPictogramType;
+export const CloudPakForMulticloudManagement: CarbonPictogramType;
+export const CloudPakForSecurity: CarbonPictogramType;
+export const CloudPakSystem: CarbonPictogramType;
 export const Cloudy: CarbonPictogramType;
 export const CloudyDewy: CarbonPictogramType;
 export const CloudyHazy: CarbonPictogramType;
@@ -161,6 +169,7 @@ export const CommercialFinancing_01: CarbonPictogramType;
 export const CommercialFinancing_02: CarbonPictogramType;
 export const ConceptExpansion: CarbonPictogramType;
 export const ConceptInsights: CarbonPictogramType;
+export const ConditionBuilder: CarbonPictogramType;
 export const Connect: CarbonPictogramType;
 export const ConnectedEcosystem: CarbonPictogramType;
 export const ConnectedNodesToTheCloud: CarbonPictogramType;
@@ -203,11 +212,13 @@ export const Dna: CarbonPictogramType;
 export const DoNot: CarbonPictogramType;
 export const Docker: CarbonPictogramType;
 export const Doctor: CarbonPictogramType;
+export const DoctorPatient: CarbonPictogramType;
 export const DocumentConversion: CarbonPictogramType;
 export const DocumentSecurity: CarbonPictogramType;
 export const DoorHandle: CarbonPictogramType;
 export const Download_01: CarbonPictogramType;
 export const Download_02: CarbonPictogramType;
+export const Dropper: CarbonPictogramType;
 export const DubaiPalmIslands: CarbonPictogramType;
 export const DubaiSkyscraper: CarbonPictogramType;
 export const DublinBrewery: CarbonPictogramType;
@@ -250,6 +261,7 @@ export const Feedback_01: CarbonPictogramType;
 export const Feedback_02: CarbonPictogramType;
 export const FileBackup: CarbonPictogramType;
 export const FileTransfer: CarbonPictogramType;
+export const FilterVariable: CarbonPictogramType;
 export const FinanceStrategy: CarbonPictogramType;
 export const FinancialConsultant: CarbonPictogramType;
 export const FinancialGain: CarbonPictogramType;
@@ -315,6 +327,7 @@ export const HomeFront: CarbonPictogramType;
 export const HomeGarage: CarbonPictogramType;
 export const HomeProfile: CarbonPictogramType;
 export const Hospital: CarbonPictogramType;
+export const Hpi: CarbonPictogramType;
 export const Humid: CarbonPictogramType;
 export const Hurricane: CarbonPictogramType;
 export const HybridCloud: CarbonPictogramType;
@@ -417,9 +430,11 @@ export const Networking_06: CarbonPictogramType;
 export const Nice: CarbonPictogramType;
 export const NightClear: CarbonPictogramType;
 export const NycBrooklyn: CarbonPictogramType;
+export const NycChryslerBuilding: CarbonPictogramType;
 export const NycManhattan_01: CarbonPictogramType;
 export const NycManhattan_02: CarbonPictogramType;
 export const NycStatueOfLiberty: CarbonPictogramType;
+export const NycWorldTradeCenter: CarbonPictogramType;
 export const Office: CarbonPictogramType;
 export const OilPump: CarbonPictogramType;
 export const OilRig: CarbonPictogramType;
@@ -456,7 +471,10 @@ export const Police: CarbonPictogramType;
 export const PopulationDiagram: CarbonPictogramType;
 export const Power: CarbonPictogramType;
 export const PragueCharlesBridgeTower: CarbonPictogramType;
+export const PragueDancingHouse_01: CarbonPictogramType;
+export const PragueDancingHouse_02: CarbonPictogramType;
 export const Pregnant: CarbonPictogramType;
+export const Prescription: CarbonPictogramType;
 export const Presentation: CarbonPictogramType;
 export const Presenter: CarbonPictogramType;
 export const Price: CarbonPictogramType;
@@ -477,6 +495,7 @@ export const Racetrack: CarbonPictogramType;
 export const Rainy: CarbonPictogramType;
 export const RainyHeavy: CarbonPictogramType;
 export const RaleighNc: CarbonPictogramType;
+export const RandomSamples: CarbonPictogramType;
 export const Rank: CarbonPictogramType;
 export const Receipt: CarbonPictogramType;
 export const Recycle: CarbonPictogramType;
@@ -496,6 +515,7 @@ export const RetrieveAndRank: CarbonPictogramType;
 export const RichTextFormat: CarbonPictogramType;
 export const Robot: CarbonPictogramType;
 export const Robotics: CarbonPictogramType;
+export const RockOn: CarbonPictogramType;
 export const Rome: CarbonPictogramType;
 export const SaasEnablement: CarbonPictogramType;
 export const SampleFile: CarbonPictogramType;
@@ -515,6 +535,7 @@ export const SecurityAsAService: CarbonPictogramType;
 export const SecurityHygiene: CarbonPictogramType;
 export const SecurityIntelligence: CarbonPictogramType;
 export const SecurityShield: CarbonPictogramType;
+export const SelectRange: CarbonPictogramType;
 export const ServerRack: CarbonPictogramType;
 export const Servers: CarbonPictogramType;
 export const Shirt: CarbonPictogramType;
@@ -526,6 +547,8 @@ export const SingleSignOn: CarbonPictogramType;
 export const Slider: CarbonPictogramType;
 export const Sneaker: CarbonPictogramType;
 export const Snow: CarbonPictogramType;
+export const SocialWork_01: CarbonPictogramType;
+export const SocialWork_02: CarbonPictogramType;
 export const Socks: CarbonPictogramType;
 export const SoftIceCream: CarbonPictogramType;
 export const SoftlayerEnablement: CarbonPictogramType;
@@ -576,6 +599,8 @@ export const TeamAlignment: CarbonPictogramType;
 export const Teammates: CarbonPictogramType;
 export const TelAviv: CarbonPictogramType;
 export const Telecom: CarbonPictogramType;
+export const Telemedicine: CarbonPictogramType;
+export const TelemedicineMobile: CarbonPictogramType;
 export const Telephone: CarbonPictogramType;
 export const Television: CarbonPictogramType;
 export const TemperatureHigh: CarbonPictogramType;

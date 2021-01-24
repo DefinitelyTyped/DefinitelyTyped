@@ -455,7 +455,7 @@ numeric.inv(matrix); // $ExpectType number[][] || Matrix
 numeric.det(matrix); // $ExpectType number
 numeric.transpose(matrix); // $ExpectType number[][] || Matrix
 numeric.negtranspose(matrix); // $ExpectType number[][] || Matrix
-numeric.random(vector); // $ExpectType NonScalar
+numeric.random(vector); // $ExpectType NonScalar || Vector | MultidimensionalMatrix
 numeric.norm2(threeDimensionalMatrix); // $ExpectType number
 numeric.linspace(1, 3, 5); // $ExpectType number[] || Vector
 numeric.getBlock(threeDimensionalMatrix, vector, vector); // $ExpectType number[][][]

@@ -115,12 +115,12 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case 'execute.start':
-            case 'execute.next':
-            case 'execute.error':
+            case 'network.start':
+            case 'network.complete':
+            case 'network.error':
+            case 'network.info':
+            case 'network.unsubscribe':
             case 'execute.info':
-            case 'execute.complete':
-            case 'execute.unsubscribe':
             case 'queryresource.fetch':
             default:
                 break;

@@ -253,6 +253,36 @@ map.on('load', function () {
     });
 });
 
+//
+// setTerrain
+//
+
+// $ExpectType Map
+map.setTerrain();
+// $ExpectType Map
+map.setTerrain(null);
+// $ExpectType Map
+map.setTerrain(undefined);
+// $ExpectType Map
+map.setTerrain({
+    source: 'something',
+    exaggeration: 10,
+});
+
+//
+// getFreeCameraOptions
+//
+
+// $ExpectType FreeCameraOptions
+map.getFreeCameraOptions();
+
+//
+// setFreeCameraOptions
+//
+
+// $ExpectType Map
+map.setFreeCameraOptions(new mapboxgl.FreeCameraOptions());
+
 // FlyTo
 map.flyTo({
     center: [0, 0],
@@ -632,11 +662,15 @@ let marker = new mapboxgl.Marker(undefined, {
 })
     .setLngLat([-50, 50])
     .setPitchAlignment('map')
+    .setRotation(100)
     .setRotationAlignment('viewport')
     .addTo(map);
 
 // $ExpectType Alignment
 marker.getPitchAlignment();
+
+// $ExpectType number
+marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
@@ -718,6 +752,7 @@ interface EitherType {
     <A, B, C, D, E, F, G>(a: A, b: B, c: C, d: D, e: E, f: F, g: G): A | B | C | D | E | F | G;
     <A, B, C, D, E, F, G, H>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): A | B | C | D | E | F | G | H;
     <A, B, C, D, E, F, G, H, I>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): A | B | C | D | E | F | G | H | I;
+    <A, B, C, D, E, F, G, H, I, J>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J): A | B | C | D | E | F | G | H | I | J;
     /* Add more as needed */
 }
 
@@ -1594,6 +1629,22 @@ const hillshadePaint: mapboxgl.HillshadePaint = {
     'hillshade-accent-color-transition': transition,
 };
 
+const skyLayout: mapboxgl.SkyLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const skyPaint: mapboxgl.SkyPaint = {
+    'sky-atmosphere-color': eitherType('white', expression),
+    'sky-atmosphere-halo-color': eitherType('white', expression),
+    'sky-atmosphere-sun': eitherType([0], expression),
+    'sky-atmosphere-sun-intensity': eitherType(0, expression),
+    'sky-gradient': eitherType('#000', expression),
+    'sky-gradient-center': eitherType([0], expression),
+    'sky-gradient-radius': eitherType(0, expression),
+    'sky-opacity': eitherType(0, expression),
+    'sky-type': eitherType('gradient', 'atmosphere'),
+};
+
 /* Make sure every layout has all properties optional */
 eitherType<
     mapboxgl.BackgroundLayout,
@@ -1604,8 +1655,9 @@ eitherType<
     mapboxgl.RasterLayout,
     mapboxgl.CircleLayout,
     mapboxgl.HeatmapLayout,
-    mapboxgl.HillshadeLayout
->({}, {}, {}, {}, {}, {}, {}, {}, {});
+    mapboxgl.HillshadeLayout,
+    mapboxgl.SkyLayout
+>({}, {}, {}, {}, {}, {}, {}, {}, {}, {});
 
 /* Make sure every paint has all properties optional */
 eitherType<
@@ -1617,8 +1669,9 @@ eitherType<
     mapboxgl.RasterPaint,
     mapboxgl.CirclePaint,
     mapboxgl.HeatmapPaint,
-    mapboxgl.HillshadePaint
->({}, {}, {}, {}, {}, {}, {}, {}, {});
+    mapboxgl.HillshadePaint,
+    mapboxgl.SkyPaint
+>({}, {}, {}, {}, {}, {}, {}, {}, {}, {});
 
 /*
  * AnyLayout
@@ -1634,6 +1687,7 @@ expectType<mapboxgl.AnyLayout>(
         circleLayout,
         heatmapLayout,
         hillshadeLayout,
+        skyLayout,
     ),
 );
 
@@ -1651,6 +1705,7 @@ expectType<mapboxgl.AnyPaint>(
         circlePaint,
         heatmapPaint,
         hillshadePaint,
+        skyPaint,
     ),
 );
 
@@ -1705,6 +1760,9 @@ map.addImage('foo', fooArrayBufferView);
 createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
+
+// $ExpectType Map
+map.loadImage('foo', (error, result) => {});
 
 // KeyboardHandler
 var keyboardHandler = new mapboxgl.KeyboardHandler(map);

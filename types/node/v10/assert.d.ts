@@ -15,9 +15,12 @@ declare module 'assert' {
                 actual?: any;
                 expected?: any;
                 operator?: string;
+                // tslint:disable-next-line:ban-types
                 stackStartFn?: Function;
             });
         }
+
+        type AssertPredicate = RegExp | (new () => object) | ((thrown: any) => boolean) | object | Error;
 
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
@@ -26,6 +29,7 @@ declare module 'assert' {
             expected: any,
             message?: string | Error,
             operator?: string,
+            // tslint:disable-next-line:ban-types
             stackStartFn?: Function,
         ): never;
         function ok(value: any, message?: string | Error): asserts value;
@@ -42,23 +46,23 @@ declare module 'assert' {
         function deepStrictEqual<T>(actual: any, expected: T, message?: string | Error): asserts actual is T;
         function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        function throws(block: Function, message?: string | Error): void;
-        function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
-        function doesNotThrow(block: Function, message?: string | Error): void;
-        function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
+        function throws(block: () => any, message?: string | Error): void;
+        function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
+        function doesNotThrow(block: () => any, message?: string | Error): void;
+        function doesNotThrow(block: () => any, error: AssertPredicate, message?: string | Error): void;
 
         function ifError(value: any): asserts value is null | undefined;
 
-        function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        function rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function rejects(
-            block: Function | Promise<any>,
-            error: RegExp | Function | Object | Error,
+            block: (() => Promise<any>) | Promise<any>,
+            error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
-        function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(
-            block: Function | Promise<any>,
-            error: RegExp | Function,
+            block: (() => Promise<any>) | Promise<any>,
+            error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
 
