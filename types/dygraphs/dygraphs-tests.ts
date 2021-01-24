@@ -58,8 +58,7 @@ const d = new Dygraph(new HTMLDivElement(), 'data', {
         strokeWidth: 3,
     },
     labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
-    labelsDivStyles: { boxShadow: '4px 4px 4px #888' },
-    labelsDivWidth: 100,
+    labelsDiv: new HTMLElement(),
     labelsKMB: true,
     labelsSeparateLines: true,
     legend: 'always',
@@ -85,7 +84,7 @@ const d = new Dygraph(new HTMLDivElement(), 'data', {
         // $ExpectType CanvasRenderingContext2D
         canvas;
 
-        // $ExpectType Area
+        // $ExpectType Readonly<Area>
         area;
 
         // $ExpectType Readonly<Dygraph<HTMLDivElement>>
@@ -105,7 +104,7 @@ const d = new Dygraph(new HTMLDivElement(), 'data', {
         // $ExpectType number
         x;
 
-        // $ExpectType readonly Point<HTMLDivElement>[]
+        // $ExpectType ReadonlyArray<Point<HTMLDivElement>>
         points;
 
         // $ExpectType number
@@ -125,7 +124,7 @@ const d = new Dygraph(new HTMLDivElement(), 'data', {
         // $ExpectType number
         x;
 
-        // $ExpectType readonly Point<HTMLDivElement>[]
+        // $ExpectType ReadonlyArray<Point<HTMLDivElement>>
         points;
     },
     pointClickCallback: (event, point) => {
@@ -142,7 +141,7 @@ const d = new Dygraph(new HTMLDivElement(), 'data', {
         // $ExpectType number
         maxDate;
 
-        // $ExpectType readonly [number, number][]
+        // $ExpectType ReadonlyArray<[number, number]>
         yRanges;
     },
 });
@@ -218,52 +217,52 @@ d.annotations();
 d.updateOptions({
     fillGraph: true,
     annotationClickHandler: (anotation, point, dygraph, event) => {
-        // $ExpectType Annotation<HTMLDivElement>
+        // $ExpectType Readonly<Annotation<HTMLDivElement>>
         anotation;
 
-        // $ExpectType Point<HTMLDivElement>
+        // $ExpectType Readonly<Point<HTMLDivElement>>
         point;
 
-        // $ExpectType Dygraph<HTMLDivElement>
+        // $ExpectType Readonly<Dygraph<HTMLDivElement>>
         dygraph;
 
         // $ExpectType MouseEvent
         event;
     },
     annotationDblClickHandler: (anotation, point, dygraph, event) => {
-        // $ExpectType Annotation<HTMLDivElement>
+        // $ExpectType Readonly<Annotation<HTMLDivElement>>
         anotation;
 
-        // $ExpectType Point<HTMLDivElement>
+        // $ExpectType Readonly<Point<HTMLDivElement>>
         point;
 
-        // $ExpectType Dygraph<HTMLDivElement>
+        // $ExpectType Readonly<Dygraph<HTMLDivElement>>
         dygraph;
 
         // $ExpectType MouseEvent
         event;
     },
     annotationMouseOverHandler: (anotation, point, dygraph, event) => {
-        // $ExpectType Annotation<HTMLDivElement>
+        // $ExpectType Readonly<Annotation<HTMLDivElement>>
         anotation;
 
-        // $ExpectType Point<HTMLDivElement>
+        // $ExpectType Readonly<Point<HTMLDivElement>>
         point;
 
-        // $ExpectType Dygraph<HTMLDivElement>
+        // $ExpectType Readonly<Dygraph<HTMLDivElement>>
         dygraph;
 
         // $ExpectType MouseEvent
         event;
     },
     annotationMouseOutHandler: (anotation, point, dygraph, event) => {
-        // $ExpectType Annotation<HTMLDivElement>
+        // $ExpectType Readonly<Annotation<HTMLDivElement>>
         anotation;
 
-        // $ExpectType Point<HTMLDivElement>
+        // $ExpectType Readonly<Point<HTMLDivElement>>
         point;
 
-        // $ExpectType Dygraph<HTMLDivElement>
+        // $ExpectType Readonly<Dygraph<HTMLDivElement>>
         dygraph;
 
         // $ExpectType MouseEvent
