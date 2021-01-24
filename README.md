@@ -13,6 +13,7 @@
 * [How can I contribute?](#how-can-i-contribute)
   - [Testing](#testing)
   - [Make a pull request](#make-a-pull-request)<details><summary></summary>
+    - [Partial clone](#partial-clone)
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
@@ -152,11 +153,18 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
+First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
 <img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+
+#### Partial clone
+
+You may not want to clone the entire repository, which includes many type packages that may not be relevant to you. If so, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) feature and [`--filter` flag](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) to get _only_ the files you specify. This will reduce clone time and improve git performance.
+
+1. `git clone --filter=blob:none --sparse <forkedUrl>`
+2. `git sparse-checkout add types/<typingsPackageName>`
 
 #### Edit an existing package
 
