@@ -17,7 +17,7 @@ export interface Components {
     FunctionType: React.ComponentType<any>;
 }
 
-export const Components: Components;
+export const components: Components;
 
 export type Kind = any;
 
