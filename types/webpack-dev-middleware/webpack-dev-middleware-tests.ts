@@ -62,7 +62,7 @@ webpackDevMiddleware(compilerWithPublicPath, webpackDevMiddlewareInstance.contex
 
 webpackDevMiddleware(webpackDevMiddlewareInstance.context.compiler, {});
 
-function bar(_: webpack.Watching) {}
+function bar(_: webpack.Compiler["watching"]) {}
 if (webpackDevMiddlewareInstance.context.watching) {
     bar(webpackDevMiddlewareInstance.context.watching);
 }
