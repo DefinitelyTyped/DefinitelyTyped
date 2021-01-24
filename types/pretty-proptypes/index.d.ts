@@ -50,7 +50,7 @@ export interface Gen {
 
 export interface Inter {
     kind: 'intersection';
-    types: (Obj | Gen)[];
+    types: Array<Obj | Gen>;
 }
 
 export interface DynamicPropsProps {
