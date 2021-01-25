@@ -3,15 +3,15 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { Node } from 'commonmark';
+import * as React from "react";
+import { Node } from "commonmark";
 
 declare namespace ReactRenderer {
     interface CommonProps {
         nodeKey: string;
         literal: string | null;
         children: React.ReactElement;
-        'data-sourcepos'?: string;
+        "data-sourcepos"?: string;
     }
 
     interface HtmlInlineBlockProps extends CommonProps {
@@ -83,21 +83,14 @@ declare namespace ReactRenderer {
         allowedTypes?: string[];
         disallowedTypes?: string[];
         unwrapDisallowed?: boolean;
-        allowNode?: (node: {
-            type: string;
-            renderer: string;
-            props: unknown;
-            children: unknown[];
-        }) => unknown;
+        allowNode?: (node: { type: string; renderer: string; props: unknown; children: unknown[] }) => unknown;
         renderers?: Partial<Renderers>;
         transformLinkUri?: ((uri: string) => string) | null;
         transformImageUri?: ((uri: string) => string) | null;
         linkTarget?: string;
     }
-}
 
-interface ReactRenderer {
-    new (options?: ReactRenderer.Options): {
+    interface Renderer {
         sourcePos: boolean;
         softBreak: string;
         renderers: ReactRenderer.Renderers;
@@ -106,18 +99,17 @@ interface ReactRenderer {
         transformLinUri: ((uri: string) => string) | null;
         transformImageUri: ((uri: string) => string) | null;
         allowNode:
-            | ((node: {
-            type: string;
-            renderer: string;
-            props: unknown;
-            children: React.ReactNode[];
-        }) => unknown)
+            | ((node: { type: string; renderer: string; props: unknown; children: React.ReactNode[] }) => unknown)
             | undefined;
         allowedTypes: string[];
         unwrapDisallowed: boolean;
         render: (root: Node) => React.ReactNode;
         linkTarget: string | false;
-    };
+    }
+}
+
+interface ReactRenderer {
+    new (options?: ReactRenderer.Options): ReactRenderer.Renderer;
     uriTransformer: (uri: string) => string;
     types: string[];
     renderers: ReactRenderer.Renderers;
