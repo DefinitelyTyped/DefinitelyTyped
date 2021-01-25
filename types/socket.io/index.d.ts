@@ -790,7 +790,7 @@ declare namespace SocketIO {
         /**
          * The authentication payload
          */
-        auth: { [props: string]: any };
+        auth: { token: string };
 
         /**
          * The current time, as a string
@@ -825,7 +825,7 @@ declare namespace SocketIO {
         /**
          * Any query string parameters in the request url
          */
-        query: { [props: string]: any };
+        query: Record<string,string>;
     }
 
     /**
