@@ -239,6 +239,13 @@ declare namespace Tooltip {
         boundary: 'viewport' | 'window' | 'scrollParent' | Element;
 
         /**
+         * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.
+         * To add multiple classes, separate them with spaces: 'class-1 class-2'.
+         * @default ''
+         */
+        customClass?: string | (() => string);
+
+        /**
          * Enable or disable the sanitization. If activated 'template' and
          * 'title' options will be sanitized.
          *
