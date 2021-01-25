@@ -1,12 +1,25 @@
-// Type definitions for dependency-tree 7.2
+// Type definitions for dependency-tree 8.0
 // Project: https://github.com/mrjoelkemp/node-dependency-tree
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Alex <https://github.com/adjerbetian>
+//                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { CompilerOptions } from 'typescript';
 
 declare namespace dependencyTree {
     interface DependencyObj {
         [k: string]: DependencyObj;
+    }
+
+    interface TsConfig {
+        extends?: string;
+        compilerOptions: CompilerOptions;
+        exclude?: string[];
+        include?: string[];
+        files?: string[];
+        compileOnSave?: boolean;
+        references?: Array<{ path: string }>;
     }
 
     interface Options {
@@ -14,7 +27,7 @@ declare namespace dependencyTree {
         directory?: string;
         requireConfig?: string;
         webpackConfig?: string;
-        tsConfig?: string;
+        tsConfig?: string | TsConfig;
         nodeModulesConfig?: any;
         detective?: any;
         visited?: DependencyObj;
