@@ -196,4 +196,4 @@ declare namespace ReactSlider {
 }
 
 declare const ReactSlider: React.ComponentClass<ReactSlider.ReactSliderProps>;
-export = ReactSlider;
+export default ReactSlider;
