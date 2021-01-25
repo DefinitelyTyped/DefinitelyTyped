@@ -1,5 +1,6 @@
 import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
+
 declare module "meteor/mongo" {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
@@ -285,6 +286,15 @@ declare module MongoInternals {
             selfForIteration: any,
             useTransform: boolean,
         }): SynchronousCursor;
+
+        mongo: {
+            client: {
+                s: {
+                    url: string;
+                    options: any;
+                }
+            }
+        }
 
         db: any;
         _oplogHandle: {
