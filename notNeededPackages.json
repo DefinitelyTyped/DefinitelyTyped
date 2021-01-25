@@ -196,6 +196,11 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "autoprefixer",
+            "typingsPackageName": "autoprefixer",
+            "asOfVersion": "10.2.0"
+        },
+        {
             "libraryName": "aws-lambda-mock-context",
             "typingsPackageName": "aws-lambda-mock-context",
             "asOfVersion": "3.2.0"
@@ -354,6 +359,11 @@
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "browserslist",
+            "typingsPackageName": "browserslist",
+            "asOfVersion": "4.15.0"
         },
         {
             "libraryName": "bugsnag-js",
