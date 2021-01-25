@@ -12,9 +12,14 @@ declare namespace dependencyTree {
         [k: string]: DependencyObj;
     }
 
+    interface TsConfigCompilerOptions extends Omit<CompilerOptions, 'module' | 'target'> {
+        module?: 'None' | 'CommonJS' | 'AMD' | 'System' | 'UMD' | 'ES6' | 'ES2015' | 'ES2020' | 'ESNext';
+        target?: 'ES3' | 'ES5' | 'ES6' | 'ES2015' | 'ES2016' | 'ES2017' | 'ES2018' | 'ES2019' | 'ES2020' | 'ESNext';
+    }
+
     interface TsConfig {
         extends?: string;
-        compilerOptions: CompilerOptions;
+        compilerOptions: TsConfigCompilerOptions;
         exclude?: string[];
         include?: string[];
         files?: string[];

@@ -30,6 +30,8 @@ dependencyTree({
             strict: true,
             esModuleInterop: true,
             importHelpers: true,
+            module: 'CommonJS',
+            target: 'ES2020',
         },
         extends: '',
         exclude: [''],
