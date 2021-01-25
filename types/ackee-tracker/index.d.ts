@@ -45,6 +45,9 @@ export interface DetailedData {
     browserHeight: number;
 }
 
+// Fix for useAckee package. (Not updated to Ackee v5)
+export type ServerDetails = string
+
 export function create(server: string, options?: TrackingOptions): AckeeInstance;
 
 export function attributes(detailed?: false): DefaultData;
