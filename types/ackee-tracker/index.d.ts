@@ -20,8 +20,26 @@ export interface TrackingOptions {
     ignoreOwnVisits?: boolean;
 }
 
+export interface AckeeTrackingReturn {
+    stop: () => void
+}
+
+export interface ActionAttributes {
+    /**
+     * Key that will be used to group similar actions in the Ackee UI.
+     */
+    key: string;
+    /**
+     * Positive float value that is added to all other numerical values of the key.
+     */
+    value?: number;
+}
+
 export interface AckeeInstance {
-    record: (domainId: string, attrs?: ReturnType<typeof attributes>) => { stop: () => void };
+    record: (domainId: string, attrs?: ReturnType<typeof attributes>) => AckeeTrackingReturn;
+    updateRecord: (recordId: string) => AckeeTrackingReturn
+    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string) => void) => void
+    updateAction: (actionId: string, attributes: ActionAttributes) => void
 }
 
 export interface DefaultData {
