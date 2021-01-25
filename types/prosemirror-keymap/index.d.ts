@@ -52,5 +52,5 @@ export function keymap<S extends Schema = any>(bindings: Keymap<S>): Plugin;
  * handler](#view.EditorProps.handleKeyDown) handles them.
  */
 export function keydownHandler<S extends Schema = any>(
-  bindings: Keymap<S>,
+    bindings: Keymap<S>,
 ): (view: EditorView, event: KeyboardEvent) => boolean;

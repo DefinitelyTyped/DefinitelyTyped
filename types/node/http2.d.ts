@@ -281,6 +281,7 @@ declare module "http2" {
         ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ping(payload: NodeJS.ArrayBufferView, callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
+        setLocalWindowSize(windowSize: number): void;
         setTimeout(msecs: number, callback?: () => void): void;
         settings(settings: Settings): void;
         unref(): void;

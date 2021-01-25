@@ -74,3 +74,5 @@ export type CellMeasurerProps = {
  * Cached-content is not be re-measured.
  */
 export class CellMeasurer extends PureComponent<CellMeasurerProps> {}
+
+export default CellMeasurer;

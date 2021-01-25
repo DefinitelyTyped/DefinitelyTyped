@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.20.0
+// Type definitions for auth0 2.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -9,6 +9,8 @@
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
 //                 Isabela Morais <https://github.com/isabela-morais>
+//                 Raimondo Butera <https://github.com/rbutera>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -68,6 +70,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
 
 export interface CreateUserData extends UserData {
   connection: string;
+}
+
+export interface SignUpUserData extends UserData {
+  connection?: string;
 }
 
 export interface UpdateUserData extends UserData {
@@ -611,11 +617,21 @@ export interface PasswordGrantOptions {
   password: string;
   realm?: string;
   scope?: string;
+  audience?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
   code: string;
   redirect_uri: string;
+}
+
+export interface AuthenticationClientRefreshTokenOptions {
+  refresh_token:string;
+  client_id?: string;
+}
+
+export interface RefreshTokenOptions {
+  refresh_token:string;
 }
 
 export interface TokenResponse {
@@ -917,6 +933,11 @@ export interface Enrollment {
   auth_method: AuthMethod;
 }
 
+export interface PagingOptions {
+  per_page?: number;
+  page?: number;
+}
+
 export class AuthenticationClient {
 
   // Members
@@ -962,6 +983,11 @@ export class AuthenticationClient {
   passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
   passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
+  refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: AuthenticationClientRefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 
@@ -971,6 +997,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getClientInfo(): ClientInfo;
 
   // Connections
+  getConnections(params: PagingOptions): Promise<Connection[]>;
   getConnections(): Promise<Connection[]>;
   getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
@@ -1074,6 +1101,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
 
     // Rules
+  getRules(params: PagingOptions): Promise<Rule[]>;
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -1261,6 +1289,7 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
   createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
+  getResourceServers(params: PagingOptions): Promise<ResourceServer[]>;
   getResourceServers(): Promise<ResourceServer[]>;
   getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
@@ -1315,8 +1344,8 @@ export class DatabaseAuthenticator<A=AppMetadata, U=UserMetadata> {
   signIn(data: SignInOptions): Promise<SignInToken>;
   signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-  signUp(data: CreateUserData): Promise<User<A, U>>;
-  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  signUp(data: SignUpUserData): Promise<User<A, U>>;
+  signIn(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
 
 }
 
@@ -1335,6 +1364,12 @@ export class OAuthAuthenticator {
 
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  refreshToken(options: RefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: RefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 export class PasswordlessAuthenticator {

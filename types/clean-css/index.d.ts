@@ -8,6 +8,8 @@
 import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
+import { SourceMapGenerator } from "source-map";
+
 /**
  * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
  */
@@ -92,7 +94,7 @@ declare namespace CleanCSS {
         /**
          * Output source map if requested with `sourceMap` option
          */
-        sourceMap: string;
+        sourceMap: SourceMapGenerator;
 
         /**
          * A list of errors raised

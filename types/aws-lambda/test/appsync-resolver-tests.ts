@@ -31,7 +31,7 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     str = (event.identity as AppSyncIdentityCognito).username;
     anyObj = (event.identity as AppSyncIdentityCognito).claims;
 
-    str = event.request.headers.host;
+    strOrUndefined = event.request.headers.host;
 
     str = event.info.fieldName;
     str = event.info.parentTypeName;

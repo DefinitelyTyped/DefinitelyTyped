@@ -49,7 +49,7 @@ export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends 
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
-  getValue: () => ValueType<OptionType, IsMulti>;
+  getValue: () => OptionsType<OptionType>;
   hasValue: boolean;
   isMulti: boolean;
   options: OptionsType<OptionType>;

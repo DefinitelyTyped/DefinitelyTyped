@@ -50,6 +50,7 @@ import {
     Lens,
     Merge,
     MergeAll,
+    ObjectHavingSome,
     ObjPred,
     Ord,
     Path,
@@ -697,10 +698,10 @@ export function gte(a: number): (b: number) => boolean;
 /**
  * Returns whether or not an object has an own property with the specified name.
  */
-export function has<T>(__: Placeholder, obj: T): (s: string) => boolean;
-export function has<T>(__: Placeholder): (obj: T, s: string) => boolean;
-export function has<T>(s: string, obj: T): boolean;
-export function has(s: string): <T>(obj: T) => boolean;
+export function has(__: Placeholder, obj: unknown): (s: string) => boolean;
+export function has(__: Placeholder): <P extends string>(obj: unknown, s: P) => obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P, obj: unknown): obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P): (obj: unknown) => obj is ObjectHavingSome<P>;
 
 /**
  * Returns whether or not an object or its prototype chain has a property with the specified name
@@ -1512,8 +1513,8 @@ export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn0: (x0: V0)
     * Performs left-to-right function composition using transforming function.
     * With the current typings, all functions must be unary.
     */
-export function pipeWith<V0, T>(composer: (a: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
-export function pipeWith(composer: (a: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
+export function pipeWith<V0, T>(composer: (f: (value: any) => any, res: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
+export function pipeWith(composer: (f: (value: any) => any, res: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
 
 /**
  * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -1952,9 +1953,8 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T, catcher: (...args: readonly A[]) => T): (...args: readonly A[]) => T;
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catcher: (...args: readonly A[]) => T) => (...args: readonly A[]) => T;
-
+export function tryCatch<F extends (...args: readonly any[]) => any, RE = ReturnType<F>, E = unknown>(tryer: F, catcher: (error: E, ...args: _.F.Parameters<F>) => RE): (F | (() => RE));
+export function tryCatch<F extends (...args: readonly any[]) => any>(tryer: F): <RE = ReturnType<F>, E = unknown>(catcher: (error: E, ...args: _.F.Parameters<F>) => RE) => (F | (() => RE));
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them

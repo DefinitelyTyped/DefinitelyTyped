@@ -3,16 +3,16 @@ import { Component, ComponentType, Ref as ElementRef } from 'react';
 import SelectBase, { Props as SelectProps } from './Select';
 import { ActionMeta, InputActionMeta, OptionTypeBase, ValueType } from './types';
 
-export interface DefaultProps<OptionType extends OptionTypeBase> {
+export interface DefaultProps {
   defaultInputValue: string;
   defaultMenuIsOpen: boolean;
-  defaultValue: ValueType<OptionType, boolean>;
+  defaultValue: ValueType<OptionTypeBase, boolean>;
 }
 
 export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
-  defaultValue?: ValueType<OptionType, boolean>;
+  defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
   inputValue?: string;
   menuIsOpen?: boolean;
   value?: ValueType<OptionType, IsMulti>;
@@ -42,7 +42,7 @@ export class StateManager<
   IsMulti extends boolean = false,
   T extends SelectBase<OptionType, IsMulti> = SelectBase<OptionType, IsMulti>
 > extends Component<StateProps<SelectProps<OptionType, IsMulti>> & Props<OptionType, IsMulti> & SelectProps<OptionType, IsMulti>, State<OptionType, IsMulti>> {
-  static defaultProps: DefaultProps<any>;
+  static defaultProps: DefaultProps;
 
   select: T;
 
