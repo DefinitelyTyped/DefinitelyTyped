@@ -410,6 +410,19 @@ Providers.Auth0({
 });
 
 // $ExpectType GenericReturnConfig
+Providers.Auth0({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    domain: 'https://foo.auth0.com',
+    profile: () => ({
+      id: 'foo123',
+      name: 'foo',
+      email: 'foo@bar.io',
+      image: 'https://foo.auth0.com/image/1.png',
+    })
+});
+
+// $ExpectType GenericReturnConfig
 Providers.IdentityServer4({
     id: 'identity-server4',
     name: 'IdentityServer4',
