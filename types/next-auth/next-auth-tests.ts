@@ -413,10 +413,10 @@ Providers.Auth0({
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
     profile: () => ({
-      id: 'foo123';
+      id: 'foo123',
       name: 'foo',
-      email: 'foo@bar.io';
-      image: 'https://foo.auth0.com/image/1.png';
+      email: 'foo@bar.io',
+      image: 'https://foo.auth0.com/image/1.png',
     })
 });
 
