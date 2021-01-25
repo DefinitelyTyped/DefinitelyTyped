@@ -37,9 +37,9 @@ export interface ActionAttributes {
 
 export interface AckeeInstance {
     record: (domainId: string, attrs?: ReturnType<typeof attributes>) => AckeeTrackingReturn;
-    updateRecord: (recordId: string) => AckeeTrackingReturn
-    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string) => void) => void
-    updateAction: (actionId: string, attributes: ActionAttributes) => void
+    updateRecord: (recordId: string) => AckeeTrackingReturn;
+    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string) => void) => void;
+    updateAction: (actionId: string, attributes: ActionAttributes) => void;
 }
 
 export interface DefaultData {
