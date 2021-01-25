@@ -293,7 +293,7 @@ export class Transaction {
     fee(amount: number): this;
     feePerKb(amount: number): this;
     feePerByte(amount: number): this;
-    sign(privateKey: PrivateKey | string, sigtype?: number, signingMethod?: string): this;
+    sign(privateKey: Array<PrivateKey | string> | PrivateKey | string, sigtype?: number, signingMethod?: string): this;
     getSignatures(
         privKey: PrivateKey | string,
         sigtype?: number,
