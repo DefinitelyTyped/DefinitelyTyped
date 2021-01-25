@@ -1316,7 +1316,7 @@ declare namespace IORedis {
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, ...scoresAndMembers: (number|string)[]): Pipeline;
+        zadd(key: KeyType, ...scoresAndMembers: Array<number|string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
