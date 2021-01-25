@@ -4,6 +4,7 @@
 //                 Alex <https://github.com/adjerbetian>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.5
 
 import { CompilerOptions } from 'typescript';
 
