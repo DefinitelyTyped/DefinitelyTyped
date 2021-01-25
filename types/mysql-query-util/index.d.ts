@@ -7,44 +7,33 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-// export as namespace myLib;
+export as namespace myLib;
 
 /*~ If this module has methods, declare them as functions like so.
  */
-declare function _delete(...options: any[]): any;
-
 export function myMethod(a: string): string;
 export function myOtherMethod(a: number): number;
 
-export function setConnection(options: connectionString): any;
-
-export function select(...options: any[]): Promise<any>;
-export function insert(...options: [string, string[], string[], string[]]): Promise<any>;
-export function update(...options: [string, string[], string[], string[]]): Promise<any>;
-export { _delete as delete };
-
-export function query(queryType: any, tableName: any, fields: any, data: any, params: any): Promise<any>;
 /*~ You can declare types that are available via importing the module */
+export interface someType {
+    name: string;
+    length: number;
+    extras?: string[];
+}
 
-export interface connectionString {
-    /**
-     * The hostname of the database you are connecting to. (Default: localhost)
+/*~ You can declare properties of the module using const, let, or var */
+export const myField: number;
+
+/*~ If there are types, properties, or methods inside dotted names
+ *~ of the module, declare them inside a 'namespace'.
+ */
+export namespace subProp {
+    /*~ For example, given this definition, someone could write:
+     *~   import { subProp } from 'yourModule';
+     *~   subProp.foo();
+     *~ or
+     *~   import * as yourMod from 'yourModule';
+     *~   yourMod.subProp.foo();
      */
-    host: string;
-    /**
-     * The MySQL user to authenticate as
-     */
-    user: string;
-    /**
-     * The password of that MySQL user
-     */
-    password: string;
-    /**
-     * Name of the database to use for this connection
-     */
-    database: string;
-    /**
-     * The maximum number of connections to create at once. (Default: 10)
-     */
-    connectionLimit?: number;
+    function foo(): void;
 }
