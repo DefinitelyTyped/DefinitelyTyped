@@ -7,55 +7,55 @@ import * as React from 'react';
 import { Node } from 'commonmark';
 
 declare namespace ReactRenderer {
-    export interface CommonProps {
+    interface CommonProps {
         nodeKey: string;
         literal: string | null;
         children: React.ReactElement;
         'data-sourcepos'?: string;
     }
 
-    export interface HtmlInlineBlockProps extends CommonProps {
+    interface HtmlInlineBlockProps extends CommonProps {
         isBlock: boolean;
         escapeHtml: boolean;
         skipHtml: boolean;
     }
 
-    export interface CodeBlockProps extends CommonProps {
+    interface CodeBlockProps extends CommonProps {
         language?: string;
         codeinfo?: string[];
     }
 
-    export interface CodeProps extends CommonProps {
+    interface CodeProps extends CommonProps {
         inline: boolean;
     }
 
-    export interface HeadingProps extends CommonProps {
+    interface HeadingProps extends CommonProps {
         level: number;
     }
 
-    export interface SoftBreakProps extends CommonProps {
+    interface SoftBreakProps extends CommonProps {
         softBreak: string;
     }
 
-    export interface LinkProps extends CommonProps {
+    interface LinkProps extends CommonProps {
         href: string;
         title: string | undefined;
         target?: string;
     }
 
-    export interface ImageProps extends CommonProps {
+    interface ImageProps extends CommonProps {
         src: string;
         title: string | undefined;
         alt: string;
     }
 
-    export interface ListProps extends CommonProps {
+    interface ListProps extends CommonProps {
         start: number;
         type: string;
         tight: boolean;
     }
 
-    export interface Renderers {
+    interface Renderers {
         Blockquote: string | React.ComponentType<CommonProps> | null;
         Emph: string | React.ComponentType<CommonProps> | null;
         Linebreak: string | React.ComponentType<CommonProps> | null;
@@ -75,7 +75,7 @@ declare namespace ReactRenderer {
         Softbreak: string | React.ComponentType<SoftBreakProps> | null;
     }
 
-    export interface Options {
+    interface Options {
         sourcePos?: boolean;
         escapeHtml?: boolean;
         skipHtml?: boolean;
