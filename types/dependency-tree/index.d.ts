@@ -4,28 +4,10 @@
 //                 Alex <https://github.com/adjerbetian>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import { CompilerOptions } from 'typescript';
 
 declare namespace dependencyTree {
     interface DependencyObj {
         [k: string]: DependencyObj;
-    }
-
-    interface TsConfigCompilerOptions extends Omit<CompilerOptions, 'module' | 'target'> {
-        module?: 'None' | 'CommonJS' | 'AMD' | 'System' | 'UMD' | 'ES6' | 'ES2015' | 'ES2020' | 'ESNext';
-        target?: 'ES3' | 'ES5' | 'ES6' | 'ES2015' | 'ES2016' | 'ES2017' | 'ES2018' | 'ES2019' | 'ES2020' | 'ESNext';
-    }
-
-    interface TsConfig {
-        extends?: string;
-        compilerOptions: TsConfigCompilerOptions;
-        exclude?: string[];
-        include?: string[];
-        files?: string[];
-        compileOnSave?: boolean;
-        references?: Array<{ path: string }>;
     }
 
     interface Options {
@@ -33,7 +15,7 @@ declare namespace dependencyTree {
         directory?: string;
         requireConfig?: string;
         webpackConfig?: string;
-        tsConfig?: string | TsConfig;
+        tsConfig?: string | Record<string, any>;
         nodeModulesConfig?: any;
         detective?: any;
         visited?: DependencyObj;
