@@ -7,7 +7,7 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-export as namespace myLib;
+// export as namespace myLib;
 
 /*~ If this module has methods, declare them as functions like so.
  */
