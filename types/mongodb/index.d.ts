@@ -342,7 +342,6 @@ export class MongoWriteConcernError extends MongoError {
     result?: object;
 }
 
-
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
 export interface MongoClientOptions
     extends DbCreateOptions,
@@ -425,6 +424,12 @@ export interface MongoClientOptions
         /** The selected compressors in preference order */
         compressors?: Array<'snappy' | 'zlib'>;
     };
+
+    /**
+     * Enable directConnection
+     * @default false
+     */
+    directConnection?: boolean;
 }
 
 export interface SSLOptions {
