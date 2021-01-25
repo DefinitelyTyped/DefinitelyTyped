@@ -19,6 +19,7 @@
 //                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 //                 Lenz Weber <https://github.com/phryneas>
+//                 Mark Erikson <https://github.com/markerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -302,7 +303,11 @@ export interface Connect<DefaultState = DefaultRootState> {
  */
 export type ConnectedProps<TConnector> =
     TConnector extends InferableComponentEnhancerWithProps<infer TInjectedProps, any>
-        ? TInjectedProps
+        ? unknown extends TInjectedProps
+            ? TConnector extends InferableComponentEnhancer<infer TInjectedProps>
+                ? TInjectedProps
+                : never
+            : TInjectedProps
         : never;
 
 /**

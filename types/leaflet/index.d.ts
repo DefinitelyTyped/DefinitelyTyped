@@ -1174,7 +1174,7 @@ export function featureGroup(layers?: Layer[]): FeatureGroup;
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends LayerOptions {
+export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
@@ -1731,7 +1731,7 @@ export class Map extends Evented {
     closeTooltip(tooltip?: Tooltip): this;
 
     // Methods for modifying map state
-    setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
+    setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
     setZoom(zoom: number, options?: ZoomPanOptions): this;
     zoomIn(delta?: number, options?: ZoomOptions): this;
     zoomOut(delta?: number, options?: ZoomOptions): this;
@@ -1778,10 +1778,10 @@ export class Map extends Evented {
     getPixelWorldBounds(zoom?: number): Bounds;
 
     // Conversion methods
-    getZoomScale(toZoom: number, fromZoom: number): number;
-    getScaleZoom(scale: number, fromZoom: number): number;
-    project(latlng: LatLngExpression, zoom: number): Point;
-    unproject(point: PointExpression, zoom: number): LatLng;
+    getZoomScale(toZoom: number, fromZoom?: number): number;
+    getScaleZoom(scale: number, fromZoom?: number): number;
+    project(latlng: LatLngExpression, zoom?: number): Point;
+    unproject(point: PointExpression, zoom?: number): LatLng;
     layerPointToLatLng(point: PointExpression): LatLng;
     latLngToLayerPoint(latlng: LatLngExpression): Point;
     wrapLatLng(latlng: LatLngExpression): LatLng;

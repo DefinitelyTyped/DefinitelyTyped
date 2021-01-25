@@ -6,7 +6,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 
 *Link para o [manual do Admin](./docs/admin.md)*
 
-## Tabela de Conteúdos
+## Tabela de conteúdos
 
 * [Status atual](#status-atual)
 * [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)
@@ -18,10 +18,11 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [Crie um novo pacote](#crie-um-novo-pacote)
     - [Removendo um pacote](#removendo-um-pacote)
     - [Verificando](#verificando)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#package.json)
+    - [`package.json`](#packagejson)
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Erros comuns](#erros-comuns)
     </details>
@@ -72,11 +73,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.1 e anteriores)
+#### Versões antigas do TypeScript (3.3 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.2 e acima são testadas.
-Se você está usando as versões 2.0 a 3.1 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.4 e acima são testadas.
+Se você está usando as versões 2.0 a 3.3 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -95,6 +96,8 @@ Versão | Lançada em | Término do suporte
 3.8 | Fevereiro 2020 | Fevereiro 2022
 3.9 | Maio 2020 | Maio 2022
 4.0 | Agosto 2020 | Agosto 2022
+4.1 | Novembro 2020 | Novembro 2022
+4.2 | Fevereiro 2021 | Fevereiro 2023
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -172,7 +175,7 @@ Se você é o autor de uma biblioteca e seu pacote está escrito em TypeScript, 
 
 Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
 Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
-(Você pode executar `npm info foo` para verificar a existência do pacote `foo`.)
+(Você pode executar `npm info <my-package>` para verificar a existência do pacote `<my-package>`.)
 
 Seu pacote deve possuir a seguinte estrutura:
 
@@ -196,26 +199,26 @@ Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/Definitely
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`
-- `typingsPackageName`: O nome do diretório a ser deletado.
-- `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
-- `libraryName`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `typingsPackageName`, e nesse caso pode ser omitido.
+Você pode removê-lo executando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
+- `<typingsPackageName>`: O nome do diretório a ser deletado.
+- `<asOfVersion>`: Um esboço será publicado em `@types/<typingsPackageName>` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `<libraryName>` no npm.
+- `<libraryName>`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `<typingsPackageName>`, e nesse caso pode ser omitido.
 
 Quaisquer outros pacotes no Definitely Typed que referenciavam o pacote deletado devem ser atualizados para referenciar os tipos inclusos pelo pacote.
 Você pode obter esta lista olhando os erros do `npm test`.
-Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "foo": "x.y.z" }`.
+Para corrigir os erros, [adicione o arquivo `package.json`](#packagejson) com `"dependencies": { "<libraryName>": "x.y.z" }`.
 Por exemplo:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-Quando você adicionar um `package.json` aos dependentes de `foo`, você também precisará abrir uma PR para adicionar `foo` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+Quando você adicionar um `package.json` aos dependentes de `<libraryName>`, você também precisará abrir uma PR para adicionar `<libraryName>` [ao allowedPackageJsonDependencies.txt em DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado ao `notNeededPackages.json`.
 
@@ -224,6 +227,14 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
 Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+
+#### Naming
+
+Se você está adicionando tipos para um pacote do npm, crie um diretório com o mesmo nome do pacote.
+Se o pacote ao qual você está adicionando tipos não está no npm, tenha certeza de que o nome escolhido para ele não entre em conflito com o nome de um outro pacote no npm.
+(Você pode executar `npm info <my-package>` para verificar a existência do pacote `<my-package>`.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
@@ -442,7 +453,7 @@ e adicione os tipos e testes específicos para a nova versão do TypeScript. Voc
 }
 ```
 
-Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) para exemplos.
+Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) para exemplos.
 
 #### Eu quero adicionar uma API da DOM não presente no TypeScript por padrão.
 

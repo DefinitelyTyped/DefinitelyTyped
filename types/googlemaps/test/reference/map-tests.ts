@@ -47,4 +47,12 @@ map.addListener('tilt_changed', (event) => {}); // $ExpectError
 map.addListener('zoom_changed', () => {});
 map.addListener('zoom_changed', (event) => {}); // $ExpectError
 
+// TODO: #50253 remove after that most libraries will go to MapMouseEvent
+declare const nativeMouseEvent: MouseEvent;
+declare const mapMouseEvent: google.maps.MapMouseEvent;
+declare const deprecatedMapMouseEvent: google.maps.MouseEvent;
+nativeMouseEvent.preventDefault();
+mapMouseEvent.domEvent.preventDefault();
+deprecatedMapMouseEvent.domEvent.preventDefault();
+
 export {};

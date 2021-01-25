@@ -17,6 +17,7 @@
     - [新しくパッケージを作成する](#新しくパッケージを作成する)
     - [パッケージを削除する](#パッケージを削除する)
     - [テストの実行](#テストの実行)
+    - [Naming](#naming)
     - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -70,11 +71,11 @@ npm install --save-dev @types/node
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （3.1 以前）
+#### 古いバージョンの TypeScript （3.3 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 3.2 以上でテストされています。
-TypeScript 2.0 ～ 3.1 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+現時点ではバージョン 3.4 以上でテストされています。
+TypeScript 2.0 ～ 3.3 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
@@ -93,6 +94,8 @@ TypeScript 2.0 ～ 3.1 を使用している場合、引き続き `@types` パ�
 | 3.8        | 2020年2月  | 2022年2月    |
 | 3.9        | 2020年5月  | 2022年5月    |
 | 4.0        | 2020年8月  | 2022年8月    |
+| 4.1        | 2020年11月 | 2022年11月   |
+| 4.2        | 2021年2月  | 2023年2月    |
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
 たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
@@ -171,7 +174,7 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
 npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
-（`npm info foo` コマンドで、 `foo` パッケージが存在するかどうか確認できます。）
+（`npm info <my-package>` コマンドで、 `<my-package>` パッケージが存在するかどうか確認できます。）
 
 型定義パッケージは次のような構造にする必要があります:
 
@@ -195,26 +198,26 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 パッケージに型定義が[バンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-`npm run not-needed -- typingsPackageName asOfVersion [libraryName]` を実行するとパッケージを削除できます。.
-* `typingsPackageName`: 削除したいディレクトリ名。
-* `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `foo` のバージョンとあわせる必要があります。
-* `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `typingsPackageName` と一致し、その場合は省略できます。
+`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
+* `<typingsPackageName>`: 削除したいディレクトリ名。
+* `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
+* `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
 `npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
-エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "foo": "x.y.z" }` と記述します。
+エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-`foo` に依存するモジュールに `package.json` を追加する場合は、 [DefinitelyTyped-tools の allowedPackageJsonDependencies.txt](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に `foo` を追加する PR も併せて作成する必要があります。
+`<libraryName>` に依存するモジュールに `package.json` を追加する場合は、 [DefinitelyTyped-tools の allowedPackageJsonDependencies.txt](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に `<libraryName>` を追加する PR も併せて作成する必要があります。
 
 パッケージが Definitely Typed に存在しなかった場合は、 `notNeededPackages.json` に追加する必要はありません。
 
@@ -223,6 +226,14 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 `npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
 このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
+
+#### Naming
+
+npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
+（`npm info <my-package>` コマンドで、 `<my-package>` パッケージが存在するかどうか確認できます。）
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<パッケージ名>-tests.ts`
 

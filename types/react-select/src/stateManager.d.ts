@@ -9,6 +9,8 @@ export interface DefaultProps {
   defaultValue: ValueType<OptionTypeBase, boolean>;
 }
 
+export const defaultProps: DefaultProps;
+
 export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;

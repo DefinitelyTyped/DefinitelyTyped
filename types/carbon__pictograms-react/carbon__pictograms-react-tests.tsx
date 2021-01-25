@@ -13,7 +13,10 @@ import {
     Upload_01,
     Video_01,
     WatsonLogo,
-    AdvancedFraudProtection
+    AdvancedFraudProtection,
+    DoctorPatient,
+    Hpi,
+    CloudPakForApplications
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -31,3 +34,6 @@ import {
 <Video_01 />; // $ExpectType Element
 <WatsonLogo />; // $ExpectType Element
 <AdvancedFraudProtection />; // $ExpectType Element
+<DoctorPatient />; // $ExpectType Element
+<Hpi />; // $ExpectType Element
+<CloudPakForApplications />; // $ExpectType Element

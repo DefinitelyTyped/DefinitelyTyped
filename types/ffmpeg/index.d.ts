@@ -22,7 +22,7 @@ type FrameToJPGSettings = Partial<{
     every_n_seconds: number;
     every_n_percentage: number;
     keep_pixel_aspect_ratio: boolean;
-    keep_aspect_ration: boolean;
+    keep_aspect_ratio: boolean;
     padding_color: string;
     file_name: string;
 }>;

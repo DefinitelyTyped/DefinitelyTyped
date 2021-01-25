@@ -1,4 +1,4 @@
-// Type definitions for non-npm package webxr 0.1
+// Type definitions for non-npm package webxr 0.2
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
@@ -81,7 +81,7 @@ export interface XRSessionEvent extends Event {
     readonly session: XRSession;
 }
 
-export interface XRSystem {
+export interface XRSystem extends EventTarget {
     isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
     requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
 }
@@ -140,7 +140,7 @@ export interface XRReferenceSpace extends XRSpace {
     onreset: XREventHandler;
 }
 
-export interface XRBoundedReferenceSpace extends XRSpace {
+export interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
@@ -227,7 +227,7 @@ export interface XRSession {
      * canceling the callback using cancelAnimationFrame(). This method is comparable
      * to the Window.requestAnimationFrame() method.
      */
-    requestAnimationFrame: XRFrameRequestCallback;
+    requestAnimationFrame: (callback: XRFrameRequestCallback) => number;
     /**
      * Requests that a new XRReferenceSpace of the specified export type be created.
      * Returns a promise which resolves with the XRReferenceSpace or

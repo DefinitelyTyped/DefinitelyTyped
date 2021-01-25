@@ -636,6 +636,28 @@ export interface Environment {
         operation: OperationDescriptor;
         source: RelayObservable<GraphQLResponse>;
     }): RelayObservable<GraphQLResponse>;
+
+    /**
+     * Returns true if a request is currently "active", meaning it's currently
+     * actively receiving payloads or downloading modules, and has not received
+     * a final payload yet. Note that a request might still be pending (or "in flight")
+     * without actively receiving payload, for example a live query or an
+     * active GraphQL subscription
+     */
+    isRequestActive(requestIdentifier: string): boolean;
+
+    /**
+     * Returns true if the environment is for use during server side rendering.
+     * functions like getQueryResource key off of this in order to determine
+     * whether we need to set up certain caches and timeout's.
+     */
+    isServer(): boolean;
+
+    /**
+     * Called by Relay when it encounters a missing field that has been annotated
+     * with `@required(action: LOG)`.
+     */
+    requiredFieldLogger: RequiredFieldLogger;
 }
 
 /**

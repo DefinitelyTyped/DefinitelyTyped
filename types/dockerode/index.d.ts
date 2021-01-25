@@ -1269,6 +1269,10 @@ declare namespace Dockerode {
         EndpointSpec?: EndpointSpec;
     }
 
+    interface CreateServiceOptions extends ServiceSpec {
+        authconfig?: AuthConfig;
+    }
+
     interface ServiceCreateResponse {
         ID: string;
         Warnings?: string[];
@@ -1723,8 +1727,9 @@ declare class Dockerode {
     createVolume(options: {}, callback: Callback<any>): void;
     createVolume(options: {}): Promise<any>;
 
-    createService(options: Dockerode.ServiceSpec, callback: Callback<Dockerode.ServiceCreateResponse>): void;
-    createService(options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
+    createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
+    createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;
+    createService(auth: Dockerode.AuthConfig, options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
 
     createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
     createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;

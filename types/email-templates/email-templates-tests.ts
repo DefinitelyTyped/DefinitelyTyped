@@ -93,3 +93,16 @@ email = new Email({
         },
     },
 });
+
+email = new Email({
+    views: {
+        locals: {
+            cache: true,
+            pretty: true,
+            foo: 'bar'
+        }
+    },
+    message: {
+        from: 'definitelytyped@example.org'
+    }
+});

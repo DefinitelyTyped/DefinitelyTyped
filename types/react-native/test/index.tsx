@@ -119,6 +119,7 @@ import {
     useWindowDimensions,
     SectionListData,
     ToastAndroid,
+    Touchable,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -362,6 +363,24 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 
 export default Welcome;
 
+// TouchableTest
+function TouchableTest() {
+    function basicUsage() {
+        if (Touchable.TOUCH_TARGET_DEBUG) {
+            return Touchable.renderDebugView({
+                color: 'mediumspringgreen',
+                hitSlop: { bottom: 5, top: 5 },
+            });
+        }
+    }
+
+    function defaultHitSlop() {
+        return Touchable.renderDebugView({
+            color: 'red',
+        });
+    }
+}
+
 // TouchableNativeFeedbackTest
 export class TouchableNativeFeedbackTest extends React.Component {
     onPressButton = (e: GestureResponderEvent) => {
@@ -393,7 +412,17 @@ export class TouchableNativeFeedbackTest extends React.Component {
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground(30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless(30)}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>

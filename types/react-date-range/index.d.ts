@@ -179,7 +179,7 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
 }
 
 export interface DateRangePickerProps extends DateRangeProps {
-    renderStaticChangeLabel?: (range: DefinedRange) => JSX.Element;
+    renderStaticRangeLabel?: (range: DefinedRange) => JSX.Element;
     staticRanges?: StaticRange[];
     inputRanges?: InputRange[];
 }
