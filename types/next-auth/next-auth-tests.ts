@@ -134,6 +134,8 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: 'some-key',
+        encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
