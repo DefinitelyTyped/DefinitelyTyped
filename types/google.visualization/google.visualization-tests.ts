@@ -896,8 +896,72 @@ function test_GanttChart() {
                     fill: '#666'
                 },
                 shadowOffset: 1,
-                trackHeight: 30
-            }
+            },
+        });
+    }
+}
+
+function test_Sankey() {
+    google.charts.load('current', { packages: ['sankey'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+            ['A', 'X', 5],
+            ['A', 'Y', 7],
+            ['A', 'Z', 6],
+            ['B', 'X', 2],
+            ['B', 'Y', 9],
+            ['B', 'Z', 4],
+        ]);
+
+        var element = document.getElementById('sankey_basic');
+
+        if (!element) {
+            return;
+        }
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(element);
+
+        chart.draw(data, {
+            width: 600,
+            height: 400,
+            sankey: {
+                node: {
+                    label: {
+                        fontName: 'Times-Roman',
+                        fontSize: 12,
+                        color: '#000',
+                        bold: true,
+                        italic: false,
+                    },
+                    interactivity: true,
+                    labelPadding: 6,
+                    nodePadding: 10,
+                    width: 5,
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                link: {
+                    color: {
+                        fill: '#efd',
+                        fillOpacity: 0.8,
+                        stroke: 'black',
+                        strokeWidth: 1,
+                    },
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                tooltip: {
+                    textStyle: {
+                        color: '#FF0000',
+                    },
+                    showColorCode: true,
+                },
+            },
         });
     }
 }

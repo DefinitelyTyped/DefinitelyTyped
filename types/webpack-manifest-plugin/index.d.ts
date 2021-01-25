@@ -3,7 +3,7 @@
 // Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { WebpackPluginInstance, compilation, Compiler } from 'webpack';
+import { WebpackPluginInstance, Chunk, Compiler } from 'webpack';
 import { SyncWaterfallHook } from 'tapable';
 
 export const WebpackManifestPlugin: {
@@ -12,7 +12,7 @@ export const WebpackManifestPlugin: {
 
 export interface FileDescriptor {
     /** Only available if isChunk is true. */
-    chunk?: compilation.Chunk;
+    chunk?: Chunk;
     isAsset: boolean;
     isChunk: boolean;
     /** Is required to run you app. Cannot be true if isChunk is false. */
@@ -44,7 +44,7 @@ export interface Options {
     /**
      * Create the manifest. It can return anything as long as it's serializable by JSON.stringify.
      */
-    generate?: (seed: object, files: FileDescriptor[], entries: string[]) => object;
+    generate?: (seed: object, files: FileDescriptor[], entries: Record<string, string[]>) => object;
 
     /**
      * Modify file details before the manifest is created.

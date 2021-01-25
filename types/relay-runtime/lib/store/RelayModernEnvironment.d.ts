@@ -41,6 +41,7 @@ export interface EnvironmentConfig {
 export default class RelayModernEnvironment implements Environment {
     options: unknown;
     configName: string | null | undefined;
+    requiredFieldLogger: RequiredFieldLogger;
     constructor(config: EnvironmentConfig);
     getStore(): Store;
     getNetwork(): Network;

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 16.2
+// Type definitions for non-npm package frida-gum 16.3
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -594,8 +594,9 @@ declare namespace Memory {
      * is being used by code outside the JavaScript runtime.
      *
      * @param size Number of bytes to allocate.
+     * @param options Options to customize the memory allocation.
      */
-    function alloc(size: number | UInt64): NativePointer;
+    function alloc(size: number | UInt64, options?: MemoryAllocOptions): NativePointer;
 
     /**
      * Allocates, encodes and writes out `str` as a UTF-8 string on Frida's private heap.
@@ -1200,6 +1201,20 @@ interface KernelMemoryScanMatch {
      * Size of this match.
      */
     size: number;
+}
+
+type MemoryAllocOptions = Record<any, never> | MemoryAllocNearOptions;
+
+interface MemoryAllocNearOptions {
+    /**
+     * Memory address to try allocating near.
+     */
+    near: NativePointer;
+
+    /**
+     * Maximum distance to the given memory address, in bytes.
+     */
+    maxDistance: number;
 }
 
 type MemoryPatchApplyCallback = (code: NativePointer) => void;

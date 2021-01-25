@@ -4,6 +4,7 @@
 //                 Forrest Bice <https://github.com/forrestbice>
 //                 James Donald <https://github.com/jndonald3>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

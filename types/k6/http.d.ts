@@ -436,6 +436,9 @@ export interface Response {
     /** HTTP status code. */
     status: number;
 
+    /** HTTP status text returned by the server. */
+    status_text: string;
+
     /** Performance timing information. */
     timings: {
         /** Milliseconds spent blocked before initiating request. */

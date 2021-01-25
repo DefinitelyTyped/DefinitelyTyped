@@ -1,5 +1,5 @@
 import * as auth0 from 'auth0-js';
-import Auth0Lock from 'auth0-lock';
+import Auth0Lock, { Auth0LockPasswordless } from 'auth0-lock';
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
@@ -335,3 +335,5 @@ const authResultFilled : AuthResult = {
     state: "923jf092j3.FFSDJFDSKLDF",
     tokenType: 'Bearer'
 };
+
+new Auth0LockPasswordless(CLIENT_ID, DOMAIN); // $ExpectType Auth0LockPasswordlessStatic

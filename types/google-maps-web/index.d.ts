@@ -1552,7 +1552,8 @@ declare namespace google.maps {
      * or <code>Place</code> objects, to which to calculate distance and time.
      * Required.
      */
-    destinations: (string|google.maps.LatLng|google.maps.Place)[];
+    destinations: (string|google.maps.LatLng|google.maps.LatLngLiteral|
+                   google.maps.Place)[];
     /**
      * Settings that apply only to requests where <code>travelMode</code> is
      * <code>DRIVING</code>. This object will have no effect for other travel
@@ -1564,7 +1565,8 @@ declare namespace google.maps {
      * <code>Place</code> objects, from which to calculate distance and time.
      * Required.
      */
-    origins: (string|google.maps.LatLng|google.maps.Place)[];
+    origins: (string|google.maps.LatLng|google.maps.LatLngLiteral|
+              google.maps.Place)[];
     /**
      * Region code used as a bias for geocoding requests. Optional.
      */
@@ -2981,12 +2983,12 @@ declare namespace google.maps {
      * <code>MVCArray</code> corresponding to the <code>ControlPosition</code>
      * where it should be rendered.
      */
-    controls: (google.maps.MVCArray<any>|null)[]|null;
+    controls: google.maps.MVCArray<any>[];
     /**
      * An instance of <code>Data</code>, bound to the map. Add features to this
      * <code>Data</code> object to conveniently display them on this map.
      */
-    data: google.maps.Data|null;
+    data: google.maps.Data;
     /**
      * Sets the viewport to contain the given bounds.</br>
      * <strong>Note:</strong> When the map is set to <code>display: none</code>,
@@ -2996,42 +2998,43 @@ declare namespace google.maps {
      * the map div has an actual size.
      */
     fitBounds(
-        bounds: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral,
+        bounds: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral,
         padding?: number|google.maps.Padding): void;
     /**
      * Returns the lat/lng bounds of the current viewport. If more than one copy
      * of the world is visible, the bounds range in longitude from -180 to 180
-     * degrees inclusive. If the map is not yet initialized (i.e. the mapType is
-     * still null), or center and zoom have not been set then the result is
-     * <code>null</code> or <code>undefined</code>.
+     * degrees inclusive. If the map is not yet initialized or center and zoom
+     * have not been set then the result is <code>undefined</code>.
      */
-    getBounds(): google.maps.LatLngBounds|null;
+    getBounds(): google.maps.LatLngBounds|undefined;
     /**
      * Returns the position displayed at the center of the map. Note that this
      * <code>LatLng</code> object is <em>not</em> wrapped. See <code><a
-     * href="#LatLng">LatLng</a></code> for more information.
+     * href="#LatLng">LatLng</a></code> for more information. If the center or
+     * bounds have not been set then the result is <code>undefined</code>.
      */
-    getCenter(): google.maps.LatLng|null;
+    getCenter(): google.maps.LatLng|undefined;
     /**
      * Returns the clickability of the map icons. A map icon represents a point
      * of interest, also known as a POI. If the returned value is true, then the
      * icons are clickable on the map.
      */
-    getClickableIcons(): boolean;
+    getClickableIcons(): boolean|undefined;
     getDiv(): Element;
     /**
      * Returns the compass heading of aerial imagery. The heading value is
-     * measured in degrees (clockwise) from cardinal direction North.
+     * measured in degrees (clockwise) from cardinal direction North. If the map
+     * is not yet initialized then the result is undefined.
      */
-    getHeading(): number;
-    getMapTypeId(): string;
+    getHeading(): number|undefined;
+    getMapTypeId(): string|undefined;
     /**
      * Returns the current <code>Projection</code>. If the map is not yet
-     * initialized (i.e. the mapType is still null) then the result is null.
-     * Listen to <code>projection_changed</code> and check its value to ensure
-     * it is not null.
+     * initialized then the result is undefined. Listen to the
+     * <code>projection_changed</code> event and check its value to ensure it is
+     * not undefined.
      */
-    getProjection(): google.maps.Projection|null;
+    getProjection(): google.maps.Projection|undefined;
     /**
      * Returns the default <code>StreetViewPanorama</code> bound to the map,
      * which may be a default panorama embedded within the map, or the panorama
@@ -3039,7 +3042,7 @@ declare namespace google.maps {
      * <code>streetViewControl</code> will be reflected in the display of such a
      * bound panorama.
      */
-    getStreetView(): google.maps.StreetViewPanorama|null;
+    getStreetView(): google.maps.StreetViewPanorama|undefined;
     /**
      * Returns the current angle of incidence of the map, in degrees from the
      * viewport plane to the map plane. The result will be <code>0</code> for
@@ -3049,12 +3052,16 @@ declare namespace google.maps {
      * levels. <b>Note:</b> This method does not return the value set by
      * <code>setTilt</code>. See <code>setTilt</code> for details.
      */
-    getTilt(): number;
-    getZoom(): number;
+    getTilt(): number|undefined;
+    /**
+     * Returns the zoom of the map. If the zoom has not been set then the result
+     * is <code>undefined</code>.
+     */
+    getZoom(): number|undefined;
     /**
      * A registry of <code>MapType</code> instances by string ID.
      */
-    mapTypes: google.maps.MapTypeRegistry|null;
+    mapTypes: google.maps.MapTypeRegistry;
     /**
      * Additional map types to overlay. Overlay map types will display on top of
      * the base map they are attached to, in the order in which they appear in
@@ -3075,7 +3082,7 @@ declare namespace google.maps {
      * change is less than both the width and height of the map, the transition
      * will be smoothly animated.
      */
-    panTo(latLng: google.maps.LatLng|null|google.maps.LatLngLiteral): void;
+    panTo(latLng: google.maps.LatLng|google.maps.LatLngLiteral): void;
     /**
      * Pans the map by the minimum amount necessary to contain the given
      * <code>LatLngBounds</code>. It makes no guarantee where on the map the
@@ -3083,10 +3090,9 @@ declare namespace google.maps {
      * bounds as possible inside <code>{currentMapSizeInPx} - {padding}</code>.
      */
     panToBounds(
-        latLngBounds: google.maps.LatLngBounds|null|
-        google.maps.LatLngBoundsLiteral,
+        latLngBounds: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral,
         padding?: number|google.maps.Padding): void;
-    setCenter(latlng: google.maps.LatLng|null|google.maps.LatLngLiteral): void;
+    setCenter(latlng: google.maps.LatLng|google.maps.LatLngLiteral): void;
     /**
      * Controls whether the map icons are clickable or not. A map icon
      * represents a point of interest, also known as a POI. To disable the
@@ -3237,10 +3243,10 @@ declare namespace google.maps {
     disableDoubleClickZoom?: boolean|null;
     /**
      * If false, prevents the map from being dragged. Dragging is enabled by
-     * default. <p><strong>Note</strong>: This property is
-     * <strong>deprecated</strong>. To disable dragging on the map, you can use
-     * the <code>gestureHandling</code> property, and set it to
-     * <code>"none"</code>.
+     * default.
+     * @deprecated Deprecated in 2017. To disable dragging on the map, you can
+     *     use the <code>gestureHandling</code> property, and set it to
+     *     <code>"none"</code>.
      */
     draggable?: boolean|null;
     /**
@@ -6404,7 +6410,7 @@ declare namespace google.maps.places {
      * successfully retrieved. Otherwise returns a stub Place object, with the
      * <code>name</code> property set to the current value of the input field.
      */
-    getPlace(): google.maps.places.PlaceResult|null;
+    getPlace(): google.maps.places.PlaceResult;
     /**
      * Sets the preferred area within which to return Place results. Results are
      * biased towards, but not restricted to, this area.
@@ -6468,6 +6474,10 @@ declare namespace google.maps.places {
      * the place_changed event is fired will only have the place_id, types and
      * name fields, with the place_id, types and description returned by the
      * Autocomplete service. Disabled by default.
+     * @deprecated <code>placeIdOnly</code> is deprecated as of January 15,
+     *     2019, and will be turned off on January 15, 2020. Use {@link
+     *     google.maps.places.AutocompleteOptions.fields} instead: <code>fields:
+     *     [&#39;place_id&#39;, &#39;name&#39;, &#39;types&#39;]</code>.
      */
     placeIdOnly?: boolean;
     /**
@@ -6548,18 +6558,18 @@ declare namespace google.maps.places {
      * autocomplete request.
      */
     getPlacePredictions(
-        request: google.maps.places.AutocompletionRequest|null,
+        request: google.maps.places.AutocompletionRequest,
         callback:
-            (a: (google.maps.places.AutocompletePrediction|null)[]|null,
+            (a: google.maps.places.AutocompletePrediction[]|null,
              b: google.maps.places.PlacesServiceStatus) => void): void;
     /**
      * Retrieves query autocomplete predictions based on the supplied query
      * autocomplete request.
      */
     getQueryPredictions(
-        request: google.maps.places.QueryAutocompletionRequest|null,
+        request: google.maps.places.QueryAutocompletionRequest,
         callback:
-            (a: (google.maps.places.QueryAutocompletePrediction|null)[]|null,
+            (a: google.maps.places.QueryAutocompletePrediction[]|null,
              b: google.maps.places.PlacesServiceStatus) => void): void;
   }
 }
@@ -6829,6 +6839,11 @@ declare namespace google.maps.places {
     isOpen(date?: Date): boolean|undefined;
     /**
      * Whether the Place is open at the current time.
+     * @deprecated <code>open_now</code> is deprecated as of November 2019. Use
+     *     the {@link google.maps.places.PlaceOpeningHours.isOpen} method from
+     *     a {@link google.maps.places.PlacesService.getDetails} result instead.
+     *     See <a
+     *     href="https://goo.gle/js-open-now">https://goo.gle/js-open-now</a>
      */
     open_now?: boolean;
     /**
@@ -7035,6 +7050,11 @@ declare namespace google.maps.places {
      * A flag indicating whether the Place is closed, either permanently or
      * temporarily. If the place is operational, or if no data is available, the
      * flag is absent from the response.
+     * @deprecated <code>permanently_closed</code> is deprecated as of May 2020
+     *     and will be turned off in May 2021. Use {@link
+     *     google.maps.places.PlaceResult.business_status} instead as
+     *     <code>permanently_closed</code> does not distinguish between
+     *     temporary and permanent closures.
      */
     permanently_closed?: boolean;
     /**
@@ -7093,6 +7113,10 @@ declare namespace google.maps.places {
      * behind UTC, the offset is negative. For example, the
      * <code>utc_offset</code> is <code>-60</code> for Cape Verde. Only
      * available with {@link google.maps.places.PlacesService.getDetails}.
+     * @deprecated <code>utc_offset</code> is deprecated as of November 2019.
+     *     Use {@link google.maps.places.PlaceResult.utc_offset_minutes}
+     *     instead. See <a
+     *     href="https://goo.gle/js-open-now">https://goo.gle/js-open-now</a>
      */
     utc_offset?: number;
     /**
@@ -7128,7 +7152,7 @@ declare namespace google.maps.places {
     /**
      * The aspects rated by the review. The ratings on a scale of 0 to 3.
      */
-    aspects: (google.maps.places.PlaceAspectRating|null)[]|null;
+    aspects?: google.maps.places.PlaceAspectRating[];
     /**
      * The name of the reviewer.
      */
@@ -7491,12 +7515,12 @@ declare namespace google.maps.places {
     /**
      * Returns the bounds to which query predictions are biased.
      */
-    getBounds(): google.maps.LatLngBounds|null;
+    getBounds(): google.maps.LatLngBounds|undefined;
     /**
-     * Returns the query selected by the user, or <code>null</code> if no places
-     * have been found yet, to be used with <code>places_changed</code> event.
+     * Returns the query selected by the user to be used with
+     * <code>places_changed</code> event.
      */
-    getPlaces(): (google.maps.places.PlaceResult|null)[]|null;
+    getPlaces(): google.maps.places.PlaceResult[]|undefined;
     /**
      * Sets the region to use for biasing query predictions. Results will only
      * be biased towards this area and not be completely restricted to it.

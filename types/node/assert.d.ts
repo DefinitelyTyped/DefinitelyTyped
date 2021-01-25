@@ -2,9 +2,7 @@ declare module 'assert' {
     /** An alias of `assert.ok()`. */
     function assert(value: any, message?: string | Error): asserts value;
     namespace assert {
-        class AssertionError implements Error {
-            name: string;
-            message: string;
+        class AssertionError extends Error {
             actual: any;
             expected: any;
             operator: string;

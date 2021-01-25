@@ -56,7 +56,7 @@ declare namespace Aws {
         iamManagedPolicies?: string[];
         iamRoleStatements?: IamRoleStatement[];
         stackPolicy?: ResourcePolicy[];
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         notificationArns?: string[];
         stackParameters?: StackParameters[];
         resourcePolicy?: ResourcePolicy[];
@@ -334,7 +334,7 @@ declare namespace Aws {
     interface S3 {
         bucket: string;
         event: string;
-        rules: S3Rule[];
+        rules?: S3Rule[];
         existing?: boolean;
     }
 
@@ -525,7 +525,7 @@ declare namespace Aws {
         awsKmsKeyArn?: string;
         environment?: Environment;
         tags?: Tags;
-        vpc?: Vpc;
+        vpc?: string | Vpc;
         package?: Package;
         layers?: Array<string | Record<string, string>>;
         tracing?: string;

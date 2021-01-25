@@ -90,6 +90,24 @@ declare namespace Email {
         root?: string;
 
         options?: ViewOptions;
+
+        /**
+         * Default locals to pass to templates for rendering
+         */
+        locals?: {
+            /**
+             * Whether or not to cache templates.
+             * Defaults to false for development and test environments, and true for all others (via process.env.NODE_ENV)
+             */
+            cache?: boolean;
+            /**
+             * @deprecated
+             * Adds whitespace to the resulting HTML to make it easier for a human to read using '  ' as indentation.
+             * Defaults to true, but is automatically set to false for subject templates and text-based emails
+             */
+            pretty?: boolean;
+            [key: string]: any;
+        };
     }
 
      interface EmailConfig<T = any> {

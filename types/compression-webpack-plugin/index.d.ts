@@ -1,11 +1,10 @@
 // Type definitions for compression-webpack-plugin 6.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
-//                 Rhys van der Waerden <https://github.com/rhys-vdw>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, Compiler } from 'webpack';
+import { WebpackPluginInstance, Compiler } from 'webpack';
 import { ZlibOptions as ZlibCompressionOptions } from 'zlib';
 
 export = CompressionPlugin;
@@ -13,7 +12,7 @@ export = CompressionPlugin;
 /**
  * Prepare compressed versions of assets to serve them with Content-Encoding.
  */
-declare class CompressionPlugin<O = any> extends Plugin {
+declare class CompressionPlugin<O = any> implements WebpackPluginInstance {
     static isWebpack4(): boolean;
     constructor(options?: CompressionPlugin.Options<O>);
 

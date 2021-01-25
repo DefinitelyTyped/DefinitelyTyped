@@ -49,7 +49,7 @@ declare namespace rateLimit {
         [key: string]: any;
     }
 
-    type MaxValueFn = () => number | Promise<number>;
+    type MaxValueFn = (req: express.Request, res: express.Response) => number | Promise<number>;
 
     interface Options {
         /**

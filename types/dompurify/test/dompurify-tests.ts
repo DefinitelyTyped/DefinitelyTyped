@@ -1,6 +1,6 @@
 import dompurify = require('dompurify');
 
-dompurify.sanitize('<script>alert("hi")</script>');
+dompurify.sanitize('<script>alert("hi")</script>'); // $ExpectType string
 dompurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
 // examples from the DOMPurify README
@@ -96,5 +96,6 @@ dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify
 dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
   if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
       event.allowedAttributes[event.attrName] = true;
+      event.forceKeepAttr = true;
   }
 });

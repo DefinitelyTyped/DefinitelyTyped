@@ -26,7 +26,10 @@ interface GooglePay {
         el: string;
         color: "black" | "white";
         type: "long" | "short";
-        getPrimeCallback: (
+        /**
+         * @description Use either TPDirect.googlePay.getPrime(callback) or TPDirect.googlePay.setupGooglePayButton({getPrimeCallback})
+         */
+        getPrimeCallback?: (
             err: {
                 status: number;
                 msg: string;
@@ -44,6 +47,9 @@ interface GooglePay {
         currency: string;
     }): void;
 
+    /**
+     * @description Use either TPDirect.googlePay.getPrime(callback) or TPDirect.googlePay.setupGooglePayButton({getPrimeCallback})
+     */
     getPrime(callback: (
             err: {
                 status: number;

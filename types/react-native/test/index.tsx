@@ -119,6 +119,7 @@ import {
     useWindowDimensions,
     SectionListData,
     ToastAndroid,
+    Touchable,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -361,6 +362,24 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 }
 
 export default Welcome;
+
+// TouchableTest
+function TouchableTest() {
+    function basicUsage() {
+        if (Touchable.TOUCH_TARGET_DEBUG) {
+            return Touchable.renderDebugView({
+                color: 'mediumspringgreen',
+                hitSlop: { bottom: 5, top: 5 },
+            });
+        }
+    }
+
+    function defaultHitSlop() {
+        return Touchable.renderDebugView({
+            color: 'red',
+        });
+    }
+}
 
 // TouchableNativeFeedbackTest
 export class TouchableNativeFeedbackTest extends React.Component {

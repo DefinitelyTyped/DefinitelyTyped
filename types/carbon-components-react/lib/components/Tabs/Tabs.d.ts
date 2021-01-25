@@ -6,6 +6,7 @@ export interface TabsProps extends Omit<ReactDivAttr, "onScroll"> {
     iconDescription?: string,
     light?: boolean,
     onSelectionChange?(index: number): void,
+    scrollIntoView?: boolean,
     selected?: number,
     selectionMode?: "automatic" | "manual",
     tabContentClassName?: string,
