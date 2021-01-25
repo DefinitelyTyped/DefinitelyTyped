@@ -236,9 +236,9 @@ type FilterOnceApplied<A> =
  * <needs description>
  * @param A
  */
-export interface Functor<A> {
-    map<U>(fn: (a: A) => U): Functor<U>;
-}
+export type Functor<A> =
+  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
 // ---------------------------------------------------------------------------------------
 // K
@@ -255,11 +255,12 @@ export type KeyValuePair<K, V> = [K, V];
 
 /**
  * <needs description>
+ * @param S
+ * @param A
  */
-export interface Lens {
-    <T, U>(obj: T): U;
-    set<T, U>(str: string, obj: T): U;
-}
+export type Lens<S, A> = (
+    functorFactory: (a: A) => Functor<A>
+) => (s: S) => Functor<S>;
 
 // ---------------------------------------------------------------------------------------
 // M
