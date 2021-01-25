@@ -93,7 +93,7 @@ declare namespace ReactRenderer {
     interface Renderer {
         sourcePos: boolean;
         softBreak: string;
-        renderers: ReactRenderer.Renderers;
+        renderers: Renderers;
         escapeHtml: boolean;
         skipHtml: boolean;
         transformLinUri: ((uri: string) => string) | null;
