@@ -13,15 +13,16 @@
 ## 目录
 
 * [当前状态](#当前状态)
-* [什么是声明文件？](#什么是声明文件？)
-* [如何去获取它？](#如何去获取它？)
-* [我该如何贡献？](#我该如何贡献？)
+* [什么是声明文件？](#什么是声明文件)
+* [如何去获取它？](#如何去获取它)
+* [我该如何贡献？](#我该如何贡献)
   - [测试](#测试)
   - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
     - [编辑一个现有包](#编辑一个现有包)
     - [创建一个新的包](#创建一个新的包)
     - [删除一个包](#删除一个包)
     - [验证](#验证)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -29,7 +30,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [常见错误](#常见错误)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [许可证](#许可证)
 
@@ -69,9 +70,9 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-#### 旧版本的 TypeScript（3.1 和更早版本）
+#### 旧版本的 TypeScript（3.3 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.2 及更高版本。如果您使用的是 TypeScript 2.0 到 3.1，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.4 及更高版本。如果您使用的是 TypeScript 2.0 到 3.3，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 Version | Released | End of Support
 -- | -- | --
@@ -88,6 +89,8 @@ Version | Released | End of Support
 3.8 | February 2020 | February 2022
 3.9 | May 2020 | May 2022
 4.0 | August 2020 | August 2022
+4.1     | November 2020  | November 2022
+4.2     | February 2021  | February 2023
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您将看到 TypeScript 2.5 可以将类型用于 react@16.0，而 TypeScript 2.6 和 2.7 可以将类型用于 react@16.4：
 
@@ -137,9 +140,9 @@ Version | Released | End of Support
 创建包含模块 "foo" 声明的 `types/foo/index.d.ts`.
 你现在应该将 `"foo"` 导入到你的代码中，它会使用新的类型声明。
 然后构建并运行代码确保你的类型定义与实际上发生的情况一致。
-一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#make-a-pull-request)，
-然后按照下面的说明去 [编辑一个现有包](#edit-an-existing-package) 或
-[创建一个新包](#create-a-new-package)。
+一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#发起一个-pull-request)，
+然后按照下面的说明去 [编辑一个现有包](#编辑一个现有包) 或
+[创建一个新包](#创建一个新的包)。
 
 ### 发起一个 pull request
 
@@ -151,7 +154,7 @@ Version | Released | End of Support
 
 * `cd types/<package to edit>`
 * 作出修改之后，[记得新增测试](#my-package-teststs)。
-  如果你进行了重大修改，不要忘记 [更新主版本](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package)
+  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本我应该如何更新它的类型声明包)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
   - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -173,7 +176,7 @@ Version | Released | End of Support
 
 如果你要为 npm 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
-(你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
+(你可以使用 `npm info <my-package>` 来检查 `<my-package>` 包是否存在。)
 
 你的包应该具有这样的结构：
 
@@ -195,26 +198,26 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 当一个包 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型时，应该从 Definitely Typed 中删除类型避免被混淆。
 
-你可以运行以下命令来删除它 `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-- `typingsPackageName`: 这是你要删除的目录名字.
-- `asOfVersion`: 将使用此版本将存根发布到 `@types/foo`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `foo` 版本。
-- `libraryName`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 `typingsPackageName` 相同，这种情况下你可以忽略它。
+你可以运行以下命令来删除它 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+- `<typingsPackageName>`: 这是你要删除的目录名字.
+- `<asOfVersion>`: 将使用此版本将存根发布到 `@types/<typingsPackageName>`. 版本号应该高于当前发布的任何版本，并且应该是 npm 上的 `<libraryName>` 版本。
+- `<libraryName>`: 替换 Definitely Typed 中类型的 npm 的包名。通常这与 `<typingsPackageName>` 相同，这种情况下你可以忽略它。
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
 你可以查看 `npm test` 中的错误来获得此列表。
-添加一个带有 `"dependencies": { "foo": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
+添加一个带有 `"dependencies": { "<libraryName>": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
 比如：
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-当你将 `package.json` 添加到 `foo` 依赖的时候，你还需要发起一个 PR, 将 `foo` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+当你将 `package.json` 添加到 `<libraryName>` 依赖的时候，你还需要发起一个 PR, 将 `<libraryName>` 添加到 ["DefinitelyTyped-tools" 中的 "allowedPackageJsonDependencies.txt"](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
 
@@ -222,6 +225,14 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+
+#### Naming
+
+如果你要为 npm 包添加类型，请创建具有相同名字的目录。
+如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
+(你可以使用 `npm info <my-package>` 来检查 `<my-package>` 包是否存在。)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
@@ -325,7 +336,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 * `var foo: string | any`:
   如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
@@ -434,7 +445,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 }
 ```
 
-你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) 和 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) 查看示例。
+你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) 和 [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) 查看示例。
 
 #### 我想去添加默认情况下不存在于 TypeScript 的 DOM API.
 

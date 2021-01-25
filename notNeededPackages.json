@@ -1022,6 +1022,11 @@
             "asOfVersion": "1.0.6"
         },
         {
+            "libraryName": "emoji-regex",
+            "typingsPackageName": "emoji-regex",
+            "asOfVersion": "9.2.0"
+        },
+        {
             "libraryName": "empty-trash",
             "typingsPackageName": "empty-trash",
             "asOfVersion": "3.0.0"
@@ -2077,6 +2082,11 @@
             "asOfVersion": "1.0.13"
         },
         {
+            "libraryName": "joi",
+            "typingsPackageName": "joi",
+            "asOfVersion": "17.2.0"
+        },
+        {
             "libraryName": "jointjs",
             "typingsPackageName": "jointjs",
             "asOfVersion": "2.0.0"
@@ -2125,6 +2135,11 @@
             "libraryName": "json-rules-engine",
             "typingsPackageName": "json-rules-engine",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "json-schema-traverse",
+            "typingsPackageName": "json-schema-traverse",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "jsonata",
@@ -2432,6 +2447,11 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdown-it-anchor",
+            "typingsPackageName": "markdown-it-anchor",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "markdownlint",
             "typingsPackageName": "markdownlint",
             "asOfVersion": "0.18.0"
@@ -2715,6 +2735,21 @@
             "libraryName": "msportalfx-test",
             "typingsPackageName": "msportalfx-test",
             "asOfVersion": "0.7.2"
+        },
+        {
+            "libraryName": "multibase",
+            "typingsPackageName": "multibase",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
         },
         {
             "libraryName": "multimatch",
@@ -3285,6 +3320,12 @@
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "asOfVersion": "5.4.3"
+        },
+        {
+            "libraryName": "pg-types",
+            "typingsPackageName": "pg-types",
+            "sourceRepoURL": "https://github.com/brianc/node-pg-types",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "phin",
@@ -4292,6 +4333,11 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "sql-query-identifier",
+            "typingsPackageName": "sql-query-identifier",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "sqs-consumer",
             "typingsPackageName": "sqs-consumer",
             "asOfVersion": "5.0.0"
@@ -4755,6 +4801,11 @@
             "libraryName": "universal-router",
             "typingsPackageName": "universal-router",
             "asOfVersion": "8.0.0"
+        },
+        {
+            "libraryName": "unsplash-js",
+            "typingsPackageName": "unsplash-js",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "untildify",

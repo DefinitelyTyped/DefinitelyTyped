@@ -22,8 +22,12 @@ declare namespace Undertaker {
         [arg: string]: string;
     }
 
+    interface TaskCallback {
+        (error?: Error | null): void;
+    }
+
     interface TaskFunctionBase {
-        (done: (error?: Error | null) => void): ReturnType<AsyncTask>;
+        (done: TaskCallback): ReturnType<AsyncTask>;
     }
 
     interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}

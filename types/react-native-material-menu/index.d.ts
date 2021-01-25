@@ -17,7 +17,7 @@ export interface MenuItemProps {
     disabled?: boolean;
     testID?: string;
     disabledTextColor?: string;
-    ellipsizeMode?: TextProps["ellipsizeMode"];
+    ellipsizeMode?: TextProps['ellipsizeMode'];
     onPress?: () => void;
     style?: StyleProp<ViewStyle>;
     textStyle?: TextStyle;
@@ -27,10 +27,10 @@ export interface MenuDividerProps {
     color?: string;
 }
 
-export class MenuDivider extends Component<MenuDividerProps> { }
-export class MenuItem extends Component<MenuItemProps> { }
+export class MenuDivider extends Component<MenuDividerProps> {}
+export class MenuItem extends Component<MenuItemProps> {}
 
 export default class Menu extends Component<MenuProps> {
-    show: () => {};
-    hide: () => {};
+    show: () => void;
+    hide: (onHidden?: () => void) => void;
 }

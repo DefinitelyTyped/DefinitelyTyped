@@ -23,6 +23,17 @@ const apiLimiterWithMaxFn = rateLimit({
     max: () => 5,
 });
 
+const apiLimiterWithMaxFnRequestAndResponse = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: (req, _) => {
+        return req.params.shouldRejectThisRequest ? 0 : 5;
+    },
+    message: {
+        status: 429,
+        message: "`shouldRejectThisRequest` was toggled in the request params and this request was rejected",
+    }
+});
+
 const apiLimiterWithMaxPromiseFn = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: () => Promise.resolve(5),
@@ -33,7 +44,7 @@ const apiLimiterWithMessageObject = rateLimit({
     max: 100,
     message: {
         status: 429,
-        message: 'To many requests, try again later',
+        message: 'Too many requests, try again later',
     },
 });
 

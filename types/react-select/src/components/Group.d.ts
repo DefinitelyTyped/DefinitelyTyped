@@ -19,6 +19,8 @@ export function groupCSS(): React.CSSProperties;
 
 export const Group: ComponentType<GroupProps<any, boolean>>;
 
+export type GroupHeadingProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & Pick<ComponentProps, 'children'>;
+
 export function groupHeadingCSS(): React.CSSProperties;
 
 export const GroupHeading: ComponentType<any>;

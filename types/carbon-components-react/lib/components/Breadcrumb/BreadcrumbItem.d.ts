@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactLIAttr } from "../../../typings/shared";
+import { ReactLIAttr, ForwardRefReturn } from "../../../typings/shared";
 import { LinkProps } from "../Link";
 
 export interface BreadcrumbItemProps extends ReactLIAttr {
@@ -7,6 +7,6 @@ export interface BreadcrumbItemProps extends ReactLIAttr {
     href?: LinkProps["href"],
 }
 
-declare const BreadcrumbItem: React.FC<BreadcrumbItemProps>;
+declare const BreadcrumbItem: ForwardRefReturn<HTMLLIElement, BreadcrumbItemProps>;
 
 export default BreadcrumbItem;

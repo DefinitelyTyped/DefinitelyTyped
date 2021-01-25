@@ -277,8 +277,8 @@ declare module "dns" {
     const CANCELLED: string;
 
     class Resolver {
+        cancel(): void;
         getServers: typeof getServers;
-        setServers: typeof setServers;
         resolve: typeof resolve;
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
@@ -292,7 +292,8 @@ declare module "dns" {
         resolveSrv: typeof resolveSrv;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
-        cancel(): void;
+        setLocalAddress(ipv4?: string, ipv6?: string): void;
+        setServers: typeof setServers;
     }
 
     namespace promises {
@@ -351,6 +352,7 @@ declare module "dns" {
         function setServers(servers: ReadonlyArray<string>): void;
 
         class Resolver {
+            cancel(): void;
             getServers: typeof getServers;
             resolve: typeof resolve;
             resolve4: typeof resolve4;
@@ -365,6 +367,7 @@ declare module "dns" {
             resolveSrv: typeof resolveSrv;
             resolveTxt: typeof resolveTxt;
             reverse: typeof reverse;
+            setLocalAddress(ipv4?: string, ipv6?: string): void;
             setServers: typeof setServers;
         }
     }

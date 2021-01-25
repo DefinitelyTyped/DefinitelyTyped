@@ -1281,6 +1281,7 @@ export interface PlotData {
     ids: string[];
     level: string;
     cliponaxis: boolean;
+    automargin: boolean;
 }
 
 /**

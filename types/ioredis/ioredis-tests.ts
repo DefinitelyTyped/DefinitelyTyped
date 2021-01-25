@@ -70,6 +70,11 @@ redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
 
+// Test list index command
+redis.rpush('lposlist', 'foo', 'bar', 'baz');
+redis.lpos('lposlist', 'foo').then(console.log);
+redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
+
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
 redis.hdel('foo', 'bar', cbNumber);
@@ -740,3 +745,6 @@ redis.options.host;
 redis.status;
 cluster.options.maxRedirections;
 cluster.status;
+
+import { lookup } from 'dns';
+clusterOptions.dnsLookup = lookup;

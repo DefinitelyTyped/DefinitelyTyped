@@ -217,8 +217,8 @@ async function testPromisify() {
     const fd5: Readable | Writable | null = cp.stdio[4]!;
 
     cp = cp.addListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.addListener("disconnect", () => { });
     cp = cp.addListener("error", (err) => {
@@ -226,7 +226,7 @@ async function testPromisify() {
     });
     cp = cp.addListener("exit", (code, signal) => {
         const _code: number | null = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.addListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -240,16 +240,16 @@ async function testPromisify() {
     _boolean = cp.emit("message", () => { });
 
     cp = cp.on("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.on("disconnect", () => { });
     cp = cp.on("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.on("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.on("message", (message, sendHandle) => {
         const _message: any = message;
@@ -257,16 +257,16 @@ async function testPromisify() {
     });
 
     cp = cp.once("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.once("disconnect", () => { });
     cp = cp.once("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.once("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.once("message", (message, sendHandle) => {
         const _message: any = message;
@@ -274,16 +274,16 @@ async function testPromisify() {
     });
 
     cp = cp.prependListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependListener("disconnect", () => { });
     cp = cp.prependListener("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.prependListener("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -291,16 +291,16 @@ async function testPromisify() {
     });
 
     cp = cp.prependOnceListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependOnceListener("disconnect", () => { });
     cp = cp.prependOnceListener("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.prependOnceListener("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependOnceListener("message", (message, sendHandle) => {
         const _message: any = message;

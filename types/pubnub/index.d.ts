@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.28
+// Type definitions for pubnub 4.29
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -8,6 +8,7 @@
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
 //                  elviswolcott <https://github.com/elviswolcott>
+//                  mohitpubnub <https://github.com/mohitpubnub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
@@ -647,6 +648,19 @@ declare namespace Pubnub {
         };
     }
 
+    interface FileEvent {
+        channel: string;
+        subscription: string;
+        publisher: string;
+        timetoken: string;
+        message: any;
+        file: {
+            id: string;
+            name: string;
+            url: string;
+        };
+    }
+
     interface BaseObjectsEvent {
         channel: string;
         message: {
@@ -972,6 +986,8 @@ declare namespace Pubnub {
 
         messageAction?(messageActionEvent: MessageActionEvent): void;
 
+        file?(fileEvent: FileEvent): void;
+
         objects?(objectsEvent: ObjectsEvent): void;
     }
 
@@ -1281,16 +1297,17 @@ declare namespace Pubnub {
       }
 
     interface SendFileResponse {
+        timetoken: string;
         name: string;
         id: string;
       }
 
     interface DeleteFileResponse {
-        status: string;
+        status: number;
     }
 
     interface PublishFileResponse {
-        timetoken: number;
+        timetoken: string;
     }
 
     // Objects v2

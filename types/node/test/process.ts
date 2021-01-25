@@ -89,7 +89,7 @@ import { EventEmitter } from "events";
 }
 
 {
-    function abortNeverReturns(): never {
-        process.abort();
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
     }
 }
