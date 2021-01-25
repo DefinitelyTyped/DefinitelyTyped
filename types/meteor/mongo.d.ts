@@ -242,7 +242,7 @@ declare module "meteor/mongo" {
             observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
             observeChanges(callbacks: ObserveChangesCallbacks<T>, options?: { nonMutatingCallbacks?: boolean }): Meteor.LiveQueryHandle;
             _mongo: MongoInternals.Connection;
-            _synchronousCursor: MongoInternals.SynchronousCursor;
+            _synchronousCursor: Mongo.Cursor<Mongo.Document>;
         }
 
         var ObjectID: ObjectIDStatic;
@@ -269,15 +269,6 @@ declare module "meteor/mongo" {
 }
 
 declare module MongoInternals {
-    interface SynchronousCursor {
-        _nextObject(): Mongo.Document;
-        close(): void;
-
-        _dbCursor: {
-            isClosed(): boolean;
-        };
-    }
-
     interface Connection {
         find(collectionName: string, selector?: any, options?: Mongo.FindOptions<Mongo.Document>): Mongo.Cursor<Mongo.Document>;
         findOne(collectionName: string, selector?: any, options?: Mongo.FindOneOptions<Mongo.Document>): Mongo.Document;
@@ -285,7 +276,7 @@ declare module MongoInternals {
         _createSynchronousCursor(cursorDescription: Mongo.CursorDescription<Mongo.Document>, options: {
             selfForIteration: any,
             useTransform: boolean,
-        }): SynchronousCursor;
+        }): Mongo.Cursor<Mongo.Document>;
 
         mongo: {
             client: {
