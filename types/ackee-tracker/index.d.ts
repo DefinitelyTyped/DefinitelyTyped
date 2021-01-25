@@ -21,7 +21,7 @@ export interface TrackingOptions {
 }
 
 export interface AckeeTrackingReturn {
-    stop: () => void
+    stop: () => void;
 }
 
 export interface ActionAttributes {
