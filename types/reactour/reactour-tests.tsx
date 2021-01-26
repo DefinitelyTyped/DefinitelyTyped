@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tour, { Arrow, Badge, Close, Controls, Dot, Navigation } from 'reactour';
+import Tour, { Arrow, Badge, Close, Controls, CustomHelperProps, Dot, Navigation } from 'reactour';
 
 class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
     ref = React.createRef<Tour>();
