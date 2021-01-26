@@ -1,1 +1,3 @@
-export { InfrastructureSecurity as default } from "../../";
+import { InfrastructureSecurity } from "../../";
+
+export = InfrastructureSecurity;

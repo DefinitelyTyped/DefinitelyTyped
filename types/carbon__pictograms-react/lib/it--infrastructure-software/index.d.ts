@@ -1,1 +1,3 @@
-export { ItInfrastructureSoftware as default } from "../../";
+import { ItInfrastructureSoftware } from "../../";
+
+export = ItInfrastructureSoftware;

@@ -1,1 +1,3 @@
-export { CLanguage as default } from "../../";
+import { CLanguage } from "../../";
+
+export = CLanguage;

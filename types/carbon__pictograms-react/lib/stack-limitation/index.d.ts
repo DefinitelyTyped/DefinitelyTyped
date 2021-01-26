@@ -1,1 +1,3 @@
-export { StackLimitation as default } from "../../";
+import { StackLimitation } from "../../";
+
+export = StackLimitation;

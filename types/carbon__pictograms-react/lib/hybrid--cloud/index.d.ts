@@ -1,1 +1,3 @@
-export { HybridCloud as default } from "../../";
+import { HybridCloud } from "../../";
+
+export = HybridCloud;

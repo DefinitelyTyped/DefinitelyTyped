@@ -1,1 +1,3 @@
-export { ServerOperatingSystems as default } from "../../";
+import { ServerOperatingSystems } from "../../";
+
+export = ServerOperatingSystems;

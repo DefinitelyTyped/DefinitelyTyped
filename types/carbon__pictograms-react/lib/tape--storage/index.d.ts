@@ -1,1 +1,3 @@
-export { TapeStorage as default } from "../../";
+import { TapeStorage } from "../../";
+
+export = TapeStorage;

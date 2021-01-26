@@ -1,1 +1,3 @@
-export { Recycle as default } from "../../";
+import { Recycle } from "../../";
+
+export = Recycle;

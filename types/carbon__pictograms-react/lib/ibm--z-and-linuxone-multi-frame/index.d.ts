@@ -1,1 +1,3 @@
-export { IbmZAndLinuxoneMultiFrame as default } from "../../";
+import { IbmZAndLinuxoneMultiFrame } from "../../";
+
+export = IbmZAndLinuxoneMultiFrame;

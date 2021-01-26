@@ -1,1 +1,3 @@
-export { KualaLumpur as default } from "../../";
+import { KualaLumpur } from "../../";
+
+export = KualaLumpur;

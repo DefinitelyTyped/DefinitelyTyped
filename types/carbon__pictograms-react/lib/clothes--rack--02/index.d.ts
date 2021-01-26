@@ -1,1 +1,3 @@
-export { ClothesRack_02 as default } from "../../";
+import { ClothesRack_02 } from "../../";
+
+export = ClothesRack_02;

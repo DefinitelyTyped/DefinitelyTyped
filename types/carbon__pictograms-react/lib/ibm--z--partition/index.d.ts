@@ -1,1 +1,3 @@
-export { IbmZPartition as default } from "../../";
+import { IbmZPartition } from "../../";
+
+export = IbmZPartition;

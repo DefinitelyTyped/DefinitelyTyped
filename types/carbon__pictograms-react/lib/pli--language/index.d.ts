@@ -1,1 +1,3 @@
-export { PliLanguage as default } from "../../";
+import { PliLanguage } from "../../";
+
+export = PliLanguage;

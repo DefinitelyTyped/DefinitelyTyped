@@ -1,1 +1,3 @@
-export { Keyboard as default } from "../../";
+import { Keyboard } from "../../";
+
+export = Keyboard;

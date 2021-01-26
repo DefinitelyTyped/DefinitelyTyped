@@ -1,1 +1,3 @@
-export { DataPrivacy as default } from "../../";
+import { DataPrivacy } from "../../";
+
+export = DataPrivacy;

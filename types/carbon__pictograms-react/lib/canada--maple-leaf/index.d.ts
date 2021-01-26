@@ -1,1 +1,3 @@
-export { CanadaMapleLeaf as default } from "../../";
+import { CanadaMapleLeaf } from "../../";
+
+export = CanadaMapleLeaf;

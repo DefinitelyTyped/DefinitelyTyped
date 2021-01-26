@@ -1,1 +1,3 @@
-export { CobolLanguage as default } from "../../";
+import { CobolLanguage } from "../../";
+
+export = CobolLanguage;

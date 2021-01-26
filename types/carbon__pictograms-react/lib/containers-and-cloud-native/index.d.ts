@@ -1,1 +1,3 @@
-export { ContainersAndCloudNative as default } from "../../";
+import { ContainersAndCloudNative } from "../../";
+
+export = ContainersAndCloudNative;

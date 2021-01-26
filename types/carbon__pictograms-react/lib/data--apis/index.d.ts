@@ -1,1 +1,3 @@
-export { DataApis as default } from "../../";
+import { DataApis } from "../../";
+
+export = DataApis;

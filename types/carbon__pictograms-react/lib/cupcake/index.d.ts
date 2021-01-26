@@ -1,1 +1,3 @@
-export { Cupcake as default } from "../../";
+import { Cupcake } from "../../";
+
+export = Cupcake;

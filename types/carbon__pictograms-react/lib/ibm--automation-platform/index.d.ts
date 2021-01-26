@@ -1,1 +1,3 @@
-export { IbmAutomationPlatform as default } from "../../";
+import { IbmAutomationPlatform } from "../../";
+
+export = IbmAutomationPlatform;

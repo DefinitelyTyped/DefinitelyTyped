@@ -1,1 +1,3 @@
-export { BusinessContinuity as default } from "../../";
+import { BusinessContinuity } from "../../";
+
+export = BusinessContinuity;

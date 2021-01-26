@@ -1,1 +1,3 @@
-export { Slack as default } from "../../";
+import { Slack } from "../../";
+
+export = Slack;

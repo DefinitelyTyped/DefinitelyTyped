@@ -1,1 +1,3 @@
-export { StorageProduct as default } from "../../";
+import { StorageProduct } from "../../";
+
+export = StorageProduct;

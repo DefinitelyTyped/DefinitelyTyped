@@ -1,1 +1,3 @@
-export { CreditCard as default } from "../../";
+import { CreditCard } from "../../";
+
+export = CreditCard;

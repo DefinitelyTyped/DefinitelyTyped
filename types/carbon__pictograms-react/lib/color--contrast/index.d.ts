@@ -1,1 +1,3 @@
-export { ColorContrast as default } from "../../";
+import { ColorContrast } from "../../";
+
+export = ColorContrast;

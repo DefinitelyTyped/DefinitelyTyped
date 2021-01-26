@@ -1,1 +1,3 @@
-export { WeddingCake as default } from "../../";
+import { WeddingCake } from "../../";
+
+export = WeddingCake;

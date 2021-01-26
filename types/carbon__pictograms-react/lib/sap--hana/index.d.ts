@@ -1,1 +1,3 @@
-export { SapHana as default } from "../../";
+import { SapHana } from "../../";
+
+export = SapHana;

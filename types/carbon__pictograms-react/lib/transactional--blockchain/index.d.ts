@@ -1,1 +1,3 @@
-export { TransactionalBlockchain as default } from "../../";
+import { TransactionalBlockchain } from "../../";
+
+export = TransactionalBlockchain;

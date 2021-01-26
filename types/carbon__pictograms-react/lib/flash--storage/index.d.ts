@@ -1,1 +1,3 @@
-export { FlashStorage as default } from "../../";
+import { FlashStorage } from "../../";
+
+export = FlashStorage;

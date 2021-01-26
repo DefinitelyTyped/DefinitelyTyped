@@ -1,1 +1,3 @@
-export { RioDeJaneiro as default } from "../../";
+import { RioDeJaneiro } from "../../";
+
+export = RioDeJaneiro;

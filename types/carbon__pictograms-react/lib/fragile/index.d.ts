@@ -1,1 +1,3 @@
-export { Fragile as default } from "../../";
+import { Fragile } from "../../";
+
+export = Fragile;

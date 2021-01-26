@@ -1,1 +1,3 @@
-export { Earth as default } from "../../";
+import { Earth } from "../../";
+
+export = Earth;

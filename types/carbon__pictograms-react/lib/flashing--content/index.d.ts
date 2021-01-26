@@ -1,1 +1,3 @@
-export { FlashingContent as default } from "../../";
+import { FlashingContent } from "../../";
+
+export = FlashingContent;

@@ -1,1 +1,3 @@
-export { GoLanguage as default } from "../../";
+import { GoLanguage } from "../../";
+
+export = GoLanguage;

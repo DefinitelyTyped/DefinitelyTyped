@@ -1,1 +1,3 @@
-export { DevicePairing as default } from "../../";
+import { DevicePairing } from "../../";
+
+export = DevicePairing;

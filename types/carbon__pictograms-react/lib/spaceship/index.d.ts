@@ -1,1 +1,3 @@
-export { Spaceship as default } from "../../";
+import { Spaceship } from "../../";
+
+export = Spaceship;

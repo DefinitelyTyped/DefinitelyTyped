@@ -1,1 +1,3 @@
-export { TextLayout as default } from "../../";
+import { TextLayout } from "../../";
+
+export = TextLayout;
