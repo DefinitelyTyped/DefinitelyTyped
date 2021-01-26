@@ -20,9 +20,7 @@ import {
     Hpi,
     CloudPakForApplications,
 } from '@carbon/pictograms-react';
-import * as AddDevice from '@carbon/pictograms-react/lib/add--device';
 
-<AddDevice />; // $ExpectType Element
 <Airplane />; // $ExpectType Element
 <Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element
 <ClientFinancing_01 />; // $ExpectType Element
