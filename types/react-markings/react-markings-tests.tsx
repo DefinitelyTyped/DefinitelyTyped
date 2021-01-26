@@ -23,7 +23,7 @@ export function ReadMe() {
   `;
 }
 
-let customMd = md.customize({
+const customMd = md.customize({
     renderers: {
         // customize heading with class
         Heading: (props) => React.createElement("h" + props.level, { className: "fancy-heading" }, props.children),
