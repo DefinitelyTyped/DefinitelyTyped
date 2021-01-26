@@ -100,7 +100,7 @@ export interface GaugeChartProps {
     animate?: boolean;
 
     /**
-     * gauge text font size
+     * The font size of gauge text
      * @default null
      */
     fontSize?: string;
@@ -109,7 +109,7 @@ export interface GaugeChartProps {
      * Duration in ms for the needle animation
      * @default 3000
      */
-    animateDuration: number;
+    animateDuration?: number;
 
     /**
      * Delay in ms before starting the needle animation
@@ -118,7 +118,11 @@ export interface GaugeChartProps {
     animDelay?: number;
 
     /**
-     * Format you own text value (example: value => value+'%')
+     * Format you own text value
+     * @example
+     * ```
+     * (value) => value + '%'
+     * ```
      * @default null
      */
     formatTextValue?: (value: string) => string;
