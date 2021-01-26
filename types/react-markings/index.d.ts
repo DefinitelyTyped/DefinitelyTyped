@@ -23,7 +23,7 @@ declare namespace md {
     }
 
     type Markings = (...strings: Array<TemplateStringsArray | React.ReactElement>) => React.ReactElement;
-    export function customize(opts: Options): Markings;
+    function customize(opts: Options): Markings;
 }
 
 declare function md(...strings: Array<TemplateStringsArray | React.ReactElement>): React.ReactElement;
