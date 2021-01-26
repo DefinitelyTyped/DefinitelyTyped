@@ -3,6 +3,10 @@
     "rules":{
         "max-line-length": false,
         "no-empty-interface": false,
-        "interface-over-type-literal": false
+        "interface-over-type-literal": false,
+        "no-irregular-whitespace": false,
+        "no-misused-new": false,
+        "no-unnecessary-class": false,
+        "unified-signatures": false
     }
 }
