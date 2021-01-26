@@ -1,10 +1,11 @@
-// Type definitions for prosemirror-markdown 1.0
+// Type definitions for prosemirror-markdown 1.5
 // Project: https://github.com/ProseMirror/prosemirror-markdown
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiokj Jr. <https://github.com/ifiokjr>
+//                 Hayashi Takuya <https://github.com/howyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,6 +55,13 @@ export interface TokenConfig {
      * When true, ignore content for the matched token.
      */
     ignore?: boolean;
+
+    /**
+     * Indicates that the [markdown-it token](https://markdown-it.github.io/markdown-it/#Token)
+     * has no `_open` or `_close` for the nodes.
+     * This defaults to true for `code_inline`, `code_block` and `fence`.
+     */
+    noCloseToken?: boolean;
 }
 
 /**
@@ -119,7 +127,12 @@ export class MarkdownParser<S extends Schema = any> {
  * A parser parsing unextended [CommonMark](http://commonmark.org/),
  * without inline HTML, and producing a document in the basic schema.
  */
-export let defaultMarkdownParser: MarkdownParser;
+export const defaultMarkdownParser: MarkdownParser;
+
+/**
+ * Document schema for the data model used by CommonMark.
+ */
+export const schema: Schema;
 
 export type MarkSerializerMethod<S extends Schema = any> = (
     state: MarkdownSerializerState<S>,

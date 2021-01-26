@@ -16,6 +16,8 @@ export = ReactGridLayout;
 
 declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
 
+type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
+
 declare namespace ReactGridLayout {
     interface Layout {
         /**
@@ -88,7 +90,7 @@ declare namespace ReactGridLayout {
          * By default, a handle is only shown on the bottom-right (southeast) corner.
          * Note that resizing from the top or left is generally not intuitive.
          */
-        resizeHandles?: Array<'s' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'>;
+        resizeHandles?: ResizeHandle[];
 
         /**
          * If true and draggable, item will be moved only within grid.
@@ -196,7 +198,12 @@ declare namespace ReactGridLayout {
          * 'se' - Southeast handle (bottom-right)
          * 'ne' - Northeast handle (top-right)
          */
-        resizeHandles?: Array<'s' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'>;
+        resizeHandles?: ResizeHandle[];
+
+        /**
+         * Defines custom component for resize handle
+         */
+        resizeHandle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode);
 
         /**
          * If set to false it will not call `onDrop()` callback.

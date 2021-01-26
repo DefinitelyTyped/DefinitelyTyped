@@ -41,6 +41,8 @@ const accordion = new Accordion(document.getElementById('root'), {});
 accordion._checkIfButton();
 accordion._handleKeypress({});
 accordion._toggle(document.getElementById('root'));
+Accordion.components;
+Accordion.options;
 
 const checkbox = new Checkbox(document.getElementById('root'), {});
 

@@ -31,17 +31,8 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface EmbeddedIconProps {
-    iconDescription?: string;
-}
-
-export interface EmbeddedTooltipProps {
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-}
-
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
@@ -65,25 +56,12 @@ export interface SizingProps {
     small?: boolean;
 }
 
-export interface ThemeProps {
-    light?: boolean;
-}
-
-export interface ValidityProps {
-    invalid?: boolean;
-    invalidText?: string;
-}
-
 export interface SideNavSharedProps {
     isSideNavExpanded?: boolean;
 }
 
 export interface SideNavSizingProps {
     large?: boolean;
-}
-
-export interface RefForwardingProps<T = HTMLElement> {
-    ref?: React.RefObject<T>;
 }
 
 //
@@ -94,7 +72,7 @@ export interface RefForwardingProps<T = HTMLElement> {
 //  function component with no generics: export declare const Comp: React.FC<PropsInterface>;
 //  function component with generics: export declare function Comp<T extends SomeType>(props: FCProps<PropsInterface<T>>): FCReturn;
 //  forwardRef component with no generics: export declare const Comp: ForwardRefReturn<HTMLElement, PropsInterface>;
-//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<PropsInterface<T>>): FCReturn;
+//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<HTMLElement, PropsInterface<T>>): FCReturn;
 //
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
 export type FCReturn = ReturnType<React.FC>;

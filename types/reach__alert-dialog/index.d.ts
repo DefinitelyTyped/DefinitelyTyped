@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { DialogProps, DialogContentProps } from 'reach__dialog';
+import { DialogProps, DialogContentProps } from '@reach/dialog';
 
 export type AlertDialogProps = {
     isOpen?: boolean;

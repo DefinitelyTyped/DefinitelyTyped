@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@styled-system/should-forward-prop": [
-              "styled-system__should-forward-prop"
+            "@styled-system/*": [
+              "styled-system__*"
             ]
         },
         "types": [],

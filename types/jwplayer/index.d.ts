@@ -157,7 +157,10 @@ declare namespace jwplayer {
     }
 
     interface ErrorParam {
+        code: number;
         message: string;
+        sourceError: object | null;
+        type: 'error';
     }
 
     interface FullscreenParam {

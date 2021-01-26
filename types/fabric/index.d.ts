@@ -1,4 +1,4 @@
-// Type definitions for FabricJS 3.6
+// Type definitions for FabricJS 4.2
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic>
 //                 Joseph Livecchi <https://github.com/joewashear007>
@@ -14,4 +14,4 @@
 //                 Natalie Marleny <https://github.com/nataliemarleny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export import fabric = require("./fabric-impl");
+export import fabric = require('./fabric-impl');

@@ -1,4 +1,4 @@
-// Type definitions for Mustache 4.0.0
+// Type definitions for Mustache 4.1.0
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
 //                 Manuel Thalmann <https://github.com/manuth>,
@@ -49,12 +49,15 @@ interface MustacheStatic {
     Writer: typeof MustacheWriter;
 
     /**
-     * Escapes HTML-characters.
+     * HTML escaping by default, can be overriden by setting Mustache.escape explicitly or providing the `options`
+     * argument with an `escape` function when invoking Mustache.render().
+     *
+     * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
      *
      * @param value
-     * The string to escape.
+     * The value to escape into a string.
      */
-    escape: (value: string) => string;
+    escape: EscapeFunction;
 
     /**
      * Clears all cached templates in this writer.
@@ -101,10 +104,15 @@ interface MustacheStatic {
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      *
-     * @param tags
-     * The tags to use.
+     * @param tagsOrOptions
+     * The delimeter tags to use or options overriding global defaults.
      */
-    render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+    render(
+        template: string,
+        view: any | MustacheContext,
+        partials?: PartialsOrLookupFn,
+        tagsOrOptions?: OpeningAndClosingTags | RenderOptions,
+    ): string;
 }
 
 /**
@@ -153,7 +161,7 @@ declare class MustacheScanner {
  */
 declare class MustacheContext {
     view: any;
-    parentContext: MustacheContext | undefined;
+    parent: MustacheContext | undefined;
 
     /**
      * Initializes a new instance of the `MustacheContext` class.
@@ -223,7 +231,12 @@ declare class MustacheWriter {
      * @param tags
      * The tags to use.
      */
-    render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+    render(
+        template: string,
+        view: any | MustacheContext,
+        partials?: PartialsOrLookupFn,
+        config?: OpeningAndClosingTags | RenderOptions,
+    ): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
@@ -242,7 +255,13 @@ declare class MustacheWriter {
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
-    renderTokens(tokens: string[][], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderTokens(
+        tokens: string[][],
+        context: MustacheContext,
+        partials?: PartialsOrLookupFn,
+        originalTemplate?: string,
+        config?: RenderOptions,
+    ): string;
 
     /**
      * Renders a section block.
@@ -259,7 +278,13 @@ declare class MustacheWriter {
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
      */
-    renderSection(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderSection(
+        token: string[],
+        context: MustacheContext,
+        partials?: PartialsOrLookupFn,
+        originalTemplate?: string,
+        config?: RenderOptions,
+    ): string;
 
     /**
      * Renders an inverted section block.
@@ -276,7 +301,13 @@ declare class MustacheWriter {
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
      */
-    renderInverted(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderInverted(
+        token: string[],
+        context: MustacheContext,
+        partials?: PartialsOrLookupFn,
+        originalTemplate?: string,
+        config?: RenderOptions,
+    ): string;
 
     /**
      * Adds indentation to each line of the given partial.
@@ -307,7 +338,12 @@ declare class MustacheWriter {
      * @param tags
      * The tags to use.
      */
-    renderPartial(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+    renderPartial(
+        token: string[],
+        context: MustacheContext,
+        partials?: PartialsOrLookupFn,
+        config?: OpeningAndClosingTags | RenderOptions,
+    ): string;
 
     /**
      * Renders an unescaped value.
@@ -329,7 +365,11 @@ declare class MustacheWriter {
      * @param context
      * The context to use for rendering the token.
      */
-    escapedValue(token: string[], context: MustacheContext): string;
+    escapedValue(
+        token: string[],
+        context: MustacheContext,
+        config?: RenderOptions,
+    ): string;
 
     /**
      * Renders a raw token.
@@ -340,30 +380,28 @@ declare class MustacheWriter {
     rawValue(token: string[]): string;
 }
 
-type RAW_VALUE = "text";
-type ESCAPED_VALUE = "name";
-type UNESCAPED_VALUE = "&";
-type SECTION = "#";
-type INVERTED = "^";
-type COMMENT = "!";
-type PARTIAL = ">";
-type EQUAL = "=";
+type RAW_VALUE = 'text';
+type ESCAPED_VALUE = 'name';
+type UNESCAPED_VALUE = '&';
+type SECTION = '#';
+type INVERTED = '^';
+type COMMENT = '!';
+type PARTIAL = '>';
+type EQUAL = '=';
 
-type TemplateSpanType =
-    | RAW_VALUE
-    | ESCAPED_VALUE
-    | SECTION
-    | UNESCAPED_VALUE
-    | INVERTED
-    | COMMENT
-    | PARTIAL
-    | EQUAL;
+type TemplateSpanType = RAW_VALUE | ESCAPED_VALUE | SECTION | UNESCAPED_VALUE | INVERTED | COMMENT | PARTIAL | EQUAL;
 
 type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number]
     | [TemplateSpanType, string, number, number, TemplateSpans, number]
     | [TemplateSpanType, string, number, number, string, number, boolean]
 >;
+
+/**
+ * Function responsible for escaping values from the view into the rendered output when templates
+ * has `{{ value }}` in them.
+ */
+type EscapeFunction = (value: any) => string;
 
 /**
  * An array of two strings, representing the opening and closing tags respectively, to be used in the templates being rendered.
@@ -377,13 +415,18 @@ type OpeningAndClosingTags = [string, string];
  *
  * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
  */
-type PartialsOrLookupFn = Record<string, string> | PartialLookupFn
-type PartialLookupFn = (partialName: string) => string | undefined
+type PartialsOrLookupFn = Record<string, string> | PartialLookupFn;
+type PartialLookupFn = (partialName: string) => string | undefined;
+
+interface RenderOptions {
+    escape?: EscapeFunction;
+    tags?: OpeningAndClosingTags;
+}
 
 interface TemplateCache {
-    set(cacheKey: string, value: string): void
-    get(cacheKey: string): string | undefined
-    clear(): void
+    set(cacheKey: string, value: string): void;
+    get(cacheKey: string): string | undefined;
+    clear(): void;
 }
 
 /**

@@ -8,20 +8,20 @@ declare const MyDb: {
 };
 Ember.Test.registerWaiter(MyDb, MyDb.hasPendingTransactions);
 
-Ember.Test.promise((resolve) => {
+Ember.Test.promise(resolve => {
     window.setTimeout(resolve, 500);
 });
 
-Ember.Test.registerHelper('boot', (app) => {
+Ember.Test.registerHelper('boot', app => {
     Ember.run(app, app.advanceReadiness);
 });
 
-Ember.Test.registerAsyncHelper('boot', (app) => {
+Ember.Test.registerAsyncHelper('boot', app => {
     Ember.run(app, app.advanceReadiness);
 });
 
 Ember.Test.registerAsyncHelper('waitForPromise', (app, promise) => {
-    return new Ember.Test.Promise((resolve) => {
+    return new Ember.Test.Promise(resolve => {
         Ember.Test.adapter.asyncStart();
 
         promise.then(() => {

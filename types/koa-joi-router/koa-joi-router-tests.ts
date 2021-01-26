@@ -160,6 +160,8 @@ const spec9Handler = (ctx: koa.Context) => {
 
 router().get('/user', spec9, spec9Handler);
 
+router().router.allowedMethods({ throw: true });
+
 const middleware1 = async (ctx: koa.Context, next: koa.Next) => {
   console.log('middleware1');
   await next();

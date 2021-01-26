@@ -45,15 +45,18 @@ export type MouseOrTouchEvent =
   | React.MouseEvent<HTMLElement>
   | React.TouchEvent<HTMLElement>;
 export type FormatOptionLabelContext = 'menu' | 'value';
-export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase> {
+export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase, IsMulti extends boolean> {
   context: FormatOptionLabelContext;
   inputValue: string;
-  selectValue: ValueType<OptionType>;
+  selectValue: ValueType<OptionType, IsMulti>;
 }
 
 export type SelectComponentsProps = { [key in string]: any };
 
-export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }> extends SelectComponentsProps {
+export interface NamedProps<
+  OptionType extends OptionTypeBase = { label: string; value: string },
+  IsMulti extends boolean = false
+> {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -94,7 +97,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
     instead. For a list of the components that can be passed in, and the shape
     that will be passed to them, see [the components docs](/api#components)
   */
-  components?: SelectComponentsConfig<OptionType>;
+  components?: SelectComponentsConfig<OptionType, IsMulti>;
   /* Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
   controlShouldRenderValue?: boolean;
   /* Delimiter used to join multiple values into a single HTML Input value */
@@ -109,7 +112,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Formats group labels in the menu as React components */
   formatGroupLabel?: formatGroupLabel<OptionType>;
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType>) => React.ReactNode;
+  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, IsMulti>) => React.ReactNode;
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel?: getOptionLabel<OptionType>;
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -135,7 +138,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Override the built-in logic to detect whether an option is selected */
   isOptionSelected?: (option: OptionType, options: OptionsType<OptionType>) => boolean;
   /* Support multiple selected options */
-  isMulti?: boolean;
+  isMulti?: IsMulti;
   /* Is the select direction right-to-left */
   isRtl?: boolean;
   /* Whether to enable search functionality */
@@ -166,7 +169,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
-  onChange?: (value: ValueType<OptionType>, action: ActionMeta<OptionType>) => void;
+  onChange?: (value: ValueType<OptionType, IsMulti>, action: ActionMeta<OptionType>) => void;
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler;
   /* Handle change events on the input */
@@ -194,7 +197,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Status to relay to screen readers */
   screenReaderStatus?: (obj: { count: number }) => string;
   /* Style modifier methods */
-  styles?: StylesConfig;
+  styles?: StylesConfig<OptionType, IsMulti>;
   /* Theme modifier method */
   theme?: ThemeConfig;
   /* Sets the tabIndex attribute on the input */
@@ -202,12 +205,17 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
   /* Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
   /* The value of the select; reflected by the selected option */
-  value?: ValueType<OptionType>;
+  value?: ValueType<OptionType, IsMulti>;
 
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
-  defaultValue?: ValueType<OptionType>;
+  defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
 }
+
+export interface Props<
+  OptionType extends OptionTypeBase = { label: string; value: string },
+  IsMulti extends boolean = false
+> extends NamedProps<OptionType, IsMulti>, SelectComponentsProps {}
 
 export const defaultProps: Props<any>;
 
@@ -230,7 +238,10 @@ export interface State<OptionType extends OptionTypeBase> {
 
 export type ElRef = React.Ref<any>;
 
-export default class Select<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
+export default class Select<
+  OptionType extends OptionTypeBase,
+  IsMulti extends boolean = false
+> extends React.Component<Props<OptionType, IsMulti>, State<OptionType>> {
   static defaultProps: Props<any>;
 
   // Misc. Instance Properties
@@ -239,7 +250,7 @@ export default class Select<OptionType extends OptionTypeBase> extends React.Com
   blockOptionHover: boolean;
   clearFocusValueOnUpdate: boolean;
   commonProps: any; // TODO
-  components: SelectComponents<OptionType>;
+  components: SelectComponents<OptionType, IsMulti>;
   hasGroups: boolean;
   initialTouchX: number;
   initialTouchY: number;
@@ -264,7 +275,7 @@ export default class Select<OptionType extends OptionTypeBase> extends React.Com
   // Lifecycle
   // ------------------------------
 
-  cacheComponents: (components: SelectComponents<OptionType>) => void;
+  cacheComponents: (components: SelectComponents<OptionType, IsMulti>) => void;
 
   // ==============================
   // Consumer Handlers
@@ -290,7 +301,7 @@ export default class Select<OptionType extends OptionTypeBase> extends React.Com
 
   focusOption(direction: FocusDirection): void;
   setValue: (
-    newValue: ValueType<OptionType>,
+    newValue: ValueType<OptionType, IsMulti>,
     action: ActionTypes,
     option?: OptionType
   ) => void;
@@ -313,7 +324,7 @@ export default class Select<OptionType extends OptionTypeBase> extends React.Com
     isRtl: boolean;
     options: OptionsType<any>;
     selectOption: (newValue: OptionType) => void;
-    setValue: (newValue: ValueType<OptionType>, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
     selectProps: Readonly<{
         children?: React.ReactNode;
     }> & Readonly<Props<OptionType>>;
@@ -411,7 +422,7 @@ export default class Select<OptionType extends OptionTypeBase> extends React.Com
   constructAriaLiveMessage(): string;
 
   renderInput(): React.ReactNode;
-  renderPlaceholderOrValue(): PlaceholderOrValue<OptionType> | null;
+  renderPlaceholderOrValue(): PlaceholderOrValue<OptionType, IsMulti> | null;
   renderClearIndicator(): React.ReactNode;
   renderLoadingIndicator(): React.ReactNode;
   renderIndicatorSeparator(): React.ReactNode;

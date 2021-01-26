@@ -294,7 +294,6 @@ declare namespace Rax {
     ...children: RaxNode[]
   ) => DOMElement<P, T>;
 
-  // tslint:disable-next-line:no-empty-interface
   interface HTMLFactory<T extends HTMLElement>
     extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
@@ -443,7 +442,6 @@ declare namespace Rax {
   type RaxInstance = Component<any> | Element;
 
   // Base component for plain JS classes
-  // tslint:disable-next-line:no-empty-interface
   interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
   class Component<P, S> {
     readonly props: Readonly<P> & Readonly<{ children?: RaxNode }>;
@@ -937,7 +935,6 @@ declare namespace Rax {
     target: EventTarget & T;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface FormEvent<T = Element> extends SyntheticEvent<T> {}
 
   interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
@@ -1652,7 +1649,6 @@ declare namespace Rax {
     referrerPolicy?: string;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
   interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2662,7 +2658,6 @@ type RaxManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: 
 
 declare global {
   namespace JSX {
-    // tslint:disable-next-line:no-empty-interface
     interface Element extends Rax.RaxElement<any, any> {}
     interface ElementClass extends Rax.Component<any> {
       render(): Rax.RaxNode;
@@ -2682,9 +2677,7 @@ declare global {
         : RaxManagedAttributes<T, P>
       : RaxManagedAttributes<C, P>;
 
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicAttributes extends Rax.Attributes {}
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicClassAttributes<T> extends Rax.ClassAttributes<T> {}
 
     interface IntrinsicElements {

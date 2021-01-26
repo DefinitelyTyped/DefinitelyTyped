@@ -4,7 +4,7 @@ import JsRender = require("jsreport-jsrender");
 import fs = require('fs');
 
 const jsreport = JsReport({
-    tasks: {
+    templatingEngines: {
         strategy: "http-server"
     }
 });

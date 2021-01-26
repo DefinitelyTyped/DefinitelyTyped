@@ -8,6 +8,8 @@ import BootstrapTable, {
     RowSelectionType,
     ROW_SELECT_SINGLE,
     ExpandRowProps,
+    ColumnSortCaret,
+    HeaderSortingClasses,
 } from 'react-bootstrap-table-next';
 
 interface Product {
@@ -49,6 +51,22 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
     );
 };
 
+const SortCaret: ColumnSortCaret = (order, column) => {
+    switch (order) {
+        case 'asc':
+            return '&#9650;';
+
+        case 'desc':
+            return '&#9660;';
+
+        default:
+            return null;
+    }
+};
+
+const headerSortingClasses: HeaderSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>
+    sortOrder === 'asc' || sortOrder === 'desc' ? 'sort-active' : '';
+
 const productColumns: Array<ColumnDescription<Product>> = [
     { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
     { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
@@ -56,7 +74,9 @@ const productColumns: Array<ColumnDescription<Product>> = [
         isDummyField: true,
         dataField: '',
         sort: true,
+        sortCaret: SortCaret,
         text: 'Product Name',
+        headerSortingClasses,
     },
     {
         dataField: 'price',
@@ -147,6 +167,48 @@ render(
 );
 
 /**
+ * Basic table with function returning string noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication={() => 'No data available'}
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with string noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication="No data available"
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with JSX element noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication={<div>No data available</div>}
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
  * Basic table with custom data indicator and caption
  */
 render(
@@ -182,11 +244,89 @@ render(
     document.getElementById('app'),
 );
 
+interface UserWithStringId {
+    id: string;
+    name: string;
+    description: string;
+}
+
+const usersWithStringIds: UserWithStringId[] = [
+    { id: '1', name: 'Jeremy', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    { id: '2', name: 'Richard', description: 'Pellentesque gravida eros nulla, vitae dignissim urna laoreet nec.' },
+    { id: '3', name: 'James', description: 'Phasellus fermentum interdum venenatis.' },
+    { id: '4', name: 'Stig', description: 'Nulla feugiat pharetra eleifend.' },
+];
+
+// test expandRow when string is key type
+render(
+    <BootstrapTable<UserWithStringId, string>
+        data={usersWithStringIds}
+        keyField="id"
+        columns={[
+            { text: 'ID', dataField: 'id' },
+            { text: 'Name', dataField: 'name' },
+        ]}
+        expandRow={{
+            renderer: (row: UserWithStringId) => <p>{row.description}</p>,
+            nonExpandable: ['2', '4'],
+            expanded: ['1', '3'],
+        }}
+    />,
+    document.getElementById('app'),
+);
+
+interface UserWithNumberId {
+    id: number;
+    name: string;
+    description: string;
+}
+
+const usersWithNumberIds: UserWithNumberId[] = [
+    { id: 1, name: 'Jeremy', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    { id: 2, name: 'Richard', description: 'Pellentesque gravida eros nulla, vitae dignissim urna laoreet nec.' },
+    { id: 3, name: 'James', description: 'Phasellus fermentum interdum venenatis.' },
+    { id: 4, name: 'Stig', description: 'Nulla feugiat pharetra eleifend.' },
+];
+
+// test expandRow when key is of default type
+render(
+    <BootstrapTable<UserWithNumberId>
+        data={usersWithNumberIds}
+        keyField="id"
+        columns={[
+            { text: 'ID', dataField: 'id' },
+            { text: 'Name', dataField: 'name' },
+        ]}
+        expandRow={{
+            renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
+            nonExpandable: [2, 4],
+            expanded: [1, 3],
+        }}
+    />,
+    document.getElementById('app'),
+);
+
+// test expandRow when key is of explicitly declared number type
+render(
+    <BootstrapTable<UserWithNumberId, number>
+        data={usersWithNumberIds}
+        keyField="id"
+        columns={[
+            { text: 'ID', dataField: 'id' },
+            { text: 'Name', dataField: 'name' },
+        ]}
+        expandRow={{
+            renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
+            nonExpandable: [2, 4],
+            expanded: [1, 3],
+        }}
+    />,
+    document.getElementById('app'),
+);
+
 const expandRow: ExpandRowProps<Product> = {
     renderer: (row: Product) => {
-        return (
-            <div></div>
-        );
+        return <div></div>;
     },
     expanded: [1, 2],
     onExpand: (row, isExpand, rowIndex, e) => <div></div>,

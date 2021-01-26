@@ -64,3 +64,9 @@ import { EventEmitter } from "events";
         r = process.send({ msg: "foo"}, {}, { swallowErrors: true }, (err: Error | null) => {});
     }
 }
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
+}

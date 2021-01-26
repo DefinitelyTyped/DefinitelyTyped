@@ -1,17 +1,24 @@
-// Type definitions for blueimp-load-image 2.23
+// Type definitions for blueimp-load-image 5.14
 // Project: https://github.com/blueimp/JavaScript-Load-Image
 // Definitions by: Evan Kesten <https://github.com/ebk46>
 //                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
 //                 Saeid Rezaei <https://github.com/moeinio>
+//                 Zak Barbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+    type LoadImageResult = MetaData & {
+        image: HTMLImageElement | FileReader | false;
+    };
 
-    type ParseMetaDataCallback = (data: ImageHead) => void;
+    type ParseMetaDataCallback = (data: MetaData) => void;
+
+    type ExifTagValue = number | string | string[];
 
     interface Exif {
-        [tag: number]: number | string | string[];
+        [tag: number]: ExifTagValue;
+        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
     }
 
     interface Iptc {
@@ -99,11 +106,12 @@ declare namespace loadImage {
 }
 
 // loadImage is implemented as a callable object.
-interface LoadImage  {
+interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
         | HTMLImageElement
         | FileReader
         | false;
+    (file: File | Blob | string, options: loadImage.LoadImageOptions): Promise<loadImage.LoadImageResult>;
 
     // Parses image meta data and calls the callback with the image head
     parseMetaData: (

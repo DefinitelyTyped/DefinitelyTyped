@@ -12,14 +12,6 @@ import {
 } from 'arcgis-rest-api';
 import Feature_1 from '../Feature';
 import Geometry_1 from '../geom/Geometry';
-import GeometryLayout from '../geom/GeometryLayout';
-import LineString from '../geom/LineString';
-import MultiLineString from '../geom/MultiLineString';
-import MultiPoint from '../geom/MultiPoint';
-import MultiPolygon from '../geom/MultiPolygon';
-import Point_1 from '../geom/Point';
-import Polygon_1 from '../geom/Polygon';
-import SimpleGeometry from '../geom/SimpleGeometry';
 import Projection from '../proj/Projection';
 import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
@@ -53,7 +45,16 @@ export default class EsriJSON extends JSONFeature {
     protected readFeaturesFromObject(object: any, opt_options?: ReadOptions): Feature_1<Geometry_1>[];
     protected readGeometryFromObject(object: EsriJSONGeometry, opt_options?: ReadOptions): Geometry_1;
     protected readProjectionFromObject(object: any): Projection;
+    /**
+     * Encode a feature as a esriJSON Feature object.
+     */
     writeFeatureObject(feature: Feature_1<Geometry_1>, opt_options?: WriteOptions): any;
+    /**
+     * Encode an array of features as a EsriJSON object.
+     */
     writeFeaturesObject(features: Feature_1<Geometry_1>[], opt_options?: WriteOptions): EsriJSONFeatureSet;
+    /**
+     * Encode a geometry as a EsriJSON object.
+     */
     writeGeometryObject(geometry: Geometry_1, opt_options?: WriteOptions): EsriJSONGeometry;
 }

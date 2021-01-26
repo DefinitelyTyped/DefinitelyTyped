@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import FullCalendar, { FullCalendarComponent } from 'fullcalendar__vue';
+import FullCalendar, { FullCalendarComponent } from '@fullcalendar/vue';
 
 new Vue({
     el: '#app',

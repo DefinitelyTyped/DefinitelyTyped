@@ -25,7 +25,6 @@ declare namespace memoizee {
   }
 }
 
-// tslint:disable-next-line ban-types
 declare function memoizee<F extends (...args: any[]) => any>(f: F, options?: memoizee.Options<F>): F & memoizee.Memoized<F>;
 
 export = memoizee;

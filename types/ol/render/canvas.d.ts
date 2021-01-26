@@ -5,7 +5,20 @@ import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
 
+/**
+ * Container for decluttered replay instructions that need to be rendered or
+ * omitted together, i.e. when styles render both an image and text, or for the
+ * characters that form text along lines. The basic elements of this array are
+ * [minX, minY, maxX, maxY, count], where the first four entries are the
+ * rendered extent of the group in pixel space. count is the number of styles
+ * in the group, i.e. 2 when an image and a text are grouped, or 1 otherwise.
+ * In addition to these four elements, declutter instruction arrays (i.e. the
+ * arguments to {@link module:ol/render/canvas~drawImage} are appended to the array.
+ */
 export type DeclutterGroup = any[];
+/**
+ * Declutter groups for support of multi geometries.
+ */
 export type DeclutterGroups = DeclutterGroup[];
 export interface FillState {
     fillStyle: ColorLike;
@@ -68,8 +81,16 @@ export const defaultPadding: number[];
 export const defaultStrokeStyle: ColorLike;
 export const defaultTextAlign: string;
 export const defaultTextBaseline: string;
+/**
+ * The label cache for text rendering. To change the default cache size of 2048
+ * entries, use {@link module:ol/structs/LRUCache#setSize}.
+ * Deprecated - there is no label cache any more.
+ */
 export const labelCache: any;
 export const measureTextHeight: (font: string) => Size;
+/**
+ * Clears the label cache when a font becomes available.
+ */
 export const registerFont: (fontSpec: string) => void;
 export const textHeights: { [key: string]: number };
 export function createTransformString(transform: Transform): string;
@@ -86,6 +107,9 @@ export function drawImageOrLabel(
     y: number,
     scale: Size,
 ): void;
+/**
+ * Measure text width using a cache.
+ */
 export function measureAndCacheTextWidth(font: string, text: string, cache: { [key: string]: number }): number;
 export function measureTextWidth(font: string, text: string): number;
 export function measureTextWidths(font: string, lines: string[], widths: number[]): number;

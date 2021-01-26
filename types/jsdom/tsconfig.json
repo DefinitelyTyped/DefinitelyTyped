@@ -14,6 +14,7 @@
     },
     "files": [
         "jsdom-tests.ts",
+        "test/core.ts",
         "index.d.ts"
     ]
 }

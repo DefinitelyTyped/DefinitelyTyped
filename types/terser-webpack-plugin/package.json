@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "terser": "^4.6.13"
+    "terser": "^5.3.8",
+    "webpack": "^5.1.0"
   }
 }

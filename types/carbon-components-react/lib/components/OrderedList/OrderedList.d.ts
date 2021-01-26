@@ -1,8 +1,7 @@
 import * as React from "react";
 
-interface InheritedProps extends React.OlHTMLAttributes<HTMLOListElement> { }
-
-export interface OrderedListProps extends InheritedProps {
+export interface OrderedListProps extends React.OlHTMLAttributes<HTMLOListElement> {
+    native?: boolean,
     nested?: boolean,
 }
 

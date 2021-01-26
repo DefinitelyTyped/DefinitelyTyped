@@ -9,6 +9,9 @@ import Layer from './Layer';
 
 export default class ImageLayer extends BaseImageLayer {
     constructor(opt_options?: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     createRenderer(): LayerRenderer<Layer<Source>>;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

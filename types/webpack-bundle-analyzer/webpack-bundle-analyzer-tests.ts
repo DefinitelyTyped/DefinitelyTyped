@@ -10,12 +10,14 @@ const config: webpack.Configuration = {
         new BundleAnalyzerPlugin({
             analyzerMode: 'json',
             analyzerPort: 'auto',
+            reportTitle: () => 'title',
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'server',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
             reportFilename: 'report.html',
+            reportTitle: 'title',
             defaultSizes: 'parsed',
             openAnalyzer: true,
             generateStatsFile: true,

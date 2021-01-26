@@ -1,6 +1,7 @@
 // Type definitions for css-tree 1.0
 // Project: https://github.com/csstree/csstree
 // Definitions by: Erik Källén <https://github.com/erik-kallen>
+//                 Jason Kratzer <https://github.com/pyoor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -204,8 +205,8 @@ export interface FunctionNodePlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
-export interface HexColor extends CssNodeCommon {
-    type: 'HexColor';
+export interface Hash extends CssNodeCommon {
+    type: 'Hash';
     value: string;
 }
 
@@ -410,7 +411,7 @@ export type CssNode =
     | DeclarationList
     | Dimension
     | FunctionNode
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -452,7 +453,7 @@ export type CssNodePlain =
     | DeclarationListPlain
     | Dimension
     | FunctionNodePlain
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -558,7 +559,7 @@ export type WalkOptions =
     | WalkOptionsVisit<DeclarationList>
     | WalkOptionsVisit<Dimension>
     | WalkOptionsVisit<FunctionNode>
-    | WalkOptionsVisit<HexColor>
+    | WalkOptionsVisit<Hash>
     | WalkOptionsVisit<IdSelector>
     | WalkOptionsVisit<Identifier>
     | WalkOptionsVisit<MediaFeature>
@@ -618,3 +619,196 @@ export function clone(node: CssNode): CssNode;
 
 export function fromPlainObject(node: CssNodePlain): CssNode;
 export function toPlainObject(node: CssNode): CssNodePlain;
+
+/**
+ * Definition syntax AtWord node
+ */
+export interface DSNodeAtWord {
+    type: 'AtKeyword';
+    name: string;
+}
+
+/**
+ * Definition syntax Comma node
+ */
+export interface DSNodeComma {
+    type: 'Comma';
+}
+
+/**
+ * Definition syntax Function node
+ */
+export interface DSNodeFunction {
+    type: 'Function';
+    name: string;
+}
+
+export type DSNodeCombinator = '|' | '||' | '&&' | ' ';
+
+/**
+ * Definition syntax Group node
+ */
+export interface DSNodeGroup {
+    type: 'Group';
+    terms: DSNode[];
+    combinator: DSNodeCombinator;
+    disallowEmpty: boolean;
+    explicit: boolean;
+}
+
+/**
+ * Definition syntax Keyword node
+ */
+export interface DSNodeKeyword {
+    type: 'Keyword';
+    name: string;
+}
+
+/**
+ * Definition syntax Multiplier node
+ */
+export interface DSNodeMultiplier {
+    type: 'Multiplier';
+    comma: boolean;
+    min: number;
+    max: number;
+    term: DSNodeMultiplied;
+}
+
+/**
+ * Definition syntax Property node
+ */
+export interface DSNodeProperty {
+    type: 'Property';
+    name: string;
+}
+
+/**
+ * Definition syntax String node
+ */
+export interface DSNodeString {
+    type: 'String';
+    value: string;
+}
+
+/**
+ * Definition syntax Token node
+ */
+export interface DSNodeToken {
+    type: 'Token';
+    value: string;
+}
+
+/**
+ * Definition syntax Type node options
+ */
+export interface DSNodeTypeOpts {
+    type: 'Range';
+    min: number | null;
+    max: number | null;
+}
+
+/**
+ * Definition syntax Type node
+ */
+export interface DSNodeType {
+    type: 'Type';
+    name: string;
+    opts: DSNodeTypeOpts | null;
+}
+
+/**
+ * Definition syntax node
+ */
+export type DSNode =
+    DSNodeAtWord
+    | DSNodeComma
+    | DSNodeFunction
+    | DSNodeGroup
+    | DSNodeKeyword
+    | DSNodeMultiplier
+    | DSNodeProperty
+    | DSNodeString
+    | DSNodeToken
+    | DSNodeType;
+
+/**
+ * Definition syntax node compatible with a multiplier
+ */
+export type DSNodeMultiplied =
+    DSNodeFunction
+    | DSNodeGroup
+    | DSNodeKeyword
+    | DSNodeProperty
+    | DSNodeString
+    | DSNodeType;
+
+/**
+ * Definition syntax generate options
+ */
+export interface DSGenerateOptions {
+    forceBraces?: boolean;
+    compact?: boolean;
+    decorate?: (result: string, node: DSNode) => void;
+}
+
+/**
+ * Definition syntax walk options
+ */
+export interface DSWalkOptions {
+    enter?: DSWalkEnterOrLeaveFn;
+    leave?: DSWalkEnterOrLeaveFn;
+}
+
+/**
+ * Definition syntax walk callback
+ */
+export type DSWalkEnterOrLeaveFn = (node: DSNode) => void;
+
+/**
+ * DefinitionSyntax
+ */
+export interface DefinitionSyntax {
+    /**
+     * Generates CSS value definition syntax from an AST
+     *
+     * @param node - The AST
+     * @param options - Options that affect generation
+     *
+     * @example
+     *  generate({type: 'Keyword', name: 'foo'}) => 'foo'
+     */
+    generate(node: DSNode, options?: DSGenerateOptions): string;
+
+    /**
+     * Generates an AST from a CSS value syntax
+     *
+     * @param source - The CSS value syntax to parse
+     *
+     * @example
+     *  parse('foo | bar') =>
+     *    {
+     *      type: 'Group',
+     *      terms: [
+     *        { type: 'Keyword', name: 'foo' },
+     *        { type: 'Keyword', name: 'bar' }
+     *      ],
+     *      combinator: '|',
+     *      disallowEmpty: false,
+     *      explicit: false
+     *    }
+     */
+    parse(source: string): DSNodeGroup;
+
+    /**
+     * Walks definition syntax AST
+     */
+    walk(node: DSNode, options: DSWalkEnterOrLeaveFn | DSWalkOptions, context?: any): void;
+
+    /**
+     * Wrapper for syntax errors
+     */
+    syntaxError: SyntaxError;
+}
+
+export const definitionSyntax: DefinitionSyntax;

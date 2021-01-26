@@ -30,24 +30,51 @@ export class CustomTile extends Tile {
         preemptive: boolean,
         jsonp: boolean,
     );
+    /**
+     * Calls the callback (synchronously by default) with the available data
+     * for given coordinate (or null if not yet loaded).
+     */
     forDataAtCoordinate(coordinate: Coordinate, callback: (p0: any) => void, opt_request?: boolean): void;
+    /**
+     * Synchronously returns data at given coordinate (if available).
+     */
     getData(coordinate: Coordinate): any;
+    /**
+     * Get the image element for this tile.
+     */
     getImage(): HTMLImageElement;
+    /**
+     * Return the key to be used for all tiles in the source.
+     */
     getKey(): string;
     load(): void;
 }
 export default class UTFGrid extends TileSource {
     constructor(options: Options);
     protected handleTileJSONError(): void;
+    /**
+     * TODO: very similar to ol/source/TileJSON#handleTileJSONResponse
+     */
     protected handleTileJSONResponse(tileJSON: Config): void;
+    /**
+     * Calls the callback (synchronously by default) with the available data
+     * for given coordinate and resolution (or null if not yet loaded or
+     * in case of an error).
+     */
     forDataAtCoordinateAndResolution(
         coordinate: Coordinate,
         resolution: number,
         callback: (p0: any) => void,
         opt_request?: boolean,
     ): void;
-    getTemplate(): string;
+    /**
+     * Return the template from TileJSON.
+     */
+    getTemplate(): string | undefined;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): CustomTile;
+    /**
+     * Marks a tile coord as being used, without triggering a load.
+     */
     useTile(z: number, x: number, y: number): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

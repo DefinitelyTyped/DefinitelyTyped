@@ -32,6 +32,15 @@ export interface CreateUserResponse {
     email: string;
 }
 
+export interface ExchangeResponse {
+    accessToken: string;
+    expiresIn: number;
+    idToken: string;
+    refreshToken: string;
+    scope?: string;
+    tokenType: string;
+}
+
 export interface ExchangeParams {
     code: string;
     redirectUri: string;
@@ -61,6 +70,15 @@ export interface PasswordRealmResponse {
     refreshToken?: string;
 }
 
+export interface RefreshTokenResponse {
+    accessToken: string;
+    expiresIn: number;
+    idToken: string;
+    refreshToken?: string;
+    scope?: string;
+    tokenType: string;
+}
+
 export interface RefreshTokenParams {
     refreshToken: string;
     scope?: string;
@@ -79,10 +97,14 @@ export interface ResetPasswordParams {
     connection: string;
 }
 
+export interface AuthParams {
+    [key: string]: string;
+}
+
 export interface PasswordlessWithEmailParams {
     email: string;
     send?: 'link' | 'code';
-    authParams?: string;
+    authParams?: AuthParams;
 }
 
 export interface PasswordlessWithSMSParams {
@@ -106,6 +128,8 @@ export interface LoginWithSMSParams {
 export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
+    familyName: string;
+    givenName: string;
     name: string;
     nickname: string;
     picture: string;
@@ -117,10 +141,10 @@ export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
-    exchange(params: ExchangeParams): Promise<string>;
+    exchange(params: ExchangeParams): Promise<ExchangeResponse>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-    refreshToken(params: RefreshTokenParams): Promise<any>;
+    refreshToken(params: RefreshTokenParams): Promise<RefreshTokenResponse>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
     /* tslint:disable-next-line no-unnecessary-generics */

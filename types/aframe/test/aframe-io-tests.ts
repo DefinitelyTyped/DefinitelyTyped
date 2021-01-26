@@ -534,7 +534,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
             var normLevel;
             normLevel = levels[RINGCOUNT - index - 1] + 0.01; // Avoid scaling by 0.
             const lineMaterial = ring.material as THREE.LineBasicMaterial;
-            (lineMaterial.color as THREE.Color).setHSL(colors[index], 1, normLevel);
+            lineMaterial.color.setHSL(colors[index], 1, normLevel);
             lineMaterial.linewidth = normLevel * 3;
             lineMaterial.opacity = normLevel;
             ring.scale.z = normLevel;

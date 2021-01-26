@@ -8,6 +8,7 @@ app.use(compress({
         return /text/i.test(ctype)
     },
     threshold: 2048,
+    defaultEncoding: 'gzip',
     gzip: {
       flush: require('zlib').Z_SYNC_FLUSH
     },

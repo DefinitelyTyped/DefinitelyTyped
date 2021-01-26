@@ -14,10 +14,19 @@ import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
-import { StyleFunction, StyleLike } from '../style/Style';
+import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
+/**
+ * Function that takes an array of coordinates and an optional existing geometry
+ * and a projection as arguments, and returns a geometry. The optional existing
+ * geometry is the geometry that is returned when the function is called without
+ * a second argument.
+ */
 export type GeometryFunction = (p0: SketchCoordType, p1?: SimpleGeometry, p2?: Projection) => SimpleGeometry;
+/**
+ * Coordinate type when drawing lines.
+ */
 export type LineCoordType = Coordinate[];
 export interface Options {
     type: GeometryType;
@@ -38,8 +47,17 @@ export interface Options {
     freehandCondition?: Condition;
     wrapX?: boolean;
 }
+/**
+ * Coordinate type when drawing points.
+ */
 export type PointCoordType = Coordinate;
+/**
+ * Coordinate type when drawing polygons.
+ */
 export type PolyCoordType = Coordinate[][];
+/**
+ * Types used for drawing coordinates.
+ */
 export type SketchCoordType = PointCoordType | LineCoordType | PolyCoordType;
 declare enum DrawEventType {
     DRAWSTART = 'drawstart',
@@ -48,15 +66,57 @@ declare enum DrawEventType {
 }
 export default class Draw extends PointerInteraction {
     constructor(options: Options);
+    /**
+     * Stop drawing without adding the sketch feature to the target layer.
+     */
     abortDrawing(): void;
+    /**
+     * Append coordinates to the end of the geometry that is currently being drawn.
+     * This can be used when drawing LineStrings or Polygons. Coordinates will
+     * either be appended to the current LineString or the outer ring of the current
+     * Polygon.
+     */
     appendCoordinates(coordinates: LineCoordType): void;
+    /**
+     * Initiate draw mode by starting from an existing geometry which will
+     * receive new additional points. This only works on features with
+     * LineString geometries, where the interaction will extend lines by adding
+     * points to the end of the coordinates array.
+     * This will change the original feature, instead of drawing a copy.
+     * The function will dispatch a drawstart event.
+     */
     extend(feature: Feature<LineString>): void;
+    /**
+     * Stop drawing and add the sketch feature to the target layer.
+     * The {@link module:ol/interaction/Draw~DrawEventType.DRAWEND} event is
+     * dispatched before inserting the feature.
+     */
     finishDrawing(): void;
+    /**
+     * Get the overlay layer that this interaction renders sketch features to.
+     */
     getOverlay(): VectorLayer;
+    /**
+     * Handle pointer down events.
+     */
     handleDownEvent(event: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} and may actually draw or finish the drawing.
+     */
     handleEvent(event: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer up events.
+     */
     handleUpEvent(event: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Remove last point of the feature currently being drawn.
+     */
     removeLastPoint(): void;
+    /**
+     * Remove the interaction from its current map and attach it to the new map.
+     * Subclasses may set up event handlers to get notified about changes to
+     * the map here.
+     */
     setMap(map: PluggableMap): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -85,7 +145,20 @@ export default class Draw extends PointerInteraction {
 }
 declare class DrawEvent extends BaseEvent {
     constructor(type: DrawEventType, feature: Feature<Geometry>);
+    /**
+     * The feature being drawn.
+     */
     feature: Feature<Geometry>;
 }
+/**
+ * Create a geometryFunction that will create a box-shaped polygon (aligned
+ * with the coordinate system axes).  Use this with the draw interaction and
+ * type: 'Circle' to return a box instead of a circle geometry.
+ */
 export function createBox(): GeometryFunction;
+/**
+ * Create a geometryFunction for type: 'Circle' that will create a regular
+ * polygon with a user specified number of sides and start angle instead of an
+ * module:ol/geom/Circle~Circle geometry.
+ */
 export function createRegularPolygon(opt_sides?: number, opt_angle?: number): GeometryFunction;

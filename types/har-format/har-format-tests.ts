@@ -48,6 +48,34 @@ const testCookie: harFormat.Cookie = {
     secure: true
 };
 
+const textPostData: harFormat.PostData = {
+    mimeType: "text/plain",
+    text: "some-text"
+};
+
+const paramsPostData: harFormat.PostData = {
+    mimeType: "multipart/form-data",
+    params: [{
+        name: "some-param",
+        value: "val"
+    }]
+};
+
+// $ExpectError
+const missingPostData: harFormat.PostData = {
+    mimeType: "text/plain"
+};
+
+// $ExpectError
+const tooMuchPostData: harFormat.PostData = {
+    mimeType: "multipart/form-data",
+    params: [{
+        name: "some-param",
+        value: "val"
+    }],
+    text: "asd"
+};
+
 const testContent: harFormat.Content = {
     size: 26915,
     mimeType: "text/html",
@@ -96,12 +124,12 @@ const testCacheNoInformation: harFormat.Cache = {
 };
 
 const testNoCacheAfter: harFormat.Cache = {
-  afterRequest: null
+    afterRequest: null
 };
 
 const testCacheNotCached: harFormat.Cache = {
-  beforeRequest: null,
-  afterRequest: null
+    beforeRequest: null,
+    afterRequest: null
 };
 
 const testLog: harFormat.Log = {

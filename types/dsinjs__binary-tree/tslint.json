@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "max-line-length": {
+            "options": [180]
+        },
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false
+    },
+    "jsRules": {
+        "max-line-length": {
+            "options": [180]
+        }
+    }
+}

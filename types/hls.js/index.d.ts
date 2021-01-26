@@ -322,7 +322,7 @@ declare namespace Hls {
         /**
          * stream start date and time
          */
-        programDateTime: Date;
+        programDateTime: number;
         /**
          * continuity count
          */
@@ -874,14 +874,14 @@ declare namespace Hls {
     }
 
     interface manifestLoadedData {
-        levels: number[];
+        levels: Level[];
         audioTracks: number[];
         url: string;
         stats: Stats;
     }
 
     interface manifestParsedData {
-        levels: number[];
+        levels: Level[];
         firstLevel: number;
     }
 

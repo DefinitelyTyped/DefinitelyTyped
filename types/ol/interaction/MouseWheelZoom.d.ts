@@ -20,7 +20,14 @@ export enum Mode {
 }
 export default class MouseWheelZoom extends Interaction {
     constructor(opt_options?: Options);
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} (if it was a mousewheel-event) and eventually
+     * zooms the map.
+     */
     handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Enable or disable using the mouse's location as an anchor when zooming
+     */
     setMouseAnchor(useAnchor: boolean): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

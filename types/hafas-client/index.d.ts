@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 5.7
+// Type definitions for hafas-client 5.12
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,6 +35,9 @@ declare namespace createClient {
         refreshJourney?: boolean;
         reachableFrom?: boolean;
         journeysWalkingSpeed?: boolean;
+        tripsByName?: boolean;
+        remarks?: boolean;
+        lines?: boolean;
     }
     /**
      * A location object is used by other items to indicate their locations.
@@ -101,9 +104,8 @@ declare namespace createClient {
      */
     interface Stop {
         type: 'stop';
-        id: string;
+        id?: string;
         name?: string;
-        station?: Station;
         location?: Location;
         products?: Products;
         lines?: ReadonlyArray<Line>;
@@ -143,6 +145,7 @@ declare namespace createClient {
         night?: boolean;
         nr?: number;
         symbol?: string;
+        directions?: ReadonlyArray<string>;
     }
     /**
      * A route represents a single set of stations, of a single line.
@@ -204,6 +207,11 @@ declare namespace createClient {
         validFrom?: string;
         validUntil?: string;
         modified?: string;
+        company?: any;
+        categories?: any[];
+        affectedLines?: Line[];
+        fromStops?: any[];
+        toStops?: any[];
     }
     interface Geometry {
         type: 'Point';
@@ -384,6 +392,12 @@ declare namespace createClient {
         nextStopovers?: ReadonlyArray<StopOver>;
         frames?: ReadonlyArray<Frame>;
         polyline?: FeatureCollection;
+    }
+    interface ServerInfo {
+        timetableStart?: string;
+        timetableEnd?: string;
+        serverTime?: string | number;
+        realtimeDataUpdatedAt?: number;
     }
     interface JourneysOptions {
         /**
@@ -610,6 +624,11 @@ declare namespace createClient {
          */
         direction?: string;
         /**
+         * filter by line ID
+         * @default undefined
+         */
+        line?: string;
+        /**
          * show departures for the next n minutes
          * @default 120
          */
@@ -814,6 +833,42 @@ declare namespace createClient {
          */
         when?: Date;
     }
+    interface TripsByNameOptions {
+        /**
+         * departure date, undefined corresponds to Date.Now
+         * @default undefined
+         */
+        when?: Date;
+    }
+    interface RemarksOptions {
+        from?: Date | number;
+        to?: Date | number;
+        /**
+         * maximum number of remarks
+         * @default 100
+         */
+        results?: number;
+        products?: Products;
+        /**
+         * Language of the results
+         * @default en
+         */
+        language?: string;
+    }
+    interface LinesOptions {
+        /**
+         * Language of the results
+         * @default en
+         */
+        language?: string;
+    }
+    interface ServerOptions {
+        /**
+         * Language of the results
+         * @default en
+         */
+        language?: string;
+    }
     interface HafasClient {
         /**
          * Retrieves journeys
@@ -877,5 +932,27 @@ declare namespace createClient {
          * @param options options for search
          */
         radar?: (box: BoundingBox, options: RadarOptions | undefined) => Promise<ReadonlyArray<Movement>>;
+        /**
+         * Retrieves trips by name.
+         * @param lineNameOrFahrtNr string
+         * @param options options for search
+         */
+        tripsByName?: (lineNameOrFahrtNr: string, options: TripsByNameOptions | undefined) => Promise<ReadonlyArray<Trip>>;
+        /**
+         * Fetches all remarks known to the HAFAS endpoint
+         * @param opt RemarksOptions
+         */
+        remarks?: (opt: RemarksOptions | undefined) => Promise<ReadonlyArray<Warning>>;
+        /**
+         * Fetches all lines known to the HAFAS endpoint
+         * @param query string
+         * @param opt LinesOptions
+         */
+        lines?: (query: string, opt: LinesOptions | undefined) => Promise<ReadonlyArray<Line>>;
+        /**
+         * Fetches meta information from the HAFAS endpoint
+         * @param opt ServerOptions
+         */
+        serverInfo: (opt: ServerOptions | undefined) => Promise<ServerInfo>;
     }
 }

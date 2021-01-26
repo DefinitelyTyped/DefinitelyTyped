@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "dt-header": false,
-        "eofline": false,
         "no-unnecessary-qualifier": false
     }
 }

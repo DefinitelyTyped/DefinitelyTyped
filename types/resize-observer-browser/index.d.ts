@@ -2,8 +2,8 @@
 // Project: https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver, https://developers.google.com/web/updates/2016/10/resizeobserver, https://wicg.github.io/ResizeObserver/
 // Definitions by: Chives <https://github.com/chivesrs>
 //                 William Furr <https://github.com/wffurr>
+//                 Alexander Shushunov <https://github.com/AlexanderShushunov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 interface Window {
     ResizeObserver: typeof ResizeObserver;
@@ -16,26 +16,33 @@ interface ResizeObserverOptions {
      *
      * @default 'content-box'
      */
-    box?: 'content-box' | 'border-box';
+    box?: 'content-box' | 'border-box' | 'device-pixel-content-box';
 }
 
 interface ResizeObserverSize {
-    inlineSize: number;
-    blockSize: number;
+    readonly inlineSize: number;
+    readonly blockSize: number;
 }
 
-declare class ResizeObserver {
-    constructor(callback: ResizeObserverCallback);
+interface ResizeObserver {
     disconnect(): void;
     observe(target: Element, options?: ResizeObserverOptions): void;
     unobserve(target: Element): void;
 }
 
-type ResizeObserverCallback = (entries: ReadonlyArray<ResizeObserverEntry>, observer: ResizeObserver) => void;
+declare var ResizeObserver: {
+    new (callback: ResizeObserverCallback): ResizeObserver;
+    prototype: ResizeObserver;
+};
+
+interface ResizeObserverCallback {
+    (entries: ResizeObserverEntry[], observer: ResizeObserver): void;
+}
 
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
-    readonly borderBoxSize: ResizeObserverSize;
-    readonly contentBoxSize: ResizeObserverSize;
+    readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize>;
 }

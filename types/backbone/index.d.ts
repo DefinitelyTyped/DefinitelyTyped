@@ -248,7 +248,6 @@ declare namespace Backbone {
 
         /**
          * Returns the relative URL where the model's resource would be located on the server.
-         * @memberof Model
          */
         url: () => string;
 
@@ -471,8 +470,6 @@ declare namespace Backbone {
 
         /**
          * Sets the url property (or function) on a collection to reference its location on the server.
-         *
-         * @memberof Collection
          */
         url: string | (() => string);
 

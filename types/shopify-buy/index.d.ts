@@ -1,5 +1,5 @@
 // Type definitions for shopify-buy 2.10
-// Project: http://shopify.github.io/js-buy-sdk/api/
+// Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
@@ -93,9 +93,9 @@ declare namespace ShopifyBuy {
         removeDiscount(checkoutId: string | number): Promise<Cart>;
 
         /**
-         * Update a line item quantity based on line item id
+         * Update line item quantities based on an array of line item ids
          */
-        updateLineItem(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
+        updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
     }
 
     export interface ShopResource {

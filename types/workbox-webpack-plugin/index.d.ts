@@ -287,9 +287,9 @@ export interface CommonOptions {
      * as it will reduce the amount of bandwidth consumed when precaching.
      *
      * @default null
-     * @example dontCacheBustUrlsMatching: /\.\w{8}\./
+     * @example dontCacheBustURLsMatching: /\.\w{8}\./
      */
-    dontCacheBustUrlsMatching?: RegExp | null;
+    dontCacheBustURLsMatching?: RegExp | null;
 
     /**
      * A mapping of prefixes that, if present in an entry in the precache manifest, will be replaced with the corresponding value.
@@ -299,15 +299,15 @@ export interface CommonOptions {
      * As an alternative with more flexibility, you can use the `manifestTransforms` option and provide a function that modifies the entries in the manifest using whatever logic you provide.
      *
      * @default null
-     * @example modifyUrlPrefix: { '/dist': '' }
+     * @example modifyURLPrefix: { '/dist': '' }
      */
-    modifyUrlPrefix?: { [url: string]: string } | null;
+    modifyURLPrefix?: { [url: string]: string } | null;
 
     /**
      * One or more [`ManifestTransform`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.ManifestTransform)
      * functions, which will be applied sequentially against the generated manifest.
      *
-     * If `modifyUrlPrefix` or `dontCacheBustUrlsMatching` are also specified, their corresponding transformations will be applied first.
+     * If `modifyURLPrefix` or `dontCacheBustURLsMatching` are also specified, their corresponding transformations will be applied first.
      */
     manifestTransforms?: Array<(originalManifest: ReadonlyArray<ManifestEntry>) => { manifest: ManifestEntry[], warnings?: string[] }> | null;
 }

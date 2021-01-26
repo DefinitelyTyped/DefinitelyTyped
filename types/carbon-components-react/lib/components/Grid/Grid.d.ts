@@ -1,9 +1,10 @@
-import * as React from 'react';
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import * as React from "react";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
 
 interface GridBaseIsolatedProps {
     condensed?: boolean;
     fullWidth?: boolean;
+    narrow?: boolean;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof GridBaseIsolatedProps>;
 

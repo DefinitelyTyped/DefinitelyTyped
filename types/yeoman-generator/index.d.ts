@@ -793,7 +793,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     spawnCommand(command: string, args: string[], opt?: SpawnOptions): any;
 
     /**
-     * Normalizes a command accross the OS and spawns it (synchronously).
+     * Normalizes a command across the OS and spawns it (synchronously).
      *
      * @param command The program to execute.
      * @param args A list of arguments to pass to the program

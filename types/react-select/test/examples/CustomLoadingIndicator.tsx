@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Spinner, Tooltip } from '../AtlaskitDummy';
 import AsyncSelect from 'react-select/async';
-import { colourOptions } from '../data';
+import { ColourOption, colourOptions } from '../data';
 
 const LoadingIndicator = (props: any) => {
   return (
@@ -21,7 +21,7 @@ const filterColors = (inputValue: string) =>
   );
 
 const promiseOptions = (inputValue: string) =>
-  new Promise(resolve => {
+  new Promise<ColourOption[]>(resolve => {
     setTimeout(() => {
       resolve(filterColors(inputValue));
     }, 1000);

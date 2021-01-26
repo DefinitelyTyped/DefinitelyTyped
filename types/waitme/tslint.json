@@ -1,12 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "npm-naming": false,
-        "prefer-method-signature": false,
         "typedef-whitespace": false
     }
 }
