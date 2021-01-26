@@ -4,25 +4,28 @@ import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
 
 interface State {
-  /** Whether the select is disabled. */
-  isDisabled: boolean;
-  /** Whether the select is focused. */
-  isFocused: boolean;
-  /** Whether the select is expanded. */
-  menuIsOpen: boolean;
+    /** Whether the select is disabled. */
+    isDisabled: boolean;
+    /** Whether the select is focused. */
+    isFocused: boolean;
+    /** Whether the select is expanded. */
+    menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> &
-  PropsWithStyles &
-  State & {
-    /** Children to render. */
-    children: ReactNode,
-    innerRef: ElementRef<any>,
-    /** The mouse down event and the innerRef to pass down to the controller element. */
-    innerProps: {
-      onMouseDown: (event: React.MouseEvent<HTMLElement>) => void,
-    },
-  };
+export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+    OptionType,
+    IsMulti
+> &
+    PropsWithStyles &
+    State & {
+        /** Children to render. */
+        children: ReactNode;
+        innerRef: ElementRef<any>;
+        /** The mouse down event and the innerRef to pass down to the controller element. */
+        innerProps: {
+            onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
+        };
+    };
 
 export function css(state: State): React.CSSProperties;
 
