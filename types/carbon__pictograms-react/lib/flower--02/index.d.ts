@@ -1,1 +1,3 @@
-export { Flower_02 as default } from "../../";
+import { Flower_02 } from "../../";
+
+export = Flower_02;

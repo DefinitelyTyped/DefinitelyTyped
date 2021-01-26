@@ -1,1 +1,3 @@
-export { Parliament as default } from "../../";
+import { Parliament } from "../../";
+
+export = Parliament;
