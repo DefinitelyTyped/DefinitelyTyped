@@ -12,6 +12,8 @@ import {
     createServer,
     TLSSocket,
     rootCertificates,
+    Server,
+    TlsOptions,
 } from "tls";
 import * as fs from "fs";
 
@@ -288,4 +290,9 @@ import * as fs from "fs";
 
 {
     const r00ts: ReadonlyArray<string> = rootCertificates;
+}
+
+{
+    const _options: TlsOptions = {};
+    const _server = new Server(_options, (socket) => {});
 }

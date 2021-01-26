@@ -432,6 +432,16 @@ declare module "tls" {
          * emitted with `ERR_TLS_PSK_SET_IDENTIY_HINT_FAILED` code.
          */
         pskIdentityHint?: string;
+
+        /**
+         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         */
+        allowHalfOpen?: boolean;
+
+        /**
+         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         */
+        pauseOnConnect?: boolean;
     }
 
     interface PSKCallbackNegotation {
@@ -471,6 +481,9 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        constructor(secureConnectionListener?: (socket: TLSSocket) => void);
+        constructor(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void);
+
         /**
          * The server.addContext() method adds a secure context that will be
          * used if the client request's SNI name matches the supplied hostname
