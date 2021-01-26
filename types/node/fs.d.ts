@@ -105,7 +105,7 @@ declare module "fs" {
          * If there are no more directory entries to read, null will be returned.
          * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
          */
-        readSync(): Dirent;
+        readSync(): Dirent | null;
     }
 
     export interface FSWatcher extends events.EventEmitter {

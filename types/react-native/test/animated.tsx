@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp } from 'react-native';
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent, StyleProp, SectionListData } from 'react-native';
 
 interface CompProps {
     width: number;
@@ -27,7 +27,7 @@ type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
 type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
 const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
-    key, // $ExpectType string | number | null | undefined
+    key, // $ExpectType string | number | null | undefined || Key | null | undefined
     ...props
 }) => <Animated.Text {...props} />;
 
@@ -190,7 +190,7 @@ function TestAnimatedAPI() {
             <Animated.SectionList
                 testID="expect-type-animated-sectionlist"
                 style={{ opacity: v1 }}
-                sections={[{ title: 'test', data: [1] }]}
+                sections={[{ title: 'test', data: [1] }] as SectionListData<number, { title: string }>[]}
                 renderItem={info => {
                     /*
                      * Original <SectionList> expects:
@@ -199,6 +199,7 @@ function TestAnimatedAPI() {
                      * Skip until original is adjusted and type can be asserted
                      */
                     info; // Should expect SectionListRenderItemInfo<number>
+                    info.section.title; // $ExpectType string
                     return <View testID={info.item.toFixed(1)} />;
                 }}
             />

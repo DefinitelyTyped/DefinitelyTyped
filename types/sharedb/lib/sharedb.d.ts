@@ -9,11 +9,11 @@ export interface JSONObject {
 export interface JSONArray extends Array<JSONValue> {}
 
 export type Path = ReadonlyArray<string|number>;
-export interface Snapshot {
+export interface Snapshot<T = any> {
     id: string;
     v: number;
     type: string | null;
-    data?: any;
+    data?: T;
     m: SnapshotMeta | null;
 }
 
@@ -76,6 +76,16 @@ export interface Types {
     map: { [key: string]: Type };
 }
 
+export type LoggerFunction = typeof console.log;
+export interface LoggerOverrides {
+    info?: LoggerFunction;
+    warn?: LoggerFunction;
+    error?: LoggerFunction;
+}
+export class Logger {
+    setMethods(overrides: LoggerOverrides): void;
+}
+
 export interface Error {
     code: number;
     message: string;
@@ -89,16 +99,20 @@ export type Callback = (err: Error) => any;
 
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
-export class Doc extends EventEmitter {
+export class Doc<T = any> extends EventEmitter {
     connection: Connection;
     type: Type | null;
     id: string;
     collection: string;
-    data: any;
+    data: T;
     version: number | null;
+    subscribed: boolean;
+    preventCompose: boolean;
+    paused: boolean;
 
-    fetch: (callback: (err: Error) => void) => void;
-    subscribe: (callback: (err: Error) => void) => void;
+    fetch: (callback?: (err: Error) => void) => void;
+    subscribe: (callback?: (err: Error) => void) => void;
+    unsubscribe: (callback?: (err: Error) => void) => void;
 
     on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
     on(event: 'create', callback: (source: boolean) => void): this;
@@ -112,14 +126,19 @@ export class Doc extends EventEmitter {
     addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
-    ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
-    destroy(): void;
+    ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
+    destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
     create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
-    del(options: ShareDBSourceOptions, callback: (err: Error) => void): void;
-    whenNothingPending(callback: (err: Error) => void): void;
+    del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
+    whenNothingPending(callback: () => void): void;
+    hasPending(): boolean;
+    hasWritePending(): boolean;
+    pause(): void;
+    resume(): void;
+    flush(): void;
 }
 
 export type QueryEvent = 'ready' | 'error' | 'changed' | 'insert' | 'move' | 'remove' | 'extra';
@@ -131,6 +150,33 @@ export class Query extends EventEmitter {
     addListener(event: QueryEvent, callback: (...args: any[]) => any): this;
     removeListener(event: QueryEvent, listener: (...args: any[]) => any): this;
     destroy(): void;
+}
+
+export type ReceivePresenceListener<T> = (id: string, value: T) => void;
+export class Presence<T = any> extends EventEmitter {
+    connection: string;
+    channel: string;
+    wantSubscribe: boolean;
+    subscribed: boolean;
+    remotePresences: Record<string, T>;
+    localPresences: Record<string, LocalPresence<T>>;
+    subscribe(callback?: Callback): void;
+    unsubscribe(callback?: Callback): void;
+    create(id?: string): LocalPresence<T>;
+    destroy(callback?: Callback): void;
+    on(event: 'receive', callback: ReceivePresenceListener<T>): this;
+    addListener(event: 'receive', callback: ReceivePresenceListener<T>): this;
+}
+
+export class LocalPresence<T = any> extends EventEmitter {
+    presence: Presence<T>;
+    presenceId: string;
+    connection: string;
+    presenceVersion: number;
+    value: T;
+    submit(value: T, callback?: Callback): void;
+    send(callback?: Callback): void;
+    destroy(callback?: Callback): void;
 }
 
 export type RequestAction = 'qf' | 'qs' | 'qu' | 'bf' | 'bs' | 'bu' | 'f' | 's' | 'u' | 'op' | 'nf' | 'nt';

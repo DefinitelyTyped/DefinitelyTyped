@@ -78,3 +78,9 @@ import { EventEmitter } from "events";
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
 }
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
+}

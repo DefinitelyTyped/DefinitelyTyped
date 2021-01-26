@@ -15,7 +15,7 @@ import { ConnectionOptions } from 'tls';
 export interface ClientConfig {
     user?: string;
     database?: string;
-    password?: string;
+    password?: string | (() => string | Promise<string>);
     port?: number;
     host?: string;
     connectionString?: string;
@@ -29,6 +29,7 @@ export interface ClientConfig {
     idle_in_transaction_session_timeout?: number;
     application_name?: string;
     connectionTimeoutMillis?: number;
+    types?: CustomTypesConfig;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -54,6 +55,11 @@ export interface QueryConfig<I extends any[] = any[]> {
     name?: string;
     text: string;
     values?: I;
+    types?: CustomTypesConfig;
+}
+
+export interface CustomTypesConfig {
+    getTypeParser: typeof pgTypes.getTypeParser;
 }
 
 export interface Submittable {
@@ -249,6 +255,13 @@ export class ClientBase extends events.EventEmitter {
 }
 
 export class Client extends ClientBase {
+    user?: string;
+    database?: string;
+    port: number;
+    host: string;
+    password?: string;
+    ssl: boolean;
+
     constructor(config?: string | ClientConfig);
 
     end(): Promise<void>;

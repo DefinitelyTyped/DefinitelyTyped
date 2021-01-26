@@ -11,6 +11,8 @@ import {
     OPTIONAL,
     SUPPRESS,
     REMAINDER,
+    ArgumentError,
+    ArgumentTypeError,
 } from 'argparse';
 let args: any;
 
@@ -48,6 +50,9 @@ console.dir(args);
 console.log('-----------');
 args = simpleExample.parse_args('--foo 5 --bar 6'.split(' '));
 console.dir(args);
+console.log('-----------');
+
+console.dir(simpleExample.convert_arg_line_to_args("foo  bar   asd"));
 console.log('-----------');
 
 const choicesExample = new ArgumentParser({
@@ -148,11 +153,23 @@ console.log('-----------');
 args = nargsExample.parse_args('--bar b c f --foo a'.split(' '));
 console.dir(args);
 
+function positiveInt(s: string): number {
+    const i = parseInt(s, 10);
+    if (i <= 0) {
+        throw new ArgumentTypeError('must be positive');
+    }
+    return i;
+}
+
 const parent_parser = new ArgumentParser({ add_help: false });
 // note add_help:false to prevent duplication of the -h option
 parent_parser.add_argument(
     '--parent',
     { type: 'int', help: 'parent' }
+);
+parent_parser.add_argument(
+    '--blah',
+    { type: positiveInt, help: 'blah' }
 );
 
 const foo_parser = new ArgumentParser({
@@ -348,7 +365,21 @@ args = constExample.parse_args('--foo x --bar --baz y --qux z a b c d e'.split('
 console.dir(args);
 console.log('-----------');
 
-const versionExample = new ArgumentParser({description: 'Add version'});
-versionExample.add_argument('-v', '--v', {action: 'version', version: '1.0.0'});
+const versionExample = new ArgumentParser({ description: 'Add version' });
+versionExample.add_argument('-v', '--v', { action: 'version', version: '1.0.0' });
 versionExample.print_help();
+console.log('-----------');
+
+const noExitOnError = new ArgumentParser({
+    exit_on_error: false
+});
+noExitOnError.add_argument('-f', '--foo', { action: 'store_true' });
+try {
+    noExitOnError.parse_args(['unknown']);
+} catch (err) {
+    if (err instanceof ArgumentError) {
+        const errorMessage: string = err.str();
+        console.log(errorMessage);
+    }
+}
 console.log('-----------');

@@ -1,15 +1,12 @@
-import { PreloadedQuery, LoadQueryOptions, PreloadableConcreteRequest } from './EntryPointTypes';
+import { DisposeFn, GraphQLTaggedNode, OperationType, VariablesOf } from 'relay-runtime';
+import { LoadQueryOptions, PreloadableConcreteRequest, PreloadedQuery } from './EntryPointTypes';
 
-import { GraphQLTaggedNode, OperationType } from 'relay-runtime';
-
-type useQueryLoaderHookType<TQuery extends OperationType> = [
+export type useQueryLoaderHookType<TQuery extends OperationType> = [
     PreloadedQuery<TQuery> | null | undefined,
-    (variables: TQuery['variables'], options?: LoadQueryOptions) => void,
-    () => void,
+    (variables: VariablesOf<TQuery>, options?: LoadQueryOptions) => void,
+    DisposeFn,
 ];
 
 export function useQueryLoader<TQuery extends OperationType>(
     preloadableRequest: GraphQLTaggedNode | PreloadableConcreteRequest<TQuery>,
 ): useQueryLoaderHookType<TQuery>;
-
-export {};

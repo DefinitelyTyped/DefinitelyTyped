@@ -136,7 +136,7 @@ export interface Props {
      * A bool flag indicating whether the bottom bar should be highlighted.
      * @default true
      */
-    bottomBarHighlight?: number;
+    bottomBarHighlight?: boolean;
 
     /**
      * A bool flag indicating whether the status bar should change with the background color.

@@ -10,10 +10,7 @@ declare class HeaderSubmenu extends HeaderSubmenu_base {
     };
     _getAction: (event: any) => any;
     _getNewState: (action: any) => boolean;
-    _setState: ({ shouldBeExpanded, shouldFocusOnOpen }: {
-        shouldBeExpanded: any;
-        shouldFocusOnOpen: any;
-    }) => void;
+    _setState: ({ shouldBeExpanded, shouldFocusOnOpen }: any) => void;
     getCurrentNavigation: () => any;
     navigate: (direction: any) => void;
     _handleEvent: (event: any) => void;

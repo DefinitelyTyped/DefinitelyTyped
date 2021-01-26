@@ -531,11 +531,11 @@ declare namespace P {
         hooks?: {
             /**
              * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
-             * logMethod (args, method) {}, where args is an array of the arguments that were passed to the
-             * log method and method is the log method itself. This hook must invoke the method function by
+             * logMethod (args, method, level) {}, where args is an array of the arguments that were passed to the
+             * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
              * using apply, like so: method.apply(this, newArgumentsArray).
              */
-            logMethod?: (args: any[], method: LogFn) => void;
+            logMethod?: (args: any[], method: LogFn, level: number) => void;
         };
     }
 
@@ -600,15 +600,10 @@ declare namespace P {
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
 
-    interface LogDescriptor {
-        pid: number;
-        hostname: string;
-        level: number;
-        time: string;
-        msg: string;
-        v: number;
-        [key: string]: any;
-    }
+    /**
+     * Describes a log line.
+     */
+    type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
         level?: Level | string;

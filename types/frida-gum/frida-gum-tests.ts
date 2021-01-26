@@ -38,6 +38,17 @@ const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["p
 // $ExpectType NativeFunction
 puts;
 
+// $ExpectType NativePointer
+Memory.alloc(1);
+// $ExpectType NativePointer
+Memory.alloc(1, {});
+// $ExpectType NativePointer
+Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
+// $ExpectError
+Memory.alloc(1, { near: ptr(1234) });
+// $ExpectError
+Memory.alloc(1, { maxDistance: 42 });
+
 const message = Memory.allocUtf8String("Hello!");
 
 // $ExpectType NativePointer
@@ -149,6 +160,9 @@ Java.enumerateClassLoadersSync()
     });
 
 Java.perform(() => {
+    // $ExpectType void
+    Java.deoptimizeBootImage();
+
     Java.enumerateMethods("*!*game*/i").forEach(group => {
         const factory = Java.ClassFactory.get(group.loader);
         group.classes.forEach(klass => {

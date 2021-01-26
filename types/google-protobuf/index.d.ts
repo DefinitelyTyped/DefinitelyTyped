@@ -10,7 +10,7 @@ type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
 type FieldValue = string | number | boolean | Uint8Array | FieldValueArray | undefined;
-interface FieldValueArray extends Array<FieldValue> {} // tslint:disable-line no-empty-interface
+interface FieldValueArray extends Array<FieldValue> {}
 
 export abstract class Message {
   getJsPbMessageId(): (string | undefined);

@@ -1,3 +1,35 @@
+import '../test/assert';
+import '../test/async_hooks';
+import '../test/buffer';
+import '../test/child_process';
+import '../test/cluster';
+import '../test/constants';
+import '../test/crypto';
+import '../test/dgram';
+import '../test/dns';
+import '../test/events';
+import '../test/fs';
+import '../test/global';
+import '../test/http';
+import '../test/http2';
+import '../test/module';
+import '../test/net';
+import '../test/os';
+import '../test/path';
+import '../test/perf_hooks';
+import '../test/process';
+import '../test/readline';
+import '../test/repl';
+import '../test/stream';
+import '../test/string_decoder';
+import '../test/tls';
+import '../test/tty';
+import '../test/util';
+import '../test/v8';
+import '../test/vm';
+import '../test/worker_threads';
+import '../test/zlib';
+
 import * as fs from "fs";
 import * as url from "url";
 import * as util from "util";
@@ -138,7 +170,7 @@ import * as trace_events from "trace_events";
         let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
+        v = await setImmediate();
         s = await setImmediate("");
 
         // $ExpectType (foo: any) => Promise<string>

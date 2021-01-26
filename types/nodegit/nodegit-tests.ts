@@ -94,3 +94,9 @@ repo.getHeadCommit().then(async commit => {
 
 Git.version; // $ExpectType string
 Git.Promise; // $ExpectType PromiseConstructor
+
+const revwalk = Git.Revwalk.create(repo);
+revwalk.push(id);
+const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.Commit) => {
+    return true;
+});

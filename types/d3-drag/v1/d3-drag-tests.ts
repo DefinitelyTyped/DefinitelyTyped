@@ -67,7 +67,6 @@ let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group
 containerAccessor = function(d, i, group) {
     console.log('Node Id of circle: ', d.nodeId);
     // console.log(this.a); // fails, a is not a property of SVGCircleElement
-    /* tslint:disable-next-line:no-unnecessary-type-assertion */
     return this.ownerSVGElement!; // this-type is SVGCircleElement
 };
 
@@ -76,7 +75,6 @@ circleDrag = circleDrag
     .container(function(d, i, group) { // container accessor function setter
         console.log('Node Id of circle: ', d.nodeId); // CircleDatum type
         // console.log(this.a); // fails, a is not a property of SVGCircleElement
-        /* tslint:disable-next-line:no-unnecessary-type-assertion */
         return this.ownerSVGElement!; // this-type is SVGCircleElement
     });
 

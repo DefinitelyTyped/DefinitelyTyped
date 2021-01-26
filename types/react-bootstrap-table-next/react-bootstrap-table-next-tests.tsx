@@ -8,6 +8,8 @@ import BootstrapTable, {
     RowSelectionType,
     ROW_SELECT_SINGLE,
     ExpandRowProps,
+    ColumnSortCaret,
+    HeaderSortingClasses,
 } from 'react-bootstrap-table-next';
 
 interface Product {
@@ -49,6 +51,22 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
     );
 };
 
+const SortCaret: ColumnSortCaret = (order, column) => {
+    switch (order) {
+        case 'asc':
+            return '&#9650;';
+
+        case 'desc':
+            return '&#9660;';
+
+        default:
+            return null;
+    }
+};
+
+const headerSortingClasses: HeaderSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>
+    sortOrder === 'asc' || sortOrder === 'desc' ? 'sort-active' : '';
+
 const productColumns: Array<ColumnDescription<Product>> = [
     { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
     { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
@@ -56,7 +74,9 @@ const productColumns: Array<ColumnDescription<Product>> = [
         isDummyField: true,
         dataField: '',
         sort: true,
+        sortCaret: SortCaret,
         text: 'Product Name',
+        headerSortingClasses,
     },
     {
         dataField: 'price',
@@ -154,7 +174,7 @@ render(
         data={products}
         bootstrap4
         keyField="id"
-        noDataIndication={() => "No data available"}
+        noDataIndication={() => 'No data available'}
         columns={productColumns}
     />,
     document.getElementById('app'),

@@ -20,7 +20,7 @@ async function run() {
         readonlyFruitTags: ReadonlyArray<string>;
     }
     const collectionT = db.collection<TestModel>('testCollection');
-    collectionT.find({
+    await collectionT.find({
         $and: [{ numberField: { $gt: 0 } }, { numberField: { $lt: 100 } }],
         readonlyFruitTags: { $all: ['apple', 'pear'] },
     });
@@ -45,6 +45,21 @@ async function run() {
             sort: { stringField: -1, text: { $meta: 'textScore' }, notExistingField: -1 },
         },
     );
+
+    // test with discriminated union type
+    interface DUModelEmpty {
+        type: 'empty';
+    }
+    interface DUModelString {
+        type: 'string';
+        value: string;
+    }
+    type DUModel = DUModelEmpty | DUModelString;
+    const collectionDU = db.collection<DUModel>('testDU');
+    const duValue = await collectionDU.findOne({});
+    if (duValue && duValue.type === 'string') {
+        const value: string = duValue.value;
+    }
 
     // collection.findX<T>() generic tests
     interface Bag {

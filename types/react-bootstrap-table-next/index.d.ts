@@ -2,6 +2,7 @@
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
 //                 Valentin Slobozanin <https://github.com/ignefolio>
+//                 Jakub Różbicki <https://github.com/jrozbicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -66,6 +67,20 @@ export type ColumnSortFunc<T, E extends keyof T = any> = (
     rowB: T,
 ) => number;
 
+export type ColumnSortCaret<T extends object = any, E = any> = (
+    order: 'asc' | 'desc' | undefined,
+    column: ColumnDescription<T, E>,
+) => JSX.Element | string | null;
+
+export type HeaderSortingClasses<T extends object = any, E = any> =
+    | string
+    | ((
+          column: ColumnDescription<T, E>,
+          sortOrder: 'asc' | 'desc',
+          isLastSorting: boolean,
+          colIndex: number,
+      ) => string);
+
 export interface TableChangeState<T> {
     page: number;
     sizePerPage: number;
@@ -109,11 +124,13 @@ export interface ColumnDescription<T extends object = any, E = any> {
      */
     text: string;
     classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    headerClasses?: string | ((column: ColumnDescription<T, E>, colIndex: number) => string);
     style?:
         | React.CSSProperties
         | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
+    sortCaret?: ColumnSortCaret<T, E>;
     searchable?: boolean;
     align?: CellAlignment;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties);
@@ -125,6 +142,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     filterValue?: (cell: T[keyof T], row: T) => string;
     headerAlign?: CellAlignment;
     headerFormatter?: HeaderFormatter<T>;
+    headerSortingClasses?: HeaderSortingClasses<T, E>;
     formatExtraData?: {
         tooltipFormatter?: (row: T) => JSX.Element;
     } & E;

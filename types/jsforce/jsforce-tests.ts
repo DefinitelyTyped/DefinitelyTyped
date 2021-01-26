@@ -8,6 +8,7 @@ import { RecordReference, Record } from 'jsforce/record';
 import { SObject } from 'jsforce/salesforce-object';
 import { RecordResult } from 'jsforce/record-result';
 import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
+import { SearchResult } from 'jsforce/connection';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -20,6 +21,19 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         return conn.login('username', 'password', callback);
     },
 });
+
+async function testProxyOptions() {
+    // send valid proxy values
+    // $ExpectType Connection
+    new sf.Connection({
+        proxyUrl: "http://127.0.0.1:8080/",
+        httpProxy: "127.0.0.1:8080",
+    });
+
+    // send invalid proxy values
+    // $ExpectError
+    new sf.Connection({ httpProxy: { host: "127.0.0.1:8080"} });
+}
 
 async function testIdentity(connection: sf.Connection) {
     // Callback style.
@@ -444,7 +458,23 @@ const requestInfo: sf.RequestInfo = {
     method: '',
     url: ''
 };
-salesforceConnection.request(requestInfo);
+
+// Default return type is Object
+ salesforceConnection.request(requestInfo).then((obj: Object) => {
+    console.log(obj);
+ });
+
+// Can typecast the return type, too
+interface MyFoo {
+    anything: string;
+}
+interface MyBar {
+    something: string;
+}
+
+salesforceConnection.request<MyFoo>(requestInfo).then((myFoo: MyFoo) => {
+    console.log(myFoo.anything)
+});
 
 const queryOptions: sf.ExecuteOptions = {
     autoFetch: true,
@@ -475,6 +505,20 @@ salesforceConnection.query('SELECT Id FROM Account')
         console.log('Error returned from query:', error);
     })
     .run({ autoFetch: true, maxFetch: 25 });
+
+salesforceConnection.search<MyFoo|MyBar>('FIND {my} IN ALL FIELDS RETURNING Foo__c(Id, Name), Bar__c(Id, Name)', (err: Error, result: SearchResult<MyFoo|MyBar>) => {
+    console.error(err);
+    for (const record of result.searchRecords) {
+        if (record && record.attributes && record.attributes.type === 'Foo__c') {
+            const foo = record as MyFoo;
+            console.log(foo.anything);
+        }
+        if (record && record.attributes && record.attributes.type === 'Bar__c') {
+            const bar = record as MyBar;
+            console.log(bar.something);
+        }
+    }
+});
 
 salesforceConnection.sobject<any>('Coverage__c')
     .select(['Id', 'Name']).del(() => { });

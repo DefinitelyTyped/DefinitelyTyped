@@ -2,16 +2,16 @@
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 4.1
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
 // The definitions may change with updates to ioBroker.js-controller
 
 /// <reference types="node" />
+/// <reference path="./objects.d.ts" />
 import * as fs from 'fs';
 
-// tslint:disable:no-namespace
 declare global {
     namespace ioBroker {
         enum StateQuality {
@@ -57,246 +57,6 @@ declare global {
         type SettableState = Partial<Omit<State, 'val'>> & Pick<State, 'val'>;
 
         type Session = any; // TODO: implement
-
-        type ObjectType = 'state' | 'channel' | 'device';
-        type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
-
-        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
-
-        interface ObjectCommon {
-            /** The name of this object as a simple string or an object with translations */
-            name: string | { [lang in Languages]?: string; };
-
-            // Icon and role aren't defined in SCHEMA.md,
-            // but they are being used by some adapters
-            /** Icon for this object */
-            icon?: string;
-            /** role of the object */
-            role?: string;
-        }
-
-        interface StateCommon extends ObjectCommon {
-            /** Type of this state. See https://github.com/ioBroker/ioBroker/blob/master/doc/SCHEMA.md#state-commonrole for a detailed description */
-            type?: CommonType;
-            /** minimum value */
-            min?: number;
-            /** maximum value */
-            max?: number;
-            /** unit of the value */
-            unit?: string;
-            /** description of this state */
-            desc?: string;
-
-            /** if this state is readable */
-            read: boolean;
-            /** if this state is writable */
-            write: boolean;
-            /** role of the state (used in user interfaces to indicate which widget to choose) */
-            role: string;
-
-            /** the default value */
-            def?: any;
-            /** the default status of the ack flag */
-            defAck?: boolean;
-
-            /** Configures this state as an alias for another state */
-            alias?: {
-                /** The target state id */
-                id: string;
-                /** An optional conversion function when reading, e.g. `"(val − 32) * 5/9"` */
-                read?: string;
-                /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
-                write?: string;
-            };
-
-            /**
-             * Dictionary of possible values for this state in the form
-             * <pre>
-             * {
-             *     "internal value 1": "displayed value 1",
-             *     "internal value 2": "displayed value 2",
-             *     ...
-             * }
-             * </pre>
-             * In old ioBroker versions, this could also be a string of the form
-             * "val1:text1;val2:text2" (now deprecated)
-             */
-            states?: Record<string, string> | string;
-
-            /** ID of a helper state indicating if the handler of this state is working */
-            workingID?: string;
-
-            /** attached history information */
-            history?: any;
-
-            /** Custom settings for this state */
-            custom?: Record<string, any>;
-
-            /**
-             * Settings for IOT adapters and how the state should be named in e.g. Alexa.
-             * The string "ignore" is a special case, causing the state to be ignored.
-             */
-            smartName?: string | ({ [lang in Languages]?: string; } & {
-                /** Which kind of device this is */
-                smartType?: string | null;
-                /** Which value to set when the ON command is issued */
-                byOn?: string | null;
-            });
-        }
-        interface ChannelCommon extends ObjectCommon {
-            /** description of this channel */
-            desc?: string;
-
-            // Only states can have common.custom
-            custom?: undefined;
-        }
-        interface DeviceCommon extends ObjectCommon {
-            // Only states can have common.custom
-            custom?: undefined;
-            // TODO: any other definition for device?
-        }
-        interface EnumCommon extends ObjectCommon {
-            // Only states can have common.custom
-            custom?: undefined;
-            /** The IDs of the enum members */
-            members?: string[];
-        }
-        interface OtherCommon extends ObjectCommon {
-            [propName: string]: any;
-
-            // Only states can have common.custom
-            custom?: undefined;
-        }
-
-        interface BaseObject {
-            /** The ID of this object */
-            _id: string;
-            // Ideally we would limit this to JSON-serializable objects, but TypeScript doesn't allow this
-            // without bugging users to change their code --> https://github.com/microsoft/TypeScript/issues/15300
-            native: any;
-            /** An array of `native` properties which cannot be accessed from outside the defining adapter */
-            protectedNative?: string[];
-            /** Like protectedNative, but the properties are also encrypted and decrypted automatically */
-            encryptedNative?: string[];
-            enums?: Record<string, string>;
-            type: string; // specified in the derived interfaces
-            // Be strict with what we allow here. Read objects overwrite this with any.
-            common: StateCommon | ChannelCommon | DeviceCommon | EnumCommon | OtherCommon;
-            acl?: ObjectACL;
-            from?: string;
-            /** The user who created or updated this object */
-            user?: string;
-            ts?: number;
-        }
-
-        interface StateObject extends BaseObject {
-            type: 'state';
-            common: StateCommon;
-            acl?: StateACL;
-        }
-        interface PartialStateObject extends Partial<Omit<StateObject, 'common' | 'acl'>> {
-            common?: Partial<StateCommon>;
-            acl?: Partial<StateACL>;
-        }
-
-        interface ChannelObject extends BaseObject {
-            type: 'channel';
-            common: ChannelCommon;
-        }
-        interface PartialChannelObject
-            extends Partial<Omit<ChannelObject, 'common'>> {
-            common?: Partial<ChannelCommon>;
-        }
-
-        interface DeviceObject extends BaseObject {
-            type: 'device';
-            common: DeviceCommon;
-        }
-        interface PartialDeviceObject extends Partial<Omit<DeviceObject, 'common'>> {
-            common?: Partial<DeviceCommon>;
-        }
-
-        interface FolderObject extends BaseObject {
-            type: 'folder';
-            // Nothing is set in stone here, so start with allowing every property
-            common: OtherCommon;
-        }
-        interface PartialFolderObject extends Partial<Pick<FolderObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
-            common?: Partial<OtherCommon>;
-        }
-
-        interface EnumObject extends BaseObject {
-            type: 'enum';
-            common: EnumCommon;
-        }
-        interface PartialEnumObject extends Partial<Omit<EnumObject, 'common'>> {
-            common?: Partial<EnumCommon>;
-        }
-
-        interface OtherObject extends BaseObject {
-            type: 'adapter' | 'config' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
-            common: OtherCommon;
-        }
-        interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
-            common?: Partial<OtherCommon>;
-        }
-
-        // Base type for Objects. Should not be used directly
-        type AnyObject = StateObject | ChannelObject | DeviceObject | FolderObject | EnumObject | OtherObject;
-
-        // For all objects that are exposed to the user we need to tone the strictness down.
-        // Otherwise, every operation on objects becomes a pain to work with
-        type Object = AnyObject & {
-            common: Record<string, any>;
-            native: Record<string, any>;
-        };
-
-        type SettableObjectWorker<T extends ioBroker.AnyObject> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
-            _id?: T['_id'];
-            acl?: T['acl'];
-        };
-
-        // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        type SettableObject =
-            | SettableObjectWorker<StateObject>
-            | SettableObjectWorker<ChannelObject>
-            | SettableObjectWorker<DeviceObject>
-            | SettableObjectWorker<FolderObject>
-            | SettableObjectWorker<EnumObject>
-            | SettableObjectWorker<OtherObject>;
-        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialEnumObject | PartialOtherObject;
-
-        /** Defines access rights for a single file */
-        interface FileACL {
-            /** Full name of the user who owns this file, e.g. "system.user.admin" */
-            owner: string;
-            /** Full name of the group who owns this file, e.g. "system.group.administrator" */
-            ownerGroup: string;
-            /** Linux-type permissions defining access to this file */
-            permissions: number;
-        }
-        /** Defines access rights for a single file, applied to a user or group */
-        interface EvaluatedFileACL extends FileACL {
-            /** Whether the user may read the file */
-            read: boolean;
-            /** Whether the user may write the file */
-            write: boolean;
-        }
-
-        /** Defines access rights for a single object */
-        interface ObjectACL {
-            /** Full name of the user who owns this object, e.g. "system.user.admin" */
-            owner: string;
-            /** Full name of the group who owns this object, e.g. "system.group.administrator" */
-            ownerGroup: string;
-            /** Linux-type permissions defining access to this object */
-            object: number;
-        }
-        /** Defines access rights for a single state object */
-        interface StateACL extends ObjectACL {
-            /** Linux-type permissions defining access to this state */
-            state: number;
-        }
 
         /** Defines access rights for a single object type */
         interface ObjectOperationPermissions {
@@ -757,6 +517,7 @@ declare global {
             getObject(id: string, options: unknown, callback: GetObjectCallback): void;
             /** Reads an object from the object db */
             getObjectAsync(id: string, options?: unknown): GetObjectPromise;
+
             /** Creates or overwrites an object in the object db */
             setObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
@@ -766,6 +527,7 @@ declare global {
                 obj: ioBroker.SettableObject,
                 options?: unknown,
             ): SetObjectPromise;
+
             /** Creates an object in the object db. Existing objects are not overwritten. */
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObjectNotExists(
@@ -780,10 +542,12 @@ declare global {
                 obj: ioBroker.SettableObject,
                 options?: unknown,
             ): SetObjectPromise;
-            /** Get all states, channels and devices of this adapter */
-            getAdapterObjects(callback: (objects: Record<string, ioBroker.Object>) => void): void;
-            /** Get all states, channels and devices of this adapter */
-            getAdapterObjectsAsync(): Promise<Record<string, ioBroker.Object>>;
+
+            /** Get all states, channels, devices and folders of this adapter */
+            getAdapterObjects(callback: (objects: Record<string, AdapterScopedObject>) => void): void;
+            /** Get all states, channels, devices and folders of this adapter */
+            getAdapterObjectsAsync(): Promise<Record<string, AdapterScopedObject>>;
+
             /** Extend an object and create it if it might not exist */
             extendObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
             extendObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
@@ -809,81 +573,84 @@ declare global {
             // foreign objects
 
             /** Reads an object (which might not belong to this adapter) from the object db */
-            getForeignObject(id: string, callback: GetObjectCallback): void;
-            getForeignObject(id: string, options: unknown, callback: GetObjectCallback): void;
+            getForeignObject<T extends string>(id: T, callback: GetObjectCallback<T>): void;
+            getForeignObject<T extends string>(id: T, options: unknown, callback: GetObjectCallback<T>): void;
             /** Reads an object (which might not belong to this adapter) from the object db */
-            getForeignObjectAsync(id: string, options?: unknown): GetObjectPromise;
+            getForeignObjectAsync<T extends string>(id: T, options?: unknown): GetObjectPromise<T>;
+
             /** Get foreign objects by pattern, by specific type and resolve their enums. */
             // tslint:disable:unified-signatures
             getForeignObjects(pattern: string, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, options: unknown, callback: GetObjectsCallback): void;
-            getForeignObjects(pattern: string, type: ObjectType, callback: GetObjectsCallback): void;
-            getForeignObjects(pattern: string, type: ObjectType, enums: EnumList, callback: GetObjectsCallback): void;
-            getForeignObjects(pattern: string, type: ObjectType, options: unknown, callback: GetObjectsCallback): void;
-            getForeignObjects(
+            getForeignObjects<T extends ObjectType>(pattern: string, type: T, callback: GetObjectsCallbackTyped<T>): void;
+            getForeignObjects<T extends ObjectType>(pattern: string, type: T, enums: EnumList, callback: GetObjectsCallbackTyped<T>): void;
+            getForeignObjects<T extends ObjectType>(pattern: string, type: T, options: unknown, callback: GetObjectsCallbackTyped<T>): void;
+            getForeignObjects<T extends ObjectType>(
                 pattern: string,
-                type: ObjectType,
+                type: T,
                 enums: EnumList,
                 options: unknown,
-                callback: GetObjectsCallback,
+                callback: GetObjectsCallbackTyped<T>,
             ): void;
             // tslint:enable:unified-signatures
             /** Get foreign objects by pattern, by specific type and resolve their enums. */
-            getForeignObjectsAsync(
+            getForeignObjectsAsync<T extends ObjectType>(
                 pattern: string,
-                options?: unknown,
-            ): GetObjectsPromise;
-            getForeignObjectsAsync(
-                pattern: string,
-                type: ObjectType,
-                options?: unknown,
-            ): GetObjectsPromise;
-            getForeignObjectsAsync(
-                pattern: string,
-                type: ObjectType,
+                type: T,
                 enums: EnumList,
                 options?: unknown,
+            ): GetObjectsPromiseTyped<T>;
+            getForeignObjectsAsync<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                options?: unknown,
+            ): GetObjectsPromiseTyped<T>;
+            getForeignObjectsAsync(
+                pattern: string,
+                options?: unknown,
             ): GetObjectsPromise;
+
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
-            setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
-            setForeignObject(
-                id: string,
-                obj: ioBroker.SettableObject,
+            setForeignObject<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
+            setForeignObject<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
-            setForeignObjectAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
+            setForeignObjectAsync<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
                 options?: unknown,
             ): SetObjectPromise;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
-            setForeignObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
-            setForeignObjectNotExists(
-                id: string,
-                obj: ioBroker.SettableObject,
+            setForeignObjectNotExists<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
+            setForeignObjectNotExists<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
-            setForeignObjectNotExistsAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
+            setForeignObjectNotExistsAsync<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
                 options?: unknown,
             ): SetObjectPromise;
+
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
-            extendForeignObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
-            extendForeignObject(
-                id: string,
-                objPart: PartialObject,
+            extendForeignObject<T extends string>(id: T, objPart: PartialObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
+            extendForeignObject<T extends string>(
+                id: T,
+                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
-            extendForeignObjectAsync(
-                id: string,
-                objPart: PartialObject,
+            extendForeignObjectAsync<T extends string>(
+                id: T,
+                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
                 options?: unknown,
             ): SetObjectPromise;
             /**
@@ -1221,6 +988,12 @@ declare global {
              */
             getBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
 
+            /** Deletes a binary state from the states DB */
+            delBinaryState(id: string, callback?: ErrorCallback): void;
+            delBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /** Deletes a binary state from the states DB */
+            delBinaryStateAsync(id: string, options?: unknown): Promise<void>;
+
             // ==============================
             // enums
 
@@ -1402,18 +1175,18 @@ declare global {
             createDevice(deviceName: string, callback?: SetObjectCallback): void;
             createDevice(
                 deviceName: string,
-                common: Partial<ioBroker.ObjectCommon>,
+                common: Partial<ioBroker.DeviceCommon>,
                 callback?: SetObjectCallback,
             ): void;
             createDevice(
                 deviceName: string,
-                common: Partial<ioBroker.ObjectCommon>,
+                common: Partial<ioBroker.DeviceCommon>,
                 native: Record<string, any>,
                 callback?: SetObjectCallback,
             ): void;
             createDevice(
                 deviceName: string,
-                common: Partial<ioBroker.ObjectCommon>,
+                common: Partial<ioBroker.DeviceCommon>,
                 native: Record<string, any>,
                 options: unknown,
                 callback?: SetObjectCallback,
@@ -1421,16 +1194,16 @@ declare global {
             /** creates an object with type device */
             createDeviceAsync(
                 deviceName: string,
-                common?: Partial<ioBroker.ObjectCommon>,
+                common?: Partial<ioBroker.DeviceCommon>,
             ): SetObjectPromise;
             createDeviceAsync(
                 deviceName: string,
-                common: Partial<ioBroker.ObjectCommon>,
+                common: Partial<ioBroker.DeviceCommon>,
                 native?: Record<string, any>,
             ): SetObjectPromise;
             createDeviceAsync(
                 deviceName: string,
-                common: Partial<ioBroker.ObjectCommon>,
+                common: Partial<ioBroker.DeviceCommon>,
                 native: Record<string, any>,
                 options?: unknown,
             ): SetObjectPromise;
@@ -1694,6 +1467,17 @@ declare global {
             ): Promise<void>;
 
             /**
+             * Checks if a file exists in the DB
+             */
+            fileExists(adapterName: string | null, path: string, callback: GenericCallback<boolean>): void;
+            fileExists(adapterName: string | null, path: string, options: unknown, callback: GenericCallback<boolean>): void;
+            fileExistsAsync(
+                adapterName: string | null,
+                path: string,
+                options?: unknown,
+            ): Promise<boolean>;
+
+            /**
              * Deletes a given file
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
@@ -1828,8 +1612,8 @@ declare global {
         type SetObjectCallback = (err?: Error | null, obj?: { id: string }) => void;
         type SetObjectPromise = Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
 
-        type GetObjectCallback = (err?: Error | null, obj?: ioBroker.Object | null) => void;
-        type GetObjectPromise = Promise<CallbackReturnTypeOf<GetObjectCallback>>;
+        type GetObjectCallback<T extends string = string> = (err?: Error | null, obj?: ObjectIdToObjectType<T> | null) => void;
+        type GetObjectPromise<T extends string = string> = Promise<CallbackReturnTypeOf<GetObjectCallback<T>>>;
 
         type GetEnumCallback = (err?: Error | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
         type GetEnumsCallback = (
@@ -1843,6 +1627,9 @@ declare global {
         type GetObjectsCallback = (err?: Error | null, objects?: Record<string, ioBroker.Object>) => void;
         type GetObjectsPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
 
+        type GetObjectsCallbackTyped<T extends ObjectType> = (err?: Error | null, objects?: Record<string, ioBroker.AnyObject & {type: T}>) => void;
+        type GetObjectsPromiseTyped<T extends ObjectType> = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallbackTyped<T>>>;
+
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
             err?: Error | null,
@@ -1852,12 +1639,6 @@ declare global {
             name?: string,
         ) => void;
 
-        interface GetObjectsItem<T extends BaseObject> {
-            /** The ID of this object */
-            id: string;
-            /** A copy of the object from the DB */
-            value: T;
-        }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
         type GetObjectsCallback3<T extends BaseObject> = (err?: Error | null, result?: T[]) => void;
 
@@ -1876,10 +1657,10 @@ declare global {
         /** Infers the return type from a callback-style API and and leaves null and undefined in */
         type CallbackReturnTypeOf<T extends (...args: any[]) => any> = SecondParameterOf<T>;
 
-        type GetStateCallback = (err: Error | null, state: State | null | undefined) => void;
+        type GetStateCallback = (err: Error | null, state?: State | null) => void;
         type GetStatePromise = Promise<CallbackReturnTypeOf<GetStateCallback>>;
 
-        type GetStatesCallback = (err: Error | null, states: Record<string, State>) => void;
+        type GetStatesCallback = (err: Error | null, states?: Record<string, State>) => void;
         type GetStatesPromise = Promise<CallbackReturnTypeOf<GetStatesCallback>>;
 
         type GetBinaryStateCallback = (err?: Error | null, state?: Buffer) => void;
@@ -1888,7 +1669,7 @@ declare global {
         type SetStateCallback = (err?: Error | null, id?: string) => void;
         type SetStatePromise = Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
 
-        type SetStateChangedCallback = (err: Error | null, id: string, notChanged: boolean) => void;
+        type SetStateChangedCallback = (err: Error | null, id?: string, notChanged?: boolean) => void;
         type SetStateChangedPromise = Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
 
         type DeleteStateCallback = (err?: Error | null, id?: string) => void;
@@ -1896,8 +1677,8 @@ declare global {
         type GetHistoryResult = Array<State & { id?: string }>;
         type GetHistoryCallback = (
             err: Error | null,
-            result: GetHistoryResult,
-            step: number,
+            result?: GetHistoryResult,
+            step?: number,
             sessionId?: string,
         ) => void;
 

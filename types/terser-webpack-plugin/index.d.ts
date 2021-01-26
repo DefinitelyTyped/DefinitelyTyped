@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 import { MinifyOptions } from 'terser';
 
 /**
@@ -86,8 +86,10 @@ declare namespace TerserPlugin {
     }
 }
 
-declare class TerserPlugin extends Plugin {
+declare class TerserPlugin implements WebpackPluginInstance {
     constructor(opts?: TerserPlugin.TerserPluginOptions);
+
+    apply: (compiler: Compiler) => void;
 }
 
 export = TerserPlugin;

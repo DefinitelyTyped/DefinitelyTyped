@@ -2082,7 +2082,7 @@ declare namespace Xrm {
          * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
-            "lookup" | "memo" | "money" | "multioptionset" | "optionset" | "string";
+            "lookup" | "memo" | "money" | "multiselectoptionset" | "optionset" | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.
@@ -4472,7 +4472,7 @@ declare namespace Xrm {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: boolean;
+            createFromEntity?: LookupValue;
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
@@ -4556,6 +4556,10 @@ declare namespace Xrm {
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
             position?: 1 | 2;
+            /*
+             * The dialog title on top of the center or side dialog.
+             */
+            title?: string;
         }
 
         namespace NavigationOptions {

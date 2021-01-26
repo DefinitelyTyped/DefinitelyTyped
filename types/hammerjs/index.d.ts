@@ -171,6 +171,12 @@ declare class HammerInput
   /** Highest velocityX/Y value. */
   velocity:number;
 
+  overallVelocity:number;
+
+  overallVelocityX:number;
+
+  overallVelocityY:number;
+
   /** Direction moved. Matches the DIRECTION constants. */
   direction:number;
 
@@ -209,6 +215,12 @@ declare class HammerInput
 
   /** Array with all new/moved/lost pointers. */
   changedPointers:any[];
+
+  /** Maximum number of pointers detected in the gesture */
+  maxPointers:number;
+
+  /** Timestamp of a gesture */
+  timeStamp:number;
 
   /** Reference to the srcEvent.preventDefault() method. Only for experts! */
   preventDefault:Function;

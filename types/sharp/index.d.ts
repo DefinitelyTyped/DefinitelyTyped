@@ -1,10 +1,11 @@
-// Type definitions for sharp 0.26
+// Type definitions for sharp 0.27
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
 //                 Floris de Bijl <https://github.com/Fdebijl>
+//                 Billy Kwok <https://github.com/billykwok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -16,7 +17,7 @@ import { Duplex } from 'stream';
 
 /**
  * Creates a sharp instance from an image
- * @param input Buffer containing JPEG, PNG, WebP, GIF, SVG, TIFF or raw pixel image data, or String containing the path to an JPEG, PNG, WebP, GIF, SVG or TIFF image file.
+ * @param input Buffer containing JPEG, PNG, WebP, AVIF, GIF, SVG, TIFF or raw pixel image data, or String containing the path to an JPEG, PNG, WebP, AVIF, GIF, SVG or TIFF image file.
  * @param options Object with optional attributes.
  * @throws {Error} Invalid parameters
  * @returns A sharp instance that can be used to chain operations
@@ -52,6 +53,8 @@ declare namespace sharp {
         svg?: string;
         tiff?: string;
         webp?: string;
+        avif?: string;
+        heif?: string;
         xml?: string;
         zlib?: string;
     };
@@ -132,7 +135,7 @@ declare namespace sharp {
          *  - sRGB: 0: Red, 1: Green, 2: Blue, 3: Alpha.
          *  - CMYK: 0: Magenta, 1: Cyan, 2: Yellow, 3: Black, 4: Alpha.
          *
-         * Buffers may be any of the image formats supported by sharp: JPEG, PNG, WebP, GIF, SVG, TIFF or raw pixel image data.
+         * Buffers may be any of the image formats supported by sharp.
          * For raw pixel input, the options object should contain a raw attribute, which follows the format of the attribute of the same name in the sharp() constructor.
          * @param images one or more images (file paths, Buffers).
          * @param options image options, see sharp() constructor.
@@ -415,7 +418,7 @@ declare namespace sharp {
 
         /**
          * Write output image data to a file.
-         * If an explicit output format is not selected, it will be inferred from the extension, with JPEG, PNG, WebP, TIFF, DZI, and libvips' V format supported.
+         * If an explicit output format is not selected, it will be inferred from the extension, with JPEG, PNG, WebP, AVIF, TIFF, DZI, and libvips' V format supported.
          * Note that raw pixel data is only supported for buffer output.
          * @param fileOut The path to write the image data to.
          * @param callback Callback function called on completion with two arguments (err, info).  info contains the output image format, size (bytes), width, height and channels.
@@ -428,12 +431,12 @@ declare namespace sharp {
          * Write output image data to a file.
          * @param fileOut The path to write the image data to.
          * @throws {Error} Invalid parameters
-         * @returns A promise that fulfills with an object containing informations on the resulting file
+         * @returns A promise that fulfills with an object containing information on the resulting file
          */
         toFile(fileOut: string): Promise<OutputInfo>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, TIFF and RAW output are supported.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
          * By default, the format will match the input image, except GIF and SVG input which become PNG output.
          * @param callback Callback function called on completion with three arguments (err, buffer, info).
          * @returns A sharp instance that can be used to chain operations
@@ -441,7 +444,7 @@ declare namespace sharp {
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): Sharp;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, TIFF and RAW output are supported.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
          * By default, the format will match the input image, except GIF and SVG input which become PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
@@ -450,7 +453,7 @@ declare namespace sharp {
         toBuffer(options?: { resolveWithObject: false }): Promise<Buffer>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, TIFF and RAW output are supported.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
          * By default, the format will match the input image, except GIF and SVG input which become PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
@@ -494,6 +497,24 @@ declare namespace sharp {
         webp(options?: WebpOptions): Sharp;
 
         /**
+         * Use these AVIF options for output image.
+         * Whilst it is possible to create AVIF images smaller than 16x16 pixels, most web browsers do not display these properly.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        avif(options?: AvifOptions): Sharp;
+
+        /**
+         * Use these HEIF options for output image.
+         * Support for patent-encumbered HEIC images requires the use of a globally-installed libvips compiled with support for libheif, libde265 and x265.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        heif(options?: HeifOptions): Sharp;
+
+        /**
          * Use these TIFF options for output image.
          * @param options Output options.
          * @throws {Error} Invalid options
@@ -515,8 +536,16 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         toFormat(
-            format: string | AvailableFormatInfo,
-            options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | TiffOptions,
+            format: keyof FormatEnum | AvailableFormatInfo,
+            options?:
+                | OutputOptions
+                | JpegOptions
+                | PngOptions
+                | WebpOptions
+                | AvifOptions
+                | HeifOptions
+                | GifOptions
+                | TiffOptions,
         ): Sharp;
 
         /**
@@ -634,6 +663,10 @@ declare namespace sharp {
         pages?: number;
         /** Page number to start extracting from for multi-page input (GIF, TIFF, PDF), zero based. (optional, default 0) */
         page?: number;
+        /** Level to extract from a multi-level input (OpenSlide), zero based. (optional, default 0) */
+        level?: number;
+        /** Set to `true` to read all frames/pages of an animated image (equivalent of setting `pages` to `-1`). (optional, default false) */
+        animated?: boolean;
         /** Describes raw pixel input image data. See raw() for pixel ordering. */
         raw?: Raw;
         /** Describes a new image to be created. */
@@ -680,15 +713,15 @@ declare namespace sharp {
 
     interface Metadata extends WriteableMetadata {
         /** Name of decoder used to decompress image data e.g. jpeg, png, webp, gif, svg */
-        format?: string;
+        format?: keyof FormatEnum;
         /** Total size of image in bytes, for Stream and Buffer input only */
         size?: number;
         /** Number of pixels wide (EXIF orientation is not taken into consideration) */
         width?: number;
         /** Number of pixels high (EXIF orientation is not taken into consideration) */
         height?: number;
-        /** Name of colour space interpretation e.g. srgb, rgb, cmyk, lab, b-w ... */
-        space?: string;
+        /** Name of colour space interpretation */
+        space?: keyof ColourspaceEnum;
         /** Number of bands e.g. 3 for sRGB, 4 for CMYK */
         channels?: Channels;
         /** Name of pixel depth format e.g. uchar, char, ushort, float ... */
@@ -791,7 +824,7 @@ declare namespace sharp {
         quantizationTable?: number;
     }
 
-    interface WebpOptions extends OutputOptions {
+    interface WebpOptions extends OutputOptions, AnimationOptions {
         /** Quality of alpha layer, number from 0-100 (optional, default 100) */
         alphaQuality?: number;
         /** Use lossless compression mode (optional, default false) */
@@ -803,6 +836,33 @@ declare namespace sharp {
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
         reductionEffort?: number;
     }
+
+    interface AvifOptions extends OutputOptions {
+        /** quality, integer 1-100 (optional, default 50) */
+        quality?: number;
+        /** use lossless compression (optional, default false) */
+        lossless?: boolean;
+        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        speed?: number;
+    }
+
+    interface HeifOptions extends OutputOptions {
+        /** quality, integer 1-100 (optional, default 50) */
+        quality?: number;
+        /** compression format: av1, hevc (optional, default 'av1') */
+        compression?: 'av1' | 'hevc';
+        /** use lossless compression (optional, default false) */
+        lossless?: boolean;
+        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        speed?: number;
+    }
+
+    /**
+     * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
+     * The prebuilt binaries do not include this - see
+     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
+     */
+    interface GifOptions extends OutputOptions, AnimationOptions {}
 
     interface TiffOptions extends OutputOptions {
         /** Compression options: lzw, deflate, jpeg, ccittfax4 (optional, default 'jpeg') */
@@ -967,6 +1027,15 @@ declare namespace sharp {
         layout?: TileLayout;
     }
 
+    interface AnimationOptions {
+        /** Page height for animated output, a value greater than 0. (optional) */
+        pageHeight?: number;
+        /** Number of animation iterations, a value between 0 and 65535. Use 0 for infinite animation. (optional, default 0) */
+        loop?: number;
+        /** List of delays between animation frames (in milliseconds), each value between 0 and 65535. (optional) */
+        delay?: number[];
+    }
+
     interface OutputInfo {
         format: string;
         size: number;
@@ -1069,21 +1138,23 @@ declare namespace sharp {
     }
 
     interface FormatEnum {
-        jpeg: AvailableFormatInfo;
-        png: AvailableFormatInfo;
-        webp: AvailableFormatInfo;
-        raw: AvailableFormatInfo;
-        tiff: AvailableFormatInfo;
+        avif: AvailableFormatInfo;
         dz: AvailableFormatInfo;
-        input: AvailableFormatInfo;
-        magick: AvailableFormatInfo;
-        openslide: AvailableFormatInfo;
-        ppm: AvailableFormatInfo;
         fits: AvailableFormatInfo;
         gif: AvailableFormatInfo;
-        svg: AvailableFormatInfo;
+        heif: AvailableFormatInfo;
+        input: AvailableFormatInfo;
+        jpeg: AvailableFormatInfo;
+        magick: AvailableFormatInfo;
+        openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;
+        png: AvailableFormatInfo;
+        ppm: AvailableFormatInfo;
+        raw: AvailableFormatInfo;
+        svg: AvailableFormatInfo;
+        tiff: AvailableFormatInfo;
         v: AvailableFormatInfo;
+        webp: AvailableFormatInfo;
     }
 
     interface CacheResult {

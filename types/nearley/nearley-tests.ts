@@ -12,7 +12,7 @@ compiledRules.ParserRules[0].postprocess; // $ExpectType Postprocessor | undefin
 
 lexer.reset('');
 lexer.reset('', {});
-lexer.next(); // $ExpectType string | { value: string; } | undefined
+lexer.next(); // $ExpectType string | { value: string; } | undefined || Token | undefined
 lexer.save(); // $ExpectType LexerState
 lexer.formatError('', ''); // $ExpectType string
 lexer.formatError({value: ''}, '');

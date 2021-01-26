@@ -51,6 +51,11 @@ declare module "http" {
         'range'?: string;
         'referer'?: string;
         'retry-after'?: string;
+        'sec-websocket-accept'?: string;
+        'sec-websocket-extensions'?: string;
+        'sec-websocket-key'?: string;
+        'sec-websocket-protocol'?: string;
+        'sec-websocket-version'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
@@ -215,6 +220,7 @@ declare module "http" {
 
         method: string;
         path: string;
+        /** @deprecated since v14.1.0 Use `request.destroy()` instead. */
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -311,7 +317,7 @@ declare module "http" {
         httpVersionMinor: number;
         complete: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated since v13.0.0 - Use `socket` instead.
          */
         connection: Socket;
         socket: Socket;

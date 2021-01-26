@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.5
+// Type definitions for Jasmine 3.6
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -16,6 +16,7 @@
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
+//                 Md. Enzam Hossain <https://github.com/ienzam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -79,6 +80,20 @@ declare function xit(expectation: string, assertion?: jasmine.ImplementationCall
 declare function pending(reason?: string): void;
 
 /**
+ * Sets a user-defined property that will be provided to reporters as
+ * part of the properties field of SpecResult.
+ * @since 3.6.0
+ */
+declare function setSpecProperty(key: string, value: unknown): void;
+
+/**
+ * Sets a user-defined property that will be provided to reporters as
+ * part of the properties field of SuiteResult.
+ * @since 3.6.0
+ */
+declare function setSuiteProperty(key: string, value: unknown): void;
+
+/**
  * Run some shared setup before each of the specs in the describe in which it is called.
  * @param action Function that contains the code to setup your specs.
  * @param timeout Custom timeout for an async beforeEach.
@@ -140,9 +155,9 @@ declare function expect(): jasmine.NothingMatcher;
  * which must be either returned from the spec or waited for using `await`
  * in order for Jasmine to associate them with the correct spec.
  * @checkReturnValue see https://tsetse.info/check-return-value
- * @param actual - Actual computed value to test expectations against.
+ * @param actual Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -198,7 +213,7 @@ declare namespace jasmine {
     // More info: https://stackoverflow.com/a/38642922/2009373
     type Constructor = Function & { prototype: any };
 
-    type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
+    type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
     type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
@@ -231,6 +246,7 @@ declare namespace jasmine {
     }
 
     function clock(): Clock;
+    function DiffBuilder(): DiffBuilder;
 
     var matchersUtil: MatchersUtil;
 
@@ -272,7 +288,7 @@ declare namespace jasmine {
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
-    function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
+    function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
@@ -284,6 +300,14 @@ declare namespace jasmine {
     function getEnv(): Env;
 
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+
+    /**
+     * Add a custom object formatter for the current scope of specs.
+     * Note: This is only callable from within a beforeEach, it, or beforeAll.
+     * @since 3.6.0
+     * @see https://jasmine.github.io/tutorials/custom_object_formatters
+     */
+    function addCustomObjectFormatter(formatter: CustomObjectFormatter): void;
 
     function addMatchers(matchers: CustomMatcherFactories): void;
     function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
@@ -347,6 +371,8 @@ declare namespace jasmine {
 
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
+    type CustomObjectFormatter = (value: unknown) => string|undefined;
+
     interface CustomMatcher {
         compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
         compare(actual: any, ...expected: any[]): CustomMatcherResult;
@@ -355,10 +381,10 @@ declare namespace jasmine {
     }
 
     interface CustomAsyncMatcher {
-        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        compare<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
@@ -378,10 +404,27 @@ declare namespace jasmine {
         message?: string;
     }
 
+    interface DiffBuilder {
+      setRoots(actual: any, expected: any): void;
+      recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
+      withPath(pathComponent: string, block: () => void): void;
+      getMessage(): string;
+    }
+
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
+
+        /**
+         * Formats a value for use in matcher failure messages and similar
+         * contexts, taking into account the current set of custom value
+         * formatters.
+         * @since 3.6.0
+         * @param value The value to pretty-print
+         * @return The pretty-printed value
+         */
+        pp(value: unknown): string;
     }
 
     interface Env {
@@ -424,6 +467,21 @@ declare namespace jasmine {
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
         seed(seed: string | number): string | number;
+
+        /**
+         * Sets a user-defined property that will be provided to reporters as
+         * part of the properties field of SpecResult.
+         * @since 3.6.0
+         */
+        setSpecProperty(key: string, value: unknown): void;
+
+        /**
+         * Sets a user-defined property that will be provided to reporters as
+         * part of the properties field of SuiteResult.
+         * @since 3.6.0
+         */
+        setSuiteProperty(key: string, value: unknown): void;
+
         provideFallbackReporter(reporter: Reporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
@@ -561,7 +619,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected - The expected value to compare against.
+         * @param expected The expected value to compare against.
          * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
@@ -570,7 +628,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
-         * @param expected - Expected value.
+         * @param expected Expected value.
          * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
@@ -579,7 +637,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to match a regular expression.
-         * @param expected - Value to look for in the string.
+         * @param expected Value to look for in the string.
          * @example
          * expect("my string").toMatch(/string$/);
          * expect("other string").toMatch("her");
@@ -597,6 +655,7 @@ declare namespace jasmine {
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledBefore(expected: Func): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
+        toHaveBeenCalledOnceWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
         toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
@@ -615,7 +674,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be a DOM element that has the expected class.
          * @since 3.0.0
-         * @param expected - The class name to test for.
+         * @param expected The class name to test for.
          * @example
          * var el = document.createElement('div');
          * el.className = 'foo bar baz';
@@ -624,8 +683,19 @@ declare namespace jasmine {
         toHaveClass(expected: string, expectationFailOutput?: any): boolean;
 
         /**
+         * Expect the actual size to be equal to the expected, using array-like
+         * length or object keys size.
+         * @since 3.6.0
+         * @param expected The expected size
+         * @example
+         * array = [1,2];
+         * expect(array).toHaveSize(2);
+         */
+        toHaveSize(expected: number): boolean;
+
+        /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails
+         * @param message Additional context to show when the matcher fails
          */
         withContext(message: string): Matchers<T>;
 
@@ -639,7 +709,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected - The expected value to compare against.
+         * @param expected The expected value to compare against.
          * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
@@ -648,7 +718,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
-         * @param expected - Expected value.
+         * @param expected Expected value.
          * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
@@ -659,7 +729,7 @@ declare namespace jasmine {
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): ArrayLikeMatchers<T>;
 
@@ -676,7 +746,7 @@ declare namespace jasmine {
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): FunctionMatchers<Fn>;
 
@@ -695,48 +765,48 @@ declare namespace jasmine {
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
          * @param expectationFailOutput
          */
-        toBePending(expectationFailOutput?: any): Promise<void>;
+        toBePending(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): Promise<void>;
+        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): Promise<void>;
+        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
-         * @param expected - Value that the promise is expected to resolve to.
+         * @param expected Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): Promise<void>;
+        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
-         * @param expected - Value that the promise is expected to be rejected with.
+         * @param expected Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
-         * @param expected - Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
-         * @param message - The message that should be set on the thrown Error.
+         * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
+         * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
-         * @param message - The message that should be set on the thrown Error.
+         * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): AsyncMatchers<T, U>;
 

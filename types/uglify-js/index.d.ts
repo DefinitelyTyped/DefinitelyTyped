@@ -301,6 +301,12 @@ export interface CompressOptions {
      * @default true
      */
     unused?: boolean;
+    /**
+     * convert block-scoped declaractions into `var`
+     * whenever safe to do so
+     * @default true
+     */
+    varify?: boolean;
 }
 
 export enum InlineFunctions {

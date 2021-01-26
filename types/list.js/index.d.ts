@@ -14,7 +14,7 @@ declare class List {
     filtered: boolean;
     alphabet: string;
 
-    constructor(element: string|HTMLElement, options?: List.ListOptions, values?: object[]);
+    constructor(element: string | HTMLElement, options?: List.ListOptions, values?: object[]);
 
     add(values: object[], callback?: (item: List.ListItem) => void): void;
     remove(valueName: string, value: any): number;
@@ -28,7 +28,7 @@ declare class List {
     update(): void;
     reIndex(): void;
     fuzzySearch(searchString: string, columns?: string[]): void;
-    on(event: string, callback: () => void): void;
+    on(event: List.Event, callback: (list: List) => void): List;
 }
 
 declare namespace List {
@@ -44,7 +44,7 @@ declare namespace List {
     }
 
     interface ListOptions {
-        valueNames?: string[];
+        valueNames?: Array<string|{data: string[]}|{name: string, attr: string}>;
         item?: string;
         listClass?: string;
         searchClass?: string;
@@ -68,8 +68,17 @@ declare namespace List {
         order?: string;
         alphabet?: string;
         insensitive?: boolean;
-        sortFunction?: ((a: object, b: object) => number|undefined);
+        sortFunction?: (a: object, b: object) => number | undefined;
     }
+
+    type Event =
+        | 'updated'
+        | 'filterStart'
+        | 'filterComplete'
+        | 'searchStart'
+        | 'searchComplete'
+        | 'sortStart'
+        | 'sortComplete';
 }
 
 export = List;

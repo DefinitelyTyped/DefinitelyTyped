@@ -39,7 +39,6 @@ const RippleTest: React.FC = () => {
             disabled={false}
             onRippleAnimation={callback}
             accessibilityActions={[{ name: 'activate' }]}
-            accessibilityComponentType="radiobutton_checked"
             accessibilityElementsHidden
             accessibilityHint="string"
             accessibilityIgnoresInvertColors
@@ -47,7 +46,6 @@ const RippleTest: React.FC = () => {
             accessibilityLiveRegion="none"
             accessibilityRole="button"
             accessibilityState={{ disabled: false }}
-            accessibilityTraits="header"
             accessibilityValue={{
                 min: aNumber,
                 max: aNumber,
@@ -123,5 +121,5 @@ const RippleTest: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    wrapper: {} as any as ViewStyle,
+    wrapper: ({} as any) as ViewStyle,
 });

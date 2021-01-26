@@ -10,6 +10,12 @@ export interface Options {
 }
 export default class CircleStyle extends RegularShape {
     constructor(opt_options?: Options);
+    /**
+     * Clones the style.
+     */
     clone(): CircleStyle;
+    /**
+     * Set the circle radius.
+     */
     setRadius(radius: number): void;
 }

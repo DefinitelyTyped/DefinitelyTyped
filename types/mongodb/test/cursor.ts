@@ -22,11 +22,12 @@ async function run() {
         .maxScan({})
         .maxTimeMS(1)
         .project({})
-        .returnKey({})
+        .returnKey(true)
         .setCursorOption('', {})
         .setReadPreference('primary')
         .setReadPreference(ReadPreference.SECONDARY_PREFERRED)
-        .showRecordId({})
+        .setReadPreference(new ReadPreference('primary', { hedge: { enabled: true }, maxStalenessSeconds: 20 }))
+        .showRecordId(true)
         .skip(1)
         .snapshot({})
         .sort({})
@@ -37,6 +38,7 @@ async function run() {
     collection.find().project({ notExistingField: 1 });
     collection.find().sort({ text: { $meta: 'textScore' }, notExistingField: -1 });
     collection.find().sort({});
+    collection.find().bufferedCount();
 
     interface TypedDoc {
         name: string;

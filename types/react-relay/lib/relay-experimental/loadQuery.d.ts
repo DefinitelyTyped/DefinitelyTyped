@@ -1,10 +1,18 @@
-import { GraphQLTaggedNode, IEnvironment, OperationType } from 'relay-runtime';
-import { PreloadedQueryInner, LoadQueryOptions, PreloadableConcreteRequest, EnvironmentProviderOptions } from './EntryPointTypes';
+import { GraphQLTaggedNode, IEnvironment, OperationType, VariablesOf } from 'relay-runtime';
+import {
+    EnvironmentProviderOptions,
+    LoadQueryOptions,
+    PreloadableConcreteRequest,
+    PreloadedQuery,
+} from './EntryPointTypes';
 
-export function loadQuery<TQuery extends OperationType, TEnvironmentProviderOptions extends EnvironmentProviderOptions = {}>(
+export function loadQuery<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions extends EnvironmentProviderOptions = {}
+>(
     environment: IEnvironment,
     preloadableRequest: GraphQLTaggedNode | PreloadableConcreteRequest<TQuery>,
-    variables: TQuery['variables'],
+    variables: VariablesOf<TQuery>,
     options?: LoadQueryOptions,
-    environmentProviderOptions?: TEnvironmentProviderOptions
-): PreloadedQueryInner<TQuery, TEnvironmentProviderOptions>;
+    environmentProviderOptions?: TEnvironmentProviderOptions,
+): PreloadedQuery<TQuery, TEnvironmentProviderOptions>;

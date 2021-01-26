@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr { }
-
-export interface HeaderProps extends InheritedProps { }
+export interface HeaderProps extends ReactAttr { }
 
 declare const Header: React.FC<HeaderProps>;
 

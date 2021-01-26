@@ -6,35 +6,35 @@
 import * as React from 'react';
 
 // This needs to be updated when TypeScript enhances their support for mutual
-// exclusivity in properties. While I am defining the props as being either one with
-// name OR one with colors, and the type reflects this on hover, it doesnt throw any lint errors
-// when I disobey this type contstraint.
-type PropsColor =
-    | {
-          name:
-              | 'cristal'
-              | 'teen'
-              | 'mind'
-              | 'morning'
-              | 'vice'
-              | 'passion'
-              | 'fruit'
-              | 'instagram'
-              | 'atlas'
-              | 'retro'
-              | 'summer'
-              | 'pastel'
-              | 'rainbow';
-      }
-    | {
-          colors: string[] | object[];
-      };
+// exclusivity in properties. This edit I made will now throw errors when
+// a user gives both of the mutually exclusive props.
+
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+
+interface PropsName {
+    name:
+        | 'cristal'
+        | 'teen'
+        | 'mind'
+        | 'morning'
+        | 'vice'
+        | 'passion'
+        | 'fruit'
+        | 'instagram'
+        | 'atlas'
+        | 'retro'
+        | 'summer'
+        | 'pastel'
+        | 'rainbow';
+}
 
 // note, object[] in this case refers to objects interpretable by tinycolor2
+interface PropsColor {
+    colors: string[] | object[];
+}
 
-type GradientProps = {
-    children: React.ReactNode;
-} & PropsColor;
+type GradientProps = XOR<PropsName, PropsColor> & { children: React.ReactNode };
 
 declare const Gradient: React.FC<GradientProps>;
 export = Gradient;

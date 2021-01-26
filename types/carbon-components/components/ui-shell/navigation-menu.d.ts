@@ -5,10 +5,7 @@ export default class NavigationMenu extends NavigationMenuPanel {
     navigate: (direction: any) => void;
     _handleKeyDown: (event: any) => void;
     _handleFocusOut: (event: any) => void;
-    changeNavSubmenuState: ({ matchesNavSubmenu, shouldBeCollapsed }: {
-        matchesNavSubmenu: any;
-        shouldBeCollapsed: any;
-    }) => void;
+    changeNavSubmenuState: ({ matchesNavSubmenu, shouldBeCollapsed }: any) => void;
     _handleClick: (event: any) => void;
     static components: WeakMap<object, any>;
     static get options(): any;

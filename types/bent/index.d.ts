@@ -29,7 +29,6 @@ declare function bent(
     type: 'buffer',
     ...args: bent.Options[]
 ): bent.RequestFunction<Buffer | ArrayBuffer>;
-// tslint:disable-next-line no-unnecessary-generics
 declare function bent<T extends bent.Json = any>(
     baseUrl: string,
     type: 'json',

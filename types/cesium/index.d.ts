@@ -3829,7 +3829,6 @@ declare namespace Cesium {
         constructor(style?: Resource | string | object)
     }
 
-    // tslint:disable-next-line:no-unnecessary-class
     class Cesium3DTileset {
         readonly asset: any;
         readonly baseScreenSpaceError: number;

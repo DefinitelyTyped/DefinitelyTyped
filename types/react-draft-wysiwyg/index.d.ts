@@ -21,6 +21,7 @@ export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
 
 export interface EditorProps {
+    webDriverTestID?: string;
     onChange?(contentState: RawDraftContentState): void;
     onEditorStateChange?(editorState: EditorState): void;
     onContentStateChange?(contentState: RawDraftContentState): void;
@@ -68,7 +69,7 @@ export interface EditorProps {
         text: string,
         html: string,
         editorState: EditorState,
-        onChange: (editorState: EditorState) => void
+        onChange: (editorState: EditorState) => void,
     ): boolean;
     customStyleMap?: object;
 }

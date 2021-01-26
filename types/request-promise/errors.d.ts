@@ -2,6 +2,7 @@ import rp = require('.');
 import http = require('http');
 
 export interface RequestError extends Error {
+    name: 'RequestError';
     cause: any;
     error: any;
     options: rp.Options;
@@ -15,6 +16,7 @@ export interface RequestErrorConstructor {
 export const RequestError: RequestErrorConstructor;
 
 export interface StatusCodeError extends Error {
+    name: 'StatusCodeError';
     statusCode: number;
     error: any;
     options: rp.Options;
@@ -28,6 +30,7 @@ export interface StatusCodeErrorConstructor extends Error {
 export const StatusCodeError: StatusCodeErrorConstructor;
 
 export interface TransformError extends Error {
+    name: 'TransformError';
     cause: any;
     error: any;
     options: rp.Options;

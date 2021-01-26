@@ -16,24 +16,33 @@ export default class GML3 extends GMLBase {
     curveMemberParser(node: Element, objectStack: any[]): void;
     exteriorParser(node: Element, objectStack: any[]): void;
     interiorParser(node: Element, objectStack: any[]): void;
-    readCurve(node: Element, objectStack: any[]): LineString;
-    readEnvelope(node: Element, objectStack: any[]): Extent;
-    readFlatPos(node: Node, objectStack: any[]): number[];
-    readFlatPosList(node: Element, objectStack: any[]): number[];
-    readLineStringSegment(node: Element, objectStack: any[]): number[];
-    readMultiCurve(node: Element, objectStack: any[]): MultiLineString;
-    readMultiSurface(node: Element, objectStack: any[]): MultiPolygon;
-    readPatch(node: Element, objectStack: any[]): number[][];
-    readPolygonPatch(node: Element, objectStack: any[]): number[][];
-    readSegment(node: Element, objectStack: any[]): number[];
-    readSurface(node: Element, objectStack: any[]): Polygon;
+    readCurve(node: Element, objectStack: any[]): LineString | undefined;
+    readEnvelope(node: Element, objectStack: any[]): Extent | undefined;
+    readFlatPos(node: Node, objectStack: any[]): number[] | undefined;
+    readFlatPosList(node: Element, objectStack: any[]): number[] | undefined;
+    readLineStringSegment(node: Element, objectStack: any[]): number[] | undefined;
+    readMultiCurve(node: Element, objectStack: any[]): MultiLineString | undefined;
+    readMultiSurface(node: Element, objectStack: any[]): MultiPolygon | undefined;
+    readPatch(node: Element, objectStack: any[]): number[][] | undefined;
+    readPolygonPatch(node: Element, objectStack: any[]): number[][] | undefined;
+    readSegment(node: Element, objectStack: any[]): number[] | undefined;
+    readSurface(node: Element, objectStack: any[]): Polygon | undefined;
     surfaceMemberParser(node: Element, objectStack: any[]): void;
     writeCurveOrLineString(node: Element, geometry: LineString, objectStack: any[]): void;
     writeEnvelope(node: Element, extent: Extent, objectStack: any[]): void;
     writeFeatureElement(node: Element, feature: Feature<Geometry>, objectStack: any[]): void;
+    /**
+     * Encode an array of features in GML 3.1.1 Simple Features.
+     */
     writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
+    /**
+     * Encode an array of features in the GML 3.1.1 format as an XML node.
+     */
     writeFeaturesNode(features: Feature<Geometry>[], opt_options?: WriteOptions): Element;
     writeGeometryElement(node: Node, geometry: Geometry | Extent, objectStack: any[]): void;
+    /**
+     * Encode a geometry in GML 3.1.1 Simple Features.
+     */
     writeGeometryNode(geometry: Geometry, opt_options?: WriteOptions): Node;
     writeLinearRing(node: Element, geometry: LinearRing, objectStack: any[]): void;
     writeLineStringOrCurveMember(node: Node, line: LineString, objectStack: any[]): void;

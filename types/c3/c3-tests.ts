@@ -119,7 +119,10 @@ function data_examples() {
                 data1: 'additional-data1-class',
                 data2: 'additional-data2-class',
             },
-            groups: [['data1', 'data2'], ['data3']],
+            groups: [
+                ['data1', 'data2'],
+                ['data3']
+            ],
             axes: {
                 data1: 'y',
                 data2: 'y2',
@@ -132,7 +135,10 @@ function data_examples() {
             labels: true,
             order: 'asc',
             regions: {
-                data1: [{ start: 1, end: 2, style: 'dashed' }, { start: 3 }],
+                data1: [
+                    { start: 1, end: 2, style: 'dashed' },
+                    { start: 3, label: 'Region 2', paddingX: 2, paddingY: 2, vertical: true }
+                ],
             },
             color: (color, d) => '#ff0000',
             colors: {
@@ -152,6 +158,9 @@ function data_examples() {
                 draggable: true,
                 isselectable: (d) => true,
             },
+            stack: {
+                normalize: true
+            },
             onclick: (d, element) => {
                 /* code */
             },
@@ -168,10 +177,23 @@ function data_examples() {
         data: {
             labels: {
                 format: (v, id, i, j) => {
-                    return "string";
+                    return 'string';
                 }
             },
             hide: ['data1'],
+            order: (data1, data2) => 0
+        },
+    });
+
+    const chart3 = c3.generate({
+        data: {
+            labels: {
+                format: {
+                    data1: (v, id, i, j) => {
+                        return 'string';
+                    }
+                }
+            },
         },
     });
 }
@@ -183,7 +205,7 @@ function axis_examples() {
             rotated: true,
             x: {
                 show: true,
-                type: "timeseries",
+                type: 'timeseries',
                 localtime: true,
                 categories: ['Category 1', 'Category 2'],
                 tick: {
@@ -195,6 +217,8 @@ function axis_examples() {
                     values: [1, 2, 4, 8, 16, 32],
                     rotate: 60,
                     outer: false,
+                    multiline: true,
+                    multilineMax: 2,
                     width: 100,
                 },
                 max: 100,
@@ -210,6 +234,7 @@ function axis_examples() {
             y: {
                 show: false,
                 inner: true,
+                type: 'linear',
                 max: 1000,
                 min: 1000,
                 inverted: true,
@@ -230,6 +255,7 @@ function axis_examples() {
             y2: {
                 show: true,
                 inner: true,
+                type: 'linear',
                 max: 1000,
                 min: 1000,
                 inverted: true,
@@ -277,6 +303,9 @@ function axis_examples() {
                 label: {
                     text: 'Your X Axis',
                     position: 'outer-middle',
+                },
+                tick: {
+                    format: (d) => '$' + d,
                 },
             },
         },
@@ -362,6 +391,26 @@ function legend_examples() {
     });
 }
 
+function tooltip_examples() {
+    const chart = c3.generate({
+        data: {},
+        tooltip: {
+            show: true,
+            grouped: true,
+            format: {
+                title: (x, index) => 'Data ' + x,
+                name: (name, ratio, id, index) => name,
+                value: (value, ratio, id, index) => ratio?.toString(),
+            },
+            position: (data, width, height, element) => {
+                return {top: 0, left: 0};
+            },
+            contents: (d, defaultTitleFormat, defaultValueFormat, color) => '<p>title</p>', // formatted html as you want
+            horizontal: true
+        }
+    });
+}
+
 function subchart_examples() {
     const chart = c3.generate({
         data: {},
@@ -370,10 +419,14 @@ function subchart_examples() {
             size: {
                 height: 20,
             },
-
             onbrush: (domain) => {
                 /* code */
             },
+            axis: {
+                x: {
+                    show: true
+                }
+            }
         },
     });
 }
@@ -395,6 +448,7 @@ function zoom_examples() {
             onzoomend: (domain) => {
                 /* code */
             },
+            disableDefaultBehavior: true,
         },
     });
 }
@@ -472,6 +526,7 @@ function pie_examples() {
                 threshold: 0.1,
             },
             expand: false,
+            padAngle: .1,
         },
     });
 }
@@ -488,6 +543,7 @@ function donut_examples() {
                 threshold: 0.05,
             },
             expand: false,
+            padAngle: .1,
             width: 10,
             title: 'Title',
         },
@@ -514,6 +570,328 @@ function gauge_examples() {
     });
 }
 
+function spline_examples() {
+    const chart = c3.generate({
+        data: {},
+        spline: {
+            interpolation: {
+                type: 'monotone'
+            }
+        }
+    });
+}
+
+function stanford_examples() {
+    const chart = c3.generate({
+        data: {},
+        stanford: {
+            scaleMin: 1,
+            scaleMax: 10000,
+            scaleWidth: 20,
+            scaleFormat: 'pow10',
+            scaleValues: (minValue, maxValue) => {
+                const step = (maxValue - minValue) / 10;
+                return d3.range(minValue, maxValue + step, step);
+            },
+            colors: d3.interpolatePlasma,
+            padding: {
+                top: 15,
+                right: 0,
+                bottom: 0,
+                left: 0,
+            },
+            texts: [
+                { x: 1, y: 4, content: 'my custom text here', class: 'text-1-4' }
+            ],
+            lines: [
+                { value_x1: 0, value_y1: 0, value_x2: 65, value_y2: 65, class: "line-0-65" },
+            ],
+            regions: [
+                {
+                    points: [ // add points counter-clockwise
+                        {x: 0, y: 0},
+                        {x: 40, y: 40},
+                        {x: 0, y: 40},
+                    ],
+                    text: (value, percentage) =>
+                        `Normal Operations: ${value} (${percentage}%)`,
+                    opacity: 0.2, // 0 to 1
+                    class: "region-triangle-1"
+                }
+            ]
+        },
+    });
+
+    const chart1 = c3.generate({
+        data: {},
+        stanford: {
+            scaleFormat: d3.format("d"),
+        },
+    });
+
+    const chart2 = c3.generate({
+        data: {},
+        stanford: {
+            scaleFormat: (d) => 'format',
+        },
+    });
+}
+
+//////////////////
+// API tests
+/////////////////
+
+function api() {
+    const chart = c3.generate({ data: {} });
+
+    chart.focus('data1');
+    chart.focus(['data1', 'data2']);
+    chart.focus();
+
+    chart.defocus('data1');
+    chart.defocus(['data1', 'data2']);
+    chart.defocus();
+
+    chart.revert('data1');
+    chart.revert(['data1', 'data2']);
+    chart.revert();
+
+    chart.show('data1');
+    chart.show(['data1', 'data2']);
+    chart.show();
+    chart.show('data1', { withLegend: true });
+
+    chart.hide('data1');
+    chart.hide(['data1', 'data2']);
+    chart.hide();
+    chart.hide('data1', {withLegend: true});
+
+    chart.toggle('data1');
+    chart.toggle(['data1', 'data2']);
+    chart.toggle();
+    chart.toggle('data1', {withLegend: true});
+
+    chart.load({
+        data: {},
+        url: 'http://sample.url',
+        json: { x: [0, 1, 2], y: [1, 2, 3] },
+        rows: [['a', 'b', 'c'], [1, 2, 3], [4, 5, 6]],
+        columns: [['data1', 100, 200, 150], ['b', 2, 3], ['c', 5, 6]],
+        classes: { id1: 'class', id2: 'class' },
+        categories: [['cat1', 'cat2']],
+        axes: { id1: 'x', id2: 'y' },
+        colors: { x1: d3.rgb(0, 0, 0), x2: '#000000' },
+        type: 'bar',
+        types: { c1: 'area', c2: 'spline' },
+        unload: ['data2', 'data3'],
+        done: () => { /* on done */ },
+    });
+
+    chart.load({
+        unload: true
+    });
+
+    chart.unload({
+        ids: ['data2', 'data3'],
+        done: () => { /* on done */ },
+    });
+
+    chart.flow({
+        rows: [['a', 'b', 'c'], [1, 2, 3], [4, 5, 6]],
+        columns: [
+            ['x', '2013-01-11', '2013-01-21'],
+            ['data1', 500, 200],
+            ['data2', 100, 300],
+            ['data3', 200, 120]
+        ],
+        done: () => {
+            chart.flow({
+                columns: [
+                    ['x', '2013-02-11', '2013-02-12', '2013-02-13', '2013-02-14'],
+                    ['data1', 200, 300, 100, 250],
+                    ['data2', 100, 90, 40, 120],
+                    ['data3', 100, 100, 300, 500]
+                ],
+                length: 0
+            });
+        }
+    });
+
+    chart.select(['data1']);
+    chart.select(['data1'], [1, 3, 5]);
+    chart.select(['data1'], [1, 3, 5], true);
+
+    chart.unselect(['data1']);
+    chart.unselect(['data1'], [1, 3, 5]);
+
+    chart.selected();
+    chart.selected('data1');
+
+    chart.transform('bar');
+    chart.transform('bar', 'data1');
+    chart.transform('bar', ['data1', 'data2']);
+
+    chart.groups([['data1', 'data2']]);
+
+    chart.xgrids([
+        {value: 1, text: 'Label 1'},
+        {value: 4, text: 'Label 4'}
+    ]);
+
+    chart.xgrids.add(
+        {value: 4, text: 'Label 4'}
+    );
+
+    chart.xgrids.add([
+        {value: 2, text: 'Label 2'},
+        {value: 4, text: 'Label 4'}
+    ]);
+
+    chart.xgrids.remove({value: 2});
+    chart.xgrids.remove({class: 'grid-A'});
+    chart.xgrids.remove();
+
+    chart.ygrids([
+        {value: 100, text: 'Label 1'},
+        {value: 400, text: 'Label 4'}
+    ]);
+
+    chart.ygrids.add(
+        {value: 400, text: 'Label 4'}
+    );
+
+    // Add new y grid lines
+    chart.ygrids.add([
+        {value: 200, text: 'Label 2'},
+        {value: 400, text: 'Label 4'}
+    ]);
+
+    chart.ygrids.remove({value: 200});
+    chart.ygrids.remove({class: 'grid-A'});
+    chart.ygrids.remove();
+
+    chart.regions([
+        {axis: 'x', start: 5, class: 'regionX'},
+        {axis: 'y', end: 50, class: 'regionY'}
+    ]);
+
+    chart.regions.add(
+        {axis: 'x', start: 5, class: 'regionX'}
+    );
+
+    chart.regions.add([
+        {axis: 'x', start: 5, class: 'regionX'},
+        {axis: 'y', end: 50, class: 'regionY'}
+    ]);
+
+    chart.regions.remove({classes: ['region-A', 'region-B']});
+    chart.regions.remove();
+
+    chart.data('data1');
+    chart.data(['data1', 'data2']);
+    chart.data();
+
+    chart.data.shown('data1');
+    chart.data.shown(['data1', 'data2']);
+    chart.data.shown();
+
+    chart.data.values('data1');
+
+    chart.data.names();
+    chart.data.names({
+        data1: 'New Name 1',
+        data2: 'New Name 2'
+    });
+
+    chart.data.colors();
+    chart.data.colors({
+        data1: '#FFFFFF',
+        data2: '#000000'
+    });
+
+    chart.data.axes();
+    chart.data.axes({
+        data1: 'y',
+        data2: 'y2'
+    });
+
+    chart.x();
+    chart.x([100, 200, 300, 400]);
+    chart.x({
+        data1: [10, 20, 30, 40],
+        data2: [100, 200, 300, 400]
+    });
+
+    chart.xs();
+    chart.xs({
+        data1: [10, 20, 30, 40],
+        data2: [100, 200, 300, 400]
+    });
+
+    chart.axis.labels({
+        x: 'New X Axis Label',
+        y: 'New Y Axis Label'
+    });
+
+    chart.axis.min({
+        x: -10,
+        y: 1000,
+        y2: 100
+    });
+
+    chart.axis.max({
+        x: 100,
+        y: 1000,
+        y2: 10000
+    });
+
+    chart.axis.range({
+        min: {
+            x: -10,
+            y: -1000,
+            y2: -10000
+        },
+        max: {
+            x: 100,
+            y: 1000,
+            y2: 10000
+        }
+    });
+
+    chart.axis.types({
+        x: 'linear',
+        y2: 'log',
+    });
+
+    chart.legend.show('data1');
+    chart.legend.show(['data1', 'data2']);
+    chart.legend.show();
+
+    chart.legend.hide('data1');
+    chart.legend.hide(['data1', 'data2']);
+    chart.legend.hide();
+
+    chart.subchart.isShown();
+    chart.subchart.show();
+    chart.subchart.hide();
+
+    chart.zoom([10, 20]);
+    chart.zoom();
+
+    chart.unzoom();
+
+    chart.zoom.enable(true);
+
+    chart.resize({
+        height: 640,
+        width: 480
+    });
+
+    chart.flush();
+
+    chart.destroy();
+}
+
 //////////////////
 // Chart tests
 /////////////////
@@ -523,17 +901,25 @@ function simple_multiple() {
         data: {
             columns: [
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+                ['data2', 50, 20, 10, 40, 15, 25]
+            ]
         },
     });
 
     chart.load({
-        columns: [['data1', 230, 190, 300, 500, 300, 400]],
+        columns: [
+            ['data1', 230, 190, 300, 500, 300, 400]
+        ]
+    });
+
+    chart.load({
+        columns: [
+            ['data3', 130, 150, 200, 300, 200, 100]
+        ]
     });
 
     chart.unload({
-        ids: 'data1',
+        ids: 'data1'
     });
 }
 
@@ -543,27 +929,25 @@ function timeseries() {
             x: 'x',
             xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
             columns: [
-                [
-                    'x',
-                    '20130101',
-                    '20130102',
-                    '20130103',
-                    '20130104',
-                    '20130105',
-                    '20130106',
-                ],
+                ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 340, 200, 500, 250, 350],
-            ],
+                ['data2', 130, 340, 200, 500, 250, 350]
+            ]
         },
         axis: {
             x: {
                 type: 'timeseries',
                 tick: {
-                    format: '%Y-%m-%d',
-                },
-            },
-        },
+                    format: '%Y-%m-%d'
+                }
+            }
+        }
+    });
+
+    chart.load({
+        columns: [
+            ['data3', 400, 500, 450, 700, 600, 500]
+        ]
     });
 }
 
@@ -572,9 +956,9 @@ function chart_spline() {
         data: {
             columns: [
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
+                ['data2', 130, 100, 140, 200, 150, 50]
             ],
-            type: 'spline',
+            type: 'spline'
         },
     });
 }
@@ -586,9 +970,25 @@ function simple_xy() {
             columns: [
                 ['x', 30, 50, 100, 230, 300, 310],
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 300, 200, 300, 250, 450],
-            ],
-        },
+                ['data2', 130, 300, 200, 300, 250, 450]
+            ]
+        }
+    });
+
+    chart.load({
+        columns: [
+            ['data1', 100, 250, 150, 200, 100, 350]
+        ]
+    });
+
+    chart.load({
+        columns: [
+            ['data3', 80, 150, 100, 180, 80, 150]
+        ]
+    });
+
+    chart.unload({
+        ids: 'data2'
     });
 }
 
@@ -603,8 +1003,8 @@ function simple_xy_multiple() {
                 ['x1', 10, 30, 45, 50, 70, 100],
                 ['x2', 30, 50, 75, 100, 120],
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 20, 180, 240, 100, 190],
-            ],
+                ['data2', 20, 180, 240, 100, 190]
+            ]
         },
     });
 }
@@ -614,12 +1014,12 @@ function simple_regions() {
         data: {
             columns: [
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
+                ['data2', 50, 20, 10, 40, 15, 25]
             ],
             regions: {
                 data1: [{ start: 1, end: 2, style: 'dashed' }, { start: 3 }], // currently 'dashed' style only
-                data2: [{ end: 3 }],
-            },
+                data2: [{ end: 3 }]
+            }
         },
     });
 }
@@ -629,28 +1029,28 @@ function chart_step() {
         data: {
             columns: [
                 ['data1', 300, 350, 300, 0, 0, 100],
-                ['data2', 130, 100, 140, 200, 150, 50],
+                ['data2', 130, 100, 140, 200, 150, 50]
             ],
             types: {
                 data1: 'step',
-                data2: 'area-step',
-            },
+                data2: 'area-step'
+            }
         },
     });
 }
 
-function area_chart() {
+function chart_area() {
     const chart = c3.generate({
         data: {
             columns: [
                 ['data1', 300, 350, 300, 0, 0, 0],
-                ['data2', 130, 100, 140, 200, 150, 50],
+                ['data2', 130, 100, 140, 200, 150, 50]
             ],
             types: {
                 data1: 'area',
-                data2: 'area-spline',
-            },
-        },
+                data2: 'area-spline'
+            }
+        }
     });
 }
 
@@ -659,14 +1059,14 @@ function chart_area_stacked() {
         data: {
             columns: [
                 ['data1', 300, 350, 300, 0, 0, 120],
-                ['data2', 130, 100, 140, 200, 150, 50],
+                ['data2', 130, 100, 140, 200, 150, 50]
             ],
             types: {
                 data1: 'area-spline',
-                data2: 'area-spline',
+                data2: 'area-spline'
                 // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
             },
-            groups: [['data1', 'data2']],
+            groups: [['data1', 'data2']]
         },
     });
 }
@@ -676,19 +1076,23 @@ function chart_bar() {
         data: {
             columns: [
                 ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
+                ['data2', 130, 100, 140, 200, 150, 50]
             ],
-            type: 'bar',
+            type: 'bar'
         },
         bar: {
             width: {
-                ratio: 0.5, // this makes bar width 50% of length between ticks
-                max: 50, // this limits maximum width of bar to 50px
-            },
-            space: 10, // this adds space between bars in bar charts
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
             // or
             // width: 100 // this makes bar width 100px
-        },
+        }
+    });
+
+    chart.load({
+        columns: [
+            ['data3', 130, -150, 200, 300, -200, 100]
+        ]
     });
 }
 
@@ -698,17 +1102,27 @@ function chart_bar_stacked() {
             columns: [
                 ['data1', -30, 200, 200, 400, -150, 250],
                 ['data2', 130, 100, -100, 200, -150, 50],
-                ['data3', -230, 200, 200, -300, 250, 250],
+                ['data3', -230, 200, 200, -300, 250, 250]
             ],
             type: 'bar',
-            groups: [['data1', 'data2']],
+            groups: [
+                ['data1', 'data2']
+            ]
         },
         grid: {
             y: {
-                lines: [{ value: 0 }],
-            },
-        },
+                lines: [{ value: 0 }]
+            }
+        }
     });
+
+    chart.groups([['data1', 'data2', 'data3']]);
+
+    chart.load({
+        columns: [['data4', 100, -50, 150, 200, -300, -100]]
+    });
+
+    chart.groups([['data1', 'data2', 'data3', 'data4']]);
 }
 
 function chart_scatter() {
@@ -720,232 +1134,58 @@ function chart_scatter() {
             },
             // iris data from R
             columns: [
-                [
-                    'setosa_x',
-                    3.5,
-                    3.0,
-                    3.2,
-                    3.1,
-                    3.6,
-                    3.9,
-                    3.4,
-                    3.4,
-                    2.9,
-                    3.1,
-                    3.7,
-                    3.4,
-                    3.0,
-                    3.0,
-                    4.0,
-                    4.4,
-                    3.9,
-                    3.5,
-                    3.8,
-                    3.8,
-                    3.4,
-                    3.7,
-                    3.6,
-                    3.3,
-                    3.4,
-                    3.0,
-                    3.4,
-                    3.5,
-                    3.4,
-                    3.2,
-                    3.1,
-                    3.4,
-                    4.1,
-                    4.2,
-                    3.1,
-                    3.2,
-                    3.5,
-                    3.6,
-                    3.0,
-                    3.4,
-                    3.5,
-                    2.3,
-                    3.2,
-                    3.5,
-                    3.8,
-                    3.0,
-                    3.8,
-                    3.2,
-                    3.7,
-                    3.3,
-                ],
-                [
-                    'versicolor_x',
-                    3.2,
-                    3.2,
-                    3.1,
-                    2.3,
-                    2.8,
-                    2.8,
-                    3.3,
-                    2.4,
-                    2.9,
-                    2.7,
-                    2.0,
-                    3.0,
-                    2.2,
-                    2.9,
-                    2.9,
-                    3.1,
-                    3.0,
-                    2.7,
-                    2.2,
-                    2.5,
-                    3.2,
-                    2.8,
-                    2.5,
-                    2.8,
-                    2.9,
-                    3.0,
-                    2.8,
-                    3.0,
-                    2.9,
-                    2.6,
-                    2.4,
-                    2.4,
-                    2.7,
-                    2.7,
-                    3.0,
-                    3.4,
-                    3.1,
-                    2.3,
-                    3.0,
-                    2.5,
-                    2.6,
-                    3.0,
-                    2.6,
-                    2.3,
-                    2.7,
-                    3.0,
-                    2.9,
-                    2.9,
-                    2.5,
-                    2.8,
-                ],
-                [
-                    'setosa',
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.3,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.1,
-                    0.2,
-                    0.4,
-                    0.4,
-                    0.3,
-                    0.3,
-                    0.3,
-                    0.2,
-                    0.4,
-                    0.2,
-                    0.5,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.3,
-                    0.3,
-                    0.2,
-                    0.6,
-                    0.4,
-                    0.3,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                ],
-                [
-                    'versicolor',
-                    1.4,
-                    1.5,
-                    1.5,
-                    1.3,
-                    1.5,
-                    1.3,
-                    1.6,
-                    1.0,
-                    1.3,
-                    1.4,
-                    1.0,
-                    1.5,
-                    1.0,
-                    1.4,
-                    1.3,
-                    1.4,
-                    1.5,
-                    1.0,
-                    1.5,
-                    1.1,
-                    1.8,
-                    1.3,
-                    1.5,
-                    1.2,
-                    1.3,
-                    1.4,
-                    1.4,
-                    1.7,
-                    1.5,
-                    1.0,
-                    1.1,
-                    1.0,
-                    1.2,
-                    1.6,
-                    1.5,
-                    1.6,
-                    1.5,
-                    1.3,
-                    1.3,
-                    1.3,
-                    1.2,
-                    1.4,
-                    1.2,
-                    1.0,
-                    1.3,
-                    1.2,
-                    1.3,
-                    1.3,
-                    1.1,
-                    1.3,
-                ],
+                ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9,
+                             3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2,
+                             3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
+                ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0,
+                                 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7,
+                                 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
+                ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4,
+                           0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2,
+                           0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+                ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5,
+                               1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6,
+                               1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
             ],
-            type: 'scatter',
+            type: 'scatter'
         },
         axis: {
             x: {
                 label: 'Sepal.Width',
                 tick: {
-                    fit: false,
-                },
+                    fit: false
+                }
             },
             y: {
-                label: 'Petal.Width',
-            },
+                label: 'Petal.Width'
+            }
         },
+    });
+
+    chart.load({
+        xs: {
+            virginica: 'virginica_x'
+        },
+        columns: [
+            ["virginica_x", 3.3, 2.7, 3.0, 2.9, 3.0, 3.0, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3.0, 2.5, 2.8, 3.2, 3.0, 3.8,
+                            2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3.0, 2.8, 3.0, 2.8, 3.8, 2.8, 2.8, 2.6, 3.0,
+                            3.4, 3.1, 3.0, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3.0, 2.5, 3.0, 3.4, 3.0],
+            ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2,
+                          2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3,
+                          2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+        ]
+    });
+
+    chart.unload({
+        ids: 'setosa'
+    });
+
+    chart.load({
+        columns: [
+            ["virginica", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3,
+                          0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2,
+                          0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+        ]
     });
 }
 
@@ -953,80 +1193,239 @@ function chart_pie() {
     const chart = c3.generate({
         data: {
             // iris data from R
-            columns: [['data1', 30], ['data2', 120]],
-            type: 'pie',
-            onclick: (d, i) => {
-                console.log('onclick', d, i);
-            },
-            onmouseover: (d, i) => {
-                console.log('onmouseover', d, i);
-            },
-            onmouseout: (d, i) => {
-                console.log('onmouseout', d, i);
-            },
+            columns: [
+                ['data1', 30],
+                ['data2', 120],
+            ],
+            type : 'pie',
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         },
+    });
+
+    chart.load({
+        columns: [
+            ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3,
+                       0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2,
+                       0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+            ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0,
+                           1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6,
+                           1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+            ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2,
+                          2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3,
+                          2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+        ]
+    });
+
+    chart.unload({
+        ids: 'data1'
+    });
+    chart.unload({
+        ids: 'data2'
     });
 }
 
 function chart_donut() {
     const chart = c3.generate({
         data: {
-            columns: [['data1', 30], ['data2', 120]],
-            type: 'donut',
-            onclick: (d, i) => {
-                console.log('onclick', d, i);
-            },
-            onmouseover: (d, i) => {
-                console.log('onmouseover', d, i);
-            },
-            onmouseout: (d, i) => {
-                console.log('onmouseout', d, i);
-            },
+            columns: [
+                ['data1', 30],
+                ['data2', 120],
+            ],
+            type : 'donut',
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         },
         donut: {
-            title: 'Iris Petal Width',
+            title: "Iris Petal Width"
         },
+    });
+
+    chart.load({
+        columns: [
+            ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3,
+                       0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2,
+                       0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+            ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0,
+                           1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6,
+                           1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+            ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2,
+                          2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3,
+                          2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+        ]
+    });
+
+    chart.unload({
+        ids: 'data1'
+    });
+    chart.unload({
+        ids: 'data2'
     });
 }
 
-function gauge_chart() {
+function chart_gauge() {
     const chart = c3.generate({
         data: {
-            columns: [['data', 91.4]],
+            columns: [
+                ['data', 91.4]
+            ],
             type: 'gauge',
-            onclick: (d, i) => {
-                console.log('onclick', d, i);
-            },
-            onmouseover: (d, i) => {
-                console.log('onmouseover', d, i);
-            },
-            onmouseout: (d, i) => {
-                console.log('onmouseout', d, i);
-            },
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         },
         gauge: {
             label: {
-                format: (value, ratio) => {
-                    return value;
-                },
-                show: false, // to turn off the min/max labels.
+                format: (value, ratio) => value,
+                show: false // to turn off the min/max labels.
             },
             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
             max: 100, // 100 is default
             units: ' %',
-            width: 39, // for adjusting arc thickness
+            width: 39 // for adjusting arc thickness
         },
         color: {
             pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
             threshold: {
                 unit: 'value', // percentage is default
                 max: 200, // 100 is default
-                values: [30, 60, 90, 100],
-            },
+                values: [30, 60, 90, 100]
+            }
         },
         size: {
-            height: 180,
+            height: 180
         },
+    });
+
+    chart.load({
+        columns: [['data', 10]]
+    });
+
+    chart.load({
+        columns: [['data', 50]]
+    });
+
+    chart.load({
+        columns: [['data', 70]]
+    });
+
+    chart.load({
+        columns: [['data', 0]]
+    });
+
+    chart.load({
+        columns: [['data', 100]]
+    });
+}
+
+function chart_stanford() {
+    const chart = c3.generate({
+        data: {
+            x: 'HPE',
+            epochs: 'Epochs',
+            columns: [
+                ['HPE', 2.5, 2.5, 2.5, 2.5, 2.5, 3, 3, 3, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5,
+                        3.5, 3.5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 5, 5, 5,
+                        5, 5, 5, 5, 5, 5, 5, 5, 5.5, 5.5, 5.5, 2, 2.5, 2.5, 3, 3, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5,
+                        4, 4, 4, 4, 4, 4.5, 4.5, 4.5, 4.5, 4.5, 5, 5, 5, 5, 5, 5, 5.5, 5.5, 2.5, 3, 3, 3.5, 3.5,
+                        3.5, 3.5, 4, 4, 4, 4, 4, 4.5, 4.5, 4.5, 5, 5, 5, 5, 5, 5, 5.5, 5.5, 5.5, 5.5, 2.5, 2.5,
+                        2.5, 3, 3.5, 3.5, 3.5, 3.5, 3.5, 4, 4.5, 4.5, 4.5, 4.5, 4.5, 5, 5, 5, 5.5, 2, 3.5, 3.5,
+                        3.5, 3.5, 3.5, 4, 4.5, 4.5, 4.5, 4.5, 5, 2, 2, 3, 3, 3.5, 3.5, 3.5, 3.5, 4, 4, 4, 4, 5,
+                        2, 3, 3, 3.5, 3.5, 3.5, 3.5, 4, 4.5, 5, 5, 5, 5.5, 5.5, 2.5, 3, 3, 3, 3.5, 4, 2.5, 3,
+                        3.5, 4, 4, 4.5, 5, 3.5, 4, 4, 4, 4, 4.5, 3.5, 4, 4.5, 5, 5, 2.5, 3, 3.5, 3.5, 4, 4.5,
+                        4.5, 4, 5, 3, 4, 4, 2, 4.5, 3.5, 2.5, 3.5, 4, 4, 2.5, 2.5, 3, 3, 4, 4.5, 5, 5, 4.5, 2.5,
+                        3, 4, 3, 3.5, 3.5, 4, 2.5, 3.5, 2.5, 3.5, 2.5, 2.5, 3.5, 2.5, 4.5, 3, 4, 2.5, 4.5, 2.5,
+                        4, 4, 2.5, 3, 3.5, 2.5, 3.5, 3.5, 3.5, 2.5, 3.5, 3.5, 4, 4, 3.5, 4, 4, 4],
+                ['HPL', 24.5, 24, 27.5, 56.5, 26.5, 26, 51.5, 50, 39, 39.5, 54, 48.5, 54.5, 53, 52, 13.5, 16.5,
+                        15.5, 14.5, 19, 19.5, 41, 40, 42.5, 40.5, 41.5, 30, 56, 47, 11.5, 11, 12, 14.5, 55, 56.5,
+                        54, 55.5, 56, 48.5, 19, 56, 56.5, 53.5, 51.5, 52, 31.5, 36.5, 38.5, 22, 21, 22.5, 37, 38,
+                        38.5, 11, 55, 14.5, 12.5, 56, 22, 11, 48, 12.5, 14, 17, 13.5, 43, 55.5, 53.5, 10.5, 49.5,
+                        54.5, 51.5, 19.5, 24, 52.5, 49.5, 47, 45.5, 46, 20, 34.5, 37.5, 28, 10, 26.5, 22.5, 13,
+                        18.5, 20, 29, 39.5, 48.5, 50.5, 19.5, 29, 27.5, 52.5, 50.5, 53, 37, 36, 34.5, 20.5, 31.5,
+                        33, 32, 36, 29, 28.5, 31.5, 29, 30, 11.5, 49, 52.5, 20.5, 49.5, 28, 24.5, 53, 50, 23.5,
+                        47.5, 38, 35, 34, 12, 21, 36.5, 51, 12, 58.5, 36.5, 28.5, 51, 50.5, 20, 50, 56, 55, 29.5,
+                        28.5, 23, 17.5, 38.5, 57.5, 29.5, 38.5, 49, 52.5, 34, 11.5, 27, 30, 10, 51.5, 50.5, 18,
+                        20.5, 23, 49, 51, 48, 33.5, 32.5, 27, 28, 25.5, 57.5, 10.5, 52, 29.5, 27.5, 50, 28.5,
+                        51.5, 21.5, 35.5, 49.5, 37.5, 39, 50, 51, 22.5, 58, 20, 25.5, 48.5, 32, 30, 24.5, 23.5,
+                        29.5, 23, 25, 21, 38, 32.5, 12, 22, 37, 55.5, 22, 38, 55.5, 29, 23.5, 21, 12.5, 14, 11.5,
+                        56.5, 21.5, 20.5, 33, 33.5, 27, 13, 10.5, 22.5, 57, 24, 28.5, 28, 10, 37, 56, 37.5, 11,
+                        10.5, 28, 13.5, 26, 11, 27.5, 12, 26.5, 26, 24.5, 24, 25, 25, 25, 11.5, 25.5, 26.5, 26,
+                        25.5, 27.5, 27, 25, 27, 24.5, 26, 26.5, 25.5],
+                ['Epochs', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                           1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+                           2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3,
+                           3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4,
+                           4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6,
+                           6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9,
+                           9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 11, 11, 11, 12, 12, 13, 13, 13, 13, 13, 13, 13,
+                           14, 14, 15, 15, 15, 16, 16, 17, 18, 18, 18, 18, 19, 19, 19, 19, 19, 20, 20, 20, 22, 23,
+                           23, 23, 24, 24, 24, 24, 25, 28, 29, 29, 36, 38, 39, 43, 44, 47, 50, 54, 54, 59, 62, 62,
+                           70, 70, 81, 84, 85, 86, 88, 89, 93, 94, 95, 106, 110, 111, 115, 170]
+            ],
+            type: 'stanford',
+        },
+        legend: {
+            hide: true
+        },
+        point: {
+            focus: {
+                expand: {
+                    r: 5
+                }
+            },
+            r: 2
+        },
+        axis: {
+            x: {
+                show: true,
+                label: {
+                    text: 'HPE (m)',
+                    position: 'outer-center'
+                },
+                min: 0,
+                max: 61,
+                tick: {
+                    values: d3.range(0, 65, 10)
+                },
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
+                },
+            },
+            y: {
+                show: true,
+                label: {
+                    text: 'HPL (m)',
+                    position: 'outer-middle'
+                },
+                min: 0,
+                max: 60,
+                tick: {
+                    values: d3.range(0, 65, 10)
+                },
+                padding: {
+                    top: 5,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
+                },
+            }
+        },
+        stanford: {
+            scaleMin: 1,
+            scaleMax: 10000,
+            scaleFormat: 'pow10',
+            padding: {
+                top: 15,
+                right: 0,
+                bottom: 0,
+                left: 0
+            }
+        }
     });
 }
 
@@ -1059,24 +1458,16 @@ function chart_combination() {
 function categorized() {
     const chart = c3.generate({
         data: {
-            columns: [['data1', 30, 200, 100, 400, 150, 250, 50, 100, 250]],
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250, 50, 100, 250]
+            ]
         },
         axis: {
             x: {
                 type: 'category',
-                categories: [
-                    'cat1',
-                    'cat2',
-                    'cat3',
-                    'cat4',
-                    'cat5',
-                    'cat6',
-                    'cat7',
-                    'cat8',
-                    'cat9',
-                ],
-            },
-        },
+                categories: ['cat1', 'cat2', 'cat3', 'cat4', 'cat5', 'cat6', 'cat7', 'cat8', 'cat9']
+            }
+        }
     });
 }
 
@@ -1122,16 +1513,8 @@ function axes_x_tick_format() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    '2010-01-01',
-                    '2011-01-01',
-                    '2012-01-01',
-                    '2013-01-01',
-                    '2014-01-01',
-                    '2015-01-01',
-                ],
-                ['sample', 30, 200, 100, 400, 150, 250],
+                [ 'x', '2010-01-01', '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01' ],
+                [ 'sample', 30, 200, 100, 400, 150, 250 ],
             ],
         },
         axis: {
@@ -1151,36 +1534,9 @@ function axes_x_tick_count() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    '2013-01-01',
-                    '2013-01-02',
-                    '2013-01-03',
-                    '2013-01-04',
-                    '2013-01-05',
-                    '2013-01-06',
-                    '2013-01-07',
-                    '2013-01-08',
-                    '2013-01-09',
-                    '2013-01-10',
-                    '2013-01-11',
-                    '2013-01-12',
-                ],
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                ],
+                [ 'x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
+                       '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12' ],
+                [ 'sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250 ],
             ],
         },
         axis: {
@@ -1200,36 +1556,9 @@ function axes_x_tick_values() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    '2013-01-01',
-                    '2013-01-02',
-                    '2013-01-03',
-                    '2013-01-04',
-                    '2013-01-05',
-                    '2013-01-06',
-                    '2013-01-07',
-                    '2013-01-08',
-                    '2013-01-09',
-                    '2013-01-10',
-                    '2013-01-11',
-                    '2013-01-12',
-                ],
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                ],
+                [ 'x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
+                       '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12' ],
+                [ 'sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250 ],
             ],
         },
         axis: {
@@ -1248,32 +1577,8 @@ function axes_x_tick_culling() {
     const chart = c3.generate({
         data: {
             columns: [
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                ],
+                [ 'sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150,
+                            250, 30, 200, 100, 400, 150, 250, 200, 100, 400, 150, 250 ],
             ],
         },
         axis: {
@@ -1362,36 +1667,10 @@ function axes_x_tick_rotate() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    'www.somesitename1.com',
-                    'www.somesitename2.com',
-                    'www.somesitename3.com',
-                    'www.somesitename4.com',
-                    'www.somesitename5.com',
-                    'www.somesitename6.com',
-                    'www.somesitename7.com',
-                    'www.somesitename8.com',
-                    'www.somesitename9.com',
-                    'www.somesitename10.com',
-                    'www.somesitename11.com',
-                    'www.somesitename12.com',
-                ],
-                [
-                    'pv',
-                    90,
-                    100,
-                    140,
-                    200,
-                    100,
-                    400,
-                    90,
-                    100,
-                    140,
-                    200,
-                    100,
-                    400,
-                ],
+                [ 'x', 'www.somesitename1.com', 'www.somesitename2.com', 'www.somesitename3.com', 'www.somesitename4.com',
+                       'www.somesitename5.com', 'www.somesitename6.com', 'www.somesitename7.com', 'www.somesitename8.com',
+                       'www.somesitename9.com', 'www.somesitename10.com', 'www.somesitename11.com', 'www.somesitename12.com' ],
+                [ 'pv', 90, 100, 140, 200, 100, 400, 90, 100, 140, 200, 100, 400 ],
             ],
             type: 'bar',
         },
@@ -1417,7 +1696,7 @@ function axes_y_tick_format() {
             y: {
                 tick: {
                     format: d3.format('$,'),
-                    //                format: (d) => { return "$" + d; }
+                    // format: (d) => { return "$" + d; }
                 },
             },
         },
@@ -1617,13 +1896,13 @@ function data_json() {
                     },
                 ],
                 keys: {
-                    // x: "name", // it's possible to specify 'x' when category axis
+                    x: "name", // it's possible to specify 'x' when category axis
                     value: ['upload', 'download'],
                 },
             },
             axis: {
                 x: {
-                    // type: "category"
+                    type: "category"
                 },
             },
         });
@@ -1993,6 +2272,41 @@ function data_label_format() {
     });
 }
 
+function data_number_format_l10n() {
+    // Locale for Russian (ru_RU)
+    const d3locale = d3.formatDefaultLocale({
+        decimal: ",",
+        thousands: "\u00A0",
+        grouping: [3],
+        currency: ["", " руб."],
+    });
+    // More about locale settings: https://github.com/mbostock/d3/wiki/Localization
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ['data1', 30000, 20000, 10000, 40000, 15000, 250000],
+                ['data2', 100.5, 1200.46, 100.1, 40.12, 150.1, 250]
+            ],
+            axes: {
+                data2: 'y2'
+            }
+        },
+        axis : {
+            y : {
+                tick: {
+                    format: d3locale.format(",")
+                }
+            },
+            y2: {
+                show: true,
+                tick: {
+                    format: d3locale.format(",")
+                }
+            }
+        }
+    });
+}
+
 ///////////////////
 // Grid Tests
 ///////////////////
@@ -2049,13 +2363,13 @@ function grid_y_lines() {
         grid: {
             y: {
                 lines: [
-                    { value: 50, text: 'Lable 50 for y' },
+                    { value: 50, text: 'Label 50 for y' },
                     {
                         value: 1300,
-                        text: 'Lable 1300 for y2',
+                        text: 'Label 1300 for y2',
                         position: 'start',
                     },
-                    { value: 350, text: 'Lable 350 for y', position: 'middle' },
+                    { value: 350, text: 'Label 350 for y', position: 'middle' },
                 ],
             },
         },
@@ -2101,14 +2415,7 @@ function region_timeseries() {
         data: {
             x: 'date',
             columns: [
-                [
-                    'date',
-                    '2014-01-01',
-                    '2014-01-10',
-                    '2014-01-20',
-                    '2014-01-30',
-                    '2014-02-01',
-                ],
+                [ 'date', '2014-01-01', '2014-01-10', '2014-01-20', '2014-01-30', '2014-02-01' ],
                 ['sample', 30, 200, 100, 400, 150, 250],
             ],
         },
@@ -2144,63 +2451,9 @@ function interaction_zoom() {
     const chart = c3.generate({
         data: {
             columns: [
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    150,
-                    200,
-                    170,
-                    240,
-                    350,
-                    150,
-                    100,
-                    400,
-                    150,
-                    250,
-                    150,
-                    200,
-                    170,
-                    240,
-                    100,
-                    150,
-                    250,
-                    150,
-                    200,
-                    170,
-                    240,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    150,
-                    200,
-                    170,
-                    240,
-                    350,
-                    150,
-                    100,
-                    400,
-                    350,
-                    220,
-                    250,
-                    300,
-                    270,
-                    140,
-                    150,
-                    90,
-                    150,
-                    50,
-                    120,
-                    70,
-                    40,
-                ],
+                [ 'sample', 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200,
+                            170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150, 200, 170,
+                            240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40 ],
             ],
         },
         zoom: {
@@ -2283,8 +2536,6 @@ function legend_custom() {
         .attr('data-id', (id) => id)
         .html((id) => id)
         .each(function(id) {
-            // this is most likely the wrong context now
-            // tslint:disable-next-line
             d3.select(this).style('background-color', chart.color(id));
         })
         .on('mouseover', (id) => {
@@ -2382,7 +2633,7 @@ function tooltip_format() {
                         id === 'data1' ? d3.format(',') : d3.format('$');
                     return format(value);
                 },
-                //            value: d3.format(",") // apply this format to both y and y2
+                // value: d3.format(",") // apply this format to both y and y2
             },
         },
     });
@@ -2445,28 +2696,8 @@ function options_color() {
             ],
         },
         color: {
-            pattern: [
-                '#1f77b4',
-                '#aec7e8',
-                '#ff7f0e',
-                '#ffbb78',
-                '#2ca02c',
-                '#98df8a',
-                '#d62728',
-                '#ff9896',
-                '#9467bd',
-                '#c5b0d5',
-                '#8c564b',
-                '#c49c94',
-                '#e377c2',
-                '#f7b6d2',
-                '#7f7f7f',
-                '#c7c7c7',
-                '#bcbd22',
-                '#dbdb8d',
-                '#17becf',
-                '#9edae5',
-            ],
+            pattern: [ '#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5',
+                       '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5' ],
         },
     });
 }
@@ -3007,218 +3238,22 @@ function transform_scatter() {
             },
             // iris data from R
             columns: [
-                [
-                    'setosa_x',
-                    3.5,
-                    3.0,
-                    3.2,
-                    3.1,
-                    3.6,
-                    3.9,
-                    3.4,
-                    3.4,
-                    2.9,
-                    3.1,
-                    3.7,
-                    3.4,
-                    3.0,
-                    3.0,
-                    4.0,
-                    4.4,
-                    3.9,
-                    3.5,
-                    3.8,
-                    3.8,
-                    3.4,
-                    3.7,
-                    3.6,
-                    3.3,
-                    3.4,
-                    3.0,
-                    3.4,
-                    3.5,
-                    3.4,
-                    3.2,
-                    3.1,
-                    3.4,
-                    4.1,
-                    4.2,
-                    3.1,
-                    3.2,
-                    3.5,
-                    3.6,
-                    3.0,
-                    3.4,
-                    3.5,
-                    2.3,
-                    3.2,
-                    3.5,
-                    3.8,
-                    3.0,
-                    3.8,
-                    3.2,
-                    3.7,
-                    3.3,
-                ],
-                [
-                    'versicolor_x',
-                    3.2,
-                    3.2,
-                    3.1,
-                    2.3,
-                    2.8,
-                    2.8,
-                    3.3,
-                    2.4,
-                    2.9,
-                    2.7,
-                    2.0,
-                    3.0,
-                    2.2,
-                    2.9,
-                    2.9,
-                    3.1,
-                    3.0,
-                    2.7,
-                    2.2,
-                    2.5,
-                    3.2,
-                    2.8,
-                    2.5,
-                    2.8,
-                    2.9,
-                    3.0,
-                    2.8,
-                    3.0,
-                    2.9,
-                    2.6,
-                    2.4,
-                    2.4,
-                    2.7,
-                    2.7,
-                    3.0,
-                    3.4,
-                    3.1,
-                    2.3,
-                    3.0,
-                    2.5,
-                    2.6,
-                    3.0,
-                    2.6,
-                    2.3,
-                    2.7,
-                    3.0,
-                    2.9,
-                    2.9,
-                    2.5,
-                    2.8,
-                ],
-                [
-                    'setosa',
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.3,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.1,
-                    0.2,
-                    0.4,
-                    0.4,
-                    0.3,
-                    0.3,
-                    0.3,
-                    0.2,
-                    0.4,
-                    0.2,
-                    0.5,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.4,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.1,
-                    0.2,
-                    0.2,
-                    0.3,
-                    0.3,
-                    0.2,
-                    0.6,
-                    0.4,
-                    0.3,
-                    0.2,
-                    0.2,
-                    0.2,
-                    0.2,
-                ],
-                [
-                    'versicolor',
-                    1.4,
-                    1.5,
-                    1.5,
-                    1.3,
-                    1.5,
-                    1.3,
-                    1.6,
-                    1.0,
-                    1.3,
-                    1.4,
-                    1.0,
-                    1.5,
-                    1.0,
-                    1.4,
-                    1.3,
-                    1.4,
-                    1.5,
-                    1.0,
-                    1.5,
-                    1.1,
-                    1.8,
-                    1.3,
-                    1.5,
-                    1.2,
-                    1.3,
-                    1.4,
-                    1.4,
-                    1.7,
-                    1.5,
-                    1.0,
-                    1.1,
-                    1.0,
-                    1.2,
-                    1.6,
-                    1.5,
-                    1.6,
-                    1.5,
-                    1.3,
-                    1.3,
-                    1.3,
-                    1.2,
-                    1.4,
-                    1.2,
-                    1.0,
-                    1.3,
-                    1.2,
-                    1.3,
-                    1.3,
-                    1.1,
-                    1.3,
-                ],
+                [ 'setosa_x', 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4,
+                              3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4,
+                              4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2,
+                              3.7, 3.3 ],
+                [ 'versicolor_x', 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1,
+                                  3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4,
+                                  2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9,
+                                  2.5, 2.8 ],
+                [ 'setosa', 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4,
+                            0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4,
+                            0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2,
+                            0.2, 0.2 ],
+                [ 'versicolor', 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4,
+                                1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0,
+                                1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3,
+                                1.1, 1.3 ],
             ],
             type: 'pie',
         },
