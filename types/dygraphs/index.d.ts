@@ -1224,6 +1224,17 @@ declare class Dygraph {
      */
     updateOptions(input_attrs: dygraphs.Options, block_redraw?: boolean): void;
 
+
+    /**
+     * Resizes the dygraph. If no parameters are specified, resizes to fill the
+     * containing div (which has presumably changed size since the dygraph was
+     * instantiated. If the width/height are specified, the div will be resized.
+     *
+     * This is far more efficient than destroying and re-instantiating a
+     * Dygraph, since it doesn't have to reparse the underlying data.
+     */
+    resize(): void;
+
     /**
      * Resizes the dygraph. If no parameters are specified, resizes to fill the
      * containing div (which has presumably changed size since the dygraph was
@@ -1235,7 +1246,7 @@ declare class Dygraph {
      * @param {number} width Width (in pixels)
      * @param {number} height Height (in pixels)
      */
-    resize(width?: number, height?: number): void;
+    resize(width: number, height: number): void;
 
     /**
      * Adjusts the number of points in the rolling average. Updates the graph to
