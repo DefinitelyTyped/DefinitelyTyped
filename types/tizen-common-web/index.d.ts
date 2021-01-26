@@ -1,10 +1,11 @@
-// Type definitions for tizen-common-web 1.0
+// Type definitions for tizen-common-web 2.0
 // Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
 // Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
 //                 Dongkeun Nam <https://github.com/capscrom>
 //                 Woosik Park <https://github.com/pwsses>
 //                 Dayoung Kim <https://github.com/darangkim>
 //                 Hyojin Kim <https://github.com/prozanne>
+//                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
  * The AccountInit dictionary represents options for creating accounts.
@@ -1102,9 +1103,7 @@ export interface Alarm {
  */
 export class AlarmAbsolute extends Alarm {
     constructor(date: Date);
-
     constructor(date: Date, daysOfTheWeek: ByDayValue[]);
-
     constructor(date: Date, period: number);
     /**
      * An attribute to store the absolute date/time when the alarm is initially triggered.
@@ -1141,9 +1140,7 @@ export class AlarmAbsolute extends Alarm {
 export interface AlarmAbsolute {
     prototype: AlarmAbsolute;
     new(date: Date): AlarmAbsolute;
-
     new(date: Date, daysOfTheWeek: ByDayValue[]): AlarmAbsolute;
-
     new(date: Date, period: number): AlarmAbsolute;
 }
 /**
@@ -11299,14 +11296,14 @@ export interface Tizen {
      * To use _add(), remove(), and update()_ methods of AccountManager can be invoked only
      * by account provider application. A web application is an account provider when its _config.xml_
      * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
-     * ```xml
+     *
      * <tizen:account multiple-account-support="true">
-     *     <tizen:icon section="Account">icon.png</tizen:icon>
-     *     <tizen:icon section="AccountSmall">icon.png</tizen:icon>
-     *     tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
-     *     <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
+     *    <tizen:icon section="Account">icon.png</tizen:icon>
+     *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
+     *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
+     *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
      * </tizen:account>
-     * ```
+     *
      * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
      *
      * @since 5.0
@@ -13141,14 +13138,14 @@ export const Query: Query;
  * To use _add(), remove(), and update()_ methods of AccountManager can be invoked only
  * by account provider application. A web application is an account provider when its _config.xml_
  * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
- * ```
+ *
  * <tizen:account multiple-account-support="true">
  *    <tizen:icon section="Account">icon.png</tizen:icon>
  *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
  *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
  *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
  * </tizen:account>
- * ```
+ *
  * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
  *
  * @since 5.0
