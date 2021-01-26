@@ -9,7 +9,7 @@ export default class CreatableMulti extends React.Component {
         console.log(newValue);
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
-    };
+    }
     render() {
         return <CreatableSelect isMulti onChange={this.handleChange} options={colourOptions} />;
     }

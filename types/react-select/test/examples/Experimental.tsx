@@ -153,7 +153,7 @@ class DatePicker extends React.Component<any> {
                 options: [],
             });
         }
-    };
+    }
     render() {
         const { value } = this.props;
         const { options } = this.state;
@@ -180,7 +180,7 @@ export default class Experimental extends React.Component {
     };
     handleChange = (value: any) => {
         this.setState({ value });
-    };
+    }
     render() {
         const { value } = this.state;
         const displayValue = value && value.value ? value.value.toString() : 'null';

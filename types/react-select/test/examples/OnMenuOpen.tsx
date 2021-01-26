@@ -15,7 +15,7 @@ export default class SelectScrolledMenu extends React.Component<{}, State> {
 
     handleChangeMenuScrollDefault = (event: React.ChangeEvent<HTMLInputElement>): void => {
         this.setState({ defaultMenuScroll: parseInt(event.target.value, 10) });
-    };
+    }
 
     handleMenuOpen = (): void => {
         const { defaultMenuScroll } = this.state;
@@ -28,7 +28,7 @@ export default class SelectScrolledMenu extends React.Component<{}, State> {
                 select.focusOption('pagedown');
             });
         });
-    };
+    }
 
     render() {
         return (

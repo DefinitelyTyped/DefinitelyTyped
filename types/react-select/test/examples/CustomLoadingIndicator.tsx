@@ -31,7 +31,7 @@ export default class CustomLoadingIndicator extends React.Component<any, State> 
         const inputValue = newValue.replace(/\W/g, '');
         this.setState({ inputValue });
         return inputValue;
-    };
+    }
     render() {
         return (
             <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} components={{ LoadingIndicator }} />

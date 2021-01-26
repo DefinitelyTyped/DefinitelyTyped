@@ -14,7 +14,7 @@ export default class CreatableGroup extends React.Component {
         }
 
         return true;
-    };
+    }
     render() {
         return (
             <CreatableSelect<ColourOption | FlavourOption>

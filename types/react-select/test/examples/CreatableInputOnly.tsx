@@ -33,10 +33,10 @@ export default class CreatableInputOnly extends React.Component<any, State> {
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
         this.setState({ value });
-    };
+    }
     handleInputChange = (inputValue: string) => {
         this.setState({ inputValue });
-    };
+    }
     handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
         const { inputValue, value } = this.state;
         if (!inputValue) return;
@@ -52,7 +52,7 @@ export default class CreatableInputOnly extends React.Component<any, State> {
                 });
                 event.preventDefault();
         }
-    };
+    }
     render() {
         const { inputValue, value } = this.state;
         return (

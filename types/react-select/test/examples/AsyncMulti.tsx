@@ -23,7 +23,7 @@ export default class AsyncMulti extends React.Component<any, State> {
         const inputValue = newValue.replace(/\W/g, '');
         this.setState({ inputValue });
         return inputValue;
-    };
+    }
     render() {
         return <AsyncSelect isMulti cacheOptions defaultOptions loadOptions={promiseOptions} />;
     }

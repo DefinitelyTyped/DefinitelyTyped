@@ -20,11 +20,11 @@ export default class PopoutExample extends React.Component<any, State> {
     state: State = { isOpen: false, value: undefined };
     toggleOpen = () => {
         this.setState(state => ({ isOpen: !state.isOpen }));
-    };
+    }
     onSelectChange = (value: any) => {
         this.toggleOpen();
         this.setState({ value });
-    };
+    }
     render() {
         const { isOpen, value } = this.state;
         return (

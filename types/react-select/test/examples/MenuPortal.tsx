@@ -20,17 +20,17 @@ export default class MenuPortal extends React.Component<any, State> {
     open = () => {
         console.log('menuPortal is Open');
         this.setState({ isOpen: true });
-    };
+    }
     close = () => {
         this.setState({ isOpen: false });
-    };
+    }
     setPlacement = ({ currentTarget }: any) => {
         const portalPlacement = currentTarget && currentTarget.value;
         this.setState({ portalPlacement });
-    };
+    }
     toggleMode = () => {
         this.setState(state => ({ isFixed: !state.isFixed }));
-    };
+    }
     render() {
         const { close, open } = this;
         const { isOpen, isFixed, portalPlacement } = this.state;

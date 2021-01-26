@@ -32,7 +32,7 @@ export default class CreatableAdvanced extends React.Component<any, State> {
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
         this.setState({ value: newValue });
-    };
+    }
     handleCreate = (inputValue: string) => {
         this.setState({ isLoading: true });
         console.group('Option created');
@@ -48,7 +48,7 @@ export default class CreatableAdvanced extends React.Component<any, State> {
                 value: inputValue,
             });
         }, 1000);
-    };
+    }
     render() {
         const { isLoading, options, value } = this.state;
         return (

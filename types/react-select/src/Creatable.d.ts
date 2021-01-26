@@ -25,11 +25,13 @@ export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti exten
         value: ValueType<OptionType, IsMulti>,
         options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
     ) => boolean;
-    /** Returns the data for the new option when it is created. Used to display the
+    /**
+     * Returns the data for the new option when it is created. Used to display the
      * value, and is passed to `onChange`.
      */
     getNewOptionData?: (inputValue: string, optionLabel: React.ReactNode) => OptionType;
-    /** If provided, this will be called with the input value when a new option is
+    /**
+     * If provided, this will be called with the input value when a new option is
      * created, and `onChange` will **not** be called. Use this when you need more
      * control over what happens when new options are created.
      */

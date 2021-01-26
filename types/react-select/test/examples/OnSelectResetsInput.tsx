@@ -27,7 +27,7 @@ export default class OnSelectResetsInput extends React.Component {
             default:
                 return;
         }
-    };
+    }
     render() {
         const { inputValue, menuIsOpen } = this.state;
         return (

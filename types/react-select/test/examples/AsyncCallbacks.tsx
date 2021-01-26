@@ -23,7 +23,7 @@ export default class WithCallbacks extends React.Component<any, State> {
         const inputValue = newValue.replace(/\W/g, '');
         this.setState({ inputValue });
         return inputValue;
-    };
+    }
     render() {
         return (
             <div>

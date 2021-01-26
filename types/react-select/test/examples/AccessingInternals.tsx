@@ -23,26 +23,26 @@ export default class AccessingInterals extends React.Component {
     focus = () => {
         console.log(this.selectRef);
         this.selectRef.focus();
-    };
+    }
     focusCreatable = () => {
         console.log(this.creatableRef);
         this.creatableRef.focus();
-    };
+    }
     focusAsync = () => {
         console.log(this.asyncRef);
         this.asyncRef.focus();
-    };
+    }
     blurAsync = () => {
         this.asyncRef.blur();
-    };
+    }
     blurCreatable = () => {
         this.creatableRef.blur();
-    };
+    }
     blur = () => this.selectRef.blur();
     onSelectRef = (ref: any) => {
         console.log(ref);
         this.selectRef = ref;
-    };
+    }
     render() {
         return (
             <React.Fragment>

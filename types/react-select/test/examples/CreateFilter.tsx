@@ -21,7 +21,7 @@ export default class SelectCreateFilter extends React.Component<any, State> {
     };
     toggleOption = (key: string) => () => {
         this.setState((state: any) => ({ ...state, [key]: !state[key] }));
-    };
+    }
     render() {
         const { ignoreCase, ignoreAccents, trim, matchFromStart } = this.state;
 
