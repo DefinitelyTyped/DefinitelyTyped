@@ -1,12 +1,12 @@
-import * as React from 'react';
-import * as md from 'react-markings';
+import * as React from "react";
+import * as md from "react-markings";
 
 function Example() {
     return (
         <pre>
             <code>...</code>
-    </pre>
-);
+        </pre>
+    );
 }
 
 export function ReadMe() {
@@ -19,14 +19,14 @@ export function ReadMe() {
     - Renders markdown as React elements using [commonmark-react-renderer](https://github.com/rexxars/commonmark-react-renderer)
     - Embed React components inside your markdown (in any paragraph position) like this:
 
-    ${<Example/>}
+    ${(<Example />)}
   `;
 }
 
 let customMd = md.customize({
     renderers: {
         // customize heading with class
-        Heading: props => React.createElement('h' + props.level, { className: 'fancy-heading' }, props.children),
+        Heading: (props) => React.createElement("h" + props.level, { className: "fancy-heading" }, props.children),
     },
 });
 
