@@ -5709,9 +5709,9 @@ declare namespace videojs {
     }
 
     interface UserActionHotkeys {
-        fullscreenKey?: (event: EventTarget.Event) => void;
-        muteKey?: (event: EventTarget.Event) => void;
-        playPauseKey?: (event: EventTarget.Event) => void;
+        fullscreenKey?: (event: EventTarget.Event) => boolean;
+        muteKey?: (event: EventTarget.Event) => boolean;
+        playPauseKey?: (event: EventTarget.Event) => boolean;
     }
 
     /**
