@@ -12,7 +12,7 @@ import events = require("events");
 import crypto = require("crypto");
 
 export declare class IncomingForm extends events.EventEmitter {
-    constructor({ ...options }?: IncomingFormOptions);
+    constructor(options?: IncomingFormOptions);
 
     encoding: string;
     uploadDir: string;
