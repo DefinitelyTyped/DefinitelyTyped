@@ -165,7 +165,7 @@ You can clone the entire repository [as per usual](https://docs.github.com/en/gi
 
 For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
 
->:warning: This requires minimum [git version 2.26.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
+>:warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
 
 1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
     - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
