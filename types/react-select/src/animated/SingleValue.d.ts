@@ -5,6 +5,8 @@ import { OptionTypeBase } from '../types';
 
 export type AnimatedSingleValueProps<OptionType extends OptionTypeBase> = SingleValueProps<OptionType>;
 
-export function AnimatedSingleValue<OptionType extends OptionTypeBase>(WrappedComponent: ComponentType<SingleValueProps<OptionType>>): ComponentType<AnimatedSingleValueProps<OptionType>>;
+export function AnimatedSingleValue<OptionType extends OptionTypeBase>(
+    WrappedComponent: ComponentType<SingleValueProps<OptionType>>,
+): ComponentType<AnimatedSingleValueProps<OptionType>>;
 
 export default AnimatedSingleValue;

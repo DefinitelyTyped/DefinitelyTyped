@@ -4,11 +4,15 @@ import { Props as CreatableProps, State as CreatableState } from './Creatable';
 import { OptionsType, ValueType, ActionMeta, InputActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 
-export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = AsyncProps<OptionType, IsMulti> & CreatableProps<OptionType, IsMulti>;
+export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = AsyncProps<OptionType, IsMulti> &
+    CreatableProps<OptionType, IsMulti>;
 
 export type State<OptionType extends OptionTypeBase> = AsyncState<OptionType> & CreatableState<OptionType>;
 
-export class AsyncCreatable<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<Props<OptionType, IsMulti>, State<OptionType>> {
+export class AsyncCreatable<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<
+    Props<OptionType, IsMulti>,
+    State<OptionType>
+> {
     static defaultProps: Props<any, boolean>;
     select: ElementRef<any>;
     lastRequest: {};
