@@ -8,7 +8,7 @@ export interface AsyncProps<OptionType extends OptionTypeBase> {
     /**
      * The default set of options to show before the user starts searching. When
      * set to `true`, the results for loadOptions('') will be autoloaded.
-     * Default: false.
+     * @default false
      */
     defaultOptions?: GroupedOptionsType<OptionType> | OptionsType<OptionType> | boolean;
     /**
@@ -22,7 +22,7 @@ export interface AsyncProps<OptionType extends OptionTypeBase> {
     /**
      * If cacheOptions is truthy, then the loaded data will be cached. The cache
      * will remain until `cacheOptions` changes value.
-     * Default: false.
+     * @default false
      */
     cacheOptions?: any;
 }
