@@ -23,14 +23,9 @@ declare namespace md {
     }
 
     type Markings = (...strings: Array<TemplateStringsArray | React.ReactElement>) => React.ReactElement;
-    type Customize = (opts: Options) => Markings;
+    export function customize(opts: Options): Markings;
 }
 
-interface md {
-    (...strings: Array<TemplateStringsArray | React.ReactElement>): React.ReactElement;
-    customize: md.Customize;
-}
-
-declare const md: md;
+declare function md(...strings: Array<TemplateStringsArray | React.ReactElement>): React.ReactElement;
 
 export = md;
