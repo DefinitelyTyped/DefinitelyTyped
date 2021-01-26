@@ -48,13 +48,13 @@ playerOptions.userActions!.hotkeys = event => {
 
 playerOptions.userActions!.hotkeys = {
     fullscreenKey: event => {
-        return event.which === '42';
+        return event.which === 42;
     },
     muteKey: event => {
-        return event.which === '42';
+        return event.which === 42;
     },
     playPauseKey: event => {
-        return event.which === '42';
+        return event.which === 42;
     }
 };
 

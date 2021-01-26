@@ -2837,7 +2837,7 @@ declare namespace videojs {
          */
         interface Event extends CustomEvent {
             [key: string]: any;
-            which: string;
+            which: number;
         }
 
         /**
