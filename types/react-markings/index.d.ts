@@ -22,12 +22,12 @@ declare namespace md {
         renderers?: Partial<Renderers>;
     }
 
-    type Markings = (...strings: (TemplateStringsArray | React.ReactElement)[]) => React.ReactElement;
+    type Markings = (...strings: Array<TemplateStringsArray | React.ReactElement>) => React.ReactElement;
     type Customize = (opts: Options) => Markings;
 }
 
 interface md {
-    (...strings: (TemplateStringsArray | React.ReactElement)[]): React.ReactElement;
+    (...strings: Array<TemplateStringsArray | React.ReactElement>): React.ReactElement;
     customize: md.Customize;
 }
 
