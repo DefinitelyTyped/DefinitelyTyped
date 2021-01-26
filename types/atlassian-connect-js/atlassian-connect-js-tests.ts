@@ -8,6 +8,17 @@ AP.addRequestMarshal(); // $ExpectType void
 AP.request('http://example.com', {}); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 AP.request({ url: 'http://example.com' }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 
+AP.confluence.saveMacro({foo: 'bar'}, "a new macro body"); // $ExpectType void
+AP.confluence.saveMacro({foo: 'bar'}); // $ExpectType void
+AP.confluence.closeMacroEditor(); // $ExpectType void
+AP.confluence.getMacroBody(body => console.log(body)); // $ExpectType void
+AP.confluence.getMacroData(data => console.log(data)); // $ExpectType void
+AP.confluence.onMacroPropertyPanelEvent({"{event-type}.{control-key}.{macro-key}.macro.property-panel": () => null}); // $ExpectType void
+AP.confluence.closeMacroPropertyPanel(); // $ExpectType void
+AP.confluence.getContentProperty('propertyKey', property => console.log(property)); // $ExpectType void
+AP.confluence.setContentProperty({ key: 'propertyKey', value: 'propertyValue', version: { number: 2 }}, result => console.log(result)); // $ExpectType void
+AP.confluence.syncPropertyFromServer('propertyKey', property => console.log(property)); // $ExpectType void
+
 AP.context.getToken(token => console.log(token)); // $ExpectType void
 AP.context.getContext(context => console.log(context)); // $ExpectType void
 

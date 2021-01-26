@@ -102,6 +102,137 @@ declare namespace AP {
     ): Promise<{ body: string; xhr: XMLHttpRequest }>;
 
     /**
+     * A Confluence specific JavaScript module which provides functions to interact with the macro editor.
+     */
+    namespace confluence {
+        interface ContentProperty {
+            /**
+             * the key of the property to create or update
+             */
+            key: string;
+
+            /**
+             * the value of the property - may be a String or JavaScript object.
+             */
+            value: string | object;
+
+            /**
+             * a JavaScript object that defines the version of the content property
+             */
+            version: object;
+        }
+
+        /**
+         * Save a macro with data that can be accessed when viewing the confluence page.
+         * @param macroParameters data to be saved with the macro.
+         * @param macroBody the macro body to be saved with the macro. If omitted, the existing body will remain untouched.
+         * @example
+         * AP.confluence.saveMacro({foo: 'bar'});
+         * AP.confluence.saveMacro({foo: 'bar'}, "a new macro body");
+         */
+        function saveMacro(macroParameters: object, macroBody?: string): void;
+
+        /**
+         * Closes the macro editor, if it is open.
+         *
+         * This call does not save any modified parameters to the macro, and saveMacro should be called first if necessary.
+         * @example
+         * AP.confluence.closeMacroEditor();
+         */
+        function closeMacroEditor(): void;
+
+        /**
+         * Get the data saved in the saveMacro method.
+         * @param callback to be passed the macro data.
+         * @example
+         * AP.confluence.getMacroData(function(data){
+         *   alert(data);
+         * });
+         */
+        function getMacroData(callback: (data: object) => void): void;
+
+        /**
+         * Get the body saved in the saveMacro method.
+         * @param callback callback to be passed the macro body.
+         * @example
+         * AP.confluence.getMacroBody(function(body){
+         *   alert(body);
+         * });
+         */
+        function getMacroBody(callback: (body: string) => void): void;
+
+        /**
+         * Provide handlers for property panel control events
+         *
+         * Event name components:
+         *
+         * `control-key`: "key" property provided for the custom control declared in the JSON descriptor
+         * `event-type`: type of user interaction, as described below
+         * `macro-key`: "key" property provided for the macro declared in the JSON descriptor
+         *
+         * Event types:
+         *
+         * `click`: the property panel control was clicked by the user
+         * @param eventBindings An object which specifies property panel events as keys and handler functions as values. The handler does not take any arguments.
+         * @example
+         * AP.confluence.onMacroPropertyPanelEvent({
+         *   "{event-type}.{control-key}.{macro-key}.macro.property-panel": function() {
+         *     // handle button click
+         *     AP.confluence.closeMacroPropertyPanel();
+         *   }
+         * });
+         */
+        function onMacroPropertyPanelEvent(eventBindings: Record<string, () => void>): void;
+
+        /**
+         * Closes the macro property panel, if it is open.
+         * @example
+         * AP.confluence.closeMacroPropertyPanel();
+         */
+        function closeMacroPropertyPanel(): void;
+
+        /**
+         * Provides the Content Property with the given key, on the current Content, to the callback.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.getContentProperty('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function getContentProperty(key: string, callback: (property: ContentProperty) => void): void;
+
+        /**
+         * Sets the provided Content Property against the current Content, sending the result to the callback.
+         * @param contentProperty the content property to create or update
+         * @param callback callback to be passed the result
+         * @example
+         * AP.confluence.setContentProperty({
+         *   key: 'propertyKey',
+         *   value: 'propertyValue',
+         *   version: {
+         *     number: 2
+         *   }
+         * }, function(result) {
+         *    alert(result.property); // the updated property, if successful
+         *    alert(result.error);    // if unsuccessful, the reason for the failure
+         * });
+         */
+        function setContentProperty(contentProperty: ContentProperty, callback: (result: {property: ContentProperty} | {error: string}) => void): void;
+
+        /**
+         * Raise contentProperty.update event for the Content Property with the given key on the current Content. It also provide content property to the callback like getContentProperty does.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.syncPropertyFromServer('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function syncPropertyFromServer(key: string, callback: (property: ContentProperty) => void): void;
+    }
+
+    /**
      * A JavaScript module which provides functions for the current product context.
      */
     namespace context {
