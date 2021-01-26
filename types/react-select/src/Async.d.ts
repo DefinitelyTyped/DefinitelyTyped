@@ -5,19 +5,25 @@ import manageState from './stateManager';
 import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase } from './types';
 
 export interface AsyncProps<OptionType extends OptionTypeBase> {
-    /* The default set of options to show before the user starts searching. When
-       set to `true`, the results for loadOptions('') will be autoloaded.
-       Default: false. */
+    /**
+     * The default set of options to show before the user starts searching. When
+     * set to `true`, the results for loadOptions('') will be autoloaded.
+     * Default: false.
+     */
     defaultOptions?: GroupedOptionsType<OptionType> | OptionsType<OptionType> | boolean;
-    /* Function that returns a promise, which is the set of options to be used
-       once the promise resolves. */
+    /**
+     * Function that returns a promise, which is the set of options to be used
+     * once the promise resolves.
+     */
     loadOptions: (
         inputValue: string,
         callback: (options: OptionsType<OptionType> | GroupedOptionsType<OptionType>) => void,
     ) => Promise<OptionsType<OptionType> | GroupedOptionsType<OptionType>> | void;
-    /* If cacheOptions is truthy, then the loaded data will be cached. The cache
-       will remain until `cacheOptions` changes value.
-       Default: false. */
+    /**
+     * If cacheOptions is truthy, then the loaded data will be cached. The cache
+     * will remain until `cacheOptions` changes value.
+     * Default: false.
+     */
     cacheOptions?: any;
 }
 

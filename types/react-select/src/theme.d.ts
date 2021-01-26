@@ -45,11 +45,11 @@ export const colors: {
 };
 
 export const spacing: {
-    /* Used to calculate consistent margin/padding on elements */
+    /** Used to calculate consistent margin/padding on elements */
     baseUnit: number;
-    /* The minimum height of the control */
+    /** The minimum height of the control */
     controlHeight: number;
-    /* The amount of space between the control and menu */
+    /** The amount of space between the control and menu */
     menuGutter: number;
 };
 

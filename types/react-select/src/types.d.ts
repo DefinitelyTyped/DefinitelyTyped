@@ -29,11 +29,11 @@ export interface PropsWithInnerRef {
 }
 
 export interface PropsWithStyles {
-    /*
-    Get the styles of a particular part of the select. Pass in the name of the
-    property as the first argument, and the current props as the second argument.
-    See the `styles` object for the properties available.
-  */
+    /**
+     * Get the styles of a particular part of the select. Pass in the name of the
+     * property as the first argument, and the current props as the second argument.
+     * See the `styles` object for the properties available.
+     */
     getStyles: (name: string, props: any) => {};
     theme: Theme;
 }
@@ -45,11 +45,11 @@ export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends 
     clearValue: () => void;
     className?: string;
     cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
-    /*
-    Get the styles of a particular part of the select. Pass in the name of the
-    property as the first argument, and the current props as the second argument.
-    See the `styles` object for the properties available.
-  */
+    /**
+     * Get the styles of a particular part of the select. Pass in the name of the
+     * property as the first argument, and the current props as the second argument.
+     * See the `styles` object for the properties available.
+     */
     getStyles: (name: string, props: any) => {};
     getValue: () => OptionsType<OptionType>;
     hasValue: boolean;
