@@ -9,11 +9,9 @@
 import { Readable } from "stream";
 import { EventEmitter } from "events";
 
-export as namespace flow;
+declare function flow(infile: Readable, options?: flow.parserOptions): EventEmitter;
 
-export function flow(infile: Readable, options?: flow.parserOptions): EventEmitter;
-
-export namespace flow {
+declare namespace flow {
     enum frequency {
         NEVER = -1,
         SOMETIMES = 0,
@@ -36,3 +34,5 @@ export namespace flow {
     }
     function toXml(obj: object, options?: toXmlOptions): string;
 }
+
+export = flow;

@@ -1,4 +1,4 @@
-import { flow } from "xml-flow";
+import flow = require("xml-flow");
 import * as fs from "fs";
 
 import type { EventEmitter } from "events";
