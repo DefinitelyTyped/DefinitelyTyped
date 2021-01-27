@@ -213,11 +213,11 @@ export interface ParsedMail {
      */
     subject?: string;
     /**
-     * An array of referenced Message-ID values.
+     * Either an array of two or more referenced Message-ID values or a single Message-ID value.
      *
      * Not set if no reference values present.
      */
-    references?: string[];
+    references?: string[] | string;
     /**
      * A Date object for the `Date:` header.
      */
