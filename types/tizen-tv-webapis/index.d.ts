@@ -14,7 +14,7 @@ declare global {
     }
 }
 
-interface Webapis {
+export interface Webapis {
     adinfo: AdInfoManager;
     appcommon: AppCommonManager;
     avinfo: AvInfoManager;
@@ -29,6 +29,25 @@ interface Webapis {
     widgetdata: WidgetDataManager;
     WebAPIException: WebAPIException;
 }
+export const adinfo: AdInfoManager;
+
+export const appcommon: AppCommonManager;
+
+export const avplay: AVPlayManager;
+
+export const avinfo: AvInfoManager;
+
+export const billing: BillingManager;
+
+export const network: NetworkManager;
+
+export const productinfo: ProductInfoManager;
+
+export const sso: SsoManager;
+
+export const tvinfo: TvInfoManager;
+
+export const widgetdata: WidgetDataManager;
 
 /**
  * This module defines the identification information for advertising functionalities provided by the Tizen Samsung TV Product API.
@@ -1585,7 +1604,7 @@ export interface AVPlayManager {
      * Sets specific feature values for HTTP, MMS, or specific streaming engine (Smooth Streaming, HLS, DASH, DivX Plus Streaming, or Widevine). The available streaming properties depend on the streaming protocol or engine.
      * Use the CUSTOM_MESSAGE property for streaming engine or CP-specific settings.
      *
-     * @param propertyType { "COOKIE", "USER_AGENT", "PREBUFFER_MODE" , "ADAPTIVE_INFO", "SET_MODE_4K", "PROPERTY_HD_AUDIO", "LISTEN_SPARSE_TRACK", "WIDEVINE", "USE_VIDEOMIXER", "SET_MIXEDFRAME", "PORTRAIT_MODE" };
+     * @param propertyType "COOKIE", "USER_AGENT", "PREBUFFER_MODE" , "ADAPTIVE_INFO", "SET_MODE_4K", "PROPERTY_HD_AUDIO", "LISTEN_SPARSE_TRACK", "WIDEVINE", "USE_VIDEOMIXER", "SET_MIXEDFRAME", "PORTRAIT_MODE"
      *
      * @param propertyParam Value according to the propertyType. e.g. "ADAPTIVE_INFO" PropetyTypes are "BITRATES", "STARTBITRATE", "SKIPBITRATE".
      *
@@ -3555,7 +3574,7 @@ export interface NetworkManager {
      * Retrieves the TV's configured gateway address.
      *
      * @returns DOMString Gateway address for the currently-configured network
-     * 
+     *
      * - Example: 192.168.0.1
      *
      * @privilegeLevel Public
@@ -4970,13 +4989,6 @@ export type SystemInfoMaxVideoResolution = {
 };
 
 /**
- * Defines a listener for change of the max video resolution.
- *
- * @since 6.0
- */
-export interface SystemInfoMaxVideoResolutionChangeCallback {}
-
-/**
  * This module defines the TV System state and settings functionalities provided by the Tizen Samsung TV Product API.
  *
  * @privilegeLevel Non-privilege
@@ -5397,7 +5409,7 @@ export enum TvInfoMenuKey {
      * DOMString AUDIO_LANGUAGE_CODE_YOR = "YOR";
      * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
      * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
-     * DOMString	AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
+     * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
      * Only the values ​​that can be set in the menu can be set to webapi
      *
      * @since 2.3
@@ -5490,7 +5502,7 @@ export enum TvInfoMenuKey {
      * DOMString AUDIO_LANGUAGE_CODE_YOR = "YOR";
      * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
      * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
-     * DOMString	AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
+     * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
      * Only the values ​​that can be set in the menu can be set to webapi
      *
      * @since 2.3
@@ -6865,7 +6877,7 @@ export interface TvInfoManager {
          * DOMString AUDIO_LANGUAGE_CODE_YOR = "YOR";
          * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
          * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
-         * DOMString	AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
+         * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
          * Only the values ​​that can be set in the menu can be set to webapi
          *
          * @version 3.1
@@ -6960,7 +6972,7 @@ export interface TvInfoManager {
          * DOMString AUDIO_LANGUAGE_CODE_YOR = "YOR";
          * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
          * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
-         * DOMString	AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
+         * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
          * Only the values ​​that can be set in the menu can be set to webapi
          *
          * @version 3.1
