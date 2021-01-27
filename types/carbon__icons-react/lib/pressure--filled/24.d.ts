@@ -1,1 +1,3 @@
-export { PressureFilled24 as default } from "../../";
+import { PressureFilled24 } from "../../";
+
+export = PressureFilled24;

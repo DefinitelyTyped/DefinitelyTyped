@@ -1,1 +1,3 @@
-export { ChartVennDiagram20 as default } from "../../";
+import { ChartVennDiagram20 } from "../../";
+
+export = ChartVennDiagram20;

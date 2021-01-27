@@ -1,1 +1,3 @@
-export { Pills32 as default } from "../../";
+import { Pills32 } from "../../";
+
+export = Pills32;

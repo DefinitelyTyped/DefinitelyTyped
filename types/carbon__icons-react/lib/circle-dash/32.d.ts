@@ -1,1 +1,3 @@
-export { CircleDash32 as default } from "../../";
+import { CircleDash32 } from "../../";
+
+export = CircleDash32;

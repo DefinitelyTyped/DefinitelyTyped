@@ -1,1 +1,3 @@
-export { Layers20 as default } from "../../";
+import { Layers20 } from "../../";
+
+export = Layers20;

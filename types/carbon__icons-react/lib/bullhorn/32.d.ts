@@ -1,1 +1,3 @@
-export { Bullhorn32 as default } from "../../";
+import { Bullhorn32 } from "../../";
+
+export = Bullhorn32;

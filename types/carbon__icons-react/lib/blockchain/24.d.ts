@@ -1,1 +1,3 @@
-export { Blockchain24 as default } from "../../";
+import { Blockchain24 } from "../../";
+
+export = Blockchain24;

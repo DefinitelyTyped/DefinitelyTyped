@@ -1,1 +1,3 @@
-export { PenFountain32 as default } from "../../";
+import { PenFountain32 } from "../../";
+
+export = PenFountain32;

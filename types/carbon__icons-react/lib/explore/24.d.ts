@@ -1,1 +1,3 @@
-export { Explore24 as default } from "../../";
+import { Explore24 } from "../../";
+
+export = Explore24;

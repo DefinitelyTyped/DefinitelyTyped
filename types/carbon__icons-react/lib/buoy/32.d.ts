@@ -1,1 +1,3 @@
-export { Buoy32 as default } from "../../";
+import { Buoy32 } from "../../";
+
+export = Buoy32;

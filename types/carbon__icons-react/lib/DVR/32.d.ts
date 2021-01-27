@@ -1,1 +1,3 @@
-export { Dvr32 as default } from "../../";
+import { Dvr32 } from "../../";
+
+export = Dvr32;

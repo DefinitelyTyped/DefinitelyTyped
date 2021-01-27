@@ -1,1 +1,3 @@
-export { PhoneOutgoing20 as default } from "../../";
+import { PhoneOutgoing20 } from "../../";
+
+export = PhoneOutgoing20;

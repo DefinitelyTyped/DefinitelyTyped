@@ -1,1 +1,3 @@
-export { StopSignFilled32 as default } from "../../";
+import { StopSignFilled32 } from "../../";
+
+export = StopSignFilled32;

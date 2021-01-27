@@ -1,1 +1,3 @@
-export { Pen32 as default } from "../../";
+import { Pen32 } from "../../";
+
+export = Pen32;

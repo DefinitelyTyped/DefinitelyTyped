@@ -1,1 +1,3 @@
-export { TextScale24 as default } from "../../";
+import { TextScale24 } from "../../";
+
+export = TextScale24;

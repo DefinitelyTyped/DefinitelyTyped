@@ -1,1 +1,3 @@
-export { Apple20 as default } from "../../";
+import { Apple20 } from "../../";
+
+export = Apple20;

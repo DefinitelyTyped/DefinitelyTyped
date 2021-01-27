@@ -1,1 +1,3 @@
-export { Policy20 as default } from "../../";
+import { Policy20 } from "../../";
+
+export = Policy20;

@@ -1,1 +1,3 @@
-export { StopFilledAlt16 as default } from "../../";
+import { StopFilledAlt16 } from "../../";
+
+export = StopFilledAlt16;

@@ -1,1 +1,3 @@
-export { ChartLineSmooth32 as default } from "../../";
+import { ChartLineSmooth32 } from "../../";
+
+export = ChartLineSmooth32;

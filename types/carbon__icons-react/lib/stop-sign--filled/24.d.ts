@@ -1,1 +1,3 @@
-export { StopSignFilled24 as default } from "../../";
+import { StopSignFilled24 } from "../../";
+
+export = StopSignFilled24;

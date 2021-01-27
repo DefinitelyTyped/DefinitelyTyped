@@ -1,1 +1,3 @@
-export { DataView20 as default } from "../../";
+import { DataView20 } from "../../";
+
+export = DataView20;

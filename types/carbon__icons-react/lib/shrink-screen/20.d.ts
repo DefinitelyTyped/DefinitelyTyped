@@ -1,1 +1,3 @@
-export { ShrinkScreen20 as default } from "../../";
+import { ShrinkScreen20 } from "../../";
+
+export = ShrinkScreen20;

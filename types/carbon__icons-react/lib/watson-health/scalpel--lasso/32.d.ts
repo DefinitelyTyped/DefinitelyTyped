@@ -1,1 +1,3 @@
-export { WatsonHealthScalpelLasso32 as default } from "../../../";
+import { WatsonHealthScalpelLasso32 } from "../../../";
+
+export = WatsonHealthScalpelLasso32;

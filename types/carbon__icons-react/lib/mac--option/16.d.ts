@@ -1,1 +1,3 @@
-export { MacOption16 as default } from "../../";
+import { MacOption16 } from "../../";
+
+export = MacOption16;

@@ -1,1 +1,3 @@
-export { ChemistryReference32 as default } from "../../";
+import { ChemistryReference32 } from "../../";
+
+export = ChemistryReference32;

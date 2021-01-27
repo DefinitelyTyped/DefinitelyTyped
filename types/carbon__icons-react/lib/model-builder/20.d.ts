@@ -1,1 +1,3 @@
-export { ModelBuilder20 as default } from "../../";
+import { ModelBuilder20 } from "../../";
+
+export = ModelBuilder20;

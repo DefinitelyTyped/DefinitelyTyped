@@ -1,1 +1,3 @@
-export { StemLeafPlot32 as default } from "../../";
+import { StemLeafPlot32 } from "../../";
+
+export = StemLeafPlot32;

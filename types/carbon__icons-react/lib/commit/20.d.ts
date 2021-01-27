@@ -1,1 +1,3 @@
-export { Commit20 as default } from "../../";
+import { Commit20 } from "../../";
+
+export = Commit20;

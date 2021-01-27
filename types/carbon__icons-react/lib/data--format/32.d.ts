@@ -1,1 +1,3 @@
-export { DataFormat32 as default } from "../../";
+import { DataFormat32 } from "../../";
+
+export = DataFormat32;

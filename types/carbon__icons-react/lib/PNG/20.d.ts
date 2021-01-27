@@ -1,1 +1,3 @@
-export { Png20 as default } from "../../";
+import { Png20 } from "../../";
+
+export = Png20;

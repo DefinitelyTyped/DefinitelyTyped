@@ -1,1 +1,3 @@
-export { Recommend20 as default } from "../../";
+import { Recommend20 } from "../../";
+
+export = Recommend20;

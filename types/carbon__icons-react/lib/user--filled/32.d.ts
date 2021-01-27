@@ -1,1 +1,3 @@
-export { UserFilled32 as default } from "../../";
+import { UserFilled32 } from "../../";
+
+export = UserFilled32;

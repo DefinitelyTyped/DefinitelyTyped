@@ -1,1 +1,3 @@
-export { Music20 as default } from "../../";
+import { Music20 } from "../../";
+
+export = Music20;

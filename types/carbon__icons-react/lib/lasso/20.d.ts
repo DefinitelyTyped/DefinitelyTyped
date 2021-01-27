@@ -1,1 +1,3 @@
-export { Lasso20 as default } from "../../";
+import { Lasso20 } from "../../";
+
+export = Lasso20;

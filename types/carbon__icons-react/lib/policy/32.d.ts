@@ -1,1 +1,3 @@
-export { Policy32 as default } from "../../";
+import { Policy32 } from "../../";
+
+export = Policy32;

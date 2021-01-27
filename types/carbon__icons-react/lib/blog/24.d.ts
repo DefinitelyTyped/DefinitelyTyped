@@ -1,1 +1,3 @@
-export { Blog24 as default } from "../../";
+import { Blog24 } from "../../";
+
+export = Blog24;

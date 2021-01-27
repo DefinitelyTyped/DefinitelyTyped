@@ -1,1 +1,3 @@
-export { ParentChild32 as default } from "../../";
+import { ParentChild32 } from "../../";
+
+export = ParentChild32;

@@ -1,1 +1,3 @@
-export { DrillThrough32 as default } from "../../";
+import { DrillThrough32 } from "../../";
+
+export = DrillThrough32;

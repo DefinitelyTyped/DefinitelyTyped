@@ -1,1 +1,3 @@
-export { ShoppingCartMinus16 as default } from "../../";
+import { ShoppingCartMinus16 } from "../../";
+
+export = ShoppingCartMinus16;
