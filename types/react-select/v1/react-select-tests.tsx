@@ -120,7 +120,7 @@ describe('react-select', () => {
         class Component extends React.PureComponent {
             private readonly selectRef = (component: ReactSelect) => {
                 component.focus();
-            };
+            }
 
             render() {
                 return <ReactSelect ref={this.selectRef} />;
@@ -134,7 +134,7 @@ describe('react-select', () => {
                 component.setValue({
                     value: 'value',
                 });
-            };
+            }
 
             render() {
                 return <ReactSelect ref={this.selectRef} />;
@@ -193,7 +193,7 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
-            };
+            }
 
             render() {
                 return <ReactSelect name="select" value="one" options={EXAMPLE_OPTIONS} />;
@@ -205,7 +205,7 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onValueClick: ReactSelectModule.OnValueClickHandler<number> = option => {
                 const optionValue: number = option.value;
-            };
+            }
 
             render() {
                 const options = [
@@ -222,7 +222,7 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = option => {
                 const optionValue: CustomValueType = option.value;
-            };
+            }
 
             render() {
                 return (
@@ -240,7 +240,7 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = option => {
                 const optionValue: CustomValueType = option.value;
-            };
+            }
 
             render() {
                 return (
@@ -258,7 +258,7 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
-            };
+            }
 
             private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
                 const options = props.options.map(option => {
@@ -272,7 +272,7 @@ describe('Examples', () => {
                 });
 
                 return <div className="menu">{options}</div>;
-            };
+            }
 
             render() {
                 return (
@@ -299,7 +299,7 @@ describe('Examples', () => {
                 });
 
                 return <div className="menu">{options}</div>;
-            };
+            }
 
             render() {
                 return (
@@ -318,7 +318,7 @@ describe('Examples', () => {
         return class Component extends React.Component {
             private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
                 return <div className="menu">defaultMenuRenderer(props)</div>;
-            };
+            }
 
             render() {
                 return <ReactSelect menuRenderer={this.menuRenderer} />;
@@ -347,11 +347,11 @@ describe('Examples', () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
-            };
+            }
 
             private readonly inputRenderer: ReactSelectModule.InputRendererHandler = props => {
                 return <input {...props} />;
-            };
+            }
 
             render() {
                 return (
