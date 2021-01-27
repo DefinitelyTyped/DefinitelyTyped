@@ -5,9 +5,9 @@
 
 export as namespace JSONPath;
 
-type pathType = string | string[];
-type jsonType = null | boolean | number | string | object | [];
-type resultType =
+export type pathType = string | string[];
+export type jsonType = null | boolean | number | string | object | [];
+export type resultType =
     | 'VALUE'
     | 'Value'
     | 'value'
@@ -24,13 +24,13 @@ type resultType =
     | 'ParentProperty'
     | 'parentProperty'
     | 'parentproperty';
-type sandboxType = {
+export type sandboxType = {
     [key in string]: string;
 };
-type callback = (payloadValue: any, type: 'value' | 'property', fullPayload: any) => void;
-type otherCallback = (value: any, path: string, parent: object, parentPropertyName: any) => boolean;
+export type callback = (payloadValue: any, type: 'value' | 'property', fullPayload: any) => void;
+export type otherCallback = (value: any, path: string, parent: object, parentPropertyName: any) => boolean;
 
-interface options {
+export interface options {
     path?: pathType;
     json?: jsonType;
     autostart?: boolean;

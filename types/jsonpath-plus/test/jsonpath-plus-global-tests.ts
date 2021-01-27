@@ -12,19 +12,19 @@ let result: JSONPath.resultType = 'PARENT';
 result = 'parent';
 result = 'Parent';
 
-let sandboxType: JSONPath.sandboxType = {
+const sandboxType: JSONPath.sandboxType = {
     yes: 'man',
 };
 
-let callback: JSONPath.callback = (payloadValue: any, type: string, fullPayload: any): void => {};
+const callback: JSONPath.callback = (payloadValue: any, type: string, fullPayload: any): void => {};
 
-let otherCallback = (value: any, path: string, parent: object, parentPropertyName: any): boolean => {
+const otherCallback = (value: any, path: string, parent: object, parentPropertyName: any): boolean => {
     return false;
 };
 
-let config: JSONPath.options = {
-    path: path,
-    json: json,
+const options: JSONPath.options = {
+    path,
+    json,
     autostart: true,
     flatten: true,
     resultType: result,
@@ -33,10 +33,10 @@ let config: JSONPath.options = {
     preventEval: true,
     parent: {},
     parentProperty: {},
-    callback: callback,
+    callback,
     otherTypeCallback: otherCallback,
 };
 
-let moduleResult = JSONPath.JSONPath(config, path, json, callback, otherCallback);
+let moduleResult = JSONPath.JSONPath(options, path, json, callback, otherCallback);
 
 moduleResult = JSONPath.JSONPath(path, json);
