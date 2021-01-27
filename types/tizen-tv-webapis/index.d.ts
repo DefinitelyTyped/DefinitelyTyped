@@ -35,6 +35,8 @@ export const appcommon: AppCommonManager;
 
 export const avplay: AVPlayManager;
 
+export const avplaystore: AVPlayStoreManager;
+
 export const avinfo: AvInfoManager;
 
 export const billing: BillingManager;
@@ -44,6 +46,8 @@ export const network: NetworkManager;
 export const productinfo: ProductInfoManager;
 
 export const sso: SsoManager;
+
+export const systeminfo: SystemInfoManager;
 
 export const tvinfo: TvInfoManager;
 
