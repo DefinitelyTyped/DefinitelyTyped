@@ -1,4 +1,4 @@
-import { 
+import {
     adinfo,
     appcommon,
     avplay,

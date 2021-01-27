@@ -29,6 +29,8 @@ export interface Webapis {
     widgetdata: WidgetDataManager;
     WebAPIException: WebAPIException;
 }
+export const WebAPIException: WebAPIException;
+
 export const adinfo: AdInfoManager;
 
 export const appcommon: AppCommonManager;
