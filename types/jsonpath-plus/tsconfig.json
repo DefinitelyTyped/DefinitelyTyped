@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "jsonpath-plus-tests.ts"
+        "jsonpath-plus-global-tests.ts",
+        "jsonpath-plus-module-tests.ts"
     ]
 }

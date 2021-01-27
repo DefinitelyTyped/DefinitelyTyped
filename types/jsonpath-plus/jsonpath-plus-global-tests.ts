@@ -1,4 +1,4 @@
-const result = JSONPath.JSONPath({
+const globalResult = JSONPath.JSONPath({
     path: "someXPath",
     json: {},
   });
