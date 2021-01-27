@@ -1,4 +1,4 @@
-// Type definitions for react-form 3.0
+// Type definitions for react-form 4.0
 // Project: https://github.com/tannerlinsley/react-form
 // Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
 //                 Mathieu Masy <https://github.com/TiuSh>
