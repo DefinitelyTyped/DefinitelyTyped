@@ -12,9 +12,9 @@ const readStreamTwo = fs.createReadStream("./test.xml", "utf8");
 const myFlow = flow(readStreamOne);
 
 const myOptions = {
-    preserveMarkup: flow.frequency.ALWAYS,
+    preserveMarkup: flow.ALWAYS as typeof flow.ALWAYS,
     simplifyNodes: false,
-    useArrays: flow.frequency.SOMETIMES,
+    useArrays: flow.SOMETIMES as typeof flow.SOMETIMES,
     lowercase: false,
     trim: false,
     normalize: true,

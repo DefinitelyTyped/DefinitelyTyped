@@ -12,15 +12,14 @@ import { EventEmitter } from "events";
 declare function flow(infile: Readable, options?: flow.parserOptions): EventEmitter;
 
 declare namespace flow {
-    enum frequency {
-        NEVER = -1,
-        SOMETIMES = 0,
-        ALWAYS = 1
-    }
+    const NEVER = -1;
+    const SOMETIMES = 0;
+    const ALWAYS = 1;
+
     interface parserOptions {
-        preserveMarkup?: frequency;
+        preserveMarkup?: typeof NEVER | typeof SOMETIMES | typeof ALWAYS;
         simplifyNodes?: boolean;
-        useArrays?: frequency;
+        useArrays?: typeof NEVER | typeof SOMETIMES | typeof ALWAYS;
         lowercase?: boolean;
         trim?: boolean;
         normalize?: boolean;
