@@ -276,6 +276,176 @@ declare namespace AP {
     }
 
     /**
+     * A Confluence specific JavaScript module which provides functions to interact with the custom content.
+     */
+    namespace customContent {
+        enum InterceptableEvent {
+            /**
+             * Add-on **must** intercept this event to provide the content body.
+             * The `confluence.customcontent.submit` event will be emitted when user clicks the save button on the custom content edit component.
+             * @example <caption>**Return a content body string** The string will be used as the content body.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(document.querySelector("#textarea").value);
+             * });
+             * @example <caption>**Return a complete content object** Add-on can return a complete content object.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *   editComponent.submitCallback({
+             *     "title": context.title,
+             *     "space": {"key": context.spaceKey},
+             *     "type": context.contentType,
+             *     "body": {
+             *       "storage": {
+             *         "value": "<p>New page data.</p>",
+             *         "representation": "storage"
+             *       }
+             *     }
+             *   });
+             * });
+             * @example <caption>**Return false** Add-on can also return false to cancel the submit action.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(false);
+             *     // editComponent.submitCallback(false, 'Cannot save the content');
+             * });
+             */
+            Submit = 'confluence.customcontent.submit',
+
+            /**
+             * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
+             * If add-on didn't intercept this event, user will be redirected to the content view page.
+             * You can call `submitSuccessCallback` function to return the data:
+             * @example <caption>**Return false** Return false will prevent Confluence redirect user to the content view page.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(false);
+             *     // editComponent.submitSuccessCallback(false, 'Some error message');
+             * });
+             * @example <caption>**Return true** User will not be redirected until **submitSuccessCallback** has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(true);
+             * });
+             */
+            SubmitSuccess = 'confluence.customcontent.submitSuccess',
+
+            /**
+             * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
+             * If add-on didn't intercept this event, a flag message will be shown.
+             * You can call `submitErrorCallback` function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent error message be shown.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(false, 'My own error message');
+             * });
+             * @example <caption>**Return true** Error message will not be shown until submitErrorCallback has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(true);
+             * });
+             */
+            SubmitError = 'confluence.customcontent.submitError',
+
+            /**
+             * The confluence.customcontent.cancel event will be emitted when user clicks close button.
+             * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
+             * You can call cancelCallback function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent user being redirected.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(false, 'My error message');
+             *     //  editComponent.cancelCallback(false);
+             * });
+             * @example <caption>**Return true** User will not be redirected until `cancelCallback` has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(true);
+             * });
+             */
+            Cancel = 'confluence.customcontent.cancel',
+        }
+        interface EditComponent {
+            /**
+             * See docs on InterceptableEvent enum
+             * @param event Event to intercept
+             * @see InterceptableEvent#Submit
+             * @see InterceptableEvent#SubmitSuccess
+             * @see InterceptableEvent#SubmitError
+             * @see InterceptableEvent#Cancel
+             */
+            intercept: (event: InterceptableEvent) => void;
+
+            /**
+             * Used inside an event listener for a {@link InterceptableEvent#Submit} event to submit the content of the macro.
+             * @param contentBody can be either content body string, a complete content object or false (cancels submit action)
+             * @see InterceptableEvent#Submit
+             */
+            submitCallback: (contentBody: string | object | false) => void;
+
+            /**
+             * Used inside an event listener for a {@link InterceptableEvent#SubmitSuccess} event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the content was saved successfully.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent#SubmitSuccess
+             */
+            submitSuccessCallback: (doRedirect: boolean, error?: string) => void;
+
+            /**
+             * Used inside an event listener for a {@link InterceptableEvent#SubmitError} event to do something before the error is being shown and/or
+             * prevent Confluence from showing the default error message and optionally providing a custom one.
+             * @param preventDefaultErrorMessage Whether to show the default error message. If false, a custom error can be shown
+             * @param customError The error to show instead of the default Confluence one
+             * @see InterceptableEvent#SubmitError
+             */
+            submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string) => void;
+
+            /**
+             * Used inside an event listener for a {@link InterceptableEvent#Cancel} event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the user clicked the "Close" button.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent#Cancel
+             */
+            cancelCallback: (doRedirect: boolean, error?: string) => void;
+        }
+
+        /**
+         * Intercept edit component events of custom content.
+         * If the intercept function was invoked for an event then Confluence will wait for the data from the corresponding callback function up to 10 seconds.
+         * If add-on didn't return data, a timeout error message will be shown.
+         * @return EditComponent
+         */
+        function getEditComponent(): EditComponent;
+    }
+
+    /**
      * The Dialog module provides a mechanism for launching an add-on's modules as modal dialogs from within an add-on's iframe.
      * A modal dialog displays information without requiring the user to leave the current page.
      *
@@ -407,7 +577,7 @@ declare namespace AP {
 
         /**
          * Passes the custom data Object to the specified callback function.
-         * @param customData Callback method to be executed with the custom data.
+         * @param callback Callback method to be executed with the custom data.
          */
         function getCustomData(callback: (customData: object) => void): void;
 

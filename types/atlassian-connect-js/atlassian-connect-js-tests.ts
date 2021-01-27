@@ -26,6 +26,24 @@ AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
 
+const editComponent = AP.customContent.getEditComponent(); // $ExpectType EditComponent
+editComponent.intercept(AP.customContent.InterceptableEvent.Submit); // $ExpectType void
+editComponent.intercept(AP.customContent.InterceptableEvent.SubmitSuccess); // $ExpectType void
+editComponent.intercept(AP.customContent.InterceptableEvent.SubmitError); // $ExpectType void
+editComponent.intercept(AP.customContent.InterceptableEvent.Cancel); // $ExpectType void
+editComponent.submitCallback('content'); // $ExpectType void
+editComponent.submitCallback({}); // $ExpectType void
+editComponent.submitCallback(false); // $ExpectType void
+editComponent.submitSuccessCallback(true); // $ExpectType void
+editComponent.submitSuccessCallback(false); // $ExpectType void
+editComponent.submitSuccessCallback(false, 'error'); // $ExpectType void
+editComponent.submitErrorCallback(true); // $ExpectType void
+editComponent.submitErrorCallback(false); // $ExpectType void
+editComponent.submitErrorCallback(false, 'error'); // $ExpectType void
+editComponent.cancelCallback(true); // $ExpectType void
+editComponent.cancelCallback(false); // $ExpectType void
+editComponent.cancelCallback(false, 'error'); // $ExpectType void
+
 AP.dialog.create({ key: 'key', size: 'small', customData: { data: 1 } }); // $ExpectType Dialog
 AP.dialog.close(); // $ExpectType void
 AP.dialog.getCustomData(data => console.log(data)); // $ExpectType void
