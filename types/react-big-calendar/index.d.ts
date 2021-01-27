@@ -305,10 +305,13 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     }) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onKeyPressEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
     onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void;
+    showAllEvents?: boolean;
     selected?: any;
     views?: ViewsProps<TEvent, TResource>;
+    doShowMoreDrillDown?: boolean;
     drilldownView?: View | null;
     getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
     length?: number;
