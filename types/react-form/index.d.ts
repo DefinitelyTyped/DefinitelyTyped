@@ -1,6 +1,8 @@
 // Type definitions for react-form 3.0
 // Project: https://github.com/tannerlinsley/react-form
-// Definitions by: Anatolii Titov <https://github.com/Toliak>
+// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
+//                 Mathieu Masy <https://github.com/TiuSh>
+//                 Anatolii Titov <https://github.com/Toliak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
