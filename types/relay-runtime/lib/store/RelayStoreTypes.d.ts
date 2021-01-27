@@ -27,8 +27,8 @@ export type OperationTracker = RelayOperationTracker;
 /*
  * An individual cached graph object.
  */
-export interface Record {
-    [key: string]: unknown;
+export interface Record<T extends object = {}> {
+    [key: string]: T;
 }
 
 /**
@@ -177,7 +177,8 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    get(dataID: DataID): Record | null | undefined;
+    // tslint:disable-next-line:no-unnecessary-generics
+    get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
