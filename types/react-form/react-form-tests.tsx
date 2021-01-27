@@ -17,10 +17,7 @@ function validateAddressStreet(value: string): string | false {
     return false;
 }
 
-async function validateName(
-    name: string,
-    instance: UseFieldInstance<any, any, any, any, any, any>,
-): Promise<any> {
+async function validateName(name: string, instance: UseFieldInstance<any, any, any, any, any, any>): Promise<any> {
     if (!name) {
         return 'A name is required';
     }
@@ -493,5 +490,31 @@ function FourthMyForm() {
                 </button>
             </div>
         </Form>
+    );
+}
+
+// Few tests
+
+export function EmailField(props: any): JSX.Element {
+    const data = useField('email', {
+        defaultValue: props.defaultValue,
+        defaultError: props.defaultError,
+    });
+
+    const inputProps = data.getInputProps({
+        onChange: () => {
+            data.form.setMeta({
+                error: undefined,
+            });
+        },
+    });
+
+    return (
+        <div>
+            <input {...inputProps} />
+            {data.meta.error || props.defaultError ? (
+                <div className="error">{data.meta.error || props.defaultError}</div>
+            ) : null}
+        </div>
     );
 }

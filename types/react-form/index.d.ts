@@ -26,7 +26,7 @@ export interface FieldScopeSpecificMethods<
         options: { isTouched: boolean },
     ): void;
 
-    setFieldMeta(fieldPath: string, updater: ((prev: FieldMetaType) => FieldMetaType) | FieldMetaType): void;
+    setFieldMeta(fieldPath: string, updater: ((prev: FieldMetaType) => FieldMetaType) | Partial<FieldMetaType>): void;
 
     pushFieldValue(fieldPath: string, newValue: ValueType): void;
 
@@ -61,15 +61,15 @@ export interface UseFormOptions<
 }
 
 export interface UseFormInstanceMeta<ErrorType> {
-    error?: ErrorType;
-    isSubmitting?: boolean;
-    isDirty?: boolean;
-    isSubmitted?: boolean;
-    submissionAttempts?: number;
-    fieldsAreValidating?: boolean;
-    fieldsAreValid?: boolean;
-    isValid?: boolean;
-    canSubmit?: boolean;
+    error: ErrorType;
+    isSubmitting: boolean;
+    isDirty: boolean;
+    isSubmitted: boolean;
+    submissionAttempts: number;
+    fieldsAreValidating: boolean;
+    fieldsAreValid: boolean;
+    isValid: boolean;
+    canSubmit: boolean;
 }
 
 export interface UseFormInstance<
@@ -86,7 +86,7 @@ export interface UseFormInstance<
 
     reset(): void;
 
-    setMeta(updater: ((prev: FormMetaType) => FormMetaType) | FormMetaType): void;
+    setMeta(updater: ((prev: FormMetaType) => FormMetaType) | Partial<FormMetaType>): void;
 
     handleSubmit(event: React.SyntheticEvent<EventType>): void;
 
@@ -132,7 +132,7 @@ export interface UseFieldOptions<
 export interface UseFieldInstanceMeta<ErrorType> {
     error: ErrorType | null;
     isTouched: boolean;
-    isValidating?: boolean;
+    isValidating: boolean;
 }
 
 export interface UseFieldInstancePropsType<ValueType> {
@@ -159,11 +159,11 @@ export interface UseFieldInstance<
 
     runValidation(): void;
 
-    getInputProps(props?: InputPropsType): InputPropsType;
+    getInputProps(props?: Partial<InputPropsType>): InputPropsType;
 
     setValue(updater: ((prev: ValueType) => ValueType) | ValueType, options?: { isTouched: boolean }): void;
 
-    setMeta(updater: ((prev: FieldMetaType) => FieldMetaType) | FieldMetaType): void;
+    setMeta(updater: ((prev: FieldMetaType) => FieldMetaType) | Partial<FieldMetaType>): void;
 
     pushValue(newValue: ValueType): void;
 
@@ -196,8 +196,6 @@ export function useField<
     props: UseFieldOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
 ): UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>;
 
-export function splitFormProps(
-    props: any,
-): [string, UseFieldOptions<any, any, any, any, any, any>, any];
+export function splitFormProps(props: any): [string, UseFieldOptions<any, any, any, any, any, any>, any];
 
 export function useFormContext(): UseFormInstance<any, any, any, any, any>;
