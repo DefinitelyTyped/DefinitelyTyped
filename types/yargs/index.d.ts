@@ -10,7 +10,6 @@
 //                 Aankhen <https://github.com/Aankhen>
 //                 Ben Coe <https://github.com/bcoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
