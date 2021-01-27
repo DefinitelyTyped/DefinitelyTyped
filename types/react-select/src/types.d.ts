@@ -7,12 +7,15 @@ export interface OptionTypeBase {
 
 export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
 
-export interface GroupType<OptionType extends OptionTypeBase> {
+export interface GroupTypeBase<OptionType extends OptionTypeBase> {
     options: OptionsType<OptionType>;
     [key: string]: any;
 }
 
-export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
+export type GroupedOptionsType<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = ReadonlyArray<GroupType>;
 
 export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> = IsMulti extends true
     ? OptionsType<OptionType>
@@ -41,7 +44,11 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+export interface CommonProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     clearValue: () => void;
     className?: string;
     cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
@@ -56,7 +63,7 @@ export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends 
     isMulti: boolean;
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
-    selectProps: SelectProps<OptionType>;
+    selectProps: SelectProps<OptionType, IsMulti, GroupType>;
     setValue: (value: ValueType<OptionType, IsMulti>, action: ActionTypes) => void;
 }
 
