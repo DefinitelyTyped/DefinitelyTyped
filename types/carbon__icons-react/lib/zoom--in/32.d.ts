@@ -1,1 +1,3 @@
-export { ZoomIn32 as default } from "../../";
+import { ZoomIn32 } from "../../";
+
+export = ZoomIn32;

@@ -1,1 +1,3 @@
-export { ChoroplethMap16 as default } from "../../";
+import { ChoroplethMap16 } from "../../";
+
+export = ChoroplethMap16;

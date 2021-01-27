@@ -1,1 +1,3 @@
-export { Barcode16 as default } from "../../";
+import { Barcode16 } from "../../";
+
+export = Barcode16;

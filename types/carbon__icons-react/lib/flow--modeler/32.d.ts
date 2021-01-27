@@ -1,1 +1,3 @@
-export { FlowModeler32 as default } from "../../";
+import { FlowModeler32 } from "../../";
+
+export = FlowModeler32;

@@ -1,4 +1,4 @@
-// Type definitions for @carbon/icons-react 10.23
+// Type definitions for @carbon/icons-react 10.24
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

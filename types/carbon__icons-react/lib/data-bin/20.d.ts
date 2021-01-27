@@ -1,1 +1,3 @@
-export { DataBin20 as default } from "../../";
+import { DataBin20 } from "../../";
+
+export = DataBin20;

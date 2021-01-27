@@ -1,1 +1,3 @@
-export { Gradient16 as default } from "../../";
+import { Gradient16 } from "../../";
+
+export = Gradient16;

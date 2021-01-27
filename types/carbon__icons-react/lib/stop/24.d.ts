@@ -1,1 +1,3 @@
-export { Stop24 as default } from "../../";
+import { Stop24 } from "../../";
+
+export = Stop24;

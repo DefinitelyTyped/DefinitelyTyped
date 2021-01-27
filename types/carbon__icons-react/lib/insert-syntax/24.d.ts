@@ -1,1 +1,3 @@
-export { InsertSyntax24 as default } from "../../";
+import { InsertSyntax24 } from "../../";
+
+export = InsertSyntax24;

@@ -1,1 +1,3 @@
-export { Unlink16 as default } from "../../";
+import { Unlink16 } from "../../";
+
+export = Unlink16;

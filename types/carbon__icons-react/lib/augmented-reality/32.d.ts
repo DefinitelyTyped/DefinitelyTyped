@@ -1,1 +1,3 @@
-export { AugmentedReality32 as default } from "../../";
+import { AugmentedReality32 } from "../../";
+
+export = AugmentedReality32;

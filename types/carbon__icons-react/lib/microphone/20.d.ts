@@ -1,1 +1,3 @@
-export { Microphone20 as default } from "../../";
+import { Microphone20 } from "../../";
+
+export = Microphone20;

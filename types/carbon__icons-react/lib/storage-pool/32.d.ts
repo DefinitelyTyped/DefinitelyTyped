@@ -1,1 +1,3 @@
-export { StoragePool32 as default } from "../../";
+import { StoragePool32 } from "../../";
+
+export = StoragePool32;

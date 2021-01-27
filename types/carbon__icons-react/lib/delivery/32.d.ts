@@ -1,1 +1,3 @@
-export { Delivery32 as default } from "../../";
+import { Delivery32 } from "../../";
+
+export = Delivery32;

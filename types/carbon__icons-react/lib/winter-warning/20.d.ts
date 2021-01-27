@@ -1,1 +1,3 @@
-export { WinterWarning20 as default } from "../../";
+import { WinterWarning20 } from "../../";
+
+export = WinterWarning20;

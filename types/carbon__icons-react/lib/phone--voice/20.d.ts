@@ -1,1 +1,3 @@
-export { PhoneVoice20 as default } from "../../";
+import { PhoneVoice20 } from "../../";
+
+export = PhoneVoice20;

@@ -1,1 +1,3 @@
-export { DirectionForkFilled32 as default } from "../../";
+import { DirectionForkFilled32 } from "../../";
+
+export = DirectionForkFilled32;

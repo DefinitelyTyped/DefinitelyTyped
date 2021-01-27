@@ -1,1 +1,3 @@
-export { ArrowsHorizontal20 as default } from "../../";
+import { ArrowsHorizontal20 } from "../../";
+
+export = ArrowsHorizontal20;

@@ -1,1 +1,3 @@
-export { DrillBack16 as default } from "../../";
+import { DrillBack16 } from "../../";
+
+export = DrillBack16;

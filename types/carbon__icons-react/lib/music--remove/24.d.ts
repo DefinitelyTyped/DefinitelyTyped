@@ -1,1 +1,3 @@
-export { MusicRemove24 as default } from "../../";
+import { MusicRemove24 } from "../../";
+
+export = MusicRemove24;

@@ -1,1 +1,3 @@
-export { Awake16 as default } from "../../";
+import { Awake16 } from "../../";
+
+export = Awake16;

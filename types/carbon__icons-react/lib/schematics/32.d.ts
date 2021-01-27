@@ -1,1 +1,3 @@
-export { Schematics32 as default } from "../../";
+import { Schematics32 } from "../../";
+
+export = Schematics32;

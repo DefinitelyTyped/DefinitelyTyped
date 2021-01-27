@@ -1,1 +1,3 @@
-export { Integration24 as default } from "../../";
+import { Integration24 } from "../../";
+
+export = Integration24;

@@ -1,1 +1,3 @@
-export { LogoPinterest24 as default } from "../../";
+import { LogoPinterest24 } from "../../";
+
+export = LogoPinterest24;

@@ -1,1 +1,3 @@
-export { DeliveryParcel32 as default } from "../../";
+import { DeliveryParcel32 } from "../../";
+
+export = DeliveryParcel32;

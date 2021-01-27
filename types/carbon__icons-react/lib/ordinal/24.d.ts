@@ -1,1 +1,3 @@
-export { Ordinal24 as default } from "../../";
+import { Ordinal24 } from "../../";
+
+export = Ordinal24;

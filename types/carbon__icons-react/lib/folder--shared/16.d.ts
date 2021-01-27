@@ -1,1 +1,3 @@
-export { FolderShared16 as default } from "../../";
+import { FolderShared16 } from "../../";
+
+export = FolderShared16;

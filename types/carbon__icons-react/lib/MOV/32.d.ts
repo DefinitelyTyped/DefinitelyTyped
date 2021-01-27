@@ -1,1 +1,3 @@
-export { Mov32 as default } from "../../";
+import { Mov32 } from "../../";
+
+export = Mov32;

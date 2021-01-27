@@ -1,1 +1,3 @@
-export { Soccer24 as default } from "../../";
+import { Soccer24 } from "../../";
+
+export = Soccer24;

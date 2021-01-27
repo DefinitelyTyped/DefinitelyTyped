@@ -1,1 +1,3 @@
-export { Moonrise16 as default } from "../../";
+import { Moonrise16 } from "../../";
+
+export = Moonrise16;

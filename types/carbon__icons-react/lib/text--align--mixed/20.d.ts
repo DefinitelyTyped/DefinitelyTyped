@@ -1,1 +1,3 @@
-export { TextAlignMixed20 as default } from "../../";
+import { TextAlignMixed20 } from "../../";
+
+export = TextAlignMixed20;

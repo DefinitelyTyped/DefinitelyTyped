@@ -1,1 +1,3 @@
-export { TennisBall20 as default } from "../../";
+import { TennisBall20 } from "../../";
+
+export = TennisBall20;

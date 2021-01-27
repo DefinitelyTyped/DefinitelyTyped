@@ -1,1 +1,3 @@
-export { CarFront32 as default } from "../../";
+import { CarFront32 } from "../../";
+
+export = CarFront32;

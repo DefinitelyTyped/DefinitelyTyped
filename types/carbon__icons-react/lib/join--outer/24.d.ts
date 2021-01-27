@@ -1,1 +1,3 @@
-export { JoinOuter24 as default } from "../../";
+import { JoinOuter24 } from "../../";
+
+export = JoinOuter24;

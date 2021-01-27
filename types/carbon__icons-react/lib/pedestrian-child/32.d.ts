@@ -1,1 +1,3 @@
-export { PedestrianChild32 as default } from "../../";
+import { PedestrianChild32 } from "../../";
+
+export = PedestrianChild32;

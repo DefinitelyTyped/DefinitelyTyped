@@ -1,1 +1,3 @@
-export { FavoriteHalf20 as default } from "../../";
+import { FavoriteHalf20 } from "../../";
+
+export = FavoriteHalf20;

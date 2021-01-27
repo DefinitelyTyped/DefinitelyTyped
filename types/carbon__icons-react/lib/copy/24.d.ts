@@ -1,1 +1,3 @@
-export { Copy24 as default } from "../../";
+import { Copy24 } from "../../";
+
+export = Copy24;

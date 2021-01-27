@@ -1,1 +1,3 @@
-export { Number_924 as default } from "../../";
+import { Number_924 } from "../../";
+
+export = Number_924;

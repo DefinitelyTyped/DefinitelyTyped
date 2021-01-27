@@ -1,1 +1,3 @@
-export { Fog16 as default } from "../../";
+import { Fog16 } from "../../";
+
+export = Fog16;

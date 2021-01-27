@@ -1,1 +1,3 @@
-export { DataFormat24 as default } from "../../";
+import { DataFormat24 } from "../../";
+
+export = DataFormat24;

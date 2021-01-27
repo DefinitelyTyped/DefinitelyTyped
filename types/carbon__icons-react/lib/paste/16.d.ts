@@ -1,1 +1,3 @@
-export { Paste16 as default } from "../../";
+import { Paste16 } from "../../";
+
+export = Paste16;

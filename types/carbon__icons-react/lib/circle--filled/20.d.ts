@@ -1,1 +1,3 @@
-export { CircleFilled20 as default } from "../../";
+import { CircleFilled20 } from "../../";
+
+export = CircleFilled20;

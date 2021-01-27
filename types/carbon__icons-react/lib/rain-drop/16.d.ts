@@ -1,1 +1,3 @@
-export { RainDrop16 as default } from "../../";
+import { RainDrop16 } from "../../";
+
+export = RainDrop16;

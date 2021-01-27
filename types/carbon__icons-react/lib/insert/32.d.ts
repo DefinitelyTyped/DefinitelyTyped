@@ -1,1 +1,3 @@
-export { Insert32 as default } from "../../";
+import { Insert32 } from "../../";
+
+export = Insert32;

@@ -1,1 +1,3 @@
-export { ShapeUnite24 as default } from "../../";
+import { ShapeUnite24 } from "../../";
+
+export = ShapeUnite24;

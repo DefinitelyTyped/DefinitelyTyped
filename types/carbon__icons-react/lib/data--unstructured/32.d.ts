@@ -1,1 +1,3 @@
-export { DataUnstructured32 as default } from "../../";
+import { DataUnstructured32 } from "../../";
+
+export = DataUnstructured32;

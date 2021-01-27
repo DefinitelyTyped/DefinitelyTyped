@@ -1,1 +1,3 @@
-export { NavaidMilitary32 as default } from "../../";
+import { NavaidMilitary32 } from "../../";
+
+export = NavaidMilitary32;

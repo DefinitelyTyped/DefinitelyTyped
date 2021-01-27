@@ -1,1 +1,3 @@
-export { ProgressBarRound20 as default } from "../../";
+import { ProgressBarRound20 } from "../../";
+
+export = ProgressBarRound20;

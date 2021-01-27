@@ -1,1 +1,3 @@
-export { Fish16 as default } from "../../";
+import { Fish16 } from "../../";
+
+export = Fish16;

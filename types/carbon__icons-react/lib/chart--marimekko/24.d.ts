@@ -1,1 +1,3 @@
-export { ChartMarimekko24 as default } from "../../";
+import { ChartMarimekko24 } from "../../";
+
+export = ChartMarimekko24;

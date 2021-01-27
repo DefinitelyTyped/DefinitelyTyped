@@ -1,1 +1,3 @@
-export { ViewOff32 as default } from "../../";
+import { ViewOff32 } from "../../";
+
+export = ViewOff32;

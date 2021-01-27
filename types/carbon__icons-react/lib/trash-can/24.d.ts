@@ -1,1 +1,3 @@
-export { TrashCan24 as default } from "../../";
+import { TrashCan24 } from "../../";
+
+export = TrashCan24;

@@ -1,1 +1,3 @@
-export { Shuffle16 as default } from "../../";
+import { Shuffle16 } from "../../";
+
+export = Shuffle16;

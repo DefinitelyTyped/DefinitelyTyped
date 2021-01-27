@@ -1,1 +1,3 @@
-export { Mpeg20 as default } from "../../";
+import { Mpeg20 } from "../../";
+
+export = Mpeg20;

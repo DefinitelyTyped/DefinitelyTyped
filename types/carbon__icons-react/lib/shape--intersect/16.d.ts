@@ -1,1 +1,3 @@
-export { ShapeIntersect16 as default } from "../../";
+import { ShapeIntersect16 } from "../../";
+
+export = ShapeIntersect16;
