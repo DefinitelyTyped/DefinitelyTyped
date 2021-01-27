@@ -9,31 +9,54 @@
  */
 export as namespace myLib;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+// declare function _delete(...options: any[]): any;
+declare function _delete(options: IterableOptions): Promise<any>;
+declare function _delete(tableName: string, params?: Array<Array<string | number>>): Promise<any>;
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export function setConnection(options: connectionString): any;
+
+// export function select(...options: any[]): Promise<any>;
+export function select(options: IterableOptions): Promise<any>;
+export function select(tableName: string, fields?: string[], params?: Array<Array<string | number>>): Promise<any>;
+
+// export function insert(...options: [string, string[], string[], string[]]): Promise<any>;
+export function insert(options: IterableOptions): Promise<any>;
+export function insert(tableName: string, data: object): Promise<any>;
+
+// export function update(...options: [string, string[], string[], string[]]): Promise<any>;
+export function update(option: IterableOptions): Promise<any>;
+export function update(tableName: string, data: object, params: Array<Array<string | number>>): Promise<any>;
+
+export { _delete as delete };
+
+export function query(queryType: string, tableName: string, fields?: any, data?: any, params?: any): Promise<any>;
+
+export interface IterableOptions {
+    tableName: string;
+    fields?: string[];
+    params?: Array<Array<string | number>>;
+    data?: object;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
+export interface connectionString {
+    /**
+     * The hostname of the database you are connecting to. (Default: localhost)
      */
-    function foo(): void;
+    host: string;
+    /**
+     * The MySQL user to authenticate as
+     */
+    user: string;
+    /**
+     * The password of that MySQL user
+     */
+    password: string;
+    /**
+     * Name of the database to use for this connection
+     */
+    database: string;
+    /**
+     * The maximum number of connections to create at once. (Default: 10)
+     */
+    connectionLimit?: number;
 }
