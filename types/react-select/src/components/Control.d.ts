@@ -12,11 +12,11 @@ interface State {
     menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> &
+export type ControlProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> &
     PropsWithStyles &
     State & {
         /** Children to render. */

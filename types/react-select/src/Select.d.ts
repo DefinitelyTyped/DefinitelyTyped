@@ -223,10 +223,11 @@ export interface State<OptionType extends OptionTypeBase> {
 
 export type ElRef = React.Ref<any>;
 
-export default class Select<OptionType extends OptionTypeBase, IsMulti extends boolean = false, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends React.Component<
-    Props<OptionType, IsMulti, GroupType>,
-    State<OptionType>
-> {
+export default class Select<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends React.Component<Props<OptionType, IsMulti, GroupType>, State<OptionType>> {
     static defaultProps: Props<any>;
 
     // Misc. Instance Properties
@@ -390,7 +391,10 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     // Menu Options
     // ==============================
 
-    buildMenuOptions(props: Props<OptionType, IsMulti, GroupType>, selectValue: OptionsType<OptionType>): MenuOptions<OptionType>;
+    buildMenuOptions(
+        props: Props<OptionType, IsMulti, GroupType>,
+        selectValue: OptionsType<OptionType>,
+    ): MenuOptions<OptionType>;
 
     // ==============================
     // Renderers

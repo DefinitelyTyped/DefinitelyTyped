@@ -14,11 +14,11 @@ export function DownChevron(props?: SVGProps<SVGElement>): ReactSVGElement;
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> & {
+export type IndicatorProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** The children to be rendered inside the indicator. */
     children: ElementType;
     /** Props that will be passed on to the children. */
@@ -58,7 +58,11 @@ export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
 export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): React.CSSProperties;
 
 /** @deprecated Use `LoadingIndicatorProps` instead. */
-export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = {
+export type LoadingIconProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = {
     /** Props that will be passed on to the children. */
     innerProps: any;
     /** The focused state of the select. */
@@ -70,7 +74,11 @@ export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends 
         size: number;
     };
 
-export type LoadingIndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = {
+export type LoadingIndicatorProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = {
     /** Props that will be passed on to the children. */
     innerProps: any;
     /** The focused state of the select. */

@@ -12,7 +12,10 @@ export interface GroupTypeBase<OptionType extends OptionTypeBase> {
     [key: string]: any;
 }
 
-export type GroupedOptionsType<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = ReadonlyArray<GroupType>;
+export type GroupedOptionsType<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = ReadonlyArray<GroupType>;
 
 export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> = IsMulti extends true
     ? OptionsType<OptionType>
@@ -41,7 +44,11 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface CommonProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     clearValue: () => void;
     className?: string;
     cx: (state: ClassNamesState | undefined, className: string | undefined) => string;

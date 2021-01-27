@@ -7,7 +7,11 @@ import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './Sing
 import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
 import { GroupTypeBase, OptionTypeBase } from '../types';
 
-export function makeAnimated<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>>(
+export function makeAnimated<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(
     externalComponents?: SelectComponentsConfig<OptionType, IsMulti, GroupType>,
 ): SelectComponents<OptionType, IsMulti, GroupType>;
 

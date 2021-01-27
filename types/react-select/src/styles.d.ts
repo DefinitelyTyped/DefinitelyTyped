@@ -19,14 +19,21 @@ export interface Props {
 /** @deprecated - Unused and will not be exported in next major version */
 export type StylesConfigFunction<Props = any> = (base: CSSProperties, props: Props) => CSSProperties;
 
-export interface Styles<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface Styles<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     clearIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
     container?(base: CSSProperties, props: ContainerProps<OptionType, IsMulti, GroupType>): CSSProperties;
     control?(base: CSSProperties, props: ControlProps<OptionType, IsMulti, GroupType>): CSSProperties;
     dropdownIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
     group?(base: CSSProperties, props: GroupProps<OptionType, IsMulti, GroupType>): CSSProperties;
     groupHeading?(base: CSSProperties, props: GroupHeadingProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    indicatorsContainer?(base: CSSProperties, props: IndicatorContainerProps<OptionType, IsMulti, GroupType>): CSSProperties;
+    indicatorsContainer?(
+        base: CSSProperties,
+        props: IndicatorContainerProps<OptionType, IsMulti, GroupType>,
+    ): CSSProperties;
     indicatorSeparator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
     input?: (base: CSSProperties, props: InputProps) => CSSProperties;
     loadingIndicator?(base: CSSProperties, props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
@@ -44,9 +51,11 @@ export interface Styles<OptionType extends OptionTypeBase, IsMulti extends boole
     valueContainer?(base: CSSProperties, props: ValueContainerProps<OptionType, IsMulti, GroupType>): CSSProperties;
 }
 
-export type StylesConfig<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = Partial<
-    Styles<OptionType, IsMulti, GroupType>
->;
+export type StylesConfig<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = Partial<Styles<OptionType, IsMulti, GroupType>>;
 export type GetStyles = (a: string, b: Props) => CSSProperties;
 
 export const defaultStyles: Styles<any, false>;
@@ -54,7 +63,11 @@ export const defaultStyles: Styles<any, false>;
 /**
  * Merge Utility - Allows consumers to extend a base Select with additional styles
  */
-export function mergeStyles<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>>(
+export function mergeStyles<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(
     source: StylesConfig<OptionType, IsMulti, GroupType>,
     target: StylesConfig<OptionType, IsMulti, GroupType>,
 ): StylesConfig<OptionType, IsMulti, GroupType>;

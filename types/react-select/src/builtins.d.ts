@@ -1,7 +1,10 @@
 import { ReactNode } from 'react';
 import { GroupTypeBase, OptionTypeBase } from './types';
 
-export type formatGroupLabel<OptionType extends OptionTypeBase = any, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = (group: GroupType) => ReactNode;
+export type formatGroupLabel<
+    OptionType extends OptionTypeBase = any,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = (group: GroupType) => ReactNode;
 export function formatGroupLabel(group: GroupTypeBase<any>): ReactNode;
 
 export type getOptionLabel<OptionType extends OptionTypeBase = any> = (option: OptionType) => string;

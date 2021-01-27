@@ -2,8 +2,11 @@ import { ComponentType, CSSProperties, ReactNode } from 'react';
 
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
-export interface PlaceholderProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>>
-    extends CommonProps<OptionType, IsMulti, GroupType> {
+export interface PlaceholderProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends CommonProps<OptionType, IsMulti, GroupType> {
     className?: string;
     /** The children to be rendered. */
     children: ReactNode;

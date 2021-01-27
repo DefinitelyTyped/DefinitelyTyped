@@ -4,7 +4,10 @@ import { handleInputChange } from './utils';
 import manageState from './stateManager';
 import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase, GroupTypeBase } from './types';
 
-export interface AsyncProps<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface AsyncProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     /**
      * The default set of options to show before the user starts searching. When
      * set to `true`, the results for loadOptions('') will be autoloaded.
@@ -27,8 +30,11 @@ export interface AsyncProps<OptionType extends OptionTypeBase, GroupType extends
     cacheOptions?: any;
 }
 
-export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = SelectProps<OptionType, IsMulti, GroupType> &
-    AsyncProps<OptionType, GroupType>;
+export type Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = SelectProps<OptionType, IsMulti, GroupType> & AsyncProps<OptionType, GroupType>;
 
 export const defaultProps: Props<any, boolean>;
 
@@ -41,10 +47,11 @@ export interface State<OptionType extends OptionTypeBase> {
     passEmptyOptions: boolean;
 }
 
-export class Async<OptionType extends OptionTypeBase, IsMulti extends boolean = false, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends React.Component<
-    Props<OptionType, IsMulti, GroupType>,
-    State<OptionType>
-> {
+export class Async<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends React.Component<Props<OptionType, IsMulti, GroupType>, State<OptionType>> {
     static defaultProps: Props<any, boolean>;
     select: React.Ref<any>;
     lastRequest: {};

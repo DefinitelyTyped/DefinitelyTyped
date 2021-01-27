@@ -11,7 +11,11 @@ export interface DefaultProps {
 
 export const defaultProps: DefaultProps;
 
-export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     defaultInputValue?: string;
     defaultMenuIsOpen?: boolean;
     defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
@@ -43,7 +47,9 @@ export class StateManager<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>,
     T extends SelectBase<OptionType, IsMulti> = SelectBase<OptionType, IsMulti>
 > extends Component<
-    StateProps<SelectProps<OptionType, IsMulti, GroupType>> & Props<OptionType, IsMulti, GroupType> & SelectProps<OptionType, IsMulti, GroupType>,
+    StateProps<SelectProps<OptionType, IsMulti, GroupType>> &
+        Props<OptionType, IsMulti, GroupType> &
+        SelectProps<OptionType, IsMulti, GroupType>,
     State<OptionType, IsMulti>
 > {
     static defaultProps: DefaultProps;

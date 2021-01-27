@@ -30,7 +30,11 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<OptionType, IsMulti, GroupType> & {
+export type MenuProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** The children to be rendered. */
     children: ReactElement;
     /** Callback to update the portal after possible flip. */
@@ -53,10 +57,11 @@ export type MenuProps<OptionType extends OptionTypeBase, IsMulti extends boolean
 
 export function menuCSS(state: MenuState): React.CSSProperties;
 
-export class Menu<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends Component<
-    MenuProps<OptionType, IsMulti, GroupType>,
-    MenuState
-> {
+export class Menu<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends Component<MenuProps<OptionType, IsMulti, GroupType>, MenuState> {
     static contextTypes: {
         getPortalPlacement: (state: MenuState) => void;
     };
@@ -85,13 +90,11 @@ export interface MenuListProps {
 }
 
 // TODO: Remove this and merge it into `MenuListProps` so that naming pattern is adhered to.
-export type MenuListComponentProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> &
-    MenuListProps &
-    MenuListState;
+export type MenuListComponentProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & MenuListProps & MenuListState;
 
 export function menuListCSS(state: MenuState): React.CSSProperties;
 export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
@@ -103,11 +106,11 @@ export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
 export function noOptionsMessageCSS(): React.CSSProperties;
 export function loadingMessageCSS(): React.CSSProperties;
 
-export type NoticeProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> & {
+export type NoticeProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** The children to be rendered. */
     children: ReactNode;
     /** Props to be passed on to the wrapper. */
@@ -128,11 +131,11 @@ export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> & {
+export type MenuPortalProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     appendTo: HTMLElement;
     children: ReactNode; // ideally Menu<MenuProps>
     controlElement: HTMLElement;
@@ -150,10 +153,11 @@ interface PortalStyleArgs {
 
 export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
 
-export class MenuPortal<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends Component<
-    MenuPortalProps<OptionType, IsMulti, GroupType>,
-    MenuPortalState
-> {
+export class MenuPortal<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends Component<MenuPortalProps<OptionType, IsMulti, GroupType>, MenuPortalState> {
     static childContextTypes: {
         getPortalPlacement: (state: MenuState) => void;
     };

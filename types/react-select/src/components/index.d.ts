@@ -37,16 +37,26 @@ import Placeholder, { PlaceholderProps } from './Placeholder';
 import SingleValue, { SingleValueProps } from './SingleValue';
 import { GroupTypeBase, OptionTypeBase } from '../types';
 
-export type PlaceholderOrValue<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> =
+export type PlaceholderOrValue<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> =
     | Element<ComponentType<PlaceholderProps<OptionType, IsMulti, GroupType>>>
     | Element<ComponentType<SingleValueProps<OptionType, GroupType>>>
     | Array<Element<ComponentType<MultiValueProps<OptionType, GroupType>>>>;
 
-export type IndicatorComponentType<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = ComponentType<
-    IndicatorProps<OptionType, IsMulti, GroupType>
->;
+export type IndicatorComponentType<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = ComponentType<IndicatorProps<OptionType, IsMulti, GroupType>>;
 
-export interface SelectComponents<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface SelectComponents<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     ClearIndicator: IndicatorComponentType<OptionType, IsMulti, GroupType> | null;
     Control: ComponentType<ControlProps<OptionType, IsMulti, GroupType>>;
     DropdownIndicator: IndicatorComponentType<OptionType, IsMulti, GroupType> | null;
@@ -74,9 +84,11 @@ export interface SelectComponents<OptionType extends OptionTypeBase, IsMulti ext
     ValueContainer: ComponentType<ValueContainerProps<OptionType, IsMulti, GroupType>>;
 }
 
-export type SelectComponentsConfig<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = Partial<
-    SelectComponents<OptionType, IsMulti, GroupType>
->;
+export type SelectComponentsConfig<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = Partial<SelectComponents<OptionType, IsMulti, GroupType>>;
 
 export type DeepNonNullable<T> = {
     [P in keyof T]-?: NonNullable<T[P]>;
@@ -84,10 +96,16 @@ export type DeepNonNullable<T> = {
 
 export const components: Required<DeepNonNullable<SelectComponents<any, boolean>>>;
 
-export interface Props<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     components: SelectComponentsConfig<OptionType, IsMulti, GroupType>;
 }
 
-export function defaultComponents<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>>(
-    props: Props<OptionType, IsMulti, GroupType>,
-): SelectComponents<OptionType, IsMulti, GroupType>;
+export function defaultComponents<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(props: Props<OptionType, IsMulti, GroupType>): SelectComponents<OptionType, IsMulti, GroupType>;

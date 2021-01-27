@@ -9,7 +9,11 @@ export type AnimatedValueContainerProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = ValueContainerProps<OptionType, IsMulti, GroupType>;
 
-export function AnimatedValueContainer<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>>(
+export function AnimatedValueContainer<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(
     WrappedComponent: ComponentType<ValueContainerProps<OptionType, IsMulti, GroupType>>,
 ): ComponentType<AnimatedValueContainerProps<OptionType, IsMulti, GroupType>>;
 

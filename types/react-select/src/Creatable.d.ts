@@ -4,7 +4,11 @@ import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase,
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
+export interface CreatableProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     /**
      * Allow options to be created while the `isLoading` prop is true. Useful to
      * prevent the "create new ..." option being displayed while async results are
@@ -40,8 +44,11 @@ export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti exten
     createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = SelectProps<OptionType, IsMulti, GroupType> &
-    CreatableProps<OptionType, IsMulti, GroupType>;
+export type Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = SelectProps<OptionType, IsMulti, GroupType> & CreatableProps<OptionType, IsMulti, GroupType>;
 
 export const defaultProps: Props<any, boolean>;
 

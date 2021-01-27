@@ -13,11 +13,11 @@ export interface ContainerState {
     isRtl: boolean;
 }
 
-export type ContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> &
+export type ContainerProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> &
     ContainerState & {
         /** The children to be rendered. */
         children: ReactNode;
@@ -31,11 +31,11 @@ export const SelectContainer: ComponentType<ContainerProps<any, boolean>>;
 // Value Container
 // ==============================
 
-export type ValueContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> & {
+export type ValueContainerProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** Set when the value container should hold multiple values */
     isMulti: boolean;
     /** Whether the value container currently holds a value. */
@@ -57,11 +57,11 @@ export interface IndicatorsState {
     isDisabled: boolean;
 }
 
-export type IndicatorContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
-    OptionType,
-    IsMulti,
-    GroupType
-> &
+export type IndicatorContainerProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> &
     IndicatorsState & {
         /** The children to be rendered. */
         children: ReactNode;

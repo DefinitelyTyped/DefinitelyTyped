@@ -3,7 +3,10 @@ import { ComponentType, Component, ReactNode } from 'react';
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
-export type MultiValueProps<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<OptionType, true, GroupType> & {
+export type MultiValueProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, true, GroupType> & {
     children: ReactNode;
     components: any;
     cropWithEllipsis: boolean;
@@ -32,7 +35,10 @@ export const MultiValueGeneric: ComponentType<MultiValueGenericProps<any>>;
 
 export const MultiValueContainer: typeof MultiValueGeneric;
 export const MultiValueLabel: typeof MultiValueGeneric;
-export type MultiValueRemoveProps<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<OptionType, true, GroupType> & {
+export type MultiValueRemoveProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, true, GroupType> & {
     children: ReactNode;
     data: OptionType;
     innerProps: {
@@ -43,13 +49,19 @@ export type MultiValueRemoveProps<OptionType extends OptionTypeBase, GroupType e
     };
     selectProps: any;
 };
-export class MultiValueRemove<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends Component<MultiValueRemoveProps<OptionType, GroupType>> {
+export class MultiValueRemove<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends Component<MultiValueRemoveProps<OptionType, GroupType>> {
     static defaultProps: {
         children: ReactNode;
     };
 }
 
-export class MultiValue<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> extends Component<MultiValueProps<OptionType, GroupType>> {
+export class MultiValue<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends Component<MultiValueProps<OptionType, GroupType>> {
     static defaultProps: {
         cropWithEllipsis: boolean;
     };
