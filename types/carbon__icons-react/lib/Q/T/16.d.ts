@@ -1,1 +1,3 @@
-export { QT16 as default } from "../../../";
+import { QT16 } from "../../../";
+
+export = QT16;

@@ -1,1 +1,3 @@
-export { Catalog24 as default } from "../../";
+import { Catalog24 } from "../../";
+
+export = Catalog24;

@@ -1,1 +1,3 @@
-export { ChartWinLoss32 as default } from "../../";
+import { ChartWinLoss32 } from "../../";
+
+export = ChartWinLoss32;

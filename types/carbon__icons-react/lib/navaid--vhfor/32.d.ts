@@ -1,1 +1,3 @@
-export { NavaidVhfor32 as default } from "../../";
+import { NavaidVhfor32 } from "../../";
+
+export = NavaidVhfor32;

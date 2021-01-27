@@ -1,1 +1,3 @@
-export { JoinFull20 as default } from "../../";
+import { JoinFull20 } from "../../";
+
+export = JoinFull20;

@@ -1,1 +1,3 @@
-export { RowInsert24 as default } from "../../";
+import { RowInsert24 } from "../../";
+
+export = RowInsert24;

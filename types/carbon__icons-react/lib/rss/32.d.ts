@@ -1,1 +1,3 @@
-export { Rss32 as default } from "../../";
+import { Rss32 } from "../../";
+
+export = Rss32;

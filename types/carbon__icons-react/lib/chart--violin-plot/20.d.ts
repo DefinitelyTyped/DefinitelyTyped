@@ -1,1 +1,3 @@
-export { ChartViolinPlot20 as default } from "../../";
+import { ChartViolinPlot20 } from "../../";
+
+export = ChartViolinPlot20;

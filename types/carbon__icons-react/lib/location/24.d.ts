@@ -1,1 +1,3 @@
-export { Location24 as default } from "../../";
+import { Location24 } from "../../";
+
+export = Location24;

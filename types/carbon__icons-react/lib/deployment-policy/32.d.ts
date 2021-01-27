@@ -1,1 +1,3 @@
-export { DeploymentPolicy32 as default } from "../../";
+import { DeploymentPolicy32 } from "../../";
+
+export = DeploymentPolicy32;

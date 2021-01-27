@@ -1,1 +1,3 @@
-export { LetterWw32 as default } from "../../";
+import { LetterWw32 } from "../../";
+
+export = LetterWw32;

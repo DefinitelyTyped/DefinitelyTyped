@@ -1,1 +1,3 @@
-export { ShapeJoin32 as default } from "../../";
+import { ShapeJoin32 } from "../../";
+
+export = ShapeJoin32;

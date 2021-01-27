@@ -1,1 +1,3 @@
-export { FlightSchedule24 as default } from "../../";
+import { FlightSchedule24 } from "../../";
+
+export = FlightSchedule24;

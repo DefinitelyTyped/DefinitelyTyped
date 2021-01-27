@@ -1,4 +1,4 @@
-// Type definitions for react-select 3.1
+// Type definitions for react-select 4.0
 // Project: https://github.com/JedWatson/react-select#readme
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Jon Freedman <https://github.com/jonfreedman>

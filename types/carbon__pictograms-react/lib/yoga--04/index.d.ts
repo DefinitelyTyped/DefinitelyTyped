@@ -1,1 +1,3 @@
-export { Yoga_04 as default } from "../../";
+import { Yoga_04 } from "../../";
+
+export = Yoga_04;

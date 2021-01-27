@@ -1,1 +1,3 @@
-export { XAxis24 as default } from "../../";
+import { XAxis24 } from "../../";
+
+export = XAxis24;

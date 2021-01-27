@@ -1,1 +1,3 @@
-export { Tsunami32 as default } from "../../";
+import { Tsunami32 } from "../../";
+
+export = Tsunami32;

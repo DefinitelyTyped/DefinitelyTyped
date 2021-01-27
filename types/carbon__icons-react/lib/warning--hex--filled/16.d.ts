@@ -1,1 +1,3 @@
-export { WarningHexFilled16 as default } from "../../";
+import { WarningHexFilled16 } from "../../";
+
+export = WarningHexFilled16;

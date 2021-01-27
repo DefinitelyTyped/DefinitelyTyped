@@ -1,1 +1,3 @@
-export { DataCollection32 as default } from "../../";
+import { DataCollection32 } from "../../";
+
+export = DataCollection32;

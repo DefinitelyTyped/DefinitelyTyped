@@ -1,1 +1,3 @@
-export { Redo32 as default } from "../../";
+import { Redo32 } from "../../";
+
+export = Redo32;

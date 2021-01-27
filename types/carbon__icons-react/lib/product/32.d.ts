@@ -1,1 +1,3 @@
-export { Product32 as default } from "../../";
+import { Product32 } from "../../";
+
+export = Product32;

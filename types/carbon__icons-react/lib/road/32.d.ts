@@ -1,1 +1,3 @@
-export { Road32 as default } from "../../";
+import { Road32 } from "../../";
+
+export = Road32;

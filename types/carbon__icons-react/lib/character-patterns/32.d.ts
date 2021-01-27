@@ -1,1 +1,3 @@
-export { CharacterPatterns32 as default } from "../../";
+import { CharacterPatterns32 } from "../../";
+
+export = CharacterPatterns32;

@@ -1,1 +1,3 @@
-export { LetterFf32 as default } from "../../";
+import { LetterFf32 } from "../../";
+
+export = LetterFf32;

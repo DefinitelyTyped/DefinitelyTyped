@@ -1,1 +1,3 @@
-export { DrillDown24 as default } from "../../";
+import { DrillDown24 } from "../../";
+
+export = DrillDown24;

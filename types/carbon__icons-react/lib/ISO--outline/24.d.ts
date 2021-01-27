@@ -1,1 +1,3 @@
-export { IsoOutline24 as default } from "../../";
+import { IsoOutline24 } from "../../";
+
+export = IsoOutline24;

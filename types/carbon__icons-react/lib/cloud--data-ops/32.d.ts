@@ -1,1 +1,3 @@
-export { CloudDataOps32 as default } from "../../";
+import { CloudDataOps32 } from "../../";
+
+export = CloudDataOps32;

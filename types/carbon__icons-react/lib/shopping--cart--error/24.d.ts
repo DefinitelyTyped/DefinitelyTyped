@@ -1,1 +1,3 @@
-export { ShoppingCartError24 as default } from "../../";
+import { ShoppingCartError24 } from "../../";
+
+export = ShoppingCartError24;

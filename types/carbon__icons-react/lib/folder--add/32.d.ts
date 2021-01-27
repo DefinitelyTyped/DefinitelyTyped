@@ -1,1 +1,3 @@
-export { FolderAdd32 as default } from "../../";
+import { FolderAdd32 } from "../../";
+
+export = FolderAdd32;

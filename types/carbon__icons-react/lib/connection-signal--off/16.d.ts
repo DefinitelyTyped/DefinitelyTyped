@@ -1,1 +1,3 @@
-export { ConnectionSignalOff16 as default } from "../../";
+import { ConnectionSignalOff16 } from "../../";
+
+export = ConnectionSignalOff16;

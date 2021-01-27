@@ -1,1 +1,3 @@
-export { DirectionForkFilled20 as default } from "../../";
+import { DirectionForkFilled20 } from "../../";
+
+export = DirectionForkFilled20;

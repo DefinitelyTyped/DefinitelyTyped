@@ -1,1 +1,3 @@
-export { DocumentHorizontal16 as default } from "../../";
+import { DocumentHorizontal16 } from "../../";
+
+export = DocumentHorizontal16;

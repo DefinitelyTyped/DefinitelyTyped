@@ -1,1 +1,3 @@
-export { TextAlignMixed32 as default } from "../../";
+import { TextAlignMixed32 } from "../../";
+
+export = TextAlignMixed32;

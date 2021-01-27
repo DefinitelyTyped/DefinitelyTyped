@@ -1,1 +1,3 @@
-export { RandomSamples as default } from "../../";
+import { RandomSamples } from "../../";
+
+export = RandomSamples;

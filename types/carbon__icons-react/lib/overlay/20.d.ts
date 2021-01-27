@@ -1,1 +1,3 @@
-export { Overlay20 as default } from "../../";
+import { Overlay20 } from "../../";
+
+export = Overlay20;

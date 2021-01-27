@@ -1,1 +1,3 @@
-export { DocumentVertical24 as default } from "../../";
+import { DocumentVertical24 } from "../../";
+
+export = DocumentVertical24;

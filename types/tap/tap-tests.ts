@@ -11,8 +11,6 @@ tap.test('all-assertions', t => {
     const fn: (stuff: any) => void = () => {};
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
-    const promise: Promise<any> = Promise.resolve(1);
-    const promiseProvider: () => Promise<void> = () => Promise.resolve();
     const pattern: RegExp | string | { [key: string]: RegExp } = 'pattern';
 
     const message = 'message';
@@ -44,40 +42,6 @@ tap.test('all-assertions', t => {
     t.emits(eventEmitter, 'event', message, extra);
     t.emits(eventEmitter, 'event', message);
     t.emits(eventEmitter, 'event');
-
-    t.rejects(promise, expectedError, message, extra);
-    t.rejects(promise, expectedError, message);
-    t.rejects(promise, expectedError);
-    t.rejects(promise, message, extra);
-    t.rejects(promise, message);
-    t.rejects(promise);
-    t.rejects(promiseProvider, expectedError, message, extra);
-    t.rejects(promiseProvider, expectedError, message);
-    t.rejects(promiseProvider, expectedError);
-    t.rejects(promiseProvider, message, extra);
-    t.rejects(promiseProvider, message);
-    t.rejects(promiseProvider);
-
-    t.resolves(promise, message, extra);
-    t.resolves(promise, message);
-    t.resolves(promise);
-    t.resolves(promiseProvider, message, extra);
-    t.resolves(promiseProvider, message);
-    t.resolves(promiseProvider);
-
-    t.resolveMatch(promise, wanted, message, extra);
-    t.resolveMatch(promise, wanted, message);
-    t.resolveMatch(promise, wanted);
-    t.resolveMatch(promiseProvider, wanted, message, extra);
-    t.resolveMatch(promiseProvider, wanted, message);
-    t.resolveMatch(promiseProvider, wanted);
-
-    t.resolveMatchSnapshot(promise, message, extra);
-    t.resolveMatchSnapshot(promise, message);
-    t.resolveMatchSnapshot(promise);
-    t.resolveMatchSnapshot(promiseProvider, message, extra);
-    t.resolveMatchSnapshot(promiseProvider, message);
-    t.resolveMatchSnapshot(promiseProvider);
 
     t.matchSnapshot(found, message, extra);
     t.matchSnapshot(found, message);
@@ -209,7 +173,52 @@ tap.test('all-assertions', t => {
 });
 
 tap.test('async test', async t => {
-    t.pass();
+    const wanted: any = 1;
+    const expectedError: Error = new Error();
+
+    const message = 'message';
+    const extra = {
+        todo: false,
+        skip: 'skip',
+        diagnostic: true,
+        extra_stuff: false,
+    };
+    const promise: Promise<any> = Promise.resolve(1);
+    const promiseProvider: () => Promise<void> = () => Promise.resolve();
+
+    await t.rejects(promise, expectedError, message, extra);
+    await t.rejects(promise, expectedError, message);
+    await t.rejects(promise, expectedError);
+    await t.rejects(promise, message, extra);
+    await t.rejects(promise, message);
+    await t.rejects(promise);
+    await t.rejects(promiseProvider, expectedError, message, extra);
+    await t.rejects(promiseProvider, expectedError, message);
+    await t.rejects(promiseProvider, expectedError);
+    await t.rejects(promiseProvider, message, extra);
+    await t.rejects(promiseProvider, message);
+    await t.rejects(promiseProvider);
+
+    await t.resolves(promise, message, extra);
+    await t.resolves(promise, message);
+    await t.resolves(promise);
+    await t.resolves(promiseProvider, message, extra);
+    await t.resolves(promiseProvider, message);
+    await t.resolves(promiseProvider);
+
+    await t.resolveMatch(promise, wanted, message, extra);
+    await t.resolveMatch(promise, wanted, message);
+    await t.resolveMatch(promise, wanted);
+    await t.resolveMatch(promiseProvider, wanted, message, extra);
+    await t.resolveMatch(promiseProvider, wanted, message);
+    await t.resolveMatch(promiseProvider, wanted);
+
+    await t.resolveMatchSnapshot(promise, message, extra);
+    await t.resolveMatchSnapshot(promise, message);
+    await t.resolveMatchSnapshot(promise);
+    await t.resolveMatchSnapshot(promiseProvider, message, extra);
+    await t.resolveMatchSnapshot(promiseProvider, message);
+    await t.resolveMatchSnapshot(promiseProvider);
 });
 
 tap.only('only', t => {

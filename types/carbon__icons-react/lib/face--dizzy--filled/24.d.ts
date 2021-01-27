@@ -1,1 +1,3 @@
-export { FaceDizzyFilled24 as default } from "../../";
+import { FaceDizzyFilled24 } from "../../";
+
+export = FaceDizzyFilled24;

@@ -1,1 +1,3 @@
-export { DistributeHorizontalLeft32 as default } from "../../";
+import { DistributeHorizontalLeft32 } from "../../";
+
+export = DistributeHorizontalLeft32;

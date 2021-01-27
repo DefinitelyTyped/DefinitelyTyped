@@ -1,1 +1,3 @@
-export { MathCurve16 as default } from "../../";
+import { MathCurve16 } from "../../";
+
+export = MathCurve16;

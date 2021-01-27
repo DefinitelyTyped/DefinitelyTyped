@@ -1,1 +1,3 @@
-export { ZoomInArea16 as default } from "../../";
+import { ZoomInArea16 } from "../../";
+
+export = ZoomInArea16;

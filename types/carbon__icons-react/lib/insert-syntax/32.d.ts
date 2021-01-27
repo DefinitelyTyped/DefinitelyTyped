@@ -1,1 +1,3 @@
-export { InsertSyntax32 as default } from "../../";
+import { InsertSyntax32 } from "../../";
+
+export = InsertSyntax32;

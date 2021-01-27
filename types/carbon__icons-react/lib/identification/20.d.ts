@@ -1,1 +1,3 @@
-export { Identification20 as default } from "../../";
+import { Identification20 } from "../../";
+
+export = Identification20;

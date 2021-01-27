@@ -1,1 +1,3 @@
-export { Fragile16 as default } from "../../";
+import { Fragile16 } from "../../";
+
+export = Fragile16;

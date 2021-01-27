@@ -1,1 +1,3 @@
-export { ToolsAlt32 as default } from "../../";
+import { ToolsAlt32 } from "../../";
+
+export = ToolsAlt32;

@@ -181,3 +181,19 @@ const createFileAndGetDescription = () => {
   // Get description. Expect 'DESC'.
   Logger.log(file.getDescription().toUpperCase());
 };
+
+CardService.newDecoratedText(); // $ExpectType DecoratedText
+CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setBottomLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setButton(CardService.newTextButton()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setComposeAction(CardService.newAction(), CardService.ComposedEmailType.REPLY_AS_DRAFT); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIcon(CardService.Icon.AIRPLANE); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconAltText(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconUrl(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOnClickAction(CardService.newAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOnClickOpenLinkAction(CardService.newAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOpenLink(CardService.newOpenLink()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setSwitchControl(CardService.newSwitch()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setText(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setTopLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText

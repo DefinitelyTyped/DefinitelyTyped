@@ -1,1 +1,3 @@
-export { Linux32 as default } from "../../";
+import { Linux32 } from "../../";
+
+export = Linux32;

@@ -1,1 +1,3 @@
-export { MisuseOutline32 as default } from "../../";
+import { MisuseOutline32 } from "../../";
+
+export = MisuseOutline32;

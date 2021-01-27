@@ -1,1 +1,3 @@
-export { Hourglass20 as default } from "../../";
+import { Hourglass20 } from "../../";
+
+export = Hourglass20;

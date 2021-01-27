@@ -1,1 +1,3 @@
-export { ShapeUnite32 as default } from "../../";
+import { ShapeUnite32 } from "../../";
+
+export = ShapeUnite32;

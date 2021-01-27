@@ -1,1 +1,3 @@
-export { StarFilled32 as default } from "../../";
+import { StarFilled32 } from "../../";
+
+export = StarFilled32;

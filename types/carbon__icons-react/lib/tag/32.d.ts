@@ -1,1 +1,3 @@
-export { Tag32 as default } from "../../";
+import { Tag32 } from "../../";
+
+export = Tag32;

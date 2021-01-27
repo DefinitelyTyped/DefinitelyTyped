@@ -1,1 +1,3 @@
-export { MacCommand24 as default } from "../../";
+import { MacCommand24 } from "../../";
+
+export = MacCommand24;

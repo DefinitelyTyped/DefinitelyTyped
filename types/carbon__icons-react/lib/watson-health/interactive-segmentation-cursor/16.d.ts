@@ -1,1 +1,3 @@
-export { WatsonHealthInteractiveSegmentationCursor16 as default } from "../../../";
+import { WatsonHealthInteractiveSegmentationCursor16 } from "../../../";
+
+export = WatsonHealthInteractiveSegmentationCursor16;

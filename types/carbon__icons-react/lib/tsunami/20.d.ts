@@ -1,1 +1,3 @@
-export { Tsunami20 as default } from "../../";
+import { Tsunami20 } from "../../";
+
+export = Tsunami20;
