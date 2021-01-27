@@ -17,7 +17,10 @@ function validateAddressStreet(value: string): string | false {
     return false;
 }
 
-async function validateName(name: string, instance: UseFieldInstance<any, any, any, any, any, any>) {
+async function validateName(
+    name: string,
+    instance: UseFieldInstance<any, any, any, any, any, any>,
+): Promise<any> {
     if (!name) {
         return 'A name is required';
     }
@@ -35,7 +38,7 @@ function NameField() {
         meta: { error, isTouched, isValidating },
         getInputProps,
     } = useField('name', {
-        validate: validateName,
+        validate: validateName as any,
     });
 
     return (
@@ -129,7 +132,7 @@ type InputFieldProps = React.PropsWithChildren<{
 
 const InputField = React.forwardRef((props: InputFieldProps, ref) => {
     // Let's use splitFormProps to get form-specific props
-    const [field, fieldOptions, rest] = splitFormProps<unknown, any>(props);
+    const [field, fieldOptions, rest] = splitFormProps(props);
 
     // Use the useField hook with a field and field options
     // to access field state
@@ -166,7 +169,7 @@ function SecondMyForm() {
         <Form>
             <div>
                 <label>
-                    Name: <InputField field="name" validate={fakeCheckValidName} />
+                    Name: <InputField field="name" validate={fakeCheckValidName as any} />
                 </label>
             </div>
             <div>
@@ -206,7 +209,7 @@ interface InputFieldThirdProps extends InputFieldProps {
 
 const InputFieldThird = React.forwardRef((props: InputFieldThirdProps, ref) => {
     // Let's use splitFormProps to get form-specific props
-    const [field, fieldOptions, rest] = splitFormProps<any, any, string, string, unknown, InputFieldThirdMeta>(props);
+    const [field, fieldOptions, rest] = splitFormProps(props);
 
     // Use the useField hook with a field and field options
     // to access field state
@@ -314,23 +317,25 @@ function ThirdApp() {
                     Username:{' '}
                     <InputFieldThird
                         field="username"
-                        validate={(value, { debounce, setMeta }) => {
-                            console.log('checkusername');
-                            if (!value) {
-                                return 'Username is required';
-                            }
-
-                            return debounce(async () => {
-                                console.log('Checking username...');
-                                await new Promise(resolve => setTimeout(resolve, 2000));
-                                if (value === 'tanner') {
-                                    setMeta({ error: 'Username is unavailable', message: null });
-                                    return;
+                        validate={
+                            ((value: string, { debounce, setMeta }: any) => {
+                                console.log('checkusername');
+                                if (!value) {
+                                    return 'Username is required';
                                 }
 
-                                setMeta({ error: null, message: 'Username is available!' });
-                            }, 2000);
-                        }}
+                                return debounce(async () => {
+                                    console.log('Checking username...');
+                                    await new Promise(resolve => setTimeout(resolve, 2000));
+                                    if (value === 'tanner') {
+                                        setMeta({ error: 'Username is unavailable', message: null });
+                                        return;
+                                    }
+
+                                    setMeta({ error: null, message: 'Username is available!' });
+                                }, 2000);
+                            }) as any
+                        }
                     />
                 </label>
             </div>
@@ -381,19 +386,14 @@ function ThirdApp() {
 }
 
 function validateEmail(email: string) {
-    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
 
 // https://codesandbox.io/s/react-form-custom-select-multi-select-inputs-q5ixs?file=/src/index.js
 
 function SelectField(props: any) {
-    const [field, fieldOptions, { options, ...rest }] = splitFormProps<
-        any,
-        {
-            options: string[];
-        }
-    >(props);
+    const [field, fieldOptions, { options, ...rest }] = splitFormProps(props);
 
     const {
         value = '',
@@ -409,7 +409,7 @@ function SelectField(props: any) {
         <>
             <select {...rest} value={value} onChange={handleSelectChange}>
                 <option disabled value="" />
-                {options.map(option => (
+                {options.map((option: string) => (
                     <option key={option} value={option}>
                         {option}
                     </option>
@@ -421,13 +421,7 @@ function SelectField(props: any) {
 }
 
 function MultiSelectField(props: any) {
-    const [field, fieldOptions, { options, ...rest }] = splitFormProps<
-        any,
-        {
-            options: string[];
-        },
-        string[]
-    >(props);
+    const [field, fieldOptions, { options, ...rest }] = splitFormProps(props);
 
     const {
         value = [],
@@ -447,7 +441,7 @@ function MultiSelectField(props: any) {
         <>
             <select {...rest} value={value} onChange={handleSelectChange} multiple>
                 <option disabled value="" />
-                {options.map(option => (
+                {options.map((option: string) => (
                     <option key={option} value={option}>
                         {option}
                     </option>

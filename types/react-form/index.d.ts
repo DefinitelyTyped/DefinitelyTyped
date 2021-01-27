@@ -10,9 +10,9 @@ import * as React from 'react';
 // Documentation: https://github.com/tannerlinsley/react-form/blob/a4c951622b623edbe95884eb277fae5f637fd481/docs/api.md
 
 export type UseFormValues<ValueType> = Record<string, ValueType>;
-export type ValidateResult = string | false | void;
+export type ValidateResult = string | false | undefined;
 
-interface FieldScopeSpecificMethods<
+export interface FieldScopeSpecificMethods<
     ValueType,
     ErrorType,
     EventType,
@@ -52,7 +52,7 @@ export interface UseFormOptions<
     validate?(
         values: UseFormValues<ValueType>,
         instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
-    ): Promise<ValidateResult> | ValidateResult;
+    ): Promise<ValidateResult> | ValidateResult | void;
 
     validatePristine?: boolean;
     debugForm?: boolean;
@@ -117,7 +117,7 @@ export interface UseFieldOptions<
     validate?(
         value: ValueType,
         instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
-    ): Promise<ValidateResult> | ValidateResult;
+    ): Promise<ValidateResult> | ValidateResult | void;
 
     filterValue?(
         value: ValueType,
@@ -194,23 +194,8 @@ export function useField<
     props: UseFieldOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
 ): UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>;
 
-export function splitFormProps<
-    PropsType = unknown,
-    RestType = object,
-    ValueType = string,
-    ErrorType = string,
-    EventType = unknown,
-    FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
-    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>,
-    InputPropsType extends UseFieldInstancePropsType<ValueType> = UseFieldInstancePropsType<ValueType>
->(
-    props: PropsType,
-): [string, UseFieldOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>, RestType];
+export function splitFormProps(
+    props: any,
+): [string, UseFieldOptions<any, any, any, any, any, any>, any];
 
-export function useFormContext<
-    ValueType = string,
-    ErrorType = string,
-    EventType = unknown,
-    FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
-    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>
->(): UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
+export function useFormContext(): UseFormInstance<any, any, any, any, any>;

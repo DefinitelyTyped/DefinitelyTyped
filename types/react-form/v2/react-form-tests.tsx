@@ -676,5 +676,3 @@ class NestedAsynchronousFormValidation extends React.Component {
         );
     }
 }
-
-// Hooks tests
