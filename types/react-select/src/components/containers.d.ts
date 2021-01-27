@@ -1,6 +1,6 @@
 import { Component, ReactNode, ComponentType } from 'react';
 import { spacing } from '../theme';
-import { CommonProps, KeyboardEventHandler, OptionTypeBase } from '../types';
+import { CommonProps, GroupTypeBase, KeyboardEventHandler, OptionTypeBase } from '../types';
 
 // ==============================
 // Root Container
@@ -13,9 +13,10 @@ export interface ContainerState {
     isRtl: boolean;
 }
 
-export type ContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+export type ContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
     OptionType,
-    IsMulti
+    IsMulti,
+    GroupType
 > &
     ContainerState & {
         /** The children to be rendered. */
@@ -30,9 +31,10 @@ export const SelectContainer: ComponentType<ContainerProps<any, boolean>>;
 // Value Container
 // ==============================
 
-export type ValueContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+export type ValueContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
     OptionType,
-    IsMulti
+    IsMulti,
+    GroupType
 > & {
     /** Set when the value container should hold multiple values */
     isMulti: boolean;
@@ -55,9 +57,10 @@ export interface IndicatorsState {
     isDisabled: boolean;
 }
 
-export type IndicatorContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+export type IndicatorContainerProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
     OptionType,
-    IsMulti
+    IsMulti,
+    GroupType
 > &
     IndicatorsState & {
         /** The children to be rendered. */

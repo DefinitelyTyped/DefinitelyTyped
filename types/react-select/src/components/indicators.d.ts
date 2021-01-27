@@ -1,7 +1,7 @@
 import { ComponentType, ReactElement as ElementType, SVGProps, ReactSVGElement } from 'react';
 
 import { colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
 // ==============================
 // Dropdown & Clear Icons
@@ -14,9 +14,10 @@ export function DownChevron(props?: SVGProps<SVGElement>): ReactSVGElement;
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+export type IndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
     OptionType,
-    IsMulti
+    IsMulti,
+    GroupType
 > & {
     /** The children to be rendered inside the indicator. */
     children: ElementType;
@@ -57,26 +58,26 @@ export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
 export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): React.CSSProperties;
 
 /** @deprecated Use `LoadingIndicatorProps` instead. */
-export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = {
+export type LoadingIconProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = {
     /** Props that will be passed on to the children. */
     innerProps: any;
     /** The focused state of the select. */
     isFocused: boolean;
     /** Whether the text is right to left */
     isRtl: boolean;
-} & CommonProps<OptionType, IsMulti> & {
+} & CommonProps<OptionType, IsMulti, GroupType> & {
         /** Set size of the container. */
         size: number;
     };
 
-export type LoadingIndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = {
+export type LoadingIndicatorProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = {
     /** Props that will be passed on to the children. */
     innerProps: any;
     /** The focused state of the select. */
     isFocused: boolean;
     /** Whether the text is right to left */
     isRtl: boolean;
-} & CommonProps<OptionType, IsMulti> & {
+} & CommonProps<OptionType, IsMulti, GroupType> & {
         /** Set size of the container. */
         size: number;
     };

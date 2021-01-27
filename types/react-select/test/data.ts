@@ -1,4 +1,4 @@
-import { GroupedOptionsType, GroupType } from 'react-select/src/types';
+import { GroupedOptionsType, GroupTypeBase } from 'react-select/src/types';
 
 export interface ColourOption {
     value: string;
@@ -119,13 +119,18 @@ export const optionLength = [
 //     bigOptions = bigOptions.concat(colourOptions);
 // }
 
-const colourGroup: GroupType<ColourOption> = {
-    label: 'Colours',
-    options: colourOptions,
-};
-const flavourGroup: GroupType<FlavourOption> = {
-    label: 'Flavours',
-    options: flavourOptions,
-};
+export interface GroupedOption {
+    label: string;
+    options: readonly ColourOption[] | readonly FlavourOption[];
+}
 
-export const groupedOptions: GroupedOptionsType<ColourOption | FlavourOption> = [colourGroup, flavourGroup];
+export const groupedOptions = [
+    {
+        label: 'Colours',
+        options: colourOptions,
+    },
+    {
+        label: 'Flavours',
+        options: flavourOptions,
+    },
+];

@@ -1,6 +1,6 @@
 import { ComponentType, ReactNode } from 'react';
 import { colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
 interface State {
     /** Whether this is disabled */
@@ -14,7 +14,7 @@ interface ValueProps<OptionType extends OptionTypeBase> {
     /** Props passed to the wrapping element for the group. */
     innerProps: any;
 }
-export type SingleValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, false> &
+export type SingleValueProps<OptionType extends OptionTypeBase, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<OptionType, false, GroupType> &
     ValueProps<OptionType> &
     State;
 

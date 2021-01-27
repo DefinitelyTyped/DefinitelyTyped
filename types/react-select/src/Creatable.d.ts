@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase } from './types';
+import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase, GroupTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> {
     /**
      * Allow options to be created while the `isLoading` prop is true. Useful to
      * prevent the "create new ..." option being displayed while async results are
@@ -23,7 +23,7 @@ export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti exten
     isValidNewOption?: (
         inputValue: string,
         value: ValueType<OptionType, IsMulti>,
-        options: OptionsType<OptionType> | GroupedOptionsType<OptionType>,
+        options: OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>,
     ) => boolean;
     /**
      * Returns the data for the new option when it is created. Used to display the
@@ -40,8 +40,8 @@ export interface CreatableProps<OptionType extends OptionTypeBase, IsMulti exten
     createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> &
-    CreatableProps<OptionType, IsMulti>;
+export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = SelectProps<OptionType, IsMulti, GroupType> &
+    CreatableProps<OptionType, IsMulti, GroupType>;
 
 export const defaultProps: Props<any, boolean>;
 

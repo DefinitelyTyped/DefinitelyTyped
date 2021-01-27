@@ -1,7 +1,7 @@
 import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase, PropsWithStyles } from '../types';
 
 interface State {
     /** Whether the select is disabled. */
@@ -12,9 +12,10 @@ interface State {
     menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
+export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean, GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>> = CommonProps<
     OptionType,
-    IsMulti
+    IsMulti,
+    GroupType
 > &
     PropsWithStyles &
     State & {
