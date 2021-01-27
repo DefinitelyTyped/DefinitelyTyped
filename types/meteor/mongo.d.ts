@@ -270,31 +270,7 @@ declare module "meteor/mongo" {
 
 declare module MongoInternals {
     interface Connection {
-        find(collectionName: string, selector?: any, options?: Mongo.FindOptions<Mongo.Document>): Mongo.Cursor<Mongo.Document>;
-        findOne(collectionName: string, selector?: any, options?: Mongo.FindOneOptions<Mongo.Document>): Mongo.Document;
-
-        _createSynchronousCursor(cursorDescription: Mongo.CursorDescription<Mongo.Document>, options: {
-            selfForIteration: any,
-            useTransform: boolean,
-        }): Mongo.Cursor<Mongo.Document>;
-
-        mongo: {
-            client: {
-                s: {
-                    url: string;
-                    options: any;
-                }
-            }
-        }
-
-        db: any;
-        _oplogHandle: {
-            onOplogEntry(trigger: any, callback: (notification: any) => void): void;
-            waitUntilCaughtUp(): void;
-            _lastProcessedTS: any;
-            _oplogLastEntryConnection: any;
-            _baseOplogSelector: any;
-        };
+        db: MongoDb;
     }
 
     function defaultRemoteCollectionDriver(): {
