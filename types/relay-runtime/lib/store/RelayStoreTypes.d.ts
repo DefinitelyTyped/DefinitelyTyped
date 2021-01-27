@@ -178,7 +178,7 @@ export interface FragmentSpecResolver {
  */
 export interface RecordSource {
     // tslint:disable-next-line:no-unnecessary-generics
-    get<T = {}>(dataID: DataID): Record<T> | null | undefined;
+    get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
