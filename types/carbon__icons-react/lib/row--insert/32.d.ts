@@ -1,1 +1,3 @@
-export { RowInsert32 as default } from "../../";
+import { RowInsert32 } from "../../";
+
+export = RowInsert32;

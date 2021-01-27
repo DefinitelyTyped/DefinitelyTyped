@@ -1,1 +1,3 @@
-export { BorderBottom24 as default } from "../../";
+import { BorderBottom24 } from "../../";
+
+export = BorderBottom24;

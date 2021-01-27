@@ -7,6 +7,17 @@ command.addMatchImageSnapshotCommand({
     scale: true,
 });
 
-function pluginSetup(on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): void {
+type Task = (value: any) => any;
+
+interface Tasks {
+    [key: string]: Task;
+}
+
+interface PluginEvents {
+    (action: 'after:screenshot', fn: (details: {path: string}) => void): void;
+    (action: 'task', tasks: Tasks): void;
+}
+
+function pluginSetup(on: PluginEvents, config: {}): void {
     addMatchImageSnapshotPlugin(on, config); // $ExpectType void
 }

@@ -1,1 +1,3 @@
-export { Outage32 as default } from "../../";
+import { Outage32 } from "../../";
+
+export = Outage32;

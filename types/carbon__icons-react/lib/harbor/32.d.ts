@@ -1,1 +1,3 @@
-export { Harbor32 as default } from "../../";
+import { Harbor32 } from "../../";
+
+export = Harbor32;

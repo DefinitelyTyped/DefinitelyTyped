@@ -1,1 +1,3 @@
-export { AutomationDecision as default } from "../../";
+import { AutomationDecision } from "../../";
+
+export = AutomationDecision;

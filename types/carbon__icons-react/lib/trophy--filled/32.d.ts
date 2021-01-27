@@ -1,1 +1,3 @@
-export { TrophyFilled32 as default } from "../../";
+import { TrophyFilled32 } from "../../";
+
+export = TrophyFilled32;

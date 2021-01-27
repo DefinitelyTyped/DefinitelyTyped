@@ -1,1 +1,3 @@
-export { LetterVv32 as default } from "../../";
+import { LetterVv32 } from "../../";
+
+export = LetterVv32;

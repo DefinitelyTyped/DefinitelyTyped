@@ -1,4 +1,4 @@
-// Type definitions for resolve 1.17.0
+// Type definitions for resolve 1.19.0
 // Project: https://github.com/browserify/resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Klaus Meinhardt <https://github.com/ajafff>
@@ -80,6 +80,8 @@ declare namespace resolve {
     basedir?: string;
     /** package.json data applicable to the module being loaded */
     package?: any;
+    /** set to false to exclude node core modules (e.g. fs) from the search */
+    includeCoreModules?: boolean;
     /** array of file extensions to search in order (defaults to ['.js']) */
     extensions?: string | ReadonlyArray<string>;
     /** transform the parsed package.json contents before looking at the "main" field */

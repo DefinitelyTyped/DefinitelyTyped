@@ -1,1 +1,3 @@
-export { Shower as default } from "../../";
+import { Shower } from "../../";
+
+export = Shower;

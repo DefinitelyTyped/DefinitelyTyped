@@ -1,1 +1,3 @@
-export { DesignThinkingTeam as default } from "../../";
+import { DesignThinkingTeam } from "../../";
+
+export = DesignThinkingTeam;

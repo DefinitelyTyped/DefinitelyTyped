@@ -1,1 +1,3 @@
-export { UserSpeaker20 as default } from "../../";
+import { UserSpeaker20 } from "../../";
+
+export = UserSpeaker20;

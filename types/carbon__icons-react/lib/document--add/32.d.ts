@@ -1,1 +1,3 @@
-export { DocumentAdd32 as default } from "../../";
+import { DocumentAdd32 } from "../../";
+
+export = DocumentAdd32;

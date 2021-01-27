@@ -1,1 +1,3 @@
-export { GenderMale16 as default } from "../../";
+import { GenderMale16 } from "../../";
+
+export = GenderMale16;

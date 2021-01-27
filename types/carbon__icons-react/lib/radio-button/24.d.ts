@@ -1,1 +1,3 @@
-export { RadioButton24 as default } from "../../";
+import { RadioButton24 } from "../../";
+
+export = RadioButton24;

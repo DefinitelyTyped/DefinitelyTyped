@@ -1,1 +1,3 @@
-export { ColumnInsert32 as default } from "../../";
+import { ColumnInsert32 } from "../../";
+
+export = ColumnInsert32;

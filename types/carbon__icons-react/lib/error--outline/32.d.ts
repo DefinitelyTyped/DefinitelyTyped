@@ -1,1 +1,3 @@
-export { ErrorOutline32 as default } from "../../";
+import { ErrorOutline32 } from "../../";
+
+export = ErrorOutline32;

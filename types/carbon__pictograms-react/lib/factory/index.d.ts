@@ -1,1 +1,3 @@
-export { Factory as default } from "../../";
+import { Factory } from "../../";
+
+export = Factory;

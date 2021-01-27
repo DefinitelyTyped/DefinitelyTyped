@@ -1,1 +1,3 @@
-export { Arrows32 as default } from "../../";
+import { Arrows32 } from "../../";
+
+export = Arrows32;

@@ -1,1 +1,3 @@
-export { ContainerSoftware20 as default } from "../../";
+import { ContainerSoftware20 } from "../../";
+
+export = ContainerSoftware20;

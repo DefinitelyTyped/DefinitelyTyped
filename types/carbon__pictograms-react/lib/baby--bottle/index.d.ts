@@ -1,1 +1,3 @@
-export { BabyBottle as default } from "../../";
+import { BabyBottle } from "../../";
+
+export = BabyBottle;

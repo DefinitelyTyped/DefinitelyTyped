@@ -1,1 +1,3 @@
-export { Svg32 as default } from "../../";
+import { Svg32 } from "../../";
+
+export = Svg32;

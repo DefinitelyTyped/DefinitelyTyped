@@ -1,1 +1,3 @@
-export { StarReview32 as default } from "../../";
+import { StarReview32 } from "../../";
+
+export = StarReview32;

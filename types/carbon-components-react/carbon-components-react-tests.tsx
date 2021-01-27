@@ -578,32 +578,35 @@ const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" 
 const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />;
 
 // Tabs
+{
+    const tabsBasicExample = (
+        <Tabs selected={1} onSelectionChange={idx => {}}>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+        </Tabs>
+    );
 
-const tabsBasicExample = (
-    <Tabs selected={1} onSelectionChange={idx => {}}>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-    </Tabs>
-);
+    const tabsRenderContentExample = (
+        <Tabs>
+            <Tab
+                renderAnchor={(props) => <div/>}
+                renderButton={(props) => <div/>}
+                renderContent={props => {
+                    const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                    return hidden ? null : (
+                        <div id={id} className={className} aria-hidden={ariaHidden}>
+                            Selected: {selected}
+                        </div>
+                    );
+                }}
+            >
+                Render Content Tab
+            </Tab>
+        </Tabs>
+    );
 
-const tabsRenderContentExample = (
-    <Tabs>
-        <Tab
-            renderContent={props => {
-                const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
-                return hidden ? null : (
-                    <div id={id} className={className} aria-hidden={ariaHidden}>
-                        Selected: {selected}
-                    </div>
-                );
-            }}
-        >
-            Render Content Tab
-        </Tab>
-    </Tabs>
-);
-
-const tabCanBeDisabled = <Tab href="#" disabled />;
+    const tabCanBeDisabled = <Tab href="#" disabled />;
+}
 
 // Slider
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;

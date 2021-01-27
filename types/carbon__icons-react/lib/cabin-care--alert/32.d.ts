@@ -1,1 +1,3 @@
-export { CabinCareAlert32 as default } from "../../";
+import { CabinCareAlert32 } from "../../";
+
+export = CabinCareAlert32;

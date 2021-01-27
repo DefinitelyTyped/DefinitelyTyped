@@ -1,1 +1,3 @@
-export { Save24 as default } from "../../";
+import { Save24 } from "../../";
+
+export = Save24;

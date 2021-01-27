@@ -1,20 +1,23 @@
 import { ComponentType, ReactNode } from 'react';
 import { colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
 interface State {
-  /** Whether this is disabled */
-  isDisabled: boolean;
+    /** Whether this is disabled */
+    isDisabled: boolean;
 }
 interface ValueProps<OptionType extends OptionTypeBase> {
-  /** The children to be rendered. */
-  children: ReactNode;
-  /* The data of the selected option rendered in the Single Value componentn */
-  data: OptionType;
-  /** Props passed to the wrapping element for the group. */
-  innerProps: any;
+    /** The children to be rendered. */
+    children: ReactNode;
+    /* The data of the selected option rendered in the Single Value componentn */
+    data: OptionType;
+    /** Props passed to the wrapping element for the group. */
+    innerProps: any;
 }
-export type SingleValueProps<OptionType extends OptionTypeBase> = CommonProps<OptionType, false> & ValueProps<OptionType> & State;
+export type SingleValueProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, false, GroupType> & ValueProps<OptionType> & State;
 
 export function css(props: SingleValueProps<any>): React.CSSProperties;
 

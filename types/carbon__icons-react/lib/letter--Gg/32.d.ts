@@ -1,1 +1,3 @@
-export { LetterGg32 as default } from "../../";
+import { LetterGg32 } from "../../";
+
+export = LetterGg32;

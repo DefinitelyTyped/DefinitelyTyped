@@ -1,1 +1,3 @@
-export { StayInside16 as default } from "../../";
+import { StayInside16 } from "../../";
+
+export = StayInside16;

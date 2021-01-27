@@ -1,1 +1,3 @@
-export { Faucet as default } from "../../";
+import { Faucet } from "../../";
+
+export = Faucet;

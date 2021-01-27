@@ -1,1 +1,3 @@
-export { HomeGarage as default } from "../../";
+import { HomeGarage } from "../../";
+
+export = HomeGarage;

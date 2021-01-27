@@ -1,1 +1,3 @@
-export { Engine as default } from "../../";
+import { Engine } from "../../";
+
+export = Engine;

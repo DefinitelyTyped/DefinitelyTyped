@@ -1,1 +1,3 @@
-export { AccumulationSnow32 as default } from "../../";
+import { AccumulationSnow32 } from "../../";
+
+export = AccumulationSnow32;

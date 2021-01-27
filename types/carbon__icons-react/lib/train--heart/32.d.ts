@@ -1,1 +1,3 @@
-export { TrainHeart32 as default } from "../../";
+import { TrainHeart32 } from "../../";
+
+export = TrainHeart32;

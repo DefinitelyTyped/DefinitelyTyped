@@ -1,1 +1,3 @@
-export { Function16 as default } from "../../";
+import { Function16 } from "../../";
+
+export = Function16;

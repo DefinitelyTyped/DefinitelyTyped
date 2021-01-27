@@ -1,1 +1,3 @@
-export { UserSimulation32 as default } from "../../";
+import { UserSimulation32 } from "../../";
+
+export = UserSimulation32;

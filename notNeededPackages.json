@@ -196,6 +196,11 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "autoprefixer",
+            "typingsPackageName": "autoprefixer",
+            "asOfVersion": "10.2.0"
+        },
+        {
             "libraryName": "aws-lambda-mock-context",
             "typingsPackageName": "aws-lambda-mock-context",
             "asOfVersion": "3.2.0"
@@ -354,6 +359,11 @@
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "browserslist",
+            "typingsPackageName": "browserslist",
+            "asOfVersion": "4.15.0"
         },
         {
             "libraryName": "bugsnag-js",
@@ -2737,6 +2747,11 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "multibase",
             "typingsPackageName": "multibase",
             "asOfVersion": "3.1.0"
@@ -2745,11 +2760,6 @@
             "libraryName": "multicodec",
             "typingsPackageName": "multicodec",
             "asOfVersion": "2.1.0"
-        },
-        {
-            "libraryName": "multiaddr",
-            "typingsPackageName": "multiaddr",
-            "asOfVersion": "7.4.0"
         },
         {
             "libraryName": "multimatch",
@@ -4641,6 +4651,11 @@
             "libraryName": "@testing-library/react",
             "typingsPackageName": "testing-library__react",
             "asOfVersion": "10.2.0"
+        },
+        {
+            "libraryName": "@testing-library/react-hooks",
+            "typingsPackageName": "testing-library__react-hooks",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "@testing-library/user-event",

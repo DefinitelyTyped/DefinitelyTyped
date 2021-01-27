@@ -1,1 +1,3 @@
-export { Rewind_516 as default } from "../../";
+import { Rewind_516 } from "../../";
+
+export = Rewind_516;

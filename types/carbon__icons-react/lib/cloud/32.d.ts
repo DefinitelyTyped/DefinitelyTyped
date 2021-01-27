@@ -1,1 +1,3 @@
-export { Cloud32 as default } from "../../";
+import { Cloud32 } from "../../";
+
+export = Cloud32;

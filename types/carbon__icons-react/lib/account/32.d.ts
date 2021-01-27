@@ -1,1 +1,3 @@
-export { Account32 as default } from "../../";
+import { Account32 } from "../../";
+
+export = Account32;

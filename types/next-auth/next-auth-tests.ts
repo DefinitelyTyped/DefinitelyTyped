@@ -134,6 +134,8 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: 'some-key',
+        encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
@@ -405,6 +407,19 @@ Providers.Auth0({
     clientId: 'foo123',
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
+});
+
+// $ExpectType GenericReturnConfig
+Providers.Auth0({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    domain: 'https://foo.auth0.com',
+    profile: () => ({
+      id: 'foo123',
+      name: 'foo',
+      email: 'foo@bar.io',
+      image: 'https://foo.auth0.com/image/1.png',
+    })
 });
 
 // $ExpectType GenericReturnConfig
