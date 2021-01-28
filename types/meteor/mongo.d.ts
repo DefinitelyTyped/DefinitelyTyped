@@ -1,4 +1,4 @@
-import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
+import { Collection as MongoCollection, Db as MongoDb, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 
 declare module "meteor/mongo" {
@@ -269,6 +269,7 @@ declare module "meteor/mongo" {
 declare module MongoInternals {
     interface MongoConnection {
         db: MongoDb;
+        client: MongoClient;
     }
 
     function defaultRemoteCollectionDriver(): {
