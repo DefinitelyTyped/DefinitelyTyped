@@ -867,8 +867,26 @@ describe('', () => {
 
         // $ExpectError
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
+        const fn: (s: string, n: number) => any = jest.fn();
+        // $ExpectError
+        expect(fn).toBeCalledWith(1, 'two');
         // $ExpectError
         expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
+        // $ExpectError
+        expect({p1: 'string', p2: 3}).toEqual({ p1: 'hello' });
+        expect({}).toEqual({ p1: 'hello' });
+        // $ExpectError
+        expect({foo: 3}).toEqual({ p1: 'hello' });
+        // $ExpectError
+        expect('').toEqual(3);
+        expect<string | number>('').toEqual(3);
+
+        expect(Promise.resolve(3)).resolves.toEqual(5);
+        // $ExpectError
+        expect(Promise.resolve(3)).resolves.toEqual('5');
+        // $ExpectError
+        expect(Promise.resolve(3)).toEqual(5);
+        expect(3).resolves.toEqual(5);
 
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
@@ -903,12 +921,12 @@ describe('', () => {
         expect(NaN).toBeNaN();
         expect(Infinity).toBeNaN();
 
-        expect([]).toContain({});
+        expect([{}]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
         expect('abc').toContain('bc');
 
-        expect([]).toContainEqual({});
+        expect([{}]).toContainEqual({});
         expect(['abc']).toContainEqual('def');
 
         expect([]).toEqual([]);
