@@ -1,1 +1,3 @@
-export { StringInteger32 as default } from "../../";
+import { StringInteger32 } from "../../";
+
+export = StringInteger32;

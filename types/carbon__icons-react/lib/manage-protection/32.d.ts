@@ -1,1 +1,3 @@
-export { ManageProtection32 as default } from "../../";
+import { ManageProtection32 } from "../../";
+
+export = ManageProtection32;

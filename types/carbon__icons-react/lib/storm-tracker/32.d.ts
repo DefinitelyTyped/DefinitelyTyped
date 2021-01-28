@@ -1,1 +1,3 @@
-export { StormTracker32 as default } from "../../";
+import { StormTracker32 } from "../../";
+
+export = StormTracker32;

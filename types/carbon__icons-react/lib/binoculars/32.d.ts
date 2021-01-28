@@ -1,1 +1,3 @@
-export { Binoculars32 as default } from "../../";
+import { Binoculars32 } from "../../";
+
+export = Binoculars32;

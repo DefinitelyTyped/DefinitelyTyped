@@ -1,1 +1,3 @@
-export { Run16 as default } from "../../";
+import { Run16 } from "../../";
+
+export = Run16;

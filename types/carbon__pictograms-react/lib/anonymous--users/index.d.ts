@@ -1,1 +1,3 @@
-export { AnonymousUsers as default } from "../../";
+import { AnonymousUsers } from "../../";
+
+export = AnonymousUsers;

@@ -72,3 +72,5 @@ export class AutoSizer extends PureComponent<AutoSizerProps, Size> {
 
     render(): JSX.Element;
 }
+
+export default AutoSizer;

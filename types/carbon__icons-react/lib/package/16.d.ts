@@ -1,1 +1,3 @@
-export { Package16 as default } from "../../";
+import { Package16 } from "../../";
+
+export = Package16;

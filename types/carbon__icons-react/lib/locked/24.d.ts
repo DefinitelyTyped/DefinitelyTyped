@@ -1,1 +1,3 @@
-export { Locked24 as default } from "../../";
+import { Locked24 } from "../../";
+
+export = Locked24;

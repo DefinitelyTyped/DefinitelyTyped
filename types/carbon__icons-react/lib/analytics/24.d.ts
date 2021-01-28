@@ -1,1 +1,3 @@
-export { Analytics24 as default } from "../../";
+import { Analytics24 } from "../../";
+
+export = Analytics24;

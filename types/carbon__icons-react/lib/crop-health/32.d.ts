@@ -1,1 +1,3 @@
-export { CropHealth32 as default } from "../../";
+import { CropHealth32 } from "../../";
+
+export = CropHealth32;

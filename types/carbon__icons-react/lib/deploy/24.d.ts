@@ -1,1 +1,3 @@
-export { Deploy24 as default } from "../../";
+import { Deploy24 } from "../../";
+
+export = Deploy24;

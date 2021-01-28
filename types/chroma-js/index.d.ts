@@ -30,7 +30,7 @@ declare namespace chroma {
          * @param color The string to convert to a color.
          * @return the color object.
          */
-        (color: string | number): Color;
+        (color: string | number | Color): Color;
 
         /**
          * Create a color in the specified color space using a, b and c as values.

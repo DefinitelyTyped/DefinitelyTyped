@@ -15,11 +15,15 @@
   - [PR を作成する](#pr-を作成する)<details><summary></summary>
     - [既存のパッケージを編集する](#既存のパッケージを編集する)
     - [新しくパッケージを作成する](#新しくパッケージを作成する)
-    - [よくあるミス](#よくあるミス)
     - [パッケージを削除する](#パッケージを削除する)
-    - [Linter](#linter)
-    - [\<パッケージ名>-tests.ts](#パッケージ名-teststs)
     - [テストの実行](#テストの実行)
+    - [Naming](#naming)
+    - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
+    - [Linter: `tslint.json`](#linter-tslintjson)
+    - [`tsconfig.json`](#tsconfigjson)
+    - [`package.json`](#packagejson)
+    - [よくあるミス](#よくあるミス)
+    - [`OTHER_FILES.txt`](#other_filestxt)
     </details>
   - [型定義のオーナー](#型定義のオーナー)
 * [よくある質問](#よくある質問)
@@ -60,18 +64,18 @@ npm install --save-dev @types/node
 
 詳しくは[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)を参照してください。
 
-「foo」という名前の NPM モジュール用の型定義は「@types/foo」になります。
+「foo」という名前の npm モジュール用の型定義は「@types/foo」になります。
 パッケージが見つからない場合は [TypeSearch](https://microsoft.github.io/TypeSearch/) で検索してください。
 
 検索しても見つからない場合は、パッケージ内に型定義が[含まれている](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)かどうか確認してください。
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （3.1 以前）
+#### 古いバージョンの TypeScript （3.3 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 3.2 以上でテストされています。
-TypeScript 2.0 ～ 3.1 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+現時点ではバージョン 3.4 以上でテストされています。
+TypeScript 2.0 ～ 3.3 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
@@ -90,6 +94,8 @@ TypeScript 2.0 ～ 3.1 を使用している場合、引き続き `@types` パ�
 | 3.8        | 2020年2月  | 2022年2月    |
 | 3.9        | 2020年5月  | 2022年5月    |
 | 4.0        | 2020年8月  | 2022年8月    |
+| 4.1        | 2020年11月 | 2022年11月   |
+| 4.2        | 2021年2月  | 2023年2月    |
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
 たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
@@ -150,7 +156,7 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 
 DefinitelyTyped への大量の PR を全てセルフサービス方式で処理するために bot を導入しています。詳しい方法と理由については[こちら](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)<small>（英語）</small>で確認できます。下図は DefinitelyTyped への PR のライフサイクルを簡単に示したものです。
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.png?raw=true">
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
 
 #### 既存のパッケージを編集する
 
@@ -166,106 +172,70 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 もし、あなたがライブラリの作者で、そのライブラリが TypeScript で書かれている場合は、 Definitely Typed で型定義を公開するのではなく、ライブラリのパッケージ自体に[自動生成された型定義ファイルをバンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)してください。
 
-NPM のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
-NPM 上にないパッケージの型定義を追加したい場合は、その名前が NPM 上のパッケージを競合しないか確認してください。
-（`npm info foo` コマンドで、 `foo` パッケージが存在するかどうか確認できます。）
+npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
+（`npm info <my-package>` コマンドで、 `<my-package>` パッケージが存在するかどうか確認できます。）
 
 型定義パッケージは次のような構造にする必要があります:
 
 | ファイル      | 用途 |
 | ------------- | ---- |
-| index.d.ts    | 型定義が含まれる。 |
-| [\<パッケージ名>-tests.ts](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
-| tsconfig.json | パッケージ内で `tsc` を実行するのに必要。 |
-| tslint.json   | Lint を有効にする。 |
+| `index.d.ts` | 型定義が含まれる。 |
+| [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
+| [`tsconfig.json`](#tsconfigjson) | パッケージ内で `tsc` を実行するのに必要。 |
+| [`tslint.json`](#linter-tslintjson) | Lint を有効にする。 |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
 
-`tsconfig.json` を編集して、テストコードファイルや `"target": "es6"` の指定（ async 関数に必要）、 `"jsx"` コンパイラオプションを追加したり、 `"lib"` フィールドに設定を追加したりしてください。 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
-
-もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
+`index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
 
 Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によっては対応が遅れる場合があることをご了承ください。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) を、パッケージのサンプルとして参考にするのがよいでしょう。
 
-#### よくあるミス
-
-* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
-* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
-  ```tsx
-  // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-  ```
-* `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
-* `interface Foo { new(): Foo; }`:
-  これは new 可能な object の型定義です。書きたかったのは `declare class Foo { constructor(); }` ではありませんか？
-* `const Class: { new(): IClass; }`:
-  new 可能な定数ではなく、クラス定義 `class Class { constructor(); }` を使ってください。
-* `getMeAT<T>(): T`:
-  型パラメーターが関数の引数の型で全く使用されない場合、その関数は本当のジェネリック関数にはなっていません。型注釈みたいに誤魔化された何かを書いているだけです。
-  実際の型を型注釈として使用してください（例: `getMeAT() as number`）。
-  型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
-  使用してはいけない例: `function parseJson<T>(json: string): T;`。
-  例外: `new Map<string, number>()` はOKです。
-* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
-* `var foo: string | any`:
-  `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
-  シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
-
 #### パッケージを削除する
 
 パッケージに型定義が[バンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-`npm run not-needed -- typingsPackageName asOfVersion [libraryName]` を実行するとパッケージを削除できます。.
-* `typingsPackageName`: 削除したいディレクトリ名。
-* `asOfVersion`: `@types/foo` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `foo` のバージョンとあわせる必要があります。
-* `libraryName`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に "typingsPackageName" と一致し、その場合は省略できます。
+`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
+* `<typingsPackageName>`: 削除したいディレクトリ名。
+* `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
+* `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
 `npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
-エラーを修正するには、 `package.json` を追加し、 `"dependencies": { "foo": "x.y.z" }` と記述します。
+エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-`foo` に依存するモジュールに `package.json` を追加する場合は、 [DefinitelyTyped-tools の allowedPackageJsonDependencies.txt](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に `foo` を追加する PR も併せて作成する必要があります。
+`<libraryName>` に依存するモジュールに `package.json` を追加する場合は、 [DefinitelyTyped-tools の allowedPackageJsonDependencies.txt](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に `<libraryName>` を追加する PR も併せて作成する必要があります。
 
 パッケージが Definitely Typed に存在しなかった場合は、 `notNeededPackages.json` に追加する必要はありません。
 
-#### Linter
+#### テストの実行
 
-新しいパッケージはすべて Lint される必要があります。パッケージを Lint するには、パッケージに `tslint.json` を追加し、下記のコードを記述します。
+`npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
-```js
-{
-  "extends": "dtslint/dt.json"
-}
-```
+このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
 
-完成したパッケージの `tslint.json` ファイルには上記のコードのみが含まれているようにすべきです。もし `tslint.json` で何かのルールがオフになっていれば、パッケージに修正が必要であるとみなされます。 例:
+#### Naming
 
-```js
-{
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // このパッケージは Function 型を使用しているが、その修正には労力を要する。
-    "ban-types": false
-  }
-}
-```
+npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
+（`npm info <my-package>` コマンドで、 `<my-package>` パッケージが存在するかどうか確認できます。）
 
-（本当に適用させたくないルールがある場合は、 `// tslint:disable ルール名` か `//tslint:disable-next-line ルール名` （より良い）を使用してください。）
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
-#### \<パッケージ名>-tests.ts
+#### `<パッケージ名>-tests.ts`
 
 パッケージには `<パッケージ名>-tests.ts` が必要です。このファイルは、ファイル内でインポートしている他の `*.ts` とあわせて、テスト用のファイルになります。
 モジュールのフォルダにテスト用ファイルが見当たらない場合は、 `<パッケージ名>-tests.ts` を作成してください。
@@ -313,11 +283,54 @@ f("one");
 
 詳しくは、 [dtslint](https://github.com/Microsoft/dtslint#write-tests) の README を参照してください。
 
-#### テストの実行
+#### Linter: `tslint.json`
 
-`npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
+If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
-このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
+#### tsconfig.json
+
+`tsconfig.json` を編集して、テストコードファイルや `"target": "es6"` の指定（ async 関数に必要）、 `"jsx"` コンパイラオプションを追加したり、 `"lib"` フィールドに設定を追加したりしてください。
+
+#### package.json
+
+基本的にはこのファイルは不要です。
+DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
+`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
+[Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
+また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
+`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
+
+ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
+依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
+
+#### よくあるミス
+
+* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
+* フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
+* `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
+* `interface Foo { new(): Foo; }`:
+  これは new 可能な object の型定義です。書きたかったのは `declare class Foo { constructor(); }` ではありませんか？
+* `const Class: { new(): IClass; }`:
+  new 可能な定数ではなく、クラス定義 `class Class { constructor(); }` を使ってください。
+* `getMeAT<T>(): T`:
+  型パラメーターが関数の引数の型で全く使用されない場合、その関数は本当のジェネリック関数にはなっていません。型注釈みたいに誤魔化された何かを書いているだけです。
+  実際の型を型注釈として使用してください（例: `getMeAT() as number`）。
+  型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
+  使用してはいけない例: `function parseJson<T>(json: string): T;`。
+  例外: `new Map<string, number>()` はOKです。
+* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
+* `var foo: string | any`:
+  `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
+  シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
+
+#### `OTHER_FILES.txt`
+
+もしテストもされず、 `index.d.ts` でも参照されないファイルがある場合は、そのファイル名を `OTHER_FILES.txt` という名前のファイルに追記してください。このファイルは、型定義パッケージに含めたいその他のファイルを、1行につき1ファイルで記述した一覧です。
 
 ### 型定義のオーナー
 
@@ -342,9 +355,9 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 ## よくある質問
 
-#### 厳密には、このレポジトリと NPM 上の `@types` パッケージはどう関係していますか？
+#### 厳密には、このレポジトリと npm 上の `@types` パッケージはどう関係していますか？
 
-[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 NPM の `@types` スコープに公開してくれています。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 npm の `@types` スコープに公開してくれています。
 
 #### PR を送りましたが、どれぐらいでマージされますか？
 
@@ -356,27 +369,14 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 DefinitelyTyped のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や DefinitelyTyped のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) で進捗を確認できます。
 
-#### PR はマージされましたが、 `@types` NPM パッケージはいつ更新されますか？
+#### PR はマージされましたが、 `@types` npm パッケージはいつ更新されますか？
 
-NPM パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
+npm パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
 
 #### 作成中の型定義が別の型定義に依存しています。 `<reference types="" />` を使うかインポートするか、どちらがよいですか？
 
 参照しているモジュールが外部モジュールの場合（`export` を使っている場合）は、インポートしてください。
 参照しているモジュールがアンビエント モジュールの場合（`declare module` を使っているか、グローバルに宣言している場合）は、 `<reference types="" />` を使用してください。
-
-#### `package.json` が存在するパッケージがありました。
-
-基本的にはこのファイルは不要です。
-DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
-`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
-[Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
-自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
-また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
-`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
-
-ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
-依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
 
 #### `tslint.json` が無かったり、 `tsconfig.json` から `"noImplicitAny": true` や `"noImplicitThis": true` 、 `"strictNullChecks": true` が抜けたりしているパッケージがあります。
 
@@ -413,7 +413,7 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 コンパイラー オプションを確認してください。
 
 型定義が正確に記述されているときは変更しないでください。
-NPM パッケージでは、モジュールを `node -p 'require("foo")'` でインポートできるときは `export =` が、 `node -p 'require("foo").default'` でインポートできるときは `export default` がそれぞれ正しい表記です。
+npm パッケージでは、モジュールを `node -p 'require("foo")'` でインポートできるときは `export =` が、 `node -p 'require("foo").default'` でインポートできるときは `export default` がそれぞれ正しい表記です。
 
 #### TypeScript 3.3 以上にある機能を使いたいです。
 
@@ -467,7 +467,7 @@ NPM パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 
 *注意: このセクションを読むには[セマンティック バージョニング](https://semver.org/)の知識が必要です。*
 
-Definitely Typed の各パッケージは NPM に公開される際にバージョン番号が付されます。
+Definitely Typed の各パッケージは npm に公開される際にバージョン番号が付されます。
 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) （`@types` パッケージを npm に公開するツール）は、パッケージの `index.d.ts` の1行目に載っている `メジャー.マイナー` バージョン番号を使って、型定義パッケージのバージョンを付けます。
 たとえば、下記は執筆時点<small>（訳注: 英語版執筆当時）</small>の [Node の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts)（バージョン `10.12.x` 用）の最初の数行です:
 
@@ -482,7 +482,7 @@ Definitely Typed の各パッケージは NPM に公開される際にバージ�
 1行目の終わりが `10.12` なので、 `@types/node` パッケージの npm でのバージョン番号も `10.12.x` になります。
 `index.d.ts` の1行目には `メジャー.マイナー` バージョンのみ（例: `10.12`）を含めます。パッチバージョンは含めないでください（`10.12.4` のようにはしない）。
 これは、メジャーバージョンとマイナーバージョンの番号のみを、ライブラリ本体と型定義パッケージで揃えるためです。
-型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが NPM に公開されるたびに増えていきます。
+型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが npm に公開されるたびに増えていきます。
 
 ときどき、型定義パッケージとライブラリ本体のバージョンが揃わなくなることがあります。
 考えられる原因を、ライブラリ使用者にとって不便に思う順に下記に列挙します<small>（訳注: 一番困るものが一番下）</small>。
@@ -544,9 +544,9 @@ Definitely Typed の各パッケージは NPM に公開される際にバージ�
 
 #### グローバルにも使えてモジュールとしても使えるパッケージについては、どのように型定義すればよいですか？
 
-TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に [big.js の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
+TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に [`big.js` の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
 
-型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 big.js の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
+型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 `big.js` の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
 
 両方のテストファイルで、型定義に対する完全なテストを行う必要はありません &mdash; *global* テストファイルではグローバルな要素にアクセスできるかのみをテストし、 *module* テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
 

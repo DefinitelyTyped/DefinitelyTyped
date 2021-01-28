@@ -1,1 +1,3 @@
-export { TemperatureMin16 as default } from "../../";
+import { TemperatureMin16 } from "../../";
+
+export = TemperatureMin16;

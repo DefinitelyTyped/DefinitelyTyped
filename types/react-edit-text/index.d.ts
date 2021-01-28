@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 2.0
+// Type definitions for react-edit-text 3.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,9 +37,13 @@ export interface SharedProps {
      */
     className?: string;
     /**
-     * value sets the defaultValue for input element and display text of div element
+     * value sets the input value and display text of div element
      */
     value?: string;
+    /**
+     * defaultValue sets the defaultValue for input element and initial display text of div element
+     */
+    defaultValue?: string;
     /**
      * placeholder is displayed in the div element when value is empty
      */
@@ -49,6 +53,11 @@ export interface SharedProps {
      * returns an object: {name, value} which correspond to the input name and value
      */
     onSave?: ({ name, value }: onSaveProps) => void;
+    /**
+     * onChange is called when the input value changes and
+     * returns a string which corresponds to the new input value
+     */
+    onChange?: (value: string) => void;
     /**
      * Sets the css styling for both input and div elements
      */

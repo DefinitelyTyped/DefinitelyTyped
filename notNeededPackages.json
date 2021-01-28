@@ -196,6 +196,11 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "autoprefixer",
+            "typingsPackageName": "autoprefixer",
+            "asOfVersion": "10.2.0"
+        },
+        {
             "libraryName": "aws-lambda-mock-context",
             "typingsPackageName": "aws-lambda-mock-context",
             "asOfVersion": "3.2.0"
@@ -354,6 +359,11 @@
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "browserslist",
+            "typingsPackageName": "browserslist",
+            "asOfVersion": "4.15.0"
         },
         {
             "libraryName": "bugsnag-js",
@@ -741,6 +751,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "@cucumber/cucumber",
+            "typingsPackageName": "cucumber",
+            "sourceRepoURL": "https://github.com/cucumber/cucumber-js",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "cucumber-html-reporter",
             "typingsPackageName": "cucumber-html-reporter",
             "asOfVersion": "5.0.1"
@@ -1016,6 +1032,11 @@
             "asOfVersion": "1.0.6"
         },
         {
+            "libraryName": "emoji-regex",
+            "typingsPackageName": "emoji-regex",
+            "asOfVersion": "9.2.0"
+        },
+        {
             "libraryName": "empty-trash",
             "typingsPackageName": "empty-trash",
             "asOfVersion": "3.0.0"
@@ -1209,6 +1230,11 @@
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "feedsub",
+            "typingsPackageName": "feedsub",
+            "asOfVersion": "0.7.5"
         },
         {
             "libraryName": "figures",
@@ -2066,6 +2092,11 @@
             "asOfVersion": "1.0.13"
         },
         {
+            "libraryName": "joi",
+            "typingsPackageName": "joi",
+            "asOfVersion": "17.2.0"
+        },
+        {
             "libraryName": "jointjs",
             "typingsPackageName": "jointjs",
             "asOfVersion": "2.0.0"
@@ -2114,6 +2145,11 @@
             "libraryName": "json-rules-engine",
             "typingsPackageName": "json-rules-engine",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "json-schema-traverse",
+            "typingsPackageName": "json-schema-traverse",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "jsonata",
@@ -2421,6 +2457,11 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdown-it-anchor",
+            "typingsPackageName": "markdown-it-anchor",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "markdownlint",
             "typingsPackageName": "markdownlint",
             "asOfVersion": "0.18.0"
@@ -2706,9 +2747,29 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
+        },
+        {
+            "libraryName": "multibase",
+            "typingsPackageName": "multibase",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "multicodec",
+            "typingsPackageName": "multicodec",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "multimatch",
             "typingsPackageName": "multimatch",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "murmurhash",
+            "typingsPackageName": "murmurhash",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "naja",
@@ -3269,6 +3330,12 @@
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "asOfVersion": "5.4.3"
+        },
+        {
+            "libraryName": "pg-types",
+            "typingsPackageName": "pg-types",
+            "sourceRepoURL": "https://github.com/brianc/node-pg-types",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "phin",
@@ -4276,6 +4343,11 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "sql-query-identifier",
+            "typingsPackageName": "sql-query-identifier",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "sqs-consumer",
             "typingsPackageName": "sqs-consumer",
             "asOfVersion": "5.0.0"
@@ -4581,6 +4653,11 @@
             "asOfVersion": "10.2.0"
         },
         {
+            "libraryName": "@testing-library/react-hooks",
+            "typingsPackageName": "testing-library__react-hooks",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "@testing-library/user-event",
             "typingsPackageName": "testing-library__user-event",
             "asOfVersion": "4.2.0"
@@ -4739,6 +4816,11 @@
             "libraryName": "universal-router",
             "typingsPackageName": "universal-router",
             "asOfVersion": "8.0.0"
+        },
+        {
+            "libraryName": "unsplash-js",
+            "typingsPackageName": "unsplash-js",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "untildify",

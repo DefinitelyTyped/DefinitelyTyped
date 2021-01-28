@@ -192,7 +192,7 @@ const withNestedKey = pino({
 
 const withHooks = pino({
     hooks: {
-        logMethod(args, method) {
+        logMethod(args, method, level) {
             return method.apply(this, args);
         },
     },

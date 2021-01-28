@@ -1,1 +1,3 @@
-export { Devices24 as default } from "../../";
+import { Devices24 } from "../../";
+
+export = Devices24;

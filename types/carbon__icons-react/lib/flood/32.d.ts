@@ -1,1 +1,3 @@
-export { Flood32 as default } from "../../";
+import { Flood32 } from "../../";
+
+export = Flood32;

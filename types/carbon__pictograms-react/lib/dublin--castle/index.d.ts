@@ -1,1 +1,3 @@
-export { DublinCastle as default } from "../../";
+import { DublinCastle } from "../../";
+
+export = DublinCastle;

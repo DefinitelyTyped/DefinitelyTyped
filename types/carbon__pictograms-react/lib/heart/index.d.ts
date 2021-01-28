@@ -1,1 +1,3 @@
-export { Heart as default } from "../../";
+import { Heart } from "../../";
+
+export = Heart;

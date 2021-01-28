@@ -1,1 +1,3 @@
-export { FilterReset32 as default } from "../../";
+import { FilterReset32 } from "../../";
+
+export = FilterReset32;

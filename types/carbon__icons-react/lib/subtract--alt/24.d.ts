@@ -1,1 +1,3 @@
-export { SubtractAlt24 as default } from "../../";
+import { SubtractAlt24 } from "../../";
+
+export = SubtractAlt24;

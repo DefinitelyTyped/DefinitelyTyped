@@ -67,6 +67,14 @@ taker.task("checkVersion", (cb: Parameters<Undertaker.TaskFunction>[0]) => {
     }
 });
 
+taker.task("mixed", (cb: Undertaker.TaskCallback, args?: number) => {
+    if (!args) {
+        cb(new Error("Undefined args!"));
+        return;
+    }
+    return Promise.resolve(args + 2);
+});
+
 const registry = new Registry();
 const CommonRegistry = (options: { buildDir: string }): Registry => {
     return registry;

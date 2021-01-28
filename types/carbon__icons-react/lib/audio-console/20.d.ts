@@ -1,1 +1,3 @@
-export { AudioConsole20 as default } from "../../";
+import { AudioConsole20 } from "../../";
+
+export = AudioConsole20;

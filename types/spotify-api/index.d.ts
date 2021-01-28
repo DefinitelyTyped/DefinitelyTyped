@@ -465,6 +465,14 @@ declare namespace SpotifyApi {
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
 
     /**
+     * Get user's saved shows
+     * 
+     * GET /v1/me/shows
+     * https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-shows/
+     */
+    type UsersSavedShowsResponse = PagingObject<SavedShowObject>;
+
+    /**
      * Get a User’s Top Artists and Tracks (Note: This is only Artists)
      * 
      * GET /v1/me/top/{type}
@@ -555,12 +563,76 @@ declare namespace SpotifyApi {
     }
 
     /**
-     * Search for artists/albums/tracks/playlists
+     * Search for a show
      * 
-     * GET /v1/search?type=album
+     * GET /v1/search?type=show
      * https://developer.spotify.com/web-api/search-item/
      */
-    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {}
+    interface ShowSearchResponse {
+        shows: PagingObject<ShowObjectSimplified>;
+    }
+
+    /**
+     * Search for a episode
+     * 
+     * GET /v1/search?type=episode
+     * https://developer.spotify.com/web-api/search-item/
+     */
+    interface EpisodeSearchResponse {
+        episodes: PagingObject<EpisodeObjectSimplified>;
+    }
+
+    /**
+     * Search for artists/albums/tracks/playlists/show/episode
+     * 
+     * GET /v1/search
+     * https://developer.spotify.com/web-api/search-item/
+     */
+    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse>, Partial<ShowSearchResponse>, Partial<EpisodeSearchResponse> {}
+
+    /**
+     * Get an Show
+     * 
+     * GET /v1/shows/{id}
+     * https://developer.spotify.com/web-api/get-show/
+     */
+    type SingleShowResponse = ShowObjectFull;
+
+    /**
+     * Get Several Shows
+     * 
+     * GET /v1/shows?ids={ids}
+     * https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
+     */
+    interface MultipleShowsResponse {
+        shows: ShowObjectSimplified[];
+    }
+
+    /**
+     * Get an Shows’s Episodes
+     * 
+     * GET /v1/shows/{id}/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/shows/get-shows-episodes/
+     */
+    type ShowEpisodesResponse = PagingObject<EpisodeObjectSimplified>;
+
+    /**
+     * Get an Episode
+     * 
+     * GET /v1/episodes/{id}
+     * https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
+     */
+    type SingleEpisodeResponse = EpisodeObjectFull;
+
+    /**
+     * Get Several Episodes
+     * 
+     * GET /v1/episodes?ids={ids}
+     * https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
+     */
+    interface MultipleEpisodesResponse {
+        episodes: EpisodeObjectFull[];
+    }
 
     /**
      * Get a track
@@ -1108,6 +1180,21 @@ declare namespace SpotifyApi {
     }
 
     /**
+     * Saved Show Object
+     * [saved show object](https://developer.spotify.com/documentation/web-api/reference/object-model/#saved-show-object)
+     */
+    interface SavedShowObject {
+        /**
+         * The date and time the show was saved.
+         */
+        added_at: string;
+        /**
+         * Information about the show.
+         */
+        show: ShowObjectSimplified;
+    }
+
+    /**
      * Full Track Object
      * [track object (full)](https://developer.spotify.com/web-api/object-model/#track-object-full)
      */
@@ -1224,6 +1311,173 @@ declare namespace SpotifyApi {
     }
 
     /**
+     * Full Episiode Object
+     * [episode object (full)](https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-full)
+     */
+    interface EpisodeObjectFull extends EpisodeObjectSimplified {
+        /**
+         * The show on which the episode belongs.
+         */
+        show: ShowObjectSimplified;
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
+         */
+        uri: string;
+    }
+
+    /**
+     * Simplified Episode Object
+     * [episode object (simplified)](https://developer.spotify.com/documentation/web-api/reference/object-model/#episode-object-simplified)
+     */
+    interface EpisodeObjectSimplified extends ContextObject {
+        /**
+         * A URL to a 30 second preview (MP3 format) of the episode. null if not available.
+         */
+        audio_preview_url: string | null;
+        /**
+         * A description of the episode.
+         */
+        description: string;
+        /**
+         * The episode length in milliseconds.
+         */
+        duration_ms: number;
+        /**
+         * Whether or not the episode has explicit content (true = yes it does; false = no it does not OR unknown).
+         */
+        explicit: boolean;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
+         */
+        id: string;
+        /**
+         * The cover art for the episode in various sizes, widest first.
+         */
+        images: ImageObject[];
+        /**
+         * True if the episode is hosted outside of Spotify’s CDN.
+         */
+        is_externally_hosted: boolean;
+        /**
+         * True if the episode is playable in the given market. Otherwise false.
+         */
+        is_playable: boolean;
+        /**
+         * The language used in the episode, identified by a [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+         * @deprecated Note: This field is deprecated and might be removed in the future. Please use the languages field instead.
+         */
+        language: string;
+        /**
+         * A list of the languages used in the episode, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+         * Optional because sometimes only the deprecated language field is set and this one isn't set at all.
+         */
+        languages?: string[];
+        /**
+         * The name of the episode.
+         */
+        name: string;
+        /**
+         * The date the episode was first released, for example "1981-12-15". Depending on the precision, it might be shown as "1981" or "1981-12".
+         */
+        release_date: string;
+        /**
+         * The precision with which release_date value is known: "year", "month", or "day".
+         */
+        release_date_precision: string;
+        /**
+         * The user’s most recent position in the episode. Set if the supplied access token is a user token and has the scope user-read-playback-position.
+         */
+        resume_point?: ResumePointObject;
+        type: "episode";
+    }
+
+    /**
+     * Resume Point Object
+     * [resume point object](https://developer.spotify.com/documentation/web-api/reference/object-model/#resume-point-object)
+     */
+    interface ResumePointObject {
+        /**
+         * Whether or not the episode has been fully played by the user.
+         */
+        fully_played: boolean;
+        /**
+         * The user’s most recent position in the episode in milliseconds.
+         */
+        resume_position_ms: number;
+    }
+
+    /**
+     * Full Show Object
+     * [show object (full)](https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full)
+     */
+    interface ShowObjectFull extends ShowObjectSimplified {
+        episodes: PagingObject<EpisodeObjectSimplified>;
+        external_urls: ExternalUrlObject;
+    }
+
+    /**
+     * Simplified Show Object
+     * [show object (simplified)](https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-simplified)
+     */
+    interface ShowObjectSimplified extends ContextObject {
+        /**
+         * A list of the countries in which the show can be played, identified by their [ISO 3166-1 alpha-2 code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         */
+        available_markets: string[];
+        /**
+         * The copyright statements of the show.
+         */
+        copyrights: CopyrightObject[];
+        /**
+         * A description of the show.
+         */
+        description: string;
+        /**
+         * Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).
+         */
+        explicit: boolean;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.
+         */
+        id: string;
+        /**
+         * The cover art for the show in various sizes, widest first.
+         */
+        images: ImageObject[];
+        /**
+         * True if all of the show’s episodes are hosted outside of Spotify’s CDN. This field might be null in some cases.
+         */
+        is_externally_hosted: boolean | null;
+        /**
+         * A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+         */
+        languages: string[];
+        /**
+         * The media type of the show.
+         */
+        media_type: string;
+        /**
+         * The name of the show.
+         */
+        name: string;
+        /**
+         * The publisher of the show.
+         */
+        publisher: string;
+        /**
+         * The object type: “show”.
+         */
+        type: "show";
+        // This is found in https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/ but not in 
+        // https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full.
+        // Also it is not always sent, so it is marked optional here.
+        /**
+         * Total number of episodes in the show.
+         */
+        total_episodes?: number;
+    }
+
+    /**
      * User Object (Private)
      * [](https://developer.spotify.com/web-api/object-model/#track-object-simplified)
      */
@@ -1257,7 +1511,7 @@ declare namespace SpotifyApi {
         /**
          * The object type.
          */
-        type: "artist" | "playlist" | "album";
+        type: "artist" | "playlist" | "album" | "show" | "episode";
         /**
          * A link to the Web API endpoint providing full details.
          */

@@ -1,1 +1,3 @@
-export { ExpandUser as default } from "../../";
+import { ExpandUser } from "../../";
+
+export = ExpandUser;

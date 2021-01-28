@@ -788,6 +788,11 @@ declare namespace SocketIO {
         headers: any;
 
         /**
+         * The authentication payload
+         */
+        auth: { token: string };
+
+        /**
          * The current time, as a string
          */
         time: string;
@@ -820,7 +825,7 @@ declare namespace SocketIO {
         /**
          * Any query string parameters in the request url
          */
-        query: any;
+        query: Record<string, string>;
     }
 
     /**

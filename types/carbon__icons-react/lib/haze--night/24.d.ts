@@ -1,1 +1,3 @@
-export { HazeNight24 as default } from "../../";
+import { HazeNight24 } from "../../";
+
+export = HazeNight24;

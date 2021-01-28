@@ -1,1 +1,3 @@
-export { Eyedropper24 as default } from "../../";
+import { Eyedropper24 } from "../../";
+
+export = Eyedropper24;

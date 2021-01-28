@@ -1,1 +1,3 @@
-export { Accessibility32 as default } from "../../";
+import { Accessibility32 } from "../../";
+
+export = Accessibility32;

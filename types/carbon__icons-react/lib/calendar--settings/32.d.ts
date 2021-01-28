@@ -1,1 +1,3 @@
-export { CalendarSettings32 as default } from "../../";
+import { CalendarSettings32 } from "../../";
+
+export = CalendarSettings32;

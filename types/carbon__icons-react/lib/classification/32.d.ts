@@ -1,1 +1,3 @@
-export { Classification32 as default } from "../../";
+import { Classification32 } from "../../";
+
+export = Classification32;

@@ -1,1 +1,3 @@
-export { ConceptExpansion as default } from "../../";
+import { ConceptExpansion } from "../../";
+
+export = ConceptExpansion;

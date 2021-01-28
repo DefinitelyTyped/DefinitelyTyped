@@ -1,1 +1,3 @@
-export { Thumbnail_116 as default } from "../../";
+import { Thumbnail_116 } from "../../";
+
+export = Thumbnail_116;

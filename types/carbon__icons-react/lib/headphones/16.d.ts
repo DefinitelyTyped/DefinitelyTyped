@@ -1,1 +1,3 @@
-export { Headphones16 as default } from "../../";
+import { Headphones16 } from "../../";
+
+export = Headphones16;

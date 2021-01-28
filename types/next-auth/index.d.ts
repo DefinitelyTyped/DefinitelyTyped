@@ -75,6 +75,7 @@ interface CookieOptions {
     path?: string;
     secure?: boolean;
     maxAge?: number;
+    domain?: string;
 }
 
 interface Events {
@@ -103,6 +104,8 @@ interface JWTOptions {
     secret?: string;
     maxAge?: number;
     encryption?: boolean;
+    signingKey?: string;
+    encryptionKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;
 }
