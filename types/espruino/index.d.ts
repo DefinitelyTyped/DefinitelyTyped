@@ -915,6 +915,14 @@ declare namespace E {
     function setClock(options: any): number;
 
     /**
+     * <p>Forces a hard reboot of the microcontroller - as close as possible to if the reset pin had been toggled.</p>
+     * <p><strong>Note:</strong> This is different to <code>reset()</code>, which performs a software reset of Espruino (resetting the interpreter and pin states, but not all the hardware)</p>
+     * 
+     * @url https://www.espruino.com/Reference#t_l_E_reboot
+     */
+    function reboot(): void;
+
+    /**
      * <p>Reverse the 8 bits in a byte, swapping MSB and LSB.</p>
      * <p>For example, <code>E.reverseByte(0b10010000) == 0b00001001</code>.</p>
      * <p>Note that you can reverse all the bytes in an array with: <code>arr = arr.map(E.reverseByte)</code></p>
