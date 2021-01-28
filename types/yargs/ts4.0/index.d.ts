@@ -1,5 +1,3 @@
-// Type definitions for yargs 15.0
-
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 
