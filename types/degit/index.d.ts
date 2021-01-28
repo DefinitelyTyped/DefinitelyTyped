@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 
-export default function degit(src: string, opts: Options): Degit;
+export default function degit(src: string, opts?: Options): Degit;
 
 export class Degit extends EventEmitter {
     constructor(src: string, opts?: Options);
