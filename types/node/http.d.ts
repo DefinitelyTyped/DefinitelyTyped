@@ -334,7 +334,7 @@ declare module "http" {
          * Only valid for request obtained from http.Server.
          */
         url?: string;
-        query?: {[key: string]: any}
+        query?: {[key: string]: unknown}
         /**
          * Only valid for response obtained from http.ClientRequest.
          */
