@@ -693,23 +693,34 @@ declare namespace jest {
         getState(): MatcherState & Record<string, any>;
     }
 
-    type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, T>>;
+    type PromiseOf<T> = T extends Promise<infer S> ? S : T;
+    type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, PromiseOf<T>>, Matchers<Promise<void>, any>>;
 
-    type JestMatchersShape<TNonPromise extends {} = {}, TPromise extends {} = {}> = {
+    type JestMatchersShape<TNonPromise extends {} = {}, TResolve extends {} = {}, TReject extends {} = {}> = {
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
          */
-        resolves: AndNot<TPromise>,
+        resolves: AndNot<TResolve>,
         /**
          * Unwraps the reason of a rejected promise so any other matcher can be chained.
          * If the promise is fulfilled the assertion fails.
          */
-        rejects: AndNot<TPromise>
+        rejects: AndNot<TReject>
     } & AndNot<TNonPromise>;
     type AndNot<T> = T & {
         not: T
     };
+
+    type JasmineMatcher =
+        | ReturnType<typeof jasmine.any>
+        | ReturnType<typeof jasmine.arrayContaining>
+        | ReturnType<typeof jasmine.objectContaining>;
+
+    type SafeParameters<T> = T extends (...args: any) => any ? Parameters<T> : any[];
+    type SafeReturn<T> = T extends (...args: any) => any ? ReturnType<T> : any[];
+    type ArrayElementOf<T> =  T extends Array<infer E> ? E : any;
+    type ElementOf<T> = T extends string ? string : ArrayElementOf<T>;
 
     // should be R extends void|Promise<void> but getting dtslint error
     interface Matchers<R, T = {}> {
@@ -720,7 +731,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastCalledWith<E extends any[]>(...args: E): R;
+        lastCalledWith<E extends SafeParameters<T>>(...args: E): R;
         /**
          * Ensure that the last call to a mock function has returned a specified value.
          *
@@ -728,7 +739,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastReturnedWith<E = any>(value: E): R;
+        lastReturnedWith<E extends SafeReturn<T>>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -736,7 +747,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
+        nthCalledWith<E extends SafeParameters<T>>(nthCall: number, ...args: E): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
          *
@@ -744,7 +755,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, value: E): R;
+        nthReturnedWith<E extends SafeReturn<T>>(n: number, value: E): R;
         /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -753,7 +764,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toBe<E = any>(expected: E): R;
+        toBe<E extends T | JasmineMatcher>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -769,7 +780,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toBeCalledWith<E extends any[]>(...args: E): R;
+        toBeCalledWith<E extends SafeParameters<T>>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -838,7 +849,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toContain<E = any>(expected: E): R;
+        toContain<E extends ElementOf<T>>(expected: E): R;
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this matcher recursively checks the
@@ -848,7 +859,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toContainEqual<E = any>(expected: E): R;
+        toContainEqual<E extends ArrayElementOf<T>>(expected: E): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
@@ -857,7 +868,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toEqual<E = any>(expected: E): R;
+        toEqual<E extends T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -873,7 +884,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenCalledWith<E extends any[]>(...params: E): R;
+        toHaveBeenCalledWith<E extends SafeParameters<T>>(...args: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -881,7 +892,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenNthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
+        toHaveBeenNthCalledWith<E extends SafeParameters<T>>(nthCall: number, ...args: E): R;
         /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
@@ -890,7 +901,7 @@ declare namespace jest {
          * Note that the type must be either an array or a tuple.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveBeenLastCalledWith<E extends any[]>(...params: E): R;
+        toHaveBeenLastCalledWith<E extends SafeParameters<T>>(...args: E): R;
         /**
          * Use to test the specific value that a mock function last returned.
          * If the last call to the mock function threw an error, then this matcher will fail
@@ -900,7 +911,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveLastReturnedWith<E = any>(expected: E): R;
+        toHaveLastReturnedWith<E extends SafeReturn<T>>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -915,7 +926,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
+        toHaveNthReturnedWith<E extends SafeReturn<T>>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -947,7 +958,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveReturnedWith<E = any>(expected: E): R;
+        toHaveReturnedWith<E extends SafeReturn<T>>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -973,7 +984,7 @@ declare namespace jest {
          * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toMatchObject<E extends {} | any[]>(expected: E): R;
+        toMatchObject<E extends T | any[]>(expected: E): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -1013,7 +1024,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toReturnWith<E = any>(value: E): R;
+        toReturnWith<E extends SafeReturn<T>>(expected: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
          *
@@ -1021,7 +1032,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toStrictEqual<E = any>(expected: E): R;
+        toStrictEqual(expected: T): R;
         /**
          * Used to test that a function throws when it is called.
          */
@@ -1064,7 +1075,11 @@ declare namespace jest {
     // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
     // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
     type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<TMatcherReturn, TActual> & {[K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn>};
-    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
+    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<
+        ExtendedMatchers<TMatchers, void, TActual>,
+        ExtendedMatchers<TMatchers, Promise<void>, PromiseOf<TActual>>,
+        ExtendedMatchers<TMatchers, Promise<void>, any>
+    >;
 
     // when have called expect.extend
     type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(actual: TActual) => JestExtendedMatchers<TMatchers, TActual>;
