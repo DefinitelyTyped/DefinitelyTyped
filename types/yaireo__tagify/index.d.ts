@@ -105,7 +105,7 @@ export interface TagifySettings {
      * Functions that return template strings.
      */
     templates?: {
-        wrapper?: (input: HTMLInputElement, settings: TagifySettings) => string;
+        wrapper?: (input: HTMLInputElement | HTMLTextAreaElement, settings: TagifySettings) => string;
         tag?: (tagData: TagData) => string;
         dropdown?: (settings: TagifySettings) => string;
         dropdownItem?: (item: TagData) => string;
@@ -214,7 +214,7 @@ export interface TagifySettings {
          * If whitelist is an Array of Objects,
          * this setting controlls which data key will be printed in the dropdown.
          */
-        mapValueTo?: string | ((data: any) => string);
+        mapValueTo?: string | ((data: TagData) => string);
         /**
          * When a user types something and trying to match the whitelist items for suggestions,
          * this setting allows matching other keys of a whitelist objects.
@@ -302,7 +302,8 @@ export default class Tagify {
      * @param clearInput - If true, the input's value gets cleared after adding tags
      * @param skipInvalid - If true, do not add, mark & remove invalid tags (defaults to Tagify settings)
      */
-    addTags(tags: string | string[] | TagData[], clearInput?: boolean, skipInvalid?: boolean): Node|Node[];
+    addTags(tags: string, clearInput?: boolean, skipInvalid?: boolean): HTMLElement;
+    addTags(tags: string[] | TagData[], clearInput?: boolean, skipInvalid?: boolean): HTMLElement[];
 
     /**
      * Bypasses the normalization process in `addTags`, forcefully adding tags at the last caret
@@ -318,7 +319,7 @@ export default class Tagify {
      * the original input value but simply removes the tag from tagify
      * @param tranDuration - Delay for animation, after which the tag will be removed from the DOM
      */
-    removeTags(tagElms?: Node[] | Node | string, silent?: boolean, tranDuration?: number): void;
+    removeTags(tagElms?: HTMLElement[] | HTMLElement | string, silent?: boolean, tranDuration?: number): void;
 
     /**
      * Create an empty tag (optionally with predefined data) and enters "edit" mode directly.
@@ -386,7 +387,7 @@ export default class Tagify {
     /**
      * Toggle specific tag loading state on/off.
      */
-    tagLoading(tagElm: Node, isLoading: boolean): this;
+    tagLoading(tagElm: HTMLElement, isLoading: boolean): this;
 
     /**
      * Return a tag element from the supplied tag data.
@@ -423,7 +424,11 @@ export default class Tagify {
      * @param template - Select a template from the `settings.templates` by name or supply a template function which returns a string
      * @param data - Arguments passed to the template function
      */
-    parseTemplate(template: string | ((...args: any) => string), data: any[]): HTMLElement;
+    parseTemplate(template: 'wrapper', data: [HTMLInputElement | HTMLTextAreaElement, TagifySettings]): HTMLElement;
+    parseTemplate(template: 'tag' | 'dropdownItem', data: [TagData]): HTMLElement;
+    parseTemplate(template: 'dropdown', data: [TagifySettings]): HTMLElement;
+    parseTemplate(template: 'dropdownItemNoMatch', data: []): HTMLElement;
+    parseTemplate(template: ((...args: any) => string), data: any[]): HTMLElement;
 
     /**
      * Toggles "readonly" mode on/off.
@@ -440,7 +445,7 @@ export default class Tagify {
         tagify: Tagify, tag: HTMLElement, index?: number, data: TagData, message: boolean
     }>) => void): this;
     on(event: 'input', cb: (e: CustomEvent<{
-        tagify: Tagify, value: string, inputElm: any
+        tagify: Tagify, value: string, inputElm: HTMLInputElement | HTMLTextAreaElement
     }>) => void): this;
     on(event: 'click', cb: (e: CustomEvent<{
         tagify: Tagify, tag: HTMLElement, index: number, data: TagData, originalEvent: MouseEvent
@@ -456,7 +461,7 @@ export default class Tagify {
         tagify: Tagify, tag: HTMLElement, index: number, data: TagData & { newValue: string }, originalEvent: Event
     }>) => void): this;
     on(event: 'dropdown:show' | 'dropdown:hide' | 'dropdown:updated', cb: (e: CustomEvent<{
-        tagify: Tagify, dropdown: Element
+        tagify: Tagify, dropdown: HTMLElement
     }>) => void): this;
     on(event: 'dropdown:scroll', cb: (e: CustomEvent<{
         tagify: Tagify, percentage: number

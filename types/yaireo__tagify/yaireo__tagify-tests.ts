@@ -8,7 +8,6 @@ export function tagTemplate(this: Tagify, tagData: TagData): string {
     </tag>`;
 }
 
-const inputElement = document.createElement('input');
 const settings: TagifySettings = {
     tagTextProp: 'value',
     placeholder: 'Start typing...',
@@ -35,7 +34,11 @@ const settings: TagifySettings = {
     maxTags: 10,
     editTags: { clicks: 1, keepInvalid: false },
     templates: {
-        tag: tagTemplate
+        wrapper: (input, settings) => '<div></div>',
+        tag: tagTemplate,
+        dropdown: (settings) => '<select></select>',
+        dropdownItem: (item) => `<li>${item.value}</li>`,
+        dropdownItemNoMatch: () => '<span>No match</span>'
     },
     validate: (tagData) => /^starts-with/.test(tagData.value),
     transformTag: (tagData) => { tagData.active = true; },
@@ -63,7 +66,29 @@ const settings: TagifySettings = {
     }
 };
 
+settings.delimiters = /,|"/;
+settings.pattern = '[A-Z]';
+settings.mode = 'select';
+settings.mode = 'mix';
+settings.whitelist = [{ value: 'another good word' }];
+settings.editTags = 2;
+settings.editTags = 1;
+settings.editTags = false;
+settings.editTags = null;
+settings.backspace = false;
+settings.mixMode = {
+    insertAfterTag: document.createElement('span')
+};
+settings.dropdown = {
+    enabled: false,
+    position: 'input',
+    mapValueTo: (data) => 'To:' + data.email
+};
+
+const inputElement = document.createElement('input');
+const textAreaElement = document.createElement('textarea');
 const tagify = new Tagify(inputElement, settings);
+const tagifyArea = new Tagify(textAreaElement);
 
 const tagArray: TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
@@ -72,34 +97,64 @@ const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
 
 tagify.on('invalid', (event) => {
-    console.log(event.detail.data);
+    const data: TagData = event.detail.data;
 });
-tagify.on('remove', (event) => {
-    // do nothing
+tagify.on('add', (event) => {});
+tagify.on('remove', (event) => {});
+tagify.on('dblclick', (event) => {});
+tagify.on('edit:beforeUpdate', (event) => {});
+tagify.on('edit:updated', (event) => {});
+tagify.on('input', (event) => {});
+tagify.on('click', (event) => {
+    const ev: MouseEvent = event.detail.originalEvent;
 });
-
-tagify.addTags(['banana', 'orange', 'apple']);
+tagify.on('keydown', (event) => {
+    const ev: KeyboardEvent = event.detail.originalEvent;
+});
+tagify.on('edit:keydown', (event) => {});
+tagify.on('focus', (event) => {});
+tagify.on('blur', (event) => {});
+tagify.on('edit:start', (event) => {});
+tagify.on('edit:input', (event) => {
+    const newValue: string = event.detail.data.newValue;
+});
+tagify.on('dropdown:show', (event) => {});
+tagify.on('dropdown:hide', (event) => {});
+tagify.on('dropdown:updated', (event) => {});
+tagify.on('dropdown:scroll', (event) => {});
+tagify.on('dropdown:select', (event) => {});
 
 const tags: TagData[] = [
     { value: 'banana', color: 'yellow' },
     { value: 'apple', color: 'red' },
     { value: 'watermelon', color: 'green' }
 ];
+tagify.addTags('foo');
 tagify.addTags(tags);
+const addedElements = tagify.addTags(['banana', 'orange', 'apple'], true, true);
 
 tagify.addMixTags('[[foo]] and [[bar]]');
+tagify.addMixTags(['[[foo]] and', '[[bar]]...']);
+tagify.addMixTags(tags);
+
+tagify.removeTags();
+tagify.removeTags(addedElements, true, 100);
 
 tagify.addEmptyTag();
+tagify.addEmptyTag({ label: 'Apple' });
+tagify.loadOriginalValues('banana');
 tagify.loadOriginalValues(['banana', 'orange']);
 tagify.getWhitelistItem({ value: 'foo' });
 tagify.getTagIndexByValue('foo');
-tagify.getTagElmByValue('foo');
 tagify.isTagDuplicate('foo', true);
 tagify.parseMixTags('[[foo]] and [[bar]] are...');
 tagify.getTagElms();
+tagify.getTagElms('blue', 'green');
 
 const tagElement = tagify.getTagElmByValue('foo');
 tagify.tagData(tagElement);
+tagify.tagData(tagElement, { value: 'bar' });
+tagify.editTag();
 tagify.editTag(tagElement);
 tagify.replaceTag(tagElement, { value: 'bar' });
 tagify.tagLoading(tagElement, true);
@@ -109,16 +164,24 @@ const newTag = tagify.createTagElem({ value: 'hello' });
 tagify.injectAtCaret(newTag);
 tagify.placeCaretAfterNode(newTag);
 tagify.insertAfterTag(newTag, 'world');
+tagify.insertAfterTag(newTag, document.createElement('span'));
 
 tagify.toggleClass('active', true);
 
 tagify.updateValueByDOMTags();
-tagify.parseTemplate('tag', tags);
+tagify.parseTemplate('wrapper', [inputElement, settings]);
+tagify.parseTemplate('tag', [tags[0]]);
+tagify.parseTemplate('dropdownItem', [tags[0]]);
+tagify.parseTemplate('dropdown', [settings]);
+tagify.parseTemplate('dropdownItemNoMatch', []);
+tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 tagify.setReadonly(false);
 
+tagify.dropdown.show();
 tagify.dropdown.show('foo');
 tagify.dropdown.selectAll();
 tagify.dropdown.hide();
+tagify.dropdown.hide(true);
 
 tagify.removeAllTags();
 tagify.destroy();
