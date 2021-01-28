@@ -1674,7 +1674,7 @@ declare namespace Office {
      */
     interface SaveSettingsOptions {
         /**
-         * **Warning**: This setting is deprecated and should not be used. It has no effect on most platforms and will cause errors if set to false in Excel on the Web.
+         * **Warning**: This setting is deprecated and should not be used. It has no effect on most platforms and will cause errors if set to `false` in Excel on the web.
          * 
          * @deprecated
          */
