@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Select, { components } from 'react-select';
-import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
+import Select, { components, MenuListComponentProps } from 'react-select';
+import { ColourOption, colourOptions, FlavourOption, GroupedOption, groupedOptions } from '../data';
 
 const menuHeaderStyle = {
     padding: '8px 12px',
@@ -9,7 +9,7 @@ const menuHeaderStyle = {
     color: 'white',
 };
 
-const MenuList = (props: any) => {
+const MenuList = (props: MenuListComponentProps<ColourOption | FlavourOption, false, GroupedOption>) => {
     return (
         <components.MenuList {...props}>
             <div style={menuHeaderStyle}>Custom Menu List</div>
@@ -19,7 +19,7 @@ const MenuList = (props: any) => {
 };
 
 export default () => (
-    <Select<ColourOption | FlavourOption>
+    <Select<ColourOption | FlavourOption, false, GroupedOption>
         defaultValue={colourOptions[1]}
         options={groupedOptions}
         components={{ MenuList }}
