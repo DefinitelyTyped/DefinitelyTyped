@@ -14,7 +14,7 @@ export interface Schema {
      */
     type: "Schema";
     /**
-     * JSON-LD {@link <a href="https://www.w3.org/TR/json-ld11/#the-context">@context</a>} for ShEx.
+     * JSON-LD <a href="https://www.w3.org/TR/json-ld11/#the-context">@context</a> for ShEx.
      */
     "@context"?: "http://www.w3.org/ns/shex.jsonld";
     /**
@@ -26,7 +26,7 @@ export interface Schema {
      */
     start?: shapeExpr;
     /**
-     * List of ShEx schemas to {@link <a href="http://shex.io/shex-semantics/#import">import</a> when processing this schema.
+     * List of ShEx schemas to <a href="http://shex.io/shex-semantics/#import">import</a> when processing this schema.
      */
     imports?: IRIREF[]; // +
     /**
@@ -52,8 +52,8 @@ export interface ShapeOr {
     type: "ShapeOr";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -73,8 +73,8 @@ export interface ShapeAnd {
     type: "ShapeAnd";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -94,8 +94,8 @@ export interface ShapeNot {
     type: "ShapeNot";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -115,30 +115,30 @@ export interface ShapeExternal {
     type: "ShapeExternal";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
 }
 
 /**
  * A reference a shape expression.
- * The reference is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
- * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+ * The reference is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+ * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
 export type shapeExprRef = shapeExprLabel;
 
 /**
  * An identifier for a shape expression.
- * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
- * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+ * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+ * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
 export type shapeExprLabel = IRIREF | BNODE;
 
 /**
  * A collection of constraints on <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Term</a>s expected for conformance.
- * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
- * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+ * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+ * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
 export interface NodeConstraint extends xsFacet {
     /**
@@ -147,8 +147,8 @@ export interface NodeConstraint extends xsFacet {
     type: "NodeConstraint";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -270,7 +270,7 @@ export interface ObjectLiteral {
 }
 
 /**
- * Matchs an {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>} starting with the character sequence in {@link stem}.
+ * Matchs an <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a> starting with the character sequence in {@link stem}.
  */
 export interface IriStem {
     /**
@@ -284,7 +284,7 @@ export interface IriStem {
 }
 
 /**
- * Filters a matching {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>}s through a list of exclusions.
+ * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>s through a list of exclusions.
  * The initial match is made on an IRI stem per {@link IriStem} or a {@link Wildcard} to accept any IRI.
  * The {@link exclusion}s are either specific IRIs or {@link IRIStem}s.
  */
@@ -304,7 +304,7 @@ export interface IriStemRange {
 }
 
 /**
- * Matchs an {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a>} starting with the character sequence in {@link stem}.
+ * Matchs an <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a> starting with the character sequence in {@link stem}.
  */
 export interface LiteralStem {
     /**
@@ -318,7 +318,7 @@ export interface LiteralStem {
 }
 
 /**
- * Filters a matching {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a>}s through a list of exclusions.
+ * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a>s through a list of exclusions.
  * The initial match is made on an Literal stem per {@link LiteralStem} or a {@link Wildcard} to accept any Literal.
  * The {@link exclusion}s are either specific Literals or {@link LiteralStem}s.
  */
@@ -338,7 +338,7 @@ export interface LiteralStemRange {
 }
 
 /**
- * An {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-language-tag">RDF Language Tag</a>}.
+ * An <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-language-tag">RDF Language Tag</a>.
  */
 export interface Language {
     /**
@@ -352,7 +352,7 @@ export interface Language {
 }
 
 /**
- * Matchs an {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-language-tag">RDF Language Tag</a>} starting with the character sequence in {@link stem}.
+ * Matchs an <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-language-tag">RDF Language Tag</a> starting with the character sequence in {@link stem}.
  */
 export interface LanguageStem {
     /**
@@ -366,7 +366,7 @@ export interface LanguageStem {
 }
 
 /**
- * Filters a matching {@link <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-langugae-tag">RDF Language Tag</a>}s through a list of exclusions.
+ * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-langugae-tag">RDF Language Tag</a>s through a list of exclusions.
  * The initial match is made on an Language Tag stem per {@link Language TagStem} or a {@link Wildcard} to accept any Language Tag.
  * The {@link exclusion}s are either specific Language Tags or {@link Language TagStem}s.
  */
@@ -406,8 +406,8 @@ export interface Shape {
     type: "Shape";
     /**
      * Only top-level expressions (i.e. embedded directly in {@link Schema#shapes) have an identifier.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -444,8 +444,8 @@ export type tripleExpr = EachOf | OneOf | TripleConstraint | tripleExprRef;
 export interface tripleExprBase {
     /**
      * Optional identifier for {@link tripleExpr}s for reference by {@link tripleExprRef}.
-     * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
-     * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+     * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+     * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
      */
     id?: shapeExprLabel;
     /**
@@ -515,15 +515,15 @@ export interface TripleConstraint extends tripleExprBase {
 
 /**
  * A reference a triple expression.
- * The reference is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
- * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+ * The reference is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+ * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
 export type tripleExprRef = tripleExprLabel;
 
 /**
  * An identifier for a triple expression.
- * The identifier is an {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a>} or a {@link <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>}
- * as expressed in {@link <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>}.
+ * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
+ * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
 export type tripleExprLabel = IRIREF | BNODE;
 
@@ -556,7 +556,7 @@ export interface Annotation {
      */
     type: "Annotation";
     /**
-     * The {@link <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">RDF Predicate</a>} of the annotation.
+     * The <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">RDF Predicate</a> of the annotation.
      */
     predicate: IRI;
     /**
