@@ -71,6 +71,7 @@
         "test/examples/CustomSingleValue.tsx",
         "test/examples/CustomValueContainer.tsx",
         "test/examples/Experimental.tsx",
+        "test/examples/FixedOptions.tsx",
         "test/examples/MenuPortal.tsx",
         "test/examples/OnMenuOpen.tsx",
         "test/examples/OnSelectResetsInput.tsx",

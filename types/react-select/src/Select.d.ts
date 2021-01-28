@@ -12,7 +12,6 @@ import { StylesConfig } from './styles';
 import { ThemeConfig } from './theme';
 import {
     ActionMeta,
-    ActionTypes,
     FocusDirection,
     FocusEventHandler,
     GroupTypeBase,
@@ -24,6 +23,7 @@ import {
     ValueType,
     GroupedOptionsType,
     OptionTypeBase,
+    SetValueAction,
 } from './types';
 
 export type MouseOrTouchEvent = React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>;
@@ -286,7 +286,7 @@ export default class Select<
     focusValue(direction: 'previous' | 'next'): void;
 
     focusOption(direction: FocusDirection): void;
-    setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
     selectOption: (newValue: OptionType) => void;
     removeValue: (removedValue: OptionType) => void;
     clearValue: () => void;
@@ -306,7 +306,7 @@ export default class Select<
         isRtl: boolean;
         options: OptionsType<any>;
         selectOption: (newValue: OptionType) => void;
-        setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+        setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
         selectProps: Readonly<{
             children?: React.ReactNode;
         }> &
