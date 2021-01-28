@@ -13,10 +13,10 @@ export interface WorkgridToolbarOptions {
     authorizerUrl: string;
     // Optional
     confirmUser?: boolean | false;
-    debug?: boolean | false,
+    debug?: boolean | false;
     htmlDisplay?: string | 'block';
     responsive?: boolean | true;
-    responsiveBreakpoints?: Array<Array<number>> | [[0, 0], [775, 50], [992, 100]]
+    responsiveBreakpoints?: Array<Array<number>> | [[0, 0], [775, 50], [992, 100]];
     responsiveCssProperty?: string | null;
     responsiveElement?: Object | null;
     responsiveElementId?: string | null;
