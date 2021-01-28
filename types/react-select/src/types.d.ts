@@ -64,11 +64,7 @@ export interface CommonProps<
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
     selectProps: SelectProps<OptionType, IsMulti, GroupType>;
-    setValue: (
-        newValue: ValueType<OptionType, IsMulti>,
-        action: 'select-option' | 'deselect-option',
-        option: OptionType,
-    ) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueActionType, option: OptionType) => void;
 }
 
 export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
@@ -112,6 +108,9 @@ export type ActionMeta<OptionType extends OptionTypeBase> =
     | PopValueActionMeta<OptionType>
     | ClearActionMeta
     | CreateOptionActionMeta;
+
+export type ActionType = ActionMeta<OptionTypeBase>['action'];
+export type SetValueActionType = 'select-option' | 'deselect-option';
 
 export type InputActionTypes = 'set-value' | 'input-change' | 'input-blur' | 'menu-close';
 
