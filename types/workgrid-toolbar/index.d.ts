@@ -16,9 +16,9 @@ export interface WorkgridToolbarOptions {
     debug?: boolean | false;
     htmlDisplay?: string | 'block';
     responsive?: boolean | true;
-    responsiveBreakpoints?: Array<Array<number>> | [[0, 0], [775, 50], [992, 100]];
+    responsiveBreakpoints?: number[number[]] | [[0, 0], [775, 50], [992, 100]];
     responsiveCssProperty?: string | null;
-    responsiveElement?: Object | null;
+    responsiveElement?: object | null;
     responsiveElementId?: string | null;
     version?: string | 'v2';
 }
