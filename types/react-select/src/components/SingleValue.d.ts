@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode } from 'react';
+import { CSSObject } from '@emotion/serialize';
 import { colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
@@ -19,7 +20,7 @@ export type SingleValueProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = CommonProps<OptionType, false, GroupType> & ValueProps<OptionType> & State;
 
-export function css(props: SingleValueProps<any>): React.CSSProperties;
+export function css(props: SingleValueProps<any>): CSSObject;
 
 export const SingleValue: ComponentType<SingleValueProps<any>>;
 

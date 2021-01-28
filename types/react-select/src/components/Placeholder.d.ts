@@ -1,4 +1,5 @@
 import { ComponentType, CSSProperties, ReactNode } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
@@ -15,7 +16,7 @@ export interface PlaceholderProps<
     innerProps: { style: CSSProperties };
 }
 
-export function placeholderCSS(): React.CSSProperties;
+export function placeholderCSS(): CSSObject;
 
 export const Placeholder: ComponentType<PlaceholderProps<any, boolean>>;
 

@@ -1,4 +1,5 @@
 import { ComponentType, Component, ReactNode } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
@@ -21,9 +22,9 @@ export type MultiValueProps<
     };
 };
 
-export function multiValueCSS(): React.CSSProperties;
-export function multiValueLabelCSS(props: MultiValueProps<any>): React.CSSProperties;
-export function multiValueRemoveCSS(props: MultiValueProps<any>): React.CSSProperties;
+export function multiValueCSS(): CSSObject;
+export function multiValueLabelCSS(props: MultiValueProps<any>): CSSObject;
+export function multiValueRemoveCSS(props: MultiValueProps<any>): CSSObject;
 
 export interface MultiValueGenericProps<OptionType extends OptionTypeBase> {
     children: ReactNode;

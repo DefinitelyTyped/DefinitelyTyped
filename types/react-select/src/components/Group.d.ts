@@ -1,4 +1,5 @@
 import { ReactNode, ComponentType } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
@@ -19,7 +20,7 @@ export type GroupProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = CommonProps<OptionType, IsMulti, GroupType> & ComponentProps;
 
-export function groupCSS(): React.CSSProperties;
+export function groupCSS(): CSSObject;
 
 export const Group: ComponentType<GroupProps<any, boolean>>;
 
@@ -29,7 +30,7 @@ export type GroupHeadingProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = CommonProps<OptionType, IsMulti, GroupType> & Pick<ComponentProps, 'children'>;
 
-export function groupHeadingCSS(): React.CSSProperties;
+export function groupHeadingCSS(): CSSObject;
 
 export const GroupHeading: ComponentType<any>;
 

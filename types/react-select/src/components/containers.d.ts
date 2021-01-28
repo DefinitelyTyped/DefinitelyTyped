@@ -1,4 +1,5 @@
 import { Component, ReactNode, ComponentType } from 'react';
+import { CSSObject } from '@emotion/serialize';
 import { spacing } from '../theme';
 import { CommonProps, GroupTypeBase, KeyboardEventHandler, OptionTypeBase } from '../types';
 
@@ -24,7 +25,7 @@ export type ContainerProps<
         /** Inner props to be passed down to the container. */
         innerProps: { onKeyDown: KeyboardEventHandler };
     };
-export function containerCSS(state: ContainerState): React.CSSProperties;
+export function containerCSS(state: ContainerState): CSSObject;
 export const SelectContainer: ComponentType<ContainerProps<any, boolean>>;
 
 // ==============================
@@ -43,7 +44,7 @@ export type ValueContainerProps<
     /** The children to be rendered. */
     children: ReactNode;
 };
-export function valueContainerCSS(): React.CSSProperties;
+export function valueContainerCSS(): CSSObject;
 export class ValueContainer extends Component<ValueContainerProps<any, boolean>> {}
 
 // ==============================
@@ -67,5 +68,5 @@ export type IndicatorContainerProps<
         children: ReactNode;
     };
 
-export function indicatorsContainerCSS(): React.CSSProperties;
+export function indicatorsContainerCSS(): CSSObject;
 export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any, boolean>>;
