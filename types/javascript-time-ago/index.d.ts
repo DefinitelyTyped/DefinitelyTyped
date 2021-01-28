@@ -3,7 +3,6 @@
 // Definitions by: Erik Burton  <https://github.com/erikburt>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 //                 Luis Felipe Zaguini <https://github.com/zaguiini>
-//                 Randy Merrill <https://github.com/Zoramite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import {
     DefaultFormats,
