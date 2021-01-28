@@ -13,5 +13,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-router-transition.tsx"]
+    "files": ["index.d.ts", "react-router-transition-tests.tsx"]
 }
