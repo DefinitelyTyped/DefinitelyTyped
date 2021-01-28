@@ -6,27 +6,6 @@ declare module "meteor/mongo" {
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
     module Mongo {
-        interface Document {
-            _id?: string;
-        }
-
-        interface FindOneOptions<T> {
-            sort?: SortSpecifier;
-            skip?: number;
-            fields?: FieldSpecifier;
-            reactive?: boolean;
-            transform?: (doc: T) => any;
-        }
-
-        interface FindOptions<T> extends FindOneOptions<T> {
-            limit?: number;
-        }
-
-        interface CursorDescription<T> {
-            collectionName: string;
-            selector: any;
-            options: FindOptions<T>;
-        }
 
         type BsonType = 1 | "double" |
             2 | "string" |
