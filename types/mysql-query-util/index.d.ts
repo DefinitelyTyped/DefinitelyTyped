@@ -3,27 +3,19 @@
 // Definitions by: Uchenna Emeruche <https://github.com/uchennaemeruche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+/// <reference types="node" />
 
-// declare function _delete(...options: any[]): any;
 declare function _delete(options: IterableOptions): Promise<any>;
 declare function _delete(tableName: string, params?: Array<Array<string | number>>): Promise<any>;
 
 export function setConnection(options: connectionString): any;
 
-// export function select(...options: any[]): Promise<any>;
 export function select(options: IterableOptions): Promise<any>;
 export function select(tableName: string, fields?: string[], params?: Array<Array<string | number>>): Promise<any>;
 
-// export function insert(...options: [string, string[], string[], string[]]): Promise<any>;
 export function insert(options: IterableOptions): Promise<any>;
 export function insert(tableName: string, data: object): Promise<any>;
 
-// export function update(...options: [string, string[], string[], string[]]): Promise<any>;
 export function update(option: IterableOptions): Promise<any>;
 export function update(tableName: string, data: object, params: Array<Array<string | number>>): Promise<any>;
 
