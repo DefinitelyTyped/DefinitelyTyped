@@ -109,8 +109,8 @@ export type ActionMeta<OptionType extends OptionTypeBase> =
     | ClearActionMeta
     | CreateOptionActionMeta;
 
-export type ActionType = ActionMeta<OptionTypeBase>['action'];
-export type SetValueActionType = 'select-option' | 'deselect-option';
+export type Action = ActionMeta<OptionTypeBase>['action'];
+export type SetValueAction = 'select-option' | 'deselect-option';
 
 export type InputActionTypes = 'set-value' | 'input-change' | 'input-blur' | 'menu-close';
 
