@@ -3,6 +3,7 @@
 // Definitions by: Erik Burton  <https://github.com/erikburt>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 //                 Luis Felipe Zaguini <https://github.com/zaguiini>
+//                 Randy Merrill <https://github.com/Zoramite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import {
     DefaultFormats,
@@ -27,6 +28,7 @@ declare class TimeAgo {
     getRule(value: Date | number, unit: TimeUnit, localeData: Duration): string;
 
     static addLocale(localeData: Locale): void;
+    static addDefaultLocale(localeData: Locale): void;
     static locale(localeData: Locale): void;
     static getDefaultLocale(): string;
     static intlDateTimeFormatSupported(): boolean;
