@@ -115,7 +115,7 @@ function camelCase() {
     .usage('Usage: $0 options')
     .describe('some-opt', 'Some option')
     .default('some-opt', 2)
-    .argv
+    .argv;
 
     yargs
     .command(
@@ -123,7 +123,7 @@ function camelCase() {
         'a command',
         { 'some-opt-in-command': { describe: 'Some option', default: 2 } },
         (args: Arguments<{ someOptInCommand: number }>) => {}
-    )
+    );
 }
 
 // Below are tests for individual methods.
