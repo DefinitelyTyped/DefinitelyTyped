@@ -2837,7 +2837,6 @@ declare namespace videojs {
          */
         interface Event extends CustomEvent {
             [key: string]: any;
-            which: number;
         }
 
         /**
@@ -2926,6 +2925,10 @@ declare namespace videojs {
          */
         new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
     };
+
+    interface KeyboardEvent extends EventTarget.Event {
+        readonly which: number;
+    }
 
     interface LanguageTranslations {
         [language: string]: string;
@@ -5705,13 +5708,13 @@ declare namespace videojs {
 
     interface UserActions {
         doubleClick?: boolean | ((event: EventTarget.Event) => void);
-        hotkeys?: boolean | ((event: EventTarget.Event) => void) | UserActionHotkeys;
+        hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys;
     }
 
     interface UserActionHotkeys {
-        fullscreenKey?: (event: EventTarget.Event) => boolean;
-        muteKey?: (event: EventTarget.Event) => boolean;
-        playPauseKey?: (event: EventTarget.Event) => boolean;
+        fullscreenKey?: (event: KeyboardEvent) => boolean;
+        muteKey?: (event: KeyboardEvent) => boolean;
+        playPauseKey?: (event: KeyboardEvent) => boolean;
     }
 
     /**
