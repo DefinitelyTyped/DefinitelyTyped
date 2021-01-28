@@ -241,8 +241,6 @@ declare module "meteor/mongo" {
             map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
             observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
             observeChanges(callbacks: ObserveChangesCallbacks<T>, options?: { nonMutatingCallbacks?: boolean }): Meteor.LiveQueryHandle;
-            _mongo: MongoInternals.Connection;
-            _synchronousCursor: Mongo.Cursor<Mongo.Document>;
         }
 
         var ObjectID: ObjectIDStatic;
@@ -269,12 +267,12 @@ declare module "meteor/mongo" {
 }
 
 declare module MongoInternals {
-    interface Connection {
+    interface MongoConnection {
         db: MongoDb;
     }
 
     function defaultRemoteCollectionDriver(): {
-        mongo: Connection;
+        mongo: MongoConnection;
     };
 
     var NpmModules: any;
