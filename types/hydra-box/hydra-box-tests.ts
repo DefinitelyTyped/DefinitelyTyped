@@ -2,7 +2,7 @@ import express = require('express');
 import hydraBox = require('hydra-box');
 import Api = require('hydra-box/Api');
 import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
-import { Dataset, DatasetCore, NamedNode, Store } from 'rdf-js';
+import { Dataset, NamedNode, Store } from 'rdf-js';
 
 const codePath = '';
 const path = '';
@@ -56,7 +56,8 @@ function appCustomConfig() {
         loader,
         store,
         middleware: {
-            resource: handler
+            resource: handler,
+            operations: handler
         }
     }));
 
@@ -65,7 +66,8 @@ function appCustomConfig() {
         loader,
         store,
         middleware: {
-            resource: [handler, handler]
+            resource: [handler, handler],
+            operations: [handler, handler]
         }
     }));
 }
@@ -79,3 +81,7 @@ async function testStoreResourceLoader() {
     const forClassOperation: hydraBox.Resource[] = await loader.forClassOperation(term, req);
     const forPropertyOperation: hydraBox.PropertyResource[] = await loader.forPropertyOperation(term, req);
 }
+
+const handler: express.RequestHandler = (req) => {
+    const operations: hydraBox.PotentialOperation[] = req.hydra.operations;
+};
