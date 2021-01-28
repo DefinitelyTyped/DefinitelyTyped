@@ -204,6 +204,7 @@ declare namespace Faker {
             jobDescriptor(): string;
             jobArea(): string;
             jobType(): string;
+            gender(): string;
         };
 
         music: {
