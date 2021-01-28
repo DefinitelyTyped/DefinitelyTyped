@@ -1,7 +1,8 @@
 // Type definitions for workgrid-toolbar 1.0
+// Project: https://github.com/jguardino-workgrid/workgrid-authorizer-js
 // Definitions by: J Guardino <https://github.com/jguardino-workgrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Project: https://github.com/jguardino-workgrid/workgrid-authorizer-js
+// TypeScript Version: 4.2
 
 export interface WorkgridToolbarOptions {
     // Required
