@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode, MouseEventHandler } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef, OptionTypeBase, GroupTypeBase } from '../types';
@@ -41,7 +42,7 @@ export type OptionProps<
         data: any;
     };
 
-export function optionCSS(state: State): React.CSSProperties;
+export function optionCSS(state: State): CSSObject;
 
 export const Option: ComponentType<OptionProps<any, boolean>>;
 

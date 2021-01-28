@@ -1,4 +1,5 @@
 import { ComponentType, ReactElement as ElementType, SVGProps, ReactSVGElement } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
@@ -31,7 +32,7 @@ export type IndicatorProps<
     isDisabled: boolean;
 };
 
-export type baseCSS = (props: IndicatorProps<any, boolean>) => React.CSSProperties;
+export type baseCSS = (props: IndicatorProps<any, boolean>) => CSSObject;
 
 export const dropdownIndicatorCSS: baseCSS;
 export const DropdownIndicator: ComponentType<IndicatorProps<any, boolean>>;
@@ -47,7 +48,7 @@ export interface SeparatorState {
     isDisabled: boolean;
 }
 
-export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
+export function indicatorSeparatorCSS(state: SeparatorState): CSSObject;
 
 export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
 
@@ -55,7 +56,7 @@ export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
 // Loading
 // ==============================
 
-export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): React.CSSProperties;
+export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): CSSObject;
 
 /** @deprecated Use `LoadingIndicatorProps` instead. */
 export type LoadingIconProps<

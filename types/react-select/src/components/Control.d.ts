@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase, PropsWithStyles } from '../types';
@@ -28,7 +29,7 @@ export type ControlProps<
         };
     };
 
-export function css(state: State): React.CSSProperties;
+export function css(state: State): CSSObject;
 
 declare const Control: ComponentType<ControlProps<any, boolean>>;
 
