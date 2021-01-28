@@ -385,7 +385,7 @@ declare module "tls" {
         rejectUnauthorized?: boolean;
     }
 
-    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**
          * Abort the connection if the SSL/TLS handshake does not finish in the
          * specified number of milliseconds. A 'tlsClientError' is emitted on
@@ -432,16 +432,6 @@ declare module "tls" {
          * emitted with `ERR_TLS_PSK_SET_IDENTIY_HINT_FAILED` code.
          */
         pskIdentityHint?: string;
-
-        /**
-         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
-         */
-        allowHalfOpen?: boolean;
-
-        /**
-         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
-         */
-        pauseOnConnect?: boolean;
     }
 
     interface PSKCallbackNegotation {
