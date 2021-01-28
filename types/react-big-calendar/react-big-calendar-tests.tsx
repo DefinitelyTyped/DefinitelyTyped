@@ -244,12 +244,14 @@ class CalendarResource {
                         const slots = slotInfo.slots;
                     }}
                     onSelectEvent={event => {}}
+                    onKeyPressEvent={event => {}}
                     onSelecting={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
                         return true;
                     }}
                     dayLayoutAlgorithm={customLayoutAlgorithm}
+                    showAllEvents={false}
                     views={['day']}
                     toolbar={true}
                     popup={true}
