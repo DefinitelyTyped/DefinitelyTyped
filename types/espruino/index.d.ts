@@ -783,6 +783,16 @@ declare namespace E {
     function interpolate2d(array: any, width: number, x: number, y: number): number;
 
     /**
+     * <p>Enable the watchdog timer. This will reset Espruino if it isn't able to return to the idle loop within the timeout.</p>
+     * <p>If <code>isAuto</code> is false, you must call <code>E.kickWatchdog()</code> yourself every so often or the chip will reset.</p>
+     * 
+     * @param timeout 
+     * @param isAuto 
+     * @url http://www.espruino.com/Reference#l_E_enableWatchdog
+     */
+    function enableWatchdog(timeout: number, isAuto?: boolean): void;
+
+    /**
      * <p>Kicks a Watchdog timer set up with <code>E.enableWatchdog(..., false)</code>. See
      * <code>E.enableWatchdog</code> for more information.</p>
      * <p><strong>NOTE:</strong> This is only implemented on STM32 and nRF5x devices (all official Espruino boards).</p>
