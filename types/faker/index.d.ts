@@ -6,6 +6,7 @@
 //                 Matt Bishop <https://github.com/mattbishop>,
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
+//                 Daniel Montesinos <https://github.com/damonpam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
