@@ -25,7 +25,7 @@ afterEach(() => {
 test('array', () => {
     const title = 'add(augend, addend)';
 
-    const tester = jest.fn((opts, cb) => {
+    const tester = jest.fn((opts) => {
         expect(add(opts.augend, opts.addend)).toBe(opts.total);
     });
 
