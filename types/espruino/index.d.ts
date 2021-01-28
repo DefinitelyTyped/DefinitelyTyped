@@ -1011,9 +1011,10 @@ declare namespace E {
          * @param hue 
          * @param sat 
          * @param bri 
+         * @param asArray 
          * @return  
          */
-        new(hue: number, sat: number, bri: number): number;
+        new(hue: number, sat: number, bri: number, asArray?: boolean): number;
     }
 
 
