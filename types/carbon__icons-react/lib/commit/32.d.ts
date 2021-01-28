@@ -1,1 +1,3 @@
-export { Commit32 as default } from "../../";
+import { Commit32 } from "../../";
+
+export = Commit32;

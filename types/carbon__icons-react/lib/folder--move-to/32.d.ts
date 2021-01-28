@@ -1,1 +1,3 @@
-export { FolderMoveTo32 as default } from "../../";
+import { FolderMoveTo32 } from "../../";
+
+export = FolderMoveTo32;

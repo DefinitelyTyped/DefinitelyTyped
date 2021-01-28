@@ -1,1 +1,3 @@
-export { EdgeService20 as default } from "../../";
+import { EdgeService20 } from "../../";
+
+export = EdgeService20;

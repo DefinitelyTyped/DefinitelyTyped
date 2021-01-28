@@ -1,1 +1,3 @@
-export { OutlookSevere16 as default } from "../../";
+import { OutlookSevere16 } from "../../";
+
+export = OutlookSevere16;

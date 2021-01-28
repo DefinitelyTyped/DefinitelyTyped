@@ -1,1 +1,3 @@
-export { StopFilled16 as default } from "../../";
+import { StopFilled16 } from "../../";
+
+export = StopFilled16;

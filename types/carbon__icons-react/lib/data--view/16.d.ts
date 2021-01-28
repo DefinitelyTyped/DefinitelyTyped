@@ -1,1 +1,3 @@
-export { DataView16 as default } from "../../";
+import { DataView16 } from "../../";
+
+export = DataView16;

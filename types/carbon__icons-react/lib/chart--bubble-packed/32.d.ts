@@ -1,1 +1,3 @@
-export { ChartBubblePacked32 as default } from "../../";
+import { ChartBubblePacked32 } from "../../";
+
+export = ChartBubblePacked32;

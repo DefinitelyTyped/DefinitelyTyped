@@ -1,1 +1,3 @@
-export { Equalizer32 as default } from "../../";
+import { Equalizer32 } from "../../";
+
+export = Equalizer32;

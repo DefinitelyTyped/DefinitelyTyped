@@ -1,1 +1,3 @@
-export { SankeyDiagramAlt32 as default } from "../../";
+import { SankeyDiagramAlt32 } from "../../";
+
+export = SankeyDiagramAlt32;

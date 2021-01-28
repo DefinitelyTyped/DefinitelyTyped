@@ -1,1 +1,3 @@
-export { BookmarkFilled32 as default } from "../../";
+import { BookmarkFilled32 } from "../../";
+
+export = BookmarkFilled32;

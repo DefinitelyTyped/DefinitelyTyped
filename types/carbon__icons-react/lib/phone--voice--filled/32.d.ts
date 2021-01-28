@@ -1,1 +1,3 @@
-export { PhoneVoiceFilled32 as default } from "../../";
+import { PhoneVoiceFilled32 } from "../../";
+
+export = PhoneVoiceFilled32;

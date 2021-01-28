@@ -1,1 +1,3 @@
-export { FolderDetailsReference24 as default } from "../../";
+import { FolderDetailsReference24 } from "../../";
+
+export = FolderDetailsReference24;

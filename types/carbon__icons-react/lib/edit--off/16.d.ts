@@ -1,1 +1,3 @@
-export { EditOff16 as default } from "../../";
+import { EditOff16 } from "../../";
+
+export = EditOff16;

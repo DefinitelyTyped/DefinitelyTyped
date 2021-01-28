@@ -1,1 +1,3 @@
-export { Upload24 as default } from "../../";
+import { Upload24 } from "../../";
+
+export = Upload24;

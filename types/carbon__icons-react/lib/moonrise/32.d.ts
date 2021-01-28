@@ -1,1 +1,3 @@
-export { Moonrise32 as default } from "../../";
+import { Moonrise32 } from "../../";
+
+export = Moonrise32;

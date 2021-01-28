@@ -181,11 +181,19 @@ interface ProviderGoogleOptions extends GenericObject {
  */
 type Auth0 = (options: ProviderAuth0Options) => GenericReturnConfig;
 
+interface Auth0Profile extends GenericObject {
+    sub: string;
+    nickname: string;
+    email: string;
+    picture: string;
+}
+
 interface ProviderAuth0Options extends GenericObject {
     name?: string;
     clientId: string;
     clientSecret: string;
     domain: string;
+    profile?: (profile: Auth0Profile) => GenericObject;
 }
 
 /**

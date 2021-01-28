@@ -1,1 +1,3 @@
-export { GenderFemale32 as default } from "../../";
+import { GenderFemale32 } from "../../";
+
+export = GenderFemale32;

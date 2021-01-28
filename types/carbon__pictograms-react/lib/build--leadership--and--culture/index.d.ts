@@ -1,1 +1,3 @@
-export { BuildLeadershipAndCulture as default } from "../../";
+import { BuildLeadershipAndCulture } from "../../";
+
+export = BuildLeadershipAndCulture;

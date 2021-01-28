@@ -1,1 +1,3 @@
-export { InformationSquareFilled24 as default } from "../../";
+import { InformationSquareFilled24 } from "../../";
+
+export = InformationSquareFilled24;

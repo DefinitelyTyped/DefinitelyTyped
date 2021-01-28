@@ -1,1 +1,3 @@
-export { CloudyHumid as default } from "../../";
+import { CloudyHumid } from "../../";
+
+export = CloudyHumid;

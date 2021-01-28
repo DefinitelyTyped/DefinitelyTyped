@@ -1,1 +1,3 @@
-export { Choices16 as default } from "../../";
+import { Choices16 } from "../../";
+
+export = Choices16;

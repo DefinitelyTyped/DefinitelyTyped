@@ -1,1 +1,3 @@
-export { TextWrap16 as default } from "../../";
+import { TextWrap16 } from "../../";
+
+export = TextWrap16;

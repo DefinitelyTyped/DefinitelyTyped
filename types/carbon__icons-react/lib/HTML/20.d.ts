@@ -1,1 +1,3 @@
-export { Html20 as default } from "../../";
+import { Html20 } from "../../";
+
+export = Html20;

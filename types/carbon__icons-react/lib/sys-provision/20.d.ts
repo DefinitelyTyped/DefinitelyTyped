@@ -1,1 +1,3 @@
-export { SysProvision20 as default } from "../../";
+import { SysProvision20 } from "../../";
+
+export = SysProvision20;

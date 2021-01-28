@@ -1,1 +1,3 @@
-export { LogoFlickr32 as default } from "../../";
+import { LogoFlickr32 } from "../../";
+
+export = LogoFlickr32;

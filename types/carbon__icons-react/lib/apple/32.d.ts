@@ -1,1 +1,3 @@
-export { Apple32 as default } from "../../";
+import { Apple32 } from "../../";
+
+export = Apple32;

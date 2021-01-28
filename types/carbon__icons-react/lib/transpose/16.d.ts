@@ -1,1 +1,3 @@
-export { Transpose16 as default } from "../../";
+import { Transpose16 } from "../../";
+
+export = Transpose16;

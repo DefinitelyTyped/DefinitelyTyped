@@ -1,1 +1,3 @@
-export { Smell16 as default } from "../../";
+import { Smell16 } from "../../";
+
+export = Smell16;

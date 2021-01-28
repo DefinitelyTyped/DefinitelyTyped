@@ -1,1 +1,3 @@
-export { PiggyBank16 as default } from "../../";
+import { PiggyBank16 } from "../../";
+
+export = PiggyBank16;

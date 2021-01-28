@@ -1,1 +1,3 @@
-export { StopSign20 as default } from "../../";
+import { StopSign20 } from "../../";
+
+export = StopSign20;

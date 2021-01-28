@@ -1,1 +1,3 @@
-export { Popup32 as default } from "../../";
+import { Popup32 } from "../../";
+
+export = Popup32;

@@ -1,1 +1,3 @@
-export { Box24 as default } from "../../";
+import { Box24 } from "../../";
+
+export = Box24;

@@ -1,1 +1,3 @@
-export { CalendarHeatMap20 as default } from "../../";
+import { CalendarHeatMap20 } from "../../";
+
+export = CalendarHeatMap20;

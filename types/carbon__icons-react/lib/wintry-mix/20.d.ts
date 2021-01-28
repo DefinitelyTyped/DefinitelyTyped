@@ -1,1 +1,3 @@
-export { WintryMix20 as default } from "../../";
+import { WintryMix20 } from "../../";
+
+export = WintryMix20;

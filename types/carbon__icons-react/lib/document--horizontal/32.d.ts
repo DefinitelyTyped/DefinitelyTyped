@@ -1,1 +1,3 @@
-export { DocumentHorizontal32 as default } from "../../";
+import { DocumentHorizontal32 } from "../../";
+
+export = DocumentHorizontal32;

@@ -1,1 +1,3 @@
-export { IotPlatform32 as default } from "../../";
+import { IotPlatform32 } from "../../";
+
+export = IotPlatform32;

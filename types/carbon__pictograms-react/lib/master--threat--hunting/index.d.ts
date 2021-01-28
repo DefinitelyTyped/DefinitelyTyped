@@ -1,1 +1,3 @@
-export { MasterThreatHunting as default } from "../../";
+import { MasterThreatHunting } from "../../";
+
+export = MasterThreatHunting;

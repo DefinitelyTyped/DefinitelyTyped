@@ -1,4 +1,4 @@
-// Type definitions for node-wit 4.2
+// Type definitions for node-wit 6.0
 // Project: https://github.com/wit-ai/node-wit#readme
 // Definitions by: Julien Dufresne <https://github.com/julienduf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,10 +56,17 @@ export interface MessageResponseEntity {
     type?: string;
 }
 
+export interface WitIntent {
+    id: string;
+    name: string;
+    confidence: number;
+}
+
 export interface MessageResponse {
-    msg_id: string;
-    _text: string;
+    text: string;
+    intents: WitIntent[];
     entities: any;
+    traits: any;
 }
 
 export class Wit {

@@ -1,1 +1,3 @@
-export { Event24 as default } from "../../";
+import { Event24 } from "../../";
+
+export = Event24;

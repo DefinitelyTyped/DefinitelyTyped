@@ -1,1 +1,3 @@
-export { ChartMedian32 as default } from "../../";
+import { ChartMedian32 } from "../../";
+
+export = ChartMedian32;

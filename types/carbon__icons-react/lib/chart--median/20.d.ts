@@ -1,1 +1,3 @@
-export { ChartMedian20 as default } from "../../";
+import { ChartMedian20 } from "../../";
+
+export = ChartMedian20;

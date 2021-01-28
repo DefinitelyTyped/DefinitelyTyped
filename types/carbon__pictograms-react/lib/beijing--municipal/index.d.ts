@@ -1,1 +1,3 @@
-export { BeijingMunicipal as default } from "../../";
+import { BeijingMunicipal } from "../../";
+
+export = BeijingMunicipal;

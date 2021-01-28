@@ -1,1 +1,3 @@
-export { ZoomInArea32 as default } from "../../";
+import { ZoomInArea32 } from "../../";
+
+export = ZoomInArea32;

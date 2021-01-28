@@ -1,1 +1,3 @@
-export { Helicopter16 as default } from "../../";
+import { Helicopter16 } from "../../";
+
+export = Helicopter16;

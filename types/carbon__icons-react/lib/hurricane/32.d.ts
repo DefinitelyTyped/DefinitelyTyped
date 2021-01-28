@@ -1,1 +1,3 @@
-export { Hurricane32 as default } from "../../";
+import { Hurricane32 } from "../../";
+
+export = Hurricane32;

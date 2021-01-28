@@ -1,1 +1,3 @@
-export { CalculationAlt16 as default } from "../../";
+import { CalculationAlt16 } from "../../";
+
+export = CalculationAlt16;

@@ -1,1 +1,3 @@
-export { Cafe32 as default } from "../../";
+import { Cafe32 } from "../../";
+
+export = Cafe32;

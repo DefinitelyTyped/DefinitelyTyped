@@ -1,1 +1,3 @@
-export { ShapeExclude16 as default } from "../../";
+import { ShapeExclude16 } from "../../";
+
+export = ShapeExclude16;

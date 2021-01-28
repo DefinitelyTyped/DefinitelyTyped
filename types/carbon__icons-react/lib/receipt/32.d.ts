@@ -1,1 +1,3 @@
-export { Receipt32 as default } from "../../";
+import { Receipt32 } from "../../";
+
+export = Receipt32;

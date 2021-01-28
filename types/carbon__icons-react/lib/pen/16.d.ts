@@ -1,1 +1,3 @@
-export { Pen16 as default } from "../../";
+import { Pen16 } from "../../";
+
+export = Pen16;

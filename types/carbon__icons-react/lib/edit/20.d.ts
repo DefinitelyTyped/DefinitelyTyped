@@ -1,1 +1,3 @@
-export { Edit20 as default } from "../../";
+import { Edit20 } from "../../";
+
+export = Edit20;

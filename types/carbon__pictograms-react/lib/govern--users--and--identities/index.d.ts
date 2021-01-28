@@ -1,1 +1,3 @@
-export { GovernUsersAndIdentities as default } from "../../";
+import { GovernUsersAndIdentities } from "../../";
+
+export = GovernUsersAndIdentities;
