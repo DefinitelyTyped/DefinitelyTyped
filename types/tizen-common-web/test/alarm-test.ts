@@ -7,5 +7,6 @@ tizen.alarm.add(alarm1, "appId");
 const alarm2 = new AlarmAbsolute(date, ["SA", "SU"]);
 tizen.alarm.add(alarm2, "appId");
 
-const alarm3 = new AlarmAbsolute(date, 12345);
-tizen.alarm.add(alarm3, "appId");
+// deprecated
+// const alarm3 = new AlarmAbsolute(date, 12345);
+// tizen.alarm.add(alarm3, "appId");

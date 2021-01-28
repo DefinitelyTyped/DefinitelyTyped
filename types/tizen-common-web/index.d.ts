@@ -813,6 +813,7 @@ export interface RequestCallback {
  */
 export class AbstractFilter {
     constructor();
+    readonly attributeName: string;
 }
 export interface AbstractFilter {
     prototype: AbstractFilter;
@@ -1102,9 +1103,7 @@ export interface Alarm {
  * If a _period_ is provided, the alarm keeps triggering for the given interval. If the _daysOfTheWeek_ array is not empty, the alarm triggers every week, for the given days, at the time defined by the _date_ attribute.
  */
 export class AlarmAbsolute extends Alarm {
-    constructor(date: Date);
-    constructor(date: Date, daysOfTheWeek: ByDayValue[]);
-    constructor(date: Date, period: number);
+    constructor(date: Date, daysOfTheWeek?: ByDayValue[]);
     /**
      * An attribute to store the absolute date/time when the alarm is initially triggered.
      *
@@ -1139,9 +1138,7 @@ export class AlarmAbsolute extends Alarm {
 }
 export interface AlarmAbsolute {
     prototype: AlarmAbsolute;
-    new(date: Date): AlarmAbsolute;
-    new(date: Date, daysOfTheWeek: ByDayValue[]): AlarmAbsolute;
-    new(date: Date, period: number): AlarmAbsolute;
+    new(date: Date, daysOfTheWeek?: ByDayValue[]): AlarmAbsolute;
 }
 /**
  * The AlarmManager interface provides methods to manage alarms.
@@ -11298,10 +11295,10 @@ export interface Tizen {
      * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
      *
      * <tizen:account multiple-account-support="true">
-     *    <tizen:icon section="Account">icon.png</tizen:icon>
-     *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
-     *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
-     *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
+     * <tizen:icon section="Account">icon.png</tizen:icon>
+     * <tizen:icon section="AccountSmall">icon.png</tizen:icon>
+     * <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
+     * <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
      * </tizen:account>
      *
      * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
@@ -13140,10 +13137,10 @@ export const Query: Query;
  * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
  *
  * <tizen:account multiple-account-support="true">
- *    <tizen:icon section="Account">icon.png</tizen:icon>
- *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
- *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
- *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
+ * <tizen:icon section="Account">icon.png</tizen:icon>
+ * <tizen:icon section="AccountSmall">icon.png</tizen:icon>
+ * <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
+ * <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
  * </tizen:account>
  *
  * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
