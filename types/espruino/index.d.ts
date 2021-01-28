@@ -1552,7 +1552,7 @@ declare namespace AES {
      * @return  
      * @url http://www.espruino.com/Reference#l_AES_encrypt
      */
-    function encrypt(passphrase: any, key: any, options: any): ArrayBuffer;
+    function encrypt(passphrase: any, key: any, options?: any): ArrayBuffer;
 
     /**
      * 
@@ -3658,7 +3658,7 @@ declare function digitalRead(pin: Pin): number;
 * @param automatic 
 * @url http://www.espruino.com/Reference#l__global_pinMode
 */
-declare function pinMode(pin: Pin, mode: any, automatic: boolean): void;
+declare function pinMode(pin: Pin, mode: any, automatic?: boolean): void;
 
 /**
 * <p>Return the current mode of the given pin. See <code>pinMode</code> for more information on returned values.</p>
