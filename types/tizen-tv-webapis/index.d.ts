@@ -5416,7 +5416,7 @@ export enum TvInfoMenuKey {
      * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
      * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
      * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
-     * Only the values ​​that can be set in the menu can be set to webapi
+     * Only the values that can be set in the menu can be set to webapi
      *
      * @since 2.3
      */
@@ -5509,7 +5509,7 @@ export enum TvInfoMenuKey {
      * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
      * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
      * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
-     * Only the values ​​that can be set in the menu can be set to webapi
+     * Only the values that can be set in the menu can be set to webapi
      *
      * @since 2.3
      */
@@ -6884,7 +6884,7 @@ export interface TvInfoManager {
          * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
          * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
          * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
-         * Only the values ​​that can be set in the menu can be set to webapi
+         * Only the values that can be set in the menu can be set to webapi
          *
          * @version 3.1
          *
@@ -6979,7 +6979,7 @@ export interface TvInfoManager {
          * DOMString AUDIO_LANGUAGE_CODE_YUE = "YUE";
          * DOMString AUDIO_LANGUAGE_CODE_ZHO = "ZHO";
          * DOMString AUDIO_LANGUAGE_CODE_ZUL = "ZUL";
-         * Only the values ​​that can be set in the menu can be set to webapi
+         * Only the values that can be set in the menu can be set to webapi
          *
          * @version 3.1
          *
