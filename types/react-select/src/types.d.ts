@@ -64,7 +64,7 @@ export interface CommonProps<
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
     selectProps: SelectProps<OptionType, IsMulti, GroupType>;
-    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueActionType, option: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option: OptionType) => void;
 }
 
 export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
