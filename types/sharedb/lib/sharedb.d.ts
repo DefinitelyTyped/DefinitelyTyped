@@ -40,7 +40,7 @@ export interface StringDeleteOp { p: Path; sd: string; }
 
 export interface SubtypeOp { p: Path; t: string; o: any; }
 
-export type Json0Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
+export type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
 
 export interface RawOp {
     src: string;

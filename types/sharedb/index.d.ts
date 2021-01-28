@@ -174,7 +174,7 @@ declare namespace sharedb {
     type Doc = ShareDB.Doc;
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
-    type Json0Op = ShareDB.Json0Op;
+    type Op = ShareDB.Op;
     type CreateOp = ShareDB.CreateOp;
     type DeleteOp = ShareDB.DeleteOp;
     type EditOp = ShareDB.EditOp;
