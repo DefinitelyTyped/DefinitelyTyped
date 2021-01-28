@@ -1,9 +1,3 @@
-// Type definitions for react-router-transition 2.0
-// Project: https://github.com/maisano/react-router-transition, https://www.npmjs.com/package/react-router-transition
-// Definitions by: TheDSCPL <https://github.com/TheDSCPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import * as React from 'react';
 
 import { TransitionStyle, OpaqueConfig } from 'react-motion';
