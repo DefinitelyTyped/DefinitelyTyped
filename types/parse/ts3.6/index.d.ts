@@ -202,11 +202,17 @@ declare global {
          * <p>An ACL, or Access Control List can be added to any
          * <code>Parse.Object</code> to restrict access to only a subset of users
          * of your application.</p>
+         * https://parseplatform.org/Parse-SDK-JS/api/master/Parse.ACL.html
          */
         class ACL {
             permissionsById: any;
 
             constructor(arg1?: any);
+
+            /**
+             * Returns whether this ACL is equal to another object
+             */
+            equals(): boolean;
 
             setPublicReadAccess(allowed: boolean): void;
             getPublicReadAccess(): boolean;

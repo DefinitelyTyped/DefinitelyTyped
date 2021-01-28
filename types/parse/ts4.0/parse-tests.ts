@@ -1929,3 +1929,15 @@ function testEncryptingUser() {
         Parse.isEncryptedUserEnabled();
     }
 }
+
+function testACL() {
+    function testACLEquals() {
+        const user0 = new Parse.User();
+        const acl = new Parse.ACL(user0);
+
+        acl.equals(acl);
+
+        // $ExpectError
+        acl.equals(user0);
+    }
+}

@@ -239,6 +239,11 @@ declare global {
 
             constructor(arg1?: any);
 
+            /**
+             * Returns whether this ACL is equal to another object's acl
+             */
+            equals(acl: ACL): boolean;
+
             setPublicReadAccess(allowed: boolean): void;
             getPublicReadAccess(): boolean;
 

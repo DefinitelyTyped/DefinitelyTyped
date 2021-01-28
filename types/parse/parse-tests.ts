@@ -870,6 +870,7 @@ type FieldType =
     | Parse.Pointer
     | Parse.Polygon
     | Parse.Relation;
+
 async function test_schema(
     anyField: FieldType,
     notString: Exclude<FieldType, string>,
@@ -1936,5 +1937,17 @@ function testEncryptingUser() {
 
     function testIsEncryptedUserEnabled() {
         Parse.isEncryptedUserEnabled();
+    }
+}
+
+function testACL() {
+    function testACLEquals() {
+        const user0 = new Parse.User();
+        const acl = new Parse.ACL(user0);
+
+        acl.equals(acl);
+
+        // $ExpectError
+        acl.equals(user0);
     }
 }
