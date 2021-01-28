@@ -20,7 +20,7 @@ declare module "react-router-transition" {
 
     /**
      * AnimatedSwitch's props
-     * @see {@link http://maisano.github.io/react-router-transition/animated-switch/props}
+     * http://maisano.github.io/react-router-transition/animated-switch/props
      */
     interface AnimatedSwitchProps {
         /**
@@ -41,7 +41,6 @@ declare module "react-router-transition" {
         className?: string;
         /**
          * Triggers when an element has disappeared.
-         * @param styleThatLeft
          */
         didLeave?: (styleThatLeft: TransitionStyle) => void;
         /**
@@ -49,12 +48,12 @@ declare module "react-router-transition" {
          * (e.g. `translateX` or other values of the `transform` style property).
          *
          * Converts the style object to a strict CSSProperties object
-         * @param originalStylesObject
+         * @param originalStylesObject styles object to be mapped to an actual styles object
          */
-        mapStyles?: (originalStylesObject: Styles) => React.CSSProperties;
+        mapStyles?: (originalStylesObject: any) => AnimatableStyles;
         /**
          * A boolean flag to signal whether or not to apply a transition to the child component while mounting the parent.
-         * @default false
+         * Default: false
          */
         runOnMount?: boolean;
         /**
@@ -69,14 +68,13 @@ declare module "react-router-transition" {
     /**
      * A <Switch />, but with transitions when the child route changes.
      * Allows for animating sibling routes with a mounting and unmounting transition.
-     * @see {@link http://maisano.github.io/react-router-transition/animated-switch}
-     * @see {@link https://reactrouter.com/web/api/Switch}
+     * http://maisano.github.io/react-router-transition/animated-switch
      */
     const AnimatedSwitch: React.ComponentClass<AnimatedSwitchProps>;
 
     /**
      * RouteTransition's props. Similar to AnimatedSwitchProps.
-     * @see {@link http://maisano.github.io/react-router-transition/animated-switch/props|}
+     * http://maisano.github.io/react-router-transition/animated-switch/props
      */
     type RouteTransitionProps = AnimatedSwitchProps;
     /**
@@ -86,15 +84,14 @@ declare module "react-router-transition" {
 
     /**
      * AnimatedRoute's props. Extends RouteProps except `location`.
-     * @see {@link http://maisano.github.io/react-router-transition/animated-route/props|AnimatedRouteProps}
+     * http://maisano.github.io/react-router-transition/animated-route/props
      */
     interface AnimatedRouteProps extends
         Pick<AnimatedSwitchProps, Exclude<keyof AnimatedSwitchProps, "children">>,
         Pick<RouteProps, "children"|"component"|"exact"|"path"|"render"|"sensitive"|"strict"> {}
     /**
      * A <Route />, but with mounting & unmounting transitions.
-     * @see {@link http://maisano.github.io/react-router-transition/animated-route|AnimatedRoute}
-     * @see {@link https://reactrouter.com/web/api/Route|Route}
+     * http://maisano.github.io/react-router-transition/animated-route
      */
     const AnimatedRoute: React.ComponentClass<AnimatedRouteProps>;
 
