@@ -16,7 +16,7 @@ export interface WorkgridToolbarOptions {
     debug?: boolean | false;
     deferDisplay?: boolean | false;
     htmlDisplay?: string | 'block';
-    listener?: Function | null;
+    listener?: (event: string) => void | null;
     responsive?: boolean | true;
     responsiveBreakpoints?: number[][]  | [[0, 0], [775, 50], [992, 100]];
     responsiveCssProperty?: string | null;
