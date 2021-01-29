@@ -20,5 +20,5 @@
     "files": [
         "index.d.ts",
         "workgrid-toolbar-tests.ts"
-	]
+    ]
 }
