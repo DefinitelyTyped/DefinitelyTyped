@@ -1867,7 +1867,7 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
      * @description image source
      * @defaultValue undefined
      */
-    imageSource?: object | number ;
+    imageSource?: object | number;
     /**
      * @language zh-CN
      * @description 图片样式
@@ -1902,7 +1902,7 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
      * @description icon size
      * @defaultValue undefined
      */
-    iconSize?: number
+    iconSize?: number;
 }
 
 export interface DialogList extends TYFlatListData {
@@ -2208,7 +2208,39 @@ export class GlobalToast {
 }
 
 // IconFont
-type IconFontName = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 'power' | 'arrow' | 'celsius' | 'fahrenheit' | 'minus' | 'plus' | 'error' | 'warning' | 'correct' | 'backIos'| 'backAndroid' | 'moreV' | 'moreH' | 'close' | 'selected' | 'unselected' | 'selectedUnBordered' | 'volumeMute' | 'volumeMax' | 'volumeMuteBorder' | 'volumeMaxBorder' | 'help'
+type IconFontName =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 'power'
+    | 'arrow'
+    | 'celsius'
+    | 'fahrenheit'
+    | 'minus'
+    | 'plus'
+    | 'error'
+    | 'warning'
+    | 'correct'
+    | 'backIos'
+    | 'backAndroid'
+    | 'moreV'
+    | 'moreH'
+    | 'close'
+    | 'selected'
+    | 'unselected'
+    | 'selectedUnBordered'
+    | 'volumeMute'
+    | 'volumeMax'
+    | 'volumeMuteBorder'
+    | 'volumeMaxBorder'
+    | 'help';
 
 export interface IconFontProps {
     /**
@@ -3996,7 +4028,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description Callback of selecting the event
      * @defaultValue () => {}
      */
-    onSelect?: (value: string | number, params?: {close:() => void}) => void;
+    onSelect?: (value: string | number, params?: { close: () => void }) => void;
     /**
      * @language zh-CN
      * @description 值改变的回调
@@ -10488,7 +10520,7 @@ export const TransitionPresets: {
     DefaultTransition: TransitionPreset;
     ModalTransition: TransitionPreset;
     SlideFromRightWithMargin: TransitionPreset;
-}
+};
 
 export interface StringType {
     [key: string]: string;
