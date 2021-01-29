@@ -1035,9 +1035,9 @@ declare namespace SpotifyApi {
         href: string;
         items: T[];
         limit: number;
-        next: string;
+        next: string | null;
         offset: number;
-        previous: string;
+        previous: string | null;
         total: number;
     }
 
@@ -1049,7 +1049,7 @@ declare namespace SpotifyApi {
         href: string;
         items: T[];
         limit: number;
-        next: string;
+        next: string | null;
         cursors: CursorObject;
         total?: number;
     }
