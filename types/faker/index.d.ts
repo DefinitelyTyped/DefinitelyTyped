@@ -199,13 +199,13 @@ declare namespace Faker {
             middleName(gender?: number): string;
             findName(firstName?: string, lastName?: string, gender?: number): string;
             jobTitle(): string;
+            gender(): string;
             prefix(): string;
             suffix(): string;
             title(): string;
             jobDescriptor(): string;
             jobArea(): string;
             jobType(): string;
-            gender(): string;
         };
 
         music: {
