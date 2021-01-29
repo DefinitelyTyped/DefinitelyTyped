@@ -2202,6 +2202,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
      */
     showIcon?: boolean;
 }
+// tslint:disable-next-line no-unnecessary-class
 export class GlobalToast {
     static show: (option: GlobalToastProps) => void;
     static hide: () => void;
