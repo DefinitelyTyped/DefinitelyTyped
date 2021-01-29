@@ -270,6 +270,11 @@ export interface LoginPayload {
    */
   well_known?: any;
 }
+export type IncludeEventContext = {
+  before_limit?: number;
+  after_limit?: number;
+  include_profile?: boolean;
+}
 export type EventContext = {
   start: string;
   end: string;
@@ -293,8 +298,8 @@ export type GroupValue = {
   results: string[];
 }
 export type SearchResponse = {
-  searchCategories: {
-    roomEvents: {
+  search_categories: {
+    room_events: {
       results: SearchResult[];
       count: number;
       highlights: string[];
@@ -306,7 +311,20 @@ export type SearchResponse = {
     };
   };
 }
-
+export type SearchKey = 'content.body' | 'content.name' | 'content.topic'
+export type SearchBody = {
+  search_categories: {
+    room_events: {
+      search_term: string;
+      keys?: SearchKey[];
+      filter?: any;
+      order_by?: any;
+      event_context?: IncludeEventContext;
+      include_state?: boolean;
+      groupings?: any;
+    }
+  }
+}
 /**
  * Only part of the MatrixClient methods was put here
  * because they are too many.
@@ -527,8 +545,8 @@ export class MatrixClient extends EventEmitter {
   scrollback(room: Room, limit: number, callback?: MatrixCallback): Promise<Room>;
   search(
     opts: {
-      next_batch: string;  // the batch token to pass in the query string
-      body: object;  // the JSON object to pass to the request body.
+      next_batch?: string;  // the batch token to pass in the query string
+      body: SearchBody;  // the JSON object to pass to the request body.
     },
     callback?: MatrixCallback,
   ): Promise<SearchResponse>;
