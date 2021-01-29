@@ -1,6 +1,7 @@
 // Type definitions for reactjs-localstorage 1.0
 // Project: https://github.com/null-none/react-localstorage
-// Definitions by: rwilson504 <https://github.com/rwilson504>
+// Definitions by: Rick Wilson <https://github.com/rwilson504>
+//                 Dan Cox <https://github.com/powerappsdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace reactLocalStorage;
