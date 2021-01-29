@@ -11,7 +11,7 @@ const menuHeaderStyle = {
 
 const MenuList = (props: MenuListComponentProps<ColourOption | FlavourOption, false, GroupedOption>) => {
     return (
-        <components.MenuList {...props}>
+        <components.MenuList<ColourOption | FlavourOption, false, GroupedOption> {...props}>
             <div style={menuHeaderStyle}>Custom Menu List</div>
             {props.children}
         </components.MenuList>
