@@ -1,4 +1,5 @@
 import RouteInfo from '@ember/routing/-private/route-info';
+import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
 import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
 
@@ -57,7 +58,28 @@ export default class RouterService extends Service {
      * * `/blog/some-post-id` when you visit `/blog/some-post-id`
      */
     readonly currentURL: string;
-    //
+
+    /**
+     * The `rootURL` property represents the URL of the root of
+     * the application, '/' by default.
+     * This prefix is assumed on all routes defined on this app.
+     * If you change the `rootURL` in your environment configuration
+     * like so:
+     * ```config/environment.js
+     * 'use strict';
+     * module.exports = function(environment) {
+     *   let ENV = {
+     *     modulePrefix: 'router-service',
+     *     environment,
+     *     rootURL: '/my-root',
+     *   …
+     *   }
+     * ]
+     * ```
+     * This property will return `/my-root`.
+     */
+    readonly rootURL: string;
+
     /**
      * Determines whether a route is active.
      *
@@ -265,4 +287,36 @@ export default class RouterService extends Service {
         name: 'routeDidChange' | 'routeWillChange',
         callback: (transition: Transition) => void
     ): RouterService;
+
+    /**
+     * Takes a string URL and returns a `RouteInfo` for the leafmost route represented
+     * by the URL. Returns `null` if the URL is not recognized. This method expects to
+     * receive the actual URL as seen by the browser including the app's `rootURL`.
+     * See [RouteInfo](/ember/release/classes/RouteInfo) for more info.
+     * In the following example `recognize` is used to verify if a path belongs to our
+     * application before transitioning to it.
+     * ```
+     * import Component from '@ember/component';
+     * import { inject as service } from '@ember/service';
+     * export default class extends Component {
+     *   @service router;
+     *   path = '/';
+     *   click() {
+     *     if (this.router.recognize(this.path)) {
+     *       this.router.transitionTo(this.path);
+     *     }
+     *   }
+     * }
+     * ```
+     */
+    recognize(url: string): RouteInfo;
+
+    /**
+     * Takes a string URL and returns a promise that resolves to a
+     * `RouteInfoWithAttributes` for the leafmost route represented by the URL.
+     * The promise rejects if the URL is not recognized or an unhandled exception
+     * is encountered. This method expects to receive the actual URL as seen by
+     * the browser including the app's `rootURL`.
+     */
+    recognizeAndLoad(url: string): RouteInfoWithAttributes;
 }

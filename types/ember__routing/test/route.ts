@@ -98,7 +98,8 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+    // $ExpectError
+    redirect(model: {}, a: Transition, anOddArg: any) {
         if (!model) {
             this.transitionTo('there');
         }
@@ -110,12 +111,12 @@ class TransitionToExamples extends Route {
     // because the overload for the version where `models` are passed
     // necessarily includes all objects.
     transitionToModelAndQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo('somewhere', { queryParams: { neat: true } });
     }
 
     transitionToJustQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo({ queryParams: { neat: 'true' } });
     }
 
@@ -128,23 +129,27 @@ class TransitionToExamples extends Route {
     }
 
     transitionToId() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo('blog-post', 1);
     }
 
     transitionToIdWithQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
     }
 
     transitionToIds() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo('blog-comment', 1, '13');
     }
 
     transitionToIdsWithQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<any>
         this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
+    }
+
+    buildRouteInfoMetadata() {
+        return { foo: 'bar' };
     }
 }
 
@@ -176,9 +181,9 @@ class RouteUsingClass extends Route.extend({
         this.intermediateTransitionTo('some-route');
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', { });
+        this.intermediateTransitionTo('some.other.route', {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+        this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }

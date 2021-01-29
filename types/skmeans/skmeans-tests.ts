@@ -16,6 +16,8 @@ skmeans(dataMulti, 3, null, null, (x1, x2) => Math.abs(x1 - x2));
 
 const res = skmeans(dataMulti, 3, null, 10);
 res.test(6);
+(res.centroids as number[]).forEach(i => () => { i + 1; });
 
 const res2 = skmeans(dataMulti, 3, null, 10);
 res2.test(6, (x1, x2) => Math.abs(x1 - x2));
+(res.centroids as number[][]).forEach(i => () => { i[0] + i[1]; });

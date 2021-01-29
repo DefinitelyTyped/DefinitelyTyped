@@ -21,6 +21,24 @@ mongoClient.connect().then(() => {
         }
     });
 
+    mongoQueue.add({ name: 'foo' }, (err, res) => {
+        if (err) {
+            console.log('error: ' + err);
+        } else {
+            const msgId: string = res;
+            console.log('msgId: ' + msgId);
+        }
+    });
+
+    mongoQueue.add(['foo1', 'foo2'], (err, res) => {
+        if (err) {
+            console.log('error: ' + err);
+        } else {
+            const msgIds: string[] = res;
+            console.log('msgId: ' + msgIds);
+        }
+    });
+
     mongoQueue.get((err, res) => {
         if (err) {
             console.log('error: ' + err);
@@ -70,12 +88,12 @@ mongoClient.connect().then(() => {
         }
     });
 
-    mongoQueue.inflight((err, res) => {
+    mongoQueue.inFlight((err, res) => {
         if (err) {
             console.log('error: ' + err);
         } else {
-            const inflight: number = res;
-            console.log('inflight: ' + inflight);
+            const inFlight: number = res;
+            console.log('inFlight: ' + inFlight);
         }
     });
 

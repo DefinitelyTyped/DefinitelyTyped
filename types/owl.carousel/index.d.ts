@@ -62,6 +62,7 @@ declare namespace OwlCarousel {
         checkVisible?: boolean;
         slideTransition?: string;
         autoHeight?: boolean;
+        rtl?: boolean;
         // CLASSES
         refreshClass?: string;
         loadingClass?: string;

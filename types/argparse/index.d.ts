@@ -18,7 +18,7 @@ export class ArgumentParser extends ArgumentGroup {
     format_usage(): string;
     format_help(): string;
     parse_known_args(args?: string[], ns?: Namespace | object): any[];
-    convert_arg_line_to_arg(argLine: string): string[];
+    convert_arg_line_to_args(argLine: string): string[];
     exit(status: number, message: string): void;
     error(err: string | Error): void;
 }
@@ -67,6 +67,7 @@ export interface ArgumentParserOptions {
     formatter_class?: { new (): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter };
     prog?: string;
     usage?: string;
+    exit_on_error?: boolean;
 }
 
 export interface ArgumentGroupOptions {
@@ -80,6 +81,18 @@ export abstract class Action {
     protected dest: string;
     constructor(options: ActionConstructorOptions);
     abstract call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+}
+
+// Can be used in conjunction with the exit_on_error flag to save the error message
+// and use it in a fashion other than printing to stdout.
+export class ArgumentError extends Error {
+    constructor(argument: Action, message: string);
+    str(): string;
+}
+
+// An error from trying to convert a command line string to a type.
+export class ArgumentTypeError extends Error {
+    constructor(message: string);
 }
 
 // Passed to the Action constructor.  Subclasses are just expected to relay this to
@@ -105,12 +118,12 @@ export interface ArgumentOptions {
     required?: boolean;
     help?: string;
     metavar?: string | string[];
+    version?: string;
 }
 
-export namespace Const {
-    const SUPPRESS: string;
-    const OPTIONAL: string;
-    const ZERO_OR_MORE: string;
-    const ONE_OR_MORE: string;
-    const REMAINDER: string;
-}
+export const SUPPRESS: string;
+export const OPTIONAL: string;
+export const ZERO_OR_MORE: string;
+export const ONE_OR_MORE: string;
+export const REMAINDER: string;
+export const PARSER: string;

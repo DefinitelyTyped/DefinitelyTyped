@@ -1,3 +1,28 @@
+import '../test/assert';
+import '../test/buffer';
+import '../test/child_process';
+import '../test/cluster';
+import '../test/crypto';
+import '../test/dgram';
+import '../test/events';
+import '../test/global';
+import '../test/http';
+import '../test/http2';
+import '../test/net';
+import '../test/os';
+import '../test/path';
+import '../test/perf_hooks';
+import '../test/process';
+import '../test/readline';
+import '../test/repl';
+import '../test/stream';
+import '../test/tls';
+import '../test/tty';
+import '../test/util';
+import '../test/v8';
+import '../test/worker_threads';
+import '../test/zlib';
+
 import assert = require("assert");
 import * as fs from "fs";
 import * as url from "url";
@@ -434,7 +459,7 @@ import Module = require("module");
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second']
+            query: ['first', 'second'] as ReadonlyArray<string>
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -447,9 +472,7 @@ import Module = require("module");
             ['user', 'abc'],
             ['query', 'first'],
             ['query', 'second'],
-        // ts 2.1/2.* compatibility
-        // tslint:disable-next-line no-unnecessary-type-assertion
-        ] as Array<[string, string]>);
+        ] as ReadonlyArray<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 
@@ -610,7 +633,7 @@ import Module = require("module");
     }
 
     {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
+        const fn: Function = vm.compileFunction('console.log("test")', [] as ReadonlyArray<string>, {
             parsingContext: vm.createContext(),
             contextExtensions: [{
                 a: 1,
@@ -664,7 +687,7 @@ import Module = require("module");
         let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
+        v = await setImmediate();
         s = await setImmediate("");
     }
 }
@@ -762,7 +785,7 @@ import Module = require("module");
         console.log('message', 'foo', 'bar');
         console.table({ foo: 'bar' });
         console.table([{ foo: 'bar' }]);
-        console.table([{ foo: 'bar' }], ['foo']);
+        console.table([{ foo: 'bar' }], ['foo'] as ReadonlyArray<string>);
         console.time();
         console.time('label');
         console.timeEnd();
@@ -898,7 +921,7 @@ import Module = require("module");
     }
     {
         const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"]);
+        resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
         resolver.resolve("nodejs.org", (err, addresses) => {
             const _addresses: string[] = addresses;
         });

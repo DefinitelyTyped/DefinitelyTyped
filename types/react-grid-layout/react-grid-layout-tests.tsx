@@ -22,6 +22,7 @@ class DefaultGridTest extends React.Component {
                 verticalCompact={true}
                 isBounded={true}
                 resizeHandles={['e']}
+                resizeHandle={<div />}
             >
                 <div key={'a'}>a</div>
                 <div key={'b'}>b</div>

@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/term-map": [
-                "rdfjs__term-map"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

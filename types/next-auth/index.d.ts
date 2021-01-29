@@ -11,12 +11,12 @@
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
-import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
 import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 interface InitOptions {
-    providers: Array<ReturnType<PossibleProviders>>;
+    providers: ReadonlyArray<ReturnType<PossibleProviders>>;
     database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;
@@ -66,7 +66,7 @@ interface Cookies {
 
 interface Cookie {
     name: string;
-    options: CookieOptions;
+    options?: CookieOptions;
 }
 
 interface CookieOptions {
@@ -75,6 +75,7 @@ interface CookieOptions {
     path?: string;
     secure?: boolean;
     maxAge?: number;
+    domain?: string;
 }
 
 interface Events {
@@ -93,21 +94,30 @@ interface Session {
     updateAge?: number;
 }
 
+interface User {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+}
+
 interface JWTOptions {
     secret?: string;
     maxAge?: number;
+    encryption?: boolean;
+    signingKey?: string;
+    encryptionKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;
 }
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: Session, user: GenericObject): Promise<GenericObject>;
+    session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
-        user: GenericObject,
+        user: User,
         account: GenericObject,
         profile: GenericObject,
         isNewUser: boolean,
@@ -116,4 +126,4 @@ interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, Callbacks };
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

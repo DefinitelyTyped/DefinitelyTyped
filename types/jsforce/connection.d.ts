@@ -21,6 +21,8 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // and search for options
 export interface RestApiOptions {
     headers?: { [x: string]: string }
+    allowRecursive?: boolean;
+    allOrNone?: boolean;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
@@ -50,6 +52,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     maxRequest?: number;
     oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
+    httpProxy?: string;
     redirectUri?: string;
     refreshToken?: string;
     refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
@@ -150,6 +153,10 @@ export interface ExecuteAnonymousResult {
 
 export type ConnectionEvent = "refresh";
 
+export interface SearchResult<T> {
+    searchRecords: Record<T>[];
+}
+
 /**
  * the methods exposed here are done so that a client can use 'declaration augmentation' to get intellisense on their own projects.
  * for example, given a type
@@ -171,7 +178,7 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
+    request<T = object>(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: T) => void): Promise<T>;
     query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
@@ -214,6 +221,7 @@ export abstract class BaseConnection extends EventEmitter {
     recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
     recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
     recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    search<T>(sosl: string, callback?: (err: Error, result: SearchResult<T>) => void): Promise<(SearchResult<T>)>;
 }
 
 export class Connection extends BaseConnection {
@@ -234,6 +242,7 @@ export class Connection extends BaseConnection {
     version: string;
     accessToken: string;
     refreshToken?: string;
+    userInfo?: UserInfo;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;

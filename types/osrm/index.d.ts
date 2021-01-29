@@ -1,4 +1,4 @@
-// Type definitions for osrm 5.12
+// Type definitions for osrm 5.22
 // Project: https://github.com/Project-OSRM/osrm-backend
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,6 +50,7 @@ declare namespace OSRM {
     type Radius = number;
     type Hint = string;
     type Duration = number;
+    type Distance = number;
     type Tile = [number, number, number];
     type StepManeuverTypes = 'turn' | 'new name' | 'depart' | 'arrive' | 'merge' |
                              'ramp' | 'on ramp' | 'off ramp' | 'fork' | 'end of road' |
@@ -466,6 +467,10 @@ declare namespace OSRM {
          * to use location with given index as destination. Default is to use all.
          */
         destinations?: number[];
+        /**
+         * specify which table results to return.
+         */
+        annotations?: Array<('duration' | 'distance')>;
     }
 
     /**
@@ -570,6 +575,7 @@ declare namespace OSRM {
 
     interface TableResults {
         durations: Duration[][];
+        distances?: Distance[][];
         sources: Waypoint[];
         destinations: Waypoint[];
     }

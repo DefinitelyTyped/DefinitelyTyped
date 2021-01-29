@@ -15,11 +15,8 @@
             "../"
         ],
         "paths": {
-            "@ember/template": [
-                "ember__template"
-            ],
-            "@ember/template/*": [
-                "ember__template/*"
+            "@ember/*": [
+                "ember__*"
             ]
         },
         "types": [],

@@ -1,11 +1,12 @@
-// Type definitions for d3-fetch 1.1
+// Type definitions for d3-fetch 2.0
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 2.0.0
 
 import { DSVParsedArray, DSVRowArray, DSVRowString } from "d3-dsv";
 
@@ -180,12 +181,15 @@ export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HT
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * If the server returns a status code of [204 No Content](https://developer.mozilla.org/docs/Web/HTTP/Status/204)
+ * or [205 Reset Content](https://developer.mozilla.org/docs/Web/HTTP/Status/205), the promise resolves to `undefined`.
+ *
  * The generic parameter describes the type of the object parsed from the returned JSON.
  *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject | undefined>;
 
 /**
  * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.

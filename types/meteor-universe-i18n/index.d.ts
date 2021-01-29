@@ -55,7 +55,7 @@ declare module 'meteor/universe:i18n' {
         // executes function in the locale context,
         // it means that every default locale used inside a called function will be set to a passed locale
         // keep in mind that locale must be loaded first (if it is not bundled)
-        function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
+        function runWithLocale<T>(locale: string, func: () => T): T;
 
         // language getters
         let _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;

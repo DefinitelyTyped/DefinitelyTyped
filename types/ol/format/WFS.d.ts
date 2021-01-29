@@ -3,21 +3,14 @@ import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import Projection from '../proj/Projection';
 import { ReadOptions } from './Feature';
-import Bbox from './filter/Bbox';
-import ComparisonBinary from './filter/ComparisonBinary';
-import Contains from './filter/Contains';
-import During from './filter/During';
 import Filter from './filter/Filter';
-import Intersects from './filter/Intersects';
-import IsBetween from './filter/IsBetween';
-import IsLike from './filter/IsLike';
-import IsNull from './filter/IsNull';
-import LogicalNary from './filter/LogicalNary';
-import Not from './filter/Not';
-import Within from './filter/Within';
+
 import GMLBase, { Options as Options_1 } from './GMLBase';
 import XMLFeature from './XMLFeature';
 
+/**
+ * Number of features; bounds/extent.
+ */
 export interface FeatureCollectionMetadata {
     numberOfFeatures: number;
     bounds: Extent;
@@ -28,6 +21,9 @@ export interface Options {
     gmlFormat?: GMLBase;
     schemaLocation?: string;
 }
+/**
+ * Total deleted; total inserted; total updated; array of insert ids.
+ */
 export interface TransactionResponse {
     totalDeleted: number;
     totalInserted: number;
@@ -65,17 +61,29 @@ export interface WriteTransactionOptions {
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
     protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
-    getFeatureType(): string[] | string;
-    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
+    getFeatureType(): string[] | string | undefined;
+    /**
+     * Read feature collection metadata of the source.
+     */
+    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata | undefined;
     readProjectionFromDocument(doc: Document): Projection;
     readProjectionFromNode(node: Element): Projection;
-    readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
-    readTransactionResponseFromDocument(doc: Document): TransactionResponse;
-    readTransactionResponseFromNode(node: Element): TransactionResponse;
+    /**
+     * Read transaction response of the source.
+     */
+    readTransactionResponse(source: Document | Element | object | string): TransactionResponse | undefined;
+    readTransactionResponseFromDocument(doc: Document): TransactionResponse | undefined;
+    readTransactionResponseFromNode(node: Element): TransactionResponse | undefined;
     setFeatureType(featureType: string[] | string | undefined): void;
+    /**
+     * Encode format as WFS GetFeature and return the Node.
+     */
     writeGetFeature(options: WriteGetFeatureOptions): Node;
+    /**
+     * Encode format as WFS Transaction and return the Node.
+     */
     writeTransaction(
         inserts: Feature<Geometry>[],
         updates: Feature<Geometry>[],
@@ -83,4 +91,7 @@ export default class WFS extends XMLFeature {
         options: WriteTransactionOptions,
     ): Node;
 }
+/**
+ * Encode filter as WFS Filter and return the Node.
+ */
 export function writeFilter(filter: Filter): Node;

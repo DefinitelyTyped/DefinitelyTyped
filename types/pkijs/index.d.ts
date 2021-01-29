@@ -464,7 +464,7 @@ declare module "pkijs/src/CertificateRevocationList" {
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import RevokedCertificate from "pkijs/src/RevokedCertificate";
     import Time from "pkijs/src/Time";
-    import Extension from "pkijs/src/Extension";
+    import Extensions from "pkijs/src/Extensions";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
     import { BitString, Sequence } from "asn1js";
@@ -477,7 +477,7 @@ declare module "pkijs/src/CertificateRevocationList" {
         thisUpdate: Time;
         nextUpdate?: Time;
         revokedCertificates?: RevokedCertificate[];
-        crlExtension?: Extension[];
+        crlExtensions?: Extensions;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 

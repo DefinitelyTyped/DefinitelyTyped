@@ -8,6 +8,7 @@ import dbbusradarnrwProfile = require('hafas-client/p/db-busradar-nrw');
 import hvvProfile = require('hafas-client/p/hvv');
 import insaProfile = require('hafas-client/p/insa');
 import invgProfile = require('hafas-client/p/invg');
+import mobiliteitProfile = require('hafas-client/p/mobiliteit-lu');
 import nahshProfile = require('hafas-client/p/nahsh');
 import nvvProfile = require('hafas-client/p/nvv');
 import oebbProfile = require('hafas-client/p/oebb');
@@ -21,8 +22,10 @@ import svvProfile = require('hafas-client/p/svv');
 import vbbProfile = require('hafas-client/p/vbb');
 import vbnProfile = require('hafas-client/p/vbn');
 import vmtProfile = require('hafas-client/p/vmt');
+import vrnProfile = require('hafas-client/p/vrn');
 import vsnProfile = require('hafas-client/p/vsn');
 import zvvProfile = require('hafas-client/p/zvv');
+import rejseplanenProfile = require('hafas-client/p/rejseplanen');
 
 const choose = (p: string): createClient.Profile => {
     switch (p) {
@@ -34,6 +37,7 @@ const choose = (p: string): createClient.Profile => {
         case 'hvvProfile': return hvvProfile;
         case 'insaProfile': return insaProfile;
         case 'invgProfile': return invgProfile;
+        case 'mobiliteitProfile': return mobiliteitProfile;
         case 'nahshProfile': return nahshProfile;
         case 'nvvProfile': return nvvProfile;
         case 'oebbProfile': return oebbProfile;
@@ -47,8 +51,10 @@ const choose = (p: string): createClient.Profile => {
         case 'vbbProfile': return vbbProfile;
         case 'vbnProfile': return vbnProfile;
         case 'vmtProfile': return vmtProfile;
+        case 'vrnProfile': return vrnProfile;
         case 'vsnProfile': return vsnProfile;
         case 'zvvProfile': return zvvProfile;
+        case 'rejseplanenProfile': return rejseplanenProfile;
         default: return dbProfile;
     }
 };
@@ -66,5 +72,17 @@ client.journeys("", "", { results: 1, subStops: true })
 if (client.radar) {
     client.radar({ north: 0, south: 0, west: 0, east: 0 }, { results: 1, duration: 10 })
         .then(movements => { /* ... */ })
+        .catch(() => { /* ... */ });
+}
+
+if (client.lines) {
+    client.lines('x', {})
+        .then(lines => { /* ... */ })
+        .catch(() => { /* ... */ });
+}
+
+if (client.serverInfo) {
+    client.serverInfo({})
+        .then(serverInfo => { /* ... */ })
         .catch(() => { /* ... */ });
 }

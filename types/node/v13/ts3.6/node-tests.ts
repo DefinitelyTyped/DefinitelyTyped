@@ -1,5 +1,6 @@
-// tslint:disable-next-line:no-bad-reference
 import '../ts3.4/node-tests';
+import '../test/globals';
+import '../test/wasi';
 
 /////////////////////////////////////////////////////
 /// WASI tests : https://nodejs.org/api/wasi.html ///

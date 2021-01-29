@@ -13,13 +13,6 @@ function test_equalTime(){
     assert.equalTime(date, date);
 }
 
-function test_closeToTime(){
-    const date: Date = new Date(2014, 1, 1);
-    const closeTime: Date = new Date(2014, 1, 1, 0, 0, 30);
-    expect(date).to.be.closeToTime(closeTime, 40);
-    expect(date).not.to.be.closeToTime(closeTime, 20);
-}
-
 function test_beforeTime(){
     const date: Date = new Date(2014, 1, 1);
     expect(date).to.be.beforeTime(date);
@@ -34,7 +27,14 @@ function test_afterTime(){
     assert.afterTime(date, date);
 }
 
-function test_closeToTime(){
+function test_closeToTime1(){
+    const date: Date = new Date(2014, 1, 1);
+    const closeTime: Date = new Date(2014, 1, 1, 0, 0, 30);
+    expect(date).to.be.closeToTime(closeTime, 40);
+    expect(date).not.to.be.closeToTime(closeTime, 20);
+}
+
+function test_closeToTime2(){
     const date: Date = new Date(2014, 1, 1, 6, 0);
     const closeDate: Date = new Date(2014, 1, 1, 6, 1);
     expect(date).to.be.closeToTime(closeDate, 120);

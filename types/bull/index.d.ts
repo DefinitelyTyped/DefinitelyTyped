@@ -1,10 +1,9 @@
-// Type definitions for bull 3.14
+// Type definitions for bull 3.15
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
@@ -621,6 +620,11 @@ declare namespace Bull {
     resume(isLocal?: boolean): Promise<void>;
 
     /**
+     * Returns a promise that resolves with a boolean if queue is paused
+     */
+    isPaused(isLocal?: boolean): Promise<boolean>;
+
+    /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
      * Since there may be other processes adding or processing jobs, this value may be true only for a very small amount of time.
      */
@@ -710,7 +714,7 @@ declare namespace Bull {
      * Returns a object with the logs according to the start and end arguments. The returned count
      * value is the total amount of logs, useful for implementing pagination.
      */
-    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
+    getJobLogs(jobId: JobId, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

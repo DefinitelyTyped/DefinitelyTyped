@@ -150,7 +150,6 @@ export interface RichTextToolbarProps extends Partial<RichTextToolbarOptionalPro
     getEditor: () => RichTextEditor;
 }
 
-/* tslint:disable:max-classes-per-file */
 export class RichTextEditor extends Component<Partial<RichTextEditorProps>> {
     // RichTextEditor also has methods that can be used on its ref to set styling at the current selection
     // or cursor position:
@@ -221,4 +220,3 @@ export class RichTextEditor extends Component<Partial<RichTextEditorProps>> {
 // This is a Component that provides a toolbar for easily controlling an editor.
 // It is designed to be used together with a RichTextEditor component.
 export class RichTextToolbar extends Component<Partial<RichTextToolbarProps>> { }
-/* tslint:enable:max-classes-per-file */

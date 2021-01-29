@@ -1,10 +1,10 @@
-// Type definitions for terser-webpack-plugin 4.2
+// Type definitions for terser-webpack-plugin 5.0
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 import { MinifyOptions } from 'terser';
 
 /**
@@ -56,32 +56,11 @@ declare namespace TerserPlugin {
         exclude?: string | RegExp | Array<string | RegExp>;
 
         /**
-         * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache.}
-         * Enable/disable file caching.
-         * Default path to cache directory: `node_modules/.cache/terser-webpack-plugin`.
-         * @default true
-         */
-        cache?: boolean | string;
-
-        /**
-         * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache}.
-         * Allows you to override default cache keys.
-         */
-        cacheKeys?: (defaultCacheKeys: any, file: any) => object;
-
-        /**
          * Enable/disable multi-process parallel running.
          * Use multi-process parallel running to improve the build speed. Default number of concurrent runs: os.cpus().length - 1.
          * @default true
          */
         parallel?: boolean | number;
-
-        /**
-         * Use source maps to map error message locations to modules (this slows down the compilation).
-         * If you use your own minify function please read the minify section for handling source maps correctly.
-         * @default false
-         */
-        sourceMap?: boolean;
 
         /**
          * Allows you to override default minify function.
@@ -107,8 +86,10 @@ declare namespace TerserPlugin {
     }
 }
 
-declare class TerserPlugin extends Plugin {
+declare class TerserPlugin implements WebpackPluginInstance {
     constructor(opts?: TerserPlugin.TerserPluginOptions);
+
+    apply: (compiler: Compiler) => void;
 }
 
 export = TerserPlugin;

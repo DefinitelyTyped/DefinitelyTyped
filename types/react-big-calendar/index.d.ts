@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.24
+// Type definitions for react-big-calendar 0.30
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -17,6 +17,7 @@
 //                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
 //                 Chris Vandenberg <https://github.com/altruisticsoftware>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -292,6 +293,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     getNow?: () => Date;
     view?: View;
     events?: TEvent[];
+    handleDragStart?: (event: TEvent) => void;
     onNavigate?: (newDate: Date, view: View, action: NavigateAction) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
@@ -303,8 +305,10 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     }) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onKeyPressEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
     onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void;
+    showAllEvents?: boolean;
     selected?: any;
     views?: ViewsProps<TEvent, TResource>;
     drilldownView?: View | null;
@@ -391,6 +395,69 @@ export interface Views {
     AGENDA: 'agenda';
 }
 export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
+
+export interface TimeGridProps<TEvent extends object = Event, TResource extends object = object> {
+    eventOffset: number;
+    events?: TEvent[];
+    resources?: TResource[];
+    step?: number;
+    timeslots?: number;
+    range?: any[];
+    min?: stringOrDate;
+    max?: stringOrDate;
+    getNow?: () => Date;
+    scrollToTime?: Date;
+    showMultiDayTimes?: boolean;
+    rtl?: boolean;
+    width?: number;
+    accessors?: object;
+    components?: object;
+    getters?: object;
+    localizer?: object;
+    selected?: object;
+    selectable?: boolean | 'ignoreEvents';
+    longPressThreshold?: number;
+    onNavigate?: (action: NavigateAction) => void;
+    onSelectSlot?: (slotInfo: {
+        start: stringOrDate;
+        end: stringOrDate;
+        slots: Date[] | string[];
+        action: 'select' | 'click' | 'doubleClick';
+    }) => void;
+    onSelectEnd?: (...args: any[]) => any;
+    onSelectStart?: (...args: any[]) => any;
+    onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onKeyPressEvent?: (...args: any[]) => any;
+    onDrillDown?: (date: Date, view: View) => void;
+    getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
+    dayLayoutAlgorithm?: any;
+}
+
+export class TimeGrid<TEvent extends object = Event, TResource extends object = object> extends React.Component<
+    TimeGridProps<TEvent, TResource>
+> {}
+
+export interface WorkWeekProps {
+    date: Date;
+}
+
+export class WorkWeek extends Week {}
+
+export interface WeekProps {
+    date: Date;
+}
+
+export class Week extends React.Component<WeekProps> {
+    static range: (date: Date) => Date[];
+    static navigate: (date: Date, action: NavigateAction) => Date;
+    static title: (date: Date) => string;
+}
+
+export interface DayProps {
+    date: Date;
+}
+export class Day extends React.Component<DayProps> {}
 
 // Turn off automatic exports
 export {};

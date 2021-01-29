@@ -24,6 +24,7 @@ import isCurrencyFunc from 'validator/lib/isCurrency';
 import isEthereumAddressFunc from 'validator/lib/isEthereumAddress';
 import isBtcAddressFunc from 'validator/lib/isBtcAddress';
 import isDataURIFunc from 'validator/lib/isDataURI';
+import isDateFunc from 'validator/lib/isDate';
 import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
@@ -66,6 +67,7 @@ import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
+import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -143,6 +145,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isDataURI = validator.isDataURI;
     _isDataURI = isDataURIFunc;
+
+    let _isDate = validator.isDate;
+    _isDate = isDateFunc;
 
     let _isDecimal = validator.isDecimal;
     _isDecimal = isDecimalFunc;
@@ -270,6 +275,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isSemVer = validator.isSemVer;
     _isSemVer = isSemVerFunc;
 
+    let _isStrongPassword = validator.isStrongPassword;
+    _isStrongPassword = isStrongPasswordFunc;
+
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
 
@@ -352,6 +360,7 @@ import isCurrencyFuncEs from 'validator/es/lib/isCurrency';
 import isEthereumAddressFuncEs from 'validator/es/lib/isEthereumAddress';
 import isBtcAddressFuncEs from 'validator/es/lib/isBtcAddress';
 import isDataURIFuncEs from 'validator/es/lib/isDataURI';
+import isDateFuncEs from 'validator/es/lib/isDate';
 import isDecimalFuncEs from 'validator/es/lib/isDecimal';
 import isDivisibleByFuncEs from 'validator/es/lib/isDivisibleBy';
 import isEmailFuncEs from 'validator/es/lib/isEmail';
@@ -394,6 +403,7 @@ import isPassportNumberFuncEs from 'validator/es/lib/isPassportNumber';
 import isPortFuncEs from 'validator/es/lib/isPort';
 import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
+import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
@@ -537,7 +547,9 @@ const any: any = null;
 
     result = validator.isAscii('sample');
 
+    const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
+    result = validator.isBase64('sample', isBase64Options);
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
@@ -562,6 +574,10 @@ const any: any = null;
     result = validator.isBtcAddress('sample');
 
     result = validator.isDataURI('sample');
+
+    const isDateOptions: validator.IsDateOptions = {};
+    result = validator.isDate('sample');
+    result = validator.isDate('sample', isDateOptions);
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal('sample');
@@ -785,6 +801,8 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
+
+    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 

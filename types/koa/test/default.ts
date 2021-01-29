@@ -48,6 +48,9 @@ app.use((ctx, next) => {
 app.use(ctx => {
     ctx.body = 'Hello World';
     ctx.body = ctx.URL.toString();
+    ctx.set({
+        link: ["<http://example.com>", "<http://example.org>"]
+    });
     ctx.attachment();
     ctx.attachment('path/to/tobi.png');
     ctx.attachment('path/to/tobi.png', {

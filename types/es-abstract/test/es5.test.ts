@@ -2,7 +2,6 @@ import ES5 = require('es-abstract/es5');
 import { expectType } from './index.test';
 
 declare const any: unknown;
-// tslint:disable-next-line: no-null-undefined-union
 const nullableObject: string | object | null | undefined =
     Math.random() < 0.5 ? (Math.random() < 0.5 ? undefined : null) : Object('foo');
 

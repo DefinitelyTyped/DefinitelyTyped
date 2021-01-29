@@ -117,3 +117,5 @@ export class List extends PureComponent<ListProps> {
     /** See Grid#scrollToCell */
     scrollToRow(index?: number): void;
 }
+
+export default List;

@@ -40,11 +40,14 @@ async function initRoom() {
     // Create local video track from default input
     localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });
     await localVideoTrack.restart({ facingMode: 'environment' });
+    // Publish video track
+    await room.localParticipant.publishTrack(localVideoTrack);
+    await room.localParticipant.publishTrack(localVideoTrack, { priority: 'high' });
     // Create local audio track from default input
     localAudioTrack = await Video.createLocalAudioTrack({ name: 'microphone' });
     await localAudioTrack.restart({ channelCount: 3 });
-    // Publish audio track
-    room.localParticipant.publishTrack(localAudioTrack);
+    // Publish audio track and set priority
+    (await room.localParticipant.publishTrack(localAudioTrack)).setPriority('standard');
     // Subscribe to remote participant tracks
     room.participants.forEach(participantConnected);
     // Set up listeners

@@ -465,7 +465,6 @@ AFRAME.registerComponent('audioanalyser-waveform', {
         // Create ring geometries.
         loopShape = new THREE.Shape();
         loopShape.absarc(0, 0, data.radius, 0, Math.PI * 2, false);
-        this.geometry = loopShape.createPointsGeometry(SEGMENTS / 2);
         this.geometry.dynamic = true;
 
         // Create container object.
@@ -534,7 +533,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
             var normLevel;
             normLevel = levels[RINGCOUNT - index - 1] + 0.01; // Avoid scaling by 0.
             const lineMaterial = ring.material as THREE.LineBasicMaterial;
-            (lineMaterial.color as THREE.Color).setHSL(colors[index], 1, normLevel);
+            lineMaterial.color.setHSL(colors[index], 1, normLevel);
             lineMaterial.linewidth = normLevel * 3;
             lineMaterial.opacity = normLevel;
             ring.scale.z = normLevel;

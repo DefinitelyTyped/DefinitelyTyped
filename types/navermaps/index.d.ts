@@ -659,7 +659,7 @@ declare namespace naver.maps {
     mapSystemProjection: any;
     constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
     addPane(name: string, elementOrIndex: HTMLElement | number): void;
-    destory(): void;
+    destroy(): void;
     fitBounds(bounds: any, margin?: any): void;
     getBounds(): Bounds;
     getCenter(): Coord;

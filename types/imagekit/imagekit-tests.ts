@@ -1,4 +1,5 @@
 import ImageKit = require('imagekit');
+import { Transformation } from 'imagekit';
 
 const imageKit = new ImageKit({
     privateKey: 'private_1234',
@@ -42,3 +43,11 @@ imageKit.getAuthenticationParameters('token'); // $ExpectType { token: string; e
 imageKit.getAuthenticationParameters('token', 1000); // $ExpectType { token: string; expire: number; signature: string; }
 
 imageKit.pHashDistance('hashA', 'hashB'); // $ExpectType number
+
+const applyTransformations = (transformations: Transformation[]) => transformations;
+applyTransformations([
+    {
+        height: '300',
+        width: '200',
+    },
+]);

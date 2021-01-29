@@ -236,9 +236,9 @@ type FilterOnceApplied<A> =
  * <needs description>
  * @param A
  */
-export interface Functor<A> {
-    map<U>(fn: (a: A) => U): Functor<U>;
-}
+export type Functor<A> =
+  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
 // ---------------------------------------------------------------------------------------
 // K
@@ -255,11 +255,12 @@ export type KeyValuePair<K, V> = [K, V];
 
 /**
  * <needs description>
+ * @param S
+ * @param A
  */
-export interface Lens {
-    <T, U>(obj: T): U;
-    set<T, U>(str: string, obj: T): U;
-}
+export type Lens<S, A> = (
+    functorFactory: (a: A) => Functor<A>
+) => (s: S) => Functor<S>;
 
 // ---------------------------------------------------------------------------------------
 // M
@@ -280,7 +281,6 @@ export interface Lens {
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    // tslint:disable-next-line:use-default-type-parameter
     O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
 
 /**
@@ -293,7 +293,6 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends readonly object[]> =
-    // tslint:disable-next-line:use-default-type-parameter
     O.AssignUp<{}, Os, 'flat', 1> extends infer M
     ? {} extends M    // nothing merged => bcs no `as const`
       ? T.UnionOf<Os> // so we output the approximate types
@@ -304,14 +303,29 @@ export type MergeAll<Os extends readonly object[]> =
 // O
 
 /**
- * <needs description>
+ * Predicate for an object containing the key.
  */
-export type ObjPred = (value: any, key: string) => boolean;
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
 /**
  * <needs description>
  */
 export type Ord = number | string | boolean | Date;
+
+/**
+ * An object with at least one of its properties beeing of type `Key`.
+ *
+ * @example
+ * ```
+ * // $ExpectType { foo: unknown } | { bar: unknown }
+ * type Foo = ObjectHavingSome<"foo" | "bar">
+ * ```
+ */
+// Implementation taken from
+// https://github.com/piotrwitek/utility-types/blob/df2502ef504c4ba8bd9de81a45baef112b7921d0/src/mapped-types.ts#L351-L362
+export type ObjectHavingSome<Key extends string> = A.Clean<{
+    [K in Key]: { [P in K]: unknown }
+}[Key]>;
 
 // ---------------------------------------------------------------------------------------
 // P

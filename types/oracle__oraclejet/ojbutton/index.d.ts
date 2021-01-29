@@ -44,8 +44,6 @@ export interface ojButtonset<SP extends ojButtonsetSettableProperties = ojButton
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, ojButtonsetSettableProperties>): void;
     setProperties(properties: ojButtonsetSettablePropertiesLenient): void;
 }
-// These interfaces are empty but required to keep the event chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
 export interface ojButtonsetEventMap<SP extends ojButtonsetSettableProperties = ojButtonsetSettableProperties> extends baseComponentEventMap<SP> {
 }
 // These interfaces are empty but required to keep the component chain intact. Avoid lint-rule

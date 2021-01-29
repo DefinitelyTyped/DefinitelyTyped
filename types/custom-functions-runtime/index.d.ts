@@ -1,4 +1,4 @@
-// Type definitions for non-npm package custom-functions-runtime 1.3
+// Type definitions for non-npm package custom-functions-runtime 1.6
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
@@ -31,17 +31,17 @@ declare namespace CustomFunctions {
      * [Api set: CustomFunctionsRuntime 1.2]
      */
     class Error {
-        constructor(errorCode: ErrorCode, errorMessage?: string);
+        constructor(code: ErrorCode, message?: string);
          /**
           * The error code returned by your custom function.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorCode: ErrorCode;
+        code: ErrorCode;
          /**
           * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorMessage?: string;
+        message?: string;
     }
 
     /**
@@ -105,13 +105,13 @@ declare namespace CustomFunctions {
     /**
      * Error codes for custom functions. The error codes will appear in the cell that invoked the function.
      *
-     * Custom error messages will appear in addition to these error codes. Custom messages will display in the error
-     * indicator menu, which is accessed by clicking the error flag on each cell with an error.
+     * Custom error messages appear in addition to these error codes. Custom messages display in the error
+     * indicator menu, which is accessed by hovering over the error flag on each cell with an error.
      */
     enum ErrorCode {
         /**
          *
-         * This error code indicates that a value used in the function is of the wrong data type.
+         * This error code indicates that a value in the function is of the wrong data type.
          * A custom error message can be used in addition to the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -132,7 +132,7 @@ declare namespace CustomFunctions {
         divisionByZero = "#DIV/0!",
         /**
          *
-         * This error code indicates that there is a problem with a number used in the function.
+         * This error code indicates that there is a problem with a number in the function.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -147,6 +147,7 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that there is a typo in the function name.
+         * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -154,6 +155,7 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that the function refers to an invalid cell.
+         * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */

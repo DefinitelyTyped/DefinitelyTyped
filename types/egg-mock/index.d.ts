@@ -6,7 +6,7 @@
 
 import { Application, Context } from 'egg';
 
-interface MockApplication extends Application { // tslint:disble-line
+interface MockApplication extends Application {
   ready(): Promise<void>;
   close(): Promise<void>;
   callback(): any;

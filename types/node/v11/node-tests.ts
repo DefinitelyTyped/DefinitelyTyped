@@ -1,3 +1,6 @@
+import './ts3.6/node-tests';
+import './test/querystring';
+
 import * as assert from 'assert';
 
 assert(true, "it's working");
@@ -27,7 +30,6 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
-    // tslint:disable-next-line: no-null-undefined-union
     const a = 13 as number | null | undefined;
     assert(a);
     a; // $ExpectType number
@@ -40,7 +42,6 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
-    // tslint:disable-next-line: no-null-undefined-union
     const a = 13 as number | null | undefined;
     assert.ok(a);
     a; // $ExpectType number

@@ -20,6 +20,9 @@ export interface InitOptions {
 
     // Initial language
     locale?: string;
+
+    // custom placeholder for name input form
+    namePlaceholder?: string;
 }
 
 export interface Token {
@@ -107,3 +110,8 @@ export function logout(): Promise<void> | undefined;
  * Set current language
  */
 export function setLocale(locale: string): void;
+
+/**
+ * Refresh the user's JWT.
+ */
+export function refresh(force?: boolean): Promise<string>;

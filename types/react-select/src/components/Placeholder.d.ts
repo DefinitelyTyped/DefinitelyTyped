@@ -1,17 +1,23 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, CSSProperties, ReactNode } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
-import { colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
-export type PlaceholderProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
-  /** The children to be rendered. */
-  children: ReactNode,
-  /** props passed to the wrapping element for the group. */
-  innerProps: { [key: string]: any },
-};
+export interface PlaceholderProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends CommonProps<OptionType, IsMulti, GroupType> {
+    className?: string;
+    /** The children to be rendered. */
+    children: ReactNode;
+    isDisabled: boolean;
+    isFocused: boolean;
+    innerProps: { style: CSSProperties };
+}
 
-export function placeholderCSS(): React.CSSProperties;
+export function placeholderCSS(): CSSObject;
 
-export const Placeholder: ComponentType<PlaceholderProps<any>>;
+export const Placeholder: ComponentType<PlaceholderProps<any, boolean>>;
 
 export default Placeholder;

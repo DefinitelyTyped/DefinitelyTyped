@@ -127,10 +127,7 @@ render(
         options={{
             createElement: <P extends {}>(
                 type: React.SFC<P> | React.ComponentClass<P> | string,
-                // This typing is copied from React
-                // tslint:disable-next-line:no-null-undefined-union
                 props?: (React.Attributes & P) | null,
-                // tslint:disable-next-line:no-null-undefined-union
                 ...children: React.ReactNode[]
             ) => <div className="parent">{React.createElement(type, props, children)}</div>,
         }}
