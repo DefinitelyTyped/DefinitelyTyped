@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { HTMLElement } from '../fast-html-parser';
-
 export interface WorkgridToolbarOptions {
     // Required
     companyCode: string;
