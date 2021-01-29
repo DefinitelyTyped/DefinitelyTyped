@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, MouseEventHandler } from 'react';
+import { ComponentType, ReactNode, MouseEventHandler, ReactElement } from 'react';
 import { CSSObject } from '@emotion/serialize';
 
 import { colors, spacing } from '../theme';
@@ -44,6 +44,11 @@ export type OptionProps<
 
 export function optionCSS(state: State): CSSObject;
 
-export const Option: ComponentType<OptionProps<any, boolean>>;
+declare function Option<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: OptionProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Option;
