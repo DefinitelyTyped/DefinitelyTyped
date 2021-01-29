@@ -27,10 +27,10 @@ AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
 
 const editComponent = AP.customContent.getEditComponent(); // $ExpectType EditComponent
-editComponent.intercept(AP.customContent.InterceptableEvent.Submit); // $ExpectType void
-editComponent.intercept(AP.customContent.InterceptableEvent.SubmitSuccess); // $ExpectType void
-editComponent.intercept(AP.customContent.InterceptableEvent.SubmitError); // $ExpectType void
-editComponent.intercept(AP.customContent.InterceptableEvent.Cancel); // $ExpectType void
+editComponent.intercept('confluence.customcontent.submit'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.submitSuccess'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.submitError'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.cancel'); // $ExpectType void
 editComponent.submitCallback('content'); // $ExpectType void
 editComponent.submitCallback({}); // $ExpectType void
 editComponent.submitCallback(false); // $ExpectType void
@@ -92,8 +92,8 @@ AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
 AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
-AP.navigator.go(AP.navigator.NavigatorTargetConfluence.dashboard, {}); // $ExpectType void
-AP.navigator.go(AP.navigator.NavigatorTargetJira.dashboard, {}); // $ExpectType void
+AP.navigator.go('contentview', {}); // $ExpectType void
+AP.navigator.go('issue', {}); // $ExpectType void
 AP.navigator.reload(); // $ExpectType void
 
 AP.user.getUser(user => console.log(user.id, user.key, user.fullName)); // $ExpectType void
