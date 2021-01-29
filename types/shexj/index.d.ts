@@ -1,5 +1,5 @@
-// Type definitions for ShExJ 2.1
-// Project: https://github.com/rdfjs/representation-task-force
+// Type definitions for non-npm package ShExJ 2.1
+// Project: https://github.com/shexSpec/shex
 // Definitions by: Eric Prud'hommeaux <https://github.com/ericprud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
