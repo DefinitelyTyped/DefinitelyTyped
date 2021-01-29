@@ -540,6 +540,7 @@ export interface User<A = AppMetadata, U = UserMetadata> {
     phone_number?: string;
     phone_verified?: boolean;
     user_id?: string;
+    _id?: string;
     created_at?: string;
     updated_at?: string;
     identities?: Identity[];
