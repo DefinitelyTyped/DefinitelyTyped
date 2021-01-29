@@ -2,7 +2,10 @@ import express = require('express');
 import hydraBox = require('hydra-box');
 import Api = require('hydra-box/Api');
 import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
-import { Dataset, NamedNode, Store } from 'rdf-js';
+import { Dataset, DatasetCore, NamedNode, Store, Stream } from 'rdf-js';
+import { GraphPointer } from 'clownface';
+import DatasetExt = require('rdf-ext/lib/Dataset');
+import { Readable } from 'stream';
 
 const codePath = '';
 const path = '';
@@ -82,6 +85,9 @@ async function testStoreResourceLoader() {
     const forPropertyOperation: hydraBox.PropertyResource[] = await loader.forPropertyOperation(term, req);
 }
 
-const handler: express.RequestHandler = (req) => {
+const handler: express.RequestHandler = async (req) => {
     const operations: hydraBox.PotentialOperation[] = req.hydra.operations;
+    const dataset: DatasetCore = await req.hydra.resource.dataset();
+    const quadStream: Stream & Readable = req.hydra.resource.quadStream();
+    const pointer: GraphPointer<NamedNode, DatasetExt> = await req.hydra.resource.clownface();
 };
