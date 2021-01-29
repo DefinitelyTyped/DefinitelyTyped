@@ -14,10 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react-native"
     },
     "files": [
         "index.d.ts",
-        "react-native-button-tests.ts"
+        "react-native-button-tests.tsx"
     ]
 }

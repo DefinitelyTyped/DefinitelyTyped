@@ -3,13 +3,15 @@
 // Definitions by: mkchung <https://github.com/mkchung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'gbk.js' {
-    export function encode(str: string): number[];
-    export function decode(bytes: number[]): string;
-    export namespace URI {
-      export function encodeURI(str: string): number[];
-      export function decodeURI(bytes: number[]): string;
-      export function encodeURIComponent(str: string): number[];
-      export function decodeURIComponent(bytes: number[]): string;
+declare namespace gbkjs {
+    function encode(str: string): number[];
+    function decode(bytes: number[]): string;
+    namespace URI {
+      function encodeURI(str: string): string;
+      function decodeURI(str: string): string;
+      function encodeURIComponent(str: string): string;
+      function decodeURIComponent(str: string): string;
     }
 }
+
+export default gbkjs;

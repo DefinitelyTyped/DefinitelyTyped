@@ -3,7 +3,7 @@
 // Definitions by: mkchung <https://github.com/mkchung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import { Component } from 'react';
 import {
     StyleProp,
     TextProps,
@@ -23,6 +23,6 @@ export interface ButtonProps
     androidBackground?: object;
 }
 
-export default class Button extends React.Component<ButtonProps> {
+export default class Button extends Component<ButtonProps> {
     constructor(props: object);
 }
