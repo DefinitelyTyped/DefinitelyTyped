@@ -4,6 +4,7 @@
 //                 Mike O'Meara <https://github.com/mikeomeara1>
 //                 chachan <https://github.com/chachan>
 //                 techieshark <https://github.com/techieshark>
+//                 maribest2 <https://github.com/marisbest2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1165,9 +1166,9 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
   interface MatrixRequest {
     points: Point[];
     profile?: DirectionsProfile;
-    sources?: number[];
-    destinations?: number[];
-    annotations?: DirectionsAnnotation;
+    sources?: number[] | 'all';
+    destinations?: number[] | 'all';
+    annotations?: DirectionsAnnotation[];
   }
 
   interface MatrixResponse {
