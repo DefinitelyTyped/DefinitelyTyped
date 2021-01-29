@@ -1,6 +1,6 @@
-import Tagify, { TagData, TagifySettings } from '@yaireo/tagify';
+import Tagify from '@yaireo/tagify';
 
-export function tagTemplate(this: Tagify, tagData: TagData): string {
+export function tagTemplate(this: Tagify, tagData: Tagify.TagData): string {
     return `
     <tag title="${tagData.title || tagData.value}" contenteditable="false" spellcheck="false" tabIndex="-1" class="tagify__tag ${tagData.class ? tagData.class : ''}" ${this.getAttributes(tagData)}>
         <x class="tagify__tag__removeBtn" role="button" aria-label="remove-tag"></x>
@@ -8,7 +8,7 @@ export function tagTemplate(this: Tagify, tagData: TagData): string {
     </tag>`;
 }
 
-const settings: TagifySettings = {
+const settings: Tagify.TagifySettings = {
     tagTextProp: 'value',
     placeholder: 'Start typing...',
     delimiters: ',| ',
@@ -90,14 +90,14 @@ const textAreaElement = document.createElement('textarea');
 const tagify = new Tagify(inputElement, settings);
 const tagifyArea = new Tagify(textAreaElement);
 
-const tagArray: TagData[] = tagify.value;
+const tagArray: Tagify.TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
 
 tagify.on('invalid', (event) => {
-    const data: TagData = event.detail.data;
+    const data: Tagify.TagData = event.detail.data;
 });
 tagify.on('add', (event) => {});
 tagify.on('remove', (event) => {});
@@ -124,7 +124,7 @@ tagify.on('dropdown:updated', (event) => {});
 tagify.on('dropdown:scroll', (event) => {});
 tagify.on('dropdown:select', (event) => {});
 
-const tags: TagData[] = [
+const tags: Tagify.TagData[] = [
     { value: 'banana', color: 'yellow' },
     { value: 'apple', color: 'red' },
     { value: 'watermelon', color: 'green' }

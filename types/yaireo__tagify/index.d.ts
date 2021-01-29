@@ -234,7 +234,6 @@ declare namespace Tagify {
      */
     interface TagData {
         value: string;
-
         [key: string]: any;
     }
 }
@@ -473,4 +472,4 @@ declare class Tagify {
     }>) => void): this;
 }
 
-export = Tagify;
+export default Tagify;
