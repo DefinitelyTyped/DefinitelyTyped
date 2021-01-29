@@ -1,4 +1,4 @@
-// Type definitions for workgrid-toolbar 1.0
+// Type definitions for non-npm package workgrid-toolbar 1.0
 // Project: https://github.com/jguardino-workgrid/workgrid-toolbar
 // Definitions by: J Guardino <https://github.com/jguardino-workgrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
