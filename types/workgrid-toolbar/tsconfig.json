@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-			"dom"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-		"index.d.ts",
-		"workgrid-toolbar-tests.ts"
+        "index.d.ts",
+        "workgrid-toolbar-tests.ts"
 	]
 }
