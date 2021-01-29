@@ -64,18 +64,18 @@ export interface CommonProps<
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
     selectProps: SelectProps<OptionType, IsMulti, GroupType>;
-    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
 }
 
 export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
     action: 'select-option';
-    option: OptionType;
+    option: OptionType | undefined;
     name?: string;
 }
 
 export interface DeselectOptionActionMeta<OptionType extends OptionTypeBase> {
     action: 'deselect-option';
-    option: OptionType;
+    option: OptionType | undefined;
     name?: string;
 }
 
