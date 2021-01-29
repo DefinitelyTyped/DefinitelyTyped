@@ -283,7 +283,7 @@ declare var GM: {
      * item when the menu is open. It should be a letter in the caption.
      * @see {@link https://wiki.greasespot.net/GM.registerMenuCommand}
      */
-    registerMenuCommand(caption: string, commandFunc: () => any, accessKey?: string): void;
+    registerMenuCommand(caption: string, commandFunc: () => void, accessKey?: string): void;
 
     /**
      * Sets the current contents of the operating system's clipboard
