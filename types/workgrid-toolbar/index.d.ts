@@ -12,15 +12,18 @@ export interface WorkgridToolbarOptions {
     tenantId: string;
     authorizerUrl: string;
     // Optional
-    confirmUser?: boolean | false;
-    debug?: boolean | false;
-    htmlDisplay?: string | 'block';
-    responsive?: boolean | true;
+    confirmUser?: boolean;
+    debug?: boolean;
+    deferDisplay?: boolean;
+    htmlDisplay?: string | null;
+    listener?: (event: string) => void | null;
+    responsive?: boolean;
     responsiveBreakpoints?: number[][]  | [[0, 0], [775, 50], [992, 100]];
     responsiveCssProperty?: string | null;
-    responsiveElement?: object | null;
+    responsiveElement?: HTMLElement | null;
     responsiveElementId?: string | null;
-    version?: string | 'v2';
+    toolbarId?: string | null;
+    version?: string | null;
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;
