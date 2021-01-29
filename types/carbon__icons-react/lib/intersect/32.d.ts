@@ -1,1 +1,3 @@
-export { Intersect32 as default } from "../../";
+import { Intersect32 } from "../../";
+
+export = Intersect32;

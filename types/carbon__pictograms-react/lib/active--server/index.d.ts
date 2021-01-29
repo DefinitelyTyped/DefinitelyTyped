@@ -1,1 +1,3 @@
-export { ActiveServer as default } from "../../";
+import { ActiveServer } from "../../";
+
+export = ActiveServer;

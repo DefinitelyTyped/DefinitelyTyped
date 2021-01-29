@@ -1,1 +1,3 @@
-export { Datastore32 as default } from "../../";
+import { Datastore32 } from "../../";
+
+export = Datastore32;

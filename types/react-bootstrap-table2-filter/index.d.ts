@@ -144,5 +144,10 @@ export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
 /**
  * declaration for table filter sub module
  */
-declare function filterFactory(): unknown;
+export interface FilterFactoryProps<T extends object = any> {
+    // TODO newFilters is not tested not its type is validated since the author of this commit has no experience with this field
+    afterFilter?: (newResult: T[], newFilters?: unknown[]) => void;
+}
+
+declare function filterFactory(props?: FilterFactoryProps): unknown;
 export default filterFactory;

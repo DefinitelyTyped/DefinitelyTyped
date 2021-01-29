@@ -988,6 +988,12 @@ declare global {
              */
             getBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
 
+            /** Deletes a binary state from the states DB */
+            delBinaryState(id: string, callback?: ErrorCallback): void;
+            delBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /** Deletes a binary state from the states DB */
+            delBinaryStateAsync(id: string, options?: unknown): Promise<void>;
+
             // ==============================
             // enums
 
@@ -1459,6 +1465,17 @@ declare global {
                 data: Buffer | string,
                 options?: unknown,
             ): Promise<void>;
+
+            /**
+             * Checks if a file exists in the DB
+             */
+            fileExists(adapterName: string | null, path: string, callback: GenericCallback<boolean>): void;
+            fileExists(adapterName: string | null, path: string, options: unknown, callback: GenericCallback<boolean>): void;
+            fileExistsAsync(
+                adapterName: string | null,
+                path: string,
+                options?: unknown,
+            ): Promise<boolean>;
 
             /**
              * Deletes a given file

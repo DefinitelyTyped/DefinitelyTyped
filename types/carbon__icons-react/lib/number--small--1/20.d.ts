@@ -1,1 +1,3 @@
-export { NumberSmall_120 as default } from "../../";
+import { NumberSmall_120 } from "../../";
+
+export = NumberSmall_120;

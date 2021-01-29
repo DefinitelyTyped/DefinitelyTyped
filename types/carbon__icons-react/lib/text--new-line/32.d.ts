@@ -1,1 +1,3 @@
-export { TextNewLine32 as default } from "../../";
+import { TextNewLine32 } from "../../";
+
+export = TextNewLine32;

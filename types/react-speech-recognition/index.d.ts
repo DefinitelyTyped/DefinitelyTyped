@@ -1,14 +1,15 @@
-// Type definitions for react-speech-recognition 3.1
+// Type definitions for react-speech-recognition 3.6
 // Project: https://github.com/JamesBrill/react-speech-recognition#readme
 // Definitions by: OleksandrYehorov <https://github.com/OleksandrYehorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Command {
-    command: string | RegExp;
+    command: string | string[] | RegExp;
     callback: (...args: any[]) => unknown;
     isFuzzyMatch?: boolean;
     matchInterim?: boolean;
     fuzzyMatchingThreshold?: number;
+    bestMatchOnly?: boolean;
 }
 
 export interface ListeningOptions {

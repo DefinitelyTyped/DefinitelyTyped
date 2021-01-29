@@ -1,1 +1,3 @@
-export { Area32 as default } from "../../";
+import { Area32 } from "../../";
+
+export = Area32;

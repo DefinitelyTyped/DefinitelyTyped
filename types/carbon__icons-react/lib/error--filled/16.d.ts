@@ -1,1 +1,3 @@
-export { ErrorFilled16 as default } from "../../";
+import { ErrorFilled16 } from "../../";
+
+export = ErrorFilled16;

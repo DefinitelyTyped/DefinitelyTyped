@@ -1,1 +1,3 @@
-export { LetterLl16 as default } from "../../";
+import { LetterLl16 } from "../../";
+
+export = LetterLl16;

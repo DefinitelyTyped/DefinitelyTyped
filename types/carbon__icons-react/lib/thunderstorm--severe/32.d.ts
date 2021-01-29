@@ -1,1 +1,3 @@
-export { ThunderstormSevere32 as default } from "../../";
+import { ThunderstormSevere32 } from "../../";
+
+export = ThunderstormSevere32;

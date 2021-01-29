@@ -1,1 +1,3 @@
-export { DataSet32 as default } from "../../";
+import { DataSet32 } from "../../";
+
+export = DataSet32;

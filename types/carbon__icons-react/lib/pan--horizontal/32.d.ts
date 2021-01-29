@@ -1,1 +1,3 @@
-export { PanHorizontal32 as default } from "../../";
+import { PanHorizontal32 } from "../../";
+
+export = PanHorizontal32;

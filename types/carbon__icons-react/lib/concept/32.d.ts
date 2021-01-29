@@ -1,1 +1,3 @@
-export { Concept32 as default } from "../../";
+import { Concept32 } from "../../";
+
+export = Concept32;

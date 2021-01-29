@@ -1,1 +1,3 @@
-export { ColumnInsert20 as default } from "../../";
+import { ColumnInsert20 } from "../../";
+
+export = ColumnInsert20;

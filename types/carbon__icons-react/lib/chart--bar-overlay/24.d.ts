@@ -1,1 +1,3 @@
-export { ChartBarOverlay24 as default } from "../../";
+import { ChartBarOverlay24 } from "../../";
+
+export = ChartBarOverlay24;

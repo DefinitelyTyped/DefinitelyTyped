@@ -1,1 +1,3 @@
-export { ArrowRight32 as default } from "../../";
+import { ArrowRight32 } from "../../";
+
+export = ArrowRight32;

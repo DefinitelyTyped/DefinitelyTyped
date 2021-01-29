@@ -1,1 +1,3 @@
-export { FitToScreen32 as default } from "../../";
+import { FitToScreen32 } from "../../";
+
+export = FitToScreen32;

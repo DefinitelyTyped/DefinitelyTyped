@@ -1,1 +1,3 @@
-export { RotateCounterclockwiseAltFilled16 as default } from "../../";
+import { RotateCounterclockwiseAltFilled16 } from "../../";
+
+export = RotateCounterclockwiseAltFilled16;

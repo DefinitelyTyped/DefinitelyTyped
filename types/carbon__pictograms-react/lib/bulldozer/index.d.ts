@@ -1,1 +1,3 @@
-export { Bulldozer as default } from "../../";
+import { Bulldozer } from "../../";
+
+export = Bulldozer;

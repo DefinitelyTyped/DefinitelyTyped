@@ -1,1 +1,3 @@
-export { Wikis32 as default } from "../../";
+import { Wikis32 } from "../../";
+
+export = Wikis32;

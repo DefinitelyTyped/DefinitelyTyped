@@ -1,1 +1,3 @@
-export { Portfolio24 as default } from "../../";
+import { Portfolio24 } from "../../";
+
+export = Portfolio24;

@@ -1,1 +1,3 @@
-export { Sunrise32 as default } from "../../";
+import { Sunrise32 } from "../../";
+
+export = Sunrise32;

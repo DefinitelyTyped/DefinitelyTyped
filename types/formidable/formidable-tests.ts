@@ -60,7 +60,7 @@ form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) =
     }
 
     for (key in files) {
-        console.log('file', key, 'is', files[key].type);
+        console.log('file', key, 'is', (files[key] as formidable.File).type);
     }
 });
 

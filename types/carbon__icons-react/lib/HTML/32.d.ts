@@ -1,1 +1,3 @@
-export { Html32 as default } from "../../";
+import { Html32 } from "../../";
+
+export = Html32;

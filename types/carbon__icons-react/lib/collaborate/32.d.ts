@@ -1,1 +1,3 @@
-export { Collaborate32 as default } from "../../";
+import { Collaborate32 } from "../../";
+
+export = Collaborate32;

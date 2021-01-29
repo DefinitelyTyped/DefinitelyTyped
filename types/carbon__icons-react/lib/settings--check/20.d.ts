@@ -1,1 +1,3 @@
-export { SettingsCheck20 as default } from "../../";
+import { SettingsCheck20 } from "../../";
+
+export = SettingsCheck20;

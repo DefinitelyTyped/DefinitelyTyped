@@ -1,1 +1,3 @@
-export { ListCheckbox as default } from "../../";
+import { ListCheckbox } from "../../";
+
+export = ListCheckbox;

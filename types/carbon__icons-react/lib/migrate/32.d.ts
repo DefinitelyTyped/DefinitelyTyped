@@ -1,1 +1,3 @@
-export { Migrate32 as default } from "../../";
+import { Migrate32 } from "../../";
+
+export = Migrate32;

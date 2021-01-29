@@ -47,6 +47,23 @@ app.use((ctx, next) => {
     });
 });
 
+app.use(ctx => {
+    ctx.accepts(); // $ExpectType string[]
+    ctx.accepts(''); // $ExpectType string | false
+    ctx.accepts(['']); // $ExpectType string | false
+    ctx.acceptsEncodings(); // $ExpectType string[]
+    ctx.acceptsEncodings(''); // $ExpectType string | false
+    ctx.acceptsEncodings(['']); // $ExpectType string | false
+    ctx.acceptsCharsets(); // $ExpectType string[]
+    ctx.acceptsCharsets(''); // $ExpectType string | false
+    ctx.acceptsCharsets(['']); // $ExpectType string | false
+    ctx.acceptsLanguages(); // $ExpectType string[]
+    ctx.acceptsLanguages(''); // $ExpectType string | false
+    ctx.acceptsLanguages(['']); // $ExpectType string | false
+    ctx.is(''); // $ExpectType string | false | null
+    ctx.is(['']); // $ExpectType string | false | null
+});
+
 // response
 app.use(ctx => {
     ctx.body = 'Hello World';

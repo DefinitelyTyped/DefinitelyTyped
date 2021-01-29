@@ -185,7 +185,7 @@ interface IUserModel<T extends PassportLocalDocument> extends PassportLocalModel
 
 var UserModel: IUserModel<IUser> = model<IUser>('User', UserSchema);
 ```
-Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/passport-local-mongoose/passport-local-mongoose.d.ts)<br>
+Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/passport-local-mongoose/index.d.ts)<br>
 [top](#mongoosejs-typescript-docs)
 
 #### FAQ and Common Mistakes

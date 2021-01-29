@@ -1,1 +1,3 @@
-export { HtmlReference20 as default } from "../../";
+import { HtmlReference20 } from "../../";
+
+export = HtmlReference20;

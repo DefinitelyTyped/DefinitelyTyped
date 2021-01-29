@@ -1,1 +1,3 @@
-export { Doc32 as default } from "../../";
+import { Doc32 } from "../../";
+
+export = Doc32;

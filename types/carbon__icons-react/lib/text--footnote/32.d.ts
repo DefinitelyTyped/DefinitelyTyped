@@ -1,1 +1,3 @@
-export { TextFootnote32 as default } from "../../";
+import { TextFootnote32 } from "../../";
+
+export = TextFootnote32;

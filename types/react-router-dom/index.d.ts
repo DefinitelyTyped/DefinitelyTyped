@@ -15,7 +15,9 @@ import * as H from 'history';
 
 export {
     generatePath,
+    PromptProps,
     Prompt,
+    MemoryRouterProps,
     MemoryRouter,
     RedirectProps,
     Redirect,
@@ -23,7 +25,9 @@ export {
     RouteComponentProps,
     RouteProps,
     Route,
+    RouterProps,
     Router,
+    StaticRouterProps,
     StaticRouter,
     SwitchProps,
     Switch,

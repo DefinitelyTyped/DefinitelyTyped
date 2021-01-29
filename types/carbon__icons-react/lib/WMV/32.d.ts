@@ -1,1 +1,3 @@
-export { Wmv32 as default } from "../../";
+import { Wmv32 } from "../../";
+
+export = Wmv32;

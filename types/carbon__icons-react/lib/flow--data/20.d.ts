@@ -1,1 +1,3 @@
-export { FlowData20 as default } from "../../";
+import { FlowData20 } from "../../";
+
+export = FlowData20;

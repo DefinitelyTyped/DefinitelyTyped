@@ -1,1 +1,3 @@
-export { Sunset16 as default } from "../../";
+import { Sunset16 } from "../../";
+
+export = Sunset16;

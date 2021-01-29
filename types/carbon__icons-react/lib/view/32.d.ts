@@ -1,1 +1,3 @@
-export { View32 as default } from "../../";
+import { View32 } from "../../";
+
+export = View32;

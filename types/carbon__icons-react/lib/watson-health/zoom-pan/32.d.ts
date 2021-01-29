@@ -1,1 +1,3 @@
-export { WatsonHealthZoomPan32 as default } from "../../../";
+import { WatsonHealthZoomPan32 } from "../../../";
+
+export = WatsonHealthZoomPan32;
