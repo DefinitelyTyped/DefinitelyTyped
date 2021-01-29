@@ -20,7 +20,7 @@ let set = new SortedSet<Person>(
 
 let p1: Person | undefined = set.max();
 let p2: Person | undefined = set.min();
-
+let p3: Person = set.findLeast()!.value;
 
 set.push({name: 'Laurie'}, {name: 'Max'});
 set.pop();

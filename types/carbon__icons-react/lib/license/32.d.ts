@@ -1,1 +1,3 @@
-export { License32 as default } from "../../";
+import { License32 } from "../../";
+
+export = License32;

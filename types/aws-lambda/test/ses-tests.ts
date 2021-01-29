@@ -137,6 +137,7 @@ const sesEventMail: SESMail = {
         bcc: ['"otherrecipient@example.com" <otherrecipient@example.com>'],
         messageId: '<F8098FDD-49A3-442D-9935-F6112B195BDA@example.com>',
         subject: 'This is a test',
+        replyTo: ['"Doe, John" <sender@example.com>']
     },
 };
 

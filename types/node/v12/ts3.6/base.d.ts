@@ -13,7 +13,7 @@
 /// <reference lib="esnext.bigint" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
-/// <reference path="../ts3.3/base.d.ts" />
+/// <reference path="../ts3.4/base.d.ts" />
 
 // TypeScript 3.5-specific augmentations:
 /// <reference path="../globals.global.d.ts" />

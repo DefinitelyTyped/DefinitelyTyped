@@ -1,11 +1,13 @@
-// Type definitions for markdown-it-emoji 1.4
+// Type definitions for markdown-it-emoji 2.0
 // Project: https://github.com/markdown-it/markdown-it-emoji
 // Definitions by: Christopher Quadflieg <https://github.com/Shinigami92>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { PluginSimple, PluginWithOptions } from 'markdown-it/lib';
 
-import { PluginSimple, PluginWithOptions } from 'markdown-it';
+export as namespace markdownitEmoji;
 
-declare namespace MarkdownItEmoji {
+declare namespace markdownitEmoji {
     interface Options {
         defs?: Record<string, string>;
         enabled?: string[];
@@ -13,6 +15,5 @@ declare namespace MarkdownItEmoji {
     }
 }
 
-declare const emoji: PluginSimple | PluginWithOptions<MarkdownItEmoji.Options>;
-
-export = emoji;
+declare const markdownitEmoji: PluginSimple | PluginWithOptions<markdownitEmoji.Options>;
+export = markdownitEmoji;

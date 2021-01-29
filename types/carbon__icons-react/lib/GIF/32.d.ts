@@ -1,1 +1,3 @@
-export { Gif32 as default } from "../../";
+import { Gif32 } from "../../";
+
+export = Gif32;

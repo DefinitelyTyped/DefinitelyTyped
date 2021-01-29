@@ -10,7 +10,7 @@ declare namespace google.maps {
          * This event is fired when the marker icon was clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.click Maps JavaScript API}
          */
-        click: (this: C, event: MouseEvent) => void;
+        click: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the marker's clickable property changes.
@@ -28,19 +28,19 @@ declare namespace google.maps {
          * This event is fired when the marker icon was double clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dblclick Maps JavaScript API}
          */
-        dblclick: (this: C, event: MouseEvent) => void;
+        dblclick: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is repeatedly fired while the user drags the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.drag Maps JavaScript API}
          */
-        drag: (this: C, event: MouseEvent) => void;
+        drag: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the user stops dragging the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dragend Maps JavaScript API}
          */
-        dragend: (this: C, event: MouseEvent) => void;
+        dragend: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the marker's draggable property changes.
@@ -52,7 +52,7 @@ declare namespace google.maps {
          * This event is fired when the user starts dragging the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.dragstart Maps JavaScript API}
          */
-        dragstart: (this: C, event: MouseEvent) => void;
+        dragstart: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the marker's flat property changes.
@@ -70,25 +70,25 @@ declare namespace google.maps {
          * This event is fired for a mousedown on the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mousedown Maps JavaScript API}
          */
-        mousedown: (this: C, event: MouseEvent) => void;
+        mousedown: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the mouse leaves the area of the marker icon.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseout Maps JavaScript API}
          */
-        mouseout: (this: C, event: MouseEvent) => void;
+        mouseout: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the mouse enters the area of the marker icon.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseover Maps JavaScript API}
          */
-        mouseover: (this: C, event: MouseEvent) => void;
+        mouseover: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired for a mouseup on the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.mouseup Maps JavaScript API}
          */
-        mouseup: (this: C, event: MouseEvent) => void;
+        mouseup: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the marker position property changes.
@@ -100,7 +100,7 @@ declare namespace google.maps {
          * This event is fired for a rightclick on the marker.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.rightclick Maps JavaScript API}
          */
-        rightclick: (this: C, event: MouseEvent) => void;
+        rightclick: (this: C, event: MapMouseEvent) => void;
 
         /**
          * This event is fired when the marker's shape property changes.

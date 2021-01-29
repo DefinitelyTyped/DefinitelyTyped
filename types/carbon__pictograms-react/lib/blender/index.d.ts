@@ -1,1 +1,3 @@
-export { Blender as default } from "../../";
+import { Blender } from "../../";
+
+export = Blender;

@@ -109,7 +109,7 @@ export interface ReactDatePickerProps {
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
     popperModifiers?: Popper.Modifiers;
-    popperPlacement?: string;
+    popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
     previousMonthButtonLabel?: string | React.ReactNode;

@@ -1,1 +1,3 @@
-export { CaretRight32 as default } from "../../";
+import { CaretRight32 } from "../../";
+
+export = CaretRight32;

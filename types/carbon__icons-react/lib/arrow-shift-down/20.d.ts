@@ -1,1 +1,3 @@
-export { ArrowShiftDown20 as default } from "../../";
+import { ArrowShiftDown20 } from "../../";
+
+export = ArrowShiftDown20;

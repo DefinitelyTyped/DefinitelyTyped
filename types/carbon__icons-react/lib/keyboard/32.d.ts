@@ -1,1 +1,3 @@
-export { Keyboard32 as default } from "../../";
+import { Keyboard32 } from "../../";
+
+export = Keyboard32;

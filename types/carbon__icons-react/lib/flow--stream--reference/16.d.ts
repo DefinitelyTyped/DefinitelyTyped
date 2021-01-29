@@ -1,1 +1,3 @@
-export { FlowStreamReference16 as default } from "../../";
+import { FlowStreamReference16 } from "../../";
+
+export = FlowStreamReference16;

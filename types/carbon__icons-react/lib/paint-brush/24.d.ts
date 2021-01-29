@@ -1,1 +1,3 @@
-export { PaintBrush24 as default } from "../../";
+import { PaintBrush24 } from "../../";
+
+export = PaintBrush24;

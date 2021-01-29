@@ -1,1 +1,3 @@
-export { ConnectedNodesToTheCloud as default } from "../../";
+import { ConnectedNodesToTheCloud } from "../../";
+
+export = ConnectedNodesToTheCloud;

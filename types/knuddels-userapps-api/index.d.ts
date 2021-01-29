@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20201116142410
+// Type definitions for non-npm package Knuddels UserApps API 1.20201208063705
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -808,6 +808,10 @@ declare global {
          */
         static getClientType(): ClientType;
         /**
+         * @see https://developer.knuddels.de/docs/classes/Client.html#method_isK3Client
+         */
+        static isK3Client(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/Client.html#method_getCacheInvalidationId
          */
         static getCacheInvalidationId(): string;
@@ -942,6 +946,14 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_Offline
          */
         static readonly Offline: ClientType;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_Web
+         */
+        static readonly Web: ClientType;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/ClientType.html#property_MobileWeb
+         */
+        static readonly MobileWeb: ClientType;
     }
 
     /**
@@ -2184,6 +2196,10 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/User.html#method_getClientType
          */
         getClientType(): ClientType;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_isConnectedWithK3Client
+         */
+        isConnectedWithK3Client(): boolean;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_canShowAppViewMode
          */

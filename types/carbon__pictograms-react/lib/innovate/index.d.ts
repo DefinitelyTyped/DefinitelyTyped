@@ -1,1 +1,3 @@
-export { Innovate as default } from "../../";
+import { Innovate } from "../../";
+
+export = Innovate;

@@ -1,1 +1,3 @@
-export { QZ32 as default } from "../../../";
+import { QZ32 } from "../../../";
+
+export = QZ32;

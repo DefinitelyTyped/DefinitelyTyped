@@ -76,7 +76,7 @@ element.addEventListener(Collapse.Events.hidden, event => {
  */
 
 // $ExpectType Dropdown
-const dropdown = new Dropdown(element, { offset: 10 });
+const dropdown = new Dropdown(element, { flip: true });
 
 // $ExpectType Dropdown
 const instanceDropdown = Dropdown.getInstance(element);
@@ -132,7 +132,7 @@ element.addEventListener(Modal.Events.hidePrevented, event => {
  */
 
 // $ExpectType Popover
-const popover = new Popover(element, { animation: true });
+const popover = new Popover(element, { delay: 0.5, animation: true });
 
 // $ExpectType Popover
 const instancePopover = Popover.getInstance(element);
@@ -202,7 +202,7 @@ element.addEventListener(Tab.Events.shown, event => {
  */
 
 // $ExpectType Toast
-const toast = new Toast(element);
+const toast = new Toast(element, { animation: false });
 
 // $ExpectType Toast
 const instanceToast = Toast.getInstance(element);
@@ -228,7 +228,7 @@ element.addEventListener(Toast.Events.shown, event => {
  */
 
 // $ExpectType Tooltip
-const tooltip = new Tooltip(element, { delay: 0.5, title: () => "foo" });
+const tooltip = new Tooltip(element, { delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
 
 // $ExpectType Tooltip
 const instanceTooltip = Tooltip.getInstance(element);

@@ -1,1 +1,3 @@
-export { MexicoCityAngelOfIndependence as default } from "../../";
+import { MexicoCityAngelOfIndependence } from "../../";
+
+export = MexicoCityAngelOfIndependence;

@@ -1,1 +1,3 @@
-export { GeneratePdf32 as default } from "../../";
+import { GeneratePdf32 } from "../../";
+
+export = GeneratePdf32;

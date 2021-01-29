@@ -1,1 +1,3 @@
-export { Fork24 as default } from "../../";
+import { Fork24 } from "../../";
+
+export = Fork24;

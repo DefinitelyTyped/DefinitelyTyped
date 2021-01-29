@@ -1,1 +1,3 @@
-export { Building16 as default } from "../../";
+import { Building16 } from "../../";
+
+export = Building16;

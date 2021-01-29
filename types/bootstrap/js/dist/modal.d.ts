@@ -97,13 +97,6 @@ declare namespace Modal {
          * @default true
          */
         focus: boolean;
-
-        /**
-         * Shows the modal when initialized.
-         *
-         * @default true
-         */
-        show: boolean;
     }
 }
 

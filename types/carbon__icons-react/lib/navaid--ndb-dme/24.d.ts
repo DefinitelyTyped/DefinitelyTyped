@@ -1,1 +1,3 @@
-export { NavaidNdbDme24 as default } from "../../";
+import { NavaidNdbDme24 } from "../../";
+
+export = NavaidNdbDme24;

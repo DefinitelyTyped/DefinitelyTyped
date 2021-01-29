@@ -1,1 +1,3 @@
-export { Sun32 as default } from "../../";
+import { Sun32 } from "../../";
+
+export = Sun32;

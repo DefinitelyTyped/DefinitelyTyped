@@ -176,7 +176,7 @@ expression = forInStatement.right;
 // ArrayExpression
 var arrayExpression: ESTree.ArrayExpression;
 string = arrayExpression.type;
-var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement
+var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement | null
     = arrayExpression.elements[0];
 
 // ObjectExpression

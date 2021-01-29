@@ -1,1 +1,3 @@
-export { CaretDown32 as default } from "../../";
+import { CaretDown32 } from "../../";
+
+export = CaretDown32;

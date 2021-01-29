@@ -1,1 +1,3 @@
-export { Bicycle as default } from "../../";
+import { Bicycle } from "../../";
+
+export = Bicycle;

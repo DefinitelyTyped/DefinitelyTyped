@@ -1,1 +1,3 @@
-export { OverflowMenuHorizontal24 as default } from "../../";
+import { OverflowMenuHorizontal24 } from "../../";
+
+export = OverflowMenuHorizontal24;

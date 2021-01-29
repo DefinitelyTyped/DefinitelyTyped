@@ -1,1 +1,3 @@
-export { Wikis16 as default } from "../../";
+import { Wikis16 } from "../../";
+
+export = Wikis16;

@@ -153,6 +153,10 @@ export interface ExecuteAnonymousResult {
 
 export type ConnectionEvent = "refresh";
 
+export interface SearchResult<T> {
+    searchRecords: Record<T>[];
+}
+
 /**
  * the methods exposed here are done so that a client can use 'declaration augmentation' to get intellisense on their own projects.
  * for example, given a type
@@ -217,6 +221,7 @@ export abstract class BaseConnection extends EventEmitter {
     recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
     recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
     recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    search<T>(sosl: string, callback?: (err: Error, result: SearchResult<T>) => void): Promise<(SearchResult<T>)>;
 }
 
 export class Connection extends BaseConnection {

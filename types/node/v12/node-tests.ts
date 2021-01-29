@@ -1,10 +1,7 @@
-import * as assert from 'assert';
+import './ts3.6/node-tests';
+import './test/querystring';
 
-/**
- * The `expectType` function from https://www.npmjs.com/package/tsd,
- * except instead of returning `void`, it returns `T`.
- */
-export declare function expectType<T>(value: T): T;
+import * as assert from 'assert';
 
 assert(true, "it's working");
 

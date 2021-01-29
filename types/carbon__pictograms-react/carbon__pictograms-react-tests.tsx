@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
+    AcceleratedComputing,
     AddDocument,
+    Dashboard,
     Backpack,
     Airplane,
     ClientFinancing_01,
@@ -13,8 +15,11 @@ import {
     Upload_01,
     Video_01,
     WatsonLogo,
-    AdvancedFraudProtection
-} from "@carbon/pictograms-react";
+    AdvancedFraudProtection,
+    DoctorPatient,
+    Hpi,
+    CloudPakForApplications,
+} from '@carbon/pictograms-react';
 
 <Airplane />; // $ExpectType Element
 <Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element
@@ -31,3 +36,8 @@ import {
 <Video_01 />; // $ExpectType Element
 <WatsonLogo />; // $ExpectType Element
 <AdvancedFraudProtection />; // $ExpectType Element
+<DoctorPatient />; // $ExpectType Element
+<Hpi />; // $ExpectType Element
+<CloudPakForApplications />; // $ExpectType Element
+<AcceleratedComputing />; // $ExpectType Element
+<Dashboard />; // $ExpectType Element

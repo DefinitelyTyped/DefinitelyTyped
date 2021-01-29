@@ -1,1 +1,3 @@
-export { ChartScatter24 as default } from "../../";
+import { ChartScatter24 } from "../../";
+
+export = ChartScatter24;

@@ -1,1 +1,3 @@
-export { UserInsights as default } from "../../";
+import { UserInsights } from "../../";
+
+export = UserInsights;

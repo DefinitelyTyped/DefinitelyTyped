@@ -1,1 +1,3 @@
-export { RainHeavy32 as default } from "../../";
+import { RainHeavy32 } from "../../";
+
+export = RainHeavy32;

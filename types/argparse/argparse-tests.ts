@@ -12,6 +12,7 @@ import {
     SUPPRESS,
     REMAINDER,
     ArgumentError,
+    ArgumentTypeError,
 } from 'argparse';
 let args: any;
 
@@ -152,11 +153,23 @@ console.log('-----------');
 args = nargsExample.parse_args('--bar b c f --foo a'.split(' '));
 console.dir(args);
 
+function positiveInt(s: string): number {
+    const i = parseInt(s, 10);
+    if (i <= 0) {
+        throw new ArgumentTypeError('must be positive');
+    }
+    return i;
+}
+
 const parent_parser = new ArgumentParser({ add_help: false });
 // note add_help:false to prevent duplication of the -h option
 parent_parser.add_argument(
     '--parent',
     { type: 'int', help: 'parent' }
+);
+parent_parser.add_argument(
+    '--blah',
+    { type: positiveInt, help: 'blah' }
 );
 
 const foo_parser = new ArgumentParser({
