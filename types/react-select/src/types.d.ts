@@ -64,24 +64,53 @@ export interface CommonProps<
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
     selectProps: SelectProps<OptionType, IsMulti, GroupType>;
-    setValue: (value: ValueType<OptionType, IsMulti>, action: ActionTypes) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
 }
 
-export type ActionTypes =
-    | 'select-option'
-    | 'deselect-option'
-    | 'remove-value'
-    | 'pop-value'
-    | 'set-value'
-    | 'clear'
-    | 'create-option';
-
-export interface ActionMeta<OptionType extends OptionTypeBase> {
-    action: ActionTypes;
+export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
+    action: 'select-option';
+    option: OptionType | undefined;
     name?: string;
-    option?: OptionType;
-    removedValue?: OptionType;
 }
+
+export interface DeselectOptionActionMeta<OptionType extends OptionTypeBase> {
+    action: 'deselect-option';
+    option: OptionType | undefined;
+    name?: string;
+}
+
+export interface RemoveValueActionMeta<OptionType extends OptionTypeBase> {
+    action: 'remove-value';
+    removedValue: OptionType;
+    name?: string;
+}
+
+export interface PopValueActionMeta<OptionType extends OptionTypeBase> {
+    action: 'pop-value';
+    removedValue: OptionType;
+    name?: string;
+}
+
+export interface ClearActionMeta {
+    action: 'clear';
+    name?: string;
+}
+
+export interface CreateOptionActionMeta {
+    action: 'create-option';
+    name?: string;
+}
+
+export type ActionMeta<OptionType extends OptionTypeBase> =
+    | SelectOptionActionMeta<OptionType>
+    | DeselectOptionActionMeta<OptionType>
+    | RemoveValueActionMeta<OptionType>
+    | PopValueActionMeta<OptionType>
+    | ClearActionMeta
+    | CreateOptionActionMeta;
+
+export type Action = ActionMeta<OptionTypeBase>['action'];
+export type SetValueAction = 'select-option' | 'deselect-option';
 
 export type InputActionTypes = 'set-value' | 'input-change' | 'input-blur' | 'menu-close';
 

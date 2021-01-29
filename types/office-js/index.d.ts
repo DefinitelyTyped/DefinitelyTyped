@@ -1674,7 +1674,9 @@ declare namespace Office {
      */
     interface SaveSettingsOptions {
         /**
-         * Indicates whether the setting will be replaced if stale.
+         * **Warning**: This setting is deprecated and should not be used. It has no effect on most platforms and will cause errors if set to `false` in Excel on the web.
+         * 
+         * @deprecated
          */
         overwriteIfStale?: boolean
         /**

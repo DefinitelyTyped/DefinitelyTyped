@@ -1,5 +1,6 @@
 import { Component, ReactElement, Ref as ElementRef, ReactNode, ComponentType } from 'react';
 import { createPortal } from 'react-dom';
+import { CSSObject } from '@emotion/serialize';
 
 import { animatedScrollTo, getBoundingClientObj, RectType, getScrollParent, getScrollTop, scrollTo } from '../utils';
 import { borderRadius, colors, spacing } from '../theme';
@@ -55,19 +56,14 @@ export type MenuProps<
     menuShouldScrollIntoView: boolean;
 };
 
-export function menuCSS(state: MenuState): React.CSSProperties;
+export function menuCSS(state: MenuState): CSSObject;
 
-export class Menu<
+declare function Menu<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-> extends Component<MenuProps<OptionType, IsMulti, GroupType>, MenuState> {
-    static contextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getPlacement: (ref: ElementRef<any>) => void;
-    getState: () => MenuProps<OptionType, IsMulti, GroupType> & MenuState;
-}
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Menu;
 
@@ -96,15 +92,20 @@ export type MenuListComponentProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = CommonProps<OptionType, IsMulti, GroupType> & MenuListProps & MenuListState;
 
-export function menuListCSS(state: MenuState): React.CSSProperties;
-export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
+export function menuListCSS(state: MenuState): CSSObject;
+export function MenuList<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuListComponentProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Menu Notices
 // ==============================
 
-export function noOptionsMessageCSS(): React.CSSProperties;
-export function loadingMessageCSS(): React.CSSProperties;
+export function noOptionsMessageCSS(): CSSObject;
+export function loadingMessageCSS(): CSSObject;
 
 export type NoticeProps<
     OptionType extends OptionTypeBase,
@@ -117,12 +118,22 @@ export type NoticeProps<
     innerProps: { [key: string]: any };
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps<any, boolean>>;
+export function NoOptionsMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
+export function LoadingMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
@@ -151,20 +162,13 @@ interface PortalStyleArgs {
     rect: RectType;
 }
 
-export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
+export function menuPortalCSS(args: PortalStyleArgs): CSSObject;
 
 export class MenuPortal<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > extends Component<MenuPortalProps<OptionType, IsMulti, GroupType>, MenuPortalState> {
-    static childContextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getChildContext(): {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-
     // callback for occassions where the menu must "flip"
     getPortalPlacement: (state: MenuState) => void;
 }

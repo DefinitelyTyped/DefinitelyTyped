@@ -4,7 +4,6 @@
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 //                 Thomas Chia <https://github.com/thchia>
-//                 Daniel Del Core <https://github.com/danieldelcore>
 //                 Joonas Rouhiainen <https://github.com/rjoonas>
 //                 Kyle Holmberg <https://github.com/kylemh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

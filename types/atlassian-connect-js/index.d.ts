@@ -1,6 +1,7 @@
 // Type definitions for atlassian-connect-js 5.2
 // Project: https://bitbucket.org/atlassian/atlassian-connect-js#readme
 // Definitions by: Josh Parnham <https://github.com/josh->
+//                 Tobias Theobald <https://github.com/Tobi042>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AP {

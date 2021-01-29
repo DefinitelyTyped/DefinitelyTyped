@@ -196,11 +196,11 @@ declare namespace chrome.browser {
     export function openTab(options: Options, callback: () => void): void;
 
     /**
-    * Opens a new tab in a browser window associated with the current application
-    * and Chrome profile. If no browser window for the Chrome profile is opened,
-    * a new one is opened prior to creating the new tab. Since Chrome 42 only.
-    * @param options Configures how the tab should be opened.
-    */
+     * Opens a new tab in a browser window associated with the current application
+     * and Chrome profile. If no browser window for the Chrome profile is opened,
+     * a new one is opened prior to creating the new tab. Since Chrome 42 only.
+     * @param options Configures how the tab should be opened.
+     */
     export function openTab(options: Options): void;
 }
 
@@ -233,7 +233,7 @@ declare namespace chrome.bookmarks {
         children?: BookmarkTreeNode[];
         /**
          * Optional.
-          * Since Chrome 37.
+         * Since Chrome 37.
          * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
          */
         unmodifiable?: any;
@@ -261,7 +261,8 @@ declare namespace chrome.bookmarks {
         childIds: string[];
     }
 
-    export interface BookmarkRemovedEvent extends chrome.events.Event<(id: string, removeInfo: BookmarkRemoveInfo) => void> { }
+    export interface BookmarkRemovedEvent
+        extends chrome.events.Event<(id: string, removeInfo: BookmarkRemoveInfo) => void> { }
 
     export interface BookmarkImportEndedEvent extends chrome.events.Event<() => void> { }
 
@@ -269,11 +270,14 @@ declare namespace chrome.bookmarks {
 
     export interface BookmarkImportBeganEvent extends chrome.events.Event<() => void> { }
 
-    export interface BookmarkChangedEvent extends chrome.events.Event<(id: string, changeInfo: BookmarkChangeInfo) => void> { }
+    export interface BookmarkChangedEvent
+        extends chrome.events.Event<(id: string, changeInfo: BookmarkChangeInfo) => void> { }
 
-    export interface BookmarkCreatedEvent extends chrome.events.Event<(id: string, bookmark: BookmarkTreeNode) => void> { }
+    export interface BookmarkCreatedEvent
+        extends chrome.events.Event<(id: string, bookmark: BookmarkTreeNode) => void> { }
 
-    export interface BookmarkChildrenReordered extends chrome.events.Event<(id: string, reorderInfo: BookmarkReorderInfo) => void> { }
+    export interface BookmarkChildrenReordered
+        extends chrome.events.Event<(id: string, reorderInfo: BookmarkReorderInfo) => void> { }
 
     export interface BookmarkSearchQuery {
         query?: string;
@@ -356,13 +360,21 @@ declare namespace chrome.bookmarks {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( BookmarkTreeNode result) {...};
      */
-    export function move(id: string, destination: BookmarkDestinationArg, callback?: (result: BookmarkTreeNode) => void): void;
+    export function move(
+        id: string,
+        destination: BookmarkDestinationArg,
+        callback?: (result: BookmarkTreeNode) => void,
+    ): void;
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function( BookmarkTreeNode result) {...};
      */
-    export function update(id: string, changes: BookmarkChangesArg, callback?: (result: BookmarkTreeNode) => void): void;
+    export function update(
+        id: string,
+        changes: BookmarkChangesArg,
+        callback?: (result: BookmarkTreeNode) => void,
+    ): void;
     /**
      * Removes a bookmark or an empty bookmark folder.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -555,7 +567,7 @@ declare namespace chrome.browsingData {
     export interface RemovalOptions {
         /**
          * Optional.
-          * Since Chrome 21.
+         * Since Chrome 21.
          * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'.
          */
         originTypes?: OriginTypes;
@@ -596,7 +608,7 @@ declare namespace chrome.browsingData {
         history?: boolean;
         /**
          * Optional.
-          * Since Chrome 39.
+         * Since Chrome 39.
          * Service Workers.
          */
         serviceWorkers?: boolean;
@@ -729,7 +741,7 @@ declare namespace chrome.commands {
         shortcut?: string;
     }
 
-    export interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
+    export interface CommandEvent extends chrome.events.Event<(command: string, tab: chrome.tabs.Tab) => void> { }
 
     /**
      * Returns all the registered extension commands for this extension and their shortcut (if active).
@@ -752,13 +764,12 @@ declare namespace chrome.commands {
  * Permissions:  "contentSettings"
  */
 declare namespace chrome.contentSettings {
-
     type ScopeEnum = 'regular' | 'incognito_session_only';
 
     export interface ClearDetails {
         /**
          * Optional.
-          * Where to clear the setting (default: regular).
+         * Where to clear the setting (default: regular).
          * The scope of the ContentSetting. One of
          * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
          * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
@@ -874,55 +885,55 @@ declare namespace chrome.contentSettings {
         get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
     }
 
-    export interface CookieContentSetting extends ContentSetting{
+    export interface CookieContentSetting extends ContentSetting {
         set(details: CookieSetDetails, callback?: () => void): void;
     }
 
-    export interface PopupsContentSetting extends ContentSetting{
+    export interface PopupsContentSetting extends ContentSetting {
         set(details: PopupsSetDetails, callback?: () => void): void;
     }
 
-    export interface JavascriptContentSetting extends ContentSetting{
+    export interface JavascriptContentSetting extends ContentSetting {
         set(details: JavascriptSetDetails, callback?: () => void): void;
     }
 
-    export interface NotificationsContentSetting extends ContentSetting{
+    export interface NotificationsContentSetting extends ContentSetting {
         set(details: NotificationsSetDetails, callback?: () => void): void;
     }
 
-    export interface PluginsContentSetting extends ContentSetting{
+    export interface PluginsContentSetting extends ContentSetting {
         set(details: PluginsSetDetails, callback?: () => void): void;
     }
 
-    export interface ImagesContentSetting extends ContentSetting{
+    export interface ImagesContentSetting extends ContentSetting {
         set(details: ImagesSetDetails, callback?: () => void): void;
     }
 
-    export interface LocationContentSetting extends ContentSetting{
+    export interface LocationContentSetting extends ContentSetting {
         set(details: LocationSetDetails, callback?: () => void): void;
     }
 
-    export interface FullscreenContentSetting extends ContentSetting{
+    export interface FullscreenContentSetting extends ContentSetting {
         set(details: FullscreenSetDetails, callback?: () => void): void;
     }
 
-    export interface MouselockContentSetting extends ContentSetting{
+    export interface MouselockContentSetting extends ContentSetting {
         set(details: MouselockSetDetails, callback?: () => void): void;
     }
 
-    export interface MicrophoneContentSetting extends ContentSetting{
+    export interface MicrophoneContentSetting extends ContentSetting {
         set(details: MicrophoneSetDetails, callback?: () => void): void;
     }
 
-    export interface CameraContentSetting extends ContentSetting{
+    export interface CameraContentSetting extends ContentSetting {
         set(details: CameraSetDetails, callback?: () => void): void;
     }
 
-    export interface PpapiBrokerContentSetting extends ContentSetting{
+    export interface PpapiBrokerContentSetting extends ContentSetting {
         set(details: PpapiBrokerSetDetails, callback?: () => void): void;
     }
 
-    export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting{
+    export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting {
         set(details: MultipleAutomaticDownloadsSetDetails, callback?: () => void): void;
     }
 
@@ -1070,13 +1081,13 @@ declare namespace chrome.contextMenus {
     export interface OnClickData {
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * The text for the context selection, if any.
          */
         selectionText?: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item after it is clicked.
          */
         checked?: boolean;
@@ -1094,7 +1105,7 @@ declare namespace chrome.contextMenus {
         frameId?: number;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
          */
         frameUrl?: string;
@@ -1105,13 +1116,13 @@ declare namespace chrome.contextMenus {
         editable: boolean;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
         mediaType?: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item before it was clicked.
          */
         wasChecked?: boolean;
@@ -1122,19 +1133,19 @@ declare namespace chrome.contextMenus {
         pageUrl: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * If the element is a link, the URL it points to.
          */
         linkUrl?: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * The parent ID, if any, for the item clicked.
          */
         parentMenuItemId?: any;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * Will be present for elements with a 'src' URL.
          */
         srcUrl?: string;
@@ -1151,7 +1162,7 @@ declare namespace chrome.contextMenus {
         contexts?: string[];
         /**
          * Optional.
-          * Since Chrome 20.
+         * Since Chrome 20.
          * Whether this context menu item is enabled or disabled. Defaults to true.
          */
         enabled?: boolean;
@@ -1159,7 +1170,7 @@ declare namespace chrome.contextMenus {
         targetUrlPatterns?: string[];
         /**
          * Optional.
-          * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
+         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
          * @param info Information sent when a context menu item is clicked.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
@@ -1170,7 +1181,7 @@ declare namespace chrome.contextMenus {
         type?: string;
         /**
          * Optional.
-          * Since Chrome 21.
+         * Since Chrome 21.
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
         id?: string;
@@ -1304,7 +1315,7 @@ declare namespace chrome.cookies {
          * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
          * @since Chrome 51.
          */
-        sameSite: SameSiteStatus
+        sameSite: SameSiteStatus;
     }
 
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
@@ -1355,7 +1366,7 @@ declare namespace chrome.cookies {
          * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
          * @since Chrome 51.
          */
-        sameSite?: SameSiteStatus
+        sameSite?: SameSiteStatus;
     }
 
     export interface Details {
@@ -1480,9 +1491,11 @@ declare module chrome {
             faviconUrl?: string;
         }
 
-        export interface DebuggerDetachedEvent extends chrome.events.Event<(source: Debuggee, reason: string) => void> { }
+        export interface DebuggerDetachedEvent
+            extends chrome.events.Event<(source: Debuggee, reason: string) => void> { }
 
-        export interface DebuggerEventEvent extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> { }
+        export interface DebuggerEventEvent
+            extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> { }
 
         /**
          * Attaches debugger to the given target.
@@ -1511,7 +1524,12 @@ declare module chrome {
          * If you specify the callback parameter, it should be a function that looks like this:
          * function(object result) {...};
          */
-        export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
+        export function sendCommand(
+            target: Debuggee,
+            method: string,
+            commandParams?: Object,
+            callback?: (result?: Object) => void,
+        ): void;
         /**
          * Since Chrome 28.
          * Returns the list of available debug targets.
@@ -1527,7 +1545,7 @@ declare module chrome {
         export var onEvent: DebuggerEventEvent;
     }
 
-    export { _debugger as debugger }
+    export { _debugger as debugger };
 }
 ////////////////////
 // Declarative Content
@@ -1588,7 +1606,7 @@ declare namespace chrome.declarativeContent {
         css?: string[];
         /**
          * Optional.
-          * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
+         * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
          * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission.
          */
         isBookmarked?: boolean;
@@ -1596,7 +1614,7 @@ declare namespace chrome.declarativeContent {
 
     /** Matches the state of a web page by various criteria. */
     export class PageStateMatcher {
-        constructor (options: PageStateMatcherProperties);
+        constructor(options: PageStateMatcherProperties);
     }
 
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
@@ -1604,9 +1622,7 @@ declare namespace chrome.declarativeContent {
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
     export class SetIcon {
-        constructor (options?: {
-            imageData?: ImageData | {[size: string]: ImageData}
-        })
+        constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } });
     }
 
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
@@ -1749,7 +1765,11 @@ declare namespace chrome.desktopCapture {
      * function(string streamId) {...};
      * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
      */
-    export function chooseDesktopMedia(sources: string[], targetTab: chrome.tabs.Tab, callback: (streamId: string) => void): number;
+    export function chooseDesktopMedia(
+        sources: string[],
+        targetTab: chrome.tabs.Tab,
+        callback: (streamId: string) => void,
+    ): number;
     /**
      * Hides desktop media picker dialog shown by chooseDesktopMedia().
      * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
@@ -1799,7 +1819,7 @@ declare namespace chrome.devtools.inspectedWindow {
         injectedScript?: string;
         /**
          * Optional.
-          * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
+         * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
          * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon.
          */
         preprocessorScript?: string;
@@ -1822,7 +1842,8 @@ declare namespace chrome.devtools.inspectedWindow {
 
     export interface ResourceAddedEvent extends chrome.events.Event<(resource: Resource) => void> { }
 
-    export interface ResourceContentCommittedEvent extends chrome.events.Event<(resource: Resource, content: string) => void> { }
+    export interface ResourceContentCommittedEvent
+        extends chrome.events.Event<(resource: Resource, content: string) => void> { }
 
     /** The ID of the tab being inspected. This ID may be used with chrome.tabs.* API. */
     export var tabId: number;
@@ -1838,7 +1859,10 @@ declare namespace chrome.devtools.inspectedWindow {
      * Parameter result: The result of evaluation.
      * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
      */
-    export function eval<T>(expression: string, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    export function eval<T>(
+        expression: string,
+        callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+    ): void;
     /**
      * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
      * @param expression An expression to evaluate.
@@ -1849,7 +1873,11 @@ declare namespace chrome.devtools.inspectedWindow {
      * Parameter result: The result of evaluation.
      * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression.
      */
-    export function eval<T>(expression: string, options: EvalOptions, callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void): void;
+    export function eval<T>(
+        expression: string,
+        options: EvalOptions,
+        callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+    ): void;
     /**
      * Retrieves the list of resources from the inspected page.
      * @param callback A function that receives the list of resources when the request completes.
@@ -1998,7 +2026,8 @@ declare namespace chrome.devtools.panels {
         onSelectionChanged: SelectionChangedEvent;
     }
 
-    export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> { }
+    export interface ExtensionSidebarPaneShownEvent
+        extends chrome.events.Event<(window: chrome.windows.Window) => void> { }
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> { }
 
@@ -2072,7 +2101,12 @@ declare namespace chrome.devtools.panels {
      * function( ExtensionPanel panel) {...};
      * Parameter panel: An ExtensionPanel object representing the created panel.
      */
-    export function create(title: string, iconPath: string, pagePath: string, callback?: (panel: ExtensionPanel) => void): void;
+    export function create(
+        title: string,
+        iconPath: string,
+        pagePath: string,
+        callback?: (panel: ExtensionPanel) => void,
+    ): void;
     /**
      * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
      * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
@@ -2080,7 +2114,9 @@ declare namespace chrome.devtools.panels {
      * function( devtools.inspectedWindow.Resource resource) {...};
      * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked.
      */
-    export function setOpenResourceHandler(callback?: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
+    export function setOpenResourceHandler(
+        callback?: (resource: chrome.devtools.inspectedWindow.Resource) => void,
+    ): void;
     /**
      * Since Chrome 38.
      * Requests DevTools to open a URL in a Developer Tools panel.
@@ -2096,7 +2132,7 @@ declare namespace chrome.devtools.panels {
      * @since Chrome 59.
      * The name of the color theme set in user's DevTools settings.
      */
-    export var themeName: 'default'|'dark';
+    export var themeName: 'default' | 'dark';
 }
 
 ////////////////////
@@ -2268,7 +2304,7 @@ declare namespace chrome.downloads {
 
     export interface GetFileIconOptions {
         /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
- */
+         */
         size?: number;
     }
 
@@ -2338,7 +2374,10 @@ declare namespace chrome.downloads {
 
     export interface DownloadErasedEvent extends chrome.events.Event<(downloadId: number) => void> { }
 
-    export interface DownloadDeterminingFilenameEvent extends chrome.events.Event<(downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void> { }
+    export interface DownloadDeterminingFilenameEvent
+        extends chrome.events.Event<
+        (downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void
+        > { }
 
     /**
      * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page.
@@ -2369,7 +2408,11 @@ declare namespace chrome.downloads {
      * The callback parameter should be a function that looks like this:
      * function(string iconURL) {...};
      */
-    export function getFileIcon(downloadId: number, options: GetFileIconOptions, callback: (iconURL: string) => void): void;
+    export function getFileIcon(
+        downloadId: number,
+        options: GetFileIconOptions,
+        callback: (iconURL: string) => void,
+    ): void;
     /**
      * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
      * @param downloadId The id of the download to resume.
@@ -2518,7 +2561,11 @@ declare namespace chrome.enterprise.platformKeys {
      * function(ArrayBuffer response) {...};
      * @since Chrome 50.
      */
-    export function challengeMachineKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
+    export function challengeMachineKey(
+        challenge: ArrayBuffer,
+        registerKey: boolean,
+        callback: (response: ArrayBuffer) => void,
+    ): void;
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
      * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
@@ -2537,7 +2584,11 @@ declare namespace chrome.enterprise.platformKeys {
      * function(ArrayBuffer response) {...};
      * @since Chrome 50.
      */
-    export function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
+    export function challengeUserKey(
+        challenge: ArrayBuffer,
+        registerKey: boolean,
+        callback: (response: ArrayBuffer) => void,
+    ): void;
 }
 
 ////////////////////
@@ -2569,7 +2620,7 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the serial number of the device.
      */
     export function getDeviceSerialNumber(callback: (serialNumber: string) => void): void;
-     /**
+    /**
      * @since Chrome 66.
      * @description
      * Fetches the administrator-annotated Asset Id.
@@ -2596,22 +2647,22 @@ declare namespace chrome.enterprise.deviceAttributes {
  * @since Chrome 85.
  */
 declare namespace chrome.enterprise.networkingAttributes {
-  export interface NetworkDetails {
-    /** The device's MAC address. */
-    macAddress: string;
-    /** Optional. The device's local IPv4 address (undefined if not configured). */
-    ipv4?: string;
-    /** Optional. The device's local IPv6 address (undefined if not configured). */
-    ipv6?: string;
-  }
+    export interface NetworkDetails {
+        /** The device's MAC address. */
+        macAddress: string;
+        /** Optional. The device's local IPv4 address (undefined if not configured). */
+        ipv4?: string;
+        /** Optional. The device's local IPv6 address (undefined if not configured). */
+        ipv6?: string;
+    }
 
-  /**
-   * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, runtime.lastError will be set with a failure reason.
-   * @param callback Called with the device's default network's NetworkDetails.
-   * The callback parameter should be a function that looks like this:
-   * function(NetworkDetails networkAddresses) {...};
-   */
-  export function getNetworkDetails(callback: (networkDetails: NetworkDetails) => void): void;
+    /**
+     * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, runtime.lastError will be set with a failure reason.
+     * @param callback Called with the device's default network's NetworkDetails.
+     * The callback parameter should be a function that looks like this:
+     * function(NetworkDetails networkAddresses) {...};
+     */
+    export function getNetworkDetails(callback: (networkDetails: NetworkDetails) => void): void;
 }
 
 ////////////////////
@@ -2628,7 +2679,7 @@ declare namespace chrome.events {
         schemes?: string[];
         /**
          * Optional.
-          * Since Chrome 23.
+         * Since Chrome 23.
          * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
          */
         urlMatches?: string;
@@ -2668,7 +2719,7 @@ declare namespace chrome.events {
         ports?: any[];
         /**
          * Optional.
-          * Since Chrome 28.
+         * Since Chrome 28.
          * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
          */
         originAndPathMatches?: string;
@@ -2750,7 +2801,7 @@ declare namespace chrome.events {
         actions: any[];
         /**
          * Optional.
-          * Since Chrome 28.
+         * Since Chrome 28.
          * Tags can be used to annotate rules and perform operations on sets of rules.
          */
         tags?: string[];
@@ -2777,7 +2828,11 @@ declare namespace chrome.extension {
         message: string;
     }
 
-    export interface OnRequestEvent extends chrome.events.Event<((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void) | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)> { }
+    export interface OnRequestEvent
+        extends chrome.events.Event<
+        | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+        | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+        > { }
 
     /**
      * Since Chrome 7.
@@ -2865,7 +2920,7 @@ declare namespace chrome.fileBrowserHandler {
     export interface SelectionParams {
         /**
          * Optional.
-          * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
+         * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
          * Since Chrome 23.
          */
         allowedFileExtensions?: string[];
@@ -2888,7 +2943,8 @@ declare namespace chrome.fileBrowserHandler {
         entries: any[];
     }
 
-    export interface FileBrowserHandlerExecuteEvent extends chrome.events.Event<(id: string, details: FileHandlerExecuteEventDetails) => void> { }
+    export interface FileBrowserHandlerExecuteEvent
+        extends chrome.events.Event<(id: string, details: FileHandlerExecuteEventDetails) => void> { }
 
     /**
      * Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture.
@@ -2967,7 +3023,7 @@ declare namespace chrome.fileSystemProvider {
         openedFiles: OpenedFileInfo[];
         /**
          * Optional.
-          * Whether the file system supports the tag field for observing directories.
+         * Whether the file system supports the tag field for observing directories.
          * @since Since Chrome 45. Warning: this is the current Beta channel.
          */
         supportsNotifyTag?: boolean;
@@ -3017,13 +3073,13 @@ declare namespace chrome.fileSystemProvider {
         writable?: boolean;
         /**
          * Optional.
-          * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
+         * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
          * @since Since Chrome 41.
          */
         openedFilesLimit?: number;
         /**
          * Optional.
-          * Whether the file system supports the tag field for observed directories.
+         * Whether the file system supports the tag field for observed directories.
          * @since Since Chrome 45. Warning: this is the current Beta channel.
          */
         supportsNotifyTag?: boolean;
@@ -3134,33 +3190,121 @@ declare namespace chrome.fileSystemProvider {
         operationRequestId: number;
     }
 
-    export interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface RequestedEvent
+        extends chrome.events.Event<
+        (options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void
+        > { }
 
-    export interface MetadataRequestedEvent extends chrome.events.Event<(options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void> { }
+    export interface MetadataRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: MetadataRequestedEventOptions,
+            successCallback: (metadata: EntryMetadata) => void,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface DirectoryPathRequestedEvent extends chrome.events.Event<(options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+    export interface DirectoryPathRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: DirectoryPathRequestedEventOptions,
+            successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OpenFileRequestedEvent extends chrome.events.Event<(options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface OpenFileRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: OpenFileRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OpenedFileRequestedEvent extends chrome.events.Event<(options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface OpenedFileRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: OpenedFileRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OpenedFileOffsetRequestedEvent extends chrome.events.Event<(options: OpenedFileOffsetRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+    export interface OpenedFileOffsetRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: OpenedFileOffsetRequestedEventOptions,
+            successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event<(options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface DirectoryPathRecursiveRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: DirectoryPathRecursiveRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface EntryPathRecursiveRequestedEvent extends chrome.events.Event<(options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface EntryPathRecursiveRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: EntryPathRecursiveRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface FilePathRequestedEvent extends chrome.events.Event<(options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface FilePathRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: FilePathRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface SourceTargetPathRequestedEvent extends chrome.events.Event<(options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface SourceTargetPathRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: SourceTargetPathRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface FilePathLengthRequestedEvent extends chrome.events.Event<(options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface FilePathLengthRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: FilePathLengthRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OpenedFileIoRequestedEvent extends chrome.events.Event<(options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface OpenedFileIoRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: OpenedFileIoRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OperationRequestedEvent extends chrome.events.Event<(options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface OperationRequestedEvent
+        extends chrome.events.Event<
+        (
+            options: OperationRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => void
+        > { }
 
-    export interface OptionlessRequestedEvent extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
+    export interface OptionlessRequestedEvent
+        extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
 
     /**
      * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
@@ -4037,13 +4181,13 @@ declare namespace chrome.input.ime {
     export type AssistiveWindowType = 'undo';
 
     /** ID of a button in an assistive window. */
-    export type AssistiveWindowButton = 'undo'|'addToDictionary';
+    export type AssistiveWindowButton = 'undo' | 'addToDictionary';
 
     /** Properties of an assistive window. */
     export interface AssistiveWindowProperties {
-      type: AssistiveWindowType;
-      visible: boolean;
-      announceString?: string;
+        type: AssistiveWindowType;
+        visible: boolean;
+        announceString?: string;
     }
 
     export interface CandidateWindowParameterProperties {
@@ -4139,9 +4283,11 @@ declare namespace chrome.input.ime {
 
     export interface BlurEvent extends chrome.events.Event<(contextID: number) => void> { }
 
-    export interface AssistiveWindowButtonClickedEvent extends chrome.events.Event<(details: AssistiveWindowButtonClickedDetails) => void> { }
+    export interface AssistiveWindowButtonClickedEvent
+        extends chrome.events.Event<(details: AssistiveWindowButtonClickedDetails) => void> { }
 
-    export interface CandidateClickedEvent extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
+    export interface CandidateClickedEvent
+        extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> { }
 
     export interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent) => void> { }
 
@@ -4155,7 +4301,8 @@ declare namespace chrome.input.ime {
 
     export interface MenuItemActivatedEvent extends chrome.events.Event<(engineID: string, name: string) => void> { }
 
-    export interface SurroundingTextChangedEvent extends chrome.events.Event<(engineID: string, surroundingInfo: SurroundingTextInfo) => void> { }
+    export interface SurroundingTextChangedEvent
+        extends chrome.events.Event<(engineID: string, surroundingInfo: SurroundingTextInfo) => void> { }
 
     export interface InputResetEvent extends chrome.events.Event<(engineID: string) => void> { }
 
@@ -4200,10 +4347,13 @@ declare namespace chrome.input.ime {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setAssistiveWindowProperties(parameters: {
-            contextID: number,
-            properties: chrome.input.ime.AssistiveWindowProperties
-        }, callback?: (success: boolean) => void): void;
+    export function setAssistiveWindowProperties(
+        parameters: {
+            contextID: number;
+            properties: chrome.input.ime.AssistiveWindowProperties;
+        },
+        callback?: (success: boolean) => void,
+    ): void;
     /**
      * Highlights/Unhighlights a button in an assistive window.
      * @param parameters
@@ -4211,34 +4361,46 @@ declare namespace chrome.input.ime {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function setAssistiveWindowButtonHighlighted(parameters: {
-            contextID: number,
-            buttonID: chrome.input.ime.AssistiveWindowButton,
-            windowType: chrome.input.ime.AssistiveWindowType,
-            announceString?: string,
-            highlighted: boolean
-        }, callback?: () => void): void;
+    export function setAssistiveWindowButtonHighlighted(
+        parameters: {
+            contextID: number;
+            buttonID: chrome.input.ime.AssistiveWindowButton;
+            windowType: chrome.input.ime.AssistiveWindowType;
+            announceString?: string;
+            highlighted: boolean;
+        },
+        callback?: () => void,
+    ): void;
     /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setCandidateWindowProperties(parameters: CandidateWindowParameter, callback?: (success: boolean) => void): void;
+    export function setCandidateWindowProperties(
+        parameters: CandidateWindowParameter,
+        callback?: (success: boolean) => void,
+    ): void;
     /**
      * Clear the current composition. If this extension does not own the active IME, this fails.
      * @param callback Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
+    export function clearComposition(
+        parameters: ClearCompositionParameters,
+        callback?: (success: boolean) => void,
+    ): void;
     /**
      * Set the position of the cursor in the candidate window. This is a no-op if this extension does not own the active IME.
      * @param callback Called when the operation completes
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
+    export function setCursorPosition(
+        parameters: CursorPositionParameters,
+        callback?: (success: boolean) => void,
+    ): void;
     /**
      * Sends the key events. This function is expected to be used by virtual keyboards. When key(s) on a virtual keyboard is pressed by a user, this function is used to propagate that event to the system.
      * @since Chrome 33.
@@ -4308,10 +4470,10 @@ declare namespace chrome.loginState {
     export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
 
     /** Possible profile types. */
-    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+    export type ProfileType = 'SIGNIN_PROFILE' | 'USER_PROFILE';
 
     /** Possible session states. */
-    export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
+    export type SessionState = 'UNKNOWN' | 'IN_OOBE_SCREEN' | 'IN_LOGIN_SCREEN' | 'IN_SESSION' | 'IN_LOCK_SCREEN';
 
     /** Gets the type of the profile the extension is in. */
     export function getProfileType(callback: (profileType: ProfileType) => void): void;
@@ -4489,7 +4651,10 @@ declare namespace chrome.management {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(array of string permissionWarnings) {...};
      */
-    export function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
+    export function getPermissionWarningsByManifest(
+        manifestStr: string,
+        callback?: (permissionwarnings: string[]) => void,
+    ): void;
     /**
      * Launches an application.
      * @param id The extension id of the application.
@@ -4708,11 +4873,13 @@ declare namespace chrome.notifications {
         silent?: boolean;
     }
 
-    export interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
+    export interface NotificationClosedEvent
+        extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
 
     export interface NotificationClickedEvent extends chrome.events.Event<(notificationId: string) => void> { }
 
-    export interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: number) => void> { }
+    export interface NotificationButtonClickedEvent
+        extends chrome.events.Event<(notificationId: string, buttonIndex: number) => void> { }
 
     export interface NotificationPermissionLevelChangedEvent extends chrome.events.Event<(level: string) => void> { }
 
@@ -4745,7 +4912,11 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string notificationId) {...};
      */
-    export function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(
+        notificationId: string,
+        options: NotificationOptions,
+        callback?: (notificationId: string) => void,
+    ): void;
     /**
      * Creates and displays a notification.
      * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
@@ -4766,7 +4937,11 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean wasUpdated) {...};
      */
-    export function update(notificationId: string, options: NotificationOptions, callback?: (wasUpdated: boolean) => void): void;
+    export function update(
+        notificationId: string,
+        options: NotificationOptions,
+        callback?: (wasUpdated: boolean) => void,
+    ): void;
     /**
      * Clears the specified notification.
      * @param notificationId The id of the notification to be cleared. This is returned by notifications.create method.
@@ -4810,9 +4985,9 @@ declare namespace chrome.omnibox {
         /** The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484 */
         description: string;
         /**
-        * Whether the suggest result can be deleted by the user.
-        * @since Chrome 63.
-        */
+         * Whether the suggest result can be deleted by the user.
+         * @since Chrome 63.
+         */
         deletable?: boolean;
     }
 
@@ -4824,9 +4999,11 @@ declare namespace chrome.omnibox {
     /** The window disposition for the omnibox query. This is the recommended context to display results. */
     export type OnInputEnteredDisposition = 'currentTab' | 'newForegroundTab' | 'newBackgroundTab';
 
-    export interface OmniboxInputEnteredEvent extends chrome.events.Event<(text: string, disposition: OnInputEnteredDisposition) => void> { }
+    export interface OmniboxInputEnteredEvent
+        extends chrome.events.Event<(text: string, disposition: OnInputEnteredDisposition) => void> { }
 
-    export interface OmniboxInputChangedEvent extends chrome.events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void> { }
+    export interface OmniboxInputChangedEvent
+        extends chrome.events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void> { }
 
     export interface OmniboxInputStartedEvent extends chrome.events.Event<() => void> { }
 
@@ -4848,7 +5025,7 @@ declare namespace chrome.omnibox {
     export var onInputStarted: OmniboxInputStartedEvent;
     /** User has ended the keyword input session without accepting the input. */
     export var onInputCancelled: OmniboxInputCancelledEvent;
-     /**
+    /**
      * User has deleted a suggested result
      * @since Chrome 63.
      */
@@ -5109,7 +5286,10 @@ declare namespace chrome.platformKeys {
      * function(array of Match matches) {...};
      * Parameter matches: The list of certificates that match the request, that the extension has permission for and, if interactive is true, that were selected by the user.
      */
-    export function selectClientCertificates(details: ClientCertificateSelectDetails, callback: (matches: Match[]) => void): void;
+    export function selectClientCertificates(
+        details: ClientCertificateSelectDetails,
+        callback: (matches: Match[]) => void,
+    ): void;
     /**
      * Passes the key pair of certificate for usage with platformKeys.subtleCrypto to callback.
      * @param certificate The certificate of a Match returned by selectClientCertificates.
@@ -5119,7 +5299,11 @@ declare namespace chrome.platformKeys {
      * function(object publicKey, object privateKey) {...};
      * Optional parameter privateKey: Might be null if this extension does not have access to it.
      */
-    export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
+    export function getKeyPair(
+        certificate: ArrayBuffer,
+        parameters: Object,
+        callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
+    ): void;
     /**
      * Passes the key pair of publicKeySpkiDer for usage with platformKeys.subtleCrypto to callback.
      * @param publicKeySpkiDer A DER-encoded X.509 SubjectPublicKeyInfo, obtained e.g. by calling WebCrypto's exportKey function with format="spki".
@@ -5131,7 +5315,11 @@ declare namespace chrome.platformKeys {
      * Optional parameter privateKey: Might be null if this extension does not have access to it.
      * @since Chrome 85.
      */
-    export function getKeyPairBySpki(publicKeySpkiDer: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
+    export function getKeyPairBySpki(
+        publicKeySpkiDer: ArrayBuffer,
+        parameters: Object,
+        callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
+    ): void;
     /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
     export function subtleCrypto(): SubtleCrypto;
     /**
@@ -5139,7 +5327,10 @@ declare namespace chrome.platformKeys {
      * @param callback The callback parameter should be a function that looks like this:
      * function(object result) {...};
      */
-    export function verifyTLSServerCertificate(details: ServerCertificateVerificationDetails, callback: (result: ServerCertificateVerificationResult) => void): void;
+    export function verifyTLSServerCertificate(
+        details: ServerCertificateVerificationDetails,
+        callback: (result: ServerCertificateVerificationResult) => void,
+    ): void;
 }
 
 ////////////////////
@@ -5193,13 +5384,19 @@ declare namespace chrome.printerProvider {
         document: Blob;
     }
 
-    export interface PrinterRequestedEvent extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> { }
+    export interface PrinterRequestedEvent
+        extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> { }
 
-    export interface PrinterInfoRequestedEvent extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void> { }
+    export interface PrinterInfoRequestedEvent
+        extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void> { }
 
-    export interface CapabilityRequestedEvent extends chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void> { }
+    export interface CapabilityRequestedEvent
+        extends chrome.events.Event<
+        (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
+        > { }
 
-    export interface PrintRequestedEvent extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void> { }
+    export interface PrintRequestedEvent
+        extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void> { }
 
     /** Event fired when print manager requests printers provided by extensions. */
     export var onGetPrintersRequested: PrinterRequestedEvent;
@@ -5361,7 +5558,7 @@ declare namespace chrome.proxy {
  */
 
 declare namespace chrome.search {
-    export type Disposition = "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
+    export type Disposition = 'CURRENT_TAB' | 'NEW_TAB' | 'NEW_WINDOW';
 
     export interface QueryInfo {
         /** Location where search results should be displayed. CURRENT_TAB is the default.  */
@@ -5391,284 +5588,283 @@ declare namespace chrome.search {
  * Important: This API works only on Chrome OS.
  */
 declare namespace chrome.serial {
+    export const DataBits: {
+        SEVEN: 'seven';
+        EIGHT: 'eight';
+    };
+    export const ParityBit: {
+        NO: 'no';
+        ODD: 'odd';
+        EVEN: 'even';
+    };
+    export const StopBits: {
+        ONE: 'one';
+        TWO: 'two';
+    };
 
-  export const DataBits: {
-    SEVEN: 'seven',
-    EIGHT: 'eight'
-  };
-  export const ParityBit: {
-    NO: 'no',
-    ODD: 'odd',
-    EVEN: 'even'
-  };
-  export const StopBits: {
-    ONE: 'one',
-    TWO: 'two'
-  };
+    export interface DeviceInfo {
+        /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
+        path: string;
+        /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
+        vendorId?: number;
+        /** Optional. A USB product ID if one can be determined for the underlying device. */
+        productId?: number;
+        /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
+        displayName?: number;
+    }
 
-  export interface DeviceInfo {
-    /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
-    path: string;
-    /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
-    vendorId?: number;
-    /** Optional. A USB product ID if one can be determined for the underlying device. */
-    productId?: number;
-    /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
-    displayName?: number;
-  }
+    export interface ConnectionInfo {
+        /** The id of the serial port connection. */
+        connectionId?: number;
+        /** Flag indicating whether the connection is blocked from firing onReceive events. */
+        paused: boolean;
+        /** See ConnectionOptions.persistent */
+        peristent: boolean;
+        /** See ConnectionOptions.name */
+        name: string;
+        /** See ConnectionOptions.bufferSize */
+        bufferSize: number;
+        /** See ConnectionOptions.receiveTimeout */
+        receiveTimeout?: number;
+        /** See ConnectionOptions.sendTimeout */
+        sendTimeout?: number;
+        /** Optional. See ConnectionOptions.bitrate.
+         * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
+        bitrate?: number;
+        /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
+        dataBits?: typeof DataBits[keyof typeof DataBits];
+        /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
+        parityBit?: typeof ParityBit[keyof typeof ParityBit];
+        /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
+        stopBits?: typeof StopBits[keyof typeof StopBits];
+        /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+        ctsFlowControl?: boolean;
+    }
 
-  export interface ConnectionInfo {
-    /** The id of the serial port connection. */
-    connectionId?: number;
-    /** Flag indicating whether the connection is blocked from firing onReceive events. */
-    paused: boolean;
-    /** See ConnectionOptions.persistent */
-    peristent: boolean;
-    /** See ConnectionOptions.name */
-    name: string;
-    /** See ConnectionOptions.bufferSize */
-    bufferSize: number;
-    /** See ConnectionOptions.receiveTimeout */
-    receiveTimeout?: number;
-    /** See ConnectionOptions.sendTimeout */
-    sendTimeout?: number;
-    /** Optional. See ConnectionOptions.bitrate.
-     * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
-    bitrate?: number;
-    /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
-    dataBits?: typeof DataBits[keyof typeof DataBits];
-    /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
-    parityBit?: typeof ParityBit[keyof typeof ParityBit];
-    /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
-    stopBits?: typeof StopBits[keyof typeof StopBits];
-    /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-    ctsFlowControl?: boolean;
-  }
+    export interface ConnectionOptions {
+        /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
+         *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
+        peristent?: boolean;
+        /** Optional. An application-defined string to associate with the connection. */
+        name?: string;
+        /** Optional. The size of the buffer used to receive data. The default value is 4096. */
+        bufferSize?: number;
+        /** Optional. The requested bitrate of the connection to be opened.
+         * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
+         * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
+         * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
+         * 9600 will be passed by default. */
+        bitrate?: number;
+        /** Optional. "eight" will be passed by default. */
+        dataBits?: typeof DataBits[keyof typeof DataBits];
+        /** Optional. "no" will be passed by default. */
+        parityBit?: typeof ParityBit[keyof typeof ParityBit];
+        /** Optional. "one" will be passed by default. */
+        stopBits?: typeof StopBits[keyof typeof StopBits];
+        /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+        ctsFlowControl?: boolean;
+        /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
+         * If zero, receive timeout errors will not be raised for the connection.
+         * Defaults to 0. */
+        receiveTimeout?: number;
+        /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
+         * If zero, send timeout errors will not be triggered.
+         * Defaults to 0. */
+        sendTimeout?: number;
+    }
 
-  export interface ConnectionOptions {
-    /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
-     *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-    peristent?: boolean;
-    /** Optional. An application-defined string to associate with the connection. */
-    name?: string;
-    /** Optional. The size of the buffer used to receive data. The default value is 4096. */
-    bufferSize?: number;
-    /** Optional. The requested bitrate of the connection to be opened.
-     * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
-     * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
-     * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
-     * 9600 will be passed by default. */
-    bitrate?: number;
-    /** Optional. "eight" will be passed by default. */
-    dataBits?: typeof DataBits[keyof typeof DataBits];
-    /** Optional. "no" will be passed by default. */
-    parityBit?: typeof ParityBit[keyof typeof ParityBit];
-    /** Optional. "one" will be passed by default. */
-    stopBits?: typeof StopBits[keyof typeof StopBits];
-    /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-    ctsFlowControl?: boolean;
-    /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
-     * If zero, receive timeout errors will not be raised for the connection.
-     * Defaults to 0. */
-    receiveTimeout?: number;
-    /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
-     * If zero, send timeout errors will not be triggered.
-     * Defaults to 0. */
-    sendTimeout?: number;
-  }
+    /**
+     * @since Chrome 33.
+     * @description Returns information about available serial devices on the system. The list is regenerated each time this method is called.
+     * @param callback Called with the list of DeviceInfo objects.
+     * The callback parameter should be a function that looks like this:
+     * function(array of object ports) {...};
+     */
+    export function getDevices(callback: (ports: DeviceInfo[]) => void): void;
 
-  /**
-   * @since Chrome 33.
-   * @description Returns information about available serial devices on the system. The list is regenerated each time this method is called.
-   * @param callback Called with the list of DeviceInfo objects.
-   * The callback parameter should be a function that looks like this:
-   * function(array of object ports) {...};
-   */
-  export function getDevices(callback: (ports: DeviceInfo[]) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Connects to a given serial port.
+     * @param path The system path of the serial port to open.
+     * @param options Port configuration options.
+     * @param callback Called when the connection has been opened.
+     * The callback parameter should be a function that looks like this:
+     * function( ConnectionInfo connectionInfo) {...};
+     */
+    export function connect(
+        path: string,
+        options: ConnectionOptions,
+        callback: (connectionInfo: ConnectionInfo) => void,
+    ): void;
 
-  /**
-   * @since Chrome 33.
-   * @description Connects to a given serial port.
-   * @param path The system path of the serial port to open.
-   * @param options Port configuration options.
-   * @param callback Called when the connection has been opened.
-   * The callback parameter should be a function that looks like this:
-   * function( ConnectionInfo connectionInfo) {...};
-   */
-  export function connect(path: string, options: ConnectionOptions, callback: (connectionInfo: ConnectionInfo) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Update the option settings on an open serial port connection.
+     * @param connectionId The id of the opened connection.
+     * @param options Port configuration options.
+     * @param callback Called when the configuation has completed.
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
 
-  /**
-   * @since Chrome 33.
-   * @description Update the option settings on an open serial port connection.
-   * @param connectionId The id of the opened connection.
-   * @param options Port configuration options.
-   * @param callback Called when the configuation has completed.
-   * The callback parameter should be a function that looks like this:
-   * function(boolean result) {...};
-   */
-  export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Disconnects from a serial port.
+     * @param connectionId The id of the opened connection.
+     * @param callback Called when the connection has been closed.
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
 
-  /**
-  * @since Chrome 33.
-  * @description Disconnects from a serial port.
-  * @param connectionId The id of the opened connection.
-  * @param callback Called when the connection has been closed.
-  * The callback parameter should be a function that looks like this:
-  * function(boolean result) {...};
-  */
-  export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Pauses or unpauses an open connection.
+     * @param connectionId The id of the opened connection.
+     * @param paused Flag to indicate whether to pause or unpause.
+     * @param callback Called when the connection has been successfully paused or unpaused.
+     * The callback parameter should be a function that looks like this:
+     * function() {...};
+     */
+    export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
 
-  /**
-  * @since Chrome 33.
-  * @description Pauses or unpauses an open connection.
-  * @param connectionId The id of the opened connection.
-  * @param paused Flag to indicate whether to pause or unpause.
-  * @param callback Called when the connection has been successfully paused or unpaused.
-  * The callback parameter should be a function that looks like this:
-  * function() {...};
-  */
-  export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Retrieves the state of a given connection.
+     * @param callback Called with connection state information when available.
+     * The callback parameter should be a function that looks like this:
+     * function( ConnectionInfo connectionInfo) {...};
+     */
+    export function getInfo(callback: (connectionInfos: ConnectionInfo[]) => void): void;
 
-  /**
-  * @since Chrome 33.
-  * @description Retrieves the state of a given connection.
-  * @param callback Called with connection state information when available.
-  * The callback parameter should be a function that looks like this:
-  * function( ConnectionInfo connectionInfo) {...};
-  */
-  export function getInfo(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Retrieves the list of currently opened serial port connections owned by the application.
+     * @param callback Called with the list of connections when available.
+     * The callback parameter should be a function that looks like this:
+     * function(array of ConnectionInfo connectionInfos) {...};
+     */
+    export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
 
-  /**
-  * @since Chrome 33.
-  * @description Retrieves the list of currently opened serial port connections owned by the application.
-  * @param callback Called with the list of connections when available.
-  * The callback parameter should be a function that looks like this:
-  * function(array of ConnectionInfo connectionInfos) {...};
-  */
-  export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Writes data to the given connection.
+     * @param connectionId The id of the connection.
+     * @param data The data to send.
+     * @param callback Called when the operation has completed.
+     * The callback parameter should be a function that looks like this:
+     * function(object sendInfo) {...};
+     */
+    export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: object) => void): void;
 
-  /**
-  * @since Chrome 33.
-  * @description Writes data to the given connection.
-  * @param connectionId The id of the connection.
-  * @param data The data to send.
-  * @param callback Called when the operation has completed.
-  * The callback parameter should be a function that looks like this:
-  * function(object sendInfo) {...};
-  */
-  export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: object) => void): void;
+    /**
+     * @description Flushes all bytes in the given connection's input and output buffers.
+     * @param connectionId The id of the connection.
+     * @param callback
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function flush(connectionId: number, callback: (result: boolean) => void): void;
 
-  /**
-  * @description Flushes all bytes in the given connection's input and output buffers.
-  * @param connectionId The id of the connection.
-  * @param callback
-  * The callback parameter should be a function that looks like this:
-  * function(boolean result) {...};
-  */
-  export function flush(connectionId: number, callback: (result: boolean) => void): void;
+    /**
+     * @description Retrieves the state of control signals on a given connection.
+     * @param connectionId The id of the connection.
+     * @param callback Called when the control signals are available.
+     * The callback parameter should be a function that looks like this:
+     * function(object signals) {...};
+     */
+    export function getControlSignals(connectionId: number, callback: (signals: object) => void): void;
 
-  /**
-  * @description Retrieves the state of control signals on a given connection.
-  * @param connectionId The id of the connection.
-  * @param callback Called when the control signals are available.
-  * The callback parameter should be a function that looks like this:
-  * function(object signals) {...};
-  */
-  export function getControlSignals(connectionId: number, callback: (signals: object) => void): void;
+    /**
+     * @description Sets the state of control signals on a given connection.
+     * @param connectionId The id of the connection.
+     * @param signals The set of signal changes to send to the device:
+     * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+     * boolean:    (optional) rts - RTS (Request To Send).
+     * @param callback Called once the control signals have been set.
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function setControlSignals(connectionId: number, signals: object, callback: (result: boolean) => void): void;
 
-  /**
-  * @description Sets the state of control signals on a given connection.
-  * @param connectionId The id of the connection.
-  * @param signals The set of signal changes to send to the device:
-  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
-  * boolean:    (optional) rts - RTS (Request To Send).
-  * @param callback Called once the control signals have been set.
-  * The callback parameter should be a function that looks like this:
-  * function(boolean result) {...};
-  */
-  export function setControlSignals(connectionId: number, signals: object, callback: (result: boolean) => void): void;
+    /**
+     * @since Chrome 45.
+     * @description Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
+     * @param connectionId The id of the connection.
+     * @param callback
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
 
-  /**
-  * @since Chrome 45.
-  * @description Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
-  * @param connectionId The id of the connection.
-  * @param callback
-  * The callback parameter should be a function that looks like this:
-  * function(boolean result) {...};
-  */
-  export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
-
-  /**
-  * @since Chrome 45.
-  * @description Restore character transmission on a given connection and place the transmission line in a nonbreak state.
-  * @param connectionId The id of the connection.
-  * @param callback
-  * The callback parameter should be a function that looks like this:
-  * function(boolean result) {...};
-  */
-  export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
-
-
+    /**
+     * @since Chrome 45.
+     * @description Restore character transmission on a given connection and place the transmission line in a nonbreak state.
+     * @param connectionId The id of the connection.
+     * @param callback
+     * The callback parameter should be a function that looks like this:
+     * function(boolean result) {...};
+     */
+    export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
 }
 
 declare namespace chrome.serial.onReceive {
+    export interface OnReceiveInfo {
+        /** The connection identifier. */
+        connectionId: number;
+        /** The data received. */
+        data: ArrayBuffer;
+    }
 
-  export interface OnReceiveInfo {
-    /** The connection identifier. */
-    connectionId: number;
-    /** The data received. */
-    data: ArrayBuffer;
-  }
-
-  /**
-  * @since Chrome 33.
-  * @description Event raised when data has been read from the connection.
-  * @param callback
-  * The callback parameter should be a function that looks like this:
-  * function(OnReceiveInfo info) {...};
-  */
-  export function addListener(callback: (info: OnReceiveInfo) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Event raised when data has been read from the connection.
+     * @param callback
+     * The callback parameter should be a function that looks like this:
+     * function(OnReceiveInfo info) {...};
+     */
+    export function addListener(callback: (info: OnReceiveInfo) => void): void;
 }
 
 declare namespace chrome.serial.onReceiveError {
+    export const OnReceiveErrorEnum: {
+        /* The connection was disconnected. */
+        disconnected: 'disconnected';
+        /* No data has been received for receiveTimeout milliseconds. */
+        timeout: 'timeout';
+        /* The device was most likely disconnected from the host. */
+        device_lost: 'device_lost';
+        /* The device detected a break condition. */
+        break: 'break';
+        /* The device detected a framing error. */
+        frame_error: 'frame_error';
+        /* A character-buffer overrun has occurred. The next character is lost. */
+        overrun: 'overrun';
+        /* An input buffer overflow has occurred. There is either no room in the input buffer, or a character was received after the end-of-file (EOF) character. */
+        buffer_overflow: 'buffer_overflow';
+        /* The device detected a parity error. */
+        parity_error: 'parity_error';
+        /* A system error occurred and the connection may be unrecoverable. */
+        system_error: 'system_error';
+    };
 
-  export const OnReceiveErrorEnum: {
-    /* The connection was disconnected. */
-    disconnected: 'disconnected',
-    /* No data has been received for receiveTimeout milliseconds. */
-    timeout: 'timeout',
-    /* The device was most likely disconnected from the host. */
-    device_lost: 'device_lost'
-    /* The device detected a break condition. */
-    break: 'break',
-    /* The device detected a framing error. */
-    frame_error: 'frame_error',
-    /* A character-buffer overrun has occurred. The next character is lost. */
-    overrun: 'overrun',
-    /* An input buffer overflow has occurred. There is either no room in the input buffer, or a character was received after the end-of-file (EOF) character. */
-    buffer_overflow: 'buffer_overflow',
-    /* The device detected a parity error. */
-    parity_error: 'parity_error',
-    /* A system error occurred and the connection may be unrecoverable. */
-    system_error: 'system_error',
-  };
+    export interface OnReceiveErrorInfo {
+        /** The connection identifier. */
+        connectionId: number;
+        /** The data received. */
+        error: ArrayBuffer;
+    }
 
-  export interface OnReceiveErrorInfo {
-    /** The connection identifier. */
-    connectionId: number;
-    /** The data received. */
-    error: ArrayBuffer;
-  }
-
-  /**
-  * @since Chrome 33.
-  * @description Event raised when an error occurred while the runtime was waiting for data on the serial port.
-  * Once this event is raised, the connection may be set to paused. A "timeout" error does not pause the connection.
-  * @param callback
-  * The callback parameter should be a function that looks like this:
-  * function(OnReceiveErrorInfo info) {...};
-  */
-  export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
+    /**
+     * @since Chrome 33.
+     * @description Event raised when an error occurred while the runtime was waiting for data on the serial port.
+     * Once this event is raised, the connection may be set to paused. A "timeout" error does not pause the connection.
+     * @param callback
+     * The callback parameter should be a function that looks like this:
+     * function(OnReceiveErrorInfo info) {...};
+     */
+    export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
 }
 
 ////////////////////
@@ -5811,7 +6007,10 @@ declare namespace chrome.runtime {
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
 
-    export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void> { }
+    export interface ExtensionMessageEvent
+        extends chrome.events.Event<
+        (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
+        > { }
 
     export interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
 
@@ -5821,7 +6020,8 @@ declare namespace chrome.runtime {
 
     export interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> { }
 
-    export interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> { }
+    export interface RuntimeUpdateAvailableEvent
+        extends chrome.events.Event<(details: UpdateAvailableDetails) => void> { }
 
     export interface ManifestIcons {
         [size: number]: string;
@@ -5884,7 +6084,7 @@ declare namespace chrome.runtime {
             bookmarks_ui?: {
                 remove_bookmark_shortcut?: boolean;
                 remove_button?: boolean;
-            }
+            };
         };
         chrome_url_overrides?: {
             bookmarks?: string;
@@ -5901,8 +6101,8 @@ declare namespace chrome.runtime {
                     linux?: string;
                 };
                 description?: string;
-                global?: boolean
-            }
+                global?: boolean;
+            };
         };
         content_capabilities?: {
             matches?: string[];
@@ -5929,7 +6129,7 @@ declare namespace chrome.runtime {
             actions?: {
                 type: string;
             }[];
-            conditions?: chrome.declarativeContent.PageStateMatcherProperties[]
+            conditions?: chrome.declarativeContent.PageStateMatcherProperties[];
         }[];
         externally_connectable?: {
             ids?: string[];
@@ -5950,10 +6150,10 @@ declare namespace chrome.runtime {
         homepage_url?: string;
         import?: {
             id: string;
-            minimum_version?: string
+            minimum_version?: string;
         }[];
         export?: {
-            whitelist?: string[]
+            whitelist?: string[];
         };
         incognito?: string;
         input_components?: {
@@ -5995,11 +6195,11 @@ declare namespace chrome.runtime {
         }[];
         requirements?: {
             '3D'?: {
-                features?: string[]
+                features?: string[];
             };
             plugins?: {
                 npapi?: boolean;
-            }
+            };
         };
         sandbox?: {
             pages: string[];
@@ -6014,7 +6214,7 @@ declare namespace chrome.runtime {
             dictionary_path?: string;
         };
         storage?: {
-            managed_schema: string
+            managed_schema: string;
         };
         system_indicator?: any;
         tts_engine?: {
@@ -6023,7 +6223,7 @@ declare namespace chrome.runtime {
                 lang?: string;
                 gender?: string;
                 event_types?: string[];
-            }[]
+            }[];
         };
         update_url?: string;
         version_name?: string;
@@ -6084,7 +6284,9 @@ declare namespace chrome.runtime {
      * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available"
      * Optional parameter details: If an update is available, this contains more information about the available update.
      */
-    export function requestUpdateCheck(callback: (status: RequestUpdateCheckStatus, details?: UpdateCheckDetails) => void): void;
+    export function requestUpdateCheck(
+        callback: (status: RequestUpdateCheckStatus, details?: UpdateCheckDetails) => void,
+    ): void;
     /**
      * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
      * @since Chrome 32.
@@ -6103,7 +6305,11 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(
+        message: any,
+        options: MessageOptions,
+        responseCallback?: (response: any) => void,
+    ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
@@ -6119,7 +6325,12 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(
+        extensionId: string,
+        message: any,
+        options: MessageOptions,
+        responseCallback?: (response: any) => void,
+    ): void;
     /**
      * Send a single message to a native application.
      * @since Chrome 28.
@@ -6128,7 +6339,11 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional.
      * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendNativeMessage(application: string, message: Object, responseCallback?: (response: any) => void): void;
+    export function sendNativeMessage(
+        application: string,
+        message: Object,
+        responseCallback?: (response: any) => void,
+    ): void;
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
      * @since Chrome 41.
@@ -6395,7 +6610,8 @@ declare namespace chrome.storage {
     }
 
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
-    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
+    export interface StorageChangedEvent
+        extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
     /** Items in the local storage area are local to each machine. */
     export var local: LocalStorageArea;
@@ -6462,11 +6678,32 @@ declare namespace chrome.socket {
     export function disconnect(socketId: number): void;
     export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
     export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
-    export function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
-    export function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
-    export function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
+    export function recvFrom(
+        socketId: number,
+        bufferSize?: number,
+        callback?: (recvFromInfo: RecvFromInfo) => void,
+    ): void;
+    export function sendTo(
+        socketId: number,
+        data: ArrayBuffer,
+        address: string,
+        port: number,
+        callback?: (writeInfo: WriteInfo) => void,
+    ): void;
+    export function listen(
+        socketId: number,
+        address: string,
+        port: number,
+        backlog?: number,
+        callback?: (result: number) => void,
+    ): void;
     export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
-    export function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
+    export function setKeepAlive(
+        socketId: number,
+        enable: boolean,
+        delay?: number,
+        callback?: (result: boolean) => void,
+    ): void;
     export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
     export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
@@ -6602,468 +6839,466 @@ declare namespace chrome.system.storage {
  * @since Chrome 30.
  */
 declare namespace chrome.system.display {
+    export const DisplayPosition: {
+        TOP: 'top';
+        RIGHT: 'right';
+        BOTTOM: 'bottom';
+        LEFT: 'left';
+    };
+    export const MirrorMode: {
+        OFF: 'off';
+        NORMAL: 'normal';
+        MIXED: 'mixed';
+    };
+    export interface Bounds {
+        /**  The x-coordinate of the upper-left corner. */
+        left: number;
+        /**  The y-coordinate of the upper-left corner. */
+        top: number;
+        /** The width of the display in pixels. */
+        width: number;
+        /** The height of the display in pixels. */
+        height: number;
+    }
 
-  export const DisplayPosition: {
-      TOP: 'top',
-      RIGHT: 'right',
-      BOTTOM: 'bottom',
-      LEFT: 'left'
-  };
-  export const MirrorMode: {
-      OFF: 'off',
-      NORMAL: 'normal',
-      MIXED: 'mixed'
-  };
-  export interface Bounds {
-      /**  The x-coordinate of the upper-left corner. */
-      left: number;
-      /**  The y-coordinate of the upper-left corner. */
-      top: number;
-      /** The width of the display in pixels. */
-      width: number;
-      /** The height of the display in pixels. */
-      height: number;
-  }
+    export interface Insets {
+        /** The x-axis distance from the left bound. */
+        left: number;
+        /** The y-axis distance from the top bound. */
+        top: number;
+        /** The x-axis distance from the right bound. */
+        right: number;
+        /** The y-axis distance from the bottom bound. */
+        bottom: number;
+    }
 
-  export interface Insets {
-      /** The x-axis distance from the left bound. */
-      left: number;
-      /** The y-axis distance from the top bound. */
-      top: number;
-      /** The x-axis distance from the right bound. */
-      right: number;
-      /** The y-axis distance from the bottom bound. */
-      bottom: number;
-  }
+    /**
+     * @since Chrome 57
+     */
+    export interface Point {
+        /** The x-coordinate of the point. */
+        x: number;
+        /** The y-coordinate of the point. */
+        y: number;
+    }
 
-  /**
-   * @since Chrome 57
-   */
-  export interface Point {
-      /** The x-coordinate of the point. */
-      x: number;
-      /** The y-coordinate of the point. */
-      y: number;
-  }
+    /**
+     * @since Chrome 57
+     */
+    export interface TouchCalibrationPair {
+        /** The coordinates of the display point. */
+        displayPoint: Point;
+        /** The coordinates of the touch point corresponding to the display point. */
+        touchPoint: Point;
+    }
 
-  /**
-   * @since Chrome 57
-   */
-  export interface TouchCalibrationPair {
-      /** The coordinates of the display point. */
-      displayPoint: Point;
-      /** The coordinates of the touch point corresponding to the display point. */
-      touchPoint: Point;
-  }
+    /**
+     * @since Chrome 52
+     */
+    export interface DisplayMode {
+        /** The display mode width in device independent (user visible) pixels. */
+        width: number;
 
-  /**
-   * @since Chrome 52
-   */
-  export interface DisplayMode {
-      /** The display mode width in device independent (user visible) pixels. */
-      width: number;
+        /** The display mode height in device independent (user visible) pixels. */
+        height: number;
 
-      /** The display mode height in device independent (user visible) pixels. */
-      height: number;
+        /** The display mode width in native pixels. */
+        widthInNativePixels: number;
 
-      /** The display mode width in native pixels. */
-      widthInNativePixels: number;
+        /** The display mode height in native pixels. */
+        heightInNativePixels: number;
 
-      /** The display mode height in native pixels. */
-      heightInNativePixels: number;
+        /**
+         * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
+         * @description The display mode UI scale factor.
+         **/
+        uiScale: number;
 
-      /**
-       * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
-       * @description The display mode UI scale factor.
-       **/
-      uiScale: number;
+        /** The display mode device scale factor. */
+        deviceScaleFactor: number;
 
-      /** The display mode device scale factor. */
-      deviceScaleFactor: number;
+        /**
+         * The display mode refresh rate in hertz.
+         * @since Chrome 67
+         */
+        refreshRate: number;
 
-      /**
-       * The display mode refresh rate in hertz.
-       * @since Chrome 67
-       */
-      refreshRate: number;
+        /** True if the mode is the display's native mode. */
+        isNative: boolean;
 
-      /** True if the mode is the display's native mode. */
-      isNative: boolean;
+        /** True if the display mode is currently selected. */
+        isSelected: boolean;
+    }
 
-      /** True if the display mode is currently selected. */
-      isSelected: boolean;
-  }
+    /**
+     * @since Chrome 53
+     */
+    export interface DisplayLayout {
+        /** The unique identifier of the display. */
+        id: string;
+        /** The unique identifier of the parent display. Empty if this is the root. */
+        parentId: string;
+        /**
+         * The layout position of this display relative to the parent.
+         * This will be ignored for the root.
+         * @see enum
+         */
+        position: typeof DisplayPosition[keyof typeof DisplayPosition];
+        /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
+        offset: number;
+    }
 
-  /**
-   * @since Chrome 53
-   */
-  export interface DisplayLayout {
+    /**
+     * The pairs of point used to calibrate the display.
+     */
+    export interface TouchCalibrationPairs {
+        /** First pair of touch and display point required for touch calibration. */
+        pair1: TouchCalibrationPair;
+        /** Second pair of touch and display point required for touch calibration. */
+        pair2: TouchCalibrationPair;
+        /** Third pair of touch and display point required for touch calibration. */
+        pair3: TouchCalibrationPair;
+        /** Fourth pair of touch and display point required for touch calibration. */
+        pair4: TouchCalibrationPair;
+    }
 
-      /** The unique identifier of the display. */
-      id: string;
-      /** The unique identifier of the parent display. Empty if this is the root. */
-      parentId: string;
-      /**
-       * The layout position of this display relative to the parent.
-       * This will be ignored for the root.
-       * @see enum
-       */
-      position: typeof DisplayPosition[keyof typeof DisplayPosition];
-      /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
-      offset: number;
-  }
+    /**
+     * Representation of info data to be used in chrome.system.display.setDisplayProperties()
+     */
+    export interface DisplayPropertiesInfo {
+        /**
+         * requires(CrOS) Chrome OS only.
+         * @description
+         * If set to true, changes the display mode to unified desktop.
+         * If set to false, unified desktop mode will be disabled.
+         * This is only valid for the primary display.
+         * If provided, mirroringSourceId must not be provided and other properties may not apply.
+         * This is has no effect if not provided.
+         * @see(See `enableUnifiedDesktop` for details).
+         * @since Chrome 59
+         * */
+        isUnified?: boolean;
 
-  /**
-   * The pairs of point used to calibrate the display.
-   */
-  export interface TouchCalibrationPairs {
-      /** First pair of touch and display point required for touch calibration. */
-      pair1: TouchCalibrationPair,
-      /** Second pair of touch and display point required for touch calibration. */
-      pair2: TouchCalibrationPair,
-      /** Third pair of touch and display point required for touch calibration. */
-      pair3: TouchCalibrationPair,
-      /** Fourth pair of touch and display point required for touch calibration. */
-      pair4: TouchCalibrationPair
-  }
+        /**
+         * requires(CrOS) Chrome OS only.
+         * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
+         * @see setMirrorMode
+         * @description
+         * If set and not empty, enables mirroring for this display.
+         * Otherwise disables mirroring for this display.
+         * This value should indicate the id of the source display to mirror,
+         * which must not be the same as the id passed to setDisplayProperties.
+         * If set, no other property may be set.
+         */
+        mirroringSourceId?: string;
 
-  /**
-   * Representation of info data to be used in chrome.system.display.setDisplayProperties()
-   */
-  export interface DisplayPropertiesInfo {
-      /**
-       * requires(CrOS) Chrome OS only.
-       * @description
-       * If set to true, changes the display mode to unified desktop.
-       * If set to false, unified desktop mode will be disabled.
-       * This is only valid for the primary display.
-       * If provided, mirroringSourceId must not be provided and other properties may not apply.
-       * This is has no effect if not provided.
-       * @see(See `enableUnifiedDesktop` for details).
-       * @since Chrome 59
-       * */
-      isUnified?: boolean;
+        /**
+         * If set to true, makes the display primary.
+         * No-op if set to false.
+         */
+        isPrimary?: boolean;
 
-      /**
-       * requires(CrOS) Chrome OS only.
-       * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
-       * @see setMirrorMode
-       * @description
-       * If set and not empty, enables mirroring for this display.
-       * Otherwise disables mirroring for this display.
-       * This value should indicate the id of the source display to mirror,
-       * which must not be the same as the id passed to setDisplayProperties.
-       * If set, no other property may be set.
-       */
-      mirroringSourceId?: string;
+        /**
+         * If set, sets the display's overscan insets to the provided values.
+         * Note that overscan values may not be negative or larger than a half of the screen's size.
+         * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
+         */
+        overscan?: Insets;
 
-      /**
-       * If set to true, makes the display primary.
-       * No-op if set to false.
-       */
-      isPrimary?: boolean;
+        /**
+         * If set, updates the display's rotation.
+         * Legal values are [0, 90, 180, 270].
+         * The rotation is set clockwise, relative to the display's vertical position.
+         * It's applied after overscan parameter.
+         */
+        rotation?: 0 | 90 | 180 | 270;
 
-      /**
-       * If set, sets the display's overscan insets to the provided values.
-       * Note that overscan values may not be negative or larger than a half of the screen's size.
-       * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
-       */
-      overscan?: Insets;
+        /**
+         * If set, updates the display's logical bounds origin along x-axis.
+         * Applied together with boundsOriginY, if boundsOriginY is set.
+         * Note that, when updating the display origin, some constraints will be applied,
+         * so the final bounds origin may be different than the one set.
+         * The final bounds can be retrieved using getInfo. The bounds origin is applied
+         * after rotation. The bounds origin cannot be changed on the primary display.
+         * Note that is also invalid to set bounds origin values if isPrimary is also set
+         * (as isPrimary parameter is applied first).
+         */
+        boundsOriginX?: number;
 
-      /**
-       * If set, updates the display's rotation.
-       * Legal values are [0, 90, 180, 270].
-       * The rotation is set clockwise, relative to the display's vertical position.
-       * It's applied after overscan parameter.
-       */
-      rotation?: 0 | 90 | 180 | 270;
+        /**
+         * If set, updates the display's logical bounds origin along y-axis.
+         * @see[See documentation for boundsOriginX parameter.]
+         */
+        boundsOriginY?: number;
 
-      /**
-       * If set, updates the display's logical bounds origin along x-axis.
-       * Applied together with boundsOriginY, if boundsOriginY is set.
-       * Note that, when updating the display origin, some constraints will be applied,
-       * so the final bounds origin may be different than the one set.
-       * The final bounds can be retrieved using getInfo. The bounds origin is applied
-       * after rotation. The bounds origin cannot be changed on the primary display.
-       * Note that is also invalid to set bounds origin values if isPrimary is also set
-       * (as isPrimary parameter is applied first).
-       */
-      boundsOriginX?: number;
+        /**
+         * If set, updates the display mode to the mode matching this value.
+         * @since Chrome 52
+         */
+        displayMode?: DisplayMode;
 
-      /**
-       * If set, updates the display's logical bounds origin along y-axis.
-       * @see[See documentation for boundsOriginX parameter.]
-       */
-      boundsOriginY?: number;
+        /**
+         * @since Chrome 65.
+         * @description
+         * If set, updates the zoom associated with the display.
+         * This zoom performs re-layout and repaint thus resulting
+         * in a better quality zoom than just performing
+         * a pixel by pixel stretch enlargement.
+         */
+        displayZoomFactor?: number;
+    }
 
-      /**
-       * If set, updates the display mode to the mode matching this value.
-       * @since Chrome 52
-       */
-      displayMode?: DisplayMode;
+    /**
+     * Options affecting how the information is returned.
+     * @since Chrome 59
+     */
+    export interface DisplayInfoFlags {
+        /**
+         * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
+         * @see[enableUnifiedDesktop]
+         * @default false
+         */
+        singleUnified?: boolean;
+    }
 
-      /**
-       * @since Chrome 65.
-       * @description
-       * If set, updates the zoom associated with the display.
-       * This zoom performs re-layout and repaint thus resulting
-       * in a better quality zoom than just performing
-       * a pixel by pixel stretch enlargement.
-       */
-      displayZoomFactor?: number;
-  }
+    /** Information about display properties. */
+    export interface DisplayInfo {
+        /** The unique identifier of the display. */
+        id: string;
+        /** The user-friendly name (e.g. 'HP LCD monitor'). */
+        name: string;
+        /**
+         * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+         */
+        edid?: {
+            /**
+             * 3 character manufacturer code.
+             */
+            manufacturerId: string;
+            /**
+             * 2 byte manufacturer-assigned code.
+             */
+            productId: string;
+            /**
+             * Year of manufacturer.
+             */
+            yearOfManufacture?: string;
+        };
+        /**
+         * requires(CrOS) Only working properly on Chrome OS.
+         * Identifier of the display that is being mirrored on the display unit.
+         * If mirroring is not in progress, set to an empty string
+         * Currently exposed only on ChromeOS.
+         * Will be empty string on other platforms.
+         */
+        mirroringSourceId: string;
+        /**
+         * requires(CrOS) Only available on Chrome OS.
+         * Identifiers of the displays to which the source display is being mirrored.
+         * Empty if no displays are being mirrored. This will be set to the same value
+         * for all displays.
+         * ❗ This must not include *mirroringSourceId*. ❗
+         */
+        mirroringDestinationIds: string[];
+        /** True if this is the primary display. */
+        isPrimary: boolean;
+        /** True if this is an internal display. */
+        isInternal: boolean;
+        /** True if this display is enabled. */
+        isEnabled: boolean;
+        /** The number of pixels per inch along the x-axis. */
+        dpiX: number;
+        /** The number of pixels per inch along the y-axis. */
+        dpiY: number;
+        /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
+        rotation: number;
+        /** The display's logical bounds. */
+        bounds: Bounds;
+        /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
+        overscan: Insets;
+        /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
+        workArea: Bounds;
+        /**
+         * requires(CrOS) Only available on Chrome OS.
+         * The list of available display modes.
+         * The current mode will have isSelected=true.
+         * Only available on Chrome OS.
+         * Will be set to an empty array on other platforms.
+         */
+        modes: DisplayMode[];
+        /** True if this display has a touch input device associated with it. */
+        hasTouchSupport: boolean;
+        /** A list of zoom factor values that can be set for the display. */
+        availableDisplayZoomFactors: number[];
+        /**
+         * The ratio between the display's current and default zoom.
+         * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+         * */
+        displayZoomFactor: number;
+    }
 
-  /**
-   * Options affecting how the information is returned.
-   * @since Chrome 59
-   */
-  export interface DisplayInfoFlags {
-      /**
-       * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
-       * @see[enableUnifiedDesktop]
-       * @default false
-       */
-      singleUnified?: boolean;
-  }
+    export interface MirrorModeInfo {
+        /**
+         * The mirror mode that should be set.
+         * **off**
+         * Use the default mode (extended or unified desktop).
+         * **normal**
+         * The default source display will be mirrored to all other displays.
+         * **mixed**
+         * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
+         */
+        mode?: 'off' | 'normal' | 'mixed';
+    }
+    export interface MirrorModeInfoMixed extends MirrorModeInfo {
+        mode: 'mixed';
+        mirroringSourceId?: string;
+        /** The ids of the mirroring destination displays. */
+        mirroringDestinationIds?: string[];
+    }
 
-  /** Information about display properties. */
-  export interface DisplayInfo {
-      /** The unique identifier of the display. */
-      id: string;
-      /** The user-friendly name (e.g. 'HP LCD monitor'). */
-      name: string;
-      /**
-       * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
-       */
-      edid?: {
-          /**
-           * 3 character manufacturer code.
-           */
-          manufacturerId: string;
-          /**
-           * 2 byte manufacturer-assigned code.
-           */
-          productId: string;
-          /**
-           * Year of manufacturer.
-           */
-          yearOfManufacture?: string;
-      }
-      /**
-       * requires(CrOS) Only working properly on Chrome OS.
-       * Identifier of the display that is being mirrored on the display unit.
-       * If mirroring is not in progress, set to an empty string
-       * Currently exposed only on ChromeOS.
-       * Will be empty string on other platforms.
-       */
-      mirroringSourceId: string;
-      /**
-       * requires(CrOS) Only available on Chrome OS.
-       * Identifiers of the displays to which the source display is being mirrored.
-       * Empty if no displays are being mirrored. This will be set to the same value
-       * for all displays.
-       * ❗ This must not include *mirroringSourceId*. ❗
-       */
-      mirroringDestinationIds: string[];
-      /** True if this is the primary display. */
-      isPrimary: boolean;
-      /** True if this is an internal display. */
-      isInternal: boolean;
-      /** True if this display is enabled. */
-      isEnabled: boolean;
-      /** The number of pixels per inch along the x-axis. */
-      dpiX: number;
-      /** The number of pixels per inch along the y-axis. */
-      dpiY: number;
-      /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
-      rotation: number;
-      /** The display's logical bounds. */
-      bounds: Bounds;
-      /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
-      overscan: Insets;
-      /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
-      workArea: Bounds;
-      /**
-       * requires(CrOS) Only available on Chrome OS.
-       * The list of available display modes.
-       * The current mode will have isSelected=true.
-       * Only available on Chrome OS.
-       * Will be set to an empty array on other platforms.
-       */
-      modes: DisplayMode[];
-      /** True if this display has a touch input device associated with it. */
-      hasTouchSupport: boolean;
-      /** A list of zoom factor values that can be set for the display. */
-      availableDisplayZoomFactors: number[];
-      /**
-       * The ratio between the display's current and default zoom.
-       * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
-       * */
-      displayZoomFactor: number;
-  }
+    /**
+     * Requests the information for all attached display devices.
+     * @param callback The callback to invoke with the results.
+     */
+    export function getInfo(callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * Requests the information for all attached display devices.
+     * @since Chrome 59
+     * @param flags Options affecting how the information is returned.
+     * @param callback The callback to invoke with the results.
+     */
+    export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
 
-  export interface MirrorModeInfo {
-      /**
-       * The mirror mode that should be set.
-       * **off**
-       * Use the default mode (extended or unified desktop).
-       * **normal**
-       * The default source display will be mirrored to all other displays.
-       * **mixed**
-       * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
-       */
-      mode?: 'off' | 'normal' | 'mixed';
-  }
-  export interface MirrorModeInfoMixed extends MirrorModeInfo {
-      mode: 'mixed';
-      mirroringSourceId?: string;
-      /** The ids of the mirroring destination displays. */
-      mirroringDestinationIds?: string[];
-  }
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description Requests the layout info for all displays.
+     * @since Chrome 53
+     * @param callback The callback to invoke with the results.
+     */
+    export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
-  /**
-   * Requests the information for all attached display devices.
-   * @param callback The callback to invoke with the results.
-   */
-  export function getInfo(callback: (info: DisplayInfo[]) => void): void;
-  /**
-   * Requests the information for all attached display devices.
-   * @since Chrome 59
-   * @param flags Options affecting how the information is returned.
-   * @param callback The callback to invoke with the results.
-   */
-  export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description
+     * Updates the properties for the display specified by **id**,
+     * according to the information provided in **info**.
+     * On failure, runtime.lastError will be set.
+     * @param id The display's unique identifier.
+     * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
+     * @param [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
 
-  /**
-   * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-   * @description Requests the layout info for all displays.
-   * @since Chrome 53
-   * @param callback The callback to invoke with the results.
-   */
-  export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description
+     * Set the layout for all displays.
+     * Any display not included will use the default layout.
+     * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
+     * After layout is resolved, an onDisplayChanged event will be triggered.
+     * @since Chrome 53
+     * @param layouts The layout information, required for all displays except the primary display.
+     * @param callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+     */
+    export function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
 
-  /**
-   * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-   * @description
-   * Updates the properties for the display specified by **id**,
-   * according to the information provided in **info**.
-   * On failure, runtime.lastError will be set.
-   * @param id The display's unique identifier.
-   * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
-   * @param [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
-   */
-  export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
+    /**
+     * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+     * @description
+     * Enables/disables the unified desktop feature.
+     * Note that this simply enables the feature, but will not change the actual desktop mode.
+     * (That is, if the desktop is in mirror mode, it will stay in mirror mode)
+     * @since Chrome 46
+     * @param enabled True if unified desktop should be enabled.
+     */
+    export function enableUnifiedDesktop(enabled: boolean): void;
+    /**
+     * Starts overscan calibration for a display.
+     * This will show an overlay on the screen indicating the current overscan insets.
+     * If overscan calibration for display **id** is in progress this will reset calibration.
+     * @since Chrome 53
+     * @param id The display's unique identifier.
+     */
+    export function overscanCalibrationStart(id: string): void;
+    /**
+     * Adjusts the current overscan insets for a display.
+     * Typically this should etiher move the display along an axis (e.g. left+right have the same value)
+     * or scale it along an axis (e.g. top+bottom have opposite values).
+     * Each Adjust call is cumulative with previous calls since Start.
+     * @since Chrome 53
+     * @param id The display's unique identifier.
+     * @param delta The amount to change the overscan insets.
+     */
+    export function overscanCalibrationAdjust(id: string, delta: Insets): void;
 
-  /**
-   * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-   * @description
-   * Set the layout for all displays.
-   * Any display not included will use the default layout.
-   * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
-   * After layout is resolved, an onDisplayChanged event will be triggered.
-   * @since Chrome 53
-   * @param layouts The layout information, required for all displays except the primary display.
-   * @param callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
-   */
-  export function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
+    /**
+     * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
+     * @since Chrome 53
+     * @param id The display's unique identifier.
+     */
+    export function overscanCalibrationReset(id: string): void;
 
-  /**
-   * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-   * @description
-   * Enables/disables the unified desktop feature.
-   * Note that this simply enables the feature, but will not change the actual desktop mode.
-   * (That is, if the desktop is in mirror mode, it will stay in mirror mode)
-   * @since Chrome 46
-   * @param enabled True if unified desktop should be enabled.
-   */
-  export function enableUnifiedDesktop(enabled: boolean): void;
-  /**
-   * Starts overscan calibration for a display.
-   * This will show an overlay on the screen indicating the current overscan insets.
-   * If overscan calibration for display **id** is in progress this will reset calibration.
-   * @since Chrome 53
-   * @param id The display's unique identifier.
-   */
-  export function overscanCalibrationStart(id: string): void;
-  /**
-   * Adjusts the current overscan insets for a display.
-   * Typically this should etiher move the display along an axis (e.g. left+right have the same value)
-   * or scale it along an axis (e.g. top+bottom have opposite values).
-   * Each Adjust call is cumulative with previous calls since Start.
-   * @since Chrome 53
-   * @param id The display's unique identifier.
-   * @param delta The amount to change the overscan insets.
-   */
-  export function overscanCalibrationAdjust(id: string, delta: Insets): void;
+    /**
+     * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
+     * @since Chrome 53
+     * @param id The display's unique identifier.
+     */
+    export function overscanCalibrationComplete(id: string): void;
 
-  /**
-   * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
-   * @since Chrome 53
-   * @param id The display's unique identifier.
-   */
-  export function overscanCalibrationReset(id: string): void;
+    /**
+     * Displays the native touch calibration UX for the display with **id** as display id.
+     * This will show an overlay on the screen with required instructions on how to proceed.
+     * The callback will be invoked in case of successful calibraion only.
+     * If the calibration fails, this will throw an error.
+     * @since Chrome 57
+     * @param id The display's unique identifier.
+     * @param callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
+     */
+    export function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
-  /**
-   * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
-   * @since Chrome 53
-   * @param id The display's unique identifier.
-   */
-  export function overscanCalibrationComplete(id: string): void;
+    /**
+     * Starts custom touch calibration for a display.
+     * This should be called when using a custom UX for collecting calibration data.
+     * If another touch calibration is already in progress this will throw an error.
+     * @since Chrome 57
+     * @param id The display's unique identifier.
+     */
+    export function startCustomTouchCalibration(id: string): void;
 
-  /**
-   * Displays the native touch calibration UX for the display with **id** as display id.
-   * This will show an overlay on the screen with required instructions on how to proceed.
-   * The callback will be invoked in case of successful calibraion only.
-   * If the calibration fails, this will throw an error.
-   * @since Chrome 57
-   * @param id The display's unique identifier.
-   * @param callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
-   */
-  export function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
+    /**
+     * Sets the touch calibration pairs for a display.
+     * These **pairs** would be used to calibrate the touch screen for display with **id** called in startCustomTouchCalibration().
+     * Always call **startCustomTouchCalibration** before calling this method.
+     * If another touch calibration is already in progress this will throw an error.
+     * @since Chrome 57
+     * @param pairs The pairs of point used to calibrate the display.
+     * @param bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
+     * @throws Error
+     */
+    export function completeCustomTouchCalibration(pairs: TouchCalibrationPairs, bounds: Bounds): void;
 
-  /**
-   * Starts custom touch calibration for a display.
-   * This should be called when using a custom UX for collecting calibration data.
-   * If another touch calibration is already in progress this will throw an error.
-   * @since Chrome 57
-   * @param id The display's unique identifier.
-   */
-  export function startCustomTouchCalibration(id: string): void;
+    /**
+     * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
+     * @since Chrome 57
+     * @param id The display's unique identifier.
+     */
+    export function clearTouchCalibration(id: string): void;
 
-  /**
-   * Sets the touch calibration pairs for a display.
-   * These **pairs** would be used to calibrate the touch screen for display with **id** called in startCustomTouchCalibration().
-   * Always call **startCustomTouchCalibration** before calling this method.
-   * If another touch calibration is already in progress this will throw an error.
-   * @since Chrome 57
-   * @param pairs The pairs of point used to calibrate the display.
-   * @param bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
-   * @throws Error
-   */
-  export function completeCustomTouchCalibration(pairs: TouchCalibrationPairs, bounds: Bounds): void;
+    /**
+     * requires(CrOS Kiosk app) Chrome OS Kiosk apps only
+     * @since Chrome 65.
+     * @description
+     * Sets the display mode to the specified mirror mode.
+     * Each call resets the state from previous calls.
+     * Calling setDisplayProperties() will fail for the
+     * mirroring destination displays.
+     */
+    export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
 
-  /**
-   * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
-   * @since Chrome 57
-   * @param id The display's unique identifier.
-   */
-  export function clearTouchCalibration(id: string): void;
-
-  /**
-   * requires(CrOS Kiosk app) Chrome OS Kiosk apps only
-   * @since Chrome 65.
-   * @description
-   * Sets the display mode to the specified mirror mode.
-   * Each call resets the state from previous calls.
-   * Calling setDisplayProperties() will fail for the
-   * mirroring destination displays.
-   */
-  export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
-
-  /**
-   * Fired when anything changes to the display configuration.
-   */
-  export const onDisplayChanged: chrome.events.Event<() => void>;
+    /**
+     * Fired when anything changes to the display configuration.
+     */
+    export const onDisplayChanged: chrome.events.Event<() => void>;
 }
 
 ////////////////////
@@ -7615,7 +7850,8 @@ declare namespace chrome.tabs {
 
     export interface TabRemovedEvent extends chrome.events.Event<(tabId: number, removeInfo: TabRemoveInfo) => void> { }
 
-    export interface TabUpdatedEvent extends chrome.events.Event<(tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void> { }
+    export interface TabUpdatedEvent
+        extends chrome.events.Event<(tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void> { }
 
     export interface TabAttachedEvent extends chrome.events.Event<(tabId: number, attachInfo: TabAttachInfo) => void> { }
 
@@ -7744,7 +7980,11 @@ declare namespace chrome.tabs {
      * @param callback
      * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
      */
-    export function captureVisibleTab(windowId: number, options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(
+        windowId: number,
+        options: CaptureVisibleTabOptions,
+        callback: (dataUrl: string) => void,
+    ): void;
     /**
      * Reload a tab.
      * @since Chrome 16.
@@ -7758,7 +7998,7 @@ declare namespace chrome.tabs {
     export function reload(reloadProperties: ReloadProperties, callback?: () => void): void;
     /**
      * Reload the selected tab of the current window.
-      * @since Chrome 16.
+     * @since Chrome 16.
      */
     export function reload(callback?: () => void): void;
     /**
@@ -7780,7 +8020,12 @@ declare namespace chrome.tabs {
      * @param responseCallback Optional.
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(tabId: number, message: any, options: MessageSendOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(
+        tabId: number,
+        message: any,
+        options: MessageSendOptions,
+        responseCallback?: (response: any) => void,
+    ): void;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.
      * @deprecated since Chrome 33. Please use runtime.sendMessage.
@@ -8146,7 +8391,10 @@ declare namespace chrome.ttsEngine {
         pitch?: number;
     }
 
-    export interface TtsEngineSpeakEvent extends chrome.events.Event<(utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void> { }
+    export interface TtsEngineSpeakEvent
+        extends chrome.events.Event<
+        (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void
+        > { }
 
     /** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
     export var onSpeak: TtsEngineSpeakEvent;
@@ -8287,13 +8535,15 @@ declare namespace chrome.vpnProvider {
         dnsServer: string[];
     }
 
-    export interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
+    export interface VpnPlatformMessageEvent
+        extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
 
     export interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> { }
 
     export interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> { }
 
-    export interface VpnConfigCreationEvent extends chrome.events.Event<(id: string, name: string, data: Object) => void> { }
+    export interface VpnConfigCreationEvent
+        extends chrome.events.Event<(id: string, name: string, data: Object) => void> { }
 
     export interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> { }
 
@@ -8489,21 +8739,25 @@ declare namespace chrome.webNavigation {
         url: chrome.events.UrlFilter[];
     }
 
-    export interface WebNavigationEvent<T extends WebNavigationCallbackDetails> extends chrome.events.Event<(details: T) => void> {
+    export interface WebNavigationEvent<T extends WebNavigationCallbackDetails>
+        extends chrome.events.Event<(details: T) => void> {
         addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
     }
 
     export interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> { }
 
-    export interface WebNavigationFramedErrorEvent extends WebNavigationEvent<WebNavigationFramedErrorCallbackDetails> { }
+    export interface WebNavigationFramedErrorEvent
+        extends WebNavigationEvent<WebNavigationFramedErrorCallbackDetails> { }
 
     export interface WebNavigationSourceEvent extends WebNavigationEvent<WebNavigationSourceCallbackDetails> { }
 
     export interface WebNavigationParentedEvent extends WebNavigationEvent<WebNavigationParentedCallbackDetails> { }
 
-    export interface WebNavigationTransitionalEvent extends WebNavigationEvent<WebNavigationTransitionCallbackDetails> { }
+    export interface WebNavigationTransitionalEvent
+        extends WebNavigationEvent<WebNavigationTransitionCallbackDetails> { }
 
-    export interface WebNavigationReplacementEvent extends WebNavigationEvent<WebNavigationReplacementCallbackDetails> { }
+    export interface WebNavigationReplacementEvent
+        extends WebNavigationEvent<WebNavigationReplacementCallbackDetails> { }
 
     /**
      * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
@@ -8518,7 +8772,10 @@ declare namespace chrome.webNavigation {
      * @param callback
      * Optional parameter details: A list of frames in the given tab, null if the specified tab ID is invalid.
      */
-    export function getAllFrames(details: GetAllFrameDetails, callback: (details: GetAllFrameResultDetails[] | null) => void): void;
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+        callback: (details: GetAllFrameResultDetails[] | null) => void,
+    ): void;
 
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
@@ -8556,7 +8813,20 @@ declare namespace chrome.webNavigation {
  */
 declare namespace chrome.webRequest {
     /** How the requested resource will be used. */
-    export type ResourceType = "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "other";
+    export type ResourceType =
+        | 'main_frame'
+        | 'sub_frame'
+        | 'stylesheet'
+        | 'script'
+        | 'image'
+        | 'font'
+        | 'object'
+        | 'xmlhttprequest'
+        | 'ping'
+        | 'csp_report'
+        | 'media'
+        | 'websocket'
+        | 'other';
 
     export interface AuthCredentials {
         username: string;
@@ -8657,7 +8927,7 @@ declare namespace chrome.webRequest {
         timeStamp: number;
         /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
          * @since Since Chrome 63.
-        */
+         */
         initiator?: string;
     }
 
@@ -8679,8 +8949,7 @@ declare namespace chrome.webRequest {
         requestBody: WebRequestBody;
     }
 
-    export interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {
-    }
+    export interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails { }
 
     export interface WebResponseDetails extends ResourceRequest {
         /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
@@ -8695,7 +8964,7 @@ declare namespace chrome.webRequest {
     export interface WebResponseHeadersDetails extends WebResponseDetails {
         /** Optional. The HTTP response headers that have been received with this response. */
         responseHeaders?: HttpHeader[];
-        method: string; /** standard HTTP method i.e. GET, POST, PUT, etc. */
+        method: string /** standard HTTP method i.e. GET, POST, PUT, etc. */;
     }
 
     export interface WebResponseCacheDetails extends WebResponseHeadersDetails {
@@ -8729,32 +8998,62 @@ declare namespace chrome.webRequest {
         error: string;
     }
 
-    export interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse|void> {
-        addListener(callback: (details: WebRequestBodyDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebRequestBodyEvent
+        extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse | void> {
+        addListener(
+            callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
+            filter?: RequestFilter,
+            opt_extraInfoSpec?: string[],
+        ): void;
     }
 
-    export interface WebRequestHeadersSynchronousEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse|void> {
-        addListener(callback: (details: WebRequestHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebRequestHeadersSynchronousEvent
+        extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
+        addListener(
+            callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
+            filter?: RequestFilter,
+            opt_extraInfoSpec?: string[],
+        ): void;
     }
 
     export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
-        addListener(callback: (details: WebRequestHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        addListener(
+            callback: (details: WebRequestHeadersDetails) => void,
+            filter?: RequestFilter,
+            opt_extraInfoSpec?: string[],
+        ): void;
     }
 
-    export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> extends chrome.events.Event<(details: T) => void> {
+    export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
+        extends chrome.events.Event<(details: T) => void> {
         addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    export interface WebResponseHeadersEvent extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse|void> {
-        addListener(callback: (details: WebResponseHeadersDetails) => BlockingResponse|void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebResponseHeadersEvent
+        extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
+        addListener(
+            callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
+            filter?: RequestFilter,
+            opt_extraInfoSpec?: string[],
+        ): void;
     }
 
     export interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> { }
 
     export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> { }
 
-    export interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {
-        addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    export interface WebAuthenticationChallengeEvent
+        extends chrome.events.Event<
+        (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
+        > {
+        addListener(
+            callback: (
+                details: WebAuthenticationChallengeDetails,
+                callback?: (response: BlockingResponse) => void,
+            ) => void,
+            filter?: RequestFilter,
+            opt_extraInfoSpec?: string[],
+        ): void;
     }
 
     export interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> { }
@@ -8821,7 +9120,11 @@ declare namespace chrome.webstore {
      * * * "launchUnsupportedExtensionType": The launch feature is not supported for the extension type.
      * * * "launchInProgress": A launch of the same extension is in progress.
      */
-    export function install(url: string, successCallback?: Function, failureCallback?: (error: string, errorCode?: string) => void): void;
+    export function install(
+        url: string,
+        successCallback?: Function,
+        failureCallback?: (error: string, errorCode?: string) => void,
+    ): void;
     /**
      * @param successCallback Optional. This function is invoked when inline installation successfully completes (after the dialog is shown and the user agrees to add the item to Chrome). You may wish to use this to hide the user interface element that prompted the user to install the app or extension.
      * @param failureCallback Optional. This function is invoked when inline installation does not successfully complete. Possible reasons for this include the user canceling the dialog, the linked item not being found in the store, or the install being initiated from a non-verified site.
@@ -8846,7 +9149,10 @@ declare namespace chrome.webstore {
      * * * "launchUnsupportedExtensionType": The launch feature is not supported for the extension type.
      * * * "launchInProgress": A launch of the same extension is in progress.
      */
-    export function install(successCallback: Function, failureCallback?: (error: string, errorCode?: string) => void): void;
+    export function install(
+        successCallback: Function,
+        failureCallback?: (error: string, errorCode?: string) => void,
+    ): void;
     /**
      * @param failureCallback Optional. This function is invoked when inline installation does not successfully complete. Possible reasons for this include the user canceling the dialog, the linked item not being found in the store, or the install being initiated from a non-verified site.
      * Parameter error: The failure detail. You may wish to inspect or log this for debugging purposes, but you should not rely on specific strings being passed back.
@@ -9037,9 +9343,11 @@ declare namespace chrome.windows {
         windowTypes: string[];
     }
 
-    export interface WindowIdEvent extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
+    export interface WindowIdEvent
+        extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
 
-    export interface WindowReferenceEvent extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
+    export interface WindowReferenceEvent
+        extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
 
     /**
      * The windowId value that represents the current window.
@@ -9090,7 +9398,11 @@ declare namespace chrome.windows {
      */
     export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
     /** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
-    export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: chrome.windows.Window) => void): void;
+    export function update(
+        windowId: number,
+        updateInfo: UpdateInfo,
+        callback?: (window: chrome.windows.Window) => void,
+    ): void;
     /** Removes (closes) a window, and all the tabs inside it. */
     export function remove(windowId: number, callback?: Function): void;
     /**
