@@ -442,6 +442,7 @@ redis
     .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd')
     .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e')
     .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 'f')
+    .zadd('key', '1', 'a', '2', 'b', '3', 'c', '4', 'd', '5', 'e', '6', 'f')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
