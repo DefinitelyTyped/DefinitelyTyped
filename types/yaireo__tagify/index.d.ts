@@ -472,4 +472,4 @@ declare class Tagify {
     }>) => void): this;
 }
 
-export default Tagify;
+export = Tagify;
