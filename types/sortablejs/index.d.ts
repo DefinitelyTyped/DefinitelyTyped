@@ -155,6 +155,11 @@ declare namespace Sortable {
          */
         pullMode: 'clone' | boolean | undefined;
         /**
+         * When MultiDrag is used to sort, this holds the clone for each `HTMLElement` dragging.
+         * https://github.com/SortableJS/Sortable/blob/master/plugins/MultiDrag/README.md#event-properties
+         */
+        clones: Array<HTMLElement>
+        /**
          * When MultiDrag is used to sort, this holds a HTMLElement and oldIndex for each item selected.
          *
          * `oldIndicies[number]` is directly related to `newIndicies[number]`
