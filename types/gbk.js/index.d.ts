@@ -14,4 +14,4 @@ declare namespace gbkjs {
     }
 }
 
-export default gbkjs;
+export = gbkjs;
