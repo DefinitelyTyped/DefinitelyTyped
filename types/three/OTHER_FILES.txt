@@ -218,6 +218,7 @@ examples/jsm/objects/Refractor.d.ts
 examples/jsm/objects/ShadowMesh.d.ts
 examples/jsm/objects/Sky.d.ts
 examples/jsm/objects/Water.d.ts
+examples/jsm/objects/Water2.d.ts
 examples/jsm/physics/AmmoPhysics.d.ts
 examples/jsm/postprocessing/AdaptiveToneMappingPass.d.ts
 examples/jsm/postprocessing/AfterimagePass.d.ts
