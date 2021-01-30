@@ -3,6 +3,13 @@ import * as chrono from '../ChronoNodeDummy';
 
 import Select, { components as SelectComponents } from 'react-select';
 
+interface DateOption {
+    date: Date;
+    value: Date;
+    label: string;
+    display?: string;
+}
+
 const createOptionForDate = (date: Date) => {
     return {
         date,
@@ -11,7 +18,14 @@ const createOptionForDate = (date: Date) => {
     };
 };
 
-const defaultOptions: any = ['today', 'tomorrow', 'yesterday'].map(i => createOptionForDate(chrono.parseDate(i)));
+interface CalendarGroup {
+    label: string;
+    options: readonly DateOption[];
+}
+
+const defaultOptions: Array<DateOption | CalendarGroup> = ['today', 'tomorrow', 'yesterday'].map(i =>
+    createOptionForDate(chrono.parseDate(i)),
+);
 
 const createCalendarOptions = (date = new Date()) => {
     const daysInMonth = Array.apply(null, {
@@ -176,7 +190,7 @@ class DatePicker extends React.Component<any> {
 
 export default class Experimental extends React.Component {
     state = {
-        value: defaultOptions[0],
+        value: defaultOptions[0] as DateOption,
     };
     handleChange = (value: any) => {
         this.setState({ value });
