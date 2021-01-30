@@ -41,7 +41,7 @@ declare namespace createRouter {
           query?: Joi.SchemaLike;
           params?: Joi.SchemaLike;
           body?: Joi.SchemaLike;
-          maxBody?: number;
+          maxBody?: number | string;
           failure?: number;
           type?: 'form'|'json'|'multipart';
           formOptions?: CoBody.Options;
