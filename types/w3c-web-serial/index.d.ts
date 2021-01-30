@@ -1,4 +1,4 @@
-// Type definitions for non-npm package w3c-web-serial-browser 1.0
+// Type definitions for non-npm package w3c-web-serial 1.0
 // Project: https://wicg.github.io/serial
 // Definitions by: Reilly Grant <https://github.com/reillyeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
