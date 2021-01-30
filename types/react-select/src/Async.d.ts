@@ -18,7 +18,7 @@ export interface AsyncProps<
      * Function that returns a promise, which is the set of options to be used
      * once the promise resolves.
      */
-    loadOptions: (
+    loadOptions?: (
         inputValue: string,
         callback: (options: OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>) => void,
     ) => Promise<OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>> | void;
