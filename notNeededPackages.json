@@ -3350,7 +3350,7 @@
         {
             "libraryName": "physijs",
             "typingsPackageName": "physijs",
-            "asOfVersion": "0.1.0"
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "pixi-spine",
