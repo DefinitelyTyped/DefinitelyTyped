@@ -2,7 +2,7 @@
 // Project: https://github.com/HelloFax/hellosign-nodejs-sdk
 // Definitions by: David <https://github.com/dvprrsh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 3.8
 export interface GenericObject {
     [key: string]: any;
 }
@@ -509,26 +509,28 @@ export type HelloSignOptions =
           client_secret: string;
       };
 
-declare class HelloSign {
-    constructor(options: HelloSignOptions);
+declare namespace HelloSign {
+    class HelloSign {
+        constructor(options: HelloSignOptions);
 
-    account: AccountModule;
+        account: AccountModule;
 
-    signatureRequest: SignatureRequestModule;
+        signatureRequest: SignatureRequestModule;
 
-    embedded: EmbeddedModule;
+        embedded: EmbeddedModule;
 
-    oauth: OAuthModule;
+        oauth: OAuthModule;
 
-    team: TeamModule;
+        team: TeamModule;
 
-    template: TemplateModule;
+        template: TemplateModule;
 
-    reports: ReportsModule;
+        reports: ReportsModule;
 
-    unclaimedDraft: UnclaimedDraftModule;
+        unclaimedDraft: UnclaimedDraftModule;
 
-    apiApp: ApiAppModule;
+        apiApp: ApiAppModule;
+    }
 }
 
-export default HelloSign;
+export default HelloSign.HelloSign;
