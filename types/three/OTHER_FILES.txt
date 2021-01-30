@@ -93,6 +93,7 @@ examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
 examples/jsm/loaders/RGBELoader.d.ts
+examples/jsm/loaders/RGBMLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
 examples/jsm/loaders/SVGLoader.d.ts
 examples/jsm/loaders/TDSLoader.d.ts
