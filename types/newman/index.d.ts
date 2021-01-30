@@ -20,6 +20,8 @@ export interface NewmanRunOptions {
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string;
     /** A globals JSON / file path for the current collection run. */
+    envVar?: Collection | CollectionDefinition | string;
+    /** An override to environment variables */
     globals?: VariableScope | VariableScopeDefinition | string;
     /** The relative path to export the globals file from the current run to  */
     exportGlobals?: string;
