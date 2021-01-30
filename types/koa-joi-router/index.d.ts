@@ -49,6 +49,7 @@ declare namespace createRouter {
           multipartOptions?: CoBody.Options;
           output?: {[status: string]: OutputValidation};
           continueOnError?: boolean;
+          validateOptions?: Joi.ValidationOptions;
       };
       meta?: any;
     }
