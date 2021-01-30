@@ -5,4 +5,4 @@ elem.src = 'https://picsum.photos/200/300';
 elem.onload = () => {
   const colorThief = new ColorThief();
   colorThief.getColor(elem);
-}
+};
