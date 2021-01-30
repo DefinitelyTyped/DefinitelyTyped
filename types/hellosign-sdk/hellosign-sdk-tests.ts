@@ -1,3 +1,5 @@
+// Minimum TypeScript Version: 3.6
+
 import HelloSign, { EventResponse, Signature } from 'hellosign-sdk';
 
 const hsClient = new HelloSign({ key: 'test' });
