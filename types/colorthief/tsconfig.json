@@ -17,9 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "dist/color-thief.d.ts",
-        "dist/color-thief-node.d.ts",
         "index.d.ts",
-        "colorthief-tests.tsx"
+        "colorthief-tests.ts"
     ]
 }
