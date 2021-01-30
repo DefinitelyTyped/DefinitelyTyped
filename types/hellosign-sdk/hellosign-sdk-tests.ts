@@ -1,4 +1,5 @@
-import HelloSign, { EventResponse, Signature } from 'hellosign-sdk';
+import { EventResponse, Signature } from 'hellosign-sdk';
+import HelloSign = require('hellosign-sdk');
 
 const hsClient = new HelloSign({ key: 'test' });
 
