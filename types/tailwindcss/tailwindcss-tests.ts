@@ -1,6 +1,8 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-import { TailwindConfig } from 'tailwindcss';
+import { TailwindConfig } from 'tailwindcss/tailwind-config';
+
+import tailwindCss = require('tailwindcss');
 
 // The default TailwindCSS Config
 const config: TailwindConfig = {
@@ -2491,6 +2493,8 @@ const config: TailwindConfig = {
 };
 
 const tailwindConfig = resolveConfig(config);
+
+tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
 tailwindConfig.theme.colors.gray[100];
