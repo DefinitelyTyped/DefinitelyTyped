@@ -46,6 +46,7 @@ examples/jsm/helpers/LightProbeHelper.d.ts
 examples/jsm/helpers/PositionalAudioHelper.d.ts
 examples/jsm/helpers/RectAreaLightHelper.d.ts
 examples/jsm/helpers/VertexNormalsHelper.d.ts
+examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/SelectionBox.d.ts
 examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/stats.module.d.ts
