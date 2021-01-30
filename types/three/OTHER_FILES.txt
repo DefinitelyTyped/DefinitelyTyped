@@ -102,6 +102,7 @@ examples/jsm/loaders/TiltLoader.d.ts
 examples/jsm/loaders/TTFLoader.d.ts
 examples/jsm/loaders/VOXLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
+examples/jsm/loaders/VRMLoader.d.ts
 examples/jsm/loaders/VTKLoader.d.ts
 examples/jsm/loaders/XLoader.d.ts
 examples/jsm/loaders/XYZLoader.d.ts
