@@ -4,11 +4,11 @@
 //                 Dan Cox <https://github.com/powerappsdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace reactLocalStorage;
-
-export function set(key: string, value: any): any;
-export function get(key: string, defaultValue?: any, silent?: boolean): any;
-export function setObject(key: string, value: any): any;
-export function getObject(key: string, defaultValue?: {}, silent?: boolean): any;
-export function clear(): void;
-export function remove(key: string): void;
+export namespace reactLocalStorage {
+    function set(key: string, value: any): any;
+    function get(key: string, defaultValue?: any, silent?: boolean): any;
+    function setObject(key: string, value: any): any;
+    function getObject(key: string, defaultValue?: {}, silent?: boolean): any;
+    function clear(): void;
+    function remove(key: string): void;
+}

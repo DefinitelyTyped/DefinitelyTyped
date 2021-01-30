@@ -1,4 +1,4 @@
-import * as reactLocalStorage from "reactjs-localstorage";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 reactLocalStorage.set("var", "test"); // $ExpectType any
 const resultKey: any = reactLocalStorage.get("var"); // $ExpectType any
