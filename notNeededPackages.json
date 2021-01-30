@@ -3348,6 +3348,11 @@
             "asOfVersion": "2.1.2"
         },
         {
+            "libraryName": "physijs",
+            "typingsPackageName": "physijs",
+            "asOfVersion": "0.1.0"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "asOfVersion": "1.4.2"
