@@ -1319,13 +1319,7 @@ declare namespace IORedis {
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, score: number, member: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string, score5: number, member5: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string, score5: number, member5: string,
-            score6: number, member6: string): Pipeline;
+        zadd(key: KeyType, ...scoresAndMembers: Array<number|string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 

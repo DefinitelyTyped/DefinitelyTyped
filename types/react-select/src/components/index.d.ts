@@ -90,11 +90,35 @@ export type SelectComponentsConfig<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = Partial<SelectComponents<OptionType, IsMulti, GroupType>>;
 
-export type DeepNonNullable<T> = {
-    [P in keyof T]-?: NonNullable<T[P]>;
-};
+export interface Components {
+    ClearIndicator: typeof ClearIndicator;
+    Control: typeof Control;
+    DropdownIndicator: typeof DropdownIndicator;
+    DownChevron: typeof DownChevron;
+    CrossIcon: typeof CrossIcon;
+    Group: typeof Group;
+    GroupHeading: typeof GroupHeading;
+    IndicatorsContainer: typeof IndicatorsContainer;
+    IndicatorSeparator: typeof IndicatorSeparator;
+    Input: typeof Input;
+    LoadingIndicator: typeof LoadingIndicator;
+    Menu: typeof Menu;
+    MenuList: typeof MenuList;
+    MenuPortal: typeof MenuPortal;
+    LoadingMessage: typeof LoadingMessage;
+    NoOptionsMessage: typeof NoOptionsMessage;
+    MultiValue: typeof MultiValue;
+    MultiValueContainer: typeof MultiValueContainer;
+    MultiValueLabel: typeof MultiValueLabel;
+    MultiValueRemove: typeof MultiValueRemove;
+    Option: typeof Option;
+    Placeholder: typeof Placeholder;
+    SelectContainer: typeof SelectContainer;
+    SingleValue: typeof SingleValue;
+    ValueContainer: typeof ValueContainer;
+}
 
-export const components: Required<DeepNonNullable<SelectComponents<any, boolean>>>;
+export const components: Components;
 
 export interface Props<
     OptionType extends OptionTypeBase,
