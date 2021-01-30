@@ -16,7 +16,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
         "noUnusedParameters": true,
         "noUnusedLocals": true
     },
