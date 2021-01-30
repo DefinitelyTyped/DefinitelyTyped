@@ -3,7 +3,7 @@ import { Quaternion } from './Quaternion';
 import { BufferAttribute } from './../core/BufferAttribute';
 import { Vector } from './Vector2';
 
-type Vector4Tuple = [number, number, number, number];
+export type Vector4Tuple = [number, number, number, number];
 
 /**
  * 4D vector.
@@ -166,8 +166,6 @@ export class Vector4 implements Vector {
      * Computes the Manhattan length of this vector.
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     *
-     * @return {number}
      */
     manhattanLength(): number;
 
@@ -193,18 +191,11 @@ export class Vector4 implements Vector {
     equals(v: Vector4): boolean;
 
     /**
-     * Sets this vector's x, y, z and w value from the provided array.
-     * @param array the source array.
+     * Sets this vector's x, y, z and w value from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets this vector's x, y, z and w value from the provided array-like.
-     * @param array the source array-like.
-     * @param offset (optional) offset into the array-like. Default is 0.
-     */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [x, y, z, w], or copies x, y, z and w into the provided array.

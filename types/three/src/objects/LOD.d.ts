@@ -8,7 +8,7 @@ export class LOD extends Object3D {
 
     type: 'LOD';
 
-    levels: { distance: number; object: Object3D }[];
+    levels: Array<{ distance: number; object: Object3D }>;
     autoUpdate: boolean;
     readonly isLOD: true;
 

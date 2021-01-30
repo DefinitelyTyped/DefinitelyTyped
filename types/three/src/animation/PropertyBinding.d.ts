@@ -22,8 +22,8 @@ export class PropertyBinding {
     BindingType: { [bindingType: string]: number };
     Versioning: { [versioning: string]: number };
 
-    GetterByBindingType: Function[];
-    SetterByBindingTypeAndVersioning: Array<Function[]>;
+    GetterByBindingType: Array<() => void>;
+    SetterByBindingTypeAndVersioning: Array<Array<() => void>>;
 
     static create(root: any, path: any, parsedPath?: any): PropertyBinding | PropertyBinding.Composite;
     static sanitizeNodeName(name: string): string;
@@ -32,7 +32,7 @@ export class PropertyBinding {
 }
 
 export namespace PropertyBinding {
-    export class Composite {
+    class Composite {
         constructor(targetGroup: any, path: any, parsedPath?: any);
 
         getValue(array: any, offset: number): any;

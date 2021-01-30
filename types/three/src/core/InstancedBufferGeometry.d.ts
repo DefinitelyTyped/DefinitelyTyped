@@ -13,7 +13,7 @@ export class InstancedBufferGeometry extends BufferGeometry {
 
     isInstancedBufferGeometry: boolean;
 
-    groups: { start: number; count: number; instances: number }[];
+    groups: Array<{ start: number; count: number; instances: number }>;
 
     /**
      * @default Infinity

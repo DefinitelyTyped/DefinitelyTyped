@@ -118,7 +118,10 @@ export class Material extends EventDispatcher {
     clipIntersection: boolean;
 
     /**
-     * User-defined clipping planes specified as THREE.Plane objects in world space. These planes apply to the objects this material is attached to. Points in space whose signed distance to the plane is negative are clipped (not rendered). See the WebGL / clipping /intersection example. Default is null.
+     * User-defined clipping planes specified as THREE.Plane objects in world space.
+     * These planes apply to the objects this material is attached to.
+     * Points in space whose signed distance to the plane is negative are clipped (not rendered).
+     * See the WebGL / clipping /intersection example. Default is null.
      * @default null
      */
     clippingPlanes: any;
@@ -209,13 +212,17 @@ export class Material extends EventDispatcher {
     stencilFail: StencilOp;
 
     /**
-     * Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.
+     * Which stencil operation to perform when the comparison function returns true but the depth test fails.
+     * Default is {@link KeepStencilOp}.
+     * See the stencil operation constants for all possible values.
      * @default THREE.KeepStencilOp
      */
     stencilZFail: StencilOp;
 
     /**
-     * Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.
+     * Which stencil operation to perform when the comparison function returns true and the depth test passes.
+     * Default is {@link KeepStencilOp}.
+     * See the stencil operation constants for all possible values.
      * @default THREE.KeepStencilOp
      */
     stencilZPass: StencilOp;
@@ -368,7 +375,9 @@ export class Material extends EventDispatcher {
     dispose(): void;
 
     /**
-     * An optional callback that is executed immediately before the shader program is compiled. This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.
+     * An optional callback that is executed immediately before the shader program is compiled.
+     * This function is called with the shader source code as a parameter.
+     * Useful for the modification of built-in materials.
      * @param shader Source code of the shader
      * @param renderer WebGLRenderer Context that is initializing the material
      */

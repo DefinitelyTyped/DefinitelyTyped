@@ -55,5 +55,5 @@ export class ImmediateRenderObject extends Object3D {
      */
     count: number;
 
-    render(renderCallback: Function): void;
+    render(renderCallback: () => void): void;
 }

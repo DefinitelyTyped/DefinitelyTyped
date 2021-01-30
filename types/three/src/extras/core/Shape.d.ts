@@ -12,9 +12,6 @@ export class Shape extends Path {
      */
     type: string;
 
-    /**
-     *
-     */
     uuid: string;
 
     /**

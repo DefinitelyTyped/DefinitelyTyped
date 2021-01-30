@@ -113,18 +113,11 @@ export class Quaternion {
     equals(v: Quaternion): boolean;
 
     /**
-     * Sets this quaternion's x, y, z and w value from the provided array.
-     * @param array the source array.
+     * Sets this quaternion's x, y, z and w value from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets this quaternion's x, y, z and w value from the provided array-like.
-     * @param array the source array-like.
-     * @param offset (optional) offset into the array-like. Default is 0.
-     */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [x, y, z, w], or copies x, y, z and w into the provided array.
@@ -142,8 +135,8 @@ export class Quaternion {
      */
     toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
-    _onChange(callback: Function): Quaternion;
-    _onChangeCallback: Function;
+    _onChange(callback: () => void): Quaternion;
+    _onChangeCallback: () => void;
 
     /**
      * Adapted from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/.

@@ -9,10 +9,9 @@ import { Scene } from './../scenes/Scene';
 import { Camera } from './../cameras/Camera';
 import { Material } from './../materials/Material';
 import { Group } from './../objects/Group';
-import { Raycaster } from './Raycaster';
+import { Intersection, Raycaster } from './Raycaster';
 import { EventDispatcher } from './EventDispatcher';
 import { BufferGeometry } from './BufferGeometry';
-import { Intersection } from './Raycaster';
 import { AnimationClip } from '../animation/AnimationClip';
 
 /**
@@ -26,9 +25,6 @@ export class Object3D extends EventDispatcher {
      */
     id: number;
 
-    /**
-     *
-     */
     uuid: string;
 
     /**
@@ -107,7 +103,8 @@ export class Object3D extends EventDispatcher {
     matrixWorld: Matrix4;
 
     /**
-     * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property.
+     * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also
+     * recalculates the matrixWorld property.
      * @default THREE.Object3D.DefaultMatrixAutoUpdate
      */
     matrixAutoUpdate: boolean;
@@ -147,7 +144,9 @@ export class Object3D extends EventDispatcher {
     frustumCulled: boolean;
 
     /**
-     * Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder. Opaque and transparent objects remain sorted independently though. When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.
+     * Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.
+     * Opaque and transparent objects remain sorted independently though.
+     * When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.
      * @default 0
      */
     renderOrder: number;
@@ -217,24 +216,12 @@ export class Object3D extends EventDispatcher {
 
     applyQuaternion(quaternion: Quaternion): this;
 
-    /**
-     *
-     */
     setRotationFromAxisAngle(axis: Vector3, angle: number): void;
 
-    /**
-     *
-     */
     setRotationFromEuler(euler: Euler): void;
 
-    /**
-     *
-     */
     setRotationFromMatrix(m: Matrix4): void;
 
-    /**
-     *
-     */
     setRotationFromQuaternion(q: Quaternion): void;
 
     /**

@@ -7,6 +7,7 @@ import { Camera } from './../../cameras/Camera';
 import { BufferGeometry } from '../../core/BufferGeometry';
 import { WebGLProperties } from './WebGLProperties';
 
+// tslint:disable-next-line:no-empty-interface
 export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
 
 export interface RenderItem {
@@ -27,12 +28,12 @@ export class WebGLRenderList {
     /**
      * @default []
      */
-    opaque: Array<RenderItem>;
+    opaque: RenderItem[];
 
     /**
      * @default []
      */
-    transparent: Array<RenderItem>;
+    transparent: RenderItem[];
 
     init(): void;
     push(
@@ -51,7 +52,7 @@ export class WebGLRenderList {
         z: number,
         group: Group | null,
     ): void;
-    sort(opaqueSort: Function, transparentSort: Function): void;
+    sort(opaqueSort: () => void, transparentSort: () => void): void;
     finish(): void;
 }
 

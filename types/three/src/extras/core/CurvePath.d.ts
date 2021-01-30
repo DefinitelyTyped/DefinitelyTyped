@@ -12,7 +12,7 @@ export class CurvePath<T extends Vector> extends Curve<T> {
     /**
      * @default []
      */
-    curves: Curve<T>[];
+    curves: Array<Curve<T>>;
 
     /**
      * @default false

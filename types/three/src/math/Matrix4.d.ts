@@ -3,7 +3,7 @@ import { Euler } from './Euler';
 import { Quaternion } from './Quaternion';
 import { Matrix } from './Matrix3';
 
-type Matrix4Tuple = [
+export type Matrix4Tuple = [
     number,
     number,
     number,
@@ -211,18 +211,11 @@ export class Matrix4 implements Matrix {
     equals(matrix: Matrix4): boolean;
 
     /**
-     * Sets the values of this matrix from the provided array.
-     * @param array the source array.
-     * @param offset (optional) offset into the array. Default is 0.
-     */
-    fromArray(array: number[], offset?: number): Matrix4;
-
-    /**
-     * Sets the values of this matrix from the provided array-like.
-     * @param array the source array-like.
+     * Sets the values of this matrix from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array-like. Default is 0.
      */
-    fromArray(array: ArrayLike<number>, offset?: number): Matrix4;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): Matrix4;
 
     /**
      * Returns an array with the values of this matrix, or copies them into the provided array.

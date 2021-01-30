@@ -4,7 +4,8 @@ export class SphericalHarmonics3 {
     constructor();
 
     /**
-     * @default [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]
+     * @default [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(),
+     * new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]
      */
     coefficients: Vector3[];
     readonly isSphericalHarmonics3: true;
@@ -20,18 +21,11 @@ export class SphericalHarmonics3 {
     clone(): SphericalHarmonics3;
 
     /**
-     * Sets the values of this spherical harmonics from the provided array.
-     * @param array the source array.
+     * Sets the values of this spherical harmonics from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets the values of this spherical harmonics from the provided array-like.
-     * @param array the source array-like.
-     * @param offset (optional) offset into the array-like. Default is 0.
-     */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array with the values of this spherical harmonics, or copies them into the provided array.

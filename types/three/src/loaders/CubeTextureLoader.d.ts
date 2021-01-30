@@ -6,7 +6,7 @@ export class CubeTextureLoader extends Loader {
     constructor(manager?: LoadingManager);
 
     load(
-        urls: Array<string>,
+        urls: string[],
         onLoad?: (texture: CubeTexture) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,

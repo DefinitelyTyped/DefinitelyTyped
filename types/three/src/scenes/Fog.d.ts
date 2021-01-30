@@ -1,16 +1,16 @@
 import { Color } from './../math/Color';
 
-export interface IFog {
+export interface FogBase {
     name: string;
     color: Color;
-    clone(): IFog;
+    clone(): FogBase;
     toJSON(): any;
 }
 
 /**
  * This class contains the parameters that define linear fog, i.e., that grows linearly denser with the distance.
  */
-export class Fog implements IFog {
+export class Fog implements FogBase {
     constructor(color: Color | number | string, near?: number, far?: number);
 
     /**

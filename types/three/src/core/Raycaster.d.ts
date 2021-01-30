@@ -100,7 +100,9 @@ export class Raycaster {
     intersectObject(object: Object3D, recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
 
     /**
-     * Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by .intersectObject.
+     * Checks all intersection between the ray and the objects with or without the descendants.
+     * Intersections are returned sorted by distance, closest first.
+     * Intersections are of the same form as those returned by .intersectObject.
      * @param objects The objects to check for intersection with the ray.
      * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.
      * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).

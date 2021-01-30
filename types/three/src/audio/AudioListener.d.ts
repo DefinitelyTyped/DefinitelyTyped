@@ -11,7 +11,7 @@ export class AudioListener extends Object3D {
     /**
      * @default null
      */
-    filter: null | any;
+    filter: any;
 
     /**
      * @default 0

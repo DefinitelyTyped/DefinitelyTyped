@@ -1,6 +1,8 @@
 import { TypedArray } from '../polyfills';
 
-export class LoaderUtils {
-    static decodeText(array: TypedArray): string;
-    static extractUrlBase(url: string): string;
+export interface LoaderUtils {
+    decodeText(array: TypedArray): string;
+    extractUrlBase(url: string): string;
 }
+
+export const LoaderUtils: LoaderUtils;

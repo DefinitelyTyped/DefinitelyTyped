@@ -1,7 +1,7 @@
 import { Matrix4 } from './Matrix4';
 import { Vector3 } from './Vector3';
 
-type Matrix3Tuple = [number, number, number, number, number, number, number, number, number];
+export type Matrix3Tuple = [number, number, number, number, number, number, number, number, number];
 
 /**
  * ( interface Matrix<T> )
@@ -106,18 +106,11 @@ export class Matrix3 implements Matrix {
     equals(matrix: Matrix3): boolean;
 
     /**
-     * Sets the values of this matrix from the provided array.
-     * @param array the source array.
-     * @param offset (optional) offset into the array. Default is 0.
-     */
-    fromArray(array: number[], offset?: number): Matrix3;
-
-    /**
-     * Sets the values of this matrix from the provided array-like.
-     * @param array the source array-like.
+     * Sets the values of this matrix from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array-like. Default is 0.
      */
-    fromArray(array: ArrayLike<number>, offset?: number): Matrix3;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): Matrix3;
 
     /**
      * Returns an array with the values of this matrix, or copies them into the provided array.
@@ -157,15 +150,15 @@ export class Matrix3 implements Matrix {
      * @deprecated This method has been removed completely.
      */
     multiplyVector3Array(a: any): any;
+
+    /**
+     * @deprecated Use {@link Matrix3#invert .invert()} instead.
+     */
     getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3;
+    getInverse(matrix: Matrix): Matrix;
 
     /**
      * @deprecated Use {@link Matrix3#toArray .toArray()} instead.
      */
     flattenToArrayOffset(array: number[], offset: number): number[];
-
-    /**
-     * @deprecated Use {@link Matrix3#invert .invert()} instead.
-     */
-    getInverse(matrix: Matrix): Matrix;
 }

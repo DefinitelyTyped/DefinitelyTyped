@@ -26,7 +26,7 @@ export class Euler {
     order: string;
     readonly isEuler: true;
 
-    _onChangeCallback: Function;
+    _onChangeCallback: () => void;
 
     set(x: number, y: number, z: number, order?: string): Euler;
     clone(): Euler;
@@ -39,7 +39,7 @@ export class Euler {
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
     toVector3(optionalResult?: Vector3): Vector3;
-    _onChange(callback: Function): this;
+    _onChange(callback: () => void): this;
 
     static RotationOrders: string[];
     static DefaultOrder: string;

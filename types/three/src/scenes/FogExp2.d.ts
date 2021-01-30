@@ -1,9 +1,9 @@
 import { Color } from './../math/Color';
-import { IFog } from './Fog';
+import { FogBase } from './Fog';
 /**
  * This class contains the parameters that define linear fog, i.e., that grows exponentially denser with the distance.
  */
-export class FogExp2 implements IFog {
+export class FogExp2 implements FogBase {
     constructor(hex: number | string, density?: number);
 
     /**

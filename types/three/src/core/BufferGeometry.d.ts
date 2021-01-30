@@ -54,7 +54,7 @@ export class BufferGeometry extends EventDispatcher {
      * @default {}
      */
     morphAttributes: {
-        [name: string]: (BufferAttribute | InterleavedBufferAttribute)[];
+        [name: string]: Array<BufferAttribute | InterleavedBufferAttribute>;
     };
 
     /**
@@ -65,7 +65,7 @@ export class BufferGeometry extends EventDispatcher {
     /**
      * @default []
      */
-    groups: { start: number; count: number; materialIndex?: number }[];
+    groups: Array<{ start: number; count: number; materialIndex?: number }>;
 
     /**
      * @default null
@@ -183,11 +183,10 @@ export class BufferGeometry extends EventDispatcher {
      * @deprecated Use {@link BufferGeometry#setAttribute .setAttribute()} instead.
      */
     addAttribute(name: string, attribute: BufferAttribute | InterleavedBufferAttribute): BufferGeometry;
+    addAttribute(name: any, array: any, itemSize: any): any;
 
     /**
      * @deprecated Use {@link BufferGeometry#deleteAttribute .deleteAttribute()} instead.
      */
     removeAttribute(name: string): BufferGeometry;
-
-    addAttribute(name: any, array: any, itemSize: any): any;
 }

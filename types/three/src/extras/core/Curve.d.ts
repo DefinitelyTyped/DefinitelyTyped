@@ -65,7 +65,8 @@ export class Curve<T extends Vector> {
     getUtoTmapping(u: number, distance: number): number;
 
     /**
-     * Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a small delta apart will be used to find its gradient which seems to give a reasonable approximation
+     * Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a
+     * small delta apart will be used to find its gradient which seems to give a reasonable approximation
      * getTangent(t: number, optionalTarget?: T): T;
      */
     getTangent(t: number, optionalTarget?: T): T;
@@ -96,5 +97,5 @@ export class Curve<T extends Vector> {
     /**
      * @deprecated since r84.
      */
-    static create(constructorFunc: Function, getPointFunc: Function): Function;
+    static create(constructorFunc: () => void, getPointFunc: () => void): () => void;
 }

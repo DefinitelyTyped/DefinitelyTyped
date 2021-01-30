@@ -1,4 +1,4 @@
-import { IFog } from './Fog';
+import { FogBase } from './Fog';
 import { Material } from './../materials/Material';
 import { Object3D } from './../core/Object3D';
 import { Color } from '../math/Color';
@@ -22,7 +22,7 @@ export class Scene extends Object3D {
      * A fog instance defining the type of fog that affects everything rendered in the scene. Default is null.
      * @default null
      */
-    fog: IFog | null;
+    fog: FogBase | null;
 
     /**
      * If not null, it will force everything in the scene to be rendered with that material. Default is null.
@@ -54,7 +54,7 @@ export class Scene extends Object3D {
         renderer: WebGLRenderer,
         scene: Scene,
         camera: Camera,
-        renderTarget: WebGLRenderTarget | any, // any required for Object3D.onBeforeRender compatibility
+        renderTarget: any, // any required for Object3D.onBeforeRender compatibility
     ) => void;
 
     /**

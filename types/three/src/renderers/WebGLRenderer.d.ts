@@ -6,7 +6,7 @@ import { WebGLShadowMap } from './webgl/WebGLShadowMap';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities';
 import { WebGLProperties } from './webgl/WebGLProperties';
 import { WebGLProgram } from './webgl/WebGLProgram';
-import { WebGLRenderLists } from './webgl/WebGLRenderLists';
+import { RenderTarget, WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
@@ -16,7 +16,6 @@ import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
-import { RenderTarget } from './webgl/WebGLRenderLists';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { Texture } from '../textures/Texture';
 import { XRAnimationLoopCallback } from './webxr/WebXR';
@@ -37,12 +36,12 @@ export interface WebGLRendererParameters {
     /**
      * A WebGL Rendering Context.
      * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
-     *	Default is null
+     * Default is null
      */
     context?: WebGLRenderingContext;
 
     /**
-     *	shader precision. Can be "highp", "mediump" or "lowp".
+     * shader precision. Can be "highp", "mediump" or "lowp".
      */
     precision?: string;
 
@@ -72,7 +71,7 @@ export interface WebGLRendererParameters {
     preserveDrawingBuffer?: boolean;
 
     /**
-     *	Can be "high-performance", "low-power" or "default"
+     * Can be "high-performance", "low-power" or "default"
      */
     powerPreference?: string;
 
@@ -107,7 +106,9 @@ export interface WebGLDebug {
  */
 export class WebGLRenderer implements Renderer {
     /**
-     * parameters is an optional object with properties defining the renderer's behaviour. The constructor also accepts no parameters at all. In all cases, it will assume sane defaults when parameters are missing.
+     * parameters is an optional object with properties defining the renderer's behaviour.
+     * The constructor also accepts no parameters at all.
+     * In all cases, it will assume sane defaults when parameters are missing.
      */
     constructor(parameters?: WebGLRendererParameters);
 
@@ -281,12 +282,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: Function): void;
+    setOpaqueSort(method: () => void): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: Function): void;
+    setTransparentSort(method: () => void): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
@@ -342,7 +343,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
      */
-    animate(callback: Function): void;
+    animate(callback: () => void): void;
 
     /**
      * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.

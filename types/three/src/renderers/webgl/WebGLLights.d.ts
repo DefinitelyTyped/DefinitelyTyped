@@ -19,22 +19,22 @@ export class WebGLLights {
             numSpotShadows: number;
         };
 
-        ambient: Array<number>;
-        probe: Array<any>;
-        directional: Array<any>;
-        directionalShadow: Array<any>;
-        directionalShadowMap: Array<any>;
-        directionalShadowMatrix: Array<any>;
-        spot: Array<any>;
-        spotShadow: Array<any>;
-        spotShadowMap: Array<any>;
-        spotShadowMatrix: Array<any>;
-        rectArea: Array<any>;
-        point: Array<any>;
-        pointShadow: Array<any>;
-        pointShadowMap: Array<any>;
-        pointShadowMatrix: Array<any>;
-        hemi: Array<any>;
+        ambient: number[];
+        probe: any[];
+        directional: any[];
+        directionalShadow: any[];
+        directionalShadowMap: any[];
+        directionalShadowMatrix: any[];
+        spot: any[];
+        spotShadow: any[];
+        spotShadowMap: any[];
+        spotShadowMatrix: any[];
+        rectArea: any[];
+        point: any[];
+        pointShadow: any[];
+        pointShadowMap: any[];
+        pointShadowMatrix: any[];
+        hemi: any[];
     };
 
     get(light: any): any;

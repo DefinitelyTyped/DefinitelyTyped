@@ -9,7 +9,7 @@ import { BufferAttribute } from './../core/BufferAttribute';
 import { InterleavedBufferAttribute } from './../core/InterleavedBufferAttribute';
 import { Vector } from './Vector2';
 
-type Vector3Tuple = [number, number, number];
+export type Vector3Tuple = [number, number, number];
 
 /**
  * 3D vector. ( class Vector3 implements Vector<Vector3> )
@@ -191,8 +191,6 @@ export class Vector3 implements Vector {
      * Computes the Manhattan length of this vector.
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     *
-     * @return {number}
      */
     manhattanLength(): number;
 
@@ -200,10 +198,6 @@ export class Vector3 implements Vector {
      * Computes the Manhattan length (distance) from this vector to the given vector v
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     *
-     * @param {Vector3} v
-     *
-     * @return {number}
      */
     manhattanDistanceTo(v: Vector3): number;
 
@@ -264,18 +258,11 @@ export class Vector3 implements Vector {
     equals(v: Vector3): boolean;
 
     /**
-     * Sets this vector's x, y and z value from the provided array.
-     * @param array the source array.
+     * Sets this vector's x, y and z value from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets this vector's x, y and z value from the provided array-like.
-     * @param array the source array-like.
-     * @param offset (optional) offset into the array-like. Default is 0.
-     */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [x, y, z], or copies x, y and z into the provided array.

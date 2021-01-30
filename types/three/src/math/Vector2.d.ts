@@ -1,7 +1,7 @@
 import { Matrix3 } from './Matrix3';
 import { BufferAttribute } from './../core/BufferAttribute';
 
-type Vector2tuple = [number, number];
+export type Vector2tuple = [number, number];
 
 /**
  * ( interface Vector<T> )
@@ -341,8 +341,6 @@ export class Vector2 implements Vector {
      * Computes the Manhattan length of this vector.
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     *
-     * @return {number}
      */
     manhattanLength(): number;
 
@@ -375,10 +373,6 @@ export class Vector2 implements Vector {
      * Computes the Manhattan length (distance) from this vector to the given vector v
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     *
-     * @param {Vector2} v
-     *
-     * @return {number}
      */
     manhattanDistanceTo(v: Vector2): number;
 
@@ -408,18 +402,11 @@ export class Vector2 implements Vector {
     equals(v: Vector2): boolean;
 
     /**
-     * Sets this vector's x and y value from the provided array.
-     * @param array the source array.
+     * Sets this vector's x and y value from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets this vector's x and y value from the provided array-like.
-     * @param array the source array-like.
-     * @param offset (optional) offset into the array-like. Default is 0.
-     */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [x, y], or copies x and y into the provided array.

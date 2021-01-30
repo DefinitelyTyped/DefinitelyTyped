@@ -2,17 +2,17 @@ import { Mapping } from '../constants';
 import { Texture } from '../textures/Texture';
 
 export namespace ImageUtils {
-    export function getDataURL(image: any): string;
+    function getDataURL(image: any): string;
 
     /**
      * @deprecated
      */
-    export let crossOrigin: string;
+    let crossOrigin: string;
 
     /**
      * @deprecated Use {@link TextureLoader THREE.TextureLoader()} instead.
      */
-    export function loadTexture(
+    function loadTexture(
         url: string,
         mapping?: Mapping,
         onLoad?: (texture: Texture) => void,
@@ -22,7 +22,7 @@ export namespace ImageUtils {
     /**
      * @deprecated Use {@link CubeTextureLoader THREE.CubeTextureLoader()} instead.
      */
-    export function loadTextureCube(
+    function loadTextureCube(
         array: string[],
         mapping?: Mapping,
         onLoad?: (texture: Texture) => void,

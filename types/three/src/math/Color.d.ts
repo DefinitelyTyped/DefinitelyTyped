@@ -160,18 +160,11 @@ export class Color {
     equals(color: Color): boolean;
 
     /**
-     * Sets this color's red, green and blue value from the provided array.
-     * @param array the source array.
-     * @param offset (optional) offset into the array. Default is 0.
-     */
-    fromArray(array: number[], offset?: number): this;
-
-    /**
-     * Sets this color's red, green and blue value from the provided array-like.
-     * @param array the source array-like.
+     * Sets this color's red, green and blue value from the provided array or array-like.
+     * @param array the source array or array-like.
      * @param offset (optional) offset into the array-like. Default is 0.
      */
-    fromArray(array: ArrayLike<number>, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [red, green, blue], or copies red, green and blue into the provided array.
