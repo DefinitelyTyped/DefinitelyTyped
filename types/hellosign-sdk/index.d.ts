@@ -107,7 +107,7 @@ declare namespace HelloSign {
         original_title: string;
         subject: string;
         message: string;
-        metadata?: GenericObject<Metadata>;
+        metadata: GenericObject<Metadata>;
         created_at: Date | number;
         is_complete: boolean;
         is_declined: boolean;
@@ -501,11 +501,25 @@ declare namespace HelloSign {
         | 'callback_test';
 
     interface Event<Metadata = GenericObject> {
+        /**
+         * @deprecated Use `reported_for_account_id` instead
+         */
+        account_guid: string;
+        /**
+         * @deprecated Use `reported_for_app_id` instead
+         */
+        client_id: string;
         event: {
-            event_hash: string;
             event_time: Date | number;
             event_type: HellosignEvents;
-            event_metadata: GenericObject<Metadata>;
+            event_hash: string;
+            event_metadata: GenericObject<
+                {
+                    related_signature_id?: string;
+                    reported_for_account_id: string;
+                    reported_for_app_id: string;
+                } & Metadata
+            >;
         };
     }
     type EventResponse<Response = SignatureRequestResponse> = Partial<AccountResponse> &
