@@ -4683,11 +4683,6 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "three",
-            "typingsPackageName": "three",
-            "asOfVersion": "0.103.0"
-        },
-        {
             "libraryName": "tildify",
             "typingsPackageName": "tildify",
             "asOfVersion": "2.0.0"
