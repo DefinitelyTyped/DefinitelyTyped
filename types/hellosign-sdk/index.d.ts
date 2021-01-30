@@ -27,9 +27,9 @@ declare class HelloSign {
 }
 
 declare namespace HelloSign {
-    interface GenericObject {
+    type GenericObject<T = {}> = T & {
         [key: string]: any;
-    }
+    };
 
     type HelloSignOptions =
         | {
@@ -99,7 +99,7 @@ declare namespace HelloSign {
         | 'signature'
         | 'text-merge'
         | 'checkbox-merge';
-    interface SignatureRequest {
+    interface SignatureRequest<Metadata = GenericObject> {
         test_mode: number;
         signature_request_id: string;
         requester_email_address: string;
@@ -107,7 +107,7 @@ declare namespace HelloSign {
         original_title: string;
         subject: string;
         message: string;
-        metadata: GenericObject;
+        metadata?: GenericObject<Metadata>;
         created_at: Date | number;
         is_complete: boolean;
         is_declined: boolean;
@@ -162,7 +162,7 @@ declare namespace HelloSign {
             | 'employer_identification_number'
             | 'custom_regex';
     }
-    interface SignatureRequestRequestOptions {
+    interface SignatureRequestRequestOptions<Metadata = GenericObject> {
         test_mode?: number;
         clientId: string;
         files: string[];
@@ -192,7 +192,7 @@ declare namespace HelloSign {
         cc_email_addresses?: string[];
         use_text_tags?: number;
         hide_text_tags?: number;
-        metadata?: GenericObject;
+        metadata?: GenericObject<Metadata>;
         allow_decline?: number;
         allow_reassign?: number;
         form_fields_per_document?: FormField[][];
@@ -335,12 +335,12 @@ declare namespace HelloSign {
         ): Promise<TeamResponse>;
     }
 
-    interface Template
+    interface Template<Metadata = GenericObject>
         extends Partial<{
             template_id: string;
             title: string;
             message: string;
-            metadata: GenericObject;
+            metadata: GenericObject<Metadata>;
             signer_roles: Array<{
                 name: string;
                 order: number;
@@ -418,7 +418,7 @@ declare namespace HelloSign {
     interface UnclaimedDraftResponse {
         unclaimed_draft: UnclaimedDraft;
     }
-    interface UnclaimedDraftRequestOptions {
+    interface UnclaimedDraftRequestOptions<Metadata = GenericObject> {
         test_mode?: number;
         file?: string[];
         file_url?: string[];
@@ -448,7 +448,7 @@ declare namespace HelloSign {
         use_text_tags?: number;
         use_preexisting_fields?: boolean;
         hide_text_tags?: number;
-        metadata?: GenericObject;
+        metadata?: GenericObject<Metadata>;
         allow_decline?: number;
         form_fields_per_document?: FormField[][];
         signing_options?: {
@@ -480,29 +480,39 @@ declare namespace HelloSign {
     }
 
     type HellosignEvents =
+        | 'signature_request_viewed'
         | 'signature_request_signed'
+        | 'signature_request_downloadable'
+        | 'signature_request_sent'
+        | 'signature_request_declined'
+        | 'signature_request_reassigned'
+        | 'signature_request_remind'
+        | 'signature_request_all_signed'
+        | 'signature_request_email_bounce'
+        | 'signature_request_invalid'
         | 'signature_request_canceled'
-        | 'sign_url_invalid'
+        | 'signature_request_prepared'
         | 'file_error'
         | 'unknown_error'
-        | 'signature_request_sent'
-        | 'signature_request_downloadable'
-        | 'signature_request_all_signed'
-        | 'signature_request_viewed'
-        | 'signature_request_invalid'
-        | 'signature_request_remind'
+        | 'sign_url_invalid'
+        | 'account_confirmed'
+        | 'template_created'
+        | 'template_error'
         | 'callback_test';
 
-    interface EventResponse extends SignatureRequestResponse, Event {}
-
-    interface Event {
+    interface Event<Metadata = GenericObject> {
         event: {
             event_hash: string;
             event_time: Date | number;
             event_type: HellosignEvents;
-            event_metadata: GenericObject;
+            event_metadata: GenericObject<Metadata>;
         };
     }
+    type EventResponse<Response = SignatureRequestResponse> = Partial<AccountResponse> &
+        Partial<SignatureRequestResponse> &
+        Partial<TemplateResponse> &
+        Event &
+        Response;
 
     interface ApiApp {
         client_id: string;
