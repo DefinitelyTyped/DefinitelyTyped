@@ -31,16 +31,6 @@ export interface PropsWithInnerRef {
     innerRef: React.Ref<any>;
 }
 
-export interface PropsWithStyles {
-    /**
-     * Get the styles of a particular part of the select. Pass in the name of the
-     * property as the first argument, and the current props as the second argument.
-     * See the `styles` object for the properties available.
-     */
-    getStyles: (name: string, props: any) => {};
-    theme: Theme;
-}
-
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
@@ -59,12 +49,17 @@ export interface CommonProps<
      */
     getStyles: (name: string, props: any) => {};
     getValue: () => OptionsType<OptionType>;
+    /** Whether the value container currently holds a value. */
     hasValue: boolean;
+    /** Set when the value container should hold multiple values */
     isMulti: boolean;
+    /** Whether the text is right to left */
+    isRtl: boolean;
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
     selectProps: SelectProps<OptionType, IsMulti, GroupType>;
     setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
+    theme: Theme;
 }
 
 export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
