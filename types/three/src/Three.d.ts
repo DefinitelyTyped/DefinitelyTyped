@@ -48,6 +48,7 @@ export * from './core/InterleavedBufferAttribute';
 export * from './core/InstancedInterleavedBuffer';
 export * from './core/InterleavedBuffer';
 export * from './core/InstancedBufferAttribute';
+export * from './core/GLBufferAttribute';
 export * from './core/BufferAttribute';
 export * from './core/Object3D';
 export * from './core/Raycaster';
