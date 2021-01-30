@@ -5,10 +5,10 @@ export class VOXLoader extends Loader {
 
     load(
         url: string,
-        onLoad: (chunks: Array<object>) => void,
+        onLoad: (chunks: object[]) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Array<object>>;
-    parse(data: ArrayBuffer): Array<object>;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<object[]>;
+    parse(data: ArrayBuffer): object[];
 }

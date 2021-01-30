@@ -31,9 +31,9 @@ export class TransformControls extends Object3D {
     detach(): this;
     getMode(): string;
     setMode(mode: string): void;
-    setTranslationSnap(translationSnap: Number | null): void;
-    setRotationSnap(rotationSnap: Number | null): void;
-    setScaleSnap(scaleSnap: Number | null): void;
+    setTranslationSnap(translationSnap: number | null): void;
+    setRotationSnap(rotationSnap: number | null): void;
+    setScaleSnap(scaleSnap: number | null): void;
     setSize(size: number): void;
     setSpace(space: string): void;
     dispose(): void;

@@ -1,12 +1,12 @@
 import { AnimationClip, Vector3 } from '../../../src/Three';
 
-export class AnimationClipCreator {
-    constructor();
-
-    static CreateRotationAnimation(period: number, axis: string): AnimationClip;
-    static CreateScaleAxisAnimation(period: number, axis: string): AnimationClip;
-    static CreateShakeAnimation(duration: number, shakeScale: Vector3): AnimationClip;
-    static CreatePulsationAnimation(duration: number, pulseScale: number): AnimationClip;
-    static CreateVisibilityAnimation(duration: number): AnimationClip;
-    static CreateMaterialColorAnimation(duration: number, colors: number[]): AnimationClip;
+export interface AnimationClipCreator {
+    CreateRotationAnimation(period: number, axis: string): AnimationClip;
+    CreateScaleAxisAnimation(period: number, axis: string): AnimationClip;
+    CreateShakeAnimation(duration: number, shakeScale: Vector3): AnimationClip;
+    CreatePulsationAnimation(duration: number, pulseScale: number): AnimationClip;
+    CreateVisibilityAnimation(duration: number): AnimationClip;
+    CreateMaterialColorAnimation(duration: number, colors: number[]): AnimationClip;
 }
+
+export const AnimationClipCreator: AnimationClipCreator;

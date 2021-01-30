@@ -1,6 +1,6 @@
 import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector3 } from '../../../src/Three';
 
-interface SVGResultPaths extends ShapePath {
+export interface SVGResultPaths extends ShapePath {
     userData?: {
         [key: string]: any;
     };

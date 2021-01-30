@@ -4,7 +4,7 @@ export interface MD2PartsConfig {
     baseUrl: string;
     body: string;
     skins: string[];
-    weapons: [string, string][];
+    weapons: Array<[string, string]>;
 }
 
 export class MD2Character {

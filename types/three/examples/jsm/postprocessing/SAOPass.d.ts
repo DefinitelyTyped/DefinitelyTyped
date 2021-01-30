@@ -21,7 +21,7 @@ export enum OUTPUT {
     Normal,
 }
 
-interface SAOPassParams {
+export interface SAOPassParams {
     output: OUTPUT;
     saoBias: number;
     saoIntensity: number;

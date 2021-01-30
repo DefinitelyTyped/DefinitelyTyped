@@ -95,7 +95,7 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of morph targets. Each morph target is a Javascript object:
      *
-     *		 { name: "targetName", vertices: [ new THREE.Vector3(), ... ] }
+     * { name: "targetName", vertices: [ new THREE.Vector3(), ... ] }
      *
      * Morph vertices match number and order of primary vertices.
      * @default []
@@ -105,7 +105,7 @@ export class Geometry extends EventDispatcher {
     /**
      * Array of morph normals. Morph normals have similar structure as morph targets, each normal set is a Javascript object:
      *
-     *		 morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
+     * morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
      * @default []
      */
     morphNormals: MorphNormals[];
@@ -242,7 +242,7 @@ export class Geometry extends EventDispatcher {
      */
     mergeVertices(precisionPoints?: number): number;
 
-    setFromPoints(points: Array<Vector2> | Array<Vector3>): this;
+    setFromPoints(points: Vector2[] | Vector3[]): this;
 
     sortFacesByMaterialIndex(): void;
 
@@ -283,15 +283,12 @@ export class Face3 {
      * @param color Face color or array of vertex colors.
      * @param materialIndex Material index.
      */
-    constructor(a: number, b: number, c: number, normal?: Vector3, color?: Color, materialIndex?: number);
-    constructor(a: number, b: number, c: number, normal?: Vector3, vertexColors?: Color[], materialIndex?: number);
-    constructor(a: number, b: number, c: number, vertexNormals?: Vector3[], color?: Color, materialIndex?: number);
     constructor(
         a: number,
         b: number,
         c: number,
-        vertexNormals?: Vector3[],
-        vertexColors?: Color[],
+        normal?: Vector3 | Vector3[],
+        color?: Color | Color[],
         materialIndex?: number,
     );
 

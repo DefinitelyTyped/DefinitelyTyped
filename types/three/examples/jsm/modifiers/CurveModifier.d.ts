@@ -9,7 +9,7 @@ import {
     Vector3,
 } from '../../../src/Three';
 
-interface SplineUniform {
+export interface SplineUniform {
     spineTexture: Uniform;
     pathOffset: Uniform;
     pathSegment: Uniform;
@@ -36,7 +36,7 @@ export class Flow {
 }
 
 export class InstancedFlow extends Flow {
-    constructor(count: Number, curveCount: Number, geometry: BufferGeometry, material: Material);
+    constructor(count: number, curveCount: number, geometry: BufferGeometry, material: Material);
     object3D: InstancedMesh;
     offsets: number[];
     whichCurve: number[];

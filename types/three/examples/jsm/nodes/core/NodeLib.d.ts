@@ -7,16 +7,16 @@ export interface NodeLibKeyword {
 }
 
 export namespace NodeLib {
-    export const nodes: object;
-    export const keywords: object;
+    const nodes: object;
+    const keywords: object;
 
-    export function add(node: Node): void;
-    export function addKeyword(name: string, callback: (builder: NodeBuilder) => void, cache?: object): void;
-    export function remove(node: Node): void;
-    export function removeKeyword(name: string): void;
-    export function get(name: string): Node;
-    export function getKeyword(name: string, builder: NodeBuilder): any;
-    export function getKeywordData(name: string): NodeLibKeyword;
-    export function contains(name: string): boolean;
-    export function containsKeyword(name: string): boolean;
+    function add(node: Node): void;
+    function addKeyword(name: string, callback: (builder: NodeBuilder) => void, cache?: object): void;
+    function remove(node: Node): void;
+    function removeKeyword(name: string): void;
+    function get(name: string): Node;
+    function getKeyword(name: string, builder: NodeBuilder): any;
+    function getKeywordData(name: string): NodeLibKeyword;
+    function contains(name: string): boolean;
+    function containsKeyword(name: string): boolean;
 }

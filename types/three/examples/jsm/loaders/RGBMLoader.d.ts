@@ -22,7 +22,7 @@ export class RGBMLoader extends DataTextureLoader {
     constructor(manager?: LoadingManager);
 
     loadCubemap(
-        urls: Array<string>,
+        urls: string[],
         onLoad?: (texture: CubeTexture) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,

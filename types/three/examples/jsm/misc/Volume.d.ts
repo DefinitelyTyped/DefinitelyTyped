@@ -25,7 +25,7 @@ export class Volume {
     access(i: number, j: number, k: number): number;
     reverseAccess(index: number): number[];
 
-    map(functionToMap: Function, context: this): this;
+    map(functionToMap: () => void, context: this): this;
 
     extractPerpendicularPlane(axis: string, RASIndex: number): object;
     extractSlice(axis: string, index: number): VolumeSlice;

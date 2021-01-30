@@ -1,6 +1,6 @@
 import { Object3D, Ray, Vector3 } from '../../../src/Three';
 
-declare class Face {
+export class Face {
     constructor();
     normal: Vector3;
     midpoint: Vector3;
@@ -16,7 +16,7 @@ declare class Face {
     getEdge(i: number): HalfEdge;
 }
 
-declare class HalfEdge {
+export class HalfEdge {
     constructor(vertex: VertexNode, face: Face);
     vertex: VertexNode;
     prev: HalfEdge;
@@ -31,7 +31,7 @@ declare class HalfEdge {
     tail(): VertexNode;
 }
 
-declare class VertexNode {
+export class VertexNode {
     constructor(point: Vector3);
     point: Vector3;
     prev: VertexNode;
@@ -39,7 +39,7 @@ declare class VertexNode {
     face: Face;
 }
 
-declare class VertexList {
+export class VertexList {
     constructor();
     head: VertexNode;
     tail: VertexNode;

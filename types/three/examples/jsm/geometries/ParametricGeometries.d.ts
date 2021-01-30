@@ -1,12 +1,12 @@
-import { Curve, Vector3 } from '../../../src/Three';
+import { Curve, ParametricGeometry, Vector3 } from '../../../src/Three';
 
 export namespace ParametricGeometries {
-    export function klein(v: number, u: number, target: Vector3): Vector3;
-    export function plane(width: number, height: number, target: Vector3): Vector3;
-    export function mobius(u: number, t: number, target: Vector3): Vector3;
-    export function mobius3d(u: number, t: number, target: Vector3): Vector3;
+    function klein(v: number, u: number, target: Vector3): Vector3;
+    function plane(width: number, height: number, target: Vector3): Vector3;
+    function mobius(u: number, t: number, target: Vector3): Vector3;
+    function mobius3d(u: number, t: number, target: Vector3): Vector3;
 
-    export class TubeGeometry {
+    class TubeGeometry extends ParametricGeometry {
         constructor(
             path: Curve<Vector3>,
             segments?: number,
@@ -16,15 +16,15 @@ export namespace ParametricGeometries {
         );
     }
 
-    export class TorusKnotGeometry {
+    class TorusKnotGeometry extends TubeGeometry {
         constructor(radius?: number, tube?: number, segmentsT?: number, segmentsR?: number, p?: number, q?: number);
     }
 
-    export class SphereGeometry {
+    class SphereGeometry extends ParametricGeometry {
         constructor(size: number, u: number, v: number);
     }
 
-    export class PlaneGeometry {
+    class PlaneGeometry extends ParametricGeometry {
         constructor(width: number, depth: number, segmentsWidth: number, segmentsDepth: number);
     }
 }

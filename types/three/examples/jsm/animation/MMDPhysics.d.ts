@@ -105,6 +105,13 @@ export class Constraint {
         params: object,
         manager: ResourceManager,
     );
+
+    mesh: SkinnedMesh;
+    world: object;
+    bodyA: RigidBody;
+    bodyB: RigidBody;
+    params: object;
+    manager: ResourceManager;
 }
 
 export class MMDPhysicsHelper extends Object3D {

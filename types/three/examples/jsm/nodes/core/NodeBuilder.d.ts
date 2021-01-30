@@ -108,8 +108,7 @@ export class NodeBuilder {
     isSlot(name: string): boolean;
     define(name: string, value: any): void;
     isDefined(name: string): boolean;
-    getVar(uuid: string, type: string, ns: string, shader?: string, prefix?: string, label?: string): object;
-    getVar(uuid: string, type: string, ns: string, label: string): object;
+    getVar(uuid: string, type: string, ns: string, labelOrShader?: string, prefix?: string, label?: string): object;
     getAttribute(name: string, type: string): any;
     getCode(shader: string): string;
     getVarListCode(vars: object[], prefix?: string): string;

@@ -1,5 +1,13 @@
-import { SkinnedMesh } from '../../../src/Three';
+import {
+    LineBasicMaterial,
+    Matrix4,
+    MeshBasicMaterial,
+    Object3D,
+    SkinnedMesh,
+    SphereGeometry,
+} from '../../../src/Three';
 
+// tslint:disable-next-line:interface-name
 export interface IKS {
     effector: number;
     iteration: number;
@@ -18,6 +26,6 @@ export class CCDIKSolver {
     createHelper(): CCDIKHelper;
 }
 
-export class CCDIKHelper {
+export class CCDIKHelper extends Object3D {
     constructor(mesh: SkinnedMesh, iks: IKS[]);
 }

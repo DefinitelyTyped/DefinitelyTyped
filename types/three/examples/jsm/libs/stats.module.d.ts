@@ -1,4 +1,4 @@
-declare interface Stats {
+interface Stats {
     REVISION: number;
     dom: HTMLDivElement;
     addPanel(panel: Stats.Panel): Stats.Panel;

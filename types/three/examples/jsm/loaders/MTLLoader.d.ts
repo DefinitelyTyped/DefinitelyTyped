@@ -78,7 +78,7 @@ export interface TexParams {
 }
 
 export namespace MTLLoader {
-    export class MaterialCreator {
+    class MaterialCreator {
         constructor(baseUrl?: string, options?: MaterialCreatorOptions);
 
         baseUrl: string;

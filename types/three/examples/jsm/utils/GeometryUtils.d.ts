@@ -1,7 +1,7 @@
 import { Vector3 } from '../../../src/Three';
 
 export namespace GeometryUtils {
-    export function hilbert2D(
+    function hilbert2D(
         center?: Vector3,
         size?: number,
         iterations?: number,
@@ -10,7 +10,7 @@ export namespace GeometryUtils {
         v2?: number,
         v3?: number,
     ): Vector3[];
-    export function hilbert3D(
+    function hilbert3D(
         center?: Vector3,
         size?: number,
         iterations?: number,
@@ -23,5 +23,5 @@ export namespace GeometryUtils {
         v6?: number,
         v7?: number,
     ): Vector3[];
-    export function gosper(size?: number): number[];
+    function gosper(size?: number): number[];
 }
