@@ -1,3 +1,3 @@
-import { getColor } from 'colorthief';
+import ColorThief from 'colorthief';
 
-const color = getColor('https://picsum.photos/200/300')
+const colorThief = new ColorThief();
