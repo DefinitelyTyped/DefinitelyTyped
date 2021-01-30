@@ -3348,6 +3348,11 @@
             "asOfVersion": "2.1.2"
         },
         {
+            "libraryName": "physijs",
+            "typingsPackageName": "physijs",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "asOfVersion": "1.4.2"
@@ -4681,11 +4686,6 @@
             "libraryName": "theming",
             "typingsPackageName": "theming",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "three",
-            "typingsPackageName": "three",
-            "asOfVersion": "0.103.0"
         },
         {
             "libraryName": "tildify",
