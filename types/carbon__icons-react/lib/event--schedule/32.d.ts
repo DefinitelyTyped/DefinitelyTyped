@@ -1,1 +1,3 @@
-export { EventSchedule32 as default } from "../../";
+import { EventSchedule32 } from "../../";
+
+export = EventSchedule32;

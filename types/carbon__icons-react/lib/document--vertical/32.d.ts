@@ -1,1 +1,3 @@
-export { DocumentVertical32 as default } from "../../";
+import { DocumentVertical32 } from "../../";
+
+export = DocumentVertical32;

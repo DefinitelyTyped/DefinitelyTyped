@@ -2,23 +2,26 @@ import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
-import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase } from './types';
+import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase, GroupTypeBase } from './types';
 
-export interface AsyncProps<OptionType extends OptionTypeBase> {
+export interface AsyncProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     /**
      * The default set of options to show before the user starts searching. When
      * set to `true`, the results for loadOptions('') will be autoloaded.
      * @default false
      */
-    defaultOptions?: GroupedOptionsType<OptionType> | OptionsType<OptionType> | boolean;
+    defaultOptions?: GroupedOptionsType<OptionType, GroupType> | OptionsType<OptionType> | boolean;
     /**
      * Function that returns a promise, which is the set of options to be used
      * once the promise resolves.
      */
     loadOptions: (
         inputValue: string,
-        callback: (options: OptionsType<OptionType> | GroupedOptionsType<OptionType>) => void,
-    ) => Promise<OptionsType<OptionType> | GroupedOptionsType<OptionType>> | void;
+        callback: (options: OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>) => void,
+    ) => Promise<OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>> | void;
     /**
      * If cacheOptions is truthy, then the loaded data will be cached. The cache
      * will remain until `cacheOptions` changes value.
@@ -27,8 +30,11 @@ export interface AsyncProps<OptionType extends OptionTypeBase> {
     cacheOptions?: any;
 }
 
-export type Props<OptionType extends OptionTypeBase, IsMulti extends boolean> = SelectProps<OptionType, IsMulti> &
-    AsyncProps<OptionType>;
+export type Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = SelectProps<OptionType, IsMulti, GroupType> & AsyncProps<OptionType, GroupType>;
 
 export const defaultProps: Props<any, boolean>;
 
@@ -41,10 +47,11 @@ export interface State<OptionType extends OptionTypeBase> {
     passEmptyOptions: boolean;
 }
 
-export class Async<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<
-    Props<OptionType, IsMulti>,
-    State<OptionType>
-> {
+export class Async<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends React.Component<Props<OptionType, IsMulti, GroupType>, State<OptionType>> {
     static defaultProps: Props<any, boolean>;
     select: React.Ref<any>;
     lastRequest: {};

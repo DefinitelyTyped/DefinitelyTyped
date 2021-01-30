@@ -1,1 +1,3 @@
-export { PinFilled32 as default } from "../../";
+import { PinFilled32 } from "../../";
+
+export = PinFilled32;

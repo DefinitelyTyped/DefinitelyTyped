@@ -1,1 +1,3 @@
-export { WatsonHealthCobbAngle32 as default } from "../../../";
+import { WatsonHealthCobbAngle32 } from "../../../";
+
+export = WatsonHealthCobbAngle32;

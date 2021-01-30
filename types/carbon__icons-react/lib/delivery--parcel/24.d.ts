@@ -1,1 +1,3 @@
-export { DeliveryParcel24 as default } from "../../";
+import { DeliveryParcel24 } from "../../";
+
+export = DeliveryParcel24;

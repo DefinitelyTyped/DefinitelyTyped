@@ -7,12 +7,15 @@ export interface OptionTypeBase {
 
 export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
 
-export interface GroupType<OptionType extends OptionTypeBase> {
+export interface GroupTypeBase<OptionType extends OptionTypeBase> {
     options: OptionsType<OptionType>;
     [key: string]: any;
 }
 
-export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
+export type GroupedOptionsType<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = ReadonlyArray<GroupType>;
 
 export type ValueType<OptionType extends OptionTypeBase, IsMulti extends boolean> = IsMulti extends true
     ? OptionsType<OptionType>
@@ -41,7 +44,11 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+export interface CommonProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
     clearValue: () => void;
     className?: string;
     cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
@@ -56,25 +63,54 @@ export interface CommonProps<OptionType extends OptionTypeBase, IsMulti extends 
     isMulti: boolean;
     options: OptionsType<OptionType>;
     selectOption: (option: OptionType) => void;
-    selectProps: SelectProps<OptionType>;
-    setValue: (value: ValueType<OptionType, IsMulti>, action: ActionTypes) => void;
+    selectProps: SelectProps<OptionType, IsMulti, GroupType>;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
 }
 
-export type ActionTypes =
-    | 'select-option'
-    | 'deselect-option'
-    | 'remove-value'
-    | 'pop-value'
-    | 'set-value'
-    | 'clear'
-    | 'create-option';
-
-export interface ActionMeta<OptionType extends OptionTypeBase> {
-    action: ActionTypes;
+export interface SelectOptionActionMeta<OptionType extends OptionTypeBase> {
+    action: 'select-option';
+    option: OptionType | undefined;
     name?: string;
-    option?: OptionType;
-    removedValue?: OptionType;
 }
+
+export interface DeselectOptionActionMeta<OptionType extends OptionTypeBase> {
+    action: 'deselect-option';
+    option: OptionType | undefined;
+    name?: string;
+}
+
+export interface RemoveValueActionMeta<OptionType extends OptionTypeBase> {
+    action: 'remove-value';
+    removedValue: OptionType;
+    name?: string;
+}
+
+export interface PopValueActionMeta<OptionType extends OptionTypeBase> {
+    action: 'pop-value';
+    removedValue: OptionType;
+    name?: string;
+}
+
+export interface ClearActionMeta {
+    action: 'clear';
+    name?: string;
+}
+
+export interface CreateOptionActionMeta {
+    action: 'create-option';
+    name?: string;
+}
+
+export type ActionMeta<OptionType extends OptionTypeBase> =
+    | SelectOptionActionMeta<OptionType>
+    | DeselectOptionActionMeta<OptionType>
+    | RemoveValueActionMeta<OptionType>
+    | PopValueActionMeta<OptionType>
+    | ClearActionMeta
+    | CreateOptionActionMeta;
+
+export type Action = ActionMeta<OptionTypeBase>['action'];
+export type SetValueAction = 'select-option' | 'deselect-option';
 
 export type InputActionTypes = 'set-value' | 'input-change' | 'input-blur' | 'menu-close';
 

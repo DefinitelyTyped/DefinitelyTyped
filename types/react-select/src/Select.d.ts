@@ -12,10 +12,9 @@ import { StylesConfig } from './styles';
 import { ThemeConfig } from './theme';
 import {
     ActionMeta,
-    ActionTypes,
     FocusDirection,
     FocusEventHandler,
-    GroupType,
+    GroupTypeBase,
     InputActionMeta,
     KeyboardEventHandler,
     MenuPlacement,
@@ -24,6 +23,7 @@ import {
     ValueType,
     GroupedOptionsType,
     OptionTypeBase,
+    SetValueAction,
 } from './types';
 
 export type MouseOrTouchEvent = React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>;
@@ -38,7 +38,8 @@ export type SelectComponentsProps = { [key in string]: any };
 
 export interface NamedProps<
     OptionType extends OptionTypeBase = { label: string; value: string },
-    IsMulti extends boolean = false
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > {
     /** Aria label (for assistive tech) */
     'aria-label'?: string;
@@ -80,7 +81,7 @@ export interface NamedProps<
      * instead. For a list of the components that can be passed in, and the shape
      * that will be passed to them, see [the components docs](/api#components)
      */
-    components?: SelectComponentsConfig<OptionType, IsMulti>;
+    components?: SelectComponentsConfig<OptionType, IsMulti, GroupType>;
     /** Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
     controlShouldRenderValue?: boolean;
     /** Delimiter used to join multiple values into a single HTML Input value */
@@ -90,7 +91,7 @@ export interface NamedProps<
     /** Custom method to filter whether an option should be displayed in the menu */
     filterOption?: ((option: Option, rawInput: string) => boolean) | null;
     /** Formats group labels in the menu as React components */
-    formatGroupLabel?: formatGroupLabel<OptionType>;
+    formatGroupLabel?: formatGroupLabel<OptionType, GroupType>;
     /** Formats option labels in the menu and control as React components */
     formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, IsMulti>) => React.ReactNode;
     /** Resolves option data to a string to be displayed as the label by components */
@@ -171,7 +172,7 @@ export interface NamedProps<
     /** Allows control of whether the menu is opened when the Select is clicked */
     openMenuOnClick?: boolean;
     /** Array of options that populate the select menu */
-    options?: GroupedOptionsType<OptionType> | OptionsType<OptionType>;
+    options?: GroupedOptionsType<OptionType, GroupType> | OptionsType<OptionType>;
     /** Number of options to jump in menu when page{up|down} keys are used */
     pageSize?: number;
     /** Placeholder text for the select value */
@@ -179,7 +180,7 @@ export interface NamedProps<
     /** Status to relay to screen readers */
     screenReaderStatus?: (obj: { count: number }) => string;
     /** Style modifier methods */
-    styles?: StylesConfig<OptionType, IsMulti>;
+    styles?: StylesConfig<OptionType, IsMulti, GroupType>;
     /** Theme modifier method */
     theme?: ThemeConfig;
     /** Sets the tabIndex attribute on the input */
@@ -196,8 +197,9 @@ export interface NamedProps<
 
 export interface Props<
     OptionType extends OptionTypeBase = { label: string; value: string },
-    IsMulti extends boolean = false
-> extends NamedProps<OptionType, IsMulti>,
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends NamedProps<OptionType, IsMulti, GroupType>,
         SelectComponentsProps {}
 
 export const defaultProps: Props<any>;
@@ -221,10 +223,11 @@ export interface State<OptionType extends OptionTypeBase> {
 
 export type ElRef = React.Ref<any>;
 
-export default class Select<OptionType extends OptionTypeBase, IsMulti extends boolean = false> extends React.Component<
-    Props<OptionType, IsMulti>,
-    State<OptionType>
-> {
+export default class Select<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends React.Component<Props<OptionType, IsMulti, GroupType>, State<OptionType>> {
     static defaultProps: Props<any>;
 
     // Misc. Instance Properties
@@ -233,7 +236,7 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     blockOptionHover: boolean;
     clearFocusValueOnUpdate: boolean;
     commonProps: any; // TODO
-    components: SelectComponents<OptionType, IsMulti>;
+    components: SelectComponents<OptionType, IsMulti, GroupType>;
     hasGroups: boolean;
     initialTouchX: number;
     initialTouchY: number;
@@ -258,7 +261,7 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     // Lifecycle
     // ------------------------------
 
-    cacheComponents: (components: SelectComponents<OptionType, IsMulti>) => void;
+    cacheComponents: (components: SelectComponents<OptionType, IsMulti, GroupType>) => void;
 
     // ==============================
     // Consumer Handlers
@@ -283,7 +286,7 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     focusValue(direction: 'previous' | 'next'): void;
 
     focusOption(direction: FocusDirection): void;
-    setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
     selectOption: (newValue: OptionType) => void;
     removeValue: (removedValue: OptionType) => void;
     clearValue: () => void;
@@ -303,11 +306,11 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
         isRtl: boolean;
         options: OptionsType<any>;
         selectOption: (newValue: OptionType) => void;
-        setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+        setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
         selectProps: Readonly<{
             children?: React.ReactNode;
         }> &
-            Readonly<Props<OptionType>>;
+            Readonly<Props<OptionType, IsMulti, GroupType>>;
     };
 
     getNextFocusedValue(nextSelectValue: OptionsType<OptionType>): OptionType;
@@ -333,7 +336,7 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     isOptionSelected(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
     filterOption(option: {}, inputValue: string): boolean;
     formatOptionLabel(data: OptionType, context: FormatOptionLabelContext): React.ReactNode;
-    formatGroupLabel: formatGroupLabel<OptionType>;
+    formatGroupLabel: formatGroupLabel<OptionType, GroupType>;
 
     // ==============================
     // Mouse Handlers
@@ -388,7 +391,10 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     // Menu Options
     // ==============================
 
-    buildMenuOptions(props: Props<OptionType>, selectValue: OptionsType<OptionType>): MenuOptions<OptionType>;
+    buildMenuOptions(
+        props: Props<OptionType, IsMulti, GroupType>,
+        selectValue: OptionsType<OptionType>,
+    ): MenuOptions<OptionType>;
 
     // ==============================
     // Renderers
@@ -396,7 +402,7 @@ export default class Select<OptionType extends OptionTypeBase, IsMulti extends b
     constructAriaLiveMessage(): string;
 
     renderInput(): React.ReactNode;
-    renderPlaceholderOrValue(): PlaceholderOrValue<OptionType, IsMulti> | null;
+    renderPlaceholderOrValue(): PlaceholderOrValue<OptionType, IsMulti, GroupType> | null;
     renderClearIndicator(): React.ReactNode;
     renderLoadingIndicator(): React.ReactNode;
     renderIndicatorSeparator(): React.ReactNode;

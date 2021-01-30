@@ -1,1 +1,3 @@
-export { DashboardReference32 as default } from "../../";
+import { DashboardReference32 } from "../../";
+
+export = DashboardReference32;

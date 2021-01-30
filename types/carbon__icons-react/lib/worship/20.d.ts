@@ -1,1 +1,3 @@
-export { Worship20 as default } from "../../";
+import { Worship20 } from "../../";
+
+export = Worship20;

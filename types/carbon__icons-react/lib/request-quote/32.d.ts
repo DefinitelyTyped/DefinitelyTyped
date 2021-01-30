@@ -1,1 +1,3 @@
-export { RequestQuote32 as default } from "../../";
+import { RequestQuote32 } from "../../";
+
+export = RequestQuote32;

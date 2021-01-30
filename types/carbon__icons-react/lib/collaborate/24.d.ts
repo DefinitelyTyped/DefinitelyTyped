@@ -1,1 +1,3 @@
-export { Collaborate24 as default } from "../../";
+import { Collaborate24 } from "../../";
+
+export = Collaborate24;

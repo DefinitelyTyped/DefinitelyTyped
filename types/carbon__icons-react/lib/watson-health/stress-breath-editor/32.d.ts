@@ -1,1 +1,3 @@
-export { WatsonHealthStressBreathEditor32 as default } from "../../../";
+import { WatsonHealthStressBreathEditor32 } from "../../../";
+
+export = WatsonHealthStressBreathEditor32;

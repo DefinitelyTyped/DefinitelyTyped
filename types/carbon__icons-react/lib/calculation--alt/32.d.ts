@@ -1,1 +1,3 @@
-export { CalculationAlt32 as default } from "../../";
+import { CalculationAlt32 } from "../../";
+
+export = CalculationAlt32;

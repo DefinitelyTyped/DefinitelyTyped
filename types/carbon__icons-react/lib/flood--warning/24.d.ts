@@ -1,1 +1,3 @@
-export { FloodWarning24 as default } from "../../";
+import { FloodWarning24 } from "../../";
+
+export = FloodWarning24;

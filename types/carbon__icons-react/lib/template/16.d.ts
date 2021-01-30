@@ -1,1 +1,3 @@
-export { Template16 as default } from "../../";
+import { Template16 } from "../../";
+
+export = Template16;

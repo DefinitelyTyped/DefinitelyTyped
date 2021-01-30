@@ -1,1 +1,3 @@
-export { PhoneBlock20 as default } from "../../";
+import { PhoneBlock20 } from "../../";
+
+export = PhoneBlock20;

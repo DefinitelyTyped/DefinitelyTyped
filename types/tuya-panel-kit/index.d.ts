@@ -1856,7 +1856,54 @@ export interface DialogCheckboxProps
      */
     onChange?: (value: string | number) => void;
 }
-export interface DialogConfirmProps extends DialogProps, DialogCancelProps {}
+export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
+    /**
+     * @language zh-CN
+     * @description 图片资源
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description image source
+     * @defaultValue undefined
+     */
+    imageSource?: object | number;
+    /**
+     * @language zh-CN
+     * @description 图片样式
+     * @defaultValue undefined
+     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
+     */
+    /**
+     * @language en-US
+     * @description image style
+     * @defaultValue undefined
+     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
+     */
+    imageStyle?: StyleProp<ImageStyle>;
+    /**
+     * @language zh-CN
+     * @description 图标路径
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description icon path
+     * @defaultValue undefined
+     */
+    iconPath?: string;
+    /**
+     * @language zh-CN
+     * @description 图标尺寸
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description icon size
+     * @defaultValue undefined
+     */
+    iconSize?: number;
+}
 
 export interface DialogList extends TYFlatListData {
     title: string;
@@ -1904,7 +1951,7 @@ export interface DialogListProps
     listStyle?: StyleProp<ViewStyle>;
 }
 
-export interface DialogPromptProps extends Omit<TextInputProps, 'style'>, DialogProps, DialogCancelProps {
+export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, 'style'>, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 是否显示帮助图标
@@ -2155,12 +2202,46 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
      */
     showIcon?: boolean;
 }
-export class GlobalToast {
+export const GlobalToast: {
     show: (option: GlobalToastProps) => void;
     hide: () => void;
-}
+};
 
 // IconFont
+type IconFontName =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 'power'
+    | 'arrow'
+    | 'celsius'
+    | 'fahrenheit'
+    | 'minus'
+    | 'plus'
+    | 'error'
+    | 'warning'
+    | 'correct'
+    | 'backIos'
+    | 'backAndroid'
+    | 'moreV'
+    | 'moreH'
+    | 'close'
+    | 'selected'
+    | 'unselected'
+    | 'selectedUnBordered'
+    | 'volumeMute'
+    | 'volumeMax'
+    | 'volumeMuteBorder'
+    | 'volumeMaxBorder'
+    | 'help';
+
 export interface IconFontProps {
     /**
      * @language zh-CN
@@ -2343,14 +2424,16 @@ export interface IconFontProps {
     /**
      * @language zh-CN
      * @description 图标id，会从组件库默认图标里取，优先级小于 d
-     * @defaultValue null
+     * @defaultValue undefined
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
     /**
      * @language en-US
      * @description The name of the built-in icon of the component library, which can be obtained from the default icons of the component library. The priority is greater than d.
-     * @defaultValue null
+     * @defaultValue undefined
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
-    name?: string;
+    name?: IconFontName;
     /**
      * @language zh-CN
      * @description 图标宽度，默认为 size 的值
@@ -3945,7 +4028,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description Callback of selecting the event
      * @defaultValue () => {}
      */
-    onSelect?: (value: string | number, sValue?: boolean) => void;
+    onSelect?: (value: string | number, params?: { close: () => void }) => void;
     /**
      * @language zh-CN
      * @description 值改变的回调
@@ -3972,7 +4055,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     styles?: {
         container?: StyleProp<ViewStyle>;
         content?: StyleProp<ViewStyle>;
-        title?: StyleProp<ViewStyle>;
+        title?: StyleProp<TextStyle>;
         contentRight?: StyleProp<ViewStyle>;
     };
 }
@@ -10116,7 +10199,7 @@ export let Utils: {
         parseHour12(second: number): string;
         stringToSecond(timeStr: string): number;
         dateToTimer(timeStr: string): number;
-        dateFormat(fmt: string, date: Date): number;
+        dateFormat(fmt: string, date: Date): string;
         timezone(): string;
     };
 };
@@ -10324,6 +10407,7 @@ export interface LinearGradientBackgroundOffset {
 }
 
 export interface NavigationOptions {
+    params?: object;
     /**
      * 容器样式
      */
@@ -10426,7 +10510,7 @@ export type GotoDpAlarmData = Array<{
     rangeValues: string[];
 }>;
 
-export interface TransitionPresets {
+export const TransitionPresets: {
     SlideFromRightIOS: TransitionPreset;
     ModalSlideFromBottomIOS: TransitionPreset;
     ModalPresentationIOS: TransitionPreset;
@@ -10436,7 +10520,7 @@ export interface TransitionPresets {
     DefaultTransition: TransitionPreset;
     ModalTransition: TransitionPreset;
     SlideFromRightWithMargin: TransitionPreset;
-}
+};
 
 export interface StringType {
     [key: string]: string;

@@ -1,1 +1,3 @@
-export { ErlenmeyerFlask as default } from "../../";
+import { ErlenmeyerFlask } from "../../";
+
+export = ErlenmeyerFlask;

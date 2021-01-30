@@ -1,9 +1,10 @@
 import { Component, ReactElement, Ref as ElementRef, ReactNode, ComponentType } from 'react';
 import { createPortal } from 'react-dom';
+import { CSSObject } from '@emotion/serialize';
 
 import { animatedScrollTo, getBoundingClientObj, RectType, getScrollParent, getScrollTop, scrollTo } from '../utils';
 import { borderRadius, colors, spacing } from '../theme';
-import { InnerRef, MenuPlacement, MenuPosition, CommonProps, OptionTypeBase } from '../types';
+import { InnerRef, MenuPlacement, MenuPosition, CommonProps, OptionTypeBase, GroupTypeBase } from '../types';
 
 // ==============================
 // Menu
@@ -30,7 +31,11 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<OptionType, IsMulti> & {
+export type MenuProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** The children to be rendered. */
     children: ReactElement;
     /** Callback to update the portal after possible flip. */
@@ -51,18 +56,14 @@ export type MenuProps<OptionType extends OptionTypeBase, IsMulti extends boolean
     menuShouldScrollIntoView: boolean;
 };
 
-export function menuCSS(state: MenuState): React.CSSProperties;
+export function menuCSS(state: MenuState): CSSObject;
 
-export class Menu<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<
-    MenuProps<OptionType, IsMulti>,
-    MenuState
-> {
-    static contextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getPlacement: (ref: ElementRef<any>) => void;
-    getState: () => MenuProps<OptionType, IsMulti> & MenuState;
-}
+declare function Menu<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Menu;
 
@@ -85,39 +86,54 @@ export interface MenuListProps {
 }
 
 // TODO: Remove this and merge it into `MenuListProps` so that naming pattern is adhered to.
-export type MenuListComponentProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
-    OptionType,
-    IsMulti
-> &
-    MenuListProps &
-    MenuListState;
+export type MenuListComponentProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & MenuListProps & MenuListState;
 
-export function menuListCSS(state: MenuState): React.CSSProperties;
-export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
+export function menuListCSS(state: MenuState): CSSObject;
+export function MenuList<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuListComponentProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Menu Notices
 // ==============================
 
-export function noOptionsMessageCSS(): React.CSSProperties;
-export function loadingMessageCSS(): React.CSSProperties;
+export function noOptionsMessageCSS(): CSSObject;
+export function loadingMessageCSS(): CSSObject;
 
-export type NoticeProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
-    OptionType,
-    IsMulti
-> & {
+export type NoticeProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     /** The children to be rendered. */
     children: ReactNode;
     /** Props to be passed on to the wrapper. */
     innerProps: { [key: string]: any };
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps<any, boolean>>;
+export function NoOptionsMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
+export function LoadingMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
@@ -126,10 +142,11 @@ export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
-    OptionType,
-    IsMulti
-> & {
+export type MenuPortalProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> & {
     appendTo: HTMLElement;
     children: ReactNode; // ideally Menu<MenuProps>
     controlElement: HTMLElement;
@@ -145,19 +162,13 @@ interface PortalStyleArgs {
     rect: RectType;
 }
 
-export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
+export function menuPortalCSS(args: PortalStyleArgs): CSSObject;
 
-export class MenuPortal<OptionType extends OptionTypeBase, IsMulti extends boolean> extends Component<
-    MenuPortalProps<OptionType, IsMulti>,
-    MenuPortalState
-> {
-    static childContextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getChildContext(): {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-
+export class MenuPortal<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> extends Component<MenuPortalProps<OptionType, IsMulti, GroupType>, MenuPortalState> {
     // callback for occassions where the menu must "flip"
     getPortalPlacement: (state: MenuState) => void;
 }

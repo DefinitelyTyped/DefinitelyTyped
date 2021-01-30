@@ -1,1 +1,3 @@
-export { Drought32 as default } from "../../";
+import { Drought32 } from "../../";
+
+export = Drought32;

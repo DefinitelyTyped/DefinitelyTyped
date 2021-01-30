@@ -1,1 +1,3 @@
-export { InformationFilled32 as default } from "../../";
+import { InformationFilled32 } from "../../";
+
+export = InformationFilled32;

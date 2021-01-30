@@ -1,1 +1,3 @@
-export { SoilMoistureField32 as default } from "../../";
+import { SoilMoistureField32 } from "../../";
+
+export = SoilMoistureField32;

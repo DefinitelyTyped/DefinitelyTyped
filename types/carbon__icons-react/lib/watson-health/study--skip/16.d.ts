@@ -1,1 +1,3 @@
-export { WatsonHealthStudySkip16 as default } from "../../../";
+import { WatsonHealthStudySkip16 } from "../../../";
+
+export = WatsonHealthStudySkip16;

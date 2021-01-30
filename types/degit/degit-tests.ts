@@ -2,6 +2,8 @@
 import degit from 'degit';
 import { DegitError } from 'degit/utils';
 
+degit('user/repo');
+
 const emitter = degit('user/repo', {
     cache: true,
     force: true,

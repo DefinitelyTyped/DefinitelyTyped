@@ -1,1 +1,3 @@
-export { WarningHex24 as default } from "../../";
+import { WarningHex24 } from "../../";
+
+export = WarningHex24;

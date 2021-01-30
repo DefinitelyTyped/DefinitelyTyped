@@ -1,1 +1,3 @@
-export { ColumnDependency20 as default } from "../../";
+import { ColumnDependency20 } from "../../";
+
+export = ColumnDependency20;

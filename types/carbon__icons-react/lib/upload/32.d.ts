@@ -1,1 +1,3 @@
-export { Upload32 as default } from "../../";
+import { Upload32 } from "../../";
+
+export = Upload32;

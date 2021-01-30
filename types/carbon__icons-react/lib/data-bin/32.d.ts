@@ -1,1 +1,3 @@
-export { DataBin32 as default } from "../../";
+import { DataBin32 } from "../../";
+
+export = DataBin32;

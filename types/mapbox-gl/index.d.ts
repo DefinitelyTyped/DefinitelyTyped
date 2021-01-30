@@ -127,6 +127,7 @@ declare namespace mapboxgl {
         | 'case'
         | 'match'
         | 'coalesce'
+        | 'within'
         // Ramps, scales, curves
         | 'interpolate'
         | 'interpolate-hcl'

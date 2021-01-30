@@ -3371,7 +3371,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter

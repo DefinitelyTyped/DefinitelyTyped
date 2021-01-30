@@ -1,1 +1,3 @@
-export { BostonZakimBridge as default } from "../../";
+import { BostonZakimBridge } from "../../";
+
+export = BostonZakimBridge;

@@ -1,1 +1,3 @@
-export { LogoFacebook20 as default } from "../../";
+import { LogoFacebook20 } from "../../";
+
+export = LogoFacebook20;

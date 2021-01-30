@@ -1,1 +1,3 @@
-export { DragVertical16 as default } from "../../";
+import { DragVertical16 } from "../../";
+
+export = DragVertical16;

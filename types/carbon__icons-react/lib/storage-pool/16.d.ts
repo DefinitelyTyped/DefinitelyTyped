@@ -1,1 +1,3 @@
-export { StoragePool16 as default } from "../../";
+import { StoragePool16 } from "../../";
+
+export = StoragePool16;

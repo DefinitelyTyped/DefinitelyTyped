@@ -1,1 +1,3 @@
-export { ModelAlt32 as default } from "../../";
+import { ModelAlt32 } from "../../";
+
+export = ModelAlt32;

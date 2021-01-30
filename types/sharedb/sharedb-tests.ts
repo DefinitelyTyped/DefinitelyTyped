@@ -57,13 +57,6 @@ console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
 
-// Test module augmentation to attach custom typed properties to `agent.custom`.
-import _ShareDbAgent = require('sharedb/lib/agent');
-declare module 'sharedb/lib/agent' {
-    interface Custom {
-        user?: {id: string};
-    }
-}
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
@@ -88,6 +81,7 @@ for (const action of submitRelatedActions) {
             request.op.op,
             request.op.create,
             request.op.del,
+            request.extra.source,
         );
         callback();
     });
@@ -291,6 +285,8 @@ function startClient(callback) {
         if (doc.hasWritePending()) throw new Error();
     });
 
+    doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
+
     connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
@@ -312,3 +308,18 @@ function startClient(callback) {
 
     connection.close();
 }
+
+class SocketLike {
+    readyState = 1;
+
+    close(reason?: number): void {}
+    send(data: any): void {}
+
+    onmessage: (event: any) => void;
+    onclose: (event: any) => void;
+    onerror: (event: any) => void;
+    onopen: (event: any) => void;
+}
+
+const socketLike = new SocketLike();
+new ShareDBClient.Connection(socketLike);

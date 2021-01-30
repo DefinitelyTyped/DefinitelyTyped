@@ -1,1 +1,3 @@
-export { Course20 as default } from "../../";
+import { Course20 } from "../../";
+
+export = Course20;

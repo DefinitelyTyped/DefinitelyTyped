@@ -1,1 +1,3 @@
-export { CopenhagenPlanetarium as default } from "../../";
+import { CopenhagenPlanetarium } from "../../";
+
+export = CopenhagenPlanetarium;

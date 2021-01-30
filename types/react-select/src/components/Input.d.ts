@@ -1,4 +1,5 @@
-import { ComponentType, Ref as ElementRef } from 'react';
+import { ComponentType, ReactElement, Ref as ElementRef } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { colors, spacing } from '../theme';
 
@@ -15,9 +16,9 @@ export type InputProps = PropsWithStyles & {
     className?: string;
 };
 
-export function inputCSS(props: InputProps): React.CSSProperties;
+export function inputCSS(props: InputProps): CSSObject;
 export function inputStyle(isHidden: boolean): React.CSSProperties;
 
-export const Input: ComponentType<InputProps>;
+declare function Input(props: InputProps): ReactElement;
 
 export default Input;

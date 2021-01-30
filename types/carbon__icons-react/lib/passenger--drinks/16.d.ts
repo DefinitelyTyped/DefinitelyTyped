@@ -1,1 +1,3 @@
-export { PassengerDrinks16 as default } from "../../";
+import { PassengerDrinks16 } from "../../";
+
+export = PassengerDrinks16;

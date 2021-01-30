@@ -1,1 +1,3 @@
-export { Settings16 as default } from "../../";
+import { Settings16 } from "../../";
+
+export = Settings16;

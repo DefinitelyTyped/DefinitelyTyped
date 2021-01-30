@@ -1,1 +1,3 @@
-export { ViewFilled24 as default } from "../../";
+import { ViewFilled24 } from "../../";
+
+export = ViewFilled24;

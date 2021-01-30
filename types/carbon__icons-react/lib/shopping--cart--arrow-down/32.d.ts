@@ -1,1 +1,3 @@
-export { ShoppingCartArrowDown32 as default } from "../../";
+import { ShoppingCartArrowDown32 } from "../../";
+
+export = ShoppingCartArrowDown32;

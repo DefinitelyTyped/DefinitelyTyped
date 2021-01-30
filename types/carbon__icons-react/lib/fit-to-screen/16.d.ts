@@ -1,1 +1,3 @@
-export { FitToScreen16 as default } from "../../";
+import { FitToScreen16 } from "../../";
+
+export = FitToScreen16;

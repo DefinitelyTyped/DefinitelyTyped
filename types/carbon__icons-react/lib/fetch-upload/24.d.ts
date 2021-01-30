@@ -1,1 +1,3 @@
-export { FetchUpload24 as default } from "../../";
+import { FetchUpload24 } from "../../";
+
+export = FetchUpload24;

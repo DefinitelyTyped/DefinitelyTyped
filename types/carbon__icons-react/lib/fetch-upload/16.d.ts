@@ -1,1 +1,3 @@
-export { FetchUpload16 as default } from "../../";
+import { FetchUpload16 } from "../../";
+
+export = FetchUpload16;

@@ -1,1 +1,3 @@
-export { MisuseOutline20 as default } from "../../";
+import { MisuseOutline20 } from "../../";
+
+export = MisuseOutline20;

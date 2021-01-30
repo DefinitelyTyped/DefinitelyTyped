@@ -1,1 +1,3 @@
-export { TextFill32 as default } from "../../";
+import { TextFill32 } from "../../";
+
+export = TextFill32;

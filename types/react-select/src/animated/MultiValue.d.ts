@@ -1,15 +1,21 @@
 import { ComponentType } from 'react';
 import { MultiValueProps } from '../components/MultiValue';
 import { Collapse, fn } from './transitions';
-import { OptionTypeBase } from '../types';
+import { GroupTypeBase, OptionTypeBase } from '../types';
 
-export type AnimatedMultiValueProps<OptionType extends OptionTypeBase> = {
+export type AnimatedMultiValueProps<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = {
     in?: boolean;
     onExited?: fn;
-} & MultiValueProps<OptionType>;
+} & MultiValueProps<OptionType, GroupType>;
 
-export function AnimatedMultiValue<OptionType extends OptionTypeBase>(
-    WrappedComponent: ComponentType<MultiValueProps<OptionType>>,
-): ComponentType<AnimatedMultiValueProps<OptionType>>;
+export function AnimatedMultiValue<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(
+    WrappedComponent: ComponentType<MultiValueProps<OptionType, GroupType>>,
+): ComponentType<AnimatedMultiValueProps<OptionType, GroupType>>;
 
 export default AnimatedMultiValue;

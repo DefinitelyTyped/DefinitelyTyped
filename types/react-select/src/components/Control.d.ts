@@ -1,7 +1,8 @@
-import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
+import { ComponentType, ReactElement, ReactNode, Ref as ElementRef } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { borderRadius, colors, spacing } from '../theme';
-import { CommonProps, OptionTypeBase, PropsWithStyles } from '../types';
+import { CommonProps, GroupTypeBase, OptionTypeBase, PropsWithStyles } from '../types';
 
 interface State {
     /** Whether the select is disabled. */
@@ -12,10 +13,11 @@ interface State {
     menuIsOpen: boolean;
 }
 
-export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends boolean> = CommonProps<
-    OptionType,
-    IsMulti
-> &
+export type ControlProps<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> = CommonProps<OptionType, IsMulti, GroupType> &
     PropsWithStyles &
     State & {
         /** Children to render. */
@@ -27,8 +29,13 @@ export type ControlProps<OptionType extends OptionTypeBase, IsMulti extends bool
         };
     };
 
-export function css(state: State): React.CSSProperties;
+export function css(state: State): CSSObject;
 
-declare const Control: ComponentType<ControlProps<any, boolean>>;
+declare function Control<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+// tslint:disable-next-line:no-unnecessary-generics
+>(props: ControlProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Control;

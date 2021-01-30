@@ -1,1 +1,3 @@
-export { ToolsAlt16 as default } from "../../";
+import { ToolsAlt16 } from "../../";
+
+export = ToolsAlt16;

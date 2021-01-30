@@ -1,1 +1,3 @@
-export { FolderMoveTo16 as default } from "../../";
+import { FolderMoveTo16 } from "../../";
+
+export = FolderMoveTo16;

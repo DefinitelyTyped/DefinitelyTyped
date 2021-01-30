@@ -1,1 +1,3 @@
-export { Hdr32 as default } from "../../";
+import { Hdr32 } from "../../";
+
+export = Hdr32;
