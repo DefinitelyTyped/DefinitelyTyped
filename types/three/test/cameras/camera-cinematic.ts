@@ -116,20 +116,21 @@ function render() {
 
         camera.focusAt(targetDistance); // using Cinematic camera focusAt method
 
-        if (INTERSECTED?.uuid !== intersects[0].object.uuid) {
+        if (INTERSECTED && INTERSECTED.uuid !== intersects[0].object.uuid) {
             if (INTERSECTED) {
                 (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED.userData.currentHex);
             }
 
             INTERSECTED = intersects[0].object as THREE.Mesh;
             if (INTERSECTED) {
-                INTERSECTED.userData.currentHex = (INTERSECTED?.material as THREE.MeshLambertMaterial).emissive.getHex();
-                (INTERSECTED?.material as THREE.MeshLambertMaterial).emissive.setHex(0xff0000);
+                INTERSECTED.userData.currentHex = (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.getHex();
+                (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(0xff0000);
             }
         }
     } else {
-        if (INTERSECTED)
-            (INTERSECTED?.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED.userData.currentHex);
+        if (INTERSECTED) {
+            (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED.userData.currentHex);
+        }
 
         INTERSECTED = null;
     }
