@@ -1,4 +1,4 @@
-// Type definitions for restify 8.4
+// Type definitions for restify 8.5
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
