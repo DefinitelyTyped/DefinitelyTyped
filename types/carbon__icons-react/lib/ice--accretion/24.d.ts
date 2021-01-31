@@ -1,1 +1,3 @@
-export { IceAccretion24 as default } from "../../";
+import { IceAccretion24 } from "../../";
+
+export = IceAccretion24;

@@ -145,6 +145,17 @@ export interface CreatePreferencePayload {
     /** Identificador de preço diferenciado. */
     id: number;
   };
+  /** Quando definido como true, o pagamento só pode ter os status approved ou rejected. Caso contrário, o status in_process é adicionado. */
+  binary_mode?: boolean;
+  /** Definição de impostos diferenciados. Disponível apenas para o Mercado Livre Colombia. */
+  taxes?: Array<{
+    /** Identificador de imposto */
+    type: 'IVA' | 'INC';
+    /** Valor do imposto. É suportado no máximo duas casas decimais. Para itens isentos de imposto, zero deve ser relatado. */
+    value: number;
+  }>;
   /** Tracks que serão executados durante a interação do usuário no fluxo de Pagamento. */
   tracks?: PreferenceTrack[];
+  /** Quando for indicado o valor wallet_purchase, o Checkout aceitará pagamentos exclusivamente de usuários cadastrados no Mercado Pago, com cartão e saldo em conta. */
+  purpose?: string;
 }

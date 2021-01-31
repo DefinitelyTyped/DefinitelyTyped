@@ -1,1 +1,3 @@
-export { BorderBottom32 as default } from "../../";
+import { BorderBottom32 } from "../../";
+
+export = BorderBottom32;

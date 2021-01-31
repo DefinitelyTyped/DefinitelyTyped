@@ -1,1 +1,3 @@
-export { Mobile24 as default } from "../../";
+import { Mobile24 } from "../../";
+
+export = Mobile24;

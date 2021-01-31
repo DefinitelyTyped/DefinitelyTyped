@@ -1,1 +1,3 @@
-export { NaturalLanguageClassifier as default } from "../../";
+import { NaturalLanguageClassifier } from "../../";
+
+export = NaturalLanguageClassifier;

@@ -1,1 +1,3 @@
-export { ContainerSoftware32 as default } from "../../";
+import { ContainerSoftware32 } from "../../";
+
+export = ContainerSoftware32;

@@ -1,1 +1,3 @@
-export { ChartErrorBar16 as default } from "../../";
+import { ChartErrorBar16 } from "../../";
+
+export = ChartErrorBar16;

@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.12
+// Type definitions for Mapbox GL JS 2.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -82,6 +82,7 @@ declare namespace mapboxgl {
 
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
+    type Offset = number | PointLike | { [_: string]: PointLike };
 
     type ExpressionName =
         // Types
@@ -126,6 +127,7 @@ declare namespace mapboxgl {
         | 'case'
         | 'match'
         | 'coalesce'
+        | 'within'
         // Ramps, scales, curves
         | 'interpolate'
         | 'interpolate-hcl'
@@ -198,6 +200,15 @@ declare namespace mapboxgl {
         ): this;
 
         removeControl(control: Control | IControl): this;
+
+        /**
+         * Checks if a control exists on the map.
+         *
+         * @param {IControl} control The {@link IControl} to check.
+         * @returns {boolean} True if map contains control.
+         * @example
+         */
+        hasControl(control: IControl): boolean;
 
         resize(eventData?: EventData): this;
 
@@ -313,17 +324,17 @@ declare namespace mapboxgl {
 
         removeImage(name: string): this;
 
-        loadImage(url: string, callback: Function): this;
+        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): this;
 
         listImages(): string[];
 
-        addLayer(layer: mapboxgl.Layer | mapboxgl.CustomLayerInterface, before?: string): this;
+        addLayer(layer: mapboxgl.AnyLayer, before?: string): this;
 
         moveLayer(id: string, beforeId?: string): this;
 
         removeLayer(id: string): this;
 
-        getLayer(id: string): mapboxgl.Layer;
+        getLayer(id: string): mapboxgl.AnyLayer;
 
         setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
@@ -342,6 +353,24 @@ declare namespace mapboxgl {
         setLight(options: mapboxgl.Light, lightOptions?: any): this;
 
         getLight(): mapboxgl.Light;
+
+        /**
+         * Sets the terrain property of the style.
+         *
+         * @param terrain Terrain properties to set. Must conform to the [Mapbox Style Specification](https://www.mapbox.com/mapbox-gl-style-spec/#terrain).
+         * If `null` or `undefined` is provided, function removes terrain.
+         * @returns {Map} `this`
+         * @example
+         * map.addSource('mapbox-dem', {
+         *     'type': 'raster-dem',
+         *     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+         *     'tileSize': 512,
+         *     'maxzoom': 14
+         * });
+         * // add the DEM source as a terrain layer with exaggerated height
+         * map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+         */
+        setTerrain(terrain?: TerrainSpecification | null): this;
 
         setFeatureState(
             feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature,
@@ -453,6 +482,39 @@ declare namespace mapboxgl {
         ): this;
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
+
+        /**
+         * Returns position and orientation of the camera entity.
+         *
+         * @memberof Map#
+         * @returns {FreeCameraOptions} The camera state
+         */
+        getFreeCameraOptions(): FreeCameraOptions;
+
+        /**
+         * FreeCameraOptions provides more direct access to the underlying camera entity.
+         * For backwards compatibility the state set using this API must be representable with
+         * `CameraOptions` as well. Parameters are clamped into a valid range or discarded as invalid
+         * if the conversion to the pitch and bearing presentation is ambiguous. For example orientation
+         * can be invalid if it leads to the camera being upside down, the quaternion has zero length,
+         * or the pitch is over the maximum pitch limit.
+         *
+         * @memberof Map#
+         * @param {FreeCameraOptions} options FreeCameraOptions object
+         * @param eventData Additional properties to be added to event objects of events triggered by this method.
+         * @fires movestart
+         * @fires zoomstart
+         * @fires pitchstart
+         * @fires rotate
+         * @fires move
+         * @fires zoom
+         * @fires pitch
+         * @fires moveend
+         * @fires zoomend
+         * @fires pitchend
+         * @returns {Map} `this`
+         */
+        setFreeCameraOptions(options: FreeCameraOptions, eventData?: Object): this;
 
         easeTo(options: mapboxgl.EaseToOptions, eventData?: mapboxgl.EventData): this;
 
@@ -713,6 +775,55 @@ declare namespace mapboxgl {
         accessToken?: string;
     }
 
+    type quat = number[];
+    type vec3 = number[];
+
+    /**
+     * Various options for accessing physical properties of the underlying camera entity.
+     * A direct access to these properties allows more flexible and precise controlling of the camera
+     * while also being fully compatible and interchangeable with CameraOptions. All fields are optional.
+     * See {@Link Camera#setFreeCameraOptions} and {@Link Camera#getFreeCameraOptions}
+     *
+     * @param {MercatorCoordinate} position Position of the camera in slightly modified web mercator coordinates
+            - The size of 1 unit is the width of the projected world instead of the "mercator meter".
+            Coordinate [0, 0, 0] is the north-west corner and [1, 1, 0] is the south-east corner.
+            - Z coordinate is conformal and must respect minimum and maximum zoom values.
+            - Zoom is automatically computed from the altitude (z)
+    * @param {quat} orientation Orientation of the camera represented as a unit quaternion [x, y, z, w]
+            in a left-handed coordinate space. Direction of the rotation is clockwise around the respective axis.
+            The default pose of the camera is such that the forward vector is looking up the -Z axis and
+            the up vector is aligned with north orientation of the map:
+            forward: [0, 0, -1]
+            up:      [0, -1, 0]
+            right    [1, 0, 0]
+            Orientation can be set freely but certain constraints still apply
+            - Orientation must be representable with only pitch and bearing.
+            - Pitch has an upper limit
+    */
+    export class FreeCameraOptions {
+        constructor(position?: MercatorCoordinate, orientation?: quat);
+
+        position: MercatorCoordinate | undefined;
+
+        /**
+         * Helper function for setting orientation of the camera by defining a focus point
+         * on the map.
+         *
+         * @param {LngLatLike} location Location of the focus point on the map
+         * @param {vec3} up Up vector of the camera is required in certain scenarios where bearing can't be deduced
+         *      from the viewing direction.
+         */
+        lookAtPoint(location: LngLatLike, up?: vec3): void;
+
+        /**
+         * Helper function for setting the orientation of the camera as a pitch and a bearing.
+         *
+         * @param {number} pitch Pitch angle in degrees
+         * @param {number} bearing Bearing angle in degrees
+         */
+        setPitchBearing(pitch: number, bearing: number): void;
+    }
+
     export type ResourceType =
         | 'Unknown'
         | 'Style'
@@ -832,6 +943,33 @@ declare namespace mapboxgl {
         enable(): void;
 
         disable(): void;
+
+        /**
+         * Returns true if the handler is enabled and has detected the start of a
+         * zoom/rotate gesture.
+         *
+         * @returns {boolean} `true` if the handler is enabled and has detected the
+         * start of a zoom/rotate gesture.
+         */
+        isActive(): boolean;
+
+        /**
+         * Disables the "keyboard pan/rotate" interaction, leaving the
+         * "keyboard zoom" interaction enabled.
+         *
+         * @example
+         *   map.keyboard.disableRotation();
+         */
+        disableRotation(): void;
+
+        /**
+         * Enables the "keyboard pan/rotate" interaction.
+         *
+         * @example
+         *   map.keyboard.enable();
+         *   map.keyboard.enableRotation();
+         */
+        enableRotation(): void;
     }
 
     /**
@@ -1014,6 +1152,14 @@ declare namespace mapboxgl {
         removeClassName(className: string): void;
 
         /**
+         * Sets the popup's offset.
+         *
+         * @param offset Sets the popup's offset.
+         * @returns {Popup} `this`
+         */
+        setOffset(offset?: Offset | null): this;
+
+        /**
          * Add or remove the given CSS class on the popup container, depending on whether the container currently has that class.
          *
          * @param {string} className Non-empty string with CSS class name to add/remove
@@ -1037,9 +1183,15 @@ declare namespace mapboxgl {
          */
         closeOnMove?: boolean;
 
+        /**
+         * @param {boolean} [options.focusAfterOpen=true] If `true`, the popup will try to focus the
+         *   first focusable element inside the popup.
+         */
+        focusAfterOpen?: boolean | null;
+
         anchor?: Anchor;
 
-        offset?: number | PointLike | { [key: string]: PointLike };
+        offset?: Offset | null;
 
         className?: string;
 
@@ -1050,7 +1202,7 @@ declare namespace mapboxgl {
         bearing?: number;
         center?: number[];
         glyphs?: string;
-        layers?: Layer[];
+        layers?: AnyLayer[];
         metadata?: any;
         name?: string;
         pitch?: number;
@@ -1261,6 +1413,19 @@ declare namespace mapboxgl {
         animate?: boolean;
 
         canvas: string | HTMLCanvasElement;
+    }
+
+    export type CameraFunctionSpecification<T> =
+        | { type: 'exponential'; stops: Array<[number, T]> }
+        | { type: 'interval'; stops: Array<[number, T]> };
+
+    export type ExpressionSpecification = Array<unknown>;
+
+    export type PropertyValueSpecification<T> = T | CameraFunctionSpecification<T> | ExpressionSpecification;
+
+    export interface TerrainSpecification {
+        source: string;
+        exaggeration?: PropertyValueSpecification<number>;
     }
 
     interface VectorSource extends Source {
@@ -1504,6 +1669,10 @@ declare namespace mapboxgl {
 
         isDraggable(): boolean;
 
+        getRotation(): number;
+
+        setRotation(rotation: number): this;
+
         getRotationAlignment(): Alignment;
 
         setRotationAlignment(alignment: Alignment): this;
@@ -1534,6 +1703,12 @@ declare namespace mapboxgl {
         /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean;
 
+        /**
+         * The max number of pixels a user can shift the mouse pointer during a click on the marker for it to be considered a valid click
+         * (as opposed to a marker drag). The default (0) is to inherit map's clickTolerance.
+         */
+        clickTolerance?: number | null;
+
         /** The rotation angle of the marker in degrees, relative to its `rotationAlignment` setting. A positive value will rotate the marker clockwise.
          * The default value is 0.
          */
@@ -1559,15 +1734,16 @@ declare namespace mapboxgl {
         scale?: number;
     }
 
+    type EventedListener = (object?: Object) => any;
     /**
      * Evented
      */
     export class Evented {
-        on(type: string, listener: Function): this;
+        on(type: string, listener: EventedListener): this;
 
-        off(type?: string | any, listener?: Function): this;
+        off(type?: string | any, listener?: EventedListener): this;
 
-        once(type: string, listener: Function): this;
+        once(type: string, listener: EventedListener): this;
 
         // https://github.com/mapbox/mapbox-gl-js/issues/6522
         fire(type: string, properties?: { [key: string]: any }): this;
@@ -1862,7 +2038,8 @@ declare namespace mapboxgl {
         | RasterLayout
         | CircleLayout
         | HeatmapLayout
-        | HillshadeLayout;
+        | HillshadeLayout
+        | SkyLayout;
 
     export type AnyPaint =
         | BackgroundPaint
@@ -1873,10 +2050,12 @@ declare namespace mapboxgl {
         | RasterPaint
         | CirclePaint
         | HeatmapPaint
-        | HillshadePaint;
+        | HillshadePaint
+        | SkyPaint;
 
-    interface LayerBase {
+    interface Layer {
         id: string;
+        type: string;
 
         metadata?: any;
         ref?: string;
@@ -1891,63 +2070,71 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
+        layout?: Layout;
+        paint?: object;
     }
 
-    interface BackgroundLayer extends LayerBase {
-        type: "background";
+    interface BackgroundLayer extends Layer {
+        type: 'background';
         layout?: BackgroundLayout;
         paint?: BackgroundPaint;
     }
 
-    interface CircleLayer extends LayerBase {
-        type: "circle";
+    interface CircleLayer extends Layer {
+        type: 'circle';
         layout?: CircleLayout;
         paint?: CirclePaint;
     }
 
-    interface FillExtrusionLayer extends LayerBase {
-        type: "fill-extrusion";
+    interface FillExtrusionLayer extends Layer {
+        type: 'fill-extrusion';
         layout?: FillExtrusionLayout;
         paint?: FillExtrusionPaint;
     }
 
-    interface FillLayer extends LayerBase {
-        type: "fill";
+    interface FillLayer extends Layer {
+        type: 'fill';
         layout?: FillLayout;
         paint?: FillPaint;
     }
 
-    interface HeatmapLayer extends LayerBase {
-        type: "heatmap";
+    interface HeatmapLayer extends Layer {
+        type: 'heatmap';
         layout?: HeatmapLayout;
         paint?: HeatmapPaint;
     }
 
-    interface HillshadeLayer extends LayerBase {
-        type: "hillshade";
+    interface HillshadeLayer extends Layer {
+        type: 'hillshade';
         layout?: HillshadeLayout;
         paint?: HillshadePaint;
     }
 
-    interface LineLayer extends LayerBase {
-        type: "line";
+    interface LineLayer extends Layer {
+        type: 'line';
         layout?: LineLayout;
         paint?: LinePaint;
     }
 
-    interface RasterLayer extends LayerBase {
-        type: "raster";
+    interface RasterLayer extends Layer {
+        type: 'raster';
         layout?: RasterLayout;
         paint?: RasterPaint;
     }
 
-    interface SymbolLayer extends LayerBase {
-        type: "symbol";
+    interface SymbolLayer extends Layer {
+        type: 'symbol';
         layout?: SymbolLayout;
         paint?: SymbolPaint;
     }
 
-    export type Layer =
+    interface SkyLayer extends Layer {
+        type: 'sky';
+        layout?: SkyLayout;
+        paint?: SkyPaint;
+    }
+
+    export type AnyLayer =
         | BackgroundLayer
         | CircleLayer
         | FillExtrusionLayer
@@ -1956,7 +2143,9 @@ declare namespace mapboxgl {
         | HillshadeLayer
         | LineLayer
         | RasterLayer
-        | SymbolLayer;
+        | SymbolLayer
+        | CustomLayerInterface
+        | SkyLayer;
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
@@ -2268,5 +2457,19 @@ declare namespace mapboxgl {
         'hillshade-highlight-color-transition'?: Transition;
         'hillshade-accent-color'?: string | Expression;
         'hillshade-accent-color-transition'?: Transition;
+    }
+
+    export interface SkyLayout extends Layout {}
+
+    export interface SkyPaint {
+        'sky-atmosphere-color'?: string | Expression;
+        'sky-atmosphere-halo-color'?: string | Expression;
+        'sky-atmosphere-sun'?: number[] | Expression;
+        'sky-atmosphere-sun-intensity'?: number | Expression;
+        'sky-gradient'?: string | Expression;
+        'sky-gradient-center'?: number[] | Expression;
+        'sky-gradient-radius'?: number | Expression;
+        'sky-opacity'?: number | Expression;
+        'sky-type'?: 'gradient' | 'atmosphere';
     }
 }

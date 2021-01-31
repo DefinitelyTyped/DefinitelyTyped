@@ -161,7 +161,7 @@ declare module "http" {
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v11.15.0/lib/_http_client.js#L64
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
         socket: Socket;
@@ -169,6 +169,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        method: string;
         readonly path: string;
         abort(): void;
         onSocket(socket: Socket): void;

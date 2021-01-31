@@ -1,7 +1,7 @@
 export interface SimpleAddress {
   zip_code: string;
   street_name: string;
-  street_number: number;
+  street_number: string;
 }
 
 export interface SimpleAddressId extends SimpleAddress {

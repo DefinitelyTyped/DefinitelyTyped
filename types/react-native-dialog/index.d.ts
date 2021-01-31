@@ -12,6 +12,7 @@ import {
     ViewProps,
     TextProps,
     StyleProp,
+    SwitchProps as ReactNativeSwitchProps,
     TextInputProps,
     ViewStyle
 } from "react-native";
@@ -61,6 +62,10 @@ interface DescriptionProps {
     children: string;
 }
 
+interface SwitchProps {
+    label?: string;
+}
+
 type reactNativeModalContainerProps = Partial<Pick<reactNativeModal.ModalProps, Exclude<keyof reactNativeModal.ModalProps, "isVisible">>>;
 
 export namespace Dialog {
@@ -76,6 +81,9 @@ export namespace Dialog {
     > {}
     class Description extends PureComponent<
         DescriptionProps & ViewProps & TextProps
+    > {}
+    class Switch extends PureComponent<
+        SwitchProps & ViewProps & ReactNativeSwitchProps
     > {}
 }
 

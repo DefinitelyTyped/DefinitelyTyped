@@ -1,1 +1,3 @@
-export { WatsonHealthDicom_600032 as default } from "../../../";
+import { WatsonHealthDicom_600032 } from "../../../";
+
+export = WatsonHealthDicom_600032;

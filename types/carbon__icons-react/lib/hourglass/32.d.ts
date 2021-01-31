@@ -1,1 +1,3 @@
-export { Hourglass32 as default } from "../../";
+import { Hourglass32 } from "../../";
+
+export = Hourglass32;

@@ -1,1 +1,3 @@
-export { ChevronMini24 as default } from "../../";
+import { ChevronMini24 } from "../../";
+
+export = ChevronMini24;

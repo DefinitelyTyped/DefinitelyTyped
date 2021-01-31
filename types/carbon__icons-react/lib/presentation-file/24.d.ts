@@ -1,1 +1,3 @@
-export { PresentationFile24 as default } from "../../";
+import { PresentationFile24 } from "../../";
+
+export = PresentationFile24;

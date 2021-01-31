@@ -1,5 +1,6 @@
-import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
+import { Collection as MongoCollection, Db as MongoDb, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
+
 declare module "meteor/mongo" {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
@@ -175,7 +176,7 @@ declare module "meteor/mongo" {
             update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
                 upsert?: boolean;
-                arrayFilters? : { [identifier: string]: any }[];
+                arrayFilters?: { [identifier: string]: any }[];
             }, callback?: Function): number;
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
@@ -242,4 +243,17 @@ declare module "meteor/mongo" {
             transform?: Function | null;
         }
     }
+}
+
+declare module MongoInternals {
+    interface MongoConnection {
+        db: MongoDb;
+        client: MongoClient;
+    }
+
+    function defaultRemoteCollectionDriver(): {
+        mongo: MongoConnection;
+    };
+
+    var NpmModules: any;
 }

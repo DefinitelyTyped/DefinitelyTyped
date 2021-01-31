@@ -1,1 +1,3 @@
-export { StorageRequest16 as default } from "../../";
+import { StorageRequest16 } from "../../";
+
+export = StorageRequest16;

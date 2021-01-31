@@ -1,1 +1,3 @@
-export { QBarrier32 as default } from "../../../";
+import { QBarrier32 } from "../../../";
+
+export = QBarrier32;

@@ -1,1 +1,3 @@
-export { DropPhoto16 as default } from "../../";
+import { DropPhoto16 } from "../../";
+
+export = DropPhoto16;

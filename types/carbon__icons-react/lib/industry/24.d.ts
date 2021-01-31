@@ -1,1 +1,3 @@
-export { Industry24 as default } from "../../";
+import { Industry24 } from "../../";
+
+export = Industry24;

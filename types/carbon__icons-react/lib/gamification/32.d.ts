@@ -1,1 +1,3 @@
-export { Gamification32 as default } from "../../";
+import { Gamification32 } from "../../";
+
+export = Gamification32;

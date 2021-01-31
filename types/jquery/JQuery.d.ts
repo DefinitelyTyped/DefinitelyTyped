@@ -8703,7 +8703,8 @@ $( "span" ).click(function() {
      */
     parents<K extends keyof HTMLElementTagNameMap>(selector: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     parents<K extends keyof SVGElementTagNameMap>(selector: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
-    parents(selector?: JQuery.Selector): this;
+    // tslint:disable-next-line:no-unnecessary-generics
+    parents<E extends HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`

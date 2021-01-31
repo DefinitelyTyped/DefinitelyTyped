@@ -1,1 +1,3 @@
-export { Campsite32 as default } from "../../";
+import { Campsite32 } from "../../";
+
+export = Campsite32;

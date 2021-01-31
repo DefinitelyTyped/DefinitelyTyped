@@ -1,1 +1,3 @@
-export { CopyLink32 as default } from "../../";
+import { CopyLink32 } from "../../";
+
+export = CopyLink32;

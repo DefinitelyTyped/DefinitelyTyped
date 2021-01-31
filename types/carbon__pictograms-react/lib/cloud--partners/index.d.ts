@@ -1,1 +1,3 @@
-export { CloudPartners as default } from "../../";
+import { CloudPartners } from "../../";
+
+export = CloudPartners;

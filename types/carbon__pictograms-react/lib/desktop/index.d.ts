@@ -1,1 +1,3 @@
-export { Desktop as default } from "../../";
+import { Desktop } from "../../";
+
+export = Desktop;

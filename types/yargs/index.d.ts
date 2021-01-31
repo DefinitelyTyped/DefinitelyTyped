@@ -1,4 +1,4 @@
-// Type definitions for yargs 15.0
+// Type definitions for yargs 16.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -564,6 +564,14 @@ declare namespace yargs {
         strict(enabled: boolean): Argv<T>;
 
         /**
+         * Similar to .strict(), except that it only applies to unrecognized commands.
+         * A user can still provide arbitrary options, but unknown positional commands
+         * will raise an error.
+         */
+        strictCommands(): Argv<T>;
+        strictCommands(enabled: boolean): Argv<T>;
+
+        /**
          * Similar to `.strict()`, except that it only applies to unrecognized options. A
          * user can still provide arbitrary positional options, but unknown options
          * will raise an error.
@@ -632,7 +640,7 @@ declare namespace yargs {
 
     type Arguments<T = {}> = T & {
         /** Non-option arguments */
-        _: string[];
+        _: Array<string | number>;
         /** The script name or node command */
         $0: string;
         /** All remaining options */

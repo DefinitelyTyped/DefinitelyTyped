@@ -180,15 +180,25 @@ const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => 
     callback(undefined, 'a message.');
 }, 2);
 
-q.drain(() => { console.log('all items have been processed'); });
-
-q.push({ name: 'foo' });
-q.push({ name: 'bar' }, err => { console.log('finished processing bar'); });
+// $ExpectType Promise<string>
+q.push<string>({ name: 'foo' });
+// $ExpectType Promise<string[]>
+q.pushAsync<string[]>({ name: 'foo' });
+// $ExpectType void
+q.push<number, SyntaxError>({ name: 'bar' }, (err: SyntaxError | null, result?: number) => {
+    console.log('finished processing bar');
+});
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], err => { console.log('finished processing bar'); });
 q.push<string>({name: 'foo'}, (err, msg) => { console.log(`foo finished with a message "${msg!}"`); });
 
-q.unshift({ name: 'foo' });
-q.unshift({ name: 'bar' }, err => { console.log('finished processing bar'); });
+// $ExpectType Promise<string>
+q.unshift<string>({ name: 'foo' });
+// $ExpectType Promise<string>
+q.unshiftAsync<string>({ name: 'foo' });
+// $ExpectType void
+q.unshift<number, SyntaxError>({ name: 'bar' }, (err: SyntaxError | null, result?: number) => {
+    console.log('finished processing bar');
+});
 q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], err => { console.log('finished processing bar'); });
 
 const qLength: number = q.length();
@@ -197,11 +207,25 @@ const qPaused: boolean = q.paused;
 const qProcessingCount: number = q.running();
 const qIsIdle: boolean = q.idle();
 
+// $ExpectType void
 q.saturated(() => { console.log('queue is saturated.'); });
+// $ExpectType Promise<void>
+q.saturated();
 
+// $ExpectType void
+q.unsaturated(() => { console.log('queue is unsaturated.'); });
+// $ExpectType Promise<void>
+q.unsaturated();
+
+// $ExpectType void
 q.empty(() => { console.log('queue is empty.'); });
+// $ExpectType Promise<void>
+q.empty();
 
+// $ExpectType void
 q.drain(() => { console.log('queue was drained.'); });
+// $ExpectType Promise<void>
+q.drain();
 
 q.pause();
 q.resume();
@@ -243,15 +267,19 @@ const q3 = async.queue<string>((task: string, callback: ErrorCallback) => {
     callback(new Error(task));
 }, 1);
 
-q3.error((error, task) => {
+// $ExpectType void
+q3.error((error: Error, task: string) => {
     console.log('task: ' +  task);
     console.log('error: ' + error);
 });
 
+// $ExpectType Promise<never>
+q3.error();
+
 q3.push(["task1", "task2", "task3"]);
 
 // create a cargo object with payload 2
-const cargo = async.cargo((tasks, callback) => {
+const cargo = async.cargo<{ name: string }>((tasks, callback) => {
     for (const task of tasks) {
         console.log('hello ' + task.name);
     }

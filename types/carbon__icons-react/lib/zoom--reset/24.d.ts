@@ -1,1 +1,3 @@
-export { ZoomReset24 as default } from "../../";
+import { ZoomReset24 } from "../../";
+
+export = ZoomReset24;

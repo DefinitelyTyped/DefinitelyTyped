@@ -151,7 +151,7 @@ declare namespace jasmine {
          * 🇪🇸
          * Chequea si un elemento contiene a otro como descendiente.
          */
-        toContainElement(element: HTMLElement | SVGElement | null): boolean;
+        toContainElement(element: Element | null): boolean;
         /**
          * @description
          * 🇬🇧

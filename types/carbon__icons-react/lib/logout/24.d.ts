@@ -1,1 +1,3 @@
-export { Logout24 as default } from "../../";
+import { Logout24 } from "../../";
+
+export = Logout24;

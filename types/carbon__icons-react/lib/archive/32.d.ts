@@ -1,1 +1,3 @@
-export { Archive32 as default } from "../../";
+import { Archive32 } from "../../";
+
+export = Archive32;

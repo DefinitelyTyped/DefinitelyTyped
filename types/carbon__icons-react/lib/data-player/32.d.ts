@@ -1,1 +1,3 @@
-export { DataPlayer32 as default } from "../../";
+import { DataPlayer32 } from "../../";
+
+export = DataPlayer32;

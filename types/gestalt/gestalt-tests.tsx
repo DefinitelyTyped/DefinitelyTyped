@@ -11,8 +11,12 @@ import {
     Checkbox,
     Collage,
     Column,
+    CompositeZIndex,
     Container,
     Divider,
+    Dropdown,
+    FixedZIndex,
+    Flex,
     Flyout,
     GroupAvatar,
     Heading,
@@ -42,6 +46,7 @@ import {
     Switch,
     Table,
     Tabs,
+    Tag,
     TapArea,
     Text,
     TextArea,
@@ -50,15 +55,26 @@ import {
     Tooltip,
     Typeahead,
     Upsell,
+    useFocusVisible,
+    useReducedMotion,
     Video,
-    FixedZIndex,
-    CompositeZIndex,
 } from 'gestalt';
 import * as React from 'react';
 
 const MasonryComponent = ({}) => {
     return <div>Masonry</div>;
 };
+
+const CheckUseFocusVisible = () => {
+    const { isFocusVisible } = useFocusVisible();
+    return <>{isFocusVisible ? 'is visible' : 'no visible'}</>;
+};
+
+const CheckUseReducedMotion = () => {
+    const shouldReduceMotion = useReducedMotion();
+    return <>{shouldReduceMotion ? 'reduced' : 'not reduced'}</>;
+};
+
 <ActivationCard
     status="notStarted"
     statusMessage="Not started"
@@ -92,8 +108,8 @@ const MasonryComponent = ({}) => {
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryLink={{ href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryLink={{ href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ href: 'https://pinterest.com', label: 'Get started' }}
+    secondaryAction={{ href: 'https://pinterest.com', label: 'Learn more' }}
     dismissButton={{
         accessibilityLabel: 'Dismiss banner',
         onDismiss: () => {},
@@ -104,6 +120,18 @@ const MasonryComponent = ({}) => {
 <Column span={1} />;
 <Container />;
 <Divider />;
+<Dropdown id="dropdown-example" onDismiss={() => {}}>
+    <Dropdown.Section label="View options">
+        <Dropdown.Item
+            option={{ value: 'item 1', label: 'Custom link 1' }}
+            handleSelect={({ item }) => {}}
+            selected={undefined}
+        >
+            <Text>Dropdown</Text>
+        </Dropdown.Item>
+    </Dropdown.Section>
+</Dropdown>;
+<Flex />;
 <Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
@@ -117,7 +145,7 @@ const MasonryComponent = ({}) => {
 <Link href="#" />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
-<Modal accessibilityModalLabel="modal" onDismiss={() => {}} />;
+<Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"
@@ -238,9 +266,10 @@ const MasonryComponent = ({}) => {
     activeTabIndex={1}
     onChange={() => {}}
 />;
+<Tag disabled text="New" />;
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
-<TextField id="email" onChange={({ value }) => value} />;
+<TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 <GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
 <Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
@@ -253,7 +282,12 @@ const MasonryComponent = ({}) => {
     options={[{ value: 'Hello', label: 'World' }]}
     placeholder="Select a Label"
 />;
-<Upsell message="Hello world" />;
+<Upsell
+    message="Hello world"
+    imageData={{
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+    }}
+/>;
 <Video
     aspectRatio={853 / 480}
     captions=""

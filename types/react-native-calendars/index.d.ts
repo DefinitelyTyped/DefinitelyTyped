@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendars 1.20
+// Type definitions for react-native-calendars 1.505
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 //                 David Noreña <https://github.com/DavidNorena>
@@ -110,6 +110,8 @@ export interface MultiPeriodMarking {
         endingDay?: boolean;
         color?: string;
     }>;
+    disabled?: boolean;
+    selected?: boolean;
 }
 
 export interface PeriodMarking {

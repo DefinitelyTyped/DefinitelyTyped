@@ -1,1 +1,3 @@
-export { ForecastHail16 as default } from "../../";
+import { ForecastHail16 } from "../../";
+
+export = ForecastHail16;

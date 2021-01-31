@@ -1,4 +1,4 @@
-import { types, Client, QueryArrayConfig, Pool } from 'pg';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -128,6 +128,25 @@ client
     })
     .then(res => console.log(res.fields[0]));
 
+const customTypes: CustomTypesConfig = {
+    getTypeParser: () => () => 'aCustomTypeParser!'
+};
+
+const queryCustomTypes = {
+    name: 'get-name',
+    text: 'SELECT $1::text',
+    values: ['brianc'],
+    types: customTypes
+};
+client.query(queryCustomTypes, (err, res) => {
+    if (err) {
+        console.error(err.stack);
+    } else {
+        console.log(res.rows);
+        console.log(res.fields.map(f => f.name));
+    }
+});
+
 client.end(err => {
     console.log('client has disconnected');
     if (err) {
@@ -136,6 +155,30 @@ client.end(err => {
 });
 
 client
+    .end()
+    .then(() => console.log('client has disconnected'))
+    .catch(err => console.error('error during disconnection', err.stack));
+
+const clientCustomQueryTypes = new Client({
+    host: 'my.database-server.com',
+    port: 5334,
+    user: 'database-user',
+    password: 'secretpassword!!',
+    application_name: 'DefinitelyTyped',
+    keepAlive: true,
+    types: customTypes
+});
+
+clientCustomQueryTypes.query(query, (err, res) => {
+    if (err) {
+        console.error(err.stack);
+    } else {
+        console.log(res.rows);
+        console.log(res.fields.map(f => f.name));
+    }
+});
+
+clientCustomQueryTypes
     .end()
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));

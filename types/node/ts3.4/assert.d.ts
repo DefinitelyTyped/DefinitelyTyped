@@ -2,9 +2,7 @@ declare module 'assert' {
     /** An alias of `assert.ok()`. */
     function assert(value: any, message?: string | Error): void;
     namespace assert {
-        class AssertionError implements Error {
-            name: string;
-            message: string;
+        class AssertionError extends Error {
             actual: any;
             expected: any;
             operator: string;
@@ -21,6 +19,7 @@ declare module 'assert' {
                 /** The `operator` property on the error instance. */
                 operator?: string;
                 /** If provided, the generated stack trace omits frames before this function. */
+                // tslint:disable-next-line:ban-types
                 stackStartFn?: Function;
             });
         }
@@ -52,6 +51,7 @@ declare module 'assert' {
             expected: any,
             message?: string | Error,
             operator?: string,
+            // tslint:disable-next-line:ban-types
             stackStartFn?: Function,
         ): never;
         function ok(value: any, message?: string | Error): void;
@@ -71,7 +71,7 @@ declare module 'assert' {
         function throws(block: () => any, message?: string | Error): void;
         function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
         function doesNotThrow(block: () => any, message?: string | Error): void;
-        function doesNotThrow(block: () => any, error: RegExp | Function, message?: string | Error): void;
+        function doesNotThrow(block: () => any, error: AssertPredicate, message?: string | Error): void;
 
         function ifError(value: any): void;
 
@@ -84,7 +84,7 @@ declare module 'assert' {
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(
             block: (() => Promise<any>) | Promise<any>,
-            error: RegExp | Function,
+            error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
 

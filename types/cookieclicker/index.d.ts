@@ -503,7 +503,16 @@ declare namespace Game {
     export function EarnHeavenlyChips(cookiesForfeited: number): void;
 
     export function GetHeavenlyMultiplier(): number;
-    export let ascensionModes: object;
+    /**
+     * An object representing a challenge mode, in game, there is currently 2 challenge modes:
+     * None and Born again.
+     */
+    export interface AscensionMode {
+        name: string;
+        desc: string;
+        icon: Icon;
+    }
+    export let ascensionModes: Record<number, AscensionMode>;
     export let ascendMeterPercent: number;
     export let ascendMeterPercentT: number;
     export let ascendMeterLevel: number;
@@ -892,16 +901,32 @@ declare namespace Game {
     export let lastPanel: string;
     export let Ticker: string;
     export let TickerAge: number;
-    export let TickerEffect: number;
+    /**
+     * A generic modification of the news ticker, used when the ticker is clicked
+     */
+    export interface TickerEffectClass {
+        type: string;
+    }
+    /**
+     * The only in-game ticker modification
+     */
+    export interface FortuneTickerEffect extends TickerEffectClass {
+        type: 'fortune';
+        /**
+         * The fortune subtype itself
+         */
+        sub: GenericTieredUpgrade<'fortune'> | 'fortuneGC' | 'fortuneCPS';
+    }
+    export let TickerEffect: PseudoNull | TickerEffectClass;
     export let TickerN: number;
     export let TickerClicks: number;
 
     export function UpdateTicker(): void;
 
     export function getNewTicker(manual: boolean): void;
-    export let tickerL: object;
-    export let tickerBelowL: object;
-    export let tickerCompactL: object;
+    export let tickerL: HTMLElement;
+    export let tickerBelowL: HTMLElement;
+    export let tickerCompactL: HTMLElement;
 
     export function TickerDraw(): void;
 
@@ -2104,9 +2129,9 @@ declare namespace Game {
 
         synergies: Array<SynergyUpgradeClass<string>>;
 
-        tieredAchievs: Array<TieredAchievementClass<number>>;
+        tieredAchievs: Record<string | number, TieredAchievementClass>;
 
-        tieredUpgrades: Array<TieredUpgradeClass<number>>;
+        tieredUpgrades: Record<string | number, TieredUpgradeClass>;
         /**
          * Generates a tooltip to show on the shop listing.
          * @return A string with the html elements
@@ -2211,7 +2236,7 @@ declare namespace Game {
         /**
          * The parents of the heavenly upgrade, present on all upgrades
          */
-        parents: HeavenlyUpgrade[];
+        parents: Upgrade[];
         /**
          * The type of the upgrade, "prestigeDecor" and "unused" are unused, "" is the default
          */
@@ -2235,6 +2260,20 @@ declare namespace Game {
         unlockAt: UnlockRequirement | PseudoNull;
 
         vanilla: PseudoBoolean;
+
+        /**
+         * If true, it is considered a pseudo cookie
+         * A pseudo cookie upgrade which represents an upgrade which doesn't have to be in the cookie pool but its power is calculated in cookie CpS bonuses
+         */
+        pseudoCookie?: PseudoBoolean | boolean;
+        /**
+         * If true, the upgrade is always unlocked, across ascensions
+         */
+        lasting?: PseudoBoolean | boolean;
+        /**
+         * If true, the upgrade cannot be put inside a permanent slot
+         */
+        noPerm?: PseudoBoolean | boolean;
         /**
          * The function that gets triggered on click, vaults or buys the upgrade
          */
@@ -2326,13 +2365,13 @@ declare namespace Game {
          */
         name: string;
         /**
-         * The name of the cookie required to unlock the cookie
+         * The name of the upgrade or achievement required to unlock the cookie
          */
-        require: string;
+        require?: string;
         /**
          * The cookie required to unlock the cookie
          */
-        season: string;
+        season?: string;
     }
     export let UnlockAt: UnlockRequirement[];
     export interface CookieUpgrade {
@@ -2352,13 +2391,9 @@ declare namespace Game {
     }
     /**
      * Creates a cookie upgrade
+     * @factory
      */
     export function NewUpgradeCookie(obj: CookieUpgradeParameter): CookieUpgrade;
-
-    export interface PseudoCookieUpgrade {
-        pseudoCookie: true;
-    }
-
     export interface Tier {
         name: string;
         /**
@@ -2388,22 +2423,37 @@ declare namespace Game {
          * If true, Upgrades with this tier won't count towards tiered CpS multiplier
          */
         special: PseudoBoolean | boolean;
-        upgrades: Array<TieredUpgradeClass<this['name']>>;
+        upgrades: GenericTieredUpgrade[];
     }
-    export let Tiers: Record<string, Tier>;
+    export let Tiers: Record<string | number, Tier>;
     export function GetIcon(type: string, tier: string | number): Icon;
     /**
-     * Sets the last created achievement/upgrade tier and building tie
+     * Sets the last created achievement/upgrade tier and building tie, converting it to a generic tiered upgrade/achievement
      * @param building The building name to associate the achievement/upgrade with
      * @param tier The tier to use
      */
     export function SetTier(building: string, tier: string | number): void;
     export function MakeTiered(upgrade: Upgrade, tier: number | string, col: number): void;
-    export interface TieredUpgradeClass<Tier extends string | number = string | number> extends Upgrade {
+    /**
+     * A generic tiered upgrade, which represents any upgrade which has a tier, mouses, cursors, kittens, etc,
+     * (Different from `TieredUpgradeClass`, since that interface only applies to building tiered upgrades, names based from the original Cookie Clicker code)
+     */
+    export interface GenericTieredUpgrade<Tier extends string | number = string | number> extends Upgrade {
         pool: '';
+        tier: Tier;
+    }
+    export interface KittenUpgrade<Tier extends string | number = string | number> extends GenericTieredUpgrade<Tier> {
+        // Pseudo-true
+        kitten: 1 | true;
+    }
+    /**
+     * A tiered upgrade which represents any upgrade which upgrades a building
+     * (Different from `GenericTieredUpgrade`, since that interface applies to all upgrades which are tiered, names based from the original Cookie Clicker code)
+     */
+    export interface TieredUpgradeClass<Tier extends string | number = string | number>
+        extends GenericTieredUpgrade<Tier> {
         buildingTie1: GameObject;
         buildingTie: GameObject;
-        tier: Tier;
     }
     /**
      * Creates a tiered upgrade based on the building
@@ -2474,7 +2524,7 @@ declare namespace Game {
         /**
          * True to make a line
          */
-        div: boolean;
+        div?: boolean;
     }
     export interface SelectorSwitch extends Upgrade {
         pool: 'toggle';
@@ -2561,6 +2611,9 @@ declare namespace Game {
 
     export function PutUpgradeInPermanentSlot(upgrade: Upgrade, slot: number): void;
 
+    /**
+     * A generic cosmetic which the game uses, can be chosen by the player
+     */
     export interface ChoiceCosmetics {
         /**
          * The picture to use
@@ -2618,7 +2671,7 @@ declare namespace Game {
 
     export function getSeasonDuration(): number;
 
-    export let UpgradesByPool: Record<UpgradePool, Upgrade[]>;
+    export let UpgradesByPool: Record<UpgradePool | 'kitten', Upgrade[]>;
     export interface HeavenlyUpgrade extends Upgrade {
         pool: 'prestige';
         posX: number;
@@ -2634,7 +2687,10 @@ declare namespace Game {
     export let goldenCookieUpgrades: string[];
 
     export let cookieUpgrades: Upgrade[];
-    export let UpgradePositions: object;
+    /**
+     * An object documenting the positions of heavenly upgrades
+     */
+    export let UpgradePositions: Record<number, [number, number]>;
 
     export let Achievements: Achievement[];
 
@@ -2707,7 +2763,7 @@ declare namespace Game {
      * @param what The name of the achievement
      */
     export function HasAchiev(what: string): PseudoBoolean;
-    export interface TieredAchievementClass<Tier extends string | number> extends Achievement {
+    export interface TieredAchievementClass<Tier extends string | number = string | number> extends Achievement {
         tier: Tier;
         buildingTie: GameObject;
     }
@@ -3008,7 +3064,7 @@ declare namespace Game {
         id?: number;
     }
 
-    export let Mods: Record<string, Mod>;
+    export let mods: Record<string, Mod>;
     export let sortedMods: Mod[];
     export let modSaveData: Record<string, string>;
     export let modHooks: Record<string, Array<() => unknown>>;
@@ -3016,7 +3072,11 @@ declare namespace Game {
 
     export function registerMod(id: string, obj: Mod): void;
 
-    export function registerHook(hook: 'cps' | 'cookiesPerClick', func: (() => number) | Array<() => number>): void;
+    export function registerHook(
+        hook: 'cps' | 'cookiesPerClick',
+        func: ((num: number) => number) | Array<(num: number) => number>,
+    ): void;
+    export function registerHook(hook: 'reset', func: ((hard: boolean) => void) | Array<(hard: boolean) => void>): void;
     export function registerHook(hook: 'ticker', func: (() => string[]) | Array<() => string[]>): void;
     export function registerHook(hook: string, func: (() => void) | Array<() => void>): void;
 }

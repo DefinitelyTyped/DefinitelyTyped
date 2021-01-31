@@ -1,1 +1,3 @@
-export { Purchase20 as default } from "../../";
+import { Purchase20 } from "../../";
+
+export = Purchase20;

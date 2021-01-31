@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "intl-tel-input-tests.ts",
-        "test/module-tests.ts"
+        "test/intl-tel-input-cjs.ts",
+        "test/intl-tel-input-global.ts"
     ]
 }

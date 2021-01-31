@@ -1,1 +1,3 @@
-export { Mp324 as default } from "../../";
+import { Mp324 } from "../../";
+
+export = Mp324;

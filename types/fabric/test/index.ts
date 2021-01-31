@@ -10,6 +10,7 @@ function sample1() {
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
+    const obj = e.target.getCoords();
   });
 
   for (let i = 0; i < 15; i++) {
@@ -118,11 +119,11 @@ function sample3() {
       const image = <fabric.Image> canvas.getActiveObject();
       checkBox.checked = !!image.filters[i];
     }
-  })
+  });
 
   canvas.on('selection:cleared', () => {
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
-  })
+  });
 
   const image = fabric.Image.fromURL('../assets/printio.png', (img: fabric.Image) => {
     const oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);

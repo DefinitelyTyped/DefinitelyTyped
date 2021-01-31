@@ -1,1 +1,3 @@
-export { Microorganisms as default } from "../../";
+import { Microorganisms } from "../../";
+
+export = Microorganisms;

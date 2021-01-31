@@ -15,7 +15,7 @@ let options: marked.MarkedOptions = {
     smartypants: false,
     tokenizer: new marked.Tokenizer(),
     renderer: new marked.Renderer(),
-    walkTokens: (tokens: marked.TokensList, callback: (token: marked.Token) => void) => {}
+    walkTokens: (callback: (token: marked.Token) => void) => {}
 };
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
@@ -88,5 +88,9 @@ console.log(inlineLexer.output('http://'));
 console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
+
+const slugger = new marked.Slugger();
+console.log(slugger.slug('Test Slug'));
+console.log(slugger.slug('Test Slug', { dryrun: true }));
 
 marked.use({ renderer });

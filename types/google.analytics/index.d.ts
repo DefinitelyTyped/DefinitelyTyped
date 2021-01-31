@@ -76,7 +76,9 @@ declare namespace UniversalAnalytics {
         cookieName?: string;
         cookieDomain?: string;
         cookieExpires?: number;
+        cookieFlags?: string;
         cookiePath?: string;
+        cookieUpdate?: boolean;
         coupon?: string;
         creative?: string;
         currencyCode?: string;

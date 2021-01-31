@@ -2150,6 +2150,7 @@ const stepInputs = (
         <StepInput disabled value={10} />
         <StepInput readOnly value={10} />
         <StepInput
+            onChange={(stepValue) => {}}
             placeholder='Error'
             validationState={{
                 state: 'error',

@@ -1,1 +1,3 @@
-export { CrowdReport16 as default } from "../../";
+import { CrowdReport16 } from "../../";
+
+export = CrowdReport16;

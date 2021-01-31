@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+export as namespace DPlayer;
+
 export type Lang = 'en' | 'zh-cn' | 'zh-tw';
 export type Preload = 'none' | 'metadata' | 'auto';
 export type VideoType = 'auto' | 'hls' | 'flv' | 'dash' | 'webtorrent' | 'normal';

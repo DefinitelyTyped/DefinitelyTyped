@@ -1,1 +1,3 @@
-export { CloseFilled16 as default } from "../../";
+import { CloseFilled16 } from "../../";
+
+export = CloseFilled16;

@@ -1,1 +1,3 @@
-export { IncompleteCancel16 as default } from "../../";
+import { IncompleteCancel16 } from "../../";
+
+export = IncompleteCancel16;

@@ -1,1 +1,3 @@
-export { Fork32 as default } from "../../";
+import { Fork32 } from "../../";
+
+export = Fork32;
