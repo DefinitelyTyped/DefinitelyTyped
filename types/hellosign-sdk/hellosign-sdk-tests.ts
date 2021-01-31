@@ -1,3 +1,5 @@
+/// <reference types="node" />
+import * as fs from 'fs';
 import { EventResponse, Signature } from 'hellosign-sdk';
 import HelloSign = require('hellosign-sdk');
 
@@ -51,7 +53,8 @@ const signatureRequestDownloadable = async (data: EventResponse) => {
             { file_type: 'pdf' },
             (err, response) => {
                 if (err) reject(err);
-                response.pipe();
+                const file = fs.createWriteStream('TEST');
+                response.pipe(file);
                 resolve('TEST');
             },
         );

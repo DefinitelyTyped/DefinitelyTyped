@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
+/// <reference types="node" />
+import { IncomingMessage } from 'http';
+
 declare class HelloSign {
     constructor(options: HelloSign.HelloSignOptions);
 
@@ -229,7 +232,7 @@ declare namespace HelloSign {
         download(
             requestId: string,
             options: { file_type: string },
-            callback: (err: Error, response: any) => void,
+            callback: (err: Error, response: IncomingMessage) => void,
         ): void;
         cancel(requestId: string): Promise<any>;
         removeAccess(requestId: string): Promise<any>;
