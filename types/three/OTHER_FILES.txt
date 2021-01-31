@@ -75,7 +75,6 @@ examples/jsm/loaders/LWOLoader.d.ts
 examples/jsm/loaders/MD2Loader.d.ts
 examples/jsm/loaders/MDDLoader.d.ts
 examples/jsm/loaders/MMDLoader.d.ts
-examples/jsm/loaders/MTLLoader.d.ts
 examples/jsm/loaders/NRRDLoader.d.ts
 examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
