@@ -7,7 +7,6 @@ examples/jsm/controls/DeviceOrientationControls.d.ts
 examples/jsm/controls/DragControls.d.ts
 examples/jsm/controls/FirstPersonControls.d.ts
 examples/jsm/controls/FlyControls.d.ts
-examples/jsm/controls/OrbitControls.d.ts
 examples/jsm/controls/PointerLockControls.d.ts
 examples/jsm/controls/TrackballControls.d.ts
 examples/jsm/controls/TransformControls.d.ts
@@ -92,7 +91,6 @@ examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
-examples/jsm/loaders/RGBELoader.d.ts
 examples/jsm/loaders/RGBMLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
 examples/jsm/loaders/SVGLoader.d.ts
