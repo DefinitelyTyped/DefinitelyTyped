@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
+import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
 import { BokehShaderUniforms } from 'three/examples/jsm/shaders/BokehShader2';
 
 const camera = new CinematicCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
