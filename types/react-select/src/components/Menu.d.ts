@@ -58,17 +58,12 @@ export type MenuProps<
 
 export function menuCSS(state: MenuState): CSSObject;
 
-export class Menu<
+declare function Menu<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-> extends Component<MenuProps<OptionType, IsMulti, GroupType>, MenuState> {
-    static contextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getPlacement: (ref: ElementRef<any>) => void;
-    getState: () => MenuProps<OptionType, IsMulti, GroupType> & MenuState;
-}
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Menu;
 
@@ -98,7 +93,12 @@ export type MenuListComponentProps<
 > = CommonProps<OptionType, IsMulti, GroupType> & MenuListProps & MenuListState;
 
 export function menuListCSS(state: MenuState): CSSObject;
-export const MenuList: ComponentType<MenuListComponentProps<any, boolean>>;
+export function MenuList<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: MenuListComponentProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Menu Notices
@@ -118,12 +118,22 @@ export type NoticeProps<
     innerProps: { [key: string]: any };
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps<any, boolean>>;
+export function NoOptionsMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps<any, boolean>>;
+export function LoadingMessage<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
@@ -159,13 +169,6 @@ export class MenuPortal<
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > extends Component<MenuPortalProps<OptionType, IsMulti, GroupType>, MenuPortalState> {
-    static childContextTypes: {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-    getChildContext(): {
-        getPortalPlacement: (state: MenuState) => void;
-    };
-
     // callback for occassions where the menu must "flip"
     getPortalPlacement: (state: MenuState) => void;
 }

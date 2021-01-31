@@ -7,6 +7,9 @@
 //                 Rafa Horo <https://github.com/rafahoro>
 //                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
+
+import { check } from 'meteor/check';
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
     addValidationErrors(errors: any): void;
@@ -129,7 +132,7 @@ interface CleanOption {
 }
 
 interface SimpleSchemaOptions {
-  check?: boolean;
+  check?: typeof check;
   clean?: CleanOption;
   defaultLabel?: string;
   humanizeAutoLabels?: boolean;

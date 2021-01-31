@@ -1,4 +1,5 @@
 import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
+import { check } from 'meteor/check';
 
 const schema: SimpleSchemaDefinition = {
     basicString: {
@@ -106,7 +107,8 @@ const StringSchemaWithOptions = new SimpleSchema({
         trimStrings: true,
         getAutoValues: true,
         removeNullsFromArrays: true,
-    }
+    },
+    check,
 });
 
 new SimpleSchema({

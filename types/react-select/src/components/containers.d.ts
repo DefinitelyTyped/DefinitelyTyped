@@ -1,4 +1,4 @@
-import { Component, ReactNode, ComponentType } from 'react';
+import { Component, ReactElement, ReactNode, ComponentType } from 'react';
 import { CSSObject } from '@emotion/serialize';
 import { spacing } from '../theme';
 import { CommonProps, GroupTypeBase, KeyboardEventHandler, OptionTypeBase } from '../types';
@@ -26,7 +26,12 @@ export type ContainerProps<
         innerProps: { onKeyDown: KeyboardEventHandler };
     };
 export function containerCSS(state: ContainerState): CSSObject;
-export const SelectContainer: ComponentType<ContainerProps<any, boolean>>;
+export function SelectContainer<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: ContainerProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Value Container
@@ -45,7 +50,12 @@ export type ValueContainerProps<
     children: ReactNode;
 };
 export function valueContainerCSS(): CSSObject;
-export class ValueContainer extends Component<ValueContainerProps<any, boolean>> {}
+export function ValueContainer<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: ValueContainerProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Indicator Container
@@ -69,4 +79,9 @@ export type IndicatorContainerProps<
     };
 
 export function indicatorsContainerCSS(): CSSObject;
-export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any, boolean>>;
+export function IndicatorsContainer<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: IndicatorContainerProps<OptionType, IsMulti, GroupType>): ReactElement;

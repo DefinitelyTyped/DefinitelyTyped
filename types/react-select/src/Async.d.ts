@@ -2,7 +2,7 @@ import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
-import { GroupedOptionsType, OptionsType, InputActionMeta, OptionTypeBase, GroupTypeBase } from './types';
+import { OptionsType, InputActionMeta, OptionTypeBase, GroupTypeBase } from './types';
 
 export interface AsyncProps<
     OptionType extends OptionTypeBase,
@@ -13,15 +13,15 @@ export interface AsyncProps<
      * set to `true`, the results for loadOptions('') will be autoloaded.
      * @default false
      */
-    defaultOptions?: GroupedOptionsType<OptionType, GroupType> | OptionsType<OptionType> | boolean;
+    defaultOptions?: ReadonlyArray<OptionType | GroupType> | boolean;
     /**
      * Function that returns a promise, which is the set of options to be used
      * once the promise resolves.
      */
-    loadOptions: (
+    loadOptions?: (
         inputValue: string,
-        callback: (options: OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>) => void,
-    ) => Promise<OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>> | void;
+        callback: (options: ReadonlyArray<OptionType | GroupType>) => void,
+    ) => Promise<ReadonlyArray<OptionType | GroupType>> | void;
     /**
      * If cacheOptions is truthy, then the loaded data will be cached. The cache
      * will remain until `cacheOptions` changes value.

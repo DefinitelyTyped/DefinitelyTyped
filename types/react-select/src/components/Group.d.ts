@@ -1,4 +1,4 @@
-import { ReactNode, ComponentType } from 'react';
+import { ReactNode, ComponentType, ReactElement } from 'react';
 import { CSSObject } from '@emotion/serialize';
 
 import { spacing } from '../theme';
@@ -22,7 +22,12 @@ export type GroupProps<
 
 export function groupCSS(): CSSObject;
 
-export const Group: ComponentType<GroupProps<any, boolean>>;
+declare function Group<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: GroupProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export type GroupHeadingProps<
     OptionType extends OptionTypeBase,
@@ -32,6 +37,11 @@ export type GroupHeadingProps<
 
 export function groupHeadingCSS(): CSSObject;
 
-export const GroupHeading: ComponentType<any>;
+export function GroupHeading<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: GroupHeadingProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Group;
