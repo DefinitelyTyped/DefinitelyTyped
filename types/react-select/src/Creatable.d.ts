@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionsType, GroupedOptionsType, ValueType, ActionMeta, OptionTypeBase, GroupTypeBase } from './types';
+import { OptionsType, ValueType, ActionMeta, OptionTypeBase, GroupTypeBase } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
@@ -27,7 +27,7 @@ export interface CreatableProps<
     isValidNewOption?: (
         inputValue: string,
         value: ValueType<OptionType, IsMulti>,
-        options: OptionsType<OptionType> | GroupedOptionsType<OptionType, GroupType>,
+        options: ReadonlyArray<OptionType | GroupType>,
     ) => boolean;
     /**
      * Returns the data for the new option when it is created. Used to display the
