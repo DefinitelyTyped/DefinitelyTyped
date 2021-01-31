@@ -16,6 +16,6 @@ export interface WaterOptions {
     fog?: boolean;
 }
 
-export class Water<Geom extends BufferGeometry> extends Mesh {
-    constructor(geometry: Geom, options: WaterOptions);
+export class Water extends Mesh {
+    constructor(geometry: BufferGeometry, options: WaterOptions);
 }

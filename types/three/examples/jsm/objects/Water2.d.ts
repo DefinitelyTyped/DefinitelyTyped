@@ -16,6 +16,6 @@ export interface Water2Options {
     encoding?: TextureEncoding;
 }
 
-export class Water2<Geom extends BufferGeometry> extends Mesh {
-    constructor(geometry: Geom, options: Water2Options);
+export class Water2 extends Mesh {
+    constructor(geometry: BufferGeometry, options: Water2Options);
 }

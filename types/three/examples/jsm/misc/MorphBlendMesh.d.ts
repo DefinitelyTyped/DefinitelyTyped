@@ -1,7 +1,7 @@
 import { BufferGeometry, Material, Mesh } from '../../../src/Three';
 
-export class MorphBlendMesh<Geom extends BufferGeometry, Mat extends Material> extends Mesh {
-    constructor(geometry: Geom, material: Mat);
+export class MorphBlendMesh extends Mesh {
+    constructor(geometry: BufferGeometry, material: Material);
     animationsMap: object;
     animationsList: object[];
 

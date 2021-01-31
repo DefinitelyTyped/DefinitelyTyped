@@ -9,8 +9,8 @@ export interface ReflectorOptions {
     encoding?: TextureEncoding;
 }
 
-export class Reflector<Geom extends BufferGeometry> extends Mesh {
-    constructor(geometry?: Geom, options?: ReflectorOptions);
+export class Reflector extends Mesh {
+    constructor(geometry?: BufferGeometry, options?: ReflectorOptions);
 
     getRenderTarget(): WebGLRenderTarget;
 }

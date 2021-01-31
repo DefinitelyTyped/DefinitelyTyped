@@ -9,8 +9,8 @@ export interface RefractorOptions {
     encoding?: TextureEncoding;
 }
 
-export class Refractor<Geom extends BufferGeometry> extends Mesh {
-    constructor(geometry?: Geom, options?: RefractorOptions);
+export class Refractor extends Mesh {
+    constructor(geometry?: BufferGeometry, options?: RefractorOptions);
 
     getRenderTarget(): WebGLRenderTarget;
 }
