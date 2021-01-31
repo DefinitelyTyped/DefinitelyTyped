@@ -26,7 +26,7 @@ declare function Group<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: GroupProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export type GroupHeadingProps<
@@ -41,7 +41,7 @@ export function GroupHeading<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: GroupHeadingProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Group;

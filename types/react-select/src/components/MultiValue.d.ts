@@ -56,13 +56,13 @@ export type MultiValueRemoveProps<
 export function MultiValueRemove<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: MultiValueRemoveProps<OptionType, GroupType>): ReactElement;
 
 declare function MultiValue<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: MultiValueProps<OptionType, GroupType>): ReactElement;
 
 export default MultiValue;

@@ -30,7 +30,7 @@ export function SelectContainer<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: ContainerProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
@@ -54,7 +54,7 @@ export function ValueContainer<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: ValueContainerProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
@@ -83,5 +83,5 @@ export function IndicatorsContainer<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: IndicatorContainerProps<OptionType, IsMulti, GroupType>): ReactElement;

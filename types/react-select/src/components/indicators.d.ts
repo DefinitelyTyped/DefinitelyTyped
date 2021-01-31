@@ -39,7 +39,7 @@ export function DropdownIndicator<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export const clearIndicatorCSS: baseCSS;
@@ -47,7 +47,7 @@ export function ClearIndicator<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
@@ -64,7 +64,7 @@ export function IndicatorSeparator<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
@@ -110,6 +110,6 @@ export function LoadingIndicator<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 // TODO LoadingIndicator.defaultProps: { size: number };

@@ -1,7 +1,15 @@
 import * as React from 'react';
 import * as chrono from '../ChronoNodeDummy';
 
-import Select, { components as SelectComponents } from 'react-select';
+import Select, { components as SelectComponents, GroupProps } from 'react-select';
+import { CSSObject } from '@emotion/serialize';
+
+interface DateOption {
+    date: Date;
+    value: Date;
+    label: string;
+    display?: string;
+}
 
 interface DateOption {
     date: Date;
@@ -101,10 +109,10 @@ const daysContainerStyles = {
     paddingLeft: '2%',
 };
 
-const Group = (props: any) => {
-    const { Heading, getStyles, children, label, innerProps, headingProps, cx } = props;
+const Group = (props: GroupProps<DateOption, false>) => {
+    const { Heading, getStyles, children, label, headingProps, cx } = props;
     return (
-        <div aria-label={label} css={getStyles('group', props)} {...innerProps}>
+        <div aria-label={label as string} style={getStyles('group', props)}>
             <Heading getStyles={getStyles} cx={cx} {...headingProps}>
                 {label}
             </Heading>
@@ -177,7 +185,7 @@ class DatePicker extends React.Component<any> {
                 components={{ Group, Option }}
                 filterOption={null}
                 isMulti={false}
-                isOptionSelected={(o, v) => v.some(i => i.date.isSame(o.date, 'day'))}
+                isOptionSelected={(o, v) => v.some(i => i.date === o.date)}
                 maxMenuHeight={380}
                 onChange={this.props.onChange}
                 onInputChange={this.handleInputChange}
