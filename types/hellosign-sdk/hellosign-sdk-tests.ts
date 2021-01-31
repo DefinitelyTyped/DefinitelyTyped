@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as fs from 'fs';
 import { EventResponse, Signature } from 'hellosign-sdk';
 import HelloSign = require('hellosign-sdk');
