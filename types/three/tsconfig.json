@@ -15,12 +15,12 @@
     "files": [
         "index.d.ts",
         "three-tests.ts",
-        "tests/geometries/geometry-cube.ts",
-        "tests/geometries/geometry-shapes.ts",
-        "tests/materials/materials-variations-basic.ts",
-        "tests/materials/materials-variations-lambert.ts",
-        "tests/materials/materials-variations-phong.ts",
-        "tests/materials/materials-variations-physical.ts",
-        "tests/materials/materials-variations-standard.ts"
+        "test/geometries/geometry-cube.ts",
+        "test/geometries/geometry-shapes.ts",
+        "test/materials/materials-variations-basic.ts",
+        "test/materials/materials-variations-lambert.ts",
+        "test/materials/materials-variations-phong.ts",
+        "test/materials/materials-variations-physical.ts",
+        "test/materials/materials-variations-standard.ts"
     ]
 }
