@@ -7,7 +7,6 @@ examples/jsm/controls/DragControls.d.ts
 examples/jsm/controls/FirstPersonControls.d.ts
 examples/jsm/controls/FlyControls.d.ts
 examples/jsm/controls/PointerLockControls.d.ts
-examples/jsm/controls/TrackballControls.d.ts
 examples/jsm/controls/TransformControls.d.ts
 examples/jsm/csm/CSM.d.ts
 examples/jsm/csm/CSMHelper.d.ts
@@ -42,14 +41,12 @@ examples/jsm/geometries/RoundedBoxGeometry.d.ts
 examples/jsm/geometries/TeapotGeometry.d.ts
 examples/jsm/helpers/LightProbeHelper.d.ts
 examples/jsm/helpers/PositionalAudioHelper.d.ts
-examples/jsm/helpers/RectAreaLightHelper.d.ts
 examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/SelectionBox.d.ts
 examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/stats.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
-examples/jsm/lights/RectAreaLightUniformsLib.d.ts
 examples/jsm/lines/Line2.d.ts
 examples/jsm/lines/LineGeometry.d.ts
 examples/jsm/lines/LineMaterial.d.ts
@@ -69,7 +66,6 @@ examples/jsm/loaders/DRACOLoader.d.ts
 examples/jsm/loaders/EXRLoader.d.ts
 examples/jsm/loaders/FBXLoader.d.ts
 examples/jsm/loaders/GCodeLoader.d.ts
-examples/jsm/loaders/GLTFLoader.d.ts
 examples/jsm/loaders/HDRCubeTextureLoader.d.ts
 examples/jsm/loaders/KMZLoader.d.ts
 examples/jsm/loaders/KTX2Loader.d.ts
@@ -84,7 +80,6 @@ examples/jsm/loaders/MDDLoader.d.ts
 examples/jsm/loaders/MMDLoader.d.ts
 examples/jsm/loaders/MTLLoader.d.ts
 examples/jsm/loaders/NRRDLoader.d.ts
-examples/jsm/loaders/OBJLoader.d.ts
 examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
