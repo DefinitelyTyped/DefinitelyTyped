@@ -16,6 +16,11 @@
         "index.d.ts",
         "three-tests.ts",
         "tests/geometries/geometry-cube.ts",
-        "tests/geometries/geometry-shapes.ts"
+        "tests/geometries/geometry-shapes.ts",
+        "tests/materials/materials-variations-basic.ts",
+        "tests/materials/materials-variations-lambert.ts",
+        "tests/materials/materials-variations-phong.ts",
+        "tests/materials/materials-variations-physical.ts",
+        "tests/materials/materials-variations-standard.ts"
     ]
 }
