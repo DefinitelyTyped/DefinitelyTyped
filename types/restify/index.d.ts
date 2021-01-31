@@ -6,6 +6,7 @@
 //                 Mitchell Bundy <https://github.com/mgebundy>
 //                 Alexandre Moraes <https://github.com/alcmoraes>
 //                 Quinn Langille <https://github.com/quinnlangille>
+//                 Gaikwad Pratik <https://github.com/GaikwadPratik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -626,7 +627,7 @@ export interface Request extends http.IncomingMessage {
      *  name: 'getpingname'
      * }
      */
-    getRoute(): RouteSpec;
+    getRoute(): Route;
 
     /** bunyan logger you can piggyback on. */
     log: Logger;
