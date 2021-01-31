@@ -3,7 +3,7 @@ import * as THREE from 'three';
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-let mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
+let mesh: THREE.Mesh;
 
 init();
 animate();

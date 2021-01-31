@@ -7,7 +7,7 @@ const container = document.createElement('div');
 const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 2500);
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-let particleLight: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
+let particleLight: THREE.Mesh;
 
 const loader = new THREE.FontLoader();
 loader.load('fonts/gentilis_regular.typeface.json', font => {
