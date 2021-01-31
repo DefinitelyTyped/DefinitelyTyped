@@ -98,7 +98,7 @@ export interface UseFormInstance<
 
     runValidation(): void;
 
-    getFieldValue(fieldPath: string): void;
+    getFieldValue(fieldPath: string): ValueType;
 
     getFieldMeta(fieldPath: string): FieldMetaType;
 }
