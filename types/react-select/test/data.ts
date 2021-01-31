@@ -1,4 +1,4 @@
-import { GroupedOptionsType, GroupTypeBase } from 'react-select/src/types';
+import { GroupTypeBase } from 'react-select/src/types';
 
 export interface ColourOption {
     value: string;
