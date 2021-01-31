@@ -2,7 +2,6 @@ examples/jsm/animation/AnimationClipCreator.d.ts
 examples/jsm/animation/CCDIKSolver.d.ts
 examples/jsm/animation/MMDAnimationHelper.d.ts
 examples/jsm/animation/MMDPhysics.d.ts
-examples/jsm/cameras/CinematicCamera.d.ts
 examples/jsm/controls/DeviceOrientationControls.d.ts
 examples/jsm/controls/DragControls.d.ts
 examples/jsm/controls/FirstPersonControls.d.ts
@@ -253,7 +252,6 @@ examples/jsm/shaders/BasicShader.d.ts
 examples/jsm/shaders/BleachBypassShader.d.ts
 examples/jsm/shaders/BlendShader.d.ts
 examples/jsm/shaders/BokehShader.d.ts
-examples/jsm/shaders/BokehShader2.d.ts
 examples/jsm/shaders/BrightnessContrastShader.d.ts
 examples/jsm/shaders/ColorCorrectionShader.d.ts
 examples/jsm/shaders/ColorifyShader.d.ts

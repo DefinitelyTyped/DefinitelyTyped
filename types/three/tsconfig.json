@@ -15,6 +15,9 @@
     "files": [
         "index.d.ts",
         "three-tests.ts",
+        "test/cameras/camera.ts",
+        "test/cameras/camera-array.ts",
+        "test/cameras/camera-cinematic.ts",
         "test/geometries/geometry-cube.ts",
         "test/geometries/geometry-shapes.ts",
         "test/materials/materials-variations-basic.ts",
