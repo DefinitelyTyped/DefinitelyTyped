@@ -187,11 +187,11 @@ export interface NamedProps<
     /** Select the currently focused option when the user presses tab */
     tabSelectsValue?: boolean;
     /** The value of the select; reflected by the selected option */
-    value?: ValueType<OptionType, IsMulti>;
+    value?: readonly OptionType[] | OptionType | null;
 
     defaultInputValue?: string;
     defaultMenuIsOpen?: boolean;
-    defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
+    defaultValue?: readonly OptionType[] | OptionType | null;
 }
 
 export interface Props<
