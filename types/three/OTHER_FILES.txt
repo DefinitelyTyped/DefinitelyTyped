@@ -61,13 +61,11 @@ examples/jsm/loaders/AssimpLoader.d.ts
 examples/jsm/loaders/BasisTextureLoader.d.ts
 examples/jsm/loaders/BVHLoader.d.ts
 examples/jsm/loaders/ColladaLoader.d.ts
-examples/jsm/loaders/DRACOLoader.d.ts
 examples/jsm/loaders/EXRLoader.d.ts
 examples/jsm/loaders/FBXLoader.d.ts
 examples/jsm/loaders/GCodeLoader.d.ts
 examples/jsm/loaders/HDRCubeTextureLoader.d.ts
 examples/jsm/loaders/KMZLoader.d.ts
-examples/jsm/loaders/KTX2Loader.d.ts
 examples/jsm/loaders/KTXLoader.d.ts
 examples/jsm/loaders/LDrawLoader.d.ts
 examples/jsm/loaders/LottieLoader.d.ts
