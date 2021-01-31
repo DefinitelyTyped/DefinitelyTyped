@@ -6,19 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "target": "es6",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-native-sha1-test.ts"
+        "react-native-sha1-tests.ts"
     ]
 }
