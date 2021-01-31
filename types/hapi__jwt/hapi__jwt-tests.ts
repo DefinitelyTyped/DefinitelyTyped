@@ -5,7 +5,7 @@ import * as Jwt from '@hapi/jwt';
 
 const server = Hapi.server({ port: 8000 });
 
-await server.register(Jwt);
+server.register(Jwt);
 
 server.auth.strategy('my_jwt_stategy', 'jwt', {
     keys: 'some_shared_secret',

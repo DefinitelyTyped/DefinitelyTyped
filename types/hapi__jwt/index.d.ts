@@ -62,7 +62,7 @@ declare namespace hapiJwt {
          */
         rejectUnauthorized?: boolean;
         /**
-         *Object containing the request headers to send to the uri.
+         * Object containing the request headers to send to the uri.
          */
         header?: object;
         /**
@@ -259,7 +259,7 @@ declare namespace hapiJwt {
          */
         typ?: boolean;
         /**
-         * Integer as an alternative way to set iat claim. Takes JavaScript style epoch time (with ms). iat claim must not be set and iat option must not be false. Milliseconds are truncated, not rounded.
+         * Integer as an alternative way to set iat claim. Takes JavaScript style epoch time (with ms). iat claim must not be set and iat option must not be false. Milliseconds are truncated.
          */
         now?: number;
         /**
@@ -305,7 +305,7 @@ declare namespace hapiJwt {
          */
         jti?: string | string[];
         /**
-         *String or array of strings that matches the nonce of the token. nonce is used on Open ID for the ID Tokens.
+         * String or array of strings that matches the nonce of the token. nonce is used on Open ID for the ID Tokens.
          */
         nonce?: string | string[];
         /**
@@ -358,7 +358,8 @@ declare namespace hapiJwt {
          */
         verify: (artifacts: Artifacts, secret: Secret, options?: VerifyTokenOptions) => void | never;
         /**
-         * A function that will complete if the signature is valid or throw an error if invalid. This does not do verification on the payload. An expired token will not throw an error if the signature is valid.
+         * A function that will complete if the signature is valid or throw an error if invalid. This does not do verification on the payload.
+         * An expired token will not throw an error if the signature is valid.
          *
          * @param artifacts object of decoded token in artifacts format.
          * @param raw object of decoded token in raw format.
