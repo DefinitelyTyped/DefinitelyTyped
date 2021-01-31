@@ -12,6 +12,10 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "three-tests.ts"],
-    "include": ["tests/geometries/*.ts", "tests/materials/*.ts", "tests/cameras/*.ts", "tests/lights/*.ts"]
+    "files": [
+        "index.d.ts",
+        "three-tests.ts",
+        "tests/geometries/geometry-cube.ts",
+        "tests/geometries/geometry-shapes.ts"
+    ]
 }
