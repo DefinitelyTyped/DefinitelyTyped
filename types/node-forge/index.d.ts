@@ -33,6 +33,7 @@ declare module "node-forge" {
 
     namespace jsbn {
         class BigInteger {
+            constructor(s: string | null | undefined, t: number | null | undefined)
             data: number[];
             t: number;
             s: number;
