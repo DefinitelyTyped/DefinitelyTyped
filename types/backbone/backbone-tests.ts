@@ -93,7 +93,7 @@ class SettingDefaults extends Backbone.Model {
 }
 
 class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
-    getILikeBacon(): boolean {
+    getILikeBacon(): boolean | undefined {
         return this.get('iLikeBacon');
     }
 
@@ -580,7 +580,7 @@ function testTypedModel() {
     model.set('stringAttr', 1); // $ExpectError
     model.set('stringAttr', 'stringValue'); // $ExpectType TypedModel
     model.get('unknownAttr'); // $ExpectError
-    model.get('stringAttr'); // $ExpectType string
+    model.get('stringAttr'); // $ExpectType string | undefined
     model.attributes; // $ExpectType Partial<TypedModelAttributes>
     model.changedAttributes(); // $ExpectType false | Partial<TypedModelAttributes>
     model.changedAttributes({ unknownAttr: 1 }); // $ExpectError
@@ -606,9 +606,13 @@ function testTypedModel() {
     model.pick('unknownAttr'); // $ExpectError
     model.pick(['unknownAttr', 'numberAttr']); // $ExpectError
     model.pick('stringAttr', 'numberAttr');
+    model.pick(['stringAttr'])['numberAttr']; // $ExpectError
+    model.pick(['stringAttr'])['stringAttr']; // $ExpectType string | undefined
     model.pick(['stringAttr', 'numberAttr']);
     model.omit('unknownAttr'); // $ExpectError
     model.omit(['unknownAttr', 'numberAttr']); // $ExpectError
+    model.omit(['stringAttr'])['numberAttr']; // $ExpectType number | undefined
+    model.omit(['stringAttr'])['stringAttr']; // $ExpectError
     model.omit('stringAttr', 'numberAttr');
     model.omit(['stringAttr', 'numberAttr']);
 }

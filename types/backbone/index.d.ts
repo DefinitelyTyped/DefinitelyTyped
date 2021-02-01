@@ -20,6 +20,10 @@ export as namespace Backbone;
 import * as _ from 'underscore';
 
 declare namespace Backbone {
+    type _Exclude<T, U> = T extends U ? never : T;
+    type _Omit<T, K extends string | number | symbol> = { [P in _Exclude<keyof T, K>]: T[P] };
+    type _Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
     interface AddOptions extends Silenceable {
         at?: number;
         merge?: boolean;
@@ -64,14 +68,10 @@ declare namespace Backbone {
         parse?: boolean;
     }
 
-    interface PersistenceOptions {
-        url?: string;
-        data?: any;
-        beforeSend?: (jqxhr: JQueryXHR) => void;
-        timeout?: number;
-        // TODO: copy all parameters from JQueryAjaxSettings except success/error callbacks?
-        success?: (modelOrCollection?: any, response?: any, options?: any) => void;
-        error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
+    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
+        // TODO: Generalize modelOrCollection
+        success?: (modelOrCollection: any, response: any, options: any) => void;
+        error?: (modelOrCollection: any, response: any, options: any) => void;
         emulateJSON?: boolean;
         emulateHTTP?: boolean;
     }
@@ -245,7 +245,7 @@ declare namespace Backbone {
          */
         url: () => string;
 
-        urlRoot: any;
+        urlRoot: string | (() => string);
 
         /**
          * For use with models as ES classes. If you define a preinitialize
@@ -267,7 +267,7 @@ declare namespace Backbone {
          *    return super.get("name");
          * }
          */
-        get<a extends keyof T & string>(attributeName: a): T[a];
+        get<a extends keyof T & string>(attributeName: a): T[a] | undefined;
 
         /**
          * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -310,12 +310,12 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick(keys: Array<keyof T & string>): any;
-        pick(...keys: Array<keyof T & string>): any;
-        pick(fn: (value: any, key: any, object: any) => any): any;
-        omit(keys: Array<keyof T & string>): any;
-        omit(...keys: Array<keyof T & string>): any;
-        omit(fn: (value: any, key: any, object: any) => any): any;
+        pick<a extends keyof T & string>(keys: a[]): Partial<_Pick<T, a>>;
+        pick<a extends keyof T & string>(...keys: a[]): Partial<_Pick<T, a>>;
+        pick(fn: (value: any, key: any, object: any) => any): Partial<T>;
+        omit<a extends keyof T & string>(keys: a[]): Partial<_Omit<T, a>>;
+        omit<a extends keyof T & string>(...keys: a[]): Partial<_Omit<T, a>>;
+        omit(fn: (value: any, key: any, object: any) => any): Partial<T>;
         chain(): any;
         isEmpty(): boolean;
         matches(attrs: any): boolean;
