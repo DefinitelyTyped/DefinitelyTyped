@@ -2039,6 +2039,58 @@ declare namespace Autodesk {
     }
 
     namespace Extensions {
+      namespace Measure {
+        class MeasureExtension extends Viewing.Extension {
+          activeStatus: boolean;
+          calibration: any;
+          calibrationTool: Viewing.ToolInterface;
+          measureTool: Viewing.ToolInterface;
+          mode: string;
+          modes: string[];
+          name: string;
+          sharedMeasureConfig: {
+            units: string;
+            precision: number;
+            calibrationFactor: number;
+          };
+          snapper: Viewing.Extensions.Snapping.Snapper;
+
+          activate(mode: string): boolean;
+          calibrate(requestedUnits: string, requestedSize: number): void;
+          calibrateByScale(requestedUnits: string, requestedSize: number): void;
+          changeMeasurementType(measurementType: Viewing.MeasureCommon.MeasurementTypes): void;
+          deleteCurrentMeasurement(): void;
+          deleteMeasurements(): void;
+          enableCalibrationTool(enable: boolean): boolean;
+          enableMeasureTool(enable: boolean, measurementType: Viewing.MeasureCommon.MeasurementTypes): boolean;
+          enterMeasurementMode(): void;
+          exitMeasurementMode(): void;
+          getCalibration(): any;
+          getCalibrationFactor(): number;
+          getDefaultUnit(): string;
+          getMeasurement(unitType: string, precision: number): object;
+          getMeasurementList(unitType: string, precision: number): object[];
+          getPrecision(): number;
+          getPrecisionOptions(isFractional: boolean): string[];
+          getUnitOptions(): object[];
+          getUnits(): string;
+          isCalibrationValid(requestedUnits: string, requestedSize: number): boolean;
+          isFreeMeasureMode(): boolean;
+          selectMeasurementById(id: number): void;
+          setActive(active: boolean): boolean;
+          setForceLeafletCalibrate(enable: boolean): void;
+          setForcePDFCalibrate(enable: boolean): void;
+          setFreeMeasureModel(allow: boolean, useLastViewport: boolean): void;
+          setIsolateMeasure(enable: boolean): void;
+          setMeasurements(measurements: object[]|object): void;
+          setPrecision(): number;
+          setRestoreSessionMeasurements(enable: boolean): void;
+          setUnits(units: string): void;
+          showAddCalibrationLabel(): void;
+          toggle(): boolean;
+        }
+      }
+
       class DataVisualization extends Viewing.Extension {
         sceneModel: Viewing.Model;
 
