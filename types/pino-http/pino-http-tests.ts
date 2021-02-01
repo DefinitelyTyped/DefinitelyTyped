@@ -1,7 +1,6 @@
 import http = require('http');
 import pino = require('pino');
 import pinoHttp = require('pino-http');
-
 import { Writable } from 'stream';
 
 const logger = pino();
