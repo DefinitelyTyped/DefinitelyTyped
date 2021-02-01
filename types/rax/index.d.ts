@@ -206,7 +206,6 @@ declare namespace Rax {
     | ((props: P) => RaxElement | null)
     | (new (props: P) => Component<P, any>);
 
-
   type Key = string | number;
 
   interface RefObject<T> {
