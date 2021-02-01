@@ -35,7 +35,7 @@ declare namespace PinoHttp {
         customErrorMessage?: (error: Error, res: ServerResponse) => string;
         customAttributeKeys?: CustomAttributeKeys;
         wrapSerializers?: boolean;
-        reqCustomProps?: (req: IncomingMessage) => object;
+        reqCustomProps?: (req: IncomingMessage, res: ServerResponse) => object;
     }
 
     interface GenReqId {

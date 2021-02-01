@@ -1,6 +1,7 @@
 import http = require('http');
 import pino = require('pino');
 import pinoHttp = require('pino-http');
+
 import { Writable } from 'stream';
 
 const logger = pino();
@@ -37,6 +38,6 @@ pinoHttp({ customAttributeKeys: { err: 'err' } });
 pinoHttp({ customAttributeKeys: { responseTime: 'responseTime' } });
 pinoHttp({ customAttributeKeys: { req: 'req', res: 'res', err: 'err', responseTime: 'responseTime' } });
 pinoHttp({ customLogLevel: (req, res) => 'info' });
-pinoHttp({ reqCustomProps: req => ({ key1: 'value1', 'x-key-2': 'value2' }) });
+pinoHttp({ reqCustomProps: (req, res) => ({ key1: 'value1', 'x-key-2': 'value2' }) });
 pinoHttp({ wrapSerializers: false });
 pinoHttp(new Writable());
