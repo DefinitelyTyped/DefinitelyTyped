@@ -1286,6 +1286,24 @@ declare namespace Autodesk {
               setItem(key: string, value: string): void;
             }
 
+            class MaterialManager {
+              constructor(renderer: any);
+
+              addCompactLayoutSupport(material: THREE.Material): THREE.Material;
+              addHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
+              addInstancingSupport(material: THREE.Material): THREE.Material;
+              addLineMaterial(name: string, mat: THREE.ShaderMaterial, modelId: number): void;
+              addMaterial(name: string, mat: THREE.ShaderMaterial, skipSimplePhongHeuristics: boolean): void;
+              addMaterialNonHDR(name: string, mat: THREE.ShaderMaterial): void;
+              addNonHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
+              addOverrideMaterial(name: string, mat: THREE.Material): void;
+              cloneMaterial(mat: THREE.Material, model: Model): THREE.Material;
+              getMaterialVariant(srcMaterial: THREE.Material, variant: MATERIAL_VARIANT, model: Model): THREE.Material;
+              getModelMaterials(model: Model, includeOTG: boolean): any;
+              removeMaterial(name: string): void;
+              removeNonHDRMaterial(name: string): void;
+            }
+
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1405,7 +1423,7 @@ declare namespace Autodesk {
                 setLightPreset(index: number, force?: boolean): void;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
-                matman(): any;
+                matman(): MaterialManager;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
                 pauseHighlight(disable: boolean): void;
