@@ -1433,8 +1433,10 @@ declare namespace Autodesk {
                 rayIntersect(ray: THREE.Ray): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setDoNotCut(model: Model, doNotCut: boolean): void;
                 setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                setViewportBounds(model: Model, bounds?: THREE.Box3|THREE.Box2): void;
                 syncCamera(syncWorldUp?: boolean): void;
                 viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
