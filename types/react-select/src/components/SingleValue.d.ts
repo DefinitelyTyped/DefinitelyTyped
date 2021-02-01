@@ -26,7 +26,7 @@ export function css(props: SingleValueProps<any>): CSSObject;
 declare function SingleValue<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: SingleValueProps<OptionType, GroupType>): ReactElement;
 
 export default SingleValue;

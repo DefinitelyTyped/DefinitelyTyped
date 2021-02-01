@@ -62,7 +62,7 @@ declare function Menu<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: MenuProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Menu;
@@ -97,7 +97,7 @@ export function MenuList<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: MenuListComponentProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
@@ -122,7 +122,7 @@ export function NoOptionsMessage<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
@@ -132,7 +132,7 @@ export function LoadingMessage<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: NoticeProps<OptionType, IsMulti, GroupType>): ReactElement;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',

@@ -56,4 +56,8 @@ simpleParser(sourceString, (err, mail) => {
     console.log(mail.text);
     console.log(mail.html);
     console.log(mail.textAsHtml);
+
+    // References are either arrays or strings
+    if (mail.references && !Array.isArray(mail.references))
+        mail.references.toLowerCase();
 });

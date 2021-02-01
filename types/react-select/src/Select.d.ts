@@ -21,7 +21,6 @@ import {
     MenuPosition,
     OptionsType,
     ValueType,
-    GroupedOptionsType,
     OptionTypeBase,
     SetValueAction,
 } from './types';
@@ -172,7 +171,7 @@ export interface NamedProps<
     /** Allows control of whether the menu is opened when the Select is clicked */
     openMenuOnClick?: boolean;
     /** Array of options that populate the select menu */
-    options?: GroupedOptionsType<OptionType, GroupType> | OptionsType<OptionType>;
+    options?: ReadonlyArray<OptionType | GroupType>;
     /** Number of options to jump in menu when page{up|down} keys are used */
     pageSize?: number;
     /** Placeholder text for the select value */
@@ -188,11 +187,11 @@ export interface NamedProps<
     /** Select the currently focused option when the user presses tab */
     tabSelectsValue?: boolean;
     /** The value of the select; reflected by the selected option */
-    value?: ValueType<OptionType, IsMulti>;
+    value?: readonly OptionType[] | OptionType | null;
 
     defaultInputValue?: string;
     defaultMenuIsOpen?: boolean;
-    defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
+    defaultValue?: readonly OptionType[] | OptionType | null;
 }
 
 export interface Props<

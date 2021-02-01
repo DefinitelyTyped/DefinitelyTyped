@@ -22,7 +22,7 @@ declare function Placeholder<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-// tslint:disable-next-line:no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
 >(props: PlaceholderProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Placeholder;
