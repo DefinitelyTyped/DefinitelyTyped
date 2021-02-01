@@ -168,10 +168,12 @@ declare namespace Task {
     type: 'WORKER';
     worker: string;
   }
+
   interface OrganizationTaskContainer {
     type: 'ORGANIZATION';
     organization: string;
   }
+  
   interface TeamTaskContainer {
     type: 'TEAM';
     team: string;
