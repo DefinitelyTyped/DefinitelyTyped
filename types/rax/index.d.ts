@@ -220,19 +220,19 @@ declare namespace Rax {
   type LegacyRef<T> = string | Ref<T>;
 
   /**
-    * Gets the instance type for a Rax element. The instance will be different for various component types:
-    *
-    * - Rax class components will be the class instance. So if you had `class Foo extends Component<{}> {}`
-    *   and used `ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
-    * - Rax stateless functional components do not have a backing instance and so `ElementRef<typeof Bar>`
-    *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
-    * - JSX intrinsics like `div` will give you their DOM instance. For `ElementRef<'div'>` that would be
-    *   `HTMLDivElement`. For `ElementRef<'input'>` that would be `HTMLInputElement`.
-    * - Rax stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
-    *   to component.
-    *
-    * `C` must be the type _of_ a Rax component so you need to use typeof as in ElementRef<typeof MyComponent>.
-    */
+   * Gets the instance type for a Rax element. The instance will be different for various component types:
+   *
+   * - Rax class components will be the class instance. So if you had `class Foo extends Component<{}> {}`
+   *   and used `ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
+   * - Rax stateless functional components do not have a backing instance and so `ElementRef<typeof Bar>`
+   *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
+   * - JSX intrinsics like `div` will give you their DOM instance. For `ElementRef<'div'>` that would be
+   *   `HTMLDivElement`. For `ElementRef<'input'>` that would be `HTMLInputElement`.
+   * - Rax stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
+   *   to component.
+   *
+   * `C` must be the type _of_ a Rax component so you need to use typeof as in ElementRef<typeof MyComponent>.
+   */
   type ElementRef<
       C extends
           | ForwardRefExoticComponent<any>
@@ -529,7 +529,6 @@ declare namespace Rax {
     defaultProps?: Partial<P>;
     displayName?: string;
   }
-
 
   type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
