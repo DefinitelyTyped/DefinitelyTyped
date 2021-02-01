@@ -423,8 +423,10 @@ declare namespace Autodesk {
             [key: string]: any;
         }
 
+        function fromUrlSafeBase64(urn: string): string;
         function getApiEndpoint(): string;
         function Initializer(options: InitializerOptions, callback?: () => void): void;
+        function toUrlSafeBase64(urn: string): string;
 
         class Document {
             constructor(dataJSON: object, path: string, acmsession: string);
@@ -552,6 +554,7 @@ declare namespace Autodesk {
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
             getDocumentNode(): any;
+            getDoNotCut(): boolean;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any;
@@ -567,6 +570,7 @@ declare namespace Autodesk {
             getUnitScale(): number;
             getUnitString(): string;
             getUpVector(): number[];
+            getViewportBounds(): THREE.Box3;
             getVisibleBounds(includeGhosted?: boolean, excludeShadow?: boolean): THREE.Box3;
             hasTopology(): boolean;
             instancePolyCount(): number;
@@ -587,8 +591,10 @@ declare namespace Autodesk {
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
             setData(data: object): void;
+            setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
+            setViewportBounds(materialsManager: Private.MaterialManager, bounds: THREE.Box3|THREE.Box2): void;
         }
 
         namespace MeasureCommon {
