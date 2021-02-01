@@ -1153,6 +1153,75 @@ declare namespace Autodesk {
         namespace Private {
             const env: string;
             const LocalStorage: LocalStorageClass;
+            enum Prefs {
+              PROGRESSIVE_RENDERING = 'progressiveRendering',
+              OPEN_PROPERTIES_ON_SELECT = 'openPropertiesOnSelect',
+              POINT_RENDERING = 'pointRendering',
+              BACKGROUND_COLOR_PRESET = 'backgroundColorPreset',
+              REVERSE_MOUSE_ZOOM_DIR = 'reverseMouseZoomDir',
+              LEFT_HANDED_MOUSE_SETUP = 'leftHandedMouseSetup',
+              FUSION_ORBIT = 'fusionOrbit',
+              FUSION_ORBIT_CONSTRAINED = 'fusionOrbitConstrained',
+              WHEEL_SETS_PIVOT = 'wheelSetsPivot',
+              RESTORE_SESSION_MEASUREMENTS = 'restoreMeasurements',
+              DISPLAY_UNITS = 'displayUnits',
+              DISPLAY_UNITS_PRECISION = 'displayUnitsPrecision',
+              KEY_MAP_CMD = 'keyMapCmd'
+            }
+
+            enum MATERIAL_VARIANT {
+              INSTANCED = 0,
+              VERTEX_IDS = 1
+            }
+
+            enum Prefs2D {
+              GRAYSCALE = 'grayscale',
+              SWAP_BLACK_AND_WHITE = 'swapBlackAndWhite',
+              LOADING_ANIMATION = 'loadingAnimation',
+              FORCE_PDF_CALIBRATION = 'forcePDFCalibration',
+              FORCE_LEAFLET_CALIBRATION = 'forceLeafletCalibration',
+              DISABLE_PDF_HIGHLIGHT = 'disablePdfHighlight'
+            }
+
+            enum Prefs3D {
+              VIEW_CUBE = 'viewCube',
+              VIEW_CUBE_COMPASS = 'viewCubeCompass',
+              VIEW_TYPE = 'viewType',
+              ALWAYS_USE_PIVOT = 'alwaysUsePivot',
+              ZOOM_TOWARDS_PIVOT = 'zoomTowardsPivot',
+              SELECTION_SETS_PIVOT = 'selectionSetsPivot',
+              REVERSE_HORIZONTAL_LOOK_DIRECTION = 'reverseHorizontalLookDirection',
+              REVERSE_VERTICAL_LOOK_DIRECTION = 'reverseVerticalLookDirection',
+              ORBIT_PAST_WORLD_POLES = 'orbitPastWorldPoles',
+              CLICK_TO_SET_COI = 'clickToSetCOI',
+              GHOSTING = 'ghosting',
+              OPTIMIZE_NAVIGATION = 'optimizeNavigation',
+              AMBIENT_SHADOWS = 'ambientShadows',
+              ANTIALIASING = 'antialiasing',
+              GROUND_SHADOW = 'groundShadow',
+              GROUND_REFLECTION = 'groundReflection',
+              LINE_RENDERING = 'lineRendering',
+              EDGE_RENDERING = 'edgeRendering',
+              LIGHT_PRESET = 'lightPreset',
+              ENV_MAP_BACKGROUND = 'envMapBackground',
+              FIRST_PERSON_TOOL_POPUP = 'firstPersonToolPopup',
+              BIM_WALK_TOOL_POPUP = 'bimWalkToolPopup',
+              BIM_WALK_NAVIGATOR_TYPE = 'bimWalkNavigatorType',
+              BIM_WALK_GRAVITY = 'bimWalkGravity',
+              DEFAULT_NAVIGATION_TOOL_3D = 'defaultNavigationTool3D',
+              SELECTION_MODE = 'selectionMode',
+              ENABLE_CUSTOM_ORBIT_TOOL_CURSOR = 'enableCustomOrbitToolCursor',
+              EXPLODE_STRATEGY = 'explodeStrategy',
+              FORCE_DOUBLE_SIDED = 'forceDoubleSided',
+              DISPLAY_SECTION_HATCHES = 'displaySectionHatches'
+            }
+
+            enum VIEW_TYPES {
+              DEFAULT = 0,
+              ORTHOGRAPHIC = 1,
+              PERSPECTIVE = 2,
+              PERSPECTIVE_ORTHO_FACES = 3
+            }
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
