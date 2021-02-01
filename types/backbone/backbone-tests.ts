@@ -198,9 +198,7 @@ class Employee extends Backbone.Model {
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
         // Test that collection url property can be set as a function returning a string.
-        this.reports.url = () => {
-            return '';
-        };
+        this.reports.url = () => '';
     }
 
     more() {
@@ -228,15 +226,9 @@ class Library extends Backbone.Collection<Book> {
 
         // Test comparator allowed types.
         this.comparator = 'title';
-        this.comparator = (model: Book) => {
-            return 1;
-        };
-        this.comparator = (model: Book) => {
-            return 'Title';
-        };
-        this.comparator = (model1: Book, model2: Book) => {
-            return 1;
-        };
+        this.comparator = (model: Book) => 1;
+        this.comparator = (model: Book) => 'Title';
+        this.comparator = (model1: Book, model2: Book) => 1;
     }
 }
 
