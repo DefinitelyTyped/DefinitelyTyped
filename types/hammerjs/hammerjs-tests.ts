@@ -49,7 +49,7 @@
   // listen to events...
   mc.on( "panleft panright panup pandown tap press", function ( ev:HammerInput )
   {
-    type EventType = 
+    type EventType =
         | HammerStatic["INPUT_START"]
         | HammerStatic["INPUT_MOVE"]
         | HammerStatic["INPUT_END"]
