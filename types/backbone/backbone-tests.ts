@@ -1,11 +1,11 @@
 function test_events() {
-    var object = Backbone.Events;
+    const object = Backbone.Events;
     object.on('alert', (eventName: string) => alert('Triggered ' + eventName));
 
     object.trigger('alert', 'an event');
 
-    var onChange = () => alert('whatever');
-    var context: any;
+    const onChange = () => alert('whatever');
+    const context: any = {};
 
     object.off('change', onChange);
     object.off('change');
@@ -30,9 +30,9 @@ class PubSub implements Backbone.Events {
 Object.assign(PubSub.prototype, Backbone.Events);
 
 function test_events_shorthands() {
-    let channel1 = new PubSub();
-    let channel2 = new PubSub();
-    let onChange = () => alert('whatever');
+    const channel1 = new PubSub();
+    const channel2 = new PubSub();
+    const onChange = () => alert('whatever');
 
     channel1.on('alert', (eventName: string) => alert('Triggered ' + eventName));
     channel1.trigger('alert', 'an event');
@@ -76,61 +76,61 @@ class SettingDefaults extends Backbone.Model {
 
     constructor(attributes?: any, options?: any) {
         super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
-        this.defaults = <any>{
+        this.defaults = {
             name: 'Joe',
-        };
+        } as any;
         // super has to come last
     }
 
     // or set it like this
     initialize() {
-        this.defaults = <any>{
+        this.defaults = {
             name: 'Joe',
-        };
+        } as any;
     }
 
     // same patterns could be used for setting 'Router.routes' and 'View.events'
 }
 
 class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
-    public getILikeBacon(): boolean {
+    getILikeBacon(): boolean {
         return this.get('iLikeBacon');
     }
 
-    public setILikeBacon(value: boolean) {
+    setILikeBacon(value: boolean) {
         return this.set('iLikeBacon', value);
     }
 
-    public setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
         return this.set(values);
     }
 
-    public setValue(key: keyof { iLikeBacon: boolean; iLikeToast: boolean }, value: any) {
+    setValue(key: keyof { iLikeBacon: boolean; iLikeToast: boolean }, value: any) {
         return this.set(key, value);
     }
 }
 
 class FullyTypedDefault extends Backbone.Model {
-    public getILikeBacon(): boolean {
+    getILikeBacon(): boolean {
         return this.get('iLikeBacon');
     }
 
-    public setILikeBacon(value: boolean) {
+    setILikeBacon(value: boolean) {
         return this.set('iLikeBacon', value);
     }
 
-    public setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
         return this.set(values);
     }
 
-    public setValue(key: string, value: any) {
+    setValue(key: string, value: any) {
         return this.set(key, value);
     }
 }
 
 class Sidebar extends Backbone.Model {
     promptColor() {
-        var cssColor = prompt('Please enter a CSS color:');
+        const cssColor = prompt('Please enter a CSS color:');
         this.set({ color: cssColor });
     }
 }
@@ -155,14 +155,14 @@ class PrivateNote extends Note {
 }
 
 function test_models() {
-    var sidebar = new Sidebar();
+    const sidebar = new Sidebar();
     sidebar.on('change:color', (model: {}, color: string) => $('#sidebar').css({ background: color }));
     sidebar.set({ color: 'white' });
     sidebar.promptColor();
 
     //////////
 
-    var note = new PrivateNote();
+    const note = new PrivateNote();
 
     note.get('title');
 
@@ -196,7 +196,7 @@ class Employee extends Backbone.Model {
     constructor(attributes?: any, options?: any) {
         super(options);
         this.reports = new EmployeeCollection();
-        this.reports.url = '../api/employees/' + this.id + '/reports';
+        this.reports.url = `../api/employees/${this.id}/reports`;
         // Test that collection url property can be set as a function returning a string.
         this.reports.url = () => '';
     }
@@ -237,11 +237,11 @@ class Books extends Backbone.Collection<Book> {}
 class ArbitraryCollection extends Backbone.Collection {}
 
 function test_collection() {
-    var books = new Books();
+    const books = new Books();
     books.set([{ title: 'Title 0', author: 'Johan' }]);
     books.reset();
 
-    var book1: Book = new Book({ title: 'Title 1', author: 'Mike' });
+    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' });
     books.add(book1);
 
     // Test adding sort option to add.
@@ -250,22 +250,22 @@ function test_collection() {
     // Objects can be added to collection by casting to model type.
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
-    books.add(<Book>{ title: 'Title 2', author: 'Mikey' });
+    books.add({ title: 'Title 2', author: 'Mikey' });
 
-    var model: Book = book1.collection.first();
+    const model: Book = book1.collection.first();
     if (model !== book1) {
         throw new Error('Error');
     }
 
     books.each(book => book.get('title'));
 
-    var titles = books.map(book => book.get('title'));
+    const titles = books.map(book => book.get('title'));
 
-    var publishedBooks = books.filter(book => book.get('published') === true);
+    const publishedBooks = books.filter(book => book.get('published') === true);
 
-    var alphabetical = books.sortBy((book: Book): number => 1);
+    const alphabetical = books.sortBy((book: Book): number => 1);
 
-    var copy = books.clone();
+    const copy = books.clone();
 
     let one: Book;
     let models: Book[];
@@ -362,7 +362,7 @@ Backbone.history.loadUrl('12345');
 namespace v1Changes {
     namespace events {
         function test_once() {
-            var model = new Employee();
+            const model = new Employee();
             model.once('invalid', () => {}, this);
             model.once('invalid', () => {});
             model.once({ invalid: () => {}, success: () => {} }, this);
@@ -370,22 +370,22 @@ namespace v1Changes {
         }
 
         function test_listenTo() {
-            var model = new Employee();
-            var view = new Backbone.View<Employee>();
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
             view.listenTo(model, 'invalid', () => {});
             view.listenTo(model, { invalid: () => {}, success: () => {} });
         }
 
         function test_listenToOnce() {
-            var model = new Employee();
-            var view = new Backbone.View<Employee>();
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
             view.listenToOnce(model, 'invalid', () => {});
             view.listenToOnce(model, { invalid: () => {}, success: () => {} });
         }
 
         function test_stopListening() {
-            var model = new Employee();
-            var view = new Backbone.View<Employee>();
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
             view.stopListening(model, 'invalid', () => {});
             view.stopListening(model, 'invalid');
             view.stopListening(model);
@@ -399,43 +399,43 @@ namespace v1Changes {
         }
 
         function test_model_create_with_collection() {
-            var collection = new Books();
-            var employee = new Book({}, { collection, parse: true });
+            const collection = new Books();
+            const employee = new Book({}, { collection, parse: true });
             employee.collection;
         }
 
         function test_parse() {
-            var model = new Employee();
+            const model = new Employee();
             model.parse('{}', {});
-            var collection = new EmployeeCollection();
+            const collection = new EmployeeCollection();
             collection.parse('{}', {});
         }
 
         function test_toJSON() {
-            var model = new Employee();
+            const model = new Employee();
             model.toJSON({});
-            var collection = new EmployeeCollection();
+            const collection = new EmployeeCollection();
             collection.toJSON({});
         }
 
         function test_sync() {
-            var model = new Employee();
+            const model = new Employee();
             model.sync();
-            var collection = new EmployeeCollection();
+            const collection = new EmployeeCollection();
             collection.sync();
         }
     }
 
     namespace Model {
         function test_validationError() {
-            var model = new Employee();
+            const model = new Employee();
             if (model.validationError) {
                 console.log('has validation errors');
             }
         }
 
         function test_fetch() {
-            var model = new Employee({ id: 1 });
+            const model = new Employee({ id: 1 });
             model.fetch({
                 success: () => {},
                 error: () => {},
@@ -443,13 +443,13 @@ namespace v1Changes {
         }
 
         function test_set() {
-            var model = new Employee();
+            const model = new Employee();
             model.set({ name: 'JoeDoe', age: 21 }, { validate: false });
             model.set('name', 'JoeDoes', { validate: false });
         }
 
         function test_destroy() {
-            var model = new Employee();
+            const model = new Employee();
             model.destroy({
                 wait: true,
                 success: (m?, response?, options?) => {},
@@ -468,7 +468,7 @@ namespace v1Changes {
         }
 
         function test_save() {
-            var model = new Employee();
+            const model = new Employee();
 
             model.save(
                 {
@@ -496,7 +496,7 @@ namespace v1Changes {
         }
 
         function test_validate() {
-            var model = new Employee();
+            const model = new Employee();
 
             model.validate({ name: 'JoeDoe', age: 21 }, { validateAge: false });
         }
@@ -504,7 +504,7 @@ namespace v1Changes {
 
     namespace Collection {
         function test_fetch() {
-            var collection = new EmployeeCollection();
+            const collection = new EmployeeCollection();
             collection.fetch({
                 reset: true,
                 remove: false,
@@ -512,8 +512,8 @@ namespace v1Changes {
         }
 
         function test_create() {
-            var collection = new EmployeeCollection();
-            var model = new Employee();
+            const collection = new EmployeeCollection();
+            const model = new Employee();
 
             collection.create(model, {
                 validate: false,
@@ -521,15 +521,15 @@ namespace v1Changes {
         }
 
         function test_set() {
-            var collection = new EmployeeCollection();
-            var model = new Employee();
+            const collection = new EmployeeCollection();
+            const model = new Employee();
             collection.set([model], { add: false, remove: true, merge: false });
         }
     }
 
     namespace Router {
         function test_navigate() {
-            var router = new Backbone.Router();
+            const router = new Backbone.Router();
 
             router.navigate('/employees', { trigger: true });
             router.navigate('/employees', true);
