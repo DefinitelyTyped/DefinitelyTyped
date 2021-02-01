@@ -382,7 +382,7 @@ declare namespace Backbone {
          */
         set(models?: Array<{} | TModel>, options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
-        sort(options?: Silenceable): Collection<TModel>;
+        sort(options?: Silenceable): this;
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
@@ -569,8 +569,8 @@ declare namespace Backbone {
         model: TModel;
         collection: Collection<TModel>;
         // template: (json, options?) => string;
-        setElement(element: HTMLElement | JQuery, delegate?: boolean): View<TModel>;
-        setElement(element: any): View<TModel>;
+        setElement(element: HTMLElement | JQuery, delegate?: boolean): this;
+        setElement(element: any): this;
         id: string;
         cid: string;
         className: string;
@@ -580,12 +580,12 @@ declare namespace Backbone {
         $el: JQuery;
         attributes: any;
         $(selector: string): JQuery;
-        render(): View<TModel>;
-        remove(): View<TModel>;
-        delegateEvents(events?: EventsHash): any;
-        delegate(eventName: string, selector: string, listener: Function): View<TModel>;
-        undelegateEvents(): any;
-        undelegate(eventName: string, selector?: string, listener?: Function): View<TModel>;
+        render(): this;
+        remove(): this;
+        delegateEvents(events?: EventsHash): this;
+        delegate(eventName: string, selector: string, listener: Function): this;
+        undelegateEvents(): this;
+        undelegate(eventName: string, selector?: string, listener?: Function): this;
 
         _ensureElement(): void;
     }
