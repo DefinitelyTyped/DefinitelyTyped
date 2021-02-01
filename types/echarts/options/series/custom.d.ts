@@ -1274,8 +1274,8 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
              */
-            interface RenderItem {
-                (params: RenderItemParams, api: RenderItemApi):
+            interface RenderItem<CONTEXT = { [key: string]: any }> {
+                (params: RenderItemParams<CONTEXT>, api: RenderItemApi):
                     RenderItemReturnGroup
                     | RenderItemReturnPath
                     | RenderItemReturnImage
@@ -1313,11 +1313,11 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params
              */
-            interface RenderItemParams {
+            interface RenderItemParams<CONTEXT> {
                 /**
                  * An object that developers can store something temporarily here. Life cycle: current round of rendering.
                  */
-                context?: string;
+                context?: CONTEXT;
 
                 /**
                  * The id of this series.
@@ -1663,6 +1663,10 @@ declare namespace echarts {
                 dayCount?: number;
             }
 
+            // Renderitem return type range
+
+            type RenderItemReturnType = 'image' | 'text' | 'circle' | 'sector' | 'ring' | 'polygon' | 'polyline' | 'rect' | 'line' | 'bezierCurve' | 'arc' | 'group'
+
             /**
              * `group` is the only type that can contain children, so that
              * a group of elements can be positioned and transformed together.
@@ -1707,7 +1711,7 @@ declare namespace echarts {
                  * "group"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -2060,7 +2064,7 @@ declare namespace echarts {
                  * "path"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -2540,7 +2544,7 @@ declare namespace echarts {
                  * "image"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -2960,7 +2964,7 @@ declare namespace echarts {
                  * "text"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -3407,7 +3411,7 @@ declare namespace echarts {
                  * "rect"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -3841,7 +3845,7 @@ declare namespace echarts {
                  * "circle"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -4249,7 +4253,7 @@ declare namespace echarts {
                  * "ring"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -4665,7 +4669,7 @@ declare namespace echarts {
                  * "sector"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -5109,7 +5113,7 @@ declare namespace echarts {
                  * "arc"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -5555,7 +5559,7 @@ declare namespace echarts {
                  * "polygon"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -5973,7 +5977,7 @@ declare namespace echarts {
                  * "polyline"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -6393,7 +6397,7 @@ declare namespace echarts {
                  * "line"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
@@ -6821,7 +6825,7 @@ declare namespace echarts {
                  * "bezierCurve"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.type
                  */
-                type?: string;
+                type?: RenderItemReturnType;
 
                 /**
                  * id is used to specifying element when willing to update
