@@ -253,7 +253,13 @@ declare namespace Autodesk {
         const CANCEL_LEAFLET_SCREENSHOT = 'cancelLeafletScreenshot';
         const ESCAPE_EVENT = 'escape';
         const EXPLODE_CHANGE_EVENT = 'explodeChanged';
+        const EXTENSION_ACTIVATED_EVENT = 'extensionActivated';
+        const EXTENSION_DEACTIVATED_EVENT = 'extensionDeactivated';
         const EXTENSION_LOADED_EVENT = 'extensionLoaded';
+        const EXTENSION_PRE_ACTIVATED_EVENT = 'extensionPreActivated';
+        const EXTENSION_PRE_DEACTIVATED_EVENT = 'extensionPreDeactivated';
+        const EXTENSION_PRE_LOADED_EVENT = 'extensionPreLoaded';
+        const EXTENSION_PRE_UNLOADED_EVENT = 'extensionPreUnloaded';
         const EXTENSION_UNLOADED_EVENT = 'extensionUnloaded';
         const FINAL_FRAME_RENDERED_CHANGED_EVENT = 'finalFrameRenderedChanged';
         const FIT_TO_VIEW_EVENT = 'fitToView';
