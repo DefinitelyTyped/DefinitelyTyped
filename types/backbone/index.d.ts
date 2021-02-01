@@ -167,7 +167,7 @@ declare namespace Backbone {
         <T extends BaseT>(this: T, eventMap: EventMap, context?: any): T;
     }
     interface Events_Off<BaseT> {
-        <T extends BaseT>(this: T, eventName?: string, callback?: EventHandler, context?: any): T;
+        <T extends BaseT>(this: T, eventName?: string | null, callback?: EventHandler | null, context?: any): T;
     }
     interface Events_Trigger<BaseT> {
         <T extends BaseT>(this: T, eventName: string, ...args: any[]): T;
@@ -193,7 +193,7 @@ declare namespace Backbone {
     abstract class EventsMixin implements Events {
         on(eventName: string, callback: EventHandler, context?: any): this;
         on(eventMap: EventMap, context?: any): this;
-        off(eventName?: string, callback?: EventHandler, context?: any): this;
+        off(eventName?: string | null, callback?: EventHandler | null, context?: any): this;
         trigger(eventName: string, ...args: any[]): this;
         bind(eventName: string, callback: EventHandler, context?: any): this;
         bind(eventMap: EventMap, context?: any): this;
@@ -218,21 +218,21 @@ declare namespace Backbone {
      * E - Extensions to the model constructor options. You can accept additional constructor options
      * by listing them in the E parameter.
      */
-    class Model<T = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
+    class Model<T extends ObjectHash = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
 
-        attributes: any;
-        changed: any[];
+        attributes: Partial<T>;
+        changed: Partial<T>;
         cidPrefix: string;
         cid: string;
         collection: Collection<this>;
 
         private _changing: boolean;
-        private _previousAttributes : any;
+        private _previousAttributes: Partial<T>;
         private _pending: boolean;
 
 
@@ -241,8 +241,8 @@ declare namespace Backbone {
         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        defaults(): ObjectHash;
-        id: any;
+        defaults(): Partial<T>;
+        id: string | number;
         idAttribute: string;
         validationError: any;
 
@@ -282,9 +282,9 @@ declare namespace Backbone {
         *    super.set("name", value);
         * }
         **/
-        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): Backbone.Model;
-        set(attributeName: Partial<T>, options?: S): Backbone.Model;
-        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): Backbone.Model;
+        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): this;
+        set(attributeName: Partial<T>, options?: S): this;
+        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): this;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -293,22 +293,21 @@ declare namespace Backbone {
          * persisted to the server. Unset attributes will be set to undefined.
          * You can also pass an attributes object to diff against the model,
          * determining if there *would be* a change. */
-        changedAttributes(attributes?: any): any;
-        clear(options?: Silenceable): any;
+        changedAttributes(attributes?: Partial<T>): Partial<T> | false;
+        clear(options?: Silenceable): this;
         clone(): Model;
-        destroy(options?: ModelDestroyOptions): any;
-        escape(attribute: string): string;
-        has(attribute: string): boolean;
-        hasChanged(attribute?: string): boolean;
+        destroy(options?: ModelDestroyOptions): JQueryXHR | false;
+        escape(attribute: keyof T & string): string;
+        has(attribute: keyof T & string): boolean;
+        hasChanged(attribute?: keyof T & string): boolean;
         isNew(): boolean;
         isValid(options?:any): boolean;
-        previous(attribute: string): any;
-        previousAttributes(): any;
-        save(attributes?: any, options?: ModelSaveOptions): any;
-        unset(attribute: string, options?: Silenceable): Model;
-        validate(attributes: any, options?: any): any;
-
-        private _validate(attributes: any, options: any): boolean;
+        previous<a extends keyof T & string>(attribute: a): (T[a] | null | undefined);
+        previousAttributes(): Partial<T>;
+        save(attributes?: Partial<T> | null, options?: ModelSaveOptions): JQueryXHR;
+        unset(attribute: keyof T & string, options?: Silenceable): this;
+        validate(attributes: Partial<T>, options?: any): any;
+        private _validate(attributes: Partial<T>, options: any): boolean;
 
         // mixins from underscore
 
@@ -316,11 +315,11 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick(keys: string[]): any;
-        pick(...keys: string[]): any;
+        pick(keys: (keyof T & string)[]): any;
+        pick(...keys: (keyof T & string)[]): any;
         pick(fn: (value: any, key: any, object: any) => any): any;
-        omit(keys: string[]): any;
-        omit(...keys: string[]): any;
+        omit(keys: (keyof T & string)[]): any;
+        omit(...keys: (keyof T & string)[]): any;
         omit(fn: (value: any, key: any, object: any) => any): any;
         chain(): any;
         isEmpty(): boolean;

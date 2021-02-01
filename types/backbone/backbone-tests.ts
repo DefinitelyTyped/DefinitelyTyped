@@ -154,7 +154,7 @@ class PrivateNote extends Note {
         return account.owns(this);
     }
 
-    set(attributes: any, options?: any): Backbone.Model {
+    set(attributes: any, options?: any): this {
         return Backbone.Model.prototype.set.call(this, attributes, options);
     }
 }
@@ -273,7 +273,7 @@ function test_collection() {
     var publishedBooks = books.filter(book =>
         book.get("published") === true);
 
-    var alphabetical = books.sortBy((book: Book): number => null);
+    var alphabetical = books.sortBy((book: Book): number => 1);
 
     var copy = books.clone();
 
@@ -563,9 +563,56 @@ interface ModellessViewOptions extends Backbone.ViewOptions {
 }
 
 class ModellessView extends Backbone.View {
-    color: string;
+    color?: string;
     constructor(options: ModellessViewOptions) {
         super(options);
         this.color = options.color;
     }
+}
+
+interface TypedModelAttributes {
+    stringAttr: string,
+    numberAttr: number,
+}
+
+class TypedModel extends Backbone.Model<TypedModelAttributes> {
+}
+
+function testTypedModel() {
+    const model = new TypedModel();
+    model.set("unknownAttr", "stringValue") // $ExpectError
+    model.set("stringAttr", 1) // $ExpectError
+    model.set("stringAttr", "stringValue") // $ExpectType TypedModel
+    model.get("unknownAttr") // $ExpectError
+    model.get("stringAttr") // $ExpectType string
+    model.attributes // $ExpectType Partial<TypedModelAttributes>
+    model.changedAttributes() // $ExpectType false | Partial<TypedModelAttributes>
+    model.changedAttributes({unknownAttr: 1}) // $ExpectError
+    model.clear() // $ExpectType TypedModel
+    model.destroy() // $ExpectType false | JQueryXHR
+    model.escape("unknownAttr") // $ExpectError
+    model.escape("stringAttr") // $ExpectType string
+    model.has("unknownAttr") // $ExpectError
+    model.has("stringAttr") // $ExpectType boolean
+    model.hasChanged("unknownAttr") // $ExpectError
+    model.hasChanged("stringAttr") // $ExpectType boolean
+    model.previous("unknownAttr") // $ExpectError
+    model.previous("numberAttr") // $ExpectType number | null | undefined
+    model.previousAttributes() // $ExpectType Partial<TypedModelAttributes>
+    model.save({unknownAttr: "value"}) // $ExpectError
+    model.save() // $ExpectType JQueryXHR
+    model.save({stringAttr: "stringValue"}) // $ExpectType JQueryXHR
+    model.save(null, {patch: true}) // $ExpectType JQueryXHR
+    model.unset("unknownAttr") // $ExpectError
+    model.unset("stringAttr") // $ExpectType TypedModel
+    model.validate({unknownAttr: "value"}) // $ExpectError
+    model.validate({stringAttr: "value"})
+    model.pick("unknownAttr") // $ExpectError
+    model.pick(["unknownAttr", "numberAttr"]) // $ExpectError
+    model.pick("stringAttr", "numberAttr")
+    model.pick(["stringAttr", "numberAttr"])
+    model.omit("unknownAttr") // $ExpectError
+    model.omit(["unknownAttr", "numberAttr"]) // $ExpectError
+    model.omit("stringAttr", "numberAttr")
+    model.omit(["stringAttr", "numberAttr"])
 }
