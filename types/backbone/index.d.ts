@@ -122,7 +122,7 @@ declare namespace Backbone {
     }
 
     const Events: Events;
-    type Events = EventsMixin;
+    interface Events extends EventsMixin {}
 
     /**
      * Helper shorthands for classes that implement the Events interface.
