@@ -1,6 +1,8 @@
 // Type definitions for Rax 1.0.0
 // Project: https://rax.js.org
 // Definitions by: Solo Jiang <https://github.com/solojiang>
+//                 chenjun1011 <https://github.com/chenjun1011>
+//                 imsobear <https://github.com/imsobear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
