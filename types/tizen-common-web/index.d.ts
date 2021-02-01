@@ -7,6 +7,7 @@
 //                 Hyojin Kim <https://github.com/prozanne>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// tslint:disable:no-irregular-whitespace
 /**
  * The AccountInit dictionary represents options for creating accounts.
  * Attributes are not mandatory, and can be added and modified by accessing the
@@ -811,13 +812,12 @@ export interface RequestCallback {
  * Never use this base interface directly, instead use _AbstractFilter_ subtypes,
  * such as _AttributeFilter_, _AttributeRangeFilter_, and _CompositeFilter_.
  */
-export class AbstractFilter {
+export class AbstractFilter { // tslint:disable-line:no-unnecessary-class
     constructor();
-    readonly attributeName: string;
 }
 export interface AbstractFilter {
     prototype: AbstractFilter;
-    new(): AbstractFilter;
+    new(): AbstractFilter; // tslint:disable-line:no-misused-new
 }
 /**
  * The Account interface is the interface for a single account.
@@ -883,7 +883,7 @@ export class Account {
 }
 export interface Account {
     prototype: Account;
-    new(provider: AccountProvider, accountInitDict?: AccountInit | null): Account;
+    new(provider: AccountProvider, accountInitDict?: AccountInit | null): Account; // tslint:disable-line:no-misused-new
 }
 /**
  * The AccountExtendedData interface defines the extended data of an account.
@@ -1095,7 +1095,7 @@ export class Alarm {
 }
 export interface Alarm {
     prototype: Alarm;
-    new(): Alarm;
+    new(): Alarm; // tslint:disable-line:no-misused-new
 }
 /**
  * The AlarmAbsolute interface provides an absolute alarm, which triggers at a specified absolute date.
@@ -1103,7 +1103,9 @@ export interface Alarm {
  * If a _period_ is provided, the alarm keeps triggering for the given interval. If the _daysOfTheWeek_ array is not empty, the alarm triggers every week, for the given days, at the time defined by the _date_ attribute.
  */
 export class AlarmAbsolute extends Alarm {
-    constructor(date: Date, daysOfTheWeek?: ByDayValue[]);
+    constructor(date: Date); // tslint:disable-line:unified-signatures
+    constructor(date: Date, daysOfTheWeek: ByDayValue[]); // tslint:disable-line:unified-signatures
+    constructor(date: Date, period: number); // tslint:disable-line:unified-signatures
     /**
      * An attribute to store the absolute date/time when the alarm is initially triggered.
      *
@@ -1138,7 +1140,9 @@ export class AlarmAbsolute extends Alarm {
 }
 export interface AlarmAbsolute {
     prototype: AlarmAbsolute;
-    new(date: Date, daysOfTheWeek?: ByDayValue[]): AlarmAbsolute;
+    new(date: Date): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
+    new(date: Date, daysOfTheWeek: ByDayValue[]): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
+    new(date: Date, period: number): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
 }
 /**
  * The AlarmManager interface provides methods to manage alarms.
@@ -1274,7 +1278,7 @@ export class AlarmRelative extends Alarm {
 }
 export interface AlarmRelative {
     prototype: AlarmRelative;
-    new(delay: number, period?: number | null): AlarmRelative;
+    new(delay: number, period?: number | null): AlarmRelative; // tslint:disable-line:no-misused-new
 }
 /**
  * This interface defines the current application's information and
@@ -1471,7 +1475,7 @@ export class ApplicationControl {
 }
 export interface ApplicationControl {
     prototype: ApplicationControl;
-    new(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null): ApplicationControl;
+    new(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null): ApplicationControl; // tslint:disable-line:no-misused-new
 }
 /**
  * This interface defines a key/value pair used to pass data
@@ -1492,7 +1496,7 @@ export class ApplicationControlData {
 }
 export interface ApplicationControlData {
     prototype: ApplicationControlData;
-    new(key: string, value: string[]): ApplicationControlData;
+    new(key: string, value: string[]): ApplicationControlData; // tslint:disable-line:no-misused-new
 }
 /**
  * This interface defines the general information available to an installed application.
@@ -2062,7 +2066,7 @@ export class ArchiveFile {
 }
 export interface ArchiveFile {
     prototype: ArchiveFile;
-    new(): ArchiveFile;
+    new(): ArchiveFile; // tslint:disable-line:no-misused-new
 }
 /**
  * The ArchiveFileEntry interface provides access to ArchiveFile member information and file data.
@@ -2128,7 +2132,7 @@ export class ArchiveFileEntry {
 }
 export interface ArchiveFileEntry {
     prototype: ArchiveFileEntry;
-    new(): ArchiveFileEntry;
+    new(): ArchiveFileEntry; // tslint:disable-line:no-misused-new
 }
 /**
  * The ArchiveManager interface provides methods for global operations related to ArchiveFile.
@@ -2219,7 +2223,7 @@ export class AttributeFilter extends AbstractFilter {
 }
 export interface AttributeFilter {
     prototype: AttributeFilter;
-    new(attributeName: string, matchFlag?: FilterMatchFlag | null, matchValue?: any): AttributeFilter;
+    new(attributeName: string, matchFlag?: FilterMatchFlag | null, matchValue?: any): AttributeFilter; // tslint:disable-line:no-misused-new
 }
 /**
  * _AttributeRangeFilter_ represents a filter based on an object attribute
@@ -2254,7 +2258,7 @@ export class AttributeRangeFilter extends AbstractFilter {
 }
 export interface AttributeRangeFilter {
     prototype: AttributeRangeFilter;
-    new(attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter;
+    new(attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter; // tslint:disable-line:no-misused-new
 }
 /**
  * The AudioContent interface extends a basic _Content_ object with audio-specific attributes.
@@ -2542,7 +2546,7 @@ export class Bundle {
 }
 export interface Bundle {
     prototype: Bundle;
-    new(json?: any): Bundle;
+    new(json?: any): Bundle; // tslint:disable-line:no-misused-new
 }
 /**
  * The Client provides API for client side.
@@ -2679,7 +2683,7 @@ export class CompositeFilter extends AbstractFilter {
 }
 export interface CompositeFilter {
     prototype: CompositeFilter;
-    new(type: CompositeFilterType, filters?: AbstractFilter[] | null): CompositeFilter;
+    new(type: CompositeFilterType, filters?: AbstractFilter[] | null): CompositeFilter; // tslint:disable-line:no-misused-new
 }
 /**
  * The Content interface provides access to the properties of a content item.
@@ -3458,7 +3462,7 @@ export class DownloadRequest {
 }
 export interface DownloadRequest {
     prototype: DownloadRequest;
-    new(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null): DownloadRequest;
+    new(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null): DownloadRequest; // tslint:disable-line:no-misused-new
 }
 /**
  * The ExifInformation interface implements the _ExifInformation_ object.
@@ -3571,7 +3575,7 @@ export class ExifInformation {
 }
 export interface ExifInformation {
     prototype: ExifInformation;
-    new(ExifInitDict?: ExifInit | null): ExifInformation;
+    new(ExifInitDict?: ExifInit | null): ExifInformation; // tslint:disable-line:no-misused-new
 }
 /**
  * The ExifManager interface provides methods to retrieve the _ExifInformation_ object and save the Exif data of the _ExifInformation_ object in a JPEG file.
@@ -5390,7 +5394,7 @@ export class IotconOption {
 }
 export interface IotconOption {
     prototype: IotconOption;
-    new(id: number, data: string): IotconOption;
+    new(id: number, data: string): IotconOption; // tslint:disable-line:no-misused-new
 }
 /**
  * The KeyManager interface provides methods to store, retrieve and remove the sensitive data of users and their applications.
@@ -8324,7 +8328,7 @@ export class RemoteResource {
 }
 export interface RemoteResource {
     prototype: RemoteResource;
-    new(): RemoteResource;
+    new(): RemoteResource; // tslint:disable-line:no-misused-new
 }
 /**
  * The RemoteResponse Interface holds response from server for specified request of client, this is client-side version of [Response](iotcon.html#Response) object.
@@ -8371,7 +8375,7 @@ export class Representation {
 }
 export interface Representation {
     prototype: Representation;
-    new(uriPath: string): Representation;
+    new(uriPath: string): Representation; // tslint:disable-line:no-misused-new
 }
 /**
  * The Request interface represents a details from client.
@@ -8418,7 +8422,7 @@ export class RequestReply {
 }
 export interface RequestReply {
     prototype: RequestReply;
-    new(data: Bundle | null, code?: number): RequestReply;
+    new(data: Bundle | null, code?: number): RequestReply; // tslint:disable-line:no-misused-new
 }
 /**
  * This interface has an application control information requested and passed
@@ -8633,7 +8637,7 @@ export class Response {
 }
 export interface Response {
     prototype: Response;
-    new(request: Request): Response;
+    new(request: Request): Response; // tslint:disable-line:no-misused-new
 }
 /**
  * This interface defines SQL data type operators.
@@ -8763,7 +8767,7 @@ export class SearchFilter {
 }
 export interface SearchFilter {
     prototype: SearchFilter;
-    new(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null): SearchFilter;
+    new(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null): SearchFilter; // tslint:disable-line:no-misused-new
 }
 /**
  * Provides functions for creating resource, registering a resource, handling request from client.
@@ -8859,7 +8863,7 @@ export class SimpleCoordinates {
 }
 export interface SimpleCoordinates {
     prototype: SimpleCoordinates;
-    new(latitude: number, longitude: number): SimpleCoordinates;
+    new(latitude: number, longitude: number): SimpleCoordinates; // tslint:disable-line:no-misused-new
 }
 /**
  * _SortMode_ is a common interface used for sorting of queried data.
@@ -8881,7 +8885,7 @@ export class SortMode {
 }
 export interface SortMode {
     prototype: SortMode;
-    new(attributeName: string, order?: SortModeOrder | null): SortMode;
+    new(attributeName: string, order?: SortModeOrder | null): SortMode; // tslint:disable-line:no-misused-new
 }
 /**
  * The SystemEventData interface defines what is retrieved from the event listener.
@@ -11021,8 +11025,8 @@ export class TZDate {
 }
 export interface TZDate {
     prototype: TZDate;
-    new(datetime?: Date | null, timezone?: string | null): TZDate;
-    new(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null): TZDate;
+    new(datetime?: Date | null, timezone?: string | null): TZDate; // tslint:disable-line:no-misused-new
+    new(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null): TZDate; // tslint:disable-line:no-misused-new
 }
 /**
  * The TimeDuration interface that contains the length and its associated time unit.
@@ -11104,7 +11108,7 @@ export class TimeDuration {
 }
 export interface TimeDuration {
     prototype: TimeDuration;
-    new(length: number, unit?: TimeDurationUnit | null): TimeDuration;
+    new(length: number, unit?: TimeDurationUnit | null): TimeDuration; // tslint:disable-line:no-misused-new
 }
 /**
  * The TimeUtil interface that provides access to the time API.
@@ -11294,13 +11298,14 @@ export interface Tizen {
      * by account provider application. A web application is an account provider when its _config.xml_
      * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
      *
+     * ```xml
      * <tizen:account multiple-account-support="true">
-     * <tizen:icon section="Account">icon.png</tizen:icon>
-     * <tizen:icon section="AccountSmall">icon.png</tizen:icon>
-     * <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
-     * <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
+     *    <tizen:icon section="Account">icon.png</tizen:icon>
+     *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
+     *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
+     *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
      * </tizen:account>
-     *
+     * ```
      * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
      *
      * @since 5.0
@@ -12034,7 +12039,7 @@ export class VoiceControlCommand {
 }
 export interface VoiceControlCommand {
     prototype: VoiceControlCommand;
-    new(command: string, type?: VoiceControlCommandType | null): VoiceControlCommand;
+    new(command: string, type?: VoiceControlCommandType | null): VoiceControlCommand; // tslint:disable-line:no-misused-new
 }
 /**
  * Generic error interface.
@@ -12212,7 +12217,7 @@ export class WebAPIException {
 }
 export interface WebAPIException {
     prototype: WebAPIException;
-    new(code: number | null, message: string | null, name: string | null): WebAPIException;
+    new(code: number | null, message: string | null, name: string | null): WebAPIException; // tslint:disable-line:no-misused-new
     /**
      * The operation has been aborted.
      */
@@ -13136,13 +13141,14 @@ export const Query: Query;
  * by account provider application. A web application is an account provider when its _config.xml_
  * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
  *
+ * ```xml
  * <tizen:account multiple-account-support="true">
- * <tizen:icon section="Account">icon.png</tizen:icon>
- * <tizen:icon section="AccountSmall">icon.png</tizen:icon>
- * <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
- * <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
+ *    <tizen:icon section="Account">icon.png</tizen:icon>
+ *    <tizen:icon section="AccountSmall">icon.png</tizen:icon>
+ *    <tizen:display-name xml:lang="en-gb">Test</tizen:display-name>
+ *    <tizen:capability>http://tizen.org/account/capability/contact</tizen:capability>
  * </tizen:account>
- *
+ * ```
  * For more information about how to use Account API, see [Account Guide](/application/web/guides/personal/account).
  *
  * @since 5.0
