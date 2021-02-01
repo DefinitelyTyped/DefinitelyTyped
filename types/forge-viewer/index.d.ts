@@ -598,6 +598,16 @@ declare namespace Autodesk {
         }
 
         namespace MeasureCommon {
+          enum MeasurementTypes {
+            MEASUREMENT_DISTANCE = 1,
+            MEASUREMENT_ANGLE = 2,
+            MEASUREMENT_AREA = 3,
+            CALIBRATION = 4,
+            MEASUREMENT_CALLOUT = 5,
+            MEASUREMENT_LOCATION = 6,
+            MEASUREMENT_ARC = 7
+          }
+
           function getSnapResultPosition(pick: SnapResult, viewer: Viewer3D): THREE.Vector3;
 
           class SnapResult {
