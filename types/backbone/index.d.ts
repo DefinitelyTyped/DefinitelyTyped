@@ -534,15 +534,15 @@ declare namespace Backbone {
         model?: TModel;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
         collection?: Collection<any>; // was: Collection<TModel>;
-        el?: any;
-        events?: EventsHash;
+        el?: HTMLElement | JQuery | string;
         id?: string;
+        attributes?: { [id: string]: any };
         className?: string;
         tagName?: string;
-        attributes?: { [id: string]: any };
+        events?: EventsHash | (() => EventsHash);
     }
 
-    class View<TModel extends Model = Model> extends EventsMixin implements Events {
+    class View<TModel extends Model = Model> extends EventsMixin implements Events, ViewOptions<TModel> {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -568,26 +568,28 @@ declare namespace Backbone {
 
         model: TModel;
         collection: Collection<TModel>;
-        // template: (json, options?) => string;
-        setElement(element: HTMLElement | JQuery, delegate?: boolean): this;
-        setElement(element: any): this;
-        id: string;
+        setElement(element: HTMLElement | JQuery): this;
+        id?: string;
         cid: string;
-        className: string;
+        className?: string;
         tagName: string;
 
-        el: any;
+        el: HTMLElement;
         $el: JQuery;
-        attributes: any;
+        attributes: { [id: string]: any };
         $(selector: string): JQuery;
         render(): this;
         remove(): this;
-        delegateEvents(events?: EventsHash): this;
+        delegateEvents(events?: EventsHash | (() => EventsHash)): this;
         delegate(eventName: string, selector: string, listener: Function): this;
         undelegateEvents(): this;
         undelegate(eventName: string, selector?: string, listener?: Function): this;
 
-        _ensureElement(): void;
+        private _removeElement(): void;
+        private _setElement(el: HTMLElement | JQuery): void;
+        private _createElement(tagName: string): void;
+        private _ensureElement(): void;
+        private _setAttributes(attributes: { [id: string]: any }): void;
     }
 
     // SYNC
