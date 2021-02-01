@@ -47,13 +47,13 @@ declare var console: Console;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
 declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setInterval(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare function clearInterval(intervalId: NodeJS.Timeout): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
@@ -519,8 +519,8 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setInterval: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
+        setTimeout: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
         queueMicrotask: typeof queueMicrotask;
         undefined: typeof undefined;
         unescape: (str: string) => string;
