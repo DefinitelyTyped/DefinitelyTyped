@@ -137,7 +137,7 @@ const allConfig = {
         signingKey: 'some-key',
         encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
-        decode: () => Promise.resolve('foo'),
+        decode: () => Promise.resolve({}),
     },
     pages: pageOptions,
     callbacks: {
