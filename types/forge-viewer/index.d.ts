@@ -1083,11 +1083,24 @@ declare namespace Autodesk {
               isSnapped(): boolean;
               clearSnapped(): void;
               copyResults(destiny: any): void;
+              getArc(): boolean;
               getGeometry(): any;
+              getGeometryType(): number;
               getEdge(): any;
+              getIntersectPoint(): any;
+              getName(): string;
+              getNames(): string[];
+              getPriority(): number;
               getSnapResult(): MeasureCommon.SnapResult;
+              getSnapToArc(): boolean;
+              getSnapToPixel(): boolean;
               getVertex(): any;
+              onMouseDown(mousePosition: { x: number, y: number }): boolean;
               onMouseMove(mousePosition: { x: number, y: number }): boolean;
+              setArc(isArc: boolean): boolean;
+              setViewportId(vpId: number): void;
+              setSnapToArc(enable: boolean): void;
+              setSnapToPixel(enable: boolean): void;
             }
 
             class SnapperIndicator {
