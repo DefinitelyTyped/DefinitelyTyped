@@ -2,10 +2,6 @@ import MapboxGeocoder, { GeocoderOptions, LngLatLiteral } from 'mapbox__mapbox-g
 
 const token = 'token';
 
-const options: GeocoderOptions = {
-    accessToken: 'token',
-};
-
 const geocoder = new MapboxGeocoder({
     accessToken: token
 });
