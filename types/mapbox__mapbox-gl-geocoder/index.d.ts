@@ -1,4 +1,4 @@
-// Type definitions for @mapbox/mapbox-gl-geocoder 4.0
+// Type definitions for @mapbox/mapbox-gl-geocoder 4.7
 // Project: https://github.com/mapbox/mapbox-gl-geocoder
 // Definitions by: makspetrov <https://github.com/Nosfit>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
