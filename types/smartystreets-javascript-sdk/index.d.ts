@@ -172,7 +172,7 @@ export namespace usStreet {
         deliveryLine2: string;
         lastLine: string;
         deliveryPointBarcode: string;
-        components: [Componenet];
+        components: Componenet;
         metadata: Metadata;
         analysis: Analysis;
     }
