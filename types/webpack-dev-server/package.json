@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/connect-history-api-fallback": "*",
+        "@types/express": "*",
+        "@types/http-proxy-middleware": "*",
+        "@types/serve-static": "*",
+        "webpack": "*"
+    }
+}
