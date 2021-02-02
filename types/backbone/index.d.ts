@@ -22,6 +22,7 @@ import * as _ from 'underscore';
 declare namespace Backbone {
     type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
     type _Result<T> = T | (() => T);
+    type _StringKey<T> = keyof T & string;
 
     interface AddOptions extends Silenceable {
         at?: number;
@@ -266,7 +267,7 @@ declare namespace Backbone {
          *    return super.get("name");
          * }
          */
-        get<A extends keyof T & string>(attributeName: A): T[A] | undefined;
+        get<A extends _StringKey<T>>(attributeName: A): T[A] | undefined;
 
         /**
          * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -275,9 +276,9 @@ declare namespace Backbone {
          *    super.set("name", value);
          * }
          */
-        set<A extends keyof T & string>(attributeName: A, value?: T[A], options?: S): this;
+        set<A extends _StringKey<T>>(attributeName: A, value?: T[A], options?: S): this;
         set(attributeName: Partial<T>, options?: S): this;
-        set<A extends keyof T & string>(attributeName: A | Partial<T>, value?: T[A] | S, options?: S): this;
+        set<A extends _StringKey<T>>(attributeName: A | Partial<T>, value?: T[A] | S, options?: S): this;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -291,15 +292,15 @@ declare namespace Backbone {
         clear(options?: Silenceable): this;
         clone(): Model;
         destroy(options?: ModelDestroyOptions): JQueryXHR | false;
-        escape(attribute: keyof T & string): string;
-        has(attribute: keyof T & string): boolean;
-        hasChanged(attribute?: keyof T & string): boolean;
+        escape(attribute: _StringKey<T>): string;
+        has(attribute: _StringKey<T>): boolean;
+        hasChanged(attribute?: _StringKey<T>): boolean;
         isNew(): boolean;
         isValid(options?: any): boolean;
-        previous<A extends keyof T & string>(attribute: A): T[A] | null | undefined;
+        previous<A extends _StringKey<T>>(attribute: A): T[A] | null | undefined;
         previousAttributes(): Partial<T>;
         save(attributes?: Partial<T> | null, options?: ModelSaveOptions): JQueryXHR;
-        unset(attribute: keyof T & string, options?: Silenceable): this;
+        unset(attribute: _StringKey<T>, options?: Silenceable): this;
         validate(attributes: Partial<T>, options?: any): any;
         private _validate(attributes: Partial<T>, options: any): boolean;
 
@@ -309,11 +310,11 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick<A extends keyof T & string>(keys: A[]): Partial<Pick<T, A>>;
-        pick<A extends keyof T & string>(...keys: A[]): Partial<Pick<T, A>>;
+        pick<A extends _StringKey<T>>(keys: A[]): Partial<Pick<T, A>>;
+        pick<A extends _StringKey<T>>(...keys: A[]): Partial<Pick<T, A>>;
         pick(fn: (value: any, key: any, object: any) => any): Partial<T>;
-        omit<A extends keyof T & string>(keys: A[]): Partial<_Omit<T, A>>;
-        omit<A extends keyof T & string>(...keys: A[]): Partial<_Omit<T, A>>;
+        omit<A extends _StringKey<T>>(keys: A[]): Partial<_Omit<T, A>>;
+        omit<A extends _StringKey<T>>(...keys: A[]): Partial<_Omit<T, A>>;
         omit(fn: (value: any, key: any, object: any) => any): Partial<T>;
         chain(): any;
         isEmpty(): boolean;
