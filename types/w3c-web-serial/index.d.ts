@@ -35,6 +35,12 @@ interface SerialInputSignals {
     dataSetReady: boolean;
 }
 
+/*~ https://wicg.github.io/serial/#serialportinfo-dictionary */
+interface SerialPortInfo {
+    usbVendorId?: number;
+    usbProductId?: number;
+}
+
 /*~ https://wicg.github.io/serial/#dom-serialport */
 declare class SerialPort extends EventTarget {
     onconnect: ((this: this, ev: Event) => any) | null;
@@ -45,6 +51,7 @@ declare class SerialPort extends EventTarget {
     open(options: SerialOptions): Promise<void>;
     setSignals(signals: SerialOutputSignals): Promise<void>;
     getSignals(): Promise<SerialInputSignals>;
+    getInfo(): SerialPortInfo;
     close(): Promise<void>;
 
     addEventListener(
