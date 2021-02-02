@@ -20,9 +20,8 @@ export as namespace Backbone;
 import * as _ from 'underscore';
 
 declare namespace Backbone {
-    type _Exclude<T, U> = T extends U ? never : T;
-    type _Omit<T, K extends string | number | symbol> = { [P in _Exclude<keyof T, K>]: T[P] };
-    type _Pick<T, K extends keyof T> = { [P in K]: T[P] };
+    type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+    type _Result<T> = T | (() => T);
 
     interface AddOptions extends Silenceable {
         at?: number;
@@ -245,7 +244,7 @@ declare namespace Backbone {
          */
         url: () => string;
 
-        urlRoot: string | (() => string);
+        urlRoot: _Result<string>;
 
         /**
          * For use with models as ES classes. If you define a preinitialize
@@ -310,8 +309,8 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick<a extends keyof T & string>(keys: a[]): Partial<_Pick<T, a>>;
-        pick<a extends keyof T & string>(...keys: a[]): Partial<_Pick<T, a>>;
+        pick<a extends keyof T & string>(keys: a[]): Partial<Pick<T, a>>;
+        pick<a extends keyof T & string>(...keys: a[]): Partial<Pick<T, a>>;
         pick(fn: (value: any, key: any, object: any) => any): Partial<T>;
         omit<a extends keyof T & string>(keys: a[]): Partial<_Omit<T, a>>;
         omit<a extends keyof T & string>(...keys: a[]): Partial<_Omit<T, a>>;
@@ -466,7 +465,7 @@ declare namespace Backbone {
         /**
          * Sets the url property (or function) on a collection to reference its location on the server.
          */
-        url: string | (() => string);
+        url: _Result<string>;
 
         without(...values: TModel[]): TModel[];
     }
@@ -482,7 +481,7 @@ declare namespace Backbone {
          * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        routes: RoutesHash | (() => RoutesHash);
+        routes: _Result<RoutesHash>;
 
         /**
          * For use with Router as ES classes. If you define a preinitialize method,
@@ -539,10 +538,10 @@ declare namespace Backbone {
         attributes?: { [id: string]: any };
         className?: string;
         tagName?: string;
-        events?: EventsHash | (() => EventsHash);
+        events?: _Result<EventsHash>;
     }
 
-    class View<TModel extends Model = Model> extends EventsMixin implements Events, ViewOptions<TModel> {
+    class View<TModel extends Model = Model> extends EventsMixin implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -580,16 +579,16 @@ declare namespace Backbone {
         $(selector: string): JQuery;
         render(): this;
         remove(): this;
-        delegateEvents(events?: EventsHash | (() => EventsHash)): this;
+        delegateEvents(events?: _Result<EventsHash>): this;
         delegate(eventName: string, selector: string, listener: Function): this;
         undelegateEvents(): this;
         undelegate(eventName: string, selector?: string, listener?: Function): this;
 
-        private _removeElement(): void;
-        private _setElement(el: HTMLElement | JQuery): void;
-        private _createElement(tagName: string): void;
-        private _ensureElement(): void;
-        private _setAttributes(attributes: { [id: string]: any }): void;
+        protected _removeElement(): void;
+        protected _setElement(el: HTMLElement | JQuery): void;
+        protected _createElement(tagName: string): void;
+        protected _ensureElement(): void;
+        protected _setAttributes(attributes: { [id: string]: any }): void;
     }
 
     // SYNC
