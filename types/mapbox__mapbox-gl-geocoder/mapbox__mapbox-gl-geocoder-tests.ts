@@ -3,14 +3,14 @@ import MapboxGeocoder, { GeocoderOptions, LngLatLiteral } from 'mapbox__mapbox-g
 const token = 'token';
 
 const geocoder = new MapboxGeocoder({
-    accessToken: token
+    accessToken: token,
 });
 
 // $ExpectType MapboxGeocoder
 geocoder.query('Paris');
 
 // $ExpectType MapboxGeocoder
-geocoder.setProximity({latitude: 12, longitude: 42});
+geocoder.setProximity({ latitude: 12, longitude: 42 });
 
 // $ExpectType LngLatLiteral
 geocoder.getProximity();
