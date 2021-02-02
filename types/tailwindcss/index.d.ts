@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { TailwindConfig } from './tailwind-config';
+import type { TailwindConfig } from './tailwind-config';
 
 declare function tailwindcss(
     config: TailwindConfig,
