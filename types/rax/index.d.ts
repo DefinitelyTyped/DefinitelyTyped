@@ -177,14 +177,7 @@ export as namespace Rax;
 
 declare namespace Rax {
   interface shared {
-    Host: {
-        __mountID: number;
-        __isUpdating: boolean;
-        driver: any;
-        rootComponents: any;
-        rootInstances: any;
-        owner: RaxInstance | null;
-    };
+    Host: any;
     Instance: RaxInstance;
     Element: RaxElement;
     flattenChildren: any;
