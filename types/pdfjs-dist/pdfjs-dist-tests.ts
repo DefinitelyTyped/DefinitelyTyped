@@ -65,8 +65,8 @@ var promise: Promise<string> = getDocument('helloworld.pdf').promise.then(pdf =>
 // Test Promise allows await and catch
 //
 async function getMeta() {
-	const pdf = await getDocument('helloworld.pdf').promise;
-	const metaData = await pdf.getMetadata().catch(function(err) {
-		return null;
-	});
+    const pdf = await getDocument('helloworld.pdf').promise;
+    const metaData = await pdf.getMetadata().catch(function(err) {
+        return null;
+    });
 }
