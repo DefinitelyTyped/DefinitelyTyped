@@ -1,4 +1,4 @@
-// Type definitions for smartystreets-javascript-sdk 1.5
+// Type definitions for smartystreets-javascript-sdk 1.6
 // Project: https://github.com/smartystreets/smartystreets-javascript-sdk
 // Definitions by: Keith Kikta <https://github.com/newbish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,16 +7,15 @@
 // <reference types="node" />
 
 import { Request } from 'express';
-
 export namespace core {
-    class Batch {
+    class Batch<T> {
         constructor();
-        lookups: [Lookup];
-        add(lookup: Lookup): void;
+        lookups: T[];
+        add(lookup: T): void;
         lookupsHasRoomForLookup(): boolean;
         lenght(): number;
-        getByIndex(index: number): Lookup;
-        getByInputId(inputId: string): [Lookup];
+        getByIndex(index: number): T;
+        getByInputId(inputId: string): T[];
         clear(): void;
         isEmpty(): boolean;
     }
@@ -25,8 +24,8 @@ export namespace core {
         sender: any;
     }
 
-    interface Client<T> extends ClientInstance {
-        send(lookup: T): Promise<T>;
+    interface Client<T, R> extends ClientInstance {
+        send(lookup: T): Promise<R>;
     }
 
     class StaticCredentials {
@@ -39,7 +38,7 @@ export namespace core {
         sign(request: Request): any;
     }
 
-    class ClientBuilder<T> {
+    class ClientBuilder<T, R> {
         constructor(credentials: StaticCredentials | SharedCredentials);
 
         signer: StaticCredentials | SharedCredentials;
@@ -52,35 +51,35 @@ export namespace core {
         debug: boolean;
         licenses: string[];
 
-        withMaxRetries(retries: number): ClientBuilder<T>;
-        withMaxTimeout(timeout: number): ClientBuilder<T>;
-        withSender(sender: any): ClientBuilder<T>;
-        withBaseUrl(url: string): ClientBuilder<T>;
-        withProxy(host: string, port: number, username?: string, password?: string): ClientBuilder<T>;
-        withCustomHeaders(customHeaders: any): ClientBuilder<T>;
-        withDebug(): ClientBuilder<T>;
-        withLicenses(licenses: string[]): ClientBuilder<T>;
+        withMaxRetries(retries: number): ClientBuilder<T, R>;
+        withMaxTimeout(timeout: number): ClientBuilder<T, R>;
+        withSender(sender: any): ClientBuilder<T, R>;
+        withBaseUrl(url: string): ClientBuilder<T, R>;
+        withProxy(host: string, port: number, username?: string, password?: string): ClientBuilder<T, R>;
+        withCustomHeaders(customHeaders: any): ClientBuilder<T, R>;
+        withDebug(): ClientBuilder<T, R>;
+        withLicenses(licenses: string[]): ClientBuilder<T, R>;
         buildSender(): any;
-        buildClient(baseUrl: string, Client: Client<T>): Client<T>;
-        buildUsStreetApiClient(): Client<usStreet.Lookup>;
-        buildUsZipcodeClient(): Client<usZipcode.Lookup>;
-        buildUsAutocompleteClient(): Client<usAutocomplete.Lookup>;
-        buildUsAutocompleteProClient(): Client<usAutocompletePro.Lookup>;
-        buildUsExtractClient(): Client<usExtract.Lookup>;
-        buildInternationalStreetClient(): Client<internationalStreet.Lookup>;
+        buildClient(baseUrl: string, Client: Client<T, R>): Client<T, R>;
+        buildUsStreetApiClient(): Client<usStreet.Lookup, Batch<usStreet.Lookup>>;
+        buildUsZipcodeClient(): Client<usZipcode.Lookup, Batch<usZipcode.Lookup>>;
+        buildUsAutocompleteClient(): Client<usAutocomplete.Lookup, usAutocomplete.Lookup>;
+        buildUsAutocompleteProClient(): Client<usAutocompletePro.Lookup, usAutocompletePro.Lookup>;
+        buildUsExtractClient(): Client<usExtract.Lookup, usExtract.Lookup>;
+        buildInternationalStreetClient(): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
     }
 
     namespace buildClient {
-        function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup>;
-        function usAutocomplete(credentials: StaticCredentials | SharedCredentials): Client<usAutocomplete.Lookup>;
+        function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup, Batch<usStreet.Lookup>>;
+        function usAutocomplete(credentials: StaticCredentials | SharedCredentials): Client<usAutocomplete.Lookup, usAutocomplete.Lookup>;
         function usAutocompletePro(
             credentials: StaticCredentials | SharedCredentials,
-        ): Client<usAutocompletePro.Lookup>;
-        function usExtract(credentials: StaticCredentials | SharedCredentials): Client<usExtract.Lookup>;
-        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client<usZipcode.Lookup>;
+        ): Client<usAutocompletePro.Lookup, usAutocompletePro.Lookup>;
+        function usExtract(credentials: StaticCredentials | SharedCredentials): Client<usExtract.Lookup, usExtract.Lookup>;
+        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client<usZipcode.Lookup, Batch<usZipcode.Lookup>>;
         function internationalStreet(
             credentials: StaticCredentials | SharedCredentials,
-        ): Client<internationalStreet.Lookup>;
+        ): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
     }
 
     namespace Errors {
@@ -124,13 +123,6 @@ export namespace core {
             constructor();
         }
     }
-    type Lookup =
-        | usStreet.Lookup
-        | usZipcode.Lookup
-        | usAutocomplete.Lookup
-        | usAutocompletePro.Lookup
-        | usExtract.Lookup
-        | internationalStreet.Lookup;
 }
 
 export namespace usStreet {
@@ -172,7 +164,7 @@ export namespace usStreet {
         deliveryLine2: string;
         lastLine: string;
         deliveryPointBarcode: string;
-        components: [Componenet];
+        components: Componenet;
         metadata: Metadata;
         analysis: Analysis;
     }
