@@ -10,17 +10,17 @@ const geocoder = new MapboxGeocoder({
     accessToken: token
 });
 
-// $ExpectedType MapboxGeocoder
+// $ExpectType MapboxGeocoder
 geocoder.query('Paris');
 
-// $ExpectedType MapboxGeocoder
+// $ExpectType MapboxGeocoder
 geocoder.setProximity({latitude: 12, longitude: 42});
 
-// $ExpectedType LngLatLiteral
+// $ExpectType LngLatLiteral
 geocoder.getProximity();
 
-// $ExpectedType MapboxGeocoder
+// $ExpectType MapboxGeocoder
 geocoder.setLanguage('en');
 
-// $ExpectedType string
+// $ExpectType string
 geocoder.getLanguage();
