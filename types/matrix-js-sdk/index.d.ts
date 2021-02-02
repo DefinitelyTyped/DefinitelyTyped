@@ -270,34 +270,34 @@ export interface LoginPayload {
    */
   well_known?: any;
 }
-export type IncludeEventContext = {
+export interface IncludeEventContext {
   before_limit?: number;
   after_limit?: number;
   include_profile?: boolean;
 }
-export type EventContext = {
+export interface EventContext {
   start: string;
   end: string;
   profile_info?: {
     [userId: string]: {
-      displayname:	string;	 
+      displayname:	string;
       avatar_url: string;
     };
   };
   events_before: MatrixEvent[];
   events_after: MatrixEvent[];
 }
-export type SearchResult = {
+export interface SearchResult {
   rank: number;
   result: MatrixEvent;
   context: EventContext;
 }
-export type GroupValue = {
+export interface GroupValue {
   next_batch?: string;
   order?: number;
   results: string[];
 }
-export type SearchResponse = {
+export interface SearchResponse {
   search_categories: {
     room_events: {
       results: SearchResult[];
@@ -311,8 +311,8 @@ export type SearchResponse = {
     };
   };
 }
-export type SearchKey = 'content.body' | 'content.name' | 'content.topic'
-export type SearchBody = {
+export type SearchKey = 'content.body' | 'content.name' | 'content.topic';
+export interface SearchBody {
   search_categories: {
     room_events: {
       search_term: string;
@@ -323,7 +323,7 @@ export type SearchBody = {
       include_state?: boolean;
       groupings?: any;
     }
-  }
+  };
 }
 /**
  * Only part of the MatrixClient methods was put here
@@ -719,7 +719,7 @@ export class CryptoDeviceInfo {
   isUnverified(): boolean;
   isKnown(): boolean;
 }
-export type EventTimelineDirection = typeof EventTimeline.BACKWARDS | typeof EventTimeline.FORWARDS
+export type EventTimelineDirection = typeof EventTimeline.BACKWARDS | typeof EventTimeline.FORWARDS;
 export class EventTimeline {
   constructor(eventTimelineSet: EventTimelineSet);
   load(initialEventId?: string, initialWindowSize?: number): Promise<void>;
@@ -747,7 +747,9 @@ export class Relations extends EventEmitter {
   constructor(relationType: string, eventType: string, room: Room | null);
   addEvent(event: MatrixEvent): void;
   getRelations(): MatrixEvent[];
-  getSortedAnnotationsByKey(): [key: any, events: Set<MatrixEvent>][] | null;
+  getSortedAnnotationsByKey(): {
+    [key: string]: Set<MatrixEvent>
+  } | null;
   getAnnotationsBySender(): {[key: string]: Set<MatrixEvent>} | null;
   getLastReplacement(): MatrixEvent | null;
   setTargetEvent(event: MatrixEvent): void;
@@ -790,7 +792,7 @@ export class Group extends EventEmitter {
   setMyMembership(membership: string): void;
   setInviter(inviter: object): void;
 }
-export type PushAction = {
+export interface PushAction {
   notify: boolean;
   tweaks: {
     highlight: boolean;
@@ -798,24 +800,27 @@ export type PushAction = {
   };
 }
 
-export type RetryAlgorithm = (event: MatrixEvent, attempts: number, err: MatrixError) => number
-export type QueueAlgorithm = (event: MatrixEvent) => string
-export type ProcessFn = (event: MatrixEvent) => Promise<any>
+export type RetryAlgorithm = (event: MatrixEvent, attempts: number, err: MatrixError) => number;
+export type QueueAlgorithm = (event: MatrixEvent) => string;
+export type ProcessFn = (event: MatrixEvent) => Promise<any>;
 
 export class MatrixScheduler {
   constructor(retryAlgorithm?: RetryAlgorithm, queueAlgorithm?: QueueAlgorithm)
-  static RETRY_BACKOFF_RATELIMIT(event: MatrixEvent, attempts: number, err: MatrixError): number
-  static QUEUE_MESSAGES(event: MatrixEvent): string | null
-  getQueueForEvent(event: MatrixEvent): MatrixEvent[] | null
-  removeEventFromQueue(event: MatrixEvent): boolean 
-  setProcessFunction(fn: ProcessFn): void
-  queueEvent(event: MatrixEvent): Promise<void> | null
+  static RETRY_BACKOFF_RATELIMIT(event: MatrixEvent, attempts: number, err: MatrixError): number;
+  static QUEUE_MESSAGES(event: MatrixEvent): string | null;
+  getQueueForEvent(event: MatrixEvent): MatrixEvent[] | null;
+  removeEventFromQueue(event: MatrixEvent): boolean;
+  setProcessFunction(fn: ProcessFn): void;
+  queueEvent(event: MatrixEvent): Promise<void> | null;
 }
 /**
  * The following types are the classes that To Be Typing:
  */
 export type CryptoVerificationBase = any;
 export type CryptoModule = any;
+
+// For now this is empty class, further functionality awaited
+/* tslint:disable-next-line:no-unnecessary-class */
 export class RoomSummary {
   constructor(
     roomId: string,
@@ -919,46 +924,46 @@ export class MatrixEvent {
   makeEncrypted(crypto_type: string, crypto_content: object, senderCurve25519Key: string, claimedEd25519Key: string): void;
   isBeingDecrypted(): boolean;
   isDecryptionFailure(): boolean;
-  attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>
-  cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>
-  getKeyRequestRecipients(userId: string): { userId: string; deviceId: string;}[]
-  getClearContent(): EventContentType
-  isEncrypted(): boolean
-  getSenderKey(): string
-  getKeysClaimed(): { ed25519: string }
-  getClaimedEd25519Key(): string
-  getForwardingCurve25519KeyChain(): string[]
-  isKeySourceUntrusted(): boolean
-  getUnsigned(): any
-  unmarkLocallyRedacted(): boolean
-  markLocallyRedacted(redactionEvent: MatrixEvent): void
-  makeRedacted(redaction_event: MatrixEvent): void
-  isRedacted(): boolean
-  isRedaction(): boolean
-  getPushActions(): PushAction[]
-  setPushActions(pushActions: PushAction[]): void
-  handleRemoteEcho(event: MatrixEvent): void
-  isSending(): boolean
-  setStatus(status: EventStatus): void
-  replaceLocalEventId(eventId: string): void
-  isRelation(relType?: string): boolean
-  getRelation(): EventContentType | null
-  makeReplaced(newEvent?: MatrixEvent): void
-  getAssociatedStatus(): EventStatus
-  getServerAggregatedRelation(relType: string): any[]
-  replacingEventId(): string | undefined
-  replacingEvent(): string | undefined
-  replacingEventDate(): Date | undefined
-  localRedactionEvent(): MatrixEvent
-  getAssociatedId(): string | undefined
-  hasAssocation(): boolean
-  updateAssociatedId(eventId: string): void
-  flagCancelled(cancelled?: boolean): void
-  isCancelled(): boolean
-  toJSON(): any
-  setVerificationRequest(request: any): void
-  setTxnId(txnId: string): void
-  getTxnId(): string
+  attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>;
+  cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>;
+  getKeyRequestRecipients(userId: string): Array<{ userId: string; deviceId: string; }>;
+  getClearContent(): EventContentType;
+  isEncrypted(): boolean;
+  getSenderKey(): string;
+  getKeysClaimed(): { ed25519: string };
+  getClaimedEd25519Key(): string;
+  getForwardingCurve25519KeyChain(): string[];
+  isKeySourceUntrusted(): boolean;
+  getUnsigned(): any;
+  unmarkLocallyRedacted(): boolean;
+  markLocallyRedacted(redactionEvent: MatrixEvent): void;
+  makeRedacted(redaction_event: MatrixEvent): void;
+  isRedacted(): boolean;
+  isRedaction(): boolean;
+  getPushActions(): PushAction[];
+  setPushActions(pushActions: PushAction[]): void;
+  handleRemoteEcho(event: MatrixEvent): void;
+  isSending(): boolean;
+  setStatus(status: EventStatus): void;
+  replaceLocalEventId(eventId: string): void;
+  isRelation(relType?: string): boolean;
+  getRelation(): EventContentType | null;
+  makeReplaced(newEvent?: MatrixEvent): void;
+  getAssociatedStatus(): EventStatus;
+  getServerAggregatedRelation(relType: string): any[];
+  replacingEventId(): string | undefined;
+  replacingEvent(): string | undefined;
+  replacingEventDate(): Date | undefined;
+  localRedactionEvent(): MatrixEvent;
+  getAssociatedId(): string | undefined;
+  hasAssocation(): boolean;
+  updateAssociatedId(eventId: string): void;
+  flagCancelled(cancelled?: boolean): void;
+  isCancelled(): boolean;
+  toJSON(): any;
+  setVerificationRequest(request: any): void;
+  setTxnId(txnId: string): void;
+  getTxnId(): string;
 }
 
 export class RoomMember {
