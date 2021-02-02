@@ -46,7 +46,9 @@ export interface ExpandableTileProps extends Omit<ReactButtonAttr, "onClick"> {
     light?: boolean,
     onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     tileCollapsedIconText?: string,
+    tileCollapsedLabel?: string,
     tileExpandedIconText?: string,
+    tileExpandedLabel?: string,
     tileMaxHeight?: number,
     tilePadding?: number,
 }
