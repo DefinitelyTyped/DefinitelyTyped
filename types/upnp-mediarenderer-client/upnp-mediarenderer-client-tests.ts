@@ -1,4 +1,4 @@
-import MediaRendererClient from 'upnp-mediarenderer-client';
+import MediaRendererClient = require('upnp-mediarenderer-client');
 
 // Instanciate a client with a device description URL (discovered by SSDP)
 const client = new MediaRendererClient('http://192.168.1.50:4873/foo.xml');
