@@ -617,6 +617,11 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
 }
 
+// A function that has jest.Mock as a parameter should also take jest.MockedFunction
+const mockedFunctionCompatTest = (mockFn: jest.Mock) => true;
+mockedFunctionCompatTest(mockedTestFunction);
+mockedFunctionCompatTest(mockedTestLambdaFunction);
+
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
