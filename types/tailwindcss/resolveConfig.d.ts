@@ -1,4 +1,4 @@
-import { TailwindConfig } from './tailwind-config';
+import type { TailwindConfig } from './tailwind-config';
 
 declare function resolveConfig(tailwindConfig: TailwindConfig): TailwindConfig;
 
