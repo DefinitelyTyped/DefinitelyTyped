@@ -828,7 +828,12 @@ const oauthAuthenticator = new auth0.OAuthAuthenticator({
 oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }).then(() => console.log('refreshed'));
 oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }, err => console.log('refreshed'));
 
-authentication.database.signUp({ email: 'email', password: 'password' });
+async function signupTest(): Promise<void> {
+    const signupResult = await authentication.database.signUp({ email: 'email', password: 'password' });
+    signupResult._id; // $ExpectType string
+    signupResult.email; // $ExpectType string
+    signupResult.email_verified; // $ExpectType boolean
+}
 
 const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
 decoded._raw; // $ExpectType string
