@@ -1,4 +1,4 @@
-// Type definitions for matrix-js-sdk 5.1
+// Type definitions for matrix-js-sdk 9.2
 // Project: https://github.com/matrix-org/matrix-js-sdk
 // Definitions by: Huan LI (李卓桓) <https://github.com/huan>
 //                 André Vitor L. Matos <https://github.com/andrevmatos>
