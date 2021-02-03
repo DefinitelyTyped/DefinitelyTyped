@@ -5,6 +5,7 @@
 // TypeScript Version: 4.1
 
 import { VueConstructor } from 'vue';
+import { ExtendedVue } from 'vue/types/vue';
 
 export default VueSelect;
 export const VueSelect: VueSelectConstructor;
@@ -62,9 +63,9 @@ export interface VueSelectProps {
     selectOnTab: boolean;
     selectOnKeyCodes: number[];
     searchInputQuerySelector: string;
-    mapKeydown: (map: KeyEventMap, vm: InstanceType<VueSelectConstructor>) => KeyEventMap;
+    mapKeydown: (map: KeyEventMap, vm: VueSelectInstance) => KeyEventMap;
     appendToBody: boolean;
-    calculatePosition: (dropdownList: HTMLUListElement, component: InstanceType<VueSelectConstructor>, position: CalculatedPosition) => void | UnbindPositionCallback;
+    calculatePosition: (dropdownList: HTMLUListElement, component: VueSelectInstance, position: CalculatedPosition) => void | UnbindPositionCallback;
 
     // in pointerScroll mixin:
     autoscroll: boolean;
@@ -227,3 +228,9 @@ export interface VueSelectConstructor extends VueConstructor {
     methods: VueSelectMethods;
     computed: VueSelectComputed;
 }
+
+type ComputedValues = {
+    [K in keyof VueSelectComputed]: ReturnType<VueSelectComputed[K]>;
+};
+
+export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>>
