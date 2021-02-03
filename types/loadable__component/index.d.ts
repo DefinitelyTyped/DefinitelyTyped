@@ -47,7 +47,12 @@ export interface LoadableComponentMethods<Props> {
     load(props?: Props): Promise<React.ComponentType<Props>>;
 }
 
-export type LoadableComponent<Props> = React.ComponentType<Props & { fallback?: JSX.Element }> &
+export interface ExtraComponentProps<Component> {
+    fallback?: JSX.Element;
+    ref?: Component extends new (...args: any[]) => any ? React.LegacyRef<InstanceType<Component>> : never;
+}
+
+export type LoadableComponent<Props, Component = never> = React.ComponentType<Props & ExtraComponentProps<Component>> &
     LoadableComponentMethods<Props>;
 
 export type LoadableLibrary<Module> = React.ComponentType<{
@@ -72,6 +77,14 @@ declare function loadableFunc<Props>(
     loadFn: (props: Props) => Promise<DefaultComponent<Props>>,
     options?: OptionsWithoutResolver<Props>,
 ): LoadableComponent<Props>;
+
+declare function loadableFunc<
+    Component extends React.ComponentType<any>,
+    Props extends React.ComponentProps<Component>,
+>(
+    loadFn: (props: Props) => Promise<Component | { default: Component }>,
+    options?: OptionsWithResolver<Props, Component>,
+): LoadableComponent<Props, Component>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
 
