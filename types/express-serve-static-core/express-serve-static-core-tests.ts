@@ -82,9 +82,9 @@ app.get('/nexterr', (req, res, next) => {
     next(new Error('dummy')); // $ExpectType void
 });
 
-// Next can receive a 'router' parameter to fall back to next router
+// Next can receive a 'route' parameter to fall back to next route
 app.get('/nextrouter', (req, res, next) => {
-    next('router'); // $ExpectType void
+    next('route'); // $ExpectType void
 });
 
 // Default types

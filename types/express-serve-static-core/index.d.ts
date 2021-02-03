@@ -34,10 +34,10 @@ export type Query = ParsedQs;
 export interface NextFunction {
     (err?: any): void;
     /**
-     * "Break-out" of a router by calling {next('router')};
+     * "Break-out" of a router by calling {next('route')};
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.router}
      */
-    (deferToNext: 'router'): void;
+    (deferToNext: 'route'): void;
 }
 
 export interface Dictionary<T> {
