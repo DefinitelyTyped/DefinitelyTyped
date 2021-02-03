@@ -52,9 +52,9 @@ export interface VueSelectProps {
     pushTags: boolean;
     filterable: boolean;
     filterBy: (option: VueSelectOption, label: string, search: string) => boolean;
-    filter: (options: VueSelectOption[], search: string) => VueSelectOption[];
+    filter: (options: ReadonlyArray<VueSelectOption>, search: string) => VueSelectOption[];
     createOption: (option: string) => VueSelectOption;
-    resetOnOptionsChange: boolean | ((newOptions: VueSelectOption[], oldOptions: VueSelectOption[], selectedValue: VueSelectOption[]) => boolean);
+    resetOnOptionsChange: boolean | ((newOptions: ReadonlyArray<VueSelectOption>, oldOptions: ReadonlyArray<VueSelectOption>, selectedValue: ReadonlyArray<VueSelectOption>) => boolean);
     clearSearchOnBlur: (parameters: ClearSearchOnBlurParameters) => boolean;
     noDrop: boolean;
     inputId: string | null;
