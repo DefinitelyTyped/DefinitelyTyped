@@ -2,7 +2,7 @@
 // Project: https://github.com/smrchy/rsmq
 // Definitions by: Nathan Němec <https://github.com/dubblen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9.5
+// TypeScript Version: 3.2
 
 /// <reference types="rsmq" />
 
