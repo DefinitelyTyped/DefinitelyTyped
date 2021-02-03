@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 10.0
+// Type definitions for react-autosuggest 10.1
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
@@ -8,6 +8,7 @@
 //                 Kevin Ross <https://github.com/rosskevin>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 ulrichb <https://github.com/ulrichb>
+//                 Arthur Fücher <https://github.com/afucher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -81,6 +82,8 @@ declare namespace Autosuggest {
         value: string;
         ref?: React.Ref<HTMLInputElement>;
     }
+
+    interface ContainerProps extends React.InputHTMLAttributes<any> {}
 
     interface SuggestionSelectedEventData<TSuggestion> {
         suggestion: TSuggestion;
@@ -166,6 +169,10 @@ declare namespace Autosuggest {
          * Pass through arbitrary props to the input. It must contain at least value and onChange.
          */
         inputProps: InputProps<TSuggestion>;
+        /**
+         * Provides arbitrary properties to the outer `div` container of Autosuggest. Allows the override of accessibility properties.
+         */
+        containerProps?: ContainerProps;
         /**
          * Will be called every time the highlighted suggestion changes.
          */
