@@ -8,6 +8,7 @@ const extract_text = 'Medica Behavioral Health(SM) handles mental health/substan
 
 let client;
 let lookup;
+let batch;
 
 // usStreet
 client = SmartyStreetsSDK.core.buildClient.usStreet(credentials);
@@ -25,12 +26,46 @@ client
         err, // $ExpectType any
     ) => console.error(err));
 
+// usStreet - Batch
+client = SmartyStreetsSDK.core.buildClient.usStreet(credentials);
+batch = new SmartyStreetsSDK.core.Batch<SmartyStreetsSDK.usStreet.Lookup>();
+lookup = new SmartyStreetsSDK.usStreet.Lookup();
+lookup.street = '4646 Scott St';
+lookup.city = 'Houston';
+lookup.state = 'TX';
+lookup.zipCode = '77004';
+batch.add(lookup);
+client
+    .send(batch)
+    .then((
+        resp, // $ExpectType Batch<Lookup>
+    ) => console.log(resp))
+    .catch((
+        err, // $ExpectType any
+    ) => console.error(err));
+
 // usZipcode
 client = SmartyStreetsSDK.core.buildClient.usZipcode(credentials);
 lookup = new SmartyStreetsSDK.usZipcode.Lookup('');
 lookup.city = 'Houston';
 lookup.state = 'TX';
 client.send(lookup)
+    .then((
+        resp, // $ExpectType Batch<Lookup>
+    ) => console.log(resp))
+    .catch((
+        err, // $ExpectType any
+    ) => console.error(err));
+
+// usZipcode - Batch
+client = SmartyStreetsSDK.core.buildClient.usZipcode(credentials);
+batch = new SmartyStreetsSDK.core.Batch<SmartyStreetsSDK.usZipcode.Lookup>();
+lookup = new SmartyStreetsSDK.usZipcode.Lookup();
+lookup.city = 'Houston';
+lookup.state = 'TX';
+batch.add(lookup);
+client
+    .send(batch)
     .then((
         resp, // $ExpectType Batch<Lookup>
     ) => console.log(resp))
