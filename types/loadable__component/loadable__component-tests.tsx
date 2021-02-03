@@ -1,7 +1,9 @@
 import * as React from 'react';
 import loadable, { lazy, loadableReady } from '@loadable/component';
 
-type TestProps = { foo: string };
+interface TestProps {
+    foo: string;
+}
 
 const TestComponent: React.FC<TestProps> = () => <>test</>;
 
@@ -76,7 +78,7 @@ function importLibLoader() {
     const LoadableClassDirect = loadable(importClassComponentLoader);
     <LoadableClassDirect
         ref={ref => {
-            ref?.publicMethod();
+            ref && ref.publicMethod();
         }}
         foo=""
     />;
@@ -86,7 +88,7 @@ function importLibLoader() {
     }));
     <LoadableClassDefault
         ref={ref => {
-            ref?.publicMethod();
+            ref && ref.publicMethod();
         }}
         foo=""
     />;
