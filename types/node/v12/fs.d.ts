@@ -479,14 +479,6 @@ declare module "fs" {
     function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
     function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
 
-    /**
-     * Asynchronous fstat(2) - Get file status.
-     * @param fd A file descriptor.
-     */
-    stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
-    stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
-    stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
-
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fstat {
         /**
@@ -518,7 +510,7 @@ declare module "fs" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lstat {
         /**
-        * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+         * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
         function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
