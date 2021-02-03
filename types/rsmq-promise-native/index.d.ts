@@ -1,4 +1,4 @@
-// Type definitions for rsmq 0.12.3
+// Type definitions for rsmq-promise-native 0.0.4
 // Project: https://github.com/smrchy/rsmq
 // Definitions by: Nathan Němec <https://github.com/dubblen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
