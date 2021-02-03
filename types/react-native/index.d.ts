@@ -818,10 +818,6 @@ interface MatrixTransform {
     matrix: number[];
 }
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-
-type TranslateTransformKeys = KeysOfUnion<TranslateXTransform | TranslateYTransform>;
-
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -8856,7 +8852,7 @@ export namespace Animated {
          *  }}
          *```
          */
-        getTranslateTransform(): { [key in TranslateTransformKeys]: AnimatedValue }[];
+        getTranslateTransform(): [{ translateX: AnimatedValue }, { translateY: AnimatedValue }];
     }
 
     type EndResult = { finished: boolean };
