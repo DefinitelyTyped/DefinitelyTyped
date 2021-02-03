@@ -1,10 +1,14 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
 
+import colors from 'tailwindcss/colors';
+
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
 import tailwindCss = require('tailwindcss');
 
-// The default TailwindCSS Config
+// A typical TailwindCSS Config
 const config: TailwindConfig = {
     theme: {
         screens: {
@@ -2498,3 +2502,8 @@ tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
 tailwindConfig.theme.colors.gray[100];
+
+colors.red[500];
+
+defaultTheme.darkMode;
+defaultTheme.theme.colors.blue[800];

@@ -86,6 +86,21 @@ export type TailwindFontConfig = [
     },
 ];
 
+export interface TailwindColorConfig {
+    readonly transparent: string;
+    readonly current: string;
+    readonly black: string;
+    readonly white: string;
+    readonly gray: TailwindColorGroup;
+    readonly red: TailwindColorGroup;
+    readonly yellow: TailwindColorGroup;
+    readonly green: TailwindColorGroup;
+    readonly blue: TailwindColorGroup;
+    readonly indigo: TailwindColorGroup;
+    readonly purple: TailwindColorGroup;
+    readonly pink: TailwindColorGroup;
+}
+
 export interface TailwindConfig {
     readonly theme: {
         readonly screens: {
@@ -96,20 +111,7 @@ export interface TailwindConfig {
             readonly '2xl': string;
             readonly [key: string]: string;
         };
-        readonly colors: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-        };
+        readonly colors: TailwindColorConfig;
         readonly spacing: TailwindStandardSpacing & {
             readonly [key: string]: string;
         };
