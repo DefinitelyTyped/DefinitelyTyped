@@ -221,7 +221,7 @@ class Library extends Backbone.Collection<Book> {
     // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
 
-    constructor(models?: Book[] | Object[], options?: any) {
+    constructor(models?: Book[] | Array<Record<string, any>>, options?: any) {
         super(models, options);
 
         // Test comparator allowed types.
