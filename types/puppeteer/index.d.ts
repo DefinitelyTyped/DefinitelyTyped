@@ -285,7 +285,7 @@ export interface JSEvalable<A = any> {
       pageFunction: string | ((arg1: A, ...args: any[]) => any),
       ...args: SerializableOrJSHandle[]
   // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.) # https://github.com/Microsoft/dtslint/issues/76
-  ): HandlerType extends ElementHandle ? Promise<ElementHandle> : Promise<JSHandle>;
+  ): Promise<HandlerType>;
 }
 
 /** Keyboard provides an api for managing a virtual keyboard. */
