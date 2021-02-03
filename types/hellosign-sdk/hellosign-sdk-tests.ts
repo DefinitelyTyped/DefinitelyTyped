@@ -3,10 +3,22 @@ import { EventResponse, Signature } from 'hellosign-sdk';
 import HelloSign = require('hellosign-sdk');
 
 const hsClient = new HelloSign({ key: 'test' });
+hsClient.setApiKey('key');
+hsClient.setClientId('client id');
+hsClient.setClientSecret('client secret');
+hsClient.setHost('host', 'port', 'protocol');
+hsClient.setOauthToken('oauth token');
+hsClient.setPort('port');
+hsClient.setProtocol('protocol');
+hsClient.setTimeout(999);
+hsClient.setUserPassAuth('username', 'password');
+hsClient._setApiField('dev', true);
+const dev = hsClient.getApiField('dev');
+const isDev = hsClient.isDev();
 
 export const eventHandler = async (data: EventResponse): Promise<void> => {
     const eventType = data.event.event_type;
-    const eventTime = data.event.event_time;
+    const eventTime: string = data.event.event_time;
 
     switch (eventType) {
         case 'signature_request_signed':
@@ -123,6 +135,7 @@ export const sendSigningRequest = async (pdfFilePath: string) => {
             {
                 email_address: 'test@example.com',
                 name: 'Testy McTest',
+                role: 'Signer',
             },
         ],
         files: [pdfFilePath],
@@ -200,6 +213,7 @@ export const sendSigningRequest = async (pdfFilePath: string) => {
     });
     const signatures = data.signature_request.signatures;
     const signature = signatures.find((sig: any) => sig.status_code === 'awaiting_signature')!;
+    const signed_at: number | null = signature.signed_at;
     const urlRequest = await hsClient.embedded.getSignUrl(signature.signature_id);
     return {
         url: urlRequest.embedded.sign_url,
