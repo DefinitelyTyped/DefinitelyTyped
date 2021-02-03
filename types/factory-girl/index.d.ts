@@ -34,12 +34,12 @@ declare namespace factory {
         /**
          * Associate the factory to other model
          */
-        assoc(name: string, key?: string, attr?: Attributes<any>, buildOptions?: BuildOptions): any;
+        assoc(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
         /**
          * Associate the factory to a model that's not persisted
          */
-        assocAttrs(name: string, key?: string, attr?: Attributes<any>, buildOptions?: BuildOptions): any;
+        assocAttrs(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
         /**
          * Associate the factory to multiple other models
