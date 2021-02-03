@@ -897,13 +897,13 @@ declare namespace CodeMirror {
         ): CodeMirror.TextMarker<Position>;
 
         /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
-        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker<MarkerRange | Position>[];
+        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
 
         /** Returns an array of all the bookmarks and marked ranges present at the given position. */
-        findMarksAt(pos: CodeMirror.Position): TextMarker<MarkerRange | Position>[];
+        findMarksAt(pos: CodeMirror.Position): TextMarker[];
 
         /** Returns an array containing all marked ranges in the document. */
-        getAllMarks(): CodeMirror.TextMarker<MarkerRange | Position>[];
+        getAllMarks(): CodeMirror.TextMarker[];
 
         /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
@@ -950,7 +950,7 @@ declare namespace CodeMirror {
         to: CodeMirror.Position;
     }
 
-    interface TextMarker<T> extends Partial<TextMarkerOptions> {
+    interface TextMarker<T = MarkerRange | Position> extends Partial<TextMarkerOptions> {
         /** Remove the mark. */
         clear(): void;
 
