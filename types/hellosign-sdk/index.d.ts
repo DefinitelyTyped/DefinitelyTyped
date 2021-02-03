@@ -27,6 +27,19 @@ declare class HelloSign {
     unclaimedDraft: HelloSign.UnclaimedDraftModule;
 
     apiApp: HelloSign.ApiAppModule;
+
+    setHost: (host: string, port: string, protocol: string) => void;
+    setProtocol: (protocol: string) => void;
+    setPort: (port: string) => void;
+    setClientId: (clientId: string) => void;
+    setClientSecret: (clientSecret: string) => void;
+    setOauthToken: (oauthToken: string) => void;
+    setApiKey: (key: string) => void;
+    setUserPassAuth: (username: string, password: string) => void;
+    setTimeout: (timeout: number) => void;
+    _setApiField: (key: string, value: any) => void;
+    getApiField: (key: string) => any;
+    isDev: () => boolean;
 }
 
 declare namespace HelloSign {
@@ -36,17 +49,17 @@ declare namespace HelloSign {
 
     type HelloSignOptions =
         | {
-              key: string;
-          }
+            key: string;
+        }
         | {
-              username: string;
-              password: string;
-          }
+            username: string;
+            password: string;
+        }
         | {
-              key: string;
-              client_id: string;
-              client_secret: string;
-          };
+            key: string;
+            client_id: string;
+            client_secret: string;
+        };
 
     interface BaseAccount {
         account_id: string;
@@ -83,9 +96,9 @@ declare namespace HelloSign {
         order: number;
         status_code: string | 'awaiting_signature' | 'signed' | 'declined';
         decline_reason: string;
-        signed_at: Date | number;
-        last_viewed_at: Date | number;
-        last_reminded_at: Date | number;
+        signed_at: number | null;
+        last_viewed_at: number | null;
+        last_reminded_at: number | null;
         has_pin: boolean;
         reassigned_by: string;
         reassignment_reason: string;
@@ -111,7 +124,7 @@ declare namespace HelloSign {
         subject: string;
         message: string;
         metadata: GenericObject<Metadata>;
-        created_at: Date | number;
+        created_at: number;
         is_complete: boolean;
         is_declined: boolean;
         has_error: boolean;
@@ -154,16 +167,16 @@ declare namespace HelloSign {
         signer: number;
         name?: string;
         validation_type?:
-            | 'numbers_only'
-            | 'letters_only'
-            | 'phone_number'
-            | 'bank_routing_number'
-            | 'bank_account_number'
-            | 'email_address'
-            | 'zip_code'
-            | 'social_security_number'
-            | 'employer_identification_number'
-            | 'custom_regex';
+        | 'numbers_only'
+        | 'letters_only'
+        | 'phone_number'
+        | 'bank_routing_number'
+        | 'bank_account_number'
+        | 'email_address'
+        | 'zip_code'
+        | 'social_security_number'
+        | 'employer_identification_number'
+        | 'custom_regex';
     }
     interface SignatureRequestRequestOptions<Metadata = GenericObject> {
         test_mode?: number;
@@ -176,6 +189,7 @@ declare namespace HelloSign {
         signers: Array<{
             email_address: string;
             name: string;
+            role?: string;
             order?: number;
             pin?: string;
             sms_phone_number?: string;
@@ -208,12 +222,12 @@ declare namespace HelloSign {
         };
         field_options?: {
             date_format:
-                | 'MM / DD / YYYY'
-                | 'MM - DD - YYYY'
-                | 'DD / MM / YYYY'
-                | 'DD - MM - YYYY'
-                | 'YYYY / MM / DD'
-                | 'YYYY - MM - DD';
+            | 'MM / DD / YYYY'
+            | 'MM - DD - YYYY'
+            | 'DD / MM / YYYY'
+            | 'DD - MM - YYYY'
+            | 'YYYY / MM / DD'
+            | 'YYYY - MM - DD';
         };
     }
     interface SignatureRequestResponse {
@@ -227,7 +241,7 @@ declare namespace HelloSign {
             query?: string;
         }): Promise<{ signature_requests: SignatureRequest[] }>;
         send(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
-        sendWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequest>;
+        sendWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
         remind(requestId: string, options: any): Promise<SignatureRequestResponse>;
         download(
             requestId: string,
@@ -244,7 +258,7 @@ declare namespace HelloSign {
     interface EmbeddedResponse {
         embedded: {
             sign_url: string;
-            expires_at: Date | number;
+            expires_at: number;
             edit_url?: string;
         };
     }
@@ -397,7 +411,7 @@ declare namespace HelloSign {
             is_embedded: boolean;
             can_edit: boolean;
             is_locked: boolean;
-        }> {}
+        }> { }
     interface TemplateResponse {
         template: Template;
     }
@@ -415,7 +429,7 @@ declare namespace HelloSign {
         claim_url: string;
         signing_redirect_url: string;
         requesting_redirect_url?: string;
-        expires_at: Date | number;
+        expires_at: number;
         test_mode?: number;
     }
     interface UnclaimedDraftResponse {
@@ -463,12 +477,12 @@ declare namespace HelloSign {
         };
         field_options?: {
             date_format:
-                | 'MM / DD / YYYY'
-                | 'MM - DD - YYYY'
-                | 'DD / MM / YYYY'
-                | 'DD - MM - YYYY'
-                | 'YYYY / MM / DD'
-                | 'YYYY - MM - DD';
+            | 'MM / DD / YYYY'
+            | 'MM - DD - YYYY'
+            | 'DD / MM / YYYY'
+            | 'DD - MM - YYYY'
+            | 'YYYY / MM / DD'
+            | 'YYYY - MM - DD';
         };
         is_for_embedded_signing?: number;
     }
@@ -513,7 +527,7 @@ declare namespace HelloSign {
          */
         client_id: string;
         event: {
-            event_time: Date | number;
+            event_time: string;
             event_type: HellosignEvents;
             event_hash: string;
             event_metadata: GenericObject<
@@ -533,7 +547,7 @@ declare namespace HelloSign {
 
     interface ApiApp {
         client_id: string;
-        created_at: Date | number;
+        created_at: number;
         name: string;
         domain: string;
         callback_url: string;
