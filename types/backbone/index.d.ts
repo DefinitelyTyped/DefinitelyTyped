@@ -96,9 +96,7 @@ declare namespace Backbone {
         reset?: boolean;
     }
 
-    interface ObjectHash {
-        [key: string]: any;
-    }
+    type ObjectHash = object;
 
     interface RoutesHash {
         [routePattern: string]: string | { (...urlParts: string[]): void };
@@ -337,10 +335,10 @@ declare namespace Backbone {
          * before any instantiation logic is run for the Collection.
          * @see https://backbonejs.org/#Collection-preinitialize
          */
-        preinitialize(models?: TModel[] | Object[], options?: any): void;
+        preinitialize(models?: TModel[] | object[], options?: any): void;
 
-        constructor(models?: TModel[] | Object[], options?: any);
-        initialize(models?: TModel[] | Object[], options?: any): void;
+        constructor(models?: TModel[] | object[], options?: any);
+        initialize(models?: TModel[] | object[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -536,7 +534,7 @@ declare namespace Backbone {
         collection?: Collection<any>; // was: Collection<TModel>;
         el?: HTMLElement | JQuery | string;
         id?: string;
-        attributes?: { [id: string]: any };
+        attributes?: object;
         className?: string;
         tagName?: string;
         events?: _Result<EventsHash>;
@@ -576,7 +574,7 @@ declare namespace Backbone {
 
         el: HTMLElement;
         $el: JQuery;
-        attributes: { [id: string]: any };
+        attributes: object;
         $(selector: string): JQuery;
         render(): this;
         remove(): this;
@@ -589,7 +587,7 @@ declare namespace Backbone {
         protected _setElement(el: HTMLElement | JQuery): void;
         protected _createElement(tagName: string): void;
         protected _ensureElement(): void;
-        protected _setAttributes(attributes: { [id: string]: any }): void;
+        protected _setAttributes(attributes: object): void;
     }
 
     // SYNC
