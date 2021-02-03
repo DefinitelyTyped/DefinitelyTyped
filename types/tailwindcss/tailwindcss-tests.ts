@@ -1,6 +1,6 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-import { TailwindConfig } from 'tailwindcss/tailwind-config';
+import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
 import tailwindCss = require('tailwindcss');
 
