@@ -10,7 +10,6 @@
     "url": "git+https://github.com/dubblen/rsmp-promise-native-types.git"
   },
   "author": "Nathan Němec",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dubblen/rsmp-promise-native-types/issues"
   },
