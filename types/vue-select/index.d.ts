@@ -233,4 +233,4 @@ type ComputedValues = {
     [K in keyof VueSelectComputed]: ReturnType<VueSelectComputed[K]>;
 };
 
-export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>>
+export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>>;
