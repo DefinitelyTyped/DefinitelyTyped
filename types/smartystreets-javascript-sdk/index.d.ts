@@ -61,8 +61,8 @@ export namespace core {
         withLicenses(licenses: string[]): ClientBuilder<T, R>;
         buildSender(): any;
         buildClient(baseUrl: string, Client: Client<T, R>): Client<T, R>;
-        buildUsStreetApiClient(): Client<usStreet.Lookup, Batch<usStreet.Lookup>>;
-        buildUsZipcodeClient(): Client<usZipcode.Lookup, Batch<usZipcode.Lookup>>;
+        buildUsStreetApiClient(): Client<usStreet.Lookup | Batch<usStreet.Lookup>, Batch<usStreet.Lookup>>;
+        buildUsZipcodeClient(): Client<usZipcode.Lookup | Batch<usZipcode.Lookup>, Batch<usZipcode.Lookup>>;
         buildUsAutocompleteClient(): Client<usAutocomplete.Lookup, usAutocomplete.Lookup>;
         buildUsAutocompleteProClient(): Client<usAutocompletePro.Lookup, usAutocompletePro.Lookup>;
         buildUsExtractClient(): Client<usExtract.Lookup, usExtract.Lookup>;
@@ -70,13 +70,13 @@ export namespace core {
     }
 
     namespace buildClient {
-        function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup, Batch<usStreet.Lookup>>;
+        function usStreet(credentials: StaticCredentials | SharedCredentials): Client<usStreet.Lookup | Batch<usStreet.Lookup>, Batch<usStreet.Lookup>>;
         function usAutocomplete(credentials: StaticCredentials | SharedCredentials): Client<usAutocomplete.Lookup, usAutocomplete.Lookup>;
         function usAutocompletePro(
             credentials: StaticCredentials | SharedCredentials,
         ): Client<usAutocompletePro.Lookup, usAutocompletePro.Lookup>;
         function usExtract(credentials: StaticCredentials | SharedCredentials): Client<usExtract.Lookup, usExtract.Lookup>;
-        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client<usZipcode.Lookup, Batch<usZipcode.Lookup>>;
+        function usZipcode(credentials: StaticCredentials | SharedCredentials): Client<usZipcode.Lookup | Batch<usZipcode.Lookup>, Batch<usZipcode.Lookup>>;
         function internationalStreet(
             credentials: StaticCredentials | SharedCredentials,
         ): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
