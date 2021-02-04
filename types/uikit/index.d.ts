@@ -12,7 +12,9 @@ type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
 type UIkitNode = Node;
 
 export namespace UIkit {
-    const util: object;
+    const util: {
+        on: (element: string, action: string, func: () => void) => void;
+    };
     const component: object;
     const data: string;
     const prefix: string;
@@ -130,7 +132,10 @@ export namespace UIkit {
         ratio?: number;
     }
 
-    type Icon = (element: UIkitElement, options?: UIkitIconOptions) => {
+    type Icon = (
+        element: UIkitElement,
+        options?: UIkitIconOptions,
+    ) => {
         svg: Promise<any>;
     };
 
@@ -288,7 +293,10 @@ export namespace UIkit {
         'stroke-animation'?: boolean;
     }
 
-    type Svg = (element: UIkitElement, options?: UIkitSvgOptions) => {
+    type Svg = (
+        element: UIkitElement,
+        options?: UIkitSvgOptions,
+    ) => {
         svg: Promise<any>;
     };
 
