@@ -3,7 +3,7 @@
 // Definitions by: Victor Castro-Cintas <https://github.com/vcastro45>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class DrupalAttribute extends Map {
+declare class DrupalAttribute extends Map {
     constructor(it: any);
 
     addClass(...args: string[]): this;
@@ -13,3 +13,5 @@ export default class DrupalAttribute extends Map {
     removeAttribute(key: string): this;
     toString(): string;
 }
+
+export = DrupalAttribute;
