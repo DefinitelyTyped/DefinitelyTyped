@@ -15,7 +15,6 @@
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
 //                 Cheng Gibson <https://github.com/nossbigg>
 //                 Saransh Kataria <https://github.com/saranshkataria>
-//                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
