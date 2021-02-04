@@ -3,7 +3,7 @@
 // Definitions by: Marton Lederer <https://github.com/martonlederer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { JWKInterface } from "arweave";
+import { JWKInterface } from "arweave/node/lib/wallet";
 
 declare global {
   interface Window {
