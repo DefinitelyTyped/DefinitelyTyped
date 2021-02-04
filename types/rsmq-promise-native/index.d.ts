@@ -6,6 +6,8 @@
 
 import RedisSMQ = require("rsmq");
 
+export =  RedisSMQPromise;
+
 declare class RedisSMQPromise {
     rsmq: RedisSMQ;
 
@@ -33,5 +35,3 @@ declare class RedisSMQPromise {
 
     quit(): Promise<void>;
 }
-
-export = RedisSMQPromise;
