@@ -178,7 +178,11 @@ const pretty = pino({
         timestampKey: 'timestamp',
         translateTime: 'UTC:h:MM:ss TT Z',
         search: 'foo == `bar`',
-        suppressFlushSyncWarning: true,
+        hideObject: true,
+        customPrettifiers: {
+            msg: msg => `prefixed_${msg}`
+        },
+        suppressFlushSyncWarning: true
     },
 });
 

@@ -1,4 +1,4 @@
-// Type definitions for pino 6.3
+// Type definitions for pino 6.11
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -552,6 +552,10 @@ declare namespace P {
          */
         levelFirst?: boolean;
         /**
+         * The key in the JSON object to use for level display. Default: "level".
+         */
+        levelKey?: string;
+        /**
          * The key in the JSON object to use as the highlighted message. Default: "msg".
          */
         messageKey?: string;
@@ -588,6 +592,14 @@ declare namespace P {
          * Ignore one or several keys. Example: "time,hostname"
          */
         ignore?: string;
+        /**
+         * Hide objects from output (but not error object)
+         */
+        hideObject?: boolean;
+        /**
+         * Provides the ability to add a custom prettify function for specific log properties.
+         */
+        customPrettifiers?: Record<string, (value: string) => string>;
         /**
          * Suppress warning on first synchronous flushing.
          */
