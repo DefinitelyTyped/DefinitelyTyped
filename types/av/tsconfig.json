@@ -15,19 +15,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "asset.d.ts",
-        "audioDevice.d.ts",
-        "av-tests.ts",
-        "baseTypes.d.ts",
-        "bitstream.d.ts",
-        "buffer.d.ts",
-        "bufferList.d.ts",
-        "decoder.d.ts",
-        "eventEmitter.d.ts",
-        "filter.d.ts",
         "index.d.ts",
-        "player.d.ts",
-        "source.d.ts",
-        "stream.d.ts"
+        "av-tests.ts"
     ]
 }
