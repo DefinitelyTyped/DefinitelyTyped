@@ -23,7 +23,7 @@ source = new AV.BufferSource(new ArrayBuffer(10));
 source = new AV.BufferSource(bufferList);
 source.start();
 source.on("data", (buffer) => {
-	console.log(buffer.length);
+    console.log(buffer.length);
 });
 
 let asset: AV.Asset = AV.Asset.fromURL("http://example.org/");
@@ -33,13 +33,13 @@ asset = AV.Asset.fromBuffer(typedArray);
 asset = new AV.Asset(source);
 asset.start();
 asset.get("format", (format) => {
-	console.log(format.formatID);
+    console.log(format.formatID);
 });
 asset.get("metadata", (metadata) => {
-	console.log(metadata.asdf);
+    console.log(metadata.asdf);
 });
 asset.on("error", (error) => {
-	console.log(error.stack);
+    console.log(error.stack);
 });
 
 let player: AV.Player = AV.Player.fromURL("http://example.org/");
@@ -49,22 +49,22 @@ player = AV.Player.fromBuffer(typedArray);
 player = new AV.Player(asset);
 player.play();
 player.on("error", (error) => {
-	console.log(error.stack);
+    console.log(error.stack);
 });
 
 class MyAudioDevice extends AV.EventEmitter implements AV.Device {
-	supported = true;
+    supported = true;
 
-	constructor(sampleRate: number, number: number) {
-		super();
-	}
+    constructor(sampleRate: number, number: number) {
+        super();
+    }
 
-	getDeviceTime() {
-		return 0;
-	}
+    getDeviceTime() {
+        return 0;
+    }
 
-	destroy() {
-	}
+    destroy() {
+    }
 }
 AV.AudioDevice.register(MyAudioDevice);
 
@@ -74,7 +74,7 @@ const audioDevice = new AV.AudioDevice(12345, 2);
 console.log(audioDevice.playing);
 audioDevice.seek(10);
 audioDevice.once("refill", (buffer) => {
-	console.log(buffer.length);
+    console.log(buffer.length);
 });
 
 let stream: AV.Stream = AV.Stream.fromBuffer(buffer);
@@ -88,41 +88,41 @@ console.log(bitstream.read(1));
 console.log(bitstream.read(1, true));
 
 class MyDecoder extends AV.Decoder {
-	init() {
-	}
+    init() {
+    }
 
-	readChunk() {
-		return typedArray;
-	}
+    readChunk() {
+        return typedArray;
+    }
 }
 AV.Decoder.register("mp3", MyDecoder);
 const decoder: AV.Decoder | null = AV.Decoder.find("mp3");
 if (decoder) {
-	decoder.on("error", (error) => {
-		console.log(error.stack);
-	});
+    decoder.on("error", (error) => {
+        console.log(error.stack);
+    });
 }
 
 class MyDemuxer extends AV.Demuxer {
-	static probe(stream: AV.Stream) {
-		return true;
-	}
+    static probe(stream: AV.Stream) {
+        return true;
+    }
 
-	readChunk() {
-	}
+    readChunk() {
+    }
 }
 AV.Demuxer.register(MyDemuxer);
 const demuxer: AV.Demuxer | null = AV.Demuxer.find(buffer);
 if (demuxer) {
-	demuxer.on("error", (error) => {
-		console.log(error.stack);
-	});
+    demuxer.on("error", (error) => {
+        console.log(error.stack);
+    });
 }
 
 class MyFilter extends AV.Filter {
-	process(buffer: AV.TypedArray) {
-		console.log(buffer.length);
-	}
+    process(buffer: AV.TypedArray) {
+        console.log(buffer.length);
+    }
 }
 
 let filter: AV.Filter = new MyFilter({}, "test");
