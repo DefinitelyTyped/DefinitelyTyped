@@ -16,31 +16,31 @@ export interface WorkgridToolbarOptions {
     deferDisplay?: boolean;
     htmlDisplay?: string | null;
     listener?: (event: string) => void | null;
-    preventPageHide?: boolean
+    preventPageHide?: boolean;
     toolbarId?: string | null;
     version?: string | null;
     responsive?: {
-        disabled?: boolean,
+        disabled?: boolean;
         page?: {
-            diaabled?: boolean,
-            breakpoints?: number[][],
+            diaabled?: boolean;
+            breakpoints?: number[][];
             target?: {
-                ids?: string[],
-                elements?: HTMLElement[],
-                cssProperty?: string,
-                cssUnit?: string
-            }
-        },
+                ids?: string[];
+                elements?: HTMLElement[];
+                cssProperty?: string;
+                cssUnit?: string;
+            };
+        };,
         toolbar?: {
-            disabled?: boolean | true,
-            breakpoints?: number[][],
+            disabled?: boolean | true;
+            breakpoints?: number[][];
             target?: {
-                id?: string,
-                cssProperty?: string,
-                cssUnit?: string
-            }
-        }
-    }
+                id?: string;
+                cssProperty?: string;
+                cssUnit?: strin;
+            };
+        };
+    };
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;
