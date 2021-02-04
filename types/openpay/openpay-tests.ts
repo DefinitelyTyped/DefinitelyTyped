@@ -1,6 +1,5 @@
 // Test code obtained from original repository https://github.com/open-pay/openpay-node
-
-import Openpay from 'openpay';
+import Openpay = require('openpay');
 
 const openpay = new Openpay('your merchant id', 'your private key');
 
