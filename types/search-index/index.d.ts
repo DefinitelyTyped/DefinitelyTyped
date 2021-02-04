@@ -3,6 +3,8 @@
 // Definitions by: Travis Harrison <https://github.com/TravisYeah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export interface SearchIndexOptions {
     db?: string;
     cacheLength?: number;
