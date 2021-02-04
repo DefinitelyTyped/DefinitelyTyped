@@ -388,11 +388,10 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
-        const { onChange, onBlur, ...restInputProps } = inputProps;
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
         return (
             <div>
-                <input {...restInputProps} />
+                <input {...inputProps} />
             </div>
         );
     }
