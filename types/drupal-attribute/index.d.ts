@@ -1,4 +1,4 @@
-// Type definitions for drupal-attribute 1.0.2
+// Type definitions for drupal-attribute 1.0
 // Project: https://github.com/ericmorand/drupal-attribute
 // Definitions by: Victor Castro-Cintas <https://github.com/vcastro45>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
