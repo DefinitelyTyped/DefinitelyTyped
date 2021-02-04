@@ -3,7 +3,6 @@
 // Definitions by: Bruno Jardón <https://github.com/bjardon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace openpay;
 export = Openpay;
 
 declare class Openpay {
