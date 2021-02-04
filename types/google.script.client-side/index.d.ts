@@ -118,7 +118,7 @@ declare namespace google.script {
 
     type Parameter = number | boolean | string | { [index: number]: Parameter } | { [key: string]: Parameter } | null | undefined;
 
-    type RunnerFunctions = {
+    interface RunnerFunctions {
         /**
          * Sets a callback function to run if the server-side function throws an exception.
          * Without a failure handler, failures are logged to the JavaScript console.
@@ -142,14 +142,14 @@ declare namespace google.script {
          * User objects cannot, however, be objects constructed with the new operator
          */
         withUserObject(object: any): typeof run;
-    };
+    }
 
-    type PublicEndpoints = {
+    interface PublicEndpoints {
         /**
          * Executes the server-side Apps Script function with the corresponding name.
          */
         [functionName: string]: (first?: Parameter | HTMLFormElement, ...rest: Parameter[]) => void;
-    };
+    }
 
     const run: RunnerFunctions & PublicEndpoints;
 }

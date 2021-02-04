@@ -10,9 +10,9 @@ By default, any `google.script.run.myFunction()` function calls will work with a
 
 ```ts
 declare namespace google.script {
-    type PublicEndpoints = {
+    interface PublicEndpoints {
         doGet(): GoogleAppsScript.HTML.HtmlOutput; // You probably use this special function as well
         myFunction(param1: string, param2: boolean): number; // Here you can specify any of your functions
-    };
+    }
 }
 ```
