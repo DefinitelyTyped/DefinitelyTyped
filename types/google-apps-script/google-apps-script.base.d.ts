@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.html.d.ts"/>
 
 declare namespace GoogleAppsScript {
   namespace Base {
