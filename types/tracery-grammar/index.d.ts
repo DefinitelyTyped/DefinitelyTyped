@@ -59,7 +59,6 @@ declare class TraceryRuleSet {
     selectRule(errors?: string[]): any;
     clearState(): void;
 }
-declare function fyshuffle<T>(array: T[]): T[];
 declare class TracerySymbol {
     grammar: TraceryGrammar;
     key: string;
@@ -99,9 +98,7 @@ declare class TraceryGrammar {
 }
 declare const tracery: {
     createGrammar: (raw: ConstructorParameters<typeof TraceryGrammar>[0]) => TraceryGrammar;
-    parseTag: (
-        tagContents: string | null,
-    ) => {
+    parseTag: (tagContents: string | null) => {
         symbol: any;
         preactions: any[];
         postactions: any[];
@@ -122,17 +119,4 @@ declare const tracery: {
     Symbol: typeof TracerySymbol;
     RuleSet: typeof TraceryRuleSet;
 };
-declare function isVowel(c: any): boolean;
-declare function isAlphaNum(c: any): boolean;
-declare function escapeRegExp(str: any): any;
-declare var baseEngModifiers: {
-    replace: (s: string, params: string[]) => string;
-    capitalizeAll: (s: string) => string;
-    capitalize: (s: string) => string;
-    a: (s: string) => string;
-    firstS: (s: string) => string;
-    s: (s: string) => string;
-    ed: (s: string) => string;
-};
-
 export = tracery;
