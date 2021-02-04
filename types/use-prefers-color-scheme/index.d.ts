@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function usePrefersColorScheme(): "no-preference" | "light" | "dark";
-export default usePrefersColorScheme;
+export = usePrefersColorScheme;
