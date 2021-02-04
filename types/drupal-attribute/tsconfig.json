@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "drupal-attribute-test.ts"
+        "drupal-attribute-tests.ts"
     ]
 }
