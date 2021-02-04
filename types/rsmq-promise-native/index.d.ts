@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import RedisSMQ = require("rsmq");
+/// <reference types="rsmq"/>
 
-export =  RedisSMQPromise;
+import * as RedisSMQ from 'rsmq';
 
 declare class RedisSMQPromise {
     rsmq: RedisSMQ;
@@ -35,3 +35,5 @@ declare class RedisSMQPromise {
 
     quit(): Promise<void>;
 }
+
+export =  RedisSMQPromise;
