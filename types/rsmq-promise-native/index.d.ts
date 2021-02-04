@@ -4,12 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-/// <reference types="rsmq"/>
-
 import * as RedisSMQ from 'rsmq';
 
 declare class RedisSMQPromise {
-    rsmq: RedisSMQ;
+    rsmq: typeof RedisSMQ;
 
     constructor(props: RedisSMQ.ConstructorOptions);
 
