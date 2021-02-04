@@ -1,8 +1,8 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-import colors from 'tailwindcss/colors';
+import * as colors from 'tailwindcss/colors';
 
-import defaultTheme from 'tailwindcss/defaultTheme';
+import * as defaultTheme from 'tailwindcss/defaultTheme';
 
 import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
@@ -2502,6 +2502,17 @@ tailwindCss(tailwindConfig);
 
 tailwindConfig.theme.height;
 tailwindConfig.theme.colors.gray[100];
+
+// Examples from https://tailwindcss.com/docs/configuration#referencing-in-java-script
+
+tailwindConfig.theme.width[4];
+// => '1rem'
+
+tailwindConfig.theme.screens.md;
+// => '768px'
+
+tailwindConfig.theme.boxShadow['2xl'];
+// => '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
 
 colors.red[500];
 
