@@ -30,14 +30,14 @@ export interface WorkgridToolbarOptions {
                 cssProperty?: string;
                 cssUnit?: string;
             };
-        };,
+        };
         toolbar?: {
             disabled?: boolean | true;
             breakpoints?: number[][];
             target?: {
                 id?: string;
                 cssProperty?: string;
-                cssUnit?: strin;
+                cssUnit?: string;
             };
         };
     };
