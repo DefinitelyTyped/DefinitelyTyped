@@ -6,8 +6,6 @@
 import * as React from 'react';
 import * as Rebass from 'rebass';
 
-export {};
-
 export interface TilesProps extends Rebass.BoxProps {
     width?: Array<number | string | null>;
     columns?: Array<number | null>;
