@@ -8,7 +8,7 @@ const atx_locationId_p3: string = LocationId.encode(30.2672, -97.7431, 3);
 const atx_latlong: LocationId.PointWithElevation = LocationId.decode(atx_locationId);
 
 // Bounds
-const atx_bounds: LocationId.BoundsWithElevation = LocationId.bounds(atx_locationId);
+const atx_bounds: LocationId.Bounds = LocationId.bounds(atx_locationId);
 
 // Adjacent
 const atx_adj_cell1: string = LocationId.adjacent(atx_locationId, 'N');

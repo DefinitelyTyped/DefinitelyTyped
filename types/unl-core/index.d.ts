@@ -31,15 +31,10 @@ export interface Bounds {
     w: number;
 }
 
-export interface BoundsWithElevation extends Bounds {
-    elevation: number;
-    elevationType: ElevationType;
-}
-
 export interface PointWithElevation extends Point {
     elevation: number;
     elevationType: ElevationType;
-    bounds: BoundsWithElevation;
+    bounds: Bounds;
 }
 
 export interface EncodeOptions {
@@ -93,7 +88,7 @@ export function decode(locationId: string): PointWithElevation;
  * @returns Bounds
  * @throws  Invalid locationId.
  */
-export function bounds(locationId: string): BoundsWithElevation;
+export function bounds(locationId: string): Bounds;
 
 /**
  * Determines adjacent cell in given direction.
