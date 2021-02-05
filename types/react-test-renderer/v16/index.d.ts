@@ -79,9 +79,9 @@ export function act(callback: () => Promise<void | undefined>): Promise<undefine
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
  */
-// the "void | undefined" is here to forbid any sneaky "Promise" returns.
+// the "void/brand type union" is here to forbid any sneaky "Promise" returns.
 // the actual return value is always a "DebugPromiseLike".
-export function act(callback: () => void | undefined): DebugPromiseLike;
+export function act(callback: () => void | { __undefined_and_void_return_only: never }): DebugPromiseLike;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

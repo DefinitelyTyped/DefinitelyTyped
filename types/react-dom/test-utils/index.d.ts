@@ -290,10 +290,10 @@ export function createRenderer(): ShallowRenderer;
 // - the order of these signatures matters - typescript will check the signatures in source order.
 //   If the `() => void` signature is first, it'll erroneously match a Promise returning function for users with
 //   `strictNullChecks: false`.
-// - the "void | undefined" types are there to forbid any non-void return values for users with `strictNullChecks: true`
+// - the "void/brand type union" is there to forbid any non-void return values for users with `strictNullChecks: true`
 // tslint:disable-next-line: void-return
-export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
-export function act(callback: () => void | undefined): void;
+export function act(callback: () => Promise<void>): Promise<undefined>;
+export function act(callback: () => void | { __undefined_and_void_return_only: never }): void;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

@@ -110,12 +110,12 @@ declare module '.' {
 
     // undocumented, considered for removal
     export function unstable_withSuspenseConfig(
-        scope: () => void | undefined,
+        scope: () => void | { __undefined_and_void_return_only: never },
         config: SuspenseConfig | null | undefined,
     ): void;
 
     // must be synchronous
-    export type TransitionFunction = () => void | undefined;
+    export type TransitionFunction = () => void | { __undefined_and_void_return_only: never };
     // strange definition to allow vscode to show documentation on the invocation
     export interface TransitionStartFunction {
         /**

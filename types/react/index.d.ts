@@ -892,7 +892,7 @@ declare namespace React {
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.
-    type EffectCallback = () => (void | (() => void | undefined));
+    type EffectCallback = () => (void | (() => void | { __undefined_and_void_return_only: never }));
 
     interface MutableRefObject<T> {
         current: T;
