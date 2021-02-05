@@ -95,6 +95,7 @@ export namespace CRS {
     const EPSG3395: CRS;
     const EPSG3857: CRS;
     const EPSG4326: CRS;
+    const EPSG900913: CRS;
     const Earth: CRS;
     const Simple: CRS;
 }
@@ -1173,7 +1174,7 @@ export function featureGroup(layers?: Layer[]): FeatureGroup;
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends LayerOptions {
+export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
@@ -1730,7 +1731,7 @@ export class Map extends Evented {
     closeTooltip(tooltip?: Tooltip): this;
 
     // Methods for modifying map state
-    setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
+    setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
     setZoom(zoom: number, options?: ZoomPanOptions): this;
     zoomIn(delta?: number, options?: ZoomOptions): this;
     zoomOut(delta?: number, options?: ZoomOptions): this;
@@ -1770,17 +1771,17 @@ export class Map extends Evented {
     getBounds(): LatLngBounds;
     getMinZoom(): number;
     getMaxZoom(): number;
-    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
+    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean, padding?: Point): number;
     getSize(): Point;
     getPixelBounds(): Bounds;
     getPixelOrigin(): Point;
     getPixelWorldBounds(zoom?: number): Bounds;
 
     // Conversion methods
-    getZoomScale(toZoom: number, fromZoom: number): number;
-    getScaleZoom(scale: number, fromZoom: number): number;
-    project(latlng: LatLngExpression, zoom: number): Point;
-    unproject(point: PointExpression, zoom: number): LatLng;
+    getZoomScale(toZoom: number, fromZoom?: number): number;
+    getScaleZoom(scale: number, fromZoom?: number): number;
+    project(latlng: LatLngExpression, zoom?: number): Point;
+    unproject(point: PointExpression, zoom?: number): LatLng;
     layerPointToLatLng(point: PointExpression): LatLng;
     latLngToLayerPoint(latlng: LatLngExpression): Point;
     wrapLatLng(latlng: LatLngExpression): LatLng;

@@ -1,7 +1,6 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
-//                 Behind The Math <https://github.com/BehindTheMath>
 //                 Kenneth Luján <https://github.com/klujanrosas>
 //                   Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -55,7 +54,7 @@ type RegisterType = 'format' | 'locale';
 interface Numeral {
     (value?: any): Numeral;
     version: string;
-    isNumeral: boolean;
+    isNumeral(value: any): boolean;
     options: NumeralJSOptions;
 
     /**

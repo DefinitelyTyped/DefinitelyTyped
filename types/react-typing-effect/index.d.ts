@@ -11,6 +11,7 @@ export interface ReactTypingEffectProps {
     className?: string;
     speed?: number;
     eraseDelay?: number;
+    eraseSpeed?: number;
     typingDelay?: number;
     cursor?: string;
     cursorClassName?: string;

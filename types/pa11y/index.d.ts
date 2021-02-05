@@ -38,6 +38,7 @@ interface Results {
 interface Options {
     actions?: string[];
     browser?: Browser;
+    page?: Page;
     pages?: Page[];
     chromeLaunchConfig?: LaunchConfig;
     headers?: object;

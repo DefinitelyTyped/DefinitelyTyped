@@ -1,4 +1,4 @@
-// Type definitions for dockerode 2.5
+// Type definitions for dockerode 3.2
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>
 //                 Nicolas Laplante <https://github.com/nlaplante>
@@ -82,8 +82,9 @@ declare namespace Dockerode {
         resize(callback: Callback<any>): void;
         resize(options?: {}): Promise<any>;
 
+        wait(options: ContainerWaitOptions, callback: Callback<any>): void;
         wait(callback: Callback<any>): void;
-        wait(): Promise<any>;
+        wait(options?: ContainerWaitOptions): Promise<any>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -260,8 +261,8 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<SecretInfo>): void;
-        inspect(): Promise<SecretInfo>;
+        inspect(callback: Callback<Secret>): void;
+        inspect(): Promise<Secret>;
 
         update(options: {}, callback: Callback<any>): void;
         update(callback: Callback<any>): void;
@@ -327,6 +328,8 @@ declare namespace Dockerode {
         remove(callback: Callback<any>): void;
         remove(options?: {}): Promise<any>;
     }
+
+    type Duration = number;
 
     interface ImageInfo {
         Id: string;
@@ -402,6 +405,8 @@ declare namespace Dockerode {
         Internal: boolean;
         Attachable: boolean;
         Ingress: boolean;
+        ConfigFrom?: { Network: string; };
+        ConfigOnly: boolean;
         Containers?: { [id: string]: NetworkContainer };
         Options?: { [key: string]: string };
         Labels?: { [key: string]: string };
@@ -416,9 +421,9 @@ declare namespace Dockerode {
         Ingress?: boolean;
         IPAM?: IPAM;
         EnableIPv6?: boolean;
-        Options?: { [option: string]: string};
-        Labels?: { [label: string]: string};
-      }
+        Options?: { [option: string]: string };
+        Labels?: { [label: string]: string };
+    }
 
     interface NetworkContainer {
         Name: string;
@@ -431,7 +436,7 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: Array<{[key: string]: string }>;
+        Config?: Array<{ [key: string]: string }>;
         Options?: { [key: string]: string };
     }
     /* tslint:enable:interface-name */
@@ -1003,50 +1008,414 @@ declare namespace Dockerode {
         since?: number;
         until?: number;
         filters?:
-            | string
-            | {
-                  config?: string;
-                  container?: string[];
-                  daemon?: string[];
-                  event?: string[];
-                  image?: string[];
-                  label?: string[];
-                  network?: string[];
-                  node?: string[];
-                  plugin?: string[];
-                  scope?: Array<'local' | 'swarm'>;
-                  secret?: string[];
-                  service?: string[];
-                  type?: Array<
-                      | 'container'
-                      | 'image'
-                      | 'volume'
-                      | 'network'
-                      | 'daemon'
-                      | 'plugin'
-                      | 'service'
-                      | 'node'
-                      | 'secret'
-                      | 'config'
-                  >;
-                  volume?: string[];
-              };
+        | string
+        | {
+            config?: string;
+            container?: string[];
+            daemon?: string[];
+            event?: string[];
+            image?: string[];
+            label?: string[];
+            network?: string[];
+            node?: string[];
+            plugin?: string[];
+            scope?: Array<'local' | 'swarm'>;
+            secret?: string[];
+            service?: string[];
+            type?: Array<
+                | 'container'
+                | 'image'
+                | 'volume'
+                | 'network'
+                | 'daemon'
+                | 'plugin'
+                | 'service'
+                | 'node'
+                | 'secret'
+                | 'config'
+            >;
+            volume?: string[];
+        };
     }
 
     interface SecretVersion {
         Index: number;
     }
 
-    interface ServiceSpec {
-        Name: string;
+    interface Annotations {
+        Name?: string;
+        Labels?: { [name: string]: string };
     }
 
-    interface SecretInfo {
+    interface ResourceLimits {
+        NanoCPUs?: number;
+        MemoryBytes?: number;
+        Pids?: number;
+    }
+
+    interface NamedGenericResource {
+        Kind?: string;
+        Value?: string;
+    }
+
+    interface DiscreteGenericResource {
+        Kind?: string;
+        Value?: number;
+    }
+
+    type GenericResource = NamedGenericResource | DiscreteGenericResource;
+
+    interface RestartPolicy {
+        Condition?: string;
+        Delay?: number;
+        MaxAttempts?: number;
+        Window?: number;
+    }
+
+    interface Resources {
+        NanoCPUs?: number;
+        MemoryBytes?: number;
+        GenericResources?: GenericResource[];
+    }
+
+    interface ResourceRequirements {
+        Limits?: ResourceLimits;
+        Reservations?: Resources;
+    }
+
+    interface Placement {
+        Constraints?: string[];
+        Preferences?: Array<{ Spread: { SpreadDescriptor: string } }>;
+        MaxReplicas?: number;
+        Platforms?: Array<{
+            Architecture: string;
+            OS: string;
+        }>;
+    }
+
+    interface NetworkAttachmentConfig {
+        Target?: string;
+        Aliases?: string[];
+        DriverOpts?: { [key: string]: string };
+    }
+
+    interface Privileges {
+        CredentialSpec?: {
+            Config?: string;
+            File?: string;
+            Registry?: string;
+        };
+        SELinuxContext?: {
+            Disable?: boolean;
+            User?: string;
+            Role?: string;
+            Type?: string;
+            Level?: string;
+        };
+    }
+
+    interface HealthConfig {
+        Test?: string[];
+        Interval?: number;
+        Timeout?: number;
+        StartPeriod?: number;
+        Retries?: number;
+    }
+
+    interface DNSConfig {
+        Nameservers?: string[];
+        Search?: string[];
+        Options?: string[];
+    }
+
+    interface SecretReference {
+        File?: {
+            Name?: string;
+            UID?: string;
+            GID?: string;
+            Mode?: number;
+        };
+        SecretID?: string;
+        SecretName?: string;
+    }
+
+    interface Ulimit {
+        Name?: string;
+        Hard?: number;
+        Soft?: number;
+    }
+
+    interface ContainerSpec {
+        Image?: string;
+        Labels?: { [label: string]: string };
+        Command?: string[];
+        Args?: string[];
+        Hostname?: string;
+        Env?: string[];
+        Dir?: string;
+        User?: string;
+        Groups?: string[];
+        Privileges?: Privileges;
+        Init?: boolean;
+        TTY?: boolean;
+        OpenStdin?: boolean;
+        ReadOnly?: boolean;
+        Mounts?: MountSettings[];
+        StopSignal?: string;
+        StopGracePeriod?: number;
+        HealthCheck?: HealthConfig;
+        Hosts?: string[];
+        DNSConfig?: DNSConfig;
+        Secrets?: SecretReference[];
+        Isolation?: string;
+        Sysctls?: { [key: string]: string };
+        CapabilityAdd?: string[];
+        CapabilityDrop?: string[];
+        Ulimits?: Ulimit[];
+    }
+
+    interface PluginSpec {
+        Name?: string;
+        Remote?: string;
+        Privileges?: {
+            Name?: string;
+            Description?: string;
+            Value?: string[];
+        };
+        Disabled?: boolean;
+        Env?: string[];
+    }
+
+    interface TaskSpecBase {
+        Resources?: ResourceRequirements;
+        RestartPolicy?: RestartPolicy;
+        Placement?: Placement;
+        Networks?: NetworkAttachmentConfig[];
+        LogDriver?: {
+            Name?: string;
+            Options?: { [key: string]: string };
+        };
+        ForceUpdate?: number;
+        Runtime?: string;
+    }
+
+    interface ContainerTaskSpec extends TaskSpecBase {
+        ContainerSpec?: ContainerSpec;
+    }
+
+    interface PluginTaskSpec extends TaskSpecBase {
+        Runtime: 'plugin';
+        PluginSpec: PluginSpec;
+    }
+
+    interface NetworkAttachmentTaskSpec extends TaskSpecBase {
+        Runtime: 'attachment';
+        NetworkAttachmentSpec: {
+            ContainerID: string;
+        };
+    }
+
+    type TaskSpec = ContainerTaskSpec | PluginTaskSpec | NetworkAttachmentTaskSpec;
+
+    interface ServiceMode {
+        Replicated?: { Replicas?: number };
+        Global?: {};
+        ReplicatedJob?: {
+            MaxConcurrent?: number;
+            TotalCompletions?: number;
+        };
+        GlobalJob?: {};
+    }
+
+    interface UpdateConfig {
+        Parallelism: number;
+        Delay?: number;
+        FailureAction?: string;
+        Monitor?: number;
+        MaxFailureRatio?: number;
+        Order: string;
+    }
+
+    interface PortConfig {
+        Name?: string;
+        Protocol?: 'tcp' | 'udp' | 'sctp';
+        TargetPort?: number;
+        PublishedPort?: number;
+        PublishMode?: 'ingress' | 'host';
+    }
+
+    interface EndpointSpec {
+        Mode?: string;
+        Ports?: PortConfig[];
+    }
+
+    interface EndpointVirtualIP {
+        NetworkID?: string;
+        Addr?: string;
+    }
+
+    interface Endpoint {
+        Spec?: EndpointSpec;
+        Ports?: PortConfig[];
+        VirtualIPs?: EndpointVirtualIP[];
+    }
+
+    interface ServiceSpec extends Annotations {
+        TaskTemplate?: TaskSpec;
+        Mode?: ServiceMode;
+        UpdateConfig?: UpdateConfig;
+        RollbackConfig?: UpdateConfig;
+        Networks?: NetworkAttachmentConfig[];
+        EndpointSpec?: EndpointSpec;
+    }
+
+    interface CreateServiceOptions extends ServiceSpec {
+        authconfig?: AuthConfig;
+    }
+
+    interface ServiceCreateResponse {
         ID: string;
-        Version: SecretVersion;
-        CreatedAt: string;
+        Warnings?: string[];
+    }
+
+    interface ServiceListOptions {
+        Filters: {
+            id?: string[];
+            label?: string[];
+            mode?: Array<'replicated' | 'global'>;
+            name?: string[];
+        };
+    }
+
+    interface Version {
+        Index?: number;
+    }
+
+    interface Meta {
+        Version?: Version;
+        CreatedAt?: string;
         UpdatedAt?: string;
+    }
+
+    type UpdateState = 'updating' | 'paused' | 'completed' | 'rollback_started' | 'rollback_paused' | 'rollback_completed';
+
+    interface UpdateStatus {
+        State?: UpdateState;
+        StartedAt?: string;
+        CompletedAt?: string;
+        Message?: string;
+    }
+
+    interface ServiceStatus {
+        RunningTasks: number;
+        DesiredTasks: number;
+        CompletedTasks: number;
+    }
+
+    interface JobStatus {
+        JobIteration: Version;
+        LastExecution?: string;
+    }
+
+    interface Service extends Meta {
+        ID: string;
         Spec?: ServiceSpec;
+        PreviousSpec?: ServiceSpec;
+        Endpoint?: Endpoint;
+        UpdateStatus?: UpdateStatus;
+        ServiceStatus?: ServiceStatus;
+        JobStatus?: JobStatus;
+    }
+
+    interface OrchestrationConfig {
+        TaskHistoryRetentionLimit?: number;
+    }
+
+    interface RaftConfig {
+        SnapshotInterval?: number;
+        KeepOldSnapshots?: number;
+        LogEntriesForSlowFollowers?: number;
+        ElectionTick?: number;
+        HeartbeatTick?: number;
+    }
+
+    interface DispatcherConfig {
+        HeartbeatPeriod?: Duration;
+    }
+
+    type ExternalCAProtocol = 'cfssl' | string;
+
+    interface ExternalCA {
+        Protocol: ExternalCAProtocol;
+        URL: string;
+        Options?: { [key: string]: string };
+        CACert: string;
+    }
+
+    interface CAConfig {
+        NodeCertExpiry?: Duration;
+        ExternalCAs?: ExternalCA[];
+        SigningCACert?: string;
+        SigningCAKey?: string;
+        ForceRotate?: number;
+    }
+
+    interface TaskDefaults {
+        LogDriver?: Driver;
+    }
+
+    interface EncryptionConfig {
+        AutoLockManagers: boolean;
+    }
+
+    interface Spec extends Annotations {
+        Orchestration?: OrchestrationConfig;
+        Raft: RaftConfig;
+        Dispatcher?: DispatcherConfig;
+        CAConfig?: CAConfig;
+        TaskDefaults?: TaskDefaults;
+        EncryptionConfig?: EncryptionConfig;
+    }
+
+    interface TLSInfo {
+        TrustRoot?: string;
+        CertIssuerSubject?: string;
+        CertIssuerPublicKey?: string;
+    }
+
+    interface ClusterInfo extends Meta {
+        ID: string;
+        Spec: Spec;
+        TLSInfo: TLSInfo;
+        RootRotationInProgress: boolean;
+        DefaultAddrPool: string[];
+        SubnetSize: number;
+        DataPathPort: number;
+    }
+
+    interface JoinTokens {
+        Worker: string;
+        Manager: string;
+    }
+
+    interface Swarm extends ClusterInfo {
+        JoinTokens: JoinTokens;
+    }
+
+    interface Driver {
+        Name: string;
+        Options?: { [key: string]: string };
+    }
+
+    interface SecretSpec extends Annotations {
+        Data?: string;
+        Driver?: Driver;
+        Templating?: Driver;
+    }
+
+    interface Secret extends Meta {
+        ID: string;
+        Spec?: SecretSpec;
     }
 
     interface ConfigInfo {
@@ -1182,6 +1551,11 @@ declare namespace Dockerode {
         NetworksDeleted: string[];
     }
 
+    interface ContainerWaitOptions {
+        /** Since v1.30 */
+        condition?: 'not-running' | 'next-exit' | 'removed';
+    }
+
     interface ContainerLogsOptions {
         stdout?: boolean;
         stderr?: boolean;
@@ -1295,9 +1669,9 @@ declare class Dockerode {
     listImages(callback: Callback<Dockerode.ImageInfo[]>): void;
     listImages(options?: {}): Promise<Dockerode.ImageInfo[]>;
 
-    listServices(options: {}, callback: Callback<any[]>): void;
-    listServices(callback: Callback<any[]>): void;
-    listServices(options?: {}): Promise<any[]>;
+    listServices(options: Dockerode.ServiceListOptions, callback: Callback<Dockerode.Service[]>): void;
+    listServices(callback: Callback<Dockerode.Service[]>): void;
+    listServices(options?: Dockerode.ServiceListOptions): Promise<Dockerode.Service[]>;
 
     listNodes(options: {}, callback: Callback<any[]>): void;
     listNodes(callback: Callback<any[]>): void;
@@ -1307,9 +1681,9 @@ declare class Dockerode {
     listTasks(callback: Callback<any[]>): void;
     listTasks(options?: {}): Promise<any[]>;
 
-    listSecrets(options: {}, callback: Callback<Dockerode.SecretInfo[]>): void;
-    listSecrets(callback: Callback<Dockerode.SecretInfo[]>): void;
-    listSecrets(options?: {}): Promise<Dockerode.SecretInfo[]>;
+    listSecrets(options: {}, callback: Callback<Dockerode.Secret[]>): void;
+    listSecrets(callback: Callback<Dockerode.Secret[]>): void;
+    listSecrets(options?: {}): Promise<Dockerode.Secret[]>;
 
     listPlugins(options: {}, callback: Callback<Dockerode.PluginInfo[]>): void;
     listPlugins(callback: Callback<Dockerode.PluginInfo[]>): void;
@@ -1333,9 +1707,9 @@ declare class Dockerode {
         Warnings: string[];
     }>;
 
-    listNetworks(options: {}, callback: Callback<any[]>): void;
-    listNetworks(callback: Callback<any[]>): void;
-    listNetworks(options?: {}): Promise<any[]>;
+    listNetworks(options: {}, callback: Callback<Dockerode.NetworkInspectInfo[]>): void;
+    listNetworks(callback: Callback<Dockerode.NetworkInspectInfo[]>): void;
+    listNetworks(options?: {}): Promise<Dockerode.NetworkInspectInfo[]>;
 
     listConfigs(options: {}, callback: Callback<Dockerode.ConfigInfo[]>): void;
     listConfigs(callback: Callback<Dockerode.ConfigInfo[]>): void;
@@ -1353,8 +1727,9 @@ declare class Dockerode {
     createVolume(options: {}, callback: Callback<any>): void;
     createVolume(options: {}): Promise<any>;
 
-    createService(options: {}, callback: Callback<any>): void;
-    createService(options: {}): Promise<any>;
+    createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
+    createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;
+    createService(auth: Dockerode.AuthConfig, options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
 
     createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
     createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;

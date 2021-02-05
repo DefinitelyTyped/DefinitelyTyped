@@ -87,3 +87,9 @@ import Two = require("two.js");
     const dist = v.distanceToSquared(new Two.Vector(100, 200));
     v.x = dist;
 }
+
+{
+    const anchor = new Two.Anchor(1, 2, 3, 4, 5, 6, Two.Commands.arc);
+    anchor.command = Two.Commands.curve;
+    anchor.command = "line";
+}

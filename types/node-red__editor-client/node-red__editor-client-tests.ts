@@ -237,7 +237,7 @@ function widgetEditableListTests() {
     type MyEditableListOptions = editorClient.WidgetEditableListOptions<MyItemData>;
 
     const myListOptions: MyEditableListOptions = {
-        addButtons: false,
+        addButton: false,
         addItem: (elem, i, data) => {
             // $ExpectType JQuery<HTMLElement>
             elem;

@@ -15,7 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@postlight/*": [
+                "postlight__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

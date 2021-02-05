@@ -29,6 +29,7 @@ declare namespace Ffmpeg {
         stdoutLines?: number;
         timeout?: number;
         source?: string | stream.Readable;
+        cwd?: string;
     }
 
     interface FilterSpecification {

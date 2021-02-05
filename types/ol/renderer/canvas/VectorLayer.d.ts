@@ -22,8 +22,17 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
     ): T;
+    /**
+     * Asynchronous layer level hit detection.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
     renderFeature(
         feature: Feature<Geometry>,
@@ -32,7 +41,13 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
         builderGroup: BuilderGroup,
         opt_transform?: TransformFunction,
     ): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
+    /**
+     * Get a rendering container from an existing target, if compatible.
+     */
     useContainer(target: HTMLElement, transform: string, opacity: number): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

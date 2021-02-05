@@ -12,6 +12,9 @@ import {
 } from 'luxon';
 
 /* DateTime */
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
 const now = DateTime.local();
@@ -126,7 +129,7 @@ dt.isInDST; // $ExpectType boolean
 
 dt.set({ hour: 3 }).hour; // $ExpectType number
 
-const f = { month: 'long', day: 'numeric' };
+const f: { month: 'long', day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);
 dt.setLocale('en-GB').toLocaleString(f);
 dt.setLocale('en-US').toLocaleString(f);
@@ -225,10 +228,12 @@ Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
+DateTime.local().resolvedLocaleOpts({ locale: 'de' });
 
 dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
+dt.toFormat('MMMM dd, yyyy GG', { locale: 'de' });
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ActionMeta, ValueType } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 const components = {
@@ -18,7 +19,7 @@ const createOption = (label: string): Option => ({
 
 interface State {
   inputValue: string;
-  value: Option[];
+  value: readonly Option[];
 }
 
 export default class CreatableInputOnly extends React.Component<any, State> {
@@ -26,7 +27,7 @@ export default class CreatableInputOnly extends React.Component<any, State> {
     inputValue: '',
     value: [],
   };
-  handleChange = (value: any, actionMeta: any) => {
+  handleChange = (value: ValueType<Option, true>, actionMeta: ActionMeta<Option>) => {
     console.group('Value Changed');
     console.log(value);
     console.log(`action: ${actionMeta.action}`);

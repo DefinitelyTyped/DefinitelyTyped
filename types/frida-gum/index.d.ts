@@ -1,6 +1,7 @@
-// Type definitions for non-npm package frida-gum 16.1
+// Type definitions for non-npm package frida-gum 16.3
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -593,8 +594,9 @@ declare namespace Memory {
      * is being used by code outside the JavaScript runtime.
      *
      * @param size Number of bytes to allocate.
+     * @param options Options to customize the memory allocation.
      */
-    function alloc(size: number | UInt64): NativePointer;
+    function alloc(size: number | UInt64, options?: MemoryAllocOptions): NativePointer;
 
     /**
      * Allocates, encodes and writes out `str` as a UTF-8 string on Frida's private heap.
@@ -1201,6 +1203,20 @@ interface KernelMemoryScanMatch {
     size: number;
 }
 
+type MemoryAllocOptions = Record<any, never> | MemoryAllocNearOptions;
+
+interface MemoryAllocNearOptions {
+    /**
+     * Memory address to try allocating near.
+     */
+    near: NativePointer;
+
+    /**
+     * Maximum distance to the given memory address, in bytes.
+     */
+    maxDistance: number;
+}
+
 type MemoryPatchApplyCallback = (code: NativePointer) => void;
 
 /**
@@ -1463,6 +1479,11 @@ declare class NativePointer {
      * Converts to a signed 32-bit integer.
      */
     toInt32(): number;
+
+    /**
+     * Converts to an unsigned 32-bit integer.
+     */
+    toUInt32(): number;
 
     /**
      * Converts to a “0x”-prefixed hexadecimal string, unless a `radix`
@@ -2668,6 +2689,19 @@ interface StalkerOptions {
     onCallSummary?: (summary: StalkerCallSummary) => void;
 
     /**
+     * C callback that processes events as they occur, allowing synchronous
+     * processing of events in native code – typically implemented using
+     * CModule.
+     *
+     * This is useful when wanting to implement custom filtering and/or queuing
+     * logic to improve performance, or sacrifice performance in exchange for
+     * reliable event delivery.
+     *
+     * Note that this precludes usage of `onReceive()` and `onCallSummary()`.
+     */
+    onEvent?: StalkerNativeEventCallback;
+
+    /**
      * Callback that transforms each basic block compiled whenever Stalker
      * wants to recompile a basic block of the code that's about to be executed
      * by the stalked thread.
@@ -2675,7 +2709,7 @@ interface StalkerOptions {
     transform?: StalkerTransformCallback;
 
     /**
-     * User data to be passed to `StalkerNativeTransformCallback`.
+     * User data to be passed to `StalkerNativeEventCallback` and `StalkerNativeTransformCallback`.
      */
     data?: NativePointerValue;
 }
@@ -2741,6 +2775,11 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
+
+/**
+ * Signature: `void process (const GumEvent * event, GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeEventCallback = NativePointer;
 
 type StalkerTransformCallback =
     | StalkerX86TransformCallback
@@ -4251,6 +4290,13 @@ declare namespace Java {
      * allows ART's Instrumentation APIs to be used for tracing the runtime.
      */
     function deoptimizeEverything(): void;
+
+    /**
+     * Similar to deoptimizeEverything but only deoptimizes boot image code.
+     * Use with `dalvik.vm.dex2oat-flags --inline-max-code-units=0` for best
+     * results.
+     */
+    function deoptimizeBootImage(): void;
 
     const vm: VM;
 

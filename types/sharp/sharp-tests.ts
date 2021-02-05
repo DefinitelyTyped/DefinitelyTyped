@@ -261,6 +261,19 @@ sharp('input.jpg')
         console.log(info);
     });
 
+sharp(input)
+    .avif()
+    .avif({})
+    .avif({ quality: 50, lossless: false, speed: 5 })
+    .heif()
+    .heif({})
+    .heif({ quality: 50, compression: 'hevc', lossless: false, speed: 5 })
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
 sharp('input.jpg')
     .stats()
     .then(stats => {
@@ -275,3 +288,7 @@ sharp('input.jpg')
 // From https://sharp.pixelplumbing.com/api-output#examples-9
 // Extract alpha channel as raw pixel data from PNG input
 sharp('input.png').ensureAlpha().extractChannel(3).toColourspace('b-w').raw().toBuffer();
+
+// From https://sharp.pixelplumbing.com/api-constructor#examples-4
+// Convert an animated GIF to an animated WebP
+sharp('in.gif', { animated: true }).toFile('out.webp');

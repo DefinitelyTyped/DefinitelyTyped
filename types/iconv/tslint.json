@@ -3,13 +3,10 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "new-parens": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "unified-signatures": false
     }
 }

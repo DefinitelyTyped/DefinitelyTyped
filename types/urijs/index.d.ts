@@ -96,7 +96,7 @@ declare const URI: {
 
     unicode(): void;
 
-    withinString(source: string, func: (url: string) => string): string;
+    withinString(source: string, func: (url: string, start: number, end: number, source: string) => string): string;
 };
 
 declare namespace URI {
@@ -127,10 +127,8 @@ interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
     addQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addQuery(qry: string, value: any): URI;
     addSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -219,10 +217,8 @@ interface URI {
     readable(): string;
     relativeTo(path: string): URI;
     removeQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeQuery(name: string, value: string): URI;
     removeSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;

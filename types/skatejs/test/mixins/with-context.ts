@@ -1,6 +1,5 @@
 import { withContext, WithContext, withComponent, WithComponent } from 'skatejs';
 
-// tslint:disable-next-line interface-over-type-literal
 type Context = {
   background: string;
   color: string;

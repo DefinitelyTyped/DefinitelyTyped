@@ -67,8 +67,16 @@ declare class FileSystem {
 }
 
 declare namespace FileSystem {
+    type DirectoryItem =
+      | string
+      | Buffer
+      | (() => File)
+      | (() => Directory)
+      | (() => SymbolicLink)
+      | DirectoryItems;
+
     interface DirectoryItems {
-        [name: string]: string | Buffer | (() => File) | (() => Directory) | (() => SymbolicLink) | DirectoryItems;
+        [name: string]: DirectoryItem;
     }
 
     interface Options {
@@ -161,6 +169,13 @@ declare namespace FileSystem {
         mtime?: Date;
         /** The time of symlink creation. Defaults to `new Date()`. */
         birthtime?: Date;
+    }
+
+    interface LoaderOptions {
+        /** File content isn't loaded until explicitly read. */
+        lazy?: boolean;
+        /** Load all files and directories recursively. */
+        recursive?: boolean;
     }
 
     function getPathParts(filepath: string): string[];

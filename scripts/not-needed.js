@@ -5,17 +5,16 @@ const path = require("path");
 
 const typingsPackageName = process.argv[2];
 const asOfVersion = process.argv[3];
-const sourceRepoURL = process.argv[4];
-const libraryName = process.argv[5] || typingsPackageName;
+const libraryName = process.argv[4] || typingsPackageName;
 
-if (process.argv.length !== 5 && process.argv.length !== 6) {
-	console.log("Usage: npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]");
+if (process.argv.length !== 4 && process.argv.length !== 5) {
+	console.log("Usage: npm run not-needed -- typingsPackageName asOfVersion [libraryName]");
 	process.exit(1);
 }
 
 rmdirRecursive(path.join("types", typingsPackageName));
 const notNeededPackages = JSON.parse(fs.readFileSync("notNeededPackages.json", "utf-8"));
-notNeededPackages.packages.push({ libraryName, typingsPackageName, sourceRepoURL, asOfVersion });
+notNeededPackages.packages.push({ libraryName, typingsPackageName, asOfVersion });
 notNeededPackages.packages.sort((x, y) => x.typingsPackageName < y.typingsPackageName ? -1 : 1);
 fs.writeFileSync("notNeededPackages.json", JSON.stringify(notNeededPackages, undefined, 4) + "\n", "utf-8");
 

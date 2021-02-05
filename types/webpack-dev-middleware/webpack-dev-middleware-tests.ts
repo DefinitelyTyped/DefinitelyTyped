@@ -5,45 +5,39 @@ import webpackDevMiddleware = require('webpack-dev-middleware');
 const compiler = webpack({});
 const compilerWithPublicPath = webpack({
     output: {
-        publicPath: '/assets/'
-    }
+        publicPath: '/assets/',
+    },
 });
 
+// options
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-    logLevel: 'silent',
-    logTime: true,
-    lazy: true,
-    methods: ['GET', 'POST'],
     mimeTypes: {
-        typeMap: { 'text/html': ['phtml'] },
-        force: true,
+        myhtml: 'text/html',
     },
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: true,
-    },
-    publicPath: '/assets/',
-    index: 'index.html',
+    writeToDisk: false,
+    methods: ['GET', 'POST'],
     headers: {
         'X-Custom-Header': 'yes',
     },
-    stats: {
-        colors: true,
-    },
-    reporter: null,
+    publicPath: '/assets/',
     serverSideRender: false,
-    writeToDisk: false,
+    stats: 'errors-only',
+    outputFileSystem: compiler.outputFileSystem,
+    index: 'index.html',
 });
 
+// return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
-webpackDevMiddlewareInstance.close(() => {
-    console.log('closed');
+webpackDevMiddlewareInstance.waitUntilValid(stats => {
+    if (stats) {
+        console.log('Package is in a valid state:' + stats.toJson());
+    }
 });
 
 webpackDevMiddlewareInstance.invalidate(stats => {
@@ -52,16 +46,23 @@ webpackDevMiddlewareInstance.invalidate(stats => {
     }
 });
 
-webpackDevMiddlewareInstance.waitUntilValid(stats => {
-    if (stats) {
-        console.log('Package is in a valid state:' + stats.toJson());
-    }
+webpackDevMiddlewareInstance.close(() => {
+    console.log('closed');
 });
 
-const fs = webpackDevMiddlewareInstance.fileSystem;
-fs.mkdirpSync('foo');
+// $ExpectType boolean
+webpackDevMiddlewareInstance.context.state;
 
-let filename = webpackDevMiddlewareInstance.getFilenameFromUrl('url');
-if (filename !== false) {
-    filename = filename.substr(0);
+function foo(_: webpack.Stats) {}
+if (webpackDevMiddlewareInstance.context.stats) {
+    foo(webpackDevMiddlewareInstance.context.stats);
+}
+
+webpackDevMiddleware(compilerWithPublicPath, webpackDevMiddlewareInstance.context.options);
+
+webpackDevMiddleware(webpackDevMiddlewareInstance.context.compiler, {});
+
+function bar(_: webpack.Watching) {}
+if (webpackDevMiddlewareInstance.context.watching) {
+    bar(webpackDevMiddlewareInstance.context.watching);
 }

@@ -10,7 +10,12 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@fullcalendar/*": [
+                "fullcalendar__*"
+            ]
+        }
     },
     "files": ["index.d.ts", "fullcalendar__vue-tests.ts"]
 }

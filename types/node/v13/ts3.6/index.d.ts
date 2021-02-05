@@ -4,5 +4,4 @@
 
 /// <reference path="base.d.ts" />
 
-// tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/assert.d.ts" />
+/// <reference path="../ts3.4/assert.d.ts" />

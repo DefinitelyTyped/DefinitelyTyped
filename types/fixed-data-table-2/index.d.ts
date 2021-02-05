@@ -568,6 +568,11 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * rendering if none of it's passed in props have changed
      */
     pureRendering?: boolean;
+
+    /**
+     * Extra class for cells in column
+     */
+    cellClassName?: string;
 }
 
 export class Column extends React.Component<ColumnProps> {
@@ -617,6 +622,11 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * props object above passed in as the first parameter.
      */
     header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement));
+
+    /**
+     * Extra class for cells in column
+     */
+    cellClassName?: string;
 }
 
 export class ColumnGroup extends React.Component<ColumnGroupProps> {

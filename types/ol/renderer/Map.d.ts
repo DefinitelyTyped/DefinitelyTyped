@@ -21,14 +21,14 @@ export default abstract class MapRenderer extends Disposable {
         thisArg: S,
         layerFilter: (this: U, p0: Layer<Source>) => boolean,
         thisArg2: U,
-    ): T;
+    ): T | undefined;
     abstract forEachLayerAtPixel<T>(
         pixel: Pixel,
         frameState: FrameState,
         hitTolerance: number,
         callback: (p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
         layerFilter: (p0: Layer<Source>) => boolean,
-    ): T;
+    ): T | undefined;
     getMap(): PluggableMap;
     hasFeatureAtCoordinate<U>(
         coordinate: Coordinate,
@@ -38,5 +38,8 @@ export default abstract class MapRenderer extends Disposable {
         layerFilter: (this: U, p0: Layer<Source>) => boolean,
         thisArg: U,
     ): boolean;
+    /**
+     * Render.
+     */
     renderFrame(frameState: FrameState): void;
 }

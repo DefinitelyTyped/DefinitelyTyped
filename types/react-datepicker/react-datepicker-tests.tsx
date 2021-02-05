@@ -85,7 +85,7 @@ const defaultLocale = getDefaultLocale();
             enabled: false,
         },
     }}
-    popperPlacement=""
+    popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
     previousMonthButtonLabel=""

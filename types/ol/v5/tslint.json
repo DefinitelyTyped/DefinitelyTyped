@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "no-unnecessary-generics": false,
-        "strict-comparisons": false,
         "unified-signatures": false
     }
 }

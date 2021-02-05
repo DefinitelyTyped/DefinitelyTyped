@@ -2,27 +2,20 @@
 // Project: https://workerb.io/
 // Definitions by: workerB <https://github.com/workerb-io>
 //                Saurabh Garg <https://github.com/s-garg>
-//                Praveen Kumar Saini <https://github.com/praveen-me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
-declare type clickQueryMethods = 'by_text' | 'by_regex' | 'by_id' | 'by_xpath' | 'by_query_selector';
+type QueryMethods = 'text' | 'regex' | 'id' | 'xpath' | 'query_selector';
 
-declare type getAttributeQueryMethods =
-    | 'by_text'
-    | 'by_regex'
-    | 'by_id'
-    | 'by_xpath'
-    | 'by_query_selector'
-    | 'by_query_selector_all';
+declare type clickQueryMethods = `by_${QueryMethods}`;
 
-declare type typeQueryMethods =
-    | 'by_text'
-    | 'by_regex'
-    | 'by_id'
-    | 'by_xpath'
-    | 'by_query_selector'
-    | 'by_label'
-    | 'by_placeholder';
+declare type getAttributeQueryMethods = `by_${QueryMethods | 'query_selector_all'}`;
+
+declare type typeQueryMethods = `by_${QueryMethods | 'label' | 'placeholder'}`;
+declare interface SetVarsVariable {
+    name: string;
+    value: string;
+}
 
 declare interface QueryOptions {
     /**
@@ -265,7 +258,7 @@ declare function readTable(
  *
  * @returns A string which is the URL of the webpage in the active tab.
  */
-declare function readUrl(): string;
+declare function readURL(): string;
 
 /**
  * The runInTab function runs the specified function in a new tab and returns the result to the current tab.
@@ -389,3 +382,25 @@ declare function httpPost(url: string, data?: any, headers?: object): APIRespons
  * * status: A number that is the Status Code returned by the remote server.
  */
 declare function httpPut(url: string, data?: any, headers?: object): APIResponse;
+
+/**
+ * The setVars function sets required variables for a package, later package scripts
+ * can use those variables for various operations like authenticating the user
+ *
+ * @param variables An array of objects conatining name of user private property and its value
+ * @param options An optional object to specify other things like running system information
+ *
+ * @returns undefined
+ */
+declare function setVars(variables: SetVarsVariable[], options?: object): undefined;
+
+/**
+ * The reIndex function updates the index based on path passed into the function, if nothing
+ * is passed this function will update the complete index
+ *
+ * @param path An optional array of string which can have a path to specific node in the
+ * index to update.
+ *
+ * @returns undefined
+ */
+declare function reIndex(path?: string[]): undefined;

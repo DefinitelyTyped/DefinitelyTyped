@@ -15,7 +15,7 @@ import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
 /**
- * `Environment` object is responsible of handling the lifecyle and bootstrap
+ * `Environment` object is responsible of handling the lifecycle and bootstrap
  * of generators in a specific environment (your app).
  *
  * It provides a high-level API to create and run generators, as well as further

@@ -26,7 +26,7 @@ let idString: string | undefined;
 interface HierarchyDatum {
     name: string;
     val: number;
-    children?: HierarchyDatum[];
+    children?: Iterable<HierarchyDatum>;
 }
 
 let hierarchyRootDatum: HierarchyDatum = {
@@ -53,6 +53,7 @@ let hierarchyRootDatum: HierarchyDatum = {
 let hierarchyNodeArray: Array<d3Hierarchy.HierarchyNode<HierarchyDatum>> = [];
 let hierarchyNodeArrayOrUndefined: Array<d3Hierarchy.HierarchyNode<HierarchyDatum>> | undefined;
 let hierarchyNode: d3Hierarchy.HierarchyNode<HierarchyDatum>;
+let hierarchyNodeOrUndefined: d3Hierarchy.HierarchyNode<HierarchyDatum> | undefined;
 
 let hierarchyPointNodeArray: Array<d3Hierarchy.HierarchyPointNode<HierarchyDatumWithParentId>> = [];
 let hierarchyPointNodeArrayOrUndefined: Array<d3Hierarchy.HierarchyPointNode<HierarchyDatumWithParentId>> | undefined;
@@ -109,6 +110,10 @@ const descendants: Array<d3Hierarchy.HierarchyNode<HierarchyDatum>> = hierarchyR
 
 hierarchyNodeArray = hierarchyRootNode.leaves();
 
+// find() --------------------------------------------------------------
+
+hierarchyNodeOrUndefined = hierarchyRootNode.find(node => !!node.value && node.value > 0);
+
 // path() ----------------------------------------------------------------
 
 hierarchyNode = descendants[descendants.length - 1];
@@ -153,15 +158,33 @@ hierarchyRootNode = hierarchyRootNode.each((node) => {
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
 
+hierarchyRootNode = hierarchyRootNode.each(function(node, index, thisNode) {
+    const testProperty: number = this.testThisProperty;
+    console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
+    console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
+}, { testThisProperty: 5 });
+
 hierarchyRootNode = hierarchyRootNode.eachAfter((node) => {
     console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
 
+hierarchyRootNode = hierarchyRootNode.eachAfter(function(node, index, thisNode) {
+    const testProperty: number = this.testThisProperty;
+    console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
+    console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
+}, { testThisProperty: 5 });
+
 hierarchyRootNode = hierarchyRootNode.eachBefore((node) => {
     console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
+
+hierarchyRootNode = hierarchyRootNode.eachBefore(function(node, index, thisNode) {
+    const testProperty: number = this.testThisProperty;
+    console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
+    console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
+}, { testThisProperty: 5 });
 
 // copy() ----------------------------------------------------------------
 

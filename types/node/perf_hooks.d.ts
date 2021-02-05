@@ -186,7 +186,7 @@ declare module 'perf_hooks' {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: EntryType[]; buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
     }
 
     namespace constants {

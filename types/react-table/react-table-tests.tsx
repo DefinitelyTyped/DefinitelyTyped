@@ -384,6 +384,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // We also need to pass this so the page doesn't change
             // when we edit the data, undefined means using the default
             autoResetPage: !skipPageReset,
+            // Do not reset hidden columns when columns change. Allows
+            // for creating columns during render.
+            autoResetHiddenColumns: false,
         },
         useGroupBy,
         useFilters,
@@ -396,9 +399,6 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
-                    // Make this column a groupByBoundary. This ensures that groupBy columns
-                    // are placed after it
-                    groupByBoundary: true,
                     // The header can use the table's getToggleAllRowsSelectedProps method
                     // to render a checkbox
                     Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
@@ -597,9 +597,6 @@ const Component = (props: {}) => {
     const columns: Array<Column<Data>> = [
         {
             id: 'selection',
-            // Make this column a groupByBoundary. This ensures that groupBy columns
-            // are placed after it
-            groupByBoundary: true,
             // The header can use the table's getToggleAllRowsSelectedProps method
             // to render a checkbox
             Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (

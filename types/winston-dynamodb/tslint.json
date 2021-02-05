@@ -1,18 +1,15 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-imports": false,
         "no-duplicate-variable": false,
         "no-misused-new": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "typedef-whitespace": false
