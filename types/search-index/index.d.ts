@@ -3,9 +3,7 @@
 // Definitions by: Travis Harrison <https://github.com/TravisYeah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-export interface SearchIndexOptions {
+interface SearchIndexOptions {
     db?: string;
     cacheLength?: number;
     caseSensitive?: boolean;
@@ -14,61 +12,61 @@ export interface SearchIndexOptions {
     stopwords?: string[];
 }
 
-export interface Page {
+interface Page {
     NUMBER: number;
     SIZE: number;
 }
 
-export type Type = 'NUMERIC' | 'ALPHABETIC';
+type Type = 'NUMERIC' | 'ALPHABETIC';
 
-export type Direction = 'ASCENDING' | 'DESCENDING';
+type Direction = 'ASCENDING' | 'DESCENDING';
 
-export interface AND {
+interface AND {
     AND: Token[];
 }
 
-export interface NOT {
+interface NOT {
     INCLUDE: Token;
     EXCLUDE: Token;
 }
 
-export interface OR {
+interface OR {
     OR: Token[];
 }
 
-export interface SEARCH {
+interface SEARCH {
     SEARCH: Token[];
 }
 
-export type QueryVerb = AND | NOT | OR | SEARCH;
+type QueryVerb = AND | NOT | OR | SEARCH;
 
-export type Field = string | string[];
+type Field = string | string[];
 
-export interface RangeValueObject {
+interface RangeValueObject {
     GTE: string | number;
     LTE: string | number;
 }
 
-export interface FieldValueObject {
+interface FieldValueObject {
     FIELD: Field;
     VALUE: string | RangeValueObject;
 }
 
-export interface FieldOnlyObject {
+interface FieldOnlyObject {
     FIELD: Field;
 }
 
-export type Token = Field | FieldValueObject | FieldOnlyObject | QueryVerb;
+type Token = Field | FieldValueObject | FieldOnlyObject | QueryVerb;
 
-export interface Sort {
+interface Sort {
     TYPE: Type;
     DIRECTION: Direction;
     FIELD: string;
 }
 
-export type Score = 'TFIDF' | 'SUM' | 'PRODUCT' | 'CONCAT';
+type Score = 'TFIDF' | 'SUM' | 'PRODUCT' | 'CONCAT';
 
-export interface QueryOptions {
+interface QueryOptions {
     BUCKETS?: string[];
     DOCUMENTS?: boolean;
     FACETS?: any[];
@@ -77,59 +75,59 @@ export interface QueryOptions {
     SORT?: Sort;
 }
 
-export interface PutOptions {
+interface PutOptions {
     storeVectors: boolean;
     doNotIndexField: string[];
     storeRawDocs: boolean;
 }
 
-export interface Document {
+interface Document {
     _id: number;
     _doc: any;
 }
 
-export interface QueryResultItemNoDoc {
+interface QueryResultItemNoDoc {
     _id: string;
     _match: string[];
 }
 
-export interface QueryResultItem {
+interface QueryResultItem {
     _id: string;
     _match: string[];
     _doc: any[];
 }
 
-export interface QueryResult {
+interface QueryResult {
     RESULT: QueryResultItem[] | QueryResultItemNoDoc[];
     RESULT_LENGTH: number;
 }
 
-export interface AllDocumentsResultItem {
+interface AllDocumentsResultItem {
     _id: number;
     _doc: any;
 }
 
-export interface FieldValueIdObject extends FieldValueObject {
+interface FieldValueIdObject extends FieldValueObject {
     _id: string[];
 }
 
-export interface Operation {
+interface Operation {
     _id: string;
     operation: string;
     status: string;
 }
 
-export interface FieldValue {
+interface FieldValue {
     FIELD: string;
     VALUE: string;
 }
 
-export interface KeyValue {
+interface KeyValue {
     key: string;
     value: any;
 }
 
-export interface SearchIndex {
+interface SearchIndex {
     INDEX: any;
     QUERY(query?: Token, options?: QueryOptions): Promise<QueryResult>;
     ALL_DOCUMENTS(limit?: number): Promise<AllDocumentsResultItem[]>;
@@ -150,4 +148,6 @@ export interface SearchIndex {
     PUT_RAW(documents: ReadonlyArray<any>): Promise<Operation[]>;
 }
 
-export default function si(options?: SearchIndexOptions): Promise<SearchIndex>;
+declare function si(options?: SearchIndexOptions): Promise<SearchIndex>;
+
+export = si;

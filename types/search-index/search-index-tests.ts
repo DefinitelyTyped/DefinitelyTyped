@@ -1,4 +1,4 @@
-import si from 'search-index';
+import si = require('search-index');
 
 si(); // $ExpectType Promise<SearchIndex>
 
