@@ -5,7 +5,6 @@
 //                 Robert Essig <https://github.com/robessog>
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 Kevin Ross <https://github.com/rosskevin>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 ulrichb <https://github.com/ulrichb>
 //                 Arthur Fücher <https://github.com/afucher>
