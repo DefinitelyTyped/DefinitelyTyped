@@ -23,6 +23,8 @@
 // UNINTERRUPTED OR ERROR FREE.
 //
 /// <reference types="THREE" />
+type DeprecatedGeometry = import('three/examples/jsm/deprecated/Geometry').Geometry;
+type DeprecatedFace3 = import('three/examples/jsm/deprecated/Geometry').Face3;
 
 declare namespace Autodesk {
     namespace Viewing {
@@ -615,8 +617,8 @@ declare namespace Autodesk {
             circularArcRadius: number;
             faceNormal: THREE.Vector3;
             fromTopology: boolean;
-            geomEdge: THREE.Geometry;
-            geomFace: THREE.Geometry;
+            geomEdge: DeprecatedGeometry;
+            geomFace: DeprecatedGeometry;
             geomType: number;
             geomVertex: THREE.Vector3;
             hasTopology: boolean;
@@ -633,9 +635,9 @@ declare namespace Autodesk {
             clear(): void;
             clone(): SnapResult;
             copyTo(destiny: SnapResult): void;
-            getEdge(): THREE.Geometry;
-            getFace(): THREE.Geometry;
-            getGeometry(): THREE.Geometry;
+            getEdge(): DeprecatedGeometry;
+            getFace(): DeprecatedGeometry;
+            getGeometry(): DeprecatedGeometry;
             getVertex(): THREE.Vector3;
             isEmpty(): boolean;
           }
@@ -1345,12 +1347,16 @@ declare namespace Autodesk {
             }
 
             namespace VertexEnumerator {
-              function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
-              function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
-              function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
-              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
-              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
-              function getVertexCount(geom: THREE.Geometry): number;
+              function enumMeshEdges(geometry: DeprecatedGeometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: DeprecatedGeometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: DeprecatedGeometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: DeprecatedGeometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshVertices(
+                geometry: DeprecatedGeometry,
+                callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void,
+                matrix?: THREE.Matrix4
+              ): void;
+              function getVertexCount(geom: DeprecatedGeometry): number;
             }
 
             class ViewerState {
@@ -1365,7 +1371,7 @@ declare namespace Autodesk {
             interface HitTestResult {
                 dbId: number;
                 distance: number;
-                face: THREE.Face3;
+                face: DeprecatedFace3;
                 faceIndex: number;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
