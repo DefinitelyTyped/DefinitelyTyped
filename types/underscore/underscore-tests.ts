@@ -2109,6 +2109,9 @@ _.flatten([[[1, 2], [3]], [[4, 5]]]); // $ExpectType any[]
 // shallow flattening an array
 _.flatten([[[1, 2], [3]], [[4, 5]]], true); // $ExpectType number[][]
 
+// shallow flattening an array
+_.flatten([[[1, 2], [3]], [[4, 5]]], 2); // $ExpectType number[][]
+
 {
     // one dimension, deep
     _.flatten(recordList); // $ExpectType StringRecord[]
@@ -2396,6 +2399,20 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $Expect
     _.unzip(level2UnionList); // $ExpectType any[][]
     _(level2UnionList).unzip(); // $ExpectType any[][]
     extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<any[][], any[]>
+}
+
+// transpose
+
+{
+    // tuple lists
+    _.transpose(tupleList); // $ExpectType any[][]
+    _(tupleList).transpose(); // $ExpectType any[][]
+    extractChainTypes(_.chain(tupleList).transpose()); // $ExpectType ChainType<any[][], any[]>
+
+    // nested lists
+    _.transpose(level2UnionList); // $ExpectType any[][]
+    _(level2UnionList).transpose(); // $ExpectType any[][]
+    extractChainTypes(_.chain(level2UnionList).transpose()); // $ExpectType ChainType<any[][], any[]>
 }
 
 // object
@@ -3122,6 +3139,27 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isArray()); // $ExpectType ChainType<boolean, never>
 }
 
+// isArrayBuffer
+{
+    _.isArrayBuffer(anyValue) ? anyValue : neverValue; // $ExpectType ArrayBuffer
+    _(anyValue).isArrayBuffer(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isArrayBuffer()); // $ExpectType ChainType<boolean, never>
+}
+
+// isDataView
+{
+    _.isDataView(anyValue) ? anyValue : neverValue; // $ExpectType DataView
+    _(anyValue).isDataView(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isDataView()); // $ExpectType ChainType<boolean, never>
+}
+
+// isTypedArray
+{
+    _.isTypedArray(anyValue) ? anyValue : neverValue; // $ExpectType TypedArray
+    _(anyValue).isTypedArray(); // $ExpectType boolean
+    extractChainTypes(_.chain(anyValue).isTypedArray()); // $ExpectType ChainType<boolean, never>
+}
+
 // isSymbol
 {
     _.isSymbol(anyValue) ? anyValue : neverValue; // $ExpectType symbol
@@ -3453,6 +3491,12 @@ _.chain({
 _.chain({ one: 1, two: 2 })
     .pairs()
     .unzip()
+    .value();
+
+// $ExpectType any[][]
+_.chain({ one: 1, two: 2 })
+    .pairs()
+    .transpose()
     .value();
 
 // $ExpectType ["one" | "two" | "three", string | number | number[]] | undefined
