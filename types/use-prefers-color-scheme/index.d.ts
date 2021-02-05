@@ -3,4 +3,5 @@
 // Definitions by: Marton Lederer <https://github.com/martonlederer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function usePrefersColorScheme(): "no-preference" | "light" | "dark";
+declare function usePrefersColorScheme(): "no-preference" | "light" | "dark";
+export = usePrefersColorScheme;
