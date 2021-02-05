@@ -4,7 +4,7 @@ import * as cls from 'cls-hooked';
 const session = cls.createNamespace('my session');
 const user = { id: 'foo' };
 session.set('user', user);
-session.run((value: cls.Context) => {
+session.run((value: number) => {
     session.set('value', value);
 });
 http.createServer((req, res) => {
