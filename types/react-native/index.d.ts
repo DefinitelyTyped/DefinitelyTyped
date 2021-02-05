@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.63
+// Type definitions for react-native 0.64
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -453,6 +453,12 @@ export interface NativeTouchEvent {
      * Array of all current touches on the screen
      */
     touches: NativeTouchEvent[];
+
+    /**
+     * 3D Touch reported force
+     * @platform ios
+     */
+    force?: number;
 }
 
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
@@ -500,6 +506,18 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Called when a long-tap gesture is detected.
      */
     onLongPress?: null | ((event: GestureResponderEvent) => void);
+
+    /**
+     * Called after the element loses focus.
+     * @platform windows
+     */
+    onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void);
+
+    /**
+     * Called after the element is focused.
+     * @platform windows
+     */
+    onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void);
 
     /**
      * Either children or a render prop that receives a boolean reflecting whether
@@ -622,6 +640,8 @@ export interface LayoutAnimationTypes {
 
 export interface LayoutAnimationProperties {
     opacity: string;
+    scaleX: string;
+    scaleY: string;
     scaleXY: string;
 }
 
@@ -652,9 +672,17 @@ export interface LayoutAnimationStatic {
      * `update`, config for animating views that have been updated (see Anim type)
      * @param onAnimationDidEnd Called when the animation finished. Only supported on iOS.
      */
-    configureNext: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void;
+    configureNext: (
+        config: LayoutAnimationConfig,
+        onAnimationDidEnd?: () => void,
+        onAnimationDidFail?: () => void,
+    ) => void;
     /** Helper for creating a config for configureNext. */
-    create: (duration: number, type?: string, creationProp?: string) => LayoutAnimationConfig;
+    create: (
+        duration: number,
+        type?: keyof LayoutAnimationTypes,
+        creationProp?: keyof LayoutAnimationProperties
+    ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
     configChecker: (shapeTypes: { [key: string]: any }) => any;
@@ -972,6 +1000,16 @@ export interface TextPropsAndroid {
      * By default no data types are detected.
      */
     dataDetectorType?: null | 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
+
+    /**
+     * Hyphenation strategy
+     */
+    android_hyphenationFrequency?:
+        | 'normal'
+        | 'none'
+        | 'full'
+        | 'high'
+        | 'balanced';
 }
 
 // https://reactnative.dev/docs/text#props
@@ -1575,6 +1613,16 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * Callback that is called when text input ends.
      */
     onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
+
+    /**
+     * Callback that is called when a touch is engaged.
+     */
+    onPressIn?: (e: NativeSyntheticEvent<NativeTouchEvent>) => void;
+
+    /**
+     * Callback that is called when a touch is released.
+     */
+    onPressOut?: (e: NativeSyntheticEvent<NativeTouchEvent>) => void;
 
     /**
      * Callback that is called when the text input is focused
@@ -3133,7 +3181,7 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
  * @see PickerIOS.ios.js
  */
 export interface PickerIOSItemProps {
-    value?: string | number;
+    value?: string;
     label?: string;
     textColor?: ProcessedColorValue;
 }
@@ -3150,7 +3198,7 @@ export interface PickerItemProps {
     testID?: string;
     color?: ColorValue;
     label: string;
-    value?: any;
+    value?: string;
 }
 
 export interface PickerPropsIOS extends ViewProps {
@@ -3203,7 +3251,7 @@ export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
      * Value matching value of one of the items.
      * Can be a string or an integer.
      */
-    selectedValue?: any;
+    selectedValue?: string;
 
     style?: StyleProp<TextStyle>;
 
@@ -3239,8 +3287,8 @@ export class Picker extends React.Component<PickerProps> {
  */
 export interface PickerIOSProps extends ViewProps {
     itemStyle?: StyleProp<TextStyle>;
-    onValueChange?: (value: string | number) => void;
-    selectedValue?: string | number;
+    onValueChange?: (value: string) => void;
+    selectedValue?: string;
 }
 
 /**
@@ -3847,18 +3895,11 @@ interface ImagePropsAndroid {
  */
 export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
 
-/**
- * @see ImagePropsBase.onLoad
- */
-export interface ImageLoadEventDataAndroid {
-    uri?: string;
-}
-
-export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+export interface ImageLoadEventData {
     source: {
         height: number;
         width: number;
-        url: string;
+        uri: string;
     };
 }
 
@@ -5955,6 +5996,7 @@ export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | '
 
 interface PlatformStatic {
     isTV: boolean;
+    isTesting: boolean;
     Version: number | string;
 
     /**
@@ -5970,18 +6012,74 @@ interface PlatformIOSStatic extends PlatformStatic {
     OS: 'ios';
     isPad: boolean;
     isTVOS: boolean;
+    Version: string;
+    constants: {
+        forceTouchAvailable: boolean,
+        interfaceIdiom: string,
+        isTesting: boolean,
+        osVersion: string,
+        reactNativeVersion: {
+            major: number,
+            minor: number,
+            patch: number,
+            prerelease?: number | null,
+        },
+        systemName: string,
+    }
 }
 
 interface PlatformAndroidStatic extends PlatformStatic {
     OS: 'android';
+    Version: number;
+    constants: {
+        isTesting: boolean,
+        reactNativeVersion: {
+          major: number,
+          minor: number,
+          patch: number,
+          prerelease?: number | null,
+        },
+        Version: number,
+        Release: string,
+        Serial: string,
+        Fingerprint: string,
+        Model: string,
+        ServerHost?: string,
+        uiMode: string,
+        Brand: string,
+        Manufacturer: string,
+    };
 }
 
 interface PlatformMacOSStatic extends PlatformStatic {
     OS: 'macos';
+    Version: string;
+    constants: {
+        isTesting: boolean,
+        osVersion: string,
+        reactNativeVersion: {
+            major: number,
+            minor: number,
+            patch: number,
+            prerelease?: number | null,
+        },
+        systemName: string,
+    }
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
     OS: 'windows';
+    Version: number;
+    constants: {
+        isTesting: boolean,
+        osVersion: number,
+        reactNativeVersion: {
+            major: number,
+            minor: number,
+            patch: number,
+            prerelease?: number | null,
+        },
+    }
 }
 
 interface PlatformWebStatic extends PlatformStatic {
@@ -7020,6 +7118,8 @@ export interface ActionSheetIOSOptions {
     message?: string;
     anchor?: number;
     tintColor?: ColorValue | ProcessedColorValue;
+    userInterfaceStyle?: string;
+    disabledButtonIndices?: number[];
 }
 
 export interface ShareActionSheetIOSOptions {
@@ -7573,42 +7673,6 @@ export interface CameraRollStatic {
      */
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
-
-// https://reactnative.dev/docs/checkbox
-export interface CheckBoxProps extends ViewProps {
-    /**
-     * If true the user won't be able to toggle the checkbox. Default value is false.
-     */
-    disabled?: boolean;
-
-    /**
-     * Used in case the props change removes the component.
-     */
-    onChange?: (value: boolean) => void;
-
-    /**
-     * Invoked with the new value when the value changes.
-     */
-    onValueChange?: (value: boolean) => void;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string;
-
-    /**
-     * The value of the checkbox. If true the checkbox will be turned on. Default value is false.
-     */
-    value?: boolean;
-}
-
-/**
- * CheckBox has been removed from React Native.
- * It can now be installed and imported from `@react-native-community/checkbox` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-checkbox
- * @deprecated
- */
-export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
@@ -9278,73 +9342,6 @@ interface ImageEditorStatic {
     ): void;
 }
 
-export interface ARTNodeMixin {
-    opacity?: number;
-    originX?: number;
-    originY?: number;
-    scaleX?: number;
-    scaleY?: number;
-    scale?: number;
-    title?: string;
-    x?: number;
-    y?: number;
-    visible?: boolean;
-}
-
-export interface ARTGroupProps extends ARTNodeMixin {
-    width?: number;
-    height?: number;
-}
-
-export interface ARTClippingRectangleProps extends ARTNodeMixin {
-    width?: number;
-    height?: number;
-}
-
-export interface ARTRenderableMixin extends ARTNodeMixin {
-    fill?: string;
-    stroke?: string;
-    strokeCap?: 'butt' | 'square' | 'round';
-    strokeDash?: number[];
-    strokeJoin?: 'bevel' | 'miter' | 'round';
-    strokeWidth?: number;
-}
-
-export interface ARTShapeProps extends ARTRenderableMixin {
-    d: string;
-    width?: number;
-    height?: number;
-}
-
-export interface ARTTextProps extends ARTRenderableMixin {
-    font?: string;
-    alignment?: string;
-}
-
-export interface ARTSurfaceProps {
-    style?: StyleProp<ViewStyle>;
-    width: number;
-    height: number;
-}
-
-export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> {}
-
-export class Group extends React.Component<ARTGroupProps> {}
-
-export class Shape extends React.Component<ARTShapeProps> {}
-
-export class Surface extends React.Component<ARTSurfaceProps> {}
-
-export class ARTText extends React.Component<ARTTextProps> {}
-
-export interface ARTStatic {
-    ClippingRectangle: typeof ClippingRectangle;
-    Group: typeof Group;
-    Shape: typeof Shape;
-    Surface: typeof Surface;
-    Text: typeof ARTText;
-}
-
 export type KeyboardEventName =
     | 'keyboardWillShow'
     | 'keyboardDidShow'
@@ -9450,21 +9447,6 @@ export const DevSettings: DevSettingsStatic;
 //  R E - E X P O R T S
 //
 //////////////////////////////////////////////////////////////////////////
-
-/**
- * ART has been removed from React Native.
- * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
- * @see https://github.com/react-native-community/art
- * @deprecated
- */
-export const ART: ARTStatic;
-/**
- * ART has been removed from React Native.
- * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
- * @see https://github.com/react-native-community/art
- * @deprecated
- */
-export type ART = ARTStatic;
 
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
