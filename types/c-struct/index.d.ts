@@ -6,11 +6,9 @@
 /// <reference types="node"/>
 
 export type SchemaDefinition<TObject> = { [_ in keyof TObject]: string };
-export class Schema {
-    constructor(schemaDefinition: SchemaDefinition<any>);
-}
+export function Schema(schemaDefinition: SchemaDefinition<any>): void;
 
-export type DataTypes = {
+export interface DataTypes {
     string(size?: number): string;
 
     boolean: 'boolean';
@@ -46,20 +44,20 @@ export type DataTypes = {
 
     le: 'l';
     be: 'b';
-};
+}
 
 export const type: DataTypes;
 
-export type UnpackOptions = {
+export interface UnpackOptions {
     endian: DataTypes['le'] | DataTypes['be'];
-};
+}
 
 export function unpackSync<TObject>(name: string, buffer: Buffer, options?: UnpackOptions): TObject;
 
-export type PackOptions = {
+export interface PackOptions {
     endian: DataTypes['le'] | DataTypes['be'];
-};
+}
 
 export function packSync<TObject>(name: string, object: TObject, options?: PackOptions): Buffer;
 
-export function register(name: string, schema: Schema): Schema;
+export function register(name: string, schema: typeof Schema): typeof Schema;
