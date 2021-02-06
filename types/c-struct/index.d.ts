@@ -6,8 +6,9 @@
 /// <reference types="node"/>
 
 export type SchemaDefinition<TObject> = { [_ in keyof TObject]: string };
-export function Schema(schemaDefinition: SchemaDefinition<any>): void;
-
+export class Schema {
+    constructor(schemaDefinition: SchemaDefinition<any>);
+}
 export interface DataTypes {
     string(size?: number): string;
 
@@ -60,4 +61,4 @@ export interface PackOptions {
 
 export function packSync(name: string, object: {}, options?: PackOptions): Buffer;
 
-export function register(name: string, schema: typeof Schema): typeof Schema;
+export function register(name: string, schema: Schema): Schema;
