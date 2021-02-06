@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/rsmq": "^0.8.4"
-    }
-}
