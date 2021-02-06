@@ -1,6 +1,6 @@
 import _weaveid = require("weaveid");
 
-_weaveid.closeModal();
+_weaveid.closeLoginModal();
 _weaveid.openLoginModal();
 _weaveid.getAddress();
 _weaveid.getWallet();
