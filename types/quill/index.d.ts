@@ -112,6 +112,7 @@ export class Quill implements EventEmitter {
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;
     enable(enabled?: boolean): void;
+    isEnabled(): boolean;
     getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;

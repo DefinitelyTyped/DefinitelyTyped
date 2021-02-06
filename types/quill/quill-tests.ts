@@ -36,6 +36,12 @@ function test_disable() {
     quillEditor.disable();
 }
 
+function test_isEnabled() {
+    const quillEditor = new Quill('#Editor');
+    quillEditor.disable();
+    const result = quillEditor.isEnabled();
+}
+
 function test_enable() {
     const quillEditor = new Quill('#Editor');
     quillEditor.enable();
