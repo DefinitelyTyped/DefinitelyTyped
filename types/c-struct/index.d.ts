@@ -52,12 +52,12 @@ export interface UnpackOptions {
     endian: DataTypes['le'] | DataTypes['be'];
 }
 
-export function unpackSync<TObject>(name: string, buffer: Buffer, options?: UnpackOptions): TObject;
+export function unpackSync(name: string, buffer: Buffer, options?: UnpackOptions): {};
 
 export interface PackOptions {
     endian: DataTypes['le'] | DataTypes['be'];
 }
 
-export function packSync<TObject>(name: string, object: TObject, options?: PackOptions): Buffer;
+export function packSync(name: string, object: {}, options?: PackOptions): Buffer;
 
 export function register(name: string, schema: typeof Schema): typeof Schema;
