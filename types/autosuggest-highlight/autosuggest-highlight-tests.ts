@@ -2,8 +2,8 @@ import match = require('autosuggest-highlight/match');
 import parse = require('autosuggest-highlight/parse');
 
 function matchTest() {
-    let matches = match('some text', 'te'); // $ExpectType number[] | number[][]
-    matches = match('some sweet text', 's s'); // $ExpectType number[] | number[][]
+    let matches = match('some text', 'te'); // $ExpectType [number, number][]
+    matches = match('some sweet text', 's s'); // $ExpectType [number, number][]
 }
 
 function parseTest() {

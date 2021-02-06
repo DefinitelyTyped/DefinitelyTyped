@@ -4,5 +4,5 @@ import { Polly } from '@pollyjs/core';
 Polly.register(HttpAdapter);
 
 new Polly('<recording>', {
-	adapters: ['node-http', HttpAdapter]
+    adapters: ['node-http', HttpAdapter]
 });

@@ -27,6 +27,14 @@ noble.on("discover", (peripheral: noble.Peripheral): void => {
     peripheral.disconnect((): void => {});
 });
 
+noble.once("stateChange", (state: string): void => {});
+noble.once("scanStart", (): void => {});
+noble.once("scanStop", (): void => {});
+noble.once("discover", (peripheral: noble.Peripheral): void => {
+    peripheral.connect((error: string): void => {});
+    peripheral.disconnect((): void => {});
+});
+
 noble.removeListener("stateChange", (state: string): void => {});
 noble.removeListener("scanStart", (): void => {});
 noble.removeListener("scanStop", (): void => {});
@@ -71,6 +79,10 @@ peripheral.on("connect", (error: string): void => {});
 peripheral.on("disconnect", (error: string): void => {});
 peripheral.on("rssiUpdate", (rssi: number): void => {});
 peripheral.on("servicesDiscover", (services: noble.Service[]): void => {});
+peripheral.once("connect", (error: string): void => {});
+peripheral.once("disconnect", (error: string): void => {});
+peripheral.once("rssiUpdate", (rssi: number): void => {});
+peripheral.once("servicesDiscover", (services: noble.Service[]): void => {});
 
 var service: noble.Service = new noble.Service();
 service.uuid = "180a";
@@ -83,6 +95,8 @@ service.discoverCharacteristics(["2a38"]);
 service.discoverCharacteristics(["2a38"], (error: string, characteristics: noble.Characteristic[]): void => {});
 service.on("includedServicesDiscover", (includedServiceUuids: string[]): void => {});
 service.on("characteristicsDiscover", (characteristics: noble.Characteristic[]): void => {});
+service.once("includedServicesDiscover", (includedServiceUuids: string[]): void => {});
+service.once("characteristicsDiscover", (characteristics: noble.Characteristic[]): void => {});
 
 var characteristic: noble.Characteristic = new noble.Characteristic();
 characteristic.uuid = "2a37";
@@ -104,6 +118,11 @@ characteristic.on("write", true, (error: string): void => {});
 characteristic.on("broadcast", (state: string): void => {});
 characteristic.on("notify", (state: string): void => {});
 characteristic.on("descriptorsDiscover", (descriptors: noble.Descriptor[]): void => {});
+characteristic.once("read", (data: Buffer, isNotification: boolean): void => {});
+characteristic.once("write", true, (error: string): void => {});
+characteristic.once("broadcast", (state: string): void => {});
+characteristic.once("notify", (state: string): void => {});
+characteristic.once("descriptorsDiscover", (descriptors: noble.Descriptor[]): void => {});
 characteristic.subscribe();
 characteristic.subscribe((error: string) => {});
 characteristic.unsubscribe();
@@ -119,4 +138,5 @@ descriptor.writeValue(new Buffer(1));
 descriptor.writeValue(new Buffer(1), (error: string): void => {});
 descriptor.on("valueRead", (error: string, data: Buffer): void => {});
 descriptor.on("valueWrite", (error: string): void => {});
-
+descriptor.once("valueRead", (error: string, data: Buffer): void => {});
+descriptor.once("valueWrite", (error: string): void => {});

@@ -1,17 +1,22 @@
 // Type definitions for node-forge 0.9.1
 // Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal    <https://github.com/westy92>
-//                 Kay Schecker     <https://github.com/flynetworks>
-//                 Aakash Goenka    <https://github.com/a-k-g>
-//                 Rafal2228        <https://github.com/rafal2228>
-//                 Beeno Tung       <https://github.com/beenotung>
-//                 Joe Flateau      <https://github.com/joeflateau>
-//                 Nikita Koryabkin <https://github.com/Apologiz>
-//                 timhwang21       <https://github.com/timhwang21>
-//                 supaiku0         <https://github.com/supaiku0>
-//                 Anders Kaseorg   <https://github.com/andersk>
-//                 Sascha Zarhuber  <https://github.com/saschazar21>
-//                 Rogier Schouten  <https://github.com/rogierschouten>
+// Definitions by: Seth Westphal       <https://github.com/westy92>
+//                 Kay Schecker        <https://github.com/flynetworks>
+//                 Aakash Goenka       <https://github.com/a-k-g>
+//                 Rafal2228           <https://github.com/rafal2228>
+//                 Beeno Tung          <https://github.com/beenotung>
+//                 Joe Flateau         <https://github.com/joeflateau>
+//                 Nikita Koryabkin    <https://github.com/Apologiz>
+//                 timhwang21          <https://github.com/timhwang21>
+//                 supaiku0            <https://github.com/supaiku0>
+//                 Anders Kaseorg      <https://github.com/andersk>
+//                 Sascha Zarhuber     <https://github.com/saschazar21>
+//                 Rogier Schouten     <https://github.com/rogierschouten>
+//                 Ivan Aseev          <https://github.com/aseevia>
+//                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
+//                 Ligia Frangello     <https://github.com/frangello>
+//                 Dmitry Avezov       <https://github.com/avezov>
+//                 Jose Fuentes        <https://github.com/j-fuentes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -32,6 +37,7 @@ declare module "node-forge" {
             t: number;
             s: number;
             toString(): string;
+            bitLength(): number;
         }
     }
 
@@ -288,6 +294,28 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+
+            /**
+             * Returns true if this certificate's issuer matches the passed
+             * certificate's subject. Note that no signature check is performed.
+             *
+             * @param parent the certificate to check.
+             *
+             * @return true if this certificate's issuer matches the passed certificate's
+             *         subject.
+             */
+            isIssuer(parent: Certificate): boolean;
+
+            /**
+             * Returns true if this certificate's subject matches the issuer of the
+             * given certificate). Note that not signature check is performed.
+             *
+             * @param child the certificate to check.
+             *
+             * @return true if this certificate's subject matches the passed
+             *         certificate's issuer.
+             */
+            issued(child: Certificate): boolean;
         }
 
         /**
@@ -348,7 +376,7 @@ declare module "node-forge" {
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
@@ -374,9 +402,11 @@ declare module "node-forge" {
 
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
 
-        function publicKeyFromPem(pem: PEM): PublicKey;
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
 
-        function privateKeyFromPem(pem: PEM): PrivateKey;
+        function publicKeyFromPem(pem: PEM): rsa.PublicKey;
+
+        function privateKeyFromPem(pem: PEM): rsa.PrivateKey;
 
         function decryptPrivateKeyInfo(obj: asn1.Asn1, password: string): asn1.Asn1;
 
@@ -386,7 +416,7 @@ declare module "node-forge" {
 
         function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
 
-        function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, password: string): rsa.PrivateKey;
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 
@@ -675,6 +705,15 @@ declare module "node-forge" {
         }
 
         function createSignedData(): PkcsSignedData;
+
+        interface PkcsEnvelopedData {
+            content?: string | util.ByteBuffer;
+            addRecipient(certificate: pki.Certificate): void;
+            encrypt(): void;
+            toAsn1(): asn1.Asn1;
+        }
+
+        function createEnvelopedData(): PkcsEnvelopedData;
     }
 
     namespace pkcs5 {

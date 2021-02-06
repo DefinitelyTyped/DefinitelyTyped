@@ -295,7 +295,7 @@ maybeG.selectAll(function(d, i, g) {
     const datum: SVGDatum = d;
     const index: number = i;
     const group: Array<SVGGElement | null> | d3Selection.ArrayLike<SVGGElement | null> = g;
-    return that ? that.querySelectorAll('circle') : [];
+    return that ? that.querySelectorAll('circle') : ([] as Iterable<SVGCircleElement>);
 });
 
 // Selection Helper methods -------------------------------------------------------------
@@ -356,6 +356,22 @@ filteredGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').fil
 // matcher() -----------------------------------------------------------------------------
 
 filteredGElements = gElementsOldData.filter(d3Selection.matcher('.top-level'));
+
+// selectChild() -------------------------------------------------------------------------
+
+firstG = svgEl.selectChild<SVGGElement>();
+firstG = svgEl.selectChild<SVGGElement>('.test');
+firstG = svgEl.selectChild<SVGGElement, SVGGElement>((child, i, children) => true);
+
+// selectChild() -------------------------------------------------------------------------
+
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum>();
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum>('.test');
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum, SVGGElement>((child, i, children) => true);
+
+// selection() ---------------------------------------------------------------------------
+
+firstG = firstG.selection();
 
 // ---------------------------------------------------------------------------------------
 // Tests of Modification
@@ -629,7 +645,7 @@ const dimensions: SVGDatum = {
     height: 300
 };
 
-const startCircleData: CircleDatumAlternative[] = [
+const startCircleData: Iterable<CircleDatumAlternative> = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -771,6 +787,21 @@ tr = d3Selection.select('body')
     .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
     .enter().append('tr');
 
+let li: d3Selection.Selection<HTMLLIElement, number, HTMLElement, any>;
+li = d3Selection.select('li')
+    .data(matrix[0], d => <number> d)
+    .enter().append('li');
+
+const tr1 = d3Selection.select("body")
+    .append("table")
+    .selectAll("tr")
+    .data(matrix)
+    .join("tr")
+    .selectAll("td")
+    .data(d => d, e => <number> e)
+    .join("td")
+    .text(d => d);
+
 nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
@@ -836,16 +867,19 @@ newDiv = body.append(function(d, i, g) {
     const index: number = i;
     const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('div'); // this-type HTMLBodyElement
 });
 
 // $ExpectError
 newDiv = body.append<HTMLDivElement>(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by type parameter, HTMLAnchorElement returned
 });
 
 // $ExpectError
 newDiv = body.append(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 });
 
@@ -870,6 +904,7 @@ const typeValueFunction = function(
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('p'); // this-type HTMLParagraphElement
 };
 
@@ -951,6 +986,10 @@ const gElementsNodes: SVGGElement[] = gElementsOldData.nodes();
 
 const size: number = gElementsOldData.size();
 
+// [Symbol.iterator]() --------------------------------------------------------------------------------
+
+const iterator: Iterator<SVGElement> = gElementsOldData[Symbol.iterator]();
+
 // each() -------------------------------------------------------------------------------
 
 // returns 'this' selection
@@ -995,15 +1034,13 @@ circles.call((selection: d3Selection.Selection<SVGCircleElement, DivDatum, any, 
 
 // on(...) -------------------------------------------------------------------------------
 
-let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>) => void);
+let listener: undefined | ((this: HTMLBodyElement, event: any, datum: BodyDatum) => void);
 
-body = body.on('click', function(d, i, g) {
+body = body.on('click', function(event, d) {
     const that: HTMLBodyElement = this;
     // $ExpectError
     const that2: SVGElement  = this; // fails, type mismatch
     const datum: BodyDatum = d;
-    const index: number = i;
-    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('onclick print body background color: ', this.bgColor); // HTMLBodyElement
     console.log('onclick print "foo" datum property: ', d.foo); // BodyDatum type
 });
@@ -1047,82 +1084,16 @@ body = body.dispatch('fooEvent', function(d, i, g) { // re-assign for chaining t
     return eParam;
 });
 
-// event and customEvent() ----------------------------------------------------------------
+// pointer() and pointers() ---------------------------------------------------------------------
 
-// TODO: Tests of event are related to issue #3 (https://github.com/tomwanzek/d3-v4-definitelytyped/issues/3)
-
-// No tests for event, as it now is of type any
-
-interface SuccessEvent {
-    type: string;
-    team: string;
-    sourceEvent?: any;
-}
-const successEvent = { type: 'wonEuro2016', team: 'Island' };
-
-function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
-    const e = d3Selection.event as SuccessEvent;
-
-    return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
-}
-
-const resultText: string = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales');
-
-// $ExpectError
-const result = d3Selection.customEvent(successEvent, customListener, circles.nodes()[0], 'Wales'); // fails, incompatible 'this' context in call
-// $ExpectError
-const resultValue: number = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales'); // fails, incompatible return types
-// $ExpectError
-d3Selection.customEvent<SVGCircleElement, any>(successEvent, customListener, circles.nodes()[0], 'Wales'); // fails, incompatible 'this' context in type parameter and call
-// $ExpectError
-d3Selection.customEvent<HTMLBodyElement, any>(successEvent, customListener, circles.nodes()[0], 'Wales'); // fails, incompatible 'this' context in type parameter and call
-// $ExpectError
-d3Selection.customEvent<HTMLBodyElement, number>(successEvent, customListener, body.node(), 'Wales'); // fails, incompatible return types
-
-// mouse() ---------------------------------------------------------------------------------
-
-let position: [number, number] | null;
-const svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node()!;
-const g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node()!;
-const h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node()!;
-const changedTouches: TouchList = new TouchList(); // dummy
-
-position = d3Selection.mouse(svg);
-position = d3Selection.mouse(g);
-position = d3Selection.mouse(h);
-
-// touch() and touches() ---------------------------------------------------------------------
-
-position = d3Selection.touch(svg, 0);
-position = d3Selection.touch(g, 0);
-position = d3Selection.touch(h, 0);
-
-position = d3Selection.touch(svg, changedTouches, 0);
-position = d3Selection.touch(g, changedTouches, 0);
-position = d3Selection.touch(h, changedTouches, 0);
-
+let position: [number, number];
 let positions: Array<[number, number]>;
-
-positions = d3Selection.touches(svg, changedTouches);
-positions = d3Selection.touches(g, changedTouches);
-positions = d3Selection.touches(h, changedTouches);
-
-positions = d3Selection.touches(svg, changedTouches);
-positions = d3Selection.touches(g, changedTouches);
-positions = d3Selection.touches(h, changedTouches);
-
-// clientPoint() ---------------------------------------------------------------------
-
-let clientPoint: [number, number];
-declare let mEvt: MouseEvent;
-declare let tEvt: Touch;
-declare let msgEvt: MSGestureEvent;
-declare let customEvt: {clientX: number, clientY: number}; // minimally conforming  object
-
-clientPoint = d3Selection.clientPoint(svg, mEvt);
-clientPoint = d3Selection.clientPoint(g, tEvt);
-clientPoint = d3Selection.clientPoint(h, msgEvt);
-clientPoint = d3Selection.clientPoint(h, customEvt);
+body = body.on('click', (event) => {
+    position = d3Selection.pointer(event);
+    position = d3Selection.pointer(event, event.currentTarget);
+    positions = d3Selection.pointers(event);
+    positions = d3Selection.pointers(event, event.currentTarget);
+});
 
 // ---------------------------------------------------------------------------------------
 // Tests of style
@@ -1208,37 +1179,37 @@ selTextAndCircle = text.join(enter => enter.append('circle').text(d => d.data));
 
 selText = text.join(
     'text',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selText = text.join<SVGTextElement>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selText = text.join(
     enter => enter.append('text').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join(
     enter => enter.append('circle').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
@@ -1246,37 +1217,37 @@ selTextAndCircle = text.join(
 
 selText = text.join<'text', OldDatum>(
     'text',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => `Bye ${d.oldData}`).remove(),
 );
 
 selText = text.join<SVGTextElement, OldDatum>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => `Bye ${d.oldData}`).remove(),
 );
 
 selText = text.join<SVGTextElement, OldDatum>(
     enter => enter.append('text').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<'circle', OldDatum>(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
     enter => enter.append('circle').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 

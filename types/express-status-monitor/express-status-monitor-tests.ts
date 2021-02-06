@@ -15,6 +15,7 @@ app.use(
             cpu: true,
             mem: false,
             load: true,
+            heap: true,
         },
         ignoreStartsWith: '/admin',
         healthChecks: [],

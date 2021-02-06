@@ -1,13 +1,15 @@
 import {
-	Component,
-	Entity,
-	MultiPropertySchema,
-	System,
-	SystemDefinition,
-	THREE,
-	Geometry,
-	registerComponent
+    Component,
+    Entity,
+    MultiPropertySchema,
+    System,
+    SystemDefinition,
+    THREE,
+    Geometry,
+    registerComponent,
+    Scene
 } from 'aframe';
+import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 
 // Global
 const threeCamera = new AFRAME.THREE.Camera();
@@ -28,9 +30,9 @@ entity.setAttribute('material', 'color', 'red');
 entity.components['geometry'].data;
 
 type MyEntity = Entity<{
-	camera: THREE.Camera;
-	material: THREE.Material;
-	sound: { pause(): void };
+    camera: THREE.Camera;
+    material: THREE.Material;
+    sound: { pause(): void };
 }>;
 const camera = (document.querySelector('a-entity[camera]') as MyEntity).components.camera;
 const material = (document.querySelector('a-entity[material]') as MyEntity).components.material;
@@ -39,54 +41,60 @@ const material = (document.querySelector('a-entity[material]') as MyEntity).comp
 entity.getDOMAttribute('geometry').primitive;
 
 entity.setAttribute('light', {
-	type: 'spot',
-	distance: 30,
-	intensity: 2.0
+    type: 'spot',
+    distance: 30,
+    intensity: 2.0
 });
 
 entity.addEventListener('child-detached', event => {
-	event.detail;
+    event.detail;
 });
 
 // Components
 
 // interface TestComponent extends Component {
-// 	multiply: (f: number) => number;
+//     multiply: (f: number) => number;
 //
-// 	data: {
-// 		myProperty: any[],
-// 		string: string,
-// 		num: number
-// 	};
+//     data: {
+//         myProperty: any[],
+//         string: string,
+//         num: number
+//     };
 //
-// 	system: TestSystem;
+//     system: TestSystem;
 // }
 
 const Component = registerComponent('test-component', {
-	schema: {
-		myProperty: {
-			default: [],
-			parse() {
-				return [true];
-			}
-		},
-		string: { type: 'string' },
-		num: 0
-	},
-	init() {
-		this.data.num = 0;
-		this.el.setAttribute('custom-attribute', 'custom-value');
-	},
-	update() {},
-	tick() {},
-	remove() {},
-	pause() {},
-	play() {},
+    schema: {
+        myProperty: {
+            default: [],
+            parse() {
+                return [true];
+            }
+        },
+        string: { type: 'string' },
+        num: 0
+    },
+    init() {
+        this.data.num = 0;
+        if (this.initialized && this.el.hasLoaded) {
+            this.el.setAttribute('custom-attribute', 'custom-value');
+        }
+    },
+    update() {},
+    tick() {},
+    tock() {},
+    remove() {
+        this.el.remove();
+        this.el.destroy();
+    },
+    pause() {},
+    play() {},
 
-	multiply(f: number) {
-		// Reference to system because both were registered with the same name.
-		return f * this.data.num * this.system!.data.counter;
-	}
+    multiply(f: number) {
+        // Reference to system because both were registered with the same name.
+        return f * this.data.num * this.system!.data.counter;
+    }
 });
 
 // Scene
@@ -96,13 +104,14 @@ scene.hasLoaded;
 // System
 
 const testSystem: SystemDefinition = {
-	schema: {
-		counter: 0
-	},
+    schema: {
+        counter: 0
+    },
 
-	init() {
-		this.data.counter = 1;
-	}
+    init() {
+        this.data.counter = 1;
+        ((this.el as Entity).sceneEl as Scene).addEventListener('enter-vr', (e) => { });
+    }
 };
 
 AFRAME.registerSystem('test-component', testSystem);
@@ -110,12 +119,12 @@ AFRAME.registerSystem('test-component', testSystem);
 // Register Custom Geometry
 
 AFRAME.registerGeometry('a-test-geometry', {
-	schema: {
-		groupIndex: { default: 0 }
-	},
-	init(data) {
-		this.geometry = new THREE.Geometry();
-		const temp = data.groupIndex;
-		temp;
-	}
+    schema: {
+        groupIndex: { default: 0 }
+    },
+    init(data) {
+        this.geometry = new threeDeprecated.Geometry();
+        const temp = data.groupIndex;
+        temp;
+    }
 });

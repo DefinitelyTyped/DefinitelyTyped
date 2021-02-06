@@ -96,10 +96,15 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                             style: {
                                 display: 'flex'
                             },
-                            action: (node: HTMLElement) => node.focus()
+                            action: (node: HTMLElement) => node.focus(),
+                            navDotAriaLabel: 'Got to last step'
                         },
                         {
-                            content: 'Last step'
+                            content: 'Last step',
+                            observe: 'button.opener',
+                            highlightedSelectors: ['button.opener'],
+                            mutationObservables: ['button.opener'],
+                            resizeObservables: ['button.opener']
                         }
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
@@ -138,6 +143,12 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     startAt={1}
                     update={this.state.update}
                     updateDelay={2}
+                    disableFocusLock={false}
+                    accessibilityOptions={{
+                        ariaLabelledBy: "Tour aria label",
+                        closeButtonAriaLabel: "Close",
+                        showNavigationScreenReaders: true
+                    }}
                 >
                     <div>Something</div>
                 </Tour>

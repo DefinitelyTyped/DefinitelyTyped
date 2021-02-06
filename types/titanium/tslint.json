@@ -1,13 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
-        "no-any-union": false,
-        "no-consecutive-blank-lines": false,
+        "max-line-length": false,
         "no-empty-interface": false,
         "no-padding": false,
+        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
-        "max-line-length": false,
         "unified-signatures": false
     }
 }

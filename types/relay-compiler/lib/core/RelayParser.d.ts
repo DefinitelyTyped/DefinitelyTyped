@@ -1,13 +1,14 @@
-import { GraphQLSchema, DefinitionNode } from 'graphql';
-import { Root, Fragment } from './GraphQLIR';
+import { DefinitionNode } from 'graphql';
+import { Root, Fragment } from './IR';
+import { Schema } from './Schema';
 
 export function parse(
-  schema: GraphQLSchema,
+  schema: Schema,
   text: string,
   filename?: string,
 ): ReadonlyArray<Root | Fragment>;
 
 export function transform(
-  schema: GraphQLSchema,
+  schema: Schema,
   documents: DefinitionNode[],
 ): ReadonlyArray<Root | Fragment>;

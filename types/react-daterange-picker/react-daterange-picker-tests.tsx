@@ -39,7 +39,9 @@ class App extends React.Component<AppProps, any> {
             <div>
                 <DateRangePicker {...this.props}
                     onSelect={this.handleSelect.bind(this)}
-                    value={this.state.value} />
+                    value={this.state.value}
+                    locale="en"
+                    className="example" />
                 <div>
                     <input type="text"
                         value={this.state.value ? this.state.value.start.format('LL') : ""}

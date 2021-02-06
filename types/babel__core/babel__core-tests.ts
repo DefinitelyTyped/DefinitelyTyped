@@ -1,29 +1,30 @@
-import * as babel from "@babel/core";
+import * as babel from '@babel/core';
+import * as t from '@babel/types';
 
 const options: babel.TransformOptions = {
     ast: true,
-    sourceMaps: true
+    sourceMaps: true,
 };
 
-babel.transform("code();", options, (err, result) => {
+babel.transform('code();', options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-const transformSyncResult = babel.transformSync("code();", options);
+const transformSyncResult = babel.transformSync('code();', options);
 if (transformSyncResult) {
     const { code, map, ast } = transformSyncResult;
     const { body } = ast!.program;
 }
 
-babel.transformFile("filename.js", options, (err, result) => {
+babel.transformFile('filename.js', options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-babel.transformFileSync("filename.js", options)!.code;
+babel.transformFileSync('filename.js', options)!.code;
 
-const sourceCode = "if (true) return;";
+const sourceCode = 'if (true) return;';
 const parsedAst = babel.parse(sourceCode, options);
 
 babel.transformFromAst(parsedAst!, sourceCode, options, (err, result) => {
@@ -51,13 +52,37 @@ checkOptions({ envName: 'banana' });
 // $ExpectError
 checkOptions({ envName: null });
 checkOptions({ caller: { name: '@babel/register' } });
-checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false } });
+checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false, supportsTopLevelAwait: true } });
 // don't add an index signature; users should augment the interface instead if they need to
 // $ExpectError
 checkOptions({ caller: { name: '', tomato: true } });
 checkOptions({ rootMode: 'upward-optional' });
 // $ExpectError
 checkOptions({ rootMode: 'potato' });
+checkOptions({ exclude: '../node_modules' });
+// $ExpectError
+checkOptions({ exclude: 256 });
+checkOptions({ include: [/node_modules/, new RegExp('bower_components')] });
+// $ExpectError
+checkOptions({ include: [null] });
+checkOptions({ test: fileName => (fileName ? fileName.endsWith('mjs') : false) });
+// $ExpectError
+checkOptions({ test: fileName => fileName && fileName.endsWith('mjs') });
+checkOptions({
+    overrides: [
+        {
+            test: /^.*\.m?js$/,
+            compact: true,
+        },
+    ],
+});
+checkOptions({
+    overrides: {
+        // $ExpectError
+        test: /^.*\.m?js$/,
+        compact: true,
+    },
+});
 
 // $ExpectError
 checkConfigFunction(() => {});
@@ -65,7 +90,7 @@ checkConfigFunction(() => {});
 checkConfigFunction(() => ({}));
 checkConfigFunction(api => {
     api.assertVersion(7);
-    api.assertVersion("^7.2");
+    api.assertVersion('^7.2');
 
     api.cache.forever();
     api.cache.never();
@@ -95,6 +120,27 @@ checkConfigFunction(api => {
             comment;
 
             return true;
-        }
+        },
     };
 });
+
+// $ExpectType Readonly<PartialConfig> | null
+const partialConfig = babel.loadPartialConfig();
+
+if (partialConfig) {
+    // $ExpectType boolean
+    partialConfig.hasFilesystemConfig();
+}
+
+function withPluginPass(state: babel.PluginPass) {
+    state.file.hub.addHelper('something');
+}
+
+const plugin: babel.PluginObj = {
+    pre({ path }) {
+        visitBlock(path);
+
+        function visitBlock(block: babel.NodePath<t.Program>) {}
+    },
+    visitor: {},
+};

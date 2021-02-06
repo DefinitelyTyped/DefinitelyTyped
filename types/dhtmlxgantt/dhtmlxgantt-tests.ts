@@ -15,10 +15,10 @@ gantt.config.xml_date = "%m-%d-%Y";
 
 //templates
 gantt.templates.task_class = function (start: Date, end: Date, task: any) {
-	if (task.some)
-		return "classA";
-	else
-		return "classB";
+    if (task.some)
+        return "classA";
+    else
+        return "classB";
 }
 
 //locale
@@ -32,7 +32,7 @@ const wbs: string = gantt.getWBSCode(gantt.getTask(1));
 
 //events
 gantt.attachEvent("onBeforeLightbox", function (id?: string) {
-	gantt.showTask(id);
+    gantt.showTask(id);
 });
 //gantt enterprise
 var gantt2 = Gantt.getGanttInstance();

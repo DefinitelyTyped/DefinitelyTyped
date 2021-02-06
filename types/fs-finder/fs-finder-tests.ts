@@ -63,7 +63,7 @@ instance = instance.lookUp(false);
 instance = instance.findFirst();
 instance = instance.findFirst(true);
 instance = instance.filter((path: string) => {
-	return false;
+    return false;
 });
 
 paths = instance.getPathsSync('all', './*', './dir');

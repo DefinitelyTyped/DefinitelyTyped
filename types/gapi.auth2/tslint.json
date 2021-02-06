@@ -1,10 +1,6 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "indent": {
-      "options": [true, "spaces", 2]
-    },
-    // TODO
-    "no-mergeable-namespace": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-mergeable-namespace": false
+    }
 }

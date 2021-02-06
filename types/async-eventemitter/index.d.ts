@@ -1,5 +1,5 @@
 // Type definitions for async-eventemitter 0.2
-// Project: https://www.npmjs.com/package/async-eventemitter (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://www.npmjs.com/package/async-eventemitter
 // Definitions by: patarapolw <https://github.com/patarapolw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5

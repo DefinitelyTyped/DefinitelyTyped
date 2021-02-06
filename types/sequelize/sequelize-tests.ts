@@ -1569,7 +1569,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1622,7 +1622,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1630,7 +1630,7 @@ s.define( 'ScopeMe', {
         lowAccess : {
             where : {
                 access_level : {
-                    lte : 5
+                    $lte : 5
                 }
             }
         },
@@ -1698,7 +1698,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1706,7 +1706,7 @@ s.define( 'ScopeMe', {
         lowAccess : {
             where : {
                 access_level : {
-                    lte : 5
+                    $lte : 5
                 }
             }
         }

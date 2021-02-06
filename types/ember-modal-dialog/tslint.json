@@ -1,8 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-single-declare-module": false,
+        "space-before-function-paren": false,
         "no-declare-current-package": false,
-        "strict-export-declare-modifiers": false
+        "no-single-declare-module": false
     }
 }

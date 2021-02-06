@@ -31,14 +31,14 @@ declare namespace HumanizeDuration {
   }
 
   interface UnitTranslationOptions {
-    y?: () => string;
-    mo?: () => string;
-    w?: () => string;
-    d?: () => string;
-    h?: () => string;
-    m?: () => string;
-    s?: () => string;
-    ms?: () => string;
+    y?: (count?: number) => string;
+    mo?: (count?: number) => string;
+    w?: (count?: number) => string;
+    d?: (count?: number) => string;
+    h?: (count?: number) => string;
+    m?: (count?: number) => string;
+    s?: (count?: number) => string;
+    ms?: (count?: number) => string;
   }
 
   interface Options {

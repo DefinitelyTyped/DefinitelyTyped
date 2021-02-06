@@ -24,6 +24,8 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     renderOrder?: OrderFunction;
     renderBuffer?: number;
     renderMode?: VectorTileRenderType | string;
@@ -38,16 +40,40 @@ export interface Options {
 }
 export default class VectorTileLayer extends BaseVectorLayer<VectorTile> {
     constructor(opt_options?: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Get the topmost feature that intersects the given pixel on the viewport. Returns a promise
+     * that resolves with an array of features. The array will either contain the topmost feature
+     * when a hit was detected, or it will be empty.
+     * The hit detection algorithm used for this method is optimized for performance, but is less
+     * accurate than the one used in {@link module:ol/PluggableMap~PluggableMap#getFeaturesAtPixel}: Text
+     * is not considered, and icons are only represented by their bounding box instead of the exact
+     * image.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
+    /**
+     * Return the level as number to which we will preload tiles up to.
+     */
     getPreload(): number;
     getRenderMode(): VectorTileRenderType;
+    /**
+     * Whether we use interim tiles on error.
+     */
     getUseInterimTilesOnError(): boolean;
+    /**
+     * Set the level as number to which we will preload tiles up to.
+     */
     setPreload(preload: number): void;
+    /**
+     * Set whether we use interim tiles on error.
+     */
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

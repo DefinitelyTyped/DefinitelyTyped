@@ -133,7 +133,7 @@ function test_swipey() {
         });
 
         $('canvas').bind(iOS ? 'touchmove' : 'mousemove', function (e) {
-			var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
+            var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';
@@ -145,7 +145,7 @@ function test_swipey() {
         });
 
         $('canvas').bind(iOS ? 'touchend' : 'mouseup', function (e) {
-			var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
+            var touches = iOS ? (<any>e.originalEvent).changedTouches : [e.originalEvent];
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';

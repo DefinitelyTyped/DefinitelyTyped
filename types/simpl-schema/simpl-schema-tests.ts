@@ -1,6 +1,7 @@
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
+import { check } from 'meteor/check';
 
-const StringSchema = new SimpleSchema({
+const schema: SimpleSchemaDefinition = {
     basicString: {
         type: String
     },
@@ -14,25 +15,62 @@ const StringSchema = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        autoValue: () => new Date()
+        custom() {
+            this.key;
+            this.genericKey;
+            this.isInArrayItemObject;
+            this.isInSubObject;
+            this.isModifier;
+            this.definition;
+            this.isSet;
+            this.value;
+            this.operator;
+            this.validationContext;
+            this.field('field');
+            this.siblingField('field');
+            this.addValidationErrors([
+                {
+                    type: 'validation-error',
+                    name: 'Error',
+                }
+            ]);
+            return undefined;
+        },
+        autoValue() {
+            this.closestSubschemaFieldName;
+            this.field('basicString');
+            this.isModifier;
+            this.isUpsert;
+            this.isSet;
+            this.key;
+            this.operator;
+            this.parentField();
+            this.siblingField('field');
+            this.unset();
+            this.value;
+
+            return new Date();
+        }
     },
     title: {
         type: String,
-        label: "Title",
+        label: 'Title',
         /* Can't use arrow function here, else the context won't be available */
-        custom: function() {
+        custom() {
           const text = this.value;
 
           if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
           else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
         }
     }
-});
+};
+
+const StringSchema = new SimpleSchema(schema);
 
 StringSchema.validate({
-    basicString: "Test",
-    limitedString: "pro",
-    regExpString: "id"
+    basicString: 'Test',
+    limitedString: 'pro',
+    regExpString: 'id',
 }, {keys: ['basicString']});
 
 StringSchema.validator();
@@ -58,8 +96,8 @@ const StringSchemaWithOptions = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        autoValue: () => new Date(),
-    },
+        autoValue: () => new Date()
+    }
 },
 {
     clean: {
@@ -69,7 +107,8 @@ const StringSchemaWithOptions = new SimpleSchema({
         trimStrings: true,
         getAutoValues: true,
         removeNullsFromArrays: true,
-    }
+    },
+    check,
 });
 
 new SimpleSchema({
@@ -80,6 +119,15 @@ new SimpleSchema({
     shortDate: Date,
     shortArray: Array,
     subSchema: StringSchemaWithOptions
+});
+
+StringSchema.extend(
+    new SimpleSchema({
+        name: { type: String }
+    })
+);
+StringSchema.extend({
+    name: { type: String }
 });
 
 SimpleSchema.extendOptions(['autoform']);

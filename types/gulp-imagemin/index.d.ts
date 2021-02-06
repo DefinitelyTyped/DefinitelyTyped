@@ -1,4 +1,4 @@
-// Type definitions for gulp-imagemin 4.1
+// Type definitions for gulp-imagemin 7.0
 // Project: https://github.com/sindresorhus/gulp-imagemin#readme
 // Definitions by: Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 import { Plugin } from 'imagemin';
 import { Options as GifsicleOptions } from 'imagemin-gifsicle';
-import { Options as JpegtranOptions } from 'imagemin-jpegtran';
+import { Options as MozjpegOptions } from 'imagemin-mozjpeg';
 import { Options as OptipngOptions } from 'imagemin-optipng';
 import { Options as SvgoOptions } from 'imagemin-svgo';
 import { Transform } from 'stream';
@@ -18,13 +18,14 @@ declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Op
 
 declare namespace imagemin {
     interface Options {
+        silent?: boolean;
         verbose?: boolean;
     }
 
     type PluginFactory<T> = (options?: T) => Plugin;
 
     const gifsicle: PluginFactory<GifsicleOptions>;
-    const jpegtran: PluginFactory<JpegtranOptions>;
+    const mozjpeg: PluginFactory<MozjpegOptions>;
     const optipng: PluginFactory<OptipngOptions>;
     const svgo: PluginFactory<SvgoOptions>;
 }

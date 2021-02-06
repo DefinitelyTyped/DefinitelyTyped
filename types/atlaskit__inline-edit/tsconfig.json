@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/inline-edit": ["atlaskit__inline-edit"]
+            "@atlaskit/*": ["atlaskit__*"]
         }
     },
     "files": ["index.d.ts", "atlaskit__inline-edit-tests.tsx"]

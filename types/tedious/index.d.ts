@@ -12,6 +12,7 @@
 
 
 import events = require("events");
+import { SecureContextOptions } from 'tls';
 
 export interface ColumnType {
     /**
@@ -115,7 +116,7 @@ export interface TediousTypes {
     Numeric: TediousType;
     Real: TediousType;
     SmallDateTime: TediousType;
-    SmallInt		: TediousType;
+    SmallInt        : TediousType;
     SmallMoney: TediousType;
     TVP: TediousType;
     Text: TediousType;
@@ -239,7 +240,7 @@ export interface ConnectionOptions {
     /**
      * When encryption is used, an object may be supplied that will be used for the first argument when calling tls.createSecurePair (default: {}).
      */
-    cryptoCredentialsDetails?: Object;
+    cryptoCredentialsDetails?: SecureContextOptions;
 
     /**
      * A boolean, that when true will expose received rows in Requests' done* events. See done, doneInProc and doneProc. (default: false)
@@ -487,10 +488,10 @@ export class Request extends events.EventEmitter {
     /**
      * Constructor
      * @param sql The SQL statement to be executed (or a procedure name, if the request is to be used with connection.callProcedure).
-     * @param callback	The callback is called when the request has completed, either successfully or with an error. If an error occurs during execution of the statement(s), then err will describe the error.
-     * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
-     * 					rowCount: The number of rows emitted as result of executing the SQL statement.
-     * 					rows: Rows as a result of executing the SQL statement. Will only be avaiable if Connection's config.options.rowCollectionOnRequestCompletion is true.
+     * @param callback    The callback is called when the request has completed, either successfully or with an error. If an error occurs during execution of the statement(s), then err will describe the error.
+     *                     As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                     rowCount: The number of rows emitted as result of executing the SQL statement.
+     *                     rows: Rows as a result of executing the SQL statement. Will only be avaiable if Connection's config.options.rowCollectionOnRequestCompletion is true.
      */
     constructor(sql: string, callback: (error: Error, rowCount: number, rows: any[]) => void);
 
@@ -534,9 +535,9 @@ export interface BulkLoad {
 
     /**
      * Adds a column to the bulk load. The column definitions should match the table you are trying to insert into. Attempting to call addColumn after the first row has been added will throw an exception.
-     * @param name	The name of the column.
-     * @param type	One of the supported data types.
-     * @param options	Additional column type information. At a minimum, nullable must be set to true or false.
+     * @param name    The name of the column.
+     * @param type    One of the supported data types.
+     * @param options    Additional column type information. At a minimum, nullable must be set to true or false.
      */
     addColumn(name: string, type: TediousType, options: BulkLoadColumnOpts): void;
 
@@ -547,7 +548,7 @@ export interface BulkLoad {
     addRow(row: Object): void;
     /**
      * Adds a row to the bulk insert. This method accepts arguments in three different formats:
-     * @param columnArray	An array representing the values of each column in the same order which they were added to the bulkLoad object.
+     * @param columnArray    An array representing the values of each column in the same order which they were added to the bulkLoad object.
      */
     addRow(columnArray: any[]): void;
     /**
@@ -657,6 +658,12 @@ export class Connection extends events.EventEmitter {
     constructor(config: ConnectionConfig);
 
     /**
+     * Establish a connection to the server.
+     * @param callback The callback is called when the connection was established or an error occured. If an error occured then err will describe the error.
+     */
+    connect(callback?: (err?: Error) => void): void;
+
+    /**
      * Start a transaction. As only one request at a time may be executed on
      * a connection, another request should not be initiated until this callback is called.
      * @param callback The callback is called when the request to start the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
@@ -669,21 +676,21 @@ export class Connection extends events.EventEmitter {
      * Commit a transaction.
      * There should be an active transaction. That is, beginTransaction should have been previously called.
      * @param callback The callback is called when the request to commit the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
-     * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                     As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
      */
     commitTransaction(callback: (error: Error) => void): void;
 
     /**
      * Rollback a transaction. There should be an active transaction. That is, beginTransaction should have been previously called.
      * @param callback The callback is called when the request to rollback the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
-     * 						As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                         As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
      */
     rollbackTransaction(callback: (error: Error) => void): void;
 
     /**
      * Set a savepoint within a transaction. There should be an active transaction. That is, beginTransaction should have been previously called.
      * @param callback The callback is called when the request to set a savepoint within the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
-     * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                     As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
      */
     saveTransaction(callback: (error: Error) => void): void;
 
@@ -694,7 +701,7 @@ export class Connection extends events.EventEmitter {
      *                  If an error occured, then err will describe the error. If no error occured, the callback should perform its work and eventually call done with an error or null
      *                  (to trigger a transaction rollback or a transaction commit) and an additional completion callback that will be called when the request to rollback or commit the current transaction
      *                  has completed, either successfully or with an error. Additional arguments given to done will be passed through to this callback.
-     * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                     As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
      * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. In case of a nested transaction, naming the transaction name has no effect.
      * @param isolationLevel The isolation level that the transaction is to be run with.
      */
@@ -751,7 +758,7 @@ export class Connection extends events.EventEmitter {
     /**
      * Reset the connection to its initial state. Can be useful for connection pool implementations.
      * @param callback The callback is called when the connection reset has completed, either successfully or with an error. If an error occured then err will describe the error.
-     * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+     *                     As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
      */
     reset(callback: (error: Error) => void): void;
 

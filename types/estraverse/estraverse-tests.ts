@@ -1,58 +1,70 @@
-import * as estraverse from 'estraverse';
-import * as estree from 'estree';
+import estraverse from 'estraverse';
+import estree from 'estree';
 
-let ast: estree.Node = {
-    "type": "Program",
-    "body": [
-        {
-            "type": "VariableDeclaration",
-            "declarations": [
-                {
-                    "type": "VariableDeclarator",
-                    "id": {
-                        "type": "Identifier",
-                        "name": "answer"
-                    },
-                    "init": {
-                        "type": "BinaryExpression",
-                        "operator": "*",
-                        "left": {
-                            "type": "Literal",
-                            "value": 6,
-                            "raw": "6"
-                        },
-                        "right": {
-                            "type": "Literal",
-                            "value": 7,
-                            "raw": "7"
-                        }
-                    }
-                }
-            ],
-            "kind": "var"
+declare const NODE: estree.Node;
+declare const NODE_VISITOR: estraverse.Visitor;
+
+declare const FLAG: estraverse.VisitorOption;
+
+// Test cases for `Visitor`
+{
+    const visitor: estraverse.Visitor = {
+        enter(node, parent) {
+            // Test cases for `this`
+            {
+                // $ExpectType Controller
+                this;
+                this.break(); // $ExpectType void
+                this.current(); // $ExpectType Node
+                this.notify(FLAG); // $ExpectType void
+                this.parents(); // $ExpectType Node[]
+                this.path(); // $ExpectType (string | number)[] | null
+                this.remove(); // $ExpectType void
+                this.skip(); // $ExpectType void
+                this.type(); // $ExpectType string
+            }
+        },
+        leave(node, parent) {
+            // Test cases for `this
+            {
+                // $ExpectType Controller
+                this;
+                this.break(); // $ExpectType void
+                this.current(); // $ExpectType Node
+                this.notify(FLAG); // $ExpectType void
+                this.parents(); // $ExpectType Node[]
+                this.path(); // $ExpectType (string | number)[] | null
+                this.remove(); // $ExpectType void
+                this.skip(); // $ExpectType void
+                this.type(); // $ExpectType string
+            }
+        },
+        fallback(node) {
+           // Test cases for `this
+            {
+                // $ExpectType Controller
+                this;
+                this.break(); // $ExpectType void
+                this.current(); // $ExpectType Node
+                this.notify(FLAG); // $ExpectType void
+                this.parents(); // $ExpectType Node[]
+                this.path(); // $ExpectType (string | number)[] | null
+                this.remove(); // $ExpectType void
+                this.skip(); // $ExpectType void
+                this.type(); // $ExpectType string
+            }
+
+            return [];
         }
-    ],
-    "sourceType": "script"
-};
+    };
+}
 
-estraverse.traverse(ast, {
-    enter(node: estree.Node, parentNode: estree.Node | null) {
-        if (node.type === 'Identifier') {
-            return estraverse.VisitorOption.Skip;
-        }
-    },
-    leave: (node: estree.Node, parentNode: estree.Node | null) => {},
-    fallback: 'iteration',
-    keys: {
-        TestExpression: ['argument']
-    }
-});
+// Test cases for `traverse`
+{
+    estraverse.traverse(NODE, NODE_VISITOR); // $ExpectType void
+}
 
-estraverse.replace(ast, {
-    enter: (node: estree.Node, parentNode: estree.Node | null) => {
-        return node;
-    },
-    leave: (node: estree.Node, parentNode: estree.Node | null) => {
-        return node;
-    }
-});
+// Test cases for `replace`
+{
+    estraverse.replace(NODE, NODE_VISITOR); // $ExpectType Node
+}

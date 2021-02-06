@@ -1,11 +1,10 @@
-// Type definitions for favicons 5.5
+// Type definitions for favicons 6.2
 // Project: https://github.com/itgalaxy/favicons
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>
 //                 Nikk Radetskiy <https://github.com/metsawyr>
 //                 Artur Androsovych <https://github.com/arturovt>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { Duplex } from 'stream';
@@ -19,12 +18,15 @@ declare namespace favicons {
         ovelayShadow?: boolean;
     }
 
-    interface Configuration {
+    interface FaviconOptions {
         /** Path for overriding default icons path @default '/' */
         path: string;
         /** Your application's name @default null */
         appName: string | null;
-        /** Your application's short_name. If not set, `appName` will be used @default null */
+        /**
+         * Your application's short_name.
+         * @default appName
+         */
         appShortName: string | null;
         /** Your application's description @default null */
         appDescription: string | null;
@@ -93,18 +95,30 @@ declare namespace favicons {
         }>;
     }
 
-    interface FavIconResponse {
-        images: Array<{ name: string; contents: Buffer }>;
-        files: Array<{ name: string; contents: Buffer }>;
-        html: string[];
+    interface FaviconResponse {
+        images: FaviconImage[];
+        files: FaviconFile[];
+        html: FaviconHtmlElement[];
     }
 
-    type Callback = (error: Error | null, response: FavIconResponse) => void;
+    interface FaviconImage {
+        name: string;
+        contents: Buffer;
+    }
+
+    interface FaviconFile {
+        name: string;
+        contents: string;
+    }
+
+    type FaviconHtmlElement = string;
+
+    type FaviconCallback = (error: Error | null, response: FaviconResponse) => void;
 
     /** You can programmatically access Favicons configuration (icon filenames, HTML, manifest files, etc) with this export */
-    const config: Configuration;
+    const config: FaviconOptions;
 
-    function stream(configuration?: Configuration): Duplex;
+    function stream(configuration?: FaviconOptions): Duplex;
 }
 /**
  * Generate favicons
@@ -114,16 +128,13 @@ declare namespace favicons {
  */
 declare function favicons(
     source: string | Buffer | string[],
-    configuration?: Partial<favicons.Configuration>,
-): Promise<favicons.FavIconResponse>;
+    options?: Partial<favicons.FaviconOptions>,
+): Promise<favicons.FaviconResponse>;
+declare function favicons(source: string | Buffer | string[], next?: favicons.FaviconCallback): void;
 declare function favicons(
     source: string | Buffer | string[],
-    callback?: favicons.Callback
-): void;
-declare function favicons(
-    source: string | Buffer | string[],
-    configuration?: Partial<favicons.Configuration>,
-    callback?: favicons.Callback
+    options?: Partial<favicons.FaviconOptions>,
+    next?: favicons.FaviconCallback,
 ): void;
 
 export = favicons;

@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
@@ -15,8 +15,8 @@
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"],
-            "@rebass/forms": ["rebass__forms"]
+            "@styled-system/*": ["styled-system__*"],
+            "@rebass/*": ["rebass__*"]
         },
         "types": [],
         "noEmit": true,

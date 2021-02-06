@@ -9,6 +9,14 @@
 
 import { IncomingMessage, ServerResponse } from "http";
 
+declare global {
+  namespace Express {
+    interface Request {
+      oauth2?: OAuth2;
+    }
+  }
+}
+
 export interface OAuth2 {
   client: any;
   user: any;

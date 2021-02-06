@@ -55,7 +55,13 @@ declare namespace Recipe {
         author?: string;
         title?: string;
         subject?: string;
+        colorspace?: 'rgb' | 'cmyk' | 'grey';
         keywords?: string[];
+        password?: string;
+        userPassword?: string;
+        ownerPassword?: string;
+        userProtectionFlag?: string;
+        fontSrcPath?: string | string[];
     }
 
     interface CommentOptions {

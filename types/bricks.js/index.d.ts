@@ -3,34 +3,36 @@
 // Definitions by: Pusztai Tibor <https://github.com/kondi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function BricksFactory(options: BricksOptions): BricksInstance;
+declare function Bricks(options: Bricks.Options): Bricks.Instance;
 
-export interface BricksInstance {
-    pack(): BricksInstance;
-    update(): BricksInstance;
-    resize(flag?: boolean): BricksInstance;
+declare namespace Bricks {
+    interface Instance {
+        pack(): Instance;
+        update(): Instance;
+        resize(flag?: boolean): Instance;
 
-    on(event: 'pack' | 'update', listener: () => any): BricksInstance;
-    on(event: 'resize', listener: (sizeDetail: SizeDetail) => any): BricksInstance;
+        on(event: 'pack' | 'update', listener: () => any): Instance;
+        on(event: 'resize', listener: (sizeDetail: SizeDetail) => any): Instance;
 
-    once(event: 'pack' | 'update', listener: () => any): BricksInstance;
-    once(event: 'resize', listener: (sizeDetail: SizeDetail) => any): BricksInstance;
+        once(event: 'pack' | 'update', listener: () => any): Instance;
+        once(event: 'resize', listener: (sizeDetail: SizeDetail) => any): Instance;
 
-    off(event: 'pack' | 'update', listener?: () => any): BricksInstance;
-    off(event: 'resize', listener?: (sizeDetail: SizeDetail) => any): BricksInstance;
+        off(event: 'pack' | 'update', listener?: () => any): Instance;
+        off(event: 'resize', listener?: (sizeDetail: SizeDetail) => any): Instance;
+    }
+
+    interface Options {
+        container: Node | string;
+        packed: string;
+        sizes: SizeDetail[];
+        position?: boolean;
+    }
+
+    interface SizeDetail {
+        mq?: string;
+        columns: number;
+        gutter: number;
+    }
 }
 
-export interface BricksOptions {
-    container: Node | string;
-    packed: string;
-    sizes: SizeDetail[];
-    position?: boolean;
-}
-
-export interface SizeDetail {
-    mq?: string;
-    columns: number;
-    gutter: number;
-}
-
-export default BricksFactory;
+export = Bricks;

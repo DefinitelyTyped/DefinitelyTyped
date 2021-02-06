@@ -139,7 +139,3 @@ function test_list_ports_promise() {
         .then((ports: SerialPort.PortInfo[]) => {})
         .catch((err: Error) => {});
 }
-
-function test_list_ports_callback() {
-    const ports = SerialPort.list((error: Error | null | undefined, ports: any[]) => {});
-}

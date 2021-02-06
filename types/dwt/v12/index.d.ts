@@ -668,7 +668,7 @@ declare enum EnumDWT_InterpolationMethod {
     IM_NEARESTNEIGHBOUR = 1,
     IM_BILINEAR = 2,
     IM_BICUBIC = 3,
-	IM_BESTQUALITY = 5
+    IM_BESTQUALITY = 5
 }
 
 /** Image type */
@@ -1239,15 +1239,15 @@ declare enum EnumDWT_FitWindowType {
 }
 
 declare enum EnumDWT_UploadDataFormat {
-	Binary = 0,
-	Base64 = 1
+    Binary = 0,
+    Base64 = 1
 }
 
 declare enum EnumDWT_MouseShape {
-	Default = 0,
-	Hand = 1,
-	Crosshair = 2,
-	Zoom = 3
+    Default = 0,
+    Hand = 1,
+    Crosshair = 2,
+    Zoom = 3
 }
 
 /**

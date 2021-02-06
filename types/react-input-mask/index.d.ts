@@ -1,4 +1,4 @@
-// Type definitions for react-input-mask 2.0
+// Type definitions for react-input-mask 3.0
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 //                 Dima Danylyuk <https://github.com/dima7a14>
@@ -18,12 +18,10 @@ export interface InputState {
   selection: Selection | null;
 }
 
-export interface MaskOptions {
-  mask: string | Array<(string | RegExp)>;
-  maskChar: string;
-  alwaysShowMask: boolean;
-  formatChars: Record<string, string>;
-  permanents: number[];
+export interface BeforeMaskedStateChangeStates {
+  previousState: InputState;
+  currentState: InputState;
+  nextState: InputState;
 }
 
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -40,17 +38,7 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Character to cover unfilled editable parts of mask. Default character is "_". If set to null, unfilled parts will be empty, like in ordinary input.
    */
-  maskChar?: string | null;
-  /**
-   * Defines format characters with characters as keys and corresponding RegExp string as values. Default ones:
-   * ```
-   * {
-   *   "9": "[0-9]",
-   *   "a": "[A-Za-z]",
-   *   "*": "[A-Za-z0-9]"
-   * }```
-   */
-  formatChars?: { [key: string]: string };
+  maskPlaceholder?: string | null;
   /**
    * Show mask even in empty input without focus.
    */
@@ -59,18 +47,16 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
    * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
    */
   inputRef?: React.Ref<HTMLInputElement>;
-
   /**
    * In case you need to implement more complex masking behavior, you can provide
-   * beforeMaskedValueChange function to change masked value and cursor position
+   * beforeMaskedStateChange function to change masked value and cursor position
    * before it will be applied to the input.
+   *
+   * * previousState: Input state before change. Only defined on change event.
+   * * currentState: Current raw input state. Not defined during component render.
+   * * nextState: Input state with applied mask. Contains value and selection fields.
    */
-  beforeMaskedValueChange?(
-    newState: InputState,
-    oldState: InputState,
-    userInput: string,
-    maskOptions: MaskOptions,
-  ): InputState;
+  beforeMaskedStateChange?(states: BeforeMaskedStateChangeStates): InputState;
 }
 
 export class ReactInputMask extends React.Component<Props> {

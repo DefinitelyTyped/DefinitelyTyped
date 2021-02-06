@@ -1,11 +1,18 @@
-// Type definitions for Vivus 0.4.0
+// Type definitions for Vivus 0.4
 // Project: http://maxwellito.github.io/vivus/
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ruslan Lekhman <https://github.com/lekhmanrus>
+// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
+//                 Ruslan Lekhman <https://github.com/lekhmanrus>
+//                 Shuta Hirai <https://github.com/shuta13>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Vivus;
 export as namespace Vivus;
 
+/**
+ * Take any SVG and make the animation
+ * to give give the impression of live drawing
+ */
 declare class Vivus {
     static LINEAR: Vivus.TimingFunction;
     static EASE: Vivus.TimingFunction;
@@ -14,9 +21,9 @@ declare class Vivus {
     static EASE_OUT_BOUNCE: Vivus.TimingFunction;
 
     /**
-     * @param element The DOM element, or the ID of a DOM element, to interact with.
-     * @param options
-     * @param callback Callback to call at the end of the animation
+     * @param element Dom element of the SVG or id of it
+     * @param options Options about the animation
+     * @param callback Callback for the end of the animation
      */
     constructor(element: string | HTMLElement, options?: Vivus.VivusOptions, callback?: (vivusInstance: Vivus) => void);
 
@@ -26,9 +33,14 @@ declare class Vivus {
      * This value can be negative to go reverse, between 0 and 1 to play slowly, or greater than 1 to go faster.
      * Callback executed after the animation is finished (optional).
      *
-     * (default: `1`)
+     * @param [speed=1] Animation speed
+     * @param [callback]
      */
     play(speed?: number, callback?: () => void): this;
+    /**
+     * @param callback
+     */
+    play(callback: () => void): this;
 
     /**
      * Stops the animation.
@@ -60,12 +72,17 @@ declare class Vivus {
      * Reset the SVG but make the instance out of order.
      */
     destroy(): void;
+
+    /**
+     * for types of HTMLElement
+     */
+    el: HTMLElement;
 }
 
 declare namespace Vivus {
-    export type TimingFunction = (input: number) => number;
+    type TimingFunction = (input: number) => number;
 
-    export interface VivusOptions {
+    interface VivusOptions {
         /**
          * Determines if the item must be drawn asynchronously or not.
          * Can be `'delayed'`, `'sync'`, `'oneByOne'`, `'script'`, `'scenario'`, or `'scenario-sync'`.
@@ -90,7 +107,7 @@ declare namespace Vivus {
          */
         start?: 'inViewport' | 'manual' | 'autostart';
         /**
-         * 	Time between the drawing of first and last path, in frames (only for `delayed` animations).
+         *     Time between the drawing of first and last path, in frames (only for `delayed` animations).
          */
         delay?: number;
         /**
@@ -103,14 +120,14 @@ declare namespace Vivus {
          *
          * See the [timing function documentation](https://github.com/maxwellito/vivus#timing-function).
          */
-        pathTimingFunction?: Vivus.TimingFunction;
+        pathTimingFunction?: TimingFunction;
         /**
          * Timing animation function for the complete SVG.
          * It must accept a `number` as a parameter (between 0 to 1), and return a `number` (also between 0 and 1) as a result.
          *
          * See the [timing function documentation](https://github.com/maxwellito/vivus#timing-function).
          */
-        animTimingFunction?: Vivus.TimingFunction;
+        animTimingFunction?: TimingFunction;
         /**
          * Whitespace extra margin between dashes.
          * Increase it in case of glitches at the initial state of the animation.

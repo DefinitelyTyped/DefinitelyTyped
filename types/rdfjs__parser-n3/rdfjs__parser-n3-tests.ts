@@ -1,5 +1,6 @@
 import ParserN3 = require('@rdfjs/parser-n3');
 import { Stream, DataFactory, Sink, BaseQuad } from 'rdf-js';
+import { EventEmitter } from 'events';
 
 const factory: DataFactory = <any> {};
 const baseIRI = '';
@@ -9,7 +10,7 @@ const parser1 = new ParserN3({});
 const parser2 = new ParserN3({ factory });
 const parser3 = new ParserN3({ baseIRI });
 
-const sink: Sink = parser;
+const sink: Sink<EventEmitter, Stream> = parser;
 
 const input: Stream = <any> {};
 const output: Stream = parser.import(input);

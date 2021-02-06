@@ -2,6 +2,7 @@
 // Project: https://two.js.org
 // Definitions by: Carlos Precioso <https://github.com/cprecioso>
 //                 Konstantin <https://github.com/demkonst>
+//                 Levente <https://github.com/leventefabry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -78,6 +79,7 @@ declare class Two {
     makePath(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
     makeGroup(objects: ReadonlyArray<Two.Object>): Two.Group;
     makeGroup(...objects: Two.Object[]): Two.Group;
+    makeText(message: string, x: number, y: number, styles: any): Two.Text;
     interpret(svgNode: SVGElement): Two.Group;
     bind(event: string, callback: (...args: any[]) => void): this;
     unbind(
@@ -170,6 +172,7 @@ declare namespace Two {
         beginning: number;
         ending: number;
         clip: boolean;
+        dashes: number[];
 
         clone(): this;
         center(): this;
@@ -317,7 +320,7 @@ declare namespace Two {
             command: Commands | string
         );
 
-        command: string;
+        command: Commands | string;
         controls?: { right: Vector; left: Vector };
 
         listen(): this;

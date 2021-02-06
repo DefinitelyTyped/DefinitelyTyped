@@ -4,15 +4,15 @@ export default class RouterDSL {
     route(
         name: string,
         options?: { path?: string; resetNamespace?: boolean },
-        callback?: (this: RouterDSL) => void
+        callback?: (this: RouterDSL) => void,
     ): void;
     mount(
         name: string,
         options?: {
-            as?: string,
-            path?: string,
-            resetNamespace?: boolean,
-            engineInfo?: any
-        }
+            as?: string;
+            path?: string;
+            resetNamespace?: boolean;
+            engineInfo?: any;
+        },
     ): void;
 }

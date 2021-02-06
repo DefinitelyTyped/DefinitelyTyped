@@ -1,4 +1,4 @@
-// Type definitions for franc 4.0
+// Type definitions for franc 5.0
 // Project: https://github.com/wooorm/franc/
 // Definitions by: William LeGate <https://github.com/wlegate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,12 +13,13 @@ interface Options {
     minLength?: number;
     whitelist?: ISO6393[];
     blacklist?: ISO6393[];
+    only?: ISO6393[];
 }
 
 declare function detect(text: string, options?: Options): ISO6393;
 
 declare namespace detect {
-    function all(text: string, options?: Options): [ISO6393, number];
+    function all(text: string, options?: Options): Array<[ISO6393, Confidence]>;
 }
 
 export = detect;

@@ -1,7 +1,6 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // TODO
-    "no-duplicate-imports": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-duplicate-imports": false
+    }
 }

@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-var-requires": false,
-        "no-single-declare-module": false,
-        "no-declare-current-package": false
+        "no-var-requires": false
     }
 }

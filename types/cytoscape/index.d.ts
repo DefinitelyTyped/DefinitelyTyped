@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.8
+// Type definitions for Cytoscape.js 3.14
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -8,6 +8,9 @@
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
+//                  Jongsu Liam Kim <https://github.com/appleparan>
+//                  Fredrik Sandström <https://github.com/Veckodag>
+//                  Jan Zak <https://github.com/zakjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -395,7 +398,7 @@ declare namespace cytoscape {
         /**
          * Add elements to the graph and return them.
          */
-        add(eles: ElementDefinition | ElementDefinition[] | CollectionArgument): CollectionReturnValue;
+        add(eles: ElementDefinition | ElementDefinition[] | ElementsDefinition | CollectionArgument): CollectionReturnValue;
 
         /**
          * Remove elements in collecion or match the selector from the graph and return them.
@@ -407,6 +410,11 @@ declare namespace cytoscape {
          * If no parameter specified, an empty collection will be returned
          */
         collection(eles?: Selector | CollectionArgument[]): CollectionReturnValue;
+
+        /**
+         * check whether the specified id is in the collection
+         */
+        hasElementWithId(id: string): boolean;
 
         /**
          * Get an element from its ID in a very performant way.
@@ -615,16 +623,20 @@ declare namespace cytoscape {
          * @param handler [optional] A reference to the handler function to remove.
          * @param eventsMap A map of event names to handler functions to remove.
          */
-        off(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        off(events: EventNames, handler?: EventHandler): this;
+        off(events: EventNames, selector: Selector, handler?: EventHandler): this;
         off(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unbind(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unbind(events: EventNames, handler?: EventHandler): this;
+        unbind(events: EventNames, selector: Selector, handler?: EventHandler): this;
         unbind(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unlisten(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unlisten(events: EventNames, handler?: EventHandler): this;
+        unlisten(events: EventNames, selector: Selector, handler?: EventHandler): this;
         unlisten(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        removeListener(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        removeListener(events: EventNames, handler?: EventHandler): this;
+        removeListener(events: EventNames, selector: Selector, handler?: EventHandler): this;
         removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
         /**
@@ -655,7 +667,7 @@ declare namespace cytoscape {
         /** The zoom level to set. */
         level: number;
     }
-    type ZoomOptions = ZoomOptionsLevel & (ZoomOptionsModel | ZoomOptionsRendered);
+    type ZoomOptions = number | (ZoomOptionsLevel & (ZoomOptionsModel | ZoomOptionsRendered));
 
     /**
      * http://js.cytoscape.org/#core/viewport-manipulation
@@ -732,7 +744,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables panning; a falsey value disables it.
          */
-        panningEnabled(bool: boolean): this;
+        panningEnabled(bool?: boolean): this;
 
         /**
          * Get whether panning by user events (e.g. dragging the graph background) is enabled. If cy.boxSelectionEnabled() === true, then the user must taphold to initiate panning.
@@ -746,7 +758,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables user panning; a falsey value disables it.
          */
-        userPanningEnabled(bool: boolean): this;
+        userPanningEnabled(bool?: boolean): this;
         /**
          * Get the zoom level.
          * http://js.cytoscape.org/#cy.zoom
@@ -832,7 +844,20 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables box selection; a falsey value disables it.
          */
-        boxSelectionEnabled(bool: boolean): this;
+        boxSelectionEnabled(bool?: boolean): this;
+
+        /**
+         * Get the selection type.
+         * http://js.cytoscape.org/#cy.selectionType
+         */
+        selectionType(): SelectionType;
+        /**
+         * Set the selection type.
+         * http://js.cytoscape.org/#cy.selectionType
+         *
+         * @param type The selection type string; one of 'single' (default) or 'additive'.
+         */
+        selectionType(type: SelectionType): this;
 
         /**
          * Get the on-screen width of the viewport in pixels.
@@ -869,7 +894,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autolock(bool: boolean): this;
+        autolock(bool?: boolean): this;
 
         /**
          * Get whether nodes are automatically ungrabified
@@ -884,7 +909,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autoungrabify(bool: boolean): this;
+        autoungrabify(bool?: boolean): this;
 
         /**
          * Get whether nodes are automatically unselectified
@@ -899,7 +924,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autounselectify(bool: boolean): this;
+        autounselectify(bool?: boolean): this;
 
         /**
          * Force the renderer to redraw (i.e. draw a new frame).
@@ -1276,7 +1301,7 @@ declare namespace cytoscape {
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
          */
-        move(location: { parent: string }): NodeCollection;
+        move(location: { parent: string | null }): NodeCollection;
     }
 
     /**
@@ -1860,7 +1885,7 @@ declare namespace cytoscape {
         // duration of animation in ms, if enabled
         animationDuration?: number;
         // easing of animation, if enabled
-        animationEasing?: number;
+        animationEasing?: Css.TransitionTimingFunction;
         // collection of elements involved in the layout; set by cy.layout() or eles.layout(s)
         eles: CollectionArgument;
         // whether to fit the viewport to the graph
@@ -1950,8 +1975,8 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/style
      */
     type ClassName = string;
-    /** A space-separated list of class names */
-    type ClassNames = string;
+    /** A space-separated list of class names or an array */
+    type ClassNames = string | ClassName[];
 
     interface CollectionStyle {
         /**
@@ -3271,7 +3296,51 @@ declare namespace cytoscape {
          * The optimal result is found with a high probability, but without guarantee.
          * http://js.cytoscape.org/#eles.kargerStein
          */
-        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        kargerStein(): { cut: EdgeCollection; components: CollectionReturnValue; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        /**
+         * finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnected(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnectedComponents(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htb(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htbc(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnected(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnectedComponents(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tsc(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tscc(): { cut: EdgeCollection; components: CollectionReturnValue; };
         /**
          * Rank the nodes in the collection using the Page Rank algorithm.
          * http://js.cytoscape.org/#eles.pageRank
@@ -3491,10 +3560,11 @@ declare namespace cytoscape {
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
         type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon" | "round-rectangle"
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star" | "barrel"
+            | "diamond" | "vee" | "rhomboid" | "polygon" | "tag" | "round-rectangle"
             | "round-triangle" | "round-diamond" | "round-pentagon" | "round-hexagon"
-            | "round-heptagon" | "round-octagon" | "round-tag";
+            | "round-heptagon" | "round-octagon" | "round-tag"
+            | "cut-rectangle"| "bottom-round-rectangle" | "concave-hexagon";
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
@@ -3512,8 +3582,9 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>,
-            BackgroundImage, Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground> {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>>,
+            Partial<TransitionAnimation> {
             /**
              * The CSS content field
              */
@@ -3709,8 +3780,10 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
-        Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
+            Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>>,
+            Partial<TransitionAnimation> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3758,6 +3831,14 @@ declare namespace cytoscape {
              * The dashed line offset.
              */
             "line-dash-offset"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its target.
+             */
+            "target-distance-from-node"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its source.
+             */
+            "source-distance-from-node"?: PropertyValueEdge<number>;
         }
 
         /**
@@ -3767,9 +3848,9 @@ declare namespace cytoscape {
          */
         interface Gradient {
             /**
-             * The colours of the gradient stops.
+             * The colors of the gradient stops.
              */
-            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            "line-gradient-stop-colors"?: Array<PropertyValueEdge<Colour>>;
             /**
              * The positions of the gradient stops.
              * If not specified (or invalid), the stops will divide equally.
@@ -3910,6 +3991,9 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/edge-arrow
          */
         interface EdgeArrow {
+            /** The size of the arrow. */
+            "arrow-scale"?: PropertyValueEdge<number>;
+
             /** The colour of the edge’s source arrow. */
             "source-arrow-color"?: PropertyValueEdge<Colour>;
             /** The colour of the edge’s "mid-source" arrow. */
@@ -3939,6 +4023,16 @@ declare namespace cytoscape {
         }
 
         /**
+         * https://js.cytoscape.org/#style/edge-endpoints
+         */
+        interface EdgeEndpoints<SingularType extends EdgeSingular> {
+            /** Specifies the endpoint of the source side of the edge  */
+            "source-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
+            /** Specifies the endpoint of the target side of the edge  */
+            "target-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
+        }
+
+        /**
          * http://js.cytoscape.org/#style/visibility
          */
         interface Visibility<SingularType extends NodeSingular | EdgeSingular> {
@@ -3951,7 +4045,7 @@ declare namespace cytoscape {
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
              */
-            "visibility": PropertyValue<SingularType, "none" | "visible">;
+            "visibility": PropertyValue<SingularType, "hidden" | "visible">;
             /**
              * The opacity of the element, ranging from 0 to 1.
              * Note that the opacity of a compound node parent affects the effective opacity of its children.
@@ -4167,6 +4261,10 @@ declare namespace cytoscape {
              */
 
             /**
+             * The padding provides visual spacing between the text and the edge of the background.
+             */
+            "text-background-padding": PropertyValue<SingularType, string>;
+            /**
              * A colour to apply on the text background.
              */
             "text-background-color": PropertyValue<SingularType, Colour>;
@@ -4213,27 +4311,22 @@ declare namespace cytoscape {
              * it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
              */
             "min-zoomed-font-size": PropertyValue<SingularType, number>;
-            /**
-             * Whether events should occur on an element if the label receives an event.
-             * You may want a style applied to the text onactive so you know the text is activatable.
-             */
-            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**
          * http://js.cytoscape.org/#style/events
          */
-        interface Events {
+        interface Events<SingularType extends NodeSingular | EdgeSingular> {
             /**
              * Whether events should occur on an element (e.g.tap, mouseover, etc.).
              *  * For "no", the element receives no events and events simply pass through to the core/viewport.
              */
-            "events": PropertyValueNode<"yes" | "no">;
+            "events": PropertyValue<SingularType, "yes" | "no">;
             /**
              *  Whether events should occur on an element if the label receives an event.
              * You may want a style applied to the text on active so you know the text is activatable.
              */
-            "text-events": PropertyValueNode<"yes" | "no">;
+            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**
@@ -4593,7 +4686,7 @@ declare namespace cytoscape {
         // duration of animation in ms if enabled
         animationDuration?: number;
         // easing of animation if enabled
-        animationEasing?: boolean;
+        animationEasing?: Css.TransitionTimingFunction;
     }
     /**
      * http://js.cytoscape.org/#layouts/random

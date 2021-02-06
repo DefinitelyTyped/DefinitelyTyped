@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@keyv/mysql": [
-                "keyv__mysql"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "types": [],

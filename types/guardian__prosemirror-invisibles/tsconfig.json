@@ -15,7 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@guardian/*": [
+                "guardian__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

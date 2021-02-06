@@ -1,9 +1,7 @@
 // Type definitions for Hashids.js 1.x
-// Project: https://github.com/ivanakimov/hashids.node.js
+// Project: https://hashids.org/javascript/
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
 
 export default class Hashids {
     private version: string;

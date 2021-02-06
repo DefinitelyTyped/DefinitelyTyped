@@ -103,7 +103,7 @@ export class Repository {
     /**
      * Lookup references for a repository.
      */
-    getReferences(type: Reference.TYPE): Promise<Reference[]>;
+    getReferences(): Promise<Reference[]>;
     /**
      * Lookup reference names for a repository.
      */

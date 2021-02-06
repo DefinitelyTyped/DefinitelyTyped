@@ -1,10 +1,7 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"no-mergeable-namespace": false,
-		"no-redundant-jsdoc": false,
-		"no-redundant-jsdoc-2": false,
-		"no-unnecessary-class": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-mergeable-namespace": false,
+        "no-unnecessary-class": false
+    }
 }

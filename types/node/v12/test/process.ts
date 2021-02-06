@@ -68,3 +68,9 @@ import { EventEmitter } from "events";
 {
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
 }
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
+}

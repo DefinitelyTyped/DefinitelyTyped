@@ -16,7 +16,7 @@ class GameScore extends Parse.Object {
     }
 }
 
-class Game extends Parse.Object {
+class Game extends Parse.Object<{ gameScore: GameScore; score: string }> {
     constructor(options?: any) {
         super('Game', options);
     }
@@ -99,6 +99,10 @@ function test_query() {
     query.notEqualTo('playerName', 'Michael Yabuti');
     query.fullText('playerName', 'dan', { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan('playerAge', 18);
+    query.eachBatch(objs => Promise.resolve(), { batchSize: 10 });
+    query.each(score => Promise.resolve());
+    query.hint('_id_');
+    query.explain(true);
     query.limit(10);
     query.skip(10);
 
@@ -163,6 +167,17 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
+function test_query_exclude() {
+    const gameScore = new GameScore();
+
+    const query = new Parse.Query(GameScore);
+
+    // Show all keys, except the specified key.
+    query.exclude('place');
+
+    const testQuery = Parse.Query.or(query, query);
+}
+
 async function test_query_promise() {
     // Test promise with a query
     const findQuery = new Parse.Query('Test');
@@ -181,35 +196,41 @@ async function test_query_promise() {
     } catch (error) {
         // noop
     }
+
+    await getQuery.map((score, index) => score.increment('score', index));
+    await getQuery.reduce((accum, score, index) => (accum += score.get('score')), 0);
+    await getQuery.reduce((accum, score, index) => (accum += score.get('score')), 0, { batchSize: 200 });
+    await getQuery.filter(scores => scores.get('score') > 0);
+    await getQuery.filter(scores => scores.get('score') > 0, { batchSize: 10 });
 }
 
 async function test_live_query() {
     const subscription = await new Parse.Query('Test').subscribe();
-    subscription.on('close', (object) => {
+    subscription.on('close', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('create', (object) => {
+    subscription.on('create', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('delete', (object) => {
+    subscription.on('delete', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('enter', (object) => {
+    subscription.on('enter', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('leave', (object) => {
+    subscription.on('leave', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('open', (object) => {
+    subscription.on('open', object => {
         // $ExpectType Object<Attributes>
         object;
     });
-    subscription.on('update', (object) => {
+    subscription.on('update', object => {
         // $ExpectType Object<Attributes>
         object;
     });
@@ -219,8 +240,24 @@ function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
 }
 
+function test_anonymous_utils() {
+    // $ExpectType boolean
+    Parse.AnonymousUtils.isLinked(new Parse.User());
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: '' });
+    // $ExpectType Promise<User<Attributes>>
+    Parse.AnonymousUtils.logIn({ useMasterKey: true, sessionToken: '' });
+}
+
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
+}
+
+function test_each() {
+    new Parse.Query(Game).each(game => {
+        // $ExpectType Game
+        game;
+    });
 }
 
 function test_file() {
@@ -235,6 +272,7 @@ function test_file() {
     file = new Parse.File('myfile.zzz', new Blob(), 'image/png');
 
     const src = file.url();
+    const secure = file.url({ forceSecure: true });
 
     file.save().then(
         () => {
@@ -250,6 +288,24 @@ function test_file() {
     });
 
     // TODO: Check
+
+    file.cancel();
+    file.destroy();
+}
+
+function test_file_tags_and_metadata() {
+    const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
+    const file = new Parse.File('myfile.txt', { base64 });
+    file.setTags({ ownerId: 42, status: 'okay' });
+    file.addTag('labes', ['one', 'two', 'three']);
+    file.setMetadata({ contentType: 'plain/text', contentLength: 579 });
+    file.addMetadata('author', 'John Doe');
+
+    const tags = file.tags();
+    const ownerId = tags['ownerId'];
+
+    const metadata = file.metadata();
+    const contentType = metadata['contentType'];
 }
 
 function test_analytics() {
@@ -470,7 +526,7 @@ async function test_cloud_functions() {
     await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', { paramZ: 'hello' });
 
     // $ExpectError
-    await Parse.Cloud.run<(params: { paramA: string}) => number>('SomeFunction', null, { useMasterKey: true });
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', null, { useMasterKey: true });
 
     // $ExpectError
     await Parse.Cloud.run<(params: string) => any>('SomeFunction', 'hello');
@@ -555,14 +611,32 @@ async function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
-        return 'Some result';
+        return Promise.resolve();
     });
+
+    Parse.Cloud.afterLogin((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    });
+
+    Parse.Cloud.afterLogout((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    });
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
+        return Promise.resolve(new Parse.File('myFile.txt', { base64: '' }));
+    });
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {});
+
+    Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {});
+
+    Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {});
 
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
 
-    Parse.Cloud.define('AFunc', (request) => {
+    Parse.Cloud.define('AFunc', request => {
         // $ExpectType Params
         request.params;
 
@@ -570,7 +644,12 @@ async function test_cloud_functions() {
         request.params.anything;
     });
 
-    Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
+    Parse.Cloud.define<() => void>('AFunc', request => {
+        // $ExpectType {}
+        request.params;
+    });
+
+    Parse.Cloud.define<(params: { something: string }) => number>('AFunc', request => {
         // $ExpectType { something: string; }
         request.params;
 
@@ -614,7 +693,7 @@ function test_geo_points() {
     point = new Parse.GeoPoint(40.0, -30.0);
     point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
+    const userObject = Parse.User.current<Parse.User<{ location: Parse.GeoPoint }>>()!;
 
     // User's location
     const userGeoPoint = userObject.get('location');
@@ -713,14 +792,24 @@ function test_serverURL() {
 }
 function test_polygon() {
     const point = new Parse.GeoPoint(1, 2);
-    const polygon1 = new Parse.Polygon([[0, 0], [1, 0], [1, 1], [0, 1]]);
+    const polygon1 = new Parse.Polygon([
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [0, 1],
+    ]);
     const polygon2 = new Parse.Polygon([point, point, point]);
     polygon1.equals(polygon2);
     polygon1.containsPoint(point);
 
     const query = new Parse.Query('TestObject');
     query.polygonContains('key', point);
-    query.withinPolygon('key', [[0, 0], [1, 0], [1, 1], [0, 1]]);
+    query.withinPolygon('key', [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [0, 1],
+    ]);
 }
 
 async function test_local_datastore() {
@@ -752,51 +841,188 @@ async function test_local_datastore() {
     Parse.setLocalDatastoreController({});
 }
 
-async function test_schema() {
-    Parse.Schema.all({ useMasterKey: true });
-    Parse.Schema.all({ sessionToken: '' });
+async function test_from_network() {
+    const obj = new Parse.Object('TestObject');
+    await obj.save();
+
+    const query = new Parse.Query('TestObject');
+    query.fromNetwork();
+}
+
+async function test_cancel_query() {
+    const obj = new Parse.Object('TestObject');
+    await obj.save();
+
+    const query = new Parse.Query('TestObject');
+    query.fromNetwork().find();
+    query.cancel();
+}
+
+type FieldType =
+    | string
+    | number
+    | boolean
+    | Date
+    | Parse.File
+    | Parse.GeoPoint
+    | any[]
+    | object
+    | Parse.Pointer
+    | Parse.Polygon
+    | Parse.Relation;
+async function test_schema(
+    anyField: FieldType,
+    notString: Exclude<FieldType, string>,
+    notNumber: Exclude<FieldType, number>,
+    notboolean: Exclude<FieldType, boolean>,
+    notDate: Exclude<FieldType, Date>,
+    notFile: Exclude<FieldType, Parse.File>,
+    notGeopoint: Exclude<FieldType, Parse.GeoPoint[]>,
+    notArray: Exclude<FieldType, any[]>,
+    notObject: Exclude<FieldType, object>,
+    notPointer: Exclude<FieldType, Parse.Pointer>,
+    notPolygon: Exclude<FieldType, Parse.Polygon>,
+) {
+    Parse.Schema.all();
 
     const schema = new Parse.Schema('TestSchema');
 
-    schema.addField('defaultFieldString');
-    schema.addString('stringField');
-    schema.addNumber('numberField');
-    schema.addBoolean('booleanField');
-    schema.addDate('dateField');
-    schema.addFile('fileField');
-    schema.addGeoPoint('geoPointField');
-    schema.addPolygon('polygonField');
     schema.addArray('arrayField');
-    schema.addObject('objectField');
-    schema.addPointer('pointerField', '_User');
-    schema.addRelation('relationField', '_User');
+    schema.addArray('arrayField', { defaultValue: [1, 2, 3, 4] });
+    // $ExpectError
+    schema.addArray('arrayField', { defaultValue: notArray });
 
+    /**
+     * @todo Enable type check for defaul value
+     */
+    schema.addField('defaultFieldString');
+    schema.addField('defaultFieldString', 'String', { defaultValue: anyField });
+    schema.addField('defaultFieldString', 'Number');
+    schema.addField('defaultFieldString', 'Relation');
+    // $ExpectError
+    schema.addField('defaultFieldString', 'String', 'Invalid Options');
+
+    schema.addString('field');
+    schema.addString('field', { defaultValue: 'some string', required: true });
+    // $ExpectError
+    schema.addString('field', { defaultValue: notString });
+
+    schema.addNumber('field');
+    schema.addNumber('field', { defaultValue: 0, required: true });
+    // $ExpectError
+    schema.addNumber('field', { defaultValue: notNumber });
+
+    schema.addBoolean('field');
+    schema.addBoolean('field', { defaultValue: true, required: true });
+    // $ExpectError
+    schema.addBoolean('field', { defaultValue: notboolean });
+
+    schema.addDate('field');
+    schema.addDate('field', { defaultValue: new Date(), required: true });
+    // $ExpectError
+    schema.addDate('field', { defaultValue: notDate });
+
+    schema.addFile('field');
+    schema.addFile('field', { defaultValue: new Parse.File('myfile', []), required: true });
+    // $ExpectError
+    schema.addFile('field', { defaultValue: notFile });
+
+    schema.addGeoPoint('field');
+    schema.addGeoPoint('field', { defaultValue: new Parse.GeoPoint(), required: true });
+    // $ExpectError
+    schema.addGeoPoint('field', { defaultValue: notGeopoint });
+
+    schema.addPolygon('field');
+    schema.addPolygon('field', { defaultValue: new Parse.Polygon([]), required: true });
+    // $ExpectError
+    schema.addPolygon('field', { defaultValue: notPolygon });
+
+    schema.addObject('field');
+    schema.addObject('field', { defaultValue: {}, required: true });
+    schema.addObject('field', { defaultValue: { abc: 'def' } });
+    // $ExpectError
+    schema.addObject('field', { defaultValue: notObject });
+
+    schema.addPointer('field', 'SomeClass');
+    // $ExpectError
+    schema.addPointer('field');
+    /**
+     * @todo Infer defaultValue type from targetClass
+     */
+    schema.addPointer('field', '_User', { defaultValue: new Parse.User().toPointer(), required: true });
+    // $ExpectError
+    schema.addPointer('field', { defaultValue: notPointer });
+
+    schema.addRelation('field', 'SomeClass');
+    // $ExpectError
+    schema.addRelation('field');
+    // $ExpectError
+    schema.addRelation('field', 'SomeClass', 'anything');
+
+    schema.addIndex('testIndex', { stringField: 'Number' });
+    // $ExpectError
     schema.addIndex('testIndex', { stringField: 1 });
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
-
-    // Master Key
-    schema.delete({ useMasterKey: true }).then(results => {});
-
-    schema.get({ useMasterKey: true }).then(results => {});
-
+    schema.delete().then(results => {});
+    schema.get().then(results => {});
     schema.purge().then(results => {});
+    schema.save().then(results => {});
+    schema.update().then(results => {});
 
-    schema.save({ useMasterKey: true }).then(results => {});
+    function testGenericType() {
+        interface iTestAttributes {
+            arrField: any[];
+            boolField: boolean;
+            stringField: string;
+            numField: number;
+            dateField: Date;
+            fileField: Parse.File;
+            geoPointField: Parse.GeoPoint;
+            polygonField: Parse.Polygon;
+            objectField: object;
+            relationField: Parse.Relation;
+            pointerField: Parse.Pointer | Parse.Object;
+        }
+        class TestObject extends Parse.Object<iTestAttributes> {}
 
-    schema.update({ useMasterKey: true }).then(results => {});
+        const schema = new Parse.Schema<TestObject>('TestObject');
+        schema.addArray('arrField');
+        schema.addBoolean('boolField');
+        schema.addDate('dateField');
+        schema.addFile('fileField');
+        schema.addGeoPoint('geoPointField');
+        schema.addNumber('numField');
+        schema.addObject('objectField');
+        schema.addPointer('pointerField', 'FooClass');
+        schema.addPolygon('polygonField');
+        schema.addRelation('relationField', 'FooClass');
+        schema.addString('stringField');
 
-    // Session Token
-    schema.delete({ sessionToken: '' }).then(results => {});
-
-    schema.get({ sessionToken: '' }).then(results => {});
-
-    schema.purge().then(results => {});
-
-    schema.save({ sessionToken: '' }).then(results => {});
-
-    schema.update({ sessionToken: '' }).then(results => {});
+        // $ExpectError
+        schema.addArray('wrong');
+        // $ExpectError
+        schema.addBoolean('wrong');
+        // $ExpectError
+        schema.addDate('wrong');
+        // $ExpectError
+        schema.addFile('wrong');
+        // $ExpectError
+        schema.addGeoPoint('wrong');
+        // $ExpectError
+        schema.addNumber('wrong');
+        // $ExpectError
+        schema.addObject('wrong');
+        // $ExpectError
+        schema.addPointer('wrong', 'FooClass');
+        // $ExpectError
+        schema.addPolygon('wrong');
+        // $ExpectError
+        schema.addRelation('wrong', 'FooClass');
+        // $ExpectError
+        schema.addString('wrong');
+    }
 }
 
 function testObject() {
@@ -817,7 +1043,26 @@ function testObject() {
         new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
 
         // $ExpectError
+        new Parse.Object<{ example: string }>('TestObject');
+
+        // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
+    }
+
+    function testStaticMethods() {
+        async function testSaveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
+            // $ExpectType Object<Attributes>[]
+            await Parse.Object.saveAll([objUntyped]);
+
+            // $ExpectType Object<{ example: string; }>[]
+            await Parse.Object.saveAll([objTyped]);
+
+            // $ExpectType [Object<Attributes>, Object<{ example: string; }>]
+            await Parse.Object.saveAll<[typeof objUntyped, typeof objTyped]>([objUntyped, objTyped]);
+
+            // $ExpectError
+            await Parse.Object.saveAll([123]);
+        }
     }
 
     function testAttributes(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -850,36 +1095,39 @@ function testObject() {
 
     function testAddAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
         // $ExpectType false | Object<Attributes>
-        objUntyped.addAll('whatever', [ 'hello', 100 ]);
+        objUntyped.addAll('whatever', ['hello', 100]);
 
         // $ExpectType false | Object<{ stringList: string[]; thing: boolean; }>
-        objTyped.addAll('stringList', [ 'hello' ]);
+        objTyped.addAll('stringList', ['hello']);
 
         // $ExpectError
-        objTyped.addAll('stringList', [ 100 ]);
+        objTyped.addAll('stringList', [100]);
 
         // $ExpectError
-        objTyped.addAll('thing', [ true ]);
+        objTyped.addAll('thing', [true]);
 
         // $ExpectError
-        objTyped.addAll('whatever', [ 'hello' ]);
+        objTyped.addAll('whatever', ['hello']);
     }
 
-    function testAddAllUnique(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
+    function testAddAllUnique(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>,
+    ) {
         // $ExpectType false | Object<Attributes>
-        objUntyped.addAllUnique('whatever', [ 'hello', 100 ]);
+        objUntyped.addAllUnique('whatever', ['hello', 100]);
 
         // $ExpectType false | Object<{ stringList: string[]; thing: boolean; }>
-        objTyped.addAllUnique('stringList', [ 'hello' ]);
+        objTyped.addAllUnique('stringList', ['hello']);
 
         // $ExpectError
-        objTyped.addAllUnique('stringList', [ 100 ]);
+        objTyped.addAllUnique('stringList', [100]);
 
         // $ExpectError
-        objTyped.addAllUnique('thing', [ true ]);
+        objTyped.addAllUnique('thing', [true]);
 
         // $ExpectError
-        objTyped.addAllUnique('whatever', [ 'hello' ]);
+        objTyped.addAllUnique('whatever', ['hello']);
     }
 
     function testAddUnique(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
@@ -943,25 +1191,37 @@ function testObject() {
         objUntyped.fetchWithInclude('whatever');
 
         // $ExpectType Promise<Object<Attributes>>
-        objUntyped.fetchWithInclude([ 'whatever' ]);
+        objUntyped.fetchWithInclude(['whatever']);
 
         // $ExpectType Promise<Object<Attributes>>
-        objUntyped.fetchWithInclude([[ 'whatever' ]]);
+        objUntyped.fetchWithInclude([['whatever']]);
 
         // $ExpectError
-        objUntyped.fetchWithInclude([[[ 'whatever' ]]]);
+        objUntyped.fetchWithInclude([[['whatever']]]);
 
         // $ExpectType Promise<Object<{ example: string; }>>
         objTyped.fetchWithInclude('example');
 
         // $ExpectType Promise<Object<{ example: string; }>>
-        objTyped.fetchWithInclude([ 'example' ]);
+        objTyped.fetchWithInclude(['example']);
 
         // $ExpectType Promise<Object<{ example: string; }>>
-        objTyped.fetchWithInclude([[ 'example' ]]);
+        objTyped.fetchWithInclude([['example']]);
 
         // $ExpectError
-        objTyped.fetchWithInclude([[[ 'example' ]]]);
+        objTyped.fetchWithInclude([[['example']]]);
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllIfNeededWithInclude([objTyped], 'notAnAttribute');
+
+        // $ExpectType Promise<Object<{ example: string; }>[]>
+        Parse.Object.fetchAllWithInclude([objTyped], 'example');
+
+        // $ExpectError
+        Parse.Object.fetchAllWithInclude([objTyped], 'notAnAttribute');
     }
 
     function testGet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
@@ -1004,6 +1264,26 @@ function testObject() {
 
         // $ExpectError
         objTyped.increment('other');
+    }
+
+    function testDecrement(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
+        // $ExpectType false | Object<Attributes>
+        objUntyped.decrement('whatever');
+
+        // $ExpectType false | Object<Attributes>
+        objUntyped.decrement('whatever', 10);
+
+        // $ExpectType false | Object<{ example: number; }>
+        objTyped.decrement('example');
+
+        // $ExpectType false | Object<{ example: number; }>
+        objTyped.decrement('example', 20);
+
+        // $ExpectError
+        objTyped.decrement('example', true);
+
+        // $ExpectError
+        objTyped.decrement('other');
     }
 
     function testNewInstance(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
@@ -1058,19 +1338,19 @@ function testObject() {
 
     function testRemoveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ stringList: string[]; thing: boolean }>) {
         // $ExpectType false | Object<Attributes>
-        objUntyped.removeAll('whatever', [ 'hello', 100 ]);
+        objUntyped.removeAll('whatever', ['hello', 100]);
 
         // $ExpectType false | Object<{ stringList: string[]; thing: boolean; }>
-        objTyped.removeAll('stringList', [ 'hello' ]);
+        objTyped.removeAll('stringList', ['hello']);
 
         // $ExpectError
-        objTyped.removeAll('stringList', [ 100 ]);
+        objTyped.removeAll('stringList', [100]);
 
         // $ExpectError
-        objTyped.removeAll('thing', [ true ]);
+        objTyped.removeAll('thing', [true]);
 
         // $ExpectError
-        objTyped.removeAll('whatever', [ 'hello' ]);
+        objTyped.removeAll('whatever', ['hello']);
     }
 
     function testRevert(objUntyped: Parse.Object, objTyped: Parse.Object<{ thingOne: number; thingTwo: boolean }>) {
@@ -1090,17 +1370,26 @@ function testObject() {
         objTyped.revert('other');
     }
 
-    async function testSave(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean }>) {
+    async function testSave(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<{ example: boolean; someString: string }>,
+    ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
 
         // $ExpectType Object<Attributes>
         await objUntyped.save('whatever', 100);
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
+        await objTyped.save({ example: true, someString: 'hello' });
+
+        // $ExpectError
+        await objTyped.save({ example: 'hello', someString: true });
+
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save('example', true);
 
         // $ExpectError
@@ -1127,6 +1416,12 @@ function testObject() {
         objTyped.set({ example: false });
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: true, another: 123 });
+
+        // $ExpectError
+        objTyped.set({ example: 123, another: true });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set('example', true);
 
         // $ExpectError
@@ -1142,12 +1437,77 @@ function testObject() {
         objTyped.set('other', 100);
     }
 
-    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
-        // $ExpectType any
-        objUntyped.toJSON();
+    interface AttributesAllTypes {
+        someString: string;
+        someNumber: number;
+        someBoolean: boolean;
+        someDate: Date;
+        someJSONObject: AttributesAllTypes;
+        someJSONArray: AttributesAllTypes[];
+        someRegExp: RegExp;
+        someUndefined: undefined;
+        someNull: null;
+        someParseObjectUntyped: Parse.Object;
+        someParseObjectTyped: Parse.Object<AttributesAllTypes>;
+        someParseACL: Parse.ACL;
+        someParseGeoPoint: Parse.GeoPoint;
+        someParsePolygon: Parse.Polygon;
+        someParseRelation: Parse.Relation;
+        someParseFile: Parse.File;
+    }
 
+    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<AttributesAllTypes>) {
+        // $ExpectType ToJSON<Attributes> & JSONBaseAttributes
+        const JSONUntyped = objUntyped.toJSON();
+        // $ExpectType string
+        JSONUntyped.objectId;
+        // $ExpectType string
+        JSONUntyped.createdAt;
+        // $ExpectType string
+        JSONUntyped.updatedAt;
         // $ExpectType any
-        objTyped.toJSON();
+        JSONUntyped.anything;
+
+        // $ExpectType ToJSON<AttributesAllTypes> & JSONBaseAttributes
+        const JSONTyped = objTyped.toJSON();
+        // $ExpectType string
+        JSONTyped.objectId;
+        // $ExpectType string
+        JSONTyped.createdAt;
+        // $ExpectType string
+        JSONTyped.updatedAt;
+        // $ExpectType string
+        JSONTyped.someString;
+        // $ExpectType number
+        JSONTyped.someNumber;
+        // $ExpectType boolean
+        JSONTyped.someBoolean;
+        // $ExpectType { __type: "Date"; iso: string; }
+        JSONTyped.someDate;
+        // $ExpectType ToJSON<AttributesAllTypes>
+        JSONTyped.someJSONObject;
+        // $ExpectType ToJSON<AttributesAllTypes>[]
+        JSONTyped.someJSONArray;
+        // $ExpectType string
+        JSONTyped.someRegExp;
+        // $ExpectType undefined
+        JSONTyped.someUndefined;
+        // $ExpectType null
+        JSONTyped.someNull;
+        // $ExpectType Pointer | (ToJSON<Attributes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectUntyped;
+        // $ExpectType Pointer | (ToJSON<AttributesAllTypes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectTyped;
+        // $ExpectType any
+        JSONTyped.someParseACL;
+        // $ExpectType any
+        JSONTyped.someParseGeoPoint;
+        // $ExpectType any
+        JSONTyped.someParsePolygon;
+        // $ExpectType any
+        JSONTyped.someParseRelation;
+        // $ExpectType { __type: string; name: string; url: string; }
+        JSONTyped.someParseFile;
     }
 
     function testUnset(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1207,8 +1567,17 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class AnotherSubclass extends Parse.Object<{x: any}> { }
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
+        class AnotherSubClass extends Parse.Object<{ x: any }> {
+            constructor() {
+                super('Another', { x: 'example' });
+            }
+        }
+        class MySubClass extends Parse.Object<{
+            attribute1: string;
+            attribute2: number;
+            attribute3: AnotherSubClass;
+            attribute4: string[];
+        }> {}
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1274,15 +1643,15 @@ function testQuery() {
         query.doesNotExist('nonexistentProp');
 
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
@@ -1297,15 +1666,35 @@ function testQuery() {
         // $ExpectType Query<MySubClass>
         query.equalTo('attribute2', 0);
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another'));
+        query.equalTo('attribute3', new AnotherSubClass());
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute3', new AnotherSubClass().toPointer());
         // $ExpectError
-        query.equalTo('attribute1', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute1', new AnotherSubClass().toPointer());
         // $ExpectError
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
         query.equalTo('nonexistentProp', 'any value');
+
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', 'a_string_value'); // Can query contents of array
+        // Can query array itself if equal too (mongodb $eq matches the array exactly or the <field> contains an element that matches the array exactly)
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute4', ['a_string_value']);
+
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', 'a_string_value');
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute4', ['a_string_value']);
+
+        // $ExpectError
+        query.equalTo('attribute4', 5);
+        // $ExpectError
+        query.notEqualTo('attribute4', 5);
+        // $ExpectError
+        query.equalTo('attribute4', [5]);
+        // $ExpectError
+        query.notEqualTo('attribute4', [5]);
 
         // $ExpectType Query<MySubClass>
         query.exists('attribute1');
@@ -1358,11 +1747,11 @@ function testQuery() {
         query.matches('nonexistentProp', /a regex/);
 
         // $ExpectType Query<MySubClass>
-        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.matchesQuery('attribute1', new Parse.Query('Example'));
@@ -1419,9 +1808,15 @@ function testQuery() {
         query.withinMiles('nonexistentProp', new Parse.GeoPoint(), 100);
 
         // $ExpectType Query<MySubClass>
-        query.withinPolygon('attribute1', [[12.3, 45.6], [-78.9, 10.1]]);
+        query.withinPolygon('attribute1', [
+            [12.3, 45.6],
+            [-78.9, 10.1],
+        ]);
         // $ExpectError
-        query.withinPolygon('nonexistentProp', [[12.3, 45.6], [-78.9, 10.1]]);
+        query.withinPolygon('nonexistentProp', [
+            [12.3, 45.6],
+            [-78.9, 10.1],
+        ]);
 
         // $ExpectType Query<MySubClass>
         query.withinRadians('attribute1', new Parse.GeoPoint(), 100);
@@ -1429,14 +1824,17 @@ function testQuery() {
         query.withinRadians('nonexistentProp', new Parse.GeoPoint(), 100);
     }
 
-    async function testQueryMethods(queryUntyped: Parse.Query, queryTyped: Parse.Query<Parse.Object<{ example: string }>>) {
+    async function testQueryMethods(
+        queryUntyped: Parse.Query,
+        queryTyped: Parse.Query<Parse.Object<{ example: string }>>,
+    ) {
         // $ExpectType Object<Attributes>
         await queryUntyped.get('objectId');
 
         // $ExpectType Object<Attributes>[]
         await queryUntyped.find();
 
-        // $ExpectType string
+        // $ExpectType string[]
         await queryTyped.distinct('example');
 
         // $ExpectType Object<Attributes> | undefined
@@ -1497,5 +1895,46 @@ function testUser() {
 
         // $ExpectError
         new Parse.User<{ example: number }>({ example: 'hello' });
+    }
+    async function testAuthenticationProvider() {
+        const authProvider: Parse.AuthProvider = {
+            authenticate: () => {},
+            getAuthType: () => 'customAuthorizationProvider',
+            restoreAuthentication: () => false,
+            deauthenticate: () => {},
+        };
+        const authData: Parse.AuthData = {
+            id: 'some-user-authentication-id',
+            access_token: 'some-access-token',
+            expiration_date: new Date().toISOString(),
+        };
+        Parse.User._registerAuthenticationProvider(authProvider);
+
+        const user = await Parse.User.logInWith(
+            authProvider,
+            { authData },
+            { sessionToken: 'some-session-token', useMasterKey: true },
+        );
+        const isLinked = user._isLinked(authProvider);
+        const unlinkedUser = await user._unlinkFrom(authProvider);
+        const linkedUser = await user.linkWith(authProvider, { authData });
+    }
+}
+
+function testEncryptingUser() {
+    function testSecretKey() {
+        Parse.secret = 'secret!';
+    }
+
+    function testEnableEncryptedUserKey() {
+        Parse.encryptedUser = true;
+    }
+
+    function testEnablingEncryptedUser() {
+        Parse.enableEncryptedUser();
+    }
+
+    function testIsEncryptedUserEnabled() {
+        Parse.isEncryptedUserEnabled();
     }
 }

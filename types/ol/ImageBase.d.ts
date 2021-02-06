@@ -13,5 +13,8 @@ export default abstract class ImageBase extends Target {
     getPixelRatio(): number;
     getResolution(): number;
     getState(): ImageState;
+    /**
+     * Load not yet loaded URI.
+     */
     abstract load(): void;
 }

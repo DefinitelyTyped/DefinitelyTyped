@@ -3,11 +3,11 @@
 var dynatree = $('element').dynatree();
 
 dynatree.visit((node)=>{
-	return false;
+    return false;
 });
 
 dynatree.visit((node)=>{
-	return false;
+    return false;
 }, true);
 
 var node = dynatree.getActiveNode();

@@ -26,6 +26,7 @@ librato.configure({
         method: 'POST',
         uri: 'https://foo.com',
     },
+    period: 5000,
     simulate: false,
 });
 

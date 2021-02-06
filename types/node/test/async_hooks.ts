@@ -1,7 +1,7 @@
-import * as async_hooks from 'async_hooks';
+import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionAsyncResource, HookCallbacks, AsyncLocalStorage } from 'async_hooks';
 
 {
-    const hooks: async_hooks.HookCallbacks = {
+    const hooks: HookCallbacks = {
         init() {},
         before() {},
         after() {},
@@ -9,20 +9,21 @@ import * as async_hooks from 'async_hooks';
         promiseResolve() {},
     };
 
-    const asyncHook = async_hooks.createHook(hooks);
+    const asyncHook = createHook(hooks);
 
     asyncHook.enable().disable().enable();
 
-    const tId: number = async_hooks.triggerAsyncId();
-    const eId: number = async_hooks.executionAsyncId();
+    const tId: number = triggerAsyncId();
+    const eId: number = executionAsyncId();
+    const curRes: object = executionAsyncResource();
 
-    class TestResource extends async_hooks.AsyncResource {
+    class TestResource extends AsyncResource {
         constructor() {
             super('TEST_RESOURCE');
         }
     }
 
-    class AnotherTestResource extends async_hooks.AsyncResource {
+    class AnotherTestResource extends AsyncResource {
         constructor() {
             super('TEST_RESOURCE', 42);
             const aId: number = this.asyncId();
@@ -38,12 +39,29 @@ import * as async_hooks from 'async_hooks';
     }
 
     // check AsyncResource constructor options.
-    new async_hooks.AsyncResource('');
-    new async_hooks.AsyncResource('', 0);
-    new async_hooks.AsyncResource('', {});
-    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
-    new async_hooks.AsyncResource('', {
+    new AsyncResource('');
+    new AsyncResource('', 0);
+    new AsyncResource('', {});
+    new AsyncResource('', { triggerAsyncId: 0 });
+    new AsyncResource('', {
       triggerAsyncId: 0,
       requireManualDestroy: true
     });
+
+    let res = AsyncResource.bind((x: number) => x)(42);
+    const asyncResource = new AsyncResource('');
+    res = asyncResource.bind((x: number) => x)(42);
+}
+
+{
+    const ctx = new AsyncLocalStorage<string>();
+    ctx.disable();
+    const exitResult: number = ctx.exit((a: number) => {
+        return 42;
+    }, 1);
+    const runResult: number = ctx.run('test', (a: number) => {
+        const store: string | undefined = ctx.getStore();
+        return 42;
+    }, 1);
+    ctx.enterWith('test');
 }

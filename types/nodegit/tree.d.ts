@@ -5,6 +5,7 @@ import { Object } from './object';
 import { Treebuilder } from './tree-builder';
 import { DiffFile } from './diff-file';
 import { TreeUpdate } from './tree-update';
+import { Diff } from './diff';
 
 export namespace Tree {
     const enum WALK_MODE {
@@ -38,11 +39,11 @@ export class Tree {
     /**
      * Diff two trees
      */
-    diff(tree: Tree, callback?: Function): Promise<DiffFile[]>;
+    diff(tree: Tree, callback?: Function): Promise<Diff>;
     /**
      * Diff two trees with options
      */
-    diffWithOptions(tree: Tree, options?: Object, callback?: Function): Promise<DiffFile[]>;
+    diffWithOptions(tree: Tree, options?: Object, callback?: Function): Promise<Diff>;
     /**
      * Get an entry at the ith position.
      */

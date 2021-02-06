@@ -1,6 +1,6 @@
 // Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>, Dieter Oberkofler <https://github.com/doberkofler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -327,14 +327,14 @@ declare namespace JQueryUI {
          * Additional text to display after the year in the month headers.
          */
         yearSuffix?: string;
-	 /**
+     /**
          * Set to true to automatically hide the datepicker.
          */
-      	autohide?: boolean;
-    	/**
-  	    * Set to date to automatically enddate the datepicker.
-  	    */
-     	endDate?: Date;
+          autohide?: boolean;
+        /**
+          * Set to date to automatically enddate the datepicker.
+          */
+         endDate?: Date;
     }
 
     interface DatepickerFormatDateOptions {
@@ -381,7 +381,7 @@ declare namespace JQueryUI {
         width?: any; // number or string
         zIndex?: number;
 
-		open?: DialogEvent;
+        open?: DialogEvent;
         close?: DialogEvent;
     }
 
@@ -444,6 +444,7 @@ declare namespace JQueryUI {
     interface DraggableEventUIParams {
         helper: JQuery;
         position: { top: number; left: number; };
+        originalPosition: { top: number; left: number; };
         offset: { top: number; left: number; };
     }
 
@@ -668,10 +669,22 @@ declare namespace JQueryUI {
 
     interface SelectMenuOptions extends SelectMenuEvents {
         appendTo?: string;
+        classes?: SelectMenuClasses;
         disabled?: boolean;
         icons?: any;
         position?: JQueryPositionOptions;
         width?: number;
+    }
+
+    interface SelectMenuClasses {
+        "ui-selectmenu-button"?: string;
+        "ui-selectmenu-button-closed"?: string;
+        "ui-selectmenu-button-open"?: string;
+        "ui-selectmenu-text"?: string;
+        "ui-selectmenu-icon"?: string;
+        "ui-selectmenu-menu"?: string;
+        "ui-selectmenu-open"?: string;
+        "ui-selectmenu-optgroup"?: string;
     }
 
     interface SelectMenuUIParams {
@@ -905,11 +918,12 @@ declare namespace JQueryUI {
         content?: any; // () or string
         disabled?: boolean;
         hide?: any; // boolean, number, string or object
-        items?: string;
+        items?: string|JQuery;
         position?: any; // TODO
         show?: any; // boolean, number, string or object
-        tooltipClass?: string;
+        tooltipClass?: string; // deprecated in jQuery UI 1.12
         track?: boolean;
+        classes?: {[key: string]: string};
     }
 
     interface TooltipUIParams {

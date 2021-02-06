@@ -67,7 +67,7 @@ declare namespace VError {
 
     /*
     * Like JavaScript's built-in Error class, but supports a "cause" argument which
-    * is wrapped, not "folded in" as with VError.	Accepts a printf-style message.
+    * is wrapped, not "folded in" as with VError.    Accepts a printf-style message.
     * The cause argument can be null.
     */
     class WError extends VError {}

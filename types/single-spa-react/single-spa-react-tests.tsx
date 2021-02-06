@@ -19,3 +19,23 @@ singleSpaReact({
     ReactDOM,
     rootComponent
 });
+
+// $ExpectType Lifecycles
+singleSpaReact({
+    React,
+    ReactDOM,
+    rootComponent,
+    errorBoundary: (err, info, props) => {
+        return null;
+    }
+});
+
+// $ExpectType Lifecycles
+singleSpaReact({
+    React,
+    ReactDOM,
+    rootComponent,
+    errorBoundary: (err, info, props) => {
+        return (<h1>{err}</h1>);
+    }
+});

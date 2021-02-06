@@ -1,3 +1,5 @@
+import { InputStream } from './InputStream';
+
 export class Token {
     readonly text: string;
     source: any;
@@ -11,7 +13,7 @@ export class Token {
 
     getTokenSource(): any;
 
-    getInputStream(): any;
+    getInputStream(): InputStream;
 
     static readonly INVALID_TYPE: number;
     static readonly EPSILON: number;

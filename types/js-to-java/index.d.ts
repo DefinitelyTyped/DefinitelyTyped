@@ -2,7 +2,6 @@
 // Project: https://github.com/node-modules/js-to-java
 // Definitions by: skyitachi <https://github.com/skyitachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 interface Currency {
   currencyCode: string;
@@ -89,8 +88,7 @@ declare namespace java {
     function Locale(locale: string[], handle: string): object;
     function BigDecimal(val: string[]): object;
 
-    // Note: it doesn't allow [null, "test"], actually it should be allowed
-    function Currency(value: (null[] | string[] | Currency[])): object;
+    function Currency(value: (Array<null | string | Currency>)): object;
   }
 
   function abstract(abstractClassName: string, className: string, value: any): object;

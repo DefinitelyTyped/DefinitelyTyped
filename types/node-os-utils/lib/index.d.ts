@@ -18,7 +18,9 @@ export const oscmd: OsCmd;
 export const proc: Proc;
 export const users: Users;
 
-export let options: { NOT_SUPPORTED_VALUE: string, INTERVAL: number };
+export const options: { NOT_SUPPORTED_VALUE: string, INTERVAL: number };
+
+export function isNotSupported(res: any): boolean;
 
 export * from './cpu';
 export * from './drive';

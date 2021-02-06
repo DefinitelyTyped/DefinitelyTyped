@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@tinajs/tina": ["tinajs__tina"]
+            "@tinajs/*": ["tinajs__*"]
         }
     },
     "files": ["index.d.ts", "tinajs__tina-tests.ts"]

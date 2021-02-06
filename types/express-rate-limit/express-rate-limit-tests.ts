@@ -1,50 +1,81 @@
-import RateLimit = require("express-rate-limit");
+import rateLimit = require('express-rate-limit');
+import express = require('express');
 
-const apiLimiter = new RateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  headers: false,
-  skipFailedRequests: false,
-  skipSuccessfulRequests: true,
+const app = express();
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    headers: false,
+    skipFailedRequests: false,
+    skipSuccessfulRequests: true,
+    draft_polli_ratelimit_headers: true,
+    statusCode: 429,
+    skip(req, res) { return false; },
+    onLimitReached(req, res, options) { },
+    keyGenerator(req, res) { return req.ip; }
 });
-apiLimiter.resetKey('testKey');
 
-const apiLimiterWithMaxFn = new RateLimit({
+apiLimiter.resetKey('testKey'); // $ExpectType void
+
+const apiLimiterWithMaxFn = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: () => 5,
 });
 
-const apiLimiterWithMaxPromiseFn = new RateLimit({
+const apiLimiterWithMaxFnRequestAndResponse = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: (req, _) => {
+        return req.params.shouldRejectThisRequest ? 0 : 5;
+    },
+    message: {
+        status: 429,
+        message: "`shouldRejectThisRequest` was toggled in the request params and this request was rejected",
+    }
+});
+
+const apiLimiterWithMaxPromiseFn = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: () => Promise.resolve(5),
 });
 
-const apiLimiterWithMessageObject = new RateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  message: {
-     status: 429,
-     message: 'To many requests, try again later'
-  }
+const apiLimiterWithMessageObject = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    message: {
+        status: 429,
+        message: 'Too many requests, try again later',
+    },
 });
 
-const createAccountLimiter = new RateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 5, // start blocking after 5 requests
-  message: "Too many accounts created from this IP, please try again after an hour",
-  handler: (req, _, next) => next(new Error(`TooManyRequests: ${req.ip}`))
+const createAccountLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour window
+    max: 5, // start blocking after 5 requests
+    message: 'Too many accounts created from this IP, please try again after an hour',
+    handler: (req, _, next) => next(new Error(`TooManyRequests: ${req.ip}`)),
 });
 
-const callbackWithFewerParams = new RateLimit({
-  handler: (req, res) => res.status(429).json(`TooManyRequests: ${req.ip}`)
+const callbackWithFewerParams = rateLimit({
+    handler: (req, res) => res.status(429).json(`TooManyRequests: ${req.ip}`),
 });
 
-class SomeStore implements RateLimit.Store {
-  incr(key: string, cb: RateLimit.StoreIncrementCallback) { }
-  decrement(key: string) { }
-  resetKey(key: string) { }
+class SomeStore implements rateLimit.Store {
+    incr(key: string, cb: rateLimit.StoreIncrementCallback) {}
+    decrement(key: string) {}
+    resetKey(key: string) {}
+    resetAll() {}
 }
 
-const limiterWithStore = new RateLimit({
-  store: new SomeStore()
+const limiterWithStore = rateLimit({
+    store: new SomeStore(),
+});
+
+app.use(apiLimiter);
+app.use('/api/', apiLimiter);
+app.post('/create-user', apiLimiter, (req: Express.Request, resp, next) => {
+    req.rateLimit; // $ExpectType RateLimitInfo
+    req.rateLimit.current; // $ExpectType number
+    req.rateLimit.limit; // $ExpectType number
+    req.rateLimit.remaining; // $ExpectType number
+    req.rateLimit.resetTime; // $ExpectType Date | undefined
 });

@@ -1,13 +1,13 @@
-// Type definitions for react-autosuggest 9.3
+// Type definitions for react-autosuggest 10.1
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
 //                 Robert Essig <https://github.com/robessog>
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 Kevin Ross <https://github.com/rosskevin>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 ulrichb <https://github.com/ulrichb>
+//                 Arthur Fücher <https://github.com/afucher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -35,14 +35,25 @@ declare namespace Autosuggest {
     /** @internal */
     type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
+    type FetchRequestedReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestion-selected';
+
+    type ShouldRenderReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'input-blurred'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestions-updated'
+        | 'render';
+
     interface SuggestionsFetchRequestedParams {
         value: string;
-        reason:
-            | 'input-changed'
-            | 'input-focused'
-            | 'escape-pressed'
-            | 'suggestions-revealed'
-            | 'suggestion-selected';
+        reason: FetchRequestedReasons;
     }
 
     interface RenderSuggestionParams {
@@ -68,7 +79,10 @@ declare namespace Autosuggest {
         onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
+        ref?: React.Ref<HTMLInputElement>;
     }
+
+    interface ContainerProps extends React.InputHTMLAttributes<any> {}
 
     interface SuggestionSelectedEventData<TSuggestion> {
         suggestion: TSuggestion;
@@ -127,7 +141,7 @@ declare namespace Autosuggest {
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
     ) => React.ReactNode;
-    type ShouldRenderSuggestions = (value: string) => boolean;
+    type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
 
     interface AutosuggestPropsBase<TSuggestion> {
         /**
@@ -143,7 +157,7 @@ declare namespace Autosuggest {
          */
         getSuggestionValue: GetSuggestionValue<TSuggestion>;
         /**
-         * 	Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
+         *     Set it to true if you'd like Autosuggest to automatically highlight the first suggestion.
          */
         highlightFirstSuggestion?: boolean;
         /**
@@ -154,6 +168,10 @@ declare namespace Autosuggest {
          * Pass through arbitrary props to the input. It must contain at least value and onChange.
          */
         inputProps: InputProps<TSuggestion>;
+        /**
+         * Provides arbitrary properties to the outer `div` container of Autosuggest. Allows the override of accessibility properties.
+         */
+        containerProps?: ContainerProps;
         /**
          * Will be called every time the highlighted suggestion changes.
          */

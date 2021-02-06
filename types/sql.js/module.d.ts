@@ -5,7 +5,7 @@ export namespace SqlJs {
     type ValueType = number | string | Uint8Array | null;
     type ParamsObject = Record<string, ValueType>;
     type ParamsCallback = (obj: ParamsObject) => void;
-    type Config = Partial<typeof Module>;
+    type Config = Partial<EmscriptenModule>;
 
     interface QueryResults {
         columns: string[];

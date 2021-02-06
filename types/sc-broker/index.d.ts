@@ -1,15 +1,13 @@
-// Type definitions for sc-broker 5.1
+// Type definitions for sc-broker 8.0
 // Project: https://github.com/SocketCluster/sc-broker
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
-import { SCServer } from "socketcluster-server";
-import { SCBrokerOptions } from "./scbroker";
-import { WorkerExitInfo } from "socketcluster";
-import { EventEmitter } from "events";
-import { KeyChain, FlexiMap } from "fleximap";
-import { Keys, Key } from "expirymanager";
+import { EventEmitter } from 'events';
+import { KeyChain, FlexiMap } from 'fleximap';
+import { Keys, Key } from 'expirymanager';
+
+import { SCBrokerOptions } from './scbroker';
 
 export interface SCBrokerServerOptions {
     id?: string;
@@ -19,7 +17,7 @@ export interface SCBrokerServerOptions {
     socketPath?: string;
     port?: number;
     expiryAccuracy?: number;
-    downgradeToUser: number | string;
+    downgradeToUser?: number | string;
     brokerControllerPath?: string;
     processTermTimeout?: number;
     ipcAckTimeout?: number;
@@ -33,15 +31,45 @@ export interface SCBrokerServer extends EventEmitter {
     port?: number;
     ipcAckTimeout: number;
 
-    on(event: "error", listener: (err?: Error) => void): this;
-    on(event: "brokerMessage", listener: (brokerId: string, data: any, callback: (err: Error | null, data: any) => void) => void): this;
-    on(event: "ready", listener: (data: any) => void): this;
-    on(event: "exit", listener: (data: WorkerExitInfo) => void): this;
+    on(event: 'error', listener: (err?: Error) => void): this;
+    on(event: 'brokerMessage', listener: BrokerMessageListener): this;
+    on(event: 'ready', listener: (data: any) => void): this;
+    on(event: 'exit', listener: (data: ExitData) => void): this;
+
+    once(event: 'error', listener: (err?: Error) => void): this;
+    once(event: 'brokerMessage', listener: BrokerMessageListener): this;
+    once(event: 'ready', listener: (data: any) => void): this;
+    once(event: 'exit', listener: (data: ExitData) => void): this;
+
+    removeListener(event: 'error', listener: (err?: Error) => void): this;
+    removeListener(event: 'brokerMessage', listener: BrokerMessageListener): this;
+    removeListener(event: 'ready', listener: (data: any) => void): this;
+    removeListener(event: 'exit', listener: (data: ExitData) => void): this;
+
+    off(event: 'error', listener: (err?: Error) => void): this;
+    off(event: 'brokerMessage', listener: BrokerMessageListener): this;
+    off(event: 'ready', listener: (data: any) => void): this;
+    off(event: 'exit', listener: (data: ExitData) => void): this;
 
     sendToBroker(data: any, callback?: (err: Error | null, data: any, brokerId: string) => void): void;
+
+    destroy(): void;
 }
 
 export function createServer(options?: SCBrokerServerOptions): SCBrokerServer;
+
+export type BrokerMessageListener = (
+    brokerId: string,
+    data: any,
+    callback: (err: Error | null, data: any) => void,
+) => void;
+
+export interface ExitData {
+    id: string;
+    pid: number;
+    code: number;
+    signal: string;
+}
 
 export interface AutoReconnectOptions {
     initialDelay?: number;
@@ -77,9 +105,9 @@ export interface SpliceOptions {
 }
 
 export interface SCBrokerClient extends EventEmitter {
-    readonly CONNECTED: "connected";
-    readonly CONNECTING: "connecting";
-    readonly DISCONNECTED: "disconnected";
+    readonly CONNECTED: 'connected';
+    readonly CONNECTING: 'connecting';
+    readonly DISCONNECTED: 'disconnected';
 
     socketPath?: string;
     port?: number;
@@ -87,18 +115,18 @@ export interface SCBrokerClient extends EventEmitter {
     autoReconnect: boolean;
     autoReconnectOptions?: AutoReconnectOptions;
     connectRetryErrorThreshold: number;
-    state: "connected" | "connecting" | "disconnected";
+    state: 'connected' | 'connecting' | 'disconnected';
     connectAttempts: number;
     pendingReconnect: boolean;
     pendingReconnectTimeout: number | null;
 
-    on(event: "error", listener: (err?: Error) => void): this;
-    on(event: "warning", listener: (warning?: Error) => void): this;
-    on(event: "ready", listener: (data: any) => void): this;
-    on(event: "message", listener: (channel: string, data: any) => void): this;
-    on(event: "subscribeFail", listener: (err: Error | null, channel: string) => void): this;
-    on(event: "subscribe", listener: (channel: string) => void): this;
-    on(event: "unsubscribe", listener: () => void): this;
+    on(event: 'error', listener: (err?: Error) => void): this;
+    on(event: 'warning', listener: (warning?: Error) => void): this;
+    on(event: 'ready', listener: (data: any) => void): this;
+    on(event: 'message', listener: (channel: string, data: any) => void): this;
+    on(event: 'subscribeFail', listener: (err: Error | null, channel: string) => void): this;
+    on(event: 'subscribe', listener: (channel: string) => void): this;
+    on(event: 'unsubscribe', listener: () => void): this;
 
     isConnected(): boolean;
 
@@ -127,14 +155,23 @@ export interface SCBrokerClient extends EventEmitter {
 
     get(keyChain: KeyChain, callback: (err: Error | null, value: any) => void): void;
 
-    getRange(keyChain: KeyChain, fromIndex: number, toIndex: number, callback: (err: Error | null, value: any) => void): void;
+    getRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex: number,
+        callback: (err: Error | null, value: any) => void,
+    ): void;
     getRange(keyChain: KeyChain, fromIndex: number, callback: (err: Error | null, value: any) => void): void;
 
     getAll(callback: (err: Error | null, value: any[] | object) => void): void;
 
     count(keyChain: KeyChain, callback: (err: Error | null, value: number) => void): void;
 
-    exec(query: (datamap: FlexiMap) => void, options?: QueryOptions, callback?: (err: Error | null, data: any) => void): void;
+    exec(
+        query: (datamap: FlexiMap) => void,
+        options?: QueryOptions,
+        callback?: (err: Error | null, data: any) => void,
+    ): void;
     exec(query: (datamap: FlexiMap) => void, callback: (err: Error | null, data: any) => void): void;
 
     query(query: (datamap: FlexiMap) => void, data?: any, callback?: (err: Error | null, data: any) => void): void;
@@ -143,7 +180,13 @@ export interface SCBrokerClient extends EventEmitter {
     remove(keyChain: KeyChain, getValue?: boolean, callback?: (err?: Error) => void): void;
     remove(keyChain: KeyChain, callback?: (err?: Error) => void): void;
 
-    removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, getValue?: boolean, callback?: (err?: Error) => void): void;
+    removeRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex?: number,
+        getValue?: boolean,
+        callback?: (err?: Error) => void,
+    ): void;
     removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, callback?: (err?: Error) => void): void;
     removeRange(keyChain: KeyChain, fromIndex: number, callback?: (err?: Error) => void): void;
 

@@ -11,11 +11,22 @@ import nodePersist = require("node-persist");
     const storage = nodePersist.create();
     await test(storage);
 })(async (storage: nodePersist.LocalStorage) => {
+    const opts = await storage.init({
+        dir: __dirname + "/test",
+        logging: (message) => {
+            console.log(message);
+        }
+    });
+
     await storage.init({
-        dir: __dirname + "/test"
+        ...opts,
+        logging: false
     });
 
     await storage.setItem("someArray", [1, 2, 3]);
+
+    await storage.setItem("testExpiration", "abcdefg", { ttl: 60 * 1000 });
+
     const value = await storage.getItem("someArray");
     await storage.removeItem("someArray");
 

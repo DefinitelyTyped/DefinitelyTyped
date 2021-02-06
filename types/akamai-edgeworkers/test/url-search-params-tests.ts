@@ -1,6 +1,6 @@
 import URLSearchParams from 'url-search-params';
 
-export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
+export function onClientRequest(request: EW.IngressClientRequest) {
     const params = new URLSearchParams(request.query);
 
     params.append("from-script", "from-value");

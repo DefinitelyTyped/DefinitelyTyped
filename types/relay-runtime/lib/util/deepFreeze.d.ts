@@ -1,1 +1,1 @@
-export function deepFreeze<T extends object>(value: T): T;
+export default function deepFreeze<T extends object>(value: T): T;

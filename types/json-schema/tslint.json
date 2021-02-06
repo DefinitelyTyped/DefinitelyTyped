@@ -1,9 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "semicolon": [
-            false
-        ],
+        "comment-format": false,
         "npm-naming": false
     }
 }
