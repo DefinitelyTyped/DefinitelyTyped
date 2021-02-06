@@ -5,6 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
+//                 Marco Mantovani <https://github.com/TheLand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
